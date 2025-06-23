@@ -10,6 +10,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static C1.Util.Win.Win32;
 
 namespace StaffSync
 {
@@ -274,19 +275,28 @@ namespace StaffSync
         public void LoadSalaryMonthList()
         {
             cmbSalaryMonth.Items.Clear();
-            cmbSalaryMonth.Items.Add("Jan - " + DateTime.Now.Year.ToString());
-            cmbSalaryMonth.Items.Add("Feb - " + DateTime.Now.Year.ToString());
-            cmbSalaryMonth.Items.Add("Mar - " + DateTime.Now.Year.ToString());
-            cmbSalaryMonth.Items.Add("Apr - " + DateTime.Now.Year.ToString());
-            cmbSalaryMonth.Items.Add("May - " + DateTime.Now.Year.ToString());
-            cmbSalaryMonth.Items.Add("Jun - " + DateTime.Now.Year.ToString());
-            cmbSalaryMonth.Items.Add("Jul - " + DateTime.Now.Year.ToString());
-            cmbSalaryMonth.Items.Add("Aug - " + DateTime.Now.Year.ToString());
-            cmbSalaryMonth.Items.Add("Sep - " + DateTime.Now.Year.ToString());
-            cmbSalaryMonth.Items.Add("Oct - " + DateTime.Now.Year.ToString());
-            cmbSalaryMonth.Items.Add("Nov - " + DateTime.Now.Year.ToString());
-            cmbSalaryMonth.Items.Add("Dec - " + DateTime.Now.Year.ToString());
-            cmbSalaryMonth.SelectedIndex = 0;
+
+            List<string> last6Months = new List<string>();
+            DateTime currentMonth = DateTime.Now;
+
+            for (int i = 6; i >= 0; i--)
+            {
+                DateTime month = currentMonth.AddMonths(-i);
+                cmbSalaryMonth.Items.Add(month.ToString("MMM - yyyy"));
+            }
+            //cmbSalaryMonth.Items.Add("Jan - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Feb - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Mar - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Apr - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("May - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Jun - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Jul - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Aug - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Sep - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Oct - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Nov - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Dec - " + DateTime.Now.Year.ToString());
+            cmbSalaryMonth.SelectedIndex = cmbSalaryMonth.Items.Count - 1;
         }
 
         private void frmPayrollMaster_Load(object sender, EventArgs e)
@@ -575,7 +585,10 @@ namespace StaffSync
 
         private void cmbSalaryMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtTotalWorkingDays.Text = DateTime.DaysInMonth(DateTime.Now.Year, cmbSalaryMonth.SelectedIndex + 1).ToString();
+            DateTime parsedDate = DateTime.ParseExact(cmbSalaryMonth.SelectedItem.ToString(), "MMM - yyyy", CultureInfo.InvariantCulture);
+
+            int daysInMonth = DateTime.DaysInMonth(parsedDate.Year, parsedDate.Month);
+            txtTotalWorkingDays.Text = daysInMonth.ToString();
         }
     }
 }
