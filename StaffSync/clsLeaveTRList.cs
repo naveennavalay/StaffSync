@@ -1,0 +1,617 @@
+﻿using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1.X509;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Data.OleDb;
+using System.Drawing.Imaging;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace StaffSync
+{
+    public class clsLeaveTRList
+    {
+        myDBClass objDBClass = new myDBClass();
+        OleDbConnection conn = null;
+        DataSet dtDataset = null;
+
+        public clsLeaveTRList() { 
+
+        }
+
+        public int getMaxRowCount(string tableName, string ColumnName)
+        {
+            int rowCount = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT Max(" + ColumnName.ToString().Trim() + ") FROM " + tableName;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                int maxRow = (Int32)cmd.ExecuteScalar();
+                if (maxRow == 0)
+                    rowCount = 1;
+                else if (maxRow > 0)
+                    rowCount = maxRow + 1;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return rowCount;
+        }
+
+        public int getEmployeeSpecificOrderID(string tableName, string ColumnName, int EmpID)
+        {
+            int rowCount = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT Max(OrderID) FROM " + tableName + " WHERE EmpID = " + EmpID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                int maxRow = (int)cmd.ExecuteScalar();
+                if (maxRow == 0)
+                    rowCount = 1;
+                else if (maxRow > 0)
+                    rowCount = maxRow + 1;
+
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.ToString().ToLower() == "Specified cast is not valid.".ToLower())
+                {
+                    rowCount = 1;
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return rowCount;
+        }
+
+        public decimal getBalanceLeave(int EmpID)
+        {
+            string BalanceLeave = "";
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT BalanceLeaves FROM LeaveMas WHERE EmpID = " + EmpID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                BalanceLeave = cmd.ExecuteScalar().ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return Convert.ToDecimal(BalanceLeave.ToString());
+        }
+
+        public List<PendingLeaveApprovalList> getPendingLeaveApprovalList()
+        {
+            List<PendingLeaveApprovalList> empPendingLeaveApprovalList = new List<PendingLeaveApprovalList>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT * FROM qryDailyLeaveRequest ORDER BY EmpID, LeaveTRID ASC;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                empPendingLeaveApprovalList = JsonConvert.DeserializeObject<List<PendingLeaveApprovalList>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return empPendingLeaveApprovalList;
+        }
+
+
+        public List<EmployeeSpecificLeaveInfo> getSpecificEmployeeSpecificLeaveInfo(int LeaveTRID)
+        {
+            List<EmployeeSpecificLeaveInfo> employeeLeaveTRList = new List<EmployeeSpecificLeaveInfo>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT * FROM EmpLeaveTransMas WHERE LeaveTRID = " + LeaveTRID + " ORDER BY OrderID ASC;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                employeeLeaveTRList = JsonConvert.DeserializeObject<List<EmployeeSpecificLeaveInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return employeeLeaveTRList;
+        }
+
+        public List<EmployeeLeaveTRList> getEmployeeLeaveTRList(int txtEmpID)
+        {
+            List<EmployeeLeaveTRList> employeeLeaveTRList = new List<EmployeeLeaveTRList>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT * FROM qryEmpLeaveTRList WHERE EmpID = " + txtEmpID + " ORDER BY OrderID ASC;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                employeeLeaveTRList = JsonConvert.DeserializeObject<List<EmployeeLeaveTRList>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return employeeLeaveTRList;
+        }
+
+        public List<EmployeeOOOList> GetEmployeeOOOList()
+        {
+            List<EmployeeOOOList> EmpOOOList = new List<EmployeeOOOList>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+
+                string strQuery = "SELECT * FROM qryEmpOOOList WHERE ActualLeaveDateFrom = Date()";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                EmpOOOList = JsonConvert.DeserializeObject<List<EmployeeOOOList>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return EmpOOOList;
+        }
+
+        public int InsertDefaultLeaveAllotment(int txtEmpID, decimal TotalLeaves, decimal TotalBalanceLeave)
+        {
+            int affectedRows = 0;
+            try
+            {
+                int maxRowCount = getMaxRowCount("LeaveMas", "LeaveMasID");
+                
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "INSERT INTO LeaveMas (LeaveMasID, EmpID, TotalLeaves, BalanceLeaves) VALUES " +
+                 "(" + maxRowCount + "," + txtEmpID + "," + TotalLeaves + "," + TotalBalanceLeave + ")";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = maxRowCount;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int UpdateEmployeeLeaveBalance(int txtEmpID, decimal TotalLeaves, decimal TotalBalanceLeave)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE LeaveMas SET BalanceLeaves = " + TotalBalanceLeave + 
+                " WHERE EmpID = " + txtEmpID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtEmpID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int InsertLeaveTransaction(int txtEmpID, int txtLeaveTypeID, DateTime txtLeaveAppliedDate, string txtLeaveComments, DateTime txtLeaveFromDate, DateTime txtLeaveToDate, decimal txtLeaveDuration, DateTime txtLeaveApprovedDate, string txtLeaveApprovalComments, DateTime txtLeaveRejectedDate, string txtLeaveRejectionComment, int txtApproverID)
+        {
+            int affectedRows = 0;
+            try
+            {
+                int maxRowCount = getMaxRowCount("EmpLeaveTransMas", "LeaveTRID");
+                int maxLeaveCounter = getEmployeeSpecificOrderID("EmpLeaveTransMas", "OrderID", txtEmpID);
+                if (txtLeaveComments.Trim().ToLower() == "By Leave Allotment".Trim().ToLower())
+                    maxLeaveCounter = 0;
+
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "INSERT INTO EmpLeaveTransMas (LeaveTRID, EmpID, LeaveTypeID, LeaveAppliedDate, LeaveComments, ActualLeaveDateFrom, ActualLeaveDateTo, LeaveDuration, LeaveApprovedDate, LeaveApprovalComments, LeaveRejectedDate, LeaveRejectionComments, ApprovedOrRejectedByEmpID, OrderID, Canceled, CanceledDate) VALUES " +
+                 "(" + maxRowCount + "," + txtEmpID + "," + txtLeaveTypeID + ",'" + DateTime.Now + "','" + txtLeaveComments + "','" + txtLeaveFromDate + "','" + txtLeaveToDate + "'," + txtLeaveDuration + ",'" + txtLeaveApprovedDate + "','" + txtLeaveApprovalComments +"','" + txtLeaveRejectedDate + "','" + txtLeaveRejectionComment + "'," + txtApproverID + "," + maxLeaveCounter + ", false, '" + DateTime.Now + "')";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = maxRowCount;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int UpdateLeaveTransaction(int txtLeaveTRID, int txtEmpID, int txtLeaveTypeID, DateTime txtLeaveAppliedDate, string txtLeaveComments, DateTime txtLeaveFromDate, DateTime txtLeaveToDate, decimal txtLeaveDuration, DateTime txtLeaveApprovedDate, string txtLeaveApprovalComments, DateTime txtLeaveRejectedDate, string txtLeaveRejectionComment, int txtApproverID)
+        {
+            int affectedRows = 0;
+            try
+            {
+                int maxLeaveCounter = getEmployeeSpecificOrderID("EmpLeaveTransMas", "OrderID", txtEmpID);
+
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpLeaveTransMas LeaveTypeID = " + txtLeaveTypeID + ", LeaveAppliedDate = '" + DateTime.Now.ToString("dd/MM/yyyy") + "', LeaveComments = '" + txtLeaveComments + "', ActualLeaveDateFrom = '" + txtLeaveFromDate.ToString("dd/MM/yyyy") + "', ActualLeaveDateTo = '" + txtLeaveToDate.ToString("dd/MM/yyyy") + "', LeaveDuration = " + txtLeaveDuration + ", LeaveApprovedDate = '" + txtLeaveApprovedDate.ToString("dd/MM/yyyy") + "', LeaveApprovalComments = '" + txtLeaveApprovalComments + "', LeaveRejectedDate = '" + txtLeaveRejectedDate.ToString("dd/MM/yyyy") + "', LeaveRejectionComments = '" + txtLeaveRejectionComment + "', ApprovedOrRejectedByEmpID = " + txtApproverID + ", OrderID = " + maxLeaveCounter +
+                 " WHERE LeaveTRID = " + txtLeaveTRID + " AND EmpID = " + txtEmpID + "";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtLeaveTRID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int CancelLeaveTransaction(int txtLeaveTRID, int txtEmpID, string txtLeaveComments)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpLeaveTransMas SET Canceled = true, CanceledDate = '" + DateTime.Now + "', LeaveComments = 'Rejecting the Leave Request'" +
+                 " WHERE LeaveTRID = " + txtLeaveTRID + " AND EmpID = " + txtEmpID + "";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtLeaveTRID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int RejectLeaveTransaction(int txtLeaveTRID, int txtEmpID, string txtLeaveComments)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpLeaveTransMas SET LeaveDuration = 0, LeaveApprovalComments = 'Request Approved', LeaveRejectedComments = 'Request Approved'" +
+                 " WHERE LeaveTRID = " + txtLeaveTRID + " AND EmpID = " + txtEmpID + "";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtLeaveTRID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int ApproveLeave(int txtLeaveTRID, int txtEmpID, string txtLeaveApprovalComments, int txtApproverID)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpLeaveTransMas SET LeaveApprovedDate = '" + DateTime.Now + "', LeaveApprovalComments = 'Approved : " + txtLeaveApprovalComments + "', LeaveRejectionComments ='Not Rejected', ApprovedOrRejectedByEmpID = " + txtApproverID + 
+                 " WHERE LeaveTRID = " + txtLeaveTRID + " AND EmpID = " + txtEmpID + "";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtLeaveTRID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int RejectLeave(int txtLeaveTRID, int txtEmpID, string txtLeaveRejectionComments, int txtApproverID)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpLeaveTransMas SET LeaveDuration = 0, LeaveApprovedDate = '" + DateTime.Now + "', LeaveApprovalComments = 'Rejected : Request Approved', LeaveRejectedDate = '" + DateTime.Now + "', LeaveRejectionComments = 'Rejected : " + txtLeaveRejectionComments + "', ApprovedOrRejectedByEmpID = " + txtApproverID +
+                 " WHERE LeaveTRID = " + txtLeaveTRID + " AND EmpID = " + txtEmpID + "";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtLeaveTRID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+    }
+
+    public class EmployeeLeaveTRList
+    {
+        public int LeaveTRID { get; set; }
+        public int EmpID { get; set; }
+        public int LeaveTypeID { get; set; }
+        public string LeaveTypeTitle { get; set; }
+        public DateTime LeaveAppliedDate { get; set; }
+        public string LeaveComments { get; set; }
+        public DateTime? ActualLeaveDateFrom { get; set; }
+        public DateTime? ActualLeaveDateTo { get; set; }
+        public float LeaveDuration { get; set; }
+        public DateTime? LeaveApprovedDate { get; set; }
+        public string LeaveApprovalComments { get; set; }
+        public DateTime? LeaveRejectedDate { get; set; }
+        public string LeaveRejectionComments { get; set; }
+        public int OrderID { get; set; }
+        public int ApprovedOrRejectedByEmpID { get; set; }
+        public string LeaveStatus { get; set; }
+        public bool Canceled { get; set; }
+        public DateTime? CanceledDate { get; set; }
+    }
+
+    public class EmployeeOOOList
+    {
+        public int EmpID { get; set; }
+        public string EmpCode { get; set; }
+        public string EmpName { get; set; }
+        public string DesignationTitle { get; set; }
+        public string DepartmentTitle { get; set; }
+        public string LeaveTypeTitle { get; set; }
+        public DateTime ActualLeaveDateFrom { get; set; }
+        public DateTime ActualLeaveDateTo { get; set; }
+        public decimal LeaveDuration { get; set; }
+        public int OrderID { get; set; }
+    }
+
+    public class EmployeeSpecificLeaveInfo
+    {
+        public int LeaveTRID { get; set; }
+        public int EmpID { get; set; }
+        public int LeaveTypeID { get; set; }
+        public DateTime LeaveAppliedDate { get; set; }
+        public string LeaveComments { get; set; }
+        public DateTime LeaveApprovedDate { get; set; }
+        public string LeaveApprovalComments { get; set; }
+        public DateTime ActualLeaveDateFrom { get; set; }
+        public DateTime ActualLeaveDateTo { get; set; }
+        public double LeaveDuration { get; set; }
+        public DateTime LeaveRejectedDate { get; set; }
+        public string LeaveRejectionComments { get; set; }
+        public int ApprovedOrRejectedByEmpID { get; set; }
+        public int OrderID { get; set; }
+    }
+
+    public class PendingLeaveApprovalList
+    {
+        public int EmpID { get; set; }
+
+        [DisplayName("Employee Code")]
+        public string EmpCode { get; set; }
+
+        [DisplayName("Employee Name")]
+        public string EmpName { get; set; }
+        
+        [DisplayName("Designation")] 
+        public string DesignationTitle { get; set; }
+
+        [DisplayName("Department")]
+        public string DepartmentTitle { get; set; }
+        
+        public int LeaveTRID { get; set; }
+        
+        [DisplayName("Leave Type")]
+        public string LeaveTypeTitle { get; set; }
+
+        [DisplayName("Leave Applied Date")]
+        public DateTime LeaveAppliedDate { get; set; }
+
+        [DisplayName("Leave Comments")] 
+        public string LeaveComments { get; set; }
+
+        [DisplayName("Duration")]
+        public string LeaveDuration { get; set; }
+
+        public DateTime ActualLeaveDateFrom { get; set; }
+        public DateTime ActualLeaveDateTo { get; set; }        
+    }
+}

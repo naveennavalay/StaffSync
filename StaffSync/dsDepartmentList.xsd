@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsDepartmentList" targetNamespace="http://tempuri.org/dsDepartmentList.xsd" xmlns:mstns="http://tempuri.org/dsDepartmentList.xsd" xmlns="http://tempuri.org/dsDepartmentList.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="StaffsyncDBConn" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="StaffsyncDBConn (Settings)" PropertyReference="ApplicationSettings.StaffSync.Properties.Settings.GlobalReference.Default.StaffsyncDBConn" Provider="System.Data.OleDb" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="qryDepartmentListTableAdapter" GeneratorDataComponentClassName="qryDepartmentListTableAdapter" Name="qryDepartmentList" UserDataComponentName="qryDepartmentListTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="StaffsyncDBConn (Settings)" DbObjectName="qryDepartmentList" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT DepartmentID, DepCode, DepartmentTitle, DepartmentInitial, IsActive FROM qryDepartmentList</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="DepartmentID" DataSetColumn="DepartmentID" />
+              <Mapping SourceColumn="DepCode" DataSetColumn="DepCode" />
+              <Mapping SourceColumn="DepartmentTitle" DataSetColumn="DepartmentTitle" />
+              <Mapping SourceColumn="DepartmentInitial" DataSetColumn="DepartmentInitial" />
+              <Mapping SourceColumn="IsActive" DataSetColumn="IsActive" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsDepartmentList" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="dsDepartmentList" msprop:Generator_DataSetName="dsDepartmentList">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="qryDepartmentList" msprop:Generator_RowEvHandlerName="qryDepartmentListRowChangeEventHandler" msprop:Generator_RowDeletedName="qryDepartmentListRowDeleted" msprop:Generator_RowDeletingName="qryDepartmentListRowDeleting" msprop:Generator_RowEvArgName="qryDepartmentListRowChangeEvent" msprop:Generator_TablePropName="qryDepartmentList" msprop:Generator_RowChangedName="qryDepartmentListRowChanged" msprop:Generator_RowChangingName="qryDepartmentListRowChanging" msprop:Generator_TableClassName="qryDepartmentListDataTable" msprop:Generator_RowClassName="qryDepartmentListRow" msprop:Generator_TableVarName="tableqryDepartmentList" msprop:Generator_UserTableName="qryDepartmentList">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DepartmentID" msprop:Generator_ColumnPropNameInRow="DepartmentID" msprop:Generator_ColumnPropNameInTable="DepartmentIDColumn" msprop:Generator_ColumnVarNameInTable="columnDepartmentID" msprop:Generator_UserColumnName="DepartmentID" type="xs:int" />
+              <xs:element name="DepCode" msprop:Generator_ColumnPropNameInRow="DepCode" msprop:Generator_ColumnPropNameInTable="DepCodeColumn" msprop:Generator_ColumnVarNameInTable="columnDepCode" msprop:Generator_UserColumnName="DepCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DepartmentTitle" msprop:Generator_ColumnPropNameInRow="DepartmentTitle" msprop:Generator_ColumnPropNameInTable="DepartmentTitleColumn" msprop:Generator_ColumnVarNameInTable="columnDepartmentTitle" msprop:Generator_UserColumnName="DepartmentTitle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DepartmentInitial" msprop:Generator_ColumnPropNameInRow="DepartmentInitial" msprop:Generator_ColumnPropNameInTable="DepartmentInitialColumn" msprop:Generator_ColumnVarNameInTable="columnDepartmentInitial" msprop:Generator_UserColumnName="DepartmentInitial" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IsActive" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnVarNameInTable="columnIsActive" msprop:Generator_UserColumnName="IsActive" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:qryDepartmentList" />
+      <xs:field xpath="mstns:DepartmentID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

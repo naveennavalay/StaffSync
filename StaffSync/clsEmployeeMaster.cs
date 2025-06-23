@@ -1,0 +1,435 @@
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.OleDb;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace StaffSync
+{
+    public class clsEmployeeMaster
+    {
+        myDBClass objDBClass = new myDBClass();
+        OleDbConnection conn = null;
+        DataSet dtDataset;
+        public List<ReportingManagerInfo> objReportingManagerInfo { get; set; }
+
+        public clsEmployeeMaster() { 
+
+        }
+
+        public int getMaxRowCount(string tableName, string ColumnName)
+        {
+            int rowCount = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT MAX(" + ColumnName.ToString().Trim() + ") FROM " + tableName;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                int maxRow = (Int32)cmd.ExecuteScalar();
+                if (maxRow == 0)
+                    rowCount = 1;
+                else if (maxRow > 0)
+                    rowCount = maxRow + 1;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return rowCount;
+        }
+
+        public List<ReportingManagerInfo> getCompleteEmployeesList()
+        {
+            List<ReportingManagerInfo> employeesList = new List<ReportingManagerInfo>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT * FROM EmpMasInfo WHERE IsActive = true AND IsDeleted = false";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                employeesList = JsonConvert.DeserializeObject<List<ReportingManagerInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return employeesList;
+        }
+
+        public DataTable GetEmployeeList()
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+
+                string strQuery = "SELECT * FROM EMPMas WHERE IsActive = true AND IsDeleted = false";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return dt;
+        }
+
+        public DataTable GetEmployeeList(string filterText)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+
+                string strQuery = "SELECT * FROM EMPMas WHERE IsActive = true AND IsDeleted = false AND EmpName LIKE '" + filterText + "%'";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return dt;
+        }
+
+        public EmployeeInfo GetSelectedEmployeeInfo(int EmployeeID)
+        {
+            EmployeeInfo employeeInfo = new EmployeeInfo();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+
+                string strQuery = "SELECT * FROM EmpMas WHERE EmpID = " + EmployeeID + "";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                List<EmployeeInfo> objEmployeeInfo = JsonConvert.DeserializeObject<List<EmployeeInfo>>(DataTableToJSon); 
+                if(objEmployeeInfo.Count > 0)
+                {
+                    employeeInfo.EmpID = objEmployeeInfo[0].EmpID;
+                    employeeInfo.EmpCode = objEmployeeInfo[0].EmpCode;
+                    employeeInfo.EmpName = objEmployeeInfo[0].EmpName;
+                    employeeInfo.EmpDesignationID = objEmployeeInfo[0].EmpDesignationID;
+                    employeeInfo.EmpRepManID = objEmployeeInfo[0].EmpRepManID;
+                    employeeInfo.DepartmentID = objEmployeeInfo[0].DepartmentID;
+                    employeeInfo.BloodGroupID = objEmployeeInfo[0].BloodGroupID;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return employeeInfo;
+        }
+
+        public ReportingManagerInfo GetEmployeesList()
+        {
+            ReportingManagerInfo reportingManagerInfo = new ReportingManagerInfo();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+
+                string strQuery = "SELECT * FROM EMPMasInfo ORDER BY EmpID;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                List<ReportingManagerInfo> objReportingManagerInfo = JsonConvert.DeserializeObject<List<ReportingManagerInfo>>(DataTableToJSon);
+                if (objReportingManagerInfo.Count > 0)
+                {
+                    reportingManagerInfo.EmpID = objReportingManagerInfo[0].EmpID;
+                    reportingManagerInfo.EmpCode = objReportingManagerInfo[0].EmpCode;
+                    reportingManagerInfo.EmpName = objReportingManagerInfo[0].EmpName;
+                    reportingManagerInfo.DesignationTitle = objReportingManagerInfo[0].DesignationTitle;
+                    reportingManagerInfo.DepartmentTitle = objReportingManagerInfo[0].DepartmentTitle;
+                    reportingManagerInfo.ContactNumber1 = objReportingManagerInfo[0].ContactNumber1;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return reportingManagerInfo;
+        }
+
+        public ReportingManagerInfo GetReportingManagerInfo(int EmployeeID)
+        {
+            ReportingManagerInfo reportingManagerInfo = new ReportingManagerInfo();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+
+                string strQuery = "SELECT * FROM EMPMasInfo WHERE EmpID = " + EmployeeID + "";
+                //EmpID, EmpCode, EmpName, DesignationTitle, Department, ContactNumber1
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                List<ReportingManagerInfo> objReportingManagerInfo = JsonConvert.DeserializeObject<List<ReportingManagerInfo>>(DataTableToJSon); 
+                if(objReportingManagerInfo.Count > 0)
+                {
+                    reportingManagerInfo.EmpID = objReportingManagerInfo[0].EmpID;
+                    reportingManagerInfo.EmpCode = objReportingManagerInfo[0].EmpCode;
+                    reportingManagerInfo.EmpName = objReportingManagerInfo[0].EmpName;
+                    reportingManagerInfo.DesignationTitle = objReportingManagerInfo[0].DesignationTitle;
+                    reportingManagerInfo.DepartmentTitle = objReportingManagerInfo[0].DepartmentTitle;
+                    reportingManagerInfo.ContactNumber1= objReportingManagerInfo[0].ContactNumber1;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return reportingManagerInfo;
+        }
+
+        public int InsertEmployeeMaster(int txtEmployeeID, string txtEmployeeCode, string txtEmployeeTitle, int txtEmployeeDesignationID, int txtReportingManagerID, int txtEmployeeDepartmentID, int txtEmployeeBloodGroupID, bool IsActive, bool IsDeleted)
+        {
+            int affectedRows = 0;
+            try
+            {
+
+                int maxRowCount = getMaxRowCount("EmpMas", "EmpID");
+                
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "INSERT INTO EmpMas (EmpID, EmpCode, EmpName, EmpDesignationID, EmpRepManID, DepartmentID, BloodGroupID, IsActive, IsDeleted) VALUES " +
+                 "(" + maxRowCount + ",'" + "EMP-" + (maxRowCount).ToString().PadLeft(4, '0').Trim() + "','" + txtEmployeeTitle.Trim() + "'," + txtEmployeeDesignationID + "," + txtReportingManagerID + 
+                 "," + txtEmployeeDepartmentID + "," + txtEmployeeBloodGroupID + "," + IsActive + "," + IsDeleted + ")";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = maxRowCount;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return affectedRows;
+        }
+
+        public int UpdateEmployeeMaster(int txtEmployeeID, string txtEmployeeCode, string txtEmployeeTitle, int txtEmployeeDesignationID, int txtReportingManagerID, int txtEmployeeDepartmentID, int txtEmployeeBloodGroupID, bool IsActive, bool IsDeleted)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpMas SET EmpCode = '" + txtEmployeeCode + "', EmpName = '" + txtEmployeeTitle + "', EmpDesignationID = " + txtEmployeeDesignationID + ", EmpRepManID = " + txtReportingManagerID + ", DepartmentID = " + txtEmployeeDepartmentID + ", BloodGroupID = " + txtEmployeeBloodGroupID + ", IsActive = " + IsActive +
+                 " WHERE EmpID = " + txtEmployeeID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtEmployeeID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return affectedRows;
+        }
+
+        public int DeleteEmployeeMaster(int txtEmployeeID)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "DELETE FROM EmpMas WHERE EmpID = " + txtEmployeeID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return affectedRows;
+        }
+    }
+
+    public class EmployeeInfo
+    {
+        public int EmpID { get; set; }
+        public string EmpCode { get; set; }
+        public string EmpName { get; set; }
+        public int EmpDesignationID { get; set; }
+        public string DesignationTitle { get; set; }
+        public int EmpRepManID { get; set; }
+        public int DepartmentID { get; set; }
+        public string DepartmentTitle { get; set; }
+        public int BloodGroupID { get; set; }
+        public string BloodGroupTitle { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
+    }
+
+    public class ReportingManagerInfo
+    {
+        public int EmpID { get; set; }
+
+        [DisplayName("Employee Code")]
+        public string EmpCode { get; set; }
+
+        [DisplayName("Employee Name")]
+        public string EmpName { get; set; }
+
+        [DisplayName("Designation")]
+        public string DesignationTitle { get; set; }
+
+        [DisplayName("Department")]
+        public string DepartmentTitle { get; set; }
+
+        [DisplayName("Contact Number")]
+        public string ContactNumber1 { get; set; }
+
+        [DisplayName("Mail ID")]
+        public string ContactNumber2 { get; set; }
+    }
+
+}
