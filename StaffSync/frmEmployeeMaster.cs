@@ -1234,6 +1234,8 @@ namespace StaffSync
             dtgPreviousWorkExp.Columns["Comments"].Width = 350;
 
             cmbSalProfile.SelectedIndex = objSalaryProfile.getEmployeeSpecificSalaryProfile(EmployeeID).SalProfileID - 1;
+            if (cmbSalProfile.SelectedIndex < 0)
+                cmbSalProfile.SelectedIndex = 0;
 
             RefreshLeavesHistoryList();
             RefreshUploadedDocumentsList();
