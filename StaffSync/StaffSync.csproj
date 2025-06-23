@@ -661,6 +661,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hrm02.ico" />
+    <None Include="images\icons\batch-process.ico" />
     <None Include="images\icons\add.ico" />
     <None Include="images\icons\recruitment.ico" />
     <None Include="images\icons\reimbursement.ico" />

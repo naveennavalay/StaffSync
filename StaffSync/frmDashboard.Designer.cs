@@ -123,6 +123,8 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
+            this.batchPayrollSystemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmAttendanceManagementList.SuspendLayout();
@@ -387,9 +389,11 @@
             this.cmPayrollManagement.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmbPayrollSettings,
             this.toolStripSeparator2,
-            this.cmbPayrollSystem});
+            this.cmbPayrollSystem,
+            this.toolStripMenuItem1,
+            this.batchPayrollSystemToolStripMenuItem});
             this.cmPayrollManagement.Name = "cmDatamartList01";
-            this.cmPayrollManagement.Size = new System.Drawing.Size(156, 54);
+            this.cmPayrollManagement.Size = new System.Drawing.Size(185, 104);
             this.cmPayrollManagement.Tag = "DatamartMenu";
             this.cmPayrollManagement.Text = "Datamart Menu";
             // 
@@ -401,7 +405,7 @@
             this.cmbReimbursmentList});
             this.cmbPayrollSettings.Image = global::StaffSync.Properties.Resources.rejectleave;
             this.cmbPayrollSettings.Name = "cmbPayrollSettings";
-            this.cmbPayrollSettings.Size = new System.Drawing.Size(155, 22);
+            this.cmbPayrollSettings.Size = new System.Drawing.Size(184, 22);
             this.cmbPayrollSettings.Tag = "cmbPayrollSettings";
             this.cmbPayrollSettings.Text = "Payroll Settings";
             // 
@@ -435,13 +439,13 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(152, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(181, 6);
             // 
             // cmbPayrollSystem
             // 
             this.cmbPayrollSystem.Image = global::StaffSync.Properties.Resources.payroll;
             this.cmbPayrollSystem.Name = "cmbPayrollSystem";
-            this.cmbPayrollSystem.Size = new System.Drawing.Size(155, 22);
+            this.cmbPayrollSystem.Size = new System.Drawing.Size(184, 22);
             this.cmbPayrollSystem.Tag = "cmbPayrollSystem";
             this.cmbPayrollSystem.Text = "Payroll System";
             this.cmbPayrollSystem.Click += new System.EventHandler(this.cmbPayrollSystem_Click);
@@ -885,6 +889,18 @@
             // 
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             // 
+            // batchPayrollSystemToolStripMenuItem
+            // 
+            this.batchPayrollSystemToolStripMenuItem.Image = global::StaffSync.Properties.Resources.batch_process;
+            this.batchPayrollSystemToolStripMenuItem.Name = "batchPayrollSystemToolStripMenuItem";
+            this.batchPayrollSystemToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.batchPayrollSystemToolStripMenuItem.Text = "Batch Payroll System";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(181, 6);
+            // 
             // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1053,6 +1069,8 @@
         private Krypton.Ribbon.KryptonRibbonGroup kryptonRibbonGroup2;
         private Krypton.Ribbon.KryptonRibbonGroupTriple kryptonRibbonGroupTriple13;
         private Krypton.Ribbon.KryptonRibbonGroupButton tlbManageRecruitmentButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem batchPayrollSystemToolStripMenuItem;
     }
 }
 
