@@ -127,7 +127,7 @@ namespace StaffSync
                                 "FROM " +
                                     "(" +
                                         "DesigMas " +
-                                        "INNER JOIN(" +
+                                        "INNER JOIN (" +
                                             "DepMas " +
                                             "INNER JOIN EmpMas ON DepMas.DepartmentID = EmpMas.DepartmentID " +
                                         ") ON DesigMas.DesignationID = EmpMas.EmpDesignationID " +
@@ -135,7 +135,8 @@ namespace StaffSync
                                     "INNER JOIN EmpSalMas ON EmpMas.EmpID = EmpSalMas.EmpID " +
                                 "WHERE " +
                                     "(" +
-                                        "((EmpMas.IsActive) = True) " +
+                                        "((EmpSalMas.EmpSalMonthYear) <> 'Jan - 1900') " +
+                                        "AND ((EmpMas.IsActive) = True) " +
                                         "AND ((EmpMas.IsDeleted) = False) " +
                                     ");";
 
@@ -186,8 +187,8 @@ namespace StaffSync
                                     "EmpSalMas " +
                                 "WHERE " +
                                     "(" +
-                                        "((EmpSalMas.EmpSalID) = " + txtEmpID + ") " +
-                                        "AND ((EmpSalMas.EmpID) = " + txtSelectedSalMonthID + ") " + 
+                                        "((EmpSalMas.EmpSalID) = " + txtSelectedSalMonthID + ") " +
+                                        "AND ((EmpSalMas.EmpID) = " + txtEmpID + ") " + 
                                     "); ";
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -224,7 +225,23 @@ namespace StaffSync
                 dtDataset = new DataSet();
                 DataTable dt = new DataTable();
 
-                string strQuery = "SELECT * FROM EmpSalDetails WHERE EmpSalID = " + txtEmpSalID + " ORDER BY OrderID";
+                string strQuery = "SELECT " +
+                                        "EmpSalDetails.EmpSalDetID, " + 
+                                        "EmpSalDetails.EmpSalID, " +
+                                        "EmpSalDetails.SalProDetID, " +
+                                        "EmpSalDetails.SalHeaderID as HeaderID, " + 
+                                        "EmpSalDetails.SalHeaderTitle as HeaderTitle, " + 
+                                        "EmpSalDetails.SalHeaderType as HeaderType, " + 
+                                        "EmpSalDetails.AllowanceAmount, " + 
+                                        "EmpSalDetails.DeductionAmount, " + 
+                                        "EmpSalDetails.ReimbursmentAmount, " + 
+                                        "EmpSalDetails.OrderID " + 
+                                    "FROM " + 
+                                        "EmpSalDetails " + 
+                                    "WHERE " + 
+                                        "(((EmpSalDetails.EmpSalID) = " + txtEmpSalID + ")) " + 
+                                    "ORDER BY " + 
+                                        "EmpSalDetails.OrderID; ";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -318,7 +335,7 @@ namespace StaffSync
             return affectedRows;
         }
 
-        public int InsertEmployeeSalaryDetailsInfo(int txtEmpSalID, int txtSalProDetID, string txtSalHeaderTitle, string txtSalSalHeaderType, decimal txtAllAmount, decimal txtDedAmount, decimal txtReimbAmount, int txtOrderID)
+        public int InsertEmployeeSalaryDetailsInfo(int txtEmpSalID, int txtSalProDetID, int txtSalHeaderID, string txtSalHeaderTitle, string txtSalSalHeaderType, decimal txtAllAmount, decimal txtDedAmount, decimal txtReimbAmount, int txtOrderID)
         {
             int affectedRows = 0;
             try
@@ -328,8 +345,8 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO EmpSalDetails (EmpSalDetID, EmpSalID, SalProDetID, SalHeaderTitle, SalHeaderType, AllowanceAmount, DeductionAmount, ReimbursmentAmount, OrderID) VALUES " +
-                 "(" + maxRowCount + "," + txtEmpSalID + "," + txtSalProDetID + ",'" + txtSalHeaderTitle + "','" + txtSalSalHeaderType + "'," + txtAllAmount + "," + txtDedAmount + "," + txtReimbAmount + "," + txtOrderID + ")";
+                string strQuery = "INSERT INTO EmpSalDetails (EmpSalDetID, EmpSalID, SalProDetID, SalHeaderID, SalHeaderTitle, SalHeaderType, AllowanceAmount, DeductionAmount, ReimbursmentAmount, OrderID) VALUES " +
+                 "(" + maxRowCount + "," + txtEmpSalID + "," + txtSalProDetID + "," + txtSalHeaderID + ",'" + txtSalHeaderTitle + "','" + txtSalSalHeaderType + "'," + txtAllAmount + "," + txtDedAmount + "," + txtReimbAmount + "," + txtOrderID + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -351,7 +368,7 @@ namespace StaffSync
         }
 
 
-        public int UpdateEmployeeSalaryDetailsInfo(int txtEmpSalDetID, int txtEmpSalID, int txtSalProDetID, string txtSalHeaderTitle, string txtSalSalHeaderType, decimal txtAllAmount, decimal txtDedAmount, decimal txtReimbAmount, int txtOrderID)
+        public int UpdateEmployeeSalaryDetailsInfo(int txtEmpSalDetID, int txtEmpSalID, int txtSalProDetID, int txtSalHeaderID, string txtSalHeaderTitle, string txtSalSalHeaderType, decimal txtAllAmount, decimal txtDedAmount, decimal txtReimbAmount, int txtOrderID)
         {
             int affectedRows = 0;
             try
@@ -359,7 +376,7 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE EmpSalDetails SET EmpSalID = " + txtEmpSalID + ", SalProDetID = " + txtSalProDetID + ", SalHeaderTitle = '" + txtSalHeaderTitle + "', SalHeaderType = '" + txtSalSalHeaderType + "'," +
+                string strQuery = "UPDATE EmpSalDetails SET EmpSalID = " + txtEmpSalID + ", SalProDetID = " + txtSalProDetID + ", SalHeaderID = " + txtSalHeaderID + ", SalHeaderTitle = '" + txtSalHeaderTitle + "', SalHeaderType = '" + txtSalSalHeaderType + "'," +
                     " AllowanceAmount = " + txtAllAmount + ", DeductionAmount = " + txtDedAmount + ", ReimbursmentAmount = " + txtReimbAmount + ", OrderID = " + txtOrderID +
                     " WHERE EmpSalDetID = " + txtEmpSalDetID;
 
@@ -431,12 +448,13 @@ namespace StaffSync
         public int EmpSalDetID { get; set; }
         public int SalProDetID { get; set; }
         public int EmpSalID { get; set; }
+        public int HeaderID { get; set; }
 
         [DisplayName("Salary Header")]
-        public string SalHeaderTitle { get; set; }
+        public string HeaderTitle { get; set; }
         
         [DisplayName("Type")] 
-        public string SalHeaderType { get; set; }
+        public string HeaderType { get; set; }
 
         [DisplayName("Allowance Amount")]
         public decimal AllowanceAmount { get; set; }

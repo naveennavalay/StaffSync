@@ -78,10 +78,10 @@ namespace StaffSync
 
             if (lblActionMode.Text == "add")
             {
-                empSalaryID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblReportingManagerID.Text.Trim()), Convert.ToDateTime(txtSalaryDate.Text), cmbSalaryMonth.Text, Convert.ToDecimal(txtTotalWorkingDays.Text), Convert.ToDecimal(txtTotalWorkedDays.Text), Convert.ToDecimal(txtLeaveDays.Text), Convert.ToDecimal(txtNetPayable.Text), 0);
+                empSalaryID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblReportingManagerID.Text.Trim()), Convert.ToDateTime(txtSalaryDate.Text), cmbSalaryMonth.Text, Convert.ToDecimal(txtTotalWorkingDays.Text), Convert.ToDecimal(txtTotalWorkedDays.Text), Convert.ToDecimal(txtLeaveDays.Text), Convert.ToDecimal(txtNetPayable.Text), 1);
                 foreach (DataGridViewRow dc in dtgSalaryDetails.Rows)
                 {
-                    int EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(empSalaryID), Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), dc.Cells["HeaderTitle"].Value.ToString(), dc.Cells["SalHeaderType"].Value.ToString(), Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()), iRowCounter);
+                    int EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(empSalaryID), Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), dc.Cells["HeaderTitle"].Value.ToString(), dc.Cells["HeaderType"].Value.ToString(), Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()), iRowCounter);
                     iRowCounter = iRowCounter + 1;
                 }
                 if (empSalaryID > 0)
@@ -92,7 +92,7 @@ namespace StaffSync
                 empSalaryID = objEmployeePayroll.UpdateEmployeeSalaryMasterInfo(Convert.ToInt16(lblSelectedMonthSalaryID.Text.Trim()), Convert.ToInt16(lblReportingManagerID.Text.Trim()), Convert.ToDateTime(txtSalaryDate.Text), cmbSalaryMonth.Text, Convert.ToDouble(txtTotalWorkingDays.Text), Convert.ToDouble(txtTotalWorkedDays.Text), Convert.ToDouble(txtLeaveDays.Text), Convert.ToDouble(txtNetPayable.Text));
                 foreach (DataGridViewRow dc in dtgSalaryDetails.Rows)
                 {
-                    int EmpSalDetID = objEmployeePayroll.UpdateEmployeeSalaryDetailsInfo(Convert.ToInt16(dc.Cells["EmpSalDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["EmpSalID"].Value.ToString()), Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), dc.Cells["SalHeaderTitle"].Value.ToString(), dc.Cells["SalHeaderType"].Value.ToString(), Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()), Convert.ToInt16(dc.Cells["OrderID"].Value.ToString()));
+                    int EmpSalDetID = objEmployeePayroll.UpdateEmployeeSalaryDetailsInfo(Convert.ToInt16(dc.Cells["EmpSalDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["EmpSalID"].Value.ToString()), Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), dc.Cells["HeaderTitle"].Value.ToString(), dc.Cells["HeaderType"].Value.ToString(), Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()), Convert.ToInt16(dc.Cells["OrderID"].Value.ToString()));
                     iRowCounter = iRowCounter + 1;
                 }
                 if (empSalaryID > 0)
@@ -221,14 +221,15 @@ namespace StaffSync
             dtgSalaryDetails.Columns["SalProfileID"].ReadOnly = true;
             dtgSalaryDetails.Columns["HeaderID"].Visible = false;
             dtgSalaryDetails.Columns["HeaderID"].ReadOnly = true;
-            dtgSalaryDetails.Columns["HeaderTitle"].Width = 300;
+            dtgSalaryDetails.Columns["HeaderTitle"].Width = 250;
             dtgSalaryDetails.Columns["HeaderTitle"].ReadOnly = true;
-            dtgSalaryDetails.Columns["SalHeaderType"].Visible = false;
-            dtgSalaryDetails.Columns["AllowanceAmount"].Width = 150;
+            dtgSalaryDetails.Columns["HeaderType"].ReadOnly = true;
+            dtgSalaryDetails.Columns["HeaderType"].Width = 125;
+            dtgSalaryDetails.Columns["AllowanceAmount"].Width = 135;
             dtgSalaryDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgSalaryDetails.Columns["AllowanceAmount"].DefaultCellStyle.Format = "c2";
-            dtgSalaryDetails.Columns["DeductionAmount"].Width = 150;
-            dtgSalaryDetails.Columns["ReimbursmentAmount"].Width = 150;
+            dtgSalaryDetails.Columns["DeductionAmount"].Width = 135;
+            dtgSalaryDetails.Columns["ReimbursmentAmount"].Width = 135;
             dtgSalaryDetails.Columns["DeductionAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Deductions
             dtgSalaryDetails.Columns["DeductionAmount"].DefaultCellStyle.Format = "c2";
             dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Reimbursments
@@ -326,48 +327,68 @@ namespace StaffSync
                 SalaryProfileID = objSalaryProfile.getEmployeeSpecificSalaryProfile(Convert.ToInt16(lblReportingManagerID.Text.ToString())).SalProfileID;
 
                 dtgSalaryDetails.Enabled = true;
-                dtgSalaryDetails.DataSource = objSalaryProfile.GetDefaultSalaryProfileInfo(SalaryProfileID);
+                //dtgSalaryDetails.DataSource = objSalaryProfile.GetDefaultSalaryProfileInfo(SalaryProfileID);
+                dtgSalaryDetails.DataSource = objSalaryProfile.GetEmployeeSpecificSalaryProfileInfo(Convert.ToInt16(lblReportingManagerID.Text));
+                dtgSalaryDetails.Columns["EmpSalDetID"].Visible = false;
                 dtgSalaryDetails.Columns["SalProDetID"].Visible = false;
-                dtgSalaryDetails.Columns["SalProDetID"].ReadOnly = true;
                 dtgSalaryDetails.Columns["SalProfileID"].Visible = false;
-                dtgSalaryDetails.Columns["SalProfileID"].ReadOnly = true;
                 dtgSalaryDetails.Columns["HeaderID"].Visible = false;
-                dtgSalaryDetails.Columns["HeaderID"].ReadOnly = true;
-                dtgSalaryDetails.Columns["HeaderTitle"].Width = 300;
+                dtgSalaryDetails.Columns["HeaderTitle"].Width = 250;
                 dtgSalaryDetails.Columns["HeaderTitle"].ReadOnly = true;
-                dtgSalaryDetails.Columns["SalHeaderType"].Visible = false;
-                dtgSalaryDetails.Columns["AllowanceAmount"].Width = 150;
+                dtgSalaryDetails.Columns["HeaderType"].ReadOnly = true;
+                dtgSalaryDetails.Columns["HeaderType"].Width = 125;
+                dtgSalaryDetails.Columns["AllowanceAmount"].Width = 135;
                 dtgSalaryDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
                 dtgSalaryDetails.Columns["AllowanceAmount"].DefaultCellStyle.Format = "c2";
-                dtgSalaryDetails.Columns["DeductionAmount"].Width = 150;
-                dtgSalaryDetails.Columns["ReimbursmentAmount"].Width = 150;
+                dtgSalaryDetails.Columns["DeductionAmount"].Width = 135;
+                dtgSalaryDetails.Columns["ReimbursmentAmount"].Width = 135;
                 dtgSalaryDetails.Columns["DeductionAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Deductions
                 dtgSalaryDetails.Columns["DeductionAmount"].DefaultCellStyle.Format = "c2";
                 dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Reimbursments
                 dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Format = "c2";
                 dtgSalaryDetails.Columns["OrderID"].Visible = false;
 
+                decimal totalAallowences = 0;
+                decimal totalDeductions = 0;
+                decimal totalReimbursement = 0;
+
                 foreach (DataGridViewRow dc in dtgSalaryDetails.Rows)
                 {
-                    if (dc.Cells["SalHeaderType"].Value.ToString().ToLower() == "allowences")
+                    totalAallowences = totalAallowences + Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString());
+                    totalDeductions = totalDeductions + Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString());
+                    totalReimbursement = totalReimbursement + Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString());
+                    dc.Cells["EmpSalDetID"].ReadOnly = true;
+                    dc.Cells["SalProDetID"].ReadOnly = true;
+                    dc.Cells["SalProfileID"].ReadOnly = true;
+                    dc.Cells["HeaderID"].ReadOnly = true;
+                    dc.Cells["HeaderTitle"].ReadOnly = true;
+                    dc.Cells["HeaderType"].ReadOnly = true;
+                    if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "allowences")
                     {
                         dc.Cells["AllowanceAmount"].ReadOnly = false;
                         dc.Cells["DeductionAmount"].ReadOnly = true;
                         dc.Cells["ReimbursmentAmount"].ReadOnly = true;
                     }
-                    else if (dc.Cells["SalHeaderType"].Value.ToString().ToLower() == "deductions")
+                    else if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "deductions")
                     {
                         dc.Cells["AllowanceAmount"].ReadOnly = true;
                         dc.Cells["DeductionAmount"].ReadOnly = false;
                         dc.Cells["ReimbursmentAmount"].ReadOnly = true;
                     }
-                    else if (dc.Cells["SalHeaderType"].Value.ToString().ToLower() == "reimbursement")
+                    else if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "reimbursement")
                     {
                         dc.Cells["AllowanceAmount"].ReadOnly = true;
                         dc.Cells["DeductionAmount"].ReadOnly = true;
                         dc.Cells["ReimbursmentAmount"].ReadOnly = false;
                     }
                 }
+                txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+                txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+                txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+
+                txtNetPayable.Text = Convert.ToDecimal((totalAallowences + totalReimbursement) - totalDeductions).ToString();
+                txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+
             }
             else if (SearchOptionSelectedForm == "listEmployeesPayslip")
             {
@@ -403,16 +424,19 @@ namespace StaffSync
                 dtgSalaryDetails.Columns["SalProDetID"].ReadOnly = true;
                 dtgSalaryDetails.Columns["EmpSalID"].Visible = false;
                 dtgSalaryDetails.Columns["EmpSalID"].ReadOnly = true;
-                dtgSalaryDetails.Columns["SalHeaderTitle"].ReadOnly = true;
-                dtgSalaryDetails.Columns["SalHeaderTitle"].Width = 300;
-                dtgSalaryDetails.Columns["SalHeaderType"].Visible = false;
-                dtgSalaryDetails.Columns["AllowanceAmount"].Width = 150;
+                dtgSalaryDetails.Columns["HeaderID"].Visible = false;
+                dtgSalaryDetails.Columns["HeaderID"].ReadOnly = true;
+                dtgSalaryDetails.Columns["HeaderTitle"].Width = 250;
+                dtgSalaryDetails.Columns["HeaderTitle"].ReadOnly = true;
+                dtgSalaryDetails.Columns["HeaderType"].ReadOnly = true;
+                dtgSalaryDetails.Columns["HeaderType"].Width = 125;
+                dtgSalaryDetails.Columns["AllowanceAmount"].Width = 135;
                 dtgSalaryDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
                 dtgSalaryDetails.Columns["AllowanceAmount"].DefaultCellStyle.Format = "c2";
-                dtgSalaryDetails.Columns["DeductionAmount"].Width = 150;
+                dtgSalaryDetails.Columns["DeductionAmount"].Width = 135;
+                dtgSalaryDetails.Columns["ReimbursmentAmount"].Width = 135;
                 dtgSalaryDetails.Columns["DeductionAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Deductions
                 dtgSalaryDetails.Columns["DeductionAmount"].DefaultCellStyle.Format = "c2";
-                dtgSalaryDetails.Columns["ReimbursmentAmount"].Width = 150;
                 dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Reimbursments
                 dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Format = "c2";
                 dtgSalaryDetails.Columns["OrderID"].Visible = false;
@@ -426,19 +450,19 @@ namespace StaffSync
                     totalAallowences = totalAallowences + Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString());
                     totalDeductions = totalDeductions + Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString());
                     totalReimbursement = totalReimbursement + Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString());
-                    if (dc.Cells["SalHeaderType"].Value.ToString().ToLower() == "allowences")
+                    if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "allowences")
                     {
                         dc.Cells["AllowanceAmount"].ReadOnly = false;
                         dc.Cells["DeductionAmount"].ReadOnly = true;
                         dc.Cells["ReimbursmentAmount"].ReadOnly = true;
                     }
-                    else if (dc.Cells["SalHeaderType"].Value.ToString().ToLower() == "deductions")
+                    else if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "deductions")
                     {
                         dc.Cells["AllowanceAmount"].ReadOnly = true;
                         dc.Cells["DeductionAmount"].ReadOnly = false;
                         dc.Cells["ReimbursmentAmount"].ReadOnly = true;
                     }
-                    else if (dc.Cells["SalHeaderType"].Value.ToString().ToLower() == "reimbursement")
+                    else if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "reimbursement")
                     {
                         dc.Cells["AllowanceAmount"].ReadOnly = true;
                         dc.Cells["DeductionAmount"].ReadOnly = true;
@@ -490,19 +514,19 @@ namespace StaffSync
 
         private void dtgSalaryDetails_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            if (dtgSalaryDetails.CurrentRow.Cells["SalHeaderType"].Value.ToString().ToLower() == "allowences")
+            if (dtgSalaryDetails.CurrentRow.Cells["HeaderType"].Value.ToString().ToLower() == "allowences")
             {
                 dtgSalaryDetails.CurrentRow.Cells["AllowanceAmount"].ReadOnly = false;
                 dtgSalaryDetails.CurrentRow.Cells["DeductionAmount"].ReadOnly = true;
                 dtgSalaryDetails.CurrentRow.Cells["ReimbursmentAmount"].ReadOnly = true;
             }
-            else if (dtgSalaryDetails.CurrentRow.Cells["SalHeaderType"].Value.ToString().ToLower() == "deductions")
+            else if (dtgSalaryDetails.CurrentRow.Cells["HeaderType"].Value.ToString().ToLower() == "deductions")
             {
                 dtgSalaryDetails.CurrentRow.Cells["AllowanceAmount"].ReadOnly = true;
                 dtgSalaryDetails.CurrentRow.Cells["DeductionAmount"].ReadOnly = false;
                 dtgSalaryDetails.CurrentRow.Cells["ReimbursmentAmount"].ReadOnly = true;
             }
-            else if (dtgSalaryDetails.CurrentRow.Cells["SalHeaderType"].Value.ToString().ToLower() == "reimbursement")
+            else if (dtgSalaryDetails.CurrentRow.Cells["HeaderType"].Value.ToString().ToLower() == "reimbursement")
             {
                 dtgSalaryDetails.CurrentRow.Cells["AllowanceAmount"].ReadOnly = true;
                 dtgSalaryDetails.CurrentRow.Cells["DeductionAmount"].ReadOnly = true;
@@ -521,6 +545,24 @@ namespace StaffSync
                 totalAallowences = totalAallowences + Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString());
                 totalDeductions = totalDeductions + Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString());
                 totalReimbursement = totalReimbursement + Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString());
+                if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "allowences")
+                {
+                    dc.Cells["AllowanceAmount"].ReadOnly = false;
+                    dc.Cells["DeductionAmount"].ReadOnly = true;
+                    dc.Cells["ReimbursmentAmount"].ReadOnly = true;
+                }
+                else if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "deductions")
+                {
+                    dc.Cells["AllowanceAmount"].ReadOnly = true;
+                    dc.Cells["DeductionAmount"].ReadOnly = false;
+                    dc.Cells["ReimbursmentAmount"].ReadOnly = true;
+                }
+                else if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "reimbursement")
+                {
+                    dc.Cells["AllowanceAmount"].ReadOnly = true;
+                    dc.Cells["DeductionAmount"].ReadOnly = true;
+                    dc.Cells["ReimbursmentAmount"].ReadOnly = false;
+                }
             }
 
             txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("00.00", CultureInfo.InvariantCulture);

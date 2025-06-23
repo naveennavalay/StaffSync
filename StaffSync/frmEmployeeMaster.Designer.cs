@@ -88,6 +88,7 @@
             this.btnEmpPhotoUpload = new Krypton.Toolkit.KryptonButton();
             this.txtEmpPhoto = new Krypton.Toolkit.KryptonTextBox();
             this.label39 = new System.Windows.Forms.Label();
+            this.picEmpPhoto = new System.Windows.Forms.PictureBox();
             this.label24 = new System.Windows.Forms.Label();
             this.tabProfessionalInfo = new Krypton.Navigator.KryptonPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -100,6 +101,7 @@
             this.lblReportingManagerID = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
+            this.picRepEmpPhoto = new System.Windows.Forms.PictureBox();
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
@@ -125,11 +127,18 @@
             this.cmbDepartment = new Krypton.Toolkit.KryptonComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
+            this.tabPreviousExperience1 = new Krypton.Navigator.KryptonPage();
+            this.picPrevExperience = new System.Windows.Forms.PictureBox();
+            this.dtgPreviousWorkExp = new Krypton.Toolkit.KryptonDataGridView();
             this.tabEducationalInfo1 = new Krypton.Navigator.KryptonPage();
             this.chkEduQualList = new System.Windows.Forms.CheckedListBox();
-            this.tabPreviousExperience1 = new Krypton.Navigator.KryptonPage();
+            this.tabSkils = new Krypton.Navigator.KryptonPage();
+            this.chkSkillsList = new System.Windows.Forms.CheckedListBox();
             this.tabDocuments1 = new Krypton.Navigator.KryptonPage();
             this.btnUploadDocument = new Krypton.Toolkit.KryptonButton();
+            this.picDownloadDocumentsList = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.picRefreshDocumentsList = new System.Windows.Forms.PictureBox();
             this.lstLDocumentsList = new System.Windows.Forms.ListView();
             this.DocID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DocCode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -138,9 +147,10 @@
             this.UploadDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DocPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label23 = new System.Windows.Forms.Label();
-            this.tabSkils = new Krypton.Navigator.KryptonPage();
-            this.chkSkillsList = new System.Windows.Forms.CheckedListBox();
             this.tabLeaves = new Krypton.Navigator.KryptonPage();
+            this.picDownloadLeaveTRList = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.picRefreshLeaveTRList = new System.Windows.Forms.PictureBox();
             this.lstLeaveTRList = new System.Windows.Forms.ListView();
             this.LeaveTRID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LeaveType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -152,6 +162,9 @@
             this.txtTotalLeaveAllotment = new Krypton.Toolkit.KryptonTextBox();
             this.label40 = new System.Windows.Forms.Label();
             this.tabBankAccountInfo1 = new Krypton.Navigator.KryptonPage();
+            this.picDownloadBankList = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.picRefreshBankList = new System.Windows.Forms.PictureBox();
             this.lstBankList = new System.Windows.Forms.ListView();
             this.BankID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.BankCode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -163,6 +176,12 @@
             this.lblBankID = new System.Windows.Forms.Label();
             this.label41 = new System.Windows.Forms.Label();
             this.tabSalaryProfile = new Krypton.Navigator.KryptonPage();
+            this.label44 = new System.Windows.Forms.Label();
+            this.txtReimbursement = new Krypton.Toolkit.KryptonTextBox();
+            this.txtDeductions = new Krypton.Toolkit.KryptonTextBox();
+            this.txtAallowences = new Krypton.Toolkit.KryptonTextBox();
+            this.txtNetPayable = new Krypton.Toolkit.KryptonTextBox();
+            this.label45 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
             this.dtgSalaryProfileDetails = new Krypton.Toolkit.KryptonDataGridView();
             this.cmbSalProfile = new Krypton.Toolkit.KryptonComboBox();
@@ -202,25 +221,6 @@
             this.docUploadsTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.DocUploadsTableAdapter();
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
-            this.dtgPreviousWorkExp = new Krypton.Toolkit.KryptonDataGridView();
-            this.picEmpPhoto = new System.Windows.Forms.PictureBox();
-            this.picRepEmpPhoto = new System.Windows.Forms.PictureBox();
-            this.picPrevExperience = new System.Windows.Forms.PictureBox();
-            this.picDownloadDocumentsList = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.picRefreshDocumentsList = new System.Windows.Forms.PictureBox();
-            this.picDownloadLeaveTRList = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.picRefreshLeaveTRList = new System.Windows.Forms.PictureBox();
-            this.picDownloadBankList = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.picRefreshBankList = new System.Windows.Forms.PictureBox();
-            this.label44 = new System.Windows.Forms.Label();
-            this.txtReimbursement = new Krypton.Toolkit.KryptonTextBox();
-            this.txtDeductions = new Krypton.Toolkit.KryptonTextBox();
-            this.txtAallowences = new Krypton.Toolkit.KryptonTextBox();
-            this.txtNetPayable = new Krypton.Toolkit.KryptonTextBox();
-            this.label45 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -241,9 +241,11 @@
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabPersonalPhoto)).BeginInit();
             this.tabPersonalPhoto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabProfessionalInfo)).BeginInit();
             this.tabProfessionalInfo.SuspendLayout();
             this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).BeginInit();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbNomineeRelationship)).BeginInit();
             this.groupBox5.SuspendLayout();
@@ -251,19 +253,30 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDesignation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDepartment)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tabEducationalInfo1)).BeginInit();
-            this.tabEducationalInfo1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabPreviousExperience1)).BeginInit();
             this.tabPreviousExperience1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tabDocuments1)).BeginInit();
-            this.tabDocuments1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picPrevExperience)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgPreviousWorkExp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabEducationalInfo1)).BeginInit();
+            this.tabEducationalInfo1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabSkils)).BeginInit();
             this.tabSkils.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tabDocuments1)).BeginInit();
+            this.tabDocuments1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDownloadDocumentsList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefreshDocumentsList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabLeaves)).BeginInit();
             this.tabLeaves.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefreshLeaveTRList)).BeginInit();
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabBankAccountInfo1)).BeginInit();
             this.tabBankAccountInfo1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDownloadBankList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefreshBankList)).BeginInit();
             this.groupBox12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabSalaryProfile)).BeginInit();
             this.tabSalaryProfile.SuspendLayout();
@@ -285,19 +298,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.docUploadsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryEmpBirthdayListBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgPreviousWorkExp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picPrevExperience)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDownloadDocumentsList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRefreshDocumentsList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRefreshLeaveTRList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDownloadBankList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRefreshBankList)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -387,7 +387,7 @@
             this.tabControl1.PopupPages.AllowPopupPages = Krypton.Navigator.PopupPageAllow.Never;
             this.tabControl1.PopupPages.Element = Krypton.Navigator.PopupPageElement.Item;
             this.tabControl1.PopupPages.Position = Krypton.Navigator.PopupPagePosition.ModeAppropriate;
-            this.tabControl1.SelectedIndex = 9;
+            this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1231, 548);
             this.tabControl1.TabIndex = 28;
             // 
@@ -1128,6 +1128,16 @@
             this.label39.Text = "Preview";
             this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // picEmpPhoto
+            // 
+            this.picEmpPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picEmpPhoto.Location = new System.Drawing.Point(122, 64);
+            this.picEmpPhoto.Name = "picEmpPhoto";
+            this.picEmpPhoto.Size = new System.Drawing.Size(302, 328);
+            this.picEmpPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picEmpPhoto.TabIndex = 21;
+            this.picEmpPhoto.TabStop = false;
+            // 
             // label24
             // 
             this.label24.AutoSize = true;
@@ -1298,6 +1308,16 @@
             this.label38.TabIndex = 16;
             this.label38.Text = "Photo";
             this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // picRepEmpPhoto
+            // 
+            this.picRepEmpPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picRepEmpPhoto.Location = new System.Drawing.Point(733, 20);
+            this.picRepEmpPhoto.Name = "picRepEmpPhoto";
+            this.picRepEmpPhoto.Size = new System.Drawing.Size(201, 164);
+            this.picRepEmpPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRepEmpPhoto.TabIndex = 15;
+            this.picRepEmpPhoto.TabStop = false;
             // 
             // label37
             // 
@@ -1620,6 +1640,51 @@
             this.label25.Text = "Department";
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // tabPreviousExperience1
+            // 
+            this.tabPreviousExperience1.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabPreviousExperience1.Controls.Add(this.picPrevExperience);
+            this.tabPreviousExperience1.Controls.Add(this.dtgPreviousWorkExp);
+            this.tabPreviousExperience1.Flags = 65534;
+            this.tabPreviousExperience1.LastVisibleSet = true;
+            this.tabPreviousExperience1.MinimumSize = new System.Drawing.Size(150, 50);
+            this.tabPreviousExperience1.Name = "tabPreviousExperience1";
+            this.tabPreviousExperience1.Size = new System.Drawing.Size(1227, 519);
+            this.tabPreviousExperience1.Text = "Previous Experience";
+            this.tabPreviousExperience1.ToolTipTitle = "Page ToolTip";
+            this.tabPreviousExperience1.UniqueName = "81b2cded6e5846a29447dc92bed041ab";
+            // 
+            // picPrevExperience
+            // 
+            this.picPrevExperience.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picPrevExperience.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picPrevExperience.Image = global::StaffSync.Properties.Resources.add;
+            this.picPrevExperience.Location = new System.Drawing.Point(27, 29);
+            this.picPrevExperience.Name = "picPrevExperience";
+            this.picPrevExperience.Size = new System.Drawing.Size(23, 22);
+            this.picPrevExperience.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picPrevExperience.TabIndex = 45;
+            this.picPrevExperience.TabStop = false;
+            this.picPrevExperience.Click += new System.EventHandler(this.picPrevExperience_Click);
+            // 
+            // dtgPreviousWorkExp
+            // 
+            this.dtgPreviousWorkExp.AllowUserToAddRows = false;
+            this.dtgPreviousWorkExp.AllowUserToDeleteRows = false;
+            this.dtgPreviousWorkExp.AllowUserToResizeRows = false;
+            this.dtgPreviousWorkExp.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dtgPreviousWorkExp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgPreviousWorkExp.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dtgPreviousWorkExp.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgPreviousWorkExp.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
+            this.dtgPreviousWorkExp.Location = new System.Drawing.Point(26, 60);
+            this.dtgPreviousWorkExp.Name = "dtgPreviousWorkExp";
+            this.dtgPreviousWorkExp.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgPreviousWorkExp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgPreviousWorkExp.Size = new System.Drawing.Size(1174, 398);
+            this.dtgPreviousWorkExp.TabIndex = 44;
+            this.dtgPreviousWorkExp.DoubleClick += new System.EventHandler(this.dtgPreviousWorkExp_DoubleClick);
+            // 
             // tabEducationalInfo1
             // 
             this.tabEducationalInfo1.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
@@ -1644,19 +1709,29 @@
             this.chkEduQualList.Size = new System.Drawing.Size(1195, 480);
             this.chkEduQualList.TabIndex = 2;
             // 
-            // tabPreviousExperience1
+            // tabSkils
             // 
-            this.tabPreviousExperience1.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.tabPreviousExperience1.Controls.Add(this.picPrevExperience);
-            this.tabPreviousExperience1.Controls.Add(this.dtgPreviousWorkExp);
-            this.tabPreviousExperience1.Flags = 65534;
-            this.tabPreviousExperience1.LastVisibleSet = true;
-            this.tabPreviousExperience1.MinimumSize = new System.Drawing.Size(150, 50);
-            this.tabPreviousExperience1.Name = "tabPreviousExperience1";
-            this.tabPreviousExperience1.Size = new System.Drawing.Size(1227, 519);
-            this.tabPreviousExperience1.Text = "Previous Experience";
-            this.tabPreviousExperience1.ToolTipTitle = "Page ToolTip";
-            this.tabPreviousExperience1.UniqueName = "81b2cded6e5846a29447dc92bed041ab";
+            this.tabSkils.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabSkils.Controls.Add(this.chkSkillsList);
+            this.tabSkils.Flags = 65534;
+            this.tabSkils.LastVisibleSet = true;
+            this.tabSkils.MinimumSize = new System.Drawing.Size(150, 50);
+            this.tabSkils.Name = "tabSkils";
+            this.tabSkils.Size = new System.Drawing.Size(1227, 519);
+            this.tabSkils.Text = "Skils";
+            this.tabSkils.ToolTipTitle = "Page ToolTip";
+            this.tabSkils.UniqueName = "b3f0a1ca71964440a67a8ee906695a52";
+            // 
+            // chkSkillsList
+            // 
+            this.chkSkillsList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkSkillsList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkSkillsList.FormattingEnabled = true;
+            this.chkSkillsList.Location = new System.Drawing.Point(16, 19);
+            this.chkSkillsList.MultiColumn = true;
+            this.chkSkillsList.Name = "chkSkillsList";
+            this.chkSkillsList.Size = new System.Drawing.Size(1195, 480);
+            this.chkSkillsList.TabIndex = 1;
             // 
             // tabDocuments1
             // 
@@ -1687,6 +1762,42 @@
             this.btnUploadDocument.Values.Image = global::StaffSync.Properties.Resources.upload;
             this.btnUploadDocument.Values.Text = "Upload";
             this.btnUploadDocument.Click += new System.EventHandler(this.btnUploadDocument_Click);
+            // 
+            // picDownloadDocumentsList
+            // 
+            this.picDownloadDocumentsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picDownloadDocumentsList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picDownloadDocumentsList.Image = global::StaffSync.Properties.Resources.download01;
+            this.picDownloadDocumentsList.Location = new System.Drawing.Point(1049, 24);
+            this.picDownloadDocumentsList.Name = "picDownloadDocumentsList";
+            this.picDownloadDocumentsList.Size = new System.Drawing.Size(21, 20);
+            this.picDownloadDocumentsList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picDownloadDocumentsList.TabIndex = 27;
+            this.picDownloadDocumentsList.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox2.Image = global::StaffSync.Properties.Resources.mail01;
+            this.pictureBox2.Location = new System.Drawing.Point(1072, 23);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(23, 22);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 26;
+            this.pictureBox2.TabStop = false;
+            // 
+            // picRefreshDocumentsList
+            // 
+            this.picRefreshDocumentsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picRefreshDocumentsList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picRefreshDocumentsList.Image = global::StaffSync.Properties.Resources.refresh01;
+            this.picRefreshDocumentsList.Location = new System.Drawing.Point(1097, 23);
+            this.picRefreshDocumentsList.Name = "picRefreshDocumentsList";
+            this.picRefreshDocumentsList.Size = new System.Drawing.Size(23, 22);
+            this.picRefreshDocumentsList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRefreshDocumentsList.TabIndex = 25;
+            this.picRefreshDocumentsList.TabStop = false;
             // 
             // lstLDocumentsList
             // 
@@ -1758,30 +1869,6 @@
             this.label23.TabIndex = 22;
             this.label23.Text = "Upload Document";
             // 
-            // tabSkils
-            // 
-            this.tabSkils.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.tabSkils.Controls.Add(this.chkSkillsList);
-            this.tabSkils.Flags = 65534;
-            this.tabSkils.LastVisibleSet = true;
-            this.tabSkils.MinimumSize = new System.Drawing.Size(150, 50);
-            this.tabSkils.Name = "tabSkils";
-            this.tabSkils.Size = new System.Drawing.Size(1227, 519);
-            this.tabSkils.Text = "Skils";
-            this.tabSkils.ToolTipTitle = "Page ToolTip";
-            this.tabSkils.UniqueName = "b3f0a1ca71964440a67a8ee906695a52";
-            // 
-            // chkSkillsList
-            // 
-            this.chkSkillsList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.chkSkillsList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkSkillsList.FormattingEnabled = true;
-            this.chkSkillsList.Location = new System.Drawing.Point(16, 19);
-            this.chkSkillsList.MultiColumn = true;
-            this.chkSkillsList.Name = "chkSkillsList";
-            this.chkSkillsList.Size = new System.Drawing.Size(1195, 480);
-            this.chkSkillsList.TabIndex = 1;
-            // 
             // tabLeaves
             // 
             this.tabLeaves.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
@@ -1798,6 +1885,42 @@
             this.tabLeaves.Text = "Leaves";
             this.tabLeaves.ToolTipTitle = "Page ToolTip";
             this.tabLeaves.UniqueName = "a3b600aac3624ceda8d85faf520618f1";
+            // 
+            // picDownloadLeaveTRList
+            // 
+            this.picDownloadLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picDownloadLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picDownloadLeaveTRList.Image = global::StaffSync.Properties.Resources.download01;
+            this.picDownloadLeaveTRList.Location = new System.Drawing.Point(1117, 74);
+            this.picDownloadLeaveTRList.Name = "picDownloadLeaveTRList";
+            this.picDownloadLeaveTRList.Size = new System.Drawing.Size(21, 20);
+            this.picDownloadLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picDownloadLeaveTRList.TabIndex = 24;
+            this.picDownloadLeaveTRList.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox3.Image = global::StaffSync.Properties.Resources.mail01;
+            this.pictureBox3.Location = new System.Drawing.Point(1140, 73);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(23, 22);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 23;
+            this.pictureBox3.TabStop = false;
+            // 
+            // picRefreshLeaveTRList
+            // 
+            this.picRefreshLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picRefreshLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picRefreshLeaveTRList.Image = global::StaffSync.Properties.Resources.refresh01;
+            this.picRefreshLeaveTRList.Location = new System.Drawing.Point(1165, 73);
+            this.picRefreshLeaveTRList.Name = "picRefreshLeaveTRList";
+            this.picRefreshLeaveTRList.Size = new System.Drawing.Size(23, 22);
+            this.picRefreshLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRefreshLeaveTRList.TabIndex = 22;
+            this.picRefreshLeaveTRList.TabStop = false;
             // 
             // lstLeaveTRList
             // 
@@ -1911,6 +2034,42 @@
             this.tabBankAccountInfo1.Text = "Bank Account Info";
             this.tabBankAccountInfo1.ToolTipTitle = "Page ToolTip";
             this.tabBankAccountInfo1.UniqueName = "65732864bdb8420db5bf9336859ef228";
+            // 
+            // picDownloadBankList
+            // 
+            this.picDownloadBankList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picDownloadBankList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picDownloadBankList.Image = global::StaffSync.Properties.Resources.download01;
+            this.picDownloadBankList.Location = new System.Drawing.Point(1117, 73);
+            this.picDownloadBankList.Name = "picDownloadBankList";
+            this.picDownloadBankList.Size = new System.Drawing.Size(21, 20);
+            this.picDownloadBankList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picDownloadBankList.TabIndex = 27;
+            this.picDownloadBankList.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox4.Image = global::StaffSync.Properties.Resources.mail01;
+            this.pictureBox4.Location = new System.Drawing.Point(1140, 72);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(23, 22);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 26;
+            this.pictureBox4.TabStop = false;
+            // 
+            // picRefreshBankList
+            // 
+            this.picRefreshBankList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picRefreshBankList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picRefreshBankList.Image = global::StaffSync.Properties.Resources.refresh01;
+            this.picRefreshBankList.Location = new System.Drawing.Point(1165, 72);
+            this.picRefreshBankList.Name = "picRefreshBankList";
+            this.picRefreshBankList.Size = new System.Drawing.Size(23, 22);
+            this.picRefreshBankList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRefreshBankList.TabIndex = 25;
+            this.picRefreshBankList.TabStop = false;
             // 
             // lstBankList
             // 
@@ -2037,6 +2196,98 @@
             this.tabSalaryProfile.ToolTipTitle = "Page ToolTip";
             this.tabSalaryProfile.UniqueName = "a3be17479cc34babb98856a79e112ae8";
             // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label44.Location = new System.Drawing.Point(528, 402);
+            this.label44.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(39, 15);
+            this.label44.TabIndex = 67;
+            this.label44.Text = "Total";
+            this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtReimbursement
+            // 
+            this.txtReimbursement.Location = new System.Drawing.Point(875, 395);
+            this.txtReimbursement.Multiline = true;
+            this.txtReimbursement.Name = "txtReimbursement";
+            this.txtReimbursement.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtReimbursement.ReadOnly = true;
+            this.txtReimbursement.Size = new System.Drawing.Size(149, 28);
+            this.txtReimbursement.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReimbursement.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtReimbursement.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReimbursement.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReimbursement.TabIndex = 66;
+            this.txtReimbursement.Text = "0.00";
+            this.txtReimbursement.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtReimbursement.WordWrap = false;
+            // 
+            // txtDeductions
+            // 
+            this.txtDeductions.Location = new System.Drawing.Point(723, 395);
+            this.txtDeductions.Multiline = true;
+            this.txtDeductions.Name = "txtDeductions";
+            this.txtDeductions.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtDeductions.ReadOnly = true;
+            this.txtDeductions.Size = new System.Drawing.Size(151, 28);
+            this.txtDeductions.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDeductions.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtDeductions.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDeductions.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDeductions.TabIndex = 65;
+            this.txtDeductions.Text = "0.00";
+            this.txtDeductions.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDeductions.WordWrap = false;
+            // 
+            // txtAallowences
+            // 
+            this.txtAallowences.Location = new System.Drawing.Point(571, 395);
+            this.txtAallowences.Multiline = true;
+            this.txtAallowences.Name = "txtAallowences";
+            this.txtAallowences.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtAallowences.ReadOnly = true;
+            this.txtAallowences.Size = new System.Drawing.Size(151, 28);
+            this.txtAallowences.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAallowences.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtAallowences.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAallowences.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAallowences.TabIndex = 64;
+            this.txtAallowences.Text = "0.00";
+            this.txtAallowences.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtAallowences.WordWrap = false;
+            // 
+            // txtNetPayable
+            // 
+            this.txtNetPayable.Location = new System.Drawing.Point(875, 433);
+            this.txtNetPayable.Multiline = true;
+            this.txtNetPayable.Name = "txtNetPayable";
+            this.txtNetPayable.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtNetPayable.ReadOnly = true;
+            this.txtNetPayable.Size = new System.Drawing.Size(148, 28);
+            this.txtNetPayable.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNetPayable.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtNetPayable.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNetPayable.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNetPayable.TabIndex = 63;
+            this.txtNetPayable.Text = "0.00";
+            this.txtNetPayable.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtNetPayable.WordWrap = false;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label45.Location = new System.Drawing.Point(356, 440);
+            this.label45.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(515, 15);
+            this.label45.TabIndex = 62;
+            this.label45.Text = "Net Payable For the Month (Total Earnings - Total Deductions + Reimbursment)";
+            this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // label43
             // 
             this.label43.AutoSize = true;
@@ -2054,6 +2305,7 @@
             this.dtgSalaryProfileDetails.AllowUserToAddRows = false;
             this.dtgSalaryProfileDetails.AllowUserToDeleteRows = false;
             this.dtgSalaryProfileDetails.AllowUserToResizeRows = false;
+            this.dtgSalaryProfileDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dtgSalaryProfileDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgSalaryProfileDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dtgSalaryProfileDetails.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
@@ -2361,256 +2613,6 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
-            // dtgPreviousWorkExp
-            // 
-            this.dtgPreviousWorkExp.AllowUserToAddRows = false;
-            this.dtgPreviousWorkExp.AllowUserToDeleteRows = false;
-            this.dtgPreviousWorkExp.AllowUserToResizeRows = false;
-            this.dtgPreviousWorkExp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgPreviousWorkExp.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dtgPreviousWorkExp.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.dtgPreviousWorkExp.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
-            this.dtgPreviousWorkExp.Location = new System.Drawing.Point(26, 60);
-            this.dtgPreviousWorkExp.Name = "dtgPreviousWorkExp";
-            this.dtgPreviousWorkExp.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.dtgPreviousWorkExp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgPreviousWorkExp.Size = new System.Drawing.Size(1174, 398);
-            this.dtgPreviousWorkExp.TabIndex = 44;
-            this.dtgPreviousWorkExp.DoubleClick += new System.EventHandler(this.dtgPreviousWorkExp_DoubleClick);
-            // 
-            // picEmpPhoto
-            // 
-            this.picEmpPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picEmpPhoto.Location = new System.Drawing.Point(122, 64);
-            this.picEmpPhoto.Name = "picEmpPhoto";
-            this.picEmpPhoto.Size = new System.Drawing.Size(302, 328);
-            this.picEmpPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picEmpPhoto.TabIndex = 21;
-            this.picEmpPhoto.TabStop = false;
-            // 
-            // picRepEmpPhoto
-            // 
-            this.picRepEmpPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picRepEmpPhoto.Location = new System.Drawing.Point(733, 20);
-            this.picRepEmpPhoto.Name = "picRepEmpPhoto";
-            this.picRepEmpPhoto.Size = new System.Drawing.Size(201, 164);
-            this.picRepEmpPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picRepEmpPhoto.TabIndex = 15;
-            this.picRepEmpPhoto.TabStop = false;
-            // 
-            // picPrevExperience
-            // 
-            this.picPrevExperience.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picPrevExperience.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picPrevExperience.Image = global::StaffSync.Properties.Resources.add;
-            this.picPrevExperience.Location = new System.Drawing.Point(27, 29);
-            this.picPrevExperience.Name = "picPrevExperience";
-            this.picPrevExperience.Size = new System.Drawing.Size(23, 22);
-            this.picPrevExperience.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picPrevExperience.TabIndex = 45;
-            this.picPrevExperience.TabStop = false;
-            this.picPrevExperience.Click += new System.EventHandler(this.picPrevExperience_Click);
-            // 
-            // picDownloadDocumentsList
-            // 
-            this.picDownloadDocumentsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picDownloadDocumentsList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picDownloadDocumentsList.Image = global::StaffSync.Properties.Resources.download01;
-            this.picDownloadDocumentsList.Location = new System.Drawing.Point(1049, 24);
-            this.picDownloadDocumentsList.Name = "picDownloadDocumentsList";
-            this.picDownloadDocumentsList.Size = new System.Drawing.Size(21, 20);
-            this.picDownloadDocumentsList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picDownloadDocumentsList.TabIndex = 27;
-            this.picDownloadDocumentsList.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox2.Image = global::StaffSync.Properties.Resources.mail01;
-            this.pictureBox2.Location = new System.Drawing.Point(1072, 23);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(23, 22);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 26;
-            this.pictureBox2.TabStop = false;
-            // 
-            // picRefreshDocumentsList
-            // 
-            this.picRefreshDocumentsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picRefreshDocumentsList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picRefreshDocumentsList.Image = global::StaffSync.Properties.Resources.refresh01;
-            this.picRefreshDocumentsList.Location = new System.Drawing.Point(1097, 23);
-            this.picRefreshDocumentsList.Name = "picRefreshDocumentsList";
-            this.picRefreshDocumentsList.Size = new System.Drawing.Size(23, 22);
-            this.picRefreshDocumentsList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picRefreshDocumentsList.TabIndex = 25;
-            this.picRefreshDocumentsList.TabStop = false;
-            // 
-            // picDownloadLeaveTRList
-            // 
-            this.picDownloadLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picDownloadLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picDownloadLeaveTRList.Image = global::StaffSync.Properties.Resources.download01;
-            this.picDownloadLeaveTRList.Location = new System.Drawing.Point(1117, 74);
-            this.picDownloadLeaveTRList.Name = "picDownloadLeaveTRList";
-            this.picDownloadLeaveTRList.Size = new System.Drawing.Size(21, 20);
-            this.picDownloadLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picDownloadLeaveTRList.TabIndex = 24;
-            this.picDownloadLeaveTRList.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox3.Image = global::StaffSync.Properties.Resources.mail01;
-            this.pictureBox3.Location = new System.Drawing.Point(1140, 73);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(23, 22);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 23;
-            this.pictureBox3.TabStop = false;
-            // 
-            // picRefreshLeaveTRList
-            // 
-            this.picRefreshLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picRefreshLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picRefreshLeaveTRList.Image = global::StaffSync.Properties.Resources.refresh01;
-            this.picRefreshLeaveTRList.Location = new System.Drawing.Point(1165, 73);
-            this.picRefreshLeaveTRList.Name = "picRefreshLeaveTRList";
-            this.picRefreshLeaveTRList.Size = new System.Drawing.Size(23, 22);
-            this.picRefreshLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picRefreshLeaveTRList.TabIndex = 22;
-            this.picRefreshLeaveTRList.TabStop = false;
-            // 
-            // picDownloadBankList
-            // 
-            this.picDownloadBankList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picDownloadBankList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picDownloadBankList.Image = global::StaffSync.Properties.Resources.download01;
-            this.picDownloadBankList.Location = new System.Drawing.Point(1117, 73);
-            this.picDownloadBankList.Name = "picDownloadBankList";
-            this.picDownloadBankList.Size = new System.Drawing.Size(21, 20);
-            this.picDownloadBankList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picDownloadBankList.TabIndex = 27;
-            this.picDownloadBankList.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox4.Image = global::StaffSync.Properties.Resources.mail01;
-            this.pictureBox4.Location = new System.Drawing.Point(1140, 72);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(23, 22);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 26;
-            this.pictureBox4.TabStop = false;
-            // 
-            // picRefreshBankList
-            // 
-            this.picRefreshBankList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picRefreshBankList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picRefreshBankList.Image = global::StaffSync.Properties.Resources.refresh01;
-            this.picRefreshBankList.Location = new System.Drawing.Point(1165, 72);
-            this.picRefreshBankList.Name = "picRefreshBankList";
-            this.picRefreshBankList.Size = new System.Drawing.Size(23, 22);
-            this.picRefreshBankList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picRefreshBankList.TabIndex = 25;
-            this.picRefreshBankList.TabStop = false;
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label44.Location = new System.Drawing.Point(528, 402);
-            this.label44.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(39, 15);
-            this.label44.TabIndex = 67;
-            this.label44.Text = "Total";
-            this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtReimbursement
-            // 
-            this.txtReimbursement.Location = new System.Drawing.Point(875, 395);
-            this.txtReimbursement.Multiline = true;
-            this.txtReimbursement.Name = "txtReimbursement";
-            this.txtReimbursement.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtReimbursement.ReadOnly = true;
-            this.txtReimbursement.Size = new System.Drawing.Size(149, 28);
-            this.txtReimbursement.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtReimbursement.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtReimbursement.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtReimbursement.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtReimbursement.TabIndex = 66;
-            this.txtReimbursement.Text = "0.00";
-            this.txtReimbursement.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtReimbursement.WordWrap = false;
-            // 
-            // txtDeductions
-            // 
-            this.txtDeductions.Location = new System.Drawing.Point(723, 395);
-            this.txtDeductions.Multiline = true;
-            this.txtDeductions.Name = "txtDeductions";
-            this.txtDeductions.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtDeductions.ReadOnly = true;
-            this.txtDeductions.Size = new System.Drawing.Size(151, 28);
-            this.txtDeductions.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDeductions.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtDeductions.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDeductions.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDeductions.TabIndex = 65;
-            this.txtDeductions.Text = "0.00";
-            this.txtDeductions.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtDeductions.WordWrap = false;
-            // 
-            // txtAallowences
-            // 
-            this.txtAallowences.Location = new System.Drawing.Point(571, 395);
-            this.txtAallowences.Multiline = true;
-            this.txtAallowences.Name = "txtAallowences";
-            this.txtAallowences.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtAallowences.ReadOnly = true;
-            this.txtAallowences.Size = new System.Drawing.Size(151, 28);
-            this.txtAallowences.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAallowences.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtAallowences.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAallowences.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAallowences.TabIndex = 64;
-            this.txtAallowences.Text = "0.00";
-            this.txtAallowences.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtAallowences.WordWrap = false;
-            // 
-            // txtNetPayable
-            // 
-            this.txtNetPayable.Location = new System.Drawing.Point(875, 433);
-            this.txtNetPayable.Multiline = true;
-            this.txtNetPayable.Name = "txtNetPayable";
-            this.txtNetPayable.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtNetPayable.ReadOnly = true;
-            this.txtNetPayable.Size = new System.Drawing.Size(148, 28);
-            this.txtNetPayable.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNetPayable.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtNetPayable.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNetPayable.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNetPayable.TabIndex = 63;
-            this.txtNetPayable.Text = "0.00";
-            this.txtNetPayable.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtNetPayable.WordWrap = false;
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label45.Location = new System.Drawing.Point(356, 440);
-            this.label45.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(515, 15);
-            this.label45.TabIndex = 62;
-            this.label45.Text = "Net Payable For the Month (Total Earnings - Total Deductions + Reimbursment)";
-            this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // frmEmployeeMaster
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -2655,10 +2657,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.tabPersonalPhoto)).EndInit();
             this.tabPersonalPhoto.ResumeLayout(false);
             this.tabPersonalPhoto.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabProfessionalInfo)).EndInit();
             this.tabProfessionalInfo.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbNomineeRelationship)).EndInit();
@@ -2669,21 +2673,32 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDesignation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDepartment)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tabEducationalInfo1)).EndInit();
-            this.tabEducationalInfo1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabPreviousExperience1)).EndInit();
             this.tabPreviousExperience1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picPrevExperience)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgPreviousWorkExp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabEducationalInfo1)).EndInit();
+            this.tabEducationalInfo1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tabSkils)).EndInit();
+            this.tabSkils.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabDocuments1)).EndInit();
             this.tabDocuments1.ResumeLayout(false);
             this.tabDocuments1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tabSkils)).EndInit();
-            this.tabSkils.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picDownloadDocumentsList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefreshDocumentsList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabLeaves)).EndInit();
             this.tabLeaves.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefreshLeaveTRList)).EndInit();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabBankAccountInfo1)).EndInit();
             this.tabBankAccountInfo1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picDownloadBankList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefreshBankList)).EndInit();
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabSalaryProfile)).EndInit();
@@ -2708,19 +2723,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.docUploadsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryEmpBirthdayListBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgPreviousWorkExp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picPrevExperience)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDownloadDocumentsList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRefreshDocumentsList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRefreshLeaveTRList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDownloadBankList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRefreshBankList)).EndInit();
             this.ResumeLayout(false);
 
         }

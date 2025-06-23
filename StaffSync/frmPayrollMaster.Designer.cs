@@ -149,7 +149,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(301, 325);
+            this.label5.Location = new System.Drawing.Point(384, 323);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(39, 15);
@@ -159,12 +159,12 @@
             // 
             // txtReimbursement
             // 
-            this.txtReimbursement.Location = new System.Drawing.Point(654, 318);
+            this.txtReimbursement.Location = new System.Drawing.Point(697, 316);
             this.txtReimbursement.Multiline = true;
             this.txtReimbursement.Name = "txtReimbursement";
             this.txtReimbursement.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtReimbursement.ReadOnly = true;
-            this.txtReimbursement.Size = new System.Drawing.Size(149, 28);
+            this.txtReimbursement.Size = new System.Drawing.Size(135, 28);
             this.txtReimbursement.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtReimbursement.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtReimbursement.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -176,12 +176,12 @@
             // 
             // txtDeductions
             // 
-            this.txtDeductions.Location = new System.Drawing.Point(502, 318);
+            this.txtDeductions.Location = new System.Drawing.Point(561, 316);
             this.txtDeductions.Multiline = true;
             this.txtDeductions.Name = "txtDeductions";
             this.txtDeductions.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtDeductions.ReadOnly = true;
-            this.txtDeductions.Size = new System.Drawing.Size(151, 28);
+            this.txtDeductions.Size = new System.Drawing.Size(135, 28);
             this.txtDeductions.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDeductions.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtDeductions.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -193,12 +193,12 @@
             // 
             // txtAallowences
             // 
-            this.txtAallowences.Location = new System.Drawing.Point(350, 318);
+            this.txtAallowences.Location = new System.Drawing.Point(425, 316);
             this.txtAallowences.Multiline = true;
             this.txtAallowences.Name = "txtAallowences";
             this.txtAallowences.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtAallowences.ReadOnly = true;
-            this.txtAallowences.Size = new System.Drawing.Size(151, 28);
+            this.txtAallowences.Size = new System.Drawing.Size(135, 28);
             this.txtAallowences.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAallowences.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtAallowences.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -218,12 +218,12 @@
             // 
             // txtNetPayable
             // 
-            this.txtNetPayable.Location = new System.Drawing.Point(645, 356);
+            this.txtNetPayable.Location = new System.Drawing.Point(697, 354);
             this.txtNetPayable.Multiline = true;
             this.txtNetPayable.Name = "txtNetPayable";
             this.txtNetPayable.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtNetPayable.ReadOnly = true;
-            this.txtNetPayable.Size = new System.Drawing.Size(157, 28);
+            this.txtNetPayable.Size = new System.Drawing.Size(135, 28);
             this.txtNetPayable.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNetPayable.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtNetPayable.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -237,7 +237,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(128, 363);
+            this.label4.Location = new System.Drawing.Point(181, 361);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(515, 15);

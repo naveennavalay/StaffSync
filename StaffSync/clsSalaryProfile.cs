@@ -189,7 +189,7 @@ namespace StaffSync
                         SalProfileID = indSalaryProfileInfo.SalProfileID,
                         HeaderID = indSalaryProfileInfo.HeaderID,
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
-                        SalHeaderType = "Allowences",
+                        HeaderType = "Allowences",
                         AllowanceAmount = 0.00,
                         DeductionAmount = 0.00,
                         ReimbursmentAmount = 0.00
@@ -235,7 +235,7 @@ namespace StaffSync
                         SalProfileID = indSalaryProfileInfo.SalProfileID,
                         HeaderID = indSalaryProfileInfo.HeaderID,
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
-                        SalHeaderType = "Deductions",
+                        HeaderType = "Deductions",
                         AllowanceAmount = 0.00,
                         DeductionAmount = 0.00,
                         ReimbursmentAmount = 0.00
@@ -281,10 +281,95 @@ namespace StaffSync
                         SalProfileID = indSalaryProfileInfo.SalProfileID,
                         HeaderID = indSalaryProfileInfo.HeaderID,
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
-                        SalHeaderType = "Reimbursement",
+                        HeaderType = "Reimbursement",
                         AllowanceAmount = 0.00,
                         DeductionAmount = 0.00,
                         ReimbursmentAmount = 0.00
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return objReturnSalaryProfileInfoList;
+        }
+
+
+
+        public List<SalaryProfileInfo> GetEmployeeSpecificSalaryProfileInfo(int txtEmpID)
+        {
+
+            List<SalaryProfileInfo> objSalaryProfileInfo = new List<SalaryProfileInfo>();
+            List<SalaryProfileInfo> objReturnSalaryProfileInfoList = new List<SalaryProfileInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                        "EmpSalDetails.EmpSalDetID, " + 
+                        "EmpSalDetails.SalProDetID, " +
+                        "EmpSalDetails.EmpSalID as SalProfileID, " +
+                        "EmpSalDetails.SalHeaderID as HeaderID, " +
+                        "EmpSalDetails.SalHeaderTitle as HeaderTitle, " + 
+                        "EmpSalDetails.SalHeaderType as HeaderType, " + 
+                        "EmpSalDetails.AllowanceAmount, " + 
+                        "EmpSalDetails.DeductionAmount, " + 
+                        "EmpSalDetails.ReimbursmentAmount, " + 
+                        "EmpSalDetails.OrderID " + 
+                    "FROM " + 
+                        "EmpSalMas " + 
+                        "INNER JOIN EmpSalDetails ON EmpSalMas.EmpSalID = EmpSalDetails.EmpSalID " + 
+                    "WHERE " + 
+                        "(" + 
+                            "(" + 
+                                "(EmpSalMas.[EmpSalID]) = (" + 
+                                    "SELECT " + 
+                                        "MAX(EmpSalID) " + 
+                                    "FROM " + 
+                                        "EmpSalMas " + 
+                                    "WHERE " + 
+                                        "EmpID = " + txtEmpID + 
+                                        "AND [EmpSalMas].[EmpSalMonthYear] = 'Jan - 1900' " + 
+                                ") " + 
+                            ") " + 
+                        ") " + 
+                    "ORDER BY " + 
+                        "EmpSalDetails.EmpSalDetID, " + 
+                        "EmpSalDetails.OrderID;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objSalaryProfileInfo = JsonConvert.DeserializeObject<List<SalaryProfileInfo>>(DataTableToJSon);
+                foreach (SalaryProfileInfo indSalaryProfileInfo in objSalaryProfileInfo)
+                {
+                    objReturnSalaryProfileInfoList.Add(new SalaryProfileInfo
+                    {
+                        EmpSalDetID = indSalaryProfileInfo.EmpSalDetID,
+                        SalProDetID = indSalaryProfileInfo.SalProDetID,
+                        SalProfileID = indSalaryProfileInfo.SalProfileID,
+                        HeaderID = indSalaryProfileInfo.HeaderID,
+                        HeaderTitle = indSalaryProfileInfo.HeaderTitle,
+                        HeaderType = indSalaryProfileInfo.HeaderType,
+                        AllowanceAmount = indSalaryProfileInfo.AllowanceAmount,
+                        DeductionAmount = indSalaryProfileInfo.DeductionAmount,
+                        ReimbursmentAmount = indSalaryProfileInfo.ReimbursmentAmount,
+                        OrderID = indSalaryProfileInfo.OrderID
                     });
                 }
             }
@@ -351,7 +436,7 @@ namespace StaffSync
         public string HeaderTitle { get; set; }
 
         [DisplayName("Type")]
-        public string SalHeaderType { get; set; }
+        public string HeaderType { get; set; }
 
         [DisplayName("Allowance Amount")]
         public double AllowanceAmount { get; set; }
