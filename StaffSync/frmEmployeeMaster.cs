@@ -1498,7 +1498,7 @@ namespace StaffSync
             dtgSalaryProfileDetails.Columns["SalProfileID"].Visible = false;
             dtgSalaryProfileDetails.Columns["HeaderID"].Visible = false;
             dtgSalaryProfileDetails.Columns["HeaderTitle"].Width = 350;
-            dtgSalaryProfileDetails.Columns["SalHeaderType"].Width = 150;
+            dtgSalaryProfileDetails.Columns["HeaderType"].Width = 150;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].Width = 150;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Format = "c2";
@@ -1524,20 +1524,20 @@ namespace StaffSync
                 dc.Cells["SalProfileID"].ReadOnly = true;
                 dc.Cells["HeaderID"].ReadOnly = true;
                 dc.Cells["HeaderTitle"].ReadOnly = true;
-                dc.Cells["SalHeaderType"].ReadOnly = true;
-                if (dc.Cells["SalHeaderType"].Value.ToString().ToLower() == "allowences")
+                dc.Cells["HeaderType"].ReadOnly = true;
+                if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "allowences")
                 {
                     dc.Cells["AllowanceAmount"].ReadOnly = false;
                     dc.Cells["DeductionAmount"].ReadOnly = true;
                     dc.Cells["ReimbursmentAmount"].ReadOnly = true;
                 }
-                else if (dc.Cells["SalHeaderType"].Value.ToString().ToLower() == "deductions")
+                else if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "deductions")
                 {
                     dc.Cells["AllowanceAmount"].ReadOnly = true;
                     dc.Cells["DeductionAmount"].ReadOnly = false;
                     dc.Cells["ReimbursmentAmount"].ReadOnly = true;
                 }
-                else if (dc.Cells["SalHeaderType"].Value.ToString().ToLower() == "reimbursement")
+                else if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "reimbursement")
                 {
                     dc.Cells["AllowanceAmount"].ReadOnly = true;
                     dc.Cells["DeductionAmount"].ReadOnly = true;
