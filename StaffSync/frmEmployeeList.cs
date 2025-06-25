@@ -23,11 +23,13 @@ namespace StaffSync
         frmLeavesApproval frmLeavesApproval = null;
         frmLeavesReject frmLeaveReject = null;
         frmPayrollMaster frmPayrollInfo = null;
+        frmLeaveStatement frmLeaveStatement = null;
         clsLeaveTRList objLeaveInfo = new clsLeaveTRList();
         clsUserManagement objUsersInfo = new clsUserManagement();
         clsRolesAndResponsibilities objRolesAndResponsibilities = new clsRolesAndResponsibilities();
         clsAppModule objAppModule = new clsAppModule();
         clsEmpPayroll objEmpPayroll = new clsEmpPayroll();
+
 
 
         public frmEmployeeList()
@@ -104,6 +106,12 @@ namespace StaffSync
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
         }
 
+        public frmEmployeeList(frmLeaveStatement frmLeaveStment, string SearchOptionClickedFor)
+        {
+            InitializeComponent();
+            this.frmLeaveStatement = frmLeaveStment;
+            lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+        }
         private void btnCloseMe_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -215,6 +223,21 @@ namespace StaffSync
                 dtgEmployeeList.Columns["EmpSalMonthYear"].Width = 150;
                 dtgEmployeeList.Columns["OrderID"].Visible = false;
             }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listLeaveStatement")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objEmpPayroll.getAllEmployeePayslipList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpSalID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 350;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+                dtgEmployeeList.Columns["EmpSalDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgEmployeeList.Columns["EmpSalDate"].Width = 150;
+                dtgEmployeeList.Columns["EmpSalMonthYear"].Width = 150;
+                dtgEmployeeList.Columns["OrderID"].Visible = false;
+            }
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -272,11 +295,10 @@ namespace StaffSync
             {
                 this.frmPayrollInfo.SelectedEmployeeID("listEmployeesPayslip", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()), Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpSalID"].Value.ToString()));
             }
-
-            
-
-
-
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listLeaveStatement")
+            {
+                this.frmLeaveStatement.SelectedEmployeeID("listLeaveStatement", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+            }
 
             this.Close();
         }

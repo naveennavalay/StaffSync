@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +48,9 @@ namespace StaffSync
                     if (objLogin.AuthenticateUserInfo(txtUserName.Text.ToString(), txtPassword.Text.ToString()))
                     {
                         this.Hide();
+
+                        DirectoryInfo directory = Directory.CreateDirectory(AppVariables.TempFolderPath);
+
                         objCurrentUserInfo = new clsCurrentUserInfo(loginUserInfo.EmpID);
                         frmDashboard objDashboard = new frmDashboard();
                         objDashboard.Show();

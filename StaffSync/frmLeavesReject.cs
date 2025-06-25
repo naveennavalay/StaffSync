@@ -24,7 +24,7 @@ namespace StaffSync
         clsLeaveTypeMas objLeaveTypeInfo = new clsLeaveTypeMas();
         clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
-        clsDownload objDownload = new clsDownload();
+        //Download objDownload = new Download();
         clsPhotoMas objPhotoMas = new clsPhotoMas();
         clsAttendanceMas objAttendanceInfo = new clsAttendanceMas();
 

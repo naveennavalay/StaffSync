@@ -20,13 +20,15 @@ namespace StaffSync
         public int AppModuleID = 0;
         clsCurrentUserInfo objCurrentUserInfo = new clsCurrentUserInfo();
         clsBirthdayList objBirthdayList = new clsBirthdayList();
-        clsDownload objDownload = new clsDownload();
+        //Download objDownload = new Download();
         clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
         clsLeaveTRList objLeaveInfo = new clsLeaveTRList();
+        clsClientInfo objClientInfo = new clsClientInfo();
 
         public frmDashboard()
         {
             InitializeComponent();
+            List<ClientInfo> objActiveClientInfo = objClientInfo.getClientInfo(1);
         }
 
         private void employeeDetailsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -332,8 +334,8 @@ namespace StaffSync
             myStatusBar.Items[0].Text = "User Name : " + CurrentLoggedInUserInfo.UserName.ToString();
             myStatusBar.Items[1].Text = "Log In : " + CurrentLoggedInUserInfo.LoginDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt");
 
-            cmbLeaveApproval.Text = cmbLeaveApproval.ToString() + " (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
-            cmbLeaveReject.Text = cmbLeaveReject.ToString() + " (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
+            cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
+            cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
 
             //lstBirthdayList.Items.Clear();
             //List<BirthdayList> objEmployeesBirthdayList = objBirthdayList.GetEmployeesBirthdayList();
@@ -700,6 +702,8 @@ namespace StaffSync
 
                     frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
                     frmLeavesMasterDetails.ShowDialog();
+                    cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
+                    cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
                     break;
                 case "cmbLeaveApproval":
                     AppModuleID = 5;
@@ -716,6 +720,8 @@ namespace StaffSync
 
                     frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
                     frmLeavesApproval.ShowDialog();
+                    cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
+                    cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
                     break;
                 case "cmbLeaveReject":
                     AppModuleID = 5;
@@ -1063,6 +1069,18 @@ namespace StaffSync
         private void cmbSalaryProfile_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cmbLeaveStatement_Click(object sender, EventArgs e)
+        {
+            frmLeaveStatement frmLeaveStatement = new frmLeaveStatement();
+            frmLeaveStatement.ShowDialog(this);
+        }
+
+        private void tlbCompanyInfo_Click(object sender, EventArgs e)
+        {
+            frmCompanyInfo frmCompanyInfo = new frmCompanyInfo();
+            frmCompanyInfo.ShowDialog(this);
         }
     }
 }

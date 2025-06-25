@@ -43,7 +43,7 @@ namespace StaffSync
         clsPhotoMas objPhotoMas = new clsPhotoMas();
         clsUploadDocuments objUploadDocument = new clsUploadDocuments();
         clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
-        clsDownload objDownload = new clsDownload();
+        //Download objDownload = new Download();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         clsUploadDocuments objUploadedDocuments = new clsUploadDocuments();
         clsBankMas objBankInfo = new clsBankMas();
@@ -239,6 +239,7 @@ namespace StaffSync
             clearControls();
             enableControls();
             txtTotalLeaveAllotment.Enabled = true;
+            txtBalanceLeaveAllotment.Enabled = true;
             lblEmpID.Text = objCountries.getMaxRowCount("EMPMas", "EmpID").ToString();
             txtEmpCode.Text = "EMP-" + (lblEmpID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();            
@@ -513,6 +514,7 @@ namespace StaffSync
             chkSkillsList.Enabled = true;
 
             txtTotalLeaveAllotment.Enabled = false;
+            txtBalanceLeaveAllotment.Enabled = false;
 
             txtBankAccountNumber.Enabled = true;
         }
@@ -567,6 +569,7 @@ namespace StaffSync
             chkSkillsList.Enabled = false;
 
             txtTotalLeaveAllotment.Enabled = false;
+            txtBalanceLeaveAllotment.Enabled = false;
 
             txtBankAccountNumber.Enabled = false;
         }
@@ -662,7 +665,7 @@ namespace StaffSync
 
                     if (tabLeaves.Visible == true)
                     {
-                        int employeeLeaveAllotmentID = objLeaveTRList.InsertDefaultLeaveAllotment(Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToDecimal(txtTotalLeaveAllotment.Text), Convert.ToDecimal(txtTotalLeaveAllotment.Text));
+                        int employeeLeaveAllotmentID = objLeaveTRList.InsertDefaultLeaveAllotment(Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToDecimal(txtTotalLeaveAllotment.Text), Convert.ToDecimal(txtBalanceLeaveAllotment.Text));
                         int employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), 1, DateTime.Now, "By Leave Allotment", DateTime.Now, DateTime.Now, 0, DateTime.Now, "", DateTime.Now, "", Convert.ToInt16(lblEmpID.Text.ToString()));
                     }
 
@@ -781,6 +784,12 @@ namespace StaffSync
                         employeeBankAccountID = objBankInfo.InsertEmployeeBankReference(Convert.ToInt16(lblEmpID.Text.ToString()), txtBankAccountNumber.Text.Trim(), lstBankList.SelectedItems[0].Index + 1, true);
 
                     int employeeSalaryProfileID = objEmployeeSalaryProfileInfo.InsertEmployeeEmployeeSalaryProfileInfo(Convert.ToInt16(lblEmpID.Text.ToString()), cmbSalProfile.SelectedIndex + 1, DateTime.Now);
+
+                    if (tabLeaves.Visible == true)
+                    {
+                        int employeeLeaveAllotmentID = objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToDecimal(txtTotalLeaveAllotment.Text), Convert.ToDecimal(txtBalanceLeaveAllotment.Text));
+                        int employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), 1, DateTime.Now, "By Leave Allotment", DateTime.Now, DateTime.Now, 0, DateTime.Now, "", DateTime.Now, "", Convert.ToInt16(lblEmpID.Text.ToString()));
+                    }
 
                     foreach (DataGridViewRow dc in dtgPreviousWorkExp.Rows)
                     {
@@ -1342,7 +1351,7 @@ namespace StaffSync
 
         private void picDownloadLeaveTRList_Click(object sender, EventArgs e)
         {
-            objDownload.DownloadExcel(lstLeaveTRList);
+            Download.DownloadExcel(lstLeaveTRList);
         }
 
         private void RefreshLeavesHistoryList()
@@ -1365,6 +1374,7 @@ namespace StaffSync
                 lstLeaveTRList.Items.AddRange(new System.Windows.Forms.ListViewItem[] { listViewItem1 });
             }
             txtTotalLeaveAllotment.Text = objLeaveTRList.getBalanceLeave(Convert.ToInt16(lblEmpID.Text)).ToString();
+            txtBalanceLeaveAllotment.Text = txtTotalLeaveAllotment.Text;
         }
 
         private void RefreshUploadedDocumentsList()
@@ -1490,7 +1500,7 @@ namespace StaffSync
 
         private void picDownloadDocumentsList_Click(object sender, EventArgs e)
         {
-            objDownload.DownloadExcel(lstLDocumentsList);
+            Download.DownloadExcel(lstLDocumentsList);
         }
 
         private void lstLDocumentsList_DoubleClick(object sender, EventArgs e)
@@ -1500,7 +1510,7 @@ namespace StaffSync
 
         private void picDownloadBankList_Click(object sender, EventArgs e)
         {
-            objDownload.DownloadExcel(lstBankList);
+            Download.DownloadExcel(lstBankList);
         }
 
         private void picRefreshBankList_Click(object sender, EventArgs e)

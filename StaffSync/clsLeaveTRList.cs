@@ -316,7 +316,7 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE LeaveMas SET BalanceLeaves = " + TotalBalanceLeave + 
+                string strQuery = "UPDATE LeaveMas SET TotalLeaves = " + TotalLeaves + ", BalanceLeaves = " + TotalBalanceLeave + 
                 " WHERE EmpID = " + txtEmpID;
 
                 OleDbCommand cmd = conn.CreateCommand();

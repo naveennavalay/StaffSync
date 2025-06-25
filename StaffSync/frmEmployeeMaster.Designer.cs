@@ -159,6 +159,10 @@
             this.LeaveDuration = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LeaveComments = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label47 = new System.Windows.Forms.Label();
+            this.txtBalanceLeaveAllotment = new Krypton.Toolkit.KryptonTextBox();
+            this.label46 = new System.Windows.Forms.Label();
             this.txtTotalLeaveAllotment = new Krypton.Toolkit.KryptonTextBox();
             this.label40 = new System.Windows.Forms.Label();
             this.tabBankAccountInfo1 = new Krypton.Navigator.KryptonPage();
@@ -1983,6 +1987,10 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.label48);
+            this.groupBox11.Controls.Add(this.label47);
+            this.groupBox11.Controls.Add(this.txtBalanceLeaveAllotment);
+            this.groupBox11.Controls.Add(this.label46);
             this.groupBox11.Controls.Add(this.txtTotalLeaveAllotment);
             this.groupBox11.Controls.Add(this.label40);
             this.groupBox11.Location = new System.Drawing.Point(14, 1);
@@ -1991,6 +1999,57 @@
             this.groupBox11.TabIndex = 15;
             this.groupBox11.TabStop = false;
             // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label48.Location = new System.Drawing.Point(237, 27);
+            this.label48.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(51, 15);
+            this.label48.TabIndex = 17;
+            this.label48.Text = "alloted";
+            this.label48.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label47.Location = new System.Drawing.Point(640, 27);
+            this.label47.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(65, 15);
+            this.label47.TabIndex = 16;
+            this.label47.Text = "available";
+            this.label47.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtBalanceLeaveAllotment
+            // 
+            this.txtBalanceLeaveAllotment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtBalanceLeaveAllotment.Location = new System.Drawing.Point(527, 20);
+            this.txtBalanceLeaveAllotment.Multiline = true;
+            this.txtBalanceLeaveAllotment.Name = "txtBalanceLeaveAllotment";
+            this.txtBalanceLeaveAllotment.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtBalanceLeaveAllotment.Size = new System.Drawing.Size(111, 28);
+            this.txtBalanceLeaveAllotment.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBalanceLeaveAllotment.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtBalanceLeaveAllotment.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBalanceLeaveAllotment.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBalanceLeaveAllotment.TabIndex = 15;
+            this.txtBalanceLeaveAllotment.WordWrap = false;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label46.Location = new System.Drawing.Point(431, 27);
+            this.label46.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(94, 15);
+            this.label46.TabIndex = 14;
+            this.label46.Text = "No. of Leaves";
+            this.label46.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // txtTotalLeaveAllotment
             // 
             this.txtTotalLeaveAllotment.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
@@ -1998,7 +2057,7 @@
             this.txtTotalLeaveAllotment.Multiline = true;
             this.txtTotalLeaveAllotment.Name = "txtTotalLeaveAllotment";
             this.txtTotalLeaveAllotment.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtTotalLeaveAllotment.Size = new System.Drawing.Size(206, 28);
+            this.txtTotalLeaveAllotment.Size = new System.Drawing.Size(111, 28);
             this.txtTotalLeaveAllotment.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalLeaveAllotment.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtTotalLeaveAllotment.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2010,12 +2069,12 @@
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.Location = new System.Drawing.Point(10, 27);
+            this.label40.Location = new System.Drawing.Point(26, 27);
             this.label40.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(109, 15);
+            this.label40.Size = new System.Drawing.Size(96, 15);
             this.label40.TabIndex = 9;
-            this.label40.Text = "Leave Allotment";
+            this.label40.Text = "No. Of Leaves";
             this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tabBankAccountInfo1
@@ -2920,5 +2979,9 @@
         private Krypton.Toolkit.KryptonTextBox txtAallowences;
         private Krypton.Toolkit.KryptonTextBox txtNetPayable;
         private System.Windows.Forms.Label label45;
+        private Krypton.Toolkit.KryptonTextBox txtBalanceLeaveAllotment;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.Label label47;
     }
 }
