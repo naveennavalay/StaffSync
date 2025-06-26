@@ -143,6 +143,13 @@ namespace StaffSync
         {
             this.Cursor = Cursors.WaitCursor;
 
+            if (!ValidateLeaveForm())
+            {
+                this.Cursor = Cursors.Default;
+                return;
+            }
+
+
             if (lblActionMode.Text == "add")
             {
                 int employeeLeaveTRID = 0;
@@ -221,7 +228,6 @@ namespace StaffSync
             errValidator.Clear();
             this.Cursor = Cursors.Default;
         }
-
 
         public void onGenerateButtonClick()
         {
@@ -513,6 +519,72 @@ namespace StaffSync
         private void cmLeaveCancel_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             lblCancelStatus.Text = lstLeaveTRList.SelectedItems[0].SubItems[0].Text.ToString();
+        }
+
+
+        private bool ValidateLeaveForm()
+        {
+            errValidator.Clear();
+            bool isValid = true;
+
+            // Employee must be selected
+            if (string.IsNullOrWhiteSpace(lblEmpID.Text))
+            {
+                errValidator.SetError(txtEmpCode, "Please select an employee.");
+                isValid = false;
+            }
+
+            // Leave type must be selected
+            if (cmbLeaveType.SelectedIndex < 0)
+            {
+                errValidator.SetError(cmbLeaveType, "Please select a leave type.");
+                isValid = false;
+            }
+
+            // Leave date from must be valid
+            DateTime leaveFromDate;
+            if (string.IsNullOrWhiteSpace(txtLeaveDateFrom.Text) || !IsDateTime(txtLeaveDateFrom.Text))
+            {
+                errValidator.SetError(txtLeaveDateFrom, "Enter a valid 'Leave From' date (dd-MM-yyyy).");
+                isValid = false;
+            }
+            else if (!DateTime.TryParseExact(txtLeaveDateFrom.Text, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out leaveFromDate))
+            {
+                errValidator.SetError(txtLeaveDateFrom, "Enter a valid 'Leave From' date (dd-MM-yyyy).");
+                isValid = false;
+            }
+            else if (leaveFromDate.Date < DateTime.Now.Date)
+            {
+                errValidator.SetError(txtLeaveDateFrom, "'Leave From' date cannot be in the past.");
+                isValid = false;
+            }
+
+            // Leave date to must be valid
+            DateTime leaveToDate;
+            if (string.IsNullOrWhiteSpace(txtLeaveDateTo.Text) || !IsDateTime(txtLeaveDateTo.Text))
+            {
+                errValidator.SetError(txtLeaveDateTo, "Enter a valid 'Leave To' date (dd-MM-yyyy).");
+                isValid = false;
+            }
+            else if (!DateTime.TryParseExact(txtLeaveDateTo.Text, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out leaveToDate))
+            {
+                errValidator.SetError(txtLeaveDateTo, "Enter a valid 'Leave To' date (dd-MM-yyyy).");
+                isValid = false;
+            }
+            else if (leaveToDate.Date < DateTime.Now.Date)
+            {
+                errValidator.SetError(txtLeaveDateTo, "'Leave To' date cannot be in the past.");
+                isValid = false;
+            }
+
+            // Actual leave days must be a positive number
+            if (string.IsNullOrWhiteSpace(txtActualLeaveDays.Text) || !decimal.TryParse(txtActualLeaveDays.Text, out decimal leaveDays) || leaveDays <= 0)
+            {
+                errValidator.SetError(txtActualLeaveDays, "Enter a valid number of leave days.");
+                isValid = false;
+            }
+
+            return isValid;
         }
     }
 }
