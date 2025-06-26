@@ -56,13 +56,13 @@ namespace StaffSync
                 List<UserInfo> objUserInfo = JsonConvert.DeserializeObject<List<UserInfo>>(DataTableToJSon);
                 if (objUserInfo.Count > 0)
                 {
-                    CurrentLoggedInUserInfo.EmpID = objUserInfo[0].EmpID;
-                    CurrentLoggedInUserInfo.UserID = objUserInfo[0].UserID;
-                    CurrentLoggedInUserInfo.UserMailID= objUserInfo[0].EmpUserName;
-                    CurrentLoggedInUserInfo.UserPassword = objUserInfo[0].EmpPassword;
-                    CurrentLoggedInUserInfo.IsActive = objUserInfo[0].IsActive;
-                    CurrentLoggedInUserInfo.IsDeleted = objUserInfo[0].IsDeleted;
-                    CurrentLoggedInUserInfo.IsLocked = objUserInfo[0].IsLocked;
+                    clsCurrentUser.EmpID = objUserInfo[0].EmpID;
+                    clsCurrentUser.UserID = objUserInfo[0].UserID;
+                    clsCurrentUser.UserMailID= objUserInfo[0].EmpUserName;
+                    clsCurrentUser.UserPassword = objUserInfo[0].EmpPassword;
+                    clsCurrentUser.IsActive = objUserInfo[0].IsActive;
+                    clsCurrentUser.IsDeleted = objUserInfo[0].IsDeleted;
+                    clsCurrentUser.IsLocked = objUserInfo[0].IsLocked;
                 }
             }
             catch (Exception ex)
@@ -75,16 +75,16 @@ namespace StaffSync
                 conn = objDBClass.closeDBConnection();
             }
 
-            EmployeeInfo objSelectedEmployeeInfo = objEmployeeInfo.GetSelectedEmployeeInfo(CurrentLoggedInUserInfo.EmpID);
+            EmployeeInfo objSelectedEmployeeInfo = objEmployeeInfo.GetSelectedEmployeeInfo(clsCurrentUser.EmpID);
             if (objSelectedEmployeeInfo != null)
             {
-                CurrentLoggedInUserInfo.UserName = objSelectedEmployeeInfo.EmpName;
-                CurrentLoggedInUserInfo.DesignationTitle = objDesignation.GetDesignationByID(objSelectedEmployeeInfo.EmpDesignationID);
-                CurrentLoggedInUserInfo.DepartmentTitle = objDepartment.GetDepartmentTitleByID(objSelectedEmployeeInfo.DepartmentID);
+                clsCurrentUser.UserName = objSelectedEmployeeInfo.EmpName;
+                clsCurrentUser.DesignationTitle = objDesignation.GetDesignationByID(objSelectedEmployeeInfo.EmpDesignationID);
+                clsCurrentUser.DepartmentTitle = objDepartment.GetDepartmentTitleByID(objSelectedEmployeeInfo.DepartmentID);
             }
 
-            CurrentLoggedInUserInfo.LoginDateTime = DateTime.Now;
-            CurrentLoggedInUserInfo.LogoutDateTime = DateTime.Now;
+            clsCurrentUser.LoginDateTime = DateTime.Now;
+            clsCurrentUser.LogoutDateTime = DateTime.Now;
         }
 
         public bool UserModuleAccessInfo(int txtUserID, int txtAppModuleID)
@@ -114,12 +114,12 @@ namespace StaffSync
                 List<UserAppModuleInfo> objUserInfo = JsonConvert.DeserializeObject<List<UserAppModuleInfo>>(DataTableToJSon);
                 if (objUserInfo.Count > 0)
                 {
-                    CurrentLoggedInUserInfo.ModuleID = objUserInfo[0].ModuleID;
-                    CurrentLoggedInUserInfo.ModuleTitle = objAppModule.GetModuleTitleByID(objUserInfo[0].ModuleID);
+                    clsCurrentUser.ModuleID = objUserInfo[0].ModuleID;
+                    clsCurrentUser.ModuleTitle = objAppModule.GetModuleTitleByID(objUserInfo[0].ModuleID);
                 }
                 else
                 {
-                    CurrentLoggedInUserInfo.ModuleID = 0;
+                    clsCurrentUser.ModuleID = 0;
                 }
             }
             catch (Exception ex)
@@ -161,12 +161,12 @@ namespace StaffSync
                 List<UserRoles> objUserInfo = JsonConvert.DeserializeObject<List<UserRoles>>(DataTableToJSon);
                 if (objUserInfo.Count > 0)
                 {
-                    CurrentLoggedInUserInfo.RoleID = objUserInfo[0].RoleID;
-                    CurrentLoggedInUserInfo.RoleTItle = objRoles.GetRoleTitleByID(objUserInfo[0].RoleID);
+                    clsCurrentUser.RoleID = objUserInfo[0].RoleID;
+                    clsCurrentUser.RoleTItle = objRoles.GetRoleTitleByID(objUserInfo[0].RoleID);
                 }
                 else
                 {
-                    CurrentLoggedInUserInfo.RoleID = 0;
+                    clsCurrentUser.RoleID = 0;
                 }
             }
             catch (Exception ex)

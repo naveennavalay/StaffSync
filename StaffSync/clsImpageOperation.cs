@@ -26,7 +26,7 @@ namespace StaffSync
         }
 
         // Convert an image into a byte array.
-        public byte[] ImageToBytes(Image image, ImageFormat format, bool Overwrite)
+        public byte[] ImageToBytes(System.Drawing.Image image, ImageFormat format, bool Overwrite)
         {
             using (MemoryStream image_stream = new MemoryStream())
             {

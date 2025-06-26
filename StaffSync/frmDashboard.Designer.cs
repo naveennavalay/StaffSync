@@ -74,6 +74,11 @@
             this.kryptonPanel3 = new Krypton.Toolkit.KryptonPanel();
             this.kryptonDataGridView3 = new Krypton.Toolkit.KryptonDataGridView();
             this.kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
+            this.cmMyOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmbLeavesInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbApplyLeave = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbIndividualLeaveStatement = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.qryRoleProfileBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
@@ -130,6 +135,7 @@
             this.cmbReimbursmentList = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbPayrollSystem = new System.Windows.Forms.ToolStripMenuItem();
             this.batchPayrollSystemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbUpdateAddressInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
@@ -180,6 +186,7 @@
             this.kryptonPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonDataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel4)).BeginInit();
+            this.cmMyOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             this.SuspendLayout();
@@ -566,6 +573,50 @@
             this.kryptonPanel4.Size = new System.Drawing.Size(570, 231);
             this.kryptonPanel4.TabIndex = 1;
             // 
+            // cmMyOptions
+            // 
+            this.cmMyOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.cmMyOptions.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.cmMyOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmbUpdateAddressInfo,
+            this.cmbLeavesInfo});
+            this.cmMyOptions.Name = "cmDatamartList01";
+            this.cmMyOptions.Size = new System.Drawing.Size(199, 70);
+            this.cmMyOptions.Tag = "cmMyOptions";
+            this.cmMyOptions.Text = "cmMyOptions";
+            // 
+            // cmbLeavesInfo
+            // 
+            this.cmbLeavesInfo.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmbApplyLeave,
+            this.toolStripSeparator3,
+            this.cmbIndividualLeaveStatement});
+            this.cmbLeavesInfo.Name = "cmbLeavesInfo";
+            this.cmbLeavesInfo.Size = new System.Drawing.Size(198, 22);
+            this.cmbLeavesInfo.Tag = "cmbLeavesInfo";
+            this.cmbLeavesInfo.Text = "Leaves Information";
+            // 
+            // cmbApplyLeave
+            // 
+            this.cmbApplyLeave.Name = "cmbApplyLeave";
+            this.cmbApplyLeave.Size = new System.Drawing.Size(180, 22);
+            this.cmbApplyLeave.Tag = "cmbApplyLeave";
+            this.cmbApplyLeave.Text = "Apply Leave";
+            this.cmbApplyLeave.Click += new System.EventHandler(this.cmbApplyLeave_Click);
+            // 
+            // cmbIndividualLeaveStatement
+            // 
+            this.cmbIndividualLeaveStatement.Name = "cmbIndividualLeaveStatement";
+            this.cmbIndividualLeaveStatement.Size = new System.Drawing.Size(180, 22);
+            this.cmbIndividualLeaveStatement.Tag = "cmbIndividualLeaveStatement";
+            this.cmbIndividualLeaveStatement.Text = "Leave Statement";
+            this.cmbIndividualLeaveStatement.Click += new System.EventHandler(this.cmbIndividualLeaveStatement_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            // 
             // qryRoleProfileBindingSource
             // 
             this.qryRoleProfileBindingSource.DataMember = "qryRoleProfile";
@@ -593,6 +644,8 @@
             // 
             // tlbMyOptions
             // 
+            this.tlbMyOptions.ButtonType = Krypton.Ribbon.GroupButtonType.DropDown;
+            this.tlbMyOptions.ContextMenuStrip = this.cmMyOptions;
             this.tlbMyOptions.ImageLarge = global::StaffSync.Properties.Resources.myOptions;
             this.tlbMyOptions.ImageSmall = global::StaffSync.Properties.Resources.myOptions;
             this.tlbMyOptions.TextLine1 = "My Options";
@@ -959,6 +1012,15 @@
             this.batchPayrollSystemToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.batchPayrollSystemToolStripMenuItem.Text = "Batch Payroll System";
             // 
+            // cmbUpdateAddressInfo
+            // 
+            this.cmbUpdateAddressInfo.Image = global::StaffSync.Properties.Resources.attendance;
+            this.cmbUpdateAddressInfo.Name = "cmbUpdateAddressInfo";
+            this.cmbUpdateAddressInfo.Size = new System.Drawing.Size(198, 22);
+            this.cmbUpdateAddressInfo.Tag = "cmbUpdateAddressInfo";
+            this.cmbUpdateAddressInfo.Text = "Update My Information";
+            this.cmbUpdateAddressInfo.Click += new System.EventHandler(this.cmbUpdateAddressInfo_Click);
+            // 
             // kryptonRibbonGroupButton5
             // 
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
@@ -1030,6 +1092,7 @@
             this.kryptonPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonDataGridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel4)).EndInit();
+            this.cmMyOptions.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             this.ResumeLayout(false);
@@ -1139,6 +1202,12 @@
         private Krypton.Ribbon.KryptonRibbonGroup kryptonRibbonGroup5;
         private Krypton.Ribbon.KryptonRibbonGroupTriple kryptonRibbonGroupTriple11;
         private Krypton.Ribbon.KryptonRibbonGroupButton tlbMyOptions;
+        private System.Windows.Forms.ContextMenuStrip cmMyOptions;
+        private System.Windows.Forms.ToolStripMenuItem cmbUpdateAddressInfo;
+        private System.Windows.Forms.ToolStripMenuItem cmbLeavesInfo;
+        private System.Windows.Forms.ToolStripMenuItem cmbApplyLeave;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem cmbIndividualLeaveStatement;
     }
 }
 

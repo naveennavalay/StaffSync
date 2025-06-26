@@ -52,6 +52,8 @@ namespace StaffSync
                         DirectoryInfo directory = Directory.CreateDirectory(AppVariables.TempFolderPath);
 
                         objCurrentUserInfo = new clsCurrentUserInfo(loginUserInfo.EmpID);
+
+                        objLogin.getLoggedInUserInfo(loginUserInfo.EmpID);
                         frmDashboard objDashboard = new frmDashboard();
                         objDashboard.Show();
                     }

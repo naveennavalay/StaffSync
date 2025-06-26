@@ -40,10 +40,10 @@ namespace StaffSync
         {
             AppModuleID = 2;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -58,10 +58,10 @@ namespace StaffSync
         {
             AppModuleID = 4;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -76,10 +76,10 @@ namespace StaffSync
         {
             AppModuleID = 3;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -94,10 +94,10 @@ namespace StaffSync
         {
             AppModuleID = 5;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -184,10 +184,10 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -207,10 +207,10 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -225,10 +225,10 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -243,10 +243,10 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -261,10 +261,10 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -279,10 +279,10 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -297,10 +297,10 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -315,10 +315,10 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -331,8 +331,8 @@ namespace StaffSync
 
         private void frmDashboard_Load(object sender, EventArgs e)
         {
-            myStatusBar.Items[0].Text = "User Name : " + CurrentLoggedInUserInfo.UserName.ToString();
-            myStatusBar.Items[1].Text = "Log In : " + CurrentLoggedInUserInfo.LoginDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt");
+            myStatusBar.Items[0].Text = "User Name : " + clsCurrentUser.UserName.ToString();
+            myStatusBar.Items[1].Text = "Log In : " + clsCurrentUser.LoginDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt");
 
             cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
             cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
@@ -444,10 +444,10 @@ namespace StaffSync
         {
             AppModuleID = 5;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -461,10 +461,10 @@ namespace StaffSync
         {
             AppModuleID = 9;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -478,10 +478,10 @@ namespace StaffSync
         {
             AppModuleID = 9;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -495,10 +495,10 @@ namespace StaffSync
         {
             AppModuleID = 9;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -512,10 +512,10 @@ namespace StaffSync
         {
             AppModuleID = 6;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -527,10 +527,10 @@ namespace StaffSync
         {
             AppModuleID = 6;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -542,10 +542,10 @@ namespace StaffSync
         {
             AppModuleID = 8;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -570,10 +570,10 @@ namespace StaffSync
         {
             AppModuleID = 2;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -596,10 +596,10 @@ namespace StaffSync
                 case "cmbManageUsers":
                     AppModuleID = 9;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -612,10 +612,10 @@ namespace StaffSync
                 case "cmbRoleAssignment":
                     AppModuleID = 9;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -628,10 +628,10 @@ namespace StaffSync
                 case "cmbModuleAssignment":
                     AppModuleID = 9;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -644,10 +644,10 @@ namespace StaffSync
                 case "cmbRoleProfilement":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -667,10 +667,10 @@ namespace StaffSync
                 case "cmbManageEmployeeAttendance":
                     AppModuleID = 4;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -690,10 +690,10 @@ namespace StaffSync
                 case "cmbLeaveRequest":
                     AppModuleID = 5;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -708,10 +708,10 @@ namespace StaffSync
                 case "cmbLeaveApproval":
                     AppModuleID = 5;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -726,10 +726,10 @@ namespace StaffSync
                 case "cmbLeaveReject":
                     AppModuleID = 5;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -760,10 +760,10 @@ namespace StaffSync
                 case "cmbCompanyList":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -776,10 +776,10 @@ namespace StaffSync
                 case "cmbEducationList":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -792,10 +792,10 @@ namespace StaffSync
                 case "cmbSkillsList":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -808,10 +808,10 @@ namespace StaffSync
                 case "cmbDepartmentList":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -824,10 +824,10 @@ namespace StaffSync
                 case "cmbDesignationList":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -840,10 +840,10 @@ namespace StaffSync
                 case "cmbCountriesList":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -856,10 +856,10 @@ namespace StaffSync
                 case "cmbStatesList":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -872,10 +872,10 @@ namespace StaffSync
                 case "cmbRelationshipList":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -889,10 +889,10 @@ namespace StaffSync
                 case "cmbSalaryProfile":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-                    if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                    if (clsCurrentUser.ModuleID != AppModuleID)
                     {
-                        if (CurrentLoggedInUserInfo.ModuleID != 1)
+                        if (clsCurrentUser.ModuleID != 1)
                         {
                             MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
@@ -909,10 +909,10 @@ namespace StaffSync
         {
             AppModuleID = 9;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -926,10 +926,10 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -944,10 +944,10 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -962,10 +962,10 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -980,10 +980,10 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -998,10 +998,10 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -1016,10 +1016,10 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -1034,10 +1034,10 @@ namespace StaffSync
         {
             AppModuleID = 3;
 
-            objCurrentUserInfo.UserModuleAccessInfo(CurrentLoggedInUserInfo.EmpID, AppModuleID);
-            if (CurrentLoggedInUserInfo.ModuleID != AppModuleID)
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
             {
-                if (CurrentLoggedInUserInfo.ModuleID != 1)
+                if (clsCurrentUser.ModuleID != 1)
                 {
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -1081,6 +1081,24 @@ namespace StaffSync
         {
             frmCompanyInfo frmCompanyInfo = new frmCompanyInfo();
             frmCompanyInfo.ShowDialog(this);
+        }
+
+        private void cmbUpdateAddressInfo_Click(object sender, EventArgs e)
+        {
+            frmUpdateCurrentUserInfo frmUpdateCurrentUserInfo = new frmUpdateCurrentUserInfo();
+            frmUpdateCurrentUserInfo.ShowDialog(this);
+        }
+
+        private void cmbApplyLeave_Click(object sender, EventArgs e)
+        {
+            frmCurrentUserLeaveMaster frmCurrentUserLeaveMaster = new frmCurrentUserLeaveMaster();
+            frmCurrentUserLeaveMaster.ShowDialog(this);
+        }
+
+        private void cmbIndividualLeaveStatement_Click(object sender, EventArgs e)
+        {
+            frmLeaveStatement frmLeaveStatement = new frmLeaveStatement();
+            frmLeaveStatement.ShowDialog(this);
         }
     }
 }

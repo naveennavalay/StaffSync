@@ -158,6 +158,111 @@ namespace StaffSync
             return dt;
         }
 
+
+        public List<LoggedInUser> getMyEmployeeInformation(int txtEmpID)
+        {
+            List<LoggedInUser> objEmployeePaySlipList = new List<LoggedInUser>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " +
+                                        "EmpMas.EmpID, " +
+                                        "EmpMas.EmpCode, " +
+                                        "EmpMas.EmpName, " +
+                                        "DesigMas.DesignationTitle, " +
+                                        "DepMas.DepartmentTitle, " +
+                                        "BloodGroupMas.BloodGroupTitle, " +
+                                        "PersonalInfoMas.DOB AS DOB, " +
+                                        "PersonalInfoMas.DOJ AS DOJ, " +
+                                        "AddressMas.Address1, " +
+                                        "AddressMas.Address2, " +
+                                        "AddressMas.Area, " +
+                                        "AddressMas.City, " +
+                                        "StateMas.StateTitle, " +
+                                        "AddressMas.PIN, " +
+                                        "CountryMas.CountryTitle, " +
+                                        "SexMas.SexTitle, " +
+                                        "NomineeMas.NomineePerson, " +
+                                        "RelationShipMas.RelationShipTitle, " +
+                                        "PersonalInfoMas.ContactNumber1, " +
+                                        "PersonalInfoMas.ContactNumber2, " +
+                                        "EmpBankInfo.EmpACNumber, " +
+                                        "BankMasInfo.BankName, " +
+                                        "BankMasInfo.BankAddress, " +
+                                        "BankMasInfo.IFSCCode, " +
+                                        "LeaveMas.BalanceLeaves " +
+                                    "FROM " +
+                                        "(" +
+                                            "RelationShipMas " +
+                                            "INNER JOIN(" +
+                                                "(" +
+                                                    "StateMas " +
+                                                    "INNER JOIN ( " +
+                                                        "SexMas " +
+                                                        "INNER JOIN ( " +
+                                                            "(" +
+                                                                "(" +
+                                                                    "DesigMas " +
+                                                                    "INNER JOIN ( " +
+                                                                        "DepMas " +
+                                                                        "INNER JOIN ( " +
+                                                                            "BloodGroupMas " +
+                                                                            "INNER JOIN EmpMas ON BloodGroupMas.BloodGroupID = EmpMas.BloodGroupID " +
+                                                                        ") ON DepMas.DepartmentID = EmpMas.DepartmentID " +
+                                                                    ") ON DesigMas.DesignationID = EmpMas.EmpDesignationID " +
+                                                                ") " +
+                                                                "INNER JOIN LeaveMas ON EmpMas.EmpID = LeaveMas.EmpID " +
+                                                            ") " +
+                                                            "INNER JOIN(" +
+                                                                "CountryMas " +
+                                                                "INNER JOIN ( " +
+                                                                    "AddressMas " +
+                                                                    "INNER JOIN PersonalInfoMas ON AddressMas.AddressID = PersonalInfoMas.PerAddressID " +
+                                                                ") ON CountryMas.CountryID = AddressMas.CountryID " +
+                                                            ") ON EmpMas.EmpID = PersonalInfoMas.EmpID " +
+                                                        ") ON SexMas.SexID = PersonalInfoMas.SexID " +
+                                                    ") ON StateMas.StateID = AddressMas.StateID " +
+                                                ") " +
+                                                "INNER JOIN NomineeMas ON EmpMas.EmpID = NomineeMas.EmpID " +
+                                            ") ON RelationShipMas.RelationShipID = NomineeMas.RelationShipID " +
+                                        ") " +
+                                        "INNER JOIN ( " +
+                                            "BankMasInfo " +
+                                            "INNER JOIN EmpBankInfo ON BankMasInfo.BankID = EmpBankInfo.BankID " +
+                                        ") ON EmpMas.EmpID = EmpBankInfo.EmpID " +
+                                    "WHERE " +
+                                        "(((EmpMas.EmpID) = " + txtEmpID + ")); ";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeePaySlipList = JsonConvert.DeserializeObject<List<LoggedInUser>>(DataTableToJSon);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return objEmployeePaySlipList;
+        }
+
         public EmployeeInfo GetSelectedEmployeeInfo(int EmployeeID)
         {
             EmployeeInfo employeeInfo = new EmployeeInfo();

@@ -513,11 +513,11 @@ namespace StaffSync
         {
             var employeeInfo = new Dictionary<string, string>
             {
-                { "Employee Code", txtEmpCode.Text },
-                { "Employee Name", txtEmployeeName.Text },
-                { "Department", cmbDepartment.Text  },
-                { "Designation", cmbDesignation.Text },
-                { "Date Of Joining", "01-Jan-2023" }
+                { "Employee Code", CurrentUser.EmpCode },
+                { "Employee Name", CurrentUser.EmpName },
+                { "Department", CurrentUser.DepartmentTitle },
+                { "Designation", CurrentUser.DesignationTitle },
+                { "Date Of Joining", CurrentUser.DOJ.ToString("dd-MMM-yyyy") }
             };
 
             // Create a 4-column table (Title: Value | Title: Value)
@@ -526,22 +526,22 @@ namespace StaffSync
             empInfoTable.SpacingAfter = 10f;
             empInfoTable.SetWidths(new float[] { 1.5f, 2.5f, 1.5f, 2.5f });
 
-            iTextSharp.text.Font labelFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
-            iTextSharp.text.Font valueFont = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            iTextSharp.text.Font labelFont = FontFactory.GetFont(FontFactory.TIMES, 10);
+            iTextSharp.text.Font valueFont = FontFactory.GetFont(FontFactory.TIMES, 10);
 
             // Convert dictionary to pairs and add cells
             var keys = new List<string>(employeeInfo.Keys);
             for (int i = 0; i < keys.Count;)
             {
                 // First pair
-                empInfoTable.AddCell(new Phrase((keys[i]) + ":", labelFont));
+                empInfoTable.AddCell(new Phrase((keys[i]), labelFont));
                 empInfoTable.AddCell(new Phrase(employeeInfo[keys[i]], valueFont));
                 i++;
 
                 // Second pair (if exists)
                 if (i < keys.Count)
                 {
-                    empInfoTable.AddCell(new Phrase(keys[i] + ":", labelFont));
+                    empInfoTable.AddCell(new Phrase(keys[i], labelFont));
                     empInfoTable.AddCell(new Phrase(employeeInfo[keys[i]], valueFont));
                     i++;
                 }
@@ -555,7 +555,7 @@ namespace StaffSync
 
             var leaveTable = new TableData
             {
-                Title = "Leave Records",
+                Title = "Leave Statements",
                 Columns = new List<string>
                 {
                     "Leave Type", "Leave From", "Leave To", "Leave Duration", "Comments", "Leave Status"

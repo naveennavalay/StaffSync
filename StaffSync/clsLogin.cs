@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using C1.Framework;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Drawing.Imaging;
@@ -150,6 +152,136 @@ namespace StaffSync
             }
 
             return userInfo;
+        }
+
+        public void getLoggedInUserInfo(int txtEmpID)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " +
+                                        "EmpMas.EmpID, " + 
+                                        "EmpMas.EmpCode, " + 
+                                        "EmpMas.EmpName, " + 
+                                        "DesigMas.DesignationTitle, " + 
+                                        "DepMas.DepartmentTitle, " + 
+                                        "BloodGroupMas.BloodGroupTitle, " + 
+                                        "PersonalInfoMas.DOB, " + 
+                                        "PersonalInfoMas.DOJ, " + 
+                                        "AddressMas.Address1, " + 
+                                        "AddressMas.Address2, " + 
+                                        "AddressMas.Area, " + 
+                                        "AddressMas.City, " + 
+                                        "StateMas.StateTitle, " + 
+                                        "AddressMas.PIN, " + 
+                                        "CountryMas.CountryTitle, " + 
+                                        "SexMas.SexTitle, " + 
+                                        "NomineeMas.NomineePerson, " + 
+                                        "RelationShipMas.RelationShipTitle, " + 
+                                        "PersonalInfoMas.ContactNumber1, " + 
+                                        "PersonalInfoMas.ContactNumber2, " + 
+                                        "EmpBankInfo.EmpACNumber, " + 
+                                        "BankMasInfo.BankName, " + 
+                                        "BankMasInfo.BankAddress, " + 
+                                        "BankMasInfo.IFSCCode, " + 
+                                        "LeaveMas.BalanceLeaves " + 
+                                    "FROM " + 
+                                        "(" + 
+                                            "RelationShipMas " + 
+                                            "INNER JOIN(" + 
+                                                "(" + 
+                                                    "StateMas " + 
+                                                    "INNER JOIN ( " + 
+                                                        "SexMas " + 
+                                                        "INNER JOIN ( " + 
+                                                            "(" + 
+                                                                "(" + 
+                                                                    "DesigMas " + 
+                                                                    "INNER JOIN ( " + 
+                                                                        "DepMas " + 
+                                                                        "INNER JOIN ( " + 
+                                                                            "BloodGroupMas " + 
+                                                                            "INNER JOIN EmpMas ON BloodGroupMas.BloodGroupID = EmpMas.BloodGroupID " + 
+                                                                        ") ON DepMas.DepartmentID = EmpMas.DepartmentID " + 
+                                                                    ") ON DesigMas.DesignationID = EmpMas.EmpDesignationID " + 
+                                                                ") " + 
+                                                                "INNER JOIN LeaveMas ON EmpMas.EmpID = LeaveMas.EmpID " + 
+                                                            ") " + 
+                                                            "INNER JOIN(" + 
+                                                                "CountryMas " + 
+                                                                "INNER JOIN ( " + 
+                                                                    "AddressMas " + 
+                                                                    "INNER JOIN PersonalInfoMas ON AddressMas.AddressID = PersonalInfoMas.PerAddressID " + 
+                                                                ") ON CountryMas.CountryID = AddressMas.CountryID " + 
+                                                            ") ON EmpMas.EmpID = PersonalInfoMas.EmpID " + 
+                                                        ") ON SexMas.SexID = PersonalInfoMas.SexID " + 
+                                                    ") ON StateMas.StateID = AddressMas.StateID " + 
+                                                ") " + 
+                                                "INNER JOIN NomineeMas ON EmpMas.EmpID = NomineeMas.EmpID " + 
+                                            ") ON RelationShipMas.RelationShipID = NomineeMas.RelationShipID " + 
+                                        ") " + 
+                                        "INNER JOIN ( " + 
+                                            "BankMasInfo " + 
+                                            "INNER JOIN EmpBankInfo ON BankMasInfo.BankID = EmpBankInfo.BankID " + 
+                                        ") ON EmpMas.EmpID = EmpBankInfo.EmpID " + 
+                                    "WHERE " + 
+                                        "(((EmpMas.EmpID) = " + txtEmpID + ")); ";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                List<LoggedInUser> objLoggedInUser = JsonConvert.DeserializeObject<List<LoggedInUser>>(DataTableToJSon);
+                if (objLoggedInUser.Count > 0)
+                {
+                    CurrentUser.EmpID = objLoggedInUser[0].EmpID;
+                    CurrentUser.EmpCode = objLoggedInUser[0].EmpCode;
+                    CurrentUser.EmpName = objLoggedInUser[0].EmpName;
+                    CurrentUser.DesignationTitle = objLoggedInUser[0].DesignationTitle;
+                    CurrentUser.DepartmentTitle = objLoggedInUser[0].DepartmentTitle;
+                    CurrentUser.BloodGroupTitle = objLoggedInUser[0].BloodGroupTitle;
+                    CurrentUser.DOB = objLoggedInUser[0].DOB;
+                    CurrentUser.DOJ = objLoggedInUser[0].DOJ;
+                    CurrentUser.Address1 = objLoggedInUser[0].Address1;
+                    CurrentUser.Address2 = objLoggedInUser[0].Address2;
+                    CurrentUser.Area = objLoggedInUser[0].Area;
+                    CurrentUser.City = objLoggedInUser[0].City;
+                    CurrentUser.StateTitle = objLoggedInUser[0].StateTitle;
+                    CurrentUser.PIN = objLoggedInUser[0].Area;
+                    CurrentUser.CountryTitle = objLoggedInUser[0].CountryTitle;
+                    CurrentUser.SexTitle = objLoggedInUser[0].SexTitle;
+                    CurrentUser.NomineePerson = objLoggedInUser[0].NomineePerson;
+                    CurrentUser.RelationShipTitle = objLoggedInUser[0].RelationShipTitle;
+                    CurrentUser.ContactNumber1 = objLoggedInUser[0].ContactNumber1;
+                    CurrentUser.ContactNumber2 = objLoggedInUser[0].ContactNumber2;
+                    CurrentUser.EmpACNumber = objLoggedInUser[0].EmpACNumber;
+                    CurrentUser.BankName = objLoggedInUser[0].BankName;
+                    CurrentUser.BankAddress = objLoggedInUser[0].BankAddress;
+                    CurrentUser.IFSCCode = objLoggedInUser[0].IFSCCode;
+                    CurrentUser.BalanceLeaves = objLoggedInUser[0].BalanceLeaves;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return;
         }
 
         public int InsertUserInfo(int txtEmpID, bool IsActive, bool IsDeleted, string txtUserPassword)
@@ -340,4 +472,83 @@ namespace StaffSync
         public bool IsDeleted { get; set; }
         public bool IsLocked { get; set; }
     }
+
+    public class LoggedInUser
+    {
+        public  int EmpID { get; set; }
+
+        [DisplayName("Employee Code")]
+        public string EmpCode { get; set; }
+        
+        [DisplayName("Employee Name")] 
+        public string EmpName { get; set; }
+        
+        [DisplayName("Designation")] 
+        public string DesignationTitle { get; set; }
+
+        [DisplayName("Department")]
+        public string DepartmentTitle { get; set; }
+
+        [DisplayName("Blood Group")] 
+        public string BloodGroupTitle { get; set; }
+
+        [DisplayName("Date Of Birth")]
+        public DateTime DOB { get; set; }
+
+        [DisplayName("Date Of Joining")] 
+        public DateTime DOJ { get; set; }
+
+
+        [DisplayName("Address")] 
+        public string Address1 { get; set; }
+
+        [DisplayName("Address")]
+        public string Address2 { get; set; }
+
+        [DisplayName("Area")] 
+        public string Area { get; set; }
+
+        [DisplayName("City")]
+        public string City { get; set; }
+
+        [DisplayName("State")]
+        public string StateTitle { get; set; }
+
+        [DisplayName("PIN")]
+        public string PIN { get; set; }
+
+        [DisplayName("Country")]
+        public string CountryTitle { get; set; }
+
+        [DisplayName("Gender")]
+        public string SexTitle { get; set; }
+
+        [DisplayName("Nominee Name")]
+        public string NomineePerson { get; set; }
+
+        [DisplayName("Relationship")]
+        public string RelationShipTitle { get; set; }
+
+        [DisplayName("Contact Number")]
+        public string ContactNumber1 { get; set; }
+
+        [DisplayName("Mail ID")]
+        public string ContactNumber2 { get; set; }
+
+        [DisplayName("Bank Account Number")]
+        public string EmpACNumber { get; set; }
+
+        [DisplayName("Bank Name")]
+        public string BankName { get; set; }
+
+        [DisplayName("Bank Address")]
+        public string BankAddress { get; set; }
+
+        [DisplayName("Bank IFSC Code")]
+        public string IFSCCode { get; set; }
+
+        [DisplayName("Outstanding Leave Balance")]
+        public decimal BalanceLeaves { get; set; }
+    }
+
 }

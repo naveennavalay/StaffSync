@@ -14,7 +14,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace StaffSync
 {
-    public static class CurrentLoggedInUserInfo
+    public static class clsCurrentUser
     {
         public static int EmpID { get; set; }
         public static int UserID { get; set; }

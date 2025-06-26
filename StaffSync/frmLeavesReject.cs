@@ -152,14 +152,14 @@ namespace StaffSync
                 {
                     for (int iLeaveCounter = 1; iLeaveCounter <= 1; iLeaveCounter++)
                     {
-                        employeeLeaveTRID = objLeaveTRList.RejectLeave(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, CurrentLoggedInUserInfo.UserID);
+                        employeeLeaveTRID = objLeaveTRList.RejectLeave(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, clsCurrentUser.UserID);
                         objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), "Present", Convert.ToInt16(lblLeaveTRID.Text.ToString()));
                     }
                 }
                 else if (Convert.ToDecimal(txtActualLeaveDays.Text) < 0)
                 {
                     txtBalanceLeave.Text = (Convert.ToDecimal(txtBalanceLeave.Text.ToString()) + Convert.ToDecimal(txtActualLeaveDays.Text.ToString())).ToString();
-                    employeeLeaveTRID = objLeaveTRList.ApproveLeave(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, CurrentLoggedInUserInfo.UserID);
+                    employeeLeaveTRID = objLeaveTRList.ApproveLeave(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, clsCurrentUser.UserID);
                     objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), Convert.ToDecimal(txtBalanceLeave.Text));
                     objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), "Leave", Convert.ToInt16(lblLeaveTRID.Text.ToString()));
                 }

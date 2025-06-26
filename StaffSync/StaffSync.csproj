@@ -126,6 +126,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurrentUser.cs" />
     <Compile Include="AppVariables.cs" />
     <Compile Include="clsClientInfo.cs" />
     <Compile Include="clsEmpWorkExperienceInfo.cs" />
@@ -138,7 +139,7 @@
     <Compile Include="clsAuditLog.cs" />
     <Compile Include="AppMail.cs" />
     <Compile Include="clsAttendanceMas.cs" />
-    <Compile Include="CurrentLoggedInUserInfo.cs" />
+    <Compile Include="clsCurrentUser.cs" />
     <Compile Include="clsCurrentUserInfo.cs" />
     <Compile Include="clsRolesAndResponsibilities.cs" />
     <Compile Include="clsAppModule.cs" />
@@ -192,6 +193,18 @@
     </Compile>
     <Compile Include="frmCompanyList.Designer.cs">
       <DependentUpon>frmCompanyList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCurrentUserLeaveMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCurrentUserLeaveMaster.Designer.cs">
+      <DependentUpon>frmCurrentUserLeaveMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUpdateCurrentUserInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUpdateCurrentUserInfo.Designer.cs">
+      <DependentUpon>frmUpdateCurrentUserInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="frmLastCompanySelection.cs">
       <SubType>Form</SubType>
@@ -470,6 +483,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCompanyList.resx">
       <DependentUpon>frmCompanyList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCurrentUserLeaveMaster.resx">
+      <DependentUpon>frmCurrentUserLeaveMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUpdateCurrentUserInfo.resx">
+      <DependentUpon>frmUpdateCurrentUserInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLastCompanySelection.resx">
       <DependentUpon>frmLastCompanySelection.cs</DependentUpon>
