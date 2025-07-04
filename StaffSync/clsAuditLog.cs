@@ -39,7 +39,14 @@ namespace StaffSync
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ex.Message.ToString().ToLower() == "Specified cast is not valid.".ToLower())
+                {
+                    rowCount = 1;
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 conn = objDBClass.closeDBConnection();
             }
             finally

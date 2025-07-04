@@ -26,6 +26,7 @@ namespace StaffSync
         frmLeaveStatement frmLeaveStatement = null;
         frmUpdateCurrentUserInfo frmUpdateCurrentUserInfo = null;
         frmCurrentUserLeaveMaster frmCurrentUserLeaveMaster = null;
+        frmEmpLeaveEntitlement frmEmpLeaveEntitlement = null;
         clsLeaveTRList objLeaveInfo = new clsLeaveTRList();
         clsUserManagement objUsersInfo = new clsUserManagement();
         clsRolesAndResponsibilities objRolesAndResponsibilities = new clsRolesAndResponsibilities();
@@ -129,7 +130,13 @@ namespace StaffSync
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
         }
 
-        
+        public frmEmployeeList(frmEmpLeaveEntitlement frmEmpLeaveEntitlment, string SearchOptionClickedFor)
+        {
+            InitializeComponent();
+            this.frmEmpLeaveEntitlement = frmEmpLeaveEntitlment;
+            lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+        }
+
         private void btnCloseMe_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -183,12 +190,30 @@ namespace StaffSync
             else if (lblSearchOptionClickedFor.Text.Trim() == "listUserModuleAssignment")
             {
                 dtgEmployeeList.DataSource = null;
-                dtgEmployeeList.DataSource = objAppModule.GetDefaultAppModuleInfo();
+                dtgEmployeeList.DataSource = objUsersInfo.GetUserManagementList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 350;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 300;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 300;
+                dtgEmployeeList.Columns["UserID"].Visible = false;
+                dtgEmployeeList.Columns["IsActive"].Visible = false;
+                dtgEmployeeList.Columns["IsDeleted"].Visible = false;
+                dtgEmployeeList.Columns["IsLocked"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listUserRolesAndResponsibilities")
             {
-                dtgEmployeeList.DataSource = null;
-                dtgEmployeeList.DataSource = objLeaveInfo.getPendingLeaveApprovalList();
+                dtgEmployeeList.DataSource = null; 
+                dtgEmployeeList.DataSource = objUsersInfo.GetUserManagementList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 350;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 300;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 300;
+                dtgEmployeeList.Columns["UserID"].Visible = false;
+                dtgEmployeeList.Columns["IsActive"].Visible = false;
+                dtgEmployeeList.Columns["IsDeleted"].Visible = false;
+                dtgEmployeeList.Columns["IsLocked"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listRoleProfileManagement")
             {
@@ -199,6 +224,15 @@ namespace StaffSync
             {
                 dtgEmployeeList.DataSource = null;
                 dtgEmployeeList.DataSource = objUsersInfo.GetUserManagementList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 350;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 300;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 300;
+                dtgEmployeeList.Columns["UserID"].Visible = false;
+                dtgEmployeeList.Columns["IsActive"].Visible = false;
+                dtgEmployeeList.Columns["IsDeleted"].Visible = false;
+                dtgEmployeeList.Columns["IsLocked"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listPayrollUsersList")
             {
@@ -316,6 +350,18 @@ namespace StaffSync
                 dtgEmployeeList.Columns["IFSCCode"].Visible = false;
                 dtgEmployeeList.Columns["BalanceLeaves"].Visible = false;
             }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listEmpLeaveEntitlements")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 350;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 150;
+            }
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -347,7 +393,7 @@ namespace StaffSync
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listUserModuleAssignment")
             {
-                this.frmModuleAssignment.SelectedEmployeeID("listUserModuleAssignment", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["ModuleID"].Value.ToString()));
+                this.frmModuleAssignment.SelectedEmployeeID("listUserModuleAssignment", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listRoleProfileManagement")
             {
@@ -385,10 +431,10 @@ namespace StaffSync
             {
                 this.frmCurrentUserLeaveMaster.SelectedEmployeeID("listApplyLeaveInfo", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
             }
-
-            
-
-
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listEmpLeaveEntitlements")
+            {
+                this.frmEmpLeaveEntitlement.SelectedEmployeeID("listEmpLeaveEntitlements", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+            }
 
             this.Close();
         }

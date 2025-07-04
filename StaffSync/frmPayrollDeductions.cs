@@ -32,6 +32,13 @@ namespace StaffSync
 
         private void btnCloseMe_Click(object sender, EventArgs e)
         {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
             this.Close();
         }
 

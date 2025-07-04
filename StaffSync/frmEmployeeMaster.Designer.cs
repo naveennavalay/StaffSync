@@ -148,6 +148,10 @@
             this.DocPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label23 = new System.Windows.Forms.Label();
             this.tabLeaves = new Krypton.Navigator.KryptonPage();
+            this.txtTotalBalanceLeaves = new Krypton.Toolkit.KryptonTextBox();
+            this.txtTotalLeavesAlloted = new Krypton.Toolkit.KryptonTextBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.dtgLeaveEntitlement = new Krypton.Toolkit.KryptonDataGridView();
             this.picDownloadLeaveTRList = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.picRefreshLeaveTRList = new System.Windows.Forms.PictureBox();
@@ -159,6 +163,7 @@
             this.LeaveDuration = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LeaveComments = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.lblLeaveMasID = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
             this.label47 = new System.Windows.Forms.Label();
             this.txtBalanceLeaveAllotment = new Krypton.Toolkit.KryptonTextBox();
@@ -272,6 +277,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picRefreshDocumentsList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabLeaves)).BeginInit();
             this.tabLeaves.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgLeaveEntitlement)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRefreshLeaveTRList)).BeginInit();
@@ -319,7 +325,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1254, 711);
+            this.splitContainer1.Size = new System.Drawing.Size(1276, 711);
             this.splitContainer1.SplitterDistance = 642;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 0;
@@ -333,7 +339,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1254, 642);
+            this.panel1.Size = new System.Drawing.Size(1276, 642);
             this.panel1.TabIndex = 1;
             // 
             // tabControl1
@@ -392,7 +398,7 @@
             this.tabControl1.PopupPages.Element = Krypton.Navigator.PopupPageElement.Item;
             this.tabControl1.PopupPages.Position = Krypton.Navigator.PopupPagePosition.ModeAppropriate;
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1231, 548);
+            this.tabControl1.Size = new System.Drawing.Size(1252, 548);
             this.tabControl1.TabIndex = 28;
             // 
             // tabPersonalInfo
@@ -407,7 +413,7 @@
             this.tabPersonalInfo.LastVisibleSet = true;
             this.tabPersonalInfo.MinimumSize = new System.Drawing.Size(50, 50);
             this.tabPersonalInfo.Name = "tabPersonalInfo";
-            this.tabPersonalInfo.Size = new System.Drawing.Size(1227, 519);
+            this.tabPersonalInfo.Size = new System.Drawing.Size(1248, 519);
             this.tabPersonalInfo.Text = "Personal Info";
             this.tabPersonalInfo.TextDescription = "";
             this.tabPersonalInfo.ToolTipTitle = "Page ToolTip";
@@ -611,6 +617,7 @@
             this.chkSamePerAddAsCurAdd.TabIndex = 19;
             this.chkSamePerAddAsCurAdd.Text = "Same as Current Address";
             this.chkSamePerAddAsCurAdd.UseVisualStyleBackColor = true;
+            this.chkSamePerAddAsCurAdd.CheckedChanged += new System.EventHandler(this.chkSamePerAddAsCurAdd_CheckedChanged);
             // 
             // lblPermanentAddressID
             // 
@@ -745,6 +752,8 @@
             this.cmbCurrentCountry.Sorted = true;
             this.cmbCurrentCountry.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbCurrentCountry.TabIndex = 40;
+            this.cmbCurrentCountry.SelectedIndexChanged += new System.EventHandler(this.cmbCurrentCountry_SelectedIndexChanged_1);
+            this.cmbCurrentCountry.TextChanged += new System.EventHandler(this.cmbCurrentCountry_SelectedIndexChanged);
             // 
             // txtCurrentPIN
             // 
@@ -759,6 +768,7 @@
             this.txtCurrentPIN.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCurrentPIN.TabIndex = 24;
             this.txtCurrentPIN.WordWrap = false;
+            this.txtCurrentPIN.TextChanged += new System.EventHandler(this.txtCurrentPIN_TextChanged);
             // 
             // txtCurrentState
             // 
@@ -773,6 +783,7 @@
             this.txtCurrentState.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCurrentState.TabIndex = 23;
             this.txtCurrentState.WordWrap = false;
+            this.txtCurrentState.TextChanged += new System.EventHandler(this.txtCurrentState_TextChanged);
             // 
             // txtCurrentCity
             // 
@@ -787,6 +798,7 @@
             this.txtCurrentCity.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCurrentCity.TabIndex = 22;
             this.txtCurrentCity.WordWrap = false;
+            this.txtCurrentCity.TextChanged += new System.EventHandler(this.txtCurrentCity_TextChanged);
             // 
             // txtCurrentArea
             // 
@@ -800,6 +812,7 @@
             this.txtCurrentArea.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCurrentArea.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCurrentArea.TabIndex = 21;
+            this.txtCurrentArea.TextChanged += new System.EventHandler(this.txtCurrentArea_TextChanged);
             // 
             // txtCurrentAddress02
             // 
@@ -814,6 +827,7 @@
             this.txtCurrentAddress02.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCurrentAddress02.TabIndex = 20;
             this.txtCurrentAddress02.WordWrap = false;
+            this.txtCurrentAddress02.TextChanged += new System.EventHandler(this.txtCurrentAddress02_TextChanged);
             // 
             // txtCurrentAddress01
             // 
@@ -828,6 +842,7 @@
             this.txtCurrentAddress01.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCurrentAddress01.TabIndex = 19;
             this.txtCurrentAddress01.WordWrap = false;
+            this.txtCurrentAddress01.TextChanged += new System.EventHandler(this.txtCurrentAddress01_TextChanged);
             // 
             // lblCurrentAddressID
             // 
@@ -1653,7 +1668,7 @@
             this.tabPreviousExperience1.LastVisibleSet = true;
             this.tabPreviousExperience1.MinimumSize = new System.Drawing.Size(150, 50);
             this.tabPreviousExperience1.Name = "tabPreviousExperience1";
-            this.tabPreviousExperience1.Size = new System.Drawing.Size(1227, 519);
+            this.tabPreviousExperience1.Size = new System.Drawing.Size(1248, 519);
             this.tabPreviousExperience1.Text = "Previous Experience";
             this.tabPreviousExperience1.ToolTipTitle = "Page ToolTip";
             this.tabPreviousExperience1.UniqueName = "81b2cded6e5846a29447dc92bed041ab";
@@ -1663,7 +1678,7 @@
             this.picPrevExperience.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picPrevExperience.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picPrevExperience.Image = global::StaffSync.Properties.Resources.add;
-            this.picPrevExperience.Location = new System.Drawing.Point(27, 29);
+            this.picPrevExperience.Location = new System.Drawing.Point(48, 29);
             this.picPrevExperience.Name = "picPrevExperience";
             this.picPrevExperience.Size = new System.Drawing.Size(23, 22);
             this.picPrevExperience.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1697,7 +1712,7 @@
             this.tabEducationalInfo1.LastVisibleSet = true;
             this.tabEducationalInfo1.MinimumSize = new System.Drawing.Size(150, 50);
             this.tabEducationalInfo1.Name = "tabEducationalInfo1";
-            this.tabEducationalInfo1.Size = new System.Drawing.Size(1227, 519);
+            this.tabEducationalInfo1.Size = new System.Drawing.Size(1248, 519);
             this.tabEducationalInfo1.Text = "Educational Info";
             this.tabEducationalInfo1.ToolTipTitle = "Page ToolTip";
             this.tabEducationalInfo1.UniqueName = "f9837b105de44806af73caf55b4bb72c";
@@ -1705,12 +1720,12 @@
             // chkEduQualList
             // 
             this.chkEduQualList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.chkEduQualList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkEduQualList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.chkEduQualList.FormattingEnabled = true;
             this.chkEduQualList.Location = new System.Drawing.Point(16, 19);
             this.chkEduQualList.MultiColumn = true;
             this.chkEduQualList.Name = "chkEduQualList";
-            this.chkEduQualList.Size = new System.Drawing.Size(1195, 480);
+            this.chkEduQualList.Size = new System.Drawing.Size(1195, 466);
             this.chkEduQualList.TabIndex = 2;
             // 
             // tabSkils
@@ -1721,7 +1736,7 @@
             this.tabSkils.LastVisibleSet = true;
             this.tabSkils.MinimumSize = new System.Drawing.Size(150, 50);
             this.tabSkils.Name = "tabSkils";
-            this.tabSkils.Size = new System.Drawing.Size(1227, 519);
+            this.tabSkils.Size = new System.Drawing.Size(1248, 519);
             this.tabSkils.Text = "Skils";
             this.tabSkils.ToolTipTitle = "Page ToolTip";
             this.tabSkils.UniqueName = "b3f0a1ca71964440a67a8ee906695a52";
@@ -1729,12 +1744,12 @@
             // chkSkillsList
             // 
             this.chkSkillsList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.chkSkillsList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkSkillsList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.chkSkillsList.FormattingEnabled = true;
             this.chkSkillsList.Location = new System.Drawing.Point(16, 19);
             this.chkSkillsList.MultiColumn = true;
             this.chkSkillsList.Name = "chkSkillsList";
-            this.chkSkillsList.Size = new System.Drawing.Size(1195, 480);
+            this.chkSkillsList.Size = new System.Drawing.Size(1195, 466);
             this.chkSkillsList.TabIndex = 1;
             // 
             // tabDocuments1
@@ -1750,7 +1765,7 @@
             this.tabDocuments1.LastVisibleSet = true;
             this.tabDocuments1.MinimumSize = new System.Drawing.Size(150, 50);
             this.tabDocuments1.Name = "tabDocuments1";
-            this.tabDocuments1.Size = new System.Drawing.Size(1227, 519);
+            this.tabDocuments1.Size = new System.Drawing.Size(1248, 519);
             this.tabDocuments1.Text = "Documents";
             this.tabDocuments1.ToolTipTitle = "Page ToolTip";
             this.tabDocuments1.UniqueName = "5baf47bf2854455c9b82819d691cfcd5";
@@ -1772,7 +1787,7 @@
             this.picDownloadDocumentsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picDownloadDocumentsList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picDownloadDocumentsList.Image = global::StaffSync.Properties.Resources.download01;
-            this.picDownloadDocumentsList.Location = new System.Drawing.Point(1049, 24);
+            this.picDownloadDocumentsList.Location = new System.Drawing.Point(1070, 24);
             this.picDownloadDocumentsList.Name = "picDownloadDocumentsList";
             this.picDownloadDocumentsList.Size = new System.Drawing.Size(21, 20);
             this.picDownloadDocumentsList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1784,7 +1799,7 @@
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox2.Image = global::StaffSync.Properties.Resources.mail01;
-            this.pictureBox2.Location = new System.Drawing.Point(1072, 23);
+            this.pictureBox2.Location = new System.Drawing.Point(1093, 23);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(23, 22);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1796,7 +1811,7 @@
             this.picRefreshDocumentsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picRefreshDocumentsList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picRefreshDocumentsList.Image = global::StaffSync.Properties.Resources.refresh01;
-            this.picRefreshDocumentsList.Location = new System.Drawing.Point(1097, 23);
+            this.picRefreshDocumentsList.Location = new System.Drawing.Point(1118, 23);
             this.picRefreshDocumentsList.Name = "picRefreshDocumentsList";
             this.picRefreshDocumentsList.Size = new System.Drawing.Size(23, 22);
             this.picRefreshDocumentsList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1827,7 +1842,7 @@
             this.lstLDocumentsList.MultiSelect = false;
             this.lstLDocumentsList.Name = "lstLDocumentsList";
             this.lstLDocumentsList.ShowItemToolTips = true;
-            this.lstLDocumentsList.Size = new System.Drawing.Size(1198, 430);
+            this.lstLDocumentsList.Size = new System.Drawing.Size(1219, 430);
             this.lstLDocumentsList.TabIndex = 24;
             this.lstLDocumentsList.UseCompatibleStateImageBehavior = false;
             this.lstLDocumentsList.View = System.Windows.Forms.View.Details;
@@ -1876,6 +1891,10 @@
             // tabLeaves
             // 
             this.tabLeaves.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabLeaves.Controls.Add(this.txtTotalBalanceLeaves);
+            this.tabLeaves.Controls.Add(this.txtTotalLeavesAlloted);
+            this.tabLeaves.Controls.Add(this.label49);
+            this.tabLeaves.Controls.Add(this.dtgLeaveEntitlement);
             this.tabLeaves.Controls.Add(this.picDownloadLeaveTRList);
             this.tabLeaves.Controls.Add(this.pictureBox3);
             this.tabLeaves.Controls.Add(this.picRefreshLeaveTRList);
@@ -1885,17 +1904,84 @@
             this.tabLeaves.LastVisibleSet = true;
             this.tabLeaves.MinimumSize = new System.Drawing.Size(150, 50);
             this.tabLeaves.Name = "tabLeaves";
-            this.tabLeaves.Size = new System.Drawing.Size(1227, 519);
+            this.tabLeaves.Size = new System.Drawing.Size(1248, 519);
             this.tabLeaves.Text = "Leaves";
             this.tabLeaves.ToolTipTitle = "Page ToolTip";
             this.tabLeaves.UniqueName = "a3b600aac3624ceda8d85faf520618f1";
+            // 
+            // txtTotalBalanceLeaves
+            // 
+            this.txtTotalBalanceLeaves.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTotalBalanceLeaves.Location = new System.Drawing.Point(540, 423);
+            this.txtTotalBalanceLeaves.Multiline = true;
+            this.txtTotalBalanceLeaves.Name = "txtTotalBalanceLeaves";
+            this.txtTotalBalanceLeaves.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtTotalBalanceLeaves.ReadOnly = true;
+            this.txtTotalBalanceLeaves.Size = new System.Drawing.Size(135, 28);
+            this.txtTotalBalanceLeaves.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalBalanceLeaves.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtTotalBalanceLeaves.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalBalanceLeaves.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalBalanceLeaves.TabIndex = 54;
+            this.txtTotalBalanceLeaves.Text = "0.00";
+            this.txtTotalBalanceLeaves.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtTotalBalanceLeaves.WordWrap = false;
+            // 
+            // txtTotalLeavesAlloted
+            // 
+            this.txtTotalLeavesAlloted.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTotalLeavesAlloted.Location = new System.Drawing.Point(404, 423);
+            this.txtTotalLeavesAlloted.Multiline = true;
+            this.txtTotalLeavesAlloted.Name = "txtTotalLeavesAlloted";
+            this.txtTotalLeavesAlloted.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtTotalLeavesAlloted.ReadOnly = true;
+            this.txtTotalLeavesAlloted.Size = new System.Drawing.Size(135, 28);
+            this.txtTotalLeavesAlloted.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalLeavesAlloted.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtTotalLeavesAlloted.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalLeavesAlloted.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalLeavesAlloted.TabIndex = 53;
+            this.txtTotalLeavesAlloted.Text = "0.00";
+            this.txtTotalLeavesAlloted.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtTotalLeavesAlloted.WordWrap = false;
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label49.Location = new System.Drawing.Point(309, 430);
+            this.label49.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(88, 15);
+            this.label49.TabIndex = 52;
+            this.label49.Text = "Total Leaves";
+            this.label49.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // dtgLeaveEntitlement
+            // 
+            this.dtgLeaveEntitlement.AllowUserToAddRows = false;
+            this.dtgLeaveEntitlement.AllowUserToDeleteRows = false;
+            this.dtgLeaveEntitlement.AllowUserToResizeRows = false;
+            this.dtgLeaveEntitlement.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dtgLeaveEntitlement.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgLeaveEntitlement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgLeaveEntitlement.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgLeaveEntitlement.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgLeaveEntitlement.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgLeaveEntitlement.Location = new System.Drawing.Point(14, 74);
+            this.dtgLeaveEntitlement.MultiSelect = false;
+            this.dtgLeaveEntitlement.Name = "dtgLeaveEntitlement";
+            this.dtgLeaveEntitlement.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgLeaveEntitlement.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgLeaveEntitlement.Size = new System.Drawing.Size(1199, 341);
+            this.dtgLeaveEntitlement.TabIndex = 46;
             // 
             // picDownloadLeaveTRList
             // 
             this.picDownloadLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picDownloadLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picDownloadLeaveTRList.Image = global::StaffSync.Properties.Resources.download01;
-            this.picDownloadLeaveTRList.Location = new System.Drawing.Point(1117, 74);
+            this.picDownloadLeaveTRList.Location = new System.Drawing.Point(1138, 74);
             this.picDownloadLeaveTRList.Name = "picDownloadLeaveTRList";
             this.picDownloadLeaveTRList.Size = new System.Drawing.Size(21, 20);
             this.picDownloadLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1907,7 +1993,7 @@
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox3.Image = global::StaffSync.Properties.Resources.mail01;
-            this.pictureBox3.Location = new System.Drawing.Point(1140, 73);
+            this.pictureBox3.Location = new System.Drawing.Point(1161, 73);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(23, 22);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1919,7 +2005,7 @@
             this.picRefreshLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picRefreshLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picRefreshLeaveTRList.Image = global::StaffSync.Properties.Resources.refresh01;
-            this.picRefreshLeaveTRList.Location = new System.Drawing.Point(1165, 73);
+            this.picRefreshLeaveTRList.Location = new System.Drawing.Point(1186, 73);
             this.picRefreshLeaveTRList.Name = "picRefreshLeaveTRList";
             this.picRefreshLeaveTRList.Size = new System.Drawing.Size(23, 22);
             this.picRefreshLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1945,12 +2031,12 @@
             this.lstLeaveTRList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lstLeaveTRList.HideSelection = false;
             this.lstLeaveTRList.LabelWrap = false;
-            this.lstLeaveTRList.Location = new System.Drawing.Point(14, 102);
+            this.lstLeaveTRList.Location = new System.Drawing.Point(14, 478);
             this.lstLeaveTRList.Margin = new System.Windows.Forms.Padding(4);
             this.lstLeaveTRList.MultiSelect = false;
             this.lstLeaveTRList.Name = "lstLeaveTRList";
             this.lstLeaveTRList.ShowItemToolTips = true;
-            this.lstLeaveTRList.Size = new System.Drawing.Size(1198, 408);
+            this.lstLeaveTRList.Size = new System.Drawing.Size(1219, 89);
             this.lstLeaveTRList.TabIndex = 21;
             this.lstLeaveTRList.UseCompatibleStateImageBehavior = false;
             this.lstLeaveTRList.View = System.Windows.Forms.View.Details;
@@ -1987,6 +2073,7 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.lblLeaveMasID);
             this.groupBox11.Controls.Add(this.label48);
             this.groupBox11.Controls.Add(this.label47);
             this.groupBox11.Controls.Add(this.txtBalanceLeaveAllotment);
@@ -1998,6 +2085,19 @@
             this.groupBox11.Size = new System.Drawing.Size(1198, 63);
             this.groupBox11.TabIndex = 15;
             this.groupBox11.TabStop = false;
+            // 
+            // lblLeaveMasID
+            // 
+            this.lblLeaveMasID.AutoSize = true;
+            this.lblLeaveMasID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblLeaveMasID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLeaveMasID.Location = new System.Drawing.Point(740, 29);
+            this.lblLeaveMasID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblLeaveMasID.Name = "lblLeaveMasID";
+            this.lblLeaveMasID.Size = new System.Drawing.Size(11, 15);
+            this.lblLeaveMasID.TabIndex = 18;
+            this.lblLeaveMasID.Text = " ";
+            this.lblLeaveMasID.Visible = false;
             // 
             // label48
             // 
@@ -2089,7 +2189,7 @@
             this.tabBankAccountInfo1.LastVisibleSet = true;
             this.tabBankAccountInfo1.MinimumSize = new System.Drawing.Size(150, 50);
             this.tabBankAccountInfo1.Name = "tabBankAccountInfo1";
-            this.tabBankAccountInfo1.Size = new System.Drawing.Size(1227, 519);
+            this.tabBankAccountInfo1.Size = new System.Drawing.Size(1248, 519);
             this.tabBankAccountInfo1.Text = "Bank Account Info";
             this.tabBankAccountInfo1.ToolTipTitle = "Page ToolTip";
             this.tabBankAccountInfo1.UniqueName = "65732864bdb8420db5bf9336859ef228";
@@ -2099,7 +2199,7 @@
             this.picDownloadBankList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picDownloadBankList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picDownloadBankList.Image = global::StaffSync.Properties.Resources.download01;
-            this.picDownloadBankList.Location = new System.Drawing.Point(1117, 73);
+            this.picDownloadBankList.Location = new System.Drawing.Point(1138, 73);
             this.picDownloadBankList.Name = "picDownloadBankList";
             this.picDownloadBankList.Size = new System.Drawing.Size(21, 20);
             this.picDownloadBankList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -2111,7 +2211,7 @@
             this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox4.Image = global::StaffSync.Properties.Resources.mail01;
-            this.pictureBox4.Location = new System.Drawing.Point(1140, 72);
+            this.pictureBox4.Location = new System.Drawing.Point(1161, 72);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(23, 22);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -2123,7 +2223,7 @@
             this.picRefreshBankList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picRefreshBankList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picRefreshBankList.Image = global::StaffSync.Properties.Resources.refresh01;
-            this.picRefreshBankList.Location = new System.Drawing.Point(1165, 72);
+            this.picRefreshBankList.Location = new System.Drawing.Point(1186, 72);
             this.picRefreshBankList.Name = "picRefreshBankList";
             this.picRefreshBankList.Size = new System.Drawing.Size(23, 22);
             this.picRefreshBankList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -2153,10 +2253,11 @@
             this.lstBankList.MultiSelect = false;
             this.lstBankList.Name = "lstBankList";
             this.lstBankList.ShowItemToolTips = true;
-            this.lstBankList.Size = new System.Drawing.Size(1198, 391);
+            this.lstBankList.Size = new System.Drawing.Size(1219, 391);
             this.lstBankList.TabIndex = 22;
             this.lstBankList.UseCompatibleStateImageBehavior = false;
             this.lstBankList.View = System.Windows.Forms.View.Details;
+            this.lstBankList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstBankList_MouseDoubleClick);
             // 
             // BankID
             // 
@@ -2220,6 +2321,7 @@
             this.lblBankID.Size = new System.Drawing.Size(11, 15);
             this.lblBankID.TabIndex = 11;
             this.lblBankID.Text = " ";
+            this.lblBankID.Visible = false;
             // 
             // label41
             // 
@@ -2250,7 +2352,7 @@
             this.tabSalaryProfile.LastVisibleSet = true;
             this.tabSalaryProfile.MinimumSize = new System.Drawing.Size(150, 50);
             this.tabSalaryProfile.Name = "tabSalaryProfile";
-            this.tabSalaryProfile.Size = new System.Drawing.Size(1227, 519);
+            this.tabSalaryProfile.Size = new System.Drawing.Size(1248, 519);
             this.tabSalaryProfile.Text = "Salary Profile";
             this.tabSalaryProfile.ToolTipTitle = "Page ToolTip";
             this.tabSalaryProfile.UniqueName = "a3be17479cc34babb98856a79e112ae8";
@@ -2385,7 +2487,6 @@
             this.cmbSalProfile.Name = "cmbSalProfile";
             this.cmbSalProfile.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbSalProfile.Size = new System.Drawing.Size(440, 22);
-            this.cmbSalProfile.Sorted = true;
             this.cmbSalProfile.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbSalProfile.TabIndex = 42;
             this.cmbSalProfile.SelectedIndexChanged += new System.EventHandler(this.cmbSalProfile_SelectedIndexChanged);
@@ -2413,7 +2514,7 @@
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(12, 12);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1231, 65);
+            this.groupBox4.Size = new System.Drawing.Size(1252, 65);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Professional Info";
@@ -2495,12 +2596,12 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1254, 64);
+            this.panel2.Size = new System.Drawing.Size(1276, 64);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1076, 14);
+            this.btnCloseMe.Location = new System.Drawing.Point(1101, 14);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -2677,7 +2778,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightBlue;
-            this.ClientSize = new System.Drawing.Size(1254, 711);
+            this.ClientSize = new System.Drawing.Size(1276, 711);
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -2748,6 +2849,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.picRefreshDocumentsList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabLeaves)).EndInit();
             this.tabLeaves.ResumeLayout(false);
+            this.tabLeaves.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgLeaveEntitlement)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRefreshLeaveTRList)).EndInit();
@@ -2983,5 +3086,10 @@
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label47;
+        private Krypton.Toolkit.KryptonDataGridView dtgLeaveEntitlement;
+        public System.Windows.Forms.Label lblLeaveMasID;
+        private Krypton.Toolkit.KryptonTextBox txtTotalBalanceLeaves;
+        private Krypton.Toolkit.KryptonTextBox txtTotalLeavesAlloted;
+        private System.Windows.Forms.Label label49;
     }
 }

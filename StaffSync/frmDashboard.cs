@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Quartz;
+using Quartz.Impl;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,13 +12,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static C1.Util.Win.Win32;
+//using static C1.Util.Win.Win32;
 using static System.Windows.Forms.AxHost;
 
 namespace StaffSync
 {
     public partial class frmDashboard : Form
     {
+        private IScheduler scheduler;
+
         public int AppModuleID = 0;
         clsCurrentUserInfo objCurrentUserInfo = new clsCurrentUserInfo();
         clsBirthdayList objBirthdayList = new clsBirthdayList();
@@ -25,9 +29,25 @@ namespace StaffSync
         clsLeaveTRList objLeaveInfo = new clsLeaveTRList();
         clsClientInfo objClientInfo = new clsClientInfo();
 
+        private async void InitializeScheduler()
+        {
+            scheduler = await new StdSchedulerFactory().GetScheduler();
+            await scheduler.Start();
+
+            IJobDetail jobDailyAttendance = JobBuilder.Create<DailyAttendanceJob>().WithIdentity("DailyAttendanceJob", "grpDailyAttendanceJob").Build();
+            ITrigger trgDailyAttendance = TriggerBuilder.Create().WithIdentity("trgDailyAttendanceJob", "grpDailyAttendanceJob").WithSimpleSchedule(x => x .WithIntervalInMinutes(1).RepeatForever().WithMisfireHandlingInstructionNextWithExistingCount()).Build();
+            await scheduler.ScheduleJob(jobDailyAttendance, trgDailyAttendance);
+
+
+            IJobDetail jobLeaveApproval = JobBuilder.Create<DailyLeavesJob>().WithIdentity("DailyLeavesJob", "grpDailyLeavesJob").Build();
+            ITrigger trgLeaveApproval = TriggerBuilder.Create().WithIdentity("trgDailyLeavesJob", "grpDailyLeavesJob").WithSimpleSchedule(x => x.WithIntervalInMinutes(1).RepeatForever().WithMisfireHandlingInstructionNextWithExistingCount()).Build();
+            await scheduler.ScheduleJob(jobLeaveApproval, trgLeaveApproval);
+        }
+
         public frmDashboard()
         {
             InitializeComponent();
+            InitializeScheduler();
             List<ClientInfo> objActiveClientInfo = objClientInfo.getClientInfo(1);
         }
 
@@ -331,8 +351,16 @@ namespace StaffSync
 
         private void frmDashboard_Load(object sender, EventArgs e)
         {
-            myStatusBar.Items[0].Text = "User Name : " + clsCurrentUser.UserName.ToString();
-            myStatusBar.Items[1].Text = "Log In : " + clsCurrentUser.LoginDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt");
+            if (clsCurrentUser.UserName == null || clsCurrentUser.UserName == "")
+            {
+                myStatusBar.Items[0].Text = "User Name : ";
+                myStatusBar.Items[1].Text = "Log In : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
+            }
+            else
+            {
+                myStatusBar.Items[0].Text = "User Name : " + clsCurrentUser.UserName == null ? "" : clsCurrentUser.UserName.ToString();
+                myStatusBar.Items[1].Text = "Log In : " + clsCurrentUser.LoginDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt");
+            }
 
             cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
             cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
@@ -570,15 +598,15 @@ namespace StaffSync
         {
             AppModuleID = 2;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
-            {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            }
+            //objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            //if (clsCurrentUser.ModuleID != AppModuleID)
+            //{
+            //    if (clsCurrentUser.ModuleID != 1)
+            //    {
+            //        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        return;
+            //    }
+            //}
 
             frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
             frmEmployeeMasterDetails.ShowDialog();
@@ -885,23 +913,6 @@ namespace StaffSync
                     frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
                     frmRelationshipMaster.ShowDialog(this);
                     break;
-
-                case "cmbSalaryProfile":
-                    AppModuleID = 10;
-
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
-                    {
-                        if (clsCurrentUser.ModuleID != 1)
-                        {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                    }
-
-                    frmRelationshipMaster frmRelationshipMaster1 = new frmRelationshipMaster();
-                    frmRelationshipMaster1.ShowDialog(this);
-                    break;
             }
         }
 
@@ -1068,7 +1079,8 @@ namespace StaffSync
 
         private void cmbSalaryProfile_Click(object sender, EventArgs e)
         {
-
+            //frmSalaryProfile frmSalaryProfile = new frmSalaryProfile();
+            //frmSalaryProfile.ShowDialog(this);
         }
 
         private void cmbLeaveStatement_Click(object sender, EventArgs e)
@@ -1099,6 +1111,54 @@ namespace StaffSync
         {
             frmLeaveStatement frmLeaveStatement = new frmLeaveStatement();
             frmLeaveStatement.ShowDialog(this);
+        }
+
+        private void cmbLeaveEntitlement_Click(object sender, EventArgs e)
+        {
+            frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement();
+            frmEmpLeaveEntitlement.ShowDialog(this);
+        }
+
+        private void cmbConfigureSalaryProfile_Click(object sender, EventArgs e)
+        {
+            //frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile();
+            //frmUpdateSalaryProfile.ShowDialog(this);
+        }
+
+        private void cmbSalaryProfile_Click_1(object sender, EventArgs e)
+        {
+            AppModuleID = 10;
+
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
+            {
+                if (clsCurrentUser.ModuleID != 1)
+                {
+                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            frmSalaryProfile frmSalaryProfile = new frmSalaryProfile();
+            frmSalaryProfile.ShowDialog(this);
+        }
+
+        private void cmbConfigureSalaryProfile_Click_1(object sender, EventArgs e)
+        {
+            AppModuleID = 10;
+
+            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+            if (clsCurrentUser.ModuleID != AppModuleID)
+            {
+                if (clsCurrentUser.ModuleID != 1)
+                {
+                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile();
+            frmUpdateSalaryProfile.ShowDialog(this);
         }
     }
 }

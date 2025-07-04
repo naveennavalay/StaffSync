@@ -87,6 +87,7 @@
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonCommand1 = new Krypton.Toolkit.KryptonCommand();
             this.kryptonCommand2 = new Krypton.Toolkit.KryptonCommand();
+            this.lblSpecificLeaveBalance = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -137,6 +138,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblSpecificLeaveBalance);
             this.groupBox2.Controls.Add(this.lblLeaveTRID);
             this.groupBox2.Controls.Add(this.picDownloadLeaveTRList);
             this.groupBox2.Controls.Add(this.pictureBox3);
@@ -450,6 +452,7 @@
             this.cmbLeaveType.Size = new System.Drawing.Size(440, 23);
             this.cmbLeaveType.TabIndex = 35;
             this.cmbLeaveType.Tag = "Please enter Employee Designation";
+            this.cmbLeaveType.SelectedIndexChanged += new System.EventHandler(this.cmbLeaveType_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -749,6 +752,18 @@
             // 
             this.kryptonCommand2.Text = "kryptonCommand2";
             // 
+            // lblSpecificLeaveBalance
+            // 
+            this.lblSpecificLeaveBalance.AutoSize = true;
+            this.lblSpecificLeaveBalance.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblSpecificLeaveBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSpecificLeaveBalance.Location = new System.Drawing.Point(641, 22);
+            this.lblSpecificLeaveBalance.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSpecificLeaveBalance.Name = "lblSpecificLeaveBalance";
+            this.lblSpecificLeaveBalance.Size = new System.Drawing.Size(11, 15);
+            this.lblSpecificLeaveBalance.TabIndex = 24;
+            this.lblSpecificLeaveBalance.Text = " ";
+            // 
             // frmLeavesApproval
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -847,5 +862,6 @@
         private Krypton.Toolkit.KryptonButton btnModifyDetails;
         private Krypton.Toolkit.KryptonButton btnGenerateDetails;
         private Krypton.Toolkit.KryptonButton btnSearch;
+        public System.Windows.Forms.Label lblSpecificLeaveBalance;
     }
 }

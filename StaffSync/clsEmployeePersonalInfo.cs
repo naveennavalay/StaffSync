@@ -42,7 +42,14 @@ namespace StaffSync
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ex.Message.ToString().ToLower() == "Specified cast is not valid.".ToLower())
+                {
+                    rowCount = 1;
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 conn = objDBClass.closeDBConnection();
             }
             finally
@@ -65,7 +72,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO PersonalInfoMas (PersonalInfoID, EmpID, DOB, DOJ, EduQualID, PerAddressID, CurAddressID, ContactNumber1, ContactNumber2, ContactID1, ContactID2, SexID, LastCompanyInfoID) VALUES " +
-                 "(" + maxRowCount + "," + txtEmployeeID + ",'" + txtEmployeeDOB + "','" + txtEmployeeDOJ + "'," + txtEmployeeQualID + "," + txtPermanentAddressID + "," + txtCurrentAddressID + ",'" + ContactNumber1 + "','" + ContactNumber2 +"'," + txtContactID1 + "," + txtContactID2 + "," + txtEmployeeSexID + "," + txtEmployeeLastCompayID + ")";
+                 "(" + maxRowCount + "," + txtEmployeeID + ",'" + txtEmployeeDOB.ToString("dd-MM-yyyy") + "','" + txtEmployeeDOJ.ToString("dd-MM-yyyy") + "'," + txtEmployeeQualID + "," + txtPermanentAddressID + "," + txtCurrentAddressID + ",'" + ContactNumber1 + "','" + ContactNumber2 +"'," + txtContactID1 + "," + txtContactID2 + "," + txtEmployeeSexID + "," + txtEmployeeLastCompayID + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -96,7 +103,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE PersonalInfoMas SET " +
-                "DOB = '" + txtEmployeeDOB + "', DOJ = '" + txtEmployeeDOJ + "', EduQualID = " + txtEmployeeQualID + ", PerAddressID = " + txtPermanentAddressID + ", CurAddressID = " + txtCurrentAddressID + ", ContactNumber1 = '" + ContactNumber1 + "', ContactNumber2 = '" + ContactNumber2 + "', ContactID1 = " + txtContactID1 + ", ContactID2 = " + txtContactID2 + ", SexID = " + txtEmployeeSexID + ", LastCompanyInfoID = " + txtEmployeeLastCompayID + 
+                "DOB = '" + txtEmployeeDOB.ToString("dd-MM-yyyy") + "', DOJ = '" + txtEmployeeDOJ.ToString("dd-MM-yyyy") + "', EduQualID = " + txtEmployeeQualID + ", PerAddressID = " + txtPermanentAddressID + ", CurAddressID = " + txtCurrentAddressID + ", ContactNumber1 = '" + ContactNumber1 + "', ContactNumber2 = '" + ContactNumber2 + "', ContactID1 = " + txtContactID1 + ", ContactID2 = " + txtContactID2 + ", SexID = " + txtEmployeeSexID + ", LastCompanyInfoID = " + txtEmployeeLastCompayID + 
                 " WHERE EmpID = " + txtEmployeeID;
 
                 OleDbCommand cmd = conn.CreateCommand();

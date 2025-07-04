@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿//using C1.Framework;
+using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.X509;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,14 @@ namespace StaffSync
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ex.Message.ToString().ToLower() == "Specified cast is not valid.".ToLower())
+                {
+                    rowCount = 1;
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 conn = objDBClass.closeDBConnection();
             }
             finally
@@ -97,9 +105,51 @@ namespace StaffSync
             return rowCount;
         }
 
+        public int getMaxLeaveMasID(int txtEmpID)
+        {
+            int MaxLeaveMasID = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " + 
+                                        "Last(LeaveMas.LeaveMasID) AS LeaveMasID " + 
+                                    "FROM " + 
+                                        "LeaveMas " + 
+                                    "WHERE " + 
+                                        "(((LeaveMas.EmpID) = " + txtEmpID + ")) " + 
+                                    "ORDER BY " + 
+                                        "Last(LeaveMas.EffectiveDate); ";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                MaxLeaveMasID = (int)cmd.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.ToString().ToLower() == "Specified cast is not valid.".ToLower())
+                {
+                    MaxLeaveMasID = 1;
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return Convert.ToInt16(MaxLeaveMasID.ToString());
+        }
+
         public decimal getBalanceLeave(int EmpID)
         {
-            string BalanceLeave = "";
+            string BalanceLeave = "0.00";
             try
             {
                 conn = objDBClass.openDBConnection();
@@ -110,11 +160,63 @@ namespace StaffSync
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
-                BalanceLeave = cmd.ExecuteScalar().ToString();
+                if(cmd.ExecuteScalar() != null)
+                    BalanceLeave = cmd.ExecuteScalar().ToString();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ex.Message.ToString().ToLower() == "Specified cast is not valid.".ToLower())
+                {
+                    BalanceLeave = "0.00";
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return Convert.ToDecimal(BalanceLeave.ToString());
+        }
+
+        public decimal getSpecificLeaveTypeBalance(int txtLeaveMasID, int txtLeaveTypeID)
+        {
+            string BalanceLeave = "0.00";
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " +
+                                        "BalanceLeaves " + 
+                                    "FROM " + 
+                                        "EmpLeaveEntitlement " + 
+                                    "WHERE " + 
+                                        "(" + 
+                                            "((LeaveMasID) = " + txtLeaveMasID + ") " + 
+                                            "AND ((LeaveTypeID) = " + txtLeaveTypeID + ") " + 
+                                        ")";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                if (cmd.ExecuteScalar() != null)
+                    BalanceLeave = cmd.ExecuteScalar().ToString();
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.ToString().ToLower() == "Specified cast is not valid.".ToLower())
+                {
+                    BalanceLeave = "0.00";
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 conn = objDBClass.closeDBConnection();
             }
             finally
@@ -276,7 +378,7 @@ namespace StaffSync
             return EmpOOOList;
         }
 
-        public int InsertDefaultLeaveAllotment(int txtEmpID, decimal TotalLeaves, decimal TotalBalanceLeave)
+        public int InsertDefaultLeaveAllotment(int txtEmpID, decimal TotalLeaves, decimal TotalBalanceLeave, DateTime txtEffectiveDate)
         {
             int affectedRows = 0;
             try
@@ -286,8 +388,8 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO LeaveMas (LeaveMasID, EmpID, TotalLeaves, BalanceLeaves) VALUES " +
-                 "(" + maxRowCount + "," + txtEmpID + "," + TotalLeaves + "," + TotalBalanceLeave + ")";
+                string strQuery = "INSERT INTO LeaveMas (LeaveMasID, EmpID, TotalLeaves, BalanceLeaves, EffectiveDate) VALUES " +
+                 "(" + maxRowCount + "," + txtEmpID + "," + TotalLeaves + "," + TotalBalanceLeave + ", '" + txtEffectiveDate + "')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -308,7 +410,7 @@ namespace StaffSync
             return affectedRows;
         }
 
-        public int UpdateEmployeeLeaveBalance(int txtEmpID, decimal TotalLeaves, decimal TotalBalanceLeave)
+        public int UpdateEmployeeLeaveBalance(int txtLeaveMasID, int txtEmpID, decimal TotalLeaves, decimal TotalBalanceLeave, DateTime txtEffectiveDate)
         {
             int affectedRows = 0;
             try
@@ -316,15 +418,44 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE LeaveMas SET TotalLeaves = " + TotalLeaves + ", BalanceLeaves = " + TotalBalanceLeave + 
-                " WHERE EmpID = " + txtEmpID;
+                string strQuery = "UPDATE LeaveMas SET TotalLeaves = " + TotalLeaves + ", BalanceLeaves = " + TotalBalanceLeave + ", EffectiveDate = '" + txtEffectiveDate + "'" +
+                " WHERE LeaveMasID = " + txtLeaveMasID + " AND EmpID = " + txtEmpID;
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
                 affectedRows = cmd.ExecuteNonQuery();
                 if (affectedRows > 0)
-                    affectedRows = txtEmpID;
+                    affectedRows = txtLeaveMasID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int UpdateSpecificLeaveTypeBalance(int txtLeaveMasID, int txtLeaveTypeID, decimal TotalBalanceLeave)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpLeaveEntitlement SET BalanceLeaves = " + TotalBalanceLeave + " WHERE LeaveMasID = " + txtLeaveMasID + " AND LeaveTypeID = " + txtLeaveTypeID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtLeaveMasID;
             }
             catch (Exception ex)
             {

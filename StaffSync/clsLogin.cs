@@ -1,4 +1,4 @@
-﻿using C1.Framework;
+﻿//using C1.Framework;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -47,7 +47,14 @@ namespace StaffSync
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ex.Message.ToString().ToLower() == "Specified cast is not valid.".ToLower())
+                {
+                    rowCount = 1;
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 conn = objDBClass.closeDBConnection();
             }
             finally
@@ -284,7 +291,7 @@ namespace StaffSync
             return;
         }
 
-        public int InsertUserInfo(int txtEmpID, bool IsActive, bool IsDeleted, string txtUserPassword)
+        public int InsertUserInfo(int txtEmpID, bool IsActive, bool IsDeleted, string txtUserName, string txtUserPassword)
         {
             int affectedRows = 0;
 
@@ -294,8 +301,8 @@ namespace StaffSync
 
                 conn = objDBClass.openDBConnection();
 
-                string strQuery = "INSERT INTO Users (UserID, EmpID, IsActive, IsDeleted, EmpPassword) VALUES " +
-                "(" + maxRowCount + "," + txtEmpID + "," + IsActive + "," + IsDeleted + ",'" + objEncryptDecrypt.encryptText(txtUserPassword) + "')";
+                string strQuery = "INSERT INTO Users (UserID, EmpID, IsActive, IsDeleted, EmpUserName, EmpPassword) VALUES " +
+                "(" + maxRowCount + "," + txtEmpID + "," + IsActive + "," + IsDeleted + ",'" + txtUserName + "','"+ objEncryptDecrypt.encryptText(txtUserPassword) + "')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

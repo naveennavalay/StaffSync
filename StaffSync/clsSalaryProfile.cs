@@ -1,4 +1,4 @@
-﻿using C1.Framework;
+﻿//using C1.Framework;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System;
@@ -7,11 +7,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static C1.Util.Win.Win32;
+//using static C1.Util.Win.Win32;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Windows.Forms.MonthCalendar;
 
@@ -45,7 +46,14 @@ namespace StaffSync
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ex.Message.ToString().ToLower() == "Specified cast is not valid.".ToLower())
+                {
+                    rowCount = 1;
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 conn = objDBClass.closeDBConnection();
             }
             finally
@@ -109,15 +117,16 @@ namespace StaffSync
             return specificEmployeeSalaryProfileInfo;
         }
 
-        public DataTable GetSalProfileTitleList()
+        public List<SalaryProfileTitleList> GetSalProfileTitleList()
         {
             DataTable dt = new DataTable();
+            List<SalaryProfileTitleList> objSalaryProfileInfoList = new List<SalaryProfileTitleList>();
 
             try
             {
                 conn = objDBClass.openDBConnection();
 
-                string strQuery = "SELECT * FROM SalProfileMas WHERE IsActive = true AND IsDeleted = false";
+                string strQuery = "SELECT SalProfileID, SalProfileCode, SalProfileTitle, SalProfileDescription, IsActive, IsDeleted, OrderID FROM SalProfileMas WHERE IsActive = true AND IsDeleted = false ORDER BY OrderID Asc";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -126,6 +135,10 @@ namespace StaffSync
 
                 OleDbDataAdapter da = new OleDbDataAdapter(cmd);
                 da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objSalaryProfileInfoList = JsonConvert.DeserializeObject<List<SalaryProfileTitleList>>(DataTableToJSon);
 
             }
             catch (Exception ex)
@@ -138,7 +151,7 @@ namespace StaffSync
                 conn = objDBClass.closeDBConnection();
             }
 
-            return dt;
+            return objSalaryProfileInfoList;
         }
 
         public List<SalaryProfileInfo> GetDefaultSalaryProfileInfo(int SalaryProfileID)
@@ -156,7 +169,8 @@ namespace StaffSync
                                     "SalProfileDetails.SalProDetID, " +
                                     "SalProfileDetails.SalProfileID, " +
                                     "AllowanceHeaderMas.AllID AS HeaderID, " +
-                                    "AllowanceHeaderMas.AllTitle AS HeaderTitle " +
+                                    "AllowanceHeaderMas.AllTitle AS HeaderTitle, " +
+                                    "SalProfileDetails.SalProAmount " +
                                 "FROM " +
                                     "SalProfileDetails " +
                                     "INNER JOIN AllowanceHeaderMas ON SalProfileDetails.AllID = AllowanceHeaderMas.AllID " +
@@ -190,9 +204,9 @@ namespace StaffSync
                         HeaderID = indSalaryProfileInfo.HeaderID,
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
                         HeaderType = "Allowences",
-                        AllowanceAmount = 0.00,
-                        DeductionAmount = 0.00,
-                        ReimbursmentAmount = 0.00
+                        AllowanceAmount = indSalaryProfileInfo.SalProAmount,
+                        DeductionAmount = 0,
+                        ReimbursmentAmount = 0
                     });
                 }
 
@@ -200,7 +214,8 @@ namespace StaffSync
                                 "SalProfileDetails.SalProDetID, " +
                                 "SalProfileDetails.SalProfileID, " +
                                 "DeductionHeaderMas.DedID AS HeaderID, " +
-                                "DeductionHeaderMas.DedTitle AS HeaderTitle " +
+                                "DeductionHeaderMas.DedTitle AS HeaderTitle, " +
+                                "SalProfileDetails.SalProAmount " +
                             "FROM " +
                                 "SalProfileDetails " +
                                 "INNER JOIN DeductionHeaderMas ON SalProfileDetails.DedID = DeductionHeaderMas.DedID " +
@@ -236,9 +251,9 @@ namespace StaffSync
                         HeaderID = indSalaryProfileInfo.HeaderID,
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
                         HeaderType = "Deductions",
-                        AllowanceAmount = 0.00,
-                        DeductionAmount = 0.00,
-                        ReimbursmentAmount = 0.00
+                        AllowanceAmount = 0,
+                        DeductionAmount = indSalaryProfileInfo.SalProAmount,
+                        ReimbursmentAmount = 0
                     });
                 }
 
@@ -246,7 +261,8 @@ namespace StaffSync
                             "SalProfileDetails.SalProDetID, " + 
                             "SalProfileDetails.SalProfileID, " +
                             "ReimbursementHeaderMas.ReimbID AS HeaderID, " +
-                            "ReimbursementHeaderMas.ReimbTitle AS HeaderTitle " +
+                            "ReimbursementHeaderMas.ReimbTitle AS HeaderTitle, " +
+                            "SalProfileDetails.SalProAmount " +
                         "FROM " +
                             "SalProfileDetails " +
                             "INNER JOIN ReimbursementHeaderMas ON SalProfileDetails.ReimbID = ReimbursementHeaderMas.ReimbID " +
@@ -282,9 +298,9 @@ namespace StaffSync
                         HeaderID = indSalaryProfileInfo.HeaderID,
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
                         HeaderType = "Reimbursement",
-                        AllowanceAmount = 0.00,
-                        DeductionAmount = 0.00,
-                        ReimbursmentAmount = 0.00
+                        AllowanceAmount = 0,
+                        DeductionAmount = 0,
+                        ReimbursmentAmount = indSalaryProfileInfo.SalProAmount
                     });
                 }
             }
@@ -337,7 +353,7 @@ namespace StaffSync
                                         "EmpSalMas " + 
                                     "WHERE " + 
                                         "EmpID = " + txtEmpID + 
-                                        "AND [EmpSalMas].[EmpSalMonthYear] = 'Jan - 1900' " + 
+                                        " AND [EmpSalMas].[EmpSalMonthYear] = 'Jan - 1900' " + 
                                 ") " + 
                             ") " + 
                         ") " + 
@@ -385,18 +401,18 @@ namespace StaffSync
             return objReturnSalaryProfileInfoList;
         }
 
-        public int InsertSalaryProfileInfo(int txtEmpID, string txtAuditLogStatement, string txtUserName)
+        public int InsertSalaryProfileInfo(string txtSalProfileCode, string txtSalProfileTitle, string txtSalProfileDescription, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;
             try
             {
-                int maxRowCount = getMaxRowCount("UserAuditLog", "UserAuditLogID");
+                int maxRowCount = getMaxRowCount("SalProfileMas", "SalProfileID");
 
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO UserAuditLog (UserAuditLogID, EmpID, EventDateTime, AuditLogStatement, UserName) VALUES " +
-                 "(" + maxRowCount + "," + txtEmpID + ",'" + DateTime.Now + "','" + txtAuditLogStatement + "','" + txtUserName + "')";
+                string strQuery = "INSERT INTO SalProfileMas (SalProfileID, SalProfileCode, SalProfileTitle, SalProfileDescription, IsActive, IsDeleted, IsDefault, OrderID) VALUES " +
+                 "(" + maxRowCount + ",'" + "SAL-" + (maxRowCount).ToString().PadLeft(4, '0').Trim() + "','" + txtSalProfileTitle + "','" + txtSalProfileDescription + "'," + IsActive + "," + IsDeleted + ", false, " + maxRowCount + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -404,6 +420,127 @@ namespace StaffSync
                 affectedRows = cmd.ExecuteNonQuery();
                 if (affectedRows > 0)
                     affectedRows = maxRowCount;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int InsertSalaryProfileDetailInfo(int txtSalProfileID, int txtAllID, int txtDedID, int txtReimbID, decimal txtSalProAmount)
+        {
+            int affectedRows = 0;
+            try
+            {
+                int maxRowCount = getMaxRowCount("SalProfileDetails", "SalProDetID");
+
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "INSERT INTO SalProfileDetails (SalProDetID, SalProfileID, AllID, DedID, ReimbID, SalProAmount) VALUES " +
+                 "(" + maxRowCount + "," + txtSalProfileID + "," + txtAllID + "," + txtDedID + "," + txtReimbID + "," + txtSalProAmount + ")";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = maxRowCount;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int UpdateSalaryProfileInfo(int txtSalaryProfileID, string txtSalaryProfileCode, string txtSalaryProfileTitle, string txtSalaryProfileDescription, bool IsActive, bool IsDeleted)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE SalProfileMas SET SalProfileCode = '" +txtSalaryProfileCode + "', SalProfileTitle = '" + txtSalaryProfileTitle + "', SalProfileDescription = '" + txtSalaryProfileDescription + "', IsActive = " + IsActive +
+                 " WHERE SalProfileID = " + txtSalaryProfileID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtSalaryProfileID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int UpdateSalaryProfileDetailInfo(int SalProDetID, int txtSalProfileID, int txtAllID, int txtDedID, int txtReimbID, decimal txtSalProAmount)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE SalProfileDetails SET SalProfileID = " + txtSalProfileID + ", AllID = " + txtAllID + ", DedID = " + txtDedID + ", ReimbID = " + txtReimbID + ", SalProAmount = " + txtSalProAmount +
+                 " WHERE SalProDetID = " + SalProDetID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = SalProDetID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int DeleteSalaryProfileInfo(int txtSalaryProfileID)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "DELETE * FROM SalProfileMas WHERE SalProfileID = " + txtSalaryProfileID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtSalaryProfileID;
             }
             catch (Exception ex)
             {
@@ -425,6 +562,24 @@ namespace StaffSync
         public int SalProfileID { get; set; }
     }
 
+    public class SalaryProfileTitleList
+    {
+        public int SalProfileID { get; set; }
+
+        [DisplayName("Salary Profile Code")]
+        public string SalProfileCode { get; set; }
+
+        [DisplayName("Salary Profile Title")] 
+        public string SalProfileTitle { get; set; }
+        
+        [DisplayName("Salary Profile Description")] 
+        public string SalProfileDescription { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsDefault { get; set; }
+        public int OrderID { get; set; }
+    }
+
     public class SalaryProfileInfo
     {
         public int EmpSalDetID { get; set; }
@@ -439,13 +594,15 @@ namespace StaffSync
         public string HeaderType { get; set; }
 
         [DisplayName("Allowance Amount")]
-        public double AllowanceAmount { get; set; }
+        public decimal AllowanceAmount { get; set; }
 
         [DisplayName("Deduction Amount")]
-        public double DeductionAmount { get; set; }
+        public decimal DeductionAmount { get; set; }
 
         [DisplayName("Reimbursment Amount")]
-        public double ReimbursmentAmount { get; set; }
+        public decimal ReimbursmentAmount { get; set; }
+
+        public decimal SalProAmount { get; set; }
         public int OrderID { get; set; }
     }
 }

@@ -26,17 +26,20 @@ namespace StaffSync
         {
             MailMessage mail = new MailMessage();
             mail.To.Add(new MailAddress("nnavalay@phlexglobal.com"));
-            mail.From = new MailAddress("noreplay@phlexglobal.com", "No Replay");
+            mail.From = new MailAddress("support@svvapps.com", "No Replay");
 
             SmtpClient client = new SmtpClient();
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Host = "smtp.office365.com";
+            //client.Host = "smtp.office365.com";
+            client.Host = "mail.svvapps.com";
             client.EnableSsl = true;
             client.Port = 587;
-            client.Credentials = new NetworkCredential("generic@phlexglobal.com", "Cunesoft2017!");
+            //client.Credentials = new NetworkCredential("generic@phlexglobal.com", "Cunesoft2017!");
+            client.Credentials = new NetworkCredential("support@svvapps.com", "1supportSvv@pp2");
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             mail.Subject = "Test Mail";
+            mail.SubjectEncoding = Encoding.UTF8;
             mail.Body = "Test Mail Body";
             mail.IsBodyHtml = true;
             client.Send(mail);

@@ -22,7 +22,10 @@ namespace StaffSync
         //OleDbConnection conn = null;
         //DataSet dtDataset;
 
-        clsAllowenceInfo objAllowence = new clsAllowenceInfo();
+        clsAllowenceInfo objAllowenceInfo = new clsAllowenceInfo();
+        clsDeductionsInfo objDeductionsInfo = new clsDeductionsInfo();
+        clsReimbursement objReimbursement = new clsReimbursement();
+        clsSalaryProfile objSalaryProfile = new clsSalaryProfile();
 
         public frmSalaryProfile()
         {
@@ -31,6 +34,13 @@ namespace StaffSync
 
         private void btnCloseMe_Click(object sender, EventArgs e)
         {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
             this.Close();
         }
 
@@ -55,8 +65,8 @@ namespace StaffSync
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            //frmSalaryProfileList frmSalaryProfileList = new frmSalaryProfileList(this);
-            //frmSalaryProfileList.ShowDialog(this);
+            frmSalaryProfileList frmSalaryProfileList = new frmSalaryProfileList(this);
+            frmSalaryProfileList.ShowDialog(this);
         }
 
         private void btnCloseMe_Click_2(object sender, EventArgs e)
@@ -71,8 +81,8 @@ namespace StaffSync
             clearControls();
             enableControls();
             cmbIsActive.SelectedIndex = 1;
-            lblAllowenceID.Text = objAllowence.getMaxRowCount("AllowanceHeaderMas", "AllID").ToString();
-            txtSalProfCode.Text = "ALL-" + (lblAllowenceID.Text.Trim()).ToString().PadLeft(4, '0');
+            lblSalaryProfileID.Text = objSalaryProfile.getMaxRowCount("SalProfileMas", "SalProfileID").ToString();
+            txtSalProfCode.Text = "ALL-" + (lblSalaryProfileID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
         }
 
@@ -98,13 +108,30 @@ namespace StaffSync
             {
                 if (lblActionMode.Text == "add")
                 {
-                    int affectedRows = objAllowence.InsertAllowence(txtSalProfCode.Text.Trim(), txtSalProfTitle.Text.Trim(), txtSalProfDescription.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
-                    if (affectedRows > 0)
+                    int salaryProfileID = objSalaryProfile.InsertSalaryProfileInfo(txtSalProfCode.Text.Trim(), txtSalProfTitle.Text.Trim(), txtSalProfDescription.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
+
+                    DataTable dtAllowanceList = objAllowenceInfo.GetAllowenceList();
+                    foreach (DataRow indRow in dtAllowanceList.Rows)
+                    {
+                        objSalaryProfile.InsertSalaryProfileDetailInfo(salaryProfileID, Convert.ToInt16(indRow["AllID"].ToString()), 0, 0, 0);
+                    }
+                    DataTable dtDeductionsList = objDeductionsInfo.GetDeductionList();
+                    foreach (DataRow indRow in dtDeductionsList.Rows)
+                    {
+                        objSalaryProfile.InsertSalaryProfileDetailInfo(salaryProfileID, 0, Convert.ToInt16(indRow["DedID"].ToString()), 0, 0);
+                    }
+                    DataTable dtReimbursment = objReimbursement.GetReimbursementList();
+                    foreach (DataRow indRow in dtReimbursment.Rows)
+                    {
+                        objSalaryProfile.InsertSalaryProfileDetailInfo(salaryProfileID, 0, 0, Convert.ToInt16(indRow["ReimbID"].ToString()), 0);
+                    }
+
+                    if (salaryProfileID > 0)
                         MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (lblActionMode.Text == "modify")
                 {
-                    int affectedRows = objAllowence.UpdateAllowence(Convert.ToInt16(lblAllowenceID.Text.Trim()), txtSalProfCode.Text.Trim(), txtSalProfTitle.Text.Trim(), txtSalProfDescription.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
+                    int affectedRows = objSalaryProfile.UpdateSalaryProfileInfo(Convert.ToInt16(lblSalaryProfileID.Text.Trim()), txtSalProfCode.Text.Trim(), txtSalProfTitle.Text.Trim(), txtSalProfDescription.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                     if (affectedRows > 0)
                         MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -157,7 +184,7 @@ namespace StaffSync
         public void onGenerateButtonClick()
         {
             lblActionMode.Text = "add";
-            lblAllowenceID.Text = "";
+            lblSalaryProfileID.Text = "";
             btnSearch.Enabled = false;
             btnGenerateDetails.Enabled = true;
             btnModifyDetails.Enabled = false;
@@ -169,7 +196,7 @@ namespace StaffSync
         public void onModifyButtonClick()
         {
             lblActionMode.Text = "modify";
-            lblAllowenceID.Text = "";
+            lblSalaryProfileID.Text = "";
             btnSearch.Enabled = true;
             btnGenerateDetails.Enabled = false;
             btnModifyDetails.Enabled = true;
@@ -181,7 +208,7 @@ namespace StaffSync
         public void onRemoveButtonClick()
         {
             lblActionMode.Text = "remove";
-            lblAllowenceID.Text = "";
+            lblSalaryProfileID.Text = "";
             btnSearch.Enabled = true;
             btnGenerateDetails.Enabled = false;
             btnModifyDetails.Enabled = false;
@@ -193,7 +220,7 @@ namespace StaffSync
         public void onSaveButtonClick()
         {
             lblActionMode.Text = "";
-            lblAllowenceID.Text = "";
+            lblSalaryProfileID.Text = "";
             btnSearch.Enabled = false;
             btnGenerateDetails.Enabled = true;
             btnModifyDetails.Enabled = true;
@@ -205,7 +232,7 @@ namespace StaffSync
         public void onCancelButtonClick()
         {
             lblActionMode.Text = "";
-            lblAllowenceID.Text = "";
+            lblSalaryProfileID.Text = "";
             btnSearch.Enabled = false;
             btnGenerateDetails.Enabled = true;
             btnModifyDetails.Enabled = true;
@@ -214,13 +241,13 @@ namespace StaffSync
             btnCancel.Enabled = true;
         }
 
-        public void displaySelectedValuesOnUI(AllowenceModel AllowenceModel)
+        public void displaySelectedValuesOnUI(SalaryProfileTitleList SalaryProfileInfoModel)
         {
-            lblAllowenceID.Text = AllowenceModel.AllID.ToString();
-            txtSalProfCode.Text = AllowenceModel.AllCode;
-            txtSalProfTitle.Text = AllowenceModel.AllTitle;
-            txtSalProfDescription.Text = AllowenceModel.AllDescription;
-            cmbIsActive.Text = AllowenceModel.IsActive == true ? "Yes" : "No";
+            lblSalaryProfileID.Text = SalaryProfileInfoModel.SalProfileID.ToString();
+            txtSalProfCode.Text = SalaryProfileInfoModel.SalProfileCode;
+            txtSalProfTitle.Text = SalaryProfileInfoModel.SalProfileTitle;
+            txtSalProfDescription.Text = SalaryProfileInfoModel.SalProfileDescription;
+            cmbIsActive.Text = SalaryProfileInfoModel.IsActive == true ? "Yes" : "No";
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -278,7 +305,7 @@ namespace StaffSync
             {
                 if (MessageBox.Show("The selected record will be deleted. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    int affectedRows = objAllowence.DeleteAllowence(Convert.ToInt16(lblAllowenceID.Text.Trim()));
+                    int affectedRows = objSalaryProfile.DeleteSalaryProfileInfo(Convert.ToInt16(lblSalaryProfileID.Text.Trim()));
                     if (affectedRows > 0)
                         MessageBox.Show("Details deleted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }

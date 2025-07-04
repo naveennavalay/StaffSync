@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.lblEmpID = new System.Windows.Forms.Label();
             this.txtMoreDetails = new Krypton.Toolkit.KryptonTextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.txtEndDate = new System.Windows.Forms.MaskedTextBox();
@@ -47,7 +48,6 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lblEmpID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -107,9 +107,21 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Last Company Info";
             // 
+            // lblEmpID
+            // 
+            this.lblEmpID.AutoSize = true;
+            this.lblEmpID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblEmpID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmpID.Location = new System.Drawing.Point(506, 230);
+            this.lblEmpID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEmpID.Name = "lblEmpID";
+            this.lblEmpID.Size = new System.Drawing.Size(11, 15);
+            this.lblEmpID.TabIndex = 8;
+            this.lblEmpID.Text = " ";
+            this.lblEmpID.Visible = false;
+            // 
             // txtMoreDetails
             // 
-            this.txtMoreDetails.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMoreDetails.Location = new System.Drawing.Point(110, 258);
             this.txtMoreDetails.Multiline = true;
             this.txtMoreDetails.Name = "txtMoreDetails";
@@ -246,19 +258,6 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
-            // 
-            // lblEmpID
-            // 
-            this.lblEmpID.AutoSize = true;
-            this.lblEmpID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblEmpID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmpID.Location = new System.Drawing.Point(506, 230);
-            this.lblEmpID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblEmpID.Name = "lblEmpID";
-            this.lblEmpID.Size = new System.Drawing.Size(11, 15);
-            this.lblEmpID.TabIndex = 8;
-            this.lblEmpID.Text = " ";
-            this.lblEmpID.Visible = false;
             // 
             // frmLastCompanySelection
             // 

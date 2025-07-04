@@ -33,7 +33,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.cmbIsActive = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtSalProfDescription = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -41,7 +40,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
-            this.lblAllowenceID = new System.Windows.Forms.Label();
+            this.lblSalaryProfileID = new System.Windows.Forms.Label();
             this.lblActionMode = new System.Windows.Forms.Label();
             this.txtSalProfCode = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -56,6 +55,7 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.cmbIsActive = new Krypton.Toolkit.KryptonComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -67,6 +67,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -114,16 +115,6 @@
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Salary Profile Details";
-            // 
-            // cmbIsActive
-            // 
-            this.cmbIsActive.FormattingEnabled = true;
-            this.cmbIsActive.Location = new System.Drawing.Point(190, 147);
-            this.cmbIsActive.MaxDropDownItems = 5;
-            this.cmbIsActive.Name = "cmbIsActive";
-            this.cmbIsActive.Size = new System.Drawing.Size(427, 23);
-            this.cmbIsActive.TabIndex = 34;
-            this.cmbIsActive.SelectedIndexChanged += new System.EventHandler(this.cmbRelationship_SelectedIndexChanged);
             // 
             // label17
             // 
@@ -187,7 +178,7 @@
             // 
             this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.groupBox4.Controls.Add(this.btnSearch);
-            this.groupBox4.Controls.Add(this.lblAllowenceID);
+            this.groupBox4.Controls.Add(this.lblSalaryProfileID);
             this.groupBox4.Controls.Add(this.lblActionMode);
             this.groupBox4.Controls.Add(this.txtSalProfCode);
             this.groupBox4.Controls.Add(this.label1);
@@ -211,18 +202,18 @@
             this.btnSearch.Values.Text = "";
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // lblAllowenceID
+            // lblSalaryProfileID
             // 
-            this.lblAllowenceID.AutoSize = true;
-            this.lblAllowenceID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblAllowenceID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAllowenceID.Location = new System.Drawing.Point(582, 30);
-            this.lblAllowenceID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblAllowenceID.Name = "lblAllowenceID";
-            this.lblAllowenceID.Size = new System.Drawing.Size(11, 15);
-            this.lblAllowenceID.TabIndex = 5;
-            this.lblAllowenceID.Text = " ";
-            this.lblAllowenceID.Visible = false;
+            this.lblSalaryProfileID.AutoSize = true;
+            this.lblSalaryProfileID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblSalaryProfileID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSalaryProfileID.Location = new System.Drawing.Point(582, 30);
+            this.lblSalaryProfileID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSalaryProfileID.Name = "lblSalaryProfileID";
+            this.lblSalaryProfileID.Size = new System.Drawing.Size(11, 15);
+            this.lblSalaryProfileID.TabIndex = 5;
+            this.lblSalaryProfileID.Text = " ";
+            this.lblSalaryProfileID.Visible = false;
             // 
             // lblActionMode
             // 
@@ -364,6 +355,17 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
+            // cmbIsActive
+            // 
+            this.cmbIsActive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbIsActive.DropDownWidth = 440;
+            this.cmbIsActive.Location = new System.Drawing.Point(190, 147);
+            this.cmbIsActive.Name = "cmbIsActive";
+            this.cmbIsActive.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbIsActive.Size = new System.Drawing.Size(427, 22);
+            this.cmbIsActive.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbIsActive.TabIndex = 43;
+            // 
             // frmSalaryProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -393,6 +395,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -413,9 +416,8 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txtSalProfTitle;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.ComboBox cmbIsActive;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label lblAllowenceID;
+        private System.Windows.Forms.Label lblSalaryProfileID;
         public System.Windows.Forms.Label lblActionMode;
         private System.Windows.Forms.ErrorProvider errValidator;
         private Krypton.Toolkit.KryptonButton btnCloseMe;
@@ -425,5 +427,6 @@
         private Krypton.Toolkit.KryptonButton btnGenerateDetails;
         private Krypton.Toolkit.KryptonButton btnCancel;
         private Krypton.Toolkit.KryptonButton btnSearch;
+        private Krypton.Toolkit.KryptonComboBox cmbIsActive;
     }
 }

@@ -12,7 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static C1.Util.Win.Win32;
+//using static C1.Util.Win.Win32;
 
 namespace StaffSync
 {
@@ -35,6 +35,13 @@ namespace StaffSync
 
         private void btnCloseMe_Click(object sender, EventArgs e)
         {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
             this.Close();
         }
 
@@ -153,7 +160,7 @@ namespace StaffSync
                     for (int iLeaveCounter = 1; iLeaveCounter <= 1; iLeaveCounter++)
                     {
                         employeeLeaveTRID = objLeaveTRList.ApproveLeave(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, clsCurrentUser.UserID);
-                        objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), Convert.ToDecimal(txtBalanceLeave.Text));
+                        objLeaveTRList.UpdateEmployeeLeaveBalance(1, Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), Convert.ToDecimal(txtBalanceLeave.Text), DateTime.Now);
                         objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), "Leave", Convert.ToInt16(lblLeaveTRID.Text.ToString()));
                     }
                 }
@@ -215,6 +222,7 @@ namespace StaffSync
             lblActionMode.Text = "add";
             lblEmpID.Text = "";
             lblLeaveTRID.Text = "";
+            lblSpecificLeaveBalance.Text = "";
             btnSearch.Enabled = true;
             btnGenerateDetails.Enabled = true;
             btnModifyDetails.Enabled = false;
@@ -228,6 +236,7 @@ namespace StaffSync
             lblActionMode.Text = "modify";
             lblEmpID.Text = "";
             lblLeaveTRID.Text = "";
+            lblSpecificLeaveBalance.Text = "";
             btnSearch.Enabled = true;
             btnGenerateDetails.Enabled = false;
             btnModifyDetails.Enabled = true;
@@ -241,6 +250,7 @@ namespace StaffSync
             lblActionMode.Text = "remove";
             lblEmpID.Text = "";
             lblLeaveTRID.Text = "";
+            lblSpecificLeaveBalance.Text = "";
             btnSearch.Enabled = true;
             btnGenerateDetails.Enabled = false;
             btnModifyDetails.Enabled = false;
@@ -254,6 +264,7 @@ namespace StaffSync
             lblActionMode.Text = "";
             lblEmpID.Text = "";
             lblLeaveTRID.Text = "";
+            lblSpecificLeaveBalance.Text = "";
             btnSearch.Enabled = false;
             btnGenerateDetails.Enabled = true;
             btnModifyDetails.Enabled = true;
@@ -267,6 +278,7 @@ namespace StaffSync
             lblActionMode.Text = "";
             lblEmpID.Text = "";
             lblLeaveTRID.Text = "";
+            lblSpecificLeaveBalance.Text = "";
             btnSearch.Enabled = false;
             btnGenerateDetails.Enabled = true;
             btnModifyDetails.Enabled = true;
@@ -283,6 +295,7 @@ namespace StaffSync
             picEmpPhoto.Image = null;
 
             lblLeaveTRID.Text = "";
+            lblSpecificLeaveBalance.Text = "";
 
             txtAvailableLeave.Text = "";
             txtLeaveDateFrom.Text = DateTime.Now.ToString("dd-MM-yyyy");
@@ -488,6 +501,11 @@ namespace StaffSync
                 });
                 lstLeaveTRList.Items.AddRange(new System.Windows.Forms.ListViewItem[] { listViewItem1 });
             }
+        }
+
+        private void cmbLeaveType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -37,7 +37,14 @@ namespace StaffSync
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ex.Message.ToString().ToLower() == "Specified cast is not valid.".ToLower())
+                {
+                    rowCount = 1;
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 conn = objDBClass.closeDBConnection();
             }
             finally
@@ -152,7 +159,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO ReimbursementHeaderMas (ReimbID, ReimbCode, ReimbTitle, ReimbDescription, IsActive, IsDeleted, OrderID, CalcFormula) VALUES " +
-                 "(" + maxRowCount + ",'" + "RIM-" + (maxRowCount).ToString().PadLeft(4, '0').Trim() + "','" + txtReimbTitle.Trim() + "','" + txtReimbDescription.Trim() + "'," + IsActive + "," + IsDeleted + "," + maxRowCount + ",'')";
+                 "(" + maxRowCount + ",'" + "RMB-" + (maxRowCount).ToString().PadLeft(4, '0').Trim() + "','" + txtReimbTitle.Trim() + "','" + txtReimbDescription.Trim() + "'," + IsActive + "," + IsDeleted + "," + maxRowCount + ",'')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

@@ -23,6 +23,7 @@ namespace StaffSync
         clsLeaveTypeMas objLeaveTypeInfo = new clsLeaveTypeMas();
         clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
+        clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new clsEmpLeaveEntitlementInfo();
         //Download objDownload = new Download();
         clsPhotoMas objPhotoMas = new clsPhotoMas();
 
@@ -33,6 +34,13 @@ namespace StaffSync
 
         private void btnCloseMe_Click(object sender, EventArgs e)
         {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
             this.Close();
         }
 
@@ -77,7 +85,7 @@ namespace StaffSync
             onModifyButtonClick();
             clearControls();
             enableControls();
-            lblEmpID.Text = "";
+            lblEmpID.Text = "";            
             txtEmpCode.Text = "";
             errValidator.Clear();
 
@@ -163,10 +171,12 @@ namespace StaffSync
                             employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), cmbLeaveType.SelectedIndex + 1, DateTime.Now, txtLeaveNote.Text.Trim(), Convert.ToDateTime(LeaveDate.ToString("dd-MM-yyyy")), Convert.ToDateTime(LeaveDate.ToString("dd-MM-yyyy")), Convert.ToDecimal(1), DateTime.Now, "Not yet Approved", DateTime.Now, "Not yet Rejected", Convert.ToInt16(lblEmpID.Text.ToString()));
                             LeaveDate = Convert.ToDateTime(txtLeaveDateFrom.Text).AddDays(iLeaveCounter);
                         }
+                        objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) - Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
                     }
                     else
                     {
                         employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), cmbLeaveType.SelectedIndex + 1, DateTime.Now, txtLeaveNote.Text.Trim(), Convert.ToDateTime(txtLeaveDateFrom.Text), Convert.ToDateTime(txtLeaveDateTo.Text), Convert.ToDecimal(txtActualLeaveDays.Text), DateTime.Now, "Not yet Approved", DateTime.Now, "Not yet Rejected", Convert.ToInt16(lblEmpID.Text.ToString()));
+                        objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), Convert.ToDecimal(txtActualLeaveDays.Text.ToString()));
                     }
                 }
                 else
@@ -198,11 +208,13 @@ namespace StaffSync
                         {
                             employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), cmbLeaveType.SelectedIndex + 1, DateTime.Now, txtLeaveNote.Text.Trim(), Convert.ToDateTime(LeaveDate.ToString("dd-MM-yyyy")), Convert.ToDateTime(LeaveDate.ToString("dd-MM-yyyy")), Convert.ToDecimal(1), DateTime.Now, "Not yet Approved", DateTime.Now, "Not yet Rejected", Convert.ToInt16(lblEmpID.Text.ToString()));
                             LeaveDate = Convert.ToDateTime(txtLeaveDateFrom.Text).AddDays(iLeaveCounter);
+                            objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), Convert.ToDecimal(txtActualLeaveDays.Text.ToString()));
                         }
                     }
                     else
                     {
                         employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), cmbLeaveType.SelectedIndex + 1, DateTime.Now, txtLeaveNote.Text.Trim(), Convert.ToDateTime(txtLeaveDateFrom.Text), Convert.ToDateTime(txtLeaveDateTo.Text), Convert.ToDecimal(txtActualLeaveDays.Text), DateTime.Now, "Not yet Approved", DateTime.Now, "Not yet Rejected", Convert.ToInt16(lblEmpID.Text.ToString()));
+                        objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), Convert.ToDecimal(txtActualLeaveDays.Text.ToString()));
                     }
                 }
                 else
@@ -297,6 +309,11 @@ namespace StaffSync
         public void clearControls()
         {
             lblEmpID.Text = "";
+            lblCancelStatus.Text = "";
+            lblLeaveMasID.Text = "";
+            lblLeaveTRID.Text = "";
+            lblSpecificLeaveBalance.Text = "";
+
             txtEmpCode.Text = "";
             txtEmployeeName.Text = "";
             picEmpPhoto.Image = null;
@@ -369,10 +386,16 @@ namespace StaffSync
                 picEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblEmpID.Text)).EmpPhoto);
 
                 txtAvailableLeave.Text = objLeaveTRList.getBalanceLeave(Convert.ToInt16(lblEmpID.Text)).ToString();
+                lblLeaveMasID.Text = objLeaveTRList.getMaxLeaveMasID(Convert.ToInt16(lblEmpID.Text)).ToString();
 
                 LeaveCalculation();
 
                 RefreshLeavesHistoryList();
+
+                if (lblEmpID.Text.Trim() == "")
+                    return;
+
+                lblSpecificLeaveBalance.Text = objLeaveTRList.getSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1)).ToString();
             }
         }
 
@@ -560,24 +583,29 @@ namespace StaffSync
             }
 
             // Leave date to must be valid
-            DateTime leaveToDate;
-            if (string.IsNullOrWhiteSpace(txtLeaveDateTo.Text) || !IsDateTime(txtLeaveDateTo.Text))
+            //DateTime leaveToDate;
+            //if (string.IsNullOrWhiteSpace(txtLeaveDateTo.Text) || !IsDateTime(txtLeaveDateTo.Text))
+            //{
+            //    errValidator.SetError(txtLeaveDateTo, "Enter a valid 'Leave To' date (dd-MM-yyyy).");
+            //    isValid = false;
+            //}
+            //else if (!DateTime.TryParseExact(txtLeaveDateTo.Text, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out leaveToDate))
+            //{
+            //    errValidator.SetError(txtLeaveDateTo, "Enter a valid 'Leave To' date (dd-MM-yyyy).");
+            //    isValid = false;
+            //}
+            //else if (leaveToDate.Date < DateTime.Now.Date)
+            //{
+            //    errValidator.SetError(txtLeaveDateTo, "'Leave To' date cannot be in the past.");
+            //    isValid = false;
+            //}
+
+            if (string.IsNullOrWhiteSpace(lblSpecificLeaveBalance.Text) || !decimal.TryParse(lblSpecificLeaveBalance.Text, out decimal leaveBalance) || leaveBalance == 0)
             {
-                errValidator.SetError(txtLeaveDateTo, "Enter a valid 'Leave To' date (dd-MM-yyyy).");
-                isValid = false;
-            }
-            else if (!DateTime.TryParseExact(txtLeaveDateTo.Text, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out leaveToDate))
-            {
-                errValidator.SetError(txtLeaveDateTo, "Enter a valid 'Leave To' date (dd-MM-yyyy).");
-                isValid = false;
-            }
-            else if (leaveToDate.Date < DateTime.Now.Date)
-            {
-                errValidator.SetError(txtLeaveDateTo, "'Leave To' date cannot be in the past.");
+                errValidator.SetError(cmbLeaveType, cmbLeaveType.Text + " : Zero leaves available.");
                 isValid = false;
             }
 
-            // Actual leave days must be a positive number
             if (string.IsNullOrWhiteSpace(txtActualLeaveDays.Text) || !decimal.TryParse(txtActualLeaveDays.Text, out decimal leaveDays) || leaveDays <= 0)
             {
                 errValidator.SetError(txtActualLeaveDays, "Enter a valid number of leave days.");
@@ -585,6 +613,50 @@ namespace StaffSync
             }
 
             return isValid;
+        }
+
+        private void cmbLeaveType_SelectedIndexChanged(object sender, EventArgs e)
+        {            
+            if(lblEmpID.Text.Trim() == "")
+                return;
+
+            lblSpecificLeaveBalance.Text = objLeaveTRList.getSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1)).ToString();
+        }
+
+        private void picViewLeaves_Click(object sender, EventArgs e)
+        {
+            //dtgLeaveEntitlement.DataSource = null;
+            //dtgLeaveEntitlement.DataSource = objEmpLeaveEntitlementInfo.getEmployeeLeaveEntitilementList(Convert.ToInt16(lblEmpID.Text), Convert.ToInt16(lblLeaveMasID.Text.ToString()));
+            //LeaveEntitlementTableFormat(); 
+        }
+
+        //private void LeaveEntitlementTableFormat()
+        //{
+        //    dtgLeaveEntitlement.Columns["LeaveEntmtID"].Visible = false;
+        //    dtgLeaveEntitlement.Columns["EmpID"].Visible = false;
+        //    dtgLeaveEntitlement.Columns["EmpID"].ReadOnly = true;
+        //    dtgLeaveEntitlement.Columns["LeaveMasID"].Visible = false;
+        //    dtgLeaveEntitlement.Columns["LeaveMasID"].ReadOnly = true;
+        //    dtgLeaveEntitlement.Columns["LeaveTypeID"].Visible = false;
+        //    dtgLeaveEntitlement.Columns["LeaveTypeID"].ReadOnly = true;
+        //    dtgLeaveEntitlement.Columns["LeaveTypeTitle"].ReadOnly = true;
+        //    dtgLeaveEntitlement.Columns["LeaveTypeTitle"].Width = 350;
+
+        //    dtgLeaveEntitlement.Columns["TotalLeaves"].Width = 135;
+        //    dtgLeaveEntitlement.Columns["TotalLeaves"].ReadOnly = false;
+        //    dtgLeaveEntitlement.Columns["TotalLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+        //    dtgLeaveEntitlement.Columns["TotalLeaves"].DefaultCellStyle.Format = "c2";
+
+        //    dtgLeaveEntitlement.Columns["BalanceLeaves"].Width = 135;
+        //    dtgLeaveEntitlement.Columns["BalanceLeaves"].ReadOnly = true;
+        //    dtgLeaveEntitlement.Columns["BalanceLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+        //    dtgLeaveEntitlement.Columns["BalanceLeaves"].DefaultCellStyle.Format = "c2";
+        //    dtgLeaveEntitlement.Columns["OrderID"].Visible = false;
+        //}
+
+        private void btnCloseHDRGroup_Click(object sender, EventArgs e)
+        {
+            //hdrGroup.Visible = false;
         }
     }
 }
