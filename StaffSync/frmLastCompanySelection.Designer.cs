@@ -165,12 +165,14 @@
             this.txtStartDate.TabIndex = 46;
             this.txtStartDate.Tag = "Please enter Employeee Date Of Birth";
             this.txtStartDate.ValidatingType = typeof(System.DateTime);
+            this.txtStartDate.TextChanged += new System.EventHandler(this.txtStartDate_TextChanged);
             // 
             // dtgPreviousWorkExp
             // 
             this.dtgPreviousWorkExp.AllowUserToAddRows = false;
             this.dtgPreviousWorkExp.AllowUserToDeleteRows = false;
             this.dtgPreviousWorkExp.AllowUserToResizeRows = false;
+            this.dtgPreviousWorkExp.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dtgPreviousWorkExp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgPreviousWorkExp.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dtgPreviousWorkExp.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;

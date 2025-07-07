@@ -302,7 +302,7 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
 
                 string strQuery = "INSERT INTO Users (UserID, EmpID, IsActive, IsDeleted, EmpUserName, EmpPassword) VALUES " +
-                "(" + maxRowCount + "," + txtEmpID + "," + IsActive + "," + IsDeleted + ",'" + txtUserName + "','"+ objEncryptDecrypt.encryptText(txtUserPassword) + "')";
+                "(" + maxRowCount + "," + txtEmpID + "," + IsActive + "," + IsDeleted + ",'" + txtUserName + "','"+ txtUserPassword + "')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

@@ -83,7 +83,7 @@
             this.txtPassword.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.TabIndex = 9;
-            this.txtPassword.Text = "Naveen_01!";
+            this.txtPassword.Text = "12-12-1991";
             // 
             // txtUserName
             // 
@@ -97,7 +97,7 @@
             this.txtUserName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUserName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUserName.TabIndex = 8;
-            this.txtUserName.Text = "naveendnavalay@gmail.com";
+            this.txtUserName.Text = "gaurav.gupta@email.com";
             // 
             // label2
             // 

@@ -99,7 +99,7 @@
             this.dtgEmployeeList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dtgEmployeeList.Location = new System.Drawing.Point(18, 68);
             this.dtgEmployeeList.Name = "dtgEmployeeList";
-            this.dtgEmployeeList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgEmployeeList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.dtgEmployeeList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgEmployeeList.Size = new System.Drawing.Size(1192, 423);
             this.dtgEmployeeList.TabIndex = 9;

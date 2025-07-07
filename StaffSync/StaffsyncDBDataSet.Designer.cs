@@ -82,6 +82,8 @@ namespace StaffSync {
         
         private SexMasDataTable tableSexMas;
         
+        private qryDailyLeaveRequestDataTable tableqryDailyLeaveRequest;
+        
         private global::System.Data.DataRelation relationCountryMasAddressMas;
         
         private global::System.Data.DataRelation relationAddressMasPersonalInfoMas;
@@ -240,6 +242,9 @@ namespace StaffSync {
                 }
                 if ((ds.Tables["SexMas"] != null)) {
                     base.Tables.Add(new SexMasDataTable(ds.Tables["SexMas"]));
+                }
+                if ((ds.Tables["qryDailyLeaveRequest"] != null)) {
+                    base.Tables.Add(new qryDailyLeaveRequestDataTable(ds.Tables["qryDailyLeaveRequest"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -551,6 +556,16 @@ namespace StaffSync {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public qryDailyLeaveRequestDataTable qryDailyLeaveRequest {
+            get {
+                return this.tableqryDailyLeaveRequest;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -702,6 +717,9 @@ namespace StaffSync {
                 }
                 if ((ds.Tables["SexMas"] != null)) {
                     base.Tables.Add(new SexMasDataTable(ds.Tables["SexMas"]));
+                }
+                if ((ds.Tables["qryDailyLeaveRequest"] != null)) {
+                    base.Tables.Add(new qryDailyLeaveRequestDataTable(ds.Tables["qryDailyLeaveRequest"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -910,6 +928,12 @@ namespace StaffSync {
                     this.tableSexMas.InitVars();
                 }
             }
+            this.tableqryDailyLeaveRequest = ((qryDailyLeaveRequestDataTable)(base.Tables["qryDailyLeaveRequest"]));
+            if ((initTable == true)) {
+                if ((this.tableqryDailyLeaveRequest != null)) {
+                    this.tableqryDailyLeaveRequest.InitVars();
+                }
+            }
             this.relationCountryMasAddressMas = this.Relations["CountryMasAddressMas"];
             this.relationAddressMasPersonalInfoMas = this.Relations["AddressMasPersonalInfoMas"];
             this.relationAddressMasPersonalInfoMas1 = this.Relations["AddressMasPersonalInfoMas1"];
@@ -1000,6 +1024,8 @@ namespace StaffSync {
             base.Tables.Add(this.tableEmpMas);
             this.tableSexMas = new SexMasDataTable();
             base.Tables.Add(this.tableSexMas);
+            this.tableqryDailyLeaveRequest = new qryDailyLeaveRequestDataTable();
+            base.Tables.Add(this.tableqryDailyLeaveRequest);
             this.relationCountryMasAddressMas = new global::System.Data.DataRelation("CountryMasAddressMas", new global::System.Data.DataColumn[] {
                         this.tableCountryMas.CountryIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableAddressMas.CountryIDColumn}, false);
@@ -1266,6 +1292,12 @@ namespace StaffSync {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private bool ShouldSerializeqryDailyLeaveRequest() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void SchemaChanged(object sender, global::System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == global::System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -1405,6 +1437,9 @@ namespace StaffSync {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public delegate void SexMasRowChangeEventHandler(object sender, SexMasRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public delegate void qryDailyLeaveRequestRowChangeEventHandler(object sender, qryDailyLeaveRequestRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -11268,6 +11303,517 @@ namespace StaffSync {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class qryDailyLeaveRequestDataTable : global::System.Data.TypedTableBase<qryDailyLeaveRequestRow> {
+            
+            private global::System.Data.DataColumn columnEmpID;
+            
+            private global::System.Data.DataColumn columnEmpCode;
+            
+            private global::System.Data.DataColumn columnEmpName;
+            
+            private global::System.Data.DataColumn columnDesignationTitle;
+            
+            private global::System.Data.DataColumn columnDepartmentTitle;
+            
+            private global::System.Data.DataColumn columnLeaveTRID;
+            
+            private global::System.Data.DataColumn columnLeaveTypeID;
+            
+            private global::System.Data.DataColumn columnLeaveTypeTitle;
+            
+            private global::System.Data.DataColumn columnLeaveAppliedDate;
+            
+            private global::System.Data.DataColumn columnLeaveComments;
+            
+            private global::System.Data.DataColumn columnActualLeaveDateFrom;
+            
+            private global::System.Data.DataColumn columnActualLeaveDateTo;
+            
+            private global::System.Data.DataColumn columnLeaveDuration;
+            
+            private global::System.Data.DataColumn columnLeaveApprovedDate;
+            
+            private global::System.Data.DataColumn columnLeaveApprovalComments;
+            
+            private global::System.Data.DataColumn columnLeaveRejectedDate;
+            
+            private global::System.Data.DataColumn columnLeaveRejectionComments;
+            
+            private global::System.Data.DataColumn columnOrderID;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public qryDailyLeaveRequestDataTable() {
+                this.TableName = "qryDailyLeaveRequest";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal qryDailyLeaveRequestDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected qryDailyLeaveRequestDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpIDColumn {
+                get {
+                    return this.columnEmpID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpCodeColumn {
+                get {
+                    return this.columnEmpCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpNameColumn {
+                get {
+                    return this.columnEmpName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn DesignationTitleColumn {
+                get {
+                    return this.columnDesignationTitle;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn DepartmentTitleColumn {
+                get {
+                    return this.columnDepartmentTitle;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn LeaveTRIDColumn {
+                get {
+                    return this.columnLeaveTRID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn LeaveTypeIDColumn {
+                get {
+                    return this.columnLeaveTypeID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn LeaveTypeTitleColumn {
+                get {
+                    return this.columnLeaveTypeTitle;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn LeaveAppliedDateColumn {
+                get {
+                    return this.columnLeaveAppliedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn LeaveCommentsColumn {
+                get {
+                    return this.columnLeaveComments;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ActualLeaveDateFromColumn {
+                get {
+                    return this.columnActualLeaveDateFrom;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ActualLeaveDateToColumn {
+                get {
+                    return this.columnActualLeaveDateTo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn LeaveDurationColumn {
+                get {
+                    return this.columnLeaveDuration;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn LeaveApprovedDateColumn {
+                get {
+                    return this.columnLeaveApprovedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn LeaveApprovalCommentsColumn {
+                get {
+                    return this.columnLeaveApprovalComments;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn LeaveRejectedDateColumn {
+                get {
+                    return this.columnLeaveRejectedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn LeaveRejectionCommentsColumn {
+                get {
+                    return this.columnLeaveRejectionComments;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn OrderIDColumn {
+                get {
+                    return this.columnOrderID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public qryDailyLeaveRequestRow this[int index] {
+                get {
+                    return ((qryDailyLeaveRequestRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event qryDailyLeaveRequestRowChangeEventHandler qryDailyLeaveRequestRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event qryDailyLeaveRequestRowChangeEventHandler qryDailyLeaveRequestRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event qryDailyLeaveRequestRowChangeEventHandler qryDailyLeaveRequestRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event qryDailyLeaveRequestRowChangeEventHandler qryDailyLeaveRequestRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void AddqryDailyLeaveRequestRow(qryDailyLeaveRequestRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public qryDailyLeaveRequestRow AddqryDailyLeaveRequestRow(
+                        int EmpID, 
+                        string EmpCode, 
+                        string EmpName, 
+                        string DesignationTitle, 
+                        string DepartmentTitle, 
+                        int LeaveTRID, 
+                        int LeaveTypeID, 
+                        string LeaveTypeTitle, 
+                        System.DateTime LeaveAppliedDate, 
+                        string LeaveComments, 
+                        System.DateTime ActualLeaveDateFrom, 
+                        System.DateTime ActualLeaveDateTo, 
+                        decimal LeaveDuration, 
+                        System.DateTime LeaveApprovedDate, 
+                        string LeaveApprovalComments, 
+                        System.DateTime LeaveRejectedDate, 
+                        string LeaveRejectionComments, 
+                        int OrderID) {
+                qryDailyLeaveRequestRow rowqryDailyLeaveRequestRow = ((qryDailyLeaveRequestRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        EmpID,
+                        EmpCode,
+                        EmpName,
+                        DesignationTitle,
+                        DepartmentTitle,
+                        LeaveTRID,
+                        LeaveTypeID,
+                        LeaveTypeTitle,
+                        LeaveAppliedDate,
+                        LeaveComments,
+                        ActualLeaveDateFrom,
+                        ActualLeaveDateTo,
+                        LeaveDuration,
+                        LeaveApprovedDate,
+                        LeaveApprovalComments,
+                        LeaveRejectedDate,
+                        LeaveRejectionComments,
+                        OrderID};
+                rowqryDailyLeaveRequestRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowqryDailyLeaveRequestRow);
+                return rowqryDailyLeaveRequestRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                qryDailyLeaveRequestDataTable cln = ((qryDailyLeaveRequestDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new qryDailyLeaveRequestDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal void InitVars() {
+                this.columnEmpID = base.Columns["EmpID"];
+                this.columnEmpCode = base.Columns["EmpCode"];
+                this.columnEmpName = base.Columns["EmpName"];
+                this.columnDesignationTitle = base.Columns["DesignationTitle"];
+                this.columnDepartmentTitle = base.Columns["DepartmentTitle"];
+                this.columnLeaveTRID = base.Columns["LeaveTRID"];
+                this.columnLeaveTypeID = base.Columns["LeaveTypeID"];
+                this.columnLeaveTypeTitle = base.Columns["LeaveTypeTitle"];
+                this.columnLeaveAppliedDate = base.Columns["LeaveAppliedDate"];
+                this.columnLeaveComments = base.Columns["LeaveComments"];
+                this.columnActualLeaveDateFrom = base.Columns["ActualLeaveDateFrom"];
+                this.columnActualLeaveDateTo = base.Columns["ActualLeaveDateTo"];
+                this.columnLeaveDuration = base.Columns["LeaveDuration"];
+                this.columnLeaveApprovedDate = base.Columns["LeaveApprovedDate"];
+                this.columnLeaveApprovalComments = base.Columns["LeaveApprovalComments"];
+                this.columnLeaveRejectedDate = base.Columns["LeaveRejectedDate"];
+                this.columnLeaveRejectionComments = base.Columns["LeaveRejectionComments"];
+                this.columnOrderID = base.Columns["OrderID"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            private void InitClass() {
+                this.columnEmpID = new global::System.Data.DataColumn("EmpID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpID);
+                this.columnEmpCode = new global::System.Data.DataColumn("EmpCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpCode);
+                this.columnEmpName = new global::System.Data.DataColumn("EmpName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpName);
+                this.columnDesignationTitle = new global::System.Data.DataColumn("DesignationTitle", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDesignationTitle);
+                this.columnDepartmentTitle = new global::System.Data.DataColumn("DepartmentTitle", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDepartmentTitle);
+                this.columnLeaveTRID = new global::System.Data.DataColumn("LeaveTRID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLeaveTRID);
+                this.columnLeaveTypeID = new global::System.Data.DataColumn("LeaveTypeID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLeaveTypeID);
+                this.columnLeaveTypeTitle = new global::System.Data.DataColumn("LeaveTypeTitle", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLeaveTypeTitle);
+                this.columnLeaveAppliedDate = new global::System.Data.DataColumn("LeaveAppliedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLeaveAppliedDate);
+                this.columnLeaveComments = new global::System.Data.DataColumn("LeaveComments", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLeaveComments);
+                this.columnActualLeaveDateFrom = new global::System.Data.DataColumn("ActualLeaveDateFrom", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnActualLeaveDateFrom);
+                this.columnActualLeaveDateTo = new global::System.Data.DataColumn("ActualLeaveDateTo", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnActualLeaveDateTo);
+                this.columnLeaveDuration = new global::System.Data.DataColumn("LeaveDuration", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLeaveDuration);
+                this.columnLeaveApprovedDate = new global::System.Data.DataColumn("LeaveApprovedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLeaveApprovedDate);
+                this.columnLeaveApprovalComments = new global::System.Data.DataColumn("LeaveApprovalComments", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLeaveApprovalComments);
+                this.columnLeaveRejectedDate = new global::System.Data.DataColumn("LeaveRejectedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLeaveRejectedDate);
+                this.columnLeaveRejectionComments = new global::System.Data.DataColumn("LeaveRejectionComments", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLeaveRejectionComments);
+                this.columnOrderID = new global::System.Data.DataColumn("OrderID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOrderID);
+                this.columnEmpCode.MaxLength = 255;
+                this.columnEmpName.MaxLength = 255;
+                this.columnDesignationTitle.MaxLength = 255;
+                this.columnDepartmentTitle.MaxLength = 255;
+                this.columnLeaveTypeTitle.MaxLength = 255;
+                this.columnLeaveComments.MaxLength = 255;
+                this.columnLeaveApprovalComments.MaxLength = 255;
+                this.columnLeaveRejectionComments.MaxLength = 255;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public qryDailyLeaveRequestRow NewqryDailyLeaveRequestRow() {
+                return ((qryDailyLeaveRequestRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new qryDailyLeaveRequestRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(qryDailyLeaveRequestRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.qryDailyLeaveRequestRowChanged != null)) {
+                    this.qryDailyLeaveRequestRowChanged(this, new qryDailyLeaveRequestRowChangeEvent(((qryDailyLeaveRequestRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.qryDailyLeaveRequestRowChanging != null)) {
+                    this.qryDailyLeaveRequestRowChanging(this, new qryDailyLeaveRequestRowChangeEvent(((qryDailyLeaveRequestRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.qryDailyLeaveRequestRowDeleted != null)) {
+                    this.qryDailyLeaveRequestRowDeleted(this, new qryDailyLeaveRequestRowChangeEvent(((qryDailyLeaveRequestRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.qryDailyLeaveRequestRowDeleting != null)) {
+                    this.qryDailyLeaveRequestRowDeleting(this, new qryDailyLeaveRequestRowChangeEvent(((qryDailyLeaveRequestRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void RemoveqryDailyLeaveRequestRow(qryDailyLeaveRequestRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                StaffsyncDBDataSet ds = new StaffsyncDBDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "qryDailyLeaveRequestDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class AddressMasRow : global::System.Data.DataRow {
@@ -16998,6 +17544,534 @@ namespace StaffSync {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class qryDailyLeaveRequestRow : global::System.Data.DataRow {
+            
+            private qryDailyLeaveRequestDataTable tableqryDailyLeaveRequest;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal qryDailyLeaveRequestRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableqryDailyLeaveRequest = ((qryDailyLeaveRequestDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int EmpID {
+                get {
+                    try {
+                        return ((int)(this[this.tableqryDailyLeaveRequest.EmpIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpID\' in table \'qryDailyLeaveRequest\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.EmpIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string EmpCode {
+                get {
+                    try {
+                        return ((string)(this[this.tableqryDailyLeaveRequest.EmpCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpCode\' in table \'qryDailyLeaveRequest\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.EmpCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string EmpName {
+                get {
+                    try {
+                        return ((string)(this[this.tableqryDailyLeaveRequest.EmpNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpName\' in table \'qryDailyLeaveRequest\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.EmpNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string DesignationTitle {
+                get {
+                    try {
+                        return ((string)(this[this.tableqryDailyLeaveRequest.DesignationTitleColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DesignationTitle\' in table \'qryDailyLeaveRequest\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.DesignationTitleColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string DepartmentTitle {
+                get {
+                    try {
+                        return ((string)(this[this.tableqryDailyLeaveRequest.DepartmentTitleColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DepartmentTitle\' in table \'qryDailyLeaveRequest\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.DepartmentTitleColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int LeaveTRID {
+                get {
+                    try {
+                        return ((int)(this[this.tableqryDailyLeaveRequest.LeaveTRIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LeaveTRID\' in table \'qryDailyLeaveRequest\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.LeaveTRIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int LeaveTypeID {
+                get {
+                    try {
+                        return ((int)(this[this.tableqryDailyLeaveRequest.LeaveTypeIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LeaveTypeID\' in table \'qryDailyLeaveRequest\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.LeaveTypeIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string LeaveTypeTitle {
+                get {
+                    try {
+                        return ((string)(this[this.tableqryDailyLeaveRequest.LeaveTypeTitleColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LeaveTypeTitle\' in table \'qryDailyLeaveRequest\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.LeaveTypeTitleColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime LeaveAppliedDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableqryDailyLeaveRequest.LeaveAppliedDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LeaveAppliedDate\' in table \'qryDailyLeaveRequest\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.LeaveAppliedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string LeaveComments {
+                get {
+                    try {
+                        return ((string)(this[this.tableqryDailyLeaveRequest.LeaveCommentsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LeaveComments\' in table \'qryDailyLeaveRequest\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.LeaveCommentsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime ActualLeaveDateFrom {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableqryDailyLeaveRequest.ActualLeaveDateFromColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ActualLeaveDateFrom\' in table \'qryDailyLeaveRequest\' is DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.ActualLeaveDateFromColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime ActualLeaveDateTo {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableqryDailyLeaveRequest.ActualLeaveDateToColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ActualLeaveDateTo\' in table \'qryDailyLeaveRequest\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.ActualLeaveDateToColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public decimal LeaveDuration {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableqryDailyLeaveRequest.LeaveDurationColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LeaveDuration\' in table \'qryDailyLeaveRequest\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.LeaveDurationColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime LeaveApprovedDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableqryDailyLeaveRequest.LeaveApprovedDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LeaveApprovedDate\' in table \'qryDailyLeaveRequest\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.LeaveApprovedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string LeaveApprovalComments {
+                get {
+                    try {
+                        return ((string)(this[this.tableqryDailyLeaveRequest.LeaveApprovalCommentsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LeaveApprovalComments\' in table \'qryDailyLeaveRequest\' is D" +
+                                "BNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.LeaveApprovalCommentsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime LeaveRejectedDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableqryDailyLeaveRequest.LeaveRejectedDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LeaveRejectedDate\' in table \'qryDailyLeaveRequest\' is DBNul" +
+                                "l.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.LeaveRejectedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string LeaveRejectionComments {
+                get {
+                    try {
+                        return ((string)(this[this.tableqryDailyLeaveRequest.LeaveRejectionCommentsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'LeaveRejectionComments\' in table \'qryDailyLeaveRequest\' is " +
+                                "DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.LeaveRejectionCommentsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int OrderID {
+                get {
+                    try {
+                        return ((int)(this[this.tableqryDailyLeaveRequest.OrderIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OrderID\' in table \'qryDailyLeaveRequest\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableqryDailyLeaveRequest.OrderIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpIDNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.EmpIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpIDNull() {
+                this[this.tableqryDailyLeaveRequest.EmpIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpCodeNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.EmpCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpCodeNull() {
+                this[this.tableqryDailyLeaveRequest.EmpCodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpNameNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.EmpNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpNameNull() {
+                this[this.tableqryDailyLeaveRequest.EmpNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsDesignationTitleNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.DesignationTitleColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetDesignationTitleNull() {
+                this[this.tableqryDailyLeaveRequest.DesignationTitleColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsDepartmentTitleNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.DepartmentTitleColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetDepartmentTitleNull() {
+                this[this.tableqryDailyLeaveRequest.DepartmentTitleColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsLeaveTRIDNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.LeaveTRIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetLeaveTRIDNull() {
+                this[this.tableqryDailyLeaveRequest.LeaveTRIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsLeaveTypeIDNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.LeaveTypeIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetLeaveTypeIDNull() {
+                this[this.tableqryDailyLeaveRequest.LeaveTypeIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsLeaveTypeTitleNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.LeaveTypeTitleColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetLeaveTypeTitleNull() {
+                this[this.tableqryDailyLeaveRequest.LeaveTypeTitleColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsLeaveAppliedDateNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.LeaveAppliedDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetLeaveAppliedDateNull() {
+                this[this.tableqryDailyLeaveRequest.LeaveAppliedDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsLeaveCommentsNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.LeaveCommentsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetLeaveCommentsNull() {
+                this[this.tableqryDailyLeaveRequest.LeaveCommentsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsActualLeaveDateFromNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.ActualLeaveDateFromColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetActualLeaveDateFromNull() {
+                this[this.tableqryDailyLeaveRequest.ActualLeaveDateFromColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsActualLeaveDateToNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.ActualLeaveDateToColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetActualLeaveDateToNull() {
+                this[this.tableqryDailyLeaveRequest.ActualLeaveDateToColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsLeaveDurationNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.LeaveDurationColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetLeaveDurationNull() {
+                this[this.tableqryDailyLeaveRequest.LeaveDurationColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsLeaveApprovedDateNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.LeaveApprovedDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetLeaveApprovedDateNull() {
+                this[this.tableqryDailyLeaveRequest.LeaveApprovedDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsLeaveApprovalCommentsNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.LeaveApprovalCommentsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetLeaveApprovalCommentsNull() {
+                this[this.tableqryDailyLeaveRequest.LeaveApprovalCommentsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsLeaveRejectedDateNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.LeaveRejectedDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetLeaveRejectedDateNull() {
+                this[this.tableqryDailyLeaveRequest.LeaveRejectedDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsLeaveRejectionCommentsNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.LeaveRejectionCommentsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetLeaveRejectionCommentsNull() {
+                this[this.tableqryDailyLeaveRequest.LeaveRejectionCommentsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsOrderIDNull() {
+                return this.IsNull(this.tableqryDailyLeaveRequest.OrderIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetOrderIDNull() {
+                this[this.tableqryDailyLeaveRequest.OrderIDColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -17969,6 +19043,40 @@ namespace StaffSync {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public SexMasRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public class qryDailyLeaveRequestRowChangeEvent : global::System.EventArgs {
+            
+            private qryDailyLeaveRequestRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public qryDailyLeaveRequestRowChangeEvent(qryDailyLeaveRequestRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public qryDailyLeaveRequestRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -28369,6 +29477,190 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
     }
     
     /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class qryDailyLeaveRequestTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.OleDb.OleDbDataAdapter _adapter;
+        
+        private global::System.Data.OleDb.OleDbConnection _connection;
+        
+        private global::System.Data.OleDb.OleDbTransaction _transaction;
+        
+        private global::System.Data.OleDb.OleDbCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public qryDailyLeaveRequestTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected internal global::System.Data.OleDb.OleDbDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        internal global::System.Data.OleDb.OleDbConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.OleDb.OleDbCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        internal global::System.Data.OleDb.OleDbTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected global::System.Data.OleDb.OleDbCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.OleDb.OleDbDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "qryDailyLeaveRequest";
+            tableMapping.ColumnMappings.Add("EmpID", "EmpID");
+            tableMapping.ColumnMappings.Add("EmpCode", "EmpCode");
+            tableMapping.ColumnMappings.Add("EmpName", "EmpName");
+            tableMapping.ColumnMappings.Add("DesignationTitle", "DesignationTitle");
+            tableMapping.ColumnMappings.Add("DepartmentTitle", "DepartmentTitle");
+            tableMapping.ColumnMappings.Add("LeaveTRID", "LeaveTRID");
+            tableMapping.ColumnMappings.Add("LeaveTypeID", "LeaveTypeID");
+            tableMapping.ColumnMappings.Add("LeaveTypeTitle", "LeaveTypeTitle");
+            tableMapping.ColumnMappings.Add("LeaveAppliedDate", "LeaveAppliedDate");
+            tableMapping.ColumnMappings.Add("LeaveComments", "LeaveComments");
+            tableMapping.ColumnMappings.Add("ActualLeaveDateFrom", "ActualLeaveDateFrom");
+            tableMapping.ColumnMappings.Add("ActualLeaveDateTo", "ActualLeaveDateTo");
+            tableMapping.ColumnMappings.Add("LeaveDuration", "LeaveDuration");
+            tableMapping.ColumnMappings.Add("LeaveApprovedDate", "LeaveApprovedDate");
+            tableMapping.ColumnMappings.Add("LeaveApprovalComments", "LeaveApprovalComments");
+            tableMapping.ColumnMappings.Add("LeaveRejectedDate", "LeaveRejectedDate");
+            tableMapping.ColumnMappings.Add("LeaveRejectionComments", "LeaveRejectionComments");
+            tableMapping.ColumnMappings.Add("OrderID", "OrderID");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.OleDb.OleDbConnection();
+            this._connection.ConnectionString = global::StaffSync.Properties.Settings.Default.StaffsyncDBConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
+            this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = @"SELECT EmpID, EmpCode, EmpName, DesignationTitle, DepartmentTitle, LeaveTRID, LeaveTypeID, LeaveTypeTitle, LeaveAppliedDate, LeaveComments, ActualLeaveDateFrom, ActualLeaveDateTo, LeaveDuration, LeaveApprovedDate, LeaveApprovalComments, LeaveRejectedDate, LeaveRejectionComments, OrderID FROM qryDailyLeaveRequest";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(StaffsyncDBDataSet.qryDailyLeaveRequestDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual StaffsyncDBDataSet.qryDailyLeaveRequestDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            StaffsyncDBDataSet.qryDailyLeaveRequestDataTable dataTable = new StaffsyncDBDataSet.qryDailyLeaveRequestDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
     ///TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
     ///</summary>
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -28898,15 +30190,6 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private int UpdateUpdatedRows(StaffsyncDBDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._bloodGroupMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._bloodGroupMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._countryMasTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.CountryMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -28934,6 +30217,15 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._bloodGroupMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._bloodGroupMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._stateMasTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.StateMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -28952,12 +30244,21 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._skillsMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._lastCompDetMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._skillsMasTableAdapter.Update(updatedRows));
+                    result = (result + this._lastCompDetMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._sexMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._sexMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -28970,12 +30271,21 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._lastCompDetMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._relationShipMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._lastCompDetMasTableAdapter.Update(updatedRows));
+                    result = (result + this._relationShipMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._skillsMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._skillsMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -28989,75 +30299,12 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._sexMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._sexMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._contactPersonMasTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.ContactPersonMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._contactPersonMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._relationShipMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._relationShipMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._personalInfoMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.PersonalInfoMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._personalInfoMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._empDocMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpDocMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._empDocMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._empSkillMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpSkillMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._empSkillMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._empWorkExpTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpWorkExp.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._empWorkExpTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._leaveMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.LeaveMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._leaveMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -29070,12 +30317,57 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._empSkillMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpSkillMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empSkillMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._personalInfoMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.PersonalInfoMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._personalInfoMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._leaveTypeMasTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.LeaveTypeMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._leaveTypeMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._leaveMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.LeaveMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._leaveMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._empWorkExpTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpWorkExp.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empWorkExpTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._empDocMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpDocMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empDocMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -29089,14 +30381,6 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private int UpdateInsertedRows(StaffsyncDBDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._bloodGroupMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._bloodGroupMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._countryMasTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.CountryMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -29121,6 +30405,14 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._bloodGroupMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._bloodGroupMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._stateMasTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.StateMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -29137,11 +30429,19 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._skillsMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._lastCompDetMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._skillsMasTableAdapter.Update(addedRows));
+                    result = (result + this._lastCompDetMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._sexMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._sexMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -29153,11 +30453,19 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._lastCompDetMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._relationShipMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._lastCompDetMasTableAdapter.Update(addedRows));
+                    result = (result + this._relationShipMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._skillsMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._skillsMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -29170,67 +30478,11 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._sexMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._sexMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._contactPersonMasTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.ContactPersonMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._contactPersonMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._relationShipMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._relationShipMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._personalInfoMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.PersonalInfoMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._personalInfoMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._empDocMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpDocMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._empDocMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._empSkillMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpSkillMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._empSkillMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._empWorkExpTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpWorkExp.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._empWorkExpTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._leaveMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.LeaveMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._leaveMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -29242,11 +30494,51 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._empSkillMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpSkillMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empSkillMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._personalInfoMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.PersonalInfoMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._personalInfoMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._leaveTypeMasTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.LeaveTypeMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._leaveTypeMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._leaveMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.LeaveMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._leaveMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._empWorkExpTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpWorkExp.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empWorkExpTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._empDocMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpDocMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empDocMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -29260,27 +30552,11 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private int UpdateDeletedRows(StaffsyncDBDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._leaveTypeMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.LeaveTypeMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empDocMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpDocMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._leaveTypeMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._userAuditLogTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.UserAuditLog.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._userAuditLogTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._leaveMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.LeaveMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._leaveMasTableAdapter.Update(deletedRows));
+                    result = (result + this._empDocMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -29292,19 +30568,19 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._empSkillMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpSkillMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._leaveMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.LeaveMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._empSkillMasTableAdapter.Update(deletedRows));
+                    result = (result + this._leaveMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._empDocMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpDocMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._leaveTypeMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.LeaveTypeMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._empDocMasTableAdapter.Update(deletedRows));
+                    result = (result + this._leaveTypeMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -29316,11 +30592,19 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._relationShipMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empSkillMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpSkillMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._relationShipMasTableAdapter.Update(deletedRows));
+                    result = (result + this._empSkillMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._userAuditLogTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.UserAuditLog.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._userAuditLogTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -29329,14 +30613,6 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._contactPersonMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._sexMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._sexMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -29349,11 +30625,19 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._lastCompDetMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._skillsMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._lastCompDetMasTableAdapter.Update(deletedRows));
+                    result = (result + this._skillsMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._relationShipMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._relationShipMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -29365,11 +30649,19 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._skillsMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._sexMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._skillsMasTableAdapter.Update(deletedRows));
+                    result = (result + this._sexMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._lastCompDetMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._lastCompDetMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -29386,6 +30678,14 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._stateMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._bloodGroupMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._bloodGroupMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -29410,14 +30710,6 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._countryMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._bloodGroupMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._bloodGroupMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }

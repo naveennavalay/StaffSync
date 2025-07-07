@@ -225,6 +225,7 @@
             this.docUploadsTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.DocUploadsTableAdapter();
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
+            this.LeaveStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -1938,7 +1939,8 @@
             this.LeaveDateFrom,
             this.LeaveDateTo,
             this.LeaveDuration,
-            this.LeaveComments});
+            this.LeaveComments,
+            this.LeaveStatus});
             this.lstLeaveTRList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.lstLeaveTRList.FullRowSelect = true;
             this.lstLeaveTRList.GridLines = true;
@@ -2676,6 +2678,11 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
+            // LeaveStatus
+            // 
+            this.LeaveStatus.Text = "Status";
+            this.LeaveStatus.Width = 300;
+            // 
             // frmUpdateCurrentUserInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -2901,7 +2908,6 @@
         private System.Windows.Forms.ColumnHeader LeaveDateFrom;
         private System.Windows.Forms.ColumnHeader LeaveDateTo;
         private System.Windows.Forms.ColumnHeader LeaveDuration;
-        private System.Windows.Forms.ColumnHeader LeaveComments;
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.ListView lstBankList;
@@ -2987,5 +2993,7 @@
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.ColumnHeader LeaveComments;
+        private System.Windows.Forms.ColumnHeader LeaveStatus;
     }
 }

@@ -604,7 +604,7 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE EmpLeaveTransMas SET LeaveApprovedDate = '" + DateTime.Now + "', LeaveApprovalComments = 'Approved : " + txtLeaveApprovalComments + "', LeaveRejectionComments ='Not Rejected', ApprovedOrRejectedByEmpID = " + txtApproverID + 
+                string strQuery = "UPDATE EmpLeaveTransMas SET LeaveApprovedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveApprovalComments = 'Approved : " + txtLeaveApprovalComments + "', LeaveRejectionComments ='Not Rejected', ApprovedOrRejectedByEmpID = " + txtApproverID + 
                  " WHERE LeaveTRID = " + txtLeaveTRID + " AND EmpID = " + txtEmpID + "";
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -714,6 +714,9 @@ namespace StaffSync
 
     public class PendingLeaveApprovalList
     {
+        [DisplayName("Select")]
+        public bool Select { get; set; }
+
         public int EmpID { get; set; }
 
         [DisplayName("Employee Code")]
@@ -729,20 +732,25 @@ namespace StaffSync
         public string DepartmentTitle { get; set; }
         
         public int LeaveTRID { get; set; }
+
+        public int LeaveTypeID { get; set; }
         
         [DisplayName("Leave Type")]
         public string LeaveTypeTitle { get; set; }
 
-        [DisplayName("Leave Applied Date")]
+        [DisplayName("Applied Date")]
         public DateTime LeaveAppliedDate { get; set; }
 
-        [DisplayName("Leave Comments")] 
+        [DisplayName("Reason")] 
         public string LeaveComments { get; set; }
+
+        [DisplayName("Leave From")]
+        public DateTime ActualLeaveDateFrom { get; set; }
+
+        [DisplayName("Leave Till")]
+        public DateTime ActualLeaveDateTo { get; set; }
 
         [DisplayName("Duration")]
         public string LeaveDuration { get; set; }
-
-        public DateTime ActualLeaveDateFrom { get; set; }
-        public DateTime ActualLeaveDateTo { get; set; }        
     }
 }

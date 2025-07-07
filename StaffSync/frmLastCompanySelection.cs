@@ -166,6 +166,11 @@ namespace StaffSync
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            if(!ValidateData())
+            {
+                return;
+            }
+
             if (selectedPublicWorkExpInfo.LastCompID != 0)
             {
                 selectedPublicWorkExpInfo.LastCompID = selectedPublicWorkExpInfo.LastCompID == null ? 0 : selectedPublicWorkExpInfo.LastCompID;
@@ -189,6 +194,78 @@ namespace StaffSync
                 selectedPublicWorkExpInfo.Comments = txtMoreDetails.Text;
             }
             this.Close();
+        }
+
+        private bool ValidateData()
+        {
+            DateTime startDate, endDate;
+            string dateFormat = "dd-MM-yyyy";
+            var provider = System.Globalization.CultureInfo.InvariantCulture;
+
+            // Check blank dates
+            if (string.IsNullOrWhiteSpace(txtStartDate.Text))
+            {
+                MessageBox.Show("Start Date cannot be blank.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtStartDate.Focus();
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(txtEndDate.Text))
+            {
+                MessageBox.Show("End Date cannot be blank.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEndDate.Focus();
+                return false;
+            }
+            // Parse dates
+            if (!DateTime.TryParseExact(txtStartDate.Text, dateFormat, provider, System.Globalization.DateTimeStyles.None, out startDate))
+            {
+                MessageBox.Show("Invalid Start Date format. Use dd-MM-yyyy.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtStartDate.Focus();
+                return false;
+            }
+            if (!DateTime.TryParseExact(txtEndDate.Text, dateFormat, provider, System.Globalization.DateTimeStyles.None, out endDate))
+            {
+                MessageBox.Show("Invalid End Date format. Use dd-MM-yyyy.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEndDate.Focus();
+                return false;
+            }
+            // Dates should not be in the future
+            if (startDate > DateTime.Now.Date)
+            {
+                MessageBox.Show("Start Date cannot be greater than today.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtStartDate.Focus();
+                return false;
+            }
+            if (endDate > DateTime.Now.Date)
+            {
+                MessageBox.Show("End Date cannot be greater than today.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEndDate.Focus();
+                return false;
+            }
+            // End Date should not be less than Start Date
+            if (endDate < startDate)
+            {
+                MessageBox.Show("End Date cannot be less than Start Date.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEndDate.Focus();
+                return false;
+            }
+            // More Details should not be blank
+            if (string.IsNullOrWhiteSpace(txtMoreDetails.Text))
+            {
+                MessageBox.Show("More Details cannot be blank.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtMoreDetails.Focus();
+                return false;
+            }
+            return true;
+        }
+
+        private void txtStartDate_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtStartDate.Text.Trim()))
+            {
+                txtEndDate.Text = string.Empty;
+                return;
+            }
+            txtEndDate.Text = txtStartDate.Text;
         }
     }
 }

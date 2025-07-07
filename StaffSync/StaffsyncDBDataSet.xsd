@@ -1721,6 +1721,39 @@
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="qryDailyLeaveRequestTableAdapter" GeneratorDataComponentClassName="qryDailyLeaveRequestTableAdapter" Name="qryDailyLeaveRequest" UserDataComponentName="qryDailyLeaveRequestTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="qryDailyLeaveRequest" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT EmpID, EmpCode, EmpName, DesignationTitle, DepartmentTitle, LeaveTRID, LeaveTypeID, LeaveTypeTitle, LeaveAppliedDate, LeaveComments, ActualLeaveDateFrom, ActualLeaveDateTo, LeaveDuration, LeaveApprovedDate, LeaveApprovalComments, LeaveRejectedDate, LeaveRejectionComments, OrderID FROM qryDailyLeaveRequest</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="EmpID" DataSetColumn="EmpID" />
+              <Mapping SourceColumn="EmpCode" DataSetColumn="EmpCode" />
+              <Mapping SourceColumn="EmpName" DataSetColumn="EmpName" />
+              <Mapping SourceColumn="DesignationTitle" DataSetColumn="DesignationTitle" />
+              <Mapping SourceColumn="DepartmentTitle" DataSetColumn="DepartmentTitle" />
+              <Mapping SourceColumn="LeaveTRID" DataSetColumn="LeaveTRID" />
+              <Mapping SourceColumn="LeaveTypeID" DataSetColumn="LeaveTypeID" />
+              <Mapping SourceColumn="LeaveTypeTitle" DataSetColumn="LeaveTypeTitle" />
+              <Mapping SourceColumn="LeaveAppliedDate" DataSetColumn="LeaveAppliedDate" />
+              <Mapping SourceColumn="LeaveComments" DataSetColumn="LeaveComments" />
+              <Mapping SourceColumn="ActualLeaveDateFrom" DataSetColumn="ActualLeaveDateFrom" />
+              <Mapping SourceColumn="ActualLeaveDateTo" DataSetColumn="ActualLeaveDateTo" />
+              <Mapping SourceColumn="LeaveDuration" DataSetColumn="LeaveDuration" />
+              <Mapping SourceColumn="LeaveApprovedDate" DataSetColumn="LeaveApprovedDate" />
+              <Mapping SourceColumn="LeaveApprovalComments" DataSetColumn="LeaveApprovalComments" />
+              <Mapping SourceColumn="LeaveRejectedDate" DataSetColumn="LeaveRejectedDate" />
+              <Mapping SourceColumn="LeaveRejectionComments" DataSetColumn="LeaveRejectionComments" />
+              <Mapping SourceColumn="OrderID" DataSetColumn="OrderID" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources />
       </DataSource>
@@ -2534,25 +2567,68 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="BloodGroupMas" msprop:Generator_RowClassName="BloodGroupMasRow" msprop:Generator_RowEvHandlerName="BloodGroupMasRowChangeEventHandler" msprop:Generator_RowDeletedName="BloodGroupMasRowDeleted" msprop:Generator_RowDeletingName="BloodGroupMasRowDeleting" msprop:Generator_RowEvArgName="BloodGroupMasRowChangeEvent" msprop:Generator_TablePropName="BloodGroupMas" msprop:Generator_RowChangedName="BloodGroupMasRowChanged" msprop:Generator_UserTableName="BloodGroupMas" msprop:Generator_RowChangingName="BloodGroupMasRowChanging" msprop:Generator_TableClassName="BloodGroupMasDataTable" msprop:Generator_TableVarName="tableBloodGroupMas">
+        <xs:element name="BloodGroupMas" msprop:Generator_RowEvHandlerName="BloodGroupMasRowChangeEventHandler" msprop:Generator_RowDeletedName="BloodGroupMasRowDeleted" msprop:Generator_RowDeletingName="BloodGroupMasRowDeleting" msprop:Generator_RowEvArgName="BloodGroupMasRowChangeEvent" msprop:Generator_TablePropName="BloodGroupMas" msprop:Generator_RowChangedName="BloodGroupMasRowChanged" msprop:Generator_UserTableName="BloodGroupMas" msprop:Generator_RowChangingName="BloodGroupMasRowChanging" msprop:Generator_RowClassName="BloodGroupMasRow" msprop:Generator_TableClassName="BloodGroupMasDataTable" msprop:Generator_TableVarName="tableBloodGroupMas">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="BloodGroupID" msprop:Generator_UserColumnName="BloodGroupID" msprop:Generator_ColumnPropNameInTable="BloodGroupIDColumn" msprop:Generator_ColumnPropNameInRow="BloodGroupID" msprop:Generator_ColumnVarNameInTable="columnBloodGroupID" type="xs:int" />
-              <xs:element name="BloodGroupCode" msprop:Generator_UserColumnName="BloodGroupCode" msprop:Generator_ColumnPropNameInTable="BloodGroupCodeColumn" msprop:Generator_ColumnPropNameInRow="BloodGroupCode" msprop:Generator_ColumnVarNameInTable="columnBloodGroupCode" minOccurs="0">
+              <xs:element name="BloodGroupID" msprop:Generator_ColumnPropNameInTable="BloodGroupIDColumn" msprop:Generator_ColumnPropNameInRow="BloodGroupID" msprop:Generator_UserColumnName="BloodGroupID" msprop:Generator_ColumnVarNameInTable="columnBloodGroupID" type="xs:int" />
+              <xs:element name="BloodGroupCode" msprop:Generator_ColumnPropNameInTable="BloodGroupCodeColumn" msprop:Generator_ColumnPropNameInRow="BloodGroupCode" msprop:Generator_UserColumnName="BloodGroupCode" msprop:Generator_ColumnVarNameInTable="columnBloodGroupCode" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="BloodGroupTitle" msprop:Generator_UserColumnName="BloodGroupTitle" msprop:Generator_ColumnPropNameInTable="BloodGroupTitleColumn" msprop:Generator_ColumnPropNameInRow="BloodGroupTitle" msprop:Generator_ColumnVarNameInTable="columnBloodGroupTitle" minOccurs="0">
+              <xs:element name="BloodGroupTitle" msprop:Generator_ColumnPropNameInTable="BloodGroupTitleColumn" msprop:Generator_ColumnPropNameInRow="BloodGroupTitle" msprop:Generator_UserColumnName="BloodGroupTitle" msprop:Generator_ColumnVarNameInTable="columnBloodGroupTitle" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="BloodGroupInitial" msprop:Generator_UserColumnName="BloodGroupInitial" msprop:Generator_ColumnPropNameInTable="BloodGroupInitialColumn" msprop:Generator_ColumnPropNameInRow="BloodGroupInitial" msprop:Generator_ColumnVarNameInTable="columnBloodGroupInitial" minOccurs="0">
+              <xs:element name="BloodGroupInitial" msprop:Generator_ColumnPropNameInTable="BloodGroupInitialColumn" msprop:Generator_ColumnPropNameInRow="BloodGroupInitial" msprop:Generator_UserColumnName="BloodGroupInitial" msprop:Generator_ColumnVarNameInTable="columnBloodGroupInitial" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_UserColumnName="IsActive" msprop:Generator_ColumnVarNameInTable="columnIsActive" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_UserColumnName="IsDeleted" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="EmpMas" msprop:Generator_RowEvHandlerName="EmpMasRowChangeEventHandler" msprop:Generator_RowDeletedName="EmpMasRowDeleted" msprop:Generator_RowDeletingName="EmpMasRowDeleting" msprop:Generator_RowEvArgName="EmpMasRowChangeEvent" msprop:Generator_TablePropName="EmpMas" msprop:Generator_RowChangedName="EmpMasRowChanged" msprop:Generator_UserTableName="EmpMas" msprop:Generator_RowChangingName="EmpMasRowChanging" msprop:Generator_RowClassName="EmpMasRow" msprop:Generator_TableClassName="EmpMasDataTable" msprop:Generator_TableVarName="tableEmpMas">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EmpID" msprop:Generator_ColumnPropNameInTable="EmpIDColumn" msprop:Generator_ColumnPropNameInRow="EmpID" msprop:Generator_UserColumnName="EmpID" msprop:Generator_ColumnVarNameInTable="columnEmpID" type="xs:int" />
+              <xs:element name="EmpCode" msprop:Generator_ColumnPropNameInTable="EmpCodeColumn" msprop:Generator_ColumnPropNameInRow="EmpCode" msprop:Generator_UserColumnName="EmpCode" msprop:Generator_ColumnVarNameInTable="columnEmpCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EmpName" msprop:Generator_ColumnPropNameInTable="EmpNameColumn" msprop:Generator_ColumnPropNameInRow="EmpName" msprop:Generator_UserColumnName="EmpName" msprop:Generator_ColumnVarNameInTable="columnEmpName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EmpDesignationID" msprop:Generator_ColumnPropNameInTable="EmpDesignationIDColumn" msprop:Generator_ColumnPropNameInRow="EmpDesignationID" msprop:Generator_UserColumnName="EmpDesignationID" msprop:Generator_ColumnVarNameInTable="columnEmpDesignationID" type="xs:int" minOccurs="0" />
+              <xs:element name="EmpRepManID" msprop:Generator_ColumnPropNameInTable="EmpRepManIDColumn" msprop:Generator_ColumnPropNameInRow="EmpRepManID" msprop:Generator_UserColumnName="EmpRepManID" msprop:Generator_ColumnVarNameInTable="columnEmpRepManID" type="xs:int" minOccurs="0" />
+              <xs:element name="DepartmentID" msprop:Generator_ColumnPropNameInTable="DepartmentIDColumn" msprop:Generator_ColumnPropNameInRow="DepartmentID" msprop:Generator_UserColumnName="DepartmentID" msprop:Generator_ColumnVarNameInTable="columnDepartmentID" type="xs:int" minOccurs="0" />
+              <xs:element name="BloodGroupID" msprop:Generator_ColumnPropNameInTable="BloodGroupIDColumn" msprop:Generator_ColumnPropNameInRow="BloodGroupID" msprop:Generator_UserColumnName="BloodGroupID" msprop:Generator_ColumnVarNameInTable="columnBloodGroupID" type="xs:int" minOccurs="0" />
+              <xs:element name="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_UserColumnName="IsActive" msprop:Generator_ColumnVarNameInTable="columnIsActive" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_UserColumnName="IsDeleted" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SexMas" msprop:Generator_RowClassName="SexMasRow" msprop:Generator_RowEvHandlerName="SexMasRowChangeEventHandler" msprop:Generator_RowDeletedName="SexMasRowDeleted" msprop:Generator_RowDeletingName="SexMasRowDeleting" msprop:Generator_RowEvArgName="SexMasRowChangeEvent" msprop:Generator_TablePropName="SexMas" msprop:Generator_RowChangedName="SexMasRowChanged" msprop:Generator_UserTableName="SexMas" msprop:Generator_RowChangingName="SexMasRowChanging" msprop:Generator_TableClassName="SexMasDataTable" msprop:Generator_TableVarName="tableSexMas">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SexID" msprop:Generator_UserColumnName="SexID" msprop:Generator_ColumnPropNameInTable="SexIDColumn" msprop:Generator_ColumnPropNameInRow="SexID" msprop:Generator_ColumnVarNameInTable="columnSexID" type="xs:int" />
+              <xs:element name="SexTitle" msprop:Generator_UserColumnName="SexTitle" msprop:Generator_ColumnPropNameInTable="SexTitleColumn" msprop:Generator_ColumnPropNameInRow="SexTitle" msprop:Generator_ColumnVarNameInTable="columnSexTitle" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
@@ -2564,46 +2640,75 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="EmpMas" msprop:Generator_RowClassName="EmpMasRow" msprop:Generator_RowEvHandlerName="EmpMasRowChangeEventHandler" msprop:Generator_RowDeletedName="EmpMasRowDeleted" msprop:Generator_RowDeletingName="EmpMasRowDeleting" msprop:Generator_RowEvArgName="EmpMasRowChangeEvent" msprop:Generator_TablePropName="EmpMas" msprop:Generator_RowChangedName="EmpMasRowChanged" msprop:Generator_UserTableName="EmpMas" msprop:Generator_RowChangingName="EmpMasRowChanging" msprop:Generator_TableClassName="EmpMasDataTable" msprop:Generator_TableVarName="tableEmpMas">
+        <xs:element name="qryDailyLeaveRequest" msprop:Generator_RowEvHandlerName="qryDailyLeaveRequestRowChangeEventHandler" msprop:Generator_RowDeletedName="qryDailyLeaveRequestRowDeleted" msprop:Generator_RowDeletingName="qryDailyLeaveRequestRowDeleting" msprop:Generator_RowEvArgName="qryDailyLeaveRequestRowChangeEvent" msprop:Generator_TablePropName="qryDailyLeaveRequest" msprop:Generator_RowChangedName="qryDailyLeaveRequestRowChanged" msprop:Generator_RowChangingName="qryDailyLeaveRequestRowChanging" msprop:Generator_TableClassName="qryDailyLeaveRequestDataTable" msprop:Generator_RowClassName="qryDailyLeaveRequestRow" msprop:Generator_TableVarName="tableqryDailyLeaveRequest" msprop:Generator_UserTableName="qryDailyLeaveRequest">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="EmpID" msprop:Generator_UserColumnName="EmpID" msprop:Generator_ColumnPropNameInTable="EmpIDColumn" msprop:Generator_ColumnPropNameInRow="EmpID" msprop:Generator_ColumnVarNameInTable="columnEmpID" type="xs:int" />
-              <xs:element name="EmpCode" msprop:Generator_UserColumnName="EmpCode" msprop:Generator_ColumnPropNameInTable="EmpCodeColumn" msprop:Generator_ColumnPropNameInRow="EmpCode" msprop:Generator_ColumnVarNameInTable="columnEmpCode" minOccurs="0">
+              <xs:element name="EmpID" msprop:Generator_ColumnPropNameInRow="EmpID" msprop:Generator_ColumnPropNameInTable="EmpIDColumn" msprop:Generator_ColumnVarNameInTable="columnEmpID" msprop:Generator_UserColumnName="EmpID" type="xs:int" minOccurs="0" />
+              <xs:element name="EmpCode" msprop:Generator_ColumnPropNameInRow="EmpCode" msprop:Generator_ColumnPropNameInTable="EmpCodeColumn" msprop:Generator_ColumnVarNameInTable="columnEmpCode" msprop:Generator_UserColumnName="EmpCode" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="EmpName" msprop:Generator_UserColumnName="EmpName" msprop:Generator_ColumnPropNameInTable="EmpNameColumn" msprop:Generator_ColumnPropNameInRow="EmpName" msprop:Generator_ColumnVarNameInTable="columnEmpName" minOccurs="0">
+              <xs:element name="EmpName" msprop:Generator_ColumnPropNameInRow="EmpName" msprop:Generator_ColumnPropNameInTable="EmpNameColumn" msprop:Generator_ColumnVarNameInTable="columnEmpName" msprop:Generator_UserColumnName="EmpName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="EmpDesignationID" msprop:Generator_UserColumnName="EmpDesignationID" msprop:Generator_ColumnPropNameInTable="EmpDesignationIDColumn" msprop:Generator_ColumnPropNameInRow="EmpDesignationID" msprop:Generator_ColumnVarNameInTable="columnEmpDesignationID" type="xs:int" minOccurs="0" />
-              <xs:element name="EmpRepManID" msprop:Generator_UserColumnName="EmpRepManID" msprop:Generator_ColumnPropNameInTable="EmpRepManIDColumn" msprop:Generator_ColumnPropNameInRow="EmpRepManID" msprop:Generator_ColumnVarNameInTable="columnEmpRepManID" type="xs:int" minOccurs="0" />
-              <xs:element name="DepartmentID" msprop:Generator_UserColumnName="DepartmentID" msprop:Generator_ColumnPropNameInTable="DepartmentIDColumn" msprop:Generator_ColumnPropNameInRow="DepartmentID" msprop:Generator_ColumnVarNameInTable="columnDepartmentID" type="xs:int" minOccurs="0" />
-              <xs:element name="BloodGroupID" msprop:Generator_UserColumnName="BloodGroupID" msprop:Generator_ColumnPropNameInTable="BloodGroupIDColumn" msprop:Generator_ColumnPropNameInRow="BloodGroupID" msprop:Generator_ColumnVarNameInTable="columnBloodGroupID" type="xs:int" minOccurs="0" />
-              <xs:element name="IsActive" msprop:Generator_UserColumnName="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_ColumnVarNameInTable="columnIsActive" type="xs:boolean" minOccurs="0" />
-              <xs:element name="IsDeleted" msprop:Generator_UserColumnName="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" type="xs:boolean" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="SexMas" msprop:Generator_RowEvHandlerName="SexMasRowChangeEventHandler" msprop:Generator_RowDeletedName="SexMasRowDeleted" msprop:Generator_RowDeletingName="SexMasRowDeleting" msprop:Generator_RowEvArgName="SexMasRowChangeEvent" msprop:Generator_TablePropName="SexMas" msprop:Generator_RowChangedName="SexMasRowChanged" msprop:Generator_RowChangingName="SexMasRowChanging" msprop:Generator_TableClassName="SexMasDataTable" msprop:Generator_RowClassName="SexMasRow" msprop:Generator_TableVarName="tableSexMas" msprop:Generator_UserTableName="SexMas">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="SexID" msprop:Generator_ColumnPropNameInRow="SexID" msprop:Generator_ColumnPropNameInTable="SexIDColumn" msprop:Generator_ColumnVarNameInTable="columnSexID" msprop:Generator_UserColumnName="SexID" type="xs:int" />
-              <xs:element name="SexTitle" msprop:Generator_ColumnPropNameInRow="SexTitle" msprop:Generator_ColumnPropNameInTable="SexTitleColumn" msprop:Generator_ColumnVarNameInTable="columnSexTitle" msprop:Generator_UserColumnName="SexTitle" minOccurs="0">
+              <xs:element name="DesignationTitle" msprop:Generator_ColumnPropNameInRow="DesignationTitle" msprop:Generator_ColumnPropNameInTable="DesignationTitleColumn" msprop:Generator_ColumnVarNameInTable="columnDesignationTitle" msprop:Generator_UserColumnName="DesignationTitle" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="IsActive" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnVarNameInTable="columnIsActive" msprop:Generator_UserColumnName="IsActive" type="xs:boolean" minOccurs="0" />
-              <xs:element name="IsDeleted" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" msprop:Generator_UserColumnName="IsDeleted" type="xs:boolean" minOccurs="0" />
+              <xs:element name="DepartmentTitle" msprop:Generator_ColumnPropNameInRow="DepartmentTitle" msprop:Generator_ColumnPropNameInTable="DepartmentTitleColumn" msprop:Generator_ColumnVarNameInTable="columnDepartmentTitle" msprop:Generator_UserColumnName="DepartmentTitle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LeaveTRID" msprop:Generator_ColumnPropNameInRow="LeaveTRID" msprop:Generator_ColumnPropNameInTable="LeaveTRIDColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveTRID" msprop:Generator_UserColumnName="LeaveTRID" type="xs:int" minOccurs="0" />
+              <xs:element name="LeaveTypeID" msprop:Generator_ColumnPropNameInRow="LeaveTypeID" msprop:Generator_ColumnPropNameInTable="LeaveTypeIDColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveTypeID" msprop:Generator_UserColumnName="LeaveTypeID" type="xs:int" minOccurs="0" />
+              <xs:element name="LeaveTypeTitle" msprop:Generator_ColumnPropNameInRow="LeaveTypeTitle" msprop:Generator_ColumnPropNameInTable="LeaveTypeTitleColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveTypeTitle" msprop:Generator_UserColumnName="LeaveTypeTitle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LeaveAppliedDate" msprop:Generator_ColumnPropNameInRow="LeaveAppliedDate" msprop:Generator_ColumnPropNameInTable="LeaveAppliedDateColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveAppliedDate" msprop:Generator_UserColumnName="LeaveAppliedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LeaveComments" msprop:Generator_ColumnPropNameInRow="LeaveComments" msprop:Generator_ColumnPropNameInTable="LeaveCommentsColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveComments" msprop:Generator_UserColumnName="LeaveComments" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ActualLeaveDateFrom" msprop:Generator_ColumnPropNameInRow="ActualLeaveDateFrom" msprop:Generator_ColumnPropNameInTable="ActualLeaveDateFromColumn" msprop:Generator_ColumnVarNameInTable="columnActualLeaveDateFrom" msprop:Generator_UserColumnName="ActualLeaveDateFrom" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ActualLeaveDateTo" msprop:Generator_ColumnPropNameInRow="ActualLeaveDateTo" msprop:Generator_ColumnPropNameInTable="ActualLeaveDateToColumn" msprop:Generator_ColumnVarNameInTable="columnActualLeaveDateTo" msprop:Generator_UserColumnName="ActualLeaveDateTo" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LeaveDuration" msprop:Generator_ColumnPropNameInRow="LeaveDuration" msprop:Generator_ColumnPropNameInTable="LeaveDurationColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveDuration" msprop:Generator_UserColumnName="LeaveDuration" type="xs:decimal" minOccurs="0" />
+              <xs:element name="LeaveApprovedDate" msprop:Generator_ColumnPropNameInRow="LeaveApprovedDate" msprop:Generator_ColumnPropNameInTable="LeaveApprovedDateColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveApprovedDate" msprop:Generator_UserColumnName="LeaveApprovedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LeaveApprovalComments" msprop:Generator_ColumnPropNameInRow="LeaveApprovalComments" msprop:Generator_ColumnPropNameInTable="LeaveApprovalCommentsColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveApprovalComments" msprop:Generator_UserColumnName="LeaveApprovalComments" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LeaveRejectedDate" msprop:Generator_ColumnPropNameInRow="LeaveRejectedDate" msprop:Generator_ColumnPropNameInTable="LeaveRejectedDateColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveRejectedDate" msprop:Generator_UserColumnName="LeaveRejectedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LeaveRejectionComments" msprop:Generator_ColumnPropNameInRow="LeaveRejectionComments" msprop:Generator_ColumnPropNameInTable="LeaveRejectionCommentsColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveRejectionComments" msprop:Generator_UserColumnName="LeaveRejectionComments" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="OrderID" msprop:Generator_ColumnPropNameInRow="OrderID" msprop:Generator_ColumnPropNameInTable="OrderIDColumn" msprop:Generator_ColumnVarNameInTable="columnOrderID" msprop:Generator_UserColumnName="OrderID" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -2720,28 +2825,28 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="CountryMasAddressMas" msdata:parent="CountryMas" msdata:child="AddressMas" msdata:parentkey="CountryID" msdata:childkey="CountryID" msprop:Generator_UserParentTable="CountryMas" msprop:Generator_UserChildTable="AddressMas" msprop:Generator_RelationVarName="relationCountryMasAddressMas" msprop:Generator_ChildPropName="GetAddressMasRows" msprop:Generator_UserRelationName="CountryMasAddressMas" msprop:Generator_ParentPropName="CountryMasRow" />
-      <msdata:Relationship name="AddressMasPersonalInfoMas" msdata:parent="AddressMas" msdata:child="PersonalInfoMas" msdata:parentkey="AddressID" msdata:childkey="PerAddressID" msprop:Generator_UserParentTable="AddressMas" msprop:Generator_UserChildTable="PersonalInfoMas" msprop:Generator_RelationVarName="relationAddressMasPersonalInfoMas" msprop:Generator_ChildPropName="GetPersonalInfoMasRowsByAddressMasPersonalInfoMas" msprop:Generator_ParentPropName="AddressMasRowByAddressMasPersonalInfoMas" msprop:Generator_UserRelationName="AddressMasPersonalInfoMas" />
-      <msdata:Relationship name="AddressMasPersonalInfoMas1" msdata:parent="AddressMas" msdata:child="PersonalInfoMas" msdata:parentkey="AddressID" msdata:childkey="CurAddressID" msprop:Generator_UserParentTable="AddressMas" msprop:Generator_UserChildTable="PersonalInfoMas" msprop:Generator_RelationVarName="relationAddressMasPersonalInfoMas1" msprop:Generator_ChildPropName="GetPersonalInfoMasRowsByAddressMasPersonalInfoMas1" msprop:Generator_ParentPropName="AddressMasRowByAddressMasPersonalInfoMas1" msprop:Generator_UserRelationName="AddressMasPersonalInfoMas1" />
-      <msdata:Relationship name="ContactPersonMasPersonalInfoMas" msdata:parent="ContactPersonMas" msdata:child="PersonalInfoMas" msdata:parentkey="ContactID" msdata:childkey="ContactID1" msprop:Generator_UserParentTable="ContactPersonMas" msprop:Generator_UserChildTable="PersonalInfoMas" msprop:Generator_RelationVarName="relationContactPersonMasPersonalInfoMas" msprop:Generator_ChildPropName="GetPersonalInfoMasRowsByContactPersonMasPersonalInfoMas" msprop:Generator_ParentPropName="ContactPersonMasRowByContactPersonMasPersonalInfoMas" msprop:Generator_UserRelationName="ContactPersonMasPersonalInfoMas" />
-      <msdata:Relationship name="ContactPersonMasPersonalInfoMas1" msdata:parent="ContactPersonMas" msdata:child="PersonalInfoMas" msdata:parentkey="ContactID" msdata:childkey="ContactID2" msprop:Generator_UserParentTable="ContactPersonMas" msprop:Generator_UserChildTable="PersonalInfoMas" msprop:Generator_RelationVarName="relationContactPersonMasPersonalInfoMas1" msprop:Generator_ChildPropName="GetPersonalInfoMasRowsByContactPersonMasPersonalInfoMas1" msprop:Generator_ParentPropName="ContactPersonMasRowByContactPersonMasPersonalInfoMas1" msprop:Generator_UserRelationName="ContactPersonMasPersonalInfoMas1" />
-      <msdata:Relationship name="RelationShipMasContactPersonMas" msdata:parent="RelationShipMas" msdata:child="ContactPersonMas" msdata:parentkey="RelationShipID" msdata:childkey="RelationShipID" msprop:Generator_UserParentTable="RelationShipMas" msprop:Generator_UserChildTable="ContactPersonMas" msprop:Generator_RelationVarName="relationRelationShipMasContactPersonMas" msprop:Generator_ChildPropName="GetContactPersonMasRows" msprop:Generator_UserRelationName="RelationShipMasContactPersonMas" msprop:Generator_ParentPropName="RelationShipMasRow" />
-      <msdata:Relationship name="StateMasAddressMas" msdata:parent="StateMas" msdata:child="AddressMas" msdata:parentkey="StateID" msdata:childkey="StateID" msprop:Generator_UserParentTable="StateMas" msprop:Generator_UserChildTable="AddressMas" msprop:Generator_RelationVarName="relationStateMasAddressMas" msprop:Generator_ChildPropName="GetAddressMasRows" msprop:Generator_UserRelationName="StateMasAddressMas" msprop:Generator_ParentPropName="StateMasRow" />
-      <msdata:Relationship name="LastCompDetMasEmpWorkExp" msdata:parent="LastCompDetMas" msdata:child="EmpWorkExp" msdata:parentkey="LastCompanyInfoID" msdata:childkey="LastCompanyInfoID" msprop:Generator_UserParentTable="LastCompDetMas" msprop:Generator_UserChildTable="EmpWorkExp" msprop:Generator_RelationVarName="relationLastCompDetMasEmpWorkExp" msprop:Generator_ChildPropName="GetEmpWorkExpRows" msprop:Generator_ParentPropName="LastCompDetMasRow" msprop:Generator_UserRelationName="LastCompDetMasEmpWorkExp" />
-      <msdata:Relationship name="EduQualMasPersonalInfoMas" msdata:parent="EduQualMas" msdata:child="PersonalInfoMas" msdata:parentkey="EduQualID" msdata:childkey="EduQualID" msprop:Generator_UserParentTable="EduQualMas" msprop:Generator_UserChildTable="PersonalInfoMas" msprop:Generator_RelationVarName="relationEduQualMasPersonalInfoMas" msprop:Generator_ChildPropName="GetPersonalInfoMasRows" msprop:Generator_ParentPropName="EduQualMasRow" msprop:Generator_UserRelationName="EduQualMasPersonalInfoMas" />
-      <msdata:Relationship name="SkillsMasEmpSkillMas" msdata:parent="SkillsMas" msdata:child="EmpSkillMas" msdata:parentkey="SkillID" msdata:childkey="SkillID" msprop:Generator_UserParentTable="SkillsMas" msprop:Generator_UserChildTable="EmpSkillMas" msprop:Generator_RelationVarName="relationSkillsMasEmpSkillMas" msprop:Generator_ChildPropName="GetEmpSkillMasRows" msprop:Generator_UserRelationName="SkillsMasEmpSkillMas" msprop:Generator_ParentPropName="SkillsMasRow" />
-      <msdata:Relationship name="EmpMasEmpMas" msdata:parent="EmpMas" msdata:child="EmpMas" msdata:parentkey="EmpID" msdata:childkey="EmpRepManID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="EmpMas" msprop:Generator_RelationVarName="relationEmpMasEmpMas" msprop:Generator_ChildPropName="GetEmpMasRows" msprop:Generator_ParentPropName="EmpMasRowParent" msprop:Generator_UserRelationName="EmpMasEmpMas" />
-      <msdata:Relationship name="EmpMasEmpDocMas" msdata:parent="EmpMas" msdata:child="EmpDocMas" msdata:parentkey="EmpID" msdata:childkey="EmpID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="EmpDocMas" msprop:Generator_RelationVarName="relationEmpMasEmpDocMas" msprop:Generator_ChildPropName="GetEmpDocMasRows" msprop:Generator_ParentPropName="EmpMasRow" msprop:Generator_UserRelationName="EmpMasEmpDocMas" />
-      <msdata:Relationship name="EmpMasEmpWorkExp" msdata:parent="EmpMas" msdata:child="EmpWorkExp" msdata:parentkey="EmpID" msdata:childkey="EmpID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="EmpWorkExp" msprop:Generator_RelationVarName="relationEmpMasEmpWorkExp" msprop:Generator_ChildPropName="GetEmpWorkExpRows" msprop:Generator_ParentPropName="EmpMasRow" msprop:Generator_UserRelationName="EmpMasEmpWorkExp" />
-      <msdata:Relationship name="EmpMasLeaveMas" msdata:parent="EmpMas" msdata:child="LeaveMas" msdata:parentkey="EmpID" msdata:childkey="EmpID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="LeaveMas" msprop:Generator_RelationVarName="relationEmpMasLeaveMas" msprop:Generator_ChildPropName="GetLeaveMasRows" msprop:Generator_ParentPropName="EmpMasRow" msprop:Generator_UserRelationName="EmpMasLeaveMas" />
-      <msdata:Relationship name="EmpMasPersonalInfoMas" msdata:parent="EmpMas" msdata:child="PersonalInfoMas" msdata:parentkey="EmpID" msdata:childkey="EmpID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="PersonalInfoMas" msprop:Generator_RelationVarName="relationEmpMasPersonalInfoMas" msprop:Generator_ChildPropName="GetPersonalInfoMasRows" msprop:Generator_ParentPropName="EmpMasRow" msprop:Generator_UserRelationName="EmpMasPersonalInfoMas" />
-      <msdata:Relationship name="EmpMasUserAuditLog" msdata:parent="EmpMas" msdata:child="UserAuditLog" msdata:parentkey="EmpID" msdata:childkey="EmpID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="UserAuditLog" msprop:Generator_RelationVarName="relationEmpMasUserAuditLog" msprop:Generator_ChildPropName="GetUserAuditLogRows" msprop:Generator_ParentPropName="EmpMasRow" msprop:Generator_UserRelationName="EmpMasUserAuditLog" />
-      <msdata:Relationship name="EmpMasEmpSkillMas" msdata:parent="EmpMas" msdata:child="EmpSkillMas" msdata:parentkey="EmpID" msdata:childkey="EmpID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="EmpSkillMas" msprop:Generator_RelationVarName="relationEmpMasEmpSkillMas" msprop:Generator_ChildPropName="GetEmpSkillMasRows" msprop:Generator_ParentPropName="EmpMasRow" msprop:Generator_UserRelationName="EmpMasEmpSkillMas" />
-      <msdata:Relationship name="BloodGroupMasEmpMas" msdata:parent="BloodGroupMas" msdata:child="EmpMas" msdata:parentkey="BloodGroupID" msdata:childkey="BloodGroupID" msprop:Generator_UserParentTable="BloodGroupMas" msprop:Generator_UserChildTable="EmpMas" msprop:Generator_RelationVarName="relationBloodGroupMasEmpMas" msprop:Generator_ChildPropName="GetEmpMasRows" msprop:Generator_UserRelationName="BloodGroupMasEmpMas" msprop:Generator_ParentPropName="BloodGroupMasRow" />
-      <msdata:Relationship name="DepMasEmpMas" msdata:parent="DepMas" msdata:child="EmpMas" msdata:parentkey="DepartmentID" msdata:childkey="DepartmentID" msprop:Generator_UserParentTable="DepMas" msprop:Generator_UserChildTable="EmpMas" msprop:Generator_RelationVarName="relationDepMasEmpMas" msprop:Generator_ChildPropName="GetEmpMasRows" msprop:Generator_UserRelationName="DepMasEmpMas" msprop:Generator_ParentPropName="DepMasRow" />
-      <msdata:Relationship name="DesigMasEmpMas" msdata:parent="DesigMas" msdata:child="EmpMas" msdata:parentkey="DesignationID" msdata:childkey="EmpDesignationID" msprop:Generator_UserParentTable="DesigMas" msprop:Generator_UserChildTable="EmpMas" msprop:Generator_RelationVarName="relationDesigMasEmpMas" msprop:Generator_ChildPropName="GetEmpMasRows" msprop:Generator_UserRelationName="DesigMasEmpMas" msprop:Generator_ParentPropName="DesigMasRow" />
-      <msdata:Relationship name="SexMasContactPersonMas" msdata:parent="SexMas" msdata:child="ContactPersonMas" msdata:parentkey="SexID" msdata:childkey="SexID" msprop:Generator_UserParentTable="SexMas" msprop:Generator_UserChildTable="ContactPersonMas" msprop:Generator_RelationVarName="relationSexMasContactPersonMas" msprop:Generator_UserRelationName="SexMasContactPersonMas" msprop:Generator_ChildPropName="GetContactPersonMasRows" msprop:Generator_ParentPropName="SexMasRow" />
-      <msdata:Relationship name="SexMasPersonalInfoMas" msdata:parent="SexMas" msdata:child="PersonalInfoMas" msdata:parentkey="SexID" msdata:childkey="SexID" msprop:Generator_UserParentTable="SexMas" msprop:Generator_UserChildTable="PersonalInfoMas" msprop:Generator_RelationVarName="relationSexMasPersonalInfoMas" msprop:Generator_UserRelationName="SexMasPersonalInfoMas" msprop:Generator_ChildPropName="GetPersonalInfoMasRows" msprop:Generator_ParentPropName="SexMasRow" />
+      <msdata:Relationship name="CountryMasAddressMas" msdata:parent="CountryMas" msdata:child="AddressMas" msdata:parentkey="CountryID" msdata:childkey="CountryID" msprop:Generator_UserParentTable="CountryMas" msprop:Generator_UserChildTable="AddressMas" msprop:Generator_RelationVarName="relationCountryMasAddressMas" msprop:Generator_ChildPropName="GetAddressMasRows" msprop:Generator_ParentPropName="CountryMasRow" msprop:Generator_UserRelationName="CountryMasAddressMas" />
+      <msdata:Relationship name="AddressMasPersonalInfoMas" msdata:parent="AddressMas" msdata:child="PersonalInfoMas" msdata:parentkey="AddressID" msdata:childkey="PerAddressID" msprop:Generator_UserParentTable="AddressMas" msprop:Generator_UserChildTable="PersonalInfoMas" msprop:Generator_RelationVarName="relationAddressMasPersonalInfoMas" msprop:Generator_ChildPropName="GetPersonalInfoMasRowsByAddressMasPersonalInfoMas" msprop:Generator_UserRelationName="AddressMasPersonalInfoMas" msprop:Generator_ParentPropName="AddressMasRowByAddressMasPersonalInfoMas" />
+      <msdata:Relationship name="AddressMasPersonalInfoMas1" msdata:parent="AddressMas" msdata:child="PersonalInfoMas" msdata:parentkey="AddressID" msdata:childkey="CurAddressID" msprop:Generator_UserParentTable="AddressMas" msprop:Generator_UserChildTable="PersonalInfoMas" msprop:Generator_RelationVarName="relationAddressMasPersonalInfoMas1" msprop:Generator_ChildPropName="GetPersonalInfoMasRowsByAddressMasPersonalInfoMas1" msprop:Generator_UserRelationName="AddressMasPersonalInfoMas1" msprop:Generator_ParentPropName="AddressMasRowByAddressMasPersonalInfoMas1" />
+      <msdata:Relationship name="ContactPersonMasPersonalInfoMas" msdata:parent="ContactPersonMas" msdata:child="PersonalInfoMas" msdata:parentkey="ContactID" msdata:childkey="ContactID1" msprop:Generator_UserParentTable="ContactPersonMas" msprop:Generator_UserChildTable="PersonalInfoMas" msprop:Generator_RelationVarName="relationContactPersonMasPersonalInfoMas" msprop:Generator_ChildPropName="GetPersonalInfoMasRowsByContactPersonMasPersonalInfoMas" msprop:Generator_UserRelationName="ContactPersonMasPersonalInfoMas" msprop:Generator_ParentPropName="ContactPersonMasRowByContactPersonMasPersonalInfoMas" />
+      <msdata:Relationship name="ContactPersonMasPersonalInfoMas1" msdata:parent="ContactPersonMas" msdata:child="PersonalInfoMas" msdata:parentkey="ContactID" msdata:childkey="ContactID2" msprop:Generator_UserParentTable="ContactPersonMas" msprop:Generator_UserChildTable="PersonalInfoMas" msprop:Generator_RelationVarName="relationContactPersonMasPersonalInfoMas1" msprop:Generator_ChildPropName="GetPersonalInfoMasRowsByContactPersonMasPersonalInfoMas1" msprop:Generator_UserRelationName="ContactPersonMasPersonalInfoMas1" msprop:Generator_ParentPropName="ContactPersonMasRowByContactPersonMasPersonalInfoMas1" />
+      <msdata:Relationship name="RelationShipMasContactPersonMas" msdata:parent="RelationShipMas" msdata:child="ContactPersonMas" msdata:parentkey="RelationShipID" msdata:childkey="RelationShipID" msprop:Generator_UserParentTable="RelationShipMas" msprop:Generator_UserChildTable="ContactPersonMas" msprop:Generator_RelationVarName="relationRelationShipMasContactPersonMas" msprop:Generator_ChildPropName="GetContactPersonMasRows" msprop:Generator_ParentPropName="RelationShipMasRow" msprop:Generator_UserRelationName="RelationShipMasContactPersonMas" />
+      <msdata:Relationship name="StateMasAddressMas" msdata:parent="StateMas" msdata:child="AddressMas" msdata:parentkey="StateID" msdata:childkey="StateID" msprop:Generator_UserParentTable="StateMas" msprop:Generator_UserChildTable="AddressMas" msprop:Generator_RelationVarName="relationStateMasAddressMas" msprop:Generator_ChildPropName="GetAddressMasRows" msprop:Generator_ParentPropName="StateMasRow" msprop:Generator_UserRelationName="StateMasAddressMas" />
+      <msdata:Relationship name="LastCompDetMasEmpWorkExp" msdata:parent="LastCompDetMas" msdata:child="EmpWorkExp" msdata:parentkey="LastCompanyInfoID" msdata:childkey="LastCompanyInfoID" msprop:Generator_UserParentTable="LastCompDetMas" msprop:Generator_UserChildTable="EmpWorkExp" msprop:Generator_RelationVarName="relationLastCompDetMasEmpWorkExp" msprop:Generator_ChildPropName="GetEmpWorkExpRows" msprop:Generator_UserRelationName="LastCompDetMasEmpWorkExp" msprop:Generator_ParentPropName="LastCompDetMasRow" />
+      <msdata:Relationship name="EduQualMasPersonalInfoMas" msdata:parent="EduQualMas" msdata:child="PersonalInfoMas" msdata:parentkey="EduQualID" msdata:childkey="EduQualID" msprop:Generator_UserParentTable="EduQualMas" msprop:Generator_UserChildTable="PersonalInfoMas" msprop:Generator_RelationVarName="relationEduQualMasPersonalInfoMas" msprop:Generator_ChildPropName="GetPersonalInfoMasRows" msprop:Generator_UserRelationName="EduQualMasPersonalInfoMas" msprop:Generator_ParentPropName="EduQualMasRow" />
+      <msdata:Relationship name="SkillsMasEmpSkillMas" msdata:parent="SkillsMas" msdata:child="EmpSkillMas" msdata:parentkey="SkillID" msdata:childkey="SkillID" msprop:Generator_UserParentTable="SkillsMas" msprop:Generator_UserChildTable="EmpSkillMas" msprop:Generator_RelationVarName="relationSkillsMasEmpSkillMas" msprop:Generator_ChildPropName="GetEmpSkillMasRows" msprop:Generator_ParentPropName="SkillsMasRow" msprop:Generator_UserRelationName="SkillsMasEmpSkillMas" />
+      <msdata:Relationship name="EmpMasEmpMas" msdata:parent="EmpMas" msdata:child="EmpMas" msdata:parentkey="EmpID" msdata:childkey="EmpRepManID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="EmpMas" msprop:Generator_RelationVarName="relationEmpMasEmpMas" msprop:Generator_ChildPropName="GetEmpMasRows" msprop:Generator_UserRelationName="EmpMasEmpMas" msprop:Generator_ParentPropName="EmpMasRowParent" />
+      <msdata:Relationship name="EmpMasEmpDocMas" msdata:parent="EmpMas" msdata:child="EmpDocMas" msdata:parentkey="EmpID" msdata:childkey="EmpID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="EmpDocMas" msprop:Generator_RelationVarName="relationEmpMasEmpDocMas" msprop:Generator_ChildPropName="GetEmpDocMasRows" msprop:Generator_UserRelationName="EmpMasEmpDocMas" msprop:Generator_ParentPropName="EmpMasRow" />
+      <msdata:Relationship name="EmpMasEmpWorkExp" msdata:parent="EmpMas" msdata:child="EmpWorkExp" msdata:parentkey="EmpID" msdata:childkey="EmpID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="EmpWorkExp" msprop:Generator_RelationVarName="relationEmpMasEmpWorkExp" msprop:Generator_ChildPropName="GetEmpWorkExpRows" msprop:Generator_UserRelationName="EmpMasEmpWorkExp" msprop:Generator_ParentPropName="EmpMasRow" />
+      <msdata:Relationship name="EmpMasLeaveMas" msdata:parent="EmpMas" msdata:child="LeaveMas" msdata:parentkey="EmpID" msdata:childkey="EmpID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="LeaveMas" msprop:Generator_RelationVarName="relationEmpMasLeaveMas" msprop:Generator_ChildPropName="GetLeaveMasRows" msprop:Generator_UserRelationName="EmpMasLeaveMas" msprop:Generator_ParentPropName="EmpMasRow" />
+      <msdata:Relationship name="EmpMasPersonalInfoMas" msdata:parent="EmpMas" msdata:child="PersonalInfoMas" msdata:parentkey="EmpID" msdata:childkey="EmpID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="PersonalInfoMas" msprop:Generator_RelationVarName="relationEmpMasPersonalInfoMas" msprop:Generator_ChildPropName="GetPersonalInfoMasRows" msprop:Generator_UserRelationName="EmpMasPersonalInfoMas" msprop:Generator_ParentPropName="EmpMasRow" />
+      <msdata:Relationship name="EmpMasUserAuditLog" msdata:parent="EmpMas" msdata:child="UserAuditLog" msdata:parentkey="EmpID" msdata:childkey="EmpID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="UserAuditLog" msprop:Generator_RelationVarName="relationEmpMasUserAuditLog" msprop:Generator_ChildPropName="GetUserAuditLogRows" msprop:Generator_UserRelationName="EmpMasUserAuditLog" msprop:Generator_ParentPropName="EmpMasRow" />
+      <msdata:Relationship name="EmpMasEmpSkillMas" msdata:parent="EmpMas" msdata:child="EmpSkillMas" msdata:parentkey="EmpID" msdata:childkey="EmpID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="EmpSkillMas" msprop:Generator_RelationVarName="relationEmpMasEmpSkillMas" msprop:Generator_ChildPropName="GetEmpSkillMasRows" msprop:Generator_UserRelationName="EmpMasEmpSkillMas" msprop:Generator_ParentPropName="EmpMasRow" />
+      <msdata:Relationship name="BloodGroupMasEmpMas" msdata:parent="BloodGroupMas" msdata:child="EmpMas" msdata:parentkey="BloodGroupID" msdata:childkey="BloodGroupID" msprop:Generator_UserParentTable="BloodGroupMas" msprop:Generator_UserChildTable="EmpMas" msprop:Generator_RelationVarName="relationBloodGroupMasEmpMas" msprop:Generator_ChildPropName="GetEmpMasRows" msprop:Generator_ParentPropName="BloodGroupMasRow" msprop:Generator_UserRelationName="BloodGroupMasEmpMas" />
+      <msdata:Relationship name="DepMasEmpMas" msdata:parent="DepMas" msdata:child="EmpMas" msdata:parentkey="DepartmentID" msdata:childkey="DepartmentID" msprop:Generator_UserParentTable="DepMas" msprop:Generator_UserChildTable="EmpMas" msprop:Generator_RelationVarName="relationDepMasEmpMas" msprop:Generator_ChildPropName="GetEmpMasRows" msprop:Generator_ParentPropName="DepMasRow" msprop:Generator_UserRelationName="DepMasEmpMas" />
+      <msdata:Relationship name="DesigMasEmpMas" msdata:parent="DesigMas" msdata:child="EmpMas" msdata:parentkey="DesignationID" msdata:childkey="EmpDesignationID" msprop:Generator_UserParentTable="DesigMas" msprop:Generator_UserChildTable="EmpMas" msprop:Generator_RelationVarName="relationDesigMasEmpMas" msprop:Generator_ChildPropName="GetEmpMasRows" msprop:Generator_ParentPropName="DesigMasRow" msprop:Generator_UserRelationName="DesigMasEmpMas" />
+      <msdata:Relationship name="SexMasContactPersonMas" msdata:parent="SexMas" msdata:child="ContactPersonMas" msdata:parentkey="SexID" msdata:childkey="SexID" msprop:Generator_UserParentTable="SexMas" msprop:Generator_UserChildTable="ContactPersonMas" msprop:Generator_RelationVarName="relationSexMasContactPersonMas" msprop:Generator_ChildPropName="GetContactPersonMasRows" msprop:Generator_ParentPropName="SexMasRow" msprop:Generator_UserRelationName="SexMasContactPersonMas" />
+      <msdata:Relationship name="SexMasPersonalInfoMas" msdata:parent="SexMas" msdata:child="PersonalInfoMas" msdata:parentkey="SexID" msdata:childkey="SexID" msprop:Generator_UserParentTable="SexMas" msprop:Generator_UserChildTable="PersonalInfoMas" msprop:Generator_RelationVarName="relationSexMasPersonalInfoMas" msprop:Generator_ChildPropName="GetPersonalInfoMasRows" msprop:Generator_ParentPropName="SexMasRow" msprop:Generator_UserRelationName="SexMasPersonalInfoMas" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -285,6 +285,9 @@ namespace StaffSync
         public void clearControls()
         {
             lblEmpID.Text = "";
+            lblCancelStatus.Text = "";
+            lblLeaveMasID.Text = "";
+            lblLeaveTRID.Text = "";
             txtEmpCode.Text = "";
             txtEmployeeName.Text = "";
             picEmpPhoto.Image = null;
@@ -354,6 +357,8 @@ namespace StaffSync
                 cmbDesignation.SelectedIndex = objSelectedEmployeeInfo.EmpDesignationID - 1;
                 cmbDepartment.SelectedIndex = objSelectedEmployeeInfo.DepartmentID - 1;
                 picEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblEmpID.Text)).EmpPhoto);
+
+                lblLeaveMasID.Text = objLeaveTRList.getMaxLeaveMasID(Convert.ToInt16(lblEmpID.Text)).ToString();
 
                 txtAvailableLeave.Text = objLeaveTRList.getBalanceLeave(Convert.ToInt16(lblEmpID.Text)).ToString();
                 List<EmployeeSpecificLeaveInfo> objEmployeeSpecificLeaveInfo = objLeaveTRList.getSpecificEmployeeSpecificLeaveInfo(selectedLeaveID);
@@ -485,14 +490,38 @@ namespace StaffSync
             List<EmployeeLeaveTRList> objEmployeeLeaveTRList = objLeaveTRList.getEmployeeLeaveTRList(Convert.ToInt16(lblEmpID.Text));
             foreach (EmployeeLeaveTRList indEmployeeLeaveTRList in objEmployeeLeaveTRList)
             {
+                string strLeaveStatus = "";
+                if (indEmployeeLeaveTRList.LeaveApprovalComments == "Not yet Approved" || indEmployeeLeaveTRList.LeaveApprovalComments == "Not yet Rejected")
+                {
+                    strLeaveStatus = "Pending";
+                }
+                else if (indEmployeeLeaveTRList.LeaveApprovalComments.StartsWith("Approved"))
+                {
+                    strLeaveStatus = "Approved";
+                    if (indEmployeeLeaveTRList.Canceled == true)
+                        strLeaveStatus = indEmployeeLeaveTRList.LeaveApprovalComments;
+                    else
+                        strLeaveStatus = indEmployeeLeaveTRList.LeaveApprovalComments;
+                }
+                else if (indEmployeeLeaveTRList.LeaveRejectionComments.StartsWith("Rejected"))
+                {
+                    strLeaveStatus = "Rejected";
+                    if (indEmployeeLeaveTRList.Canceled == true)
+                        strLeaveStatus = indEmployeeLeaveTRList.LeaveRejectionComments;
+                    else
+                        strLeaveStatus = indEmployeeLeaveTRList.LeaveRejectionComments;
+                }
+
                 System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
                     indEmployeeLeaveTRList.LeaveTRID.ToString(),
                     indEmployeeLeaveTRList.LeaveTypeTitle != null ? indEmployeeLeaveTRList.LeaveTypeTitle.ToString() : "",
                     indEmployeeLeaveTRList.ActualLeaveDateFrom != null ? Convert.ToDateTime(indEmployeeLeaveTRList.ActualLeaveDateFrom.ToString()).ToString("dd-MMM-yyyy") : "",
                     indEmployeeLeaveTRList.ActualLeaveDateTo != null ? Convert.ToDateTime(indEmployeeLeaveTRList.ActualLeaveDateTo.ToString()).ToString("dd-MMM-yyyy") : "",
                     indEmployeeLeaveTRList.LeaveDuration != null ? indEmployeeLeaveTRList.LeaveDuration.ToString() : "0.00",
-                    indEmployeeLeaveTRList.LeaveComments.ToString()
+                    indEmployeeLeaveTRList.LeaveComments.ToString(),
+                    indEmployeeLeaveTRList.LeaveStatus = strLeaveStatus.ToString()
                 });
+
                 lstLeaveTRList.Items.AddRange(new System.Windows.Forms.ListViewItem[] { listViewItem1 });
             }
         }

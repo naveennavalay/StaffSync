@@ -148,8 +148,14 @@
   <data name="download01" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\download01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="reimbursement" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\reimbursement.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="help" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\help.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="view-leaves" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\view-leaves.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="profile-setting" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\profile-setting.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -196,14 +202,11 @@
   <data name="delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\delete.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="recruitment" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\recruitment.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="rejectleave" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\rejectleave.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="reimbursement" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\reimbursement.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="recruitment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\recruitment.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="attendance" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\attendance.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -232,7 +235,7 @@
   <data name="auth01" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\png\auth01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="view-leaves" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\view-leaves.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="leave-allotment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\leave-allotment.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

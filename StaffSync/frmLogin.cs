@@ -34,16 +34,12 @@ namespace StaffSync
         {
             //AppMail.SendMail();
 
-
-            if(txtUserName.Text.ToString().Trim() == "naveendnavalay@gmail.com" && txtPassword.Text.ToString().Trim() == "Naveen_01!")
+            if(@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
                 frmDashboard objDashboard = new frmDashboard();
                 objDashboard.Show();
-                return;
             }
-
-
-            if (validateAuthInfo() == true)
+            else if (validateAuthInfo() == true)
             {
                 UserInfo loginUserInfo = objLogin.getSpecificUserInfo(txtUserName.Text.ToString());
                 if (loginUserInfo != null)

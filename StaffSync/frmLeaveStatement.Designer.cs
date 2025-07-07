@@ -35,9 +35,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblCancelStatus = new System.Windows.Forms.Label();
             this.lblLeaveTRID = new System.Windows.Forms.Label();
-            this.picDownloadLeaveTRList = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.picRefreshLeaveTRList = new System.Windows.Forms.PictureBox();
             this.lstLeaveTRList = new System.Windows.Forms.ListView();
             this.LeaveTRID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LeaveType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -47,7 +44,6 @@
             this.LeaveComments = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LeaveStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmLeaveCancel = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tlbCancelLeave = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtBalanceLeave = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -62,7 +58,6 @@
             this.txtEmployeeName = new Krypton.Toolkit.KryptonTextBox();
             this.txtEmpCode = new Krypton.Toolkit.KryptonTextBox();
             this.label38 = new System.Windows.Forms.Label();
-            this.picEmpPhoto = new System.Windows.Forms.PictureBox();
             this.cmbDesignation = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.cmbDepartment = new System.Windows.Forms.ComboBox();
@@ -79,21 +74,27 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.picDownloadLeaveTRList = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.picRefreshLeaveTRList = new System.Windows.Forms.PictureBox();
+            this.tlbCancelLeave = new System.Windows.Forms.ToolStripMenuItem();
+            this.picEmpPhoto = new System.Windows.Forms.PictureBox();
+            this.lblLeaveMasID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRefreshLeaveTRList)).BeginInit();
             this.cmLeaveCancel.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefreshLeaveTRList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -128,6 +129,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblLeaveMasID);
             this.groupBox2.Controls.Add(this.lblCancelStatus);
             this.groupBox2.Controls.Add(this.lblLeaveTRID);
             this.groupBox2.Controls.Add(this.picDownloadLeaveTRList);
@@ -153,6 +155,7 @@
             this.lblCancelStatus.Size = new System.Drawing.Size(11, 15);
             this.lblCancelStatus.TabIndex = 24;
             this.lblCancelStatus.Text = " ";
+            this.lblCancelStatus.Visible = false;
             // 
             // lblLeaveTRID
             // 
@@ -165,44 +168,7 @@
             this.lblLeaveTRID.Size = new System.Drawing.Size(11, 15);
             this.lblLeaveTRID.TabIndex = 23;
             this.lblLeaveTRID.Text = " ";
-            // 
-            // picDownloadLeaveTRList
-            // 
-            this.picDownloadLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picDownloadLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picDownloadLeaveTRList.Image = global::StaffSync.Properties.Resources.download01;
-            this.picDownloadLeaveTRList.Location = new System.Drawing.Point(1142, 22);
-            this.picDownloadLeaveTRList.Name = "picDownloadLeaveTRList";
-            this.picDownloadLeaveTRList.Size = new System.Drawing.Size(21, 20);
-            this.picDownloadLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picDownloadLeaveTRList.TabIndex = 22;
-            this.picDownloadLeaveTRList.TabStop = false;
-            this.picDownloadLeaveTRList.Click += new System.EventHandler(this.picDownloadLeaveTRList_Click);
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox3.Image = global::StaffSync.Properties.Resources.mail01;
-            this.pictureBox3.Location = new System.Drawing.Point(1165, 21);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(23, 22);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 21;
-            this.pictureBox3.TabStop = false;
-            // 
-            // picRefreshLeaveTRList
-            // 
-            this.picRefreshLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picRefreshLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picRefreshLeaveTRList.Image = global::StaffSync.Properties.Resources.refresh01;
-            this.picRefreshLeaveTRList.Location = new System.Drawing.Point(1190, 21);
-            this.picRefreshLeaveTRList.Name = "picRefreshLeaveTRList";
-            this.picRefreshLeaveTRList.Size = new System.Drawing.Size(23, 22);
-            this.picRefreshLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picRefreshLeaveTRList.TabIndex = 20;
-            this.picRefreshLeaveTRList.TabStop = false;
-            this.picRefreshLeaveTRList.Click += new System.EventHandler(this.picRefreshLeaveTRList_Click);
+            this.lblLeaveTRID.Visible = false;
             // 
             // lstLeaveTRList
             // 
@@ -281,14 +247,6 @@
             this.cmLeaveCancel.Tag = "DatamartMenu";
             this.cmLeaveCancel.Text = "DatamartMenu";
             this.cmLeaveCancel.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmLeaveCancel_ItemClicked);
-            // 
-            // tlbCancelLeave
-            // 
-            this.tlbCancelLeave.Image = global::StaffSync.Properties.Resources.auth01;
-            this.tlbCancelLeave.Name = "tlbCancelLeave";
-            this.tlbCancelLeave.Size = new System.Drawing.Size(143, 22);
-            this.tlbCancelLeave.Tag = "cmbCancelLeave";
-            this.tlbCancelLeave.Text = "Cancel Leave";
             // 
             // groupBox1
             // 
@@ -478,15 +436,6 @@
             this.label38.Text = "Photo";
             this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // picEmpPhoto
-            // 
-            this.picEmpPhoto.Location = new System.Drawing.Point(764, 26);
-            this.picEmpPhoto.Name = "picEmpPhoto";
-            this.picEmpPhoto.Size = new System.Drawing.Size(131, 115);
-            this.picEmpPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picEmpPhoto.TabIndex = 34;
-            this.picEmpPhoto.TabStop = false;
-            // 
             // cmbDesignation
             // 
             this.cmbDesignation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -671,6 +620,74 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
+            // picDownloadLeaveTRList
+            // 
+            this.picDownloadLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picDownloadLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picDownloadLeaveTRList.Image = global::StaffSync.Properties.Resources.download01;
+            this.picDownloadLeaveTRList.Location = new System.Drawing.Point(1142, 22);
+            this.picDownloadLeaveTRList.Name = "picDownloadLeaveTRList";
+            this.picDownloadLeaveTRList.Size = new System.Drawing.Size(21, 20);
+            this.picDownloadLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picDownloadLeaveTRList.TabIndex = 22;
+            this.picDownloadLeaveTRList.TabStop = false;
+            this.picDownloadLeaveTRList.Click += new System.EventHandler(this.picDownloadLeaveTRList_Click);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox3.Image = global::StaffSync.Properties.Resources.mail01;
+            this.pictureBox3.Location = new System.Drawing.Point(1165, 21);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(23, 22);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 21;
+            this.pictureBox3.TabStop = false;
+            // 
+            // picRefreshLeaveTRList
+            // 
+            this.picRefreshLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picRefreshLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picRefreshLeaveTRList.Image = global::StaffSync.Properties.Resources.refresh01;
+            this.picRefreshLeaveTRList.Location = new System.Drawing.Point(1190, 21);
+            this.picRefreshLeaveTRList.Name = "picRefreshLeaveTRList";
+            this.picRefreshLeaveTRList.Size = new System.Drawing.Size(23, 22);
+            this.picRefreshLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRefreshLeaveTRList.TabIndex = 20;
+            this.picRefreshLeaveTRList.TabStop = false;
+            this.picRefreshLeaveTRList.Click += new System.EventHandler(this.picRefreshLeaveTRList_Click);
+            // 
+            // tlbCancelLeave
+            // 
+            this.tlbCancelLeave.Image = global::StaffSync.Properties.Resources.auth01;
+            this.tlbCancelLeave.Name = "tlbCancelLeave";
+            this.tlbCancelLeave.Size = new System.Drawing.Size(143, 22);
+            this.tlbCancelLeave.Tag = "cmbCancelLeave";
+            this.tlbCancelLeave.Text = "Cancel Leave";
+            // 
+            // picEmpPhoto
+            // 
+            this.picEmpPhoto.Location = new System.Drawing.Point(764, 26);
+            this.picEmpPhoto.Name = "picEmpPhoto";
+            this.picEmpPhoto.Size = new System.Drawing.Size(131, 115);
+            this.picEmpPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picEmpPhoto.TabIndex = 34;
+            this.picEmpPhoto.TabStop = false;
+            // 
+            // lblLeaveMasID
+            // 
+            this.lblLeaveMasID.AutoSize = true;
+            this.lblLeaveMasID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblLeaveMasID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLeaveMasID.Location = new System.Drawing.Point(618, 22);
+            this.lblLeaveMasID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblLeaveMasID.Name = "lblLeaveMasID";
+            this.lblLeaveMasID.Size = new System.Drawing.Size(11, 15);
+            this.lblLeaveMasID.TabIndex = 26;
+            this.lblLeaveMasID.Text = " ";
+            this.lblLeaveMasID.Visible = false;
+            // 
             // frmLeaveStatement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -694,17 +711,17 @@
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRefreshLeaveTRList)).EndInit();
             this.cmLeaveCancel.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefreshLeaveTRList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -760,5 +777,6 @@
         private System.Windows.Forms.ToolStripMenuItem tlbCancelLeave;
         public System.Windows.Forms.Label lblCancelStatus;
         private System.Windows.Forms.ColumnHeader LeaveStatus;
+        public System.Windows.Forms.Label lblLeaveMasID;
     }
 }

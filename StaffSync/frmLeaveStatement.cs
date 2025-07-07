@@ -309,6 +309,8 @@ namespace StaffSync
             picEmpPhoto.Image = null;
 
             lblCancelStatus.Text = "";
+            lblLeaveTRID.Text = "";
+            lblLeaveMasID.Text = "";
 
             txtAvailableLeave.Text = "";
             txtDateAsOn.Text = DateTime.Now.ToString("dd-MM-yyyy");
@@ -366,8 +368,6 @@ namespace StaffSync
                 txtAvailableLeave.Text = objLeaveTRList.getBalanceLeave(Convert.ToInt16(lblEmpID.Text)).ToString();
                 txtBalanceLeave.Text = txtAvailableLeave.Text;
 
-                //LeaveCalculation();
-
                 RefreshLeavesHistoryList();
             }
         }
@@ -383,10 +383,9 @@ namespace StaffSync
 
         private void lstLeaveTRList_DoubleClick(object sender, EventArgs e)
         {
-            MessageBox.Show(lstLeaveTRList.SelectedItems[0].SubItems[0].Text.ToString());
-
-            DateTime dtLeaveAppliedDate = Convert.ToDateTime(lstLeaveTRList.SelectedItems[0].SubItems[2].Text.ToString());
-            MessageBox.Show(dtLeaveAppliedDate.ToString("dd-MM-yyyy"));
+            //MessageBox.Show(lstLeaveTRList.SelectedItems[0].SubItems[0].Text.ToString());
+            //DateTime dtLeaveAppliedDate = Convert.ToDateTime(lstLeaveTRList.SelectedItems[0].SubItems[2].Text.ToString());
+            //MessageBox.Show(dtLeaveAppliedDate.ToString("dd-MM-yyyy"));
         }
 
         private void txtLeaveDateTo_TextChanged(object sender, EventArgs e)
@@ -611,6 +610,5 @@ namespace StaffSync
 
             Download.DownloadPDF(filePath);
         }
-
     }
 }

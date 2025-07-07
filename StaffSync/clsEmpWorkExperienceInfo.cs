@@ -155,8 +155,8 @@ namespace StaffSync
                         "(" +
                             "((LastCompDetMas.IsActive) = True) " +
                             "AND ((LastCompDetMas.IsDeleted) = False) " +
-                            "AND ((EmpWorkExp.EmpID) = " + txtEmployeeID + ") " +
-                        ")";
+                            "AND ((EmpWorkExp.EmpID) = " + txtEmployeeID + ")" +
+                        ") ORDER BY EmpWorkExp.LastCompID;";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

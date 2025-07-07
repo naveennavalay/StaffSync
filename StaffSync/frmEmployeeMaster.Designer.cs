@@ -397,7 +397,7 @@
             this.tabControl1.PopupPages.AllowPopupPages = Krypton.Navigator.PopupPageAllow.Never;
             this.tabControl1.PopupPages.Element = Krypton.Navigator.PopupPageElement.Item;
             this.tabControl1.PopupPages.Position = Krypton.Navigator.PopupPagePosition.ModeAppropriate;
-            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.SelectedIndex = 3;
             this.tabControl1.Size = new System.Drawing.Size(1252, 548);
             this.tabControl1.TabIndex = 28;
             // 
@@ -1077,6 +1077,7 @@
             this.txtEmployeeName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmployeeName.TabIndex = 20;
             this.txtEmployeeName.WordWrap = false;
+            this.txtEmployeeName.TextChanged += new System.EventHandler(this.txtEmployeeName_TextChanged);
             // 
             // label19
             // 
@@ -1102,7 +1103,7 @@
             this.tabPersonalPhoto.LastVisibleSet = true;
             this.tabPersonalPhoto.MinimumSize = new System.Drawing.Size(150, 50);
             this.tabPersonalPhoto.Name = "tabPersonalPhoto";
-            this.tabPersonalPhoto.Size = new System.Drawing.Size(1227, 519);
+            this.tabPersonalPhoto.Size = new System.Drawing.Size(1248, 519);
             this.tabPersonalPhoto.Text = "Photo";
             this.tabPersonalPhoto.ToolTipTitle = "Page ToolTip";
             this.tabPersonalPhoto.UniqueName = "7b4809ade98340beb18a313b3e589dac";
@@ -1132,7 +1133,6 @@
             this.txtEmpPhoto.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpPhoto.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpPhoto.TabIndex = 24;
-            this.txtEmpPhoto.Visible = false;
             this.txtEmpPhoto.WordWrap = false;
             // 
             // label39
@@ -1179,7 +1179,7 @@
             this.tabProfessionalInfo.LastVisibleSet = true;
             this.tabProfessionalInfo.MinimumSize = new System.Drawing.Size(150, 50);
             this.tabProfessionalInfo.Name = "tabProfessionalInfo";
-            this.tabProfessionalInfo.Size = new System.Drawing.Size(1227, 519);
+            this.tabProfessionalInfo.Size = new System.Drawing.Size(1248, 519);
             this.tabProfessionalInfo.Text = "Professional Info";
             this.tabProfessionalInfo.ToolTipTitle = "Page ToolTip";
             this.tabProfessionalInfo.UniqueName = "180975a229d74b58bb33c9db47a42d88";

@@ -1,5 +1,5 @@
-DELETE FROM AddressMas
-DELETE FROM EmpBankInfo
+DELETE * FROM AddressMas
+DELETE * FROM EmpBankInfo
 DELETE FROM ContactPersonMas
 DELETE FROM EmpDocMas
 DELETE FROM DocUploads
@@ -17,5 +17,9 @@ DELETE FROM NomineeMas
 DELETE FROM PersonalInfoMas
 DELETE FROM Photos
 DELETE FROM UserAuditLog
+DELETE FROM UserRoles
+DELETE FROM UserModules
 DELETE FROM users
+DELETE FROM EmpLeaveTransMas
 DELETE FROM empmas
+

@@ -460,6 +460,8 @@ namespace StaffSync
 
             lblLeaveMasID.Text = "";
 
+            lstLDocumentsList.Items.Clear();
+
             dtgSalaryProfileDetails.DataSource = null;
 
             dtgPreviousWorkExp.DataSource = objEmpWorkExperienceInfo.GetWorkExpDefaultList();
@@ -646,6 +648,13 @@ namespace StaffSync
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
+
+            if(!ValidateValuesOnUI())
+            {
+                this.Cursor = Cursors.Default;
+                return;
+            }
+
             if (lblActionMode.Text == "add")
             {
                 int iRowCounter = 1;
@@ -1050,177 +1059,309 @@ namespace StaffSync
         public bool ValidateValuesOnUI()
         {
             bool validationStatus = true;
+            errValidator.Clear();
 
+            // Helper for date validation
+            DateTime dob, doj;
+            string dateFormat = "dd-MM-yyyy";
+            CultureInfo provider = CultureInfo.InvariantCulture;
+
+            // Employee Name
             if (string.IsNullOrEmpty(txtEmployeeName.Text))
             {
                 validationStatus = false;
                 txtEmployeeName.Focus();
-                errValidator.SetError(this.txtEmployeeName, txtEmployeeName.Tag.ToString().Trim());
+                errValidator.SetError(this.txtEmployeeName, txtEmployeeName.Tag?.ToString() ?? "Employee Name is required.");
             }
+
+            // Date of Birth
             if (string.IsNullOrEmpty(txtDateOfBirth.Text))
             {
                 validationStatus = false;
                 txtDateOfBirth.Focus();
-                errValidator.SetError(this.txtDateOfBirth, txtDateOfBirth.Tag.ToString().Trim());
+                errValidator.SetError(this.txtDateOfBirth, txtDateOfBirth.Tag?.ToString() ?? "Date of Birth is required.");
             }
+            else if (!DateTime.TryParseExact(txtDateOfBirth.Text, dateFormat, provider, DateTimeStyles.None, out dob))
+            {
+                validationStatus = false;
+                txtDateOfBirth.Focus();
+                errValidator.SetError(this.txtDateOfBirth, "Invalid Date of Birth format (dd-MM-yyyy).");
+            }
+            else if (dob > DateTime.Now.Date)
+            {
+                validationStatus = false;
+                txtDateOfBirth.Focus();
+                errValidator.SetError(this.txtDateOfBirth, "Date of Birth cannot be in the future.");
+            }
+
+            // Date of Joining
             if (string.IsNullOrEmpty(txtDateOfJoining.Text))
             {
                 validationStatus = false;
                 txtDateOfJoining.Focus();
-                errValidator.SetError(this.txtDateOfJoining, txtDateOfJoining.Tag.ToString().Trim());
+                errValidator.SetError(this.txtDateOfJoining, txtDateOfJoining.Tag?.ToString() ?? "Date of Joining is required.");
             }
+            else if (!DateTime.TryParseExact(txtDateOfJoining.Text, dateFormat, provider, DateTimeStyles.None, out doj))
+            {
+                validationStatus = false;
+                txtDateOfJoining.Focus();
+                errValidator.SetError(this.txtDateOfJoining, "Invalid Date of Joining format (dd-MM-yyyy).");
+            }
+            else if (doj > DateTime.Now.Date)
+            {
+                validationStatus = false;
+                txtDateOfJoining.Focus();
+                errValidator.SetError(this.txtDateOfJoining, "Date of Joining cannot be in the future.");
+            }
+            else if (!string.IsNullOrEmpty(txtDateOfBirth.Text) && DateTime.TryParseExact(txtDateOfBirth.Text, dateFormat, provider, DateTimeStyles.None, out dob) && doj < dob)
+            {
+                validationStatus = false;
+                txtDateOfJoining.Focus();
+                errValidator.SetError(this.txtDateOfJoining, "Date of Joining cannot be before Date of Birth.");
+            }
+
+            // Current Address
             if (string.IsNullOrEmpty(txtCurrentAddress01.Text))
             {
                 validationStatus = false;
                 txtCurrentAddress01.Focus();
-                errValidator.SetError(this.txtCurrentAddress01, txtCurrentAddress01.Tag.ToString().Trim());
+                errValidator.SetError(this.txtCurrentAddress01, txtCurrentAddress01.Tag?.ToString() ?? "Current Address Line 1 is required.");
             }
             if (string.IsNullOrEmpty(txtCurrentAddress02.Text))
             {
                 validationStatus = false;
                 txtCurrentAddress02.Focus();
-                errValidator.SetError(this.txtCurrentAddress02, txtCurrentAddress02.Tag.ToString().Trim());
+                errValidator.SetError(this.txtCurrentAddress02, txtCurrentAddress02.Tag?.ToString() ?? "Current Address Line 2 is required.");
             }
             if (string.IsNullOrEmpty(txtCurrentArea.Text))
             {
                 validationStatus = false;
                 txtCurrentArea.Focus();
-                errValidator.SetError(this.txtCurrentArea, txtCurrentArea.Tag.ToString().Trim());
+                errValidator.SetError(this.txtCurrentArea, txtCurrentArea.Tag?.ToString() ?? "Current Area is required.");
             }
             if (string.IsNullOrEmpty(txtCurrentCity.Text))
             {
                 validationStatus = false;
                 txtCurrentCity.Focus();
-                errValidator.SetError(this.txtCurrentCity, txtCurrentCity.Tag.ToString().Trim());
+                errValidator.SetError(this.txtCurrentCity, txtCurrentCity.Tag?.ToString() ?? "Current City is required.");
             }
-            if (string.IsNullOrEmpty(txtCurrentPIN.Text))
+            if (string.IsNullOrEmpty(txtCurrentPIN.Text) || !System.Text.RegularExpressions.Regex.IsMatch(txtCurrentPIN.Text, @"^\d{6}$"))
             {
                 validationStatus = false;
                 txtCurrentPIN.Focus();
-                errValidator.SetError(this.txtCurrentPIN, txtCurrentPIN.Tag.ToString().Trim());
+                errValidator.SetError(this.txtCurrentPIN, "Enter a valid 6-digit PIN code.");
             }
             if (string.IsNullOrEmpty(txtCurrentState.Text))
             {
                 validationStatus = false;
                 txtCurrentState.Focus();
-                errValidator.SetError(this.txtCurrentState, txtCurrentState.Tag.ToString().Trim());
+                errValidator.SetError(this.txtCurrentState, txtCurrentState.Tag?.ToString() ?? "Current State is required.");
             }
             if (string.IsNullOrEmpty(cmbCurrentCountry.Text))
             {
                 validationStatus = false;
                 cmbCurrentCountry.Focus();
-                errValidator.SetError(this.cmbCurrentCountry, cmbCurrentCountry.Tag.ToString().Trim());
+                errValidator.SetError(this.cmbCurrentCountry, cmbCurrentCountry.Tag?.ToString() ?? "Current Country is required.");
             }
 
+            // Employee Contact Number
             if (string.IsNullOrEmpty(txtEmployeeContactNumber.Text))
             {
                 validationStatus = false;
                 txtEmployeeContactNumber.Focus();
-                errValidator.SetError(this.txtEmployeeContactNumber, txtEmployeeContactNumber.Tag.ToString().Trim());
+                errValidator.SetError(this.txtEmployeeContactNumber, "Enter a valid contact number (10-15 digits).");
             }
+
+            // Employee Email
             if (string.IsNullOrEmpty(txtEmployeeMailID.Text))
             {
                 validationStatus = false;
                 txtEmployeeMailID.Focus();
-                errValidator.SetError(this.txtEmployeeMailID, txtEmployeeMailID.Tag.ToString().Trim());
+                errValidator.SetError(this.txtEmployeeMailID, "Enter a valid email address.");
             }
 
+            // Permanent Address
             if (string.IsNullOrEmpty(txtPermanentAddress01.Text))
             {
                 validationStatus = false;
                 txtPermanentAddress01.Focus();
-                errValidator.SetError(this.txtPermanentAddress01, txtPermanentAddress01.Tag.ToString().Trim());
+                errValidator.SetError(this.txtPermanentAddress01, txtPermanentAddress01.Tag?.ToString() ?? "Permanent Address Line 1 is required.");
             }
             if (string.IsNullOrEmpty(txtPermanentAddress02.Text))
             {
                 validationStatus = false;
                 txtPermanentAddress02.Focus();
-                errValidator.SetError(this.txtPermanentAddress02, txtPermanentAddress02.Tag.ToString().Trim());
+                errValidator.SetError(this.txtPermanentAddress02, txtPermanentAddress02.Tag?.ToString() ?? "Permanent Address Line 2 is required.");
             }
             if (string.IsNullOrEmpty(txtPermanentArea.Text))
             {
                 validationStatus = false;
                 txtPermanentArea.Focus();
-                errValidator.SetError(this.txtPermanentArea, txtPermanentArea.Tag.ToString().Trim());
+                errValidator.SetError(this.txtPermanentArea, txtPermanentArea.Tag?.ToString() ?? "Permanent Area is required.");
             }
             if (string.IsNullOrEmpty(txtPermanentCity.Text))
             {
                 validationStatus = false;
                 txtPermanentCity.Focus();
-                errValidator.SetError(this.txtPermanentCity, txtPermanentCity.Tag.ToString().Trim());
+                errValidator.SetError(this.txtPermanentCity, txtPermanentCity.Tag?.ToString() ?? "Permanent City is required.");
             }
             if (string.IsNullOrEmpty(txtPermanentPIN.Text))
             {
                 validationStatus = false;
                 txtPermanentPIN.Focus();
-                errValidator.SetError(this.txtPermanentPIN, txtPermanentPIN.Tag.ToString().Trim());
+                errValidator.SetError(this.txtPermanentPIN, "Enter a valid 6-digit PIN code.");
             }
             if (string.IsNullOrEmpty(txtPermanentState.Text))
             {
                 validationStatus = false;
                 txtPermanentState.Focus();
-                errValidator.SetError(this.txtPermanentState, txtPermanentState.Tag.ToString().Trim());
+                errValidator.SetError(this.txtPermanentState, txtPermanentState.Tag?.ToString() ?? "Permanent State is required.");
             }
             if (string.IsNullOrEmpty(cmbPermanentCountry.Text))
             {
-                validationStatus = false; 
+                validationStatus = false;
                 cmbPermanentCountry.Focus();
-                errValidator.SetError(this.cmbPermanentCountry, cmbPermanentCountry.Tag.ToString().Trim());
+                errValidator.SetError(this.cmbPermanentCountry, cmbPermanentCountry.Tag?.ToString() ?? "Permanent Country is required.");
             }
 
-
+            // Department & Designation
             if (string.IsNullOrEmpty(cmbDepartment.Text))
             {
                 validationStatus = false;
                 cmbDepartment.Focus();
-                errValidator.SetError(this.cmbDepartment, cmbDepartment.Tag.ToString().Trim());
+                errValidator.SetError(this.cmbDepartment, cmbDepartment.Tag?.ToString() ?? "Department is required.");
             }
             if (string.IsNullOrEmpty(cmbDesignation.Text))
             {
                 validationStatus = false;
                 cmbDesignation.Focus();
-                errValidator.SetError(this.cmbDesignation, cmbDesignation.Tag.ToString().Trim());
+                errValidator.SetError(this.cmbDesignation, cmbDesignation.Tag?.ToString() ?? "Designation is required.");
             }
 
+            // Contact Person
             if (string.IsNullOrEmpty(txtContactPersonName.Text))
             {
                 validationStatus = false;
                 txtContactPersonName.Focus();
-                errValidator.SetError(this.txtContactPersonName, txtContactPersonName.Tag.ToString().Trim());
+                errValidator.SetError(this.txtContactPersonName, txtContactPersonName.Tag?.ToString() ?? "Contact Person Name is required.");
             }
             if (string.IsNullOrEmpty(cmbContactPersonRelationship.Text))
             {
                 validationStatus = false;
                 cmbContactPersonRelationship.Focus();
-                errValidator.SetError(this.cmbContactPersonRelationship, cmbContactPersonRelationship.Tag.ToString().Trim());
+                errValidator.SetError(this.cmbContactPersonRelationship, cmbContactPersonRelationship.Tag?.ToString() ?? "Contact Person Relationship is required.");
             }
             if (string.IsNullOrEmpty(txtContactPersonNumber.Text))
             {
                 validationStatus = false;
                 txtContactPersonNumber.Focus();
-                errValidator.SetError(this.txtContactPersonNumber, txtContactPersonNumber.Tag.ToString().Trim());
+                errValidator.SetError(this.txtContactPersonNumber, "Enter a valid contact number (10-15 digits).");
             }
 
+            // Nominee
             if (string.IsNullOrEmpty(txtNomineeName.Text))
             {
                 validationStatus = false;
                 txtNomineeName.Focus();
-                errValidator.SetError(this.txtNomineeName, txtNomineeName.Tag.ToString().Trim());
+                errValidator.SetError(this.txtNomineeName, txtNomineeName.Tag?.ToString() ?? "Nominee Name is required.");
             }
             if (string.IsNullOrEmpty(cmbNomineeRelationship.Text))
             {
                 validationStatus = false;
                 cmbNomineeRelationship.Focus();
-                errValidator.SetError(this.cmbNomineeRelationship, cmbNomineeRelationship.Tag.ToString().Trim());
+                errValidator.SetError(this.cmbNomineeRelationship, cmbNomineeRelationship.Tag?.ToString() ?? "Nominee Relationship is required.");
             }
             if (string.IsNullOrEmpty(txtNomineeContactNumber.Text))
             {
                 validationStatus = false;
                 txtNomineeContactNumber.Focus();
-                errValidator.SetError(this.txtNomineeContactNumber, txtNomineeContactNumber.Tag.ToString().Trim());
+                errValidator.SetError(this.txtNomineeContactNumber, "Enter a valid contact number (10-15 digits).");
+            }
+
+            // Validate Previous Work Experience Grid
+            foreach (DataGridViewRow row in dtgPreviousWorkExp.Rows)
+            {
+                // Skip new row placeholder
+                if (row.IsNewRow) continue;
+
+                object startObj = row.Cells["StartDate"].Value;
+                object endObj = row.Cells["EndDate"].Value;
+                DateTime startDate, endDate;
+
+                // Check for empty or invalid Start Date
+                if (startObj == null || !DateTime.TryParse(startObj.ToString(), out startDate))
+                {
+                    validationStatus = false;
+                    dtgPreviousWorkExp.CurrentCell = row.Cells["StartDate"];
+                    errValidator.SetError(dtgPreviousWorkExp, "Please enter a valid Start Date for all work experience rows.");
+                    break;
+                }
+
+                // Check for empty or invalid End Date
+                if (endObj == null || !DateTime.TryParse(endObj.ToString(), out endDate))
+                {
+                    validationStatus = false;
+                    dtgPreviousWorkExp.CurrentCell = row.Cells["EndDate"];
+                    errValidator.SetError(dtgPreviousWorkExp, "Please enter a valid End Date for all work experience rows.");
+                    break;
+                }
+
+                // Start Date should not be after End Date
+                if (startDate > endDate)
+                {
+                    validationStatus = false;
+                    dtgPreviousWorkExp.CurrentCell = row.Cells["StartDate"];
+                    errValidator.SetError(dtgPreviousWorkExp, "Start Date cannot be after End Date in work experience.");
+                    break;
+                }
+
+                // End Date should not be in the future
+                if (endDate > DateTime.Now.Date)
+                {
+                    validationStatus = false;
+                    dtgPreviousWorkExp.CurrentCell = row.Cells["EndDate"];
+                    errValidator.SetError(dtgPreviousWorkExp, "End Date cannot be in the future in work experience.");
+                    break;
+                }
+            }
+
+            if (chkEduQualList.CheckedItems.Count == 0)
+            {
+                validationStatus = false;
+                chkEduQualList.Focus();
+                errValidator.SetError(chkEduQualList, "Please select at least one Education Qualification.");
+            }
+            
+            if (chkSkillsList.CheckedItems.Count == 0)
+            {
+                validationStatus = false;
+                chkSkillsList.Focus();
+                errValidator.SetError(chkSkillsList, "Please select at least one Skill.");
+            }
+
+            if (lstLDocumentsList.Items.Count == 0)
+            {
+                validationStatus = false;
+                lstLDocumentsList.Focus();
+                errValidator.SetError(lstLDocumentsList, "Please reference at least one document.");
+            }
+
+            if(txtBankAccountNumber.Text.ToString().Trim() == "")
+            {
+                validationStatus = false;
+                txtBankAccountNumber.Focus();
+                errValidator.SetError(txtBankAccountNumber, "Bank Account Number is required.");
+            }
+
+            if (lstBankList.SelectedItems.Count == 0)
+            {
+                validationStatus = false;
+                lstBankList.Focus();
+                errValidator.SetError(lstBankList, "Please select Bank Address.");
             }
 
             return validationStatus;
+
         }
 
         private void btnReportingManagerSearch_Click(object sender, EventArgs e)
@@ -1834,6 +1975,20 @@ namespace StaffSync
             if (chkSamePerAddAsCurAdd.Checked == true)
                 if(cmbPermanentCountry.SelectedIndex != -1)
                     cmbPermanentCountry.SelectedIndex = cmbCurrentCountry.SelectedIndex;
+        }
+
+        private void txtEmployeeName_TextChanged(object sender, EventArgs e)
+        {
+            string name = txtEmployeeName.Text.Trim();
+            if (!string.IsNullOrEmpty(name))
+            {
+                string email = name.Replace(' ', '.').ToLower() + "@temp.com";
+                txtEmployeeMailID.Text = email;
+            }
+            else
+            {
+                txtEmployeeMailID.Text = string.Empty;
+            }
         }
     }
 }

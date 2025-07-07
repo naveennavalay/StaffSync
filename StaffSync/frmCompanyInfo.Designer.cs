@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cmbIsActive = new Krypton.Toolkit.KryptonComboBox();
             this.txtCompanyName = new Krypton.Toolkit.KryptonTextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
@@ -76,13 +77,13 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.cmbIsActive = new Krypton.Toolkit.KryptonComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCompLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbCountry)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -90,7 +91,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -158,6 +158,18 @@
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Company Details";
+            // 
+            // cmbIsActive
+            // 
+            this.cmbIsActive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbIsActive.DropDownWidth = 440;
+            this.cmbIsActive.Location = new System.Drawing.Point(141, 323);
+            this.cmbIsActive.Name = "cmbIsActive";
+            this.cmbIsActive.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbIsActive.Size = new System.Drawing.Size(204, 22);
+            this.cmbIsActive.Sorted = true;
+            this.cmbIsActive.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbIsActive.TabIndex = 65;
             // 
             // txtCompanyName
             // 
@@ -480,7 +492,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(80, 330);
+            this.label17.Location = new System.Drawing.Point(80, 327);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(59, 15);
@@ -668,18 +680,6 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
-            // cmbIsActive
-            // 
-            this.cmbIsActive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbIsActive.DropDownWidth = 440;
-            this.cmbIsActive.Location = new System.Drawing.Point(141, 323);
-            this.cmbIsActive.Name = "cmbIsActive";
-            this.cmbIsActive.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbIsActive.Size = new System.Drawing.Size(204, 22);
-            this.cmbIsActive.Sorted = true;
-            this.cmbIsActive.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbIsActive.TabIndex = 65;
-            // 
             // frmCompanyInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -703,6 +703,7 @@
             this.panel1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCompLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbCountry)).EndInit();
             this.groupBox4.ResumeLayout(false);
@@ -711,7 +712,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).EndInit();
             this.ResumeLayout(false);
 
         }

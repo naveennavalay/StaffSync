@@ -160,7 +160,7 @@ namespace StaffSync
                     for (int iLeaveCounter = 1; iLeaveCounter <= 1; iLeaveCounter++)
                     {
                         employeeLeaveTRID = objLeaveTRList.ApproveLeave(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, clsCurrentUser.UserID);
-                        objLeaveTRList.UpdateEmployeeLeaveBalance(1, Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), Convert.ToDecimal(txtBalanceLeave.Text), DateTime.Now);
+                        objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()) , Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), Convert.ToDecimal(txtBalanceLeave.Text), DateTime.Now);
                         objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), "Leave", Convert.ToInt16(lblLeaveTRID.Text.ToString()));
                     }
                 }
@@ -296,6 +296,7 @@ namespace StaffSync
 
             lblLeaveTRID.Text = "";
             lblSpecificLeaveBalance.Text = "";
+            lblLeaveMasID.Text = "";
 
             txtAvailableLeave.Text = "";
             txtLeaveDateFrom.Text = DateTime.Now.ToString("dd-MM-yyyy");
@@ -361,6 +362,8 @@ namespace StaffSync
                 cmbDepartment.SelectedIndex = objSelectedEmployeeInfo.DepartmentID - 1;
                 picEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblEmpID.Text)).EmpPhoto);
 
+                lblLeaveMasID.Text = objLeaveTRList.getMaxLeaveMasID(Convert.ToInt16(lblEmpID.Text)).ToString();
+
                 txtAvailableLeave.Text = objLeaveTRList.getBalanceLeave(Convert.ToInt16(lblEmpID.Text)).ToString();
                 List<EmployeeSpecificLeaveInfo> objEmployeeSpecificLeaveInfo = objLeaveTRList.getSpecificEmployeeSpecificLeaveInfo(selectedLeaveID);
                 if (objEmployeeSpecificLeaveInfo.Count > 0)
@@ -416,10 +419,9 @@ namespace StaffSync
 
         private void lstLeaveTRList_DoubleClick(object sender, EventArgs e)
         {
-            MessageBox.Show(lstLeaveTRList.SelectedItems[0].SubItems[0].Text.ToString());
-
-            DateTime dtLeaveAppliedDate = Convert.ToDateTime(lstLeaveTRList.SelectedItems[0].SubItems[2].Text.ToString());
-            MessageBox.Show(dtLeaveAppliedDate.ToString("dd-MM-yyyy"));
+            //MessageBox.Show(lstLeaveTRList.SelectedItems[0].SubItems[0].Text.ToString());
+            //DateTime dtLeaveAppliedDate = Convert.ToDateTime(lstLeaveTRList.SelectedItems[0].SubItems[2].Text.ToString());
+            //MessageBox.Show(dtLeaveAppliedDate.ToString("dd-MM-yyyy"));
         }
 
         private void txtLeaveDateTo_TextChanged(object sender, EventArgs e)
@@ -491,16 +493,41 @@ namespace StaffSync
             List<EmployeeLeaveTRList> objEmployeeLeaveTRList = objLeaveTRList.getEmployeeLeaveTRList(Convert.ToInt16(lblEmpID.Text));
             foreach (EmployeeLeaveTRList indEmployeeLeaveTRList in objEmployeeLeaveTRList)
             {
+                string strLeaveStatus = "";
+                if (indEmployeeLeaveTRList.LeaveApprovalComments == "Not yet Approved" || indEmployeeLeaveTRList.LeaveApprovalComments == "Not yet Rejected")
+                {
+                    strLeaveStatus = "Pending";
+                }
+                else if (indEmployeeLeaveTRList.LeaveApprovalComments.StartsWith("Approved"))
+                {
+                    strLeaveStatus = "Approved";
+                    if (indEmployeeLeaveTRList.Canceled == true)
+                        strLeaveStatus = indEmployeeLeaveTRList.LeaveApprovalComments;
+                    else
+                        strLeaveStatus = indEmployeeLeaveTRList.LeaveApprovalComments;
+                }
+                else if (indEmployeeLeaveTRList.LeaveRejectionComments.StartsWith("Rejected"))
+                {
+                    strLeaveStatus = "Rejected";
+                    if (indEmployeeLeaveTRList.Canceled == true)
+                        strLeaveStatus = indEmployeeLeaveTRList.LeaveRejectionComments;
+                    else
+                        strLeaveStatus = indEmployeeLeaveTRList.LeaveRejectionComments;
+                }
+
                 System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
                     indEmployeeLeaveTRList.LeaveTRID.ToString(),
                     indEmployeeLeaveTRList.LeaveTypeTitle != null ? indEmployeeLeaveTRList.LeaveTypeTitle.ToString() : "",
                     indEmployeeLeaveTRList.ActualLeaveDateFrom != null ? Convert.ToDateTime(indEmployeeLeaveTRList.ActualLeaveDateFrom.ToString()).ToString("dd-MMM-yyyy") : "",
                     indEmployeeLeaveTRList.ActualLeaveDateTo != null ? Convert.ToDateTime(indEmployeeLeaveTRList.ActualLeaveDateTo.ToString()).ToString("dd-MMM-yyyy") : "",
                     indEmployeeLeaveTRList.LeaveDuration != null ? indEmployeeLeaveTRList.LeaveDuration.ToString() : "0.00",
-                    indEmployeeLeaveTRList.LeaveComments.ToString()
+                    indEmployeeLeaveTRList.LeaveComments.ToString(),
+                    indEmployeeLeaveTRList.LeaveStatus = strLeaveStatus.ToString()
                 });
+
                 lstLeaveTRList.Items.AddRange(new System.Windows.Forms.ListViewItem[] { listViewItem1 });
             }
+            txtAvailableLeave.Text = objLeaveTRList.getBalanceLeave(Convert.ToInt16(lblEmpID.Text)).ToString();
         }
 
         private void cmbLeaveType_SelectedIndexChanged(object sender, EventArgs e)

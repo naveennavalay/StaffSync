@@ -233,6 +233,16 @@ namespace StaffSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap leave_allotment {
+            get {
+                object obj = ResourceManager.GetObject("leave-allotment", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap leave_statement {
             get {
                 object obj = ResourceManager.GetObject("leave-statement", resourceCulture);

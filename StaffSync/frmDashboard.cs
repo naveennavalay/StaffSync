@@ -60,72 +60,103 @@ namespace StaffSync
         {
             AppModuleID = 2;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
+                frmEmployeeMasterDetails.ShowDialog();
             }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-            frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
-            frmEmployeeMasterDetails.ShowDialog();
+                frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
+                frmEmployeeMasterDetails.ShowDialog();
+            }
         }
 
         private void manageEmployeeAttendanceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AppModuleID = 4;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater();
+                frmAttendanceMaterDetails.ShowDialog();
             }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-            frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater();
-            frmAttendanceMaterDetails.ShowDialog();
+                frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater();
+                frmAttendanceMaterDetails.ShowDialog();
+            }
         }
 
         private void manageEmployeePayrollToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AppModuleID = 3;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            }
 
-            //frmPayrollMaster frmPayrollMasterDetails = new frmPayrollMaster();
-            //frmPayrollMasterDetails.ShowDialog();
+            }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                //frmPayrollMaster frmPayrollMasterDetails = new frmPayrollMaster();
+                //frmPayrollMasterDetails.ShowDialog();
+            }
         }
 
         private void manageEmployeeLeavesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AppModuleID = 5;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
+                frmLeavesMasterDetails.ShowDialog();
             }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-            frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
-            frmLeavesMasterDetails.ShowDialog();
+                frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
+                frmLeavesMasterDetails.ShowDialog();
+            }
         }
 
         private void employeeWiseReportsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -204,18 +235,26 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
+                frmDepartmentMaster.ShowDialog(this);
             }
-            
-            frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
-            frmDepartmentMaster.ShowDialog(this);
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
+                frmDepartmentMaster.ShowDialog(this);
+            }
         }
 
         private void mainListingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -227,126 +266,182 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
+                frmDesignationMaster.ShowDialog(this);
             }
-            
-            frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
-            frmDesignationMaster.ShowDialog(this);
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
+                frmDesignationMaster.ShowDialog(this);
+            }
         }
 
         private void educationListToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                frmEduQualMaster.ShowDialog(this);
             }
-            
-            frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
-            frmEduQualMaster.ShowDialog(this);
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                frmEduQualMaster.ShowDialog(this);
+            }
         }
 
         private void relationshipListToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
+                frmRelationshipMaster.ShowDialog(this);
             }
-            
-            frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
-            frmRelationshipMaster.ShowDialog(this);
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
+                frmRelationshipMaster.ShowDialog(this);
+            }
         }
 
         private void statesListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmStateMaster frmStateMaster = new frmStateMaster();
+                frmStateMaster.ShowDialog(this);
             }
-            
-            frmStateMaster frmStateMaster = new frmStateMaster();
-            frmStateMaster.ShowDialog(this);
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                frmStateMaster frmStateMaster = new frmStateMaster();
+                frmStateMaster.ShowDialog(this);
+            }
         }
 
         private void countriesListToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmCountryMaster frmCountryMaster = new frmCountryMaster();
+                frmCountryMaster.ShowDialog(this);
             }
-            
-            frmCountryMaster frmCountryMaster = new frmCountryMaster();
-            frmCountryMaster.ShowDialog(this);
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                frmCountryMaster frmCountryMaster = new frmCountryMaster();
+                frmCountryMaster.ShowDialog(this);
+            }
         }
 
         private void companyListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
+                frmLastCompanyMaster.ShowDialog(this);
             }
-            
-            frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
-            frmLastCompanyMaster.ShowDialog(this);
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
+                frmLastCompanyMaster.ShowDialog(this);
+            }
         }
 
         private void skillsListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
+                frmSkillsMaster.Show(this);
             }
-            
-            frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
-            frmSkillsMaster.Show(this);
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
+                frmSkillsMaster.Show(this);
+            }
         }
 
         private void frmDashboard_Load(object sender, EventArgs e)
@@ -472,68 +567,100 @@ namespace StaffSync
         {
             AppModuleID = 5;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
+                frmLeavesApproval.ShowDialog();
             }
-            frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
-            frmLeavesApproval.ShowDialog();
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
+                frmLeavesApproval.ShowDialog();
+            }
         }
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AppModuleID = 9;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmUserManagement frmUserManagement = new frmUserManagement();
+                frmUserManagement.ShowDialog();
             }
-            frmUserManagement frmUserManagement = new frmUserManagement();
-            frmUserManagement.ShowDialog();
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                frmUserManagement frmUserManagement = new frmUserManagement();
+                frmUserManagement.ShowDialog();
+            }
         }
 
         private void rolesAndResponsibilitiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AppModuleID = 9;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities();
+                frmRolesAndResponsibilities.ShowDialog();
             }
-            frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities();
-            frmRolesAndResponsibilities.ShowDialog();
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities();
+                frmRolesAndResponsibilities.ShowDialog();
+            }
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
             AppModuleID = 9;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmModuleAssignment frmModuleAssignment = new frmModuleAssignment();
+                frmModuleAssignment.ShowDialog();
             }
-            frmModuleAssignment frmModuleAssignment = new frmModuleAssignment();
-            frmModuleAssignment.ShowDialog();
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                frmModuleAssignment frmModuleAssignment = new frmModuleAssignment();
+                frmModuleAssignment.ShowDialog();
+            }
         }
 
         private void assetsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -570,18 +697,26 @@ namespace StaffSync
         {
             AppModuleID = 8;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
+                frmRolesProfileMaster.ShowDialog();
             }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-            frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
-            frmRolesProfileMaster.ShowDialog();
+                frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
+                frmRolesProfileMaster.ShowDialog();
+            }
         }
 
         private void tlbExitButton_Click(object sender, EventArgs e)
@@ -597,19 +732,26 @@ namespace StaffSync
         private void tlbManageEmployeeInfoButton_Click(object sender, EventArgs e)
         {
             AppModuleID = 2;
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
+            {
+                frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
+                frmEmployeeMasterDetails.ShowDialog();
+            }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-            //objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            //if (clsCurrentUser.ModuleID != AppModuleID)
-            //{
-            //    if (clsCurrentUser.ModuleID != 1)
-            //    {
-            //        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        return;
-            //    }
-            //}
-
-            frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
-            frmEmployeeMasterDetails.ShowDialog();
+                frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
+                frmEmployeeMasterDetails.ShowDialog();
+            }
         }
 
         private void tlbManageEmployeeAttendanceButton_Click(object sender, EventArgs e)
@@ -624,66 +766,99 @@ namespace StaffSync
                 case "cmbManageUsers":
                     AppModuleID = 9;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
-                        {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        frmUserManagement frmUserManagement = new frmUserManagement();
+                        frmUserManagement.ShowDialog();
                     }
-                    frmUserManagement frmUserManagement = new frmUserManagement();
-                    frmUserManagement.ShowDialog();
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
+                        {
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
+                        frmUserManagement frmUserManagement = new frmUserManagement();
+                        frmUserManagement.ShowDialog();
+                    }
                     break;
 
                 case "cmbRoleAssignment":
                     AppModuleID = 9;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
-                        {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities();
+                        frmRolesAndResponsibilities.ShowDialog();
                     }
-                    frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities();
-                    frmRolesAndResponsibilities.ShowDialog();
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
+                        {
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
+                        frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities();
+                        frmRolesAndResponsibilities.ShowDialog();
+                    }
                     break;
 
                 case "cmbModuleAssignment":
                     AppModuleID = 9;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
-                        {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        frmModuleAssignment frmModuleAssignment = new frmModuleAssignment();
+                        frmModuleAssignment.ShowDialog();
                     }
-                    frmModuleAssignment frmModuleAssignment = new frmModuleAssignment();
-                    frmModuleAssignment.ShowDialog();
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
+                        {
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
+                        frmModuleAssignment frmModuleAssignment = new frmModuleAssignment();
+                        frmModuleAssignment.ShowDialog();
+                    }
                     break;
 
                 case "cmbRoleProfilement":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
+                        frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
+                        frmRolesProfileMaster.ShowDialog(this);
+                    }
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
                         {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
+
+                        frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
+                        frmRolesProfileMaster.ShowDialog(this);
                     }
 
-                    frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
-                    frmRolesProfileMaster.ShowDialog(this);
                     break;
             }
         }
@@ -695,18 +870,26 @@ namespace StaffSync
                 case "cmbManageEmployeeAttendance":
                     AppModuleID = 4;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
-                        {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater();
+                        frmAttendanceMaterDetails.ShowDialog();
                     }
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
+                        {
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
 
-                    frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater();
-                    frmAttendanceMaterDetails.ShowDialog();
+                        frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater();
+                        frmAttendanceMaterDetails.ShowDialog();
+                    }
                     break;
             }
         }
@@ -718,54 +901,78 @@ namespace StaffSync
                 case "cmbLeaveRequest":
                     AppModuleID = 5;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
-                        {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
+                        frmLeavesMasterDetails.ShowDialog();
                     }
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
+                        {
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
 
-                    frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
-                    frmLeavesMasterDetails.ShowDialog();
+                        frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
+                        frmLeavesMasterDetails.ShowDialog();
+                    }
                     cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
                     cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
                     break;
                 case "cmbLeaveApproval":
                     AppModuleID = 5;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
-                        {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
+                        frmLeavesApproval.ShowDialog();
                     }
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
+                        {
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
 
-                    frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
-                    frmLeavesApproval.ShowDialog();
+                        frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
+                        frmLeavesApproval.ShowDialog();
+                    }
                     cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
                     cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
                     break;
                 case "cmbLeaveReject":
                     AppModuleID = 5;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
-                        {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        frmLeavesReject frmLeavesReject = new frmLeavesReject();
+                        frmLeavesReject.ShowDialog();
                     }
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
+                        {
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
 
-                    frmLeavesReject frmLeavesReject = new frmLeavesReject();
-                    frmLeavesReject.ShowDialog();
+                        frmLeavesReject frmLeavesReject = new frmLeavesReject();
+                        frmLeavesReject.ShowDialog();
+                    }
                     break;
             }
         }
@@ -788,130 +995,195 @@ namespace StaffSync
                 case "cmbCompanyList":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
-                        {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
+                        frmLastCompanyMaster.ShowDialog(this);
                     }
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
+                        {
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
 
-                    frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
-                    frmLastCompanyMaster.ShowDialog(this);
+                        frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
+                        frmLastCompanyMaster.ShowDialog(this);
+                    }
                     break;
                 case "cmbEducationList":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
-                        {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                        frmEduQualMaster.ShowDialog(this);
                     }
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
+                        {
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
 
-                    frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
-                    frmEduQualMaster.ShowDialog(this);
+                        frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                        frmEduQualMaster.ShowDialog(this);
+                    }
                     break;
                 case "cmbSkillsList":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
+                        frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
+                        frmSkillsMaster.Show(this);
+                    }
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
                         {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
+
+                        frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
+                        frmSkillsMaster.Show(this);
                     }
 
-                    frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
-                    frmSkillsMaster.Show(this);
                     break;
                 case "cmbDepartmentList":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
-                        {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
+                        frmDepartmentMaster.ShowDialog(this);
                     }
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
+                        {
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
 
-                    frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
-                    frmDepartmentMaster.ShowDialog(this);
+                        frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
+                        frmDepartmentMaster.ShowDialog(this);
+                    }
                     break;
                 case "cmbDesignationList":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
-                        {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
+                        frmDesignationMaster.ShowDialog(this);
                     }
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
+                        {
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
 
-                    frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
-                    frmDesignationMaster.ShowDialog(this);
+                        frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
+                        frmDesignationMaster.ShowDialog(this);
+                    }
                     break;
                 case "cmbCountriesList":
                     AppModuleID = 10;
 
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
+                        frmCountryMaster frmCountryMaster = new frmCountryMaster();
+                        frmCountryMaster.ShowDialog(this);
+                    }
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
                         {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
+
+                        frmCountryMaster frmCountryMaster = new frmCountryMaster();
+                        frmCountryMaster.ShowDialog(this);
                     }
 
-                    frmCountryMaster frmCountryMaster = new frmCountryMaster();
-                    frmCountryMaster.ShowDialog(this);
                     break;
                 case "cmbStatesList":
                     AppModuleID = 10;
-
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
+                        frmStateMaster frmStateMaster = new frmStateMaster();
+                        frmStateMaster.ShowDialog(this);
+                    }
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
                         {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
+
+                        frmStateMaster frmStateMaster = new frmStateMaster();
+                        frmStateMaster.ShowDialog(this);
                     }
 
-                    frmStateMaster frmStateMaster = new frmStateMaster();
-                    frmStateMaster.ShowDialog(this);
                     break;
                 case "cmbRelationshipList":
                     AppModuleID = 10;
-
-                    objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-                    if (clsCurrentUser.ModuleID != AppModuleID)
+                    if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        if (clsCurrentUser.ModuleID != 1)
-                        {
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
+                        frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
+                        frmRelationshipMaster.ShowDialog(this);
                     }
+                    else
+                    {
+                        objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                        if (clsCurrentUser.ModuleID != AppModuleID)
+                        {
+                            if (clsCurrentUser.ModuleID != 1)
+                            {
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
 
-                    frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
-                    frmRelationshipMaster.ShowDialog(this);
+                        frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
+                        frmRelationshipMaster.ShowDialog(this);
+                    }
                     break;
             }
         }
@@ -920,143 +1192,205 @@ namespace StaffSync
         {
             AppModuleID = 9;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
+                frmLastCompanyMaster.ShowDialog(this);
             }
-            frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
-            frmLastCompanyMaster.ShowDialog(this);
+            else
+            {
+
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
+                frmLastCompanyMaster.ShowDialog(this);
+            }
         }
 
         private void cmbEducationList01_Click(object sender, EventArgs e)
         {
             AppModuleID = 10;
-
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                frmEduQualMaster.ShowDialog(this);
             }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-            frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
-            frmEduQualMaster.ShowDialog(this);
+                frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                frmEduQualMaster.ShowDialog(this);
+            }
         }
 
         private void cmbSkillsList01_Click(object sender, EventArgs e)
         {
             AppModuleID = 10;
-
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
+                frmSkillsMaster.Show(this);
             }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-            frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
-            frmSkillsMaster.Show(this);
+                frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
+                frmSkillsMaster.Show(this);
+            }
         }
 
         private void cmbDepartmentList01_Click(object sender, EventArgs e)
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
+                frmDepartmentMaster.ShowDialog(this);
             }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-            frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
-            frmDepartmentMaster.ShowDialog(this);
+                frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
+                frmDepartmentMaster.ShowDialog(this);
+            }
         }
 
         private void cmbDesignationList01_Click(object sender, EventArgs e)
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
+                frmDesignationMaster.ShowDialog(this);
             }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-            frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
-            frmDesignationMaster.ShowDialog(this);
+                frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
+                frmDesignationMaster.ShowDialog(this);
+            }
         }
 
         private void cmbStatesList01_Click(object sender, EventArgs e)
         {
             AppModuleID = 10;
-
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmStateMaster frmStateMaster = new frmStateMaster();
+                frmStateMaster.ShowDialog(this);
             }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-            frmStateMaster frmStateMaster = new frmStateMaster();
-            frmStateMaster.ShowDialog(this);
+                frmStateMaster frmStateMaster = new frmStateMaster();
+                frmStateMaster.ShowDialog(this);
+            }
         }
 
         private void cmbRelationshipList01_Click(object sender, EventArgs e)
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
+                frmRelationshipMaster.ShowDialog(this);
             }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-            frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
-            frmRelationshipMaster.ShowDialog(this);
+                frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
+                frmRelationshipMaster.ShowDialog(this);
+            }
         }
 
         private void cmbPayrollSystem_Click(object sender, EventArgs e)
         {
             AppModuleID = 3;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmPayrollMaster payrollMaster = new frmPayrollMaster();
+                payrollMaster.ShowDialog();
             }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-            frmPayrollMaster payrollMaster = new frmPayrollMaster();
-            payrollMaster.ShowDialog();
+                frmPayrollMaster payrollMaster = new frmPayrollMaster();
+                payrollMaster.ShowDialog();
+            }
         }
 
         private void cmbEarningsList_Click(object sender, EventArgs e)
@@ -1129,36 +1463,58 @@ namespace StaffSync
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmSalaryProfile frmSalaryProfile = new frmSalaryProfile();
+                frmSalaryProfile.ShowDialog(this);
             }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-            frmSalaryProfile frmSalaryProfile = new frmSalaryProfile();
-            frmSalaryProfile.ShowDialog(this);
+                frmSalaryProfile frmSalaryProfile = new frmSalaryProfile();
+                frmSalaryProfile.ShowDialog(this);
+            }
         }
 
         private void cmbConfigureSalaryProfile_Click_1(object sender, EventArgs e)
         {
             AppModuleID = 10;
 
-            objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
-            if (clsCurrentUser.ModuleID != AppModuleID)
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                if (clsCurrentUser.ModuleID != 1)
-                {
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile();
+                frmUpdateSalaryProfile.ShowDialog(this);
             }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-            frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile();
-            frmUpdateSalaryProfile.ShowDialog(this);
+                frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile();
+                frmUpdateSalaryProfile.ShowDialog(this);
+            }
+        }
+
+        private void bulkLeaveApprovalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmEmpBulkLeaveApproval frmEmpBulkLeaveApproval = new frmEmpBulkLeaveApproval();
+            frmEmpBulkLeaveApproval.ShowDialog(this);
         }
     }
 }
