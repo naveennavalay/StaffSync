@@ -220,6 +220,18 @@
     <Compile Include="frmEmpBulkLeaveApproval.Designer.cs">
       <DependentUpon>frmEmpBulkLeaveApproval.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmLeaveTypeMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLeaveTypeMaster.Designer.cs">
+      <DependentUpon>frmLeaveTypeMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLeaveTypeList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLeaveTypeList.Designer.cs">
+      <DependentUpon>frmLeaveTypeList.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUpdateSalaryProfile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -525,6 +537,12 @@
     <EmbeddedResource Include="frmEmpBulkLeaveApproval.resx">
       <DependentUpon>frmEmpBulkLeaveApproval.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmLeaveTypeMaster.resx">
+      <DependentUpon>frmLeaveTypeMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLeaveTypeList.resx">
+      <DependentUpon>frmLeaveTypeList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmUpdateSalaryProfile.resx">
       <DependentUpon>frmUpdateSalaryProfile.cs</DependentUpon>
     </EmbeddedResource>
@@ -757,6 +775,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hrm02.ico" />
+    <None Include="images\icons\salayconfig.ico" />
+    <None Include="images\icons\leave-config.ico" />
     <None Include="images\icons\leave-allotment.ico" />
     <None Include="images\icons\view-leaves.ico" />
     <None Include="images\icons\myOptions.ico" />

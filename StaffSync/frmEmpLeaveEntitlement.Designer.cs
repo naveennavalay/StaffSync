@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.picAddLeave = new System.Windows.Forms.PictureBox();
             this.chkNewAllotment = new Krypton.Toolkit.KryptonCheckBox();
             this.txtTotalBalanceLeaves = new Krypton.Toolkit.KryptonTextBox();
             this.txtTotalLeavesAlloted = new Krypton.Toolkit.KryptonTextBox();
@@ -76,6 +77,7 @@
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAddLeave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgLeaveEntitlement)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -101,8 +103,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1058, 561);
-            this.splitContainer1.SplitterDistance = 495;
+            this.splitContainer1.Size = new System.Drawing.Size(1058, 626);
+            this.splitContainer1.SplitterDistance = 552;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -113,11 +115,12 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1058, 495);
+            this.panel1.Size = new System.Drawing.Size(1058, 552);
             this.panel1.TabIndex = 1;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.picAddLeave);
             this.groupBox2.Controls.Add(this.chkNewAllotment);
             this.groupBox2.Controls.Add(this.txtTotalBalanceLeaves);
             this.groupBox2.Controls.Add(this.txtTotalLeavesAlloted);
@@ -134,10 +137,23 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(13, 174);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1030, 309);
+            this.groupBox2.Size = new System.Drawing.Size(1030, 365);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Leave Entitlement";
+            // 
+            // picAddLeave
+            // 
+            this.picAddLeave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picAddLeave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picAddLeave.Image = global::StaffSync.Properties.Resources.add;
+            this.picAddLeave.Location = new System.Drawing.Point(906, 93);
+            this.picAddLeave.Name = "picAddLeave";
+            this.picAddLeave.Size = new System.Drawing.Size(23, 22);
+            this.picAddLeave.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picAddLeave.TabIndex = 53;
+            this.picAddLeave.TabStop = false;
+            this.picAddLeave.Click += new System.EventHandler(this.picAddLeave_Click);
             // 
             // chkNewAllotment
             // 
@@ -152,7 +168,7 @@
             // txtTotalBalanceLeaves
             // 
             this.txtTotalBalanceLeaves.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTotalBalanceLeaves.Location = new System.Drawing.Point(544, 265);
+            this.txtTotalBalanceLeaves.Location = new System.Drawing.Point(544, 321);
             this.txtTotalBalanceLeaves.Multiline = true;
             this.txtTotalBalanceLeaves.Name = "txtTotalBalanceLeaves";
             this.txtTotalBalanceLeaves.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -170,7 +186,7 @@
             // txtTotalLeavesAlloted
             // 
             this.txtTotalLeavesAlloted.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTotalLeavesAlloted.Location = new System.Drawing.Point(408, 265);
+            this.txtTotalLeavesAlloted.Location = new System.Drawing.Point(408, 321);
             this.txtTotalLeavesAlloted.Multiline = true;
             this.txtTotalLeavesAlloted.Name = "txtTotalLeavesAlloted";
             this.txtTotalLeavesAlloted.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -189,7 +205,7 @@
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.Location = new System.Drawing.Point(313, 272);
+            this.label40.Location = new System.Drawing.Point(313, 328);
             this.label40.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(88, 15);
@@ -242,7 +258,7 @@
             this.dtgLeaveEntitlement.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dtgLeaveEntitlement.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
             this.dtgLeaveEntitlement.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgLeaveEntitlement.Location = new System.Drawing.Point(18, 64);
+            this.dtgLeaveEntitlement.Location = new System.Drawing.Point(18, 121);
             this.dtgLeaveEntitlement.MultiSelect = false;
             this.dtgLeaveEntitlement.Name = "dtgLeaveEntitlement";
             this.dtgLeaveEntitlement.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -282,7 +298,7 @@
             this.picDownloadLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picDownloadLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picDownloadLeaveTRList.Image = global::StaffSync.Properties.Resources.download01;
-            this.picDownloadLeaveTRList.Location = new System.Drawing.Point(932, 30);
+            this.picDownloadLeaveTRList.Location = new System.Drawing.Point(931, 94);
             this.picDownloadLeaveTRList.Name = "picDownloadLeaveTRList";
             this.picDownloadLeaveTRList.Size = new System.Drawing.Size(21, 20);
             this.picDownloadLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -295,7 +311,7 @@
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox3.Image = global::StaffSync.Properties.Resources.mail01;
-            this.pictureBox3.Location = new System.Drawing.Point(955, 29);
+            this.pictureBox3.Location = new System.Drawing.Point(955, 93);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(23, 22);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -307,7 +323,7 @@
             this.picRefreshLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picRefreshLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picRefreshLeaveTRList.Image = global::StaffSync.Properties.Resources.refresh01;
-            this.picRefreshLeaveTRList.Location = new System.Drawing.Point(982, 29);
+            this.picRefreshLeaveTRList.Location = new System.Drawing.Point(982, 93);
             this.picRefreshLeaveTRList.Name = "picRefreshLeaveTRList";
             this.picRefreshLeaveTRList.Size = new System.Drawing.Size(23, 22);
             this.picRefreshLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -505,7 +521,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1058, 62);
+            this.panel2.Size = new System.Drawing.Size(1058, 70);
             this.panel2.TabIndex = 1;
             // 
             // btnCancel
@@ -608,7 +624,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1058, 561);
+            this.ClientSize = new System.Drawing.Size(1058, 626);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -626,6 +642,7 @@
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAddLeave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgLeaveEntitlement)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -682,5 +699,6 @@
         private System.Windows.Forms.Label label40;
         private Krypton.Toolkit.KryptonTextBox txtTotalBalanceLeaves;
         private Krypton.Toolkit.KryptonCheckBox chkNewAllotment;
+        private System.Windows.Forms.PictureBox picAddLeave;
     }
 }

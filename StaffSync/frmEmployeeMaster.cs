@@ -1145,7 +1145,7 @@ namespace StaffSync
                 txtCurrentCity.Focus();
                 errValidator.SetError(this.txtCurrentCity, txtCurrentCity.Tag?.ToString() ?? "Current City is required.");
             }
-            if (string.IsNullOrEmpty(txtCurrentPIN.Text) || !System.Text.RegularExpressions.Regex.IsMatch(txtCurrentPIN.Text, @"^\d{6}$"))
+            if (string.IsNullOrEmpty(txtCurrentPIN.Text))
             {
                 validationStatus = false;
                 txtCurrentPIN.Focus();

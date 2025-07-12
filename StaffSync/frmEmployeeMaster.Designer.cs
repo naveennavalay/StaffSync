@@ -397,7 +397,7 @@
             this.tabControl1.PopupPages.AllowPopupPages = Krypton.Navigator.PopupPageAllow.Never;
             this.tabControl1.PopupPages.Element = Krypton.Navigator.PopupPageElement.Item;
             this.tabControl1.PopupPages.Position = Krypton.Navigator.PopupPagePosition.ModeAppropriate;
-            this.tabControl1.SelectedIndex = 3;
+            this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1252, 548);
             this.tabControl1.TabIndex = 28;
             // 
@@ -1691,7 +1691,6 @@
             this.dtgPreviousWorkExp.AllowUserToAddRows = false;
             this.dtgPreviousWorkExp.AllowUserToDeleteRows = false;
             this.dtgPreviousWorkExp.AllowUserToResizeRows = false;
-            this.dtgPreviousWorkExp.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dtgPreviousWorkExp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgPreviousWorkExp.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dtgPreviousWorkExp.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
@@ -1962,7 +1961,6 @@
             this.dtgLeaveEntitlement.AllowUserToAddRows = false;
             this.dtgLeaveEntitlement.AllowUserToDeleteRows = false;
             this.dtgLeaveEntitlement.AllowUserToResizeRows = false;
-            this.dtgLeaveEntitlement.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dtgLeaveEntitlement.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dtgLeaveEntitlement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgLeaveEntitlement.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
@@ -2466,7 +2464,6 @@
             this.dtgSalaryProfileDetails.AllowUserToAddRows = false;
             this.dtgSalaryProfileDetails.AllowUserToDeleteRows = false;
             this.dtgSalaryProfileDetails.AllowUserToResizeRows = false;
-            this.dtgSalaryProfileDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dtgSalaryProfileDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgSalaryProfileDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dtgSalaryProfileDetails.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;

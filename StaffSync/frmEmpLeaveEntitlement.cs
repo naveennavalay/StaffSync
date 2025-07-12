@@ -1,6 +1,8 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.Office.Interop.Excel;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +13,7 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -157,6 +160,15 @@ namespace StaffSync
                 {
                     foreach (DataGridViewRow dc in dtgLeaveEntitlement.Rows)
                     {
+                        if(Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()) == 0)
+                        {
+                            employeeLeaveTRID = objEmpLeaveEntitlementInfo.InsertLeaveEntitlementInfo(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), Convert.ToInt16(dc.Cells["OrderID"].Value.ToString()));
+                            dc.Cells["LeaveEntmtID"].Value = employeeLeaveTRID;
+                        }
+                        else if (Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()) > 0)
+                        {
+                            employeeLeaveTRID = objEmpLeaveEntitlementInfo.UpadateLeaveEntitlementInfo(Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()), Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), Convert.ToInt16(dc.Cells["OrderID"].Value.ToString()));
+                        }
                         employeeLeaveTRID = objEmpLeaveEntitlementInfo.UpadateLeaveEntitlementInfo(Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()), Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), Convert.ToInt16(dc.Cells["OrderID"].Value.ToString()));
                     }
                     leaveMasID = objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToDecimal(txtTotalLeavesAlloted.Text), Convert.ToDecimal(txtTotalBalanceLeaves.Text), DateTime.Now);
@@ -507,6 +519,30 @@ namespace StaffSync
 
             txtTotalLeavesAlloted.Text = Convert.ToDecimal(totalLeavesAllotted.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
             txtTotalBalanceLeaves.Text = Convert.ToDecimal(totalBalanceLeaves.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+        }
+
+        private void picAddLeave_Click(object sender, EventArgs e)
+        {
+            frmLeaveTypeList frmLeaveTypeList = new frmLeaveTypeList(this, "listEmpLeaveEntitlements");
+            frmLeaveTypeList.ShowDialog(this);
+        }
+
+        public void displaySelectedValuesOnUI(LeaveTypeInfoModel LeaveTypeInfoModel)
+        {
+            List<int> LeaveTypeIDs = new List<int>();
+            if (dtgLeaveEntitlement.Rows.Count > 0)
+            {
+                foreach (DataGridViewRow dc in dtgLeaveEntitlement.Rows)
+                {
+                    LeaveTypeIDs.Add(Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()));
+                }
+            }
+
+            int[] arrLeaveTypeIDs = LeaveTypeIDs.ToArray();
+
+            dtgLeaveEntitlement.DataSource = null;
+            dtgLeaveEntitlement.DataSource = objEmpLeaveEntitlementInfo.AddNewEntryOnGridEmployeeLeaveEntitilementList(Convert.ToInt16(lblEmpID.Text), arrLeaveTypeIDs, LeaveTypeInfoModel.LeaveTypeID);
+            LeaveEntitlementTableFormat();
         }
     }
 }

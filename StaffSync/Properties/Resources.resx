@@ -121,8 +121,8 @@
   <data name="company" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\company.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="master-data" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\master-data.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="leave-allotment" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\leave-allotment.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="myOptions" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\myOptions.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -141,6 +141,9 @@
   </data>
   <data name="approved" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\approved.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="leave-config" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\leave-config.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="upload" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\upload.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -235,7 +238,10 @@
   <data name="auth01" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\png\auth01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="leave-allotment" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\leave-allotment.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="master-data" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\master-data.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="salayconfig" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\salayconfig.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

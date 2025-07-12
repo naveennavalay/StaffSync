@@ -243,6 +243,16 @@ namespace StaffSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap leave_config {
+            get {
+                object obj = ResourceManager.GetObject("leave-config", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap leave_statement {
             get {
                 object obj = ResourceManager.GetObject("leave-statement", resourceCulture);
@@ -376,6 +386,16 @@ namespace StaffSync.Properties {
         internal static System.Drawing.Bitmap roles_assignment {
             get {
                 object obj = ResourceManager.GetObject("roles-assignment", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap salayconfig {
+            get {
+                object obj = ResourceManager.GetObject("salayconfig", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

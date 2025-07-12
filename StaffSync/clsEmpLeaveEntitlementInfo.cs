@@ -15,6 +15,7 @@ namespace StaffSync
     public class clsEmpLeaveEntitlementInfo
     {
         myDBClass objDBClass = new myDBClass();
+        clsLeaveTypeMas clsLeaveTypeMas = new clsLeaveTypeMas();
         OleDbConnection conn = null;
         DataSet dtDataset;
 
@@ -259,6 +260,107 @@ namespace StaffSync
                     indLeaveEntitlementInfo.OrderID = indLeaveEntitlementInfo.OrderID;
                 }
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return LeaveEntitlementInfoList;
+        }
+
+        public List<LeaveEntitlementInfo> AddNewEntryOnGridEmployeeLeaveEntitilementList(int txtEmpID, int[] intLeaveTypeIDs, int txtNewLeaveTypeID)
+        {
+            List<LeaveEntitlementInfo> LeaveEntitlementInfoList = new List<LeaveEntitlementInfo>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " +
+                                    "LeaveTypeMas.LeaveTypeID, " +
+                                    "LeaveTypeMas.LeaveTypeTitle " +
+                                "FROM " +
+                                    "LeaveTypeMas " +
+                                "WHERE " +
+                                    "(" +
+                                        "((LeaveTypeMas.IsActive) = True) " +
+                                        "AND ((LeaveTypeMas.IsDelete) = False) " +
+                                    ") " +
+                                "ORDER BY " +
+                                    "LeaveTypeMas.OrderID;";
+
+                strQuery = "SELECT " + 
+                                "EmpLeaveEntitlement.LeaveEntmtID, " + 
+                                "EmpMas.EmpID, " + 
+                                "LeaveMas.LeaveMasID, " + 
+                                "LeaveTypeMas.LeaveTypeID, " + 
+                                "LeaveTypeMas.LeaveTypeTitle, " + 
+                                "EmpLeaveEntitlement.TotalLeaves, " + 
+                                "EmpLeaveEntitlement.BalanceLeaves, " + 
+                                "LeaveTypeMas.OrderID " + 
+                            "FROM " + 
+                                "LeaveTypeMas " + 
+                                "INNER JOIN( " + 
+                                    "(" + 
+                                        "EmpMas " + 
+                                        "INNER JOIN LeaveMas ON EmpMas.EmpID = LeaveMas.EmpID " + 
+                                    ") " + 
+                                    "INNER JOIN EmpLeaveEntitlement ON LeaveMas.LeaveMasID = EmpLeaveEntitlement.LeaveMasID " + 
+                                ") ON LeaveTypeMas.LeaveTypeID = EmpLeaveEntitlement.LeaveTypeID " + 
+                            "WHERE " + 
+                                "(" + 
+                                    "((EmpMas.EmpID) = " + txtEmpID + ") " + 
+                                    "AND ((LeaveTypeMas.LeaveTypeID) IN (" + string.Join(",", intLeaveTypeIDs.ToArray()) + ")) " + 
+                                ") " + 
+                            "ORDER BY " + 
+                                "LeaveTypeMas.OrderID;";
+
+                if (string.Join(",", intLeaveTypeIDs.ToArray()) != "")
+                {
+                    OleDbCommand cmd = conn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strQuery;
+                    cmd.ExecuteNonQuery();
+
+                    OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                    da.Fill(dt);
+
+                    string DataTableToJSon = "";
+                    DataTableToJSon = JsonConvert.SerializeObject(dt);
+                    LeaveEntitlementInfoList = JsonConvert.DeserializeObject<List<LeaveEntitlementInfo>>(DataTableToJSon);
+                    foreach (LeaveEntitlementInfo indLeaveEntitlementInfo in LeaveEntitlementInfoList)
+                    {
+                        indLeaveEntitlementInfo.LeaveEntmtID = indLeaveEntitlementInfo.LeaveEntmtID;
+                        indLeaveEntitlementInfo.EmpID = txtEmpID;
+                        indLeaveEntitlementInfo.LeaveMasID = indLeaveEntitlementInfo.LeaveMasID;
+                        indLeaveEntitlementInfo.LeaveTypeID = indLeaveEntitlementInfo.LeaveTypeID;
+                        indLeaveEntitlementInfo.TotalLeaves = indLeaveEntitlementInfo.TotalLeaves;
+                        indLeaveEntitlementInfo.BalanceLeaves = indLeaveEntitlementInfo.BalanceLeaves;
+                        indLeaveEntitlementInfo.OrderID = indLeaveEntitlementInfo.OrderID;
+                    }
+                }
+
+                List<LeaveTypeInfoModel> newInfo = clsLeaveTypeMas.GetLeaveTypeInfo(txtNewLeaveTypeID);
+                LeaveEntitlementInfoList.Add( new LeaveEntitlementInfo
+                {
+                    LeaveEntmtID = 0,
+                    EmpID = txtEmpID,
+                    LeaveMasID = 0, // Assuming LeaveMasID will be set later
+                    LeaveTypeID = newInfo[0].LeaveTypeID,
+                    LeaveTypeTitle = newInfo[0].LeaveTypeTitle,
+                    TotalLeaves = 0,
+                    BalanceLeaves = 0,
+                    OrderID = 0
+                });
             }
             catch (Exception ex)
             {

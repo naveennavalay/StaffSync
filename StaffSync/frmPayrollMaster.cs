@@ -242,6 +242,9 @@ namespace StaffSync
             dtgSalaryDetails.Columns["DeductionAmount"].DefaultCellStyle.Format = "c2";
             dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Reimbursments
             dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Format = "c2";
+            dtgSalaryDetails.Columns["SalProAmount"].Visible = false;
+            dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Deductions
+            dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Format = "c2";
             dtgSalaryDetails.Columns["OrderID"].Visible = false;
             dtgSalaryDetails.Enabled = false;
         }
@@ -363,6 +366,9 @@ namespace StaffSync
                 dtgSalaryDetails.Columns["DeductionAmount"].DefaultCellStyle.Format = "c2";
                 dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Reimbursments
                 dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Format = "c2";
+                dtgSalaryDetails.Columns["SalProAmount"].Visible = false;
+                dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Deductions
+                dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Format = "c2";
                 dtgSalaryDetails.Columns["OrderID"].Visible = false;
 
                 decimal totalAallowences = 0;
@@ -456,6 +462,9 @@ namespace StaffSync
                 dtgSalaryDetails.Columns["DeductionAmount"].DefaultCellStyle.Format = "c2";
                 dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Reimbursments
                 dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Format = "c2";
+                dtgSalaryDetails.Columns["SalProAmount"].Visible = false;
+                dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Deductions
+                dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Format = "c2";
                 dtgSalaryDetails.Columns["OrderID"].Visible = false;
 
                 decimal totalAallowences = 0;

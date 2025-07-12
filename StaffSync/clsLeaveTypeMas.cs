@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.OleDb;
-using System.Data;
 using System.Windows.Forms;
 
 namespace StaffSync
@@ -67,7 +69,7 @@ namespace StaffSync
             {
                 conn = objDBClass.openDBConnection();
 
-                string strQuery = "SELECT * FROM LeaveTypeMas WHERE IsActive = true and IsDelete = false";
+                string strQuery = "SELECT * FROM LeaveTypeMas WHERE IsActive = true and IsDelete = false Order By OrderID";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -91,8 +93,41 @@ namespace StaffSync
             return dt;
         }
 
-        public DataTable GetLeaveTypeInfo(int LeaveTypeID)
+        public DataTable GetLeaveTypeList(string FilterText)
         {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+
+                string strQuery = "SELECT * FROM LeaveTypeMas WHERE IsActive = true and IsDelete = false and LeaveTypeTitle like '" + FilterText + "%";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return dt;
+        }
+
+        public List<LeaveTypeInfoModel> GetLeaveTypeInfo(int LeaveTypeID)
+        {
+            List<LeaveTypeInfoModel> LeaveTypeInfoList = new List<LeaveTypeInfoModel>(); 
             DataTable dt = new DataTable();
 
             try
@@ -109,6 +144,19 @@ namespace StaffSync
                 OleDbDataAdapter da = new OleDbDataAdapter(cmd);
                 da.Fill(dt);
 
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                LeaveTypeInfoList = JsonConvert.DeserializeObject<List<LeaveTypeInfoModel>>(DataTableToJSon);
+                //foreach (LeaveEntitlementInfo indLeaveTypeInfo in LeaveTypeInfoList)
+                //{
+                //    indLeaveTypeInfo.LeaveEntmtID = indLeaveTypeInfo.LeaveEntmtID;
+                //    indLeaveTypeInfo.EmpID = indLeaveTypeInfo.EmpID;
+                //    indLeaveTypeInfo.LeaveMasID = indLeaveTypeInfo.LeaveMasID;
+                //    indLeaveTypeInfo.LeaveTypeID = indLeaveTypeInfo.LeaveTypeID;
+                //    indLeaveTypeInfo.TotalLeaves = indLeaveTypeInfo.TotalLeaves;
+                //    indLeaveTypeInfo.BalanceLeaves = indLeaveTypeInfo.BalanceLeaves;
+                //    indLeaveTypeInfo.OrderID = indLeaveTypeInfo.OrderID;
+                //}
             }
             catch (Exception ex)
             {
@@ -120,10 +168,10 @@ namespace StaffSync
                 conn = objDBClass.closeDBConnection();
             }
 
-            return dt;
+            return LeaveTypeInfoList;
         }
 
-        public int InsertLeaveTypeInfo(string LeaveTypeTitle)
+        public int InsertLeaveTypeInfo(string txtLeaveCode, string txtLeaveTypeTitle, bool IsPaid, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;
             try
@@ -133,8 +181,8 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO LeaveTypeMas (LeaveTypeID, LeaveTypeTitle, IsActive, IsDelete) VALUES " +
-                 "(" + maxRowCount + ",'" + LeaveTypeTitle + "', true, false)";
+                string strQuery = "INSERT INTO LeaveTypeMas (LeaveTypeID, LeaveCode, LeaveTypeTitle, IsPaid, IsActive, IsDelete, OrderID) VALUES " +
+                 "(" + maxRowCount + ",'" + "LEV-" + (maxRowCount).ToString().PadLeft(4, '0').Trim() + "', '" + txtLeaveTypeTitle + "', " + IsPaid + ", " + IsActive + ", false," + maxRowCount + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -156,7 +204,7 @@ namespace StaffSync
             return affectedRows;
         }
 
-        public int UpadateLeaveTypeInfo(int txtLeaveTypeID, string txtLeaveTypeTitle, bool IsActive)
+        public int UpadateLeaveTypeInfo(int txtLeaveTypeID, string txtLeaveCode, string txtLeaveTypeTitle, bool IsPaid, bool IsActive)
         {
             int affectedRows = 0;
             try
@@ -165,7 +213,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE LeaveTypeMas SET " +
-                "LeaveTypeTitle = '" + txtLeaveTypeTitle + "', IsActive = " + IsActive + ", IsDeleted = false" +
+                "LeaveCode = '" + txtLeaveCode + "', LeaveTypeTitle = '" + txtLeaveTypeTitle + "', IsPaid = " + IsPaid + ", IsActive = " + IsActive +
                 " WHERE LeaveTypeID = " + txtLeaveTypeID;
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -215,11 +263,20 @@ namespace StaffSync
         }
     }
 
-    public class ListTypeInfo
+    public class LeaveTypeInfoModel
     {
         public int LeaveTypeID { get; set; }
+
+        [DisplayName("Leave Type Code")] 
+        public string LeaveCode { get; set; }
+
+        [DisplayName("Leave Type Title")]
         public string LeaveTypeTitle { get; set; }
+
+        [DisplayName("Is Paid")]
+        public bool IsPaid { get; set; }
         public bool IsActive { get; set; }
         public bool IsDelete { get; set; }
+        public int OrderID { get; set; }
     }
 }
