@@ -27,6 +27,7 @@ namespace StaffSync
         frmUpdateCurrentUserInfo frmUpdateCurrentUserInfo = null;
         frmCurrentUserLeaveMaster frmCurrentUserLeaveMaster = null;
         frmEmpLeaveEntitlement frmEmpLeaveEntitlement = null;
+        frmLeaveStatements frmLeaveStatements = null;
         clsLeaveTRList objLeaveInfo = new clsLeaveTRList();
         clsUserManagement objUsersInfo = new clsUserManagement();
         clsRolesAndResponsibilities objRolesAndResponsibilities = new clsRolesAndResponsibilities();
@@ -135,6 +136,13 @@ namespace StaffSync
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
         }
 
+        public frmEmployeeList(frmLeaveStatements frmLeaveStatments, string SearchOptionClickedFor)
+        {
+            InitializeComponent();
+            this.frmLeaveStatements = frmLeaveStatments;
+            lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+        }
+
         private void btnCloseMe_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -182,15 +190,17 @@ namespace StaffSync
                 dtgEmployeeList.Columns["EmpName"].Width = 200;
                 dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
                 dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+                dtgEmployeeList.Columns["LeaveTypeID"].Visible = false; 
                 dtgEmployeeList.Columns["LeaveTypeTitle"].Width = 150;
+                dtgEmployeeList.Columns["LeaveAppliedDate"].Visible = false;
                 dtgEmployeeList.Columns["LeaveAppliedDate"].Width = 100;
                 dtgEmployeeList.Columns["LeaveAppliedDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
-                dtgEmployeeList.Columns["LeaveComments"].Width = 250;
                 dtgEmployeeList.Columns["LeaveDuration"].Width = 100;
                 dtgEmployeeList.Columns["ActualLeaveDateFrom"].Width = 100;
                 dtgEmployeeList.Columns["ActualLeaveDateFrom"].DefaultCellStyle.Format = "dd-MMM-yyyy";
                 dtgEmployeeList.Columns["ActualLeaveDateTo"].Width = 100;
                 dtgEmployeeList.Columns["ActualLeaveDateTo"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgEmployeeList.Columns["LeaveComments"].Width = 250;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listEmployeeLeaveRejectRequestList")
             {
@@ -203,15 +213,17 @@ namespace StaffSync
                 dtgEmployeeList.Columns["EmpName"].Width = 200;
                 dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
                 dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+                dtgEmployeeList.Columns["LeaveTypeID"].Visible = false;
                 dtgEmployeeList.Columns["LeaveTypeTitle"].Width = 150;
+                dtgEmployeeList.Columns["LeaveAppliedDate"].Visible = false;
                 dtgEmployeeList.Columns["LeaveAppliedDate"].Width = 100;
                 dtgEmployeeList.Columns["LeaveAppliedDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
-                dtgEmployeeList.Columns["LeaveComments"].Width = 250;
-                dtgEmployeeList.Columns["LeaveDuration"].Width = 100;
                 dtgEmployeeList.Columns["ActualLeaveDateFrom"].Width = 100;
                 dtgEmployeeList.Columns["ActualLeaveDateFrom"].DefaultCellStyle.Format = "dd-MMM-yyyy";
                 dtgEmployeeList.Columns["ActualLeaveDateTo"].Width = 100;
                 dtgEmployeeList.Columns["ActualLeaveDateTo"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgEmployeeList.Columns["LeaveDuration"].Width = 100;
+                dtgEmployeeList.Columns["LeaveComments"].Width = 250;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listUserModuleAssignment")
             {
@@ -302,6 +314,36 @@ namespace StaffSync
                 dtgEmployeeList.Columns["OrderID"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listLeaveStatement")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objEmployeeMaster.getMyEmployeeInformation(CurrentUser.EmpID);
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 350;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+                dtgEmployeeList.Columns["DOJ"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgEmployeeList.Columns["DOB"].Visible = false;
+                dtgEmployeeList.Columns["Address1"].Visible = false;
+                dtgEmployeeList.Columns["Address2"].Visible = false;
+                dtgEmployeeList.Columns["Area"].Visible = false;
+                dtgEmployeeList.Columns["City"].Visible = false;
+                dtgEmployeeList.Columns["StateTitle"].Visible = false;
+                dtgEmployeeList.Columns["PIN"].Visible = false;
+                dtgEmployeeList.Columns["CountryTitle"].Visible = false;
+                dtgEmployeeList.Columns["SexTitle"].Visible = false;
+                dtgEmployeeList.Columns["BloodGroupTitle"].Visible = false;
+                dtgEmployeeList.Columns["NomineePerson"].Visible = false;
+                dtgEmployeeList.Columns["RelationShipTitle"].Visible = false;
+                dtgEmployeeList.Columns["ContactNumber1"].Visible = false;
+                dtgEmployeeList.Columns["ContactNumber2"].Visible = false;
+                dtgEmployeeList.Columns["EmpACNumber"].Visible = false;
+                dtgEmployeeList.Columns["BankName"].Visible = false;
+                dtgEmployeeList.Columns["BankAddress"].Visible = false;
+                dtgEmployeeList.Columns["IFSCCode"].Visible = false;
+                dtgEmployeeList.Columns["BalanceLeaves"].Visible = false;
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listLeaveStatements")
             {
                 dtgEmployeeList.DataSource = null;
                 dtgEmployeeList.DataSource = objEmployeeMaster.getMyEmployeeInformation(CurrentUser.EmpID);
@@ -475,6 +517,10 @@ namespace StaffSync
             else if (lblSearchOptionClickedFor.Text.Trim() == "listEmpLeaveEntitlements")
             {
                 this.frmEmpLeaveEntitlement.SelectedEmployeeID("listEmpLeaveEntitlements", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listLeaveStatements")
+            {
+                this.frmLeaveStatements.SelectedEmployeeID("listLeaveStatements", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
             }
 
             this.Close();

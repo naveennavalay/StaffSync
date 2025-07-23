@@ -176,12 +176,13 @@ namespace StaffSync
                     else
                     {
                         employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), cmbLeaveType.SelectedIndex + 1, DateTime.Now, txtLeaveNote.Text.Trim(), Convert.ToDateTime(txtLeaveDateFrom.Text), Convert.ToDateTime(txtLeaveDateTo.Text), Convert.ToDecimal(txtActualLeaveDays.Text), DateTime.Now, "Not yet Approved", DateTime.Now, "Not yet Rejected", Convert.ToInt16(lblEmpID.Text.ToString()));
-                        objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), Convert.ToDecimal(txtActualLeaveDays.Text.ToString()));
+                        objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) - Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
                     }
                 }
                 else
                 {
                     employeeLeaveTRID = objLeaveTRList.CancelLeaveTransaction(Convert.ToInt16(lblCancelStatus.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), "");
+                    objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString())));
                 }
                 if (employeeLeaveTRID > 0)
                 {
@@ -515,7 +516,9 @@ namespace StaffSync
                     indEmployeeLeaveTRList.ActualLeaveDateTo != null ? Convert.ToDateTime(indEmployeeLeaveTRList.ActualLeaveDateTo.ToString()).ToString("dd-MMM-yyyy") : "",
                     indEmployeeLeaveTRList.LeaveDuration != null ? indEmployeeLeaveTRList.LeaveDuration.ToString() : "0.00",
                     indEmployeeLeaveTRList.LeaveComments.ToString(),
-                    indEmployeeLeaveTRList.LeaveStatus = strLeaveStatus.ToString()
+                    indEmployeeLeaveTRList.LeaveStatus = strLeaveStatus.ToString(),
+                    Convert.ToBoolean(indEmployeeLeaveTRList.Canceled) == true ? "Cancelled" : "",
+                    Convert.ToBoolean(indEmployeeLeaveTRList.Canceled) == true ? indEmployeeLeaveTRList.CanceledDate.ToString() : ""
                 });
 
                 lstLeaveTRList.Items.AddRange(new System.Windows.Forms.ListViewItem[] { listViewItem1 });
@@ -542,6 +545,15 @@ namespace StaffSync
         private void cmLeaveCancel_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             lblCancelStatus.Text = lstLeaveTRList.SelectedItems[0].SubItems[0].Text.ToString();
+            cmbLeaveType.Text = lstLeaveTRList.SelectedItems[0].SubItems[1].Text.ToString();
+            txtLeaveDateFrom.Text = Convert.ToDateTime(lstLeaveTRList.SelectedItems[0].SubItems[2].Text.ToString()).ToString("dd-MM-yyyy");
+            txtLeaveDateTo.Text = Convert.ToDateTime(lstLeaveTRList.SelectedItems[0].SubItems[3].Text.ToString()).ToString("dd-MM-yyyy");
+            txtActualLeaveDays.Text = lstLeaveTRList.SelectedItems[0].SubItems[4].Text.ToString();
+            if (txtActualLeaveDays.Text.ToString().Trim() == "0.5")
+                cmbDuration.SelectedIndex = 1;
+            else
+                cmbDuration.SelectedIndex = 0;
+            txtLeaveNote.Text = lstLeaveTRList.SelectedItems[0].SubItems[5].Text.ToString();
         }
 
 
@@ -576,7 +588,7 @@ namespace StaffSync
                 errValidator.SetError(txtLeaveDateFrom, "Enter a valid 'Leave From' date (dd-MM-yyyy).");
                 isValid = false;
             }
-            else if (leaveFromDate.Date < DateTime.Now.Date)
+            else if (leaveFromDate.Date < DateTime.Now.Date && chkAllowBackDate.Checked == false)
             {
                 errValidator.SetError(txtLeaveDateFrom, "'Leave From' date cannot be in the past.");
                 isValid = false;
@@ -657,6 +669,11 @@ namespace StaffSync
         private void btnCloseHDRGroup_Click(object sender, EventArgs e)
         {
             //hdrGroup.Visible = false;
+        }
+
+        private void tlbCancelLeave_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show("XYZ");
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.OleDb;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -342,6 +343,197 @@ namespace StaffSync
             return employeeLeaveTRList;
         }
 
+        public List<EmployeeLeaveTRList> getAllEmployeesLeaveStatement(int txtEmpID)
+        {
+            List<EmployeeLeaveTRList> employeeLeaveTRList = new List<EmployeeLeaveTRList>();
+            List<EmployeeLeaveTRList> EmployeeLeaveStatements = new List<EmployeeLeaveTRList>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                //string strQuery = "SELECT * FROM qryAllEmpLeaveStatement WHERE EmpID = " + txtEmpID + " ORDER BY AttDate, OrderID ASC;";
+
+                string strQuery = "SELECT " +
+                                    "EmpMas.EmpID, " +
+                                    "EmpMas.EmpCode, " +
+                                    "EmpMas.EmpName, " +
+                                    "DesigMas.DesignationTitle, " +
+                                    "DepMas.DepartmentTitle, " +
+                                    "EmpDailyAttendanceInfo.AttID, " +
+                                    "EmpDailyAttendanceInfo.AttDate, " +
+                                    "EmpDailyAttendanceInfo.AttStatus, " +
+                                    "EmpDailyAttendanceInfo.LeaveTRID, " +
+                                    "0 AS LeaveTypeID, " +
+                                    "'' AS LeaveTypeTitle, " +
+                                    "'1900-01-01' AS LeaveAppliedDate, " +
+                                    "'' AS LeaveComments, " +
+                                    "null AS ActualLeaveDateFrom, " +
+                                    "null AS ActualLeaveDateTo, " +
+                                    "0 AS LeaveDuration, " +
+                                    "null AS LeaveApprovedDate, " +
+                                    "'' AS LeaveApprovalComments, " +
+                                    "null AS LeaveRejectedDate, " +
+                                    "'' AS LeaveRejectionComments, " +
+                                    "false AS Canceled, " +
+                                    "null AS CanceledDate, " +
+                                    "0 AS OrderID " +
+                                "FROM " +
+                                    "(" +
+                                        "DesigMas " +
+                                        "INNER JOIN (" +
+                                            "DepMas " +
+                                            "INNER JOIN EmpMas ON DepMas.DepartmentID = EmpMas.DepartmentID " +
+                                        ") ON DesigMas.DesignationID = EmpMas.EmpDesignationID " +
+                                    ") " +
+                                    "INNER JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " +
+                                " WHERE " +
+                                    "( " +
+                                        " ((EmpMas.EmpID) = " + txtEmpID + ") " +
+                                        " AND ((EmpDailyAttendanceInfo.LeaveTRID) = 0) " +
+                                    ") " +
+                                "ORDER BY " +
+                                    "EmpMas.EmpID, " +
+                                    "EmpDailyAttendanceInfo.AttID";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                employeeLeaveTRList = JsonConvert.DeserializeObject<List<EmployeeLeaveTRList>>(DataTableToJSon);
+                foreach (EmployeeLeaveTRList indEmployeeLeaveTRList in employeeLeaveTRList)
+                {
+                    EmployeeLeaveStatements.Add(new EmployeeLeaveTRList
+                    {
+                        EmpID = indEmployeeLeaveTRList.EmpID,
+                        EmpCode = indEmployeeLeaveTRList.EmpCode,
+                        EmpName = indEmployeeLeaveTRList.EmpName,
+                        DesignationTitle = indEmployeeLeaveTRList.DesignationTitle,
+                        DepartmentTitle = indEmployeeLeaveTRList.DepartmentTitle,
+                        AttDate = indEmployeeLeaveTRList.AttDate,
+                        AttStatus = indEmployeeLeaveTRList.AttStatus,
+                        LeaveTypeID = indEmployeeLeaveTRList.LeaveTypeID,
+                        LeaveTypeTitle = indEmployeeLeaveTRList.LeaveTypeTitle,
+                        ActualLeaveDateFrom = indEmployeeLeaveTRList.ActualLeaveDateFrom,
+                        ActualLeaveDateTo = indEmployeeLeaveTRList.ActualLeaveDateTo,
+                        LeaveDuration = indEmployeeLeaveTRList.LeaveDuration,
+                        LeaveComments = indEmployeeLeaveTRList.LeaveComments,
+                        LeaveApprovalComments = indEmployeeLeaveTRList.LeaveApprovalComments,
+                        LeaveRejectionComments = indEmployeeLeaveTRList.LeaveRejectionComments,
+                        OrderID = indEmployeeLeaveTRList.OrderID
+                    });
+                }
+
+
+                strQuery = "SELECT " +
+                                "EmpMas.EmpID, " +
+                                "EmpMas.EmpCode, " +
+                                "EmpMas.EmpName, " +
+                                "DesigMas.DesignationTitle, " +
+                                "DepMas.DepartmentTitle, " +
+                                "EmpDailyAttendanceInfo.AttID, " +
+                                "EmpDailyAttendanceInfo.AttDate, " +
+                                "EmpDailyAttendanceInfo.AttStatus, " +
+                                "LeaveTypeMas.LeaveTypeID, " +
+                                "LeaveTypeMas.LeaveTypeTitle, " +
+                                "EmpDailyAttendanceInfo.LeaveTRID, " +
+                                "EmpLeaveTransMas.LeaveAppliedDate, " +
+                                "EmpLeaveTransMas.LeaveComments, " +
+                                "EmpLeaveTransMas.ActualLeaveDateFrom, " +
+                                "EmpLeaveTransMas.ActualLeaveDateTo, " +
+                                "EmpLeaveTransMas.LeaveDuration, " +
+                                "EmpLeaveTransMas.LeaveApprovedDate, " +
+                                "EmpLeaveTransMas.LeaveApprovalComments, " +
+                                "EmpLeaveTransMas.LeaveRejectedDate, " +
+                                "EmpLeaveTransMas.LeaveRejectionComments, " +
+                                "EmpLeaveTransMas.Canceled, " +
+                                "EmpLeaveTransMas.CanceledDate, " +
+                                "EmpLeaveTransMas.OrderID " +
+                            "FROM " +
+                                "LeaveTypeMas " +
+                                "INNER JOIN ( " +
+                                     "DesigMas " +
+                                     "INNER JOIN ( " +
+                                          "DepMas " +
+                                          "INNER JOIN ( " +
+                                               "EmpMas " +
+                                               "INNER JOIN ( " +
+                                                    "EmpLeaveTransMas " +
+                                                    "INNER JOIN EmpDailyAttendanceInfo ON EmpLeaveTransMas.LeaveTRID = EmpDailyAttendanceInfo.LeaveTRID " +
+                                               ") ON EmpMas.EmpID = EmpLeaveTransMas.EmpID " +
+                                          ") ON DepMas.DepartmentID = EmpMas.DepartmentID " +
+                                     ") ON DesigMas.DesignationID = EmpMas.EmpDesignationID " +
+                                ") ON LeaveTypeMas.LeaveTypeID = EmpLeaveTransMas.LeaveTypeID " +
+                            " WHERE " +
+                                "( " +
+                                     "((EmpMas.EmpID) = " + txtEmpID + ") " +
+                                     "AND ((EmpDailyAttendanceInfo.LeaveTRID) <> 0) " +
+                                     "AND ((EmpLeaveTransMas.OrderID) <> 0) " +
+                                ") " +
+                            " ORDER BY " +
+                                "EmpMas.EmpID, " +
+                                "EmpDailyAttendanceInfo.AttID, " +
+                                "EmpDailyAttendanceInfo.LeaveTRID, " +
+                                "EmpLeaveTransMas.OrderID;";
+
+                cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                dt = new DataTable();
+                da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                employeeLeaveTRList = new List<EmployeeLeaveTRList>();
+                employeeLeaveTRList = JsonConvert.DeserializeObject<List<EmployeeLeaveTRList>>(DataTableToJSon);
+                foreach (EmployeeLeaveTRList indEmployeeLeaveTRList in employeeLeaveTRList)
+                {
+                    EmployeeLeaveStatements.Add(new EmployeeLeaveTRList
+                    {
+                        EmpID = indEmployeeLeaveTRList.EmpID,
+                        EmpCode = indEmployeeLeaveTRList.EmpCode,
+                        EmpName = indEmployeeLeaveTRList.EmpName,
+                        DesignationTitle = indEmployeeLeaveTRList.DesignationTitle,
+                        DepartmentTitle = indEmployeeLeaveTRList.DepartmentTitle,
+                        AttDate = indEmployeeLeaveTRList.AttDate,
+                        AttStatus = indEmployeeLeaveTRList.AttStatus,
+                        LeaveTypeID = indEmployeeLeaveTRList.LeaveTypeID,
+                        LeaveTypeTitle = indEmployeeLeaveTRList.LeaveTypeTitle,
+                        ActualLeaveDateFrom = indEmployeeLeaveTRList.ActualLeaveDateFrom,
+                        ActualLeaveDateTo = indEmployeeLeaveTRList.ActualLeaveDateTo,
+                        LeaveDuration = indEmployeeLeaveTRList.LeaveDuration,
+                        LeaveComments = indEmployeeLeaveTRList.LeaveComments,
+                        LeaveApprovalComments = indEmployeeLeaveTRList.LeaveRejectionComments.ToString().StartsWith("Rejected") ? "" : indEmployeeLeaveTRList.LeaveApprovalComments,
+                        LeaveRejectionComments = indEmployeeLeaveTRList.LeaveApprovalComments.ToString().StartsWith("Approved") ? "" : indEmployeeLeaveTRList.LeaveRejectionComments,
+                        OrderID = indEmployeeLeaveTRList.OrderID
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return EmployeeLeaveStatements;
+        }
+
         public List<EmployeeOOOList> GetEmployeeOOOList()
         {
             List<EmployeeOOOList> EmpOOOList = new List<EmployeeOOOList>();
@@ -389,7 +581,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO LeaveMas (LeaveMasID, EmpID, TotalLeaves, BalanceLeaves, EffectiveDate) VALUES " +
-                 "(" + maxRowCount + "," + txtEmpID + "," + TotalLeaves + "," + TotalBalanceLeave + ", '" + txtEffectiveDate + "')";
+                 "(" + maxRowCount + "," + txtEmpID + "," + TotalLeaves + "," + TotalBalanceLeave + ", '" + txtEffectiveDate.ToString("dd-MMM-yyyy") + "')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -418,7 +610,8 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE LeaveMas SET TotalLeaves = " + TotalLeaves + ", BalanceLeaves = " + TotalBalanceLeave + ", EffectiveDate = '" + txtEffectiveDate + "'" +
+                //TotalLeaves = " + TotalLeaves + ", 
+                string strQuery = "UPDATE LeaveMas SET BalanceLeaves = " + TotalBalanceLeave + ", EffectiveDate = '" + txtEffectiveDate.ToString("dd-MMM-yyyy") + "'" +
                 " WHERE LeaveMasID = " + txtLeaveMasID + " AND EmpID = " + txtEmpID;
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -483,7 +676,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO EmpLeaveTransMas (LeaveTRID, EmpID, LeaveTypeID, LeaveAppliedDate, LeaveComments, ActualLeaveDateFrom, ActualLeaveDateTo, LeaveDuration, LeaveApprovedDate, LeaveApprovalComments, LeaveRejectedDate, LeaveRejectionComments, ApprovedOrRejectedByEmpID, OrderID, Canceled, CanceledDate) VALUES " +
-                 "(" + maxRowCount + "," + txtEmpID + "," + txtLeaveTypeID + ",'" + DateTime.Now + "','" + txtLeaveComments + "','" + txtLeaveFromDate + "','" + txtLeaveToDate + "'," + txtLeaveDuration + ",'" + txtLeaveApprovedDate + "','" + txtLeaveApprovalComments +"','" + txtLeaveRejectedDate + "','" + txtLeaveRejectionComment + "'," + txtApproverID + "," + maxLeaveCounter + ", false, '" + DateTime.Now + "')";
+                 "(" + maxRowCount + "," + txtEmpID + "," + txtLeaveTypeID + ",'" + DateTime.Now.ToString("dd-MMM-yyyy") + "','" + txtLeaveComments + "','" + txtLeaveFromDate.ToString("dd-MMM-yyyy") + "','" + txtLeaveToDate.ToString("dd-MMM-yyyy") + "'," + txtLeaveDuration + ",'" + txtLeaveApprovedDate.ToString("dd-MMM-yyyy") + "','" + txtLeaveApprovalComments +"','" + txtLeaveRejectedDate.ToString("dd-MMM-yyyy") + "','" + txtLeaveRejectionComment + "'," + txtApproverID + "," + maxLeaveCounter + ", false, '" + DateTime.Now.ToString("dd-MMM-yyyy") + "')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -514,7 +707,7 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE EmpLeaveTransMas LeaveTypeID = " + txtLeaveTypeID + ", LeaveAppliedDate = '" + DateTime.Now.ToString("dd/MM/yyyy") + "', LeaveComments = '" + txtLeaveComments + "', ActualLeaveDateFrom = '" + txtLeaveFromDate.ToString("dd/MM/yyyy") + "', ActualLeaveDateTo = '" + txtLeaveToDate.ToString("dd/MM/yyyy") + "', LeaveDuration = " + txtLeaveDuration + ", LeaveApprovedDate = '" + txtLeaveApprovedDate.ToString("dd/MM/yyyy") + "', LeaveApprovalComments = '" + txtLeaveApprovalComments + "', LeaveRejectedDate = '" + txtLeaveRejectedDate.ToString("dd/MM/yyyy") + "', LeaveRejectionComments = '" + txtLeaveRejectionComment + "', ApprovedOrRejectedByEmpID = " + txtApproverID + ", OrderID = " + maxLeaveCounter +
+                string strQuery = "UPDATE EmpLeaveTransMas LeaveTypeID = " + txtLeaveTypeID + ", LeaveAppliedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveComments = '" + txtLeaveComments + "', ActualLeaveDateFrom = '" + txtLeaveFromDate.ToString("dd-MMM-yyyy") + "', ActualLeaveDateTo = '" + txtLeaveToDate.ToString("dd-MMM-yyyy") + "', LeaveDuration = " + txtLeaveDuration + ", LeaveApprovedDate = '" + txtLeaveApprovedDate.ToString("dd-MMM-yyyy") + "', LeaveApprovalComments = '" + txtLeaveApprovalComments + "', LeaveRejectedDate = '" + txtLeaveRejectedDate.ToString("dd-MMM-yyyy") + "', LeaveRejectionComments = '" + txtLeaveRejectionComment + "', ApprovedOrRejectedByEmpID = " + txtApproverID + ", OrderID = " + maxLeaveCounter +
                  " WHERE LeaveTRID = " + txtLeaveTRID + " AND EmpID = " + txtEmpID + "";
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -544,7 +737,7 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE EmpLeaveTransMas SET Canceled = true, CanceledDate = '" + DateTime.Now + "', LeaveComments = 'Rejecting the Leave Request'" +
+                string strQuery = "UPDATE EmpLeaveTransMas SET Canceled = true, CanceledDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveComments = 'Cancelling the Leave Request'" +
                  " WHERE LeaveTRID = " + txtLeaveTRID + " AND EmpID = " + txtEmpID + "";
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -634,7 +827,39 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE EmpLeaveTransMas SET LeaveDuration = 0, LeaveApprovedDate = '" + DateTime.Now + "', LeaveApprovalComments = 'Rejected : Request Approved', LeaveRejectedDate = '" + DateTime.Now + "', LeaveRejectionComments = 'Rejected : " + txtLeaveRejectionComments + "', ApprovedOrRejectedByEmpID = " + txtApproverID +
+                //LeaveDuration = 0,
+                string strQuery = "UPDATE EmpLeaveTransMas SET LeaveApprovedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveApprovalComments = 'Rejected : Request Approved', LeaveRejectedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveRejectionComments = 'Rejected : " + txtLeaveRejectionComments + "', ApprovedOrRejectedByEmpID = " + txtApproverID +
+                 " WHERE LeaveTRID = " + txtLeaveTRID + " AND EmpID = " + txtEmpID + "";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtLeaveTRID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int ApproveLeaveCancellation(int txtLeaveTRID, int txtEmpID, string txtLeaveRejectionComments, int txtApproverID)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                //LeaveDuration = 0,
+                string strQuery = "UPDATE EmpLeaveTransMas SET LeaveApprovedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveApprovalComments = 'Approved : Request Approved', LeaveRejectedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveRejectionComments = '', ApprovedOrRejectedByEmpID = " + txtApproverID +
                  " WHERE LeaveTRID = " + txtLeaveTRID + " AND EmpID = " + txtEmpID + "";
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -661,22 +886,64 @@ namespace StaffSync
     public class EmployeeLeaveTRList
     {
         public int LeaveTRID { get; set; }
+        
+        [DisplayName("Employee ID")] 
         public int EmpID { get; set; }
+        
+        [DisplayName("Employee Code")] 
+        public string EmpCode { get; set; }
+        
+        [DisplayName("Employee Name")] 
+        public string EmpName { get; set; }
+
+        [DisplayName("Designation")] 
+        public string DesignationTitle { get; set; }
+        
+        [DisplayName("Department")] 
+        public string DepartmentTitle { get; set; }
+
+        [DisplayName("Attendance Date")] 
+        public DateTime? AttDate { get; set; }
+
+        [DisplayName("Attendance Status")]
+        public string AttStatus { get; set; }
+
+        [DisplayName("Leave Type ID")]
         public int LeaveTypeID { get; set; }
+
+        [DisplayName("Leave Type")]
         public string LeaveTypeTitle { get; set; }
+
+        [DisplayName("Leave Applied Date")] 
         public DateTime LeaveAppliedDate { get; set; }
+        
+        [DisplayName("Leave Comments")] 
         public string LeaveComments { get; set; }
+
+        [DisplayName("Leave From")] 
         public DateTime? ActualLeaveDateFrom { get; set; }
+
+        [DisplayName("Leave To")] 
         public DateTime? ActualLeaveDateTo { get; set; }
+
+        [DisplayName("Leave Duration")] 
         public float LeaveDuration { get; set; }
         public DateTime? LeaveApprovedDate { get; set; }
+
+        [DisplayName("Approval Comments")]
         public string LeaveApprovalComments { get; set; }
         public DateTime? LeaveRejectedDate { get; set; }
+
+        [DisplayName("Rejection Comments")] 
         public string LeaveRejectionComments { get; set; }
         public int OrderID { get; set; }
         public int ApprovedOrRejectedByEmpID { get; set; }
         public string LeaveStatus { get; set; }
+        
+        [DisplayName("Cancelled")] 
         public bool Canceled { get; set; }
+        
+        [DisplayName("Cancelled Date")] 
         public DateTime? CanceledDate { get; set; }
     }
 
@@ -714,8 +981,8 @@ namespace StaffSync
 
     public class PendingLeaveApprovalList
     {
-        [DisplayName("Select")]
-        public bool Select { get; set; }
+        //[DisplayName("Select")]
+        //public bool Select { get; set; }
 
         public int EmpID { get; set; }
 

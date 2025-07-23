@@ -373,6 +373,7 @@
             this.dtgSalaryDetails.AllowUserToAddRows = false;
             this.dtgSalaryDetails.AllowUserToDeleteRows = false;
             this.dtgSalaryDetails.AllowUserToResizeRows = false;
+            this.dtgSalaryDetails.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dtgSalaryDetails.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dtgSalaryDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgSalaryDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;

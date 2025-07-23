@@ -130,10 +130,10 @@
             this.tabPreviousExperience1 = new Krypton.Navigator.KryptonPage();
             this.picPrevExperience = new System.Windows.Forms.PictureBox();
             this.dtgPreviousWorkExp = new Krypton.Toolkit.KryptonDataGridView();
-            this.tabEducationalInfo1 = new Krypton.Navigator.KryptonPage();
-            this.chkEduQualList = new System.Windows.Forms.CheckedListBox();
             this.tabSkils = new Krypton.Navigator.KryptonPage();
             this.chkSkillsList = new System.Windows.Forms.CheckedListBox();
+            this.tabEducationalInfo1 = new Krypton.Navigator.KryptonPage();
+            this.chkEduQualList = new System.Windows.Forms.CheckedListBox();
             this.tabDocuments1 = new Krypton.Navigator.KryptonPage();
             this.btnUploadDocument = new Krypton.Toolkit.KryptonButton();
             this.picDownloadDocumentsList = new System.Windows.Forms.PictureBox();
@@ -266,10 +266,10 @@
             this.tabPreviousExperience1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPrevExperience)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgPreviousWorkExp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tabEducationalInfo1)).BeginInit();
-            this.tabEducationalInfo1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabSkils)).BeginInit();
             this.tabSkils.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tabEducationalInfo1)).BeginInit();
+            this.tabEducationalInfo1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabDocuments1)).BeginInit();
             this.tabDocuments1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDownloadDocumentsList)).BeginInit();
@@ -386,8 +386,8 @@
             this.tabPersonalPhoto,
             this.tabProfessionalInfo,
             this.tabPreviousExperience1,
-            this.tabEducationalInfo1,
             this.tabSkils,
+            this.tabEducationalInfo1,
             this.tabDocuments1,
             this.tabLeaves,
             this.tabBankAccountInfo1,
@@ -1691,6 +1691,7 @@
             this.dtgPreviousWorkExp.AllowUserToAddRows = false;
             this.dtgPreviousWorkExp.AllowUserToDeleteRows = false;
             this.dtgPreviousWorkExp.AllowUserToResizeRows = false;
+            this.dtgPreviousWorkExp.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dtgPreviousWorkExp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgPreviousWorkExp.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dtgPreviousWorkExp.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
@@ -1702,30 +1703,6 @@
             this.dtgPreviousWorkExp.Size = new System.Drawing.Size(1174, 398);
             this.dtgPreviousWorkExp.TabIndex = 44;
             this.dtgPreviousWorkExp.DoubleClick += new System.EventHandler(this.dtgPreviousWorkExp_DoubleClick);
-            // 
-            // tabEducationalInfo1
-            // 
-            this.tabEducationalInfo1.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.tabEducationalInfo1.Controls.Add(this.chkEduQualList);
-            this.tabEducationalInfo1.Flags = 65534;
-            this.tabEducationalInfo1.LastVisibleSet = true;
-            this.tabEducationalInfo1.MinimumSize = new System.Drawing.Size(150, 50);
-            this.tabEducationalInfo1.Name = "tabEducationalInfo1";
-            this.tabEducationalInfo1.Size = new System.Drawing.Size(1248, 519);
-            this.tabEducationalInfo1.Text = "Educational Info";
-            this.tabEducationalInfo1.ToolTipTitle = "Page ToolTip";
-            this.tabEducationalInfo1.UniqueName = "f9837b105de44806af73caf55b4bb72c";
-            // 
-            // chkEduQualList
-            // 
-            this.chkEduQualList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.chkEduQualList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.chkEduQualList.FormattingEnabled = true;
-            this.chkEduQualList.Location = new System.Drawing.Point(16, 19);
-            this.chkEduQualList.MultiColumn = true;
-            this.chkEduQualList.Name = "chkEduQualList";
-            this.chkEduQualList.Size = new System.Drawing.Size(1195, 466);
-            this.chkEduQualList.TabIndex = 2;
             // 
             // tabSkils
             // 
@@ -1750,6 +1727,30 @@
             this.chkSkillsList.Name = "chkSkillsList";
             this.chkSkillsList.Size = new System.Drawing.Size(1195, 466);
             this.chkSkillsList.TabIndex = 1;
+            // 
+            // tabEducationalInfo1
+            // 
+            this.tabEducationalInfo1.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabEducationalInfo1.Controls.Add(this.chkEduQualList);
+            this.tabEducationalInfo1.Flags = 65534;
+            this.tabEducationalInfo1.LastVisibleSet = true;
+            this.tabEducationalInfo1.MinimumSize = new System.Drawing.Size(150, 50);
+            this.tabEducationalInfo1.Name = "tabEducationalInfo1";
+            this.tabEducationalInfo1.Size = new System.Drawing.Size(1248, 519);
+            this.tabEducationalInfo1.Text = "Educational Info";
+            this.tabEducationalInfo1.ToolTipTitle = "Page ToolTip";
+            this.tabEducationalInfo1.UniqueName = "f9837b105de44806af73caf55b4bb72c";
+            // 
+            // chkEduQualList
+            // 
+            this.chkEduQualList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkEduQualList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.chkEduQualList.FormattingEnabled = true;
+            this.chkEduQualList.Location = new System.Drawing.Point(16, 19);
+            this.chkEduQualList.MultiColumn = true;
+            this.chkEduQualList.Name = "chkEduQualList";
+            this.chkEduQualList.Size = new System.Drawing.Size(1195, 466);
+            this.chkEduQualList.TabIndex = 2;
             // 
             // tabDocuments1
             // 
@@ -1961,6 +1962,7 @@
             this.dtgLeaveEntitlement.AllowUserToAddRows = false;
             this.dtgLeaveEntitlement.AllowUserToDeleteRows = false;
             this.dtgLeaveEntitlement.AllowUserToResizeRows = false;
+            this.dtgLeaveEntitlement.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dtgLeaveEntitlement.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dtgLeaveEntitlement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgLeaveEntitlement.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
@@ -2464,6 +2466,7 @@
             this.dtgSalaryProfileDetails.AllowUserToAddRows = false;
             this.dtgSalaryProfileDetails.AllowUserToDeleteRows = false;
             this.dtgSalaryProfileDetails.AllowUserToResizeRows = false;
+            this.dtgSalaryProfileDetails.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dtgSalaryProfileDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgSalaryProfileDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dtgSalaryProfileDetails.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
@@ -2834,10 +2837,10 @@
             this.tabPreviousExperience1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picPrevExperience)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgPreviousWorkExp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tabEducationalInfo1)).EndInit();
-            this.tabEducationalInfo1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabSkils)).EndInit();
             this.tabSkils.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tabEducationalInfo1)).EndInit();
+            this.tabEducationalInfo1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabDocuments1)).EndInit();
             this.tabDocuments1.ResumeLayout(false);
             this.tabDocuments1.PerformLayout();

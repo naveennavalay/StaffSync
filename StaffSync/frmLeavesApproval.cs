@@ -151,7 +151,7 @@ namespace StaffSync
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-
+            string strAttendanceStatus = cmbDuration.SelectedItem.ToString() == "Full Day" ? "Leave" : cmbDuration.SelectedItem.ToString() + " Day Leave";
             if (lblActionMode.Text == "add")
             {
                 int employeeLeaveTRID = 0;
@@ -160,14 +160,15 @@ namespace StaffSync
                     for (int iLeaveCounter = 1; iLeaveCounter <= 1; iLeaveCounter++)
                     {
                         employeeLeaveTRID = objLeaveTRList.ApproveLeave(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, clsCurrentUser.UserID);
-                        objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()) , Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), Convert.ToDecimal(txtBalanceLeave.Text), DateTime.Now);
-                        objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), "Leave", Convert.ToInt16(lblLeaveTRID.Text.ToString()));
+                        objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()) , Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), Convert.ToDecimal(txtBalanceLeave.Text) + Convert.ToDecimal(txtActualLeaveDays.Text), DateTime.Now);
+                        objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), strAttendanceStatus, Convert.ToInt16(lblLeaveTRID.Text.ToString()));
                     }
                 }
                 else if (Convert.ToDecimal(txtActualLeaveDays.Text) < 0)
                 {
-                   employeeLeaveTRID = objLeaveTRList.RejectLeave(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, clsCurrentUser.UserID);
-                    objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), "Present", Convert.ToInt16(lblLeaveTRID.Text.ToString()));
+                    employeeLeaveTRID = objLeaveTRList.ApproveLeaveCancellation(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, clsCurrentUser.UserID);
+                    objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) - Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
+                    objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), strAttendanceStatus, Convert.ToInt16(lblLeaveTRID.Text.ToString()));
                 }
                 if (employeeLeaveTRID > 0)
                 {
@@ -369,7 +370,7 @@ namespace StaffSync
                 if (objEmployeeSpecificLeaveInfo.Count > 0)
                 {
                     lblLeaveTRID.Text = selectedLeaveID.ToString();
-                    cmbLeaveType.SelectedIndex = objEmployeeSpecificLeaveInfo[0].LeaveTypeID;
+                    cmbLeaveType.SelectedIndex = objEmployeeSpecificLeaveInfo[0].LeaveTypeID - 1;
                     cmbDuration.SelectedIndex = objEmployeeSpecificLeaveInfo[0].LeaveDuration == 1 ? 0 : 1;
                     txtLeaveDateFrom.Text = objEmployeeSpecificLeaveInfo[0].ActualLeaveDateFrom.ToString("dd-MM-yyyy");
                     txtLeaveDateTo.Text = objEmployeeSpecificLeaveInfo[0].ActualLeaveDateTo.ToString("dd-MM-yyyy");
@@ -532,7 +533,10 @@ namespace StaffSync
 
         private void cmbLeaveType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (lblEmpID.Text.Trim() == "")
+                return;
 
+            lblSpecificLeaveBalance.Text = objLeaveTRList.getSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1)).ToString();
         }
     }
 }

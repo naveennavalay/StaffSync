@@ -1624,5 +1624,11 @@ namespace StaffSync
                 frmEmpLeaveEntitlement.ShowDialog(this);
             }
         }
+
+        private void cmbMyLeaveStatementReport01_Click(object sender, EventArgs e)
+        {
+            frmLeaveStatements frmLeaveStatements = new frmLeaveStatements();
+            frmLeaveStatements.ShowDialog(this);
+        }
     }
 }

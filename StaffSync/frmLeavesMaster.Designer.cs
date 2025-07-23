@@ -32,10 +32,28 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLeavesMaster));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnSearch = new Krypton.Toolkit.KryptonButton();
+            this.txtEmployeeName = new Krypton.Toolkit.KryptonTextBox();
+            this.txtEmpCode = new Krypton.Toolkit.KryptonTextBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.picEmpPhoto = new System.Windows.Forms.PictureBox();
+            this.cmbDesignation = new System.Windows.Forms.ComboBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.cmbDepartment = new System.Windows.Forms.ComboBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.lblEmpID = new System.Windows.Forms.Label();
+            this.lblActionMode = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblSpecificLeaveBalance = new System.Windows.Forms.Label();
             this.lblLeaveMasID = new System.Windows.Forms.Label();
             this.lblCancelStatus = new System.Windows.Forms.Label();
             this.lblLeaveTRID = new System.Windows.Forms.Label();
+            this.picDownloadLeaveTRList = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.picRefreshLeaveTRList = new System.Windows.Forms.PictureBox();
             this.lstLeaveTRList = new System.Windows.Forms.ListView();
             this.LeaveTRID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LeaveType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -45,7 +63,10 @@
             this.LeaveComments = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LeaveStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmLeaveCancel = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tlbCancelLeave = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkAllowBackDate = new Krypton.Toolkit.KryptonCheckBox();
+            this.picViewLeaves = new System.Windows.Forms.PictureBox();
             this.txtLeaveNote = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtActualLeaveDays = new System.Windows.Forms.TextBox();
@@ -61,19 +82,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cmbLeaveType = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btnSearch = new Krypton.Toolkit.KryptonButton();
-            this.txtEmployeeName = new Krypton.Toolkit.KryptonTextBox();
-            this.txtEmpCode = new Krypton.Toolkit.KryptonTextBox();
-            this.label38 = new System.Windows.Forms.Label();
-            this.cmbDesignation = new System.Windows.Forms.ComboBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.cmbDepartment = new System.Windows.Forms.ComboBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.lblEmpID = new System.Windows.Forms.Label();
-            this.lblActionMode = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
@@ -82,29 +90,22 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lblSpecificLeaveBalance = new System.Windows.Forms.Label();
-            this.picDownloadLeaveTRList = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.picRefreshLeaveTRList = new System.Windows.Forms.PictureBox();
-            this.tlbCancelLeave = new System.Windows.Forms.ToolStripMenuItem();
-            this.picViewLeaves = new System.Windows.Forms.PictureBox();
-            this.picEmpPhoto = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.cmLeaveCancel.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRefreshLeaveTRList)).BeginInit();
+            this.cmLeaveCancel.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picViewLeaves)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -136,340 +137,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1257, 563);
             this.panel1.TabIndex = 1;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.lblSpecificLeaveBalance);
-            this.groupBox2.Controls.Add(this.lblLeaveMasID);
-            this.groupBox2.Controls.Add(this.lblCancelStatus);
-            this.groupBox2.Controls.Add(this.lblLeaveTRID);
-            this.groupBox2.Controls.Add(this.picDownloadLeaveTRList);
-            this.groupBox2.Controls.Add(this.pictureBox3);
-            this.groupBox2.Controls.Add(this.picRefreshLeaveTRList);
-            this.groupBox2.Controls.Add(this.lstLeaveTRList);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(13, 328);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1231, 225);
-            this.groupBox2.TabIndex = 9;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Leave History";
-            // 
-            // lblLeaveMasID
-            // 
-            this.lblLeaveMasID.AutoSize = true;
-            this.lblLeaveMasID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblLeaveMasID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLeaveMasID.Location = new System.Drawing.Point(618, 22);
-            this.lblLeaveMasID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblLeaveMasID.Name = "lblLeaveMasID";
-            this.lblLeaveMasID.Size = new System.Drawing.Size(11, 15);
-            this.lblLeaveMasID.TabIndex = 49;
-            this.lblLeaveMasID.Text = " ";
-            // 
-            // lblCancelStatus
-            // 
-            this.lblCancelStatus.AutoSize = true;
-            this.lblCancelStatus.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblCancelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCancelStatus.Location = new System.Drawing.Point(649, 22);
-            this.lblCancelStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblCancelStatus.Name = "lblCancelStatus";
-            this.lblCancelStatus.Size = new System.Drawing.Size(11, 15);
-            this.lblCancelStatus.TabIndex = 24;
-            this.lblCancelStatus.Text = " ";
-            // 
-            // lblLeaveTRID
-            // 
-            this.lblLeaveTRID.AutoSize = true;
-            this.lblLeaveTRID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblLeaveTRID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLeaveTRID.Location = new System.Drawing.Point(590, 22);
-            this.lblLeaveTRID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblLeaveTRID.Name = "lblLeaveTRID";
-            this.lblLeaveTRID.Size = new System.Drawing.Size(11, 15);
-            this.lblLeaveTRID.TabIndex = 23;
-            this.lblLeaveTRID.Text = " ";
-            // 
-            // lstLeaveTRList
-            // 
-            this.lstLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstLeaveTRList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.lstLeaveTRList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.LeaveTRID,
-            this.LeaveType,
-            this.LeaveDateFrom,
-            this.LeaveDateTo,
-            this.LeaveDuration,
-            this.LeaveComments,
-            this.LeaveStatus});
-            this.lstLeaveTRList.ContextMenuStrip = this.cmLeaveCancel;
-            this.lstLeaveTRList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.lstLeaveTRList.FullRowSelect = true;
-            this.lstLeaveTRList.GridLines = true;
-            this.lstLeaveTRList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lstLeaveTRList.HideSelection = false;
-            this.lstLeaveTRList.LabelWrap = false;
-            this.lstLeaveTRList.Location = new System.Drawing.Point(16, 49);
-            this.lstLeaveTRList.MultiSelect = false;
-            this.lstLeaveTRList.Name = "lstLeaveTRList";
-            this.lstLeaveTRList.ShowItemToolTips = true;
-            this.lstLeaveTRList.Size = new System.Drawing.Size(1198, 159);
-            this.lstLeaveTRList.TabIndex = 19;
-            this.lstLeaveTRList.UseCompatibleStateImageBehavior = false;
-            this.lstLeaveTRList.View = System.Windows.Forms.View.Details;
-            this.lstLeaveTRList.DoubleClick += new System.EventHandler(this.lstLeaveTRList_DoubleClick);
-            this.lstLeaveTRList.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lstLeaveTRList_MouseUp);
-            // 
-            // LeaveTRID
-            // 
-            this.LeaveTRID.Text = "LeaveTRID";
-            this.LeaveTRID.Width = 0;
-            // 
-            // LeaveType
-            // 
-            this.LeaveType.Text = "Leave Type";
-            this.LeaveType.Width = 150;
-            // 
-            // LeaveDateFrom
-            // 
-            this.LeaveDateFrom.Text = "Leave From";
-            this.LeaveDateFrom.Width = 150;
-            // 
-            // LeaveDateTo
-            // 
-            this.LeaveDateTo.Text = "Leave To";
-            this.LeaveDateTo.Width = 150;
-            // 
-            // LeaveDuration
-            // 
-            this.LeaveDuration.Text = "Leave Duration";
-            this.LeaveDuration.Width = 150;
-            // 
-            // LeaveComments
-            // 
-            this.LeaveComments.Text = "Comments";
-            this.LeaveComments.Width = 300;
-            // 
-            // LeaveStatus
-            // 
-            this.LeaveStatus.Text = "Leave Status";
-            this.LeaveStatus.Width = 300;
-            // 
-            // cmLeaveCancel
-            // 
-            this.cmLeaveCancel.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.cmLeaveCancel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tlbCancelLeave});
-            this.cmLeaveCancel.Name = "cmDatamartList01";
-            this.cmLeaveCancel.Size = new System.Drawing.Size(144, 26);
-            this.cmLeaveCancel.Tag = "DatamartMenu";
-            this.cmLeaveCancel.Text = "DatamartMenu";
-            this.cmLeaveCancel.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmLeaveCancel_ItemClicked);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.picViewLeaves);
-            this.groupBox1.Controls.Add(this.txtLeaveNote);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.txtActualLeaveDays);
-            this.groupBox1.Controls.Add(this.txtBalanceLeave);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.txtAvailableLeave);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.txtLeaveDateTo);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.cmbDuration);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.txtLeaveDateFrom);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.cmbLeaveType);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(13, 167);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1231, 155);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Leave Request";
-            // 
-            // txtLeaveNote
-            // 
-            this.txtLeaveNote.Location = new System.Drawing.Point(763, 25);
-            this.txtLeaveNote.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtLeaveNote.MaxLength = 255;
-            this.txtLeaveNote.Multiline = true;
-            this.txtLeaveNote.Name = "txtLeaveNote";
-            this.txtLeaveNote.Size = new System.Drawing.Size(297, 116);
-            this.txtLeaveNote.TabIndex = 47;
-            this.txtLeaveNote.Tag = "Please enter Employeee Code";
-            this.txtLeaveNote.WordWrap = false;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(678, 32);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(79, 15);
-            this.label8.TabIndex = 48;
-            this.label8.Text = "Leave Note";
-            // 
-            // txtActualLeaveDays
-            // 
-            this.txtActualLeaveDays.Location = new System.Drawing.Point(488, 120);
-            this.txtActualLeaveDays.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtActualLeaveDays.MaxLength = 255;
-            this.txtActualLeaveDays.Multiline = true;
-            this.txtActualLeaveDays.Name = "txtActualLeaveDays";
-            this.txtActualLeaveDays.ReadOnly = true;
-            this.txtActualLeaveDays.Size = new System.Drawing.Size(78, 21);
-            this.txtActualLeaveDays.TabIndex = 46;
-            this.txtActualLeaveDays.Tag = "Please enter Employeee Code";
-            this.txtActualLeaveDays.WordWrap = false;
-            // 
-            // txtBalanceLeave
-            // 
-            this.txtBalanceLeave.Location = new System.Drawing.Point(413, 25);
-            this.txtBalanceLeave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtBalanceLeave.MaxLength = 255;
-            this.txtBalanceLeave.Multiline = true;
-            this.txtBalanceLeave.Name = "txtBalanceLeave";
-            this.txtBalanceLeave.ReadOnly = true;
-            this.txtBalanceLeave.Size = new System.Drawing.Size(154, 28);
-            this.txtBalanceLeave.TabIndex = 44;
-            this.txtBalanceLeave.Tag = "Please enter Employeee Code";
-            this.txtBalanceLeave.WordWrap = false;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(303, 32);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(108, 15);
-            this.label7.TabIndex = 45;
-            this.label7.Text = "Balance Leaves";
-            // 
-            // txtAvailableLeave
-            // 
-            this.txtAvailableLeave.Location = new System.Drawing.Point(126, 25);
-            this.txtAvailableLeave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtAvailableLeave.MaxLength = 255;
-            this.txtAvailableLeave.Multiline = true;
-            this.txtAvailableLeave.Name = "txtAvailableLeave";
-            this.txtAvailableLeave.ReadOnly = true;
-            this.txtAvailableLeave.Size = new System.Drawing.Size(154, 28);
-            this.txtAvailableLeave.TabIndex = 42;
-            this.txtAvailableLeave.Tag = "Please enter Employeee Code";
-            this.txtAvailableLeave.WordWrap = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(14, 32);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(107, 15);
-            this.label6.TabIndex = 43;
-            this.label6.Text = "Available Leave";
-            // 
-            // txtLeaveDateTo
-            // 
-            this.txtLeaveDateTo.Location = new System.Drawing.Point(356, 120);
-            this.txtLeaveDateTo.Mask = "##-##-####";
-            this.txtLeaveDateTo.Name = "txtLeaveDateTo";
-            this.txtLeaveDateTo.Size = new System.Drawing.Size(125, 21);
-            this.txtLeaveDateTo.TabIndex = 41;
-            this.txtLeaveDateTo.Tag = "Please enter Employeee Date Of Birth";
-            this.txtLeaveDateTo.ValidatingType = typeof(System.DateTime);
-            this.txtLeaveDateTo.TextChanged += new System.EventHandler(this.txtLeaveDateTo_TextChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(330, 123);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(23, 15);
-            this.label5.TabIndex = 40;
-            this.label5.Text = "To";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cmbDuration
-            // 
-            this.cmbDuration.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDuration.FormattingEnabled = true;
-            this.cmbDuration.Location = new System.Drawing.Point(126, 88);
-            this.cmbDuration.Name = "cmbDuration";
-            this.cmbDuration.Size = new System.Drawing.Size(440, 23);
-            this.cmbDuration.TabIndex = 39;
-            this.cmbDuration.Tag = "Please enter Employee Designation";
-            this.cmbDuration.SelectedIndexChanged += new System.EventHandler(this.cmbDuration_SelectedIndexChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(59, 92);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 15);
-            this.label4.TabIndex = 38;
-            this.label4.Text = "Duration";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtLeaveDateFrom
-            // 
-            this.txtLeaveDateFrom.Location = new System.Drawing.Point(125, 120);
-            this.txtLeaveDateFrom.Mask = "##-##-####";
-            this.txtLeaveDateFrom.Name = "txtLeaveDateFrom";
-            this.txtLeaveDateFrom.Size = new System.Drawing.Size(125, 21);
-            this.txtLeaveDateFrom.TabIndex = 37;
-            this.txtLeaveDateFrom.Tag = "Please enter Employeee Date Of Birth";
-            this.txtLeaveDateFrom.ValidatingType = typeof(System.DateTime);
-            this.txtLeaveDateFrom.TextChanged += new System.EventHandler(this.txtLeaveDateFrom_TextChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(80, 123);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 15);
-            this.label3.TabIndex = 36;
-            this.label3.Text = "From";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cmbLeaveType
-            // 
-            this.cmbLeaveType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbLeaveType.FormattingEnabled = true;
-            this.cmbLeaveType.Location = new System.Drawing.Point(126, 59);
-            this.cmbLeaveType.Name = "cmbLeaveType";
-            this.cmbLeaveType.Size = new System.Drawing.Size(440, 23);
-            this.cmbLeaveType.TabIndex = 35;
-            this.cmbLeaveType.Tag = "Please enter Employee Designation";
-            this.cmbLeaveType.SelectedIndexChanged += new System.EventHandler(this.cmbLeaveType_SelectedIndexChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(42, 63);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 15);
-            this.label2.TabIndex = 34;
-            this.label2.Text = "Leave Type";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // groupBox4
             // 
@@ -547,6 +214,15 @@
             this.label38.TabIndex = 35;
             this.label38.Text = "Photo";
             this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // picEmpPhoto
+            // 
+            this.picEmpPhoto.Location = new System.Drawing.Point(764, 26);
+            this.picEmpPhoto.Name = "picEmpPhoto";
+            this.picEmpPhoto.Size = new System.Drawing.Size(131, 115);
+            this.picEmpPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picEmpPhoto.TabIndex = 34;
+            this.picEmpPhoto.TabStop = false;
             // 
             // cmbDesignation
             // 
@@ -640,6 +316,420 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Employee Code";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.lblSpecificLeaveBalance);
+            this.groupBox2.Controls.Add(this.lblLeaveMasID);
+            this.groupBox2.Controls.Add(this.lblCancelStatus);
+            this.groupBox2.Controls.Add(this.lblLeaveTRID);
+            this.groupBox2.Controls.Add(this.picDownloadLeaveTRList);
+            this.groupBox2.Controls.Add(this.pictureBox3);
+            this.groupBox2.Controls.Add(this.picRefreshLeaveTRList);
+            this.groupBox2.Controls.Add(this.lstLeaveTRList);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(13, 328);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(1231, 225);
+            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Leave History";
+            // 
+            // lblSpecificLeaveBalance
+            // 
+            this.lblSpecificLeaveBalance.AutoSize = true;
+            this.lblSpecificLeaveBalance.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblSpecificLeaveBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSpecificLeaveBalance.Location = new System.Drawing.Point(678, 22);
+            this.lblSpecificLeaveBalance.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSpecificLeaveBalance.Name = "lblSpecificLeaveBalance";
+            this.lblSpecificLeaveBalance.Size = new System.Drawing.Size(11, 15);
+            this.lblSpecificLeaveBalance.TabIndex = 50;
+            this.lblSpecificLeaveBalance.Text = " ";
+            // 
+            // lblLeaveMasID
+            // 
+            this.lblLeaveMasID.AutoSize = true;
+            this.lblLeaveMasID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblLeaveMasID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLeaveMasID.Location = new System.Drawing.Point(618, 22);
+            this.lblLeaveMasID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblLeaveMasID.Name = "lblLeaveMasID";
+            this.lblLeaveMasID.Size = new System.Drawing.Size(11, 15);
+            this.lblLeaveMasID.TabIndex = 49;
+            this.lblLeaveMasID.Text = " ";
+            // 
+            // lblCancelStatus
+            // 
+            this.lblCancelStatus.AutoSize = true;
+            this.lblCancelStatus.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblCancelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCancelStatus.Location = new System.Drawing.Point(649, 22);
+            this.lblCancelStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCancelStatus.Name = "lblCancelStatus";
+            this.lblCancelStatus.Size = new System.Drawing.Size(11, 15);
+            this.lblCancelStatus.TabIndex = 24;
+            this.lblCancelStatus.Text = " ";
+            // 
+            // lblLeaveTRID
+            // 
+            this.lblLeaveTRID.AutoSize = true;
+            this.lblLeaveTRID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblLeaveTRID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLeaveTRID.Location = new System.Drawing.Point(590, 22);
+            this.lblLeaveTRID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblLeaveTRID.Name = "lblLeaveTRID";
+            this.lblLeaveTRID.Size = new System.Drawing.Size(11, 15);
+            this.lblLeaveTRID.TabIndex = 23;
+            this.lblLeaveTRID.Text = " ";
+            // 
+            // picDownloadLeaveTRList
+            // 
+            this.picDownloadLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picDownloadLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picDownloadLeaveTRList.Image = global::StaffSync.Properties.Resources.download01;
+            this.picDownloadLeaveTRList.Location = new System.Drawing.Point(1142, 22);
+            this.picDownloadLeaveTRList.Name = "picDownloadLeaveTRList";
+            this.picDownloadLeaveTRList.Size = new System.Drawing.Size(21, 20);
+            this.picDownloadLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picDownloadLeaveTRList.TabIndex = 22;
+            this.picDownloadLeaveTRList.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox3.Image = global::StaffSync.Properties.Resources.mail01;
+            this.pictureBox3.Location = new System.Drawing.Point(1165, 21);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(23, 22);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 21;
+            this.pictureBox3.TabStop = false;
+            // 
+            // picRefreshLeaveTRList
+            // 
+            this.picRefreshLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picRefreshLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picRefreshLeaveTRList.Image = global::StaffSync.Properties.Resources.refresh01;
+            this.picRefreshLeaveTRList.Location = new System.Drawing.Point(1190, 21);
+            this.picRefreshLeaveTRList.Name = "picRefreshLeaveTRList";
+            this.picRefreshLeaveTRList.Size = new System.Drawing.Size(23, 22);
+            this.picRefreshLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRefreshLeaveTRList.TabIndex = 20;
+            this.picRefreshLeaveTRList.TabStop = false;
+            this.picRefreshLeaveTRList.Click += new System.EventHandler(this.picRefreshLeaveTRList_Click);
+            // 
+            // lstLeaveTRList
+            // 
+            this.lstLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstLeaveTRList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.lstLeaveTRList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.LeaveTRID,
+            this.LeaveType,
+            this.LeaveDateFrom,
+            this.LeaveDateTo,
+            this.LeaveDuration,
+            this.LeaveComments,
+            this.LeaveStatus});
+            this.lstLeaveTRList.ContextMenuStrip = this.cmLeaveCancel;
+            this.lstLeaveTRList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.lstLeaveTRList.FullRowSelect = true;
+            this.lstLeaveTRList.GridLines = true;
+            this.lstLeaveTRList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lstLeaveTRList.HideSelection = false;
+            this.lstLeaveTRList.LabelWrap = false;
+            this.lstLeaveTRList.Location = new System.Drawing.Point(16, 49);
+            this.lstLeaveTRList.MultiSelect = false;
+            this.lstLeaveTRList.Name = "lstLeaveTRList";
+            this.lstLeaveTRList.ShowItemToolTips = true;
+            this.lstLeaveTRList.Size = new System.Drawing.Size(1198, 159);
+            this.lstLeaveTRList.TabIndex = 19;
+            this.lstLeaveTRList.UseCompatibleStateImageBehavior = false;
+            this.lstLeaveTRList.View = System.Windows.Forms.View.Details;
+            this.lstLeaveTRList.DoubleClick += new System.EventHandler(this.lstLeaveTRList_DoubleClick);
+            this.lstLeaveTRList.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lstLeaveTRList_MouseUp);
+            // 
+            // LeaveTRID
+            // 
+            this.LeaveTRID.Text = "LeaveTRID";
+            this.LeaveTRID.Width = 0;
+            // 
+            // LeaveType
+            // 
+            this.LeaveType.Text = "Leave Type";
+            this.LeaveType.Width = 150;
+            // 
+            // LeaveDateFrom
+            // 
+            this.LeaveDateFrom.Text = "Leave From";
+            this.LeaveDateFrom.Width = 150;
+            // 
+            // LeaveDateTo
+            // 
+            this.LeaveDateTo.Text = "Leave To";
+            this.LeaveDateTo.Width = 150;
+            // 
+            // LeaveDuration
+            // 
+            this.LeaveDuration.Text = "Leave Duration";
+            this.LeaveDuration.Width = 150;
+            // 
+            // LeaveComments
+            // 
+            this.LeaveComments.Text = "Comments";
+            this.LeaveComments.Width = 300;
+            // 
+            // LeaveStatus
+            // 
+            this.LeaveStatus.Text = "Leave Status";
+            this.LeaveStatus.Width = 300;
+            // 
+            // cmLeaveCancel
+            // 
+            this.cmLeaveCancel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.cmLeaveCancel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tlbCancelLeave});
+            this.cmLeaveCancel.Name = "cmDatamartList01";
+            this.cmLeaveCancel.Size = new System.Drawing.Size(181, 48);
+            this.cmLeaveCancel.Tag = "DatamartMenu";
+            this.cmLeaveCancel.Text = "DatamartMenu";
+            this.cmLeaveCancel.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmLeaveCancel_ItemClicked);
+            // 
+            // tlbCancelLeave
+            // 
+            this.tlbCancelLeave.Image = global::StaffSync.Properties.Resources.auth01;
+            this.tlbCancelLeave.Name = "tlbCancelLeave";
+            this.tlbCancelLeave.Size = new System.Drawing.Size(180, 22);
+            this.tlbCancelLeave.Tag = "cmbCancelLeave";
+            this.tlbCancelLeave.Text = "Cancel Leave";
+            this.tlbCancelLeave.Click += new System.EventHandler(this.tlbCancelLeave_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.chkAllowBackDate);
+            this.groupBox1.Controls.Add(this.picViewLeaves);
+            this.groupBox1.Controls.Add(this.txtLeaveNote);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.txtActualLeaveDays);
+            this.groupBox1.Controls.Add(this.txtBalanceLeave);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.txtAvailableLeave);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.txtLeaveDateTo);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.cmbDuration);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.txtLeaveDateFrom);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.cmbLeaveType);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(13, 167);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1231, 155);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Leave Request";
+            // 
+            // chkAllowBackDate
+            // 
+            this.chkAllowBackDate.Location = new System.Drawing.Point(572, 120);
+            this.chkAllowBackDate.Name = "chkAllowBackDate";
+            this.chkAllowBackDate.Size = new System.Drawing.Size(119, 20);
+            this.chkAllowBackDate.TabIndex = 50;
+            this.chkAllowBackDate.Values.Text = "Allow Back Dated";
+            // 
+            // picViewLeaves
+            // 
+            this.picViewLeaves.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picViewLeaves.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picViewLeaves.Image = global::StaffSync.Properties.Resources.search;
+            this.picViewLeaves.Location = new System.Drawing.Point(572, 59);
+            this.picViewLeaves.Name = "picViewLeaves";
+            this.picViewLeaves.Size = new System.Drawing.Size(23, 22);
+            this.picViewLeaves.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picViewLeaves.TabIndex = 49;
+            this.picViewLeaves.TabStop = false;
+            this.picViewLeaves.Click += new System.EventHandler(this.picViewLeaves_Click);
+            // 
+            // txtLeaveNote
+            // 
+            this.txtLeaveNote.Location = new System.Drawing.Point(763, 25);
+            this.txtLeaveNote.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtLeaveNote.MaxLength = 255;
+            this.txtLeaveNote.Multiline = true;
+            this.txtLeaveNote.Name = "txtLeaveNote";
+            this.txtLeaveNote.Size = new System.Drawing.Size(297, 116);
+            this.txtLeaveNote.TabIndex = 47;
+            this.txtLeaveNote.Tag = "Please enter Employeee Code";
+            this.txtLeaveNote.WordWrap = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(678, 32);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(79, 15);
+            this.label8.TabIndex = 48;
+            this.label8.Text = "Leave Note";
+            // 
+            // txtActualLeaveDays
+            // 
+            this.txtActualLeaveDays.Location = new System.Drawing.Point(488, 120);
+            this.txtActualLeaveDays.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtActualLeaveDays.MaxLength = 255;
+            this.txtActualLeaveDays.Multiline = true;
+            this.txtActualLeaveDays.Name = "txtActualLeaveDays";
+            this.txtActualLeaveDays.ReadOnly = true;
+            this.txtActualLeaveDays.Size = new System.Drawing.Size(78, 21);
+            this.txtActualLeaveDays.TabIndex = 46;
+            this.txtActualLeaveDays.Tag = "Please enter Employeee Code";
+            this.txtActualLeaveDays.WordWrap = false;
+            // 
+            // txtBalanceLeave
+            // 
+            this.txtBalanceLeave.Location = new System.Drawing.Point(413, 25);
+            this.txtBalanceLeave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtBalanceLeave.MaxLength = 255;
+            this.txtBalanceLeave.Multiline = true;
+            this.txtBalanceLeave.Name = "txtBalanceLeave";
+            this.txtBalanceLeave.ReadOnly = true;
+            this.txtBalanceLeave.Size = new System.Drawing.Size(154, 28);
+            this.txtBalanceLeave.TabIndex = 44;
+            this.txtBalanceLeave.Tag = "Please enter Employeee Code";
+            this.txtBalanceLeave.WordWrap = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(303, 32);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(108, 15);
+            this.label7.TabIndex = 45;
+            this.label7.Text = "Balance Leaves";
+            // 
+            // txtAvailableLeave
+            // 
+            this.txtAvailableLeave.Location = new System.Drawing.Point(126, 25);
+            this.txtAvailableLeave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtAvailableLeave.MaxLength = 255;
+            this.txtAvailableLeave.Multiline = true;
+            this.txtAvailableLeave.Name = "txtAvailableLeave";
+            this.txtAvailableLeave.ReadOnly = true;
+            this.txtAvailableLeave.Size = new System.Drawing.Size(154, 28);
+            this.txtAvailableLeave.TabIndex = 42;
+            this.txtAvailableLeave.Tag = "Please enter Employeee Code";
+            this.txtAvailableLeave.WordWrap = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(14, 32);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(107, 15);
+            this.label6.TabIndex = 43;
+            this.label6.Text = "Available Leave";
+            // 
+            // txtLeaveDateTo
+            // 
+            this.txtLeaveDateTo.Location = new System.Drawing.Point(362, 120);
+            this.txtLeaveDateTo.Mask = "##-##-####";
+            this.txtLeaveDateTo.Name = "txtLeaveDateTo";
+            this.txtLeaveDateTo.Size = new System.Drawing.Size(119, 21);
+            this.txtLeaveDateTo.TabIndex = 41;
+            this.txtLeaveDateTo.Tag = "Please enter Employeee Date Of Birth";
+            this.txtLeaveDateTo.ValidatingType = typeof(System.DateTime);
+            this.txtLeaveDateTo.TextChanged += new System.EventHandler(this.txtLeaveDateTo_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(335, 123);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(23, 15);
+            this.label5.TabIndex = 40;
+            this.label5.Text = "To";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbDuration
+            // 
+            this.cmbDuration.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDuration.FormattingEnabled = true;
+            this.cmbDuration.Location = new System.Drawing.Point(126, 88);
+            this.cmbDuration.Name = "cmbDuration";
+            this.cmbDuration.Size = new System.Drawing.Size(440, 23);
+            this.cmbDuration.TabIndex = 39;
+            this.cmbDuration.Tag = "Please enter Employee Designation";
+            this.cmbDuration.SelectedIndexChanged += new System.EventHandler(this.cmbDuration_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(59, 92);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(62, 15);
+            this.label4.TabIndex = 38;
+            this.label4.Text = "Duration";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtLeaveDateFrom
+            // 
+            this.txtLeaveDateFrom.Location = new System.Drawing.Point(125, 120);
+            this.txtLeaveDateFrom.Mask = "##-##-####";
+            this.txtLeaveDateFrom.Name = "txtLeaveDateFrom";
+            this.txtLeaveDateFrom.Size = new System.Drawing.Size(119, 21);
+            this.txtLeaveDateFrom.TabIndex = 37;
+            this.txtLeaveDateFrom.Tag = "Please enter Employeee Date Of Birth";
+            this.txtLeaveDateFrom.ValidatingType = typeof(System.DateTime);
+            this.txtLeaveDateFrom.TextChanged += new System.EventHandler(this.txtLeaveDateFrom_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(80, 123);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(40, 15);
+            this.label3.TabIndex = 36;
+            this.label3.Text = "From";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbLeaveType
+            // 
+            this.cmbLeaveType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbLeaveType.FormattingEnabled = true;
+            this.cmbLeaveType.Location = new System.Drawing.Point(126, 59);
+            this.cmbLeaveType.Name = "cmbLeaveType";
+            this.cmbLeaveType.Size = new System.Drawing.Size(440, 23);
+            this.cmbLeaveType.TabIndex = 35;
+            this.cmbLeaveType.Tag = "Please enter Employee Designation";
+            this.cmbLeaveType.SelectedIndexChanged += new System.EventHandler(this.cmbLeaveType_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(42, 63);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(79, 15);
+            this.label2.TabIndex = 34;
+            this.label2.Text = "Leave Type";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
@@ -731,85 +821,6 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
-            // lblSpecificLeaveBalance
-            // 
-            this.lblSpecificLeaveBalance.AutoSize = true;
-            this.lblSpecificLeaveBalance.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblSpecificLeaveBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSpecificLeaveBalance.Location = new System.Drawing.Point(678, 22);
-            this.lblSpecificLeaveBalance.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblSpecificLeaveBalance.Name = "lblSpecificLeaveBalance";
-            this.lblSpecificLeaveBalance.Size = new System.Drawing.Size(11, 15);
-            this.lblSpecificLeaveBalance.TabIndex = 50;
-            this.lblSpecificLeaveBalance.Text = " ";
-            // 
-            // picDownloadLeaveTRList
-            // 
-            this.picDownloadLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picDownloadLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picDownloadLeaveTRList.Image = global::StaffSync.Properties.Resources.download01;
-            this.picDownloadLeaveTRList.Location = new System.Drawing.Point(1142, 22);
-            this.picDownloadLeaveTRList.Name = "picDownloadLeaveTRList";
-            this.picDownloadLeaveTRList.Size = new System.Drawing.Size(21, 20);
-            this.picDownloadLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picDownloadLeaveTRList.TabIndex = 22;
-            this.picDownloadLeaveTRList.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox3.Image = global::StaffSync.Properties.Resources.mail01;
-            this.pictureBox3.Location = new System.Drawing.Point(1165, 21);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(23, 22);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 21;
-            this.pictureBox3.TabStop = false;
-            // 
-            // picRefreshLeaveTRList
-            // 
-            this.picRefreshLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picRefreshLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picRefreshLeaveTRList.Image = global::StaffSync.Properties.Resources.refresh01;
-            this.picRefreshLeaveTRList.Location = new System.Drawing.Point(1190, 21);
-            this.picRefreshLeaveTRList.Name = "picRefreshLeaveTRList";
-            this.picRefreshLeaveTRList.Size = new System.Drawing.Size(23, 22);
-            this.picRefreshLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picRefreshLeaveTRList.TabIndex = 20;
-            this.picRefreshLeaveTRList.TabStop = false;
-            this.picRefreshLeaveTRList.Click += new System.EventHandler(this.picRefreshLeaveTRList_Click);
-            // 
-            // tlbCancelLeave
-            // 
-            this.tlbCancelLeave.Image = global::StaffSync.Properties.Resources.auth01;
-            this.tlbCancelLeave.Name = "tlbCancelLeave";
-            this.tlbCancelLeave.Size = new System.Drawing.Size(143, 22);
-            this.tlbCancelLeave.Tag = "cmbCancelLeave";
-            this.tlbCancelLeave.Text = "Cancel Leave";
-            // 
-            // picViewLeaves
-            // 
-            this.picViewLeaves.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picViewLeaves.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picViewLeaves.Image = global::StaffSync.Properties.Resources.search;
-            this.picViewLeaves.Location = new System.Drawing.Point(572, 59);
-            this.picViewLeaves.Name = "picViewLeaves";
-            this.picViewLeaves.Size = new System.Drawing.Size(23, 22);
-            this.picViewLeaves.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picViewLeaves.TabIndex = 49;
-            this.picViewLeaves.TabStop = false;
-            this.picViewLeaves.Click += new System.EventHandler(this.picViewLeaves_Click);
-            // 
-            // picEmpPhoto
-            // 
-            this.picEmpPhoto.Location = new System.Drawing.Point(764, 26);
-            this.picEmpPhoto.Name = "picEmpPhoto";
-            this.picEmpPhoto.Size = new System.Drawing.Size(131, 115);
-            this.picEmpPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picEmpPhoto.TabIndex = 34;
-            this.picEmpPhoto.TabStop = false;
-            // 
             // frmLeavesMaster
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -831,20 +842,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.cmLeaveCancel.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRefreshLeaveTRList)).EndInit();
+            this.cmLeaveCancel.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picViewLeaves)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).EndInit();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -910,5 +921,6 @@
         public System.Windows.Forms.Label lblLeaveMasID;
         public System.Windows.Forms.Label lblSpecificLeaveBalance;
         private System.Windows.Forms.PictureBox picViewLeaves;
+        private Krypton.Toolkit.KryptonCheckBox chkAllowBackDate;
     }
 }

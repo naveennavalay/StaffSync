@@ -220,6 +220,12 @@
     <Compile Include="frmEmpBulkLeaveApproval.Designer.cs">
       <DependentUpon>frmEmpBulkLeaveApproval.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmLeaveStatements.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLeaveStatements.Designer.cs">
+      <DependentUpon>frmLeaveStatements.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLeaveTypeMaster.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -537,6 +543,9 @@
     <EmbeddedResource Include="frmEmpBulkLeaveApproval.resx">
       <DependentUpon>frmEmpBulkLeaveApproval.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmLeaveStatements.resx">
+      <DependentUpon>frmLeaveStatements.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLeaveTypeMaster.resx">
       <DependentUpon>frmLeaveTypeMaster.cs</DependentUpon>
     </EmbeddedResource>
@@ -775,6 +784,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hrm02.ico" />
+    <None Include="images\icons\reports.ico" />
     <None Include="images\icons\salayconfig.ico" />
     <None Include="images\icons\leave-config.ico" />
     <None Include="images\icons\leave-allotment.ico" />

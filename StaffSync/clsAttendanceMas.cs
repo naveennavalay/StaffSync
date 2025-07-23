@@ -123,7 +123,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO EmpDailyAttendanceInfo (AttID, EmpID, AttDate, AttStatus, LeaveTRID) VALUES " +
-                 "(" + maxRowCount + "," + txtEmpID + ",'" + AttendanceDate + "','" + AttendanceStatus + "'," + LeaveTRID + ")";
+                 "(" + maxRowCount + "," + txtEmpID + ",'" + AttendanceDate.ToString("dd-MMM-yyyy") + "','" + AttendanceStatus + "'," + LeaveTRID + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

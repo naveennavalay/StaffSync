@@ -160,6 +160,7 @@ namespace StaffSync
                     for (int iLeaveCounter = 1; iLeaveCounter <= 1; iLeaveCounter++)
                     {
                         employeeLeaveTRID = objLeaveTRList.RejectLeave(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, clsCurrentUser.UserID);
+                        objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) + Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
                         objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), "Present", Convert.ToInt16(lblLeaveTRID.Text.ToString()));
                     }
                 }
@@ -365,7 +366,7 @@ namespace StaffSync
                 if (objEmployeeSpecificLeaveInfo.Count > 0)
                 {
                     lblLeaveTRID.Text = selectedLeaveID.ToString();
-                    cmbLeaveType.SelectedIndex = objEmployeeSpecificLeaveInfo[0].LeaveTypeID;
+                    cmbLeaveType.SelectedIndex = objEmployeeSpecificLeaveInfo[0].LeaveTypeID - 1;
                     cmbDuration.SelectedIndex = objEmployeeSpecificLeaveInfo[0].LeaveDuration == 1 ? 0 : 1;
                     txtLeaveDateFrom.Text = objEmployeeSpecificLeaveInfo[0].ActualLeaveDateFrom.ToString("dd-MM-yyyy");
                     txtLeaveDateTo.Text = objEmployeeSpecificLeaveInfo[0].ActualLeaveDateTo.ToString("dd-MM-yyyy");
@@ -378,7 +379,7 @@ namespace StaffSync
                     }
                     else
                     {
-                        txtBalanceLeave.Text = (Convert.ToDecimal(txtAvailableLeave.Text.ToString()) - Convert.ToDecimal(txtActualLeaveDays.Text.ToString())).ToString();
+                        txtBalanceLeave.Text = (Convert.ToDecimal(txtBalanceLeave.Text.ToString()) + Convert.ToDecimal(txtActualLeaveDays.Text.ToString())).ToString();
                     }
                 }
 
@@ -526,5 +527,12 @@ namespace StaffSync
             }
         }
 
+        private void cmbLeaveType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lblEmpID.Text.Trim() == "")
+                return;
+
+            lblSpecificLeaveBalance.Text = objLeaveTRList.getSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1)).ToString();
+        }
     }
 }
