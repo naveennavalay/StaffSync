@@ -160,15 +160,31 @@ namespace StaffSync
                     for (int iLeaveCounter = 1; iLeaveCounter <= 1; iLeaveCounter++)
                     {
                         employeeLeaveTRID = objLeaveTRList.ApproveLeave(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, clsCurrentUser.UserID);
-                        objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()) , Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), Convert.ToDecimal(txtBalanceLeave.Text) + Convert.ToDecimal(txtActualLeaveDays.Text), DateTime.Now);
-                        objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), strAttendanceStatus, Convert.ToInt16(lblLeaveTRID.Text.ToString()));
+                        if (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString().ToLower() == "")
+                        {
+                            objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), (Convert.ToDecimal(txtBalanceLeave.Text)), DateTime.Now);
+                            objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), strAttendanceStatus, Convert.ToInt16(lblLeaveTRID.Text.ToString()));
+                        }
+                        else if (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString().ToLower() == "cancelled")
+                        {
+                            objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), (Convert.ToDecimal(txtBalanceLeave.Text) + Convert.ToDecimal(txtActualLeaveDays.Text)), DateTime.Now);
+                            objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), "Present", Convert.ToInt16(lblLeaveTRID.Text.ToString()));
+                        }
                     }
                 }
                 else if (Convert.ToDecimal(txtActualLeaveDays.Text) < 0)
                 {
                     employeeLeaveTRID = objLeaveTRList.ApproveLeaveCancellation(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, clsCurrentUser.UserID);
-                    objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) - Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
-                    objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), strAttendanceStatus, Convert.ToInt16(lblLeaveTRID.Text.ToString()));
+                    if (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString().ToLower() == "")
+                    {
+                        objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) - Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
+                        objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), strAttendanceStatus, Convert.ToInt16(lblLeaveTRID.Text.ToString()));
+                    }
+                    else if (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString().ToLower() == "cancelled")
+                    {
+                        objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) - Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
+                        objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), strAttendanceStatus, Convert.ToInt16(lblLeaveTRID.Text.ToString()));
+                    }
                 }
                 if (employeeLeaveTRID > 0)
                 {
@@ -394,8 +410,12 @@ namespace StaffSync
                 int iRowCounter = 0;
                 if (objEmployeeSpecificLeaveInfo.Count > 0)
                 {
-                    foreach (var indRow in lstLeaveTRList.Items)
+                    foreach (ListViewItem indRow in lstLeaveTRList.Items)
                     {
+                        if (indRow.SubItems[7].Text.ToString().ToLower() == "cancelled")
+                        {
+                            indRow.BackColor = Color.LightGray;
+                        }
                         if (indRow.ToString().Contains(lblLeaveTRID.Text))
                         {
                             lstLeaveTRList.Items[iRowCounter].Selected = true;
@@ -523,7 +543,9 @@ namespace StaffSync
                     indEmployeeLeaveTRList.ActualLeaveDateTo != null ? Convert.ToDateTime(indEmployeeLeaveTRList.ActualLeaveDateTo.ToString()).ToString("dd-MMM-yyyy") : "",
                     indEmployeeLeaveTRList.LeaveDuration != null ? indEmployeeLeaveTRList.LeaveDuration.ToString() : "0.00",
                     indEmployeeLeaveTRList.LeaveComments.ToString(),
-                    indEmployeeLeaveTRList.LeaveStatus = strLeaveStatus.ToString()
+                    indEmployeeLeaveTRList.LeaveStatus = strLeaveStatus.ToString(),
+                    Convert.ToBoolean(indEmployeeLeaveTRList.Canceled) == true ? "Cancelled" : "",
+                    Convert.ToBoolean(indEmployeeLeaveTRList.Canceled) == true ? indEmployeeLeaveTRList.CanceledDate.ToString() : ""
                 });
 
                 lstLeaveTRList.Items.AddRange(new System.Windows.Forms.ListViewItem[] { listViewItem1 });

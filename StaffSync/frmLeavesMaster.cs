@@ -182,7 +182,7 @@ namespace StaffSync
                 else
                 {
                     employeeLeaveTRID = objLeaveTRList.CancelLeaveTransaction(Convert.ToInt16(lblCancelStatus.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), "");
-                    objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString())));
+                    objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) + Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
                 }
                 if (employeeLeaveTRID > 0)
                 {
@@ -411,10 +411,7 @@ namespace StaffSync
 
         private void lstLeaveTRList_DoubleClick(object sender, EventArgs e)
         {
-            MessageBox.Show(lstLeaveTRList.SelectedItems[0].SubItems[0].Text.ToString());
-
             DateTime dtLeaveAppliedDate = Convert.ToDateTime(lstLeaveTRList.SelectedItems[0].SubItems[2].Text.ToString());
-            MessageBox.Show(dtLeaveAppliedDate.ToString("dd-MM-yyyy"));
         }
 
         private void txtLeaveDateTo_TextChanged(object sender, EventArgs e)
@@ -524,13 +521,21 @@ namespace StaffSync
                 lstLeaveTRList.Items.AddRange(new System.Windows.Forms.ListViewItem[] { listViewItem1 });
             }
             txtAvailableLeave.Text = objLeaveTRList.getBalanceLeave(Convert.ToInt16(lblEmpID.Text)).ToString();
+
+            foreach (ListViewItem itemRow in this.lstLeaveTRList.Items)
+            {
+                if(itemRow.SubItems[7].Text.ToString().ToLower() == "cancelled")
+                {
+                    itemRow.BackColor = Color.LightGray;
+                }
+            }
         }
 
         private void lstLeaveTRList_MouseUp(object sender, MouseEventArgs e)
         {
             if (lblActionMode.Text == "add")
             {
-                if (lstLeaveTRList.SelectedItems[0].SubItems[4].Text.ToString() != "0" && lstLeaveTRList.SelectedItems[0].SubItems[6].Text.ToString() == "Pending") //"LeaveDuration"                    
+                if (lstLeaveTRList.SelectedItems[0].SubItems[4].Text.ToString() != "0" && (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString() != "Cancelled") && (lstLeaveTRList.SelectedItems[0].SubItems[6].Text.ToString() == "Pending"))
                 {
                     if (e.Button == MouseButtons.Right)
                     {
@@ -546,13 +551,18 @@ namespace StaffSync
         {
             lblCancelStatus.Text = lstLeaveTRList.SelectedItems[0].SubItems[0].Text.ToString();
             cmbLeaveType.Text = lstLeaveTRList.SelectedItems[0].SubItems[1].Text.ToString();
+            cmbLeaveType.Enabled = false;
             txtLeaveDateFrom.Text = Convert.ToDateTime(lstLeaveTRList.SelectedItems[0].SubItems[2].Text.ToString()).ToString("dd-MM-yyyy");
+            txtLeaveDateFrom.Enabled = false;
             txtLeaveDateTo.Text = Convert.ToDateTime(lstLeaveTRList.SelectedItems[0].SubItems[3].Text.ToString()).ToString("dd-MM-yyyy");
+            txtLeaveDateTo.Enabled = false;
             txtActualLeaveDays.Text = lstLeaveTRList.SelectedItems[0].SubItems[4].Text.ToString();
+            txtActualLeaveDays.Enabled = false;
             if (txtActualLeaveDays.Text.ToString().Trim() == "0.5")
                 cmbDuration.SelectedIndex = 1;
             else
                 cmbDuration.SelectedIndex = 0;
+            cmbDuration.Enabled = false;
             txtLeaveNote.Text = lstLeaveTRList.SelectedItems[0].SubItems[5].Text.ToString();
         }
 

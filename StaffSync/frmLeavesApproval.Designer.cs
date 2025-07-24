@@ -230,7 +230,6 @@
             this.lblLeaveMasID.Size = new System.Drawing.Size(11, 15);
             this.lblLeaveMasID.TabIndex = 25;
             this.lblLeaveMasID.Text = " ";
-            this.lblLeaveMasID.Visible = false;
             // 
             // lblSpecificLeaveBalance
             // 
@@ -243,7 +242,6 @@
             this.lblSpecificLeaveBalance.Size = new System.Drawing.Size(11, 15);
             this.lblSpecificLeaveBalance.TabIndex = 24;
             this.lblSpecificLeaveBalance.Text = " ";
-            this.lblSpecificLeaveBalance.Visible = false;
             // 
             // lblLeaveTRID
             // 
@@ -256,7 +254,6 @@
             this.lblLeaveTRID.Size = new System.Drawing.Size(11, 15);
             this.lblLeaveTRID.TabIndex = 23;
             this.lblLeaveTRID.Text = " ";
-            this.lblLeaveTRID.Visible = false;
             // 
             // picDownloadLeaveTRList
             // 

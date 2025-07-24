@@ -433,7 +433,6 @@ namespace StaffSync
                     });
                 }
 
-
                 strQuery = "SELECT " +
                                 "EmpMas.EmpID, " +
                                 "EmpMas.EmpCode, " +

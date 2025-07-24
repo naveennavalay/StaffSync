@@ -492,7 +492,7 @@
             this.cmLeaveCancel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tlbCancelLeave});
             this.cmLeaveCancel.Name = "cmDatamartList01";
-            this.cmLeaveCancel.Size = new System.Drawing.Size(181, 48);
+            this.cmLeaveCancel.Size = new System.Drawing.Size(144, 26);
             this.cmLeaveCancel.Tag = "DatamartMenu";
             this.cmLeaveCancel.Text = "DatamartMenu";
             this.cmLeaveCancel.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmLeaveCancel_ItemClicked);
@@ -501,7 +501,7 @@
             // 
             this.tlbCancelLeave.Image = global::StaffSync.Properties.Resources.auth01;
             this.tlbCancelLeave.Name = "tlbCancelLeave";
-            this.tlbCancelLeave.Size = new System.Drawing.Size(180, 22);
+            this.tlbCancelLeave.Size = new System.Drawing.Size(143, 22);
             this.tlbCancelLeave.Tag = "cmbCancelLeave";
             this.tlbCancelLeave.Text = "Cancel Leave";
             this.tlbCancelLeave.Click += new System.EventHandler(this.tlbCancelLeave_Click);
@@ -835,7 +835,7 @@
             this.Name = "frmLeavesMaster";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Leave Management";
+            this.Text = "Leave Request";
             this.Load += new System.EventHandler(this.frmLeavesMaster_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
