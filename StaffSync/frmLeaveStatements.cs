@@ -596,6 +596,14 @@ namespace StaffSync
             dtgLeaveStatement.Columns["LeaveRejectedDate"].Visible = false;
             dtgLeaveStatement.Columns["LeaveStatus"].Visible = false; 
             dtgLeaveStatement.Columns["ApprovedOrRejectedByEmpID"].Visible = false;
+
+            foreach (DataGridViewRow dc in dtgLeaveStatement.Rows)
+            {
+                if (dc.Cells["LeaveStatus"].Value.ToString().ToLower() == "cancelled")
+                {
+                    dc.DefaultCellStyle.BackColor = Color.LightGray;
+                }
+            }
         }
     }
 }

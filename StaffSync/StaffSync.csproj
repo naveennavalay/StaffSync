@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsEmpLeaveEntitlementInfo.cs" />
+    <Compile Include="clsWeeklyOffInfo.cs" />
     <Compile Include="CurrentUser.cs" />
     <Compile Include="AppVariables.cs" />
     <Compile Include="clsClientInfo.cs" />
@@ -207,6 +208,24 @@
     </Compile>
     <Compile Include="frmCurrentUserLeaveMaster.Designer.cs">
       <DependentUpon>frmCurrentUserLeaveMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmWeeklyProfileDetailsInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWeeklyProfileDetailsInfo.Designer.cs">
+      <DependentUpon>frmWeeklyProfileDetailsInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmWeeklyProfileMasterList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWeeklyProfileMasterList.Designer.cs">
+      <DependentUpon>frmWeeklyProfileMasterList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmWeeklyProfileMas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWeeklyProfileMas.Designer.cs">
+      <DependentUpon>frmWeeklyProfileMas.cs</DependentUpon>
     </Compile>
     <Compile Include="frmEmpLeaveEntitlement.cs">
       <SubType>Form</SubType>
@@ -536,6 +555,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCurrentUserLeaveMaster.resx">
       <DependentUpon>frmCurrentUserLeaveMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWeeklyProfileDetailsInfo.resx">
+      <DependentUpon>frmWeeklyProfileDetailsInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWeeklyProfileMasterList.resx">
+      <DependentUpon>frmWeeklyProfileMasterList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWeeklyProfileMas.resx">
+      <DependentUpon>frmWeeklyProfileMas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEmpLeaveEntitlement.resx">
       <DependentUpon>frmEmpLeaveEntitlement.cs</DependentUpon>

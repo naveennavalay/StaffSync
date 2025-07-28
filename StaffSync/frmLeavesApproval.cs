@@ -152,6 +152,7 @@ namespace StaffSync
         {
             this.Cursor = Cursors.WaitCursor;
             string strAttendanceStatus = cmbDuration.SelectedItem.ToString() == "Full Day" ? "Leave" : cmbDuration.SelectedItem.ToString() + " Day Leave";
+            strAttendanceStatus = "Present";
             if (lblActionMode.Text == "add")
             {
                 int employeeLeaveTRID = 0;

@@ -1630,5 +1630,21 @@ namespace StaffSync
             frmLeaveStatements frmLeaveStatements = new frmLeaveStatements();
             frmLeaveStatements.ShowDialog(this);
         }
+
+        private void cmbWeeklyOffList_Click(object sender, EventArgs e)
+        {
+
+            frmWeeklyProfileMas frmWeeklyProfileMas = new frmWeeklyProfileMas();
+            frmWeeklyProfileMas.ShowDialog(this);
+
+            //frmWeeklyProfileMaster frmWeeklyProfileMaster = new frmWeeklyProfileMaster();
+            //frmWeeklyProfileMaster.ShowDialog(this);
+        }
+
+        private void cmbWeeklyOffConfiguration_Click(object sender, EventArgs e)
+        {
+            frmWeeklyProfileDetailsInfo frmWeeklyProfileDetailsInfo = new frmWeeklyProfileDetailsInfo();
+            frmWeeklyProfileDetailsInfo.ShowDialog(this);
+        }
     }
 }

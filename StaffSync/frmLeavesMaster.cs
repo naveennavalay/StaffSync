@@ -157,6 +157,14 @@ namespace StaffSync
                 return;
             }
 
+            bool AttendanceEntryAlreadyExist = objLeaveTRList.AttendanceExistsForToday(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text));
+            if(AttendanceEntryAlreadyExist)
+            {
+                MessageBox.Show("Leave entry already exists for the selected date.\nPlease verify once again to continue.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Cursor = Cursors.Default;
+                return;
+            }
+
 
             if (lblActionMode.Text == "add")
             {

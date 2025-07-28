@@ -369,6 +369,7 @@ namespace StaffSync
                                     "EmpDailyAttendanceInfo.LeaveTRID, " +
                                     "0 AS LeaveTypeID, " +
                                     "'' AS LeaveTypeTitle, " +
+                                    "'' AS LeaveStatus, " +
                                     "'1900-01-01' AS LeaveAppliedDate, " +
                                     "'' AS LeaveComments, " +
                                     "null AS ActualLeaveDateFrom, " +
@@ -429,6 +430,7 @@ namespace StaffSync
                         LeaveComments = indEmployeeLeaveTRList.LeaveComments,
                         LeaveApprovalComments = indEmployeeLeaveTRList.LeaveApprovalComments,
                         LeaveRejectionComments = indEmployeeLeaveTRList.LeaveRejectionComments,
+                        LeaveStatus = indEmployeeLeaveTRList.LeaveStatus,
                         OrderID = indEmployeeLeaveTRList.OrderID
                     });
                 }
@@ -447,6 +449,7 @@ namespace StaffSync
                                 "EmpDailyAttendanceInfo.LeaveTRID, " +
                                 "EmpLeaveTransMas.LeaveAppliedDate, " +
                                 "EmpLeaveTransMas.LeaveComments, " +
+                                "'' AS LeaveStatus, " +
                                 "EmpLeaveTransMas.ActualLeaveDateFrom, " +
                                 "EmpLeaveTransMas.ActualLeaveDateTo, " +
                                 "EmpLeaveTransMas.LeaveDuration, " +
@@ -516,6 +519,7 @@ namespace StaffSync
                         LeaveComments = indEmployeeLeaveTRList.LeaveComments,
                         LeaveApprovalComments = indEmployeeLeaveTRList.LeaveRejectionComments.ToString().StartsWith("Rejected") ? "" : indEmployeeLeaveTRList.LeaveApprovalComments,
                         LeaveRejectionComments = indEmployeeLeaveTRList.LeaveApprovalComments.ToString().StartsWith("Approved") ? "" : indEmployeeLeaveTRList.LeaveRejectionComments,
+                        LeaveStatus = indEmployeeLeaveTRList.LeaveStatus,
                         OrderID = indEmployeeLeaveTRList.OrderID
                     });
                 }
@@ -567,6 +571,40 @@ namespace StaffSync
             }
 
             return EmpOOOList;
+        }
+
+        public bool AttendanceExistsForToday(int txtEmpID, DateTime dtDate)
+        {
+            bool attendanceExists = false;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+                string strQuery = "SELECT COUNT(AttID) FROM EmpMas " +
+                    " INNER JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " + 
+                    " WHERE " + 
+                    " ( ( " + 
+                    " (EmpDailyAttendanceInfo.AttDate) = #" + dtDate.ToString("dd-MMM-yyyy") + "#" +
+                    " )" +
+                    " AND ((EmpMas.EmpID) = " +  txtEmpID + "));";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                int count = (int)cmd.ExecuteScalar();
+                
+                if (count > 0)
+                    attendanceExists = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return attendanceExists;
         }
 
         public int InsertDefaultLeaveAllotment(int txtEmpID, decimal TotalLeaves, decimal TotalBalanceLeave, DateTime txtEffectiveDate)

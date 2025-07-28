@@ -148,6 +148,8 @@
             this.DocPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label23 = new System.Windows.Forms.Label();
             this.tabLeaves = new Krypton.Navigator.KryptonPage();
+            this.cmbWeeklyOff = new Krypton.Toolkit.KryptonComboBox();
+            this.label50 = new System.Windows.Forms.Label();
             this.txtTotalBalanceLeaves = new Krypton.Toolkit.KryptonTextBox();
             this.txtTotalLeavesAlloted = new Krypton.Toolkit.KryptonTextBox();
             this.label49 = new System.Windows.Forms.Label();
@@ -277,6 +279,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picRefreshDocumentsList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabLeaves)).BeginInit();
             this.tabLeaves.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbWeeklyOff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgLeaveEntitlement)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -1891,6 +1894,8 @@
             // tabLeaves
             // 
             this.tabLeaves.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabLeaves.Controls.Add(this.cmbWeeklyOff);
+            this.tabLeaves.Controls.Add(this.label50);
             this.tabLeaves.Controls.Add(this.txtTotalBalanceLeaves);
             this.tabLeaves.Controls.Add(this.txtTotalLeavesAlloted);
             this.tabLeaves.Controls.Add(this.label49);
@@ -1908,6 +1913,29 @@
             this.tabLeaves.Text = "Leaves";
             this.tabLeaves.ToolTipTitle = "Page ToolTip";
             this.tabLeaves.UniqueName = "a3b600aac3624ceda8d85faf520618f1";
+            // 
+            // cmbWeeklyOff
+            // 
+            this.cmbWeeklyOff.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWeeklyOff.DropDownWidth = 440;
+            this.cmbWeeklyOff.Location = new System.Drawing.Point(138, 82);
+            this.cmbWeeklyOff.Name = "cmbWeeklyOff";
+            this.cmbWeeklyOff.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbWeeklyOff.Size = new System.Drawing.Size(581, 22);
+            this.cmbWeeklyOff.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbWeeklyOff.TabIndex = 56;
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label50.Location = new System.Drawing.Point(61, 85);
+            this.label50.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(74, 15);
+            this.label50.TabIndex = 55;
+            this.label50.Text = "Weekly Off";
+            this.label50.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtTotalBalanceLeaves
             // 
@@ -1968,12 +1996,12 @@
             this.dtgLeaveEntitlement.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dtgLeaveEntitlement.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
             this.dtgLeaveEntitlement.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgLeaveEntitlement.Location = new System.Drawing.Point(14, 74);
+            this.dtgLeaveEntitlement.Location = new System.Drawing.Point(14, 116);
             this.dtgLeaveEntitlement.MultiSelect = false;
             this.dtgLeaveEntitlement.Name = "dtgLeaveEntitlement";
             this.dtgLeaveEntitlement.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgLeaveEntitlement.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgLeaveEntitlement.Size = new System.Drawing.Size(1199, 341);
+            this.dtgLeaveEntitlement.Size = new System.Drawing.Size(1199, 299);
             this.dtgLeaveEntitlement.TabIndex = 46;
             // 
             // picDownloadLeaveTRList
@@ -2850,6 +2878,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tabLeaves)).EndInit();
             this.tabLeaves.ResumeLayout(false);
             this.tabLeaves.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbWeeklyOff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgLeaveEntitlement)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDownloadLeaveTRList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -3091,5 +3120,7 @@
         private Krypton.Toolkit.KryptonTextBox txtTotalBalanceLeaves;
         private Krypton.Toolkit.KryptonTextBox txtTotalLeavesAlloted;
         private System.Windows.Forms.Label label49;
+        private Krypton.Toolkit.KryptonComboBox cmbWeeklyOff;
+        private System.Windows.Forms.Label label50;
     }
 }

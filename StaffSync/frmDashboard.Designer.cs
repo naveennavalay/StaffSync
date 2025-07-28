@@ -75,6 +75,8 @@
             this.cmbBulkLeaveApproval = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbBulkLeaveRejection = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmbMyLeaveReports = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbMyLeaveStatementReport01 = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonRibbonGroup6 = new Krypton.Ribbon.KryptonRibbonGroup();
             this.kryptonRibbonGroupTriple14 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbManagePayrollManagement = new Krypton.Ribbon.KryptonRibbonGroupButton();
@@ -111,6 +113,7 @@
             this.cmbDesignationList01 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbStatesList01 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbRelationshipList01 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbWeeklyOffList = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.cmbSalaryConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbSalaryProfile = new System.Windows.Forms.ToolStripMenuItem();
@@ -155,8 +158,7 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
-            this.cmbMyLeaveReports = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmbMyLeaveStatementReport01 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbWeeklyOffConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -496,7 +498,7 @@
             this.toolStripMenuItem6,
             this.cmbMyLeaveReports});
             this.cmLeaveManagement.Name = "cmDatamartList01";
-            this.cmLeaveManagement.Size = new System.Drawing.Size(183, 204);
+            this.cmLeaveManagement.Size = new System.Drawing.Size(183, 182);
             this.cmLeaveManagement.Tag = "DatamartMenu";
             this.cmLeaveManagement.Text = "Datamart Menu";
             this.cmLeaveManagement.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmLeaveManagement_ItemClicked);
@@ -569,6 +571,25 @@
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
             this.toolStripMenuItem6.Size = new System.Drawing.Size(179, 6);
+            // 
+            // cmbMyLeaveReports
+            // 
+            this.cmbMyLeaveReports.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmbMyLeaveStatementReport01});
+            this.cmbMyLeaveReports.Image = global::StaffSync.Properties.Resources.reports;
+            this.cmbMyLeaveReports.Name = "cmbMyLeaveReports";
+            this.cmbMyLeaveReports.Size = new System.Drawing.Size(182, 22);
+            this.cmbMyLeaveReports.Tag = "cmbMyLeaveReports";
+            this.cmbMyLeaveReports.Text = "Reports";
+            // 
+            // cmbMyLeaveStatementReport01
+            // 
+            this.cmbMyLeaveStatementReport01.Image = global::StaffSync.Properties.Resources.leave_statement;
+            this.cmbMyLeaveStatementReport01.Name = "cmbMyLeaveStatementReport01";
+            this.cmbMyLeaveStatementReport01.Size = new System.Drawing.Size(166, 22);
+            this.cmbMyLeaveStatementReport01.Tag = "cmbMyLeaveStatementReport01";
+            this.cmbMyLeaveStatementReport01.Text = "Leave Statements";
+            this.cmbMyLeaveStatementReport01.Click += new System.EventHandler(this.cmbMyLeaveStatementReport01_Click);
             // 
             // kryptonRibbonGroup6
             // 
@@ -789,7 +810,7 @@
             this.toolStripMenuItem3,
             this.cmbLeaveConfiguration});
             this.cmbApplicationSettings.Name = "cmDatamartList01";
-            this.cmbApplicationSettings.Size = new System.Drawing.Size(183, 82);
+            this.cmbApplicationSettings.Size = new System.Drawing.Size(183, 104);
             this.cmbApplicationSettings.Tag = "DatamartMenu";
             this.cmbApplicationSettings.Text = "Datamart Menu";
             this.cmbApplicationSettings.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmbApplicationSettings_ItemClicked);
@@ -804,7 +825,9 @@
             this.cmbDepartmentList01,
             this.cmbDesignationList01,
             this.cmbStatesList01,
-            this.cmbRelationshipList01});
+            this.cmbRelationshipList01,
+            this.cmbWeeklyOffList,
+            this.cmbWeeklyOffConfiguration});
             this.cmbMasterList.Image = global::StaffSync.Properties.Resources.master_data;
             this.cmbMasterList.Name = "cmbMasterList";
             this.cmbMasterList.Size = new System.Drawing.Size(182, 22);
@@ -814,7 +837,7 @@
             // cmbCompanyList01
             // 
             this.cmbCompanyList01.Name = "cmbCompanyList01";
-            this.cmbCompanyList01.Size = new System.Drawing.Size(160, 22);
+            this.cmbCompanyList01.Size = new System.Drawing.Size(209, 22);
             this.cmbCompanyList01.Tag = "cmbCompanyList";
             this.cmbCompanyList01.Text = "Company List";
             this.cmbCompanyList01.Click += new System.EventHandler(this.cmbCompanyList01_Click_1);
@@ -822,7 +845,7 @@
             // cmbEducationList01
             // 
             this.cmbEducationList01.Name = "cmbEducationList01";
-            this.cmbEducationList01.Size = new System.Drawing.Size(160, 22);
+            this.cmbEducationList01.Size = new System.Drawing.Size(209, 22);
             this.cmbEducationList01.Tag = "cmbEducationList";
             this.cmbEducationList01.Text = "Education List";
             this.cmbEducationList01.Click += new System.EventHandler(this.cmbEducationList01_Click);
@@ -830,7 +853,7 @@
             // cmbSkillsList01
             // 
             this.cmbSkillsList01.Name = "cmbSkillsList01";
-            this.cmbSkillsList01.Size = new System.Drawing.Size(160, 22);
+            this.cmbSkillsList01.Size = new System.Drawing.Size(209, 22);
             this.cmbSkillsList01.Tag = "cmbSkillsList";
             this.cmbSkillsList01.Text = "Skills List";
             this.cmbSkillsList01.Click += new System.EventHandler(this.cmbSkillsList01_Click);
@@ -838,7 +861,7 @@
             // cmbDepartmentList01
             // 
             this.cmbDepartmentList01.Name = "cmbDepartmentList01";
-            this.cmbDepartmentList01.Size = new System.Drawing.Size(160, 22);
+            this.cmbDepartmentList01.Size = new System.Drawing.Size(209, 22);
             this.cmbDepartmentList01.Tag = "cmbDepartmentList";
             this.cmbDepartmentList01.Text = "Department List";
             this.cmbDepartmentList01.Click += new System.EventHandler(this.cmbDepartmentList01_Click);
@@ -846,7 +869,7 @@
             // cmbDesignationList01
             // 
             this.cmbDesignationList01.Name = "cmbDesignationList01";
-            this.cmbDesignationList01.Size = new System.Drawing.Size(160, 22);
+            this.cmbDesignationList01.Size = new System.Drawing.Size(209, 22);
             this.cmbDesignationList01.Tag = "cmbDesignationList";
             this.cmbDesignationList01.Text = "Designation List";
             this.cmbDesignationList01.Click += new System.EventHandler(this.cmbDesignationList01_Click);
@@ -854,7 +877,7 @@
             // cmbStatesList01
             // 
             this.cmbStatesList01.Name = "cmbStatesList01";
-            this.cmbStatesList01.Size = new System.Drawing.Size(160, 22);
+            this.cmbStatesList01.Size = new System.Drawing.Size(209, 22);
             this.cmbStatesList01.Tag = "cmbStatesList";
             this.cmbStatesList01.Text = "States List";
             this.cmbStatesList01.Click += new System.EventHandler(this.cmbStatesList01_Click);
@@ -862,10 +885,18 @@
             // cmbRelationshipList01
             // 
             this.cmbRelationshipList01.Name = "cmbRelationshipList01";
-            this.cmbRelationshipList01.Size = new System.Drawing.Size(160, 22);
+            this.cmbRelationshipList01.Size = new System.Drawing.Size(209, 22);
             this.cmbRelationshipList01.Tag = "cmbRelationshipList";
             this.cmbRelationshipList01.Text = "Relationship List";
             this.cmbRelationshipList01.Click += new System.EventHandler(this.cmbRelationshipList01_Click);
+            // 
+            // cmbWeeklyOffList
+            // 
+            this.cmbWeeklyOffList.Name = "cmbWeeklyOffList";
+            this.cmbWeeklyOffList.Size = new System.Drawing.Size(209, 22);
+            this.cmbWeeklyOffList.Tag = "cmbWeeklyOffList";
+            this.cmbWeeklyOffList.Text = "Weekly Off List";
+            this.cmbWeeklyOffList.Click += new System.EventHandler(this.cmbWeeklyOffList_Click);
             // 
             // toolStripMenuItem4
             // 
@@ -1014,7 +1045,7 @@
             this.kryptonSplitContainer1.Panel2.Controls.Add(this.kryptonSplitContainer2);
             this.kryptonSplitContainer1.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
             this.kryptonSplitContainer1.Size = new System.Drawing.Size(1507, 467);
-            this.kryptonSplitContainer1.SplitterDistance = 502;
+            this.kryptonSplitContainer1.SplitterDistance = 501;
             this.kryptonSplitContainer1.TabIndex = 6;
             // 
             // kryptonSplitContainer3
@@ -1033,8 +1064,8 @@
             // 
             this.kryptonSplitContainer3.Panel2.Controls.Add(this.kryptonPanel6);
             this.kryptonSplitContainer3.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer3.Size = new System.Drawing.Size(502, 467);
-            this.kryptonSplitContainer3.SplitterDistance = 231;
+            this.kryptonSplitContainer3.Size = new System.Drawing.Size(501, 467);
+            this.kryptonSplitContainer3.SplitterDistance = 230;
             this.kryptonSplitContainer3.TabIndex = 7;
             // 
             // kryptonPanel1
@@ -1043,7 +1074,7 @@
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(502, 231);
+            this.kryptonPanel1.Size = new System.Drawing.Size(501, 230);
             this.kryptonPanel1.TabIndex = 0;
             // 
             // dtgLeaveApprovals
@@ -1051,9 +1082,9 @@
             this.dtgLeaveApprovals.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dtgLeaveApprovals.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgLeaveApprovals.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dtgLeaveApprovals.Location = new System.Drawing.Point(0, 36);
+            this.dtgLeaveApprovals.Location = new System.Drawing.Point(0, 35);
             this.dtgLeaveApprovals.Name = "dtgLeaveApprovals";
-            this.dtgLeaveApprovals.Size = new System.Drawing.Size(502, 195);
+            this.dtgLeaveApprovals.Size = new System.Drawing.Size(501, 195);
             this.dtgLeaveApprovals.TabIndex = 0;
             // 
             // kryptonPanel6
@@ -1061,7 +1092,7 @@
             this.kryptonPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel6.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel6.Name = "kryptonPanel6";
-            this.kryptonPanel6.Size = new System.Drawing.Size(502, 231);
+            this.kryptonPanel6.Size = new System.Drawing.Size(501, 232);
             this.kryptonPanel6.TabIndex = 1;
             // 
             // kryptonSplitContainer2
@@ -1079,7 +1110,7 @@
             // 
             this.kryptonSplitContainer2.Panel2.Controls.Add(this.kryptonSplitContainer5);
             this.kryptonSplitContainer2.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer2.Size = new System.Drawing.Size(1000, 467);
+            this.kryptonSplitContainer2.Size = new System.Drawing.Size(1001, 467);
             this.kryptonSplitContainer2.SplitterDistance = 425;
             this.kryptonSplitContainer2.TabIndex = 7;
             // 
@@ -1100,7 +1131,7 @@
             this.kryptonSplitContainer4.Panel2.Controls.Add(this.kryptonPanel5);
             this.kryptonSplitContainer4.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
             this.kryptonSplitContainer4.Size = new System.Drawing.Size(425, 467);
-            this.kryptonSplitContainer4.SplitterDistance = 231;
+            this.kryptonSplitContainer4.SplitterDistance = 230;
             this.kryptonSplitContainer4.TabIndex = 7;
             // 
             // kryptonPanel2
@@ -1109,7 +1140,7 @@
             this.kryptonPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel2.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel2.Name = "kryptonPanel2";
-            this.kryptonPanel2.Size = new System.Drawing.Size(425, 231);
+            this.kryptonPanel2.Size = new System.Drawing.Size(425, 230);
             this.kryptonPanel2.TabIndex = 1;
             // 
             // kryptonDataGridView2
@@ -1117,7 +1148,7 @@
             this.kryptonDataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.kryptonDataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.kryptonDataGridView2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.kryptonDataGridView2.Location = new System.Drawing.Point(0, 36);
+            this.kryptonDataGridView2.Location = new System.Drawing.Point(0, 35);
             this.kryptonDataGridView2.Name = "kryptonDataGridView2";
             this.kryptonDataGridView2.Size = new System.Drawing.Size(425, 195);
             this.kryptonDataGridView2.TabIndex = 1;
@@ -1127,7 +1158,7 @@
             this.kryptonPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel5.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel5.Name = "kryptonPanel5";
-            this.kryptonPanel5.Size = new System.Drawing.Size(425, 231);
+            this.kryptonPanel5.Size = new System.Drawing.Size(425, 232);
             this.kryptonPanel5.TabIndex = 1;
             // 
             // kryptonSplitContainer5
@@ -1146,8 +1177,8 @@
             // 
             this.kryptonSplitContainer5.Panel2.Controls.Add(this.kryptonPanel4);
             this.kryptonSplitContainer5.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer5.Size = new System.Drawing.Size(570, 467);
-            this.kryptonSplitContainer5.SplitterDistance = 231;
+            this.kryptonSplitContainer5.Size = new System.Drawing.Size(571, 467);
+            this.kryptonSplitContainer5.SplitterDistance = 230;
             this.kryptonSplitContainer5.TabIndex = 7;
             // 
             // kryptonPanel3
@@ -1156,7 +1187,7 @@
             this.kryptonPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel3.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel3.Name = "kryptonPanel3";
-            this.kryptonPanel3.Size = new System.Drawing.Size(570, 231);
+            this.kryptonPanel3.Size = new System.Drawing.Size(571, 230);
             this.kryptonPanel3.TabIndex = 1;
             // 
             // kryptonDataGridView3
@@ -1164,9 +1195,9 @@
             this.kryptonDataGridView3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.kryptonDataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.kryptonDataGridView3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.kryptonDataGridView3.Location = new System.Drawing.Point(0, 36);
+            this.kryptonDataGridView3.Location = new System.Drawing.Point(0, 35);
             this.kryptonDataGridView3.Name = "kryptonDataGridView3";
-            this.kryptonDataGridView3.Size = new System.Drawing.Size(570, 195);
+            this.kryptonDataGridView3.Size = new System.Drawing.Size(571, 195);
             this.kryptonDataGridView3.TabIndex = 1;
             // 
             // kryptonPanel4
@@ -1174,7 +1205,7 @@
             this.kryptonPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel4.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel4.Name = "kryptonPanel4";
-            this.kryptonPanel4.Size = new System.Drawing.Size(570, 231);
+            this.kryptonPanel4.Size = new System.Drawing.Size(571, 232);
             this.kryptonPanel4.TabIndex = 1;
             // 
             // qryRoleProfileBindingSource
@@ -1195,24 +1226,13 @@
             // 
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             // 
-            // cmbMyLeaveReports
+            // cmbWeeklyOffConfiguration
             // 
-            this.cmbMyLeaveReports.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmbMyLeaveStatementReport01});
-            this.cmbMyLeaveReports.Image = global::StaffSync.Properties.Resources.reports;
-            this.cmbMyLeaveReports.Name = "cmbMyLeaveReports";
-            this.cmbMyLeaveReports.Size = new System.Drawing.Size(182, 22);
-            this.cmbMyLeaveReports.Tag = "cmbMyLeaveReports";
-            this.cmbMyLeaveReports.Text = "Reports";
-            // 
-            // cmbMyLeaveStatementReport01
-            // 
-            this.cmbMyLeaveStatementReport01.Image = global::StaffSync.Properties.Resources.leave_statement;
-            this.cmbMyLeaveStatementReport01.Name = "cmbMyLeaveStatementReport01";
-            this.cmbMyLeaveStatementReport01.Size = new System.Drawing.Size(180, 22);
-            this.cmbMyLeaveStatementReport01.Tag = "cmbMyLeaveStatementReport01";
-            this.cmbMyLeaveStatementReport01.Text = "Leave Statements";
-            this.cmbMyLeaveStatementReport01.Click += new System.EventHandler(this.cmbMyLeaveStatementReport01_Click);
+            this.cmbWeeklyOffConfiguration.Name = "cmbWeeklyOffConfiguration";
+            this.cmbWeeklyOffConfiguration.Size = new System.Drawing.Size(209, 22);
+            this.cmbWeeklyOffConfiguration.Tag = "cmbWeeklyOffConfiguration";
+            this.cmbWeeklyOffConfiguration.Text = "Weekly Off Configuration";
+            this.cmbWeeklyOffConfiguration.Click += new System.EventHandler(this.cmbWeeklyOffConfiguration_Click);
             // 
             // frmDashboard
             // 
@@ -1418,6 +1438,8 @@
         private System.Windows.Forms.ToolStripMenuItem cmbLeaveEntitlement1;
         private System.Windows.Forms.ToolStripMenuItem cmbMyLeaveReports;
         private System.Windows.Forms.ToolStripMenuItem cmbMyLeaveStatementReport01;
+        private System.Windows.Forms.ToolStripMenuItem cmbWeeklyOffList;
+        private System.Windows.Forms.ToolStripMenuItem cmbWeeklyOffConfiguration;
     }
 }
 

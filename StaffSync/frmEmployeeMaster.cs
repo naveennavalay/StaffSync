@@ -528,6 +528,7 @@ namespace StaffSync
 
             txtTotalLeaveAllotment.Enabled = false;
             txtBalanceLeaveAllotment.Enabled = false;
+            cmbWeeklyOff.Enabled = true;
 
             txtBankAccountNumber.Enabled = true;
         }
@@ -583,6 +584,7 @@ namespace StaffSync
 
             txtTotalLeaveAllotment.Enabled = false;
             txtBalanceLeaveAllotment.Enabled = false;
+            cmbWeeklyOff.Enabled = false;
 
             txtBankAccountNumber.Enabled = false;
         }
