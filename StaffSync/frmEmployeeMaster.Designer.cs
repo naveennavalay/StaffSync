@@ -157,13 +157,6 @@
             this.picDownloadLeaveTRList = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.picRefreshLeaveTRList = new System.Windows.Forms.PictureBox();
-            this.lstLeaveTRList = new System.Windows.Forms.ListView();
-            this.LeaveTRID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.LeaveType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.LeaveDateFrom = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.LeaveDateTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.LeaveDuration = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.LeaveComments = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.lblLeaveMasID = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
@@ -232,6 +225,7 @@
             this.docUploadsTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.DocUploadsTableAdapter();
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
+            this.lblEmployeeWeeklyOffID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -1894,6 +1888,7 @@
             // tabLeaves
             // 
             this.tabLeaves.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabLeaves.Controls.Add(this.lblEmployeeWeeklyOffID);
             this.tabLeaves.Controls.Add(this.cmbWeeklyOff);
             this.tabLeaves.Controls.Add(this.label50);
             this.tabLeaves.Controls.Add(this.txtTotalBalanceLeaves);
@@ -1903,7 +1898,6 @@
             this.tabLeaves.Controls.Add(this.picDownloadLeaveTRList);
             this.tabLeaves.Controls.Add(this.pictureBox3);
             this.tabLeaves.Controls.Add(this.picRefreshLeaveTRList);
-            this.tabLeaves.Controls.Add(this.lstLeaveTRList);
             this.tabLeaves.Controls.Add(this.groupBox11);
             this.tabLeaves.Flags = 65534;
             this.tabLeaves.LastVisibleSet = true;
@@ -1921,7 +1915,7 @@
             this.cmbWeeklyOff.Location = new System.Drawing.Point(138, 82);
             this.cmbWeeklyOff.Name = "cmbWeeklyOff";
             this.cmbWeeklyOff.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbWeeklyOff.Size = new System.Drawing.Size(581, 22);
+            this.cmbWeeklyOff.Size = new System.Drawing.Size(538, 22);
             this.cmbWeeklyOff.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbWeeklyOff.TabIndex = 56;
             // 
@@ -2009,7 +2003,7 @@
             this.picDownloadLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picDownloadLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picDownloadLeaveTRList.Image = global::StaffSync.Properties.Resources.download01;
-            this.picDownloadLeaveTRList.Location = new System.Drawing.Point(1138, 74);
+            this.picDownloadLeaveTRList.Location = new System.Drawing.Point(1138, 84);
             this.picDownloadLeaveTRList.Name = "picDownloadLeaveTRList";
             this.picDownloadLeaveTRList.Size = new System.Drawing.Size(21, 20);
             this.picDownloadLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -2021,7 +2015,7 @@
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox3.Image = global::StaffSync.Properties.Resources.mail01;
-            this.pictureBox3.Location = new System.Drawing.Point(1161, 73);
+            this.pictureBox3.Location = new System.Drawing.Point(1161, 82);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(23, 22);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -2033,71 +2027,12 @@
             this.picRefreshLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picRefreshLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picRefreshLeaveTRList.Image = global::StaffSync.Properties.Resources.refresh01;
-            this.picRefreshLeaveTRList.Location = new System.Drawing.Point(1186, 73);
+            this.picRefreshLeaveTRList.Location = new System.Drawing.Point(1186, 82);
             this.picRefreshLeaveTRList.Name = "picRefreshLeaveTRList";
             this.picRefreshLeaveTRList.Size = new System.Drawing.Size(23, 22);
             this.picRefreshLeaveTRList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picRefreshLeaveTRList.TabIndex = 22;
             this.picRefreshLeaveTRList.TabStop = false;
-            // 
-            // lstLeaveTRList
-            // 
-            this.lstLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstLeaveTRList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.lstLeaveTRList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.LeaveTRID,
-            this.LeaveType,
-            this.LeaveDateFrom,
-            this.LeaveDateTo,
-            this.LeaveDuration,
-            this.LeaveComments});
-            this.lstLeaveTRList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.lstLeaveTRList.FullRowSelect = true;
-            this.lstLeaveTRList.GridLines = true;
-            this.lstLeaveTRList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lstLeaveTRList.HideSelection = false;
-            this.lstLeaveTRList.LabelWrap = false;
-            this.lstLeaveTRList.Location = new System.Drawing.Point(14, 478);
-            this.lstLeaveTRList.Margin = new System.Windows.Forms.Padding(4);
-            this.lstLeaveTRList.MultiSelect = false;
-            this.lstLeaveTRList.Name = "lstLeaveTRList";
-            this.lstLeaveTRList.ShowItemToolTips = true;
-            this.lstLeaveTRList.Size = new System.Drawing.Size(1219, 89);
-            this.lstLeaveTRList.TabIndex = 21;
-            this.lstLeaveTRList.UseCompatibleStateImageBehavior = false;
-            this.lstLeaveTRList.View = System.Windows.Forms.View.Details;
-            // 
-            // LeaveTRID
-            // 
-            this.LeaveTRID.Text = "LeaveTRID";
-            this.LeaveTRID.Width = 0;
-            // 
-            // LeaveType
-            // 
-            this.LeaveType.Text = "Leave Type";
-            this.LeaveType.Width = 150;
-            // 
-            // LeaveDateFrom
-            // 
-            this.LeaveDateFrom.Text = "Leave From";
-            this.LeaveDateFrom.Width = 150;
-            // 
-            // LeaveDateTo
-            // 
-            this.LeaveDateTo.Text = "Leave To";
-            this.LeaveDateTo.Width = 150;
-            // 
-            // LeaveDuration
-            // 
-            this.LeaveDuration.Text = "Leave Duration";
-            this.LeaveDuration.Width = 150;
-            // 
-            // LeaveComments
-            // 
-            this.LeaveComments.Text = "Comments";
-            this.LeaveComments.Width = 300;
             // 
             // groupBox11
             // 
@@ -2801,6 +2736,19 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
+            // lblEmployeeWeeklyOffID
+            // 
+            this.lblEmployeeWeeklyOffID.AutoSize = true;
+            this.lblEmployeeWeeklyOffID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblEmployeeWeeklyOffID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmployeeWeeklyOffID.Location = new System.Drawing.Point(754, 85);
+            this.lblEmployeeWeeklyOffID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEmployeeWeeklyOffID.Name = "lblEmployeeWeeklyOffID";
+            this.lblEmployeeWeeklyOffID.Size = new System.Drawing.Size(11, 15);
+            this.lblEmployeeWeeklyOffID.TabIndex = 57;
+            this.lblEmployeeWeeklyOffID.Text = " ";
+            this.lblEmployeeWeeklyOffID.Visible = false;
+            // 
             // frmEmployeeMaster
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -3023,13 +2971,6 @@
         private System.Windows.Forms.ColumnHeader UploadDate;
         private System.Windows.Forms.ColumnHeader DocPath;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.ListView lstLeaveTRList;
-        private System.Windows.Forms.ColumnHeader LeaveTRID;
-        private System.Windows.Forms.ColumnHeader LeaveType;
-        private System.Windows.Forms.ColumnHeader LeaveDateFrom;
-        private System.Windows.Forms.ColumnHeader LeaveDateTo;
-        private System.Windows.Forms.ColumnHeader LeaveDuration;
-        private System.Windows.Forms.ColumnHeader LeaveComments;
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.ListView lstBankList;
@@ -3122,5 +3063,6 @@
         private System.Windows.Forms.Label label49;
         private Krypton.Toolkit.KryptonComboBox cmbWeeklyOff;
         private System.Windows.Forms.Label label50;
+        public System.Windows.Forms.Label lblEmployeeWeeklyOffID;
     }
 }

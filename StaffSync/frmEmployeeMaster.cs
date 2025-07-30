@@ -52,6 +52,7 @@ namespace StaffSync
         clsEmployeeSalaryProfileInfo objEmployeeSalaryProfileInfo = new clsEmployeeSalaryProfileInfo();
         clsEmpWorkExperienceInfo objEmpWorkExperienceInfo = new clsEmpWorkExperienceInfo();
         clsEmpPayroll objEmployeePayroll = new clsEmpPayroll();
+        clsWeeklyOffInfo objWeeklyOffInfo = new clsWeeklyOffInfo();
 
         public frmEmployeeMaster()
         {
@@ -118,6 +119,10 @@ namespace StaffSync
             cmbSalProfile.DataSource = objSalaryProfile.GetSalProfileTitleList();
             cmbSalProfile.DisplayMember = "SalProfileTitle";
             cmbSalProfile.ValueMember = "SalProfileID";
+
+            cmbWeeklyOff.DataSource = objWeeklyOffInfo.getWklyOffProfileMasInfoList("");
+            cmbWeeklyOff.DisplayMember = "WklyOffTitle";
+            cmbWeeklyOff.ValueMember = "WklyOffMasID";
 
             UpdateUIWithSelectedEmployeeDetails(Convert.ToInt16(EmployeeID.ToString()));
             enableControls();
@@ -299,6 +304,10 @@ namespace StaffSync
             cmbSalProfile.DisplayMember = "SalProfileTitle";
             cmbSalProfile.ValueMember = "SalProfileID";
 
+            cmbWeeklyOff.DataSource = objWeeklyOffInfo.getWklyOffProfileMasInfoList("");
+            cmbWeeklyOff.DisplayMember = "WklyOffTitle";
+            cmbWeeklyOff.ValueMember = "WklyOffMasID";
+
             RefreshBankList();
             RefreshLeavesHistoryList();
         }
@@ -459,6 +468,7 @@ namespace StaffSync
             txtBankAccountNumber.Text = "";
 
             lblLeaveMasID.Text = "";
+            lblEmployeeWeeklyOffID.Text = "";
 
             lstLDocumentsList.Items.Clear();
 
@@ -645,6 +655,10 @@ namespace StaffSync
             cmbSalProfile.DataSource = objSalaryProfile.GetSalProfileTitleList();
             cmbSalProfile.DisplayMember = "SalProfileTitle";
             cmbSalProfile.ValueMember = "SalProfileID";
+
+            cmbWeeklyOff.DataSource = objWeeklyOffInfo.getWklyOffProfileMasInfoList("");
+            cmbWeeklyOff.DisplayMember = "WklyOffTitle";
+            cmbWeeklyOff.ValueMember = "WklyOffMasID";
         }
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
@@ -718,6 +732,8 @@ namespace StaffSync
                             }
                             iRowCounter = iRowCounter + 1;
                         }
+
+                        int employeWeeklyOffID = objWeeklyOffInfo.InsertEmployeeSpecificWeeklyInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(cmbWeeklyOff.SelectedIndex + 1), DateTime.Now);
                     }
 
                     if (tabBankAccountInfo1.Visible == true)
@@ -905,6 +921,8 @@ namespace StaffSync
                             }
                             iRowCounter = iRowCounter + 1;
                         }
+
+                        int employeWeeklyOffID = objWeeklyOffInfo.UpdateEmployeeSpecificWeeklyInfo(Convert.ToInt16(lblEmployeeWeeklyOffID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(cmbWeeklyOff.SelectedIndex + 1), DateTime.Now);
                     }
 
                     int employeeSalaryProfileID = objEmployeeSalaryProfileInfo.InsertEmployeeEmployeeSalaryProfileInfo(Convert.ToInt16(lblEmpID.Text.ToString()), cmbSalProfile.SelectedIndex + 1, DateTime.Now);
@@ -1491,6 +1509,12 @@ namespace StaffSync
             if (cmbSalProfile.SelectedIndex < 0)
                 cmbSalProfile.SelectedIndex = 0;
 
+            List<EmployeeWklyOffInfo> objWeeklyOff = objWeeklyOffInfo.getEmployeeSpecificWeeklyOffMasterInfo(EmployeeID);
+            lblEmployeeWeeklyOffID.Text = objWeeklyOff.OrderByDescending(x => x.EffectDateFrom).FirstOrDefault().WeeklyOffID.ToString();
+            cmbWeeklyOff.SelectedIndex = objWeeklyOff.OrderByDescending(x => x.EffectDateFrom).FirstOrDefault().WklyOffMasID - 1;
+            if (cmbWeeklyOff.SelectedIndex < 0)
+                cmbWeeklyOff.SelectedIndex = 0;
+
             RefreshLeavesHistoryList();
             RefreshUploadedDocumentsList();
             RefreshBankList();
@@ -1562,7 +1586,7 @@ namespace StaffSync
 
         private void picDownloadLeaveTRList_Click(object sender, EventArgs e)
         {
-            Download.DownloadExcel(lstLeaveTRList);
+            //Download.DownloadExcel(lstLeaveTRList);
         }
 
         private void RefreshLeavesHistoryList()

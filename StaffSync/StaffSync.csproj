@@ -209,6 +209,12 @@
     <Compile Include="frmCurrentUserLeaveMaster.Designer.cs">
       <DependentUpon>frmCurrentUserLeaveMaster.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmBulkLeaveApproval.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBulkLeaveApproval.Designer.cs">
+      <DependentUpon>frmBulkLeaveApproval.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmWeeklyProfileDetailsInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -536,6 +542,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StaffsyncDBDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="StaffsyncDBDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StaffsyncDBDataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="StaffsyncDBDTSet.cs">
       <DependentUpon>StaffsyncDBDTSet.xsd</DependentUpon>
     </Compile>
@@ -555,6 +566,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCurrentUserLeaveMaster.resx">
       <DependentUpon>frmCurrentUserLeaveMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBulkLeaveApproval.resx">
+      <DependentUpon>frmBulkLeaveApproval.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmWeeklyProfileDetailsInfo.resx">
       <DependentUpon>frmWeeklyProfileDetailsInfo.cs</DependentUpon>
@@ -756,6 +770,17 @@
     </None>
     <None Include="StaffsyncDBDataSet.xss">
       <DependentUpon>StaffsyncDBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="StaffsyncDBDataSet1.xsc">
+      <DependentUpon>StaffsyncDBDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="StaffsyncDBDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StaffsyncDBDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="StaffsyncDBDataSet1.xss">
+      <DependentUpon>StaffsyncDBDataSet1.xsd</DependentUpon>
     </None>
     <None Include="StaffsyncDBDTSet.xsc">
       <DependentUpon>StaffsyncDBDTSet.xsd</DependentUpon>

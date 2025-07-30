@@ -228,7 +228,7 @@ namespace StaffSync
             lblWeeklyOffID.Text = WklyOffProfileMasInfoModel.WklyOffMasID.ToString();
             txtWeeklyCode.Text = WklyOffProfileMasInfoModel.WklyOffCode;
             txtWeeklyOffTitle.Text = WklyOffProfileMasInfoModel.WklyOffTitle;
-            txtEffectiveDate.Text = Convert.ToDateTime(WklyOffProfileMasInfoModel.WklyOffEffectiveDate).ToString("dd-MM-yyyy");
+            txtEffectiveDate.Text = Convert.ToDateTime(WklyOffProfileMasInfoModel.EffectDateFrom).ToString("dd-MM-yyyy");
             cmbIsActive.Text = WklyOffProfileMasInfoModel.IsActive == true ? "Yes" : "No";
         }
 

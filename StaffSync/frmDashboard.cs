@@ -1646,5 +1646,11 @@ namespace StaffSync
             frmWeeklyProfileDetailsInfo frmWeeklyProfileDetailsInfo = new frmWeeklyProfileDetailsInfo();
             frmWeeklyProfileDetailsInfo.ShowDialog(this);
         }
+
+        private void cmbBulkLeaveApproval_Click(object sender, EventArgs e)
+        {
+            frmBulkLeaveApproval frmBulkLeaveApproval = new frmBulkLeaveApproval();
+            frmBulkLeaveApproval.ShowDialog(this);
+        }
     }
 }

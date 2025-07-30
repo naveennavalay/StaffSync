@@ -66,9 +66,10 @@ namespace StaffSync
             return rowCount;
         }
 
-        public DataTable getWklyOffProfileMasInfoList(string txtWklyOffTitle)
+        public List<WklyOffProfileMasInfo> getWklyOffProfileMasInfoList(string txtWklyOffTitle)
         {
             DataTable dt = new DataTable();
+            List<WklyOffProfileMasInfo> objWklyOffProfileMasInfoList = new List<WklyOffProfileMasInfo>();
 
             try
             {
@@ -98,6 +99,10 @@ namespace StaffSync
                 OleDbDataAdapter da = new OleDbDataAdapter(cmd);
                 da.Fill(dt);
 
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objWklyOffProfileMasInfoList = JsonConvert.DeserializeObject<List<WklyOffProfileMasInfo>>(DataTableToJSon);
+
             }
             catch (Exception ex)
             {
@@ -109,7 +114,7 @@ namespace StaffSync
                 conn = objDBClass.closeDBConnection();
             }
 
-            return dt;
+            return objWklyOffProfileMasInfoList;
         }
 
         public int InsertWeeklyOffInfo(string txtWklyOffCode, string txtWklyOffTitle, DateTime txtWklyOffEffectiveDate, bool IsActive, bool IsDelete)
@@ -249,6 +254,131 @@ namespace StaffSync
             return objWklyOffProfileDetailsInfoList;
         }
 
+        public List<EmployeeWklyOffInfo> getEmployeeSpecificWeeklyOffMasterInfo(int txtEmpID)
+        {
+            DataTable dt = new DataTable();
+            List<EmployeeWklyOffInfo> objEmployeeWklyOffInfoList = new List<EmployeeWklyOffInfo>();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        " WeeklyOffID, WklyOffMasID, EffectDateFrom " + 
+                                        " FROM EmpWeeklyOff " +
+                                  " WHERE " +
+                                        " EmpID = " + txtEmpID + 
+                                        " ORDER BY WeeklyOffID, EffectDateFrom ASC";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeWklyOffInfoList = JsonConvert.DeserializeObject<List<EmployeeWklyOffInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return objEmployeeWklyOffInfoList;
+        }
+
+        public int InsertEmployeeSpecificWeeklyInfo(int txtEmpID, int txtWklyOffMasID, DateTime txtEffectDateFrom)
+        {
+            int affectedRows = 0;
+            try
+            {
+                int maxRowCount = getMaxRowCount("EmpWeeklyOff", "WeeklyOffID");
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+                string strQuery = "INSERT INTO EmpWeeklyOff (WeeklyOffID, EmpID, WklyOffMasID, EffectDateFrom) VALUES " +
+                 "(" + maxRowCount + "," + txtEmpID + "," + txtWklyOffMasID + ",'" + txtEffectDateFrom.ToString("dd-MMM-yyyy") + "')";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = maxRowCount;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int UpdateEmployeeSpecificWeeklyInfo(int txtWeeklyOffID, int txtEmpID, int txtWklyOffMasID, DateTime txtEffectDateFrom)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+                string strQuery = "UPDATE EmpWeeklyOff SET " +
+                    " EmpID = " + txtEmpID + ", WklyOffMasID = " + txtWklyOffMasID + ", EffectDateFrom = '" + txtEffectDateFrom.ToString("dd-MMM-yyyy") + "' WHERE WeeklyOffID = " + txtWeeklyOffID;
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtWeeklyOffID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int DeleteEmployeeSpecificWeeklyInfo(int txtWeeklyOffID)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+                string strQuery = "DELETE FROM EmpWeeklyOff WHERE WeeklyOffID = " + txtWeeklyOffID;
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = affectedRows;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
         public int InsertWeeklyOffDetailInfo(int txtWklyOffMasID, int txtWklyOffDay, int txtWklyOffOrderID)
         {
             int affectedRows = 0;
@@ -341,6 +471,15 @@ namespace StaffSync
         }
     }
 
+    public class EmployeeWklyOffInfo
+    {
+        public int WeeklyOffID { get; set; }
+        public int EmpID { get; set; }
+        public int WklyOffMasID { get; set; }
+        public DateTime EffectDateFrom { get; set; }
+
+    }
+
     public class WklyOffProfileMasInfo
     {
         public int WklyOffMasID { get; set; }
@@ -352,7 +491,7 @@ namespace StaffSync
         public string WklyOffTitle { get; set; }
 
         [DisplayName("Effective From")]
-        public DateTime WklyOffEffectiveDate { get; set; }
+        public DateTime EffectDateFrom { get; set; }
 
         public bool IsActive { get; set; }
 

@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="StaffsyncDBDataSet1" targetNamespace="http://tempuri.org/StaffsyncDBDataSet1.xsd" xmlns:mstns="http://tempuri.org/StaffsyncDBDataSet1.xsd" xmlns="http://tempuri.org/StaffsyncDBDataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="StaffsyncDBConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="StaffsyncDBConnectionString (Settings)" PropertyReference="ApplicationSettings.StaffSync.Properties.Settings.GlobalReference.Default.StaffsyncDBConnectionString" Provider="System.Data.OleDb" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="qryAllEmpLeavePendingStatementTableAdapter" GeneratorDataComponentClassName="qryAllEmpLeavePendingStatementTableAdapter" Name="qryAllEmpLeavePendingStatement" UserDataComponentName="qryAllEmpLeavePendingStatementTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="qryAllEmpLeavePendingStatement" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT EmpID, EmpCode, EmpName, DesignationTitle, DepartmentTitle, LeaveTypeID, LeaveTypeTitle, LeaveTRID, ActualLeaveDateFrom, ActualLeaveDateTo, LeaveDuration, LeaveComments, LeaveApprovalComments, LeaveRejectionComments, Canceled, CanceledDate, OrderID FROM qryAllEmpLeavePendingStatement</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="EmpID" DataSetColumn="EmpID" />
+              <Mapping SourceColumn="EmpCode" DataSetColumn="EmpCode" />
+              <Mapping SourceColumn="EmpName" DataSetColumn="EmpName" />
+              <Mapping SourceColumn="DesignationTitle" DataSetColumn="DesignationTitle" />
+              <Mapping SourceColumn="DepartmentTitle" DataSetColumn="DepartmentTitle" />
+              <Mapping SourceColumn="LeaveTypeID" DataSetColumn="LeaveTypeID" />
+              <Mapping SourceColumn="LeaveTypeTitle" DataSetColumn="LeaveTypeTitle" />
+              <Mapping SourceColumn="LeaveTRID" DataSetColumn="LeaveTRID" />
+              <Mapping SourceColumn="ActualLeaveDateFrom" DataSetColumn="ActualLeaveDateFrom" />
+              <Mapping SourceColumn="ActualLeaveDateTo" DataSetColumn="ActualLeaveDateTo" />
+              <Mapping SourceColumn="LeaveDuration" DataSetColumn="LeaveDuration" />
+              <Mapping SourceColumn="LeaveComments" DataSetColumn="LeaveComments" />
+              <Mapping SourceColumn="LeaveApprovalComments" DataSetColumn="LeaveApprovalComments" />
+              <Mapping SourceColumn="LeaveRejectionComments" DataSetColumn="LeaveRejectionComments" />
+              <Mapping SourceColumn="Canceled" DataSetColumn="Canceled" />
+              <Mapping SourceColumn="CanceledDate" DataSetColumn="CanceledDate" />
+              <Mapping SourceColumn="OrderID" DataSetColumn="OrderID" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="StaffsyncDBDataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="StaffsyncDBDataSet1" msprop:Generator_DataSetName="StaffsyncDBDataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="qryAllEmpLeavePendingStatement" msprop:Generator_RowEvHandlerName="qryAllEmpLeavePendingStatementRowChangeEventHandler" msprop:Generator_RowDeletedName="qryAllEmpLeavePendingStatementRowDeleted" msprop:Generator_RowDeletingName="qryAllEmpLeavePendingStatementRowDeleting" msprop:Generator_RowEvArgName="qryAllEmpLeavePendingStatementRowChangeEvent" msprop:Generator_TablePropName="qryAllEmpLeavePendingStatement" msprop:Generator_RowChangedName="qryAllEmpLeavePendingStatementRowChanged" msprop:Generator_RowChangingName="qryAllEmpLeavePendingStatementRowChanging" msprop:Generator_TableClassName="qryAllEmpLeavePendingStatementDataTable" msprop:Generator_RowClassName="qryAllEmpLeavePendingStatementRow" msprop:Generator_TableVarName="tableqryAllEmpLeavePendingStatement" msprop:Generator_UserTableName="qryAllEmpLeavePendingStatement">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EmpID" msprop:Generator_ColumnPropNameInRow="EmpID" msprop:Generator_ColumnPropNameInTable="EmpIDColumn" msprop:Generator_ColumnVarNameInTable="columnEmpID" msprop:Generator_UserColumnName="EmpID" type="xs:int" minOccurs="0" />
+              <xs:element name="EmpCode" msprop:Generator_ColumnPropNameInRow="EmpCode" msprop:Generator_ColumnPropNameInTable="EmpCodeColumn" msprop:Generator_ColumnVarNameInTable="columnEmpCode" msprop:Generator_UserColumnName="EmpCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EmpName" msprop:Generator_ColumnPropNameInRow="EmpName" msprop:Generator_ColumnPropNameInTable="EmpNameColumn" msprop:Generator_ColumnVarNameInTable="columnEmpName" msprop:Generator_UserColumnName="EmpName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DesignationTitle" msprop:Generator_ColumnPropNameInRow="DesignationTitle" msprop:Generator_ColumnPropNameInTable="DesignationTitleColumn" msprop:Generator_ColumnVarNameInTable="columnDesignationTitle" msprop:Generator_UserColumnName="DesignationTitle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DepartmentTitle" msprop:Generator_ColumnPropNameInRow="DepartmentTitle" msprop:Generator_ColumnPropNameInTable="DepartmentTitleColumn" msprop:Generator_ColumnVarNameInTable="columnDepartmentTitle" msprop:Generator_UserColumnName="DepartmentTitle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LeaveTypeID" msprop:Generator_ColumnPropNameInRow="LeaveTypeID" msprop:Generator_ColumnPropNameInTable="LeaveTypeIDColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveTypeID" msprop:Generator_UserColumnName="LeaveTypeID" type="xs:int" minOccurs="0" />
+              <xs:element name="LeaveTypeTitle" msprop:Generator_ColumnPropNameInRow="LeaveTypeTitle" msprop:Generator_ColumnPropNameInTable="LeaveTypeTitleColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveTypeTitle" msprop:Generator_UserColumnName="LeaveTypeTitle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LeaveTRID" msprop:Generator_ColumnPropNameInRow="LeaveTRID" msprop:Generator_ColumnPropNameInTable="LeaveTRIDColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveTRID" msprop:Generator_UserColumnName="LeaveTRID" type="xs:int" minOccurs="0" />
+              <xs:element name="ActualLeaveDateFrom" msprop:Generator_ColumnPropNameInRow="ActualLeaveDateFrom" msprop:Generator_ColumnPropNameInTable="ActualLeaveDateFromColumn" msprop:Generator_ColumnVarNameInTable="columnActualLeaveDateFrom" msprop:Generator_UserColumnName="ActualLeaveDateFrom" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ActualLeaveDateTo" msprop:Generator_ColumnPropNameInRow="ActualLeaveDateTo" msprop:Generator_ColumnPropNameInTable="ActualLeaveDateToColumn" msprop:Generator_ColumnVarNameInTable="columnActualLeaveDateTo" msprop:Generator_UserColumnName="ActualLeaveDateTo" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LeaveDuration" msprop:Generator_ColumnPropNameInRow="LeaveDuration" msprop:Generator_ColumnPropNameInTable="LeaveDurationColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveDuration" msprop:Generator_UserColumnName="LeaveDuration" type="xs:decimal" minOccurs="0" />
+              <xs:element name="LeaveComments" msprop:Generator_ColumnPropNameInRow="LeaveComments" msprop:Generator_ColumnPropNameInTable="LeaveCommentsColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveComments" msprop:Generator_UserColumnName="LeaveComments" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LeaveApprovalComments" msprop:Generator_ColumnPropNameInRow="LeaveApprovalComments" msprop:Generator_ColumnPropNameInTable="LeaveApprovalCommentsColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveApprovalComments" msprop:Generator_UserColumnName="LeaveApprovalComments" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LeaveRejectionComments" msprop:Generator_ColumnPropNameInRow="LeaveRejectionComments" msprop:Generator_ColumnPropNameInTable="LeaveRejectionCommentsColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveRejectionComments" msprop:Generator_UserColumnName="LeaveRejectionComments" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Canceled" msprop:Generator_ColumnPropNameInRow="Canceled" msprop:Generator_ColumnPropNameInTable="CanceledColumn" msprop:Generator_ColumnVarNameInTable="columnCanceled" msprop:Generator_UserColumnName="Canceled" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CanceledDate" msprop:Generator_ColumnPropNameInRow="CanceledDate" msprop:Generator_ColumnPropNameInTable="CanceledDateColumn" msprop:Generator_ColumnVarNameInTable="columnCanceledDate" msprop:Generator_UserColumnName="CanceledDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OrderID" msprop:Generator_ColumnPropNameInRow="OrderID" msprop:Generator_ColumnPropNameInTable="OrderIDColumn" msprop:Generator_ColumnVarNameInTable="columnOrderID" msprop:Generator_UserColumnName="OrderID" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

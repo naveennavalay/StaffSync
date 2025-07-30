@@ -114,6 +114,7 @@
             this.cmbStatesList01 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbRelationshipList01 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbWeeklyOffList = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbWeeklyOffConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.cmbSalaryConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbSalaryProfile = new System.Windows.Forms.ToolStripMenuItem();
@@ -158,7 +159,6 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
-            this.cmbWeeklyOffConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -498,7 +498,7 @@
             this.toolStripMenuItem6,
             this.cmbMyLeaveReports});
             this.cmLeaveManagement.Name = "cmDatamartList01";
-            this.cmLeaveManagement.Size = new System.Drawing.Size(183, 182);
+            this.cmLeaveManagement.Size = new System.Drawing.Size(183, 204);
             this.cmLeaveManagement.Tag = "DatamartMenu";
             this.cmLeaveManagement.Text = "Datamart Menu";
             this.cmLeaveManagement.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmLeaveManagement_ItemClicked);
@@ -558,7 +558,7 @@
             this.cmbBulkLeaveApproval.Size = new System.Drawing.Size(182, 22);
             this.cmbBulkLeaveApproval.Tag = "cmbBulkLeaveApproval";
             this.cmbBulkLeaveApproval.Text = "Bulk Leave Approval";
-            this.cmbBulkLeaveApproval.Click += new System.EventHandler(this.bulkLeaveApprovalToolStripMenuItem_Click);
+            this.cmbBulkLeaveApproval.Click += new System.EventHandler(this.cmbBulkLeaveApproval_Click);
             // 
             // cmbBulkLeaveRejection
             // 
@@ -810,7 +810,7 @@
             this.toolStripMenuItem3,
             this.cmbLeaveConfiguration});
             this.cmbApplicationSettings.Name = "cmDatamartList01";
-            this.cmbApplicationSettings.Size = new System.Drawing.Size(183, 104);
+            this.cmbApplicationSettings.Size = new System.Drawing.Size(183, 82);
             this.cmbApplicationSettings.Tag = "DatamartMenu";
             this.cmbApplicationSettings.Text = "Datamart Menu";
             this.cmbApplicationSettings.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmbApplicationSettings_ItemClicked);
@@ -897,6 +897,14 @@
             this.cmbWeeklyOffList.Tag = "cmbWeeklyOffList";
             this.cmbWeeklyOffList.Text = "Weekly Off List";
             this.cmbWeeklyOffList.Click += new System.EventHandler(this.cmbWeeklyOffList_Click);
+            // 
+            // cmbWeeklyOffConfiguration
+            // 
+            this.cmbWeeklyOffConfiguration.Name = "cmbWeeklyOffConfiguration";
+            this.cmbWeeklyOffConfiguration.Size = new System.Drawing.Size(209, 22);
+            this.cmbWeeklyOffConfiguration.Tag = "cmbWeeklyOffConfiguration";
+            this.cmbWeeklyOffConfiguration.Text = "Weekly Off Configuration";
+            this.cmbWeeklyOffConfiguration.Click += new System.EventHandler(this.cmbWeeklyOffConfiguration_Click);
             // 
             // toolStripMenuItem4
             // 
@@ -1225,14 +1233,6 @@
             // kryptonRibbonGroupButton5
             // 
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
-            // 
-            // cmbWeeklyOffConfiguration
-            // 
-            this.cmbWeeklyOffConfiguration.Name = "cmbWeeklyOffConfiguration";
-            this.cmbWeeklyOffConfiguration.Size = new System.Drawing.Size(209, 22);
-            this.cmbWeeklyOffConfiguration.Tag = "cmbWeeklyOffConfiguration";
-            this.cmbWeeklyOffConfiguration.Text = "Weekly Off Configuration";
-            this.cmbWeeklyOffConfiguration.Click += new System.EventHandler(this.cmbWeeklyOffConfiguration_Click);
             // 
             // frmDashboard
             // 

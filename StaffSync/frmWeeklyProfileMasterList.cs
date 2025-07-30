@@ -135,7 +135,7 @@ namespace StaffSync
                 objWklyOffProfileMasInfoModel.WklyOffMasID = 0;
                 objWklyOffProfileMasInfoModel.WklyOffCode = "";
                 objWklyOffProfileMasInfoModel.WklyOffTitle = "";
-                objWklyOffProfileMasInfoModel.WklyOffEffectiveDate = Convert.ToDateTime(DateTime.Today.Date.ToString("dd-MM-yyyy"));
+                objWklyOffProfileMasInfoModel.EffectDateFrom = Convert.ToDateTime(DateTime.Today.Date.ToString("dd-MM-yyyy"));
                 objWklyOffProfileMasInfoModel.IsActive = false;
 
                 this.frmWeeklyProfileMas1.displaySelectedValuesOnUI(objWklyOffProfileMasInfoModel);
@@ -155,7 +155,7 @@ namespace StaffSync
             objWklyOffProfileMasInfoModel.WklyOffMasID = Convert.ToInt16(dtgWeeklyOffList.SelectedRows[0].Cells["WklyOffMasID"].Value.ToString());
             objWklyOffProfileMasInfoModel.WklyOffCode = dtgWeeklyOffList.SelectedRows[0].Cells["WklyOffCode"].Value.ToString();
             objWklyOffProfileMasInfoModel.WklyOffTitle = dtgWeeklyOffList.SelectedRows[0].Cells["WklyOffTitle"].Value.ToString();
-            objWklyOffProfileMasInfoModel.WklyOffEffectiveDate = Convert.ToDateTime(dtgWeeklyOffList.SelectedRows[0].Cells["WklyOffEffectiveDate"].Value);
+            objWklyOffProfileMasInfoModel.EffectDateFrom = Convert.ToDateTime(dtgWeeklyOffList.SelectedRows[0].Cells["WklyOffEffectiveDate"].Value);
             objWklyOffProfileMasInfoModel.IsActive = true;
 
             if(ShowListFor == "weeklyOffProfileMaster")
