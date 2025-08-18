@@ -40,7 +40,10 @@
             this.LeaveDateTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LeaveDuration = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LeaveComments = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.LeaveMode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LeaveStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Canceled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.CanceledDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblLeaveMasID = new System.Windows.Forms.Label();
             this.lblSpecificLeaveBalance = new System.Windows.Forms.Label();
             this.lblLeaveTRID = new System.Windows.Forms.Label();
@@ -90,6 +93,7 @@
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonCommand1 = new Krypton.Toolkit.KryptonCommand();
             this.kryptonCommand2 = new Krypton.Toolkit.KryptonCommand();
+            this.picViewLeaves = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -106,6 +110,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picViewLeaves)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -168,7 +173,10 @@
             this.LeaveDateTo,
             this.LeaveDuration,
             this.LeaveComments,
-            this.LeaveStatus});
+            this.LeaveMode,
+            this.LeaveStatus,
+            this.Canceled,
+            this.CanceledDate});
             this.lstLeaveTRList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.lstLeaveTRList.FullRowSelect = true;
             this.lstLeaveTRList.GridLines = true;
@@ -214,10 +222,25 @@
             this.LeaveComments.Text = "Comments";
             this.LeaveComments.Width = 300;
             // 
+            // LeaveMode
+            // 
+            this.LeaveMode.Text = "Leave Mode";
+            this.LeaveMode.Width = 150;
+            // 
             // LeaveStatus
             // 
             this.LeaveStatus.Text = "Leave Status";
-            this.LeaveStatus.Width = 250;
+            this.LeaveStatus.Width = 150;
+            // 
+            // Canceled
+            // 
+            this.Canceled.Text = "Cancelled";
+            this.Canceled.Width = 100;
+            // 
+            // CanceledDate
+            // 
+            this.CanceledDate.Text = "Cancelled Date";
+            this.CanceledDate.Width = 125;
             // 
             // lblLeaveMasID
             // 
@@ -294,6 +317,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.picViewLeaves);
             this.groupBox1.Controls.Add(this.txtApprovalNote);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.txtActualLeaveDays);
@@ -784,6 +808,19 @@
             // 
             this.kryptonCommand2.Text = "kryptonCommand2";
             // 
+            // picViewLeaves
+            // 
+            this.picViewLeaves.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picViewLeaves.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picViewLeaves.Image = global::StaffSync.Properties.Resources.search;
+            this.picViewLeaves.Location = new System.Drawing.Point(574, 28);
+            this.picViewLeaves.Name = "picViewLeaves";
+            this.picViewLeaves.Size = new System.Drawing.Size(23, 22);
+            this.picViewLeaves.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picViewLeaves.TabIndex = 50;
+            this.picViewLeaves.TabStop = false;
+            this.picViewLeaves.Click += new System.EventHandler(this.picViewLeaves_Click);
+            // 
             // frmLeavesApproval
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -819,6 +856,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picViewLeaves)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -885,5 +923,9 @@
         private System.Windows.Forms.ColumnHeader LeaveDuration;
         private System.Windows.Forms.ColumnHeader LeaveComments;
         private System.Windows.Forms.ColumnHeader LeaveStatus;
+        private System.Windows.Forms.ColumnHeader LeaveMode;
+        private System.Windows.Forms.ColumnHeader Canceled;
+        private System.Windows.Forms.ColumnHeader CanceledDate;
+        private System.Windows.Forms.PictureBox picViewLeaves;
     }
 }

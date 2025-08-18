@@ -174,7 +174,7 @@ namespace StaffSync
             return selectedAllowenceID;
         }
 
-        public int InsertAllowence(string txtAllCode, string txtAllTitle, string txtAllDescription, bool IsActive, bool IsDeleted)
+        public int InsertAllowence(string txtAllCode, string txtAllTitle, string txtAllDescription, bool IsFixed, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;
             try
@@ -185,8 +185,8 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO AllowanceHeaderMas (AllID, AllCode, AllTitle, AllDescription, IsActive, IsDeleted, OrderID, CalcFormula) VALUES " +
-                 "(" + maxRowCount + ",'" + "ALL-" + (maxRowCount).ToString().PadLeft(4, '0').Trim() + "','" + txtAllTitle.Trim() + "','" + txtAllDescription.Trim() + "'," + IsActive + "," + IsDeleted + "," + maxRowCount + ",'')";
+                string strQuery = "INSERT INTO AllowanceHeaderMas (AllID, AllCode, AllTitle, AllDescription, IsFixed, IsActive, IsDeleted, OrderID, CalcFormula) VALUES " +
+                 "(" + maxRowCount + ",'" + "ALL-" + (maxRowCount).ToString().PadLeft(4, '0').Trim() + "','" + txtAllTitle.Trim() + "','" + txtAllDescription.Trim() + "'," + IsFixed  + "," + IsActive + "," + IsDeleted + "," + maxRowCount + ",'')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -206,7 +206,7 @@ namespace StaffSync
             return affectedRows;
         }
 
-        public int UpdateAllowence(int txtAllID, string txtAllCode, string txtAllTitle, string txtAllDescription, bool IsActive, bool IsDeleted)
+        public int UpdateAllowence(int txtAllID, string txtAllCode, string txtAllTitle, string txtAllDescription, bool IsFixed, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;
             try
@@ -215,7 +215,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE AllowanceHeaderMas SET " +
-                 "AllCode = '" + txtAllCode.Trim() + "', AllTitle = '" + txtAllTitle.Trim() + "', AllDescription = '" + txtAllDescription.Trim() + "', IsActive = " + IsActive +
+                 "AllCode = '" + txtAllCode.Trim() + "', AllTitle = '" + txtAllTitle.Trim() + "', AllDescription = '" + txtAllDescription.Trim() + "', IsFixed = " + IsFixed + ", IsActive = " + IsActive +
                  " WHERE AllID = " + txtAllID.ToString().Trim();
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -277,6 +277,8 @@ namespace StaffSync
 
         [DisplayName("Allowance Description")] 
         public string AllDescription { get; set; }
+
+        public bool IsFixed { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public int OrderID { get; set; }

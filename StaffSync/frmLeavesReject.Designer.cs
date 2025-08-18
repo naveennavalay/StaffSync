@@ -91,6 +91,7 @@
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonCommand1 = new Krypton.Toolkit.KryptonCommand();
             this.kryptonCommand2 = new Krypton.Toolkit.KryptonCommand();
+            this.picViewLeaves = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -107,6 +108,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picViewLeaves)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -312,6 +314,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.picViewLeaves);
             this.groupBox1.Controls.Add(this.txtApprovalNote);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.txtActualLeaveDays);
@@ -802,6 +805,19 @@
             // 
             this.kryptonCommand2.Text = "kryptonCommand2";
             // 
+            // picViewLeaves
+            // 
+            this.picViewLeaves.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picViewLeaves.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picViewLeaves.Image = global::StaffSync.Properties.Resources.search;
+            this.picViewLeaves.Location = new System.Drawing.Point(574, 28);
+            this.picViewLeaves.Name = "picViewLeaves";
+            this.picViewLeaves.Size = new System.Drawing.Size(23, 22);
+            this.picViewLeaves.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picViewLeaves.TabIndex = 51;
+            this.picViewLeaves.TabStop = false;
+            this.picViewLeaves.Click += new System.EventHandler(this.picViewLeaves_Click);
+            // 
             // frmLeavesReject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -837,6 +853,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picViewLeaves)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -904,5 +921,6 @@
         public System.Windows.Forms.Label lblSpecificLeaveBalance;
         public System.Windows.Forms.Label lblLeaveMasID;
         public System.Windows.Forms.Label lblCancelStatus;
+        private System.Windows.Forms.PictureBox picViewLeaves;
     }
 }

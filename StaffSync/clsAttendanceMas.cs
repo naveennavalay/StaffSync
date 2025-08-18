@@ -63,7 +63,7 @@ namespace StaffSync
             return rowCount;
         }
 
-        public List<EmployeeAttendanceInfo> GetDefaultEmployeeAttendanceInfo(int txtEmpID)
+        public List<EmployeeAttendanceInfo> GetDefaultEmployeeAttendanceInfo(int txtEmpID, int MonthNumber)
         {
 
             List<EmployeeAttendanceInfo> objEmployeeAttendanceInfo = new List<EmployeeAttendanceInfo>();
@@ -73,8 +73,8 @@ namespace StaffSync
             try
             {
                 conn = objDBClass.openDBConnection();
-
-                string strQuery = "SELECT * FROM qryEmpAttendanceList WHERE EmpID = " + txtEmpID + " AND MONTH(AttDate) = " + DateTime.Now.Month + " AND YEAR(AttDate) = " + DateTime.Now.Year  + " ORDER BY AttDate, OrderID Asc";
+                //DateTime.Now.Month
+                string strQuery = "SELECT * FROM qryEmpAttendanceList WHERE EmpID = " + txtEmpID + " AND MONTH(AttDate) = " + MonthNumber + " AND YEAR(AttDate) = " + DateTime.Now.Year  + " ORDER BY AttDate, OrderID Asc";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

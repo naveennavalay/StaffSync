@@ -32,12 +32,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAttendanceMater));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lblTotalLeave = new System.Windows.Forms.Label();
-            this.lblTotalPresent = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.empAttCalender = new Calendar.NET.Calendar();
+            this.picViewLeaves = new Krypton.Toolkit.KryptonButton();
+            this.cmbMonthNameList = new Krypton.Toolkit.KryptonComboBox();
+            this.label50 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.lblLeaveMasID = new System.Windows.Forms.Label();
             this.btnReportingManagerSearch = new Krypton.Toolkit.KryptonButton();
             this.txtRepEmpContactNumber = new Krypton.Toolkit.KryptonTextBox();
             this.txtRepEmpDepartment = new Krypton.Toolkit.KryptonTextBox();
@@ -54,16 +53,18 @@
             this.label35 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.btnSaveDetails = new Krypton.Toolkit.KryptonButton();
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
-            this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.empAttCalender = new StaffSync.Calender();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbMonthNameList)).BeginInit();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).BeginInit();
             this.panel2.SuspendLayout();
@@ -74,6 +75,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -84,97 +86,67 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(974, 610);
-            this.splitContainer1.SplitterDistance = 550;
+            this.splitContainer1.Size = new System.Drawing.Size(1231, 615);
+            this.splitContainer1.SplitterDistance = 554;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.panel1.Controls.Add(this.lblTotalLeave);
-            this.panel1.Controls.Add(this.lblTotalPresent);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.picViewLeaves);
             this.panel1.Controls.Add(this.empAttCalender);
+            this.panel1.Controls.Add(this.cmbMonthNameList);
+            this.panel1.Controls.Add(this.label50);
             this.panel1.Controls.Add(this.groupBox8);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(974, 550);
+            this.panel1.Size = new System.Drawing.Size(1231, 554);
             this.panel1.TabIndex = 1;
             // 
-            // lblTotalLeave
+            // picViewLeaves
             // 
-            this.lblTotalLeave.AutoSize = true;
-            this.lblTotalLeave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalLeave.Location = new System.Drawing.Point(834, 516);
-            this.lblTotalLeave.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTotalLeave.Name = "lblTotalLeave";
-            this.lblTotalLeave.Size = new System.Drawing.Size(15, 15);
-            this.lblTotalLeave.TabIndex = 37;
-            this.lblTotalLeave.Text = "0";
+            this.picViewLeaves.Location = new System.Drawing.Point(317, 186);
+            this.picViewLeaves.Margin = new System.Windows.Forms.Padding(4);
+            this.picViewLeaves.Name = "picViewLeaves";
+            this.picViewLeaves.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.picViewLeaves.Size = new System.Drawing.Size(32, 28);
+            this.picViewLeaves.TabIndex = 60;
+            this.picViewLeaves.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.picViewLeaves.Values.Image = global::StaffSync.Properties.Resources.search;
+            this.picViewLeaves.Values.Text = "";
+            this.picViewLeaves.Click += new System.EventHandler(this.picViewLeaves_Click);
             // 
-            // lblTotalPresent
+            // cmbMonthNameList
             // 
-            this.lblTotalPresent.AutoSize = true;
-            this.lblTotalPresent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalPresent.Location = new System.Drawing.Point(795, 516);
-            this.lblTotalPresent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTotalPresent.Name = "lblTotalPresent";
-            this.lblTotalPresent.Size = new System.Drawing.Size(15, 15);
-            this.lblTotalPresent.TabIndex = 36;
-            this.lblTotalPresent.Text = "0";
+            this.cmbMonthNameList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMonthNameList.DropDownWidth = 440;
+            this.cmbMonthNameList.Location = new System.Drawing.Point(162, 189);
+            this.cmbMonthNameList.Name = "cmbMonthNameList";
+            this.cmbMonthNameList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbMonthNameList.Size = new System.Drawing.Size(148, 22);
+            this.cmbMonthNameList.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbMonthNameList.TabIndex = 58;
+            this.cmbMonthNameList.SelectedIndexChanged += new System.EventHandler(this.cmbMonthNameList_SelectedIndexChanged);
             // 
-            // label2
+            // label50
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.OrangeRed;
-            this.label2.Location = new System.Drawing.Point(817, 517);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(10, 13);
-            this.label2.TabIndex = 35;
-            this.label2.Text = " ";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Yellow;
-            this.label1.Location = new System.Drawing.Point(778, 517);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(10, 13);
-            this.label1.TabIndex = 34;
-            this.label1.Text = " ";
-            // 
-            // empAttCalender
-            // 
-            this.empAttCalender.AllowEditingEvents = true;
-            this.empAttCalender.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.empAttCalender.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.empAttCalender.CalendarDate = new System.DateTime(2025, 6, 10, 22, 57, 35, 251);
-            this.empAttCalender.CalendarView = Calendar.NET.CalendarViews.Month;
-            this.empAttCalender.DateHeaderFont = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.empAttCalender.DayOfWeekFont = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.empAttCalender.DaysFont = new System.Drawing.Font("Arial", 10F);
-            this.empAttCalender.DayViewTimeFont = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            this.empAttCalender.DimDisabledEvents = true;
-            this.empAttCalender.ForeColor = System.Drawing.Color.White;
-            this.empAttCalender.HighlightCurrentDay = true;
-            this.empAttCalender.LoadPresetHolidays = false;
-            this.empAttCalender.Location = new System.Drawing.Point(12, 204);
-            this.empAttCalender.Name = "empAttCalender";
-            this.empAttCalender.ShowArrowControls = false;
-            this.empAttCalender.ShowDashedBorderOnDisabledEvents = true;
-            this.empAttCalender.ShowDateInHeader = true;
-            this.empAttCalender.ShowDisabledEvents = false;
-            this.empAttCalender.ShowEventTooltips = false;
-            this.empAttCalender.ShowTodayButton = true;
-            this.empAttCalender.Size = new System.Drawing.Size(950, 298);
-            this.empAttCalender.TabIndex = 33;
-            this.empAttCalender.TodayFont = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label50.Location = new System.Drawing.Point(112, 192);
+            this.label50.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(47, 15);
+            this.label50.TabIndex = 57;
+            this.label50.Text = "Month";
+            this.label50.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // groupBox8
             // 
             this.groupBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox8.Controls.Add(this.lblLeaveMasID);
             this.groupBox8.Controls.Add(this.btnReportingManagerSearch);
             this.groupBox8.Controls.Add(this.txtRepEmpContactNumber);
             this.groupBox8.Controls.Add(this.txtRepEmpDepartment);
@@ -191,19 +163,34 @@
             this.groupBox8.Controls.Add(this.label35);
             this.groupBox8.Controls.Add(this.label34);
             this.groupBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox8.Location = new System.Drawing.Point(12, 3);
+            this.groupBox8.Location = new System.Drawing.Point(16, 4);
+            this.groupBox8.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(950, 195);
+            this.groupBox8.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox8.Size = new System.Drawing.Size(1199, 174);
             this.groupBox8.TabIndex = 32;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "User Information";
             // 
+            // lblLeaveMasID
+            // 
+            this.lblLeaveMasID.AutoSize = true;
+            this.lblLeaveMasID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblLeaveMasID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLeaveMasID.Location = new System.Drawing.Point(616, 33);
+            this.lblLeaveMasID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblLeaveMasID.Name = "lblLeaveMasID";
+            this.lblLeaveMasID.Size = new System.Drawing.Size(11, 15);
+            this.lblLeaveMasID.TabIndex = 50;
+            this.lblLeaveMasID.Text = " ";
+            // 
             // btnReportingManagerSearch
             // 
-            this.btnReportingManagerSearch.Location = new System.Drawing.Point(319, 20);
+            this.btnReportingManagerSearch.Location = new System.Drawing.Point(262, 25);
+            this.btnReportingManagerSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnReportingManagerSearch.Name = "btnReportingManagerSearch";
             this.btnReportingManagerSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnReportingManagerSearch.Size = new System.Drawing.Size(29, 28);
+            this.btnReportingManagerSearch.Size = new System.Drawing.Size(32, 28);
             this.btnReportingManagerSearch.TabIndex = 32;
             this.btnReportingManagerSearch.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnReportingManagerSearch.Values.Image = global::StaffSync.Properties.Resources.search;
@@ -212,11 +199,12 @@
             // 
             // txtRepEmpContactNumber
             // 
-            this.txtRepEmpContactNumber.Location = new System.Drawing.Point(145, 159);
+            this.txtRepEmpContactNumber.Location = new System.Drawing.Point(146, 160);
+            this.txtRepEmpContactNumber.Margin = new System.Windows.Forms.Padding(4);
             this.txtRepEmpContactNumber.Multiline = true;
             this.txtRepEmpContactNumber.Name = "txtRepEmpContactNumber";
             this.txtRepEmpContactNumber.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtRepEmpContactNumber.Size = new System.Drawing.Size(440, 28);
+            this.txtRepEmpContactNumber.Size = new System.Drawing.Size(587, 28);
             this.txtRepEmpContactNumber.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpContactNumber.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtRepEmpContactNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -227,11 +215,12 @@
             // 
             // txtRepEmpDepartment
             // 
-            this.txtRepEmpDepartment.Location = new System.Drawing.Point(145, 124);
+            this.txtRepEmpDepartment.Location = new System.Drawing.Point(146, 130);
+            this.txtRepEmpDepartment.Margin = new System.Windows.Forms.Padding(4);
             this.txtRepEmpDepartment.Multiline = true;
             this.txtRepEmpDepartment.Name = "txtRepEmpDepartment";
             this.txtRepEmpDepartment.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtRepEmpDepartment.Size = new System.Drawing.Size(440, 28);
+            this.txtRepEmpDepartment.Size = new System.Drawing.Size(587, 28);
             this.txtRepEmpDepartment.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDepartment.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtRepEmpDepartment.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -240,11 +229,12 @@
             // 
             // txtRepEmpDesig
             // 
-            this.txtRepEmpDesig.Location = new System.Drawing.Point(145, 89);
+            this.txtRepEmpDesig.Location = new System.Drawing.Point(146, 95);
+            this.txtRepEmpDesig.Margin = new System.Windows.Forms.Padding(4);
             this.txtRepEmpDesig.Multiline = true;
             this.txtRepEmpDesig.Name = "txtRepEmpDesig";
             this.txtRepEmpDesig.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtRepEmpDesig.Size = new System.Drawing.Size(440, 28);
+            this.txtRepEmpDesig.Size = new System.Drawing.Size(587, 28);
             this.txtRepEmpDesig.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDesig.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtRepEmpDesig.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -254,11 +244,12 @@
             // 
             // txtRepEmpName
             // 
-            this.txtRepEmpName.Location = new System.Drawing.Point(145, 54);
+            this.txtRepEmpName.Location = new System.Drawing.Point(146, 59);
+            this.txtRepEmpName.Margin = new System.Windows.Forms.Padding(4);
             this.txtRepEmpName.Multiline = true;
             this.txtRepEmpName.Name = "txtRepEmpName";
             this.txtRepEmpName.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtRepEmpName.Size = new System.Drawing.Size(440, 28);
+            this.txtRepEmpName.Size = new System.Drawing.Size(587, 28);
             this.txtRepEmpName.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpName.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtRepEmpName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -269,12 +260,13 @@
             // txtRepEmpCode
             // 
             this.txtRepEmpCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtRepEmpCode.Location = new System.Drawing.Point(145, 20);
+            this.txtRepEmpCode.Location = new System.Drawing.Point(146, 25);
+            this.txtRepEmpCode.Margin = new System.Windows.Forms.Padding(4);
             this.txtRepEmpCode.Multiline = true;
             this.txtRepEmpCode.Name = "txtRepEmpCode";
             this.txtRepEmpCode.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtRepEmpCode.ReadOnly = true;
-            this.txtRepEmpCode.Size = new System.Drawing.Size(168, 28);
+            this.txtRepEmpCode.Size = new System.Drawing.Size(111, 28);
             this.txtRepEmpCode.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpCode.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtRepEmpCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -286,8 +278,8 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(382, 27);
-            this.lblActionMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblActionMode.Location = new System.Drawing.Point(509, 33);
+            this.lblActionMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
             this.lblActionMode.TabIndex = 20;
@@ -299,8 +291,8 @@
             this.lblReportingManagerID.AutoSize = true;
             this.lblReportingManagerID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblReportingManagerID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblReportingManagerID.Location = new System.Drawing.Point(363, 27);
-            this.lblReportingManagerID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblReportingManagerID.Location = new System.Drawing.Point(484, 33);
+            this.lblReportingManagerID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblReportingManagerID.Name = "lblReportingManagerID";
             this.lblReportingManagerID.Size = new System.Drawing.Size(11, 15);
             this.lblReportingManagerID.TabIndex = 19;
@@ -311,8 +303,8 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(27, 163);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Location = new System.Drawing.Point(33, 165);
+            this.label20.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(110, 15);
             this.label20.TabIndex = 17;
@@ -324,8 +316,8 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.Location = new System.Drawing.Point(688, 23);
-            this.label38.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label38.Location = new System.Drawing.Point(924, 33);
+            this.label38.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(44, 15);
             this.label38.TabIndex = 16;
@@ -335,9 +327,10 @@
             // picRepEmpPhoto
             // 
             this.picRepEmpPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picRepEmpPhoto.Location = new System.Drawing.Point(733, 20);
+            this.picRepEmpPhoto.Location = new System.Drawing.Point(977, 25);
+            this.picRepEmpPhoto.Margin = new System.Windows.Forms.Padding(4);
             this.picRepEmpPhoto.Name = "picRepEmpPhoto";
-            this.picRepEmpPhoto.Size = new System.Drawing.Size(201, 164);
+            this.picRepEmpPhoto.Size = new System.Drawing.Size(190, 134);
             this.picRepEmpPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picRepEmpPhoto.TabIndex = 15;
             this.picRepEmpPhoto.TabStop = false;
@@ -346,8 +339,8 @@
             // 
             this.label37.AutoSize = true;
             this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.Location = new System.Drawing.Point(55, 129);
-            this.label37.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label37.Location = new System.Drawing.Point(61, 136);
+            this.label37.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(82, 15);
             this.label37.TabIndex = 13;
@@ -358,8 +351,8 @@
             // 
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label36.Location = new System.Drawing.Point(55, 95);
-            this.label36.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label36.Location = new System.Drawing.Point(59, 102);
+            this.label36.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(84, 15);
             this.label36.TabIndex = 11;
@@ -370,8 +363,8 @@
             // 
             this.label35.AutoSize = true;
             this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.Location = new System.Drawing.Point(94, 61);
-            this.label35.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label35.Location = new System.Drawing.Point(98, 68);
+            this.label35.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(45, 15);
             this.label35.TabIndex = 9;
@@ -382,8 +375,8 @@
             // 
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.Location = new System.Drawing.Point(32, 27);
-            this.label34.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label34.Location = new System.Drawing.Point(36, 33);
+            this.label34.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(107, 15);
             this.label34.TabIndex = 6;
@@ -392,19 +385,34 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Controls.Add(this.btnSaveDetails);
             this.panel2.Controls.Add(this.btnModifyDetails);
             this.panel2.Controls.Add(this.btnCloseMe);
-            this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(974, 56);
+            this.panel2.Size = new System.Drawing.Size(1231, 56);
             this.panel2.TabIndex = 1;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(167, 8);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnCancel.Size = new System.Drawing.Size(126, 38);
+            this.btnCancel.TabIndex = 9;
+            this.btnCancel.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnCancel.Values.Image = global::StaffSync.Properties.Resources.cancel;
+            this.btnCancel.Values.Text = "Cancel";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(157, 9);
+            this.btnSaveDetails.Location = new System.Drawing.Point(167, 12);
+            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
@@ -412,11 +420,13 @@
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSaveDetails.Values.Image = global::StaffSync.Properties.Resources.save;
             this.btnSaveDetails.Values.Text = "Save";
+            this.btnSaveDetails.Visible = false;
             this.btnSaveDetails.Click += new System.EventHandler(this.btnSaveDetails_Click);
             // 
             // btnModifyDetails
             // 
-            this.btnModifyDetails.Location = new System.Drawing.Point(25, 9);
+            this.btnModifyDetails.Location = new System.Drawing.Point(33, 8);
+            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
@@ -428,7 +438,8 @@
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(820, 9);
+            this.btnCloseMe.Location = new System.Drawing.Point(1057, 8);
+            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -438,31 +449,63 @@
             this.btnCloseMe.Values.Text = "Close Me";
             this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click);
             // 
-            // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(289, 9);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCancel.Size = new System.Drawing.Size(126, 38);
-            this.btnCancel.TabIndex = 9;
-            this.btnCancel.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnCancel.Values.Image = global::StaffSync.Properties.Resources.cancel;
-            this.btnCancel.Values.Text = "Cancel";
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
             // 
+            // empAttCalender
+            // 
+            this.empAttCalender.CustomTextColor = System.Drawing.Color.Black;
+            this.empAttCalender.CustomTextFontBold = true;
+            this.empAttCalender.CustomTextFontFamily = "Segoe UI";
+            this.empAttCalender.CustomTextFontItalic = false;
+            this.empAttCalender.CustomTextFontSize = 12F;
+            this.empAttCalender.DateFormat = "MMMM yyyy";
+            this.empAttCalender.DayHeaderBackColor = System.Drawing.SystemColors.ControlText;
+            this.empAttCalender.DayHeaderFontBold = true;
+            this.empAttCalender.DayHeaderFontItalic = false;
+            this.empAttCalender.DayHeaderFontSize = 12F;
+            this.empAttCalender.DayHeaderForeColor = System.Drawing.Color.LimeGreen;
+            this.empAttCalender.DayNameFormat = StaffSync.DayNameFormat.Short;
+            this.empAttCalender.DayNumberAlignment = StaffSync.DateAlignment.TopLeft;
+            this.empAttCalender.DayNumberColor = System.Drawing.Color.Black;
+            this.empAttCalender.DayNumberFontBold = true;
+            this.empAttCalender.DayNumberFontFamily = "Segoe UI";
+            this.empAttCalender.DayNumberFontItalic = false;
+            this.empAttCalender.DayNumberFontSize = 12F;
+            this.empAttCalender.DisplayMonth = new System.DateTime(2025, 8, 9, 0, 0, 0, 0);
+            this.empAttCalender.HeaderBackColor = System.Drawing.SystemColors.ControlText;
+            this.empAttCalender.HeaderFontBold = true;
+            this.empAttCalender.HeaderFontItalic = false;
+            this.empAttCalender.HeaderFontSize = 12F;
+            this.empAttCalender.HeaderForeColor = System.Drawing.Color.LimeGreen;
+            this.empAttCalender.LegendPosition = StaffSync.LegendAlignment.BottomRight;
+            this.empAttCalender.Location = new System.Drawing.Point(33, 227);
+            this.empAttCalender.Name = "empAttCalender";
+            this.empAttCalender.SaturdaySundayTogether = false;
+            this.empAttCalender.ShowGridLines = true;
+            this.empAttCalender.ShowHeader = true;
+            this.empAttCalender.ShowLegend = true;
+            this.empAttCalender.ShowToolTips = true;
+            this.empAttCalender.ShowWeekends = true;
+            this.empAttCalender.ShowWeeklyOff = true;
+            this.empAttCalender.Size = new System.Drawing.Size(1150, 325);
+            this.empAttCalender.TabIndex = 59;
+            this.empAttCalender.Text = "calender1";
+            this.empAttCalender.WeekendColor = System.Drawing.Color.LightGray;
+            this.empAttCalender.WeeklyOffColor = System.Drawing.Color.DarkGray;
+            this.empAttCalender.WeeklyOffDay = null;
+            this.empAttCalender.DetailedDayClicked += new System.EventHandler<StaffSync.DetailedDateClickedEventArgs>(this.empAttCalender_DetailedDayClicked);
+            // 
             // frmAttendanceMater
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(974, 610);
+            this.ClientSize = new System.Drawing.Size(1231, 615);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAttendanceMater";
@@ -476,6 +519,7 @@
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbMonthNameList)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).EndInit();
@@ -500,12 +544,7 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label34;
-        private Calendar.NET.Calendar empAttCalender;
         private System.Windows.Forms.ErrorProvider errValidator;
-        private System.Windows.Forms.Label lblTotalPresent;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblTotalLeave;
         private Krypton.Toolkit.KryptonButton btnCancel;
         private Krypton.Toolkit.KryptonButton btnSaveDetails;
         private Krypton.Toolkit.KryptonButton btnModifyDetails;
@@ -516,5 +555,11 @@
         private Krypton.Toolkit.KryptonTextBox txtRepEmpName;
         private Krypton.Toolkit.KryptonTextBox txtRepEmpCode;
         private Krypton.Toolkit.KryptonButton btnReportingManagerSearch;
+        private Krypton.Toolkit.KryptonComboBox cmbMonthNameList;
+        private System.Windows.Forms.Label label50;
+        private Calender empAttCalender;
+        private Krypton.Toolkit.KryptonButton picViewLeaves;
+        public System.Windows.Forms.Label lblLeaveMasID;
+        //private Calender empAttCalender;
     }
 }

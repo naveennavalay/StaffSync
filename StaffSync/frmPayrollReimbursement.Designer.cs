@@ -33,7 +33,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.cmbIsActive = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtReimbDescription = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -56,6 +55,9 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmbIsActive = new Krypton.Toolkit.KryptonComboBox();
+            this.cmbIsFixed = new Krypton.Toolkit.KryptonComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -67,6 +69,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbIsFixed)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -83,8 +87,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(845, 354);
-            this.splitContainer1.SplitterDistance = 276;
+            this.splitContainer1.Size = new System.Drawing.Size(845, 404);
+            this.splitContainer1.SplitterDistance = 314;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -95,13 +99,15 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(845, 276);
+            this.panel1.Size = new System.Drawing.Size(845, 314);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
             // 
             this.groupBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox5.Controls.Add(this.cmbIsFixed);
             this.groupBox5.Controls.Add(this.cmbIsActive);
+            this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.label17);
             this.groupBox5.Controls.Add(this.txtReimbDescription);
             this.groupBox5.Controls.Add(this.label18);
@@ -110,26 +116,16 @@
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.Location = new System.Drawing.Point(14, 83);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(815, 185);
+            this.groupBox5.Size = new System.Drawing.Size(815, 213);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Reimbursement Details";
-            // 
-            // cmbIsActive
-            // 
-            this.cmbIsActive.FormattingEnabled = true;
-            this.cmbIsActive.Location = new System.Drawing.Point(200, 147);
-            this.cmbIsActive.MaxDropDownItems = 5;
-            this.cmbIsActive.Name = "cmbIsActive";
-            this.cmbIsActive.Size = new System.Drawing.Size(427, 23);
-            this.cmbIsActive.TabIndex = 34;
-            this.cmbIsActive.SelectedIndexChanged += new System.EventHandler(this.cmbRelationship_SelectedIndexChanged);
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(138, 151);
+            this.label17.Location = new System.Drawing.Point(138, 184);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(59, 15);
@@ -271,7 +267,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(845, 74);
+            this.panel2.Size = new System.Drawing.Size(845, 86);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
@@ -364,12 +360,46 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(138, 151);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 15);
+            this.label2.TabIndex = 35;
+            this.label2.Text = "Is Fixed";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbIsActive
+            // 
+            this.cmbIsActive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbIsActive.DropDownWidth = 440;
+            this.cmbIsActive.Location = new System.Drawing.Point(200, 180);
+            this.cmbIsActive.Name = "cmbIsActive";
+            this.cmbIsActive.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbIsActive.Size = new System.Drawing.Size(427, 22);
+            this.cmbIsActive.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbIsActive.TabIndex = 41;
+            // 
+            // cmbIsFixed
+            // 
+            this.cmbIsFixed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbIsFixed.DropDownWidth = 440;
+            this.cmbIsFixed.Location = new System.Drawing.Point(200, 148);
+            this.cmbIsFixed.Name = "cmbIsFixed";
+            this.cmbIsFixed.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbIsFixed.Size = new System.Drawing.Size(427, 22);
+            this.cmbIsFixed.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbIsFixed.TabIndex = 42;
+            // 
             // frmReimbursement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(845, 354);
+            this.ClientSize = new System.Drawing.Size(845, 404);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -393,6 +423,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbIsFixed)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -413,7 +445,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txtReimbTitle;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.ComboBox cmbIsActive;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label lblReimbursementID;
         public System.Windows.Forms.Label lblActionMode;
@@ -425,5 +456,8 @@
         private Krypton.Toolkit.KryptonButton btnGenerateDetails;
         private Krypton.Toolkit.KryptonButton btnCancel;
         private Krypton.Toolkit.KryptonButton btnSearch;
+        private System.Windows.Forms.Label label2;
+        private Krypton.Toolkit.KryptonComboBox cmbIsFixed;
+        private Krypton.Toolkit.KryptonComboBox cmbIsActive;
     }
 }

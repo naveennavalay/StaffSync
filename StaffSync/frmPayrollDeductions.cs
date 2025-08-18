@@ -78,6 +78,7 @@ namespace StaffSync
             onGenerateButtonClick();
             clearControls();
             enableControls();
+            cmbIsFixed.SelectedIndex = 1;
             cmbIsActive.SelectedIndex = 1;
             lblDeductionID.Text = objDeductionInfo.getMaxRowCount("DeductionHeaderMas", "DedID").ToString();
             txtDedCode.Text = "DDN-" + (lblDeductionID.Text.Trim()).ToString().PadLeft(4, '0');
@@ -96,6 +97,12 @@ namespace StaffSync
                 txtDedDescription.Focus();
                 errValidator.SetError(this.txtDedDescription, "Please enter Allowence Description");
             }
+            else if (string.IsNullOrEmpty(cmbIsFixed.Text))
+            {
+                cmbIsFixed.Focus();
+                cmbIsFixed.SelectedIndex = 1;
+                errValidator.SetError(this.cmbIsFixed, "Is the Allowence Fixed.?");
+            }
             else if (string.IsNullOrEmpty(cmbIsActive.Text))
             {
                 cmbIsActive.Focus();
@@ -106,13 +113,13 @@ namespace StaffSync
             {
                 if (lblActionMode.Text == "add")
                 {
-                    int affectedRows = objDeductionInfo.InsertDeduction(txtDedCode.Text.Trim(), txtDedTitle.Text.Trim(), txtDedDescription.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
+                    int affectedRows = objDeductionInfo.InsertDeduction(txtDedCode.Text.Trim(), txtDedTitle.Text.Trim(), txtDedDescription.Text.Trim(), cmbIsFixed.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                     if (affectedRows > 0)
                         MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (lblActionMode.Text == "modify")
                 {
-                    int affectedRows = objDeductionInfo.UpdateDeduction(Convert.ToInt16(lblDeductionID.Text.Trim()), txtDedCode.Text.Trim(), txtDedTitle.Text.Trim(), txtDedDescription.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
+                    int affectedRows = objDeductionInfo.UpdateDeduction(Convert.ToInt16(lblDeductionID.Text.Trim()), txtDedCode.Text.Trim(), txtDedTitle.Text.Trim(), txtDedDescription.Text.Trim(), cmbIsFixed.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                     if (affectedRows > 0)
                         MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -134,6 +141,12 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.SelectedIndex = 0;
+
+            cmbIsFixed.Items.Clear();
+            cmbIsFixed.Items.Add("");
+            cmbIsFixed.Items.Add("Yes");
+            cmbIsFixed.Items.Add("No");
+            cmbIsFixed.SelectedIndex = 0;
         }
 
         public void enableControls()
@@ -147,6 +160,14 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.Enabled = true;
+            cmbIsActive.SelectedIndex = 1;
+
+            cmbIsFixed.Items.Clear();
+            cmbIsFixed.Items.Add("");
+            cmbIsFixed.Items.Add("Yes");
+            cmbIsFixed.Items.Add("No");
+            cmbIsFixed.Enabled = true;
+            cmbIsFixed.SelectedIndex = 1;
         }
 
         public void disableControls()
@@ -160,6 +181,12 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.Enabled = false;
+
+            cmbIsFixed.Items.Clear();
+            cmbIsFixed.Items.Add("");
+            cmbIsFixed.Items.Add("Yes");
+            cmbIsFixed.Items.Add("No");
+            cmbIsFixed.Enabled = false;
         }
 
         public void onGenerateButtonClick()
@@ -229,6 +256,7 @@ namespace StaffSync
             txtDedTitle.Text = DeductionModel.DedTitle;
             txtDedDescription.Text = DeductionModel.DedDescription;
             cmbIsActive.Text = DeductionModel.IsActive == true ? "Yes" : "No";
+            cmbIsFixed.Text = DeductionModel.IsFixed == true ? "Yes" : "No";
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -269,6 +297,7 @@ namespace StaffSync
             clearControls();
             enableControls();
             cmbIsActive.SelectedIndex = 1;
+            cmbIsFixed.SelectedIndex = 1;
             errValidator.Clear();
         }
 
@@ -280,6 +309,7 @@ namespace StaffSync
                 onRemoveButtonClick();
                 clearControls();
                 enableControls();
+                cmbIsFixed.SelectedIndex = 1;
                 cmbIsActive.SelectedIndex = 1;
             }
             else if (lblActionMode.Text == "delete")
@@ -294,6 +324,7 @@ namespace StaffSync
                 onCancelButtonClick();
                 disableControls();
                 clearControls();
+                cmbIsFixed.SelectedIndex = 0;
                 cmbIsActive.SelectedIndex = 0;
                 lblActionMode.Text = "";
                 errValidator.Clear();

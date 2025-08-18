@@ -448,12 +448,17 @@ namespace StaffSync
             dtgLeaveEntitlement.Columns["TotalLeaves"].Width = 135;
             dtgLeaveEntitlement.Columns["TotalLeaves"].ReadOnly = false;
             dtgLeaveEntitlement.Columns["TotalLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgLeaveEntitlement.Columns["TotalLeaves"].DefaultCellStyle.Format = "c2";
+            dtgLeaveEntitlement.Columns["TotalLeaves"].DefaultCellStyle.Format = "0.00";
 
             dtgLeaveEntitlement.Columns["BalanceLeaves"].Width = 135;
             dtgLeaveEntitlement.Columns["BalanceLeaves"].ReadOnly = true;
             dtgLeaveEntitlement.Columns["BalanceLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgLeaveEntitlement.Columns["BalanceLeaves"].DefaultCellStyle.Format = "c2";
+            dtgLeaveEntitlement.Columns["BalanceLeaves"].DefaultCellStyle.Format = "0.00";
+
+            dtgLeaveEntitlement.Columns["UsedLeaves"].Width = 135;
+            dtgLeaveEntitlement.Columns["UsedLeaves"].ReadOnly = true;
+            dtgLeaveEntitlement.Columns["UsedLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgLeaveEntitlement.Columns["UsedLeaves"].DefaultCellStyle.Format = "0.00";
             dtgLeaveEntitlement.Columns["OrderID"].Visible = false;
 
             decimal totalLeavesAllotted = 0;

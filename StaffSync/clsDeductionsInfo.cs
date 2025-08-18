@@ -147,7 +147,7 @@ namespace StaffSync
             return selectedDeductionTitle;
         }
 
-        public int InsertDeduction(string txtDedCode, string txtDedTitle, string txtDedDescription, bool IsActive, bool IsDeleted)
+        public int InsertDeduction(string txtDedCode, string txtDedTitle, string txtDedDescription, bool IsFixed, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;
             try
@@ -158,8 +158,8 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO DeductionHeaderMas (DedID, DedCode, DedTitle, DedDescription, IsActive, IsDeleted, OrderID, CalcFormula) VALUES " +
-                 "(" + maxRowCount + ",'" + "ALL-" + (maxRowCount).ToString().PadLeft(4, '0').Trim() + "','" + txtDedTitle.Trim() + "','" + txtDedDescription.Trim() + "'," + IsActive + "," + IsDeleted + "," + maxRowCount + ",'')";
+                string strQuery = "INSERT INTO DeductionHeaderMas (DedID, DedCode, DedTitle, DedDescription, IsFixed, IsActive, IsDeleted, OrderID, CalcFormula) VALUES " +
+                 "(" + maxRowCount + ",'" + "DDN-" + (maxRowCount).ToString().PadLeft(4, '0').Trim() + "','" + txtDedTitle.Trim() + "','" + txtDedDescription.Trim() + "'," + IsFixed  + "," + IsActive + "," + IsDeleted + "," + maxRowCount + ",'')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -179,7 +179,7 @@ namespace StaffSync
             return affectedRows;
         }
 
-        public int UpdateDeduction(int txtDedID, string txtDedCode, string txtDedTitle, string txtDedDescription, bool IsActive, bool IsDeleted)
+        public int UpdateDeduction(int txtDedID, string txtDedCode, string txtDedTitle, string txtDedDescription, bool IsFixed, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;
             try
@@ -188,7 +188,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE DeductionHeaderMas SET " +
-                 "DedCode = '" + txtDedCode.Trim() + "', DedTitle = '" + txtDedTitle.Trim() + "', DedDescription = '" + txtDedDescription.Trim() + "', IsActive = " + IsActive +
+                 "DedCode = '" + txtDedCode.Trim() + "', DedTitle = '" + txtDedTitle.Trim() + "', DedDescription = '" + txtDedDescription.Trim() + "', IsFixed = " + IsFixed + ", IsActive = " + IsActive +
                  " WHERE DedID = " + txtDedID.ToString().Trim();
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -250,6 +250,7 @@ namespace StaffSync
 
         [DisplayName("Deduction Description")] 
         public string DedDescription { get; set; }
+        public bool IsFixed { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public int OrderID { get; set; }

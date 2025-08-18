@@ -78,6 +78,7 @@ namespace StaffSync
             onGenerateButtonClick();
             clearControls();
             enableControls();
+            cmbIsFixed.SelectedIndex = 1;
             cmbIsActive.SelectedIndex = 1;
             lblReimbursementID.Text = objReimbursement.getMaxRowCount("ReimbursementHeaderMas", "ReimbID").ToString();
             txtReimbCode.Text = "RIM-" + (lblReimbursementID.Text.Trim()).ToString().PadLeft(4, '0');
@@ -89,30 +90,36 @@ namespace StaffSync
             if (string.IsNullOrEmpty(txtReimbTitle.Text))
             {
                 txtReimbTitle.Focus();
-                errValidator.SetError(this.txtReimbTitle, "Please enter Allowence Title");
+                errValidator.SetError(this.txtReimbTitle, "Please enter Reimbursement Title");
             }
             else if (string.IsNullOrEmpty(txtReimbDescription.Text))
             {
                 txtReimbDescription.Focus();
-                errValidator.SetError(this.txtReimbDescription, "Please enter Allowence Description");
+                errValidator.SetError(this.txtReimbDescription, "Please enter Reimbursement Description");
+            }
+            else if (string.IsNullOrEmpty(cmbIsFixed.Text))
+            {
+                cmbIsFixed.Focus();
+                cmbIsFixed.SelectedIndex = 1;
+                errValidator.SetError(this.cmbIsFixed, "Is the Reimbursement Fixed");
             }
             else if (string.IsNullOrEmpty(cmbIsActive.Text))
             {
                 cmbIsActive.Focus();
                 cmbIsActive.SelectedIndex = 1;
-                errValidator.SetError(this.cmbIsActive, "Please select Allowence Status");
+                errValidator.SetError(this.cmbIsActive, "Please select Reimbursement Status");
             }
             else
             {
                 if (lblActionMode.Text == "add")
                 {
-                    int affectedRows = objReimbursement.InsertReimbursement(txtReimbCode.Text.Trim(), txtReimbTitle.Text.Trim(), txtReimbDescription.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
+                    int affectedRows = objReimbursement.InsertReimbursement(txtReimbCode.Text.Trim(), txtReimbTitle.Text.Trim(), txtReimbDescription.Text.Trim(), cmbIsFixed.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                     if (affectedRows > 0)
                         MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (lblActionMode.Text == "modify")
                 {
-                    int affectedRows = objReimbursement.UpdateReimbursement(Convert.ToInt16(lblReimbursementID.Text.Trim()), txtReimbCode.Text.Trim(), txtReimbTitle.Text.Trim(), txtReimbDescription.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
+                    int affectedRows = objReimbursement.UpdateReimbursement(Convert.ToInt16(lblReimbursementID.Text.Trim()), txtReimbCode.Text.Trim(), txtReimbTitle.Text.Trim(), txtReimbDescription.Text.Trim(), cmbIsFixed.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                     if (affectedRows > 0)
                         MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -134,6 +141,12 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.SelectedIndex = 0;
+
+            cmbIsFixed.Items.Clear();
+            cmbIsFixed.Items.Add("");
+            cmbIsFixed.Items.Add("Yes");
+            cmbIsFixed.Items.Add("No");
+            cmbIsFixed.SelectedIndex = 0;
         }
 
         public void enableControls()
@@ -147,6 +160,14 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.Enabled = true;
+            cmbIsActive.SelectedIndex = 1;
+
+            cmbIsFixed.Items.Clear();
+            cmbIsFixed.Items.Add("");
+            cmbIsFixed.Items.Add("Yes");
+            cmbIsFixed.Items.Add("No");
+            cmbIsFixed.Enabled = true;
+            cmbIsFixed.SelectedIndex = 1;
         }
 
         public void disableControls()
@@ -160,6 +181,14 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.Enabled = false;
+            cmbIsActive.SelectedIndex = 0;
+
+            cmbIsFixed.Items.Clear();
+            cmbIsFixed.Items.Add("");
+            cmbIsFixed.Items.Add("Yes");
+            cmbIsFixed.Items.Add("No");
+            cmbIsFixed.Enabled = false;
+            cmbIsFixed.SelectedIndex = 0;
         }
 
         public void onGenerateButtonClick()
@@ -228,6 +257,7 @@ namespace StaffSync
             txtReimbCode.Text = ReimbursementModel.ReimbCode;
             txtReimbTitle.Text = ReimbursementModel.ReimbTitle;
             txtReimbDescription.Text = ReimbursementModel.ReimbDescription;
+            cmbIsFixed.Text = ReimbursementModel.IsFixed == true ? "Yes" : "No";
             cmbIsActive.Text = ReimbursementModel.IsActive == true ? "Yes" : "No";
         }
 
@@ -268,6 +298,7 @@ namespace StaffSync
             onModifyButtonClick();
             clearControls();
             enableControls();
+            cmbIsFixed.SelectedIndex = 1;
             cmbIsActive.SelectedIndex = 1;
             errValidator.Clear();
         }
@@ -280,6 +311,7 @@ namespace StaffSync
                 onRemoveButtonClick();
                 clearControls();
                 enableControls();
+                cmbIsFixed.SelectedIndex = 1;
                 cmbIsActive.SelectedIndex = 1;
             }
             else if (lblActionMode.Text == "delete")
@@ -294,6 +326,7 @@ namespace StaffSync
                 onCancelButtonClick();
                 disableControls();
                 clearControls();
+                cmbIsFixed.SelectedIndex = 0;
                 cmbIsActive.SelectedIndex = 0;
                 lblActionMode.Text = "";
                 errValidator.Clear();

@@ -1,4 +1,4 @@
-﻿using Calendar.NET;
+﻿using Quartz;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,9 +6,11 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static StaffSync.TextBoxHelper;
 
 namespace StaffSync
 {
@@ -16,6 +18,7 @@ namespace StaffSync
     {
 
         clsEmployeeMaster objEmployeeMaster = new clsEmployeeMaster();
+        clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
         clsUserManagement objUserManagementList = new clsUserManagement();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         clsPhotoMas objPhotoMas = new clsPhotoMas();
@@ -27,6 +30,15 @@ namespace StaffSync
         {
             InitializeComponent();
         }
+
+        //public frmAttendanceMater(string SearchOptionSelectedForm, int selectedEmployeeID)
+        //{
+        //    InitializeComponent();
+        //    LoadMonthNameList();
+        //    onModifyButtonClick();
+        //    enableControls();
+        //    SelectedEmployeeID("listAttendanceMasterList", Convert.ToInt16(selectedEmployeeID));
+        //}
 
         private void btnCloseMe_Click(object sender, EventArgs e)
         {
@@ -42,17 +54,15 @@ namespace StaffSync
                     return;
                 }
             }
+
+            empAttCalender.DisplayMonth = new DateTime();
+            empAttCalender.Invalidate(); // Redraw the control
+
             lblActionMode.Text = "";
             onCancelButtonClick();
             disableControls();
             clearControls();
             errValidator.Clear();
-
-            //empAttCalender = new Calendar.NET.Calendar();
-            empAttCalender.CalendarDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
-            empAttCalender.CalendarView = CalendarViews.Month;
-            empAttCalender.AllowEditingEvents = false;
-            empAttCalender.Refresh();
         }
 
         public void onModifyButtonClick()
@@ -63,6 +73,8 @@ namespace StaffSync
             btnModifyDetails.Enabled = true;
             btnSaveDetails.Enabled = true;
             btnCancel.Enabled = true;
+            empAttCalender.DisplayMonth = new DateTime();
+            empAttCalender.Invalidate(); // Redraw the control
         }
 
         public void onSaveButtonClick()
@@ -94,13 +106,9 @@ namespace StaffSync
             txtRepEmpDesig.Text = "";
             txtRepEmpDepartment.Text = "";
             picRepEmpPhoto.Image = null;
-            lblTotalPresent.Text = "0";
-            lblTotalLeave.Text = "0";
 
-            //empAttCalender = new Calendar.NET.Calendar();
-            empAttCalender.CalendarDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
-            empAttCalender.CalendarView = CalendarViews.Month;
-            empAttCalender.AllowEditingEvents = false;
+            empAttCalender.DisplayMonth = new DateTime();
+            empAttCalender.Invalidate(); // Redraw the control                                         
         }
 
         public void enableControls()
@@ -111,6 +119,7 @@ namespace StaffSync
             //txtRepEmpDepartment.Enabled = false;
             //txtRepEmpContactNumber.Enabled = false;
             btnReportingManagerSearch.Enabled = true;
+            cmbMonthNameList.Enabled = true;
         }
 
         public void disableControls()
@@ -121,50 +130,69 @@ namespace StaffSync
             txtRepEmpDesig.Enabled = false;
             txtRepEmpDepartment.Enabled = false;
             txtRepEmpContactNumber.Enabled = false;
+            cmbMonthNameList.Enabled = false;
         }
 
         private void RefreshEmpAttendanceInfo()
         {
             int PresentCounter = 0;
             int LeaveCounter = 0;
-            List<EmployeeAttendanceInfo> objEmployeeAttendanceList = objAttendanceMas.GetDefaultEmployeeAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()));
+            int FirstHalfLeaveCounter = 0;
+            int SecondHalfLeaveCounter = 0;
+
+            DateTime dtSelectedMonth = new DateTime(DateTime.Now.Year, cmbMonthNameList.SelectedIndex + 1, 1, 1, 1, 1);
+
+            int selectedMonth = cmbMonthNameList.SelectedIndex + 1;
+            empAttCalender.DisplayMonth = new DateTime(DateTime.Today.Year, selectedMonth, 1);
+            empAttCalender.Invalidate(); // Redraw the control
+
+            List<EmployeeAttendanceInfo> objEmployeeAttendanceList = objAttendanceMas.GetDefaultEmployeeAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtSelectedMonth.Month);
             foreach (EmployeeAttendanceInfo indEmployeeAttendanceInfo in objEmployeeAttendanceList)
             {
 
                 string strDayAttendance = "";
-                strDayAttendance = indEmployeeAttendanceInfo.AttStatus == "Present" ? "Present" : "Leave";
+                //strDayAttendance = indEmployeeAttendanceInfo.AttStatus == "Present" ? "Present" : "Leave";
 
-                var ce2 = new CustomEvent
+                strDayAttendance = indEmployeeAttendanceInfo.AttStatus;
+                if (indEmployeeAttendanceInfo.AttStatus == "Present")
                 {
-                    IgnoreTimeComponent = false,
-                    EventText = strDayAttendance,
-                    Date = new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day, 0, 0, 0),
-                    EventLengthInHours = 2f,
-                    RecurringFrequency = RecurringFrequencies.None,
-                    EventFont = new Font("Verdana", 12, FontStyle.Regular),
-                    Enabled = true,
-                    EventColor = strDayAttendance == "Present" ? Color.Yellow : Color.OrangeRed,
-                    EventTextColor = Color.Black,
-                    ThisDayForwardOnly = true
-                };
-
-                if (strDayAttendance == "Present")
                     PresentCounter = PresentCounter + 1;
-                else if (strDayAttendance == "Leave")
+                }
+                else if (indEmployeeAttendanceInfo.AttStatus == "Leave : Full Day" || indEmployeeAttendanceInfo.AttStatus == "Leave")
+                {
+                    strDayAttendance = "Leave";
+                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, Color.Yellow, 1f);
                     LeaveCounter = LeaveCounter + 1;
-
-                empAttCalender.AddEvent(ce2);
+                }
+                else if (indEmployeeAttendanceInfo.AttStatus == "Leave : First Half")
+                {
+                    strDayAttendance = "First Half";
+                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, Color.LightYellow, 0.5f);
+                    FirstHalfLeaveCounter = FirstHalfLeaveCounter + 1;
+                }
+                else if (indEmployeeAttendanceInfo.AttStatus == "Leave : Second Half")
+                {
+                    strDayAttendance = "Second Half";
+                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, Color.LightYellow, -0.5f);
+                    SecondHalfLeaveCounter = SecondHalfLeaveCounter + 1;
+                }
             }
-
-            empAttCalender.Refresh();
-            lblTotalPresent.Text = PresentCounter.ToString();
-            lblTotalLeave.Text = LeaveCounter.ToString();
         }
 
         private void btnModifyDetails_Click(object sender, EventArgs e)
         {
+            LoadMonthNameList();
             onModifyButtonClick();
             enableControls();
+        }
+
+        private void LoadMonthNameList()
+        {
+            Dictionary<int, string> Months = Enumerable.Range(1, 12).Select(i => new KeyValuePair<int, string>(i, System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(i))).ToDictionary(x => x.Key, x => x.Value);
+            cmbMonthNameList.DataSource = new BindingSource(Months, null);
+            cmbMonthNameList.DisplayMember = "Value";
+            cmbMonthNameList.ValueMember = "Key";
+            cmbMonthNameList.SelectedIndex = DateTime.Now.Month - 1; // Set to current month
         }
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
@@ -208,6 +236,7 @@ namespace StaffSync
                 txtRepEmpDesig.Text = objReportingManagerInfo.DesignationTitle;
                 txtRepEmpDepartment.Text = objReportingManagerInfo.DepartmentTitle;
                 picRepEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblReportingManagerID.Text.ToString())).EmpPhoto);
+                lblLeaveMasID.Text = objLeaveTRList.getMaxLeaveMasID(Convert.ToInt16(selectedEmployeeID.ToString())).ToString();
 
                 UserInfo objLoggingInUserInfo = objLogin.getSpecificUserInfo(Convert.ToInt16(selectedEmployeeID.ToString()));
                 if (objLoggingInUserInfo.UserID != 0)
@@ -227,15 +256,42 @@ namespace StaffSync
 
         private void frmAttendanceMater_Load(object sender, EventArgs e)
         {
-            //empAttCalender = new Calendar.NET.Calendar();
-            empAttCalender.CalendarDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
-            empAttCalender.CalendarView = CalendarViews.Month;
-            empAttCalender.AllowEditingEvents = false;
+            LoadMonthNameList();
+
+            //cmbMonthNameList.SelectedIndex = DateTime.Now.Month - 1; // Set to current month
 
             lblActionMode.Text = "";
             onCancelButtonClick();
             disableControls();
             clearControls();
+        }
+
+        private void cmbMonthNameList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(lblReportingManagerID.Text.ToString().Trim() == "")
+                return;
+
+            UserInfo objLoggingInUserInfo = objLogin.getSpecificUserInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()));
+            if (objLoggingInUserInfo.UserID != 0)
+            {
+
+            }
+
+            RefreshEmpAttendanceInfo();
+        }
+
+        private void empAttCalender_DetailedDayClicked(object sender, DetailedDateClickedEventArgs e)
+        {
+            MessageBox.Show("Detailed Day Clicked: " + e.Date.ToShortDateString() + ", " + e.FillAmount + ", " + e.CustomText, "Calendar Event", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void picViewLeaves_Click(object sender, EventArgs e)
+        {
+            if (lblReportingManagerID.Text.Trim() == "")
+                return;
+
+            frmViewLeavesOutstanding frmViewLeavesOutstanding = new frmViewLeavesOutstanding(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToInt16(lblLeaveMasID.Text.ToString()));
+            frmViewLeavesOutstanding.ShowDialog(this);
         }
     }
 }

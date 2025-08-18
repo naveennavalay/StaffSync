@@ -74,6 +74,7 @@ namespace StaffSync
             objAllowenceModel.AllCode = dtgAllowancesList.SelectedRows[0].Cells["AllCode"].Value.ToString();
             objAllowenceModel.AllTitle = dtgAllowancesList.SelectedRows[0].Cells["AllTitle"].Value.ToString();
             objAllowenceModel.AllDescription = dtgAllowancesList.SelectedRows[0].Cells["AllDescription"].Value.ToString();
+            objAllowenceModel.IsFixed = Convert.ToBoolean(dtgAllowancesList.SelectedRows[0].Cells["IsFixed"].Value);
             objAllowenceModel.IsActive = Convert.ToBoolean(dtgAllowancesList.SelectedRows[0].Cells["IsActive"].Value);
 
             if (this.frmPayrollAllowence.lblActionMode.Text == "remove")

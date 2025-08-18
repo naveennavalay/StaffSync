@@ -161,11 +161,11 @@ namespace StaffSync
                 dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
                 dtgEmployeeList.Columns["EmpCode"].Width = 150;
-                dtgEmployeeList.Columns["EmpName"].Width = 350;
-                dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
-                dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
-                dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
-                dtgEmployeeList.Columns["ContactNumber2"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listEmployeeLeaveList")
             {
@@ -173,14 +173,15 @@ namespace StaffSync
                 dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
                 dtgEmployeeList.Columns["EmpCode"].Width = 150;
-                dtgEmployeeList.Columns["EmpName"].Width = 350;
-                dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
-                dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
-                dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
-                dtgEmployeeList.Columns["ContactNumber2"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listEmployeeLeaveApprovalRequestList")
             {
+                this.Text = "Leave Request List";
                 dtgEmployeeList.DataSource = null;
                 dtgEmployeeList.DataSource = objLeaveInfo.getPendingLeaveApprovalList();
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
@@ -188,8 +189,8 @@ namespace StaffSync
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
                 dtgEmployeeList.Columns["EmpCode"].Width = 100;
                 dtgEmployeeList.Columns["EmpName"].Width = 200;
-                dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
-                dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
                 dtgEmployeeList.Columns["LeaveTypeID"].Visible = false; 
                 dtgEmployeeList.Columns["LeaveTypeTitle"].Width = 150;
                 dtgEmployeeList.Columns["LeaveAppliedDate"].Visible = false;
@@ -204,6 +205,7 @@ namespace StaffSync
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listEmployeeLeaveRejectRequestList")
             {
+                this.Text = "Leave Request List";
                 dtgEmployeeList.DataSource = null;
                 dtgEmployeeList.DataSource = objLeaveInfo.getPendingLeaveApprovalList();
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
@@ -211,8 +213,8 @@ namespace StaffSync
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
                 dtgEmployeeList.Columns["EmpCode"].Width = 100;
                 dtgEmployeeList.Columns["EmpName"].Width = 200;
-                dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
-                dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
                 dtgEmployeeList.Columns["LeaveTypeID"].Visible = false;
                 dtgEmployeeList.Columns["LeaveTypeTitle"].Width = 150;
                 dtgEmployeeList.Columns["LeaveAppliedDate"].Visible = false;
@@ -277,13 +279,12 @@ namespace StaffSync
                 dtgEmployeeList.DataSource = null;
                 dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
-                dtgEmployeeList.Columns["EmpID"].Visible = false;
                 dtgEmployeeList.Columns["EmpCode"].Width = 150;
-                dtgEmployeeList.Columns["EmpName"].Width = 350;
-                dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
-                dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
-                dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
-                dtgEmployeeList.Columns["ContactNumber2"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listPayrollUsersList")
             {
@@ -439,11 +440,11 @@ namespace StaffSync
                 dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
                 dtgEmployeeList.Columns["EmpCode"].Width = 150;
-                dtgEmployeeList.Columns["EmpName"].Width = 350;
-                dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
-                dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
-                dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
-                dtgEmployeeList.Columns["ContactNumber2"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
             }
         }
 

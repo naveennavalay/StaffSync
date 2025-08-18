@@ -74,6 +74,7 @@ namespace StaffSync
             objDeductionModel.DedCode = dtgDeductionsList.SelectedRows[0].Cells["DedCode"].Value.ToString();
             objDeductionModel.DedTitle = dtgDeductionsList.SelectedRows[0].Cells["DedTitle"].Value.ToString();
             objDeductionModel.DedDescription = dtgDeductionsList.SelectedRows[0].Cells["DedDescription"].Value.ToString();
+            objDeductionModel.IsFixed = Convert.ToBoolean(dtgDeductionsList.SelectedRows[0].Cells["IsFixed"].Value);
             objDeductionModel.IsActive = Convert.ToBoolean(dtgDeductionsList.SelectedRows[0].Cells["IsActive"].Value);
 
             if (this.frmPayrollDeduction.lblActionMode.Text == "remove")

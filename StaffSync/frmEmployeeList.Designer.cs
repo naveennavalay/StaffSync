@@ -92,7 +92,6 @@
             // 
             this.dtgEmployeeList.AllowUserToAddRows = false;
             this.dtgEmployeeList.AllowUserToDeleteRows = false;
-            this.dtgEmployeeList.AllowUserToOrderColumns = true;
             this.dtgEmployeeList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dtgEmployeeList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dtgEmployeeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -101,6 +100,7 @@
             this.dtgEmployeeList.MultiSelect = false;
             this.dtgEmployeeList.Name = "dtgEmployeeList";
             this.dtgEmployeeList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.dtgEmployeeList.ReadOnly = true;
             this.dtgEmployeeList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgEmployeeList.ShowRowErrors = false;
             this.dtgEmployeeList.Size = new System.Drawing.Size(1192, 423);

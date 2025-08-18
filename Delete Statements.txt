@@ -21,5 +21,6 @@ DELETE FROM UserRoles
 DELETE FROM UserModules
 DELETE FROM users
 DELETE FROM EmpLeaveTransMas
+DELETE FROM EmpWeeklyOff
 DELETE FROM empmas
 

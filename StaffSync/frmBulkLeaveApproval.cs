@@ -52,6 +52,18 @@ namespace StaffSync
             disableControls();
             clearControls();
             FormatTheGrid();
+
+            if (this.dtgBulkLeaveApproval.Rows.Count > 0)
+            {
+                chkSelectUnselect.Enabled = true;
+                btnSaveDetails.Enabled = true;
+            }
+            else
+            {
+                chkSelectUnselect.Enabled = false;
+                btnSaveDetails.Enabled = false;
+            }
+
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -86,6 +98,14 @@ namespace StaffSync
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
+            if (this.dtgBulkLeaveApproval.Rows.Count > 0)
+            {
+                if (MessageBox.Show("You are about to execute Bulk Leave Approval. \nAre you sure to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
             int WeeklyOffDayID = 0;
             int employeeLeaveTRID = 0;
             foreach (DataGridViewRow indRow in this.dtgBulkLeaveApproval.Rows)
@@ -283,22 +303,22 @@ namespace StaffSync
             dtgBulkLeaveApproval.Columns["EmpID"].Width = 50;
             dtgBulkLeaveApproval.Columns["EmpID"].Visible = false;
             dtgBulkLeaveApproval.Columns["EmpCode"].ReadOnly = true;
-            dtgBulkLeaveApproval.Columns["EmpCode"].Width = 150;
+            dtgBulkLeaveApproval.Columns["EmpCode"].Width = 100;
             dtgBulkLeaveApproval.Columns["EmpCode"].Visible = true;
             dtgBulkLeaveApproval.Columns["EmpName"].ReadOnly = true;
             dtgBulkLeaveApproval.Columns["EmpName"].Width = 250;
             dtgBulkLeaveApproval.Columns["EmpName"].Visible = true;
             dtgBulkLeaveApproval.Columns["DesignationTitle"].ReadOnly = true;
-            dtgBulkLeaveApproval.Columns["DesignationTitle"].Width = 150;
+            dtgBulkLeaveApproval.Columns["DesignationTitle"].Width = 200;
             dtgBulkLeaveApproval.Columns["DesignationTitle"].Visible = true;
             dtgBulkLeaveApproval.Columns["DepartmentTitle"].ReadOnly = true;
-            dtgBulkLeaveApproval.Columns["DepartmentTitle"].Width = 150;
+            dtgBulkLeaveApproval.Columns["DepartmentTitle"].Width = 200;
             dtgBulkLeaveApproval.Columns["DepartmentTitle"].Visible = true;
             dtgBulkLeaveApproval.Columns["LeaveTypeID"].ReadOnly = true;
             dtgBulkLeaveApproval.Columns["LeaveTypeID"].Width = 100;
             dtgBulkLeaveApproval.Columns["LeaveTypeID"].Visible = false;
             dtgBulkLeaveApproval.Columns["LeaveTypeTitle"].ReadOnly = true;
-            dtgBulkLeaveApproval.Columns["LeaveTypeTitle"].Width = 150;
+            dtgBulkLeaveApproval.Columns["LeaveTypeTitle"].Width = 200;
             dtgBulkLeaveApproval.Columns["LeaveTypeTitle"].Visible = true;
             dtgBulkLeaveApproval.Columns["LeaveTRID"].ReadOnly = true;
             dtgBulkLeaveApproval.Columns["LeaveTRID"].Width = 100;
@@ -380,6 +400,33 @@ namespace StaffSync
         private void dtgBulkLeaveApproval_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             dtgBulkLeaveApproval.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
+
+        private void btnSelectUnselect_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkSelectUnselect_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkSelectUnselect.Text == "Select All")
+            {
+                foreach (DataGridViewRow indRow in this.dtgBulkLeaveApproval.Rows)
+                {
+                    indRow.Cells["Select"].Value = true;
+                }
+                chkSelectUnselect.Text = "Unselect All";
+                chkSelectUnselect.Refresh();
+            }
+            else if (chkSelectUnselect.Text == "Unselect All")
+            {
+                foreach (DataGridViewRow indRow in this.dtgBulkLeaveApproval.Rows)
+                {
+                    indRow.Cells["Select"].Value = false;
+                }
+                chkSelectUnselect.Text = "Select All";
+                chkSelectUnselect.Refresh();
+            }
         }
     }
 }

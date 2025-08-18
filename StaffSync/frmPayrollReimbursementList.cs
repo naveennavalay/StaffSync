@@ -75,6 +75,7 @@ namespace StaffSync
             objReimbursementModel.ReimbCode = dtgReimbursementList.SelectedRows[0].Cells["ReimbCode"].Value.ToString();
             objReimbursementModel.ReimbTitle = dtgReimbursementList.SelectedRows[0].Cells["ReimbTitle"].Value.ToString();
             objReimbursementModel.ReimbDescription= dtgReimbursementList.SelectedRows[0].Cells["ReimbDescription"].Value.ToString();
+            objReimbursementModel.IsFixed = Convert.ToBoolean(dtgReimbursementList.SelectedRows[0].Cells["IsFixed"].Value);
             objReimbursementModel.IsActive = Convert.ToBoolean(dtgReimbursementList.SelectedRows[0].Cells["IsActive"].Value);
 
             if (this.frmReimbursement.lblActionMode.Text == "remove")

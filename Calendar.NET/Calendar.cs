@@ -565,6 +565,12 @@ namespace Calendar.NET
             Refresh();
         }
 
+        public void LoadSelectedMonth(DateTime selectedMonth)
+        {
+            _calendarDate = selectedMonth;
+            Refresh();
+        }
+
         private void BtnRightButtonClicked(object sender)
         {
             if (_calendarView == CalendarViews.Day)

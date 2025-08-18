@@ -1,0 +1,594 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace StaffSync
+{
+    public enum DateAlignment
+    {
+        TopLeft, TopCenter, TopRight,
+        MiddleLeft, MiddleCenter, MiddleRight,
+        BottomLeft, BottomCenter, BottomRight
+    }
+
+    public class CalendarDayStyle
+    {
+        public string CustomText { get; set; }
+        public Color? BackgroundColor { get; set; }
+        public Image Icon { get; set; }
+        public float FillAmount { get; set; } = 1f;
+    }
+
+    public enum DayNameFormat { Short, Long }
+
+    public enum LegendAlignment
+    {
+        TopLeft, TopCenter, TopRight,
+        BottomLeft, BottomCenter, BottomRight
+    }
+
+    public class DateClickedEventArgs : EventArgs
+    {
+        public DateTime Date { get; }
+        public DateClickedEventArgs(DateTime date) => Date = date;
+    }
+
+    public class DetailedDateClickedEventArgs : EventArgs
+    {
+        public DateTime Date { get; }
+        public string CustomText { get; }
+        public float FillAmount { get; }
+
+        public DetailedDateClickedEventArgs(DateTime date, string customText, float fillAmount)
+        {
+            Date = date;
+            CustomText = customText;
+            FillAmount = fillAmount;
+        }
+    }
+
+    public class Calender : Control
+    {
+        private readonly int cellPadding = 4;
+
+        private bool _showHeader = true;
+        private bool _showGridLines = true;
+        private DateTime _displayMonth = DateTime.Today;
+
+        private Color _dayHeaderBackColor = SystemColors.ControlText;
+        private Color _dayHeaderForeColor = Color.LimeGreen;
+        private bool _dayHeaderFontBold = true;
+        private bool _dayHeaderFontItalic = false;
+        private float _dayHeaderFontSize = 12f;
+
+        private Color _headerBackColor = SystemColors.ControlText;
+        private Color _headerForeColor = Color.LimeGreen;
+        private bool _headerFontBold = true;
+        private bool _headerFontItalic = false;
+        private float _headerFontSize = 12f;
+
+        private Color _dayNumberColor = Color.Black;
+        private string _dayNumberFontFamily = "Segoe UI";
+        private float _dayNumberFontSize = 12f;
+        private bool _dayNumberFontBold = true;
+        private bool _dayNumberFontItalic = false;
+        private DateAlignment _dayNumberAlignment = DateAlignment.TopLeft;
+
+        private bool _showWeekendDays = true;
+        private Color _weekendColor = Color.LightGray;
+        private DayOfWeek[] _weekendDays = new[] { DayOfWeek.Saturday, DayOfWeek.Sunday };
+        private DayOfWeek? _weeklyOff = null;
+        private Color _weeklyOffColor = Color.DarkGray;
+
+        private bool _saturdaySundayTogether = false;
+        private DayNameFormat _dayNameFormat = DayNameFormat.Short;
+
+        // New: Date format selection
+        public static readonly string[] AvailableDateFormats = new[]
+        {
+            "MMMM yyyy", // August 2025
+            "MMM yyyy",  // Aug 2025
+            "MM/yyyy",   // 08/2025
+            "yyyy-MM",   // 2025-08
+            "MMM-yy"     // Aug-25
+        };
+        private string _dateFormat = "MMMM yyyy";
+        [Category("Appearance")]
+        public string DateFormat
+        {
+            get => _dateFormat;
+            set { _dateFormat = string.IsNullOrEmpty(value) ? "MMMM yyyy" : value; Invalidate(); }
+        }
+
+        // New: Tooltip for custom text
+        private bool _showToolTips = true;
+        private ToolTip _toolTip = new ToolTip();
+        private DateTime? _lastHoverDate = null;
+
+        [Category("Behavior")]
+        public bool ShowToolTips
+        {
+            get => _showToolTips;
+            set
+            {
+                _showToolTips = value;
+                if (!_showToolTips)
+                    _toolTip.RemoveAll();
+            }
+        }
+
+        // New: Custom text styling
+        private string _customTextFontFamily = "Segoe UI";
+        private float _customTextFontSize = 7f;
+        private bool _customTextFontBold = false;
+        private bool _customTextFontItalic = false;
+        private Color _customTextColor = Color.Black;
+
+        [Category("Appearance")] public string CustomTextFontFamily { get => _customTextFontFamily; set { _customTextFontFamily = value; Invalidate(); } }
+        [Category("Appearance")] public float CustomTextFontSize { get => _customTextFontSize; set { _customTextFontSize = value; Invalidate(); } }
+        [Category("Appearance")] public bool CustomTextFontBold { get => _customTextFontBold; set { _customTextFontBold = value; Invalidate(); } }
+        [Category("Appearance")] public bool CustomTextFontItalic { get => _customTextFontItalic; set { _customTextFontItalic = value; Invalidate(); } }
+        [Category("Appearance")] public Color CustomTextColor { get => _customTextColor; set { _customTextColor = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public bool ShowHeader { get => _showHeader; set { _showHeader = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public bool ShowGridLines { get => _showGridLines; set { _showGridLines = value; Invalidate(); } }
+
+        [Category("Behavior")]
+        public DateTime DisplayMonth
+        {
+            get => _displayMonth;
+            set
+            {
+                if (_displayMonth != value)
+                {
+                    _displayMonth = value;
+                    Invalidate();
+                    MonthChanged?.Invoke(this, EventArgs.Empty);
+                }
+            }
+        }
+
+        [Category("Appearance")]
+        public Color DayHeaderBackColor { get => _dayHeaderBackColor; set { _dayHeaderBackColor = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public Color DayHeaderForeColor { get => _dayHeaderForeColor; set { _dayHeaderForeColor = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public bool DayHeaderFontBold { get => _dayHeaderFontBold; set { _dayHeaderFontBold = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public bool DayHeaderFontItalic { get => _dayHeaderFontItalic; set { _dayHeaderFontItalic = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public float DayHeaderFontSize { get => _dayHeaderFontSize; set { _dayHeaderFontSize = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public Color HeaderBackColor { get => _headerBackColor; set { _headerBackColor = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public Color HeaderForeColor { get => _headerForeColor; set { _headerForeColor = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public bool HeaderFontBold { get => _headerFontBold; set { _headerFontBold = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public bool HeaderFontItalic { get => _headerFontItalic; set { _headerFontItalic = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public float HeaderFontSize { get => _headerFontSize; set { _headerFontSize = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public Color DayNumberColor { get => _dayNumberColor; set { _dayNumberColor = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public string DayNumberFontFamily { get => _dayNumberFontFamily; set { _dayNumberFontFamily = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public float DayNumberFontSize { get => _dayNumberFontSize; set { _dayNumberFontSize = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public bool DayNumberFontBold { get => _dayNumberFontBold; set { _dayNumberFontBold = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public bool DayNumberFontItalic { get => _dayNumberFontItalic; set { _dayNumberFontItalic = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public DateAlignment DayNumberAlignment { get => _dayNumberAlignment; set { _dayNumberAlignment = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public bool ShowWeekends { get => _showWeekendDays; set { _showWeekendDays = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public Color WeekendColor { get => _weekendColor; set { _weekendColor = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public bool ShowWeeklyOff { get; set; } = true;
+
+
+        [Category("Appearance")]
+        public Color WeeklyOffColor { get => _weeklyOffColor; set { _weeklyOffColor = value; Invalidate(); } }
+
+        [Category("Behavior")]
+        public bool SaturdaySundayTogether { get => _saturdaySundayTogether; set { _saturdaySundayTogether = value; Invalidate(); } }
+
+        [Category("Behavior")]
+        public DayOfWeek? WeeklyOffDay { get => _weeklyOff; set { _weeklyOff = value; Invalidate(); } }
+
+        [Category("Appearance")]
+        public DayNameFormat DayNameFormat { get => _dayNameFormat; set { _dayNameFormat = value; Invalidate(); } }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Dictionary<DateTime, CalendarDayStyle> DayStyles { get; set; } = new Dictionary<DateTime, CalendarDayStyle>();
+
+        public void SetDayStyle(DateTime date, string text = null, Color? bgColor = null, float fill = 1f)
+        {
+            var key = date.Date;
+            if (!DayStyles.ContainsKey(key))
+                DayStyles[key] = new CalendarDayStyle();
+
+            DayStyles[key].CustomText = text;
+            DayStyles[key].BackgroundColor = bgColor;
+            DayStyles[key].FillAmount = fill;
+            Invalidate();
+        }
+
+        [Category("Appearance")]
+        public bool ShowLegend { get; set; } = true;
+
+        [Category("Appearance")]
+        public LegendAlignment LegendPosition { get; set; } = LegendAlignment.BottomRight;
+
+        public event EventHandler<DateClickedEventArgs> DayClicked;
+        public event EventHandler<DateClickedEventArgs> DayDoubleClicked;
+        public event EventHandler<DateClickedEventArgs> DayRightClicked;
+        public event EventHandler<DateClickedEventArgs> MouseHoverOnDay;
+        public event EventHandler MonthChanged;
+
+        public event EventHandler<DetailedDateClickedEventArgs> DetailedDayClicked;
+
+        public Calender()
+        {
+            this.DoubleBuffered = true;
+            this.ResizeRedraw = true;
+
+            // ToolTip setup
+            _toolTip.IsBalloon = false;
+            _toolTip.ShowAlways = false;
+            _toolTip.InitialDelay = 400;
+            _toolTip.ReshowDelay = 100;
+            _toolTip.AutoPopDelay = 4000;
+        }
+
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
+            base.OnMouseClick(e);
+            HandleMouseDateEvent(e.Location, e.Button);
+        }
+
+        protected override void OnMouseDoubleClick(MouseEventArgs e)
+        {
+            base.OnMouseDoubleClick(e);
+            if (e.Button == MouseButtons.Left)
+                HandleMouseDateEvent(e.Location, e.Button, doubleClick: true);
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+            DateTime? hoverDate = GetDateAtLocation(e.Location);
+            if (hoverDate.HasValue && hoverDate != _lastHoverDate)
+            {
+                _lastHoverDate = hoverDate;
+                MouseHoverOnDay?.Invoke(this, new DateClickedEventArgs(hoverDate.Value));
+            }
+
+            // Tooltip handling
+            if (ShowToolTips)
+            {
+                if (hoverDate.HasValue && DayStyles.TryGetValue(hoverDate.Value, out var style) && !string.IsNullOrEmpty(style.CustomText))
+                {
+                    // Use SetToolTip; it's simple and works with hover
+                    _toolTip.SetToolTip(this, style.CustomText);
+                }
+                else
+                {
+                    _toolTip.SetToolTip(this, null);
+                }
+            }
+            else
+            {
+                _toolTip.SetToolTip(this, null);
+            }
+        }
+
+        private void HandleMouseDateEvent(Point location, MouseButtons button, bool doubleClick = false)
+        {
+            DateTime? date = GetDateAtLocation(location);
+            if (!date.HasValue) return;
+
+            if (button == MouseButtons.Left)
+            {
+                if (doubleClick)
+                    DayDoubleClicked?.Invoke(this, new DateClickedEventArgs(date.Value));
+                else
+                    DayClicked?.Invoke(this, new DateClickedEventArgs(date.Value));
+
+                // Fire detailed event
+                CalendarDayStyle style = DayStyles.TryGetValue(date.Value, out var s) ? s : null;
+                string customText = style?.CustomText;
+                float fillAmount = style?.FillAmount ?? 1f;
+
+                DetailedDayClicked?.Invoke(this, new DetailedDateClickedEventArgs(date.Value, customText, fillAmount));
+            }
+            else if (button == MouseButtons.Right)
+            {
+                DayRightClicked?.Invoke(this, new DateClickedEventArgs(date.Value));
+            }
+        }
+
+        private DateTime? GetDateAtLocation(Point location)
+        {
+            int cellWidth = this.ClientSize.Width / 7;
+            int headerHeight = ShowHeader ? 30 : 0;
+            int dayHeaderHeight = 20;
+            int cellHeight = (this.ClientSize.Height - headerHeight - dayHeaderHeight) / 6;
+
+            int col = location.X / cellWidth;
+            int row = (location.Y - headerHeight - dayHeaderHeight) / cellHeight;
+
+            if (col < 0 || col >= 7 || row < 0 || row >= 6)
+                return null;
+
+            DateTime firstDay = new DateTime(DisplayMonth.Year, DisplayMonth.Month, 1);
+            int startDay = SaturdaySundayTogether ? ((int)firstDay.DayOfWeek + 6) % 7 : (int)firstDay.DayOfWeek;
+            int index = row * 7 + col;
+            int dayNum = index - startDay + 1;
+            if (dayNum < 1 || dayNum > DateTime.DaysInMonth(DisplayMonth.Year, DisplayMonth.Month))
+                return null;
+
+            return new DateTime(DisplayMonth.Year, DisplayMonth.Month, dayNum);
+        }
+
+        public Dictionary<string, int> GetVisibleLegendCounts()
+        {
+            var result = new Dictionary<string, int>();
+            var firstDay = new DateTime(DisplayMonth.Year, DisplayMonth.Month, 1);
+            var daysInMonth = DateTime.DaysInMonth(DisplayMonth.Year, DisplayMonth.Month);
+
+            for (int i = 1; i <= daysInMonth; i++)
+            {
+                var date = new DateTime(DisplayMonth.Year, DisplayMonth.Month, i);
+                if (DayStyles.TryGetValue(date, out var style) && !string.IsNullOrEmpty(style.CustomText))
+                {
+                    if (!result.ContainsKey(style.CustomText))
+                        result[style.CustomText] = 0;
+                    result[style.CustomText]++;
+                }
+            }
+            return result;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            Graphics g = e.Graphics;
+            g.Clear(this.BackColor);
+
+            DateTime firstDay = new DateTime(DisplayMonth.Year, DisplayMonth.Month, 1);
+            int startDay = SaturdaySundayTogether ? ((int)firstDay.DayOfWeek + 6) % 7 : (int)firstDay.DayOfWeek;
+            // Calculate layout
+            int cellWidth = this.ClientSize.Width / 7;
+            int headerHeight = ShowHeader ? 30 : 0;
+            int dayHeaderHeight = 20;
+            int cellHeight = (this.ClientSize.Height - headerHeight - dayHeaderHeight) / 6;
+
+            Rectangle headerRect = new Rectangle(0, 0, 7 * cellWidth, headerHeight);
+            if (ShowHeader)
+            {
+                using (Brush bg = new SolidBrush(HeaderBackColor))
+                    g.FillRectangle(bg, headerRect);
+
+                FontStyle style = FontStyle.Regular;
+                if (HeaderFontBold) style |= FontStyle.Bold;
+                if (HeaderFontItalic) style |= FontStyle.Italic;
+
+                using (Font font = new Font("Segoe UI", HeaderFontSize, style))
+                using (StringFormat sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                    g.DrawString(DisplayMonth.ToString(DateFormat), font, new SolidBrush(HeaderForeColor), headerRect, sf);
+            }
+
+            string[] days = SaturdaySundayTogether
+                ? (_dayNameFormat == DayNameFormat.Long ? new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" } : new[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" })
+                : (_dayNameFormat == DayNameFormat.Long ? new[] { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" } : new[] { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" });
+            for (int i = 0; i < 7; i++)
+            {
+                Rectangle rect = new Rectangle(i * cellWidth, headerHeight, cellWidth, dayHeaderHeight);
+                using (Brush bg = new SolidBrush(DayHeaderBackColor))
+                    g.FillRectangle(bg, rect);
+
+                FontStyle style = FontStyle.Regular;
+                if (DayHeaderFontBold) style |= FontStyle.Bold;
+                if (DayHeaderFontItalic) style |= FontStyle.Italic;
+
+                using (Font font = new Font("Segoe UI", DayHeaderFontSize, style))
+                using (StringFormat sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                    g.DrawString(days[i], font, new SolidBrush(DayHeaderForeColor), rect, sf);
+            }
+
+            int daysInMonth = DateTime.DaysInMonth(DisplayMonth.Year, DisplayMonth.Month);
+            int day = 1;
+            for (int row = 0; row < 6; row++)
+            {
+                for (int col = 0; col < 7; col++)
+                {
+                    int index = row * 7 + col;
+                    if (index < startDay || day > daysInMonth) continue;
+
+                    DateTime currentDate = new DateTime(DisplayMonth.Year, DisplayMonth.Month, day);
+                    Rectangle cellRect = new Rectangle(col * cellWidth, headerHeight + dayHeaderHeight + row * cellHeight, cellWidth, cellHeight);
+
+                    if (ShowWeeklyOff && WeeklyOffDay.HasValue && currentDate.DayOfWeek == WeeklyOffDay.Value)
+                    {
+                        using (Brush bg = new SolidBrush(WeeklyOffColor))
+                            g.FillRectangle(bg, cellRect);
+                    }
+
+                    if (ShowWeekends && _weekendDays.Contains(currentDate.DayOfWeek))
+                    {
+                        using (Brush bg = new SolidBrush(WeekendColor))
+                            g.FillRectangle(bg, cellRect);
+                    }
+
+                    DayNumberAndCustomDraw(g, currentDate, cellRect, ref day);
+
+                    day++;
+                }
+            }
+
+            if (ShowGridLines)
+            {
+                using (Pen pen = new Pen(Color.LightGray))
+                {
+                    for (int i = 0; i <= 7; i++)
+                        g.DrawLine(pen, i * cellWidth, headerHeight + dayHeaderHeight, i * cellWidth, this.ClientSize.Height);
+                    for (int i = 0; i <= 6; i++)
+                        g.DrawLine(pen, 0, headerHeight + dayHeaderHeight + i * cellHeight, this.ClientSize.Width, headerHeight + dayHeaderHeight + i * cellHeight);
+                }
+            }
+
+            if (ShowLegend)
+            {
+                // Draw the legend based on visible dates
+                var legendCounts = GetVisibleLegendCounts();
+
+                var grouped = DayStyles.Values
+                    .Where(s => !string.IsNullOrWhiteSpace(s.CustomText) && s.BackgroundColor.HasValue)
+                    .GroupBy(s => (s.CustomText.Trim(), s.BackgroundColor.Value))
+                    .Select(group => new { Label = group.Key.Item1, Color = group.Key.Item2, Count = group.Count() })
+                    .ToList();
+
+                if (grouped.Any())
+                {
+                    int legendWidth = 120;
+                    int legendHeight = grouped.Count * 20 + 10;
+                    int x = 0, y = 0;
+
+                    switch (LegendPosition)
+                    {
+                        case LegendAlignment.TopLeft: x = 5; y = 5; break;
+                        case LegendAlignment.TopCenter: x = (Width - legendWidth) / 2; y = 5; break;
+                        case LegendAlignment.TopRight: x = Width - legendWidth - 5; y = 5; break;
+                        case LegendAlignment.BottomLeft: x = 5; y = Height - legendHeight - 5; break;
+                        case LegendAlignment.BottomCenter: x = (Width - legendWidth) / 2; y = Height - legendHeight - 5; break;
+                        case LegendAlignment.BottomRight: x = Width - legendWidth - 5; y = Height - legendHeight - 5; break;
+                    }
+
+                    if (legendCounts.Count > 0)
+                    {
+                        Rectangle legendBox = new Rectangle(x, y, legendWidth, legendHeight);
+                        using (Brush bg = new SolidBrush(Color.FromArgb(240, 240, 240)))
+                            g.FillRectangle(bg, legendBox);
+                        using (Pen pen = new Pen(Color.Gray))
+                            g.DrawRectangle(pen, legendBox);
+                    }
+
+                    int i = 0;
+                    foreach (var kvp in legendCounts)
+                    {
+                        Rectangle colorBox = new Rectangle(x + 5, y + 5 + i * 20, 12, 12);
+                        using (Brush brush = new SolidBrush(Color.LimeGreen))
+                            g.FillRectangle(brush, colorBox);
+                        g.DrawRectangle(Pens.Black, colorBox);
+
+                        using (Font font = new Font("Segoe UI", 8f))
+                            g.DrawString($"{kvp.Key} ({kvp.Value})", font, Brushes.Black, x + 22, y + 3 + i * 20);
+                        i++;
+                    }
+
+                }
+            }
+        }
+
+        // Refactored small helper to keep OnPaint tidy
+        private void DayNumberAndCustomDraw(Graphics g, DateTime currentDate, Rectangle cellRect, ref int day)
+        {
+            if (DayStyles.TryGetValue(currentDate, out var style) && style.BackgroundColor.HasValue)
+            {
+                using (Brush brush = new SolidBrush(style.BackgroundColor.Value))
+                {
+                    if (style.FillAmount == 1f)
+                        g.FillRectangle(brush, cellRect);
+                    else if (style.FillAmount == 0.5f)
+                        g.FillPolygon(brush, new[] { new Point(cellRect.Left, cellRect.Top), new Point(cellRect.Left, cellRect.Bottom), new Point(cellRect.Right, cellRect.Top) });
+                    else if (style.FillAmount == -0.5f)
+                        g.FillPolygon(brush, new[] { new Point(cellRect.Left, cellRect.Bottom), new Point(cellRect.Right, cellRect.Bottom), new Point(cellRect.Right, cellRect.Top) });
+                }
+            }
+
+            FontStyle numberStyle = FontStyle.Regular;
+            if (DayNumberFontBold) numberStyle |= FontStyle.Bold;
+            if (DayNumberFontItalic) numberStyle |= FontStyle.Italic;
+            using (Font numberFont = new Font(DayNumberFontFamily, DayNumberFontSize, numberStyle))
+            using (Brush textBrush = new SolidBrush(DayNumberColor))
+            {
+                StringFormat format = new StringFormat();
+                switch (DayNumberAlignment)
+                {
+                    case DateAlignment.TopLeft: format.Alignment = StringAlignment.Near; format.LineAlignment = StringAlignment.Near; break;
+                    case DateAlignment.TopCenter: format.Alignment = StringAlignment.Center; format.LineAlignment = StringAlignment.Near; break;
+                    case DateAlignment.TopRight: format.Alignment = StringAlignment.Far; format.LineAlignment = StringAlignment.Near; break;
+                    case DateAlignment.MiddleLeft: format.Alignment = StringAlignment.Near; format.LineAlignment = StringAlignment.Center; break;
+                    case DateAlignment.MiddleCenter: format.Alignment = StringAlignment.Center; format.LineAlignment = StringAlignment.Center; break;
+                    case DateAlignment.MiddleRight: format.Alignment = StringAlignment.Far; format.LineAlignment = StringAlignment.Center; break;
+                    case DateAlignment.BottomLeft: format.Alignment = StringAlignment.Near; format.LineAlignment = StringAlignment.Far; break;
+                    case DateAlignment.BottomCenter: format.Alignment = StringAlignment.Center; format.LineAlignment = StringAlignment.Far; break;
+                    case DateAlignment.BottomRight: format.Alignment = StringAlignment.Far; format.LineAlignment = StringAlignment.Far; break;
+                }
+                g.DrawString(day.ToString(), numberFont, textBrush, cellRect, format);
+            }
+
+            // Draw custom text if exists
+            if (DayStyles.TryGetValue(currentDate, out var style2) && !string.IsNullOrWhiteSpace(style2?.CustomText))
+            {
+                FontStyle customTextStyle = FontStyle.Regular;
+                if (CustomTextFontBold) customTextStyle |= FontStyle.Bold;
+                if (CustomTextFontItalic) customTextStyle |= FontStyle.Italic;
+
+                using (Font font = new Font(CustomTextFontFamily, CustomTextFontSize, customTextStyle))
+                using (Brush brush = new SolidBrush(CustomTextColor))
+                {
+                    RectangleF textRect;
+                    StringFormat sf = new StringFormat
+                    {
+                        Alignment = StringAlignment.Center,
+                        LineAlignment = StringAlignment.Center
+                    };
+
+                    if (style2.FillAmount == -0.5f)
+                    {
+                        textRect = new RectangleF(cellRect.Left + 2, cellRect.Top + 2, cellRect.Width - 4, cellRect.Height / 2f - 4);
+                    }
+                    else if (style2.FillAmount == 0.5f)
+                    {
+                        textRect = new RectangleF(cellRect.Left + 2, cellRect.Top + cellRect.Height / 2f, cellRect.Width - 4, cellRect.Height / 2f - 4);
+                    }
+                    else
+                    {
+                        textRect = new RectangleF(cellRect.Left + 2, cellRect.Top + 14, cellRect.Width - 4, cellRect.Height - 14);
+                    }
+
+                    g.DrawString(style2.CustomText, font, brush, textRect, sf);
+                }
+            }
+        }
+    }
+}

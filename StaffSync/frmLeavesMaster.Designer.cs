@@ -61,6 +61,7 @@
             this.LeaveDateTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LeaveDuration = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LeaveComments = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.LeaveMode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LeaveStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmLeaveCancel = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tlbCancelLeave = new System.Windows.Forms.ToolStripMenuItem();
@@ -345,6 +346,7 @@
             this.lblSpecificLeaveBalance.Size = new System.Drawing.Size(11, 15);
             this.lblSpecificLeaveBalance.TabIndex = 50;
             this.lblSpecificLeaveBalance.Text = " ";
+            this.lblSpecificLeaveBalance.Visible = false;
             // 
             // lblLeaveMasID
             // 
@@ -357,6 +359,7 @@
             this.lblLeaveMasID.Size = new System.Drawing.Size(11, 15);
             this.lblLeaveMasID.TabIndex = 49;
             this.lblLeaveMasID.Text = " ";
+            this.lblLeaveMasID.Visible = false;
             // 
             // lblCancelStatus
             // 
@@ -369,6 +372,7 @@
             this.lblCancelStatus.Size = new System.Drawing.Size(11, 15);
             this.lblCancelStatus.TabIndex = 24;
             this.lblCancelStatus.Text = " ";
+            this.lblCancelStatus.Visible = false;
             // 
             // lblLeaveTRID
             // 
@@ -381,6 +385,7 @@
             this.lblLeaveTRID.Size = new System.Drawing.Size(11, 15);
             this.lblLeaveTRID.TabIndex = 23;
             this.lblLeaveTRID.Text = " ";
+            this.lblLeaveTRID.Visible = false;
             // 
             // picDownloadLeaveTRList
             // 
@@ -432,6 +437,7 @@
             this.LeaveDateTo,
             this.LeaveDuration,
             this.LeaveComments,
+            this.LeaveMode,
             this.LeaveStatus});
             this.lstLeaveTRList.ContextMenuStrip = this.cmLeaveCancel;
             this.lstLeaveTRList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
@@ -464,22 +470,27 @@
             // LeaveDateFrom
             // 
             this.LeaveDateFrom.Text = "Leave From";
-            this.LeaveDateFrom.Width = 150;
+            this.LeaveDateFrom.Width = 100;
             // 
             // LeaveDateTo
             // 
             this.LeaveDateTo.Text = "Leave To";
-            this.LeaveDateTo.Width = 150;
+            this.LeaveDateTo.Width = 100;
             // 
             // LeaveDuration
             // 
             this.LeaveDuration.Text = "Leave Duration";
-            this.LeaveDuration.Width = 150;
+            this.LeaveDuration.Width = 100;
             // 
             // LeaveComments
             // 
             this.LeaveComments.Text = "Comments";
             this.LeaveComments.Width = 300;
+            // 
+            // LeaveMode
+            // 
+            this.LeaveMode.Text = "Leave Mode";
+            this.LeaveMode.Width = 100;
             // 
             // LeaveStatus
             // 
@@ -546,7 +557,7 @@
             this.picViewLeaves.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picViewLeaves.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picViewLeaves.Image = global::StaffSync.Properties.Resources.search;
-            this.picViewLeaves.Location = new System.Drawing.Point(572, 59);
+            this.picViewLeaves.Location = new System.Drawing.Point(572, 28);
             this.picViewLeaves.Name = "picViewLeaves";
             this.picViewLeaves.Size = new System.Drawing.Size(23, 22);
             this.picViewLeaves.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -922,5 +933,6 @@
         public System.Windows.Forms.Label lblSpecificLeaveBalance;
         private System.Windows.Forms.PictureBox picViewLeaves;
         private Krypton.Toolkit.KryptonCheckBox chkAllowBackDate;
+        private System.Windows.Forms.ColumnHeader LeaveMode;
     }
 }

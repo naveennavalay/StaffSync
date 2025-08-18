@@ -148,6 +148,8 @@
             this.DocPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label23 = new System.Windows.Forms.Label();
             this.tabLeaves = new Krypton.Navigator.KryptonPage();
+            this.btnViewCalender = new Krypton.Toolkit.KryptonButton();
+            this.lblEmployeeWeeklyOffID = new System.Windows.Forms.Label();
             this.cmbWeeklyOff = new Krypton.Toolkit.KryptonComboBox();
             this.label50 = new System.Windows.Forms.Label();
             this.txtTotalBalanceLeaves = new Krypton.Toolkit.KryptonTextBox();
@@ -225,7 +227,6 @@
             this.docUploadsTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.DocUploadsTableAdapter();
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
-            this.lblEmployeeWeeklyOffID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -746,7 +747,6 @@
             this.cmbCurrentCountry.Name = "cmbCurrentCountry";
             this.cmbCurrentCountry.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbCurrentCountry.Size = new System.Drawing.Size(440, 22);
-            this.cmbCurrentCountry.Sorted = true;
             this.cmbCurrentCountry.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbCurrentCountry.TabIndex = 40;
             this.cmbCurrentCountry.SelectedIndexChanged += new System.EventHandler(this.cmbCurrentCountry_SelectedIndexChanged_1);
@@ -1074,7 +1074,6 @@
             this.txtEmployeeName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmployeeName.TabIndex = 20;
             this.txtEmployeeName.WordWrap = false;
-            this.txtEmployeeName.TextChanged += new System.EventHandler(this.txtEmployeeName_TextChanged);
             // 
             // label19
             // 
@@ -1130,6 +1129,7 @@
             this.txtEmpPhoto.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpPhoto.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpPhoto.TabIndex = 24;
+            this.txtEmpPhoto.Visible = false;
             this.txtEmpPhoto.WordWrap = false;
             // 
             // label39
@@ -1407,7 +1407,6 @@
             this.cmbNomineeRelationship.Name = "cmbNomineeRelationship";
             this.cmbNomineeRelationship.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbNomineeRelationship.Size = new System.Drawing.Size(440, 22);
-            this.cmbNomineeRelationship.Sorted = true;
             this.cmbNomineeRelationship.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbNomineeRelationship.TabIndex = 42;
             // 
@@ -1513,7 +1512,6 @@
             this.cmbContactPersonRelationship.Name = "cmbContactPersonRelationship";
             this.cmbContactPersonRelationship.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbContactPersonRelationship.Size = new System.Drawing.Size(440, 22);
-            this.cmbContactPersonRelationship.Sorted = true;
             this.cmbContactPersonRelationship.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbContactPersonRelationship.TabIndex = 41;
             // 
@@ -1616,7 +1614,6 @@
             this.cmbDesignation.Name = "cmbDesignation";
             this.cmbDesignation.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbDesignation.Size = new System.Drawing.Size(440, 22);
-            this.cmbDesignation.Sorted = true;
             this.cmbDesignation.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbDesignation.TabIndex = 42;
             // 
@@ -1628,7 +1625,6 @@
             this.cmbDepartment.Name = "cmbDepartment";
             this.cmbDepartment.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbDepartment.Size = new System.Drawing.Size(440, 22);
-            this.cmbDepartment.Sorted = true;
             this.cmbDepartment.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbDepartment.TabIndex = 41;
             // 
@@ -1888,6 +1884,7 @@
             // tabLeaves
             // 
             this.tabLeaves.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabLeaves.Controls.Add(this.btnViewCalender);
             this.tabLeaves.Controls.Add(this.lblEmployeeWeeklyOffID);
             this.tabLeaves.Controls.Add(this.cmbWeeklyOff);
             this.tabLeaves.Controls.Add(this.label50);
@@ -1907,6 +1904,32 @@
             this.tabLeaves.Text = "Leaves";
             this.tabLeaves.ToolTipTitle = "Page ToolTip";
             this.tabLeaves.UniqueName = "a3b600aac3624ceda8d85faf520618f1";
+            // 
+            // btnViewCalender
+            // 
+            this.btnViewCalender.Location = new System.Drawing.Point(682, 76);
+            this.btnViewCalender.Name = "btnViewCalender";
+            this.btnViewCalender.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnViewCalender.Size = new System.Drawing.Size(29, 28);
+            this.btnViewCalender.TabIndex = 58;
+            this.btnViewCalender.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnViewCalender.Values.Image = global::StaffSync.Properties.Resources.attendance;
+            this.btnViewCalender.Values.Text = "";
+            this.btnViewCalender.Visible = false;
+            this.btnViewCalender.Click += new System.EventHandler(this.btnViewCalender_Click);
+            // 
+            // lblEmployeeWeeklyOffID
+            // 
+            this.lblEmployeeWeeklyOffID.AutoSize = true;
+            this.lblEmployeeWeeklyOffID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblEmployeeWeeklyOffID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmployeeWeeklyOffID.Location = new System.Drawing.Point(754, 85);
+            this.lblEmployeeWeeklyOffID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEmployeeWeeklyOffID.Name = "lblEmployeeWeeklyOffID";
+            this.lblEmployeeWeeklyOffID.Size = new System.Drawing.Size(11, 15);
+            this.lblEmployeeWeeklyOffID.TabIndex = 57;
+            this.lblEmployeeWeeklyOffID.Text = " ";
+            this.lblEmployeeWeeklyOffID.Visible = false;
             // 
             // cmbWeeklyOff
             // 
@@ -1934,7 +1957,7 @@
             // txtTotalBalanceLeaves
             // 
             this.txtTotalBalanceLeaves.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTotalBalanceLeaves.Location = new System.Drawing.Point(540, 423);
+            this.txtTotalBalanceLeaves.Location = new System.Drawing.Point(540, 429);
             this.txtTotalBalanceLeaves.Multiline = true;
             this.txtTotalBalanceLeaves.Name = "txtTotalBalanceLeaves";
             this.txtTotalBalanceLeaves.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -1952,7 +1975,7 @@
             // txtTotalLeavesAlloted
             // 
             this.txtTotalLeavesAlloted.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTotalLeavesAlloted.Location = new System.Drawing.Point(404, 423);
+            this.txtTotalLeavesAlloted.Location = new System.Drawing.Point(404, 429);
             this.txtTotalLeavesAlloted.Multiline = true;
             this.txtTotalLeavesAlloted.Name = "txtTotalLeavesAlloted";
             this.txtTotalLeavesAlloted.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -1971,7 +1994,7 @@
             // 
             this.label49.AutoSize = true;
             this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label49.Location = new System.Drawing.Point(309, 430);
+            this.label49.Location = new System.Drawing.Point(309, 436);
             this.label49.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(88, 15);
@@ -1995,7 +2018,7 @@
             this.dtgLeaveEntitlement.Name = "dtgLeaveEntitlement";
             this.dtgLeaveEntitlement.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgLeaveEntitlement.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgLeaveEntitlement.Size = new System.Drawing.Size(1199, 299);
+            this.dtgLeaveEntitlement.Size = new System.Drawing.Size(1199, 305);
             this.dtgLeaveEntitlement.TabIndex = 46;
             // 
             // picDownloadLeaveTRList
@@ -2736,19 +2759,6 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
-            // lblEmployeeWeeklyOffID
-            // 
-            this.lblEmployeeWeeklyOffID.AutoSize = true;
-            this.lblEmployeeWeeklyOffID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblEmployeeWeeklyOffID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmployeeWeeklyOffID.Location = new System.Drawing.Point(754, 85);
-            this.lblEmployeeWeeklyOffID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblEmployeeWeeklyOffID.Name = "lblEmployeeWeeklyOffID";
-            this.lblEmployeeWeeklyOffID.Size = new System.Drawing.Size(11, 15);
-            this.lblEmployeeWeeklyOffID.TabIndex = 57;
-            this.lblEmployeeWeeklyOffID.Text = " ";
-            this.lblEmployeeWeeklyOffID.Visible = false;
-            // 
             // frmEmployeeMaster
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -3064,5 +3074,6 @@
         private Krypton.Toolkit.KryptonComboBox cmbWeeklyOff;
         private System.Windows.Forms.Label label50;
         public System.Windows.Forms.Label lblEmployeeWeeklyOffID;
+        private Krypton.Toolkit.KryptonButton btnViewCalender;
     }
 }

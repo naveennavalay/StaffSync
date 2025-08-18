@@ -223,6 +223,7 @@ namespace StaffSync
                                 "LeaveTypeMas.LeaveTypeTitle, " +
                                 "EmpLeaveEntitlement.TotalLeaves, " +
                                 "EmpLeaveEntitlement.BalanceLeaves, " +
+                                "0 As UsedLeaves, " +
                                 "LeaveTypeMas.OrderID " +
                             "FROM " +
                                 "LeaveTypeMas " +
@@ -257,6 +258,7 @@ namespace StaffSync
                     indLeaveEntitlementInfo.LeaveTypeID = indLeaveEntitlementInfo.LeaveTypeID;
                     indLeaveEntitlementInfo.TotalLeaves = indLeaveEntitlementInfo.TotalLeaves;
                     indLeaveEntitlementInfo.BalanceLeaves = indLeaveEntitlementInfo.BalanceLeaves;
+                    indLeaveEntitlementInfo.UsedLeaves = indLeaveEntitlementInfo.TotalLeaves - indLeaveEntitlementInfo.BalanceLeaves;
                     indLeaveEntitlementInfo.OrderID = indLeaveEntitlementInfo.OrderID;
                 }
 
@@ -515,6 +517,9 @@ namespace StaffSync
 
         [DisplayName("Total Leaves Available")] 
         public decimal BalanceLeaves { get; set; }
+
+        [DisplayName("Total Utilised Leaves")] 
+        public decimal UsedLeaves { get; set; }
         public int OrderID { get; set; }
     }
 }

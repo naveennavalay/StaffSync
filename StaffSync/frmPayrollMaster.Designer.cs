@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnViewCalender = new Krypton.Toolkit.KryptonButton();
             this.label5 = new System.Windows.Forms.Label();
             this.txtReimbursement = new Krypton.Toolkit.KryptonTextBox();
             this.txtDeductions = new Krypton.Toolkit.KryptonTextBox();
@@ -120,6 +121,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox1.Controls.Add(this.btnViewCalender);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtReimbursement);
             this.groupBox1.Controls.Add(this.txtDeductions);
@@ -144,6 +146,19 @@
             this.groupBox1.Size = new System.Drawing.Size(962, 398);
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
+            // 
+            // btnViewCalender
+            // 
+            this.btnViewCalender.Location = new System.Drawing.Point(590, 40);
+            this.btnViewCalender.Name = "btnViewCalender";
+            this.btnViewCalender.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnViewCalender.Size = new System.Drawing.Size(29, 28);
+            this.btnViewCalender.TabIndex = 62;
+            this.btnViewCalender.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnViewCalender.Values.Image = global::StaffSync.Properties.Resources.attendance;
+            this.btnViewCalender.Values.Text = "";
+            this.btnViewCalender.Visible = false;
+            this.btnViewCalender.Click += new System.EventHandler(this.btnViewCalender_Click);
             // 
             // label5
             // 
@@ -761,5 +776,6 @@
         private Krypton.Toolkit.KryptonTextBox txtDeductions;
         private Krypton.Toolkit.KryptonTextBox txtAallowences;
         private System.Windows.Forms.Label label5;
+        private Krypton.Toolkit.KryptonButton btnViewCalender;
     }
 }

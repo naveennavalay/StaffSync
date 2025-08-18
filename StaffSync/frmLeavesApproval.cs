@@ -161,12 +161,12 @@ namespace StaffSync
                     for (int iLeaveCounter = 1; iLeaveCounter <= 1; iLeaveCounter++)
                     {
                         employeeLeaveTRID = objLeaveTRList.ApproveLeave(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, clsCurrentUser.UserID);
-                        if (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString().ToLower() == "")
+                        if (lstLeaveTRList.SelectedItems[0].SubItems[8].Text.ToString().ToLower() == "")
                         {
                             objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), (Convert.ToDecimal(txtBalanceLeave.Text)), DateTime.Now);
-                            objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), strAttendanceStatus, Convert.ToInt16(lblLeaveTRID.Text.ToString()));
+                            objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), "Leave : " + lstLeaveTRList.SelectedItems[0].SubItems[6].Text.ToString(), Convert.ToInt16(lblLeaveTRID.Text.ToString()));
                         }
-                        else if (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString().ToLower() == "cancelled")
+                        else if (lstLeaveTRList.SelectedItems[0].SubItems[8].Text.ToString().ToLower() == "cancelled")
                         {
                             objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), (Convert.ToDecimal(txtBalanceLeave.Text) + Convert.ToDecimal(txtActualLeaveDays.Text)), DateTime.Now);
                             objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), "Present", Convert.ToInt16(lblLeaveTRID.Text.ToString()));
@@ -176,15 +176,15 @@ namespace StaffSync
                 else if (Convert.ToDecimal(txtActualLeaveDays.Text) < 0)
                 {
                     employeeLeaveTRID = objLeaveTRList.ApproveLeaveCancellation(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, clsCurrentUser.UserID);
-                    if (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString().ToLower() == "")
+                    if (lstLeaveTRList.SelectedItems[0].SubItems[8].Text.ToString().ToLower() == "")
                     {
                         objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) - Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
-                        objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), strAttendanceStatus, Convert.ToInt16(lblLeaveTRID.Text.ToString()));
+                        objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), lstLeaveTRList.SelectedItems[0].SubItems[5].Text.ToString(), Convert.ToInt16(lblLeaveTRID.Text.ToString()));
                     }
-                    else if (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString().ToLower() == "cancelled")
+                    else if (lstLeaveTRList.SelectedItems[0].SubItems[8].Text.ToString().ToLower() == "cancelled")
                     {
                         objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) - Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
-                        objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), strAttendanceStatus, Convert.ToInt16(lblLeaveTRID.Text.ToString()));
+                        objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), lstLeaveTRList.SelectedItems[0].SubItems[5].Text.ToString(), Convert.ToInt16(lblLeaveTRID.Text.ToString()));
                     }
                 }
                 if (employeeLeaveTRID > 0)
@@ -544,6 +544,7 @@ namespace StaffSync
                     indEmployeeLeaveTRList.ActualLeaveDateTo != null ? Convert.ToDateTime(indEmployeeLeaveTRList.ActualLeaveDateTo.ToString()).ToString("dd-MMM-yyyy") : "",
                     indEmployeeLeaveTRList.LeaveDuration != null ? indEmployeeLeaveTRList.LeaveDuration.ToString() : "0.00",
                     indEmployeeLeaveTRList.LeaveComments.ToString(),
+                    indEmployeeLeaveTRList.LeaveMode = indEmployeeLeaveTRList.LeaveMode.ToString(),
                     indEmployeeLeaveTRList.LeaveStatus = strLeaveStatus.ToString(),
                     Convert.ToBoolean(indEmployeeLeaveTRList.Canceled) == true ? "Cancelled" : "",
                     Convert.ToBoolean(indEmployeeLeaveTRList.Canceled) == true ? indEmployeeLeaveTRList.CanceledDate.ToString() : ""
@@ -560,6 +561,15 @@ namespace StaffSync
                 return;
 
             lblSpecificLeaveBalance.Text = objLeaveTRList.getSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1)).ToString();
+        }
+
+        private void picViewLeaves_Click(object sender, EventArgs e)
+        {
+            if (lblEmpID.Text.Trim() == "")
+                return;
+
+            frmViewLeavesOutstanding frmViewLeavesOutstanding = new frmViewLeavesOutstanding(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(lblLeaveMasID.Text.ToString()));
+            frmViewLeavesOutstanding.ShowDialog(this);
         }
     }
 }

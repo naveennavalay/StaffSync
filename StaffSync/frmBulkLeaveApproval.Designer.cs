@@ -33,8 +33,10 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.chkSelectUnselect = new Krypton.Toolkit.KryptonCheckBox();
             this.dtgBulkLeaveApproval = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.txtLeaveApprovalDate = new System.Windows.Forms.MaskedTextBox();
             this.lblWeeklyOffID = new System.Windows.Forms.Label();
             this.lblActionMode = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -52,7 +54,6 @@
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
-            this.txtLeaveApprovalDate = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -83,8 +84,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(936, 550);
-            this.splitContainer1.SplitterDistance = 488;
+            this.splitContainer1.Size = new System.Drawing.Size(936, 551);
+            this.splitContainer1.SplitterDistance = 482;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -95,20 +96,33 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(936, 488);
+            this.panel1.Size = new System.Drawing.Size(936, 482);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
             // 
             this.groupBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox5.Controls.Add(this.chkSelectUnselect);
             this.groupBox5.Controls.Add(this.dtgBulkLeaveApproval);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(14, 69);
+            this.groupBox5.Location = new System.Drawing.Point(14, 85);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(903, 408);
+            this.groupBox5.Size = new System.Drawing.Size(903, 392);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Weekly Off Details";
+            // 
+            // chkSelectUnselect
+            // 
+            this.chkSelectUnselect.AutoSize = false;
+            this.chkSelectUnselect.Location = new System.Drawing.Point(710, -2);
+            this.chkSelectUnselect.Name = "chkSelectUnselect";
+            this.chkSelectUnselect.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.chkSelectUnselect.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chkSelectUnselect.Size = new System.Drawing.Size(180, 20);
+            this.chkSelectUnselect.TabIndex = 35;
+            this.chkSelectUnselect.Values.Text = "Select All";
+            this.chkSelectUnselect.CheckedChanged += new System.EventHandler(this.chkSelectUnselect_CheckedChanged);
             // 
             // dtgBulkLeaveApproval
             // 
@@ -117,10 +131,10 @@
             this.dtgBulkLeaveApproval.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dtgBulkLeaveApproval.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgBulkLeaveApproval.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dtgBulkLeaveApproval.Location = new System.Drawing.Point(13, 34);
+            this.dtgBulkLeaveApproval.Location = new System.Drawing.Point(13, 24);
             this.dtgBulkLeaveApproval.Name = "dtgBulkLeaveApproval";
             this.dtgBulkLeaveApproval.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgBulkLeaveApproval.Size = new System.Drawing.Size(877, 374);
+            this.dtgBulkLeaveApproval.Size = new System.Drawing.Size(877, 362);
             this.dtgBulkLeaveApproval.TabIndex = 34;
             this.dtgBulkLeaveApproval.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgBulkLeaveApproval_CellContentClick);
             this.dtgBulkLeaveApproval.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgBulkLeaveApproval_CellValueChanged);
@@ -138,6 +152,18 @@
             this.groupBox4.Size = new System.Drawing.Size(909, 51);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
+            // 
+            // txtLeaveApprovalDate
+            // 
+            this.txtLeaveApprovalDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.txtLeaveApprovalDate.Location = new System.Drawing.Point(189, 20);
+            this.txtLeaveApprovalDate.Mask = "##-##-####";
+            this.txtLeaveApprovalDate.Name = "txtLeaveApprovalDate";
+            this.txtLeaveApprovalDate.Size = new System.Drawing.Size(105, 21);
+            this.txtLeaveApprovalDate.TabIndex = 6;
+            this.txtLeaveApprovalDate.Tag = "Please enter Employeee Date Of Birth";
+            this.txtLeaveApprovalDate.ValidatingType = typeof(System.DateTime);
+            this.txtLeaveApprovalDate.TextChanged += new System.EventHandler(this.txtLeaveApprovalDate_TextChanged);
             // 
             // lblWeeklyOffID
             // 
@@ -187,12 +213,12 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(936, 58);
+            this.panel2.Size = new System.Drawing.Size(936, 65);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(778, 11);
+            this.btnCloseMe.Location = new System.Drawing.Point(778, 13);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -204,7 +230,7 @@
             // 
             // btnRemoveDetails
             // 
-            this.btnRemoveDetails.Location = new System.Drawing.Point(435, 11);
+            this.btnRemoveDetails.Location = new System.Drawing.Point(435, 13);
             this.btnRemoveDetails.Name = "btnRemoveDetails";
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
@@ -217,19 +243,19 @@
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(27, 11);
+            this.btnSaveDetails.Location = new System.Drawing.Point(27, 13);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnSaveDetails.TabIndex = 18;
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnSaveDetails.Values.Image = global::StaffSync.Properties.Resources.save;
-            this.btnSaveDetails.Values.Text = "Save";
+            this.btnSaveDetails.Values.Image = global::StaffSync.Properties.Resources.execute;
+            this.btnSaveDetails.Values.Text = "Execute";
             this.btnSaveDetails.Click += new System.EventHandler(this.btnSaveDetails_Click);
             // 
             // btnModifyDetails
             // 
-            this.btnModifyDetails.Location = new System.Drawing.Point(27, 11);
+            this.btnModifyDetails.Location = new System.Drawing.Point(27, 16);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
@@ -242,7 +268,7 @@
             // 
             // btnGenerateDetails
             // 
-            this.btnGenerateDetails.Location = new System.Drawing.Point(27, 11);
+            this.btnGenerateDetails.Location = new System.Drawing.Point(27, 16);
             this.btnGenerateDetails.Name = "btnGenerateDetails";
             this.btnGenerateDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnGenerateDetails.Size = new System.Drawing.Size(126, 38);
@@ -255,7 +281,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(167, 11);
+            this.btnCancel.Location = new System.Drawing.Point(167, 13);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
@@ -297,24 +323,12 @@
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
             // 
-            // txtLeaveApprovalDate
-            // 
-            this.txtLeaveApprovalDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.txtLeaveApprovalDate.Location = new System.Drawing.Point(189, 20);
-            this.txtLeaveApprovalDate.Mask = "##-##-####";
-            this.txtLeaveApprovalDate.Name = "txtLeaveApprovalDate";
-            this.txtLeaveApprovalDate.Size = new System.Drawing.Size(105, 21);
-            this.txtLeaveApprovalDate.TabIndex = 6;
-            this.txtLeaveApprovalDate.Tag = "Please enter Employeee Date Of Birth";
-            this.txtLeaveApprovalDate.ValidatingType = typeof(System.DateTime);
-            this.txtLeaveApprovalDate.TextChanged += new System.EventHandler(this.txtLeaveApprovalDate_TextChanged);
-            // 
             // frmBulkLeaveApproval
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(936, 550);
+            this.ClientSize = new System.Drawing.Size(936, 551);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -369,5 +383,6 @@
         private System.Windows.Forms.BindingSource qryAllEmpLeavePendingStatementBindingSource;
         private StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter qryAllEmpLeavePendingStatementTableAdapter;
         private System.Windows.Forms.MaskedTextBox txtLeaveApprovalDate;
+        private Krypton.Toolkit.KryptonCheckBox chkSelectUnselect;
     }
 }

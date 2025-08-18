@@ -147,7 +147,7 @@ namespace StaffSync
             return selectedReimbuctionTitle;
         }
 
-        public int InsertReimbursement(string txtReimbCode, string txtReimbTitle, string txtReimbDescription, bool IsActive, bool IsDeleted)
+        public int InsertReimbursement(string txtReimbCode, string txtReimbTitle, string txtReimbDescription, bool IsFixed, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;
             try
@@ -158,8 +158,8 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO ReimbursementHeaderMas (ReimbID, ReimbCode, ReimbTitle, ReimbDescription, IsActive, IsDeleted, OrderID, CalcFormula) VALUES " +
-                 "(" + maxRowCount + ",'" + "RMB-" + (maxRowCount).ToString().PadLeft(4, '0').Trim() + "','" + txtReimbTitle.Trim() + "','" + txtReimbDescription.Trim() + "'," + IsActive + "," + IsDeleted + "," + maxRowCount + ",'')";
+                string strQuery = "INSERT INTO ReimbursementHeaderMas (ReimbID, ReimbCode, ReimbTitle, ReimbDescription, IsFixed, IsActive, IsDeleted, OrderID, CalcFormula) VALUES " +
+                 "(" + maxRowCount + ",'" + "RIM-" + (maxRowCount).ToString().PadLeft(4, '0').Trim() + "','" + txtReimbTitle.Trim() + "','" + txtReimbDescription.Trim() + "'," + IsFixed + "," + IsActive + "," + IsDeleted + "," + maxRowCount + ",'')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -179,7 +179,7 @@ namespace StaffSync
             return affectedRows;
         }
 
-        public int UpdateReimbursement(int txtReimbID, string txtReimbCode, string txtReimbTitle, string txtReimbDescription, bool IsActive, bool IsDeleted)
+        public int UpdateReimbursement(int txtReimbID, string txtReimbCode, string txtReimbTitle, string txtReimbDescription, bool IsFixed, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;
             try
@@ -188,7 +188,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE ReimbursementHeaderMas SET " +
-                 "ReimbCode = '" + txtReimbCode.Trim() + "', ReimbTitle = '" + txtReimbTitle.Trim() + "', ReimbDescription = '" + txtReimbDescription.Trim() + "', IsActive = " + IsActive +
+                 "ReimbCode = '" + txtReimbCode.Trim() + "', ReimbTitle = '" + txtReimbTitle.Trim() + "', ReimbDescription = '" + txtReimbDescription.Trim() + "', IsFixed = " + IsFixed + ", IsActive = " + IsActive +
                  " WHERE ReimbID = " + txtReimbID.ToString().Trim();
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -250,6 +250,7 @@ namespace StaffSync
 
         [DisplayName("Reimbursement Description")] 
         public string ReimbDescription { get; set; }
+        public bool IsFixed { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public int OrderID { get; set; }

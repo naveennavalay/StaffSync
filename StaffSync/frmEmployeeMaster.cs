@@ -15,6 +15,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static StaffSync.TextBoxHelper;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 //using static C1.Util.Win.Win32;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
@@ -34,6 +37,7 @@ namespace StaffSync
         clsEmpSkillsMas objEmpSkillMas = new clsEmpSkillsMas();
         clsBloodGroup objBloodGroup = new clsBloodGroup();
         clsCountries objCountries = new clsCountries();
+        clsStates objStates = new clsStates();
         clsSkillsMas objSkills = new clsSkillsMas();
         clsEduQalification objEduQualMas = new clsEduQalification();
         clsDepartment objDepartment = new clsDepartment();
@@ -208,7 +212,7 @@ namespace StaffSync
         {
             foreach (Control indControl in this.Controls)
             {
-                if (indControl is TextBox)
+                if (indControl is System.Windows.Forms.TextBox)
                 {
                     indControl.Text = "";
                 }
@@ -219,7 +223,7 @@ namespace StaffSync
         {
             foreach (Control indControl in this.Controls)
             {
-                if (indControl is TextBox)
+                if (indControl is System.Windows.Forms.TextBox)
                 {
                     indControl.Text = "";
                 }
@@ -237,6 +241,7 @@ namespace StaffSync
             onCancelButtonClick();
             resetButtonsToCancel();
             clearControls();
+            TextBoxHelper.EnableSelectAllOnFocus(this);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -268,6 +273,20 @@ namespace StaffSync
             cmbDesignation.DataSource = objDesignation.GetDesignationList();
             cmbDesignation.DisplayMember = "DesignationTitle";
             cmbDesignation.ValueMember = "DesignationID";
+
+            //txtCurrentAddress01.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Address1"), "Address1");
+            //txtCurrentAddress02.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Address2"), "Address2");
+            //txtCurrentArea.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Area"), "Area");
+            //txtCurrentCity.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("City"), "City");
+            //txtCurrentPIN.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("PIN"), "PIN");
+            txtCurrentState.EnableAutoCompleteFromDataTable(objStates.GetStateList(), "StateTitle");
+
+            //txtPermanentAddress01.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Address1"), "Address1");
+            //txtPermanentAddress02.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Address2"), "Address2");
+            //txtPermanentArea.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Area"), "Area");
+            //txtPermanentCity.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("City"), "City");
+            //txtPermanentPIN.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("PIN"), "PIN");
+            //txtPermanentState.EnableAutoCompleteFromDataTable(objStates.GetStateList(), "StateTitle");
 
             lblContactInfoID.Text = "";
             cmbContactPersonRelationship.DataSource = objRelationship.GetRelationshipList();
@@ -485,6 +504,7 @@ namespace StaffSync
             dtgPreviousWorkExp.Columns["EndDate"].Width = 100;
             dtgPreviousWorkExp.Columns["EndDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
             dtgPreviousWorkExp.Columns["Comments"].Width = 350;
+            btnViewCalender.Visible = false;
         }
 
         public void enableControls()
@@ -634,6 +654,20 @@ namespace StaffSync
             cmbBloodGroup.DisplayMember = "BloodGroupTitle";
             cmbBloodGroup.ValueMember = "BloodGroupID";
 
+            //txtCurrentAddress01.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Address1"), "Address1");
+            //txtCurrentAddress02.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Address2"), "Address2");
+            //txtCurrentArea.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Area"), "Area");
+            //txtCurrentCity.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("City"), "City");
+            //txtCurrentPIN.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("PIN"), "PIN");
+            //txtCurrentState.EnableAutoCompleteFromDataTable(objStates.GetStateList("StateTitle"), "StateTitle");
+
+            //txtPermanentAddress01.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Address1"), "Address1");
+            //txtPermanentAddress02.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Address2"), "Address2");
+            //txtPermanentArea.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Area"), "Area");
+            //txtPermanentCity.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("City"), "City");
+            //txtPermanentPIN.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("PIN"), "PIN");
+            //txtPermanentState.EnableAutoCompleteFromDataTable(objStates.GetStateList("StateTitle"), "StateTitle");
+
             cmbCurrentCountry.DataSource = objCountries.GetCountryList();
             cmbCurrentCountry.DisplayMember = "CountryTitle";
             cmbCurrentCountry.ValueMember = "CountryID";
@@ -716,7 +750,7 @@ namespace StaffSync
                     {
                         int employeeLeaveAllotmentID = objLeaveTRList.InsertDefaultLeaveAllotment(Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToDecimal(txtTotalLeaveAllotment.Text), Convert.ToDecimal(txtBalanceLeaveAllotment.Text), DateTime.Now);
                         lblLeaveMasID.Text = employeeLeaveAllotmentID.ToString();
-                        int employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), 1, DateTime.Now, "By Leave Allotment", DateTime.Now, DateTime.Now, 0, DateTime.Now, "", DateTime.Now, "", Convert.ToInt16(lblEmpID.Text.ToString()));
+                        int employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), 1, DateTime.Now, "By Leave Allotment", DateTime.Now, DateTime.Now, 0, "", DateTime.Now, "", DateTime.Now, "", Convert.ToInt16(lblEmpID.Text.ToString()));
 
                         iRowCounter = 1;
                         foreach (DataGridViewRow dc in dtgLeaveEntitlement.Rows)
@@ -897,7 +931,7 @@ namespace StaffSync
                     if (tabLeaves.Visible == true)
                     {
                         int employeeLeaveAllotmentID = objLeaveTRList.UpdateEmployeeLeaveBalance(1, Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToDecimal(txtTotalLeaveAllotment.Text), Convert.ToDecimal(txtBalanceLeaveAllotment.Text), DateTime.Now);
-                        int employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), 1, DateTime.Now, "By Leave Allotment", DateTime.Now, DateTime.Now, 0, DateTime.Now, "", DateTime.Now, "", Convert.ToInt16(lblEmpID.Text.ToString()));
+                        int employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), 1, DateTime.Now, "By Leave Allotment", DateTime.Now, DateTime.Now, 0, "", DateTime.Now, "", DateTime.Now, "", Convert.ToInt16(lblEmpID.Text.ToString()));
 
                         iRowCounter = 1;
                         foreach (DataGridViewRow dc in dtgLeaveEntitlement.Rows)
@@ -1366,7 +1400,23 @@ namespace StaffSync
                 errValidator.SetError(lstLDocumentsList, "Please reference at least one document.");
             }
 
-            if(txtBankAccountNumber.Text.ToString().Trim() == "")
+            if(lblActionMode.Text.ToString() == "add")
+            {
+                if (string.IsNullOrEmpty(txtTotalLeaveAllotment.Text))
+                {
+                    validationStatus = false;
+                    txtTotalLeaveAllotment.Focus();
+                    errValidator.SetError(this.txtTotalLeaveAllotment, "Please enter Total Leaves Alloted.");
+                }
+                if (string.IsNullOrEmpty(txtTotalBalanceLeaves.Text))
+                {
+                    validationStatus = false;
+                    txtTotalBalanceLeaves.Focus();
+                    errValidator.SetError(this.txtTotalBalanceLeaves, "Please enter Balance Leaves available.");
+                }
+            }
+
+            if (txtBankAccountNumber.Text.ToString().Trim() == "")
             {
                 validationStatus = false;
                 txtBankAccountNumber.Focus();
@@ -1395,6 +1445,7 @@ namespace StaffSync
             if(SearchOptionSelectedForm == "listEmployees")
             {
                 lblEmpID.Text = selectedEmployeeID.ToString();
+                btnViewCalender.Visible = true;
                 UpdateUIWithSelectedEmployeeDetails(Convert.ToInt16(lblEmpID.Text));
             }
             else if (SearchOptionSelectedForm == "listRepManagers")
@@ -1448,6 +1499,9 @@ namespace StaffSync
             txtPermanentState.Text = objSelectedPermAddressInfo.State;
             txtPermanentPIN.Text = objSelectedPermAddressInfo.PIN;
             cmbPermanentCountry.SelectedIndex = objSelectedPermAddressInfo.CountryID - 1;
+
+            txtCurrentAddress01.Focus();
+            txtEmployeeName.Focus();
 
             picEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(EmployeeID).EmpPhoto);
 
@@ -1618,12 +1672,17 @@ namespace StaffSync
             dtgLeaveEntitlement.Columns["TotalLeaves"].Width = 135;
             dtgLeaveEntitlement.Columns["TotalLeaves"].ReadOnly = true;
             dtgLeaveEntitlement.Columns["TotalLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgLeaveEntitlement.Columns["TotalLeaves"].DefaultCellStyle.Format = "c2";
+            dtgLeaveEntitlement.Columns["TotalLeaves"].DefaultCellStyle.Format = "0.00";
 
             dtgLeaveEntitlement.Columns["BalanceLeaves"].Width = 135;
             dtgLeaveEntitlement.Columns["BalanceLeaves"].ReadOnly = true;
             dtgLeaveEntitlement.Columns["BalanceLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgLeaveEntitlement.Columns["BalanceLeaves"].DefaultCellStyle.Format = "c2";
+            dtgLeaveEntitlement.Columns["BalanceLeaves"].DefaultCellStyle.Format = "0.00";
+
+            dtgLeaveEntitlement.Columns["UsedLeaves"].Width = 135;
+            dtgLeaveEntitlement.Columns["UsedLeaves"].ReadOnly = true;
+            dtgLeaveEntitlement.Columns["UsedLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgLeaveEntitlement.Columns["UsedLeaves"].DefaultCellStyle.Format = "0.00";
             dtgLeaveEntitlement.Columns["OrderID"].Visible = false;
 
             decimal totalLeavesAllotted = 0;
@@ -2015,6 +2074,13 @@ namespace StaffSync
             {
                 txtEmployeeMailID.Text = string.Empty;
             }
+        }
+
+        private void btnViewCalender_Click(object sender, EventArgs e)
+        {
+            //frmAttendanceMater frmAttendanceMater = new frmAttendanceMater("listAttendanceMasterList", Convert.ToInt16(lblEmpID.Text));
+            frmAttendanceMater frmAttendanceMater = new frmAttendanceMater();
+            frmAttendanceMater.ShowDialog(this);
         }
     }
 }

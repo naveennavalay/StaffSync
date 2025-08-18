@@ -77,6 +77,7 @@ namespace StaffSync
             onGenerateButtonClick();
             clearControls();
             enableControls();
+            cmbIsFixed.SelectedIndex = 1;
             cmbIsActive.SelectedIndex = 1;
             lblAllowenceID.Text = objAllowence.getMaxRowCount("AllowanceHeaderMas", "AllID").ToString();
             txtAllCode.Text = "ALL-" + (lblAllowenceID.Text.Trim()).ToString().PadLeft(4, '0');
@@ -95,6 +96,12 @@ namespace StaffSync
                 txtAllDescription.Focus();
                 errValidator.SetError(this.txtAllDescription, "Please enter Allowence Description");
             }
+            else if (string.IsNullOrEmpty(cmbIsFixed.Text))
+            {
+                cmbIsFixed.Focus();
+                cmbIsFixed.SelectedIndex = 1;
+                errValidator.SetError(this.cmbIsFixed, "Is the Allowence Fixed");
+            }
             else if (string.IsNullOrEmpty(cmbIsActive.Text))
             {
                 cmbIsActive.Focus();
@@ -105,13 +112,13 @@ namespace StaffSync
             {
                 if (lblActionMode.Text == "add")
                 {
-                    int affectedRows = objAllowence.InsertAllowence(txtAllCode.Text.Trim(), txtAllTitle.Text.Trim(), txtAllDescription.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
+                    int affectedRows = objAllowence.InsertAllowence(txtAllCode.Text.Trim(), txtAllTitle.Text.Trim(), txtAllDescription.Text.Trim(), cmbIsFixed.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                     if (affectedRows > 0)
                         MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (lblActionMode.Text == "modify")
                 {
-                    int affectedRows = objAllowence.UpdateAllowence(Convert.ToInt16(lblAllowenceID.Text.Trim()), txtAllCode.Text.Trim(), txtAllTitle.Text.Trim(), txtAllDescription.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
+                    int affectedRows = objAllowence.UpdateAllowence(Convert.ToInt16(lblAllowenceID.Text.Trim()), txtAllCode.Text.Trim(), txtAllTitle.Text.Trim(), txtAllDescription.Text.Trim(), cmbIsFixed.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                     if (affectedRows > 0)
                         MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -133,6 +140,11 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.SelectedIndex = 0;
+            cmbIsFixed.Items.Clear();
+            cmbIsFixed.Items.Add("");
+            cmbIsFixed.Items.Add("Yes");
+            cmbIsFixed.Items.Add("No");
+            cmbIsFixed.SelectedIndex = 0;
         }
 
         public void enableControls()
@@ -146,6 +158,14 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.Enabled = true;
+            cmbIsActive.SelectedIndex = 1;
+
+            cmbIsFixed.Items.Clear();
+            cmbIsFixed.Items.Add("");
+            cmbIsFixed.Items.Add("Yes");
+            cmbIsFixed.Items.Add("No");
+            cmbIsFixed.Enabled = true;
+            cmbIsFixed.SelectedIndex = 1;
         }
 
         public void disableControls()
@@ -159,6 +179,12 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.Enabled = false;
+
+            cmbIsFixed.Items.Clear();
+            cmbIsFixed.Items.Add("");
+            cmbIsFixed.Items.Add("Yes");
+            cmbIsFixed.Items.Add("No");
+            cmbIsFixed.Enabled = false;
         }
 
         public void onGenerateButtonClick()
@@ -227,6 +253,7 @@ namespace StaffSync
             txtAllCode.Text = AllowenceModel.AllCode;
             txtAllTitle.Text = AllowenceModel.AllTitle;
             txtAllDescription.Text = AllowenceModel.AllDescription;
+            cmbIsFixed.Text = AllowenceModel.IsFixed == true ? "Yes" : "No";
             cmbIsActive.Text = AllowenceModel.IsActive == true ? "Yes" : "No";
         }
 
@@ -267,6 +294,7 @@ namespace StaffSync
             onModifyButtonClick();
             clearControls();
             enableControls();
+            cmbIsFixed.SelectedIndex = 1;
             cmbIsActive.SelectedIndex = 1;
             errValidator.Clear();
         }
@@ -279,6 +307,7 @@ namespace StaffSync
                 onRemoveButtonClick();
                 clearControls();
                 enableControls();
+                cmbIsFixed.SelectedIndex = 1;
                 cmbIsActive.SelectedIndex = 1;
             }
             else if (lblActionMode.Text == "delete")
@@ -293,6 +322,7 @@ namespace StaffSync
                 onCancelButtonClick();
                 disableControls();
                 clearControls();
+                cmbIsFixed.SelectedIndex = 0;
                 cmbIsActive.SelectedIndex = 0;
                 lblActionMode.Text = "";
                 errValidator.Clear();

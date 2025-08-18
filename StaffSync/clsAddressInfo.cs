@@ -62,6 +62,38 @@ namespace StaffSync
             return rowCount;
         }
 
+        public DataTable GetAddressList(string ColumnName)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+
+                string strQuery = "SELECT DISTINCT " + ColumnName + " FROM AddressMas";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return dt;
+        }
+
         public int InsertAddressInfo(string txtAddress1, string txtAddress2, string txtArea, string txtCity, string txtPIN, string txtState, string txtCountry)
         {
             int affectedRows = 0;

@@ -131,6 +131,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calender.cs" />
     <Compile Include="clsEmpLeaveEntitlementInfo.cs" />
     <Compile Include="clsWeeklyOffInfo.cs" />
     <Compile Include="CurrentUser.cs" />
@@ -190,6 +191,12 @@
     </Compile>
     <Compile Include="frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmViewLeavesOutstanding.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmViewLeavesOutstanding.Designer.cs">
+      <DependentUpon>frmViewLeavesOutstanding.cs</DependentUpon>
     </Compile>
     <Compile Include="frmCompanyInfo.cs">
       <SubType>Form</SubType>
@@ -555,8 +562,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StaffsyncDBDTSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="TextBoxAutoCompleteHelper.cs" />
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmViewLeavesOutstanding.resx">
+      <DependentUpon>frmViewLeavesOutstanding.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCompanyInfo.resx">
       <DependentUpon>frmCompanyInfo.cs</DependentUpon>
@@ -837,6 +848,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hrm02.ico" />
+    <None Include="images\icons\check.ico" />
+    <None Include="images\icons\uncheck.ico" />
+    <None Include="images\icons\execute.ico" />
     <None Include="images\icons\reports.ico" />
     <None Include="images\icons\salayconfig.ico" />
     <None Include="images\icons\leave-config.ico" />
@@ -876,12 +890,6 @@
     <None Include="images\icons\multiple-users.ico" />
     <None Include="images\png\auth01.png" />
     <None Include="images\icons\hrm02.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Calendar.NET\Calendar.NET.csproj">
-      <Project>{6CBC43B6-E950-49B2-B14A-563C50FCD5C3}</Project>
-      <Name>Calendar.NET</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

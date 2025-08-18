@@ -160,7 +160,7 @@ namespace StaffSync
             bool AttendanceEntryAlreadyExist = objLeaveTRList.AttendanceExistsForToday(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text));
             if(AttendanceEntryAlreadyExist)
             {
-                MessageBox.Show("Leave entry already exists for the selected date.\nPlease verify once again to continue.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(cmbLeaveType.Text + " - Leave already applied for the selected date.\nPlease verify once again to continue.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Cursor = Cursors.Default;
                 return;
             }
@@ -176,14 +176,14 @@ namespace StaffSync
                         DateTime LeaveDate = Convert.ToDateTime(txtLeaveDateFrom.Text);
                         for (int iLeaveCounter = 1; iLeaveCounter <= Convert.ToInt16(txtActualLeaveDays.Text); iLeaveCounter++)
                         {
-                            employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), cmbLeaveType.SelectedIndex + 1, DateTime.Now, txtLeaveNote.Text.Trim(), Convert.ToDateTime(LeaveDate.ToString("dd-MM-yyyy")), Convert.ToDateTime(LeaveDate.ToString("dd-MM-yyyy")), Convert.ToDecimal(1), DateTime.Now, "Not yet Approved", DateTime.Now, "Not yet Rejected", Convert.ToInt16(lblEmpID.Text.ToString()));
+                            employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), cmbLeaveType.SelectedIndex + 1, DateTime.Now, txtLeaveNote.Text.Trim(), Convert.ToDateTime(LeaveDate.ToString("dd-MM-yyyy")), Convert.ToDateTime(LeaveDate.ToString("dd-MM-yyyy")), Convert.ToDecimal(1), cmbDuration.Text.ToString(), DateTime.Now, "Not yet Approved", DateTime.Now, "Not yet Rejected", Convert.ToInt16(lblEmpID.Text.ToString()));
                             LeaveDate = Convert.ToDateTime(txtLeaveDateFrom.Text).AddDays(iLeaveCounter);
                         }
                         objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) - Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
                     }
                     else
                     {
-                        employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), cmbLeaveType.SelectedIndex + 1, DateTime.Now, txtLeaveNote.Text.Trim(), Convert.ToDateTime(txtLeaveDateFrom.Text), Convert.ToDateTime(txtLeaveDateTo.Text), Convert.ToDecimal(txtActualLeaveDays.Text), DateTime.Now, "Not yet Approved", DateTime.Now, "Not yet Rejected", Convert.ToInt16(lblEmpID.Text.ToString()));
+                        employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), cmbLeaveType.SelectedIndex + 1, DateTime.Now, txtLeaveNote.Text.Trim(), Convert.ToDateTime(txtLeaveDateFrom.Text), Convert.ToDateTime(txtLeaveDateTo.Text), Convert.ToDecimal(txtActualLeaveDays.Text), cmbDuration.Text.ToString(), DateTime.Now, "Not yet Approved", DateTime.Now, "Not yet Rejected", Convert.ToInt16(lblEmpID.Text.ToString()));
                         objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) - Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
                     }
                 }
@@ -215,14 +215,14 @@ namespace StaffSync
                         DateTime LeaveDate = Convert.ToDateTime(txtLeaveDateFrom.Text);
                         for (int iLeaveCounter = 1; iLeaveCounter <= Convert.ToInt16(txtActualLeaveDays.Text); iLeaveCounter++)
                         {
-                            employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), cmbLeaveType.SelectedIndex + 1, DateTime.Now, txtLeaveNote.Text.Trim(), Convert.ToDateTime(LeaveDate.ToString("dd-MM-yyyy")), Convert.ToDateTime(LeaveDate.ToString("dd-MM-yyyy")), Convert.ToDecimal(1), DateTime.Now, "Not yet Approved", DateTime.Now, "Not yet Rejected", Convert.ToInt16(lblEmpID.Text.ToString()));
+                            employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), cmbLeaveType.SelectedIndex + 1, DateTime.Now, txtLeaveNote.Text.Trim(), Convert.ToDateTime(LeaveDate.ToString("dd-MM-yyyy")), Convert.ToDateTime(LeaveDate.ToString("dd-MM-yyyy")), Convert.ToDecimal(1), cmbDuration.Text.ToString(), DateTime.Now, "Not yet Approved", DateTime.Now, "Not yet Rejected", Convert.ToInt16(lblEmpID.Text.ToString()));
                             LeaveDate = Convert.ToDateTime(txtLeaveDateFrom.Text).AddDays(iLeaveCounter);
                             objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), Convert.ToDecimal(txtActualLeaveDays.Text.ToString()));
                         }
                     }
                     else
                     {
-                        employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), cmbLeaveType.SelectedIndex + 1, DateTime.Now, txtLeaveNote.Text.Trim(), Convert.ToDateTime(txtLeaveDateFrom.Text), Convert.ToDateTime(txtLeaveDateTo.Text), Convert.ToDecimal(txtActualLeaveDays.Text), DateTime.Now, "Not yet Approved", DateTime.Now, "Not yet Rejected", Convert.ToInt16(lblEmpID.Text.ToString()));
+                        employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), cmbLeaveType.SelectedIndex + 1, DateTime.Now, txtLeaveNote.Text.Trim(), Convert.ToDateTime(txtLeaveDateFrom.Text), Convert.ToDateTime(txtLeaveDateTo.Text), Convert.ToDecimal(txtActualLeaveDays.Text), cmbDuration.Text.ToString(), DateTime.Now, "Not yet Approved", DateTime.Now, "Not yet Rejected", Convert.ToInt16(lblEmpID.Text.ToString()));
                         objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), Convert.ToDecimal(txtActualLeaveDays.Text.ToString()));
                     }
                 }
@@ -334,7 +334,7 @@ namespace StaffSync
             txtLeaveDateTo.Text = DateTime.Now.ToString("dd-MM-yyyy");
             txtActualLeaveDays.Text = "";
             txtBalanceLeave.Text = "";
-            txtLeaveNote.Text = "";
+            //txtLeaveNote.Text = "";
 
             cmbDesignation.DataSource = null;
             cmbDepartment.DataSource = null;
@@ -521,6 +521,7 @@ namespace StaffSync
                     indEmployeeLeaveTRList.ActualLeaveDateTo != null ? Convert.ToDateTime(indEmployeeLeaveTRList.ActualLeaveDateTo.ToString()).ToString("dd-MMM-yyyy") : "",
                     indEmployeeLeaveTRList.LeaveDuration != null ? indEmployeeLeaveTRList.LeaveDuration.ToString() : "0.00",
                     indEmployeeLeaveTRList.LeaveComments.ToString(),
+                    indEmployeeLeaveTRList.LeaveMode = indEmployeeLeaveTRList.LeaveMode.ToString(),
                     indEmployeeLeaveTRList.LeaveStatus = strLeaveStatus.ToString(),
                     Convert.ToBoolean(indEmployeeLeaveTRList.Canceled) == true ? "Cancelled" : "",
                     Convert.ToBoolean(indEmployeeLeaveTRList.Canceled) == true ? indEmployeeLeaveTRList.CanceledDate.ToString() : ""
@@ -543,7 +544,7 @@ namespace StaffSync
         {
             if (lblActionMode.Text == "add")
             {
-                if (lstLeaveTRList.SelectedItems[0].SubItems[4].Text.ToString() != "0" && (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString() != "Cancelled") && (lstLeaveTRList.SelectedItems[0].SubItems[6].Text.ToString() == "Pending"))
+                if (lstLeaveTRList.SelectedItems[0].SubItems[4].Text.ToString() != "0" && (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString() != "Cancelled") && (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString() == "Pending"))
                 {
                     if (e.Button == MouseButtons.Right)
                     {
@@ -630,7 +631,7 @@ namespace StaffSync
             //    isValid = false;
             //}
 
-            if (string.IsNullOrWhiteSpace(lblSpecificLeaveBalance.Text) || !decimal.TryParse(lblSpecificLeaveBalance.Text, out decimal leaveBalance) || leaveBalance == 0)
+            if (string.IsNullOrWhiteSpace(lblSpecificLeaveBalance.Text) || !decimal.TryParse(lblSpecificLeaveBalance.Text, out decimal leaveBalance) || leaveBalance == 0 && (lblCancelStatus.Text.ToString() == ""))
             {
                 errValidator.SetError(cmbLeaveType, cmbLeaveType.Text + " : Zero leaves available.");
                 isValid = false;
@@ -655,9 +656,11 @@ namespace StaffSync
 
         private void picViewLeaves_Click(object sender, EventArgs e)
         {
-            //dtgLeaveEntitlement.DataSource = null;
-            //dtgLeaveEntitlement.DataSource = objEmpLeaveEntitlementInfo.getEmployeeLeaveEntitilementList(Convert.ToInt16(lblEmpID.Text), Convert.ToInt16(lblLeaveMasID.Text.ToString()));
-            //LeaveEntitlementTableFormat(); 
+            if (lblEmpID.Text.Trim() == "")
+                return;
+
+            frmViewLeavesOutstanding frmViewLeavesOutstanding = new frmViewLeavesOutstanding(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(lblLeaveMasID.Text.ToString()));
+            frmViewLeavesOutstanding.ShowDialog(this);
         }
 
         //private void LeaveEntitlementTableFormat()

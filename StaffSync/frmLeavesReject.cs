@@ -534,5 +534,14 @@ namespace StaffSync
 
             lblSpecificLeaveBalance.Text = objLeaveTRList.getSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1)).ToString();
         }
+
+        private void picViewLeaves_Click(object sender, EventArgs e)
+        {
+            if (lblEmpID.Text.Trim() == "")
+                return;
+
+            frmViewLeavesOutstanding frmViewLeavesOutstanding = new frmViewLeavesOutstanding(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(lblLeaveMasID.Text.ToString()));
+            frmViewLeavesOutstanding.ShowDialog(this);
+        }
     }
 }

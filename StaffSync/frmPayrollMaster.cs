@@ -247,6 +247,7 @@ namespace StaffSync
             dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Format = "c2";
             dtgSalaryDetails.Columns["OrderID"].Visible = false;
             dtgSalaryDetails.Enabled = false;
+            btnViewCalender.Visible = false;
         }
 
         public void enableControls()
@@ -321,12 +322,12 @@ namespace StaffSync
             if (lblActionMode.Text == "add")
             {
                 frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listPayrollUsersList");
-                frmEmployeeList.ShowDialog();
+                frmEmployeeList.ShowDialog(this);
             }
             else if (lblActionMode.Text == "modify")
             {
                 frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listEmployeesPayslip");
-                frmEmployeeList.ShowDialog();
+                frmEmployeeList.ShowDialog(this);
             }
         }
 
@@ -411,6 +412,7 @@ namespace StaffSync
 
                 txtNetPayable.Text = Convert.ToDecimal((totalAallowences + totalReimbursement) - totalDeductions).ToString();
                 txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+                btnViewCalender.Visible = true;
 
             }
             else if (SearchOptionSelectedForm == "listEmployeesPayslip")
@@ -502,6 +504,7 @@ namespace StaffSync
 
                 txtNetPayable.Text = Convert.ToDecimal((totalAallowences + totalReimbursement) - totalDeductions).ToString();
                 txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+                btnViewCalender.Visible = true;
             }
         }
 
@@ -605,6 +608,13 @@ namespace StaffSync
 
             int daysInMonth = DateTime.DaysInMonth(parsedDate.Year, parsedDate.Month);
             txtTotalWorkingDays.Text = daysInMonth.ToString();
+        }
+
+        private void btnViewCalender_Click(object sender, EventArgs e)
+        {
+            //frmAttendanceMater frmAttendanceMater = new frmAttendanceMater("listAttendanceMasterList", Convert.ToInt16(lblReportingManagerID.Text));
+            frmAttendanceMater frmAttendanceMater = new frmAttendanceMater();
+            frmAttendanceMater.ShowDialog(this);
         }
     }
 }

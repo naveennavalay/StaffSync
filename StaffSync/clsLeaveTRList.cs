@@ -625,6 +625,18 @@ namespace StaffSync
                     " (EmpDailyAttendanceInfo.AttDate) = #" + dtDate.ToString("dd-MMM-yyyy") + "#" +
                     " )" +
                     " AND ((EmpMas.EmpID) = " +  txtEmpID + "));";
+
+
+                strQuery = "SELECT Count(AttID) AS AttIDCount " +
+                                   " FROM EmpMas INNER JOIN (EmpDailyAttendanceInfo INNER JOIN EmpLeaveTransMas ON EmpDailyAttendanceInfo.LeaveTRID = EmpLeaveTransMas.LeaveTRID) ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " + 
+                           " WHERE " + 
+                                   " ( " +
+                                       " ( " + 
+                                            " (EmpDailyAttendanceInfo.AttDate) = #" + dtDate.ToString("dd-MMM-yyyy") + "#" +
+                                        " ) " + 
+                                        " AND ((EmpMas.EmpID) = " + txtEmpID + ") " + 
+                                        " AND ((EmpLeaveTransMas.Canceled) = false) " + 
+                                    ")";
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
@@ -737,7 +749,7 @@ namespace StaffSync
             return affectedRows;
         }
 
-        public int InsertLeaveTransaction(int txtEmpID, int txtLeaveTypeID, DateTime txtLeaveAppliedDate, string txtLeaveComments, DateTime txtLeaveFromDate, DateTime txtLeaveToDate, decimal txtLeaveDuration, DateTime txtLeaveApprovedDate, string txtLeaveApprovalComments, DateTime txtLeaveRejectedDate, string txtLeaveRejectionComment, int txtApproverID)
+        public int InsertLeaveTransaction(int txtEmpID, int txtLeaveTypeID, DateTime txtLeaveAppliedDate, string txtLeaveComments, DateTime txtLeaveFromDate, DateTime txtLeaveToDate, decimal txtLeaveDuration, string txtLeaveMode, DateTime txtLeaveApprovedDate, string txtLeaveApprovalComments, DateTime txtLeaveRejectedDate, string txtLeaveRejectionComment, int txtApproverID)
         {
             int affectedRows = 0;
             try
@@ -750,8 +762,8 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO EmpLeaveTransMas (LeaveTRID, EmpID, LeaveTypeID, LeaveAppliedDate, LeaveComments, ActualLeaveDateFrom, ActualLeaveDateTo, LeaveDuration, LeaveApprovedDate, LeaveApprovalComments, LeaveRejectedDate, LeaveRejectionComments, ApprovedOrRejectedByEmpID, OrderID, Canceled, CanceledDate) VALUES " +
-                 "(" + maxRowCount + "," + txtEmpID + "," + txtLeaveTypeID + ",'" + DateTime.Now.ToString("dd-MMM-yyyy") + "','" + txtLeaveComments + "','" + txtLeaveFromDate.ToString("dd-MMM-yyyy") + "','" + txtLeaveToDate.ToString("dd-MMM-yyyy") + "'," + txtLeaveDuration + ",'" + txtLeaveApprovedDate.ToString("dd-MMM-yyyy") + "','" + txtLeaveApprovalComments +"','" + txtLeaveRejectedDate.ToString("dd-MMM-yyyy") + "','" + txtLeaveRejectionComment + "'," + txtApproverID + "," + maxLeaveCounter + ", false, '" + DateTime.Now.ToString("dd-MMM-yyyy") + "')";
+                string strQuery = "INSERT INTO EmpLeaveTransMas (LeaveTRID, EmpID, LeaveTypeID, LeaveAppliedDate, LeaveComments, ActualLeaveDateFrom, ActualLeaveDateTo, LeaveDuration, LeaveMode, LeaveApprovedDate, LeaveApprovalComments, LeaveRejectedDate, LeaveRejectionComments, ApprovedOrRejectedByEmpID, OrderID, Canceled, CanceledDate) VALUES " +
+                 "(" + maxRowCount + "," + txtEmpID + "," + txtLeaveTypeID + ",'" + DateTime.Now.ToString("dd-MMM-yyyy") + "','" + txtLeaveComments + "','" + txtLeaveFromDate.ToString("dd-MMM-yyyy") + "','" + txtLeaveToDate.ToString("dd-MMM-yyyy") + "'," + txtLeaveDuration + ",'" + txtLeaveMode + "','" + txtLeaveApprovedDate.ToString("dd-MMM-yyyy") + "','" + txtLeaveApprovalComments +"','" + txtLeaveRejectedDate.ToString("dd-MMM-yyyy") + "','" + txtLeaveRejectionComment + "'," + txtApproverID + "," + maxLeaveCounter + ", false, '" + DateTime.Now.ToString("dd-MMM-yyyy") + "')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -772,7 +784,7 @@ namespace StaffSync
             return affectedRows;
         }
 
-        public int UpdateLeaveTransaction(int txtLeaveTRID, int txtEmpID, int txtLeaveTypeID, DateTime txtLeaveAppliedDate, string txtLeaveComments, DateTime txtLeaveFromDate, DateTime txtLeaveToDate, decimal txtLeaveDuration, DateTime txtLeaveApprovedDate, string txtLeaveApprovalComments, DateTime txtLeaveRejectedDate, string txtLeaveRejectionComment, int txtApproverID)
+        public int UpdateLeaveTransaction(int txtLeaveTRID, int txtEmpID, int txtLeaveTypeID, DateTime txtLeaveAppliedDate, string txtLeaveComments, DateTime txtLeaveFromDate, DateTime txtLeaveToDate, decimal txtLeaveDuration, string txtLeaveMode, DateTime txtLeaveApprovedDate, string txtLeaveApprovalComments, DateTime txtLeaveRejectedDate, string txtLeaveRejectionComment, int txtApproverID)
         {
             int affectedRows = 0;
             try
@@ -782,7 +794,7 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE EmpLeaveTransMas LeaveTypeID = " + txtLeaveTypeID + ", LeaveAppliedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveComments = '" + txtLeaveComments + "', ActualLeaveDateFrom = '" + txtLeaveFromDate.ToString("dd-MMM-yyyy") + "', ActualLeaveDateTo = '" + txtLeaveToDate.ToString("dd-MMM-yyyy") + "', LeaveDuration = " + txtLeaveDuration + ", LeaveApprovedDate = '" + txtLeaveApprovedDate.ToString("dd-MMM-yyyy") + "', LeaveApprovalComments = '" + txtLeaveApprovalComments + "', LeaveRejectedDate = '" + txtLeaveRejectedDate.ToString("dd-MMM-yyyy") + "', LeaveRejectionComments = '" + txtLeaveRejectionComment + "', ApprovedOrRejectedByEmpID = " + txtApproverID + ", OrderID = " + maxLeaveCounter +
+                string strQuery = "UPDATE EmpLeaveTransMas LeaveTypeID = " + txtLeaveTypeID + ", LeaveAppliedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveComments = '" + txtLeaveComments + "', ActualLeaveDateFrom = '" + txtLeaveFromDate.ToString("dd-MMM-yyyy") + "', ActualLeaveDateTo = '" + txtLeaveToDate.ToString("dd-MMM-yyyy") + "', LeaveDuration = " + txtLeaveDuration + ", LeaveMode = '" + txtLeaveMode + "', LeaveApprovedDate = '" + txtLeaveApprovedDate.ToString("dd-MMM-yyyy") + "', LeaveApprovalComments = '" + txtLeaveApprovalComments + "', LeaveRejectedDate = '" + txtLeaveRejectedDate.ToString("dd-MMM-yyyy") + "', LeaveRejectionComments = '" + txtLeaveRejectionComment + "', ApprovedOrRejectedByEmpID = " + txtApproverID + ", OrderID = " + maxLeaveCounter +
                  " WHERE LeaveTRID = " + txtLeaveTRID + " AND EmpID = " + txtEmpID + "";
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -869,6 +881,9 @@ namespace StaffSync
             int affectedRows = 0;
             try
             {
+                if (txtApproverID == 0)
+                    txtApproverID = 1;
+
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
@@ -992,7 +1007,10 @@ namespace StaffSync
 
         [DisplayName("Leave Duration")] 
         public double LeaveDuration { get; set; }
-        
+
+        [DisplayName("Leave Mode")]
+        public string LeaveMode { get; set; }
+
         [DisplayName("Leave Comments")] 
         public string LeaveComments { get; set; }
 
@@ -1057,6 +1075,10 @@ namespace StaffSync
 
         [DisplayName("Leave Duration")] 
         public float LeaveDuration { get; set; }
+
+        [DisplayName("Leave Mode")]
+        public string LeaveMode { get; set; }
+
         public DateTime? LeaveApprovedDate { get; set; }
 
         [DisplayName("Approval Comments")]
@@ -1087,6 +1109,7 @@ namespace StaffSync
         public DateTime ActualLeaveDateFrom { get; set; }
         public DateTime ActualLeaveDateTo { get; set; }
         public decimal LeaveDuration { get; set; }
+        public string LeaveMode { get; set; }
         public int OrderID { get; set; }
     }
 
@@ -1102,6 +1125,7 @@ namespace StaffSync
         public DateTime ActualLeaveDateFrom { get; set; }
         public DateTime ActualLeaveDateTo { get; set; }
         public double LeaveDuration { get; set; }
+        public string LeaveMode { get; set; }
         public DateTime LeaveRejectedDate { get; set; }
         public string LeaveRejectionComments { get; set; }
         public int ApprovedOrRejectedByEmpID { get; set; }
@@ -1148,5 +1172,8 @@ namespace StaffSync
 
         [DisplayName("Duration")]
         public string LeaveDuration { get; set; }
+
+        [DisplayName("Leave Mode")]
+        public string LeaveMode { get; set; }
     }
 }
