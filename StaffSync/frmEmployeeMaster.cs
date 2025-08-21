@@ -258,6 +258,7 @@ namespace StaffSync
             enableControls();
             txtTotalLeaveAllotment.Enabled = true;
             txtBalanceLeaveAllotment.Enabled = true;
+            txtTotalUtilised.Enabled = true;
             lblEmpID.Text = objCountries.getMaxRowCount("EMPMas", "EmpID").ToString();
             txtEmpCode.Text = "EMP-" + (lblEmpID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();            
@@ -558,6 +559,7 @@ namespace StaffSync
 
             txtTotalLeaveAllotment.Enabled = false;
             txtBalanceLeaveAllotment.Enabled = false;
+            txtTotalUtilised.Enabled = false;
             cmbWeeklyOff.Enabled = true;
 
             txtBankAccountNumber.Enabled = true;
@@ -614,6 +616,7 @@ namespace StaffSync
 
             txtTotalLeaveAllotment.Enabled = false;
             txtBalanceLeaveAllotment.Enabled = false;
+            txtTotalUtilised.Enabled = false;
             cmbWeeklyOff.Enabled = false;
 
             txtBankAccountNumber.Enabled = false;
@@ -1651,7 +1654,7 @@ namespace StaffSync
             lblLeaveMasID.Text = objLeaveTRList.getMaxLeaveMasID(Convert.ToInt16(lblEmpID.Text)).ToString();
             txtTotalLeaveAllotment.Text = objLeaveTRList.getBalanceLeave(Convert.ToInt16(lblEmpID.Text)).ToString();
             txtBalanceLeaveAllotment.Text = txtTotalLeaveAllotment.Text;
-
+            txtTotalUtilised.Text = "0.00";
 
             dtgLeaveEntitlement.DataSource = null;
             if(lblActionMode.Text == "add")
@@ -1700,6 +1703,7 @@ namespace StaffSync
 
             txtTotalLeavesAlloted.Text = Convert.ToDecimal(totalLeavesAllotted.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
             txtTotalBalanceLeaves.Text = Convert.ToDecimal(totalBalanceLeaves.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtTotalUtilised.Text = (Convert.ToDecimal(txtTotalLeavesAlloted.Text.ToString()) - Convert.ToDecimal(txtTotalBalanceLeaves.Text.ToString())).ToString("00.00", CultureInfo.InvariantCulture);
 
             //lstLeaveTRList.Items.Clear();
             //List<EmployeeLeaveTRList> objEmployeeLeaveTRList = objLeaveTRList.getEmployeeLeaveTRList(Convert.ToInt16(lblEmpID.Text));

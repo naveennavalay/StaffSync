@@ -360,6 +360,7 @@ namespace StaffSync
                 picEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblEmpID.Text)).EmpPhoto);
 
                 lblLeaveMasID.Text = objLeaveTRList.getMaxLeaveMasID(Convert.ToInt16(lblEmpID.Text)).ToString();
+                txtBalanceLeave.Text = "0.00";
 
                 txtAvailableLeave.Text = objLeaveTRList.getBalanceLeave(Convert.ToInt16(lblEmpID.Text)).ToString();
                 List<EmployeeSpecificLeaveInfo> objEmployeeSpecificLeaveInfo = objLeaveTRList.getSpecificEmployeeSpecificLeaveInfo(selectedLeaveID);

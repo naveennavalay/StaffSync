@@ -13,6 +13,10 @@ namespace StaffSync
         public Task Execute(IJobExecutionContext context)
         {
             //MessageBox.Show($"Daily Attendance Job executed at: {DateTime.Now}", "Quartz Job", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+
+
             return Task.CompletedTask;
         }
     }

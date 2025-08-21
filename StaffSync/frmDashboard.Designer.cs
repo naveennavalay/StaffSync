@@ -77,6 +77,14 @@
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.cmbMyLeaveReports = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbMyLeaveStatementReport01 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmbPendingLeaveApprovalList = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmbRejectionLeaveList = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmbConsolidatedLeaveStatement = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmbOutstandingLeaveStatement = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonRibbonGroup6 = new Krypton.Ribbon.KryptonRibbonGroup();
             this.kryptonRibbonGroupTriple14 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbManagePayrollManagement = new Krypton.Ribbon.KryptonRibbonGroupButton();
@@ -122,6 +130,11 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.cmbLeaveConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbLeaveTypeMaster = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
+            this.payrollConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbEarningsListConfig = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbDeductionsListConfig = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbReimbursmentListConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.tlbApplicationGroup = new Krypton.Ribbon.KryptonRibbonGroup();
             this.kryptonRibbonGroupTriple2 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbApplicationHelp = new Krypton.Ribbon.KryptonRibbonGroupButton();
@@ -159,6 +172,8 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
+            this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmbDailyAttendanceSheet = new System.Windows.Forms.ToolStripMenuItem();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -454,9 +469,11 @@
             this.cmAttendanceManagementList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.cmAttendanceManagementList.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.cmAttendanceManagementList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmbManageEmployeeAttendance});
+            this.cmbManageEmployeeAttendance,
+            this.toolStripMenuItem13,
+            this.cmbDailyAttendanceSheet});
             this.cmAttendanceManagementList.Name = "cmDatamartList01";
-            this.cmAttendanceManagementList.Size = new System.Drawing.Size(237, 26);
+            this.cmAttendanceManagementList.Size = new System.Drawing.Size(237, 76);
             this.cmAttendanceManagementList.Tag = "cmAttendanceManagementList";
             this.cmAttendanceManagementList.Text = "DatamartMenu";
             this.cmAttendanceManagementList.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmAttendanceManagementList_ItemClicked);
@@ -498,7 +515,7 @@
             this.toolStripMenuItem6,
             this.cmbMyLeaveReports});
             this.cmLeaveManagement.Name = "cmDatamartList01";
-            this.cmLeaveManagement.Size = new System.Drawing.Size(183, 204);
+            this.cmLeaveManagement.Size = new System.Drawing.Size(183, 182);
             this.cmLeaveManagement.Tag = "DatamartMenu";
             this.cmLeaveManagement.Text = "Datamart Menu";
             this.cmLeaveManagement.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmLeaveManagement_ItemClicked);
@@ -575,7 +592,15 @@
             // cmbMyLeaveReports
             // 
             this.cmbMyLeaveReports.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmbMyLeaveStatementReport01});
+            this.cmbMyLeaveStatementReport01,
+            this.toolStripMenuItem9,
+            this.cmbPendingLeaveApprovalList,
+            this.toolStripMenuItem10,
+            this.cmbRejectionLeaveList,
+            this.toolStripMenuItem11,
+            this.cmbConsolidatedLeaveStatement,
+            this.toolStripMenuItem12,
+            this.cmbOutstandingLeaveStatement});
             this.cmbMyLeaveReports.Image = global::StaffSync.Properties.Resources.reports;
             this.cmbMyLeaveReports.Name = "cmbMyLeaveReports";
             this.cmbMyLeaveReports.Size = new System.Drawing.Size(182, 22);
@@ -586,10 +611,62 @@
             // 
             this.cmbMyLeaveStatementReport01.Image = global::StaffSync.Properties.Resources.leave_statement;
             this.cmbMyLeaveStatementReport01.Name = "cmbMyLeaveStatementReport01";
-            this.cmbMyLeaveStatementReport01.Size = new System.Drawing.Size(166, 22);
+            this.cmbMyLeaveStatementReport01.Size = new System.Drawing.Size(239, 22);
             this.cmbMyLeaveStatementReport01.Tag = "cmbMyLeaveStatementReport01";
             this.cmbMyLeaveStatementReport01.Text = "Leave Statements";
             this.cmbMyLeaveStatementReport01.Click += new System.EventHandler(this.cmbMyLeaveStatementReport01_Click);
+            // 
+            // toolStripMenuItem9
+            // 
+            this.toolStripMenuItem9.Name = "toolStripMenuItem9";
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(236, 6);
+            // 
+            // cmbPendingLeaveApprovalList
+            // 
+            this.cmbPendingLeaveApprovalList.Name = "cmbPendingLeaveApprovalList";
+            this.cmbPendingLeaveApprovalList.Size = new System.Drawing.Size(239, 22);
+            this.cmbPendingLeaveApprovalList.Tag = "cmbPendingLeaveApprovalList";
+            this.cmbPendingLeaveApprovalList.Text = "Leave Approval Pending List";
+            this.cmbPendingLeaveApprovalList.Click += new System.EventHandler(this.cmbPendingLeaveApprovalList_Click);
+            // 
+            // toolStripMenuItem10
+            // 
+            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(236, 6);
+            // 
+            // cmbRejectionLeaveList
+            // 
+            this.cmbRejectionLeaveList.Name = "cmbRejectionLeaveList";
+            this.cmbRejectionLeaveList.Size = new System.Drawing.Size(239, 22);
+            this.cmbRejectionLeaveList.Tag = "cmbRejectionLeaveList";
+            this.cmbRejectionLeaveList.Text = "Leave Rejection List";
+            this.cmbRejectionLeaveList.Click += new System.EventHandler(this.cmbRejectionLeaveList_Click);
+            // 
+            // toolStripMenuItem11
+            // 
+            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(236, 6);
+            // 
+            // cmbConsolidatedLeaveStatement
+            // 
+            this.cmbConsolidatedLeaveStatement.Name = "cmbConsolidatedLeaveStatement";
+            this.cmbConsolidatedLeaveStatement.Size = new System.Drawing.Size(239, 22);
+            this.cmbConsolidatedLeaveStatement.Tag = "cmbConsolidatedLeaveStatement";
+            this.cmbConsolidatedLeaveStatement.Text = "Consolidated Leave Statements";
+            this.cmbConsolidatedLeaveStatement.Click += new System.EventHandler(this.cmbConsolidatedLeaveStatement_Click);
+            // 
+            // toolStripMenuItem12
+            // 
+            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(236, 6);
+            // 
+            // cmbOutstandingLeaveStatement
+            // 
+            this.cmbOutstandingLeaveStatement.Name = "cmbOutstandingLeaveStatement";
+            this.cmbOutstandingLeaveStatement.Size = new System.Drawing.Size(239, 22);
+            this.cmbOutstandingLeaveStatement.Tag = "cmbOutstandingLeaveStatement";
+            this.cmbOutstandingLeaveStatement.Text = "Outstanding Leave Statement";
+            this.cmbOutstandingLeaveStatement.Click += new System.EventHandler(this.cmbOutstandingLeaveStatement_Click);
             // 
             // kryptonRibbonGroup6
             // 
@@ -808,9 +885,11 @@
             this.toolStripMenuItem4,
             this.cmbSalaryConfiguration,
             this.toolStripMenuItem3,
-            this.cmbLeaveConfiguration});
+            this.cmbLeaveConfiguration,
+            this.toolStripMenuItem7,
+            this.payrollConfigurationToolStripMenuItem});
             this.cmbApplicationSettings.Name = "cmDatamartList01";
-            this.cmbApplicationSettings.Size = new System.Drawing.Size(183, 82);
+            this.cmbApplicationSettings.Size = new System.Drawing.Size(188, 110);
             this.cmbApplicationSettings.Tag = "DatamartMenu";
             this.cmbApplicationSettings.Text = "Datamart Menu";
             this.cmbApplicationSettings.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmbApplicationSettings_ItemClicked);
@@ -830,7 +909,7 @@
             this.cmbWeeklyOffConfiguration});
             this.cmbMasterList.Image = global::StaffSync.Properties.Resources.master_data;
             this.cmbMasterList.Name = "cmbMasterList";
-            this.cmbMasterList.Size = new System.Drawing.Size(182, 22);
+            this.cmbMasterList.Size = new System.Drawing.Size(187, 22);
             this.cmbMasterList.Tag = "cmbMasterList";
             this.cmbMasterList.Text = "Master List";
             // 
@@ -909,7 +988,7 @@
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(179, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(184, 6);
             // 
             // cmbSalaryConfiguration
             // 
@@ -918,7 +997,7 @@
             this.cmbConfigureSalaryProfile});
             this.cmbSalaryConfiguration.Image = global::StaffSync.Properties.Resources.salayconfig;
             this.cmbSalaryConfiguration.Name = "cmbSalaryConfiguration";
-            this.cmbSalaryConfiguration.Size = new System.Drawing.Size(182, 22);
+            this.cmbSalaryConfiguration.Size = new System.Drawing.Size(187, 22);
             this.cmbSalaryConfiguration.Tag = "cmbSalaryConfiguration";
             this.cmbSalaryConfiguration.Text = "Salary Configuration";
             // 
@@ -943,7 +1022,7 @@
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(179, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(184, 6);
             // 
             // cmbLeaveConfiguration
             // 
@@ -951,7 +1030,7 @@
             this.cmbLeaveTypeMaster});
             this.cmbLeaveConfiguration.Image = global::StaffSync.Properties.Resources.leave_config;
             this.cmbLeaveConfiguration.Name = "cmbLeaveConfiguration";
-            this.cmbLeaveConfiguration.Size = new System.Drawing.Size(182, 22);
+            this.cmbLeaveConfiguration.Size = new System.Drawing.Size(187, 22);
             this.cmbLeaveConfiguration.Tag = "cmbLeaveConfiguration";
             this.cmbLeaveConfiguration.Text = "Leave Configuration";
             // 
@@ -963,6 +1042,49 @@
             this.cmbLeaveTypeMaster.Tag = "cmbLeaveTypeMaster";
             this.cmbLeaveTypeMaster.Text = "Leave Type";
             this.cmbLeaveTypeMaster.Click += new System.EventHandler(this.cmbLeaveTypeMaster_Click);
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(184, 6);
+            // 
+            // payrollConfigurationToolStripMenuItem
+            // 
+            this.payrollConfigurationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmbEarningsListConfig,
+            this.cmbDeductionsListConfig,
+            this.cmbReimbursmentListConfig});
+            this.payrollConfigurationToolStripMenuItem.Image = global::StaffSync.Properties.Resources.payroll;
+            this.payrollConfigurationToolStripMenuItem.Name = "payrollConfigurationToolStripMenuItem";
+            this.payrollConfigurationToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.payrollConfigurationToolStripMenuItem.Text = "Payroll Configuration";
+            // 
+            // cmbEarningsListConfig
+            // 
+            this.cmbEarningsListConfig.Image = global::StaffSync.Properties.Resources.earnings;
+            this.cmbEarningsListConfig.Name = "cmbEarningsListConfig";
+            this.cmbEarningsListConfig.Size = new System.Drawing.Size(173, 22);
+            this.cmbEarningsListConfig.Tag = "cmbEarningsListConfig";
+            this.cmbEarningsListConfig.Text = "Earnings List";
+            this.cmbEarningsListConfig.Click += new System.EventHandler(this.cmbEarningsListConfig_Click);
+            // 
+            // cmbDeductionsListConfig
+            // 
+            this.cmbDeductionsListConfig.Image = global::StaffSync.Properties.Resources.deductions;
+            this.cmbDeductionsListConfig.Name = "cmbDeductionsListConfig";
+            this.cmbDeductionsListConfig.Size = new System.Drawing.Size(173, 22);
+            this.cmbDeductionsListConfig.Tag = "cmbDeductionsListConfig";
+            this.cmbDeductionsListConfig.Text = "Deductions List";
+            this.cmbDeductionsListConfig.Click += new System.EventHandler(this.cmbDeductionsListConfig_Click);
+            // 
+            // cmbReimbursmentListConfig
+            // 
+            this.cmbReimbursmentListConfig.Image = global::StaffSync.Properties.Resources.reimbursement;
+            this.cmbReimbursmentListConfig.Name = "cmbReimbursmentListConfig";
+            this.cmbReimbursmentListConfig.Size = new System.Drawing.Size(173, 22);
+            this.cmbReimbursmentListConfig.Tag = "cmbReimbursmentListConfig";
+            this.cmbReimbursmentListConfig.Text = "Reimbursment List";
+            this.cmbReimbursmentListConfig.Click += new System.EventHandler(this.cmbReimbursmentListConfig_Click);
             // 
             // tlbApplicationGroup
             // 
@@ -1234,6 +1356,19 @@
             // 
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             // 
+            // toolStripMenuItem13
+            // 
+            this.toolStripMenuItem13.Name = "toolStripMenuItem13";
+            this.toolStripMenuItem13.Size = new System.Drawing.Size(233, 6);
+            // 
+            // cmbDailyAttendanceSheet
+            // 
+            this.cmbDailyAttendanceSheet.Name = "cmbDailyAttendanceSheet";
+            this.cmbDailyAttendanceSheet.Size = new System.Drawing.Size(236, 22);
+            this.cmbDailyAttendanceSheet.Tag = "cmbDailyAttendanceSheet";
+            this.cmbDailyAttendanceSheet.Text = "Daily Attendance Sheet";
+            this.cmbDailyAttendanceSheet.Click += new System.EventHandler(this.cmbDailyAttendanceSheet_Click);
+            // 
             // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1440,6 +1575,21 @@
         private System.Windows.Forms.ToolStripMenuItem cmbMyLeaveStatementReport01;
         private System.Windows.Forms.ToolStripMenuItem cmbWeeklyOffList;
         private System.Windows.Forms.ToolStripMenuItem cmbWeeklyOffConfiguration;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
+        private System.Windows.Forms.ToolStripMenuItem payrollConfigurationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cmbEarningsListConfig;
+        private System.Windows.Forms.ToolStripMenuItem cmbDeductionsListConfig;
+        private System.Windows.Forms.ToolStripMenuItem cmbReimbursmentListConfig;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem9;
+        private System.Windows.Forms.ToolStripMenuItem cmbPendingLeaveApprovalList;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem10;
+        private System.Windows.Forms.ToolStripMenuItem cmbRejectionLeaveList;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem11;
+        private System.Windows.Forms.ToolStripMenuItem cmbConsolidatedLeaveStatement;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem12;
+        private System.Windows.Forms.ToolStripMenuItem cmbOutstandingLeaveStatement;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem13;
+        private System.Windows.Forms.ToolStripMenuItem cmbDailyAttendanceSheet;
     }
 }
 

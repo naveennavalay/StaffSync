@@ -304,6 +304,120 @@ namespace StaffSync
             return empPendingLeaveApprovalList;
         }
 
+        public List<BulkPendingLeaveApproval> getRejectedLeavelList()
+        {
+            List<BulkPendingLeaveApproval> empPendingLeaveApprovalList = new List<BulkPendingLeaveApproval>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT * FROM qryAllEmpLeaveRejectedStatement ORDER BY EmpID, LeaveTRID ASC;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                empPendingLeaveApprovalList = JsonConvert.DeserializeObject<List<BulkPendingLeaveApproval>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return empPendingLeaveApprovalList;
+        }
+
+        public List<BulkPendingLeaveApproval> getConsolidatedLeaveStatement()
+        {
+            List<BulkPendingLeaveApproval> empPendingLeaveApprovalList = new List<BulkPendingLeaveApproval>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT * FROM qryAllEmpLeaveRejectedStatement ORDER BY EmpID, LeaveTRID ASC;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                empPendingLeaveApprovalList = JsonConvert.DeserializeObject<List<BulkPendingLeaveApproval>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return empPendingLeaveApprovalList;
+        }
+
+        public List<OutstandingLeaveStatement> getOutStandingLeaveStaetment()
+        {
+            List<OutstandingLeaveStatement> empOutStandingLeaveStatement = new List<OutstandingLeaveStatement>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT * FROM qryOutStandingLeaves ORDER BY EmpID ASC;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                empOutStandingLeaveStatement = JsonConvert.DeserializeObject<List<OutstandingLeaveStatement>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+
+            return empOutStandingLeaveStatement;
+        }
+
 
         public List<EmployeeSpecificLeaveInfo> getSpecificEmployeeSpecificLeaveInfo(int LeaveTRID)
         {
@@ -914,6 +1028,9 @@ namespace StaffSync
             int affectedRows = 0;
             try
             {
+                if (txtApproverID == 0)
+                    txtApproverID = 1;
+
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
@@ -1176,4 +1293,32 @@ namespace StaffSync
         [DisplayName("Leave Mode")]
         public string LeaveMode { get; set; }
     }
+
+    public class OutstandingLeaveStatement
+    {
+        public bool Select { get; set; }
+        public int EmpID { get; set; }
+
+        [DisplayName("Employee Code")]
+        public string EmpCode { get; set; }
+
+        [DisplayName("Employee Name")]
+        public string EmpName { get; set; }
+
+        [DisplayName("Designation")]
+        public string DesignationTitle { get; set; }
+
+        [DisplayName("Department")]
+        public string DepartmentTitle { get; set; }
+
+        [DisplayName("Total Leaves")]
+        public float TotalLeaves { get; set; }
+
+        [DisplayName("Balance Leaves")]
+        public float BalanceLeaves { get; set; }
+
+        [DisplayName("Utilised Leaves")]
+        public float UtilisedLeaves { get; set; }
+    }
+
 }

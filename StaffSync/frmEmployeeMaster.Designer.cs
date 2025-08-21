@@ -227,6 +227,7 @@
             this.docUploadsTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.DocUploadsTableAdapter();
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
+            this.txtTotalUtilised = new Krypton.Toolkit.KryptonTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -1884,6 +1885,7 @@
             // tabLeaves
             // 
             this.tabLeaves.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabLeaves.Controls.Add(this.txtTotalUtilised);
             this.tabLeaves.Controls.Add(this.btnViewCalender);
             this.tabLeaves.Controls.Add(this.lblEmployeeWeeklyOffID);
             this.tabLeaves.Controls.Add(this.cmbWeeklyOff);
@@ -2759,6 +2761,24 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
+            // txtTotalUtilised
+            // 
+            this.txtTotalUtilised.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTotalUtilised.Location = new System.Drawing.Point(676, 429);
+            this.txtTotalUtilised.Multiline = true;
+            this.txtTotalUtilised.Name = "txtTotalUtilised";
+            this.txtTotalUtilised.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtTotalUtilised.ReadOnly = true;
+            this.txtTotalUtilised.Size = new System.Drawing.Size(135, 28);
+            this.txtTotalUtilised.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalUtilised.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtTotalUtilised.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalUtilised.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalUtilised.TabIndex = 59;
+            this.txtTotalUtilised.Text = "0.00";
+            this.txtTotalUtilised.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtTotalUtilised.WordWrap = false;
+            // 
             // frmEmployeeMaster
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -3075,5 +3095,6 @@
         private System.Windows.Forms.Label label50;
         public System.Windows.Forms.Label lblEmployeeWeeklyOffID;
         private Krypton.Toolkit.KryptonButton btnViewCalender;
+        private Krypton.Toolkit.KryptonTextBox txtTotalUtilised;
     }
 }

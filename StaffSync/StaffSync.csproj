@@ -57,11 +57,26 @@
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
       <HintPath>packages\BouncyCastle.Cryptography.2.5.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
     </Reference>
+    <Reference Include="ClosedXML, Version=0.105.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>packages\ClosedXML.0.105.0\lib\netstandard2.0\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML.Parser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1d5f7376574c51ec, processorArchitecture=MSIL">
+      <HintPath>packages\ClosedXML.Parser.2.0.0\lib\netstandard2.0\ClosedXML.Parser.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>packages\DocumentFormat.OpenXml.3.1.1\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml.Framework, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>packages\DocumentFormat.OpenXml.Framework.3.1.1\lib\net46\DocumentFormat.OpenXml.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
@@ -84,6 +99,9 @@
     <Reference Include="Krypton.Workspace, Version=95.25.4.111, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
       <HintPath>packages\Krypton.Workspace.95.25.4.111\lib\net48\Krypton.Workspace.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.Logging.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
@@ -96,6 +114,12 @@
     </Reference>
     <Reference Include="Quartz, Version=3.14.0.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <HintPath>packages\Quartz.3.14.0\lib\net472\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="RBush, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c77e27b81f4d0187, processorArchitecture=MSIL">
+      <HintPath>packages\RBush.Signed.4.0.0\lib\net47\RBush.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.Fonts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
+      <HintPath>packages\SixLabors.Fonts.1.0.0\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -129,10 +153,13 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttendanceGridControl.cs" />
     <Compile Include="Calender.cs" />
     <Compile Include="clsEmpLeaveEntitlementInfo.cs" />
+    <Compile Include="clsEmpMnthlyAttdInfo.cs" />
     <Compile Include="clsWeeklyOffInfo.cs" />
     <Compile Include="CurrentUser.cs" />
     <Compile Include="AppVariables.cs" />
@@ -191,6 +218,36 @@
     </Compile>
     <Compile Include="frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDailyAttendanceSheet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDailyAttendanceSheet.Designer.cs">
+      <DependentUpon>frmDailyAttendanceSheet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmOutstandingLeaveStatement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOutstandingLeaveStatement.Designer.cs">
+      <DependentUpon>frmOutstandingLeaveStatement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmConsolidatedLeaveStatement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConsolidatedLeaveStatement.Designer.cs">
+      <DependentUpon>frmConsolidatedLeaveStatement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLeaveRejectionList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLeaveRejectionList.Designer.cs">
+      <DependentUpon>frmLeaveRejectionList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPendingApprovalList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPendingApprovalList.Designer.cs">
+      <DependentUpon>frmPendingApprovalList.cs</DependentUpon>
     </Compile>
     <Compile Include="frmViewLeavesOutstanding.cs">
       <SubType>Form</SubType>
@@ -565,6 +622,21 @@
     <Compile Include="TextBoxAutoCompleteHelper.cs" />
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDailyAttendanceSheet.resx">
+      <DependentUpon>frmDailyAttendanceSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOutstandingLeaveStatement.resx">
+      <DependentUpon>frmOutstandingLeaveStatement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConsolidatedLeaveStatement.resx">
+      <DependentUpon>frmConsolidatedLeaveStatement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLeaveRejectionList.resx">
+      <DependentUpon>frmLeaveRejectionList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPendingApprovalList.resx">
+      <DependentUpon>frmPendingApprovalList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmViewLeavesOutstanding.resx">
       <DependentUpon>frmViewLeavesOutstanding.cs</DependentUpon>

@@ -65,7 +65,6 @@ namespace StaffSync
 
         public List<EmployeeAttendanceInfo> GetDefaultEmployeeAttendanceInfo(int txtEmpID, int MonthNumber)
         {
-
             List<EmployeeAttendanceInfo> objEmployeeAttendanceInfo = new List<EmployeeAttendanceInfo>();
             List<EmployeeAttendanceInfo> objReturnEmployeeAttendanceInfoList = new List<EmployeeAttendanceInfo>();
             DataTable dt = new DataTable();
@@ -112,6 +111,43 @@ namespace StaffSync
             return objReturnEmployeeAttendanceInfoList;
         }
 
+        public List<MonthlyAttendanceInfo> MonthlyAttendanceReport(DateTime ReportForTheMonth)
+        {
+            List<MonthlyAttendanceInfo> objMonthlyAttendanceReport = new List<MonthlyAttendanceInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                //DateTime.Now.Month
+                string strQuery = "SELECT * FROM qryMnthlyAttdInfo WHERE AttdMonth = #" + ReportForTheMonth.Date.ToString("dd-MMM-yyyy") + "#";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objMonthlyAttendanceReport = JsonConvert.DeserializeObject<List<MonthlyAttendanceInfo>>(DataTableToJSon);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            
+            return objMonthlyAttendanceReport;
+        }
+
         public int InsertDailyAttendance(int txtEmpID, DateTime AttendanceDate, string AttendanceStatus, int LeaveTRID)
         {
             int affectedRows = 0;
@@ -156,5 +192,48 @@ namespace StaffSync
         public int? LeaveTRID { get; set; }
         
         public string LeaveComments { get; set; }
+    }
+
+    public class MonthlyAttendanceInfo
+    {
+        public int EmpID { get; set; }
+        public string EmpCode { get; set; }
+        public string EmpName { get; set; }
+        public string DesignationTitle { get; set; }
+        public string DepartmentTitle { get; set; }
+        public int SlNo { get; set; }
+        public DateTime AttdMonth { get; set; }
+        public string Day1 { get; set; }
+        public string Day2 { get; set; }
+        public string Day3 { get; set; }
+        public string Day4 { get; set; }
+        public string Day5 { get; set; }
+        public string Day6 { get; set; }
+        public string Day7 { get; set; }
+        public string Day8 { get; set; }
+        public string Day9 { get; set; }
+        public string Day10 { get; set; }
+        public object Day11 { get; set; }
+        public object Day12 { get; set; }
+        public object Day13 { get; set; }
+        public object Day14 { get; set; }
+        public object Day15 { get; set; }
+        public object Day16 { get; set; }
+        public object Day17 { get; set; }
+        public object Day18 { get; set; }
+        public object Day19 { get; set; }
+        public object Day20 { get; set; }
+        public object Day21 { get; set; }
+        public object Day22 { get; set; }
+        public object Day23 { get; set; }
+        public object Day24 { get; set; }
+        public object Day25 { get; set; }
+        public object Day26 { get; set; }
+        public object Day27 { get; set; }
+        public object Day28 { get; set; }
+        public object Day29 { get; set; }
+        public object Day30 { get; set; }
+        public object Day31 { get; set; }
+        public object Day32 { get; set; }
     }
 }

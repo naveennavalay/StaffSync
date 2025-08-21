@@ -23,6 +23,7 @@ namespace StaffSync
         public Color? BackgroundColor { get; set; }
         public Image Icon { get; set; }
         public float FillAmount { get; set; } = 1f;
+        public bool IsChecked { get; set; } = false;
     }
 
     public enum DayNameFormat { Short, Long }
@@ -422,17 +423,21 @@ namespace StaffSync
 
             if (button == MouseButtons.Left)
             {
+                // Toggle check/uncheck on single click
+                if (!DayStyles.ContainsKey(date.Value))
+                    DayStyles[date.Value] = new CalendarDayStyle();
+
+                DayStyles[date.Value].IsChecked = !DayStyles[date.Value].IsChecked;
+                Invalidate();
+
                 if (doubleClick)
                     DayDoubleClicked?.Invoke(this, new DateClickedEventArgs(date.Value));
                 else
                     DayClicked?.Invoke(this, new DateClickedEventArgs(date.Value));
 
                 // Fire detailed event
-                CalendarDayStyle style = DayStyles.TryGetValue(date.Value, out var s) ? s : null;
-                string customText = style?.CustomText;
-                float fillAmount = style?.FillAmount ?? 1f;
-
-                DetailedDayClicked?.Invoke(this, new DetailedDateClickedEventArgs(date.Value, customText, fillAmount));
+                CalendarDayStyle style = DayStyles[date.Value];
+                DetailedDayClicked?.Invoke(this, new DetailedDateClickedEventArgs(date.Value, style.CustomText, style.FillAmount));
             }
             else if (button == MouseButtons.Right)
             {
@@ -701,6 +706,20 @@ namespace StaffSync
                     }
 
                     g.DrawString(style.CustomText, font, brush, textRect, sf);
+                }
+            }
+
+            // After drawing CustomText
+            if (style?.IsChecked == true)
+            {
+                using (Pen pen = new Pen(Color.DarkGreen, 2))
+                {
+                    int padding = 6;
+                    Point p1 = new Point(cellRect.Right - padding - 10, cellRect.Bottom - padding - 5);
+                    Point p2 = new Point(cellRect.Right - padding - 6, cellRect.Bottom - padding);
+                    Point p3 = new Point(cellRect.Right - padding, cellRect.Bottom - padding - 12);
+
+                    g.DrawLines(pen, new[] { p1, p2, p3 });
                 }
             }
         }

@@ -34,6 +34,19 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dtgBulkLeaveList = new Krypton.Toolkit.KryptonDataGridView();
+            this.SelectEmp = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.EmpID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmpCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmpName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DesignationTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LeaveTRID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DepartmentTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LeaveTypeTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LeaveAppliedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LeaveComments = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LeaveDuration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActualLeaveDateFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActualLeaveDateTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblActionMode = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
@@ -51,19 +64,6 @@
             this.qryRolesDefTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRolesDefTableAdapter();
             this.qryUserSpecificRolesTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryUserSpecificRolesTableAdapter();
             this.qryRoleProfileBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.SelectEmp = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.EmpID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmpCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmpName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DesignationTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LeaveTRID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DepartmentTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LeaveTypeTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LeaveAppliedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LeaveComments = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LeaveDuration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ActualLeaveDateFrom = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ActualLeaveDateTo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -95,8 +95,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1096, 489);
-            this.splitContainer1.SplitterDistance = 418;
+            this.splitContainer1.Size = new System.Drawing.Size(1096, 478);
+            this.splitContainer1.SplitterDistance = 414;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -106,7 +106,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1096, 418);
+            this.panel1.Size = new System.Drawing.Size(1096, 414);
             this.panel1.TabIndex = 1;
             // 
             // groupBox1
@@ -142,6 +142,85 @@
             this.dtgBulkLeaveList.Size = new System.Drawing.Size(1053, 357);
             this.dtgBulkLeaveList.TabIndex = 33;
             // 
+            // SelectEmp
+            // 
+            this.SelectEmp.HeaderText = "Select";
+            this.SelectEmp.Name = "SelectEmp";
+            // 
+            // EmpID
+            // 
+            this.EmpID.HeaderText = "EmpID";
+            this.EmpID.Name = "EmpID";
+            this.EmpID.ReadOnly = true;
+            this.EmpID.Visible = false;
+            // 
+            // EmpCode
+            // 
+            this.EmpCode.HeaderText = "Emp Code";
+            this.EmpCode.Name = "EmpCode";
+            this.EmpCode.ReadOnly = true;
+            // 
+            // EmpName
+            // 
+            this.EmpName.HeaderText = "Name";
+            this.EmpName.Name = "EmpName";
+            this.EmpName.ReadOnly = true;
+            this.EmpName.Width = 250;
+            // 
+            // DesignationTitle
+            // 
+            this.DesignationTitle.HeaderText = "Designation";
+            this.DesignationTitle.Name = "DesignationTitle";
+            this.DesignationTitle.ReadOnly = true;
+            // 
+            // LeaveTRID
+            // 
+            this.LeaveTRID.HeaderText = "LeaveTRID";
+            this.LeaveTRID.Name = "LeaveTRID";
+            this.LeaveTRID.ReadOnly = true;
+            this.LeaveTRID.Visible = false;
+            // 
+            // DepartmentTitle
+            // 
+            this.DepartmentTitle.HeaderText = "Department";
+            this.DepartmentTitle.Name = "DepartmentTitle";
+            this.DepartmentTitle.ReadOnly = true;
+            // 
+            // LeaveTypeTitle
+            // 
+            this.LeaveTypeTitle.HeaderText = "Leave Type";
+            this.LeaveTypeTitle.Name = "LeaveTypeTitle";
+            this.LeaveTypeTitle.ReadOnly = true;
+            // 
+            // LeaveAppliedDate
+            // 
+            this.LeaveAppliedDate.HeaderText = "Applied Date";
+            this.LeaveAppliedDate.Name = "LeaveAppliedDate";
+            this.LeaveAppliedDate.ReadOnly = true;
+            // 
+            // LeaveComments
+            // 
+            this.LeaveComments.HeaderText = "Reason";
+            this.LeaveComments.Name = "LeaveComments";
+            this.LeaveComments.ReadOnly = true;
+            // 
+            // LeaveDuration
+            // 
+            this.LeaveDuration.HeaderText = "Duration";
+            this.LeaveDuration.Name = "LeaveDuration";
+            this.LeaveDuration.ReadOnly = true;
+            // 
+            // ActualLeaveDateFrom
+            // 
+            this.ActualLeaveDateFrom.HeaderText = "Date From";
+            this.ActualLeaveDateFrom.Name = "ActualLeaveDateFrom";
+            this.ActualLeaveDateFrom.ReadOnly = true;
+            // 
+            // ActualLeaveDateTo
+            // 
+            this.ActualLeaveDateTo.HeaderText = "Date Till";
+            this.ActualLeaveDateTo.Name = "ActualLeaveDateTo";
+            // 
             // lblActionMode
             // 
             this.lblActionMode.AutoSize = true;
@@ -164,7 +243,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1096, 67);
+            this.panel2.Size = new System.Drawing.Size(1096, 60);
             this.panel2.TabIndex = 1;
             // 
             // btnCancel
@@ -270,91 +349,12 @@
             this.qryRoleProfileBindingSource.DataMember = "qryRoleProfile";
             this.qryRoleProfileBindingSource.DataSource = this.staffsyncDBDTSet;
             // 
-            // SelectEmp
-            // 
-            this.SelectEmp.HeaderText = "Select";
-            this.SelectEmp.Name = "SelectEmp";
-            // 
-            // EmpID
-            // 
-            this.EmpID.HeaderText = "EmpID";
-            this.EmpID.Name = "EmpID";
-            this.EmpID.ReadOnly = true;
-            this.EmpID.Visible = false;
-            // 
-            // EmpCode
-            // 
-            this.EmpCode.HeaderText = "Emp Code";
-            this.EmpCode.Name = "EmpCode";
-            this.EmpCode.ReadOnly = true;
-            // 
-            // EmpName
-            // 
-            this.EmpName.HeaderText = "Name";
-            this.EmpName.Name = "EmpName";
-            this.EmpName.ReadOnly = true;
-            this.EmpName.Width = 250;
-            // 
-            // DesignationTitle
-            // 
-            this.DesignationTitle.HeaderText = "Designation";
-            this.DesignationTitle.Name = "DesignationTitle";
-            this.DesignationTitle.ReadOnly = true;
-            // 
-            // LeaveTRID
-            // 
-            this.LeaveTRID.HeaderText = "LeaveTRID";
-            this.LeaveTRID.Name = "LeaveTRID";
-            this.LeaveTRID.ReadOnly = true;
-            this.LeaveTRID.Visible = false;
-            // 
-            // DepartmentTitle
-            // 
-            this.DepartmentTitle.HeaderText = "Department";
-            this.DepartmentTitle.Name = "DepartmentTitle";
-            this.DepartmentTitle.ReadOnly = true;
-            // 
-            // LeaveTypeTitle
-            // 
-            this.LeaveTypeTitle.HeaderText = "Leave Type";
-            this.LeaveTypeTitle.Name = "LeaveTypeTitle";
-            this.LeaveTypeTitle.ReadOnly = true;
-            // 
-            // LeaveAppliedDate
-            // 
-            this.LeaveAppliedDate.HeaderText = "Applied Date";
-            this.LeaveAppliedDate.Name = "LeaveAppliedDate";
-            this.LeaveAppliedDate.ReadOnly = true;
-            // 
-            // LeaveComments
-            // 
-            this.LeaveComments.HeaderText = "Reason";
-            this.LeaveComments.Name = "LeaveComments";
-            this.LeaveComments.ReadOnly = true;
-            // 
-            // LeaveDuration
-            // 
-            this.LeaveDuration.HeaderText = "Duration";
-            this.LeaveDuration.Name = "LeaveDuration";
-            this.LeaveDuration.ReadOnly = true;
-            // 
-            // ActualLeaveDateFrom
-            // 
-            this.ActualLeaveDateFrom.HeaderText = "Date From";
-            this.ActualLeaveDateFrom.Name = "ActualLeaveDateFrom";
-            this.ActualLeaveDateFrom.ReadOnly = true;
-            // 
-            // ActualLeaveDateTo
-            // 
-            this.ActualLeaveDateTo.HeaderText = "Date Till";
-            this.ActualLeaveDateTo.Name = "ActualLeaveDateTo";
-            // 
             // frmEmpBulkLeaveApproval
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1096, 489);
+            this.ClientSize = new System.Drawing.Size(1096, 478);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

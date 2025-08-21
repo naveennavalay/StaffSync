@@ -1652,5 +1652,113 @@ namespace StaffSync
             frmBulkLeaveApproval frmBulkLeaveApproval = new frmBulkLeaveApproval();
             frmBulkLeaveApproval.ShowDialog(this);
         }
+
+        private void cmbEarningsListConfig_Click(object sender, EventArgs e)
+        {
+            AppModuleID = 4;
+
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
+            {
+                frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences();
+                frmPayrollAllowences.ShowDialog(this);
+            }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences();
+                frmPayrollAllowences.ShowDialog(this);
+            }
+        }
+
+        private void cmbReimbursmentListConfig_Click(object sender, EventArgs e)
+        {
+            AppModuleID = 4;
+
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
+            {
+                frmReimbursement frmReimbursement = new frmReimbursement();
+                frmReimbursement.ShowDialog(this);
+            }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                frmReimbursement frmReimbursement = new frmReimbursement();
+                frmReimbursement.ShowDialog(this);
+            }
+        }
+
+        private void cmbDeductionsListConfig_Click(object sender, EventArgs e)
+        {
+            AppModuleID = 4;
+
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
+            {
+                frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions();
+                frmPayrollDeductions.ShowDialog(this);
+            }
+            else
+            {
+                objCurrentUserInfo.UserModuleAccessInfo(clsCurrentUser.EmpID, AppModuleID);
+                if (clsCurrentUser.ModuleID != AppModuleID)
+                {
+                    if (clsCurrentUser.ModuleID != 1)
+                    {
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions();
+                frmPayrollDeductions.ShowDialog(this);
+            }
+        }
+
+        private void cmbPendingLeaveApprovalList_Click(object sender, EventArgs e)
+        {
+            frmPendingApprovalList frmPendingApprovalList = new frmPendingApprovalList();
+            frmPendingApprovalList.ShowDialog(this);
+        }
+
+        private void cmbRejectionLeaveList_Click(object sender, EventArgs e)
+        {
+            frmLeaveRejectionList frmLeaveRejectionList = new frmLeaveRejectionList();
+            frmLeaveRejectionList.ShowDialog(this);
+        }
+
+        private void cmbConsolidatedLeaveStatement_Click(object sender, EventArgs e)
+        {
+            frmConsolidatedLeaveStatement frmConsolidatedLeaveStatement = new frmConsolidatedLeaveStatement();
+            frmConsolidatedLeaveStatement.ShowDialog(this);
+        }
+
+        private void cmbOutstandingLeaveStatement_Click(object sender, EventArgs e)
+        {
+            frmOutstandingLeaveStatement frmOutstandingLeaveStatement = new frmOutstandingLeaveStatement();
+            frmOutstandingLeaveStatement.ShowDialog(this);
+        }
+
+        private void cmbDailyAttendanceSheet_Click(object sender, EventArgs e)
+        {
+            frmDailyAttendanceSheet frmDailyAttendanceSheet = new frmDailyAttendanceSheet();
+            frmDailyAttendanceSheet.ShowDialog(this);
+        }
     }
 }
