@@ -148,6 +148,7 @@
             this.DocPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label23 = new System.Windows.Forms.Label();
             this.tabLeaves = new Krypton.Navigator.KryptonPage();
+            this.txtTotalUtilised = new Krypton.Toolkit.KryptonTextBox();
             this.btnViewCalender = new Krypton.Toolkit.KryptonButton();
             this.lblEmployeeWeeklyOffID = new System.Windows.Forms.Label();
             this.cmbWeeklyOff = new Krypton.Toolkit.KryptonComboBox();
@@ -227,7 +228,10 @@
             this.docUploadsTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.DocUploadsTableAdapter();
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
-            this.txtTotalUtilised = new Krypton.Toolkit.KryptonTextBox();
+            this.cmbEmpTaxScheme = new Krypton.Toolkit.KryptonComboBox();
+            this.label51 = new System.Windows.Forms.Label();
+            this.txtTaxSchemeEffectiveFrom = new System.Windows.Forms.MaskedTextBox();
+            this.label52 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -307,6 +311,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.docUploadsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryEmpBirthdayListBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbEmpTaxScheme)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -1907,6 +1912,24 @@
             this.tabLeaves.ToolTipTitle = "Page ToolTip";
             this.tabLeaves.UniqueName = "a3b600aac3624ceda8d85faf520618f1";
             // 
+            // txtTotalUtilised
+            // 
+            this.txtTotalUtilised.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTotalUtilised.Location = new System.Drawing.Point(676, 429);
+            this.txtTotalUtilised.Multiline = true;
+            this.txtTotalUtilised.Name = "txtTotalUtilised";
+            this.txtTotalUtilised.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtTotalUtilised.ReadOnly = true;
+            this.txtTotalUtilised.Size = new System.Drawing.Size(135, 28);
+            this.txtTotalUtilised.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalUtilised.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtTotalUtilised.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalUtilised.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalUtilised.TabIndex = 59;
+            this.txtTotalUtilised.Text = "0.00";
+            this.txtTotalUtilised.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtTotalUtilised.WordWrap = false;
+            // 
             // btnViewCalender
             // 
             this.btnViewCalender.Location = new System.Drawing.Point(682, 76);
@@ -2326,6 +2349,10 @@
             // tabSalaryProfile
             // 
             this.tabSalaryProfile.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabSalaryProfile.Controls.Add(this.txtTaxSchemeEffectiveFrom);
+            this.tabSalaryProfile.Controls.Add(this.label52);
+            this.tabSalaryProfile.Controls.Add(this.cmbEmpTaxScheme);
+            this.tabSalaryProfile.Controls.Add(this.label51);
             this.tabSalaryProfile.Controls.Add(this.label44);
             this.tabSalaryProfile.Controls.Add(this.txtReimbursement);
             this.tabSalaryProfile.Controls.Add(this.txtDeductions);
@@ -2471,7 +2498,7 @@
             // 
             this.cmbSalProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSalProfile.DropDownWidth = 440;
-            this.cmbSalProfile.Location = new System.Drawing.Point(128, 25);
+            this.cmbSalProfile.Location = new System.Drawing.Point(128, 24);
             this.cmbSalProfile.Name = "cmbSalProfile";
             this.cmbSalProfile.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbSalProfile.Size = new System.Drawing.Size(440, 22);
@@ -2761,23 +2788,51 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
-            // txtTotalUtilised
+            // cmbEmpTaxScheme
             // 
-            this.txtTotalUtilised.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTotalUtilised.Location = new System.Drawing.Point(676, 429);
-            this.txtTotalUtilised.Multiline = true;
-            this.txtTotalUtilised.Name = "txtTotalUtilised";
-            this.txtTotalUtilised.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtTotalUtilised.ReadOnly = true;
-            this.txtTotalUtilised.Size = new System.Drawing.Size(135, 28);
-            this.txtTotalUtilised.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalUtilised.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtTotalUtilised.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalUtilised.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalUtilised.TabIndex = 59;
-            this.txtTotalUtilised.Text = "0.00";
-            this.txtTotalUtilised.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtTotalUtilised.WordWrap = false;
+            this.cmbEmpTaxScheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEmpTaxScheme.DropDownWidth = 440;
+            this.cmbEmpTaxScheme.Location = new System.Drawing.Point(695, 24);
+            this.cmbEmpTaxScheme.Name = "cmbEmpTaxScheme";
+            this.cmbEmpTaxScheme.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbEmpTaxScheme.Size = new System.Drawing.Size(130, 22);
+            this.cmbEmpTaxScheme.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbEmpTaxScheme.TabIndex = 69;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label51.Location = new System.Drawing.Point(606, 28);
+            this.label51.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(86, 15);
+            this.label51.TabIndex = 68;
+            this.label51.Text = "Tax Scheme";
+            this.label51.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtTaxSchemeEffectiveFrom
+            // 
+            this.txtTaxSchemeEffectiveFrom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.txtTaxSchemeEffectiveFrom.Location = new System.Drawing.Point(932, 25);
+            this.txtTaxSchemeEffectiveFrom.Mask = "##-##-####";
+            this.txtTaxSchemeEffectiveFrom.Name = "txtTaxSchemeEffectiveFrom";
+            this.txtTaxSchemeEffectiveFrom.Size = new System.Drawing.Size(92, 21);
+            this.txtTaxSchemeEffectiveFrom.TabIndex = 70;
+            this.txtTaxSchemeEffectiveFrom.Tag = "Please enter Employeee Date Of Birth";
+            this.txtTaxSchemeEffectiveFrom.ValidatingType = typeof(System.DateTime);
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label52.Location = new System.Drawing.Point(834, 28);
+            this.label52.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(98, 15);
+            this.label52.TabIndex = 71;
+            this.label52.Text = "Effective From";
+            this.label52.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frmEmployeeMaster
             // 
@@ -2892,6 +2947,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.docUploadsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryEmpBirthdayListBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbEmpTaxScheme)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3096,5 +3152,9 @@
         public System.Windows.Forms.Label lblEmployeeWeeklyOffID;
         private Krypton.Toolkit.KryptonButton btnViewCalender;
         private Krypton.Toolkit.KryptonTextBox txtTotalUtilised;
+        private Krypton.Toolkit.KryptonComboBox cmbEmpTaxScheme;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.MaskedTextBox txtTaxSchemeEffectiveFrom;
+        private System.Windows.Forms.Label label52;
     }
 }

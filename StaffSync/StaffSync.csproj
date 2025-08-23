@@ -160,6 +160,7 @@
     <Compile Include="Calender.cs" />
     <Compile Include="clsEmpLeaveEntitlementInfo.cs" />
     <Compile Include="clsEmpMnthlyAttdInfo.cs" />
+    <Compile Include="clsTaxMas.cs" />
     <Compile Include="clsWeeklyOffInfo.cs" />
     <Compile Include="CurrentUser.cs" />
     <Compile Include="AppVariables.cs" />

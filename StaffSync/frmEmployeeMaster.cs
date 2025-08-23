@@ -57,6 +57,7 @@ namespace StaffSync
         clsEmpWorkExperienceInfo objEmpWorkExperienceInfo = new clsEmpWorkExperienceInfo();
         clsEmpPayroll objEmployeePayroll = new clsEmpPayroll();
         clsWeeklyOffInfo objWeeklyOffInfo = new clsWeeklyOffInfo();
+        clsTaxMas objTaxMas = new clsTaxMas();
 
         public frmEmployeeMaster()
         {
@@ -123,6 +124,10 @@ namespace StaffSync
             cmbSalProfile.DataSource = objSalaryProfile.GetSalProfileTitleList();
             cmbSalProfile.DisplayMember = "SalProfileTitle";
             cmbSalProfile.ValueMember = "SalProfileID";
+
+            cmbEmpTaxScheme.DataSource = objTaxMas.GetTaxList();
+            cmbEmpTaxScheme.DisplayMember = "TaxTitle";
+            cmbEmpTaxScheme.ValueMember = "TaxSchemeID";
 
             cmbWeeklyOff.DataSource = objWeeklyOffInfo.getWklyOffProfileMasInfoList("");
             cmbWeeklyOff.DisplayMember = "WklyOffTitle";
@@ -324,6 +329,10 @@ namespace StaffSync
             cmbSalProfile.DisplayMember = "SalProfileTitle";
             cmbSalProfile.ValueMember = "SalProfileID";
 
+            cmbEmpTaxScheme.DataSource = objTaxMas.GetTaxList();
+            cmbEmpTaxScheme.DisplayMember = "TaxTitle";
+            cmbEmpTaxScheme.ValueMember = "TaxSchemeID";
+
             cmbWeeklyOff.DataSource = objWeeklyOffInfo.getWklyOffProfileMasInfoList("");
             cmbWeeklyOff.DisplayMember = "WklyOffTitle";
             cmbWeeklyOff.ValueMember = "WklyOffMasID";
@@ -446,6 +455,7 @@ namespace StaffSync
             cmbPermanentCountry.DataSource = null;
 
             cmbSalProfile.DataSource = null;
+            cmbEmpTaxScheme.DataSource = null;
 
             lblReportingManagerID.Text = "";
             txtRepEmpCode.Text = "";
@@ -536,6 +546,8 @@ namespace StaffSync
             txtPermanentPIN.Enabled = true;
             cmbPermanentCountry.Enabled = true;
             cmbSalProfile.Enabled = true;
+            cmbEmpTaxScheme.Enabled = true;
+            txtTaxSchemeEffectiveFrom.Enabled = true;
 
             cmbDesignation.Enabled = true;
             cmbDepartment.Enabled = true;
@@ -593,6 +605,8 @@ namespace StaffSync
             txtPermanentPIN.Enabled = false;
             cmbPermanentCountry.Enabled = false;
             cmbSalProfile.Enabled = false;
+            cmbEmpTaxScheme.Enabled = false;
+            txtTaxSchemeEffectiveFrom.Enabled = false;
 
             cmbDesignation.Enabled = false;
             cmbDepartment.Enabled = false;
@@ -692,6 +706,10 @@ namespace StaffSync
             cmbSalProfile.DataSource = objSalaryProfile.GetSalProfileTitleList();
             cmbSalProfile.DisplayMember = "SalProfileTitle";
             cmbSalProfile.ValueMember = "SalProfileID";
+
+            cmbEmpTaxScheme.DataSource = objTaxMas.GetTaxList();
+            cmbEmpTaxScheme.DisplayMember = "TaxTitle";
+            cmbEmpTaxScheme.ValueMember = "TaxSchemeID";
 
             cmbWeeklyOff.DataSource = objWeeklyOffInfo.getWklyOffProfileMasInfoList("");
             cmbWeeklyOff.DisplayMember = "WklyOffTitle";
@@ -844,6 +862,8 @@ namespace StaffSync
                             int EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(empSalaryID), Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), dc.Cells["HeaderTitle"].Value.ToString(), dc.Cells["HeaderType"].Value.ToString(), Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()), 0);
                             iRowCounter = iRowCounter + 1;
                         }
+
+                        objTaxMas.InsertEmployeeTaxSchemeInfo(Convert.ToInt16(lblEmpID.Text.ToString()), cmbEmpTaxScheme.SelectedIndex + 1, Convert.ToDateTime(txtTaxSchemeEffectiveFrom.Text.ToString()));
                     }
                     MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -962,16 +982,20 @@ namespace StaffSync
                         int employeWeeklyOffID = objWeeklyOffInfo.UpdateEmployeeSpecificWeeklyInfo(Convert.ToInt16(lblEmployeeWeeklyOffID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(cmbWeeklyOff.SelectedIndex + 1), DateTime.Now);
                     }
 
-                    int employeeSalaryProfileID = objEmployeeSalaryProfileInfo.InsertEmployeeEmployeeSalaryProfileInfo(Convert.ToInt16(lblEmpID.Text.ToString()), cmbSalProfile.SelectedIndex + 1, DateTime.Now);
-
-                    iRowCounter = 1;
-                    int empSalaryID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(DateTime.Now.ToString()), "Jan - 1900", 1, 1, 1, 0, 0);
-                    foreach (DataGridViewRow dc in dtgSalaryProfileDetails.Rows)
+                    if (tabSalaryProfile.Visible == true)
                     {
-                        int EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(empSalaryID.ToString()), Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), dc.Cells["HeaderTitle"].Value.ToString(), dc.Cells["HeaderType"].Value.ToString(), Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()), iRowCounter);
-                        iRowCounter = iRowCounter + 1;
-                    }
+                        int employeeSalaryProfileID = objEmployeeSalaryProfileInfo.InsertEmployeeEmployeeSalaryProfileInfo(Convert.ToInt16(lblEmpID.Text.ToString()), cmbSalProfile.SelectedIndex + 1, DateTime.Now);
 
+                        iRowCounter = 1;
+                        int empSalaryID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(DateTime.Now.ToString()), "Jan - 1900", 1, 1, 1, 0, 0);
+                        foreach (DataGridViewRow dc in dtgSalaryProfileDetails.Rows)
+                        {
+                            int EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(empSalaryID.ToString()), Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), dc.Cells["HeaderTitle"].Value.ToString(), dc.Cells["HeaderType"].Value.ToString(), Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()), iRowCounter);
+                            iRowCounter = iRowCounter + 1;
+                        }
+
+                        objTaxMas.UpdateEmployeeTaxSchemeInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), cmbEmpTaxScheme.SelectedIndex + 1, Convert.ToDateTime(txtTaxSchemeEffectiveFrom.Text.ToString()));
+                    }
                     MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
@@ -1041,6 +1065,10 @@ namespace StaffSync
                 cmbSalProfile.DataSource = objSalaryProfile.GetSalProfileTitleList();
                 cmbSalProfile.DisplayMember = "SalProfileTitle";
                 cmbSalProfile.ValueMember = "SalProfileID";
+
+                cmbEmpTaxScheme.DataSource = objTaxMas.GetTaxList();
+                cmbEmpTaxScheme.DisplayMember = "TaxTitle";
+                cmbEmpTaxScheme.ValueMember = "TaxSchemeID";
             }
             else if (lblActionMode.Text == "delete")
             {
@@ -1565,6 +1593,13 @@ namespace StaffSync
             cmbSalProfile.SelectedIndex = objSalaryProfile.getEmployeeSpecificSalaryProfile(EmployeeID).SalProfileID - 1;
             if (cmbSalProfile.SelectedIndex < 0)
                 cmbSalProfile.SelectedIndex = 0;
+
+            EmpTaxSchemeInfo objEmpTaxSchemeInfo = objTaxMas.getEmployeeSpecificTaxSchemeInfo(EmployeeID);
+            cmbEmpTaxScheme.SelectedIndex = objEmpTaxSchemeInfo.TaxSchemeID - 1;
+            if (cmbEmpTaxScheme.SelectedIndex < 0)
+                cmbEmpTaxScheme.SelectedIndex = 0;
+
+            txtTaxSchemeEffectiveFrom.Text = objEmpTaxSchemeInfo.EffectiveDate.ToString("dd-MM-yyyy");
 
             List<EmployeeWklyOffInfo> objWeeklyOff = objWeeklyOffInfo.getEmployeeSpecificWeeklyOffMasterInfo(EmployeeID);
             lblEmployeeWeeklyOffID.Text = objWeeklyOff.OrderByDescending(x => x.EffectDateFrom).FirstOrDefault().WeeklyOffID.ToString();
