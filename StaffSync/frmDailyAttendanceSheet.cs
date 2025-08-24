@@ -102,7 +102,7 @@ namespace StaffSync
             attendanceGridControl1.WeeklyOffs = new[] { DayOfWeek.Sunday };
             attendanceGridControl1.WeeklyOffsAreReadOnly = true;
             attendanceGridControl1.DateHeaderAlignment = DateHeaderAlignment.Center;
-            attendanceGridControl1.OptionsList = new[] { "P", "L", "A", "WFH", "CompOff" };
+            attendanceGridControl1.OptionsList = new[] { "P", "P/L", "L/P", "L", "A", "WFH", "CompOff", "OOD" };
             attendanceGridControl1.CellTextAlignment = CellTextAlignment.Left;
 
             List<MonthlyAttendanceInfo> objMonthlyAttendanceReport = objAttendanceMas.MonthlyAttendanceReport(Convert.ToDateTime("01-" + (cmbAttendanceMonth.SelectedIndex + 1) + "-" + DateTime.Today.Year));
@@ -161,7 +161,7 @@ namespace StaffSync
             attendanceGridControl1.WeeklyOffs = new[] { DayOfWeek.Sunday };
             attendanceGridControl1.WeeklyOffsAreReadOnly = true;
             attendanceGridControl1.DateHeaderAlignment = DateHeaderAlignment.Center;
-            attendanceGridControl1.OptionsList = new[] { "P", "L", "A", "WFH", "CompOff" };
+            attendanceGridControl1.OptionsList = new[] { "P", "P/L", "L/P", "L", "A", "WFH", "CompOff", "OOD" };
             attendanceGridControl1.CellTextAlignment = CellTextAlignment.Left;
 
             attendanceGridControl1.SetColumnAlignment("Day1", CellTextAlignment.Center);

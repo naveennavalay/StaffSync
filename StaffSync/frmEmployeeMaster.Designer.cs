@@ -123,6 +123,8 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbShift = new Krypton.Toolkit.KryptonComboBox();
+            this.label53 = new System.Windows.Forms.Label();
             this.cmbDesignation = new Krypton.Toolkit.KryptonComboBox();
             this.cmbDepartment = new Krypton.Toolkit.KryptonComboBox();
             this.label26 = new System.Windows.Forms.Label();
@@ -183,6 +185,10 @@
             this.lblBankID = new System.Windows.Forms.Label();
             this.label41 = new System.Windows.Forms.Label();
             this.tabSalaryProfile = new Krypton.Navigator.KryptonPage();
+            this.txtTaxSchemeEffectiveFrom = new System.Windows.Forms.MaskedTextBox();
+            this.label52 = new System.Windows.Forms.Label();
+            this.cmbEmpTaxScheme = new Krypton.Toolkit.KryptonComboBox();
+            this.label51 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
             this.txtReimbursement = new Krypton.Toolkit.KryptonTextBox();
             this.txtDeductions = new Krypton.Toolkit.KryptonTextBox();
@@ -228,10 +234,8 @@
             this.docUploadsTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.DocUploadsTableAdapter();
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
-            this.cmbEmpTaxScheme = new Krypton.Toolkit.KryptonComboBox();
-            this.label51 = new System.Windows.Forms.Label();
-            this.txtTaxSchemeEffectiveFrom = new System.Windows.Forms.MaskedTextBox();
-            this.label52 = new System.Windows.Forms.Label();
+            this.txtShiftEffectiveFrom = new System.Windows.Forms.MaskedTextBox();
+            this.label54 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -262,6 +266,7 @@
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbContactPersonRelationship)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDesignation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDepartment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPreviousExperience1)).BeginInit();
@@ -293,6 +298,7 @@
             this.groupBox12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabSalaryProfile)).BeginInit();
             this.tabSalaryProfile.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbEmpTaxScheme)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgSalaryProfileDetails)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbSalProfile)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -311,7 +317,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.docUploadsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryEmpBirthdayListBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbEmpTaxScheme)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -1204,7 +1209,7 @@
             this.groupBox8.Controls.Add(this.label35);
             this.groupBox8.Controls.Add(this.label34);
             this.groupBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox8.Location = new System.Drawing.Point(14, 93);
+            this.groupBox8.Location = new System.Drawing.Point(14, 119);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(1199, 195);
             this.groupBox8.TabIndex = 14;
@@ -1323,7 +1328,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.Location = new System.Drawing.Point(688, 23);
+            this.label38.Location = new System.Drawing.Point(686, 23);
             this.label38.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(44, 15);
@@ -1398,7 +1403,7 @@
             this.groupBox7.Controls.Add(this.label32);
             this.groupBox7.Controls.Add(this.label33);
             this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox7.Location = new System.Drawing.Point(14, 397);
+            this.groupBox7.Location = new System.Drawing.Point(14, 411);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(1199, 97);
             this.groupBox7.TabIndex = 13;
@@ -1503,7 +1508,7 @@
             this.groupBox5.Controls.Add(this.label17);
             this.groupBox5.Controls.Add(this.label16);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(14, 294);
+            this.groupBox5.Location = new System.Drawing.Point(14, 313);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(1199, 97);
             this.groupBox5.TabIndex = 12;
@@ -1523,7 +1528,7 @@
             // 
             // txtContactPersonNumber
             // 
-            this.txtContactPersonNumber.Location = new System.Drawing.Point(732, 53);
+            this.txtContactPersonNumber.Location = new System.Drawing.Point(733, 53);
             this.txtContactPersonNumber.Multiline = true;
             this.txtContactPersonNumber.Name = "txtContactPersonNumber";
             this.txtContactPersonNumber.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -1600,6 +1605,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtShiftEffectiveFrom);
+            this.groupBox1.Controls.Add(this.label54);
+            this.groupBox1.Controls.Add(this.cmbShift);
+            this.groupBox1.Controls.Add(this.label53);
             this.groupBox1.Controls.Add(this.cmbDesignation);
             this.groupBox1.Controls.Add(this.cmbDepartment);
             this.groupBox1.Controls.Add(this.label26);
@@ -1607,16 +1616,39 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(14, 24);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1199, 63);
+            this.groupBox1.Size = new System.Drawing.Size(1199, 92);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Professional Info";
+            // 
+            // cmbShift
+            // 
+            this.cmbShift.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbShift.DropDownWidth = 440;
+            this.cmbShift.Location = new System.Drawing.Point(733, 58);
+            this.cmbShift.Name = "cmbShift";
+            this.cmbShift.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbShift.Size = new System.Drawing.Size(201, 22);
+            this.cmbShift.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbShift.TabIndex = 44;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label53.Location = new System.Drawing.Point(694, 61);
+            this.label53.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(36, 15);
+            this.label53.TabIndex = 43;
+            this.label53.Text = "Shift";
+            this.label53.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cmbDesignation
             // 
             this.cmbDesignation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDesignation.DropDownWidth = 440;
-            this.cmbDesignation.Location = new System.Drawing.Point(732, 28);
+            this.cmbDesignation.Location = new System.Drawing.Point(141, 58);
             this.cmbDesignation.Name = "cmbDesignation";
             this.cmbDesignation.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbDesignation.Size = new System.Drawing.Size(440, 22);
@@ -1638,7 +1670,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(649, 31);
+            this.label26.Location = new System.Drawing.Point(58, 61);
             this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(84, 15);
@@ -2372,6 +2404,52 @@
             this.tabSalaryProfile.ToolTipTitle = "Page ToolTip";
             this.tabSalaryProfile.UniqueName = "a3be17479cc34babb98856a79e112ae8";
             // 
+            // txtTaxSchemeEffectiveFrom
+            // 
+            this.txtTaxSchemeEffectiveFrom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.txtTaxSchemeEffectiveFrom.Location = new System.Drawing.Point(932, 25);
+            this.txtTaxSchemeEffectiveFrom.Mask = "##-##-####";
+            this.txtTaxSchemeEffectiveFrom.Name = "txtTaxSchemeEffectiveFrom";
+            this.txtTaxSchemeEffectiveFrom.Size = new System.Drawing.Size(92, 21);
+            this.txtTaxSchemeEffectiveFrom.TabIndex = 70;
+            this.txtTaxSchemeEffectiveFrom.Tag = "Please enter Employeee Date Of Birth";
+            this.txtTaxSchemeEffectiveFrom.ValidatingType = typeof(System.DateTime);
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label52.Location = new System.Drawing.Point(834, 28);
+            this.label52.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(98, 15);
+            this.label52.TabIndex = 71;
+            this.label52.Text = "Effective From";
+            this.label52.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbEmpTaxScheme
+            // 
+            this.cmbEmpTaxScheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEmpTaxScheme.DropDownWidth = 440;
+            this.cmbEmpTaxScheme.Location = new System.Drawing.Point(695, 24);
+            this.cmbEmpTaxScheme.Name = "cmbEmpTaxScheme";
+            this.cmbEmpTaxScheme.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbEmpTaxScheme.Size = new System.Drawing.Size(130, 22);
+            this.cmbEmpTaxScheme.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbEmpTaxScheme.TabIndex = 69;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label51.Location = new System.Drawing.Point(606, 28);
+            this.label51.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(86, 15);
+            this.label51.TabIndex = 68;
+            this.label51.Text = "Tax Scheme";
+            this.label51.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // label44
             // 
             this.label44.AutoSize = true;
@@ -2788,51 +2866,28 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
-            // cmbEmpTaxScheme
+            // txtShiftEffectiveFrom
             // 
-            this.cmbEmpTaxScheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbEmpTaxScheme.DropDownWidth = 440;
-            this.cmbEmpTaxScheme.Location = new System.Drawing.Point(695, 24);
-            this.cmbEmpTaxScheme.Name = "cmbEmpTaxScheme";
-            this.cmbEmpTaxScheme.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbEmpTaxScheme.Size = new System.Drawing.Size(130, 22);
-            this.cmbEmpTaxScheme.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbEmpTaxScheme.TabIndex = 69;
+            this.txtShiftEffectiveFrom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.txtShiftEffectiveFrom.Location = new System.Drawing.Point(1049, 58);
+            this.txtShiftEffectiveFrom.Mask = "##-##-####";
+            this.txtShiftEffectiveFrom.Name = "txtShiftEffectiveFrom";
+            this.txtShiftEffectiveFrom.Size = new System.Drawing.Size(92, 21);
+            this.txtShiftEffectiveFrom.TabIndex = 72;
+            this.txtShiftEffectiveFrom.Tag = "Please enter Employeee Date Of Birth";
+            this.txtShiftEffectiveFrom.ValidatingType = typeof(System.DateTime);
             // 
-            // label51
+            // label54
             // 
-            this.label51.AutoSize = true;
-            this.label51.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label51.Location = new System.Drawing.Point(606, 28);
-            this.label51.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(86, 15);
-            this.label51.TabIndex = 68;
-            this.label51.Text = "Tax Scheme";
-            this.label51.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtTaxSchemeEffectiveFrom
-            // 
-            this.txtTaxSchemeEffectiveFrom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.txtTaxSchemeEffectiveFrom.Location = new System.Drawing.Point(932, 25);
-            this.txtTaxSchemeEffectiveFrom.Mask = "##-##-####";
-            this.txtTaxSchemeEffectiveFrom.Name = "txtTaxSchemeEffectiveFrom";
-            this.txtTaxSchemeEffectiveFrom.Size = new System.Drawing.Size(92, 21);
-            this.txtTaxSchemeEffectiveFrom.TabIndex = 70;
-            this.txtTaxSchemeEffectiveFrom.Tag = "Please enter Employeee Date Of Birth";
-            this.txtTaxSchemeEffectiveFrom.ValidatingType = typeof(System.DateTime);
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label52.Location = new System.Drawing.Point(834, 28);
-            this.label52.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(98, 15);
-            this.label52.TabIndex = 71;
-            this.label52.Text = "Effective From";
-            this.label52.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label54.AutoSize = true;
+            this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label54.Location = new System.Drawing.Point(951, 61);
+            this.label54.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(98, 15);
+            this.label54.TabIndex = 73;
+            this.label54.Text = "Effective From";
+            this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frmEmployeeMaster
             // 
@@ -2892,6 +2947,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cmbContactPersonRelationship)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbShift)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDesignation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDepartment)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPreviousExperience1)).EndInit();
@@ -2928,6 +2984,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tabSalaryProfile)).EndInit();
             this.tabSalaryProfile.ResumeLayout(false);
             this.tabSalaryProfile.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbEmpTaxScheme)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgSalaryProfileDetails)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbSalProfile)).EndInit();
             this.groupBox4.ResumeLayout(false);
@@ -2947,7 +3004,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.docUploadsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryEmpBirthdayListBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbEmpTaxScheme)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3156,5 +3212,9 @@
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.MaskedTextBox txtTaxSchemeEffectiveFrom;
         private System.Windows.Forms.Label label52;
+        private Krypton.Toolkit.KryptonComboBox cmbShift;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.MaskedTextBox txtShiftEffectiveFrom;
+        private System.Windows.Forms.Label label54;
     }
 }

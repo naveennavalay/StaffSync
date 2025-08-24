@@ -9,6 +9,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -126,7 +127,7 @@ namespace StaffSync
             {
                 conn = objDBClass.openDBConnection();
 
-                string strQuery = "SELECT SalProfileID, SalProfileCode, SalProfileTitle, SalProfileDescription, IsActive, IsDeleted, OrderID FROM SalProfileMas WHERE IsActive = true AND IsDeleted = false ORDER BY OrderID Asc";
+                string strQuery = "SELECT SalProfileID, SalProfileCode, SalProfileTitle, SalProfileDescription, IsActive, IsDeleted, OrderID, IsAutomaticCalculation FROM SalProfileMas WHERE IsActive = true AND IsDeleted = false ORDER BY OrderID Asc";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -170,6 +171,8 @@ namespace StaffSync
                                     "SalProfileDetails.SalProfileID, " +
                                     "AllowanceHeaderMas.AllID AS HeaderID, " +
                                     "AllowanceHeaderMas.AllTitle AS HeaderTitle, " +
+                                    "AllowanceHeaderMas.CalcFormula, " +
+                                    "AllowanceHeaderMas.IsFixed, " +
                                     "SalProfileDetails.SalProAmount " +
                                 "FROM " +
                                     "SalProfileDetails " +
@@ -204,6 +207,8 @@ namespace StaffSync
                         HeaderID = indSalaryProfileInfo.HeaderID,
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
                         HeaderType = "Allowences",
+                        CalcFormula = indSalaryProfileInfo.CalcFormula,
+                        IsFixed = indSalaryProfileInfo.IsFixed,
                         AllowanceAmount = indSalaryProfileInfo.SalProAmount,
                         DeductionAmount = 0,
                         ReimbursmentAmount = 0
@@ -215,6 +220,8 @@ namespace StaffSync
                                 "SalProfileDetails.SalProfileID, " +
                                 "DeductionHeaderMas.DedID AS HeaderID, " +
                                 "DeductionHeaderMas.DedTitle AS HeaderTitle, " +
+                                "DeductionHeaderMas.CalcFormula, " +
+                                "DeductionHeaderMas.IsFixed, " +
                                 "SalProfileDetails.SalProAmount " +
                             "FROM " +
                                 "SalProfileDetails " +
@@ -251,6 +258,8 @@ namespace StaffSync
                         HeaderID = indSalaryProfileInfo.HeaderID,
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
                         HeaderType = "Deductions",
+                        CalcFormula = indSalaryProfileInfo.CalcFormula,
+                        IsFixed = indSalaryProfileInfo.IsFixed,
                         AllowanceAmount = 0,
                         DeductionAmount = indSalaryProfileInfo.SalProAmount,
                         ReimbursmentAmount = 0
@@ -262,6 +271,8 @@ namespace StaffSync
                             "SalProfileDetails.SalProfileID, " +
                             "ReimbursementHeaderMas.ReimbID AS HeaderID, " +
                             "ReimbursementHeaderMas.ReimbTitle AS HeaderTitle, " +
+                            "ReimbursementHeaderMas.CalcFormula, " +
+                            "ReimbursementHeaderMas.IsFixed, " +
                             "SalProfileDetails.SalProAmount " +
                         "FROM " +
                             "SalProfileDetails " +
@@ -297,6 +308,8 @@ namespace StaffSync
                         SalProfileID = indSalaryProfileInfo.SalProfileID,
                         HeaderID = indSalaryProfileInfo.HeaderID,
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
+                        CalcFormula = indSalaryProfileInfo.CalcFormula,
+                        IsFixed = indSalaryProfileInfo.IsFixed,
                         HeaderType = "Reimbursement",
                         AllowanceAmount = 0,
                         DeductionAmount = 0,
@@ -412,7 +425,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO SalProfileMas (SalProfileID, SalProfileCode, SalProfileTitle, SalProfileDescription, IsActive, IsDeleted, IsDefault, OrderID) VALUES " +
-                 "(" + maxRowCount + ",'" + "SAL-" + (maxRowCount).ToString().PadLeft(4, '0').Trim() + "','" + txtSalProfileTitle + "','" + txtSalProfileDescription + "'," + IsActive + "," + IsDeleted + ", false, " + maxRowCount + ")";
+                 "(" + maxRowCount + ",'" + "SPF-" + (maxRowCount).ToString().PadLeft(4, '0').Trim() + "','" + txtSalProfileTitle + "','" + txtSalProfileDescription + "'," + IsActive + "," + IsDeleted + ", false, " + maxRowCount + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -473,7 +486,37 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE SalProfileMas SET SalProfileCode = '" +txtSalaryProfileCode + "', SalProfileTitle = '" + txtSalaryProfileTitle + "', SalProfileDescription = '" + txtSalaryProfileDescription + "', IsActive = " + IsActive +
+                string strQuery = "UPDATE SalProfileMas SET SalProfileCode = '" + txtSalaryProfileCode + "', SalProfileTitle = '" + txtSalaryProfileTitle + "', SalProfileDescription = '" + txtSalaryProfileDescription + "', IsActive = " + IsActive +
+                 " WHERE SalProfileID = " + txtSalaryProfileID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtSalaryProfileID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = objDBClass.closeDBConnection();
+            }
+            finally
+            {
+                conn = objDBClass.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int UpdateSalaryProfileInfoAutomaticCalculationStatus(int txtSalaryProfileID, bool IsAutomaticCalculationRequired)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = objDBClass.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE SalProfileMas SET IsAutomaticCalculation = " + IsAutomaticCalculationRequired + 
                  " WHERE SalProfileID = " + txtSalaryProfileID;
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -578,6 +621,8 @@ namespace StaffSync
         public bool IsDeleted { get; set; }
         public bool IsDefault { get; set; }
         public int OrderID { get; set; }
+
+        public bool IsAutomaticCalculation { get; set; }
     }
 
     public class SalaryProfileInfo
@@ -592,6 +637,10 @@ namespace StaffSync
 
         [DisplayName("Type")]
         public string HeaderType { get; set; }
+
+        [DisplayName("Calc. Formula")] 
+        public string CalcFormula { get; set; }
+        public bool IsFixed { get; set; }
 
         [DisplayName("Allowance Amount")]
         public decimal AllowanceAmount { get; set; }

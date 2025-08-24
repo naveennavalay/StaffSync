@@ -82,7 +82,7 @@ namespace StaffSync
             enableControls();
             cmbIsActive.SelectedIndex = 1;
             lblSalaryProfileID.Text = objSalaryProfile.getMaxRowCount("SalProfileMas", "SalProfileID").ToString();
-            txtSalProfCode.Text = "ALL-" + (lblSalaryProfileID.Text.Trim()).ToString().PadLeft(4, '0');
+            txtSalProfCode.Text = "SPF-" + (lblSalaryProfileID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
         }
 

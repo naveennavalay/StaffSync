@@ -69,7 +69,7 @@ namespace StaffSync
             {
                 conn = objDBClass.openDBConnection();
 
-                string strQuery = "SELECT * FROM qryUsersList WHERE IsActive = true AND IsDeleted = false";
+                string strQuery = "SELECT * FROM qryUsersList WHERE IsActive = true AND IsDeleted = false AND ClientID = " + CurrentUser.ClientID;
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

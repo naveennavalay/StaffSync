@@ -35,6 +35,7 @@ namespace StaffSync
         public static string BankAddress { get; set; }
         public static string IFSCCode { get; set; }
         public static decimal BalanceLeaves { get; set; }
+        public static int ClientID { get; set; } = 1;
 
     }
 }

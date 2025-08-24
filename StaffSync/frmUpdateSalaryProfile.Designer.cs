@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.chkAutomaticCalculate = new System.Windows.Forms.CheckBox();
             this.label44 = new System.Windows.Forms.Label();
             this.txtReimbursement = new Krypton.Toolkit.KryptonTextBox();
             this.txtDeductions = new Krypton.Toolkit.KryptonTextBox();
@@ -57,6 +58,8 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtNetSalary = new Krypton.Toolkit.KryptonTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -75,6 +78,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -85,8 +89,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(936, 589);
-            this.splitContainer1.SplitterDistance = 523;
+            this.splitContainer1.Size = new System.Drawing.Size(921, 546);
+            this.splitContainer1.SplitterDistance = 485;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -96,32 +101,53 @@
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(936, 523);
+            this.panel1.Size = new System.Drawing.Size(921, 485);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
             // 
             this.groupBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox5.Controls.Add(this.label2);
+            this.groupBox5.Controls.Add(this.txtNetSalary);
+            this.groupBox5.Controls.Add(this.chkAutomaticCalculate);
             this.groupBox5.Controls.Add(this.label44);
             this.groupBox5.Controls.Add(this.txtReimbursement);
             this.groupBox5.Controls.Add(this.txtDeductions);
             this.groupBox5.Controls.Add(this.txtAallowences);
             this.groupBox5.Controls.Add(this.dtgSalaryProfileDetails);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(14, 119);
+            this.groupBox5.Location = new System.Drawing.Point(14, 129);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(903, 390);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox5.Size = new System.Drawing.Size(892, 350);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Salary Profile Details";
+            // 
+            // chkAutomaticCalculate
+            // 
+            this.chkAutomaticCalculate.AutoSize = true;
+            this.chkAutomaticCalculate.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkAutomaticCalculate.Checked = true;
+            this.chkAutomaticCalculate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAutomaticCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkAutomaticCalculate.Location = new System.Drawing.Point(691, -1);
+            this.chkAutomaticCalculate.Name = "chkAutomaticCalculate";
+            this.chkAutomaticCalculate.Size = new System.Drawing.Size(175, 19);
+            this.chkAutomaticCalculate.TabIndex = 72;
+            this.chkAutomaticCalculate.Text = "Automatically Calculate";
+            this.chkAutomaticCalculate.UseVisualStyleBackColor = true;
+            this.chkAutomaticCalculate.CheckedChanged += new System.EventHandler(this.chkAutomaticCalculate_CheckedChanged);
             // 
             // label44
             // 
             this.label44.AutoSize = true;
             this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label44.Location = new System.Drawing.Point(359, 355);
-            this.label44.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label44.Location = new System.Drawing.Point(355, 320);
+            this.label44.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(39, 15);
             this.label44.TabIndex = 71;
@@ -130,12 +156,13 @@
             // 
             // txtReimbursement
             // 
-            this.txtReimbursement.Location = new System.Drawing.Point(706, 348);
+            this.txtReimbursement.Location = new System.Drawing.Point(705, 313);
+            this.txtReimbursement.Margin = new System.Windows.Forms.Padding(4);
             this.txtReimbursement.Multiline = true;
             this.txtReimbursement.Name = "txtReimbursement";
             this.txtReimbursement.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtReimbursement.ReadOnly = true;
-            this.txtReimbursement.Size = new System.Drawing.Size(149, 28);
+            this.txtReimbursement.Size = new System.Drawing.Size(150, 28);
             this.txtReimbursement.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtReimbursement.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtReimbursement.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -147,12 +174,13 @@
             // 
             // txtDeductions
             // 
-            this.txtDeductions.Location = new System.Drawing.Point(554, 348);
+            this.txtDeductions.Location = new System.Drawing.Point(552, 313);
+            this.txtDeductions.Margin = new System.Windows.Forms.Padding(4);
             this.txtDeductions.Multiline = true;
             this.txtDeductions.Name = "txtDeductions";
             this.txtDeductions.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtDeductions.ReadOnly = true;
-            this.txtDeductions.Size = new System.Drawing.Size(151, 28);
+            this.txtDeductions.Size = new System.Drawing.Size(150, 28);
             this.txtDeductions.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDeductions.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtDeductions.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -164,12 +192,13 @@
             // 
             // txtAallowences
             // 
-            this.txtAallowences.Location = new System.Drawing.Point(402, 348);
+            this.txtAallowences.Location = new System.Drawing.Point(398, 313);
+            this.txtAallowences.Margin = new System.Windows.Forms.Padding(4);
             this.txtAallowences.Multiline = true;
             this.txtAallowences.Name = "txtAallowences";
             this.txtAallowences.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtAallowences.ReadOnly = true;
-            this.txtAallowences.Size = new System.Drawing.Size(151, 28);
+            this.txtAallowences.Size = new System.Drawing.Size(150, 28);
             this.txtAallowences.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAallowences.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtAallowences.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -181,12 +210,15 @@
             // 
             // dtgSalaryProfileDetails
             // 
-            this.dtgSalaryProfileDetails.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dtgSalaryProfileDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgSalaryProfileDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dtgSalaryProfileDetails.Location = new System.Drawing.Point(13, 34);
+            this.dtgSalaryProfileDetails.Location = new System.Drawing.Point(14, 25);
+            this.dtgSalaryProfileDetails.Margin = new System.Windows.Forms.Padding(4);
+            this.dtgSalaryProfileDetails.MultiSelect = false;
             this.dtgSalaryProfileDetails.Name = "dtgSalaryProfileDetails";
-            this.dtgSalaryProfileDetails.Size = new System.Drawing.Size(877, 305);
+            this.dtgSalaryProfileDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgSalaryProfileDetails.Size = new System.Drawing.Size(865, 282);
+            this.dtgSalaryProfileDetails.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgSalaryProfileDetails.TabIndex = 34;
             this.dtgSalaryProfileDetails.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dtgSalaryProfileDetails_CellBeginEdit);
             this.dtgSalaryProfileDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryProfileDetails_CellEndEdit);
@@ -202,21 +234,23 @@
             this.groupBox4.Controls.Add(this.txtSalProfCode);
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(18, 12);
+            this.groupBox4.Location = new System.Drawing.Point(14, 15);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(909, 101);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Size = new System.Drawing.Size(892, 103);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Salary Profile Info";
             // 
             // txtSalProfTitle
             // 
-            this.txtSalProfTitle.Location = new System.Drawing.Point(190, 57);
-            this.txtSalProfTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtSalProfTitle.Location = new System.Drawing.Point(154, 67);
+            this.txtSalProfTitle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtSalProfTitle.MaxLength = 255;
             this.txtSalProfTitle.Multiline = true;
             this.txtSalProfTitle.Name = "txtSalProfTitle";
-            this.txtSalProfTitle.Size = new System.Drawing.Size(427, 28);
+            this.txtSalProfTitle.Size = new System.Drawing.Size(568, 28);
             this.txtSalProfTitle.TabIndex = 15;
             this.txtSalProfTitle.WordWrap = false;
             // 
@@ -224,8 +258,8 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(60, 64);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Location = new System.Drawing.Point(19, 70);
+            this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(125, 15);
             this.label16.TabIndex = 16;
@@ -234,10 +268,11 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(365, 23);
+            this.btnSearch.Location = new System.Drawing.Point(388, 30);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnSearch.Size = new System.Drawing.Size(29, 28);
+            this.btnSearch.Size = new System.Drawing.Size(31, 28);
             this.btnSearch.TabIndex = 14;
             this.btnSearch.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSearch.Values.Image = global::StaffSync.Properties.Resources.search;
@@ -249,8 +284,8 @@
             this.lblSalaryProfileID.AutoSize = true;
             this.lblSalaryProfileID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblSalaryProfileID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSalaryProfileID.Location = new System.Drawing.Point(582, 30);
-            this.lblSalaryProfileID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSalaryProfileID.Location = new System.Drawing.Point(776, 37);
+            this.lblSalaryProfileID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblSalaryProfileID.Name = "lblSalaryProfileID";
             this.lblSalaryProfileID.Size = new System.Drawing.Size(11, 15);
             this.lblSalaryProfileID.TabIndex = 5;
@@ -261,8 +296,8 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(430, 30);
-            this.lblActionMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblActionMode.Location = new System.Drawing.Point(573, 37);
+            this.lblActionMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
             this.lblActionMode.TabIndex = 4;
@@ -271,13 +306,13 @@
             // 
             // txtSalProfCode
             // 
-            this.txtSalProfCode.Location = new System.Drawing.Point(190, 23);
-            this.txtSalProfCode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtSalProfCode.Location = new System.Drawing.Point(154, 30);
+            this.txtSalProfCode.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtSalProfCode.MaxLength = 255;
             this.txtSalProfCode.Multiline = true;
             this.txtSalProfCode.Name = "txtSalProfCode";
             this.txtSalProfCode.ReadOnly = true;
-            this.txtSalProfCode.Size = new System.Drawing.Size(168, 28);
+            this.txtSalProfCode.Size = new System.Drawing.Size(223, 28);
             this.txtSalProfCode.TabIndex = 2;
             this.txtSalProfCode.WordWrap = false;
             // 
@@ -285,8 +320,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(55, 30);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(14, 37);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 15);
             this.label1.TabIndex = 3;
@@ -303,13 +338,15 @@
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(936, 62);
+            this.panel2.Size = new System.Drawing.Size(921, 56);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(778, 11);
+            this.btnCloseMe.Location = new System.Drawing.Point(754, 9);
+            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -321,7 +358,8 @@
             // 
             // btnRemoveDetails
             // 
-            this.btnRemoveDetails.Location = new System.Drawing.Point(435, 11);
+            this.btnRemoveDetails.Location = new System.Drawing.Point(416, 9);
+            this.btnRemoveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveDetails.Name = "btnRemoveDetails";
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
@@ -334,7 +372,8 @@
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(163, 11);
+            this.btnSaveDetails.Location = new System.Drawing.Point(148, 9);
+            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
@@ -346,7 +385,8 @@
             // 
             // btnModifyDetails
             // 
-            this.btnModifyDetails.Location = new System.Drawing.Point(27, 11);
+            this.btnModifyDetails.Location = new System.Drawing.Point(14, 9);
+            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
@@ -358,7 +398,8 @@
             // 
             // btnGenerateDetails
             // 
-            this.btnGenerateDetails.Location = new System.Drawing.Point(27, 11);
+            this.btnGenerateDetails.Location = new System.Drawing.Point(14, 9);
+            this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerateDetails.Name = "btnGenerateDetails";
             this.btnGenerateDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnGenerateDetails.Size = new System.Drawing.Size(126, 38);
@@ -371,7 +412,8 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(303, 11);
+            this.btnCancel.Location = new System.Drawing.Point(282, 9);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
@@ -399,15 +441,45 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(16, 320);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(73, 15);
+            this.label2.TabIndex = 74;
+            this.label2.Text = "Net Salary";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtNetSalary
+            // 
+            this.txtNetSalary.Location = new System.Drawing.Point(95, 313);
+            this.txtNetSalary.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNetSalary.Multiline = true;
+            this.txtNetSalary.Name = "txtNetSalary";
+            this.txtNetSalary.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtNetSalary.ReadOnly = true;
+            this.txtNetSalary.Size = new System.Drawing.Size(150, 28);
+            this.txtNetSalary.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNetSalary.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtNetSalary.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNetSalary.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNetSalary.TabIndex = 73;
+            this.txtNetSalary.Text = "0.00";
+            this.txtNetSalary.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtNetSalary.WordWrap = false;
+            // 
             // frmUpdateSalaryProfile
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(936, 589);
+            this.ClientSize = new System.Drawing.Size(921, 546);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmUpdateSalaryProfile";
@@ -462,5 +534,8 @@
         private Krypton.Toolkit.KryptonTextBox txtAallowences;
         private System.Windows.Forms.TextBox txtSalProfTitle;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.CheckBox chkAutomaticCalculate;
+        private System.Windows.Forms.Label label2;
+        private Krypton.Toolkit.KryptonTextBox txtNetSalary;
     }
 }

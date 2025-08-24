@@ -173,7 +173,8 @@ namespace StaffSync
                 string strQuery = "SELECT " +
                                         "EmpMas.EmpID, " + 
                                         "EmpMas.EmpCode, " + 
-                                        "EmpMas.EmpName, " + 
+                                        "EmpMas.EmpName, " +
+                                        "EmpMas.ClientID, " +
                                         "DesigMas.DesignationTitle, " + 
                                         "DepMas.DepartmentTitle, " + 
                                         "BloodGroupMas.BloodGroupTitle, " + 
@@ -254,6 +255,7 @@ namespace StaffSync
                     CurrentUser.EmpID = objLoggedInUser[0].EmpID;
                     CurrentUser.EmpCode = objLoggedInUser[0].EmpCode;
                     CurrentUser.EmpName = objLoggedInUser[0].EmpName;
+                    CurrentUser.ClientID = objLoggedInUser[0].ClientID;
                     CurrentUser.DesignationTitle = objLoggedInUser[0].DesignationTitle;
                     CurrentUser.DepartmentTitle = objLoggedInUser[0].DepartmentTitle;
                     CurrentUser.BloodGroupTitle = objLoggedInUser[0].BloodGroupTitle;
@@ -483,6 +485,7 @@ namespace StaffSync
     public class LoggedInUser
     {
         public  int EmpID { get; set; }
+        public int ClientID { get; set; }
 
         [DisplayName("Employee Code")]
         public string EmpCode { get; set; }

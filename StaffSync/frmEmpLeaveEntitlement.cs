@@ -162,14 +162,14 @@ namespace StaffSync
                     {
                         if(Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()) == 0)
                         {
-                            employeeLeaveTRID = objEmpLeaveEntitlementInfo.InsertLeaveEntitlementInfo(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), Convert.ToInt16(dc.Cells["OrderID"].Value.ToString()));
+                            employeeLeaveTRID = objEmpLeaveEntitlementInfo.InsertLeaveEntitlementInfo(Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), Convert.ToInt16(dc.Cells["OrderID"].Value.ToString()));
                             dc.Cells["LeaveEntmtID"].Value = employeeLeaveTRID;
                         }
                         else if (Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()) > 0)
                         {
-                            employeeLeaveTRID = objEmpLeaveEntitlementInfo.UpadateLeaveEntitlementInfo(Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()), Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), Convert.ToInt16(dc.Cells["OrderID"].Value.ToString()));
+                            employeeLeaveTRID = objEmpLeaveEntitlementInfo.UpadateLeaveEntitlementInfo(Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()), Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), Convert.ToInt16(dc.Cells["OrderID"].Value.ToString()));
                         }
-                        employeeLeaveTRID = objEmpLeaveEntitlementInfo.UpadateLeaveEntitlementInfo(Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()), Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), Convert.ToInt16(dc.Cells["OrderID"].Value.ToString()));
+                        employeeLeaveTRID = objEmpLeaveEntitlementInfo.UpadateLeaveEntitlementInfo(Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()), Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), Convert.ToInt16(dc.Cells["OrderID"].Value.ToString()));
                     }
                     leaveMasID = objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToDecimal(txtTotalLeavesAlloted.Text), Convert.ToDecimal(txtTotalBalanceLeaves.Text), DateTime.Now);
                 }
@@ -179,7 +179,7 @@ namespace StaffSync
                     lblLeaveMasID.Text = leaveMasID.ToString();
                     foreach (DataGridViewRow dc in dtgLeaveEntitlement.Rows)
                     {
-                        employeeLeaveTRID = objEmpLeaveEntitlementInfo.InsertLeaveEntitlementInfo(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), Convert.ToInt16(dc.Cells["OrderID"].Value.ToString()));
+                        employeeLeaveTRID = objEmpLeaveEntitlementInfo.InsertLeaveEntitlementInfo(Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), Convert.ToInt16(dc.Cells["OrderID"].Value.ToString()));
                     }
                     leaveMasID = objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToDecimal(txtTotalLeavesAlloted.Text), Convert.ToDecimal(txtTotalBalanceLeaves.Text), DateTime.Now);
                 }

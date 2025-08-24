@@ -15,6 +15,11 @@ namespace StaffSync
             //MessageBox.Show($"Daily Attendance Job executed at: {DateTime.Now}", "Quartz Job", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
+            clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
+
+
+
+
 
 
             return Task.CompletedTask;

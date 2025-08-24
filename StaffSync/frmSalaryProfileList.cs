@@ -82,8 +82,10 @@ namespace StaffSync
             objSalaryProfileTitleList.IsActive = Convert.ToBoolean(dtgSalaryProfileList.SelectedRows[0].Cells["IsActive"].Value.ToString());
             objSalaryProfileTitleList.IsDeleted = Convert.ToBoolean(dtgSalaryProfileList.SelectedRows[0].Cells["IsDeleted"].Value.ToString());
             objSalaryProfileTitleList.OrderID = Convert.ToInt16(dtgSalaryProfileList.SelectedRows[0].Cells["OrderID"].Value.ToString());
+            objSalaryProfileTitleList.IsAutomaticCalculation = Convert.ToBoolean(dtgSalaryProfileList.SelectedRows[0].Cells["IsAutomaticCalculation"].Value.ToString());
+            
 
-            if(strFormName == "UpdateSalaryProfile")
+            if (strFormName == "UpdateSalaryProfile")
             {
                 this.frmUpdateSalaryProfile.displaySelectedValuesOnUI(objSalaryProfileTitleList);
             }
@@ -125,6 +127,7 @@ namespace StaffSync
             dtgSalaryProfileList.Columns["IsDeleted"].Visible = false;
             dtgSalaryProfileList.Columns["IsDefault"].Visible = false;
             dtgSalaryProfileList.Columns["OrderID"].Visible = false;
+            dtgSalaryProfileList.Columns["IsAutomaticCalculation"].Visible = false;
         }
     }
 }

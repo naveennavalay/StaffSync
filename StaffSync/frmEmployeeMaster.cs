@@ -58,6 +58,7 @@ namespace StaffSync
         clsEmpPayroll objEmployeePayroll = new clsEmpPayroll();
         clsWeeklyOffInfo objWeeklyOffInfo = new clsWeeklyOffInfo();
         clsTaxMas objTaxMas = new clsTaxMas();
+        clsShiftMas objShiftMas = new clsShiftMas();
 
         public frmEmployeeMaster()
         {
@@ -89,6 +90,10 @@ namespace StaffSync
             cmbDesignation.DataSource = objDesignation.GetDesignationList();
             cmbDesignation.DisplayMember = "DesignationTitle";
             cmbDesignation.ValueMember = "DesignationID";
+
+            cmbShift.DataSource = objShiftMas.GetShiftList();
+            cmbShift.DisplayMember = "ShiftTitle";
+            cmbShift.ValueMember = "ShiftID";
 
             cmbContactPersonRelationship.DataSource = objRelationship.GetRelationshipList();
             cmbContactPersonRelationship.DisplayMember = "RelationShipTitle";
@@ -264,7 +269,7 @@ namespace StaffSync
             txtTotalLeaveAllotment.Enabled = true;
             txtBalanceLeaveAllotment.Enabled = true;
             txtTotalUtilised.Enabled = true;
-            lblEmpID.Text = objCountries.getMaxRowCount("EMPMas", "EmpID").ToString();
+            lblEmpID.Text = objEmployeeMaster.getMaxRowCount("EMPMas", "EmpID", CurrentUser.ClientID).ToString();
             txtEmpCode.Text = "EMP-" + (lblEmpID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();            
 
@@ -279,6 +284,11 @@ namespace StaffSync
             cmbDesignation.DataSource = objDesignation.GetDesignationList();
             cmbDesignation.DisplayMember = "DesignationTitle";
             cmbDesignation.ValueMember = "DesignationID";
+
+            cmbShift.DataSource = objShiftMas.GetShiftList();
+            cmbShift.DisplayMember = "ShiftTitle";
+            cmbShift.ValueMember = "ShiftID";
+            txtShiftEffectiveFrom.Text = DateTime.Now.ToString("dd-MM-yyyy");
 
             //txtCurrentAddress01.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Address1"), "Address1");
             //txtCurrentAddress02.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Address2"), "Address2");
@@ -332,6 +342,7 @@ namespace StaffSync
             cmbEmpTaxScheme.DataSource = objTaxMas.GetTaxList();
             cmbEmpTaxScheme.DisplayMember = "TaxTitle";
             cmbEmpTaxScheme.ValueMember = "TaxSchemeID";
+            txtTaxSchemeEffectiveFrom.Text = DateTime.Now.ToString("dd-MM-yyyy");
 
             cmbWeeklyOff.DataSource = objWeeklyOffInfo.getWklyOffProfileMasInfoList("");
             cmbWeeklyOff.DisplayMember = "WklyOffTitle";
@@ -468,6 +479,8 @@ namespace StaffSync
 
             cmbDesignation.DataSource = null;
             cmbDepartment.DataSource = null;
+            cmbShift.DataSource = null;
+            txtShiftEffectiveFrom.Text = "";
 
             lblContactInfoID.Text = "";
             txtContactPersonName.Text = "";
@@ -551,6 +564,8 @@ namespace StaffSync
 
             cmbDesignation.Enabled = true;
             cmbDepartment.Enabled = true;
+            cmbShift.Enabled = true;
+            txtShiftEffectiveFrom.Enabled = true;
 
             txtRepEmpCode.Enabled = false;
             txtRepEmpName.Enabled = false;
@@ -610,6 +625,8 @@ namespace StaffSync
 
             cmbDesignation.Enabled = false;
             cmbDepartment.Enabled = false;
+            cmbShift.Enabled = false;
+            txtShiftEffectiveFrom.Enabled = false;
 
             txtRepEmpCode.Enabled = false;
             txtRepEmpName.Enabled = false;
@@ -658,6 +675,11 @@ namespace StaffSync
             cmbDesignation.DataSource = objDesignation.GetDesignationList();
             cmbDesignation.DisplayMember = "DesignationTitle";
             cmbDesignation.ValueMember = "DesignationID";
+
+            cmbShift.DataSource = objShiftMas.GetShiftList();
+            cmbShift.DisplayMember = "ShiftTitle";
+            cmbShift.ValueMember = "ShiftID";
+            txtShiftEffectiveFrom.Text = DateTime.Now.ToString("dd-MMM-yyyy");
 
             cmbContactPersonRelationship.DataSource = objRelationship.GetRelationshipList();
             cmbContactPersonRelationship.DisplayMember = "RelationShipTitle";
@@ -733,7 +755,7 @@ namespace StaffSync
                 if (lblReportingManagerID.Text.ToString().Trim() == "")
                     lblReportingManagerID.Text = "1";
 
-                int employeeID = objEmployeeMaster.InsertEmployeeMaster(Convert.ToInt16(lblEmpID.Text.Trim()), txtEmpCode.Text.Trim(), txtEmployeeName.Text.Trim(), cmbDesignation.SelectedIndex + 1, Convert.ToInt16(lblReportingManagerID.Text.Trim()), cmbDepartment.SelectedIndex + 1, cmbBloodGroup.SelectedIndex + 1, true, false);
+                int employeeID = objEmployeeMaster.InsertEmployeeMaster(Convert.ToInt16(lblEmpID.Text.Trim()), txtEmpCode.Text.Trim(), txtEmployeeName.Text.Trim(), cmbDesignation.SelectedIndex + 1, Convert.ToInt16(lblReportingManagerID.Text.Trim()), cmbDepartment.SelectedIndex + 1, cmbBloodGroup.SelectedIndex + 1, true, false, CurrentUser.ClientID);
                 if (employeeID > 0)
                 {
                     int userID = objLogin.InsertUserInfo(employeeID, true, false, txtEmployeeMailID.Text, objEncryptDecrypt.encryptText(txtDateOfBirth.Text.ToString()));
@@ -758,6 +780,8 @@ namespace StaffSync
                     {
                         int nomineeID = objNomineeInfo.InsertNomineeIfo(txtNomineeName.Text.Trim(), employeeID, cmbNomineeRelationship.SelectedIndex + 1, txtNomineeContactNumber.Text.Trim());
                         contactInfoID01 = objContactPerson.InsertContactInfo(txtContactPersonName.Text.Trim(), txtContactPersonNumber.Text.ToString(), cmbContactPersonRelationship.SelectedIndex + 1, 1);
+
+                        int shiftInfoID = objShiftMas.InsertEmployeeShiftInfo(employeeID, cmbShift.SelectedIndex + 1, Convert.ToDateTime(txtShiftEffectiveFrom.Text.Trim()));
                     }
 
                     if (tabPersonalInfo.Visible == true)
@@ -779,11 +803,11 @@ namespace StaffSync
                             int empLeaveEntitlementID = 0;
                             if (Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()) == 0)
                             {
-                                empLeaveEntitlementID = objEmpLeaveEntitlementInfo.InsertLeaveEntitlementInfo(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToInt16(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), iRowCounter);
+                                empLeaveEntitlementID = objEmpLeaveEntitlementInfo.InsertLeaveEntitlementInfo(Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToInt16(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), iRowCounter);
                             }
                             else
                             {
-                                empLeaveEntitlementID = objEmpLeaveEntitlementInfo.UpadateLeaveEntitlementInfo(Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()), Convert.ToInt16(dc.Cells["LeaveMasID"].Value.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToInt16(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), iRowCounter);
+                                empLeaveEntitlementID = objEmpLeaveEntitlementInfo.UpadateLeaveEntitlementInfo(Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()), Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToInt16(dc.Cells["LeaveMasID"].Value.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToInt16(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), iRowCounter);
                             }
                             iRowCounter = iRowCounter + 1;
                         }
@@ -886,7 +910,7 @@ namespace StaffSync
 
                 int iRowCounter = 1;
 
-                int employeeID = objEmployeeMaster.UpdateEmployeeMaster(Convert.ToInt16(lblEmpID.Text.Trim()), txtEmpCode.Text.Trim(), txtEmployeeName.Text.Trim(), cmbDesignation.SelectedIndex + 1, Convert.ToInt16(lblReportingManagerID.Text.Trim()), cmbDepartment.SelectedIndex + 1, cmbBloodGroup.SelectedIndex + 1, true, false);
+                int employeeID = objEmployeeMaster.UpdateEmployeeMaster(Convert.ToInt16(lblEmpID.Text.Trim()), txtEmpCode.Text.Trim(), txtEmployeeName.Text.Trim(), cmbDesignation.SelectedIndex + 1, Convert.ToInt16(lblReportingManagerID.Text.Trim()), cmbDepartment.SelectedIndex + 1, cmbBloodGroup.SelectedIndex + 1, true, false, CurrentUser.ClientID);
                 if (employeeID > 0)
                 {
                     if (txtEmpPhoto.Text != "")
@@ -906,6 +930,11 @@ namespace StaffSync
                     int nomineeID = objNomineeInfo.UdpateNomineeInfo(Convert.ToInt16(lblNomineeID.Text.Trim()), txtNomineeName.Text.Trim(), employeeID, cmbNomineeRelationship.SelectedIndex + 1, txtNomineeContactNumber.Text.Trim());
                     if(nomineeID == 0)
                         nomineeID = objNomineeInfo.InsertNomineeIfo(txtNomineeName.Text.Trim(), employeeID, cmbNomineeRelationship.SelectedIndex + 1, txtNomineeContactNumber.Text.Trim());
+
+
+                    int shiftInfoID = objShiftMas.UpdateEmployeeShiftInfo(1, employeeID, cmbShift.SelectedIndex + 1, Convert.ToDateTime(txtShiftEffectiveFrom.Text.Trim()));
+                    if(shiftInfoID == 0)
+                        shiftInfoID = objShiftMas.InsertEmployeeShiftInfo(employeeID, cmbShift.SelectedIndex + 1, Convert.ToDateTime(txtShiftEffectiveFrom.Text.Trim()));
 
                     int employeeBankAccountID = objBankInfo.UpdateEmployeeBankReference(Convert.ToInt16(lblBankID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtBankAccountNumber.Text.Trim(), lstBankList.SelectedItems[0].Index + 1, true);
                     if(employeeBankAccountID == 0)
@@ -970,11 +999,11 @@ namespace StaffSync
 
                             if (Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()) == 0)
                             {
-                                empLeaveEntitlementID = objEmpLeaveEntitlementInfo.InsertLeaveEntitlementInfo(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToInt16(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), iRowCounter);
+                                empLeaveEntitlementID = objEmpLeaveEntitlementInfo.InsertLeaveEntitlementInfo(Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToInt16(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), iRowCounter);
                             }
                             else
                             {
-                                empLeaveEntitlementID = objEmpLeaveEntitlementInfo.UpadateLeaveEntitlementInfo(Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()), Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), iRowCounter);
+                                empLeaveEntitlementID = objEmpLeaveEntitlementInfo.UpadateLeaveEntitlementInfo(Convert.ToInt16(dc.Cells["LeaveEntmtID"].Value.ToString()), Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(dc.Cells["LeaveTypeID"].Value.ToString()), Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()), Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()), iRowCounter);
                             }
                             iRowCounter = iRowCounter + 1;
                         }
@@ -1322,6 +1351,12 @@ namespace StaffSync
                 cmbDesignation.Focus();
                 errValidator.SetError(this.cmbDesignation, cmbDesignation.Tag?.ToString() ?? "Designation is required.");
             }
+            if (string.IsNullOrEmpty(cmbShift.Text))
+            {
+                validationStatus = false;
+                cmbShift.Focus();
+                errValidator.SetError(this.cmbShift, cmbDesignation.Tag?.ToString() ?? "Active Shift is required.");
+            }
 
             // Contact Person
             if (string.IsNullOrEmpty(txtContactPersonName.Text))
@@ -1461,6 +1496,14 @@ namespace StaffSync
                 errValidator.SetError(lstBankList, "Please select Bank Address.");
             }
 
+            if (string.IsNullOrEmpty(cmbEmpTaxScheme.Text))
+            {
+                validationStatus = false;
+                cmbEmpTaxScheme.Focus();
+                errValidator.SetError(this.cmbEmpTaxScheme, cmbEmpTaxScheme.Tag?.ToString() ?? "Active Tax Scheme is required.");
+            }
+
+
             return validationStatus;
 
         }
@@ -1503,6 +1546,14 @@ namespace StaffSync
             cmbDesignation.SelectedIndex = objSelectedEmployeeInfo.EmpDesignationID - 1;
             cmbDepartment.SelectedIndex = objSelectedEmployeeInfo.DepartmentID - 1;
             cmbBloodGroup.SelectedIndex = objSelectedEmployeeInfo.BloodGroupID - 1;
+
+            EmpShiftInfo objEmpShiftInfo = objShiftMas.getEmployeeSpecificShiftInfo(EmployeeID);
+            cmbShift.SelectedIndex = objEmpShiftInfo.ShiftID - 1;
+            if (cmbShift.SelectedIndex < 0)
+                cmbShift.SelectedIndex = 0;
+
+            txtShiftEffectiveFrom.Text = objEmpShiftInfo.EffectiveDate.ToString("dd-MM-yyyy");
+
 
             EmpPersonalPersonalInfo objSelectedPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblEmpID.Text));
             txtDateOfBirth.Text = objSelectedPersonalInfo.DOB.ToString("dd-MM-yyyy");

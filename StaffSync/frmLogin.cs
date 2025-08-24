@@ -16,13 +16,23 @@ namespace StaffSync
     {
         //AppMail mail = new AppMail();
         clsCurrentUserInfo objCurrentUserInfo = new clsCurrentUserInfo();
+        clsClientInfo objClientInfo = new clsClientInfo();
         clsLogin objLogin = new clsLogin();
         clsEncryptDecrypt objEncryptDecrypt = new clsEncryptDecrypt();
+        clsFinYearMas objFinYearMas = new clsFinYearMas();
         int LoginCounter = 0;
 
         public frmLogin()
         {
             InitializeComponent();
+
+            cmbCurrentCompany.DataSource = objClientInfo.getAllCompanyList();
+            cmbCurrentCompany.DisplayMember = "ClientName";
+            cmbCurrentCompany.ValueMember = "ClientID";
+
+            cmbCurrentFinYear.DataSource = objFinYearMas.GetFinYearList();
+            cmbCurrentFinYear.DisplayMember = "FinYearFromTo";
+            cmbCurrentFinYear.ValueMember = "FinYearID";
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

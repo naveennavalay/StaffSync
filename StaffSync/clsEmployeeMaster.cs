@@ -23,7 +23,7 @@ namespace StaffSync
 
         }
 
-        public int getMaxRowCount(string tableName, string ColumnName)
+        public int getMaxRowCount(string tableName, string ColumnName, int CurrentCompanyID)
         {
             int rowCount = 0;
             try
@@ -32,6 +32,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "SELECT MAX(" + ColumnName.ToString().Trim() + ") FROM " + tableName;
+                //string strQuery = "SELECT MAX(EmpCode) FROM EMPMAS WHERE ClientID = " + CurrentCompanyID;
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -74,7 +75,7 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "SELECT * FROM EmpMasInfo WHERE IsActive = true AND IsDeleted = false";
+                string strQuery = "SELECT * FROM EmpMasInfo WHERE IsActive = true AND IsDeleted = false and ClientID = " + CurrentUser.ClientID;
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -410,20 +411,20 @@ namespace StaffSync
             return reportingManagerInfo;
         }
 
-        public int InsertEmployeeMaster(int txtEmployeeID, string txtEmployeeCode, string txtEmployeeTitle, int txtEmployeeDesignationID, int txtReportingManagerID, int txtEmployeeDepartmentID, int txtEmployeeBloodGroupID, bool IsActive, bool IsDeleted)
+        public int InsertEmployeeMaster(int txtEmployeeID, string txtEmployeeCode, string txtEmployeeTitle, int txtEmployeeDesignationID, int txtReportingManagerID, int txtEmployeeDepartmentID, int txtEmployeeBloodGroupID, bool IsActive, bool IsDeleted, int txtClientID)
         {
             int affectedRows = 0;
             try
             {
 
-                int maxRowCount = getMaxRowCount("EmpMas", "EmpID");
+                int maxRowCount = getMaxRowCount("EmpMas", "EmpID", txtClientID);
                 
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO EmpMas (EmpID, EmpCode, EmpName, EmpDesignationID, EmpRepManID, DepartmentID, BloodGroupID, IsActive, IsDeleted) VALUES " +
+                string strQuery = "INSERT INTO EmpMas (EmpID, EmpCode, EmpName, EmpDesignationID, EmpRepManID, DepartmentID, BloodGroupID, IsActive, IsDeleted, ClientID) VALUES " +
                  "(" + maxRowCount + ",'" + "EMP-" + (maxRowCount).ToString().PadLeft(4, '0').Trim() + "','" + txtEmployeeTitle.Trim() + "'," + txtEmployeeDesignationID + "," + txtReportingManagerID + 
-                 "," + txtEmployeeDepartmentID + "," + txtEmployeeBloodGroupID + "," + IsActive + "," + IsDeleted + ")";
+                 "," + txtEmployeeDepartmentID + "," + txtEmployeeBloodGroupID + "," + IsActive + "," + IsDeleted + "," + txtClientID + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -445,7 +446,7 @@ namespace StaffSync
             return affectedRows;
         }
 
-        public int UpdateEmployeeMaster(int txtEmployeeID, string txtEmployeeCode, string txtEmployeeTitle, int txtEmployeeDesignationID, int txtReportingManagerID, int txtEmployeeDepartmentID, int txtEmployeeBloodGroupID, bool IsActive, bool IsDeleted)
+        public int UpdateEmployeeMaster(int txtEmployeeID, string txtEmployeeCode, string txtEmployeeTitle, int txtEmployeeDesignationID, int txtReportingManagerID, int txtEmployeeDepartmentID, int txtEmployeeBloodGroupID, bool IsActive, bool IsDeleted, int txtClientID)
         {
             int affectedRows = 0;
             try
@@ -453,7 +454,7 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE EmpMas SET EmpCode = '" + txtEmployeeCode + "', EmpName = '" + txtEmployeeTitle + "', EmpDesignationID = " + txtEmployeeDesignationID + ", EmpRepManID = " + txtReportingManagerID + ", DepartmentID = " + txtEmployeeDepartmentID + ", BloodGroupID = " + txtEmployeeBloodGroupID + ", IsActive = " + IsActive +
+                string strQuery = "UPDATE EmpMas SET EmpCode = '" + txtEmployeeCode + "', EmpName = '" + txtEmployeeTitle + "', EmpDesignationID = " + txtEmployeeDesignationID + ", EmpRepManID = " + txtReportingManagerID + ", DepartmentID = " + txtEmployeeDepartmentID + ", BloodGroupID = " + txtEmployeeBloodGroupID + ", IsActive = " + IsActive + ", ClientID = " + txtClientID +
                  " WHERE EmpID = " + txtEmployeeID;
 
                 OleDbCommand cmd = conn.CreateCommand();

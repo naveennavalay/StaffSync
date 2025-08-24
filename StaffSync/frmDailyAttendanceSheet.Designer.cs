@@ -33,6 +33,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cmbAttendanceMonth = new Krypton.Toolkit.KryptonComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
@@ -48,27 +50,26 @@
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
             this.attendanceGridControl1 = new StaffSync.Controls.AttendanceGridControl();
-            this.cmbAttendanceMonth = new Krypton.Toolkit.KryptonComboBox();
-            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbAttendanceMonth)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbAttendanceMonth)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -79,8 +80,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1292, 623);
-            this.splitContainer1.SplitterDistance = 568;
+            this.splitContainer1.Size = new System.Drawing.Size(1723, 767);
+            this.splitContainer1.SplitterDistance = 699;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -89,8 +91,9 @@
             this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1292, 568);
+            this.panel1.Size = new System.Drawing.Size(1723, 699);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
@@ -100,11 +103,38 @@
             this.groupBox5.Controls.Add(this.label8);
             this.groupBox5.Controls.Add(this.attendanceGridControl1);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(10, 12);
+            this.groupBox5.Location = new System.Drawing.Point(13, 15);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(1273, 553);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Size = new System.Drawing.Size(1697, 681);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
+            // 
+            // cmbAttendanceMonth
+            // 
+            this.cmbAttendanceMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAttendanceMonth.DropDownWidth = 440;
+            this.cmbAttendanceMonth.Location = new System.Drawing.Point(92, 25);
+            this.cmbAttendanceMonth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbAttendanceMonth.Name = "cmbAttendanceMonth";
+            this.cmbAttendanceMonth.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbAttendanceMonth.Size = new System.Drawing.Size(587, 22);
+            this.cmbAttendanceMonth.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbAttendanceMonth.TabIndex = 62;
+            this.cmbAttendanceMonth.SelectedIndexChanged += new System.EventHandler(this.cmbAttendanceMonth_SelectedIndexChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(15, 30);
+            this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(47, 15);
+            this.label8.TabIndex = 61;
+            this.label8.Text = "Month";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel2
             // 
@@ -117,13 +147,15 @@
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1292, 51);
+            this.panel2.Size = new System.Drawing.Size(1723, 63);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1148, 10);
+            this.btnCloseMe.Location = new System.Drawing.Point(1531, 12);
+            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -135,7 +167,8 @@
             // 
             // btnRemoveDetails
             // 
-            this.btnRemoveDetails.Location = new System.Drawing.Point(20, 10);
+            this.btnRemoveDetails.Location = new System.Drawing.Point(446, 12);
+            this.btnRemoveDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnRemoveDetails.Name = "btnRemoveDetails";
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
@@ -147,7 +180,8 @@
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(20, 10);
+            this.btnSaveDetails.Location = new System.Drawing.Point(26, 12);
+            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
@@ -160,7 +194,8 @@
             // 
             // btnModifyDetails
             // 
-            this.btnModifyDetails.Location = new System.Drawing.Point(20, 10);
+            this.btnModifyDetails.Location = new System.Drawing.Point(446, 12);
+            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
@@ -173,7 +208,8 @@
             // 
             // btnGenerateDetails
             // 
-            this.btnGenerateDetails.Location = new System.Drawing.Point(20, 10);
+            this.btnGenerateDetails.Location = new System.Drawing.Point(446, 12);
+            this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnGenerateDetails.Name = "btnGenerateDetails";
             this.btnGenerateDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnGenerateDetails.Size = new System.Drawing.Size(126, 38);
@@ -186,7 +222,8 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(20, 10);
+            this.btnCancel.Location = new System.Drawing.Point(446, 12);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
@@ -245,7 +282,8 @@
             this.attendanceGridControl1.HeaderBackColor = System.Drawing.Color.Gainsboro;
             this.attendanceGridControl1.HeaderForeColor = System.Drawing.Color.Black;
             this.attendanceGridControl1.KeyColumnName = "";
-            this.attendanceGridControl1.Location = new System.Drawing.Point(10, 55);
+            this.attendanceGridControl1.Location = new System.Drawing.Point(13, 68);
+            this.attendanceGridControl1.Margin = new System.Windows.Forms.Padding(4);
             this.attendanceGridControl1.Name = "attendanceGridControl1";
             this.attendanceGridControl1.OptionsList = new string[] {
         "P",
@@ -253,46 +291,23 @@
         "A"};
             this.attendanceGridControl1.ReportFooter = "Generated on 21-Aug-2025";
             this.attendanceGridControl1.ReportTitle = "Attendance Report";
-            this.attendanceGridControl1.Size = new System.Drawing.Size(1254, 489);
+            this.attendanceGridControl1.Size = new System.Drawing.Size(1671, 601);
             this.attendanceGridControl1.TabIndex = 60;
             this.attendanceGridControl1.WeeklyOffBackColor = System.Drawing.Color.AliceBlue;
             this.attendanceGridControl1.WeeklyOffs = new System.DayOfWeek[0];
             this.attendanceGridControl1.WeeklyOffsAreReadOnly = false;
             this.attendanceGridControl1.DoubleClick += new System.EventHandler(this.attendanceGridControl1_DoubleClick);
             // 
-            // cmbAttendanceMonth
-            // 
-            this.cmbAttendanceMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAttendanceMonth.DropDownWidth = 440;
-            this.cmbAttendanceMonth.Location = new System.Drawing.Point(69, 20);
-            this.cmbAttendanceMonth.Name = "cmbAttendanceMonth";
-            this.cmbAttendanceMonth.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbAttendanceMonth.Size = new System.Drawing.Size(440, 22);
-            this.cmbAttendanceMonth.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbAttendanceMonth.TabIndex = 62;
-            this.cmbAttendanceMonth.SelectedIndexChanged += new System.EventHandler(this.cmbAttendanceMonth_SelectedIndexChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(11, 24);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(47, 15);
-            this.label8.TabIndex = 61;
-            this.label8.Text = "Month";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // frmDailyAttendanceSheet
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1292, 623);
+            this.ClientSize = new System.Drawing.Size(1723, 767);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmDailyAttendanceSheet";
@@ -307,13 +322,13 @@
             this.panel1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbAttendanceMonth)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbAttendanceMonth)).EndInit();
             this.ResumeLayout(false);
 
         }

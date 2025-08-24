@@ -418,7 +418,6 @@ namespace StaffSync
             return empOutStandingLeaveStatement;
         }
 
-
         public List<EmployeeSpecificLeaveInfo> getSpecificEmployeeSpecificLeaveInfo(int LeaveTRID)
         {
             List<EmployeeSpecificLeaveInfo> employeeLeaveTRList = new List<EmployeeSpecificLeaveInfo>();

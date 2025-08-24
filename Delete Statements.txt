@@ -22,5 +22,8 @@ DELETE FROM UserModules
 DELETE FROM users
 DELETE FROM EmpLeaveTransMas
 DELETE FROM EmpWeeklyOff
+DELETE FROM MnthlyAttdInfo
+DELETE FROM EmpTaxSchemeInfo
+DELETE FROM EmpShiftInfo
 DELETE FROM empmas
 

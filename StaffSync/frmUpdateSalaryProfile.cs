@@ -1,4 +1,6 @@
-﻿using StaffSync.StaffsyncDBDataSetTableAdapters;
+﻿using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Office.Y2022.FeaturePropertyBag;
+using StaffSync.StaffsyncDBDataSetTableAdapters;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System;
 using System.Collections.Generic;
@@ -86,7 +88,7 @@ namespace StaffSync
             clearControls();
             enableControls();
             lblSalaryProfileID.Text = objSalaryProfile.getMaxRowCount("SalProfileMas", "SalProfileID").ToString();
-            txtSalProfCode.Text = "ALL-" + (lblSalaryProfileID.Text.Trim()).ToString().PadLeft(4, '0');
+            txtSalProfCode.Text = "SPF-" + (lblSalaryProfileID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
         }
 
@@ -116,6 +118,9 @@ namespace StaffSync
 
             if (lblActionMode.Text == "modify")
             {
+
+                objSalaryProfile.UpdateSalaryProfileInfoAutomaticCalculationStatus(Convert.ToInt16(lblSalaryProfileID.Text.ToString()), chkAutomaticCalculate.Checked);
+
                 foreach (DataGridViewRow dc in dtgSalaryProfileDetails.Rows)
                 {
                     if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "allowences")
@@ -147,6 +152,7 @@ namespace StaffSync
             txtAallowences.Text = "0.00";
             txtDeductions.Text = "0.00";
             txtReimbursement.Text = "0.00";
+            txtNetSalary.Text = "0.00";
             dtgSalaryProfileDetails.DataSource = objSalaryProfile.GetDefaultSalaryProfileInfo(1);
             FormatTheGrid();
             foreach (DataGridViewRow dc in dtgSalaryProfileDetails.Rows)
@@ -168,6 +174,8 @@ namespace StaffSync
             txtAallowences.ReadOnly = true;
             txtDeductions.ReadOnly = true;
             txtReimbursement.ReadOnly = true;
+            txtNetSalary.ReadOnly = true;
+            chkAutomaticCalculate.Enabled = true;
         }
 
         public void disableControls()
@@ -177,6 +185,8 @@ namespace StaffSync
             txtAallowences.Enabled = false;
             txtDeductions.Enabled = false;
             txtReimbursement.Enabled = false;
+            txtNetSalary.Enabled = false;
+            chkAutomaticCalculate.Enabled = false;
         }
 
         public void onGenerateButtonClick()
@@ -244,6 +254,7 @@ namespace StaffSync
             lblSalaryProfileID.Text = SalaryProfileInfoModel.SalProfileID.ToString();
             txtSalProfCode.Text = SalaryProfileInfoModel.SalProfileCode;
             txtSalProfTitle.Text = SalaryProfileInfoModel.SalProfileTitle;
+            chkAutomaticCalculate.Checked = SalaryProfileInfoModel.IsAutomaticCalculation;
             dtgSalaryProfileDetails.DataSource = objSalaryProfile.GetDefaultSalaryProfileInfo(Convert.ToInt16(lblSalaryProfileID.Text.ToString()));
             FormatTheGrid();
         }
@@ -285,6 +296,7 @@ namespace StaffSync
             onModifyButtonClick();
             clearControls();
             enableControls();
+            chkAutomaticCalculate.Checked = true;
             errValidator.Clear();
         }
 
@@ -322,24 +334,31 @@ namespace StaffSync
             dtgSalaryProfileDetails.Columns["HeaderTitle"].Width = 250;
             dtgSalaryProfileDetails.Columns["HeaderType"].Visible = true;
             dtgSalaryProfileDetails.Columns["HeaderType"].Width = 100;
+            dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = false;
+            dtgSalaryProfileDetails.Columns["CalcFormula"].Width = 150;
+            dtgSalaryProfileDetails.Columns["CalcFormula"].ReadOnly = true;
+            dtgSalaryProfileDetails.Columns["IsFixed"].Visible = false;
+            dtgSalaryProfileDetails.Columns["IsFixed"].Width = 150;
+            dtgSalaryProfileDetails.Columns["IsFixed"].ReadOnly = true;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].Visible = true;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].Width = 150;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Format = "c2";
+            dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Format = "0.00";
             dtgSalaryProfileDetails.Columns["DeductionAmount"].Visible = true;
             dtgSalaryProfileDetails.Columns["DeductionAmount"].Width = 150;
             dtgSalaryProfileDetails.Columns["DeductionAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgSalaryProfileDetails.Columns["DeductionAmount"].DefaultCellStyle.Format = "c2";
+            dtgSalaryProfileDetails.Columns["DeductionAmount"].DefaultCellStyle.Format = "0.00";
             dtgSalaryProfileDetails.Columns["ReimbursmentAmount"].Visible = true;
             dtgSalaryProfileDetails.Columns["ReimbursmentAmount"].Width = 150;
             dtgSalaryProfileDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgSalaryProfileDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Format = "c2";
+            dtgSalaryProfileDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Format = "0.00";
             dtgSalaryProfileDetails.Columns["SalProAmount"].Visible = false;
             dtgSalaryProfileDetails.Columns["OrderID"].Visible = false;
 
             decimal totalAallowences = 0;
             decimal totalDeductions = 0;
             decimal totalReimbursement = 0;
+            decimal NetSalary = 0;
 
             foreach (DataGridViewRow dc in dtgSalaryProfileDetails.Rows)
             {
@@ -374,6 +393,7 @@ namespace StaffSync
             txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
             txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
             txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtNetSalary.Text = (totalAallowences + totalReimbursement - totalDeductions).ToString("00.00", CultureInfo.InvariantCulture);
 
             //if(lblActionMode.Text == "")
             //{
@@ -386,8 +406,101 @@ namespace StaffSync
             //}
         }
 
+        private void CalculateRow(int rowIndex)
+        {
+            var dgv = dtgSalaryProfileDetails;
+            if (rowIndex < 0) return;
+
+            var formula = dgv.Rows[rowIndex].Cells["CalcFormula"].Value?.ToString();
+            var headerType = dgv.Rows[rowIndex].Cells["HeaderType"].Value?.ToString().ToLower();
+            if (string.IsNullOrWhiteSpace(formula)) return;
+
+            // Example: "Basic Salary * 40 / 100"
+            string[] parts = formula.Split('*');
+
+            if (formula.Contains("*"))
+                parts = formula.Split('*');
+            else if (formula.Contains("<"))
+                parts = formula.Split('<');
+
+            if (parts.Length < 2) return;
+
+            string headerName = parts[0]; // e.g. "Basic Salary"
+            headerName = headerName.ToString().Substring(headerName.IndexOf("(") + 1).ToString().Trim();
+
+            decimal baseValue = 0;
+            string expr = "";
+
+            // Find the dependent row
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if (row.Cells["HeaderTitle"].Value?.ToString() == headerName.ToString().Trim())
+                {
+                    if (row.Cells["HeaderType"].Value.ToString().ToLower() == "allowences")
+                    {
+                        baseValue = Convert.ToDecimal(row.Cells["AllowanceAmount"].Value ?? 0);
+                    }
+                    else if (row.Cells["HeaderType"].Value.ToString().ToLower() == "deductions")
+                    {
+                        baseValue = Convert.ToDecimal(row.Cells["DeductionAmount"].Value ?? 0);
+                    }
+                    else if (row.Cells["HeaderType"].Value.ToString().ToLower() == "reimbursement")
+                    {
+                        baseValue = Convert.ToDecimal(row.Cells["ReimbursmentAmount"].Value ?? 0);
+                    }
+                }
+
+                if (row.Cells["HeaderType"].Value.ToString().ToLower() == headerType && headerType == "allowences")
+                {
+                    expr = formula.Replace(headerName, baseValue.ToString());
+
+                    var result = new System.Data.DataTable().Compute(expr, null);
+                    decimal finalValue = Convert.ToDecimal(result);
+                    finalValue = Math.Ceiling((decimal)finalValue);
+
+                    dgv.Rows[rowIndex].Cells["AllowanceAmount"].Value = finalValue;
+                    dgv.Rows[rowIndex].Cells["HeaderTitle"].ToolTipText = formula;
+                    break;
+                }
+                else if (row.Cells["HeaderType"].Value.ToString().ToLower() == headerType && headerType == "deductions")
+                {
+                    expr = formula.Replace(headerName, baseValue.ToString());
+
+                    var result = new System.Data.DataTable().Compute(expr, null);
+                    decimal finalValue = Convert.ToDecimal(result);
+                    finalValue = Math.Ceiling((decimal)finalValue);
+
+                    dgv.Rows[rowIndex].Cells["DeductionAmount"].Value = finalValue;
+                    dgv.Rows[rowIndex].Cells["HeaderTitle"].ToolTipText = formula;
+                    break;
+                }
+                else if (row.Cells["HeaderType"].Value.ToString().ToLower() == headerType && headerType == "reimbursement")
+                {
+                    expr = formula.Replace(headerName, baseValue.ToString());
+
+                    var result = new System.Data.DataTable().Compute(expr, null);
+                    decimal finalValue = Convert.ToDecimal(result);
+                    finalValue = Math.Ceiling((decimal)finalValue);
+
+                    dgv.Rows[rowIndex].Cells["ReimbursmentAmount"].Value = finalValue;
+                    dgv.Rows[rowIndex].Cells["HeaderTitle"].ToolTipText = formula;
+                    break;
+                }
+            }
+        }
+
+        private void AutomaticCalculate()
+        {
+            foreach (DataGridViewRow dc in dtgSalaryProfileDetails.Rows)
+            {
+                CalculateRow(dc.Index);
+            }
+            FormatTheGrid();
+        }
+
         private void dtgSalaryProfileDetails_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
+
             decimal totalAallowences = 0;
             decimal totalDeductions = 0;
             decimal totalReimbursement = 0;
@@ -441,6 +554,26 @@ namespace StaffSync
                 dtgSalaryProfileDetails.CurrentRow.Cells["AllowanceAmount"].ReadOnly = true;
                 dtgSalaryProfileDetails.CurrentRow.Cells["DeductionAmount"].ReadOnly = true;
                 dtgSalaryProfileDetails.CurrentRow.Cells["ReimbursmentAmount"].ReadOnly = false;
+            }
+            if (chkAutomaticCalculate.Checked == true)
+            {
+                AutomaticCalculate();
+            }
+            else
+            {
+                if(lblActionMode.Text == "add")
+                {
+                    CalculateRow(e.RowIndex);
+                }
+            }
+            FormatTheGrid();
+        }
+
+        private void chkAutomaticCalculate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAutomaticCalculate.Checked == true)
+            {
+                AutomaticCalculate();
             }
         }
     }

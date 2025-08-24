@@ -409,7 +409,7 @@ namespace StaffSync
             return dt;
         }
 
-        public int InsertLeaveEntitlementInfo(int txtLeaveMasID, int txtLeaveTypeID, decimal txtTotalLeaves, decimal txtBalanceLeaves, int txtOrderID)
+        public int InsertLeaveEntitlementInfo(int txtEmpID, int txtLeaveMasID, int txtLeaveTypeID, decimal txtTotalLeaves, decimal txtBalanceLeaves, int txtOrderID)
         {
             int affectedRows = 0;
             try
@@ -420,8 +420,8 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO EmpLeaveEntitlement (LeaveEntmtID, LeaveMasID, LeaveTypeID, TotalLeaves, BalanceLeaves, OrderID) VALUES " +
-                 "(" + maxRowCount + "," + txtLeaveMasID + ", " + txtLeaveTypeID + "," + txtTotalLeaves + ", " + txtBalanceLeaves + ", " + txtOrderID + ")";
+                string strQuery = "INSERT INTO EmpLeaveEntitlement (LeaveEntmtID, EmpID, LeaveMasID, LeaveTypeID, TotalLeaves, BalanceLeaves, OrderID) VALUES " +
+                 "(" + maxRowCount + "," + txtLeaveMasID + ", " + txtEmpID  + ", " + txtLeaveTypeID + "," + txtTotalLeaves + ", " + txtBalanceLeaves + ", " + txtOrderID + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -443,7 +443,7 @@ namespace StaffSync
             return affectedRows;
         }
 
-        public int UpadateLeaveEntitlementInfo(int txtLeaveEntmtID, int txtLeaveMasID, int txtLeaveTypeID, decimal txtTotalLeaves, decimal txtBalanceLeaves, int txtOrderID)
+        public int UpadateLeaveEntitlementInfo(int txtLeaveEntmtID, int txtEmpID, int txtLeaveMasID, int txtLeaveTypeID, decimal txtTotalLeaves, decimal txtBalanceLeaves, int txtOrderID)
         {
             int affectedRows = 0;
             try
@@ -452,7 +452,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE EmpLeaveEntitlement SET " +
-                "LeaveMasID = " + txtLeaveMasID + ", LeaveTypeID = " + txtLeaveTypeID + ", TotalLeaves = " + txtTotalLeaves + ", BalanceLeaves = " + txtBalanceLeaves + ", OrderID = " + txtOrderID +
+                "LeaveMasID = " + txtLeaveMasID + ", EmpID = " + txtEmpID + ", LeaveTypeID = " + txtLeaveTypeID + ", TotalLeaves = " + txtTotalLeaves + ", BalanceLeaves = " + txtBalanceLeaves + ", OrderID = " + txtOrderID +
                 " WHERE LeaveEntmtID = " + txtLeaveEntmtID;
 
                 OleDbCommand cmd = conn.CreateCommand();
