@@ -13,13 +13,16 @@ using System.Data.OleDb;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ModelStaffSync;
 
 namespace StaffSync
 {
     public partial class frmCompanyInfo : Form
     {
-        clsCountries objCountries = new clsCountries();
-        clsClientInfo objClientInfo = new clsClientInfo();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsCountries objCountries = new DALStaffSync.clsCountries();
+        DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmCompanyInfo()
         {
@@ -35,6 +38,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -75,7 +79,7 @@ namespace StaffSync
             clearControls();
             enableControls();
             cmbIsActive.SelectedIndex = 1;
-            lblCompID.Text = objClientInfo.getMaxRowCount("ClientMas", "ClientID").ToString();
+            lblCompID.Text = objGenFunc.getMaxRowCount("ClientMas", "ClientID").Data.ToString();
             txtCompCode.Text = "CNT-" + (lblCompID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
 
@@ -336,6 +340,18 @@ namespace StaffSync
                 lblActionMode.Text = "";
                 errValidator.Clear();
             }
+        }
+
+        private void frmCompanyInfo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dtgRoleProfileManagement = new Krypton.Toolkit.KryptonDataGridView();
             this.lblActionMode = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
@@ -50,13 +51,13 @@
             this.qryRolesDefTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRolesDefTableAdapter();
             this.qryUserSpecificRolesTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryUserSpecificRolesTableAdapter();
             this.qryRoleProfileBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dtgRoleProfileManagement = new Krypton.Toolkit.KryptonDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgRoleProfileManagement)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryUserSpecificRolesBindingSource)).BeginInit();
@@ -65,13 +66,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.qryRolesDefBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryUserRolesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgRoleProfileManagement)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -82,8 +83,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(899, 348);
-            this.splitContainer1.SplitterDistance = 290;
+            this.splitContainer1.Size = new System.Drawing.Size(1199, 428);
+            this.splitContainer1.SplitterDistance = 356;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -92,26 +94,39 @@
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(899, 290);
+            this.panel1.Size = new System.Drawing.Size(1199, 356);
             this.panel1.TabIndex = 1;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dtgRoleProfileManagement);
             this.groupBox1.Controls.Add(this.lblActionMode);
-            this.groupBox1.Location = new System.Drawing.Point(12, 3);
+            this.groupBox1.Location = new System.Drawing.Point(16, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(876, 278);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(1168, 342);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
+            // 
+            // dtgRoleProfileManagement
+            // 
+            this.dtgRoleProfileManagement.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dtgRoleProfileManagement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgRoleProfileManagement.Location = new System.Drawing.Point(13, 23);
+            this.dtgRoleProfileManagement.Margin = new System.Windows.Forms.Padding(4);
+            this.dtgRoleProfileManagement.Name = "dtgRoleProfileManagement";
+            this.dtgRoleProfileManagement.Size = new System.Drawing.Size(1139, 299);
+            this.dtgRoleProfileManagement.TabIndex = 33;
             // 
             // lblActionMode
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(466, 6);
-            this.lblActionMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblActionMode.Location = new System.Drawing.Point(621, 7);
+            this.lblActionMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
             this.lblActionMode.TabIndex = 32;
@@ -127,13 +142,15 @@
             this.panel2.Controls.Add(this.btnModifyDetails);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(899, 54);
+            this.panel2.Size = new System.Drawing.Size(1199, 67);
             this.panel2.TabIndex = 1;
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(294, 8);
+            this.btnCancel.Location = new System.Drawing.Point(297, 10);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
@@ -145,7 +162,8 @@
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(750, 8);
+            this.btnCloseMe.Location = new System.Drawing.Point(1000, 10);
+            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -157,7 +175,8 @@
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(158, 8);
+            this.btnSaveDetails.Location = new System.Drawing.Point(163, 10);
+            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
@@ -169,7 +188,8 @@
             // 
             // btnModifyDetails
             // 
-            this.btnModifyDetails.Location = new System.Drawing.Point(22, 8);
+            this.btnModifyDetails.Location = new System.Drawing.Point(29, 10);
+            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
@@ -234,31 +254,25 @@
             this.qryRoleProfileBindingSource.DataMember = "qryRoleProfile";
             this.qryRoleProfileBindingSource.DataSource = this.staffsyncDBDTSet;
             // 
-            // dtgRoleProfileManagement
-            // 
-            this.dtgRoleProfileManagement.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dtgRoleProfileManagement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgRoleProfileManagement.Location = new System.Drawing.Point(10, 19);
-            this.dtgRoleProfileManagement.Name = "dtgRoleProfileManagement";
-            this.dtgRoleProfileManagement.Size = new System.Drawing.Size(854, 243);
-            this.dtgRoleProfileManagement.TabIndex = 33;
-            // 
             // frmRolesProfileMaster
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(899, 348);
+            this.ClientSize = new System.Drawing.Size(1199, 428);
             this.Controls.Add(this.splitContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmRolesProfileMaster";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Role Profile Management";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmRolesProfileMaster_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmRolesProfileMaster_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -266,6 +280,7 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgRoleProfileManagement)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryUserSpecificRolesBindingSource)).EndInit();
@@ -274,7 +289,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.qryRolesDefBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryUserRolesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgRoleProfileManagement)).EndInit();
             this.ResumeLayout(false);
 
         }

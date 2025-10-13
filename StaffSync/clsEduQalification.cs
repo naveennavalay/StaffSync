@@ -212,14 +212,14 @@ namespace StaffSync
         }
     }
 
-    public class EduQualTitleModel
-    {
-        public int EduQualID { get; set; }
-        public string EduQualCode { get; set; }
+    //public class EduQualTitleModel
+    //{
+    //    public int EduQualID { get; set; }
+    //    public string EduQualCode { get; set; }
 
-        public string EduQualTitle { get; set; }
-        public string EduQualInitial { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+    //    public string EduQualTitle { get; set; }
+    //    public string EduQualInitial { get; set; }
+    //    public bool IsActive { get; set; }
+    //    public bool IsDeleted { get; set; }
+    //}
 }

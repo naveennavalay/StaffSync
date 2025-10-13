@@ -1,4 +1,5 @@
 ﻿//using C1.Framework;
+using ModelStaffSync;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.X509;
 using System;
@@ -1089,235 +1090,235 @@ namespace StaffSync
 
     }
 
-    public class BulkPendingLeaveApproval
-    {
-        public bool Select { get; set; }
-        public int EmpID { get; set; }
+    //public class BulkPendingLeaveApproval
+    //{
+    //    public bool Select { get; set; }
+    //    public int EmpID { get; set; }
 
-        [DisplayName("Employee Code")]
-        public string EmpCode { get; set; }
+    //    [DisplayName("Employee Code")]
+    //    public string EmpCode { get; set; }
         
-        [DisplayName("Employee Name")] 
-        public string EmpName { get; set; }
+    //    [DisplayName("Employee Name")] 
+    //    public string EmpName { get; set; }
         
-        [DisplayName("Designation")] 
-        public string DesignationTitle { get; set; }
+    //    [DisplayName("Designation")] 
+    //    public string DesignationTitle { get; set; }
 
-        [DisplayName("Department")] 
-        public string DepartmentTitle { get; set; }
+    //    [DisplayName("Department")] 
+    //    public string DepartmentTitle { get; set; }
 
-        [DisplayName("Leave Type ID")]
-        public int LeaveTypeID { get; set; }
+    //    [DisplayName("Leave Type ID")]
+    //    public int LeaveTypeID { get; set; }
         
-        [DisplayName("Leave Type")] 
-        public string LeaveTypeTitle { get; set; }
+    //    [DisplayName("Leave Type")] 
+    //    public string LeaveTypeTitle { get; set; }
 
-        [DisplayName("Leave Trans ID")] 
-        public int LeaveTRID { get; set; }
+    //    [DisplayName("Leave Trans ID")] 
+    //    public int LeaveTRID { get; set; }
 
-        [DisplayName("Leave From")]
-        public DateTime ActualLeaveDateFrom { get; set; }
+    //    [DisplayName("Leave From")]
+    //    public DateTime ActualLeaveDateFrom { get; set; }
         
-        [DisplayName("Leave To")] 
-        public DateTime ActualLeaveDateTo { get; set; }
+    //    [DisplayName("Leave To")] 
+    //    public DateTime ActualLeaveDateTo { get; set; }
 
-        [DisplayName("Leave Duration")] 
-        public double LeaveDuration { get; set; }
+    //    [DisplayName("Leave Duration")] 
+    //    public double LeaveDuration { get; set; }
 
-        [DisplayName("Leave Mode")]
-        public string LeaveMode { get; set; }
+    //    [DisplayName("Leave Mode")]
+    //    public string LeaveMode { get; set; }
 
-        [DisplayName("Leave Comments")] 
-        public string LeaveComments { get; set; }
+    //    [DisplayName("Leave Comments")] 
+    //    public string LeaveComments { get; set; }
 
-        [DisplayName("Leave Approval Comments")]
-        public string LeaveApprovalComments { get; set; }
+    //    [DisplayName("Leave Approval Comments")]
+    //    public string LeaveApprovalComments { get; set; }
 
-        [DisplayName("Leave Rejection Comments")] 
-        public string LeaveRejectionComments { get; set; }
+    //    [DisplayName("Leave Rejection Comments")] 
+    //    public string LeaveRejectionComments { get; set; }
 
-        [DisplayName("Leave Cancelled")] 
-        public bool Canceled { get; set; }
+    //    [DisplayName("Leave Cancelled")] 
+    //    public bool Canceled { get; set; }
 
-        [DisplayName("Leave Cancelled Date")]
-        public DateTime CanceledDate { get; set; }
+    //    [DisplayName("Leave Cancelled Date")]
+    //    public DateTime CanceledDate { get; set; }
 
-        [DisplayName("OrderID")] 
-        public int OrderID { get; set; }
-    }
+    //    [DisplayName("OrderID")] 
+    //    public int OrderID { get; set; }
+    //}
 
-    public class EmployeeLeaveTRList
-    {
-        public int LeaveTRID { get; set; }
+    //public class EmployeeLeaveTRList
+    //{
+    //    public int LeaveTRID { get; set; }
         
-        [DisplayName("Employee ID")] 
-        public int EmpID { get; set; }
+    //    [DisplayName("Employee ID")] 
+    //    public int EmpID { get; set; }
         
-        [DisplayName("Employee Code")] 
-        public string EmpCode { get; set; }
+    //    [DisplayName("Employee Code")] 
+    //    public string EmpCode { get; set; }
         
-        [DisplayName("Employee Name")] 
-        public string EmpName { get; set; }
+    //    [DisplayName("Employee Name")] 
+    //    public string EmpName { get; set; }
 
-        [DisplayName("Designation")] 
-        public string DesignationTitle { get; set; }
+    //    [DisplayName("Designation")] 
+    //    public string DesignationTitle { get; set; }
         
-        [DisplayName("Department")] 
-        public string DepartmentTitle { get; set; }
+    //    [DisplayName("Department")] 
+    //    public string DepartmentTitle { get; set; }
 
-        [DisplayName("Attendance Date")] 
-        public DateTime? AttDate { get; set; }
+    //    [DisplayName("Attendance Date")] 
+    //    public DateTime? AttDate { get; set; }
 
-        [DisplayName("Attendance Status")]
-        public string AttStatus { get; set; }
+    //    [DisplayName("Attendance Status")]
+    //    public string AttStatus { get; set; }
 
-        [DisplayName("Leave Type ID")]
-        public int LeaveTypeID { get; set; }
+    //    [DisplayName("Leave Type ID")]
+    //    public int LeaveTypeID { get; set; }
 
-        [DisplayName("Leave Type")]
-        public string LeaveTypeTitle { get; set; }
+    //    [DisplayName("Leave Type")]
+    //    public string LeaveTypeTitle { get; set; }
 
-        [DisplayName("Leave Applied Date")] 
-        public DateTime LeaveAppliedDate { get; set; }
+    //    [DisplayName("Leave Applied Date")] 
+    //    public DateTime LeaveAppliedDate { get; set; }
         
-        [DisplayName("Leave Comments")] 
-        public string LeaveComments { get; set; }
+    //    [DisplayName("Leave Comments")] 
+    //    public string LeaveComments { get; set; }
 
-        [DisplayName("Leave From")] 
-        public DateTime? ActualLeaveDateFrom { get; set; }
+    //    [DisplayName("Leave From")] 
+    //    public DateTime? ActualLeaveDateFrom { get; set; }
 
-        [DisplayName("Leave To")] 
-        public DateTime? ActualLeaveDateTo { get; set; }
+    //    [DisplayName("Leave To")] 
+    //    public DateTime? ActualLeaveDateTo { get; set; }
 
-        [DisplayName("Leave Duration")] 
-        public float LeaveDuration { get; set; }
+    //    [DisplayName("Leave Duration")] 
+    //    public float LeaveDuration { get; set; }
 
-        [DisplayName("Leave Mode")]
-        public string LeaveMode { get; set; }
+    //    [DisplayName("Leave Mode")]
+    //    public string LeaveMode { get; set; }
 
-        public DateTime? LeaveApprovedDate { get; set; }
+    //    public DateTime? LeaveApprovedDate { get; set; }
 
-        [DisplayName("Approval Comments")]
-        public string LeaveApprovalComments { get; set; }
-        public DateTime? LeaveRejectedDate { get; set; }
+    //    [DisplayName("Approval Comments")]
+    //    public string LeaveApprovalComments { get; set; }
+    //    public DateTime? LeaveRejectedDate { get; set; }
 
-        [DisplayName("Rejection Comments")] 
-        public string LeaveRejectionComments { get; set; }
-        public int OrderID { get; set; }
-        public int ApprovedOrRejectedByEmpID { get; set; }
-        public string LeaveStatus { get; set; }
+    //    [DisplayName("Rejection Comments")] 
+    //    public string LeaveRejectionComments { get; set; }
+    //    public int OrderID { get; set; }
+    //    public int ApprovedOrRejectedByEmpID { get; set; }
+    //    public string LeaveStatus { get; set; }
         
-        [DisplayName("Cancelled")] 
-        public bool Canceled { get; set; }
+    //    [DisplayName("Cancelled")] 
+    //    public bool Canceled { get; set; }
         
-        [DisplayName("Cancelled Date")] 
-        public DateTime? CanceledDate { get; set; }
-    }
+    //    [DisplayName("Cancelled Date")] 
+    //    public DateTime? CanceledDate { get; set; }
+    //}
 
-    public class EmployeeOOOList
-    {
-        public int EmpID { get; set; }
-        public string EmpCode { get; set; }
-        public string EmpName { get; set; }
-        public string DesignationTitle { get; set; }
-        public string DepartmentTitle { get; set; }
-        public string LeaveTypeTitle { get; set; }
-        public DateTime ActualLeaveDateFrom { get; set; }
-        public DateTime ActualLeaveDateTo { get; set; }
-        public decimal LeaveDuration { get; set; }
-        public string LeaveMode { get; set; }
-        public int OrderID { get; set; }
-    }
+    //public class EmployeeOOOList
+    //{
+    //    public int EmpID { get; set; }
+    //    public string EmpCode { get; set; }
+    //    public string EmpName { get; set; }
+    //    public string DesignationTitle { get; set; }
+    //    public string DepartmentTitle { get; set; }
+    //    public string LeaveTypeTitle { get; set; }
+    //    public DateTime ActualLeaveDateFrom { get; set; }
+    //    public DateTime ActualLeaveDateTo { get; set; }
+    //    public decimal LeaveDuration { get; set; }
+    //    public string LeaveMode { get; set; }
+    //    public int OrderID { get; set; }
+    //}
 
-    public class EmployeeSpecificLeaveInfo
-    {
-        public int LeaveTRID { get; set; }
-        public int EmpID { get; set; }
-        public int LeaveTypeID { get; set; }
-        public DateTime LeaveAppliedDate { get; set; }
-        public string LeaveComments { get; set; }
-        public DateTime LeaveApprovedDate { get; set; }
-        public string LeaveApprovalComments { get; set; }
-        public DateTime ActualLeaveDateFrom { get; set; }
-        public DateTime ActualLeaveDateTo { get; set; }
-        public double LeaveDuration { get; set; }
-        public string LeaveMode { get; set; }
-        public DateTime LeaveRejectedDate { get; set; }
-        public string LeaveRejectionComments { get; set; }
-        public int ApprovedOrRejectedByEmpID { get; set; }
-        public int OrderID { get; set; }
-    }
+    //public class EmployeeSpecificLeaveInfo
+    //{
+    //    public int LeaveTRID { get; set; }
+    //    public int EmpID { get; set; }
+    //    public int LeaveTypeID { get; set; }
+    //    public DateTime LeaveAppliedDate { get; set; }
+    //    public string LeaveComments { get; set; }
+    //    public DateTime LeaveApprovedDate { get; set; }
+    //    public string LeaveApprovalComments { get; set; }
+    //    public DateTime ActualLeaveDateFrom { get; set; }
+    //    public DateTime ActualLeaveDateTo { get; set; }
+    //    public double LeaveDuration { get; set; }
+    //    public string LeaveMode { get; set; }
+    //    public DateTime LeaveRejectedDate { get; set; }
+    //    public string LeaveRejectionComments { get; set; }
+    //    public int ApprovedOrRejectedByEmpID { get; set; }
+    //    public int OrderID { get; set; }
+    //}
 
-    public class PendingLeaveApprovalList
-    {
-        //[DisplayName("Select")]
-        //public bool Select { get; set; }
+    //public class PendingLeaveApprovalList
+    //{
+    //    //[DisplayName("Select")]
+    //    //public bool Select { get; set; }
 
-        public int EmpID { get; set; }
+    //    public int EmpID { get; set; }
 
-        [DisplayName("Employee Code")]
-        public string EmpCode { get; set; }
+    //    [DisplayName("Employee Code")]
+    //    public string EmpCode { get; set; }
 
-        [DisplayName("Employee Name")]
-        public string EmpName { get; set; }
+    //    [DisplayName("Employee Name")]
+    //    public string EmpName { get; set; }
         
-        [DisplayName("Designation")] 
-        public string DesignationTitle { get; set; }
+    //    [DisplayName("Designation")] 
+    //    public string DesignationTitle { get; set; }
 
-        [DisplayName("Department")]
-        public string DepartmentTitle { get; set; }
+    //    [DisplayName("Department")]
+    //    public string DepartmentTitle { get; set; }
         
-        public int LeaveTRID { get; set; }
+    //    public int LeaveTRID { get; set; }
 
-        public int LeaveTypeID { get; set; }
+    //    public int LeaveTypeID { get; set; }
         
-        [DisplayName("Leave Type")]
-        public string LeaveTypeTitle { get; set; }
+    //    [DisplayName("Leave Type")]
+    //    public string LeaveTypeTitle { get; set; }
 
-        [DisplayName("Applied Date")]
-        public DateTime LeaveAppliedDate { get; set; }
+    //    [DisplayName("Applied Date")]
+    //    public DateTime LeaveAppliedDate { get; set; }
 
-        [DisplayName("Reason")] 
-        public string LeaveComments { get; set; }
+    //    [DisplayName("Reason")] 
+    //    public string LeaveComments { get; set; }
 
-        [DisplayName("Leave From")]
-        public DateTime ActualLeaveDateFrom { get; set; }
+    //    [DisplayName("Leave From")]
+    //    public DateTime ActualLeaveDateFrom { get; set; }
 
-        [DisplayName("Leave Till")]
-        public DateTime ActualLeaveDateTo { get; set; }
+    //    [DisplayName("Leave Till")]
+    //    public DateTime ActualLeaveDateTo { get; set; }
 
-        [DisplayName("Duration")]
-        public string LeaveDuration { get; set; }
+    //    [DisplayName("Duration")]
+    //    public string LeaveDuration { get; set; }
 
-        [DisplayName("Leave Mode")]
-        public string LeaveMode { get; set; }
-    }
+    //    [DisplayName("Leave Mode")]
+    //    public string LeaveMode { get; set; }
+    //}
 
-    public class OutstandingLeaveStatement
-    {
-        public bool Select { get; set; }
-        public int EmpID { get; set; }
+    //public class OutstandingLeaveStatement
+    //{
+    //    public bool Select { get; set; }
+    //    public int EmpID { get; set; }
 
-        [DisplayName("Employee Code")]
-        public string EmpCode { get; set; }
+    //    [DisplayName("Employee Code")]
+    //    public string EmpCode { get; set; }
 
-        [DisplayName("Employee Name")]
-        public string EmpName { get; set; }
+    //    [DisplayName("Employee Name")]
+    //    public string EmpName { get; set; }
 
-        [DisplayName("Designation")]
-        public string DesignationTitle { get; set; }
+    //    [DisplayName("Designation")]
+    //    public string DesignationTitle { get; set; }
 
-        [DisplayName("Department")]
-        public string DepartmentTitle { get; set; }
+    //    [DisplayName("Department")]
+    //    public string DepartmentTitle { get; set; }
 
-        [DisplayName("Total Leaves")]
-        public float TotalLeaves { get; set; }
+    //    [DisplayName("Total Leaves")]
+    //    public float TotalLeaves { get; set; }
 
-        [DisplayName("Balance Leaves")]
-        public float BalanceLeaves { get; set; }
+    //    [DisplayName("Balance Leaves")]
+    //    public float BalanceLeaves { get; set; }
 
-        [DisplayName("Utilised Leaves")]
-        public float UtilisedLeaves { get; set; }
-    }
+    //    [DisplayName("Utilised Leaves")]
+    //    public float UtilisedLeaves { get; set; }
+    //}
 
 }

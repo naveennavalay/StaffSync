@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace StaffSync
 {
     public partial class frmRelationshipList : Form
     {
-        clsRelationship clsRelationship = new clsRelationship();
+        DALStaffSync.clsRelationship clsRelationship = new DALStaffSync.clsRelationship();
         frmRelationshipMaster frmRelationshipMas = null;
 
         public frmRelationshipList()

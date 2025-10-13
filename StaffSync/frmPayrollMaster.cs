@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using ModelStaffSync;
+using Quartz.Impl.AdoJobStore.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,17 +13,20 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Quartz.Logging.OperationName;
 //using static C1.Util.Win.Win32;
 
 namespace StaffSync
 {
     public partial class frmPayrollMaster : Form
     {
-        clsEmployeeMaster objEmployeeMaster = new clsEmployeeMaster();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
-        clsPhotoMas objPhotoMas = new clsPhotoMas();
-        clsSalaryProfile objSalaryProfile = new clsSalaryProfile();
-        clsEmpPayroll objEmployeePayroll = new clsEmpPayroll();
+        DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
+        DALStaffSync.clsSalaryProfile objSalaryProfile = new DALStaffSync.clsSalaryProfile();
+        DALStaffSync.clsEmpPayroll objEmployeePayroll = new DALStaffSync.clsEmpPayroll();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmPayrollMaster()
         {
@@ -71,12 +77,88 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
+        }
+
+        private bool ValidateValuesOnUI()
+        {
+            bool validationStatus = true;
+            errValidator.Clear();
+
+            // Helper for date validation
+            DateTime dos;
+            string dateFormat = "dd-MM-yyyy";
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            if (lblReportingManagerID.Text.Trim() == "")
+            {
+                errValidator.SetError(txtRepEmpCode, "Please select the employee");
+                txtRepEmpCode.Focus();
+                validationStatus = false;
+            }
+            else
+            {
+                errValidator.SetError(txtRepEmpCode, "");
+            }
+
+            if (cmbSalaryMonth.Text.Trim() == "")
+            {
+                errValidator.SetError(cmbSalaryMonth, "Please select the salary month");
+                cmbSalaryMonth.Focus();
+                validationStatus = false;
+            }
+            else
+            {
+                errValidator.SetError(cmbSalaryMonth, "");
+            }
+
+            // Date of Birth
+            if (string.IsNullOrEmpty(txtSalaryDate.Text))
+            {
+                validationStatus = false;
+                txtSalaryDate.Focus();
+                errValidator.SetError(this.txtSalaryDate, txtSalaryDate.Tag?.ToString() ?? "Date of Salary is required.");
+            }
+            else if (!DateTime.TryParseExact(txtSalaryDate.Text, dateFormat, provider, DateTimeStyles.None, out dos))
+            {
+                validationStatus = false;
+                txtSalaryDate.Focus();
+                errValidator.SetError(this.txtSalaryDate, "Invalid Date of Salary format (dd-MM-yyyy).");
+            }
+            else if (dos > DateTime.Now.Date)
+            {
+                validationStatus = false;
+                txtSalaryDate.Focus();
+                errValidator.SetError(this.txtSalaryDate, "Date of Salary cannot be in the future.");
+            }
+            else
+            {
+                errValidator.SetError(this.txtSalaryDate, "");
+            }
+
+            if (txtTotalWorkingDays.Text.Trim() == "" || Convert.ToDecimal(txtTotalWorkingDays.Text.Trim()) == 0)
+            {
+                errValidator.SetError(txtTotalWorkingDays, "Please enter the total working days");
+                txtTotalWorkingDays.Focus();
+                validationStatus = false;
+            }
+            else
+            {
+                errValidator.SetError(txtTotalWorkingDays, "");
+            }
+
+            return validationStatus;
         }
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
+
+            if (!ValidateValuesOnUI())
+            {
+                this.Cursor = Cursors.Default;
+                return;
+            }
 
             int empSalaryID = 0;
             decimal AllowanceAmount = 0;
@@ -122,8 +204,6 @@ namespace StaffSync
             enableControls();
             errValidator.Clear();
         }
-
-
 
         public void onGenerateButtonClick()
         {
@@ -233,6 +313,8 @@ namespace StaffSync
             dtgSalaryDetails.Columns["HeaderTitle"].ReadOnly = true;
             dtgSalaryDetails.Columns["HeaderType"].ReadOnly = true;
             dtgSalaryDetails.Columns["HeaderType"].Width = 125;
+            dtgSalaryDetails.Columns["CalcFormula"].Visible = false;
+            dtgSalaryDetails.Columns["IsFixed"].Visible = false;
             dtgSalaryDetails.Columns["AllowanceAmount"].Width = 135;
             dtgSalaryDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgSalaryDetails.Columns["AllowanceAmount"].DefaultCellStyle.Format = "c2";
@@ -358,6 +440,8 @@ namespace StaffSync
                 dtgSalaryDetails.Columns["HeaderTitle"].ReadOnly = true;
                 dtgSalaryDetails.Columns["HeaderType"].ReadOnly = true;
                 dtgSalaryDetails.Columns["HeaderType"].Width = 125;
+                dtgSalaryDetails.Columns["CalcFormula"].Visible = false;
+                dtgSalaryDetails.Columns["IsFixed"].Visible = false;
                 dtgSalaryDetails.Columns["AllowanceAmount"].Width = 135;
                 dtgSalaryDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
                 dtgSalaryDetails.Columns["AllowanceAmount"].DefaultCellStyle.Format = "c2";
@@ -406,12 +490,12 @@ namespace StaffSync
                         dc.Cells["ReimbursmentAmount"].ReadOnly = false;
                     }
                 }
-                txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-                txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-                txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+                txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+                txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+                txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
 
                 txtNetPayable.Text = Convert.ToDecimal((totalAallowences + totalReimbursement) - totalDeductions).ToString();
-                txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+                txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
                 btnViewCalender.Visible = true;
 
             }
@@ -437,7 +521,7 @@ namespace StaffSync
                     txtTotalWorkedDays.Text = objSelectedEmployeeSalaryMasterDetails[0].TotalDaysWorked.ToString();
                     txtLeaveDays.Text = objSelectedEmployeeSalaryMasterDetails[0].TotalDaysOnLeave.ToString();
                     txtNetPayable.Text = objSelectedEmployeeSalaryMasterDetails[0].NetPayable.ToString();
-                    txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+                    txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
                 }
 
                 dtgSalaryDetails.DataSource = objEmployeePayroll.getSelectedSpecificMonthSalaryDetails(selectedMonthSalaryID);
@@ -498,12 +582,12 @@ namespace StaffSync
                     }
                 }
 
-                txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-                txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-                txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+                txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+                txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+                txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
 
                 txtNetPayable.Text = Convert.ToDecimal((totalAallowences + totalReimbursement) - totalDeductions).ToString();
-                txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+                txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
                 btnViewCalender.Visible = true;
             }
         }
@@ -594,12 +678,12 @@ namespace StaffSync
                 }
             }
 
-            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
 
             txtNetPayable.Text = Convert.ToDecimal((totalAallowences + totalReimbursement) - totalDeductions).ToString();
-            txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         private void cmbSalaryMonth_SelectedIndexChanged(object sender, EventArgs e)
@@ -615,6 +699,18 @@ namespace StaffSync
             //frmAttendanceMater frmAttendanceMater = new frmAttendanceMater("listAttendanceMasterList", Convert.ToInt16(lblReportingManagerID.Text));
             frmAttendanceMater frmAttendanceMater = new frmAttendanceMater();
             frmAttendanceMater.ShowDialog(this);
+        }
+
+        private void frmPayrollMaster_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

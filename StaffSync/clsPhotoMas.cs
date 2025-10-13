@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,8 +17,6 @@ namespace StaffSync
         myDBClass objDBClass = new myDBClass();
         OleDbConnection conn = null;
         DataSet dtDataset;
-        clsStates objState = new clsStates();
-        clsCountries objCountry = new clsCountries();
 
         public clsPhotoMas() { 
 
@@ -192,11 +191,11 @@ namespace StaffSync
         }
     }
 
-    public class PhotoInfo
-    {
-        public int PhotoID { get; set; }
-        public int EmpID { get; set; }
-        public byte[] EmpPhoto { get; set; }
+    //public class PhotoInfo
+    //{
+    //    public int PhotoID { get; set; }
+    //    public int EmpID { get; set; }
+    //    public byte[] EmpPhoto { get; set; }
 
-    }
+    //}
 }

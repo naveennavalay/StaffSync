@@ -1,4 +1,5 @@
-﻿using StaffSync.StaffsyncDBDataSetTableAdapters;
+﻿using ModelStaffSync;
+using StaffSync.StaffsyncDBDataSetTableAdapters;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,10 @@ namespace StaffSync
 {
     public partial class frmConsolidatedLeaveStatement : Form
     {
-        clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
-        clsWeeklyOffInfo objWeeklyOffInfo = new clsWeeklyOffInfo();
-        clsAttendanceMas objAttendanceInfo = new clsAttendanceMas();
-        clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new clsEmpLeaveEntitlementInfo();
+        DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
+        DALStaffSync.clsWeeklyOffInfo objWeeklyOffInfo = new DALStaffSync.clsWeeklyOffInfo();
+        DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
+        DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
         List<WklyOffProfileDetailsInfo> lstWeeklyOffDetailsInfo = new List<WklyOffProfileDetailsInfo>();
 
         public frmConsolidatedLeaveStatement()

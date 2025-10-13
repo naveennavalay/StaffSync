@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
+using ModelStaffSync;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,15 +19,16 @@ namespace StaffSync
 {
     public partial class frmLeavesReject : Form
     {
-        clsEmployeeMaster objEmployeeMaster = new clsEmployeeMaster();
-        clsDepartment objDepartment = new clsDepartment();
-        clsDesignation objDesignation = new clsDesignation();
-        clsLeaveTypeMas objLeaveTypeInfo = new clsLeaveTypeMas();
-        clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
+        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
+        DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
+        DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
+        DALStaffSync.clsLeaveTypeMas objLeaveTypeInfo = new DALStaffSync.clsLeaveTypeMas();
+        DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         //Download objDownload = new Download();
-        clsPhotoMas objPhotoMas = new clsPhotoMas();
-        clsAttendanceMas objAttendanceInfo = new clsAttendanceMas();
+        DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
+        DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmLeavesReject()
         {
@@ -42,6 +44,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -543,6 +546,18 @@ namespace StaffSync
 
             frmViewLeavesOutstanding frmViewLeavesOutstanding = new frmViewLeavesOutstanding(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(lblLeaveMasID.Text.ToString()));
             frmViewLeavesOutstanding.ShowDialog(this);
+        }
+
+        private void frmLeavesReject_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

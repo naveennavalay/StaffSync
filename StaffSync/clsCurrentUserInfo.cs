@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,12 +19,12 @@ namespace StaffSync
     {
         myDBClass objDBClass = new myDBClass();
         OleDbConnection conn = null;
-        clsEmployeeMaster objEmployeeInfo = new clsEmployeeMaster();
+        DALStaffSync.clsEmployeeMaster objEmployeeInfo = new DALStaffSync.clsEmployeeMaster();
         DataSet dtDataset;
-        clsAppModule objAppModule = new clsAppModule();
-        clsRolesAndResponsibilities objRoles = new clsRolesAndResponsibilities();
-        clsDesignation objDesignation = new clsDesignation();
-        clsDepartment objDepartment = new clsDepartment();
+        DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
+        DALStaffSync.clsRolesAndResponsibilities objRoles = new DALStaffSync.clsRolesAndResponsibilities();
+        DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
+        DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
 
         public clsCurrentUserInfo() { 
 

@@ -1,4 +1,5 @@
 ﻿//using C1.Framework;
+using ModelStaffSync;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.X509;
 using System;
@@ -471,51 +472,51 @@ namespace StaffSync
         }
     }
 
-    public class EmployeeWklyOffInfo
-    {
-        public int WeeklyOffID { get; set; }
-        public int EmpID { get; set; }
-        public int WklyOffMasID { get; set; }
-        public DateTime EffectDateFrom { get; set; }
+    //public class EmployeeWklyOffInfo
+    //{
+    //    public int WeeklyOffID { get; set; }
+    //    public int EmpID { get; set; }
+    //    public int WklyOffMasID { get; set; }
+    //    public DateTime EffectDateFrom { get; set; }
 
-    }
+    //}
 
-    public class WklyOffProfileMasInfo
-    {
-        public int WklyOffMasID { get; set; }
+    //public class WklyOffProfileMasInfo
+    //{
+    //    public int WklyOffMasID { get; set; }
 
-        [DisplayName("Weekly Off Code")]
-        public string WklyOffCode { get; set; }
+    //    [DisplayName("Weekly Off Code")]
+    //    public string WklyOffCode { get; set; }
 
-        [DisplayName("Weekly Off Title")] 
-        public string WklyOffTitle { get; set; }
+    //    [DisplayName("Weekly Off Title")] 
+    //    public string WklyOffTitle { get; set; }
 
-        [DisplayName("Effective From")]
-        public DateTime EffectDateFrom { get; set; }
+    //    [DisplayName("Effective From")]
+    //    public DateTime EffectDateFrom { get; set; }
 
-        public bool IsActive { get; set; }
+    //    public bool IsActive { get; set; }
 
-        public bool IsDelete { get; set; }        
-    }
+    //    public bool IsDelete { get; set; }        
+    //}
 
-    public class WklyOffProfileDetailsInfo
-    {
-        [DisplayName("Select")]
-        public bool Select { get; set; }
+    //public class WklyOffProfileDetailsInfo
+    //{
+    //    [DisplayName("Select")]
+    //    public bool Select { get; set; }
         
-        [DisplayName("WeeklyOffDetailsID")]
-        public int WklyOffDetID { get; set; }
+    //    [DisplayName("WeeklyOffDetailsID")]
+    //    public int WklyOffDetID { get; set; }
 
-        [DisplayName("WeeklyOffMasterID")] 
-        public int WklyOffMasID { get; set; }
+    //    [DisplayName("WeeklyOffMasterID")] 
+    //    public int WklyOffMasID { get; set; }
 
-        [DisplayName("WeeklyOffDayID")] 
-        public int WklyOffDay { get; set; }
+    //    [DisplayName("WeeklyOffDayID")] 
+    //    public int WklyOffDay { get; set; }
 
-        [DisplayName("WeeklyOffDayName")]
-        public int WklyOffDayName { get; set; }
+    //    [DisplayName("WeeklyOffDayName")]
+    //    public int WklyOffDayName { get; set; }
 
-        [DisplayName("WeeklyOffDayOrderID")]
-        public int WklyOffOrderID { get; set; }
-    }
+    //    [DisplayName("WeeklyOffDayOrderID")]
+    //    public int WklyOffOrderID { get; set; }
+    //}
 }

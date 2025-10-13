@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -243,24 +244,24 @@ namespace StaffSync
         }
     }
 
-    public class EmpShiftInfo
-    {
-        public int EmpShiftInfoID { get; set; }
-        public int EmpID { get; set; }
-        public int ShiftID { get; set; }
-        public DateTime EffectiveDate { get; set; }
+    //public class EmpShiftInfo
+    //{
+    //    public int EmpShiftInfoID { get; set; }
+    //    public int EmpID { get; set; }
+    //    public int ShiftID { get; set; }
+    //    public DateTime EffectiveDate { get; set; }
 
-    }
+    //}
 
-    public class ShiftInfo
-    {
-        public int ShiftID { get; set; }
-        public string ShiftCode { get; set; }
-        public string ShiftTitle { get; set; }
-        public string ShiftInitital { get; set; }
-        public DateTime? ShiftStart { get; set; } = DateTime.Now;
-        public DateTime? ShiftEnd { get; set; } = DateTime.Now;
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+    //public class ShiftInfo
+    //{
+    //    public int ShiftID { get; set; }
+    //    public string ShiftCode { get; set; }
+    //    public string ShiftTitle { get; set; }
+    //    public string ShiftInitital { get; set; }
+    //    public DateTime? ShiftStart { get; set; } = DateTime.Now;
+    //    public DateTime? ShiftEnd { get; set; } = DateTime.Now;
+    //    public bool IsActive { get; set; }
+    //    public bool IsDeleted { get; set; }
+    //}
 }

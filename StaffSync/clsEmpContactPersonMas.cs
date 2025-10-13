@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -174,12 +175,12 @@ namespace StaffSync
         }
     }
 
-    public class ContactInfo
-    {
-        public int ContactID { get; set; }
-        public string ContactPerson { get; set; }
-        public string ContactPersonAddressInfo { get; set; }
-        public int RelationShipID { get; set; }
-        public int SexID { get; set; }
-    }
+    //public class ContactInfo
+    //{
+    //    public int ContactID { get; set; }
+    //    public string ContactPerson { get; set; }
+    //    public string ContactPersonAddressInfo { get; set; }
+    //    public int RelationShipID { get; set; }
+    //    public int SexID { get; set; }
+    //}
 }

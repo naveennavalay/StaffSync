@@ -266,14 +266,14 @@ namespace StaffSync
         }
     }
 
-    public class CountriesModel
-    {
-        public int CountryID { get; set; }
-        public string CountryCode { get; set; }
+    //public class CountriesModel
+    //{
+    //    public int CountryID { get; set; }
+    //    public string CountryCode { get; set; }
 
-        public string CountryTitle { get; set; }
-        public string CountryInitial { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+    //    public string CountryTitle { get; set; }
+    //    public string CountryInitial { get; set; }
+    //    public bool IsActive { get; set; }
+    //    public bool IsDeleted { get; set; }
+    //}
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,7 +18,7 @@ namespace StaffSync
         //frmLeaveTypeMaster frmLeaveTypeMaster = null;
         //frmEmpLeaveEntitlement frmEmpLeaveEntitlement = null;
 
-        clsWeeklyOffInfo objWeeklyOffInfo = new clsWeeklyOffInfo();
+        DALStaffSync.clsWeeklyOffInfo objWeeklyOffInfo = new DALStaffSync.clsWeeklyOffInfo();
         frmWeeklyProfileMas frmWeeklyProfileMas1 = new frmWeeklyProfileMas();
         frmWeeklyProfileDetailsInfo frmWeeklyProfileDetailsInfo1 = new frmWeeklyProfileDetailsInfo();
         string ShowListFor = "";
@@ -95,18 +96,20 @@ namespace StaffSync
                 dtgWeeklyOffList.Columns["WklyOffMasID"].Visible = false;
                 dtgWeeklyOffList.Columns["WklyOffCode"].HeaderText = "Weekly Off Code";
                 dtgWeeklyOffList.Columns["WklyOffTitle"].HeaderText = "Weekly Off Title";
-                dtgWeeklyOffList.Columns["WklyOffEffectiveDate"].HeaderText = "Effective Date";
-                dtgWeeklyOffList.Columns["WklyOffEffectiveDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
-                dtgWeeklyOffList.Columns["WklyOffCode"].Width = 100;
+                //dtgWeeklyOffList.Columns["WklyOffEffectiveDate"].HeaderText = "Effective Date";
+                //dtgWeeklyOffList.Columns["WklyOffEffectiveDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgWeeklyOffList.Columns["WklyOffCode"].Width = 50;
                 dtgWeeklyOffList.Columns["WklyOffTitle"].Width = 300;
-                dtgWeeklyOffList.Columns["WklyOffEffectiveDate"].Width = 150;
+                dtgWeeklyOffList.Columns["EffectDateFrom"].Width = 150;
                 dtgWeeklyOffList.Columns["WklyOffMasID"].ReadOnly = true;
                 dtgWeeklyOffList.Columns["WklyOffCode"].ReadOnly = true;
                 dtgWeeklyOffList.Columns["WklyOffTitle"].ReadOnly = true;
-                dtgWeeklyOffList.Columns["WklyOffEffectiveDate"].ReadOnly = true;
+                dtgWeeklyOffList.Columns["EffectDateFrom"].ReadOnly = true;
                 dtgWeeklyOffList.Columns["WklyOffCode"].SortMode = DataGridViewColumnSortMode.NotSortable;
                 dtgWeeklyOffList.Columns["WklyOffTitle"].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dtgWeeklyOffList.Columns["WklyOffEffectiveDate"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                //dtgWeeklyOffList.Columns["WklyOffEffectiveDate"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dtgWeeklyOffList.Columns["IsActive"].Visible = false;
+                dtgWeeklyOffList.Columns["IsDelete"].Visible = false;
                 dtgWeeklyOffList.AllowUserToAddRows = false;
                 dtgWeeklyOffList.AllowUserToDeleteRows = false;
                 dtgWeeklyOffList.AllowUserToResizeRows = false;
@@ -155,7 +158,7 @@ namespace StaffSync
             objWklyOffProfileMasInfoModel.WklyOffMasID = Convert.ToInt16(dtgWeeklyOffList.SelectedRows[0].Cells["WklyOffMasID"].Value.ToString());
             objWklyOffProfileMasInfoModel.WklyOffCode = dtgWeeklyOffList.SelectedRows[0].Cells["WklyOffCode"].Value.ToString();
             objWklyOffProfileMasInfoModel.WklyOffTitle = dtgWeeklyOffList.SelectedRows[0].Cells["WklyOffTitle"].Value.ToString();
-            objWklyOffProfileMasInfoModel.EffectDateFrom = Convert.ToDateTime(dtgWeeklyOffList.SelectedRows[0].Cells["WklyOffEffectiveDate"].Value);
+            objWklyOffProfileMasInfoModel.EffectDateFrom = Convert.ToDateTime(dtgWeeklyOffList.SelectedRows[0].Cells["EffectDateFrom"].Value);
             objWklyOffProfileMasInfoModel.IsActive = true;
 
             if(ShowListFor == "weeklyOffProfileMaster")

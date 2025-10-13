@@ -74,7 +74,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -97,7 +97,7 @@
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1248, 593);
             this.panel1.TabIndex = 1;
@@ -109,9 +109,9 @@
             this.groupBox5.Controls.Add(this.dtgBulkLeaveApproval);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.Location = new System.Drawing.Point(19, 105);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox5.Size = new System.Drawing.Size(1204, 482);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
@@ -121,7 +121,7 @@
             // 
             this.chkSelectUnselect.AutoSize = false;
             this.chkSelectUnselect.Location = new System.Drawing.Point(947, -2);
-            this.chkSelectUnselect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkSelectUnselect.Margin = new System.Windows.Forms.Padding(4);
             this.chkSelectUnselect.Name = "chkSelectUnselect";
             this.chkSelectUnselect.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.chkSelectUnselect.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -138,7 +138,7 @@
             this.dtgBulkLeaveApproval.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgBulkLeaveApproval.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dtgBulkLeaveApproval.Location = new System.Drawing.Point(17, 30);
-            this.dtgBulkLeaveApproval.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtgBulkLeaveApproval.Margin = new System.Windows.Forms.Padding(4);
             this.dtgBulkLeaveApproval.Name = "dtgBulkLeaveApproval";
             this.dtgBulkLeaveApproval.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgBulkLeaveApproval.Size = new System.Drawing.Size(1169, 446);
@@ -155,9 +155,9 @@
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(24, 15);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(1212, 63);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
@@ -166,7 +166,7 @@
             // 
             this.txtLeaveApprovalDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
             this.txtLeaveApprovalDate.Location = new System.Drawing.Point(252, 25);
-            this.txtLeaveApprovalDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtLeaveApprovalDate.Margin = new System.Windows.Forms.Padding(4);
             this.txtLeaveApprovalDate.Mask = "##-##-####";
             this.txtLeaveApprovalDate.Name = "txtLeaveApprovalDate";
             this.txtLeaveApprovalDate.Size = new System.Drawing.Size(139, 21);
@@ -222,7 +222,7 @@
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1248, 80);
             this.panel2.TabIndex = 1;
@@ -230,7 +230,7 @@
             // btnCloseMe
             // 
             this.btnCloseMe.Location = new System.Drawing.Point(1037, 16);
-            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(168, 47);
@@ -243,7 +243,7 @@
             // btnRemoveDetails
             // 
             this.btnRemoveDetails.Location = new System.Drawing.Point(580, 16);
-            this.btnRemoveDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRemoveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveDetails.Name = "btnRemoveDetails";
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnRemoveDetails.Size = new System.Drawing.Size(168, 47);
@@ -257,7 +257,7 @@
             // btnSaveDetails
             // 
             this.btnSaveDetails.Location = new System.Drawing.Point(36, 16);
-            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(168, 47);
@@ -270,7 +270,7 @@
             // btnModifyDetails
             // 
             this.btnModifyDetails.Location = new System.Drawing.Point(36, 20);
-            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnModifyDetails.Size = new System.Drawing.Size(168, 47);
@@ -284,7 +284,7 @@
             // btnGenerateDetails
             // 
             this.btnGenerateDetails.Location = new System.Drawing.Point(36, 20);
-            this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerateDetails.Name = "btnGenerateDetails";
             this.btnGenerateDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnGenerateDetails.Size = new System.Drawing.Size(168, 47);
@@ -298,7 +298,7 @@
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(223, 16);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCancel.Size = new System.Drawing.Size(168, 47);
@@ -347,16 +347,19 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.ClientSize = new System.Drawing.Size(1248, 678);
             this.Controls.Add(this.splitContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmBulkLeaveApproval";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bulk Leave Approval";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmBulkLeaveApproval_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmBulkLeaveApproval_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

@@ -12,15 +12,9 @@ namespace StaffSync
     {
         public Task Execute(IJobExecutionContext context)
         {
-            //MessageBox.Show($"Daily Attendance Job executed at: {DateTime.Now}", "Quartz Job", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //Mehttps://www.tickertape.in/screener/equityssageBox.Show($"Daily Attendance Job executed at: {DateTime.Now}", "Quartz Job", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-
-            clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
-
-
-
-
-
+            DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
 
             return Task.CompletedTask;
         }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -270,23 +271,23 @@ namespace StaffSync
 
     }
 
-    public class AppModuleInfo
-    {
-        public int ModuleID { get; set; }
-        //public string ModuleCode { get; set; }
-        public string ModuleTitle { get; set; }
-        //public string ModuleInitial { get; set; }
-        //public bool IsActive { get; set; }
-        //public bool IsDeleted { get; set; }
-        public bool Access {  get; set; }
-        public int? UserID { get; set; }
-    }
+    //public class AppModuleInfo
+    //{
+    //    public int ModuleID { get; set; }
+    //    //public string ModuleCode { get; set; }
+    //    public string ModuleTitle { get; set; }
+    //    //public string ModuleInitial { get; set; }
+    //    //public bool IsActive { get; set; }
+    //    //public bool IsDeleted { get; set; }
+    //    public bool Access {  get; set; }
+    //    public int? UserID { get; set; }
+    //}
 
-    public class UserAppModuleInfo
-    {
-        public int UserModuleID { get; set; }
-        public int UserID { get; set; }
-        public int ModuleID { get; set; }
-    }
+    //public class UserAppModuleInfo
+    //{
+    //    public int UserModuleID { get; set; }
+    //    public int UserID { get; set; }
+    //    public int ModuleID { get; set; }
+    //}
 
 }

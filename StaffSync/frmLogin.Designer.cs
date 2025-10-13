@@ -31,6 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cmbCurrentFinYear = new Krypton.Toolkit.KryptonComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbCurrentCompany = new Krypton.Toolkit.KryptonComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.txtPassword = new Krypton.Toolkit.KryptonTextBox();
             this.txtUserName = new Krypton.Toolkit.KryptonTextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -39,16 +43,12 @@
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.btnLogin = new Krypton.Toolkit.KryptonButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.cmbCurrentCompany = new Krypton.Toolkit.KryptonComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cmbCurrentFinYear = new Krypton.Toolkit.KryptonComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbCurrentFinYear)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbCurrentCompany)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbCurrentCompany)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbCurrentFinYear)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -79,6 +79,52 @@
             this.groupBox2.Size = new System.Drawing.Size(387, 174);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
+            // 
+            // cmbCurrentFinYear
+            // 
+            this.cmbCurrentFinYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCurrentFinYear.DropDownWidth = 440;
+            this.cmbCurrentFinYear.Location = new System.Drawing.Point(90, 56);
+            this.cmbCurrentFinYear.Name = "cmbCurrentFinYear";
+            this.cmbCurrentFinYear.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbCurrentFinYear.Size = new System.Drawing.Size(268, 22);
+            this.cmbCurrentFinYear.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbCurrentFinYear.TabIndex = 44;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(9, 60);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(77, 15);
+            this.label3.TabIndex = 43;
+            this.label3.Text = "Active Year";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbCurrentCompany
+            // 
+            this.cmbCurrentCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCurrentCompany.DropDownWidth = 440;
+            this.cmbCurrentCompany.Location = new System.Drawing.Point(90, 28);
+            this.cmbCurrentCompany.Name = "cmbCurrentCompany";
+            this.cmbCurrentCompany.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbCurrentCompany.Size = new System.Drawing.Size(268, 22);
+            this.cmbCurrentCompany.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbCurrentCompany.TabIndex = 42;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(20, 32);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(66, 15);
+            this.label8.TabIndex = 41;
+            this.label8.Text = "Company";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtPassword
             // 
@@ -173,52 +219,6 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // cmbCurrentCompany
-            // 
-            this.cmbCurrentCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCurrentCompany.DropDownWidth = 440;
-            this.cmbCurrentCompany.Location = new System.Drawing.Point(90, 28);
-            this.cmbCurrentCompany.Name = "cmbCurrentCompany";
-            this.cmbCurrentCompany.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbCurrentCompany.Size = new System.Drawing.Size(268, 22);
-            this.cmbCurrentCompany.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbCurrentCompany.TabIndex = 42;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(20, 32);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(66, 15);
-            this.label8.TabIndex = 41;
-            this.label8.Text = "Company";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cmbCurrentFinYear
-            // 
-            this.cmbCurrentFinYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCurrentFinYear.DropDownWidth = 440;
-            this.cmbCurrentFinYear.Location = new System.Drawing.Point(90, 56);
-            this.cmbCurrentFinYear.Name = "cmbCurrentFinYear";
-            this.cmbCurrentFinYear.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbCurrentFinYear.Size = new System.Drawing.Size(268, 22);
-            this.cmbCurrentFinYear.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbCurrentFinYear.TabIndex = 44;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(9, 60);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 15);
-            this.label3.TabIndex = 43;
-            this.label3.Text = "Active Year";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // frmLogin
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -234,13 +234,15 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "User Login";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmLogin_FormClosing);
+            this.Load += new System.EventHandler(this.frmLogin_Load);
             this.panel2.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbCurrentFinYear)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbCurrentCompany)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbCurrentCompany)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbCurrentFinYear)).EndInit();
             this.ResumeLayout(false);
 
         }

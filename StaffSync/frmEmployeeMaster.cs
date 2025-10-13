@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -26,39 +27,42 @@ namespace StaffSync
     public partial class frmEmployeeMaster : Form
     {
 
-        clsLogin objLogin = new clsLogin();
-        clsEncryptDecrypt objEncryptDecrypt = new clsEncryptDecrypt();
-        clsEmployeeMaster objEmployeeMaster = new clsEmployeeMaster();
-        clsAddressInfo objAddressInfo = new clsAddressInfo();
-        clsEmpContactPersonMas objContactPerson = new clsEmpContactPersonMas();
-        clsEmployeePersonalInfo objEmployeePersonalInfo = new clsEmployeePersonalInfo();
-        clsEmpNomineeMas objNomineeInfo = new clsEmpNomineeMas();
-        clsEmpEduQualMas objEmpEduQualInfo = new clsEmpEduQualMas();
-        clsEmpSkillsMas objEmpSkillMas = new clsEmpSkillsMas();
-        clsBloodGroup objBloodGroup = new clsBloodGroup();
-        clsCountries objCountries = new clsCountries();
-        clsStates objStates = new clsStates();
-        clsSkillsMas objSkills = new clsSkillsMas();
-        clsEduQalification objEduQualMas = new clsEduQalification();
-        clsDepartment objDepartment = new clsDepartment();
-        clsDesignation objDesignation = new clsDesignation();
-        clsRelationship objRelationship = new clsRelationship();
-        clsSexMas objSexMaster = new clsSexMas();
-        clsPhotoMas objPhotoMas = new clsPhotoMas();
-        clsUploadDocuments objUploadDocument = new clsUploadDocuments();
-        clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
-        clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new clsEmpLeaveEntitlementInfo();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
+        DALStaffSync.clsEncryptDecrypt objEncryptDecrypt = new DALStaffSync.clsEncryptDecrypt();
+        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
+        DALStaffSync.clsAddressInfo objAddressInfo = new DALStaffSync.clsAddressInfo();
+        DALStaffSync.clsEmpContactPersonMas objContactPerson = new DALStaffSync.clsEmpContactPersonMas();
+        DALStaffSync.clsEmployeePersonalInfo objEmployeePersonalInfo = new DALStaffSync.clsEmployeePersonalInfo();
+        DALStaffSync.clsEmpNomineeMas objNomineeInfo = new DALStaffSync.clsEmpNomineeMas();
+        DALStaffSync.clsEmpEduQualMas objEmpEduQualInfo = new DALStaffSync.clsEmpEduQualMas();
+        DALStaffSync.clsEmpSkillsMas objEmpSkillMas = new DALStaffSync.clsEmpSkillsMas();
+        DALStaffSync.clsBloodGroup objBloodGroup = new DALStaffSync.clsBloodGroup();
+        DALStaffSync.clsCountries objCountries = new DALStaffSync.clsCountries();
+        DALStaffSync.clsStates objStates = new DALStaffSync.clsStates();
+        DALStaffSync.clsSkillsMas objSkills = new DALStaffSync.clsSkillsMas();
+        DALStaffSync.clsEduQalification objEduQualMas = new DALStaffSync.clsEduQalification();
+        DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
+        DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
+        DALStaffSync.clsRelationship objRelationship = new DALStaffSync.clsRelationship();
+        DALStaffSync.clsSexMas objSexMaster = new DALStaffSync.clsSexMas();
+        DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
+        DALStaffSync.clsUploadDocuments objUploadDocument = new DALStaffSync.clsUploadDocuments();
+        DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
+        DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
         //Download objDownload = new Download();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
-        clsUploadDocuments objUploadedDocuments = new clsUploadDocuments();
-        clsBankMas objBankInfo = new clsBankMas();
-        clsSalaryProfile objSalaryProfile = new clsSalaryProfile();
-        clsEmployeeSalaryProfileInfo objEmployeeSalaryProfileInfo = new clsEmployeeSalaryProfileInfo();
-        clsEmpWorkExperienceInfo objEmpWorkExperienceInfo = new clsEmpWorkExperienceInfo();
-        clsEmpPayroll objEmployeePayroll = new clsEmpPayroll();
-        clsWeeklyOffInfo objWeeklyOffInfo = new clsWeeklyOffInfo();
-        clsTaxMas objTaxMas = new clsTaxMas();
-        clsShiftMas objShiftMas = new clsShiftMas();
+        DALStaffSync.clsUploadDocuments objUploadedDocuments = new DALStaffSync.clsUploadDocuments();
+        DALStaffSync.clsBankMas objBankInfo = new DALStaffSync.clsBankMas();
+        DALStaffSync.clsSalaryProfile objSalaryProfile = new DALStaffSync.clsSalaryProfile();
+        DALStaffSync.clsEmployeeSalaryProfileInfo objEmployeeSalaryProfileInfo = new DALStaffSync.clsEmployeeSalaryProfileInfo();
+        DALStaffSync.clsEmpWorkExperienceInfo objEmpWorkExperienceInfo = new DALStaffSync.clsEmpWorkExperienceInfo();
+        DALStaffSync.clsEmpPayroll objEmployeePayroll = new DALStaffSync.clsEmpPayroll();
+        DALStaffSync.clsWeeklyOffInfo objWeeklyOffInfo = new DALStaffSync.clsWeeklyOffInfo();
+        DALStaffSync.clsTaxMas objTaxMas = new DALStaffSync.clsTaxMas();
+        DALStaffSync.clsShiftMas objShiftMas = new DALStaffSync.clsShiftMas();
+        DALStaffSync.clsEmploymentTypeInfo objEmploymentTypeInfo = new DALStaffSync.clsEmploymentTypeInfo();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmEmployeeMaster()
         {
@@ -94,6 +98,10 @@ namespace StaffSync
             cmbShift.DataSource = objShiftMas.GetShiftList();
             cmbShift.DisplayMember = "ShiftTitle";
             cmbShift.ValueMember = "ShiftID";
+
+            cmbEmploymentType.DataSource = objEmploymentTypeInfo.GetEmploymentTypeList();
+            cmbEmploymentType.DisplayMember = "EmpTypeTitle";
+            cmbEmploymentType.ValueMember = "EmpTypeMasID";
 
             cmbContactPersonRelationship.DataSource = objRelationship.GetRelationshipList();
             cmbContactPersonRelationship.DisplayMember = "RelationShipTitle";
@@ -152,6 +160,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -269,7 +278,7 @@ namespace StaffSync
             txtTotalLeaveAllotment.Enabled = true;
             txtBalanceLeaveAllotment.Enabled = true;
             txtTotalUtilised.Enabled = true;
-            lblEmpID.Text = objEmployeeMaster.getMaxRowCount("EMPMas", "EmpID", CurrentUser.ClientID).ToString();
+            lblEmpID.Text = objGenFunc.getMaxRowCount("EMPMas", "EmpID", CurrentUser.ClientID).Data.ToString();
             txtEmpCode.Text = "EMP-" + (lblEmpID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();            
 
@@ -284,6 +293,11 @@ namespace StaffSync
             cmbDesignation.DataSource = objDesignation.GetDesignationList();
             cmbDesignation.DisplayMember = "DesignationTitle";
             cmbDesignation.ValueMember = "DesignationID";
+
+            cmbEmploymentType.DataSource = objEmploymentTypeInfo.GetEmploymentTypeList();
+            cmbEmploymentType.DisplayMember = "EmpTypeTitle";
+            cmbEmploymentType.ValueMember = "EmpTypeMasID";
+            txtEmploymentEffectiveFrom.Text = DateTime.Now.ToString("dd-MM-yyyy");
 
             cmbShift.DataSource = objShiftMas.GetShiftList();
             cmbShift.DisplayMember = "ShiftTitle";
@@ -479,6 +493,9 @@ namespace StaffSync
 
             cmbDesignation.DataSource = null;
             cmbDepartment.DataSource = null;
+
+            cmbEmploymentType.DataSource = null;
+            txtEmploymentEffectiveFrom.Text = "";
             cmbShift.DataSource = null;
             txtShiftEffectiveFrom.Text = "";
 
@@ -564,6 +581,8 @@ namespace StaffSync
 
             cmbDesignation.Enabled = true;
             cmbDepartment.Enabled = true;
+            cmbEmploymentType.Enabled = true;
+            txtEmploymentEffectiveFrom.Enabled = true;
             cmbShift.Enabled = true;
             txtShiftEffectiveFrom.Enabled = true;
 
@@ -586,7 +605,7 @@ namespace StaffSync
 
             txtTotalLeaveAllotment.Enabled = false;
             txtBalanceLeaveAllotment.Enabled = false;
-            txtTotalUtilised.Enabled = false;
+            //txtTotalUtilised.Enabled = false;
             cmbWeeklyOff.Enabled = true;
 
             txtBankAccountNumber.Enabled = true;
@@ -625,6 +644,8 @@ namespace StaffSync
 
             cmbDesignation.Enabled = false;
             cmbDepartment.Enabled = false;
+            cmbEmploymentType.Enabled = false;
+            txtEmploymentEffectiveFrom.Enabled = false;
             cmbShift.Enabled = false;
             txtShiftEffectiveFrom.Enabled = false;
 
@@ -647,7 +668,7 @@ namespace StaffSync
 
             txtTotalLeaveAllotment.Enabled = false;
             txtBalanceLeaveAllotment.Enabled = false;
-            txtTotalUtilised.Enabled = false;
+            //txtTotalUtilised.Enabled = false;
             cmbWeeklyOff.Enabled = false;
 
             txtBankAccountNumber.Enabled = false;
@@ -675,6 +696,11 @@ namespace StaffSync
             cmbDesignation.DataSource = objDesignation.GetDesignationList();
             cmbDesignation.DisplayMember = "DesignationTitle";
             cmbDesignation.ValueMember = "DesignationID";
+
+            cmbEmploymentType.DataSource = objEmploymentTypeInfo.GetEmploymentTypeList();
+            cmbEmploymentType.DisplayMember = "EmpTypeTitle";
+            cmbEmploymentType.ValueMember = "EmpTypeMasID";
+            txtEmploymentEffectiveFrom.Text = DateTime.Now.ToString("dd-MMM-yyyy");
 
             cmbShift.DataSource = objShiftMas.GetShiftList();
             cmbShift.DisplayMember = "ShiftTitle";
@@ -782,6 +808,7 @@ namespace StaffSync
                         contactInfoID01 = objContactPerson.InsertContactInfo(txtContactPersonName.Text.Trim(), txtContactPersonNumber.Text.ToString(), cmbContactPersonRelationship.SelectedIndex + 1, 1);
 
                         int shiftInfoID = objShiftMas.InsertEmployeeShiftInfo(employeeID, cmbShift.SelectedIndex + 1, Convert.ToDateTime(txtShiftEffectiveFrom.Text.Trim()));
+                        int employmentTypeID = objEmploymentTypeInfo.InsertEmploymentTypeInfo(employeeID, cmbEmploymentType.SelectedIndex + 1, Convert.ToDateTime(txtEmploymentEffectiveFrom.Text.Trim()));
                     }
 
                     if (tabPersonalInfo.Visible == true)
@@ -887,7 +914,7 @@ namespace StaffSync
                             iRowCounter = iRowCounter + 1;
                         }
 
-                        objTaxMas.InsertEmployeeTaxSchemeInfo(Convert.ToInt16(lblEmpID.Text.ToString()), cmbEmpTaxScheme.SelectedIndex + 1, Convert.ToDateTime(txtTaxSchemeEffectiveFrom.Text.ToString()));
+                        objTaxMas.InsertEmployeeTaxSchemeModel(Convert.ToInt16(lblEmpID.Text.ToString()), cmbEmpTaxScheme.SelectedIndex + 1, Convert.ToDateTime(txtTaxSchemeEffectiveFrom.Text.ToString()));
                     }
                     MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -935,6 +962,10 @@ namespace StaffSync
                     int shiftInfoID = objShiftMas.UpdateEmployeeShiftInfo(1, employeeID, cmbShift.SelectedIndex + 1, Convert.ToDateTime(txtShiftEffectiveFrom.Text.Trim()));
                     if(shiftInfoID == 0)
                         shiftInfoID = objShiftMas.InsertEmployeeShiftInfo(employeeID, cmbShift.SelectedIndex + 1, Convert.ToDateTime(txtShiftEffectiveFrom.Text.Trim()));
+
+                    int employmentTypeID = objEmploymentTypeInfo.UpdateEmploymentTypeInfo(1, employeeID, cmbEmploymentType.SelectedIndex + 1, Convert.ToDateTime(txtEmploymentEffectiveFrom.Text.Trim()));
+                    if(employmentTypeID == 0)
+                        employmentTypeID = objEmploymentTypeInfo.InsertEmploymentTypeInfo(employeeID, cmbEmploymentType.SelectedIndex + 1, Convert.ToDateTime(txtEmploymentEffectiveFrom.Text.Trim()));
 
                     int employeeBankAccountID = objBankInfo.UpdateEmployeeBankReference(Convert.ToInt16(lblBankID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtBankAccountNumber.Text.Trim(), lstBankList.SelectedItems[0].Index + 1, true);
                     if(employeeBankAccountID == 0)
@@ -1023,7 +1054,7 @@ namespace StaffSync
                             iRowCounter = iRowCounter + 1;
                         }
 
-                        objTaxMas.UpdateEmployeeTaxSchemeInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), cmbEmpTaxScheme.SelectedIndex + 1, Convert.ToDateTime(txtTaxSchemeEffectiveFrom.Text.ToString()));
+                        objTaxMas.UpdateEmployeeTaxSchemeModel(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), cmbEmpTaxScheme.SelectedIndex + 1, Convert.ToDateTime(txtTaxSchemeEffectiveFrom.Text.ToString()));
                     }
                     MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -1547,6 +1578,13 @@ namespace StaffSync
             cmbDepartment.SelectedIndex = objSelectedEmployeeInfo.DepartmentID - 1;
             cmbBloodGroup.SelectedIndex = objSelectedEmployeeInfo.BloodGroupID - 1;
 
+            EmpTypeInfo objSelectedEmploymentTypeInfo = objEmploymentTypeInfo.getEmployeeSpecificEmploymentTypeInfo(EmployeeID);
+            cmbEmploymentType.SelectedIndex = objSelectedEmploymentTypeInfo.EmpTypeMasID - 1;
+            if (cmbEmploymentType.SelectedIndex < 0)
+                cmbEmploymentType.SelectedIndex = 0;
+
+            txtEmploymentEffectiveFrom.Text = objSelectedEmploymentTypeInfo.EffectiveDate.ToString("dd-MM-yyyy");
+
             EmpShiftInfo objEmpShiftInfo = objShiftMas.getEmployeeSpecificShiftInfo(EmployeeID);
             cmbShift.SelectedIndex = objEmpShiftInfo.ShiftID - 1;
             if (cmbShift.SelectedIndex < 0)
@@ -1645,7 +1683,7 @@ namespace StaffSync
             if (cmbSalProfile.SelectedIndex < 0)
                 cmbSalProfile.SelectedIndex = 0;
 
-            EmpTaxSchemeInfo objEmpTaxSchemeInfo = objTaxMas.getEmployeeSpecificTaxSchemeInfo(EmployeeID);
+            EmpTaxSchemeModel objEmpTaxSchemeInfo = objTaxMas.getEmployeeSpecificTaxSchemeModel(EmployeeID);
             cmbEmpTaxScheme.SelectedIndex = objEmpTaxSchemeInfo.TaxSchemeID - 1;
             if (cmbEmpTaxScheme.SelectedIndex < 0)
                 cmbEmpTaxScheme.SelectedIndex = 0;
@@ -1787,9 +1825,9 @@ namespace StaffSync
                 }
             }
 
-            txtTotalLeavesAlloted.Text = Convert.ToDecimal(totalLeavesAllotted.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtTotalBalanceLeaves.Text = Convert.ToDecimal(totalBalanceLeaves.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtTotalUtilised.Text = (Convert.ToDecimal(txtTotalLeavesAlloted.Text.ToString()) - Convert.ToDecimal(txtTotalBalanceLeaves.Text.ToString())).ToString("00.00", CultureInfo.InvariantCulture);
+            txtTotalLeavesAlloted.Text = Convert.ToDecimal(totalLeavesAllotted.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtTotalBalanceLeaves.Text = Convert.ToDecimal(totalBalanceLeaves.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtTotalUtilised.Text = (Convert.ToDecimal(txtTotalLeavesAlloted.Text.ToString()) - Convert.ToDecimal(txtTotalBalanceLeaves.Text.ToString())).ToString("0.00", CultureInfo.InvariantCulture);
 
             //lstLeaveTRList.Items.Clear();
             //List<EmployeeLeaveTRList> objEmployeeLeaveTRList = objLeaveTRList.getEmployeeLeaveTRList(Convert.ToInt16(lblEmpID.Text));
@@ -1871,6 +1909,8 @@ namespace StaffSync
             dtgSalaryProfileDetails.Columns["HeaderID"].Visible = false;
             dtgSalaryProfileDetails.Columns["HeaderTitle"].Width = 350;
             dtgSalaryProfileDetails.Columns["HeaderType"].Width = 150;
+            dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = false;
+            dtgSalaryProfileDetails.Columns["IsFixed"].Visible = false;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].Width = 150;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Format = "c2";
@@ -1892,6 +1932,10 @@ namespace StaffSync
                 totalAallowences = totalAallowences + Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString());
                 totalDeductions = totalDeductions + Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString());
                 totalReimbursement = totalReimbursement + Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString());
+
+                if(dc.Cells["CalcFormula"].Value != null)
+                    dc.Cells["HeaderTitle"].ToolTipText = dc.Cells["CalcFormula"].Value.ToString();
+
                 dc.Cells["EmpSalDetID"].ReadOnly = true;
                 dc.Cells["SalProDetID"].ReadOnly = true;
                 dc.Cells["SalProfileID"].ReadOnly = true;
@@ -1918,12 +1962,12 @@ namespace StaffSync
                 }
             }
 
-            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
 
             txtNetPayable.Text = Convert.ToDecimal((totalAallowences + totalReimbursement) - totalDeductions).ToString();
-            txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         private void picRefreshDocumentsList_Click(object sender, EventArgs e)
@@ -1981,6 +2025,8 @@ namespace StaffSync
             dtgSalaryProfileDetails.Columns["HeaderID"].Visible = false;
             dtgSalaryProfileDetails.Columns["HeaderTitle"].Width = 350;
             dtgSalaryProfileDetails.Columns["HeaderType"].Width = 150;
+            dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = false;
+            dtgSalaryProfileDetails.Columns["IsFixed"].Visible = false;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].Width = 150;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Format = "c2";
@@ -2028,12 +2074,12 @@ namespace StaffSync
                 }
             }
 
-            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
 
             txtNetPayable.Text = Convert.ToDecimal((totalAallowences + totalReimbursement) - totalDeductions).ToString();
-            txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         private void picPrevExperience_Click(object sender, EventArgs e)
@@ -2137,12 +2183,12 @@ namespace StaffSync
                 totalReimbursement = totalReimbursement + Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString());
             }
 
-            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
 
             txtNetPayable.Text = Convert.ToDecimal((totalAallowences + totalReimbursement) - totalDeductions).ToString();
-            txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         private void cmbCurrentCountry_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -2171,6 +2217,18 @@ namespace StaffSync
             //frmAttendanceMater frmAttendanceMater = new frmAttendanceMater("listAttendanceMasterList", Convert.ToInt16(lblEmpID.Text));
             frmAttendanceMater frmAttendanceMater = new frmAttendanceMater();
             frmAttendanceMater.ShowDialog(this);
+        }
+
+        private void frmEmployeeMaster_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

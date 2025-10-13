@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace StaffSync
 {
     public partial class frmSalaryProfileList : Form
     {
-        clsSalaryProfile objSalaryProfile = new clsSalaryProfile();
+        DALStaffSync.clsSalaryProfile objSalaryProfile = new DALStaffSync.clsSalaryProfile();
         frmSalaryProfile frmSalaryProfile = null;
         frmUpdateSalaryProfile frmUpdateSalaryProfile = null;
         string strFormName = string.Empty;
@@ -62,7 +63,7 @@ namespace StaffSync
                 }
                 else
                 {
-                    //dtgSalaryProfileList.DataSource = objSalaryProfile.GetSalProfileTitleList(txtSearch.Text.ToString().Trim());
+                    dtgSalaryProfileList.DataSource = objSalaryProfile.GetSalProfileTitleList(txtSearch.Text.ToString().Trim());
                 }
                 FormatTheGrid();
             }
@@ -120,9 +121,9 @@ namespace StaffSync
             dtgSalaryProfileList.Columns["SalProfileCode"].HeaderText = "Salary Profile Code";
             dtgSalaryProfileList.Columns["SalProfileCode"].Width = 150;
             dtgSalaryProfileList.Columns["SalProfileTitle"].HeaderText = "Salary Profile Title";
-            dtgSalaryProfileList.Columns["SalProfileTitle"].Width = 200;
+            dtgSalaryProfileList.Columns["SalProfileTitle"].Width = 300;
             dtgSalaryProfileList.Columns["SalProfileDescription"].HeaderText = "Salary Profile Description";
-            dtgSalaryProfileList.Columns["SalProfileDescription"].Width = 450;
+            dtgSalaryProfileList.Columns["SalProfileDescription"].Width = 500;
             dtgSalaryProfileList.Columns["IsActive"].Visible = false;
             dtgSalaryProfileList.Columns["IsDeleted"].Visible = false;
             dtgSalaryProfileList.Columns["IsDefault"].Visible = false;

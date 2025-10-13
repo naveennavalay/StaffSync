@@ -13,12 +13,15 @@ using System.Data.OleDb;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ModelStaffSync;
 
 namespace StaffSync
 {
     public partial class frmEduQualMaster : Form
     {
-        clsEduQalification objEduQalification = new clsEduQalification();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsEduQalification objEduQalification = new DALStaffSync.clsEduQalification();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmEduQualMaster()
         {
@@ -34,6 +37,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -74,7 +78,7 @@ namespace StaffSync
             clearControls();
             enableControls();
             cmbIsActive.SelectedIndex = 1;
-            lblCountryID.Text = objEduQalification.getMaxRowCount("EduQualMas", "EduQualID").ToString();
+            lblCountryID.Text = objGenFunc.getMaxRowCount("EduQualMas", "EduQualID").Data.ToString();
             txtEduQualCode.Text = "EDU-" + (lblCountryID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
         }
@@ -293,6 +297,18 @@ namespace StaffSync
                 lblActionMode.Text = "";
                 errValidator.Clear();
             }
+        }
+
+        private void frmEduQualMaster_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

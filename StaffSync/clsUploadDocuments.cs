@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -301,18 +302,18 @@ namespace StaffSync
         }
     }
 
-    public class EmployeeDocumentInfo
-    {
-        public int EmpID { get; set; }
-        public string EmpCode { get; set; }
-        public string EmpName { get; set; }
-        public int EmpDocumentID { get; set; }
-        public int DocID { get; set; }
-        public string DocCode { get; set; }
-        public string DocName { get; set; }
-        public string DocType { get; set; }
-        public DateTime DocUploadDate { get; set; }
-        public string DocPath { get; set; }
-        public bool DocUploadStatus { get; set; }
-    }
+    //public class EmployeeDocumentInfo
+    //{
+    //    public int EmpID { get; set; }
+    //    public string EmpCode { get; set; }
+    //    public string EmpName { get; set; }
+    //    public int EmpDocumentID { get; set; }
+    //    public int DocID { get; set; }
+    //    public string DocCode { get; set; }
+    //    public string DocName { get; set; }
+    //    public string DocType { get; set; }
+    //    public DateTime DocUploadDate { get; set; }
+    //    public string DocPath { get; set; }
+    //    public bool DocUploadStatus { get; set; }
+    //}
 }

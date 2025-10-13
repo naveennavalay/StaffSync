@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -194,35 +195,35 @@ namespace StaffSync
         }
     }
 
-    public class UserManagementList
-    {
-        public int EmpID { get; set; }
-        public string EmpCode { get; set; }
-        public string EmpName { get; set; }
-        public string DesignationTitle { get; set; }
-        public string DepartmentTitle { get; set; }
-        public int UserID { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-        public bool IsLocked { get; set; }
-    }
+    //public class UserManagementList
+    //{
+    //    public int EmpID { get; set; }
+    //    public string EmpCode { get; set; }
+    //    public string EmpName { get; set; }
+    //    public string DesignationTitle { get; set; }
+    //    public string DepartmentTitle { get; set; }
+    //    public int UserID { get; set; }
+    //    public bool IsActive { get; set; }
+    //    public bool IsDeleted { get; set; }
+    //    public bool IsLocked { get; set; }
+    //}
 
-    public class UserRolesAndResponsibilities
-    {
-        public int EmpID { get; set; }
-        public int ModuleID { get; set; }
-        public string ModuleCode { get; set; }
-        public string ModuleTitle { get; set; }
-        public int RoleID { get; set; }
-        public string RoleTitle { get; set; }
-        public string RoleDescription { get; set; }
-        public int RoleDefID { get; set; }
-        public bool CanAdd {  get; set; }
-        public bool CanUpdate { get; set; }
-        public bool CanSave { get; set; }
-        public bool CanRemove { get; set; }
-        public bool CanView { get; set; }
-        public bool CanExport { get; set; }
-    }
+    //public class UserRolesAndResponsibilities
+    //{
+    //    public int EmpID { get; set; }
+    //    public int ModuleID { get; set; }
+    //    public string ModuleCode { get; set; }
+    //    public string ModuleTitle { get; set; }
+    //    public int RoleID { get; set; }
+    //    public string RoleTitle { get; set; }
+    //    public string RoleDescription { get; set; }
+    //    public int RoleDefID { get; set; }
+    //    public bool CanAdd {  get; set; }
+    //    public bool CanUpdate { get; set; }
+    //    public bool CanSave { get; set; }
+    //    public bool CanRemove { get; set; }
+    //    public bool CanView { get; set; }
+    //    public bool CanExport { get; set; }
+    //}
 
 }

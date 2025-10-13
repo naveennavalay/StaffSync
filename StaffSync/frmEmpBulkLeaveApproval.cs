@@ -13,10 +13,11 @@ namespace StaffSync
 {
     public partial class frmEmpBulkLeaveApproval : Form
     {
-        clsEmployeeMaster objEmployeeMaster = new clsEmployeeMaster();
-        clsUserManagement objUserManagementList = new clsUserManagement();
-        clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
-        clsAttendanceMas objAttendanceInfo = new clsAttendanceMas();
+        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
+        DALStaffSync.clsUserManagement objUserManagementList = new DALStaffSync.clsUserManagement();
+        DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
+        DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmEmpBulkLeaveApproval()
         {
@@ -32,6 +33,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -192,6 +194,18 @@ namespace StaffSync
             {
                 //RefreshUserSpecificModulesList(Convert.ToInt16(lblReportingManagerID.Text.ToString()));
             }
+        }
+
+        private void frmEmpBulkLeaveApproval_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

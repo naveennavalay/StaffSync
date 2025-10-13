@@ -1,6 +1,7 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.Office.Interop.Excel;
+using ModelStaffSync;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -27,15 +28,16 @@ namespace StaffSync
 {
     public partial class frmEmpLeaveEntitlement : Form
     {
-        clsEmployeeMaster objEmployeeMaster = new clsEmployeeMaster();
-        clsDepartment objDepartment = new clsDepartment();
-        clsDesignation objDesignation = new clsDesignation();
-        clsLeaveTypeMas objLeaveTypeInfo = new clsLeaveTypeMas();
-        clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
+        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
+        DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
+        DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
+        DALStaffSync.clsLeaveTypeMas objLeaveTypeInfo = new DALStaffSync.clsLeaveTypeMas();
+        DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
-        clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new clsEmpLeaveEntitlementInfo();
+        DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
         //Download objDownload = new Download();
-        clsPhotoMas objPhotoMas = new clsPhotoMas();
+        DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmEmpLeaveEntitlement()
         {
@@ -51,6 +53,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -289,6 +292,10 @@ namespace StaffSync
             dtgLeaveEntitlement.DataSource = objEmpLeaveEntitlementInfo.getDefaultLeaveEntitilementList();
             LeaveEntitlementTableFormat();
 
+            txtTotalLeavesAlloted.Text = "0.00";
+            txtTotalBalanceLeaves.Text = "0.00";
+            txtTotalUtilised.Text = "0.00";
+
             decimal totalLeavesAllotted = 0;
             decimal totalBalanceLeaves = 0;
             foreach (DataGridViewRow dc in dtgLeaveEntitlement.Rows)
@@ -298,8 +305,9 @@ namespace StaffSync
             }
 
             dtgLeaveEntitlement.Columns["TotalLeaves"].ReadOnly = true;
-            txtTotalLeavesAlloted.Text = Convert.ToDecimal(totalLeavesAllotted.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtTotalBalanceLeaves.Text = Convert.ToDecimal(totalBalanceLeaves.ToString()).ToString("00.00", CultureInfo.InvariantCulture); 
+            txtTotalLeavesAlloted.Text = Convert.ToDecimal(totalLeavesAllotted.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtTotalBalanceLeaves.Text = Convert.ToDecimal(totalBalanceLeaves.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtTotalUtilised.Text = Convert.ToDecimal(totalLeavesAllotted - totalBalanceLeaves).ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         public void enableControls()
@@ -465,6 +473,7 @@ namespace StaffSync
             decimal totalBalanceLeaves = 0;
             txtTotalLeavesAlloted.Text = "0.00";
             txtTotalBalanceLeaves.Text = "0.00";
+            txtTotalUtilised.Text = "0.00";
             foreach (DataGridViewRow dc in dtgLeaveEntitlement.Rows)
             {
                 totalLeavesAllotted = totalLeavesAllotted + Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString());
@@ -475,8 +484,9 @@ namespace StaffSync
                 }
             }
 
-            txtTotalLeavesAlloted.Text = Convert.ToDecimal(totalLeavesAllotted.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtTotalBalanceLeaves.Text = Convert.ToDecimal(totalBalanceLeaves.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtTotalLeavesAlloted.Text = Convert.ToDecimal(totalLeavesAllotted.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtTotalBalanceLeaves.Text = Convert.ToDecimal(totalBalanceLeaves.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtTotalUtilised.Text = Convert.ToDecimal(totalLeavesAllotted - totalBalanceLeaves).ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         private void lstLeaveTRList_MouseUp(object sender, MouseEventArgs e)
@@ -511,7 +521,8 @@ namespace StaffSync
             decimal totalBalanceLeaves = 0;
             txtTotalLeavesAlloted.Text = "0.00";
             txtTotalBalanceLeaves.Text = "0.00";
-            if(dtgLeaveEntitlement.CurrentRow.Cells["BalanceLeaves"].Style.BackColor != Color.LightPink)
+            txtTotalUtilised.Text = "0.00";
+            if (dtgLeaveEntitlement.CurrentRow.Cells["BalanceLeaves"].Style.BackColor != Color.LightPink)
             {
                 dtgLeaveEntitlement.CurrentRow.Cells["BalanceLeaves"].Value = Convert.ToDecimal(dtgLeaveEntitlement.CurrentRow.Cells["TotalLeaves"].Value.ToString());
             }
@@ -522,8 +533,9 @@ namespace StaffSync
                 //dc.Cells["BalanceLeaves"].Value = Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString());
             }
 
-            txtTotalLeavesAlloted.Text = Convert.ToDecimal(totalLeavesAllotted.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtTotalBalanceLeaves.Text = Convert.ToDecimal(totalBalanceLeaves.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtTotalLeavesAlloted.Text = Convert.ToDecimal(totalLeavesAllotted.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtTotalBalanceLeaves.Text = Convert.ToDecimal(totalBalanceLeaves.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtTotalUtilised.Text = Convert.ToDecimal(totalLeavesAllotted - totalBalanceLeaves).ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         private void picAddLeave_Click(object sender, EventArgs e)
@@ -548,6 +560,18 @@ namespace StaffSync
             dtgLeaveEntitlement.DataSource = null;
             dtgLeaveEntitlement.DataSource = objEmpLeaveEntitlementInfo.AddNewEntryOnGridEmployeeLeaveEntitilementList(Convert.ToInt16(lblEmpID.Text), arrLeaveTypeIDs, LeaveTypeInfoModel.LeaveTypeID);
             LeaveEntitlementTableFormat();
+        }
+
+        private void frmEmpLeaveEntitlement_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using StaffSync.StaffsyncDBDataSetTableAdapters;
+﻿using ModelStaffSync;
+using StaffSync.StaffsyncDBDataSetTableAdapters;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,11 @@ namespace StaffSync
 {
     public partial class frmBulkLeaveApproval : Form
     {
-        clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
-        clsWeeklyOffInfo objWeeklyOffInfo = new clsWeeklyOffInfo();
-        clsAttendanceMas objAttendanceInfo = new clsAttendanceMas();
+        DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
+        DALStaffSync.clsWeeklyOffInfo objWeeklyOffInfo = new DALStaffSync.clsWeeklyOffInfo();
+        DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
         List<WklyOffProfileDetailsInfo> lstWeeklyOffDetailsInfo = new List<WklyOffProfileDetailsInfo>();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmBulkLeaveApproval()
         {
@@ -39,6 +41,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -427,6 +430,18 @@ namespace StaffSync
                 chkSelectUnselect.Text = "Select All";
                 chkSelectUnselect.Refresh();
             }
+        }
+
+        private void frmBulkLeaveApproval_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

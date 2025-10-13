@@ -266,14 +266,14 @@ namespace StaffSync
         }
     }
 
-    public class SexModel
-    {
-        public int SexID { get; set; }
-        public string SexCode { get; set; }
+    //public class SexModel
+    //{
+    //    public int SexID { get; set; }
+    //    public string SexCode { get; set; }
 
-        public string SexTitle { get; set; }
-        public string SexInitial { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+    //    public string SexTitle { get; set; }
+    //    public string SexInitial { get; set; }
+    //    public bool IsActive { get; set; }
+    //    public bool IsDeleted { get; set; }
+    //}
 }

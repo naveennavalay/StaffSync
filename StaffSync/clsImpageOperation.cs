@@ -18,8 +18,6 @@ namespace StaffSync
         myDBClass objDBClass = new myDBClass();
         OleDbConnection conn = null;
         DataSet dtDataset;
-        clsStates objState = new clsStates();
-        clsCountries objCountry = new clsCountries();
 
         public clsImpageOperation() { 
 

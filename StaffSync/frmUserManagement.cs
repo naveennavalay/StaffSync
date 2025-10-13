@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,11 +13,12 @@ namespace StaffSync
 {
     public partial class frmUserManagement : Form
     {
-        clsEmployeeMaster objEmployeeMaster = new clsEmployeeMaster();
-        clsUserManagement objUserManagementList = new clsUserManagement();
+        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
+        DALStaffSync.clsUserManagement objUserManagementList = new DALStaffSync.clsUserManagement();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
-        clsPhotoMas objPhotoMas = new clsPhotoMas();
-        clsLogin objLogin = new clsLogin();
+        DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
+        DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmUserManagement()
         {
@@ -32,6 +34,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -254,6 +257,18 @@ namespace StaffSync
                 picActiveInActive.Image = imgList.Images[2];
             else if (cmbActiveStatus.SelectedIndex == 1)
                 picActiveInActive.Image = imgList.Images[3];
+        }
+
+        private void frmUserManagement_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

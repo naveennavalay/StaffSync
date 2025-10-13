@@ -85,10 +85,11 @@
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(822, 10);
+            this.btnCloseMe.Location = new System.Drawing.Point(1096, 12);
+            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
+            this.btnCloseMe.Size = new System.Drawing.Size(168, 47);
             this.btnCloseMe.TabIndex = 20;
             this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
@@ -97,10 +98,11 @@
             // 
             // btnRemoveDetails
             // 
-            this.btnRemoveDetails.Location = new System.Drawing.Point(406, 10);
+            this.btnRemoveDetails.Location = new System.Drawing.Point(541, 12);
+            this.btnRemoveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveDetails.Name = "btnRemoveDetails";
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
+            this.btnRemoveDetails.Size = new System.Drawing.Size(168, 47);
             this.btnRemoveDetails.TabIndex = 19;
             this.btnRemoveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnRemoveDetails.Values.Image = global::StaffSync.Properties.Resources.delete;
@@ -109,10 +111,11 @@
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(274, 10);
+            this.btnSaveDetails.Location = new System.Drawing.Point(365, 12);
+            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
+            this.btnSaveDetails.Size = new System.Drawing.Size(168, 47);
             this.btnSaveDetails.TabIndex = 18;
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSaveDetails.Values.Image = global::StaffSync.Properties.Resources.save;
@@ -121,10 +124,11 @@
             // 
             // btnModifyDetails
             // 
-            this.btnModifyDetails.Location = new System.Drawing.Point(142, 10);
+            this.btnModifyDetails.Location = new System.Drawing.Point(189, 12);
+            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
+            this.btnModifyDetails.Size = new System.Drawing.Size(168, 47);
             this.btnModifyDetails.TabIndex = 17;
             this.btnModifyDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnModifyDetails.Values.Image = global::StaffSync.Properties.Resources.update;
@@ -133,10 +137,11 @@
             // 
             // btnGenerateDetails
             // 
-            this.btnGenerateDetails.Location = new System.Drawing.Point(10, 10);
+            this.btnGenerateDetails.Location = new System.Drawing.Point(13, 12);
+            this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerateDetails.Name = "btnGenerateDetails";
             this.btnGenerateDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnGenerateDetails.Size = new System.Drawing.Size(126, 38);
+            this.btnGenerateDetails.Size = new System.Drawing.Size(168, 47);
             this.btnGenerateDetails.TabIndex = 16;
             this.btnGenerateDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnGenerateDetails.Values.Image = global::StaffSync.Properties.Resources._new;
@@ -145,10 +150,11 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(538, 10);
+            this.btnCancel.Location = new System.Drawing.Point(717, 12);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCancel.Size = new System.Drawing.Size(126, 38);
+            this.btnCancel.Size = new System.Drawing.Size(168, 47);
             this.btnCancel.TabIndex = 15;
             this.btnCancel.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCancel.Values.Image = global::StaffSync.Properties.Resources.cancel;
@@ -166,16 +172,18 @@
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(982, 58);
+            this.panel2.Size = new System.Drawing.Size(1309, 72);
             this.panel2.TabIndex = 1;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(346, 23);
+            this.btnSearch.Location = new System.Drawing.Point(461, 28);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnSearch.Size = new System.Drawing.Size(29, 28);
+            this.btnSearch.Size = new System.Drawing.Size(39, 34);
             this.btnSearch.TabIndex = 14;
             this.btnSearch.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSearch.Values.Image = global::StaffSync.Properties.Resources.search;
@@ -187,8 +195,8 @@
             this.lblWeeklyOffID.AutoSize = true;
             this.lblWeeklyOffID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblWeeklyOffID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWeeklyOffID.Location = new System.Drawing.Point(582, 30);
-            this.lblWeeklyOffID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblWeeklyOffID.Location = new System.Drawing.Point(776, 37);
+            this.lblWeeklyOffID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblWeeklyOffID.Name = "lblWeeklyOffID";
             this.lblWeeklyOffID.Size = new System.Drawing.Size(11, 15);
             this.lblWeeklyOffID.TabIndex = 5;
@@ -199,8 +207,8 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(430, 30);
-            this.lblActionMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblActionMode.Location = new System.Drawing.Point(573, 37);
+            this.lblActionMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
             this.lblActionMode.TabIndex = 4;
@@ -209,13 +217,13 @@
             // 
             // txtWeeklyCode
             // 
-            this.txtWeeklyCode.Location = new System.Drawing.Point(173, 23);
-            this.txtWeeklyCode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtWeeklyCode.Location = new System.Drawing.Point(231, 28);
+            this.txtWeeklyCode.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtWeeklyCode.MaxLength = 255;
             this.txtWeeklyCode.Multiline = true;
             this.txtWeeklyCode.Name = "txtWeeklyCode";
             this.txtWeeklyCode.ReadOnly = true;
-            this.txtWeeklyCode.Size = new System.Drawing.Size(168, 28);
+            this.txtWeeklyCode.Size = new System.Drawing.Size(223, 34);
             this.txtWeeklyCode.TabIndex = 2;
             this.txtWeeklyCode.WordWrap = false;
             // 
@@ -223,8 +231,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(62, 29);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(83, 36);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(111, 15);
             this.label1.TabIndex = 3;
@@ -239,9 +247,11 @@
             this.groupBox4.Controls.Add(this.txtWeeklyCode);
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(10, 12);
+            this.groupBox4.Location = new System.Drawing.Point(13, 15);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(938, 65);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Size = new System.Drawing.Size(1251, 80);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Weekly Off Info";
@@ -249,11 +259,11 @@
             // txtEffectiveDate
             // 
             this.txtEffectiveDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.txtEffectiveDate.Location = new System.Drawing.Point(176, 64);
-            this.txtEffectiveDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtEffectiveDate.Location = new System.Drawing.Point(235, 79);
+            this.txtEffectiveDate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtEffectiveDate.Mask = "##-##-####";
             this.txtEffectiveDate.Name = "txtEffectiveDate";
-            this.txtEffectiveDate.Size = new System.Drawing.Size(164, 21);
+            this.txtEffectiveDate.Size = new System.Drawing.Size(217, 21);
             this.txtEffectiveDate.TabIndex = 35;
             this.txtEffectiveDate.Tag = "Please enter Employeee Date Of Birth";
             this.txtEffectiveDate.ValidatingType = typeof(System.DateTime);
@@ -262,7 +272,8 @@
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(75, 66);
+            this.label29.Location = new System.Drawing.Point(100, 81);
+            this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(98, 15);
             this.label29.TabIndex = 36;
@@ -272,18 +283,19 @@
             // cmbIsActive
             // 
             this.cmbIsActive.FormattingEnabled = true;
-            this.cmbIsActive.Location = new System.Drawing.Point(176, 96);
+            this.cmbIsActive.Location = new System.Drawing.Point(235, 118);
+            this.cmbIsActive.Margin = new System.Windows.Forms.Padding(4);
             this.cmbIsActive.MaxDropDownItems = 5;
             this.cmbIsActive.Name = "cmbIsActive";
-            this.cmbIsActive.Size = new System.Drawing.Size(423, 23);
+            this.cmbIsActive.Size = new System.Drawing.Size(563, 23);
             this.cmbIsActive.TabIndex = 34;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(114, 98);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label17.Location = new System.Drawing.Point(152, 121);
+            this.label17.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(59, 15);
             this.label17.TabIndex = 33;
@@ -292,12 +304,12 @@
             // 
             // txtWeeklyOffTitle
             // 
-            this.txtWeeklyOffTitle.Location = new System.Drawing.Point(176, 25);
-            this.txtWeeklyOffTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtWeeklyOffTitle.Location = new System.Drawing.Point(235, 31);
+            this.txtWeeklyOffTitle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtWeeklyOffTitle.MaxLength = 255;
             this.txtWeeklyOffTitle.Multiline = true;
             this.txtWeeklyOffTitle.Name = "txtWeeklyOffTitle";
-            this.txtWeeklyOffTitle.Size = new System.Drawing.Size(423, 28);
+            this.txtWeeklyOffTitle.Size = new System.Drawing.Size(563, 34);
             this.txtWeeklyOffTitle.TabIndex = 3;
             this.txtWeeklyOffTitle.WordWrap = false;
             // 
@@ -305,8 +317,8 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(67, 31);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Location = new System.Drawing.Point(89, 38);
+            this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(106, 15);
             this.label16.TabIndex = 7;
@@ -323,9 +335,11 @@
             this.groupBox5.Controls.Add(this.txtWeeklyOffTitle);
             this.groupBox5.Controls.Add(this.label16);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(10, 83);
+            this.groupBox5.Location = new System.Drawing.Point(13, 102);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(938, 170);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox5.Size = new System.Drawing.Size(1251, 209);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Weekly Off Details";
@@ -337,8 +351,9 @@
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(982, 267);
+            this.panel1.Size = new System.Drawing.Size(1309, 328);
             this.panel1.TabIndex = 1;
             // 
             // empMasInfoTableAdapter
@@ -349,6 +364,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -359,26 +375,31 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(982, 329);
-            this.splitContainer1.SplitterDistance = 267;
+            this.splitContainer1.Size = new System.Drawing.Size(1309, 405);
+            this.splitContainer1.SplitterDistance = 328;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 2;
             // 
             // frmWeeklyProfileMas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(982, 329);
+            this.ClientSize = new System.Drawing.Size(1309, 405);
             this.Controls.Add(this.splitContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmWeeklyProfileMas";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Weekly Off Master";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmWeeklyProfileMas_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmWeeklyProfileMas_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -506,43 +507,42 @@ namespace StaffSync
         }
     }
 
-    public class EmployeeInfo
-    {
-        public int EmpID { get; set; }
-        public string EmpCode { get; set; }
-        public string EmpName { get; set; }
-        public int EmpDesignationID { get; set; }
-        public string DesignationTitle { get; set; }
-        public int EmpRepManID { get; set; }
-        public int DepartmentID { get; set; }
-        public string DepartmentTitle { get; set; }
-        public int BloodGroupID { get; set; }
-        public string BloodGroupTitle { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+    //public class EmployeeInfo
+    //{
+    //    public int EmpID { get; set; }
+    //    public string EmpCode { get; set; }
+    //    public string EmpName { get; set; }
+    //    public int EmpDesignationID { get; set; }
+    //    public string DesignationTitle { get; set; }
+    //    public int EmpRepManID { get; set; }
+    //    public int DepartmentID { get; set; }
+    //    public string DepartmentTitle { get; set; }
+    //    public int BloodGroupID { get; set; }
+    //    public string BloodGroupTitle { get; set; }
+    //    public bool IsActive { get; set; }
+    //    public bool IsDeleted { get; set; }
+    //}
 
-    public class ReportingManagerInfo
-    {
-        public int EmpID { get; set; }
+    //public class ReportingManagerInfo
+    //{
+    //    public int EmpID { get; set; }
 
-        [DisplayName("Employee Code")]
-        public string EmpCode { get; set; }
+    //    [DisplayName("Employee Code")]
+    //    public string EmpCode { get; set; }
 
-        [DisplayName("Employee Name")]
-        public string EmpName { get; set; }
+    //    [DisplayName("Employee Name")]
+    //    public string EmpName { get; set; }
 
-        [DisplayName("Designation")]
-        public string DesignationTitle { get; set; }
+    //    [DisplayName("Designation")]
+    //    public string DesignationTitle { get; set; }
 
-        [DisplayName("Department")]
-        public string DepartmentTitle { get; set; }
+    //    [DisplayName("Department")]
+    //    public string DepartmentTitle { get; set; }
 
-        [DisplayName("Contact Number")]
-        public string ContactNumber1 { get; set; }
+    //    [DisplayName("Contact Number")]
+    //    public string ContactNumber1 { get; set; }
 
-        [DisplayName("Mail ID")]
-        public string ContactNumber2 { get; set; }
-    }
-
+    //    [DisplayName("Mail ID")]
+    //    public string ContactNumber2 { get; set; }
+    //}
 }

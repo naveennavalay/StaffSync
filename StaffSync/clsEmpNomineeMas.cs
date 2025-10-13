@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -175,12 +176,12 @@ namespace StaffSync
         } 
     }
 
-    public class NomineeInfo
-    {
-        public int NomineeID { get; set; }
-        public string NomineePerson { get; set; }
-        public int EmpID { get; set; }
-        public int RelationshipID { get; set; }
-        public string ContactNumber { get; set; }
-    }
+    //public class NomineeInfo
+    //{
+    //    public int NomineeID { get; set; }
+    //    public string NomineePerson { get; set; }
+    //    public int EmpID { get; set; }
+    //    public int RelationshipID { get; set; }
+    //    public string ContactNumber { get; set; }
+    //}
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -22,35 +23,36 @@ namespace StaffSync
 {
     public partial class frmUpdateCurrentUserInfo : Form
     {
-
-        clsLogin objLogin = new clsLogin();
-        clsEncryptDecrypt objEncryptDecrypt = new clsEncryptDecrypt();
-        clsEmployeeMaster objEmployeeMaster = new clsEmployeeMaster();
-        clsAddressInfo objAddressInfo = new clsAddressInfo();
-        clsEmpContactPersonMas objContactPerson = new clsEmpContactPersonMas();
-        clsEmployeePersonalInfo objEmployeePersonalInfo = new clsEmployeePersonalInfo();
-        clsEmpNomineeMas objNomineeInfo = new clsEmpNomineeMas();
-        clsEmpEduQualMas objEmpEduQualInfo = new clsEmpEduQualMas();
-        clsEmpSkillsMas objEmpSkillMas = new clsEmpSkillsMas();
-        clsBloodGroup objBloodGroup = new clsBloodGroup();
-        clsCountries objCountries = new clsCountries();
-        clsSkillsMas objSkills = new clsSkillsMas();
-        clsEduQalification objEduQualMas = new clsEduQalification();
-        clsDepartment objDepartment = new clsDepartment();
-        clsDesignation objDesignation = new clsDesignation();
-        clsRelationship objRelationship = new clsRelationship();
-        clsSexMas objSexMaster = new clsSexMas();
-        clsPhotoMas objPhotoMas = new clsPhotoMas();
-        clsUploadDocuments objUploadDocument = new clsUploadDocuments();
-        clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
+        DALStaffSync.clsEncryptDecrypt objEncryptDecrypt = new DALStaffSync.clsEncryptDecrypt();
+        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
+        DALStaffSync.clsAddressInfo objAddressInfo = new DALStaffSync.clsAddressInfo();
+        DALStaffSync.clsEmpContactPersonMas objContactPerson = new DALStaffSync.clsEmpContactPersonMas();
+        DALStaffSync.clsEmployeePersonalInfo objEmployeePersonalInfo = new DALStaffSync.clsEmployeePersonalInfo();
+        DALStaffSync.clsEmpNomineeMas objNomineeInfo = new DALStaffSync.clsEmpNomineeMas();
+        DALStaffSync.clsEmpEduQualMas objEmpEduQualInfo = new DALStaffSync.clsEmpEduQualMas();
+        DALStaffSync.clsEmpSkillsMas objEmpSkillMas = new DALStaffSync.clsEmpSkillsMas();
+        DALStaffSync.clsBloodGroup objBloodGroup = new DALStaffSync.clsBloodGroup();
+        DALStaffSync.clsCountries objCountries = new DALStaffSync.clsCountries();
+        DALStaffSync.clsSkillsMas objSkills = new DALStaffSync.clsSkillsMas();
+        DALStaffSync.clsEduQalification objEduQualMas = new DALStaffSync.clsEduQalification();
+        DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
+        DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
+        DALStaffSync.clsRelationship objRelationship = new DALStaffSync.clsRelationship();
+        DALStaffSync.clsSexMas objSexMaster = new DALStaffSync.clsSexMas();
+        DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
+        DALStaffSync.clsUploadDocuments objUploadDocument = new DALStaffSync.clsUploadDocuments();
+        DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
         //Download objDownload = new Download();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
-        clsUploadDocuments objUploadedDocuments = new clsUploadDocuments();
-        clsBankMas objBankInfo = new clsBankMas();
-        clsSalaryProfile objSalaryProfile = new clsSalaryProfile();
-        clsEmployeeSalaryProfileInfo objEmployeeSalaryProfileInfo = new clsEmployeeSalaryProfileInfo();
-        clsEmpWorkExperienceInfo objEmpWorkExperienceInfo = new clsEmpWorkExperienceInfo();
-        clsEmpPayroll objEmployeePayroll = new clsEmpPayroll();
+        DALStaffSync.clsUploadDocuments objUploadedDocuments = new DALStaffSync.clsUploadDocuments();
+        DALStaffSync.clsBankMas objBankInfo = new DALStaffSync.clsBankMas();
+        DALStaffSync.clsSalaryProfile objSalaryProfile = new DALStaffSync.clsSalaryProfile();
+        DALStaffSync.clsEmployeeSalaryProfileInfo objEmployeeSalaryProfileInfo = new DALStaffSync.clsEmployeeSalaryProfileInfo();
+        DALStaffSync.clsEmpWorkExperienceInfo objEmpWorkExperienceInfo = new DALStaffSync.clsEmpWorkExperienceInfo();
+        DALStaffSync.clsEmpPayroll objEmployeePayroll = new DALStaffSync.clsEmpPayroll();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmUpdateCurrentUserInfo()
         {
@@ -132,6 +134,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -247,7 +250,7 @@ namespace StaffSync
             enableControls();
             txtTotalLeaveAllotment.Enabled = true;
             txtBalanceLeaveAllotment.Enabled = true;
-            lblEmpID.Text = objCountries.getMaxRowCount("EMPMas", "EmpID").ToString();
+            lblEmpID.Text = objGenFunc.getMaxRowCount("EMPMas", "EmpID").Data.ToString();
             txtEmpCode.Text = "EMP-" + (lblEmpID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();            
 
@@ -1381,12 +1384,12 @@ namespace StaffSync
                 }
             }
 
-            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
 
             txtNetPayable.Text = Convert.ToDecimal((totalAallowences + totalReimbursement) - totalDeductions).ToString();
-            txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         private void picRefreshDocumentsList_Click(object sender, EventArgs e)
@@ -1487,12 +1490,12 @@ namespace StaffSync
                 }
             }
 
-            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
 
             txtNetPayable.Text = Convert.ToDecimal((totalAallowences + totalReimbursement) - totalDeductions).ToString();
-            txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         private void picPrevExperience_Click(object sender, EventArgs e)
@@ -1596,12 +1599,24 @@ namespace StaffSync
                 totalReimbursement = totalReimbursement + Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString());
             }
 
-            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
 
             txtNetPayable.Text = Convert.ToDecimal((totalAallowences + totalReimbursement) - totalDeductions).ToString();
-            txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtNetPayable.Text = Convert.ToDecimal(txtNetPayable.Text.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+        }
+
+        private void frmUpdateCurrentUserInfo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

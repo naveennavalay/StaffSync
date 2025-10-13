@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using ModelStaffSync;
+using Quartz;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,14 +18,14 @@ namespace StaffSync
     public partial class frmAttendanceMater : Form
     {
 
-        clsEmployeeMaster objEmployeeMaster = new clsEmployeeMaster();
-        clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
-        clsUserManagement objUserManagementList = new clsUserManagement();
+        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
+        DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
+        DALStaffSync.clsUserManagement objUserManagementList = new DALStaffSync.clsUserManagement();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
-        clsPhotoMas objPhotoMas = new clsPhotoMas();
-        clsLogin objLogin = new clsLogin();
-        clsAppModule objAppModule = new clsAppModule();
-        clsAttendanceMas objAttendanceMas = new clsAttendanceMas();
+        DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
+        DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
+        DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
+        DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
 
         public frmAttendanceMater()
         {
@@ -292,6 +293,18 @@ namespace StaffSync
 
             frmViewLeavesOutstanding frmViewLeavesOutstanding = new frmViewLeavesOutstanding(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToInt16(lblLeaveMasID.Text.ToString()));
             frmViewLeavesOutstanding.ShowDialog(this);
+        }
+
+        private void frmAttendanceMater_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

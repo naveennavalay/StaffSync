@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace StaffSync
 {
     public partial class frmEduQualList : Form
     {
-        clsEduQalification objEduQalification = new clsEduQalification();
+        DALStaffSync.clsEduQalification objEduQalification = new DALStaffSync.clsEduQalification();
 
         frmEduQualMaster frmEduQualMas = null;
         public frmEduQualList()

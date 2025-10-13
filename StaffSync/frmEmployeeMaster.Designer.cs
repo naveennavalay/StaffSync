@@ -123,6 +123,12 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtEmploymentEffectiveFrom = new System.Windows.Forms.MaskedTextBox();
+            this.label55 = new System.Windows.Forms.Label();
+            this.cmbEmploymentType = new Krypton.Toolkit.KryptonComboBox();
+            this.label56 = new System.Windows.Forms.Label();
+            this.txtShiftEffectiveFrom = new System.Windows.Forms.MaskedTextBox();
+            this.label54 = new System.Windows.Forms.Label();
             this.cmbShift = new Krypton.Toolkit.KryptonComboBox();
             this.label53 = new System.Windows.Forms.Label();
             this.cmbDesignation = new Krypton.Toolkit.KryptonComboBox();
@@ -234,8 +240,6 @@
             this.docUploadsTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.DocUploadsTableAdapter();
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
-            this.txtShiftEffectiveFrom = new System.Windows.Forms.MaskedTextBox();
-            this.label54 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -266,6 +270,7 @@
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbContactPersonRelationship)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbEmploymentType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDesignation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDepartment)).BeginInit();
@@ -1605,6 +1610,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtEmploymentEffectiveFrom);
+            this.groupBox1.Controls.Add(this.label55);
+            this.groupBox1.Controls.Add(this.cmbEmploymentType);
+            this.groupBox1.Controls.Add(this.label56);
             this.groupBox1.Controls.Add(this.txtShiftEffectiveFrom);
             this.groupBox1.Controls.Add(this.label54);
             this.groupBox1.Controls.Add(this.cmbShift);
@@ -1620,6 +1629,75 @@
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Professional Info";
+            // 
+            // txtEmploymentEffectiveFrom
+            // 
+            this.txtEmploymentEffectiveFrom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.txtEmploymentEffectiveFrom.Location = new System.Drawing.Point(1049, 28);
+            this.txtEmploymentEffectiveFrom.Mask = "##-##-####";
+            this.txtEmploymentEffectiveFrom.Name = "txtEmploymentEffectiveFrom";
+            this.txtEmploymentEffectiveFrom.Size = new System.Drawing.Size(92, 21);
+            this.txtEmploymentEffectiveFrom.TabIndex = 76;
+            this.txtEmploymentEffectiveFrom.Tag = "Please enter Employeee Date Of Birth";
+            this.txtEmploymentEffectiveFrom.ValidatingType = typeof(System.DateTime);
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label55.Location = new System.Drawing.Point(951, 31);
+            this.label55.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(98, 15);
+            this.label55.TabIndex = 77;
+            this.label55.Text = "Effective From";
+            this.label55.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbEmploymentType
+            // 
+            this.cmbEmploymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEmploymentType.DropDownWidth = 440;
+            this.cmbEmploymentType.Location = new System.Drawing.Point(733, 28);
+            this.cmbEmploymentType.Name = "cmbEmploymentType";
+            this.cmbEmploymentType.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbEmploymentType.Size = new System.Drawing.Size(201, 22);
+            this.cmbEmploymentType.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbEmploymentType.TabIndex = 75;
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label56.Location = new System.Drawing.Point(610, 31);
+            this.label56.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(120, 15);
+            this.label56.TabIndex = 74;
+            this.label56.Text = "Employment Type";
+            this.label56.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtShiftEffectiveFrom
+            // 
+            this.txtShiftEffectiveFrom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.txtShiftEffectiveFrom.Location = new System.Drawing.Point(1049, 58);
+            this.txtShiftEffectiveFrom.Mask = "##-##-####";
+            this.txtShiftEffectiveFrom.Name = "txtShiftEffectiveFrom";
+            this.txtShiftEffectiveFrom.Size = new System.Drawing.Size(92, 21);
+            this.txtShiftEffectiveFrom.TabIndex = 72;
+            this.txtShiftEffectiveFrom.Tag = "Please enter Employeee Date Of Birth";
+            this.txtShiftEffectiveFrom.ValidatingType = typeof(System.DateTime);
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label54.Location = new System.Drawing.Point(951, 61);
+            this.label54.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(98, 15);
+            this.label54.TabIndex = 73;
+            this.label54.Text = "Effective From";
+            this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cmbShift
             // 
@@ -1891,7 +1969,7 @@
             // DocName
             // 
             this.DocName.Text = "Document Name";
-            this.DocName.Width = 200;
+            this.DocName.Width = 500;
             // 
             // DocType
             // 
@@ -2866,47 +2944,27 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
-            // txtShiftEffectiveFrom
-            // 
-            this.txtShiftEffectiveFrom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.txtShiftEffectiveFrom.Location = new System.Drawing.Point(1049, 58);
-            this.txtShiftEffectiveFrom.Mask = "##-##-####";
-            this.txtShiftEffectiveFrom.Name = "txtShiftEffectiveFrom";
-            this.txtShiftEffectiveFrom.Size = new System.Drawing.Size(92, 21);
-            this.txtShiftEffectiveFrom.TabIndex = 72;
-            this.txtShiftEffectiveFrom.Tag = "Please enter Employeee Date Of Birth";
-            this.txtShiftEffectiveFrom.ValidatingType = typeof(System.DateTime);
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label54.Location = new System.Drawing.Point(951, 61);
-            this.label54.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(98, 15);
-            this.label54.TabIndex = 73;
-            this.label54.Text = "Effective From";
-            this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // frmEmployeeMaster
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(1276, 711);
+            this.ControlBox = false;
             this.Controls.Add(this.splitContainer1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmEmployeeMaster";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Employee Details";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmEmployeeMaster_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmEmployeeMaster_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -2947,6 +3005,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cmbContactPersonRelationship)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbEmploymentType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbShift)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDesignation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDepartment)).EndInit();
@@ -3216,5 +3275,9 @@
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.MaskedTextBox txtShiftEffectiveFrom;
         private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.MaskedTextBox txtEmploymentEffectiveFrom;
+        private System.Windows.Forms.Label label55;
+        private Krypton.Toolkit.KryptonComboBox cmbEmploymentType;
+        private System.Windows.Forms.Label label56;
     }
 }

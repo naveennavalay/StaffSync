@@ -13,6 +13,7 @@ using System.Data.OleDb;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ModelStaffSync;
 
 namespace StaffSync
 {
@@ -21,7 +22,9 @@ namespace StaffSync
         //clsCountries objCountries = new clsCountries();
         //clsDesignation objDesignation = new clsDesignation();
         //clsStates objState = new clsStates();
-        clsRelationship objRelationship = new clsRelationship();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsRelationship objRelationship = new DALStaffSync.clsRelationship();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmRelationshipMaster()
         {
@@ -37,6 +40,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -77,7 +81,7 @@ namespace StaffSync
             clearControls();
             enableControls();
             cmbIsActive.SelectedIndex = 1;
-            lblCountryID.Text = objRelationship.getMaxRowCount("RelationshipMas", "RelationshipID").ToString();
+            lblCountryID.Text = objGenFunc.getMaxRowCount("RelationshipMas", "RelationshipID").Data.ToString();
             txtRelationshipCode.Text = "STT-" + (lblCountryID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
         }
@@ -296,6 +300,18 @@ namespace StaffSync
                 lblActionMode.Text = "";
                 errValidator.Clear();
             }
+        }
+
+        private void frmRelationshipMaster_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

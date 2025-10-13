@@ -187,11 +187,11 @@ namespace StaffSync
         }
     }
 
-    public class SkillsInfo
-    {
-        public int EmpSkillID { get; set; }
-        public int EmpID { get; set; }
-        public int SkillID { get; set; }
-        public int SkillExpertiseLevel { get; set; }
-    }
+    //public class SkillsInfo
+    //{
+    //    public int EmpSkillID { get; set; }
+    //    public int EmpID { get; set; }
+    //    public int SkillID { get; set; }
+    //    public int SkillExpertiseLevel { get; set; }
+    //}
 }

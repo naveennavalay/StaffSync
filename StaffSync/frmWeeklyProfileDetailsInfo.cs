@@ -1,4 +1,5 @@
-﻿using StaffSync.StaffsyncDBDataSetTableAdapters;
+﻿using ModelStaffSync;
+using StaffSync.StaffsyncDBDataSetTableAdapters;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System;
 using System.Collections.Generic;
@@ -20,8 +21,10 @@ namespace StaffSync
 {
     public partial class frmWeeklyProfileDetailsInfo : Form
     {
-        clsWeeklyOffInfo objWeeklyOffInfo = new clsWeeklyOffInfo();
+        //DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsWeeklyOffInfo objWeeklyOffInfo = new DALStaffSync.clsWeeklyOffInfo();
         List<WklyOffProfileDetailsInfo> lstWeeklyOffDetailsInfo = new List<WklyOffProfileDetailsInfo>();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmWeeklyProfileDetailsInfo()
         {
@@ -37,6 +40,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -300,6 +304,18 @@ namespace StaffSync
 
         private void dtgSalaryProfileDetails_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
+        }
+
+        private void frmWeeklyProfileDetailsInfo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

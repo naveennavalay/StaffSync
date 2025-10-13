@@ -13,12 +13,16 @@ using System.Data.OleDb;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Org.BouncyCastle.Asn1.Ocsp;
+using ModelStaffSync;
 
 namespace StaffSync
 {
     public partial class frmWeeklyProfileMas : Form
     {
-        clsWeeklyOffInfo objWeeklyOffInfo = new clsWeeklyOffInfo();
+        DALStaffSync.clsWeeklyOffInfo objWeeklyOffInfo = new DALStaffSync.clsWeeklyOffInfo();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmWeeklyProfileMas()
         {
@@ -34,6 +38,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -73,7 +78,7 @@ namespace StaffSync
             clearControls();
             enableControls();
             lblActionMode.Text = "add";
-            lblWeeklyOffID.Text = objWeeklyOffInfo.getMaxRowCount("WklyOffProfileInfo", "WklyOffMasID").ToString();
+            lblWeeklyOffID.Text = objGenFunc.getMaxRowCount("WklyOffProfileInfo", "WklyOffMasID").Data.ToString();
             txtWeeklyCode.Text = "WOF-" + (lblWeeklyOffID.Text.Trim()).ToString().PadLeft(4, '0');
             cmbIsActive.SelectedIndex = 1;
             errValidator.Clear();
@@ -299,6 +304,18 @@ namespace StaffSync
                 lblActionMode.Text = "";
                 errValidator.Clear();
             }
+        }
+
+        private void frmWeeklyProfileMas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

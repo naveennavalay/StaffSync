@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.picViewLeaves = new Krypton.Toolkit.KryptonButton();
+            this.empAttCalender = new StaffSync.Calender();
             this.cmbMonthNameList = new Krypton.Toolkit.KryptonComboBox();
             this.label50 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -58,7 +59,6 @@
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.empAttCalender = new StaffSync.Calender();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -118,6 +118,50 @@
             this.picViewLeaves.Values.Image = global::StaffSync.Properties.Resources.search;
             this.picViewLeaves.Values.Text = "";
             this.picViewLeaves.Click += new System.EventHandler(this.picViewLeaves_Click);
+            // 
+            // empAttCalender
+            // 
+            this.empAttCalender.CustomTextColor = System.Drawing.Color.Black;
+            this.empAttCalender.CustomTextFontBold = true;
+            this.empAttCalender.CustomTextFontFamily = "Segoe UI";
+            this.empAttCalender.CustomTextFontItalic = false;
+            this.empAttCalender.CustomTextFontSize = 12F;
+            this.empAttCalender.DateFormat = "MMMM yyyy";
+            this.empAttCalender.DayHeaderBackColor = System.Drawing.SystemColors.ControlText;
+            this.empAttCalender.DayHeaderFontBold = true;
+            this.empAttCalender.DayHeaderFontItalic = false;
+            this.empAttCalender.DayHeaderFontSize = 12F;
+            this.empAttCalender.DayHeaderForeColor = System.Drawing.Color.LimeGreen;
+            this.empAttCalender.DayNameFormat = StaffSync.DayNameFormat.Short;
+            this.empAttCalender.DayNumberAlignment = StaffSync.DateAlignment.TopLeft;
+            this.empAttCalender.DayNumberColor = System.Drawing.Color.Black;
+            this.empAttCalender.DayNumberFontBold = true;
+            this.empAttCalender.DayNumberFontFamily = "Segoe UI";
+            this.empAttCalender.DayNumberFontItalic = false;
+            this.empAttCalender.DayNumberFontSize = 12F;
+            this.empAttCalender.DisplayMonth = new System.DateTime(2025, 8, 9, 0, 0, 0, 0);
+            this.empAttCalender.HeaderBackColor = System.Drawing.SystemColors.ControlText;
+            this.empAttCalender.HeaderFontBold = true;
+            this.empAttCalender.HeaderFontItalic = false;
+            this.empAttCalender.HeaderFontSize = 12F;
+            this.empAttCalender.HeaderForeColor = System.Drawing.Color.LimeGreen;
+            this.empAttCalender.LegendPosition = StaffSync.LegendAlignment.BottomRight;
+            this.empAttCalender.Location = new System.Drawing.Point(33, 227);
+            this.empAttCalender.Name = "empAttCalender";
+            this.empAttCalender.SaturdaySundayTogether = false;
+            this.empAttCalender.ShowGridLines = true;
+            this.empAttCalender.ShowHeader = true;
+            this.empAttCalender.ShowLegend = true;
+            this.empAttCalender.ShowToolTips = true;
+            this.empAttCalender.ShowWeekends = true;
+            this.empAttCalender.ShowWeeklyOff = true;
+            this.empAttCalender.Size = new System.Drawing.Size(1150, 325);
+            this.empAttCalender.TabIndex = 59;
+            this.empAttCalender.Text = "calender1";
+            this.empAttCalender.WeekendColor = System.Drawing.Color.LightGray;
+            this.empAttCalender.WeeklyOffColor = System.Drawing.Color.DarkGray;
+            this.empAttCalender.WeeklyOffDay = null;
+            this.empAttCalender.DetailedDayClicked += new System.EventHandler<StaffSync.DetailedDateClickedEventArgs>(this.empAttCalender_DetailedDayClicked);
             // 
             // cmbMonthNameList
             // 
@@ -453,58 +497,15 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
-            // empAttCalender
-            // 
-            this.empAttCalender.CustomTextColor = System.Drawing.Color.Black;
-            this.empAttCalender.CustomTextFontBold = true;
-            this.empAttCalender.CustomTextFontFamily = "Segoe UI";
-            this.empAttCalender.CustomTextFontItalic = false;
-            this.empAttCalender.CustomTextFontSize = 12F;
-            this.empAttCalender.DateFormat = "MMMM yyyy";
-            this.empAttCalender.DayHeaderBackColor = System.Drawing.SystemColors.ControlText;
-            this.empAttCalender.DayHeaderFontBold = true;
-            this.empAttCalender.DayHeaderFontItalic = false;
-            this.empAttCalender.DayHeaderFontSize = 12F;
-            this.empAttCalender.DayHeaderForeColor = System.Drawing.Color.LimeGreen;
-            this.empAttCalender.DayNameFormat = StaffSync.DayNameFormat.Short;
-            this.empAttCalender.DayNumberAlignment = StaffSync.DateAlignment.TopLeft;
-            this.empAttCalender.DayNumberColor = System.Drawing.Color.Black;
-            this.empAttCalender.DayNumberFontBold = true;
-            this.empAttCalender.DayNumberFontFamily = "Segoe UI";
-            this.empAttCalender.DayNumberFontItalic = false;
-            this.empAttCalender.DayNumberFontSize = 12F;
-            this.empAttCalender.DisplayMonth = new System.DateTime(2025, 8, 9, 0, 0, 0, 0);
-            this.empAttCalender.HeaderBackColor = System.Drawing.SystemColors.ControlText;
-            this.empAttCalender.HeaderFontBold = true;
-            this.empAttCalender.HeaderFontItalic = false;
-            this.empAttCalender.HeaderFontSize = 12F;
-            this.empAttCalender.HeaderForeColor = System.Drawing.Color.LimeGreen;
-            this.empAttCalender.LegendPosition = StaffSync.LegendAlignment.BottomRight;
-            this.empAttCalender.Location = new System.Drawing.Point(33, 227);
-            this.empAttCalender.Name = "empAttCalender";
-            this.empAttCalender.SaturdaySundayTogether = false;
-            this.empAttCalender.ShowGridLines = true;
-            this.empAttCalender.ShowHeader = true;
-            this.empAttCalender.ShowLegend = true;
-            this.empAttCalender.ShowToolTips = true;
-            this.empAttCalender.ShowWeekends = true;
-            this.empAttCalender.ShowWeeklyOff = true;
-            this.empAttCalender.Size = new System.Drawing.Size(1150, 325);
-            this.empAttCalender.TabIndex = 59;
-            this.empAttCalender.Text = "calender1";
-            this.empAttCalender.WeekendColor = System.Drawing.Color.LightGray;
-            this.empAttCalender.WeeklyOffColor = System.Drawing.Color.DarkGray;
-            this.empAttCalender.WeeklyOffDay = null;
-            this.empAttCalender.DetailedDayClicked += new System.EventHandler<StaffSync.DetailedDateClickedEventArgs>(this.empAttCalender_DetailedDayClicked);
-            // 
             // frmAttendanceMater
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.ClientSize = new System.Drawing.Size(1231, 615);
             this.Controls.Add(this.splitContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -512,7 +513,9 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Attendance Details";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmAttendanceMater_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmAttendanceMater_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

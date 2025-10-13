@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -72,7 +73,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO PersonalInfoMas (PersonalInfoID, EmpID, DOB, DOJ, EduQualID, PerAddressID, CurAddressID, ContactNumber1, ContactNumber2, ContactID1, ContactID2, SexID, LastCompanyInfoID) VALUES " +
-                 "(" + maxRowCount + "," + txtEmployeeID + ",'" + txtEmployeeDOB.ToString("dd-MM-yyyy") + "','" + txtEmployeeDOJ.ToString("dd-MM-yyyy") + "'," + txtEmployeeQualID + "," + txtPermanentAddressID + "," + txtCurrentAddressID + ",'" + ContactNumber1 + "','" + ContactNumber2 +"'," + txtContactID1 + "," + txtContactID2 + "," + txtEmployeeSexID + "," + txtEmployeeLastCompayID + ")";
+                 "(" + maxRowCount + "," + txtEmployeeID + ",'" + txtEmployeeDOB.ToString("dd-MMM-yyyy") + "','" + txtEmployeeDOJ.ToString("dd-MMM-yyyy") + "'," + txtEmployeeQualID + "," + txtPermanentAddressID + "," + txtCurrentAddressID + ",'" + ContactNumber1 + "','" + ContactNumber2 +"'," + txtContactID1 + "," + txtContactID2 + "," + txtEmployeeSexID + "," + txtEmployeeLastCompayID + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -103,7 +104,7 @@ namespace StaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE PersonalInfoMas SET " +
-                "DOB = '" + txtEmployeeDOB.ToString("dd-MM-yyyy") + "', DOJ = '" + txtEmployeeDOJ.ToString("dd-MM-yyyy") + "', EduQualID = " + txtEmployeeQualID + ", PerAddressID = " + txtPermanentAddressID + ", CurAddressID = " + txtCurrentAddressID + ", ContactNumber1 = '" + ContactNumber1 + "', ContactNumber2 = '" + ContactNumber2 + "', ContactID1 = " + txtContactID1 + ", ContactID2 = " + txtContactID2 + ", SexID = " + txtEmployeeSexID + ", LastCompanyInfoID = " + txtEmployeeLastCompayID + 
+                "DOB = '" + txtEmployeeDOB.ToString("dd-MMM-yyyy") + "', DOJ = '" + txtEmployeeDOJ.ToString("dd-MMM-yyyy") + "', EduQualID = " + txtEmployeeQualID + ", PerAddressID = " + txtPermanentAddressID + ", CurAddressID = " + txtCurrentAddressID + ", ContactNumber1 = '" + ContactNumber1 + "', ContactNumber2 = '" + ContactNumber2 + "', ContactID1 = " + txtContactID1 + ", ContactID2 = " + txtContactID2 + ", SexID = " + txtEmployeeSexID + ", LastCompanyInfoID = " + txtEmployeeLastCompayID + 
                 " WHERE EmpID = " + txtEmployeeID;
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -177,20 +178,20 @@ namespace StaffSync
         }
     }
 
-    public class EmpPersonalPersonalInfo
-    {
-        public int PersonalInfoID { get; set; }
-        public int EmpID { get; set; }
-        public DateTime DOB { get; set; }
-        public DateTime DOJ { get; set; }
-        public int EduQualID { get; set; }
-        public int PerAddressID { get; set; }
-        public int CurAddressID { get; set; }
-        public string ContactNumber1 { get; set; }
-        public string ContactNumber2 { get; set; }
-        public int ContactID1 { get; set; }
-        public int ContactID2 { get; set; }
-        public int SexID { get; set; }
-        public int LastCompanyInfoID { get; set; }
-    }
+    //public class EmpPersonalPersonalInfo
+    //{
+    //    public int PersonalInfoID { get; set; }
+    //    public int EmpID { get; set; }
+    //    public DateTime DOB { get; set; }
+    //    public DateTime DOJ { get; set; }
+    //    public int EduQualID { get; set; }
+    //    public int PerAddressID { get; set; }
+    //    public int CurAddressID { get; set; }
+    //    public string ContactNumber1 { get; set; }
+    //    public string ContactNumber2 { get; set; }
+    //    public int ContactID1 { get; set; }
+    //    public int ContactID2 { get; set; }
+    //    public int SexID { get; set; }
+    //    public int LastCompanyInfoID { get; set; }
+    //}
 }

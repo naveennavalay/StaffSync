@@ -85,6 +85,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -95,8 +96,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1096, 478);
-            this.splitContainer1.SplitterDistance = 414;
+            this.splitContainer1.Size = new System.Drawing.Size(1461, 588);
+            this.splitContainer1.SplitterDistance = 508;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -105,17 +107,20 @@
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1096, 414);
+            this.panel1.Size = new System.Drawing.Size(1461, 508);
             this.panel1.TabIndex = 1;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dtgBulkLeaveList);
             this.groupBox1.Controls.Add(this.lblActionMode);
-            this.groupBox1.Location = new System.Drawing.Point(12, 3);
+            this.groupBox1.Location = new System.Drawing.Point(16, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1072, 406);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(1429, 500);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             // 
@@ -137,9 +142,10 @@
             this.LeaveDuration,
             this.ActualLeaveDateFrom,
             this.ActualLeaveDateTo});
-            this.dtgBulkLeaveList.Location = new System.Drawing.Point(10, 43);
+            this.dtgBulkLeaveList.Location = new System.Drawing.Point(13, 53);
+            this.dtgBulkLeaveList.Margin = new System.Windows.Forms.Padding(4);
             this.dtgBulkLeaveList.Name = "dtgBulkLeaveList";
-            this.dtgBulkLeaveList.Size = new System.Drawing.Size(1053, 357);
+            this.dtgBulkLeaveList.Size = new System.Drawing.Size(1404, 439);
             this.dtgBulkLeaveList.TabIndex = 33;
             // 
             // SelectEmp
@@ -225,8 +231,8 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(466, 6);
-            this.lblActionMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblActionMode.Location = new System.Drawing.Point(621, 7);
+            this.lblActionMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
             this.lblActionMode.TabIndex = 32;
@@ -242,16 +248,18 @@
             this.panel2.Controls.Add(this.btnModifyDetails);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1096, 60);
+            this.panel2.Size = new System.Drawing.Size(1461, 75);
             this.panel2.TabIndex = 1;
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(294, 12);
+            this.btnCancel.Location = new System.Drawing.Point(392, 15);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCancel.Size = new System.Drawing.Size(126, 38);
+            this.btnCancel.Size = new System.Drawing.Size(168, 47);
             this.btnCancel.TabIndex = 30;
             this.btnCancel.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCancel.Values.Image = global::StaffSync.Properties.Resources.cancel;
@@ -260,10 +268,11 @@
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(949, 12);
+            this.btnCloseMe.Location = new System.Drawing.Point(1265, 15);
+            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
+            this.btnCloseMe.Size = new System.Drawing.Size(168, 47);
             this.btnCloseMe.TabIndex = 33;
             this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
@@ -272,10 +281,11 @@
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(158, 12);
+            this.btnSaveDetails.Location = new System.Drawing.Point(211, 15);
+            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
+            this.btnSaveDetails.Size = new System.Drawing.Size(168, 47);
             this.btnSaveDetails.TabIndex = 32;
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSaveDetails.Values.Image = global::StaffSync.Properties.Resources.save;
@@ -284,10 +294,11 @@
             // 
             // btnModifyDetails
             // 
-            this.btnModifyDetails.Location = new System.Drawing.Point(22, 12);
+            this.btnModifyDetails.Location = new System.Drawing.Point(29, 15);
+            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
+            this.btnModifyDetails.Size = new System.Drawing.Size(168, 47);
             this.btnModifyDetails.TabIndex = 31;
             this.btnModifyDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnModifyDetails.Values.Image = global::StaffSync.Properties.Resources.update;
@@ -351,20 +362,24 @@
             // 
             // frmEmpBulkLeaveApproval
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1096, 478);
+            this.ClientSize = new System.Drawing.Size(1461, 588);
             this.Controls.Add(this.splitContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmEmpBulkLeaveApproval";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bulk Leave Approval";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmEmpBulkLeaveApproval_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmEmpBulkLeaveApproval_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

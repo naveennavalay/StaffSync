@@ -1,4 +1,8 @@
-﻿using System;
+﻿using ModelStaffSync;
+using Quartz;
+using Quartz.Impl;
+using StaffSyncJobs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -9,17 +13,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Quartz.Logging.OperationName;
 
 namespace StaffSync
 {
     public partial class frmLogin : Form
     {
+        private IScheduler _scheduler;
+
         //AppMail mail = new AppMail();
-        clsCurrentUserInfo objCurrentUserInfo = new clsCurrentUserInfo();
-        clsClientInfo objClientInfo = new clsClientInfo();
-        clsLogin objLogin = new clsLogin();
-        clsEncryptDecrypt objEncryptDecrypt = new clsEncryptDecrypt();
-        clsFinYearMas objFinYearMas = new clsFinYearMas();
+        DALStaffSync.clsCurrentUserInfo objCurrentUserInfo = new DALStaffSync.clsCurrentUserInfo();
+        DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
+        DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
+        DALStaffSync.clsEncryptDecrypt objEncryptDecrypt = new DALStaffSync.clsEncryptDecrypt();
+        DALStaffSync.clsFinYearMas objFinYearMas = new DALStaffSync.clsFinYearMas();
+
         int LoginCounter = 0;
 
         public frmLogin()
@@ -35,9 +43,34 @@ namespace StaffSync
             cmbCurrentFinYear.ValueMember = "FinYearID";
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private async void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            // Define the job and associate it with MyJob class
+            IJobDetail job = JobBuilder.Create<StaffSyncLeaveJobs>()
+                .WithIdentity("myJob", "group1")
+                .UsingJobData("EmpID", "1")
+                .UsingJobData("LeaveTypeID", "1")
+                .UsingJobData("LeaveActionType", "Approved")
+                .UsingJobData("LeaveDateFrom", "21-Sep-2025")
+                .UsingJobData("LeaveDateTo", "21-Sep-2025")
+                .UsingJobData("LeaveDuration", "1")
+                .UsingJobData("LeaveDurationType", "FullDay")
+
+                //.UsingJobData("message", "Hello from Quartz.NET!")
+                //.UsingJobData("value", 3.141f)
+                .Build();
+
+            // Trigger it to run immediately
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("myTrigger", "group1")
+                .StartNow()
+                .Build();
+
+            await _scheduler.ScheduleJob(job, trigger);
+
+            //MessageBox.Show("Job scheduled! Check console output.");
+
+            //this.Close();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -46,6 +79,7 @@ namespace StaffSync
 
             if(@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
+                this.Hide();
                 frmDashboard objDashboard = new frmDashboard();
                 objDashboard.Show();
             }
@@ -68,7 +102,7 @@ namespace StaffSync
 
                         DirectoryInfo directory = Directory.CreateDirectory(AppVariables.TempFolderPath);
 
-                        objCurrentUserInfo = new clsCurrentUserInfo(loginUserInfo.EmpID);
+                        objCurrentUserInfo = new DALStaffSync.clsCurrentUserInfo(loginUserInfo.EmpID);
 
                         objLogin.getLoggedInUserInfo(loginUserInfo.EmpID);
                         frmDashboard objDashboard = new frmDashboard();
@@ -113,5 +147,20 @@ namespace StaffSync
             return AuthValidation;
         }
 
+        private async void frmLogin_Load(object sender, EventArgs e)
+        {
+            // Start the scheduler when form loads
+            _scheduler = await new StdSchedulerFactory().GetScheduler();
+            await _scheduler.Start();
+        }
+
+        private async void frmLogin_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Stop scheduler gracefully
+            if (_scheduler != null)
+            {
+                await _scheduler.Shutdown();
+            }
+        }
     }
 }

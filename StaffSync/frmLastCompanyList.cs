@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace StaffSync
 {
     public partial class frmLastCompanyList : Form
     {
-        clsLastCompanyMas objLastCompany = new clsLastCompanyMas();
+        DALStaffSync.clsLastCompanyMas objLastCompany = new DALStaffSync.clsLastCompanyMas();
 
         frmLastCompanyMaster frmLastCompanyMas = null;
         public frmLastCompanyList()
@@ -33,7 +34,8 @@ namespace StaffSync
 
         private void frmLastCompanyList_Load(object sender, EventArgs e)
         {
-            dtgDepartmentList.DataSource = objLastCompany.GetLastCompDetMasList();
+            //dtgDepartmentList.DataSource = objLastCompany.GetLastCompDetMasList();
+            FormatTheGrid();
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -45,14 +47,15 @@ namespace StaffSync
         {
             try
             {
-                if(string.IsNullOrEmpty(txtSearch.Text))
-                {
-                    dtgDepartmentList.DataSource = objLastCompany.GetLastCompDetMasList();
-                }
-                else
-                {
-                    dtgDepartmentList.DataSource = objLastCompany.GetLastCompDetMasList(txtSearch.Text.ToString().Trim());
-                }
+                //if(string.IsNullOrEmpty(txtSearch.Text))
+                //{
+                //    dtgDepartmentList.DataSource = objLastCompany.GetLastCompDetMasList();
+                //}
+                //else
+                //{
+                //    dtgDepartmentList.DataSource = objLastCompany.GetLastCompDetMasList(txtSearch.Text.ToString().Trim());
+                //}
+                FormatTheGrid();
             }
             catch (Exception ex)
             {
@@ -89,6 +92,26 @@ namespace StaffSync
                 this.frmLastCompanyMas.displaySelectedValuesOnUI(objLastCompnayModel);
                 this.Close();
             }
+        }
+
+        private void FormatTheGrid()
+        {
+            dtgDepartmentList.DataSource = null;
+            if (string.IsNullOrEmpty(txtSearch.Text))
+            {
+                dtgDepartmentList.DataSource = objLastCompany.GetLastCompDetMasList();
+            }
+            else
+            {
+                dtgDepartmentList.DataSource = objLastCompany.GetLastCompDetMasList(txtSearch.Text.ToString().Trim());
+            }
+            dtgDepartmentList.Columns["LastCompanyInfoID"].Visible = false;
+            dtgDepartmentList.Columns["LastCompanyCode"].Width = 150;
+            dtgDepartmentList.Columns["LastCompanyTitle"].Width = 300;
+            dtgDepartmentList.Columns["Address"].Width = 500;
+            dtgDepartmentList.Columns["Industry"].Visible = false; 
+            dtgDepartmentList.Columns["IsActive"].Visible = false;
+            dtgDepartmentList.Columns["IsDeleted"].Visible = false;
         }
     }
 }

@@ -13,12 +13,14 @@ using System.Data.OleDb;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ModelStaffSync;
 
 namespace StaffSync
 {
     public partial class frmLastCompanyMaster : Form
     {
-        clsLastCompanyMas objLastCompanyMas = new clsLastCompanyMas();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsLastCompanyMas objLastCompanyMas = new DALStaffSync.clsLastCompanyMas();
 
         public frmLastCompanyMaster()
         {
@@ -74,7 +76,7 @@ namespace StaffSync
             clearControls();
             enableControls();
             cmbIsActive.SelectedIndex = 1;
-            lblCountryID.Text = objLastCompanyMas.getMaxRowCount("LastCompDetMas", "LastCompanyInfoID").ToString();
+            lblCountryID.Text = objGenFunc.getMaxRowCount("LastCompDetMas", "LastCompanyInfoID").Data.ToString();
             txtCompanyCode.Text = "COM-" + (lblCountryID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
         }
@@ -293,6 +295,18 @@ namespace StaffSync
                 lblActionMode.Text = "";
                 errValidator.Clear();
             }
+        }
+
+        private void frmLastCompanyMaster_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

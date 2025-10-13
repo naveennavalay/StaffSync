@@ -264,14 +264,14 @@ namespace StaffSync
         }
     }
 
-    public class DepartmentModel
-    {
-        public int DepartmentID { get; set; }
-        public string DepCode { get; set; }
+    //public class DepartmentModel
+    //{
+    //    public int DepartmentID { get; set; }
+    //    public string DepCode { get; set; }
 
-        public string DepartmentTitle { get; set; }
-        public string DepartmentInitial { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+    //    public string DepartmentTitle { get; set; }
+    //    public string DepartmentInitial { get; set; }
+    //    public bool IsActive { get; set; }
+    //    public bool IsDeleted { get; set; }
+    //}
 }

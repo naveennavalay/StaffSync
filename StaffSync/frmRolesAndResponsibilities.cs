@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,13 +14,14 @@ namespace StaffSync
 {
     public partial class frmRolesAndResponsibilities : Form
     {
-        clsEmployeeMaster objEmployeeMaster = new clsEmployeeMaster();
-        clsUserManagement objUserManagementList = new clsUserManagement();
+        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
+        DALStaffSync.clsUserManagement objUserManagementList = new DALStaffSync.clsUserManagement();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
-        clsPhotoMas objPhotoMas = new clsPhotoMas();
-        clsLogin objLogin = new clsLogin();
-        clsAppModule objAppModule = new clsAppModule();
-        clsRolesAndResponsibilities objRolesAndResponsibilities = new clsRolesAndResponsibilities();
+        DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
+        DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
+        DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
+        DALStaffSync.clsRolesAndResponsibilities objRolesAndResponsibilities = new DALStaffSync.clsRolesAndResponsibilities();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmRolesAndResponsibilities()
         {
@@ -35,6 +37,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -236,6 +239,18 @@ namespace StaffSync
             dtgRolesAndResponsibilties.Columns[2].ReadOnly = true;
             dtgRolesAndResponsibilties.Columns[3].Width = 100;
             dtgRolesAndResponsibilties.Columns[4].Visible = false;
+        }
+
+        private void frmRolesAndResponsibilities_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

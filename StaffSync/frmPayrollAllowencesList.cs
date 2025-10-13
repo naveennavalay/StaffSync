@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,7 @@ namespace StaffSync
 {
     public partial class frmPayrollAllowencesList : Form
     {
-        clsDepartment objDepartment = new clsDepartment();
-        clsAllowenceInfo objAllowenceInfo = new clsAllowenceInfo();
+        DALStaffSync.clsAllowenceInfo objAllowenceInfo = new DALStaffSync.clsAllowenceInfo();
         frmPayrollAllowences frmPayrollAllowence = null;
 
         public frmPayrollAllowencesList()

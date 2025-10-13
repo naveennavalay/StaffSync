@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{79A01532-92D7-431F-AEE6-FCC9CF4050D7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ModelStaffSync</RootNamespace>
+    <AssemblyName>ModelStaffSync</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\Newtonsoft.Json.13.0.3\lib\net35\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EmpEduQualInfo.cs" />
+    <Compile Include="WklyOffProfileDetailsInfo.cs" />
+    <Compile Include="WklyOffProfileMasInfo.cs" />
+    <Compile Include="EmployeeWklyOffInfo.cs" />
+    <Compile Include="UserRolesAndResponsibilities.cs" />
+    <Compile Include="UserManagementList.cs" />
+    <Compile Include="EmployeeDocumentInfo.cs" />
+    <Compile Include="ShiftInfo.cs" />
+    <Compile Include="EmpShiftInfo.cs" />
+    <Compile Include="SexModel.cs" />
+    <Compile Include="SalaryProfileInfo.cs" />
+    <Compile Include="SalaryProfileTitleList.cs" />
+    <Compile Include="SpecificEmployeeSalaryProfileInfo.cs" />
+    <Compile Include="RelationshipModel.cs" />
+    <Compile Include="ReimbursementModel.cs" />
+    <Compile Include="PhotoInfo.cs" />
+    <Compile Include="EmployeeLeaveTRList.cs" />
+    <Compile Include="OutstandingLeaveStatement.cs" />
+    <Compile Include="PendingLeaveApprovalList.cs" />
+    <Compile Include="EmployeeSpecificLeaveInfo.cs" />
+    <Compile Include="EmployeeOOOList.cs" />
+    <Compile Include="BulkPendingLeaveApproval.cs" />
+    <Compile Include="LastCompnayMasterModel.cs" />
+    <Compile Include="FinYearMas.cs" />
+    <Compile Include="EmpWorkExpInfo.cs" />
+    <Compile Include="SkillsInfo.cs" />
+    <Compile Include="EmployeePayslipMasterDetails.cs" />
+    <Compile Include="EmployeePaySlipList.cs" />
+    <Compile Include="EmployeePayslipDetails.cs" />
+    <Compile Include="NomineeInfo.cs" />
+    <Compile Include="EmploymentTypeInfo.cs" />
+    <Compile Include="EmpTypeInfo.cs" />
+    <Compile Include="EmployeeSalaryProfileInfo.cs" />
+    <Compile Include="LeaveTypeInfoModel.cs" />
+    <Compile Include="LeaveEntitlementInfo.cs" />
+    <Compile Include="EmpPersonalPersonalInfo.cs" />
+    <Compile Include="EmpEduQualModel.cs" />
+    <Compile Include="ContactInfo.cs" />
+    <Compile Include="DeductionModel.cs" />
+    <Compile Include="TaxSchemeModel.cs" />
+    <Compile Include="EmpTaxSchemeModel.cs" />
+    <Compile Include="EduQualTitleModel.cs" />
+    <Compile Include="RolesAndResponsibilitiesInfo.cs" />
+    <Compile Include="RolesProfile.cs" />
+    <Compile Include="UserRoles.cs" />
+    <Compile Include="LoggedInUser.cs" />
+    <Compile Include="DesignationModel.cs" />
+    <Compile Include="ReportingManagerInfo.cs" />
+    <Compile Include="EmployeeInfo.cs" />
+    <Compile Include="DepartmentModel.cs" />
+    <Compile Include="ClientInfo.cs" />
+    <Compile Include="BloodGroupsModel.cs" />
+    <Compile Include="BirthdayList.cs" />
+    <Compile Include="BankDetailsInfo.cs" />
+    <Compile Include="clsCurrentUser.cs" />
+    <Compile Include="EmployeeAttendanceInfo.cs" />
+    <Compile Include="AllowenceModel.cs" />
+    <Compile Include="UserAppModuleInfo.cs" />
+    <Compile Include="CountriesModel.cs" />
+    <Compile Include="AppModuleInfo.cs" />
+    <Compile Include="StateModel.cs" />
+    <Compile Include="AddressInfo.cs" />
+    <Compile Include="CurrentUser.cs" />
+    <Compile Include="UserInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,4 +1,5 @@
 ﻿//using C1.Framework;
+using ModelStaffSync;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System;
@@ -598,60 +599,60 @@ namespace StaffSync
         }
     }
 
-    public class SpecificEmployeeSalaryProfileInfo
-    {
-        public int EmpID { get; set; }
-        public int EmpSalProfileID { get; set; }
-        public int SalProfileID { get; set; }
-    }
+    //public class SpecificEmployeeSalaryProfileInfo
+    //{
+    //    public int EmpID { get; set; }
+    //    public int EmpSalProfileID { get; set; }
+    //    public int SalProfileID { get; set; }
+    //}
 
-    public class SalaryProfileTitleList
-    {
-        public int SalProfileID { get; set; }
+    //public class SalaryProfileTitleList
+    //{
+    //    public int SalProfileID { get; set; }
 
-        [DisplayName("Salary Profile Code")]
-        public string SalProfileCode { get; set; }
+    //    [DisplayName("Salary Profile Code")]
+    //    public string SalProfileCode { get; set; }
 
-        [DisplayName("Salary Profile Title")] 
-        public string SalProfileTitle { get; set; }
+    //    [DisplayName("Salary Profile Title")] 
+    //    public string SalProfileTitle { get; set; }
         
-        [DisplayName("Salary Profile Description")] 
-        public string SalProfileDescription { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-        public bool IsDefault { get; set; }
-        public int OrderID { get; set; }
+    //    [DisplayName("Salary Profile Description")] 
+    //    public string SalProfileDescription { get; set; }
+    //    public bool IsActive { get; set; }
+    //    public bool IsDeleted { get; set; }
+    //    public bool IsDefault { get; set; }
+    //    public int OrderID { get; set; }
 
-        public bool IsAutomaticCalculation { get; set; }
-    }
+    //    public bool IsAutomaticCalculation { get; set; }
+    //}
 
-    public class SalaryProfileInfo
-    {
-        public int EmpSalDetID { get; set; }
-        public int SalProDetID { get; set; }
-        public int SalProfileID { get; set; }
-        public int HeaderID { get; set; }
+    //public class SalaryProfileInfo
+    //{
+    //    public int EmpSalDetID { get; set; }
+    //    public int SalProDetID { get; set; }
+    //    public int SalProfileID { get; set; }
+    //    public int HeaderID { get; set; }
 
-        [DisplayName("Salary Header")]
-        public string HeaderTitle { get; set; }
+    //    [DisplayName("Salary Header")]
+    //    public string HeaderTitle { get; set; }
 
-        [DisplayName("Type")]
-        public string HeaderType { get; set; }
+    //    [DisplayName("Type")]
+    //    public string HeaderType { get; set; }
 
-        [DisplayName("Calc. Formula")] 
-        public string CalcFormula { get; set; }
-        public bool IsFixed { get; set; }
+    //    [DisplayName("Calc. Formula")] 
+    //    public string CalcFormula { get; set; }
+    //    public bool IsFixed { get; set; }
 
-        [DisplayName("Allowance Amount")]
-        public decimal AllowanceAmount { get; set; }
+    //    [DisplayName("Allowance Amount")]
+    //    public decimal AllowanceAmount { get; set; }
 
-        [DisplayName("Deduction Amount")]
-        public decimal DeductionAmount { get; set; }
+    //    [DisplayName("Deduction Amount")]
+    //    public decimal DeductionAmount { get; set; }
 
-        [DisplayName("Reimbursment Amount")]
-        public decimal ReimbursmentAmount { get; set; }
+    //    [DisplayName("Reimbursment Amount")]
+    //    public decimal ReimbursmentAmount { get; set; }
 
-        public decimal SalProAmount { get; set; }
-        public int OrderID { get; set; }
-    }
+    //    public decimal SalProAmount { get; set; }
+    //    public int OrderID { get; set; }
+    //}
 }

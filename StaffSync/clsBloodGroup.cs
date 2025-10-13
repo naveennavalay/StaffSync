@@ -265,14 +265,14 @@ namespace StaffSync
         }
     }
 
-    public class BloodGroupsModel
-    {
-        public int BloodGroupID { get; set; }
-        public string BloodGroupCode { get; set; }
+    //public class BloodGroupsModel
+    //{
+    //    public int BloodGroupID { get; set; }
+    //    public string BloodGroupCode { get; set; }
 
-        public string BloodGroupTitle { get; set; }
-        public string BloodGroupInitial { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+    //    public string BloodGroupTitle { get; set; }
+    //    public string BloodGroupInitial { get; set; }
+    //    public bool IsActive { get; set; }
+    //    public bool IsDeleted { get; set; }
+    //}
 }

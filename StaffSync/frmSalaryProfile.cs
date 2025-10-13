@@ -13,6 +13,7 @@ using System.Data.OleDb;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ModelStaffSync;
 
 namespace StaffSync
 {
@@ -22,10 +23,12 @@ namespace StaffSync
         //OleDbConnection conn = null;
         //DataSet dtDataset;
 
-        clsAllowenceInfo objAllowenceInfo = new clsAllowenceInfo();
-        clsDeductionsInfo objDeductionsInfo = new clsDeductionsInfo();
-        clsReimbursement objReimbursement = new clsReimbursement();
-        clsSalaryProfile objSalaryProfile = new clsSalaryProfile();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsAllowenceInfo objAllowenceInfo = new DALStaffSync.clsAllowenceInfo();
+        DALStaffSync.clsDeductionsInfo objDeductionsInfo = new DALStaffSync.clsDeductionsInfo();
+        DALStaffSync.clsReimbursement objReimbursement = new DALStaffSync.clsReimbursement();
+        DALStaffSync.clsSalaryProfile objSalaryProfile = new DALStaffSync.clsSalaryProfile();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmSalaryProfile()
         {
@@ -41,6 +44,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -81,7 +85,7 @@ namespace StaffSync
             clearControls();
             enableControls();
             cmbIsActive.SelectedIndex = 1;
-            lblSalaryProfileID.Text = objSalaryProfile.getMaxRowCount("SalProfileMas", "SalProfileID").ToString();
+            lblSalaryProfileID.Text = objGenFunc.getMaxRowCount("SalProfileMas", "SalProfileID").Data.ToString();
             txtSalProfCode.Text = "SPF-" + (lblSalaryProfileID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
         }
@@ -317,6 +321,18 @@ namespace StaffSync
                 lblActionMode.Text = "";
                 errValidator.Clear();
             }
+        }
+
+        private void frmSalaryProfile_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

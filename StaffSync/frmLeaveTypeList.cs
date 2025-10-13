@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +14,7 @@ namespace StaffSync
     public partial class frmLeaveTypeList : Form
     {
         //clsRelationship clsRelationship = new clsRelationship();
-        clsLeaveTypeMas clsLeaveTypeMas = new clsLeaveTypeMas();
+        DALStaffSync.clsLeaveTypeMas clsLeaveTypeMas = new DALStaffSync.clsLeaveTypeMas();
         frmLeaveTypeMaster frmLeaveTypeMaster = null;
         frmEmpLeaveEntitlement frmEmpLeaveEntitlement = null;
 

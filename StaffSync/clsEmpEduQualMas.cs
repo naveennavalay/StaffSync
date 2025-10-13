@@ -183,11 +183,11 @@ namespace StaffSync
         }
     }
 
-    public class EmpEduQualInfo
-    {
-        public int EmpEduQualID { get; set; }
-        public int EmpID { get; set; }
-        public int EduQualID { get; set; }
-        public int EduQualExpertiseLevel { get; set; }
-    }
+    //public class EmpEduQualInfo
+    //{
+    //    public int EmpEduQualID { get; set; }
+    //    public int EmpID { get; set; }
+    //    public int EduQualID { get; set; }
+    //    public int EduQualExpertiseLevel { get; set; }
+    //}
 }

@@ -13,6 +13,7 @@ using System.Data.OleDb;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ModelStaffSync;
 
 namespace StaffSync
 {
@@ -22,7 +23,9 @@ namespace StaffSync
         //OleDbConnection conn = null;
         //DataSet dtDataset;
 
-        clsDepartment objDepartment = new clsDepartment();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmDepartmentMaster()
         {
@@ -38,6 +41,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -78,7 +82,7 @@ namespace StaffSync
             clearControls();
             enableControls();
             cmbIsActive.SelectedIndex = 1;
-            lblDepartmentID.Text = objDepartment.getMaxRowCount("DepMas", "DepartmentID").ToString();
+            lblDepartmentID.Text = objGenFunc.getMaxRowCount("DepMas", "DepartmentID").Data.ToString();
             txtDepCode.Text = "DEP-" + (lblDepartmentID.Text.Trim()).ToString().PadLeft(3, '0');
             errValidator.Clear();
         }
@@ -297,6 +301,18 @@ namespace StaffSync
                 lblActionMode.Text = "";
                 errValidator.Clear();
             }
+        }
+
+        private void frmDepartmentMaster_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

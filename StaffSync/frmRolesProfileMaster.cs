@@ -13,13 +13,13 @@ namespace StaffSync
 {
     public partial class frmRolesProfileMaster : Form
     {
-        clsEmployeeMaster objEmployeeMaster = new clsEmployeeMaster();
-        clsUserManagement objUserManagementList = new clsUserManagement();
+        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
+        DALStaffSync.clsUserManagement objUserManagementList = new DALStaffSync.clsUserManagement();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
-        clsPhotoMas objPhotoMas = new clsPhotoMas();
-        clsLogin objLogin = new clsLogin();
-        clsRolesAndResponsibilities objRolesAndResponsibilities = new clsRolesAndResponsibilities();
-        clsAppModule objAppModule = new clsAppModule();
+        DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
+        DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
+        DALStaffSync.clsRolesAndResponsibilities objRolesAndResponsibilities = new DALStaffSync.clsRolesAndResponsibilities();
+        DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
 
         public frmRolesProfileMaster()
         {
@@ -165,6 +165,18 @@ namespace StaffSync
             dtgRoleProfileManagement.Columns[5].ReadOnly = true;
             dtgRoleProfileManagement.Columns[6].Width = 100;
             dtgRoleProfileManagement.Columns[6].ReadOnly = true;
+        }
+
+        private void frmRolesProfileMaster_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

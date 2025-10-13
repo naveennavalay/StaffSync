@@ -1,4 +1,5 @@
 ﻿//using C1.Framework;
+using ModelStaffSync;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -371,25 +372,25 @@ namespace StaffSync
         }
     }
 
-    public class EmpWorkExpInfo
-    {
-        public int? LastCompID { get; set; }
-        public int? EmpID { get; set; }
-        public int? LastCompanyInfoID { get; set; }
+    //public class EmpWorkExpInfo
+    //{
+    //    public int? LastCompID { get; set; }
+    //    public int? EmpID { get; set; }
+    //    public int? LastCompanyInfoID { get; set; }
 
-        [DisplayName("Company Name")]
-        public string LastCompanyTitle { get; set; }
+    //    [DisplayName("Company Name")]
+    //    public string LastCompanyTitle { get; set; }
         
-        [DisplayName("Company Address")] 
-        public string Address { get; set; }
+    //    [DisplayName("Company Address")] 
+    //    public string Address { get; set; }
         
-        [DisplayName("Start Date")] 
-        public DateTime? StartDate { get; set; }
+    //    [DisplayName("Start Date")] 
+    //    public DateTime? StartDate { get; set; }
 
-        [DisplayName("End Date")] 
-        public DateTime? EndDate { get; set; }
+    //    [DisplayName("End Date")] 
+    //    public DateTime? EndDate { get; set; }
 
-        [DisplayName("More Details")] 
-        public string Comments { get; set; }
-    }
+    //    [DisplayName("More Details")] 
+    //    public string Comments { get; set; }
+    //}
 }

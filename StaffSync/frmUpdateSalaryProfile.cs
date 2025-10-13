@@ -1,5 +1,7 @@
 ﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Office.Y2022.FeaturePropertyBag;
+using DocumentFormat.OpenXml.Wordprocessing;
+using ModelStaffSync;
 using StaffSync.StaffsyncDBDataSetTableAdapters;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System;
@@ -25,12 +27,13 @@ namespace StaffSync
         //OleDbConnection conn = null;
         //DataSet dtDataset;
 
-        clsAllowenceInfo objAllowenceInfo = new clsAllowenceInfo();
-        clsDeductionsInfo objDeductionsInfo = new clsDeductionsInfo();
-        clsReimbursement objReimbursement = new clsReimbursement();
-        clsSalaryProfile objSalaryProfile = new clsSalaryProfile();
-        clsEmployeeSalaryProfileInfo objEmployeeSalaryProfileInfo = new clsEmployeeSalaryProfileInfo();
-        clsEmpPayroll objEmployeePayroll = new clsEmpPayroll();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsAllowenceInfo objAllowenceInfo = new DALStaffSync.clsAllowenceInfo();
+        DALStaffSync.clsDeductionsInfo objDeductionsInfo = new DALStaffSync.clsDeductionsInfo();
+        DALStaffSync.clsReimbursement objReimbursement = new DALStaffSync.clsReimbursement();
+        DALStaffSync.clsSalaryProfile objSalaryProfile = new DALStaffSync.clsSalaryProfile();
+        DALStaffSync.clsEmployeeSalaryProfileInfo objEmployeeSalaryProfileInfo = new DALStaffSync.clsEmployeeSalaryProfileInfo();
+        DALStaffSync.clsEmpPayroll objEmployeePayroll = new DALStaffSync.clsEmpPayroll();
 
         public frmUpdateSalaryProfile()
         {
@@ -54,10 +57,11 @@ namespace StaffSync
             //// TODO: This line of code loads data into the 'staffsyncDBDTSet.EmpMasInfo' table. You can move, or remove it, as needed.
             //this.empMasInfoTableAdapter.Fill(this.staffsyncDBDTSet.EmpMasInfo);
             dtgSalaryProfileDetails.DataSource = objSalaryProfile.GetDefaultSalaryProfileInfo(1);
-            FormatTheGrid();
             onCancelButtonClick();
             disableControls();
             clearControls();
+            chkAutomaticCalculate.Checked = true;
+            FormatTheGrid();
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -87,7 +91,7 @@ namespace StaffSync
             onGenerateButtonClick();
             clearControls();
             enableControls();
-            lblSalaryProfileID.Text = objSalaryProfile.getMaxRowCount("SalProfileMas", "SalProfileID").ToString();
+            lblSalaryProfileID.Text = objGenFunc.getMaxRowCount("SalProfileMas", "SalProfileID").Data.ToString();
             txtSalProfCode.Text = "SPF-" + (lblSalaryProfileID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
         }
@@ -371,6 +375,8 @@ namespace StaffSync
                 dc.Cells["HeaderID"].ReadOnly = true;
                 dc.Cells["HeaderTitle"].ReadOnly = true;
                 dc.Cells["HeaderType"].ReadOnly = true;
+                if(dc.Cells["CalcFormula"].Value != null )
+                    dc.Cells["HeaderTitle"].ToolTipText = dc.Cells["CalcFormula"].Value.ToString();
                 if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "allowences")
                 {
                     dc.Cells["AllowanceAmount"].ReadOnly = false;
@@ -390,10 +396,10 @@ namespace StaffSync
                     dc.Cells["ReimbursmentAmount"].ReadOnly = false;
                 }
             }
-            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtNetSalary.Text = (totalAallowences + totalReimbursement - totalDeductions).ToString("00.00", CultureInfo.InvariantCulture);
+            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtNetSalary.Text = (totalAallowences + totalReimbursement - totalDeductions).ToString("0.00", CultureInfo.InvariantCulture);
 
             //if(lblActionMode.Text == "")
             //{
@@ -530,9 +536,9 @@ namespace StaffSync
                 }
             }
 
-            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
+            txtAallowences.Text = Convert.ToDecimal(totalAallowences.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtDeductions.Text = Convert.ToDecimal(totalDeductions.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtReimbursement.Text = Convert.ToDecimal(totalReimbursement.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         private void dtgSalaryProfileDetails_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
@@ -575,6 +581,18 @@ namespace StaffSync
             {
                 AutomaticCalculate();
             }
+        }
+
+        private void frmUpdateSalaryProfile_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

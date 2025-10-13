@@ -266,14 +266,14 @@ namespace StaffSync
         }
     }
 
-    public class DesignationModel
-    {
-        public int DesignationID { get; set; }
-        public string DesignationCode { get; set; }
+    //public class DesignationModel
+    //{
+    //    public int DesignationID { get; set; }
+    //    public string DesignationCode { get; set; }
 
-        public string DesignationTitle { get; set; }
-        public string DesignationInitial { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+    //    public string DesignationTitle { get; set; }
+    //    public string DesignationInitial { get; set; }
+    //    public bool IsActive { get; set; }
+    //    public bool IsDeleted { get; set; }
+    //}
 }

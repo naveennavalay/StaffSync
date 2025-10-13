@@ -13,13 +13,16 @@ using System.Data.OleDb;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ModelStaffSync;
 
 namespace StaffSync
 {
     public partial class frmDesignationMaster : Form
     {
-        //clsCountries objCountries = new clsCountries();
-        clsDesignation objDesignation = new clsDesignation();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
+
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmDesignationMaster()
         {
@@ -35,6 +38,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -75,7 +79,7 @@ namespace StaffSync
             clearControls();
             enableControls();
             cmbIsActive.SelectedIndex = 1;
-            lblCountryID.Text = objDesignation.getMaxRowCount("DesigMas", "DesignationID").ToString();
+            lblCountryID.Text = objGenFunc.getMaxRowCount("DesigMas", "DesignationID").Data.ToString();
             txtDesigCode.Text = "DSG-" + (lblCountryID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
         }
@@ -294,6 +298,18 @@ namespace StaffSync
                 lblActionMode.Text = "";
                 errValidator.Clear();
             }
+        }
+
+        private void frmDesignationMaster_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

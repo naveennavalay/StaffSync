@@ -65,6 +65,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -75,8 +76,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(998, 470);
-            this.splitContainer1.SplitterDistance = 408;
+            this.splitContainer1.Size = new System.Drawing.Size(1331, 578);
+            this.splitContainer1.SplitterDistance = 501;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -87,8 +89,9 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(998, 408);
+            this.panel1.Size = new System.Drawing.Size(1331, 501);
             this.panel1.TabIndex = 1;
             // 
             // dtgAllowancesList
@@ -100,21 +103,22 @@
             this.dtgAllowancesList.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dtgAllowancesList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgAllowancesList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dtgAllowancesList.Location = new System.Drawing.Point(18, 78);
+            this.dtgAllowancesList.Location = new System.Drawing.Point(24, 96);
+            this.dtgAllowancesList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtgAllowancesList.Name = "dtgAllowancesList";
             this.dtgAllowancesList.ReadOnly = true;
             this.dtgAllowancesList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgAllowancesList.Size = new System.Drawing.Size(962, 317);
+            this.dtgAllowancesList.Size = new System.Drawing.Size(1283, 390);
             this.dtgAllowancesList.TabIndex = 7;
             this.dtgAllowancesList.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(197, 24);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtSearch.Location = new System.Drawing.Point(263, 30);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(615, 28);
+            this.txtSearch.Size = new System.Drawing.Size(819, 34);
             this.txtSearch.TabIndex = 4;
             this.txtSearch.WordWrap = false;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
@@ -123,8 +127,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(23, 31);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(31, 38);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(171, 15);
             this.label1.TabIndex = 5;
@@ -136,13 +140,15 @@
             this.panel2.Controls.Add(this.btnCloseMe);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(998, 58);
+            this.panel2.Size = new System.Drawing.Size(1331, 72);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(854, 8);
+            this.btnCloseMe.Location = new System.Drawing.Point(1139, 10);
+            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -196,13 +202,13 @@
             // 
             // frmPayrollAllowencesList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(998, 470);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(1331, 578);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmPayrollAllowencesList";

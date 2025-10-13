@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,7 @@ namespace StaffSync
 {
     public partial class frmPayrollDeductionsList : Form
     {
-        clsDepartment objDepartment = new clsDepartment();
-        clsDeductionsInfo objDeductionsInfo = new clsDeductionsInfo();
+        DALStaffSync.clsDeductionsInfo objDeductionsInfo = new DALStaffSync.clsDeductionsInfo();
         frmPayrollDeductions frmPayrollDeduction = null;
 
         public frmPayrollDeductionsList()

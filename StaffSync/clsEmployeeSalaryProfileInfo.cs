@@ -1,4 +1,5 @@
 ﻿//using C1.Framework;
+using ModelStaffSync;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System;
@@ -219,14 +220,14 @@ namespace StaffSync
                 conn = objDBClass.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE EmpSalProfileInfo SET SalProfileEffectiveDate = date(), IsActive = false, IsDefault = false where EmpID = " + txtEmpID + " AND IsActive = true and IsDefault = true";
+                string strQuery = "UPDATE EmpSalProfileInfo SET SalProfileEffectiveDate = '" + EffectiveDate.ToString("dd-MMM-yyyy") + "', IsActive = false, IsDefault = false where EmpID = " + txtEmpID + " AND IsActive = true and IsDefault = true";
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
                 affectedRows = cmd.ExecuteNonQuery();
 
                 strQuery = "INSERT INTO EmpSalProfileInfo (EmpSalProID, EmpID, SalProfileID, SalProfileEffectiveDate, IsActive, IsDeleted, IsDefault) VALUES " +
-                 "(" + maxRowCount + "," + txtEmpID + "," +SalaryProfileID + ",'" + DateTime.Now + "', true, false, true)";
+                 "(" + maxRowCount + "," + txtEmpID + "," +SalaryProfileID + ",'" + DateTime.Now.ToString("dd-MMM-yyyy") + "', true, false, true)";
 
                 cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -248,16 +249,16 @@ namespace StaffSync
         }
     }
 
-    public class EmployeeSalaryProfileInfo
-    {
-        public int SalProDetID { get; set; }
-        public int SalProfileID { get; set; }
-        public int HeaderID { get; set; }
+    //public class EmployeeSalaryProfileInfo
+    //{
+    //    public int SalProDetID { get; set; }
+    //    public int SalProfileID { get; set; }
+    //    public int HeaderID { get; set; }
 
-        [DisplayName("Salary Header")]
-        public string HeaderTitle { get; set; }
+    //    [DisplayName("Salary Header")]
+    //    public string HeaderTitle { get; set; }
 
-        [DisplayName("Type")] 
-        public string SalHeaderType { get; set; }
-    }
+    //    [DisplayName("Type")] 
+    //    public string SalHeaderType { get; set; }
+    //}
 }

@@ -13,6 +13,7 @@ using System.Data.OleDb;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ModelStaffSync;
 
 namespace StaffSync
 {
@@ -21,8 +22,10 @@ namespace StaffSync
         //myDBClass objDBClass = new myDBClass();
         //OleDbConnection conn = null;
         //DataSet dtDataset;
-
-        clsAllowenceInfo objAllowence = new clsAllowenceInfo();
+        
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsAllowenceInfo objAllowence = new DALStaffSync.clsAllowenceInfo();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmPayrollAllowences()
         {
@@ -38,6 +41,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -79,7 +83,7 @@ namespace StaffSync
             enableControls();
             cmbIsFixed.SelectedIndex = 1;
             cmbIsActive.SelectedIndex = 1;
-            lblAllowenceID.Text = objAllowence.getMaxRowCount("AllowanceHeaderMas", "AllID").ToString();
+            lblAllowenceID.Text = objGenFunc.getMaxRowCount("AllowanceHeaderMas", "AllID").Data.ToString();
             txtAllCode.Text = "ALL-" + (lblAllowenceID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
         }
@@ -327,6 +331,18 @@ namespace StaffSync
                 lblActionMode.Text = "";
                 errValidator.Clear();
             }
+        }
+
+        private void frmPayrollAllowences_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

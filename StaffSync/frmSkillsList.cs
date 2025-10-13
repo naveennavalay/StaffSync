@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace StaffSync
 {
     public partial class frmSkillsList : Form
     {
-        clsSkillsMas clsSkills = new clsSkillsMas();
+        DALStaffSync.clsSkillsMas clsSkills = new DALStaffSync.clsSkillsMas();
         frmSkillsMaster frmSkillsMas = null;
 
         public frmSkillsList()

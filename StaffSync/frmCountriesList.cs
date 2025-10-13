@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace StaffSync
 {
     public partial class frmCountriesList : Form
     {
-        clsCountries objCountries = new clsCountries();
+        DALStaffSync.clsCountries objCountries = new DALStaffSync.clsCountries();
 
         frmCountryMaster frmCountryMas = null;
         public frmCountriesList()

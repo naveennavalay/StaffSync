@@ -1,5 +1,7 @@
-﻿using Quartz;
+﻿using ModelStaffSync;
+using Quartz;
 using Quartz.Impl;
+using StaffSyncJobs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,28 +22,53 @@ namespace StaffSync
     public partial class frmDashboard : Form
     {
         private IScheduler scheduler;
+        private IScheduler _scheduler;
 
         public int AppModuleID = 0;
-        clsCurrentUserInfo objCurrentUserInfo = new clsCurrentUserInfo();
-        clsBirthdayList objBirthdayList = new clsBirthdayList();
+        DALStaffSync.clsCurrentUserInfo objCurrentUserInfo = new DALStaffSync.clsCurrentUserInfo();
+        DALStaffSync.clsBirthdayList objBirthdayList = new DALStaffSync.clsBirthdayList();
         //Download objDownload = new Download();
-        clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
-        clsLeaveTRList objLeaveInfo = new clsLeaveTRList();
-        clsClientInfo objClientInfo = new clsClientInfo();
+        DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
+        DALStaffSync.clsLeaveTRList objLeaveInfo = new DALStaffSync.clsLeaveTRList();
+        DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
 
         private async void InitializeScheduler()
         {
-            scheduler = await new StdSchedulerFactory().GetScheduler();
-            await scheduler.Start();
+            //scheduler = await new StdSchedulerFactory().GetScheduler();
+            //await scheduler.Start();
 
-            IJobDetail jobDailyAttendance = JobBuilder.Create<DailyAttendanceJob>().WithIdentity("DailyAttendanceJob", "grpDailyAttendanceJob").Build();
-            ITrigger trgDailyAttendance = TriggerBuilder.Create().WithIdentity("trgDailyAttendanceJob", "grpDailyAttendanceJob").WithSimpleSchedule(x => x .WithIntervalInMinutes(1).RepeatForever().WithMisfireHandlingInstructionNextWithExistingCount()).Build();
-            await scheduler.ScheduleJob(jobDailyAttendance, trgDailyAttendance);
+            //IJobDetail jobDailyAttendance = JobBuilder.Create<DailyAttendanceJob>().WithIdentity("DailyAttendanceJob", "grpDailyAttendanceJob").Build();
+            //ITrigger trgDailyAttendance = TriggerBuilder.Create().WithIdentity("trgDailyAttendanceJob", "grpDailyAttendanceJob").WithSimpleSchedule(x => x .WithIntervalInMinutes(1).RepeatForever().WithMisfireHandlingInstructionNextWithExistingCount()).Build();
+            //await scheduler.ScheduleJob(jobDailyAttendance, trgDailyAttendance);
 
 
-            IJobDetail jobLeaveApproval = JobBuilder.Create<DailyLeavesJob>().WithIdentity("DailyLeavesJob", "grpDailyLeavesJob").Build();
-            ITrigger trgLeaveApproval = TriggerBuilder.Create().WithIdentity("trgDailyLeavesJob", "grpDailyLeavesJob").WithSimpleSchedule(x => x.WithIntervalInMinutes(1).RepeatForever().WithMisfireHandlingInstructionNextWithExistingCount()).Build();
-            await scheduler.ScheduleJob(jobLeaveApproval, trgLeaveApproval);
+            //IJobDetail jobLeaveApproval = JobBuilder.Create<DailyLeavesJob>().WithIdentity("DailyLeavesJob", "grpDailyLeavesJob").Build();
+            //ITrigger trgLeaveApproval = TriggerBuilder.Create().WithIdentity("trgDailyLeavesJob", "grpDailyLeavesJob").WithSimpleSchedule(x => x.WithIntervalInMinutes(1).RepeatForever().WithMisfireHandlingInstructionNextWithExistingCount()).Build();
+            //await scheduler.ScheduleJob(jobLeaveApproval, trgLeaveApproval);
+
+
+            //// Define the job and associate it with MyJob class
+            //IJobDetail job = JobBuilder.Create<StaffSyncLeaveJobs>()
+            //    .WithIdentity("myJob", "group1")
+            //    .UsingJobData("EmpID", "1")
+            //    .UsingJobData("LeaveTypeID", "1")
+            //    .UsingJobData("LeaveActionType", "Approved")
+            //    .UsingJobData("LeaveDateFrom", "21-Sep-2025")
+            //    .UsingJobData("LeaveDateTo", "21-Sep-2025")
+            //    .UsingJobData("LeaveDuration", "1")
+            //    .UsingJobData("LeaveDurationType", "FullDay")
+
+            //    //.UsingJobData("message", "Hello from Quartz.NET!")
+            //    //.UsingJobData("value", 3.141f)
+            //    .Build();
+
+            //// Trigger it to run immediately
+            //ITrigger trigger = TriggerBuilder.Create()
+            //    .WithIdentity("myTrigger", "group1")
+            //    .StartNow()
+            //    .Build();
+
+            //await _scheduler.ScheduleJob(job, trigger);
         }
 
         public frmDashboard()
@@ -62,8 +89,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
-                frmEmployeeMasterDetails.ShowDialog();
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Employee Details";
+                    frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
+                    frmEmployeeMasterDetails.MdiParent = this;
+                    frmEmployeeMasterDetails.Dock = DockStyle.Fill;
+                    frmEmployeeMasterDetails.Show();
+                    frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -77,8 +111,15 @@ namespace StaffSync
                     }
                 }
 
-                frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
-                frmEmployeeMasterDetails.ShowDialog();
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Employee Details";
+                    frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
+                    frmEmployeeMasterDetails.MdiParent = this;
+                    frmEmployeeMasterDetails.Dock = DockStyle.Fill;
+                    frmEmployeeMasterDetails.Show();
+                    frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -88,8 +129,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater();
-                frmAttendanceMaterDetails.ShowDialog();
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Attendance Master Details";
+                    frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater();
+                    frmAttendanceMaterDetails.MdiParent = this;
+                    frmAttendanceMaterDetails.Dock = DockStyle.Fill;
+                    frmAttendanceMaterDetails.Show();
+                    frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -103,8 +151,15 @@ namespace StaffSync
                     }
                 }
 
-                frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater();
-                frmAttendanceMaterDetails.ShowDialog();
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Attendance Master Details";
+                    frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater();
+                    frmAttendanceMaterDetails.MdiParent = this;
+                    frmAttendanceMaterDetails.Dock = DockStyle.Fill;
+                    frmAttendanceMaterDetails.Show();
+                    frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -129,7 +184,7 @@ namespace StaffSync
                 }
 
                 //frmPayrollMaster frmPayrollMasterDetails = new frmPayrollMaster();
-                //frmPayrollMasterDetails.ShowDialog();
+                //frmPayrollMasterDetails.Show();
             }
         }
 
@@ -139,8 +194,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
-                frmLeavesMasterDetails.ShowDialog();
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Leave Master Details";
+                    frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
+                    frmLeavesMasterDetails.MdiParent = this;
+                    frmLeavesMasterDetails.Dock = DockStyle.Fill;
+                    frmLeavesMasterDetails.Show();
+                    frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -154,81 +216,173 @@ namespace StaffSync
                     }
                 }
 
-                frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
-                frmLeavesMasterDetails.ShowDialog();
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Leave Master Details";
+                    frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
+                    frmLeavesMasterDetails.MdiParent = this;
+                    frmLeavesMasterDetails.Dock = DockStyle.Fill;
+                    frmLeavesMasterDetails.Show();
+                    frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
         private void employeeWiseReportsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmEmployeeWiseReports frmEmployeeWiseReportsDetails = new frmEmployeeWiseReports();
-            frmEmployeeWiseReportsDetails.ShowDialog();
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Employee Wise Reports";
+                frmEmployeeWiseReports frmEmployeeWiseReportsDetails = new frmEmployeeWiseReports();
+                frmEmployeeWiseReportsDetails.MdiParent = this;
+                frmEmployeeWiseReportsDetails.Dock = DockStyle.Fill;
+                frmEmployeeWiseReportsDetails.Show();
+                frmEmployeeWiseReportsDetails.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void employeeAttendanceReportsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmEmployeeAttendanceReports frmEmployeeAttendanceReportsDetails = new frmEmployeeAttendanceReports();
-            frmEmployeeAttendanceReportsDetails.ShowDialog();
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Employee Attendance Reports";
+                frmEmployeeAttendanceReports frmEmployeeAttendanceReportsDetails = new frmEmployeeAttendanceReports();
+                frmEmployeeAttendanceReportsDetails.MdiParent = this;
+                frmEmployeeAttendanceReportsDetails.Dock = DockStyle.Fill;
+                frmEmployeeAttendanceReportsDetails.Show();
+                frmEmployeeAttendanceReportsDetails.WindowState = FormWindowState.Maximized;
+
+            }
         }
 
         private void employeePayrollReportsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmEmployeePayrollReports frmEmployeePayrollReportsDetails = new frmEmployeePayrollReports();
-            frmEmployeePayrollReportsDetails.ShowDialog();
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Employee Payroll Reports";
+                frmEmployeePayrollReports frmEmployeePayrollReportsDetails = new frmEmployeePayrollReports();
+                frmEmployeePayrollReportsDetails.MdiParent = this;
+                frmEmployeePayrollReportsDetails.Dock = DockStyle.Fill;
+                frmEmployeePayrollReportsDetails.Show();
+                frmEmployeePayrollReportsDetails.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void employeeLeavesReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmEmployeeLeavesReports frmEmployeeLeavesReportsDetails = new frmEmployeeLeavesReports();
-            frmEmployeeLeavesReportsDetails.ShowDialog();
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Employee Leave Reports";
+                frmEmployeeLeavesReports frmEmployeeLeavesReportsDetails = new frmEmployeeLeavesReports();
+                frmEmployeeLeavesReportsDetails.MdiParent = this;
+                frmEmployeeLeavesReportsDetails.Dock = DockStyle.Fill;
+                frmEmployeeLeavesReportsDetails.Show();
+                frmEmployeeLeavesReportsDetails.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAbout frmAboutDetails = new frmAbout();
-            frmAboutDetails.ShowDialog();
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "StaffSync - About";
+                frmAbout frmAboutDetails = new frmAbout();
+                frmAboutDetails.MdiParent = this;
+                frmAboutDetails.Dock = DockStyle.Fill;
+                frmAboutDetails.Show();
+                frmAboutDetails.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void departmentListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
-            frmDepartmentMaster.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Department Master Details";
+                frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
+                frmDepartmentMaster.MdiParent = this;
+                frmDepartmentMaster.Dock = DockStyle.Fill;
+                frmDepartmentMaster.Show();
+                frmDepartmentMaster.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void countriesListToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            frmCountryMaster frmCountryMaster = new frmCountryMaster();
-            frmCountryMaster.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Country Master Details";
+                frmCountryMaster frmCountryMaster = new frmCountryMaster();
+                frmCountryMaster.MdiParent = this;
+                frmCountryMaster.Dock = DockStyle.Fill;
+                frmCountryMaster.Show();
+                frmCountryMaster.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void designationListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
-            frmDesignationMaster.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Designation Master Details";
+                frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
+                frmDesignationMaster.MdiParent = this;
+                frmDesignationMaster.Dock = DockStyle.Fill;
+                frmDesignationMaster.Show();
+                frmDesignationMaster.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void countriesListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmStateMaster frmStateMaster = new frmStateMaster();
-            frmStateMaster.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "State Master Details";
+                frmStateMaster frmStateMaster = new frmStateMaster();
+                frmStateMaster.MdiParent = this;
+                frmStateMaster.Dock = DockStyle.Fill;
+                frmStateMaster.Show();
+                frmStateMaster.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void relationshipListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
-            frmRelationshipMaster.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Relationship Master Details";
+                frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
+                frmRelationshipMaster.MdiParent = this;
+                frmRelationshipMaster.Dock = DockStyle.Fill;
+                frmRelationshipMaster.Show();
+                frmRelationshipMaster.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void companyDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
-            frmLastCompanyMaster.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Last Company Master Details";
+                frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
+                frmLastCompanyMaster.MdiParent = this;
+                frmLastCompanyMaster.Dock = DockStyle.Fill;
+                frmLastCompanyMaster.Show();
+                frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void educationListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
-            frmEduQualMaster.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Qualification Master Details";
+                frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                frmEduQualMaster.MdiParent = this;
+                frmEduQualMaster.Dock = DockStyle.Fill;
+                frmEduQualMaster.Show();
+                frmEduQualMaster.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void departmentListToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -237,8 +391,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
-                frmDepartmentMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Department Master Details";
+                    frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
+                    frmDepartmentMaster.MdiParent = this;
+                    frmDepartmentMaster.Dock = DockStyle.Fill;
+                    frmDepartmentMaster.Show();
+                    frmDepartmentMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -252,8 +413,15 @@ namespace StaffSync
                     }
                 }
 
-                frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
-                frmDepartmentMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Department Master Details";
+                    frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
+                    frmDepartmentMaster.MdiParent = this;
+                    frmDepartmentMaster.Dock = DockStyle.Fill;
+                    frmDepartmentMaster.Show();
+                    frmDepartmentMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -268,8 +436,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
-                frmDesignationMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Designation Master Details";
+                    frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
+                    frmDesignationMaster.MdiParent = this;
+                    frmDesignationMaster.Dock = DockStyle.Fill;
+                    frmDesignationMaster.Show();
+                    frmDesignationMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -283,8 +458,15 @@ namespace StaffSync
                     }
                 }
 
-                frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
-                frmDesignationMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Designation Master Details";
+                    frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
+                    frmDesignationMaster.MdiParent = this;
+                    frmDesignationMaster.Dock = DockStyle.Fill;
+                    frmDesignationMaster.Show();
+                    frmDesignationMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -294,8 +476,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
-                frmEduQualMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Qualification Master Details";
+                    frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                    frmEduQualMaster.MdiParent = this;
+                    frmEduQualMaster.Dock = DockStyle.Fill;
+                    frmEduQualMaster.Show();
+                    frmEduQualMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -309,8 +498,15 @@ namespace StaffSync
                     }
                 }
 
-                frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
-                frmEduQualMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Qualification Master Details";
+                    frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                    frmEduQualMaster.MdiParent = this;
+                    frmEduQualMaster.Dock = DockStyle.Fill;
+                    frmEduQualMaster.Show();
+                    frmEduQualMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -320,8 +516,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
-                frmRelationshipMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Relationship Master Details";
+                    frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
+                    frmRelationshipMaster.MdiParent = this;
+                    frmRelationshipMaster.Dock = DockStyle.Fill;
+                    frmRelationshipMaster.Show();
+                    frmRelationshipMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -335,8 +538,15 @@ namespace StaffSync
                     }
                 }
 
-                frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
-                frmRelationshipMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Relationship Master Details";
+                    frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
+                    frmRelationshipMaster.MdiParent = this;
+                    frmRelationshipMaster.Dock = DockStyle.Fill;
+                    frmRelationshipMaster.Show();
+                    frmRelationshipMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -346,8 +556,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmStateMaster frmStateMaster = new frmStateMaster();
-                frmStateMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "State Master Details";
+                    frmStateMaster frmStateMaster = new frmStateMaster();
+                    frmStateMaster.MdiParent = this;
+                    frmStateMaster.Dock = DockStyle.Fill;
+                    frmStateMaster.Show();
+                    frmStateMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -361,8 +578,16 @@ namespace StaffSync
                     }
                 }
 
-                frmStateMaster frmStateMaster = new frmStateMaster();
-                frmStateMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "State Master Details";
+                    frmStateMaster frmStateMaster = new frmStateMaster();
+                    frmStateMaster.MdiParent = this;
+                    frmStateMaster.Dock = DockStyle.Fill;
+                    frmStateMaster.Show();
+                    frmStateMaster.WindowState = FormWindowState.Maximized;
+
+                }
             }
         }
 
@@ -372,8 +597,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmCountryMaster frmCountryMaster = new frmCountryMaster();
-                frmCountryMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Country Master Details";
+                    frmCountryMaster frmCountryMaster = new frmCountryMaster();
+                    frmCountryMaster.MdiParent = this;
+                    frmCountryMaster.Dock = DockStyle.Fill;
+                    frmCountryMaster.Show();
+                    frmCountryMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -387,8 +619,15 @@ namespace StaffSync
                     }
                 }
 
-                frmCountryMaster frmCountryMaster = new frmCountryMaster();
-                frmCountryMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Country Master Details";
+                    frmCountryMaster frmCountryMaster = new frmCountryMaster();
+                    frmCountryMaster.MdiParent = this;
+                    frmCountryMaster.Dock = DockStyle.Fill;
+                    frmCountryMaster.Show();
+                    frmCountryMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -398,8 +637,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
-                frmLastCompanyMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Last Company Master Details";
+                    frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
+                    frmLastCompanyMaster.MdiParent = this;
+                    frmLastCompanyMaster.Dock = DockStyle.Fill;
+                    frmLastCompanyMaster.Show();
+                    frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -413,8 +659,15 @@ namespace StaffSync
                     }
                 }
 
-                frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
-                frmLastCompanyMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Last Company Master Details";
+                    frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
+                    frmLastCompanyMaster.MdiParent = this;
+                    frmLastCompanyMaster.Dock = DockStyle.Fill;
+                    frmLastCompanyMaster.Show();
+                    frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -425,7 +678,10 @@ namespace StaffSync
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
                 frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
-                frmSkillsMaster.Show(this);
+                frmSkillsMaster.MdiParent = this;
+                frmSkillsMaster.Dock = DockStyle.Fill;
+                frmSkillsMaster.Show();
+                frmSkillsMaster.WindowState = FormWindowState.Maximized;
             }
             else
             {
@@ -440,7 +696,10 @@ namespace StaffSync
                 }
 
                 frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
-                frmSkillsMaster.Show(this);
+                frmSkillsMaster.MdiParent = this;
+                frmSkillsMaster.Dock = DockStyle.Fill;
+                frmSkillsMaster.Show();
+                frmSkillsMaster.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -529,7 +788,7 @@ namespace StaffSync
         private void lstBirthdayList_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             //frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(Convert.ToInt16(lstBirthdayList.SelectedItems[0].SubItems[0].Text));
-            //frmEmployeeMasterDetails.ShowDialog();
+            //frmEmployeeMasterDetails.Show();
         }
 
         private void picDownloadBirthdayList_Click(object sender, EventArgs e)
@@ -569,8 +828,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
-                frmLeavesApproval.ShowDialog();
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Leave Approval Details";
+                    frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
+                    frmLeavesApproval.MdiParent = this;
+                    frmLeavesApproval.Dock = DockStyle.Fill;
+                    frmLeavesApproval.Show();
+                    frmLeavesApproval.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -583,8 +849,16 @@ namespace StaffSync
                         return;
                     }
                 }
-                frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
-                frmLeavesApproval.ShowDialog();
+
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Leave Approval Details";
+                    frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
+                    frmLeavesApproval.MdiParent = this;
+                    frmLeavesApproval.Dock = DockStyle.Fill;
+                    frmLeavesApproval.Show();
+                    frmLeavesApproval.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -594,8 +868,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmUserManagement frmUserManagement = new frmUserManagement();
-                frmUserManagement.ShowDialog();
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "User Management Details";
+                    frmUserManagement frmUserManagement = new frmUserManagement();
+                    frmUserManagement.MdiParent = this;
+                    frmUserManagement.Dock = DockStyle.Fill;
+                    frmUserManagement.Show();
+                    frmUserManagement.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -608,8 +889,16 @@ namespace StaffSync
                         return;
                     }
                 }
-                frmUserManagement frmUserManagement = new frmUserManagement();
-                frmUserManagement.ShowDialog();
+
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "User Management Details";
+                    frmUserManagement frmUserManagement = new frmUserManagement();
+                    frmUserManagement.MdiParent = this;
+                    frmUserManagement.Dock = DockStyle.Fill;
+                    frmUserManagement.Show();
+                    frmUserManagement.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -619,8 +908,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities();
-                frmRolesAndResponsibilities.ShowDialog();
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Roles and Responsibilities Details";
+                    frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities();
+                    frmRolesAndResponsibilities.MdiParent = this;
+                    frmRolesAndResponsibilities.Dock = DockStyle.Fill;
+                    frmRolesAndResponsibilities.Show();
+                    frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -633,8 +929,16 @@ namespace StaffSync
                         return;
                     }
                 }
-                frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities();
-                frmRolesAndResponsibilities.ShowDialog();
+
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Roles and Responsibilities Details";
+                    frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities();
+                    frmRolesAndResponsibilities.MdiParent = this;
+                    frmRolesAndResponsibilities.Dock = DockStyle.Fill;
+                    frmRolesAndResponsibilities.Show();
+                    frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -644,8 +948,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmModuleAssignment frmModuleAssignment = new frmModuleAssignment();
-                frmModuleAssignment.ShowDialog();
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Modules Assignment Details";
+                    frmModuleAssignment frmModuleAssignment = new frmModuleAssignment();
+                    frmModuleAssignment.MdiParent = this;
+                    frmModuleAssignment.Dock = DockStyle.Fill;
+                    frmModuleAssignment.Show();
+                    frmModuleAssignment.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -658,8 +969,16 @@ namespace StaffSync
                         return;
                     }
                 }
-                frmModuleAssignment frmModuleAssignment = new frmModuleAssignment();
-                frmModuleAssignment.ShowDialog();
+
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Modules Assignment Details";
+                    frmModuleAssignment frmModuleAssignment = new frmModuleAssignment();
+                    frmModuleAssignment.MdiParent = this;
+                    frmModuleAssignment.Dock = DockStyle.Fill;
+                    frmModuleAssignment.Show();
+                    frmModuleAssignment.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -699,8 +1018,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
-                frmRolesProfileMaster.ShowDialog();
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Roles Profile Master Details";
+                    frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
+                    frmRolesProfileMaster.MdiParent = this;
+                    frmRolesProfileMaster.Dock = DockStyle.Fill;
+                    frmRolesProfileMaster.Show();
+                    frmRolesProfileMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -714,8 +1040,15 @@ namespace StaffSync
                     }
                 }
 
-                frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
-                frmRolesProfileMaster.ShowDialog();
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Roles Profile Master Details";
+                    frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
+                    frmRolesProfileMaster.MdiParent = this;
+                    frmRolesProfileMaster.Dock = DockStyle.Fill;
+                    frmRolesProfileMaster.Show();
+                    frmRolesProfileMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -735,7 +1068,7 @@ namespace StaffSync
             //if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             //{
             //    frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
-            //    frmEmployeeMasterDetails.ShowDialog();
+            //    frmEmployeeMasterDetails.Show();
             //}
             //else
             //{
@@ -750,7 +1083,7 @@ namespace StaffSync
             //    }
 
             //    frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
-            //    frmEmployeeMasterDetails.ShowDialog();
+            //    frmEmployeeMasterDetails.Show();
             //}
         }
 
@@ -768,8 +1101,15 @@ namespace StaffSync
 
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmUserManagement frmUserManagement = new frmUserManagement();
-                        frmUserManagement.ShowDialog();
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "User Management Details";
+                            frmUserManagement frmUserManagement = new frmUserManagement();
+                            frmUserManagement.MdiParent = this;
+                            frmUserManagement.Dock = DockStyle.Fill;
+                            frmUserManagement.Show();
+                            frmUserManagement.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -782,8 +1122,16 @@ namespace StaffSync
                                 return;
                             }
                         }
-                        frmUserManagement frmUserManagement = new frmUserManagement();
-                        frmUserManagement.ShowDialog();
+
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "User Management Details";
+                            frmUserManagement frmUserManagement = new frmUserManagement();
+                            frmUserManagement.MdiParent = this;
+                            frmUserManagement.Dock = DockStyle.Fill;
+                            frmUserManagement.Show();
+                            frmUserManagement.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     break;
 
@@ -792,8 +1140,15 @@ namespace StaffSync
 
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities();
-                        frmRolesAndResponsibilities.ShowDialog();
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Roles and Responsibilities Details";
+                            frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities();
+                            frmRolesAndResponsibilities.MdiParent = this;
+                            frmRolesAndResponsibilities.Dock = DockStyle.Fill;
+                            frmRolesAndResponsibilities.Show();
+                            frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -806,8 +1161,16 @@ namespace StaffSync
                                 return;
                             }
                         }
-                        frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities();
-                        frmRolesAndResponsibilities.ShowDialog();
+
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Roles and Responsibilities Details";
+                            frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities();
+                            frmRolesAndResponsibilities.MdiParent = this;
+                            frmRolesAndResponsibilities.Dock = DockStyle.Fill;
+                            frmRolesAndResponsibilities.Show();
+                            frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     break;
 
@@ -816,8 +1179,15 @@ namespace StaffSync
 
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmModuleAssignment frmModuleAssignment = new frmModuleAssignment();
-                        frmModuleAssignment.ShowDialog();
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Module Assignment Details";
+                            frmModuleAssignment frmModuleAssignment = new frmModuleAssignment();
+                            frmModuleAssignment.MdiParent = this;
+                            frmModuleAssignment.Dock = DockStyle.Fill;
+                            frmModuleAssignment.Show();
+                            frmModuleAssignment.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -830,8 +1200,16 @@ namespace StaffSync
                                 return;
                             }
                         }
-                        frmModuleAssignment frmModuleAssignment = new frmModuleAssignment();
-                        frmModuleAssignment.ShowDialog();
+
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Module Assignment Details";
+                            frmModuleAssignment frmModuleAssignment = new frmModuleAssignment();
+                            frmModuleAssignment.MdiParent = this;
+                            frmModuleAssignment.Dock = DockStyle.Fill;
+                            frmModuleAssignment.Show();
+                            frmModuleAssignment.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     break;
 
@@ -840,8 +1218,15 @@ namespace StaffSync
 
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
-                        frmRolesProfileMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Roles Profile Master Details";
+                            frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
+                            frmRolesProfileMaster.MdiParent = this;
+                            frmRolesProfileMaster.Dock = DockStyle.Fill;
+                            frmRolesProfileMaster.Show();
+                            frmRolesProfileMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -855,8 +1240,15 @@ namespace StaffSync
                             }
                         }
 
-                        frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
-                        frmRolesProfileMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Roles Profile Master Details";
+                            frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
+                            frmRolesProfileMaster.MdiParent = this;
+                            frmRolesProfileMaster.Dock = DockStyle.Fill;
+                            frmRolesProfileMaster.Show();
+                            frmRolesProfileMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
 
                     break;
@@ -872,8 +1264,15 @@ namespace StaffSync
 
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater();
-                        frmAttendanceMaterDetails.ShowDialog();
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Attendance Master Details";
+                            frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater();
+                            frmAttendanceMaterDetails.MdiParent = this;
+                            frmAttendanceMaterDetails.Dock = DockStyle.Fill;
+                            frmAttendanceMaterDetails.Show();
+                            frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -887,8 +1286,15 @@ namespace StaffSync
                             }
                         }
 
-                        frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater();
-                        frmAttendanceMaterDetails.ShowDialog();
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Attendance Master Details";
+                            frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater();
+                            frmAttendanceMaterDetails.MdiParent = this;
+                            frmAttendanceMaterDetails.Dock = DockStyle.Fill;
+                            frmAttendanceMaterDetails.Show();
+                            frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     break;
             }
@@ -903,8 +1309,15 @@ namespace StaffSync
 
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
-                        frmLeavesMasterDetails.ShowDialog();
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Leaves Master Details";
+                            frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
+                            frmLeavesMasterDetails.MdiParent = this;
+                            frmLeavesMasterDetails.Dock = DockStyle.Fill;
+                            frmLeavesMasterDetails.Show();
+                            frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -918,8 +1331,15 @@ namespace StaffSync
                             }
                         }
 
-                        frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
-                        frmLeavesMasterDetails.ShowDialog();
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Leaves Master Details";
+                            frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster();
+                            frmLeavesMasterDetails.MdiParent = this;
+                            frmLeavesMasterDetails.Dock = DockStyle.Fill;
+                            frmLeavesMasterDetails.Show();
+                            frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
                     cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
@@ -929,8 +1349,15 @@ namespace StaffSync
 
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
-                        frmLeavesApproval.ShowDialog();
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Leaves Approval Details";
+                            frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
+                            frmLeavesApproval.MdiParent = this;
+                            frmLeavesApproval.Dock = DockStyle.Fill;
+                            frmLeavesApproval.Show();
+                            frmLeavesApproval.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -944,8 +1371,16 @@ namespace StaffSync
                             }
                         }
 
-                        frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
-                        frmLeavesApproval.ShowDialog();
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Leaves Approval Details";
+                            frmLeavesApproval frmLeavesApproval = new frmLeavesApproval();
+                            frmLeavesApproval.MdiParent = this;
+                            frmLeavesApproval.Dock = DockStyle.Fill;
+                            frmLeavesApproval.Show();
+                            frmLeavesApproval.WindowState = FormWindowState.Maximized;
+
+                        }
                     }
                     cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
                     cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
@@ -955,8 +1390,15 @@ namespace StaffSync
 
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmLeavesReject frmLeavesReject = new frmLeavesReject();
-                        frmLeavesReject.ShowDialog();
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Leaves Rejection Details";
+                            frmLeavesReject frmLeavesReject = new frmLeavesReject();
+                            frmLeavesReject.MdiParent = this;
+                            frmLeavesReject.Dock = DockStyle.Fill;
+                            frmLeavesReject.Show();
+                            frmLeavesReject.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -970,8 +1412,15 @@ namespace StaffSync
                             }
                         }
 
-                        frmLeavesReject frmLeavesReject = new frmLeavesReject();
-                        frmLeavesReject.ShowDialog();
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Leaves Rejection Details";
+                            frmLeavesReject frmLeavesReject = new frmLeavesReject();
+                            frmLeavesReject.MdiParent = this;
+                            frmLeavesReject.Dock = DockStyle.Fill;
+                            frmLeavesReject.Show();
+                            frmLeavesReject.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     break;
             }
@@ -999,8 +1448,15 @@ namespace StaffSync
 
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
-                        frmLastCompanyMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Last Company Master Details";
+                            frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
+                            frmLastCompanyMaster.MdiParent = this;
+                            frmLastCompanyMaster.Dock = DockStyle.Fill;
+                            frmLastCompanyMaster.Show();
+                            frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -1014,8 +1470,15 @@ namespace StaffSync
                             }
                         }
 
-                        frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
-                        frmLastCompanyMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Last Company Master Details";
+                            frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
+                            frmLastCompanyMaster.MdiParent = this;
+                            frmLastCompanyMaster.Dock = DockStyle.Fill;
+                            frmLastCompanyMaster.Show();
+                            frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     break;
                 case "cmbEducationList":
@@ -1023,8 +1486,15 @@ namespace StaffSync
 
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
-                        frmEduQualMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Qualification Master Details";
+                            frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                            frmEduQualMaster.MdiParent = this;
+                            frmEduQualMaster.Dock = DockStyle.Fill;
+                            frmEduQualMaster.Show();
+                            frmEduQualMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -1038,8 +1508,15 @@ namespace StaffSync
                             }
                         }
 
-                        frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
-                        frmEduQualMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Qualification Master Details";
+                            frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                            frmEduQualMaster.MdiParent = this;
+                            frmEduQualMaster.Dock = DockStyle.Fill;
+                            frmEduQualMaster.Show();
+                            frmEduQualMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     break;
                 case "cmbSkillsList":
@@ -1047,8 +1524,12 @@ namespace StaffSync
 
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
+                        lblDashboardTitle.Text = "Skills Master Details";
                         frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
-                        frmSkillsMaster.Show(this);
+                        frmSkillsMaster.MdiParent = this;
+                        frmSkillsMaster.Dock = DockStyle.Fill;
+                        frmSkillsMaster.Show();
+                        frmSkillsMaster.WindowState = FormWindowState.Maximized;
                     }
                     else
                     {
@@ -1063,7 +1544,10 @@ namespace StaffSync
                         }
 
                         frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
-                        frmSkillsMaster.Show(this);
+                        frmSkillsMaster.MdiParent = this;
+                        frmSkillsMaster.Dock = DockStyle.Fill;
+                        frmSkillsMaster.Show();
+                        frmSkillsMaster.WindowState = FormWindowState.Maximized;
                     }
 
                     break;
@@ -1072,8 +1556,15 @@ namespace StaffSync
 
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
-                        frmDepartmentMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Department Master Details";
+                            frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
+                            frmDepartmentMaster.MdiParent = this;
+                            frmDepartmentMaster.Dock = DockStyle.Fill;
+                            frmDepartmentMaster.Show();
+                            frmDepartmentMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -1087,8 +1578,15 @@ namespace StaffSync
                             }
                         }
 
-                        frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
-                        frmDepartmentMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Department Master Details";
+                            frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
+                            frmDepartmentMaster.MdiParent = this;
+                            frmDepartmentMaster.Dock = DockStyle.Fill;
+                            frmDepartmentMaster.Show();
+                            frmDepartmentMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     break;
                 case "cmbDesignationList":
@@ -1096,8 +1594,15 @@ namespace StaffSync
 
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
-                        frmDesignationMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Designation Master Details";
+                            frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
+                            frmDesignationMaster.MdiParent = this;
+                            frmDesignationMaster.Dock = DockStyle.Fill;
+                            frmDesignationMaster.Show();
+                            frmDesignationMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -1111,8 +1616,15 @@ namespace StaffSync
                             }
                         }
 
-                        frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
-                        frmDesignationMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Designation Master Details";
+                            frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
+                            frmDesignationMaster.MdiParent = this;
+                            frmDesignationMaster.Dock = DockStyle.Fill;
+                            frmDesignationMaster.Show();
+                            frmDesignationMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     break;
                 case "cmbCountriesList":
@@ -1120,8 +1632,15 @@ namespace StaffSync
 
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmCountryMaster frmCountryMaster = new frmCountryMaster();
-                        frmCountryMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Country Master Details";
+                            frmCountryMaster frmCountryMaster = new frmCountryMaster();
+                            frmCountryMaster.MdiParent = this;
+                            frmCountryMaster.Dock = DockStyle.Fill;
+                            frmCountryMaster.Show();
+                            frmCountryMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -1135,8 +1654,15 @@ namespace StaffSync
                             }
                         }
 
-                        frmCountryMaster frmCountryMaster = new frmCountryMaster();
-                        frmCountryMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Country Master Details";
+                            frmCountryMaster frmCountryMaster = new frmCountryMaster();
+                            frmCountryMaster.MdiParent = this;
+                            frmCountryMaster.Dock = DockStyle.Fill;
+                            frmCountryMaster.Show();
+                            frmCountryMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
 
                     break;
@@ -1144,8 +1670,15 @@ namespace StaffSync
                     AppModuleID = 10;
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmStateMaster frmStateMaster = new frmStateMaster();
-                        frmStateMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "State Master Details";
+                            frmStateMaster frmStateMaster = new frmStateMaster();
+                            frmStateMaster.MdiParent = this;
+                            frmStateMaster.Dock = DockStyle.Fill;
+                            frmStateMaster.Show();
+                            frmStateMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -1159,8 +1692,15 @@ namespace StaffSync
                             }
                         }
 
-                        frmStateMaster frmStateMaster = new frmStateMaster();
-                        frmStateMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "State Master Details";
+                            frmStateMaster frmStateMaster = new frmStateMaster();
+                            frmStateMaster.MdiParent = this;
+                            frmStateMaster.Dock = DockStyle.Fill;
+                            frmStateMaster.Show();
+                            frmStateMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
 
                     break;
@@ -1168,8 +1708,15 @@ namespace StaffSync
                     AppModuleID = 10;
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
-                        frmRelationshipMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Relationship Master Details";
+                            frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
+                            frmRelationshipMaster.MdiParent = this;
+                            frmRelationshipMaster.Dock = DockStyle.Fill;
+                            frmRelationshipMaster.Show();
+                            frmRelationshipMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -1183,16 +1730,30 @@ namespace StaffSync
                             }
                         }
 
-                        frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
-                        frmRelationshipMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Relationship Master Details";
+                            frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
+                            frmRelationshipMaster.MdiParent = this;
+                            frmRelationshipMaster.Dock = DockStyle.Fill;
+                            frmRelationshipMaster.Show();
+                            frmRelationshipMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     break;
                 case "cmbLeaveTypeMaster":
                     AppModuleID = 10;
                     if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
                     {
-                        frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster();
-                        frmLeaveTypeMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Leave Type Master Details";
+                            frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster();
+                            frmLeaveTypeMaster.MdiParent = this;
+                            frmLeaveTypeMaster.Dock = DockStyle.Fill;
+                            frmLeaveTypeMaster.Show();
+                            frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     else
                     {
@@ -1206,8 +1767,15 @@ namespace StaffSync
                             }
                         }
 
-                        frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster();
-                        frmLeaveTypeMaster.ShowDialog(this);
+                        if (this.MdiChildren.Length == 0)
+                        {
+                            lblDashboardTitle.Text = "Leave Type Master Details";
+                            frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster();
+                            frmLeaveTypeMaster.MdiParent = this;
+                            frmLeaveTypeMaster.Dock = DockStyle.Fill;
+                            frmLeaveTypeMaster.Show();
+                            frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;
+                        }
                     }
                     break;
             }
@@ -1219,8 +1787,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
-                frmLastCompanyMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Last Company Master Details";
+                    frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
+                    frmLastCompanyMaster.MdiParent = this;
+                    frmLastCompanyMaster.Dock = DockStyle.Fill;
+                    frmLastCompanyMaster.Show();
+                    frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -1234,8 +1809,16 @@ namespace StaffSync
                         return;
                     }
                 }
-                frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
-                frmLastCompanyMaster.ShowDialog(this);
+
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Last Company Master Details";
+                    frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster();
+                    frmLastCompanyMaster.MdiParent = this;
+                    frmLastCompanyMaster.Dock = DockStyle.Fill;
+                    frmLastCompanyMaster.Show();
+                    frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -1244,8 +1827,15 @@ namespace StaffSync
             AppModuleID = 10;
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
-                frmEduQualMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Qualification Master Details";
+                    frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                    frmEduQualMaster.MdiParent = this;
+                    frmEduQualMaster.Dock = DockStyle.Fill;
+                    frmEduQualMaster.Show();
+                    frmEduQualMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -1259,8 +1849,15 @@ namespace StaffSync
                     }
                 }
 
-                frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
-                frmEduQualMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Qualification Master Details";
+                    frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                    frmEduQualMaster.MdiParent = this;
+                    frmEduQualMaster.Dock = DockStyle.Fill;
+                    frmEduQualMaster.Show();
+                    frmEduQualMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -1269,8 +1866,12 @@ namespace StaffSync
             AppModuleID = 10;
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
+                lblDashboardTitle.Text = "Skills Master Details";
                 frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
-                frmSkillsMaster.Show(this);
+                frmSkillsMaster.MdiParent = this;
+                frmSkillsMaster.Dock = DockStyle.Fill;
+                frmSkillsMaster.Show();
+                frmSkillsMaster.WindowState = FormWindowState.Maximized;
             }
             else
             {
@@ -1285,7 +1886,11 @@ namespace StaffSync
                 }
 
                 frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
-                frmSkillsMaster.Show(this);
+                frmSkillsMaster.MdiParent = this;
+                frmSkillsMaster.Dock = DockStyle.Fill;
+                frmSkillsMaster.Show();
+                frmSkillsMaster.WindowState = FormWindowState.Maximized;
+
             }
         }
 
@@ -1295,8 +1900,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
-                frmDepartmentMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Department Master Details";
+                    frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
+                    frmDepartmentMaster.MdiParent = this;
+                    frmDepartmentMaster.Dock = DockStyle.Fill;
+                    frmDepartmentMaster.Show();
+                    frmDepartmentMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -1310,8 +1922,15 @@ namespace StaffSync
                     }
                 }
 
-                frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
-                frmDepartmentMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Department Master Details";
+                    frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster();
+                    frmDepartmentMaster.MdiParent = this;
+                    frmDepartmentMaster.Dock = DockStyle.Fill;
+                    frmDepartmentMaster.Show();
+                    frmDepartmentMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -1321,8 +1940,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
-                frmDesignationMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Designation Master Details";
+                    frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
+                    frmDesignationMaster.MdiParent = this;
+                    frmDesignationMaster.Dock = DockStyle.Fill;
+                    frmDesignationMaster.Show();
+                    frmDesignationMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -1336,8 +1962,15 @@ namespace StaffSync
                     }
                 }
 
-                frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
-                frmDesignationMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Designation Master Details";
+                    frmDesignationMaster frmDesignationMaster = new frmDesignationMaster();
+                    frmDesignationMaster.MdiParent = this;
+                    frmDesignationMaster.Dock = DockStyle.Fill;
+                    frmDesignationMaster.Show();
+                    frmDesignationMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -1346,8 +1979,15 @@ namespace StaffSync
             AppModuleID = 10;
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmStateMaster frmStateMaster = new frmStateMaster();
-                frmStateMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "State Master Details";
+                    frmStateMaster frmStateMaster = new frmStateMaster();
+                    frmStateMaster.MdiParent = this;
+                    frmStateMaster.Dock = DockStyle.Fill;
+                    frmStateMaster.Show();
+                    frmStateMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -1361,8 +2001,15 @@ namespace StaffSync
                     }
                 }
 
-                frmStateMaster frmStateMaster = new frmStateMaster();
-                frmStateMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "State Master Details";
+                    frmStateMaster frmStateMaster = new frmStateMaster();
+                    frmStateMaster.MdiParent = this;
+                    frmStateMaster.Dock = DockStyle.Fill;
+                    frmStateMaster.Show();
+                    frmStateMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -1372,8 +2019,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
-                frmRelationshipMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Relationship Master Details";
+                    frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
+                    frmRelationshipMaster.MdiParent = this;
+                    frmRelationshipMaster.Dock = DockStyle.Fill;
+                    frmRelationshipMaster.Show();
+                    frmRelationshipMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -1387,8 +2041,15 @@ namespace StaffSync
                     }
                 }
 
-                frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
-                frmRelationshipMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Relationship Master Details";
+                    frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster();
+                    frmRelationshipMaster.MdiParent = this;
+                    frmRelationshipMaster.Dock = DockStyle.Fill;
+                    frmRelationshipMaster.Show();
+                    frmRelationshipMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -1398,8 +2059,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmPayrollMaster payrollMaster = new frmPayrollMaster();
-                payrollMaster.ShowDialog();
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Payroll Master Details";
+                    frmPayrollMaster payrollMaster = new frmPayrollMaster();
+                    payrollMaster.MdiParent = this;
+                    payrollMaster.Dock = DockStyle.Fill;
+                    payrollMaster.Show();
+                    payrollMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -1413,75 +2081,145 @@ namespace StaffSync
                     }
                 }
 
-                frmPayrollMaster payrollMaster = new frmPayrollMaster();
-                payrollMaster.ShowDialog();
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Payroll Master Details";
+                    frmPayrollMaster payrollMaster = new frmPayrollMaster();
+                    payrollMaster.MdiParent = this;
+                    payrollMaster.Dock = DockStyle.Fill;
+                    payrollMaster.Show();
+                    payrollMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
         private void cmbEarningsList_Click(object sender, EventArgs e)
         {
-            frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences();
-            frmPayrollAllowences.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Allowence Master Details";
+                frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences();
+                frmPayrollAllowences.MdiParent = this;
+                frmPayrollAllowences.Dock = DockStyle.Fill;
+                frmPayrollAllowences.Show();
+                frmPayrollAllowences.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbDeductionsList_Click(object sender, EventArgs e)
         {
-            frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions();
-            frmPayrollDeductions.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Deduction Master Details";
+                frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions();
+                frmPayrollDeductions.MdiParent = this;
+                frmPayrollDeductions.Dock = DockStyle.Fill;
+                frmPayrollDeductions.Show();
+                frmPayrollDeductions.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbReimbursmentList_Click(object sender, EventArgs e)
         {
-            frmReimbursement frmReimbursement = new frmReimbursement();
-            frmReimbursement.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Reimbursement Master Details";
+                frmReimbursement frmReimbursement = new frmReimbursement();
+                frmReimbursement.MdiParent = this;
+                frmReimbursement.Dock = DockStyle.Fill;
+                frmReimbursement.Show();
+                frmReimbursement.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbSalaryProfile_Click(object sender, EventArgs e)
         {
             //frmSalaryProfile frmSalaryProfile = new frmSalaryProfile();
-            //frmSalaryProfile.ShowDialog(this);
+            //frmSalaryProfile.Show();
         }
 
         private void cmbLeaveStatement_Click(object sender, EventArgs e)
         {
-            frmLeaveStatement frmLeaveStatement = new frmLeaveStatement();
-            frmLeaveStatement.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Leave Statement Details";
+                frmLeaveStatement frmLeaveStatement = new frmLeaveStatement();
+                frmLeaveStatement.MdiParent = this;
+                frmLeaveStatement.Dock = DockStyle.Fill;
+                frmLeaveStatement.Show();
+                frmLeaveStatement.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void tlbCompanyInfo_Click(object sender, EventArgs e)
         {
-            frmCompanyInfo frmCompanyInfo = new frmCompanyInfo();
-            frmCompanyInfo.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Company Master Details";
+                frmCompanyInfo frmCompanyInfo = new frmCompanyInfo();
+                frmCompanyInfo.MdiParent = this;
+                frmCompanyInfo.Dock = DockStyle.Fill;
+                frmCompanyInfo.Show();
+                frmCompanyInfo.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbUpdateAddressInfo_Click(object sender, EventArgs e)
         {
-            frmUpdateCurrentUserInfo frmUpdateCurrentUserInfo = new frmUpdateCurrentUserInfo();
-            frmUpdateCurrentUserInfo.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Current User Master Details";
+                frmUpdateCurrentUserInfo frmUpdateCurrentUserInfo = new frmUpdateCurrentUserInfo();
+                frmUpdateCurrentUserInfo.MdiParent = this;
+                frmUpdateCurrentUserInfo.Dock = DockStyle.Fill;
+                frmUpdateCurrentUserInfo.Show();
+                frmUpdateCurrentUserInfo.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbApplyLeave_Click(object sender, EventArgs e)
         {
-            frmCurrentUserLeaveMaster frmCurrentUserLeaveMaster = new frmCurrentUserLeaveMaster();
-            frmCurrentUserLeaveMaster.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Current User Leave Master Details";
+                frmCurrentUserLeaveMaster frmCurrentUserLeaveMaster = new frmCurrentUserLeaveMaster();
+                frmCurrentUserLeaveMaster.MdiParent = this;
+                frmCurrentUserLeaveMaster.Dock = DockStyle.Fill;
+                frmCurrentUserLeaveMaster.Show();
+                frmCurrentUserLeaveMaster.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbIndividualLeaveStatement_Click(object sender, EventArgs e)
         {
-            frmLeaveStatement frmLeaveStatement = new frmLeaveStatement();
-            frmLeaveStatement.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Leave Statement Details";
+                frmLeaveStatement frmLeaveStatement = new frmLeaveStatement();
+                frmLeaveStatement.MdiParent = this;
+                frmLeaveStatement.Dock = DockStyle.Fill;
+                frmLeaveStatement.Show();
+                frmLeaveStatement.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbLeaveEntitlement_Click(object sender, EventArgs e)
         {
-            frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement();
-            frmEmpLeaveEntitlement.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Leave Entitlement Details";
+                frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement();
+                frmEmpLeaveEntitlement.MdiParent = this;
+                frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
+                frmEmpLeaveEntitlement.Show();
+                frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbConfigureSalaryProfile_Click(object sender, EventArgs e)
         {
             //frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile();
-            //frmUpdateSalaryProfile.ShowDialog(this);
+            //frmUpdateSalaryProfile.Show();
         }
 
         private void cmbSalaryProfile_Click_1(object sender, EventArgs e)
@@ -1490,8 +2228,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmSalaryProfile frmSalaryProfile = new frmSalaryProfile();
-                frmSalaryProfile.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Salary Profile Details";
+                    frmSalaryProfile frmSalaryProfile = new frmSalaryProfile();
+                    frmSalaryProfile.MdiParent = this;
+                    frmSalaryProfile.Dock = DockStyle.Fill;
+                    frmSalaryProfile.Show();
+                    frmSalaryProfile.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -1505,8 +2250,15 @@ namespace StaffSync
                     }
                 }
 
-                frmSalaryProfile frmSalaryProfile = new frmSalaryProfile();
-                frmSalaryProfile.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Salary Profile Details";
+                    frmSalaryProfile frmSalaryProfile = new frmSalaryProfile();
+                    frmSalaryProfile.MdiParent = this;
+                    frmSalaryProfile.Dock = DockStyle.Fill;
+                    frmSalaryProfile.Show();
+                    frmSalaryProfile.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -1516,8 +2268,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile();
-                frmUpdateSalaryProfile.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Salary Profile Details";
+                    frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile();
+                    frmUpdateSalaryProfile.MdiParent = this;
+                    frmUpdateSalaryProfile.Dock = DockStyle.Fill;
+                    frmUpdateSalaryProfile.Show();
+                    frmUpdateSalaryProfile.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -1531,15 +2290,29 @@ namespace StaffSync
                     }
                 }
 
-                frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile();
-                frmUpdateSalaryProfile.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Salary Profile Details";
+                    frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile();
+                    frmUpdateSalaryProfile.MdiParent = this;
+                    frmUpdateSalaryProfile.Dock = DockStyle.Fill;
+                    frmUpdateSalaryProfile.Show();
+                    frmUpdateSalaryProfile.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
         private void bulkLeaveApprovalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmEmpBulkLeaveApproval frmEmpBulkLeaveApproval = new frmEmpBulkLeaveApproval();
-            frmEmpBulkLeaveApproval.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Bulk Leave Approval Details";
+                frmEmpBulkLeaveApproval frmEmpBulkLeaveApproval = new frmEmpBulkLeaveApproval();
+                frmEmpBulkLeaveApproval.MdiParent = this;
+                frmEmpBulkLeaveApproval.Dock = DockStyle.Fill;
+                frmEmpBulkLeaveApproval.Show();
+                frmEmpBulkLeaveApproval.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbLeaveTypeMaster_Click(object sender, EventArgs e)
@@ -1547,8 +2320,15 @@ namespace StaffSync
             AppModuleID = 10;
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster();
-                frmLeaveTypeMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Leave Type Master Details";
+                    frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster();
+                    frmLeaveTypeMaster.MdiParent = this;
+                    frmLeaveTypeMaster.Dock = DockStyle.Fill;
+                    frmLeaveTypeMaster.Show();
+                    frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -1562,8 +2342,15 @@ namespace StaffSync
                     }
                 }
 
-                frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster();
-                frmLeaveTypeMaster.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Leave Type Master Details";
+                    frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster();
+                    frmLeaveTypeMaster.MdiParent = this;
+                    frmLeaveTypeMaster.Dock = DockStyle.Fill;
+                    frmLeaveTypeMaster.Show();
+                    frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -1578,8 +2365,19 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
-                frmEmployeeMasterDetails.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Employee Master Details";
+                    frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
+                    frmEmployeeMasterDetails.MdiParent = this;
+                    frmEmployeeMasterDetails.Dock = DockStyle.Fill;
+                    frmEmployeeMasterDetails.Show();
+                    frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;
+                }
+                else
+                {
+
+                }
             }
             else
             {
@@ -1593,8 +2391,15 @@ namespace StaffSync
                     }
                 }
 
-                frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
-                frmEmployeeMasterDetails.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Employee Master Details";
+                    frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster();
+                    frmEmployeeMasterDetails.MdiParent = this;
+                    frmEmployeeMasterDetails.Dock = DockStyle.Fill;
+                    frmEmployeeMasterDetails.Show();
+                    frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;
+                }
             }
 
         }
@@ -1605,8 +2410,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement();
-                frmEmpLeaveEntitlement.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Employee Leave Entitlement Details";
+                    frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement();
+                    frmEmpLeaveEntitlement.MdiParent = this;
+                    frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
+                    frmEmpLeaveEntitlement.Show();
+                    frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -1620,37 +2432,70 @@ namespace StaffSync
                     }
                 }
 
-                frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement();
-                frmEmpLeaveEntitlement.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Employee Leave Entitlement Details";
+                    frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement();
+                    frmEmpLeaveEntitlement.MdiParent = this;
+                    frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
+                    frmEmpLeaveEntitlement.Show();
+                    frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
         private void cmbMyLeaveStatementReport01_Click(object sender, EventArgs e)
         {
-            frmLeaveStatements frmLeaveStatements = new frmLeaveStatements();
-            frmLeaveStatements.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Leave Statement Details";
+                frmLeaveStatements frmLeaveStatements = new frmLeaveStatements();
+                frmLeaveStatements.MdiParent = this;
+                frmLeaveStatements.Dock = DockStyle.Fill;
+                frmLeaveStatements.Show();
+                frmLeaveStatements.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbWeeklyOffList_Click(object sender, EventArgs e)
         {
-
-            frmWeeklyProfileMas frmWeeklyProfileMas = new frmWeeklyProfileMas();
-            frmWeeklyProfileMas.ShowDialog(this);
-
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Weekly Profile Master Details";
+                frmWeeklyProfileMas frmWeeklyProfileMas = new frmWeeklyProfileMas();
+                frmWeeklyProfileMas.MdiParent = this;
+                frmWeeklyProfileMas.Dock = DockStyle.Fill;
+                frmWeeklyProfileMas.Show();
+                frmWeeklyProfileMas.WindowState = FormWindowState.Maximized;
+            }
             //frmWeeklyProfileMaster frmWeeklyProfileMaster = new frmWeeklyProfileMaster();
-            //frmWeeklyProfileMaster.ShowDialog(this);
+            //frmWeeklyProfileMaster.Show();
         }
 
         private void cmbWeeklyOffConfiguration_Click(object sender, EventArgs e)
         {
-            frmWeeklyProfileDetailsInfo frmWeeklyProfileDetailsInfo = new frmWeeklyProfileDetailsInfo();
-            frmWeeklyProfileDetailsInfo.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Weekly Profile Details Information";
+                frmWeeklyProfileDetailsInfo frmWeeklyProfileDetailsInfo = new frmWeeklyProfileDetailsInfo();
+                frmWeeklyProfileDetailsInfo.MdiParent = this;
+                frmWeeklyProfileDetailsInfo.Dock = DockStyle.Fill;
+                frmWeeklyProfileDetailsInfo.Show();
+                frmWeeklyProfileDetailsInfo.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbBulkLeaveApproval_Click(object sender, EventArgs e)
         {
-            frmBulkLeaveApproval frmBulkLeaveApproval = new frmBulkLeaveApproval();
-            frmBulkLeaveApproval.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Bulk Leave Approval Details";
+                frmBulkLeaveApproval frmBulkLeaveApproval = new frmBulkLeaveApproval();
+                frmBulkLeaveApproval.MdiParent = this;
+                frmBulkLeaveApproval.Dock = DockStyle.Fill;
+                frmBulkLeaveApproval.Show();
+                frmBulkLeaveApproval.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbEarningsListConfig_Click(object sender, EventArgs e)
@@ -1659,8 +2504,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences();
-                frmPayrollAllowences.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Payroll Allowance Master Details";
+                    frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences();
+                    frmPayrollAllowences.MdiParent = this;
+                    frmPayrollAllowences.Dock = DockStyle.Fill;
+                    frmPayrollAllowences.Show();
+                    frmPayrollAllowences.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -1674,8 +2526,15 @@ namespace StaffSync
                     }
                 }
 
-                frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences();
-                frmPayrollAllowences.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Payroll Allowance Master Details";
+                    frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences();
+                    frmPayrollAllowences.MdiParent = this;
+                    frmPayrollAllowences.Dock = DockStyle.Fill;
+                    frmPayrollAllowences.Show();
+                    frmPayrollAllowences.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -1685,8 +2544,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmReimbursement frmReimbursement = new frmReimbursement();
-                frmReimbursement.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Reimbursement Master Details";
+                    frmReimbursement frmReimbursement = new frmReimbursement();
+                    frmReimbursement.MdiParent = this;
+                    frmReimbursement.Dock = DockStyle.Fill;
+                    frmReimbursement.Show();
+                    frmReimbursement.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -1700,8 +2566,15 @@ namespace StaffSync
                     }
                 }
 
-                frmReimbursement frmReimbursement = new frmReimbursement();
-                frmReimbursement.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Reimbursement Master Details";
+                    frmReimbursement frmReimbursement = new frmReimbursement();
+                    frmReimbursement.MdiParent = this;
+                    frmReimbursement.Dock = DockStyle.Fill;
+                    frmReimbursement.Show();
+                    frmReimbursement.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
@@ -1711,8 +2584,15 @@ namespace StaffSync
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
-                frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions();
-                frmPayrollDeductions.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Deduction Master Details";
+                    frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions();
+                    frmPayrollDeductions.MdiParent = this;
+                    frmPayrollDeductions.Dock = DockStyle.Fill;
+                    frmPayrollDeductions.Show();
+                    frmPayrollDeductions.WindowState = FormWindowState.Maximized;
+                }
             }
             else
             {
@@ -1726,39 +2606,86 @@ namespace StaffSync
                     }
                 }
 
-                frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions();
-                frmPayrollDeductions.ShowDialog(this);
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Deduction Master Details";
+                    frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions();
+                    frmPayrollDeductions.MdiParent = this;
+                    frmPayrollDeductions.Dock = DockStyle.Fill;
+                    frmPayrollDeductions.Show();
+                    frmPayrollDeductions.WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
         private void cmbPendingLeaveApprovalList_Click(object sender, EventArgs e)
         {
-            frmPendingApprovalList frmPendingApprovalList = new frmPendingApprovalList();
-            frmPendingApprovalList.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Pending Approval Details";
+                frmPendingApprovalList frmPendingApprovalList = new frmPendingApprovalList();
+                frmPendingApprovalList.MdiParent = this;
+                frmPendingApprovalList.Dock = DockStyle.Fill;
+                frmPendingApprovalList.Show();
+                frmPendingApprovalList.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbRejectionLeaveList_Click(object sender, EventArgs e)
         {
-            frmLeaveRejectionList frmLeaveRejectionList = new frmLeaveRejectionList();
-            frmLeaveRejectionList.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Leave Rejection Details";
+                frmLeaveRejectionList frmLeaveRejectionList = new frmLeaveRejectionList();
+                frmLeaveRejectionList.MdiParent = this;
+                frmLeaveRejectionList.Dock = DockStyle.Fill;
+                frmLeaveRejectionList.Show();
+                frmLeaveRejectionList.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbConsolidatedLeaveStatement_Click(object sender, EventArgs e)
         {
-            frmConsolidatedLeaveStatement frmConsolidatedLeaveStatement = new frmConsolidatedLeaveStatement();
-            frmConsolidatedLeaveStatement.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Consolidated Leave Statement";
+                frmConsolidatedLeaveStatement frmConsolidatedLeaveStatement = new frmConsolidatedLeaveStatement();
+                frmConsolidatedLeaveStatement.MdiParent = this;
+                frmConsolidatedLeaveStatement.Dock = DockStyle.Fill;
+                frmConsolidatedLeaveStatement.Show();
+                frmConsolidatedLeaveStatement.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbOutstandingLeaveStatement_Click(object sender, EventArgs e)
         {
-            frmOutstandingLeaveStatement frmOutstandingLeaveStatement = new frmOutstandingLeaveStatement();
-            frmOutstandingLeaveStatement.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Outstanding Leave Statement";
+                frmOutstandingLeaveStatement frmOutstandingLeaveStatement = new frmOutstandingLeaveStatement();
+                frmOutstandingLeaveStatement.MdiParent = this;
+                frmOutstandingLeaveStatement.Dock = DockStyle.Fill;
+                frmOutstandingLeaveStatement.Show();
+                frmOutstandingLeaveStatement.WindowState = FormWindowState.Maximized;
+            }
         }
 
         private void cmbDailyAttendanceSheet_Click(object sender, EventArgs e)
         {
-            frmDailyAttendanceSheet frmDailyAttendanceSheet = new frmDailyAttendanceSheet();
-            frmDailyAttendanceSheet.ShowDialog(this);
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Daily Attendance Sheet";
+                frmDailyAttendanceSheet frmDailyAttendanceSheet = new frmDailyAttendanceSheet();
+                frmDailyAttendanceSheet.MdiParent = this;
+                frmDailyAttendanceSheet.Dock = DockStyle.Fill;
+                frmDailyAttendanceSheet.Show();
+                frmDailyAttendanceSheet.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void frmDashboard_ResizeEnd(object sender, EventArgs e)
+        {
+            //lblDashboardTitle.Width = this.Width;
         }
     }
 }

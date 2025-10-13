@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace StaffSync
 {
     public partial class frmStateList : Form
     {
-        clsStates clsStates = new clsStates();
+        DALStaffSync.clsStates clsStates = new DALStaffSync.clsStates();
         frmStateMaster frmStateMas = null;
 
         public frmStateList()

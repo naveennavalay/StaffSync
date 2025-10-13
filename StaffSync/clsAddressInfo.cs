@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -209,17 +210,17 @@ namespace StaffSync
         }
     }
 
-    public class AddressInfo
-    {
-        public int AddressID { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string Area { get; set; }
-        public string City { get; set; }
-        public string PIN { get; set; }
-        public int StateID { get; set; }
-        public string State{ get; set; }
-        public int CountryID { get; set; }
-        public string Country { get; set; }
-    }
+    //public class AddressInfo
+    //{
+    //    public int AddressID { get; set; }
+    //    public string Address1 { get; set; }
+    //    public string Address2 { get; set; }
+    //    public string Area { get; set; }
+    //    public string City { get; set; }
+    //    public string PIN { get; set; }
+    //    public int StateID { get; set; }
+    //    public string State{ get; set; }
+    //    public int CountryID { get; set; }
+    //    public string Country { get; set; }
+    //}
 }

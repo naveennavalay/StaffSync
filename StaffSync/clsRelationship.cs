@@ -212,14 +212,14 @@ namespace StaffSync
         }
     }
 
-    public class RelationshipModel
-    {
-        public int RelationshipID { get; set; }
-        public string RelationshipCode { get; set; }
+    //public class RelationshipModel
+    //{
+    //    public int RelationshipID { get; set; }
+    //    public string RelationshipCode { get; set; }
 
-        public string RelationshipTitle { get; set; }
-        public string RelationshipInitial { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-    }
+    //    public string RelationshipTitle { get; set; }
+    //    public string RelationshipInitial { get; set; }
+    //    public bool IsActive { get; set; }
+    //    public bool IsDeleted { get; set; }
+    //}
 }

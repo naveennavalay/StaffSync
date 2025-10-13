@@ -1,0 +1,283 @@
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
+using System.Linq;
+using System.Text;
+
+namespace dbStaffSync
+{
+    public class clsRolesAndResponsibilities
+    {
+        dbStaffSync dbStaffSync = new dbStaffSync();
+        OleDbConnection conn = null;
+        DataSet dtDataset = null;
+        clsGenFunc objGenFunc = new clsGenFunc();
+
+        public clsRolesAndResponsibilities() { 
+
+        }
+
+        public string GetRoleTitleByID(int txtRoleID)
+        {
+            string selectedRoleTItle = "";
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT RoleTitle FROM Roles WHERE RoleID = " + txtRoleID + "";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                selectedRoleTItle = (string)cmd.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedRoleTItle;
+        }
+
+        public List<RolesAndResponsibilitiesInfo> GetDefaultRolesAndResponsibilitiesInfo()
+        {
+
+            List<RolesAndResponsibilitiesInfo> objRolesAndResponsibilitiesInfo = new List<RolesAndResponsibilitiesInfo>();
+            List<RolesAndResponsibilitiesInfo> objReturnRolesAndResponsibilitiesList = new List<RolesAndResponsibilitiesInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT * FROM Roles WHERE IsActive = true AND IsDeleted = false Order by OrderID";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objRolesAndResponsibilitiesInfo = JsonConvert.DeserializeObject<List<RolesAndResponsibilitiesInfo>>(DataTableToJSon);
+                foreach (RolesAndResponsibilitiesInfo indRolesAndResponsibilitiesInfo in objRolesAndResponsibilitiesInfo)
+                {
+                    objReturnRolesAndResponsibilitiesList.Add(new RolesAndResponsibilitiesInfo
+                    {
+                        RoleID = indRolesAndResponsibilitiesInfo.RoleID,
+                        RoleTitle = indRolesAndResponsibilitiesInfo.RoleTitle,
+                        RoleDescription = indRolesAndResponsibilitiesInfo.RoleDescription,
+                        Access = false
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return objReturnRolesAndResponsibilitiesList;
+        }
+
+        public List<RolesAndResponsibilitiesInfo> GetRolesAndResponsibilitiesInfo(int txtUserID)
+        {
+
+            List<RolesAndResponsibilitiesInfo> objRolesAndResponsibilitiesInfo = new List<RolesAndResponsibilitiesInfo>();
+            List<RolesAndResponsibilitiesInfo> objReturnRolesAndResponsibilitiesList = new List<RolesAndResponsibilitiesInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT * FROM Roles WHERE IsActive = true AND IsDeleted = false Order by OrderID";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objRolesAndResponsibilitiesInfo = JsonConvert.DeserializeObject<List<RolesAndResponsibilitiesInfo>>(DataTableToJSon);
+                foreach (RolesAndResponsibilitiesInfo indRolesAndResponsibilitiesInfo in objRolesAndResponsibilitiesInfo)
+                {
+                    objReturnRolesAndResponsibilitiesList.Add(new RolesAndResponsibilitiesInfo
+                    {
+                        RoleID = indRolesAndResponsibilitiesInfo.RoleID,
+                        RoleTitle = indRolesAndResponsibilitiesInfo.RoleTitle,
+                        RoleDescription = indRolesAndResponsibilitiesInfo.RoleDescription,
+                        Access = indRolesAndResponsibilitiesInfo.UserID != null && indRolesAndResponsibilitiesInfo.UserID == txtUserID ? true : false
+                        //UserID = txtUserID
+                    });
+                }
+
+                List<UserRoles> objUserRolesList = new List<UserRoles>();
+                strQuery = "SELECT * FROM UserRoles WHERE UserID = " + txtUserID;
+                
+                dt = new DataTable();
+
+                cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objUserRolesList = JsonConvert.DeserializeObject<List<UserRoles>>(DataTableToJSon);
+                foreach (UserRoles objTempRolesAndResponsibilitiesInfo in objUserRolesList)
+                {
+                    RolesAndResponsibilitiesInfo tempRolesAndResponsibilitiesInfo = objReturnRolesAndResponsibilitiesList.FirstOrDefault(p => p.RoleID == objTempRolesAndResponsibilitiesInfo.RoleID);
+                    tempRolesAndResponsibilitiesInfo.UserID = txtUserID;
+                    tempRolesAndResponsibilitiesInfo.Access = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return objReturnRolesAndResponsibilitiesList;
+        }
+
+        public int InsertUsersRolesAndResponsibilitiesInfo(int txtUserID, int txtRoleID)
+        {
+            int affectedRows = 0;
+            try
+            {
+
+                Response<int> maxRowCount = objGenFunc.getMaxRowCount("UserRoles", "UserRoleID");
+
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "INSERT INTO UserRoles (UserRoleID, UserID, RoleID) VALUES " +
+                 "(" + maxRowCount.Data + "," + txtUserID + "," + txtRoleID + ")";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = maxRowCount.Data;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return affectedRows;
+        }
+
+        public int RemoveUsersRolesAndResponsibilitiesInfo(int txtUserID)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "DELETE FROM UserRoles WHERE UserID = " + txtUserID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtUserID;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return affectedRows;
+        }
+
+        public List<RolesProfile> GetDefaultRolesProfileList()
+        {
+
+            List<RolesProfile> objobjReturnRolesProfileInfoList = new List<RolesProfile>();
+            List<RolesProfile> objReturnRolesProfileList = new List<RolesProfile>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT * FROM qryRoleProfile";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objobjReturnRolesProfileInfoList = JsonConvert.DeserializeObject<List<RolesProfile>>(DataTableToJSon);
+                foreach (RolesProfile indRolesProfile in objobjReturnRolesProfileInfoList)
+                {
+                    objReturnRolesProfileList.Add(new RolesProfile
+                    {
+                        RoleID = indRolesProfile.RoleID,
+                        RoleTitle = indRolesProfile.RoleTitle,
+                        RoleDefID = indRolesProfile.RoleDefID,
+                        CanAdd = indRolesProfile.CanAdd,
+                        CanUpdate = indRolesProfile.CanUpdate,
+                        CanDelete = indRolesProfile.CanDelete,
+                        CanView = indRolesProfile.CanView,
+                        CanExport = indRolesProfile.CanExport
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return objReturnRolesProfileList;
+        }
+    }
+}

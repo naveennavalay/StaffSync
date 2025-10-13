@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -263,20 +264,20 @@ namespace StaffSync
         }
     }
 
-    public class LeaveTypeInfoModel
-    {
-        public int LeaveTypeID { get; set; }
+    //public class LeaveTypeInfoModel
+    //{
+    //    public int LeaveTypeID { get; set; }
 
-        [DisplayName("Leave Type Code")] 
-        public string LeaveCode { get; set; }
+    //    [DisplayName("Leave Type Code")] 
+    //    public string LeaveCode { get; set; }
 
-        [DisplayName("Leave Type Title")]
-        public string LeaveTypeTitle { get; set; }
+    //    [DisplayName("Leave Type Title")]
+    //    public string LeaveTypeTitle { get; set; }
 
-        [DisplayName("Is Paid")]
-        public bool IsPaid { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDelete { get; set; }
-        public int OrderID { get; set; }
-    }
+    //    [DisplayName("Is Paid")]
+    //    public bool IsPaid { get; set; }
+    //    public bool IsActive { get; set; }
+    //    public bool IsDelete { get; set; }
+    //    public int OrderID { get; set; }
+    //}
 }

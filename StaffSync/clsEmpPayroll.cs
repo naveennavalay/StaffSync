@@ -1,4 +1,5 @@
 ﻿//using C1.Framework;
+using ModelStaffSync;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -401,71 +402,71 @@ namespace StaffSync
 
     }
 
-    public class EmployeePaySlipList
-    {
-        [DisplayName("EmpID")]
-        public int EmpID { get; set; }
+    //public class EmployeePaySlipList
+    //{
+    //    [DisplayName("EmpID")]
+    //    public int EmpID { get; set; }
         
-        [DisplayName("Employee Code")] 
-        public string EmpCode { get; set; }
+    //    [DisplayName("Employee Code")] 
+    //    public string EmpCode { get; set; }
         
-        [DisplayName("Employee Name")] 
-        public string EmpName { get; set; }
+    //    [DisplayName("Employee Name")] 
+    //    public string EmpName { get; set; }
 
-        [DisplayName("Designation")] 
-        public string DesignationTitle { get; set; }
+    //    [DisplayName("Designation")] 
+    //    public string DesignationTitle { get; set; }
         
-        [DisplayName("Department")]
-        public string DepartmentTitle { get; set; }
+    //    [DisplayName("Department")]
+    //    public string DepartmentTitle { get; set; }
         
-        [DisplayName("EmpSalID")]
-        public int EmpSalID { get; set; }
+    //    [DisplayName("EmpSalID")]
+    //    public int EmpSalID { get; set; }
 
-        [DisplayName("Salary Date")]
-        public DateTime EmpSalDate { get; set; }
+    //    [DisplayName("Salary Date")]
+    //    public DateTime EmpSalDate { get; set; }
 
-        [DisplayName("Salary Month")]
-        public string EmpSalMonthYear { get; set; }
+    //    [DisplayName("Salary Month")]
+    //    public string EmpSalMonthYear { get; set; }
 
-        [DisplayName("SalaryOrderID")]
-        public int OrderID { get; set; }
-    }
+    //    [DisplayName("SalaryOrderID")]
+    //    public int OrderID { get; set; }
+    //}
 
-    public class EmployeePayslipMasterDetails
-    {
-        public int EmpSalID { get; set; }
-        public DateTime EmpSalDate { get; set; }
-        public string EmpSalMonthYear { get; set; }
-        public double TotalDaysInMonth { get; set; }
-        public double TotalDaysWorked { get; set; }
-        public double TotalDaysOnLeave { get; set; }
-        public double NetPayable { get; set; }
-        public int EmpID { get; set; }
-    }
+    //public class EmployeePayslipMasterDetails
+    //{
+    //    public int EmpSalID { get; set; }
+    //    public DateTime EmpSalDate { get; set; }
+    //    public string EmpSalMonthYear { get; set; }
+    //    public double TotalDaysInMonth { get; set; }
+    //    public double TotalDaysWorked { get; set; }
+    //    public double TotalDaysOnLeave { get; set; }
+    //    public double NetPayable { get; set; }
+    //    public int EmpID { get; set; }
+    //}
 
-    public class EmployeePayslipDetails
-    {
-        public int EmpSalDetID { get; set; }
-        public int SalProDetID { get; set; }
-        public int EmpSalID { get; set; }
-        public int HeaderID { get; set; }
+    //public class EmployeePayslipDetails
+    //{
+    //    public int EmpSalDetID { get; set; }
+    //    public int SalProDetID { get; set; }
+    //    public int EmpSalID { get; set; }
+    //    public int HeaderID { get; set; }
 
-        [DisplayName("Salary Header")]
-        public string HeaderTitle { get; set; }
+    //    [DisplayName("Salary Header")]
+    //    public string HeaderTitle { get; set; }
         
-        [DisplayName("Type")] 
-        public string HeaderType { get; set; }
+    //    [DisplayName("Type")] 
+    //    public string HeaderType { get; set; }
 
-        [DisplayName("Allowance Amount")]
-        public decimal AllowanceAmount { get; set; }
+    //    [DisplayName("Allowance Amount")]
+    //    public decimal AllowanceAmount { get; set; }
         
-        [DisplayName("Deduction Amount")] 
-        public decimal DeductionAmount { get; set; }
+    //    [DisplayName("Deduction Amount")] 
+    //    public decimal DeductionAmount { get; set; }
         
-        [DisplayName("Reimbursment Amount")] 
-        public decimal ReimbursmentAmount { get; set; }
-        public int OrderID { get; set; }
-    }
+    //    [DisplayName("Reimbursment Amount")] 
+    //    public decimal ReimbursmentAmount { get; set; }
+    //    public int OrderID { get; set; }
+    //}
 
 
 }

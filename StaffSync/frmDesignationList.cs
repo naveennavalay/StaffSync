@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,9 @@ namespace StaffSync
 {
     public partial class frmDesignationList : Form
     {
-        clsDesignation clsDesignation = new clsDesignation();
-
+        DALStaffSync.clsDesignation clsDesignation = new DALStaffSync.clsDesignation();
         frmDesignationMaster frmDesignationMas = null;
+
         public frmDesignationList()
         {
             InitializeComponent();

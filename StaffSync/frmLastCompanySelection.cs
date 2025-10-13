@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
+using ModelStaffSync;
 using Org.BouncyCastle.Ocsp;
 using StaffSync.StaffsyncDBDataSetTableAdapters;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
@@ -21,7 +22,7 @@ namespace StaffSync
 {
     public partial class frmLastCompanySelection : Form
     {
-        clsEmpWorkExperienceInfo objEmpWorkExperienceInfo = new clsEmpWorkExperienceInfo();
+        DALStaffSync.clsEmpWorkExperienceInfo objEmpWorkExperienceInfo = new DALStaffSync.clsEmpWorkExperienceInfo();
         public EmpWorkExpInfo selectedPublicWorkExpInfo = new EmpWorkExpInfo();
 
         public frmLastCompanySelection()
@@ -266,6 +267,11 @@ namespace StaffSync
                 return;
             }
             txtEndDate.Text = txtStartDate.Text;
+        }
+
+        private void frmLastCompanySelection_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

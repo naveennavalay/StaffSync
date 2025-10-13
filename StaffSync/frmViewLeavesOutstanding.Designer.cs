@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.dtgOutstandingLeaveInfo = new Krypton.Toolkit.KryptonDataGridView();
             this.txtTotalUtilised = new Krypton.Toolkit.KryptonTextBox();
             this.txtTotalBalanceLeaves = new Krypton.Toolkit.KryptonTextBox();
             this.txtTotalLeavesAlloted = new Krypton.Toolkit.KryptonTextBox();
@@ -51,26 +52,26 @@
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
-            this.dtgOutstandingLeaveInfo = new Krypton.Toolkit.KryptonDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgOutstandingLeaveInfo)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgOutstandingLeaveInfo)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -81,8 +82,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(842, 455);
-            this.splitContainer1.SplitterDistance = 393;
+            this.splitContainer1.Size = new System.Drawing.Size(1123, 560);
+            this.splitContainer1.SplitterDistance = 483;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -91,8 +93,9 @@
             this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(842, 393);
+            this.panel1.Size = new System.Drawing.Size(1123, 483);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
@@ -104,22 +107,45 @@
             this.groupBox5.Controls.Add(this.txtTotalLeavesAlloted);
             this.groupBox5.Controls.Add(this.label49);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(10, 12);
+            this.groupBox5.Location = new System.Drawing.Point(13, 15);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(819, 374);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox5.Size = new System.Drawing.Size(1092, 460);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Outstanding Leave Information";
             // 
+            // dtgOutstandingLeaveInfo
+            // 
+            this.dtgOutstandingLeaveInfo.AllowUserToAddRows = false;
+            this.dtgOutstandingLeaveInfo.AllowUserToDeleteRows = false;
+            this.dtgOutstandingLeaveInfo.AllowUserToResizeRows = false;
+            this.dtgOutstandingLeaveInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgOutstandingLeaveInfo.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgOutstandingLeaveInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgOutstandingLeaveInfo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgOutstandingLeaveInfo.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgOutstandingLeaveInfo.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgOutstandingLeaveInfo.Location = new System.Drawing.Point(19, 30);
+            this.dtgOutstandingLeaveInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.dtgOutstandingLeaveInfo.MultiSelect = false;
+            this.dtgOutstandingLeaveInfo.Name = "dtgOutstandingLeaveInfo";
+            this.dtgOutstandingLeaveInfo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgOutstandingLeaveInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgOutstandingLeaveInfo.Size = new System.Drawing.Size(1053, 375);
+            this.dtgOutstandingLeaveInfo.TabIndex = 59;
+            // 
             // txtTotalUtilised
             // 
             this.txtTotalUtilised.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTotalUtilised.Location = new System.Drawing.Point(651, 337);
+            this.txtTotalUtilised.Location = new System.Drawing.Point(868, 415);
+            this.txtTotalUtilised.Margin = new System.Windows.Forms.Padding(4);
             this.txtTotalUtilised.Multiline = true;
             this.txtTotalUtilised.Name = "txtTotalUtilised";
             this.txtTotalUtilised.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtTotalUtilised.ReadOnly = true;
-            this.txtTotalUtilised.Size = new System.Drawing.Size(135, 28);
+            this.txtTotalUtilised.Size = new System.Drawing.Size(180, 34);
             this.txtTotalUtilised.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalUtilised.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtTotalUtilised.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -132,12 +158,13 @@
             // txtTotalBalanceLeaves
             // 
             this.txtTotalBalanceLeaves.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTotalBalanceLeaves.Location = new System.Drawing.Point(515, 337);
+            this.txtTotalBalanceLeaves.Location = new System.Drawing.Point(687, 415);
+            this.txtTotalBalanceLeaves.Margin = new System.Windows.Forms.Padding(4);
             this.txtTotalBalanceLeaves.Multiline = true;
             this.txtTotalBalanceLeaves.Name = "txtTotalBalanceLeaves";
             this.txtTotalBalanceLeaves.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtTotalBalanceLeaves.ReadOnly = true;
-            this.txtTotalBalanceLeaves.Size = new System.Drawing.Size(135, 28);
+            this.txtTotalBalanceLeaves.Size = new System.Drawing.Size(180, 34);
             this.txtTotalBalanceLeaves.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalBalanceLeaves.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtTotalBalanceLeaves.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -150,12 +177,13 @@
             // txtTotalLeavesAlloted
             // 
             this.txtTotalLeavesAlloted.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTotalLeavesAlloted.Location = new System.Drawing.Point(379, 337);
+            this.txtTotalLeavesAlloted.Location = new System.Drawing.Point(505, 415);
+            this.txtTotalLeavesAlloted.Margin = new System.Windows.Forms.Padding(4);
             this.txtTotalLeavesAlloted.Multiline = true;
             this.txtTotalLeavesAlloted.Name = "txtTotalLeavesAlloted";
             this.txtTotalLeavesAlloted.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtTotalLeavesAlloted.ReadOnly = true;
-            this.txtTotalLeavesAlloted.Size = new System.Drawing.Size(135, 28);
+            this.txtTotalLeavesAlloted.Size = new System.Drawing.Size(180, 34);
             this.txtTotalLeavesAlloted.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalLeavesAlloted.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtTotalLeavesAlloted.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -169,8 +197,8 @@
             // 
             this.label49.AutoSize = true;
             this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label49.Location = new System.Drawing.Point(338, 344);
-            this.label49.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label49.Location = new System.Drawing.Point(451, 423);
+            this.label49.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(39, 15);
             this.label49.TabIndex = 55;
@@ -188,13 +216,15 @@
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(842, 58);
+            this.panel2.Size = new System.Drawing.Size(1123, 72);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(668, 13);
+            this.btnCloseMe.Location = new System.Drawing.Point(891, 16);
+            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -206,7 +236,8 @@
             // 
             // btnRemoveDetails
             // 
-            this.btnRemoveDetails.Location = new System.Drawing.Point(27, 13);
+            this.btnRemoveDetails.Location = new System.Drawing.Point(36, 16);
+            this.btnRemoveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveDetails.Name = "btnRemoveDetails";
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
@@ -219,7 +250,8 @@
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(27, 13);
+            this.btnSaveDetails.Location = new System.Drawing.Point(36, 16);
+            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
@@ -232,7 +264,8 @@
             // 
             // btnModifyDetails
             // 
-            this.btnModifyDetails.Location = new System.Drawing.Point(27, 16);
+            this.btnModifyDetails.Location = new System.Drawing.Point(36, 20);
+            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
@@ -245,7 +278,8 @@
             // 
             // btnGenerateDetails
             // 
-            this.btnGenerateDetails.Location = new System.Drawing.Point(27, 16);
+            this.btnGenerateDetails.Location = new System.Drawing.Point(36, 20);
+            this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerateDetails.Name = "btnGenerateDetails";
             this.btnGenerateDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnGenerateDetails.Size = new System.Drawing.Size(126, 38);
@@ -258,7 +292,8 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(27, 13);
+            this.btnCancel.Location = new System.Drawing.Point(36, 16);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
@@ -301,41 +336,25 @@
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
             // 
-            // dtgOutstandingLeaveInfo
-            // 
-            this.dtgOutstandingLeaveInfo.AllowUserToAddRows = false;
-            this.dtgOutstandingLeaveInfo.AllowUserToDeleteRows = false;
-            this.dtgOutstandingLeaveInfo.AllowUserToResizeRows = false;
-            this.dtgOutstandingLeaveInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dtgOutstandingLeaveInfo.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dtgOutstandingLeaveInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgOutstandingLeaveInfo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dtgOutstandingLeaveInfo.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.dtgOutstandingLeaveInfo.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgOutstandingLeaveInfo.Location = new System.Drawing.Point(14, 24);
-            this.dtgOutstandingLeaveInfo.MultiSelect = false;
-            this.dtgOutstandingLeaveInfo.Name = "dtgOutstandingLeaveInfo";
-            this.dtgOutstandingLeaveInfo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.dtgOutstandingLeaveInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgOutstandingLeaveInfo.Size = new System.Drawing.Size(790, 305);
-            this.dtgOutstandingLeaveInfo.TabIndex = 59;
-            // 
             // frmViewLeavesOutstanding
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(842, 455);
+            this.ClientSize = new System.Drawing.Size(1123, 560);
             this.Controls.Add(this.splitContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmViewLeavesOutstanding";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Outstanding Leave Information";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmViewLeavesOutstanding_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmViewLeavesOutstanding_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -343,13 +362,13 @@
             this.panel1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgOutstandingLeaveInfo)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgOutstandingLeaveInfo)).EndInit();
             this.ResumeLayout(false);
 
         }

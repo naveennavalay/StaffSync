@@ -156,24 +156,11 @@
             this.kryptonContextMenuItem3 = new Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem4 = new Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem6 = new Krypton.Toolkit.KryptonContextMenuItem();
-            this.kryptonSplitContainer1 = new Krypton.Toolkit.KryptonSplitContainer();
-            this.kryptonSplitContainer3 = new Krypton.Toolkit.KryptonSplitContainer();
-            this.kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
-            this.dtgLeaveApprovals = new Krypton.Toolkit.KryptonDataGridView();
-            this.kryptonPanel6 = new Krypton.Toolkit.KryptonPanel();
-            this.kryptonSplitContainer2 = new Krypton.Toolkit.KryptonSplitContainer();
-            this.kryptonSplitContainer4 = new Krypton.Toolkit.KryptonSplitContainer();
-            this.kryptonPanel2 = new Krypton.Toolkit.KryptonPanel();
-            this.kryptonDataGridView2 = new Krypton.Toolkit.KryptonDataGridView();
-            this.kryptonPanel5 = new Krypton.Toolkit.KryptonPanel();
-            this.kryptonSplitContainer5 = new Krypton.Toolkit.KryptonSplitContainer();
-            this.kryptonPanel3 = new Krypton.Toolkit.KryptonPanel();
-            this.kryptonDataGridView3 = new Krypton.Toolkit.KryptonDataGridView();
-            this.kryptonPanel4 = new Krypton.Toolkit.KryptonPanel();
             this.qryRoleProfileBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
+            this.lblDashboardTitle = new System.Windows.Forms.Label();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -183,48 +170,6 @@
             this.cmPayrollManagement.SuspendLayout();
             this.cmUserManagementList.SuspendLayout();
             this.cmbApplicationSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).BeginInit();
-            this.kryptonSplitContainer1.Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel2)).BeginInit();
-            this.kryptonSplitContainer1.Panel2.SuspendLayout();
-            this.kryptonSplitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3.Panel1)).BeginInit();
-            this.kryptonSplitContainer3.Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3.Panel2)).BeginInit();
-            this.kryptonSplitContainer3.Panel2.SuspendLayout();
-            this.kryptonSplitContainer3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
-            this.kryptonPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgLeaveApprovals)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2.Panel1)).BeginInit();
-            this.kryptonSplitContainer2.Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2.Panel2)).BeginInit();
-            this.kryptonSplitContainer2.Panel2.SuspendLayout();
-            this.kryptonSplitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer4.Panel1)).BeginInit();
-            this.kryptonSplitContainer4.Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer4.Panel2)).BeginInit();
-            this.kryptonSplitContainer4.Panel2.SuspendLayout();
-            this.kryptonSplitContainer4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).BeginInit();
-            this.kryptonPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonDataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer5.Panel1)).BeginInit();
-            this.kryptonSplitContainer5.Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer5.Panel2)).BeginInit();
-            this.kryptonSplitContainer5.Panel2.SuspendLayout();
-            this.kryptonSplitContainer5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel3)).BeginInit();
-            this.kryptonPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonDataGridView3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             this.SuspendLayout();
@@ -1173,199 +1118,6 @@
             this.kryptonRibbonGroupButton7.ImageSmall = null;
             this.kryptonRibbonGroupButton7.TextLine1 = "Exit";
             // 
-            // kryptonSplitContainer1
-            // 
-            this.kryptonSplitContainer1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.kryptonSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonSplitContainer1.Location = new System.Drawing.Point(0, 143);
-            this.kryptonSplitContainer1.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonSplitContainer1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            // 
-            // kryptonSplitContainer1.Panel1
-            // 
-            this.kryptonSplitContainer1.Panel1.Controls.Add(this.kryptonSplitContainer3);
-            // 
-            // kryptonSplitContainer1.Panel2
-            // 
-            this.kryptonSplitContainer1.Panel2.Controls.Add(this.kryptonSplitContainer2);
-            this.kryptonSplitContainer1.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer1.Size = new System.Drawing.Size(2009, 613);
-            this.kryptonSplitContainer1.SplitterDistance = 667;
-            this.kryptonSplitContainer1.TabIndex = 6;
-            // 
-            // kryptonSplitContainer3
-            // 
-            this.kryptonSplitContainer3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.kryptonSplitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonSplitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.kryptonSplitContainer3.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonSplitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.kryptonSplitContainer3.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            // 
-            // kryptonSplitContainer3.Panel1
-            // 
-            this.kryptonSplitContainer3.Panel1.Controls.Add(this.kryptonPanel1);
-            // 
-            // kryptonSplitContainer3.Panel2
-            // 
-            this.kryptonSplitContainer3.Panel2.Controls.Add(this.kryptonPanel6);
-            this.kryptonSplitContainer3.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer3.Size = new System.Drawing.Size(667, 613);
-            this.kryptonSplitContainer3.SplitterDistance = 301;
-            this.kryptonSplitContainer3.TabIndex = 7;
-            // 
-            // kryptonPanel1
-            // 
-            this.kryptonPanel1.Controls.Add(this.dtgLeaveApprovals);
-            this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
-            this.kryptonPanel1.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(667, 301);
-            this.kryptonPanel1.TabIndex = 0;
-            // 
-            // dtgLeaveApprovals
-            // 
-            this.dtgLeaveApprovals.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dtgLeaveApprovals.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgLeaveApprovals.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dtgLeaveApprovals.Location = new System.Drawing.Point(0, 61);
-            this.dtgLeaveApprovals.Margin = new System.Windows.Forms.Padding(4);
-            this.dtgLeaveApprovals.Name = "dtgLeaveApprovals";
-            this.dtgLeaveApprovals.Size = new System.Drawing.Size(667, 240);
-            this.dtgLeaveApprovals.TabIndex = 0;
-            // 
-            // kryptonPanel6
-            // 
-            this.kryptonPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonPanel6.Location = new System.Drawing.Point(0, 0);
-            this.kryptonPanel6.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonPanel6.Name = "kryptonPanel6";
-            this.kryptonPanel6.Size = new System.Drawing.Size(667, 307);
-            this.kryptonPanel6.TabIndex = 1;
-            // 
-            // kryptonSplitContainer2
-            // 
-            this.kryptonSplitContainer2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.kryptonSplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonSplitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.kryptonSplitContainer2.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonSplitContainer2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            // 
-            // kryptonSplitContainer2.Panel1
-            // 
-            this.kryptonSplitContainer2.Panel1.Controls.Add(this.kryptonSplitContainer4);
-            // 
-            // kryptonSplitContainer2.Panel2
-            // 
-            this.kryptonSplitContainer2.Panel2.Controls.Add(this.kryptonSplitContainer5);
-            this.kryptonSplitContainer2.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer2.Size = new System.Drawing.Size(1337, 613);
-            this.kryptonSplitContainer2.SplitterDistance = 567;
-            this.kryptonSplitContainer2.TabIndex = 7;
-            // 
-            // kryptonSplitContainer4
-            // 
-            this.kryptonSplitContainer4.Cursor = System.Windows.Forms.Cursors.Default;
-            this.kryptonSplitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonSplitContainer4.Location = new System.Drawing.Point(0, 0);
-            this.kryptonSplitContainer4.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonSplitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.kryptonSplitContainer4.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            // 
-            // kryptonSplitContainer4.Panel1
-            // 
-            this.kryptonSplitContainer4.Panel1.Controls.Add(this.kryptonPanel2);
-            // 
-            // kryptonSplitContainer4.Panel2
-            // 
-            this.kryptonSplitContainer4.Panel2.Controls.Add(this.kryptonPanel5);
-            this.kryptonSplitContainer4.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer4.Size = new System.Drawing.Size(567, 613);
-            this.kryptonSplitContainer4.SplitterDistance = 301;
-            this.kryptonSplitContainer4.TabIndex = 7;
-            // 
-            // kryptonPanel2
-            // 
-            this.kryptonPanel2.Controls.Add(this.kryptonDataGridView2);
-            this.kryptonPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonPanel2.Location = new System.Drawing.Point(0, 0);
-            this.kryptonPanel2.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonPanel2.Name = "kryptonPanel2";
-            this.kryptonPanel2.Size = new System.Drawing.Size(567, 301);
-            this.kryptonPanel2.TabIndex = 1;
-            // 
-            // kryptonDataGridView2
-            // 
-            this.kryptonDataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.kryptonDataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.kryptonDataGridView2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.kryptonDataGridView2.Location = new System.Drawing.Point(0, 61);
-            this.kryptonDataGridView2.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonDataGridView2.Name = "kryptonDataGridView2";
-            this.kryptonDataGridView2.Size = new System.Drawing.Size(567, 240);
-            this.kryptonDataGridView2.TabIndex = 1;
-            // 
-            // kryptonPanel5
-            // 
-            this.kryptonPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonPanel5.Location = new System.Drawing.Point(0, 0);
-            this.kryptonPanel5.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonPanel5.Name = "kryptonPanel5";
-            this.kryptonPanel5.Size = new System.Drawing.Size(567, 307);
-            this.kryptonPanel5.TabIndex = 1;
-            // 
-            // kryptonSplitContainer5
-            // 
-            this.kryptonSplitContainer5.Cursor = System.Windows.Forms.Cursors.Default;
-            this.kryptonSplitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonSplitContainer5.Location = new System.Drawing.Point(0, 0);
-            this.kryptonSplitContainer5.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonSplitContainer5.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.kryptonSplitContainer5.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            // 
-            // kryptonSplitContainer5.Panel1
-            // 
-            this.kryptonSplitContainer5.Panel1.Controls.Add(this.kryptonPanel3);
-            // 
-            // kryptonSplitContainer5.Panel2
-            // 
-            this.kryptonSplitContainer5.Panel2.Controls.Add(this.kryptonPanel4);
-            this.kryptonSplitContainer5.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer5.Size = new System.Drawing.Size(765, 613);
-            this.kryptonSplitContainer5.SplitterDistance = 301;
-            this.kryptonSplitContainer5.TabIndex = 7;
-            // 
-            // kryptonPanel3
-            // 
-            this.kryptonPanel3.Controls.Add(this.kryptonDataGridView3);
-            this.kryptonPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonPanel3.Location = new System.Drawing.Point(0, 0);
-            this.kryptonPanel3.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonPanel3.Name = "kryptonPanel3";
-            this.kryptonPanel3.Size = new System.Drawing.Size(765, 301);
-            this.kryptonPanel3.TabIndex = 1;
-            // 
-            // kryptonDataGridView3
-            // 
-            this.kryptonDataGridView3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.kryptonDataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.kryptonDataGridView3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.kryptonDataGridView3.Location = new System.Drawing.Point(0, 61);
-            this.kryptonDataGridView3.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonDataGridView3.Name = "kryptonDataGridView3";
-            this.kryptonDataGridView3.Size = new System.Drawing.Size(765, 240);
-            this.kryptonDataGridView3.TabIndex = 1;
-            // 
-            // kryptonPanel4
-            // 
-            this.kryptonPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonPanel4.Location = new System.Drawing.Point(0, 0);
-            this.kryptonPanel4.Margin = new System.Windows.Forms.Padding(4);
-            this.kryptonPanel4.Name = "kryptonPanel4";
-            this.kryptonPanel4.Size = new System.Drawing.Size(765, 307);
-            this.kryptonPanel4.TabIndex = 1;
-            // 
             // qryRoleProfileBindingSource
             // 
             this.qryRoleProfileBindingSource.DataMember = "qryRoleProfile";
@@ -1384,6 +1136,21 @@
             // 
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             // 
+            // lblDashboardTitle
+            // 
+            this.lblDashboardTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.lblDashboardTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblDashboardTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblDashboardTitle.Font = new System.Drawing.Font("Impact", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDashboardTitle.ForeColor = System.Drawing.Color.Black;
+            this.lblDashboardTitle.Location = new System.Drawing.Point(0, 143);
+            this.lblDashboardTitle.Margin = new System.Windows.Forms.Padding(3);
+            this.lblDashboardTitle.Name = "lblDashboardTitle";
+            this.lblDashboardTitle.Size = new System.Drawing.Size(2009, 51);
+            this.lblDashboardTitle.TabIndex = 10;
+            this.lblDashboardTitle.Text = "- Dashboard";
+            this.lblDashboardTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1391,10 +1158,11 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(2009, 778);
-            this.Controls.Add(this.kryptonSplitContainer1);
+            this.Controls.Add(this.lblDashboardTitle);
             this.Controls.Add(this.tblRibbon);
             this.Controls.Add(this.myStatusBar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IsMdiContainer = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmDashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1402,6 +1170,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmDashboard_FormClosed);
             this.Load += new System.EventHandler(this.frmDashboard_Load);
+            this.ResizeEnd += new System.EventHandler(this.frmDashboard_ResizeEnd);
             this.myStatusBar.ResumeLayout(false);
             this.myStatusBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).EndInit();
@@ -1412,48 +1181,6 @@
             this.cmPayrollManagement.ResumeLayout(false);
             this.cmUserManagementList.ResumeLayout(false);
             this.cmbApplicationSettings.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).EndInit();
-            this.kryptonSplitContainer1.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel2)).EndInit();
-            this.kryptonSplitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).EndInit();
-            this.kryptonSplitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3.Panel1)).EndInit();
-            this.kryptonSplitContainer3.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3.Panel2)).EndInit();
-            this.kryptonSplitContainer3.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3)).EndInit();
-            this.kryptonSplitContainer3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
-            this.kryptonPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dtgLeaveApprovals)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2.Panel1)).EndInit();
-            this.kryptonSplitContainer2.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2.Panel2)).EndInit();
-            this.kryptonSplitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2)).EndInit();
-            this.kryptonSplitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer4.Panel1)).EndInit();
-            this.kryptonSplitContainer4.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer4.Panel2)).EndInit();
-            this.kryptonSplitContainer4.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer4)).EndInit();
-            this.kryptonSplitContainer4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).EndInit();
-            this.kryptonPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonDataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer5.Panel1)).EndInit();
-            this.kryptonSplitContainer5.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer5.Panel2)).EndInit();
-            this.kryptonSplitContainer5.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer5)).EndInit();
-            this.kryptonSplitContainer5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel3)).EndInit();
-            this.kryptonPanel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonDataGridView3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             this.ResumeLayout(false);
@@ -1511,20 +1238,6 @@
         private System.Windows.Forms.ContextMenuStrip cmLeaveManagement;
         private System.Windows.Forms.ToolStripMenuItem cmbLeaveRequest;
         private System.Windows.Forms.ToolStripMenuItem cmbLeaveApproval;
-        private Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer1;
-        private Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer2;
-        private Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer3;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel1;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel6;
-        private Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer4;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel2;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel5;
-        private Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer5;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel3;
-        private Krypton.Toolkit.KryptonPanel kryptonPanel4;
-        private Krypton.Toolkit.KryptonDataGridView dtgLeaveApprovals;
-        private Krypton.Toolkit.KryptonDataGridView kryptonDataGridView2;
-        private Krypton.Toolkit.KryptonDataGridView kryptonDataGridView3;
         private StaffsyncDBDTSet staffsyncDBDTSet;
         private System.Windows.Forms.BindingSource qryRoleProfileBindingSource;
         private StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter qryRoleProfileTableAdapter;
@@ -1606,6 +1319,7 @@
         private System.Windows.Forms.ToolStripMenuItem cmbOutstandingLeaveStatement;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem13;
         private System.Windows.Forms.ToolStripMenuItem cmbDailyAttendanceSheet;
+        public System.Windows.Forms.Label lblDashboardTitle;
     }
 }
 

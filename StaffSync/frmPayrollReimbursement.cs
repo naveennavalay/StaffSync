@@ -13,6 +13,7 @@ using System.Data.OleDb;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ModelStaffSync;
 
 namespace StaffSync
 {
@@ -23,7 +24,9 @@ namespace StaffSync
         //DataSet dtDataset;
 
         //clsAllowenceInfo objAllowence = new clsAllowenceInfo();
-        clsReimbursement objReimbursement = new clsReimbursement();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsReimbursement objReimbursement = new DALStaffSync.clsReimbursement();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmReimbursement()
         {
@@ -39,6 +42,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -80,7 +84,7 @@ namespace StaffSync
             enableControls();
             cmbIsFixed.SelectedIndex = 1;
             cmbIsActive.SelectedIndex = 1;
-            lblReimbursementID.Text = objReimbursement.getMaxRowCount("ReimbursementHeaderMas", "ReimbID").ToString();
+            lblReimbursementID.Text = objGenFunc.getMaxRowCount("ReimbursementHeaderMas", "ReimbID").Data.ToString();
             txtReimbCode.Text = "RIM-" + (lblReimbursementID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
         }
@@ -331,6 +335,18 @@ namespace StaffSync
                 lblActionMode.Text = "";
                 errValidator.Clear();
             }
+        }
+
+        private void frmReimbursement_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

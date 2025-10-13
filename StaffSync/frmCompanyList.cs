@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,8 @@ namespace StaffSync
 {
     public partial class frmCompanyList : Form
     {
-        clsLastCompanyMas objLastCompany = new clsLastCompanyMas();
-        clsClientInfo objClientInfo = new clsClientInfo();
+        DALStaffSync.clsLastCompanyMas objLastCompany = new DALStaffSync.clsLastCompanyMas();
+        DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
 
         frmCompanyInfo frmCompanyInfo = null;
         public frmCompanyList()

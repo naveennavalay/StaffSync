@@ -1,4 +1,5 @@
 ﻿using Krypton.Toolkit;
+using ModelStaffSync;
 using StaffSync.Controls;
 using StaffSync.StaffsyncDBDataSetTableAdapters;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
@@ -22,11 +23,11 @@ namespace StaffSync
 {
     public partial class frmDailyAttendanceSheet : Form
     {
-        clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
-        clsWeeklyOffInfo objWeeklyOffInfo = new clsWeeklyOffInfo();
-        clsAttendanceMas objAttendanceInfo = new clsAttendanceMas();
-        clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new clsEmpLeaveEntitlementInfo();
-        clsAttendanceMas objAttendanceMas = new clsAttendanceMas();
+        DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
+        DALStaffSync.clsWeeklyOffInfo objWeeklyOffInfo = new DALStaffSync.clsWeeklyOffInfo();
+        DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
+        DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
+        DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
         List<WklyOffProfileDetailsInfo> lstWeeklyOffDetailsInfo = new List<WklyOffProfileDetailsInfo>();
 
         private void Control_CellValueChangedCustom(object sender, CellValueChangedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace StaffSync
 {
     public partial class frmEmployeeList : Form
     {
-        clsEmployeeMaster objEmployeeMaster = new clsEmployeeMaster();
+        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
         frmEmployeeMaster frmEmployeeMaster = null;
         frmLeavesMaster frmLeavesMaster = null;
         frmUserManagement frmUserManagement = null;
@@ -28,11 +29,11 @@ namespace StaffSync
         frmCurrentUserLeaveMaster frmCurrentUserLeaveMaster = null;
         frmEmpLeaveEntitlement frmEmpLeaveEntitlement = null;
         frmLeaveStatements frmLeaveStatements = null;
-        clsLeaveTRList objLeaveInfo = new clsLeaveTRList();
-        clsUserManagement objUsersInfo = new clsUserManagement();
-        clsRolesAndResponsibilities objRolesAndResponsibilities = new clsRolesAndResponsibilities();
-        clsAppModule objAppModule = new clsAppModule();
-        clsEmpPayroll objEmpPayroll = new clsEmpPayroll();
+        DALStaffSync.clsLeaveTRList objLeaveInfo = new DALStaffSync.clsLeaveTRList();
+        DALStaffSync.clsUserManagement objUsersInfo = new DALStaffSync.clsUserManagement();
+        DALStaffSync.clsRolesAndResponsibilities objRolesAndResponsibilities = new DALStaffSync.clsRolesAndResponsibilities();
+        DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
+        DALStaffSync.clsEmpPayroll objEmpPayroll = new DALStaffSync.clsEmpPayroll();
 
         public frmEmployeeList()
         {

@@ -21,5 +21,10 @@ namespace StaffSync
         {
             this.Close();
         }
+
+        private void frmEmployeeWiseReports_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }

@@ -13,14 +13,15 @@ using System.Data.OleDb;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ModelStaffSync;
 
 namespace StaffSync
 {
     public partial class frmStateMaster : Form
     {
-        //clsCountries objCountries = new clsCountries();
-        //clsDesignation objDesignation = new clsDesignation();
-        clsStates objState = new clsStates();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsStates objState = new DALStaffSync.clsStates();
+        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmStateMaster()
         {
@@ -36,6 +37,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -76,7 +78,7 @@ namespace StaffSync
             clearControls();
             enableControls();
             cmbIsActive.SelectedIndex = 1;
-            lblCountryID.Text = objState.getMaxRowCount("StateMas", "StateID").ToString();
+            lblCountryID.Text = objGenFunc.getMaxRowCount("StateMas", "StateID").Data.ToString();
             txtStateCode.Text = "STT-" + (lblCountryID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
         }
@@ -295,6 +297,18 @@ namespace StaffSync
                 lblActionMode.Text = "";
                 errValidator.Clear();
             }
+        }
+
+        private void frmStateMaster_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            this.Close();
         }
     }
 }

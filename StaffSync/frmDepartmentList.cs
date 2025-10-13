@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace StaffSync
 {
     public partial class frmDepartmentList : Form
     {
-        clsDepartment objDepartment = new clsDepartment();
+        DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
         frmDepartmentMaster frmDepMaster = null;
 
         public frmDepartmentList()

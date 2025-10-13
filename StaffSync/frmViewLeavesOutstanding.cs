@@ -1,4 +1,5 @@
-﻿using StaffSync.StaffsyncDBDataSetTableAdapters;
+﻿using ModelStaffSync;
+using StaffSync.StaffsyncDBDataSetTableAdapters;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,11 @@ namespace StaffSync
 {
     public partial class frmViewLeavesOutstanding : Form
     {
-        clsLeaveTRList objLeaveTRList = new clsLeaveTRList();
-        clsWeeklyOffInfo objWeeklyOffInfo = new clsWeeklyOffInfo();
-        clsAttendanceMas objAttendanceInfo = new clsAttendanceMas();
-        clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new clsEmpLeaveEntitlementInfo();
+        DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
+        DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
+        DALStaffSync.clsWeeklyOffInfo objWeeklyOffInfo = new DALStaffSync.clsWeeklyOffInfo();
+        DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
+        DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
         List<WklyOffProfileDetailsInfo> lstWeeklyOffDetailsInfo = new List<WklyOffProfileDetailsInfo>();
 
         public frmViewLeavesOutstanding()
@@ -83,9 +85,9 @@ namespace StaffSync
                 }
             }
 
-            txtTotalLeavesAlloted.Text = Convert.ToDecimal(totalLeavesAllotted.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtTotalBalanceLeaves.Text = Convert.ToDecimal(totalBalanceLeaves.ToString()).ToString("00.00", CultureInfo.InvariantCulture);
-            txtTotalUtilised.Text = (Convert.ToDecimal(txtTotalLeavesAlloted.Text.ToString())  - Convert.ToDecimal(txtTotalBalanceLeaves.Text.ToString())).ToString("00.00", CultureInfo.InvariantCulture);
+            txtTotalLeavesAlloted.Text = Convert.ToDecimal(totalLeavesAllotted.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtTotalBalanceLeaves.Text = Convert.ToDecimal(totalBalanceLeaves.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
+            txtTotalUtilised.Text = (Convert.ToDecimal(txtTotalLeavesAlloted.Text.ToString())  - Convert.ToDecimal(txtTotalBalanceLeaves.Text.ToString())).ToString("0.00", CultureInfo.InvariantCulture);
         }
 
 
@@ -350,6 +352,11 @@ namespace StaffSync
         private void chkSelectUnselect_CheckedChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void frmViewLeavesOutstanding_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }
