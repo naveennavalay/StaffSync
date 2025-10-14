@@ -8,7 +8,8 @@ namespace dbStaffSync
 {
     public class dbStaffSync
     {
-        string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\StaffsyncDB.accdb";
+        //string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\StaffsyncDB.accdb";
+        string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Development\\StaffSync\\StaffSync\\bin\\Debug\\StaffsyncDB.accdb";
         public OleDbConnection conn = null;
 
         public OleDbConnection openDBConnection()

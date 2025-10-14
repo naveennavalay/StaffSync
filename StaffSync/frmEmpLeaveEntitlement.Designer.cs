@@ -105,7 +105,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1411, 641);
+            this.splitContainer1.Size = new System.Drawing.Size(1057, 641);
             this.splitContainer1.SplitterDistance = 576;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
@@ -119,7 +119,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1411, 576);
+            this.panel1.Size = new System.Drawing.Size(1057, 576);
             this.panel1.TabIndex = 1;
             // 
             // groupBox2
@@ -144,7 +144,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(1373, 365);
+            this.groupBox2.Size = new System.Drawing.Size(1024, 355);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Leave Entitlement";
@@ -152,13 +152,13 @@
             // txtTotalUtilised
             // 
             this.txtTotalUtilised.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTotalUtilised.Location = new System.Drawing.Point(908, 322);
+            this.txtTotalUtilised.Location = new System.Drawing.Point(687, 316);
             this.txtTotalUtilised.Margin = new System.Windows.Forms.Padding(4);
             this.txtTotalUtilised.Multiline = true;
             this.txtTotalUtilised.Name = "txtTotalUtilised";
             this.txtTotalUtilised.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtTotalUtilised.ReadOnly = true;
-            this.txtTotalUtilised.Size = new System.Drawing.Size(180, 28);
+            this.txtTotalUtilised.Size = new System.Drawing.Size(136, 28);
             this.txtTotalUtilised.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalUtilised.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtTotalUtilised.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -173,7 +173,7 @@
             this.picAddLeave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picAddLeave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picAddLeave.Image = global::StaffSync.Properties.Resources.add;
-            this.picAddLeave.Location = new System.Drawing.Point(1208, 41);
+            this.picAddLeave.Location = new System.Drawing.Point(875, 31);
             this.picAddLeave.Margin = new System.Windows.Forms.Padding(4);
             this.picAddLeave.Name = "picAddLeave";
             this.picAddLeave.Size = new System.Drawing.Size(31, 27);
@@ -196,13 +196,13 @@
             // txtTotalBalanceLeaves
             // 
             this.txtTotalBalanceLeaves.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTotalBalanceLeaves.Location = new System.Drawing.Point(725, 322);
+            this.txtTotalBalanceLeaves.Location = new System.Drawing.Point(550, 316);
             this.txtTotalBalanceLeaves.Margin = new System.Windows.Forms.Padding(4);
             this.txtTotalBalanceLeaves.Multiline = true;
             this.txtTotalBalanceLeaves.Name = "txtTotalBalanceLeaves";
             this.txtTotalBalanceLeaves.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtTotalBalanceLeaves.ReadOnly = true;
-            this.txtTotalBalanceLeaves.Size = new System.Drawing.Size(180, 28);
+            this.txtTotalBalanceLeaves.Size = new System.Drawing.Size(136, 28);
             this.txtTotalBalanceLeaves.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalBalanceLeaves.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtTotalBalanceLeaves.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -215,13 +215,13 @@
             // txtTotalLeavesAlloted
             // 
             this.txtTotalLeavesAlloted.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTotalLeavesAlloted.Location = new System.Drawing.Point(544, 322);
+            this.txtTotalLeavesAlloted.Location = new System.Drawing.Point(413, 316);
             this.txtTotalLeavesAlloted.Margin = new System.Windows.Forms.Padding(4);
             this.txtTotalLeavesAlloted.Multiline = true;
             this.txtTotalLeavesAlloted.Name = "txtTotalLeavesAlloted";
             this.txtTotalLeavesAlloted.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtTotalLeavesAlloted.ReadOnly = true;
-            this.txtTotalLeavesAlloted.Size = new System.Drawing.Size(180, 28);
+            this.txtTotalLeavesAlloted.Size = new System.Drawing.Size(136, 28);
             this.txtTotalLeavesAlloted.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalLeavesAlloted.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtTotalLeavesAlloted.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -235,7 +235,7 @@
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.Location = new System.Drawing.Point(447, 331);
+            this.label40.Location = new System.Drawing.Point(322, 323);
             this.label40.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(88, 15);
@@ -290,13 +290,13 @@
             this.dtgLeaveEntitlement.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dtgLeaveEntitlement.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
             this.dtgLeaveEntitlement.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgLeaveEntitlement.Location = new System.Drawing.Point(24, 76);
+            this.dtgLeaveEntitlement.Location = new System.Drawing.Point(24, 69);
             this.dtgLeaveEntitlement.Margin = new System.Windows.Forms.Padding(4);
             this.dtgLeaveEntitlement.MultiSelect = false;
             this.dtgLeaveEntitlement.Name = "dtgLeaveEntitlement";
             this.dtgLeaveEntitlement.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgLeaveEntitlement.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgLeaveEntitlement.Size = new System.Drawing.Size(1316, 239);
+            this.dtgLeaveEntitlement.Size = new System.Drawing.Size(985, 239);
             this.dtgLeaveEntitlement.TabIndex = 45;
             this.dtgLeaveEntitlement.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgLeaveEntitlement_CellEndEdit);
             // 
@@ -331,7 +331,7 @@
             this.picDownloadLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picDownloadLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picDownloadLeaveTRList.Image = global::StaffSync.Properties.Resources.download01;
-            this.picDownloadLeaveTRList.Location = new System.Drawing.Point(1241, 43);
+            this.picDownloadLeaveTRList.Location = new System.Drawing.Point(908, 33);
             this.picDownloadLeaveTRList.Margin = new System.Windows.Forms.Padding(4);
             this.picDownloadLeaveTRList.Name = "picDownloadLeaveTRList";
             this.picDownloadLeaveTRList.Size = new System.Drawing.Size(28, 25);
@@ -345,7 +345,7 @@
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox3.Image = global::StaffSync.Properties.Resources.mail01;
-            this.pictureBox3.Location = new System.Drawing.Point(1273, 41);
+            this.pictureBox3.Location = new System.Drawing.Point(940, 31);
             this.pictureBox3.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(31, 27);
@@ -358,7 +358,7 @@
             this.picRefreshLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picRefreshLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picRefreshLeaveTRList.Image = global::StaffSync.Properties.Resources.refresh01;
-            this.picRefreshLeaveTRList.Location = new System.Drawing.Point(1309, 41);
+            this.picRefreshLeaveTRList.Location = new System.Drawing.Point(976, 31);
             this.picRefreshLeaveTRList.Margin = new System.Windows.Forms.Padding(4);
             this.picRefreshLeaveTRList.Name = "picRefreshLeaveTRList";
             this.picRefreshLeaveTRList.Size = new System.Drawing.Size(31, 27);
@@ -387,7 +387,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(1375, 192);
+            this.groupBox4.Size = new System.Drawing.Size(1025, 192);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Professional Info";
@@ -412,7 +412,7 @@
             this.txtEmployeeName.Multiline = true;
             this.txtEmployeeName.Name = "txtEmployeeName";
             this.txtEmployeeName.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtEmployeeName.Size = new System.Drawing.Size(587, 28);
+            this.txtEmployeeName.Size = new System.Drawing.Size(516, 28);
             this.txtEmployeeName.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmployeeName.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtEmployeeName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -441,7 +441,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.Location = new System.Drawing.Point(966, 37);
+            this.label38.Location = new System.Drawing.Point(780, 37);
             this.label38.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(44, 15);
@@ -451,7 +451,7 @@
             // 
             // picEmpPhoto
             // 
-            this.picEmpPhoto.Location = new System.Drawing.Point(1019, 32);
+            this.picEmpPhoto.Location = new System.Drawing.Point(833, 32);
             this.picEmpPhoto.Margin = new System.Windows.Forms.Padding(4);
             this.picEmpPhoto.Name = "picEmpPhoto";
             this.picEmpPhoto.Size = new System.Drawing.Size(175, 142);
@@ -466,7 +466,7 @@
             this.cmbDesignation.Location = new System.Drawing.Point(167, 137);
             this.cmbDesignation.Margin = new System.Windows.Forms.Padding(4);
             this.cmbDesignation.Name = "cmbDesignation";
-            this.cmbDesignation.Size = new System.Drawing.Size(585, 23);
+            this.cmbDesignation.Size = new System.Drawing.Size(516, 23);
             this.cmbDesignation.TabIndex = 33;
             this.cmbDesignation.Tag = "Please enter Employee Designation";
             // 
@@ -489,7 +489,7 @@
             this.cmbDepartment.Location = new System.Drawing.Point(167, 105);
             this.cmbDepartment.Margin = new System.Windows.Forms.Padding(4);
             this.cmbDepartment.Name = "cmbDepartment";
-            this.cmbDepartment.Size = new System.Drawing.Size(585, 23);
+            this.cmbDepartment.Size = new System.Drawing.Size(516, 23);
             this.cmbDepartment.TabIndex = 32;
             this.cmbDepartment.Tag = "Please enter Employee Department";
             // 
@@ -566,7 +566,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1411, 60);
+            this.panel2.Size = new System.Drawing.Size(1057, 60);
             this.panel2.TabIndex = 1;
             // 
             // btnCancel
@@ -584,7 +584,7 @@
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1189, 11);
+            this.btnCloseMe.Location = new System.Drawing.Point(900, 11);
             this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -674,7 +674,8 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1411, 641);
+            this.ClientSize = new System.Drawing.Size(1057, 641);
+            this.ControlBox = false;
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
