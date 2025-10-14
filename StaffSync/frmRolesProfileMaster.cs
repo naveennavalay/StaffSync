@@ -20,6 +20,7 @@ namespace StaffSync
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         DALStaffSync.clsRolesAndResponsibilities objRolesAndResponsibilities = new DALStaffSync.clsRolesAndResponsibilities();
         DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
+        frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmRolesProfileMaster()
         {
@@ -35,6 +36,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -176,6 +178,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
     }

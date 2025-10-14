@@ -34,6 +34,7 @@ namespace StaffSync
         DALStaffSync.clsSalaryProfile objSalaryProfile = new DALStaffSync.clsSalaryProfile();
         DALStaffSync.clsEmployeeSalaryProfileInfo objEmployeeSalaryProfileInfo = new DALStaffSync.clsEmployeeSalaryProfileInfo();
         DALStaffSync.clsEmpPayroll objEmployeePayroll = new DALStaffSync.clsEmpPayroll();
+        frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmUpdateSalaryProfile()
         {
@@ -49,6 +50,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -592,6 +594,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
     }

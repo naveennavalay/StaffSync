@@ -211,11 +211,10 @@
             this.LoggedInUser,
             this.LogInTime,
             this.LastActionByLoggedInUser});
-            this.myStatusBar.Location = new System.Drawing.Point(0, 756);
+            this.myStatusBar.Location = new System.Drawing.Point(0, 610);
             this.myStatusBar.Name = "myStatusBar";
-            this.myStatusBar.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
             this.myStatusBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.myStatusBar.Size = new System.Drawing.Size(2009, 22);
+            this.myStatusBar.Size = new System.Drawing.Size(1507, 22);
             this.myStatusBar.TabIndex = 2;
             this.myStatusBar.Text = "statusStrip1";
             // 
@@ -229,7 +228,7 @@
             this.kryptonRibbonTab1});
             this.tblRibbon.SelectedTab = this.kryptonRibbonTab1;
             this.tblRibbon.ShowMinimizeButton = false;
-            this.tblRibbon.Size = new System.Drawing.Size(2009, 143);
+            this.tblRibbon.Size = new System.Drawing.Size(1507, 143);
             this.tblRibbon.TabIndex = 5;
             // 
             // kryptonRibbonTab1
@@ -1144,26 +1143,25 @@
             this.lblDashboardTitle.Font = new System.Drawing.Font("Impact", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDashboardTitle.ForeColor = System.Drawing.Color.Black;
             this.lblDashboardTitle.Location = new System.Drawing.Point(0, 143);
-            this.lblDashboardTitle.Margin = new System.Windows.Forms.Padding(3);
+            this.lblDashboardTitle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lblDashboardTitle.Name = "lblDashboardTitle";
-            this.lblDashboardTitle.Size = new System.Drawing.Size(2009, 51);
+            this.lblDashboardTitle.Size = new System.Drawing.Size(1507, 41);
             this.lblDashboardTitle.TabIndex = 10;
-            this.lblDashboardTitle.Text = "- Dashboard";
+            this.lblDashboardTitle.Text = "Dashboard";
             this.lblDashboardTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frmDashboard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(2009, 778);
+            this.ClientSize = new System.Drawing.Size(1507, 632);
             this.Controls.Add(this.lblDashboardTitle);
             this.Controls.Add(this.tblRibbon);
             this.Controls.Add(this.myStatusBar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmDashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Staffsync Dashboard";

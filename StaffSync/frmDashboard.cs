@@ -2374,10 +2374,6 @@ namespace StaffSync
                     frmEmployeeMasterDetails.Show();
                     frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;
                 }
-                else
-                {
-
-                }
             }
             else
             {

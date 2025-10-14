@@ -255,7 +255,6 @@ namespace StaffSync
             clearControls();
             FormatTheGrid();
             errValidator.Clear();
-
         }
 
         private void btnModifyDetails_Click(object sender, EventArgs e)
@@ -441,6 +440,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
     }

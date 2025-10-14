@@ -21,6 +21,7 @@ namespace StaffSync
     {
         DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
         DALStaffSync.clsLastCompanyMas objLastCompanyMas = new DALStaffSync.clsLastCompanyMas();
+        frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmLastCompanyMaster()
         {
@@ -36,6 +37,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -306,6 +308,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
     }

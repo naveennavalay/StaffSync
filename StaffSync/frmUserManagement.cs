@@ -268,6 +268,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
     }

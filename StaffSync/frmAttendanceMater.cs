@@ -26,6 +26,7 @@ namespace StaffSync
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
         DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
+        frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
 
         public frmAttendanceMater()
         {
@@ -43,6 +44,14 @@ namespace StaffSync
 
         private void btnCloseMe_Click(object sender, EventArgs e)
         {
+            if (lblActionMode.Text != "")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -304,6 +313,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
     }
