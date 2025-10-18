@@ -31,6 +31,7 @@ namespace StaffSync
         DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsLeaveTRList objLeaveInfo = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
+        DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
 
         private async void InitializeScheduler()
         {
@@ -71,10 +72,13 @@ namespace StaffSync
             //await _scheduler.ScheduleJob(job, trigger);
         }
 
-        public frmDashboard()
+        public frmDashboard(int EmpID)
         {
             InitializeComponent();
             InitializeScheduler();
+
+            objLogin.getLoggedInUserInfo(EmpID);
+
             List<ClientInfo> objActiveClientInfo = objClientInfo.getClientInfo(1);
         }
 
@@ -1054,6 +1058,10 @@ namespace StaffSync
 
         private void tlbExitButton_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Are you sure you want to exit.?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                return;
+            }
             Application.Exit();
         }
 
@@ -2682,6 +2690,18 @@ namespace StaffSync
         private void frmDashboard_ResizeEnd(object sender, EventArgs e)
         {
             //lblDashboardTitle.Width = this.Width;
+        }
+
+        private void frmDashboard_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                if (MessageBox.Show("Are you sure you want to exit.?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+                Application.Exit();
+            }
         }
     }
 }

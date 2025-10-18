@@ -131,15 +131,24 @@ namespace StaffSync
                 {
                     if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "allowences")
                     {
-                        EmpSalDetID = objSalaryProfile.UpdateSalaryProfileDetailInfo(Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["SalProfileID"].Value.ToString()), Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), 0, 0, Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()));
+                        if(Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()) == 0)
+                            EmpSalDetID = objSalaryProfile.InsertSalaryProfileDetailInfo(Convert.ToInt16(lblSalaryProfileID.Text.ToString()), Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), 0, 0, Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()));
+                        else 
+                            EmpSalDetID = objSalaryProfile.UpdateSalaryProfileDetailInfo(Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["SalProfileID"].Value.ToString()), Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), 0, 0, Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()));
                     }
                     else if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "deductions")
                     {
-                        EmpSalDetID = objSalaryProfile.UpdateSalaryProfileDetailInfo(Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["SalProfileID"].Value.ToString()), 0, Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), 0, Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()));
+                        if (Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()) == 0)
+                            EmpSalDetID = objSalaryProfile.InsertSalaryProfileDetailInfo(Convert.ToInt16(lblSalaryProfileID.Text.ToString()), 0, Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), 0, Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()));
+                        else
+                            EmpSalDetID = objSalaryProfile.UpdateSalaryProfileDetailInfo(Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["SalProfileID"].Value.ToString()), 0, Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), 0, Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()));
                     }
                     else if (dc.Cells["HeaderType"].Value.ToString().ToLower() == "reimbursement")
                     {
-                        EmpSalDetID = objSalaryProfile.UpdateSalaryProfileDetailInfo(Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["SalProfileID"].Value.ToString()), 0, 0, Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()));
+                        if(Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()) == 0)
+                            EmpSalDetID = objSalaryProfile.InsertSalaryProfileDetailInfo(Convert.ToInt16(lblSalaryProfileID.Text.ToString()), 0, 0, Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()));
+                        else
+                            EmpSalDetID = objSalaryProfile.UpdateSalaryProfileDetailInfo(Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["SalProfileID"].Value.ToString()), 0, 0, Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()));
                     }
                 }
                 MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -587,15 +596,18 @@ namespace StaffSync
 
         private void frmUpdateSalaryProfile_KeyDown(object sender, KeyEventArgs e)
         {
-            if (lblActionMode.Text != "")
+            if (e.KeyCode == Keys.Escape)
             {
-                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (lblActionMode.Text != "")
                 {
-                    return;
+                    if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    {
+                        return;
+                    }
                 }
+                objDashboard.lblDashboardTitle.Text = "Dashboard";
+                this.Close();
             }
-            objDashboard.lblDashboardTitle.Text = "Dashboard";
-            this.Close();
         }
     }
 }

@@ -156,7 +156,7 @@ namespace StaffSync
             empAttCalender.DisplayMonth = new DateTime(DateTime.Today.Year, selectedMonth, 1);
             empAttCalender.Invalidate(); // Redraw the control
 
-            List<EmployeeAttendanceInfo> objEmployeeAttendanceList = objAttendanceMas.GetDefaultEmployeeAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtSelectedMonth.Month);
+            List<EmployeeAttendanceInfo> objEmployeeAttendanceList = objAttendanceMas.GetDefaultEmployeeAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtSelectedMonth);
             foreach (EmployeeAttendanceInfo indEmployeeAttendanceInfo in objEmployeeAttendanceList)
             {
 
@@ -306,15 +306,18 @@ namespace StaffSync
 
         private void frmAttendanceMater_KeyDown(object sender, KeyEventArgs e)
         {
-            if (lblActionMode.Text != "")
+            if (e.KeyCode == Keys.Escape)
             {
-                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (lblActionMode.Text != "")
                 {
-                    return;
+                    if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    {
+                        return;
+                    }
                 }
+                objDashboard.lblDashboardTitle.Text = "Dashboard";
+                this.Close();
             }
-            objDashboard.lblDashboardTitle.Text = "Dashboard";
-            this.Close();
         }
     }
 }

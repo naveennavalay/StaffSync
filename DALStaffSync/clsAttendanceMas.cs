@@ -17,13 +17,22 @@ namespace DALStaffSync
 
         }
 
-        public List<EmployeeAttendanceInfo> GetDefaultEmployeeAttendanceInfo(int txtEmpID, int MonthNumber)
+        public List<EmployeeAttendanceInfo> GetDefaultEmployeeAttendanceInfo(int txtEmpID, DateTime dtSelectedMonth)
         {
             List<EmployeeAttendanceInfo> objReturnEmployeeAttendanceInfoList = new List<EmployeeAttendanceInfo>();
             
-            objReturnEmployeeAttendanceInfoList = objAttendanceMas.GetDefaultEmployeeAttendanceInfo(txtEmpID, MonthNumber);
+            objReturnEmployeeAttendanceInfoList = objAttendanceMas.GetDefaultEmployeeAttendanceInfo(txtEmpID, dtSelectedMonth);
 
             return objReturnEmployeeAttendanceInfoList;
+        }
+
+        public List<MonthlyAttendanceInfo> EmployeeSpecificMonthlyAttendanceInfo(int EmpID, DateTime ReportForTheMonth)
+        {
+            List<MonthlyAttendanceInfo> objMonthlyAttendanceReport = new List<MonthlyAttendanceInfo>();
+
+            objMonthlyAttendanceReport = objAttendanceMas.EmployeeSpecificMonthlyAttendanceInfo(EmpID, ReportForTheMonth);
+
+            return objMonthlyAttendanceReport;
         }
 
         public List<MonthlyAttendanceInfo> MonthlyAttendanceReport(DateTime ReportForTheMonth)
@@ -40,6 +49,15 @@ namespace DALStaffSync
             int affectedRows = 0;
 
             affectedRows = objAttendanceMas.InsertDailyAttendance(txtEmpID, AttendanceDate, AttendanceStatus, LeaveTRID);
+
+            return affectedRows;
+        }
+
+        public int UpdateDailyAttendance(int txtEmpID, DateTime AttendanceDate, string AttendanceStatus, int LeaveTRID)
+        {
+            int affectedRows = 0;
+
+            affectedRows = objAttendanceMas.UpdateDailyAttendance(txtEmpID, AttendanceDate, AttendanceStatus, LeaveTRID);
 
             return affectedRows;
         }

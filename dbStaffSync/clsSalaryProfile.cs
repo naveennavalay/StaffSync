@@ -192,6 +192,38 @@ namespace dbStaffSync
                 string DataTableToJSon = "";
                 DataTableToJSon = JsonConvert.SerializeObject(dt);
                 objSalaryProfileInfo = JsonConvert.DeserializeObject<List<SalaryProfileInfo>>(DataTableToJSon);
+
+                if (objSalaryProfileInfo.Count == 0)
+                {
+                    strQuery = "SELECT " +
+                                "0 AS SalProDetID," +
+                                "0 AS SalProfileID," +
+                                "AllowanceHeaderMas.AllID AS HeaderID," +
+                                "AllowanceHeaderMas.AllTitle AS HeaderTitle," +
+                                "AllowanceHeaderMas.CalcFormula," +
+                                "AllowanceHeaderMas.IsFixed," +
+                                "0 AS SalProAmount " +
+                            "FROM " +
+                                "AllowanceHeaderMas " +
+                            " WHERE " +
+                                "(" +
+                                    " ((AllowanceHeaderMas.IsActive) = True) " +
+                                    " AND ((AllowanceHeaderMas.IsDeleted) = False) " +
+                                ") " +
+                            "ORDER BY " +
+                                "OrderID";
+                    cmd = conn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strQuery;
+                    cmd.ExecuteNonQuery();
+
+                    da = new OleDbDataAdapter(cmd);
+                    da.Fill(dt);
+
+                    DataTableToJSon = "";
+                    DataTableToJSon = JsonConvert.SerializeObject(dt);
+                    objSalaryProfileInfo = JsonConvert.DeserializeObject<List<SalaryProfileInfo>>(DataTableToJSon);
+                }
                 foreach (SalaryProfileInfo indSalaryProfileInfo in objSalaryProfileInfo)
                 {
                     objReturnSalaryProfileInfoList.Add(new SalaryProfileInfo
@@ -243,6 +275,42 @@ namespace dbStaffSync
                 DataTableToJSon = JsonConvert.SerializeObject(dt);
                 objSalaryProfileInfo = new List<SalaryProfileInfo>();
                 objSalaryProfileInfo = JsonConvert.DeserializeObject<List<SalaryProfileInfo>>(DataTableToJSon);
+
+                if (objSalaryProfileInfo.Count == 0)
+                {
+                    strQuery = "SELECT " +
+                                    "0 AS SalProDetID, " +
+                                    "0 AS SalProfileID, " +
+                                    "DeductionHeaderMas.DedID AS HeaderID, " +
+                                    "DeductionHeaderMas.DedTitle AS HeaderTitle, " +
+                                    "DeductionHeaderMas.CalcFormula, " +
+                                    "DeductionHeaderMas.IsFixed, " +
+                                    "0 AS SalProAmount " +
+                                "FROM " +
+                                    "DeductionHeaderMas " +
+                                "WHERE " +
+                                    "( " +
+                                        "((DeductionHeaderMas.IsActive) = True)  " +
+                                        "AND ((DeductionHeaderMas.IsDeleted) = False)  " +
+                                    ") " +
+                                "ORDER BY " +
+                                    "DeductionHeaderMas.OrderID;";
+
+                    cmd = conn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strQuery;
+                    cmd.ExecuteNonQuery();
+
+                    dt = new DataTable();
+                    da = new OleDbDataAdapter(cmd);
+                    da.Fill(dt);
+
+                    DataTableToJSon = "";
+                    DataTableToJSon = JsonConvert.SerializeObject(dt);
+                    objSalaryProfileInfo = new List<SalaryProfileInfo>();
+                    objSalaryProfileInfo = JsonConvert.DeserializeObject<List<SalaryProfileInfo>>(DataTableToJSon);
+                }
+
                 foreach (SalaryProfileInfo indSalaryProfileInfo in objSalaryProfileInfo)
                 {
                     objReturnSalaryProfileInfoList.Add(new SalaryProfileInfo
@@ -294,6 +362,41 @@ namespace dbStaffSync
                 DataTableToJSon = JsonConvert.SerializeObject(dt);
                 objSalaryProfileInfo = new List<SalaryProfileInfo>();
                 objSalaryProfileInfo = JsonConvert.DeserializeObject<List<SalaryProfileInfo>>(DataTableToJSon);
+
+                if (objSalaryProfileInfo.Count == 0)
+                {
+                    strQuery = "SELECT " +
+                                    "0 AS SalProDetID, " +
+                                    "0 AS SalProfileID, " +
+                                    "ReimbursementHeaderMas.ReimbID AS HeaderID, " +
+                                    "ReimbursementHeaderMas.ReimbTitle AS HeaderTitle, " +
+                                    "ReimbursementHeaderMas.CalcFormula, " +
+                                    "ReimbursementHeaderMas.IsFixed, " +
+                                    "0 AS SalProAmount " +
+                                "FROM " +
+                                    "ReimbursementHeaderMas " +
+                                "WHERE " +
+                                    "( " +
+                                        "((ReimbursementHeaderMas.IsActive) = True) " +
+                                        "AND ((ReimbursementHeaderMas.IsDeleted) = False) " +
+                                    ") " +
+                                "ORDER BY " +
+                                    "ReimbursementHeaderMas.OrderID;";
+
+                    cmd = conn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strQuery;
+                    cmd.ExecuteNonQuery();
+
+                    dt = new DataTable();
+                    da = new OleDbDataAdapter(cmd);
+                    da.Fill(dt);
+
+                    DataTableToJSon = "";
+                    DataTableToJSon = JsonConvert.SerializeObject(dt);
+                    objSalaryProfileInfo = new List<SalaryProfileInfo>();
+                    objSalaryProfileInfo = JsonConvert.DeserializeObject<List<SalaryProfileInfo>>(DataTableToJSon);
+                }
                 foreach (SalaryProfileInfo indSalaryProfileInfo in objSalaryProfileInfo)
                 {
                     objReturnSalaryProfileInfoList.Add(new SalaryProfileInfo

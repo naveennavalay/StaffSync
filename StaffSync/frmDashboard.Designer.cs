@@ -1143,7 +1143,7 @@
             this.lblDashboardTitle.Font = new System.Drawing.Font("Impact", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDashboardTitle.ForeColor = System.Drawing.Color.Black;
             this.lblDashboardTitle.Location = new System.Drawing.Point(0, 143);
-            this.lblDashboardTitle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lblDashboardTitle.Margin = new System.Windows.Forms.Padding(2);
             this.lblDashboardTitle.Name = "lblDashboardTitle";
             this.lblDashboardTitle.Size = new System.Drawing.Size(1507, 41);
             this.lblDashboardTitle.TabIndex = 10;
@@ -1162,6 +1162,7 @@
             this.Controls.Add(this.myStatusBar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
+            this.KeyPreview = true;
             this.Name = "frmDashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Staffsync Dashboard";
@@ -1169,6 +1170,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmDashboard_FormClosed);
             this.Load += new System.EventHandler(this.frmDashboard_Load);
             this.ResizeEnd += new System.EventHandler(this.frmDashboard_ResizeEnd);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmDashboard_KeyDown);
             this.myStatusBar.ResumeLayout(false);
             this.myStatusBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).EndInit();

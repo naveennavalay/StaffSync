@@ -16,6 +16,15 @@ namespace DALStaffSync
 
         }
 
+        public int getMonthlyAttendanceInfo(int txtEmpID, DateTime AttendanceMonth)
+        {
+            int affectedRows = 0;
+
+            affectedRows = objEmpMnthlyAttdInfo.getMonthlyAttendanceInfo(txtEmpID, AttendanceMonth);
+
+            return affectedRows;
+        }
+
         public int InsertMonthlyAttendanceInfo(int txtEmpID, DateTime AttendanceMonth)
         {
             int affectedRows = 0;

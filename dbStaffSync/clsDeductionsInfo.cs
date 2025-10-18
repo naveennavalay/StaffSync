@@ -118,7 +118,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO DeductionHeaderMas (DedID, DedCode, DedTitle, DedDescription, IsFixed, IsActive, IsDeleted, OrderID, CalcFormula) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + "DDN-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtDedTitle.Trim() + "','" + txtDedDescription.Trim() + "'," + IsFixed  + "," + IsActive + "," + IsDeleted + "," + maxRowCount + ",'')";
+                 "(" + maxRowCount.Data + ",'" + "DDN-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtDedTitle.Trim() + "','" + txtDedDescription.Trim() + "'," + IsFixed  + "," + IsActive + "," + IsDeleted + "," + maxRowCount.Data + ",'')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

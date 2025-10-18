@@ -21,6 +21,42 @@ namespace dbStaffSync
 
         }
 
+        public int getMonthlyAttendanceInfo(int txtEmpID, DateTime AttendanceMonth)
+        {
+            int SlNo = 0;
+            DataTable dt = new DataTable();
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+                string strQuery = "SELECT SlNo FROM MnthlyAttdInfo WHERE EmpID = " + txtEmpID + " AND Month(AttdMonth) = " + AttendanceMonth.Month + "";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    SlNo = Convert.ToInt32(dt.Rows[0]["SlNo"]);
+                }
+                else 
+                {
+                    SlNo = InsertMonthlyAttendanceInfo(txtEmpID, AttendanceMonth);
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return SlNo;
+        }
+
         public int InsertMonthlyAttendanceInfo(int txtEmpID, DateTime AttendanceMonth)
         {
             int affectedRows = 0;
@@ -58,23 +94,21 @@ namespace dbStaffSync
             int affectedRows = 0;
             try
             {
-                Response<int> maxRowCount = objGenFunc.getMaxRowCount("MnthlyAttdInfo", "SlNo");
-
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE MnthlyAttdInfo " +
                                         " SET " +
-                                            " MnthlyAttdInfo." + AttendanceDay + " = '" + AttendenceStatus + "','" +
+                                            " " + AttendanceDay + " = '" + AttendenceStatus + "'" +
                                         " WHERE " +
-                                                " MnthlyAttdInfo.SlNo = " + SlNo + "";
+                                                " SlNo = " + SlNo + "";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
                 affectedRows = cmd.ExecuteNonQuery();
                 if (affectedRows > 0)
-                    affectedRows = maxRowCount.Data;
+                    affectedRows = SlNo;
             }
             catch (Exception ex)
             {

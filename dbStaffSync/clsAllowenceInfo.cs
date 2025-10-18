@@ -145,7 +145,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO AllowanceHeaderMas (AllID, AllCode, AllTitle, AllDescription, IsFixed, IsActive, IsDeleted, OrderID, CalcFormula) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + "ALL-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtAllTitle.Trim() + "','" + txtAllDescription.Trim() + "'," + IsFixed  + "," + IsActive + "," + IsDeleted + "," + maxRowCount + ",'')";
+                 "(" + maxRowCount.Data + ",'" + "ALL-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtAllTitle.Trim() + "','" + txtAllDescription.Trim() + "'," + IsFixed  + "," + IsActive + "," + IsDeleted + "," + maxRowCount.Data + ",'')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

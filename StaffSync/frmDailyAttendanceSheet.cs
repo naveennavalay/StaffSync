@@ -40,7 +40,7 @@ namespace StaffSync
         {
             InitializeComponent();
 
-            attendanceGridControl1.CellValueChangedCustom += Control_CellValueChangedCustom;
+            //attendanceGridControl1.CellValueChangedCustom += Control_CellValueChangedCustom;
         }
 
         public frmDailyAttendanceSheet(int txtEmployeeID, int txtLeaveMasID)
@@ -64,7 +64,7 @@ namespace StaffSync
             clearControls();
 
             LoadSalaryMonthList();
-            LoadAttendanceInfo();
+            //LoadAttendanceInfo();
         }
 
         public void LoadSalaryMonthList()

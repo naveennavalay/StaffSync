@@ -80,7 +80,7 @@ namespace StaffSync
             if(@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
                 this.Hide();
-                frmDashboard objDashboard = new frmDashboard();
+                frmDashboard objDashboard = new frmDashboard(1);
                 objDashboard.Show();
             }
             else if (validateAuthInfo() == true)
@@ -105,7 +105,7 @@ namespace StaffSync
                         objCurrentUserInfo = new DALStaffSync.clsCurrentUserInfo(loginUserInfo.EmpID);
 
                         objLogin.getLoggedInUserInfo(loginUserInfo.EmpID);
-                        frmDashboard objDashboard = new frmDashboard();
+                        frmDashboard objDashboard = new frmDashboard(loginUserInfo.EmpID);
                         objDashboard.Show();
                     }
                     else

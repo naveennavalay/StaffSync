@@ -1609,15 +1609,18 @@ namespace StaffSync
 
         private void frmUpdateCurrentUserInfo_KeyDown(object sender, KeyEventArgs e)
         {
-            if (lblActionMode.Text != "")
+            if (e.KeyCode == Keys.Escape)
             {
-                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (lblActionMode.Text != "")
                 {
-                    return;
+                    if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    {
+                        return;
+                    }
                 }
+                objDashboard.lblDashboardTitle.Text = "Dashboard";
+                this.Close();
             }
-            objDashboard.lblDashboardTitle.Text = "Dashboard";
-            this.Close();
         }
     }
 }

@@ -118,7 +118,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO ReimbursementHeaderMas (ReimbID, ReimbCode, ReimbTitle, ReimbDescription, IsFixed, IsActive, IsDeleted, OrderID, CalcFormula) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + "RIM-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtReimbTitle.Trim() + "','" + txtReimbDescription.Trim() + "'," + IsFixed + "," + IsActive + "," + IsDeleted + "," + maxRowCount + ",'')";
+                 "(" + maxRowCount.Data + ",'" + "RIM-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtReimbTitle.Trim() + "','" + txtReimbDescription.Trim() + "'," + IsFixed + "," + IsActive + "," + IsDeleted + "," + maxRowCount.Data + ",'')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

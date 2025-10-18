@@ -18,58 +18,110 @@ namespace StaffSyncJobs
             DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
             DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
             DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
-
-            int PresentCounter = 0;
-            int LeaveCounter = 0;
-            int FirstHalfLeaveCounter = 0;
-            int SecondHalfLeaveCounter = 0;
-
-            DateTime dtSelectedMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 1, 1, 1);
-
-            int selectedMonth = DateTime.Now.Month;
+            DALStaffSync.clsEmpMnthlyAttdInfo objEmpMnthlyAttdInfo = new DALStaffSync.clsEmpMnthlyAttdInfo();
 
 
-            List<ReportingManagerInfo> lstEmployeesList = objEmployeeMaster.getCompleteEmployeesList();
-            foreach (ReportingManagerInfo indReportingManagerInfo in lstEmployeesList)
+
+            while (true)
             {
-                Console.WriteLine($"Employee ID: { indReportingManagerInfo.EmpID }, Name: { indReportingManagerInfo.EmpName }, Designation : { indReportingManagerInfo.DesignationTitle }, Department : { indReportingManagerInfo.DepartmentTitle }");
+                Console.Write("Enter Attendance Date (or type 'exit' to close): ");
+                string input = Console.ReadLine();
 
-                List<EmployeeAttendanceInfo> objEmployeeAttendanceList = objAttendanceMas.GetDefaultEmployeeAttendanceInfo(Convert.ToInt16(indReportingManagerInfo.EmpID.ToString()), dtSelectedMonth.Month);
-                if (objEmployeeAttendanceList.Count > 0)
+                if (input.Trim().ToLower() == "exit")
                 {
-                    foreach (EmployeeAttendanceInfo indEmployeeAttendanceInfo in objEmployeeAttendanceList)
+                    Console.WriteLine("Exiting the application. Goodbye!");
+                    break;
+                }
+
+                if (DateTime.TryParse(input, out DateTime parsedDate))
+                {
+                    Console.WriteLine($"You entered a valid date: {parsedDate.ToShortDateString()}");
+
+                    int PresentCounter = 0;
+                    int LeaveCounter = 0;
+                    int FirstHalfLeaveCounter = 0;
+                    int SecondHalfLeaveCounter = 0;
+
+                    DateTime dtSelectedMonth = parsedDate; //DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 1, 1, 1);
+
+                    int selectedMonth = parsedDate.Month;
+
+                    int MonthlyAttendanceSlNumber = 0;
+
+                    List<ReportingManagerInfo> lstEmployeesList = objEmployeeMaster.getCompleteEmployeesList();
+                    foreach (ReportingManagerInfo indReportingManagerInfo in lstEmployeesList)
                     {
+                        //Console.WriteLine($"Employee ID: { indReportingManagerInfo.EmpID }, Name: { indReportingManagerInfo.EmpName }, Designation : { indReportingManagerInfo.DesignationTitle }, Department : { indReportingManagerInfo.DepartmentTitle }");
 
-                        string strDayAttendance = "";
-                        //strDayAttendance = indEmployeeAttendanceInfo.AttStatus == "Present" ? "Present" : "Leave";
+                        List<EmployeeAttendanceInfo> objEmployeeAttendanceList = objAttendanceMas.GetDefaultEmployeeAttendanceInfo(Convert.ToInt16(indReportingManagerInfo.EmpID.ToString()), dtSelectedMonth);
+                        if (objEmployeeAttendanceList.Count > 0)
+                        {
+                            foreach (EmployeeAttendanceInfo indEmployeeAttendanceInfo in objEmployeeAttendanceList)
+                            {
+                                string strDayAttendance = "";
+                                //strDayAttendance = indEmployeeAttendanceInfo.AttStatus == "Present" ? "Present" : "Leave";
 
-                        strDayAttendance = indEmployeeAttendanceInfo.AttStatus;
-                        if (indEmployeeAttendanceInfo.AttStatus == "Present")
-                        {
-                            PresentCounter = PresentCounter + 1;
+                                strDayAttendance = indEmployeeAttendanceInfo.AttStatus;
+                                if (indEmployeeAttendanceInfo.AttStatus == "Present")
+                                {
+                                    strDayAttendance = "Present";
+                                    PresentCounter = PresentCounter + 1;
+                                }
+                                else if (indEmployeeAttendanceInfo.AttStatus == "Leave : Full Day" || indEmployeeAttendanceInfo.AttStatus == "Leave")
+                                {
+                                    strDayAttendance = indEmployeeAttendanceInfo.AttStatus; //"Leave : Full Day";
+                                    LeaveCounter = LeaveCounter + 1;
+                                }
+                                else if (indEmployeeAttendanceInfo.AttStatus == "Leave : First Half")
+                                {
+                                    strDayAttendance = indEmployeeAttendanceInfo.AttStatus;
+                                    FirstHalfLeaveCounter = FirstHalfLeaveCounter + 1;
+                                }
+                                else if (indEmployeeAttendanceInfo.AttStatus == "Leave : Second Half")
+                                {
+                                    strDayAttendance = indEmployeeAttendanceInfo.AttStatus;
+                                    SecondHalfLeaveCounter = SecondHalfLeaveCounter + 1;
+                                }
+
+                                MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.getMonthlyAttendanceInfo(indEmployeeAttendanceInfo.EmpID, dtSelectedMonth);
+                                if (MonthlyAttendanceSlNumber == 0)
+                                {
+                                    MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.InsertMonthlyAttendanceInfo(indEmployeeAttendanceInfo.EmpID, dtSelectedMonth);
+                                }
+                                else
+                                {
+                                    MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, indEmployeeAttendanceInfo.EmpID, dtSelectedMonth, "Day" + indEmployeeAttendanceInfo.AttDate.Day, strDayAttendance);
+                                    int DailyAttendanceID = objAttendanceInfo.UpdateDailyAttendance(indReportingManagerInfo.EmpID, Convert.ToDateTime(dtSelectedMonth.Date.ToString()), strDayAttendance, Convert.ToInt16(indEmployeeAttendanceInfo.LeaveTRID));
+                                    if (DailyAttendanceID == 0)
+                                        DailyAttendanceID = objAttendanceInfo.InsertDailyAttendance(indReportingManagerInfo.EmpID, Convert.ToDateTime(dtSelectedMonth.Date.ToString()), strDayAttendance, Convert.ToInt16(indEmployeeAttendanceInfo.LeaveTRID));
+                                }
+                            }
                         }
-                        else if (indEmployeeAttendanceInfo.AttStatus == "Leave : Full Day" || indEmployeeAttendanceInfo.AttStatus == "Leave")
+                        else
                         {
-                            strDayAttendance = "Leave";
-                            LeaveCounter = LeaveCounter + 1;
-                        }
-                        else if (indEmployeeAttendanceInfo.AttStatus == "Leave : First Half")
-                        {
-                            strDayAttendance = "First Half";
-                            FirstHalfLeaveCounter = FirstHalfLeaveCounter + 1;
-                        }
-                        else if (indEmployeeAttendanceInfo.AttStatus == "Leave : Second Half")
-                        {
-                            strDayAttendance = "Second Half";
-                            SecondHalfLeaveCounter = SecondHalfLeaveCounter + 1;
+                            MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.getMonthlyAttendanceInfo(Convert.ToInt16(indReportingManagerInfo.EmpID.ToString()), dtSelectedMonth);
+                            if (MonthlyAttendanceSlNumber == 0)
+                            {
+                                MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.InsertMonthlyAttendanceInfo(indReportingManagerInfo.EmpID, dtSelectedMonth);
+                                objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, indReportingManagerInfo.EmpID, dtSelectedMonth, "Day" + dtSelectedMonth.Day, "Present");
+                                objAttendanceInfo.InsertDailyAttendance(indReportingManagerInfo.EmpID, Convert.ToDateTime(dtSelectedMonth.Date.ToString()), "Present", 0);
+                            }
+                            else
+                            {
+                                objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, indReportingManagerInfo.EmpID, dtSelectedMonth, "Day" + dtSelectedMonth.Day, "Present");
+                                int DailyAttendanceID = objAttendanceInfo.UpdateDailyAttendance(indReportingManagerInfo.EmpID, Convert.ToDateTime(dtSelectedMonth.Date.ToString()), "Present", 0);
+                                if (DailyAttendanceID == 0)
+                                    objAttendanceInfo.InsertDailyAttendance(indReportingManagerInfo.EmpID, Convert.ToDateTime(dtSelectedMonth.Date.ToString()), "Present", 0);
+                            }
                         }
                     }
                 }
                 else
                 {
-                    //objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), (Convert.ToDecimal(txtBalanceLeave.Text) + Convert.ToDecimal(txtActualLeaveDays.Text)), DateTime.Now);
-                    //objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), "Present", Convert.ToInt16(lblLeaveTRID.Text.ToString()));
+                    Console.WriteLine("Invalid date format. Please try again.");
                 }
+
+                Console.WriteLine();
             }
 
 

@@ -117,7 +117,7 @@ namespace DALStaffSync
         {
             List<EmployeeLeaveTRList> employeeLeaveTRList = new List<EmployeeLeaveTRList>();
 
-            //employeeLeaveTRList = objLeaveTRList.getEmployeeLeaveTRList(txtEmpID);
+            employeeLeaveTRList = objLeaveTRList.getEmployeeLeaveTRList(txtEmpID);
 
             return employeeLeaveTRList;
         }
