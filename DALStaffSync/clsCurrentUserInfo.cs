@@ -25,7 +25,7 @@ namespace DALStaffSync
 
         public clsCurrentUserInfo(int txtEmpID)
         {
-            //objCurrentUserInfo = dbStaffSync.clsCurrentUserInfo(txtEmpID);
+            objCurrentUserInfo = new dbStaffSync.clsCurrentUserInfo(txtEmpID);
         }
 
         public bool UserModuleAccessInfo(int txtUserID, int txtAppModuleID)
