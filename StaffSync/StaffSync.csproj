@@ -577,11 +577,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StaffsyncDBDTSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="StaffsyncDBDTSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StaffsyncDBDTSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="TextBoxAutoCompleteHelper.cs" />
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
