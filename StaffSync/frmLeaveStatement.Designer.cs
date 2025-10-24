@@ -711,6 +711,7 @@
             this.btnRemoveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnRemoveDetails.Values.Text = "Delete";
             this.btnRemoveDetails.Visible = false;
+            this.btnRemoveDetails.Click += new System.EventHandler(this.btnRemoveDetails_Click_1);
             // 
             // errValidator
             // 

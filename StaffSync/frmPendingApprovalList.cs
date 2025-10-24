@@ -21,15 +21,23 @@ namespace StaffSync
 {
     public partial class frmPendingApprovalList : Form
     {
+        DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsWeeklyOffInfo objWeeklyOffInfo = new DALStaffSync.clsWeeklyOffInfo();
         DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
         DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
         List<WklyOffProfileDetailsInfo> lstWeeklyOffDetailsInfo = new List<WklyOffProfileDetailsInfo>();
+        UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
 
         public frmPendingApprovalList()
         {
             InitializeComponent();
+        }
+
+        public frmPendingApprovalList(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
         }
 
         public frmPendingApprovalList(int txtEmployeeID, int txtLeaveMasID)
@@ -114,6 +122,8 @@ namespace StaffSync
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
+            objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
+
             onSaveButtonClick();
             disableControls();
             clearControls();

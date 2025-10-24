@@ -29,14 +29,22 @@ namespace StaffSync
         DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
         DALStaffSync.clsLeaveTypeMas objLeaveTypeInfo = new DALStaffSync.clsLeaveTypeMas();
         DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
+        DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         //Download objDownload = new Download();
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
+        UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
 
         public frmLeaveStatement()
         {
             InitializeComponent();
+        }
+
+        public frmLeaveStatement(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -126,6 +134,13 @@ namespace StaffSync
 
         private void btnGenerateDetails_Click(object sender, EventArgs e)
         {
+            string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID, "add");
+            if (strValidationMessage != "Success")
+            {
+                MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
             lblActionMode.Text = "add";
             onGenerateButtonClick();
             clearControls();
@@ -235,6 +250,9 @@ namespace StaffSync
             //disableControls();
             //clearControls();
             //errValidator.Clear();
+            
+            objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
+
             this.Cursor = Cursors.Default;
         }
 
@@ -628,6 +646,11 @@ namespace StaffSync
                 objDashboard.lblDashboardTitle.Text = "Dashboard";
                 this.Close();
             }
+        }
+
+        private void btnRemoveDetails_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

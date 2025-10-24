@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,17 @@ namespace StaffSync
 {
     public partial class frmEmployeeAttendanceReports : Form
     {
+        UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
+
         public frmEmployeeAttendanceReports()
         {
             InitializeComponent();
+        }
+
+        public frmEmployeeAttendanceReports(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)

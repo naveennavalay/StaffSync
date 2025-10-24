@@ -27,10 +27,17 @@ namespace StaffSync
         DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
         DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
+        UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
 
         public frmAttendanceMater()
         {
             InitializeComponent();
+        }
+
+        public frmAttendanceMater(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
         }
 
         //public frmAttendanceMater(string SearchOptionSelectedForm, int selectedEmployeeID)
@@ -223,6 +230,7 @@ namespace StaffSync
                     return;
                 }
             }
+            objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()));
             onSaveButtonClick();
             clearControls();
             disableControls();

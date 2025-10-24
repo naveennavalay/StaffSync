@@ -63,10 +63,17 @@ namespace StaffSync
         DALStaffSync.clsShiftMas objShiftMas = new DALStaffSync.clsShiftMas();
         DALStaffSync.clsEmploymentTypeInfo objEmploymentTypeInfo = new DALStaffSync.clsEmploymentTypeInfo();
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
+        UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
 
         public frmEmployeeMaster()
         {
             InitializeComponent();
+        }
+
+        public frmEmployeeMaster(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
         }
 
         public frmEmployeeMaster(int EmployeeID)
@@ -271,6 +278,13 @@ namespace StaffSync
 
         private void btnGenerateDetails_Click(object sender, EventArgs e)
         {
+            string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID, "add");
+            if (strValidationMessage != "Success")
+            {
+                MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
             lblActionMode.Text = "add";
             onGenerateButtonClick();
             clearControls();
@@ -676,6 +690,13 @@ namespace StaffSync
 
         private void btnModifyDetails_Click(object sender, EventArgs e)
         {
+            string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID, "update");
+            if (strValidationMessage != "Success")
+            {
+                MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
             lblActionMode.Text = "modify";
             tabControl1.SelectedIndex = 0;
             onModifyButtonClick();
@@ -766,6 +787,13 @@ namespace StaffSync
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
+            string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID, "");
+            if (strValidationMessage != "Success")
+            {
+                MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
             this.Cursor = Cursors.WaitCursor;
 
             if(!ValidateValuesOnUI())
@@ -1064,6 +1092,9 @@ namespace StaffSync
                     return;
                 }
             }
+
+            objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()));
+
             onSaveButtonClick();
             disableControls();
             clearControls();
@@ -1074,6 +1105,13 @@ namespace StaffSync
 
         private void btnRemoveDetails_Click(object sender, EventArgs e)
         {
+            string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID, "delete");
+            if (strValidationMessage != "Success")
+            {
+                MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
             if (lblActionMode.Text == "" || lblActionMode.Text == "remove")
             {
                 lblActionMode.Text = "remove";

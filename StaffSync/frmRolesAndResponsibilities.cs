@@ -1,4 +1,5 @@
 ﻿using ModelStaffSync;
+using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,10 +23,17 @@ namespace StaffSync
         DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
         DALStaffSync.clsRolesAndResponsibilities objRolesAndResponsibilities = new DALStaffSync.clsRolesAndResponsibilities();
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
+        UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
 
         public frmRolesAndResponsibilities()
         {
             InitializeComponent();
+        }
+
+        public frmRolesAndResponsibilities(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -111,6 +119,7 @@ namespace StaffSync
             txtRepEmpName.Text = "";
             txtRepEmpDesig.Text = "";
             txtRepEmpDepartment.Text = "";
+            txtAssignedRole.Text = "";
             picRepEmpPhoto.Image = null;
         }
 
@@ -121,6 +130,7 @@ namespace StaffSync
             //txtRepEmpDesig.Enabled = false;
             //txtRepEmpDepartment.Enabled = false;
             //txtRepEmpContactNumber.Enabled = false;
+            txtAssignedRole.Enabled = false;
             btnReportingManagerSearch.Enabled = true;
             dtgRolesAndResponsibilties.Enabled = true;
         }
@@ -132,17 +142,32 @@ namespace StaffSync
             txtRepEmpName.Enabled = false;
             txtRepEmpDesig.Enabled = false;
             txtRepEmpDepartment.Enabled = false;
+            txtAssignedRole.Enabled = false;
             dtgRolesAndResponsibilties.Enabled = false;
         }
 
         private void btnModifyDetails_Click(object sender, EventArgs e)
         {
+            string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID);
+            if (strValidationMessage != "Success")
+            {
+                MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
             onModifyButtonClick();
             enableControls();
         }
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
+            string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID);
+            if (strValidationMessage != "Success")
+            {
+                MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
             int insertNewRecordCount = 0;
             if (validateValues())
             {
@@ -153,6 +178,12 @@ namespace StaffSync
                     if(indRow.Cells["Access"].Value.ToString() == "True")
                         insertNewRecordCount = objRolesAndResponsibilities.InsertUsersRolesAndResponsibilitiesInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToInt16(indRow.Cells["RoleID"].Value.ToString()));
                 }
+
+                objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()));
+
+                onSaveButtonClick();
+                clearControls();
+                disableControls();
 
                 if (insertNewRecordCount > 0)
                 {
@@ -166,9 +197,6 @@ namespace StaffSync
                     return;
                 }
             }
-            onSaveButtonClick();
-            clearControls();
-            disableControls();
         }
 
         private bool validateValues()
@@ -199,6 +227,7 @@ namespace StaffSync
                 txtRepEmpName.Text = objReportingManagerInfo.EmpName;
                 txtRepEmpDesig.Text = objReportingManagerInfo.DesignationTitle;
                 txtRepEmpDepartment.Text = objReportingManagerInfo.DepartmentTitle;
+                txtAssignedRole.Text = objTempCurrentlyLoggedInUserInfo.RoleTitle;
                 picRepEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblReportingManagerID.Text.ToString())).EmpPhoto);
 
                 UserInfo objLoggingInUserInfo = objLogin.getSpecificUserInfo(Convert.ToInt16(selectedEmployeeID.ToString()));
@@ -254,6 +283,26 @@ namespace StaffSync
                 }
                 objDashboard.lblDashboardTitle.Text = "Dashboard";
                 this.Close();
+            }
+        }
+
+        private void dtgRolesAndResponsibilties_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgv = sender as DataGridView;
+
+            // Only handle checkbox clicks
+            if (e.ColumnIndex == dgv.Columns["Access"].Index && e.RowIndex >= 0)
+            {
+                // Uncheck all other rows
+                foreach (DataGridViewRow row in dgv.Rows)
+                {
+                    if (row.Index != e.RowIndex)
+                        row.Cells["Access"].Value = false;
+                }
+
+                // Toggle the current one
+                bool currentValue = Convert.ToBoolean(dgv.Rows[e.RowIndex].Cells["Access"].Value ?? false);
+                dgv.Rows[e.RowIndex].Cells["Access"].Value = !currentValue;
             }
         }
     }

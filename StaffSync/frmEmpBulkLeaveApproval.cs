@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,11 +18,19 @@ namespace StaffSync
         DALStaffSync.clsUserManagement objUserManagementList = new DALStaffSync.clsUserManagement();
         DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
+        DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
+        UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
 
         public frmEmpBulkLeaveApproval()
         {
             InitializeComponent();
+        }
+
+        public frmEmpBulkLeaveApproval(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -138,12 +147,26 @@ namespace StaffSync
 
         private void btnModifyDetails_Click(object sender, EventArgs e)
         {
+            string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID);
+            if (strValidationMessage != "Success")
+            {
+                MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
             onModifyButtonClick();
             enableControls();
         }
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
+            string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID);
+            if (strValidationMessage != "Success")
+            {
+                MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
             int insertNewRecordCount = 0;
             if (validateValues())
             {
@@ -165,6 +188,9 @@ namespace StaffSync
                     }
                 }
             }
+
+            objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
+
             onSaveButtonClick();
             clearControls();
             disableControls();

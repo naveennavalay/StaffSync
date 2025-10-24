@@ -23,15 +23,23 @@ namespace StaffSync
         DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
         DALStaffSync.clsLeaveTypeMas objLeaveTypeInfo = new DALStaffSync.clsLeaveTypeMas();
         DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
+        DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
         //Download objDownload = new Download();
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
+        UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
 
         public frmLeavesMaster()
         {
             InitializeComponent();
+        }
+
+        public frmLeavesMaster(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -121,6 +129,13 @@ namespace StaffSync
 
         private void btnGenerateDetails_Click(object sender, EventArgs e)
         {
+            string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID, "add");
+            if (strValidationMessage != "Success")
+            {
+                MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
             lblActionMode.Text = "add";
             onGenerateButtonClick();
             clearControls();
@@ -152,6 +167,13 @@ namespace StaffSync
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
+            string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID, "");
+            if (strValidationMessage != "Success")
+            {
+                MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
             this.Cursor = Cursors.WaitCursor;
 
             if (!ValidateLeaveForm())
@@ -246,6 +268,9 @@ namespace StaffSync
                     return;
                 }
             }
+
+            objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
+
             onSaveButtonClick();
             disableControls();
             clearControls();
@@ -714,6 +739,11 @@ namespace StaffSync
                 objDashboard.lblDashboardTitle.Text = "Dashboard";
                 this.Close();
             }
+        }
+
+        private void btnRemoveDetails_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

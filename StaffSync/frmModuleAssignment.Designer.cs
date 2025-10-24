@@ -48,23 +48,23 @@
             this.label34 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dtgModulesList = new System.Windows.Forms.DataGridView();
-            this.cmbModule = new System.Windows.Forms.ComboBox();
-            this.label28 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             this.btnSaveDetails = new Krypton.Toolkit.KryptonButton();
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
-            this.qryRolesDefBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.imgList = new System.Windows.Forms.ImageList(this.components);
+            this.qryUserSpecificRolesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.staffsyncDBDTSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
+            this.qryRolesDefBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryUserRolesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryUserRolesTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryUserRolesTableAdapter();
             this.qryRolesDefTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRolesDefTableAdapter();
-            this.staffsyncDBDTSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.qryUserSpecificRolesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryUserSpecificRolesTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryUserSpecificRolesTableAdapter();
+            this.txtAssignedRole = new Krypton.Toolkit.KryptonTextBox();
+            this.label28 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -75,12 +75,12 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgModulesList)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.qryRolesDefBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qryUserRolesBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryUserSpecificRolesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.qryRolesDefBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.qryUserRolesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -310,9 +310,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dtgModulesList);
-            this.groupBox1.Controls.Add(this.cmbModule);
+            this.groupBox1.Controls.Add(this.txtAssignedRole);
             this.groupBox1.Controls.Add(this.label28);
+            this.groupBox1.Controls.Add(this.dtgModulesList);
             this.groupBox1.Location = new System.Drawing.Point(16, 177);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
@@ -331,29 +331,7 @@
             this.dtgModulesList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgModulesList.Size = new System.Drawing.Size(1139, 262);
             this.dtgModulesList.TabIndex = 31;
-            // 
-            // cmbModule
-            // 
-            this.cmbModule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbModule.FormattingEnabled = true;
-            this.cmbModule.Location = new System.Drawing.Point(188, 23);
-            this.cmbModule.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbModule.Name = "cmbModule";
-            this.cmbModule.Size = new System.Drawing.Size(585, 24);
-            this.cmbModule.TabIndex = 29;
-            this.cmbModule.Tag = "Please enter Employeee Gender";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(124, 28);
-            this.label28.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(55, 15);
-            this.label28.TabIndex = 30;
-            this.label28.Text = "Module";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.dtgModulesList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgModulesList_CellContentClick);
             // 
             // panel2
             // 
@@ -421,16 +399,6 @@
             this.btnModifyDetails.Values.Text = "Modify";
             this.btnModifyDetails.Click += new System.EventHandler(this.btnModifyDetails_Click);
             // 
-            // qryRolesDefBindingSource
-            // 
-            this.qryRolesDefBindingSource.DataMember = "qryRolesDef";
-            this.qryRolesDefBindingSource.DataSource = this.staffsyncDBDTSet;
-            // 
-            // staffsyncDBDTSet
-            // 
-            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
-            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
@@ -443,6 +411,26 @@
             this.imgList.Images.SetKeyName(1, "unlock.png");
             this.imgList.Images.SetKeyName(2, "green-circle.png");
             this.imgList.Images.SetKeyName(3, "red-circle.png");
+            // 
+            // qryUserSpecificRolesBindingSource
+            // 
+            this.qryUserSpecificRolesBindingSource.DataMember = "qryUserSpecificRoles";
+            this.qryUserSpecificRolesBindingSource.DataSource = this.staffsyncDBDTSetBindingSource;
+            // 
+            // staffsyncDBDTSetBindingSource
+            // 
+            this.staffsyncDBDTSetBindingSource.DataSource = this.staffsyncDBDTSet;
+            this.staffsyncDBDTSetBindingSource.Position = 0;
+            // 
+            // staffsyncDBDTSet
+            // 
+            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
+            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // qryRolesDefBindingSource
+            // 
+            this.qryRolesDefBindingSource.DataMember = "qryRolesDef";
+            this.qryRolesDefBindingSource.DataSource = this.staffsyncDBDTSet;
             // 
             // qryUserRolesBindingSource
             // 
@@ -457,19 +445,35 @@
             // 
             this.qryRolesDefTableAdapter.ClearBeforeFill = true;
             // 
-            // staffsyncDBDTSetBindingSource
-            // 
-            this.staffsyncDBDTSetBindingSource.DataSource = this.staffsyncDBDTSet;
-            this.staffsyncDBDTSetBindingSource.Position = 0;
-            // 
-            // qryUserSpecificRolesBindingSource
-            // 
-            this.qryUserSpecificRolesBindingSource.DataMember = "qryUserSpecificRoles";
-            this.qryUserSpecificRolesBindingSource.DataSource = this.staffsyncDBDTSetBindingSource;
-            // 
             // qryUserSpecificRolesTableAdapter
             // 
             this.qryUserSpecificRolesTableAdapter.ClearBeforeFill = true;
+            // 
+            // txtAssignedRole
+            // 
+            this.txtAssignedRole.Enabled = false;
+            this.txtAssignedRole.Location = new System.Drawing.Point(188, 20);
+            this.txtAssignedRole.Multiline = true;
+            this.txtAssignedRole.Name = "txtAssignedRole";
+            this.txtAssignedRole.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtAssignedRole.Size = new System.Drawing.Size(587, 28);
+            this.txtAssignedRole.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAssignedRole.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtAssignedRole.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAssignedRole.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAssignedRole.TabIndex = 42;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(85, 27);
+            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(99, 15);
+            this.label28.TabIndex = 41;
+            this.label28.Text = "Assigned Role";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frmModuleAssignment
             // 
@@ -502,12 +506,12 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgModulesList)).EndInit();
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.qryRolesDefBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qryUserRolesBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryUserSpecificRolesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.qryRolesDefBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.qryUserRolesBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -529,8 +533,6 @@
         public System.Windows.Forms.Label lblActionMode;
         private System.Windows.Forms.ErrorProvider errValidator;
         private System.Windows.Forms.ImageList imgList;
-        private System.Windows.Forms.ComboBox cmbModule;
-        private System.Windows.Forms.Label label28;
         private StaffsyncDBDTSet staffsyncDBDTSet;
         private System.Windows.Forms.BindingSource qryUserRolesBindingSource;
         private StaffsyncDBDTSetTableAdapters.qryUserRolesTableAdapter qryUserRolesTableAdapter;
@@ -549,5 +551,7 @@
         private Krypton.Toolkit.KryptonButton btnSaveDetails;
         private Krypton.Toolkit.KryptonButton btnModifyDetails;
         private Krypton.Toolkit.KryptonButton btnReportingManagerSearch;
+        private Krypton.Toolkit.KryptonTextBox txtAssignedRole;
+        private System.Windows.Forms.Label label28;
     }
 }

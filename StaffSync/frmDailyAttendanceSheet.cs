@@ -29,6 +29,7 @@ namespace StaffSync
         DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
         DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
         List<WklyOffProfileDetailsInfo> lstWeeklyOffDetailsInfo = new List<WklyOffProfileDetailsInfo>();
+        UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
 
         private void Control_CellValueChangedCustom(object sender, CellValueChangedEventArgs e)
         {
@@ -41,6 +42,12 @@ namespace StaffSync
             InitializeComponent();
 
             //attendanceGridControl1.CellValueChangedCustom += Control_CellValueChangedCustom;
+        }
+
+        public frmDailyAttendanceSheet(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
         }
 
         public frmDailyAttendanceSheet(int txtEmployeeID, int txtLeaveMasID)

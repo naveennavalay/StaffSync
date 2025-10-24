@@ -34,7 +34,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "SELECT * FROM Users WHERE EmpID = " + txtEmpID + "";
-
+                
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
@@ -423,6 +423,49 @@ namespace dbStaffSync
             }
 
             return UserAuthenticated;
+        }
+
+        public UserRolesAndResponsibilitiesInfo GetUserRolesAndResponsibilitiesInfo(int txtEmpID)
+        {
+            UserRolesAndResponsibilitiesInfo objUserRolesAndResponsibilitiesInfo = new UserRolesAndResponsibilitiesInfo();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT * FROM Users WHERE EmpID = " + txtEmpID + "";
+                strQuery = "SELECT * FROM qryUserRolesResponsibilitiesInfo WHERE EmpID = " + txtEmpID + "";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                List<UserRolesAndResponsibilitiesInfo> objUserInfo = JsonConvert.DeserializeObject<List<UserRolesAndResponsibilitiesInfo>>(DataTableToJSon);
+                if (objUserInfo.Count > 0)
+                {
+                    objUserRolesAndResponsibilitiesInfo = objUserInfo[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objUserRolesAndResponsibilitiesInfo;
         }
     }
 }

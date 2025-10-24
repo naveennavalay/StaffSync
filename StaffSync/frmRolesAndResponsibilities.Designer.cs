@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmRolesAndResponsibilities));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -47,8 +48,8 @@
             this.label35 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtAssignedRole = new Krypton.Toolkit.KryptonTextBox();
             this.dtgRolesAndResponsibilties = new System.Windows.Forms.DataGridView();
-            this.cmbModule = new System.Windows.Forms.ComboBox();
             this.label28 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
@@ -299,8 +300,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtAssignedRole);
             this.groupBox1.Controls.Add(this.dtgRolesAndResponsibilties);
-            this.groupBox1.Controls.Add(this.cmbModule);
             this.groupBox1.Controls.Add(this.label28);
             this.groupBox1.Location = new System.Drawing.Point(12, 170);
             this.groupBox1.Name = "groupBox1";
@@ -308,36 +309,50 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             // 
+            // txtAssignedRole
+            // 
+            this.txtAssignedRole.Enabled = false;
+            this.txtAssignedRole.Location = new System.Drawing.Point(141, 16);
+            this.txtAssignedRole.Multiline = true;
+            this.txtAssignedRole.Name = "txtAssignedRole";
+            this.txtAssignedRole.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtAssignedRole.Size = new System.Drawing.Size(440, 28);
+            this.txtAssignedRole.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAssignedRole.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtAssignedRole.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAssignedRole.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAssignedRole.TabIndex = 40;
+            // 
             // dtgRolesAndResponsibilties
             // 
+            this.dtgRolesAndResponsibilties.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dtgRolesAndResponsibilties.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgRolesAndResponsibilties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgRolesAndResponsibilties.DefaultCellStyle = dataGridViewCellStyle1;
             this.dtgRolesAndResponsibilties.Location = new System.Drawing.Point(35, 55);
             this.dtgRolesAndResponsibilties.Name = "dtgRolesAndResponsibilties";
             this.dtgRolesAndResponsibilties.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgRolesAndResponsibilties.Size = new System.Drawing.Size(854, 213);
             this.dtgRolesAndResponsibilties.TabIndex = 31;
-            // 
-            // cmbModule
-            // 
-            this.cmbModule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbModule.FormattingEnabled = true;
-            this.cmbModule.Location = new System.Drawing.Point(141, 19);
-            this.cmbModule.Name = "cmbModule";
-            this.cmbModule.Size = new System.Drawing.Size(440, 21);
-            this.cmbModule.TabIndex = 29;
-            this.cmbModule.Tag = "Please enter Employeee Gender";
+            this.dtgRolesAndResponsibilties.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgRolesAndResponsibilties_CellContentClick);
             // 
             // label28
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(82, 23);
+            this.label28.Location = new System.Drawing.Point(38, 23);
             this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(55, 15);
+            this.label28.Size = new System.Drawing.Size(99, 15);
             this.label28.TabIndex = 30;
-            this.label28.Text = "Module";
+            this.label28.Text = "Assigned Role";
             this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel2
@@ -508,7 +523,6 @@
         public System.Windows.Forms.Label lblActionMode;
         private System.Windows.Forms.ErrorProvider errValidator;
         private System.Windows.Forms.ImageList imgList;
-        private System.Windows.Forms.ComboBox cmbModule;
         private System.Windows.Forms.Label label28;
         private StaffsyncDBDTSet staffsyncDBDTSet;
         private System.Windows.Forms.BindingSource qryUserRolesBindingSource;
@@ -528,5 +542,6 @@
         private Krypton.Toolkit.KryptonButton btnSaveDetails;
         private Krypton.Toolkit.KryptonButton btnModifyDetails;
         private Krypton.Toolkit.KryptonButton btnReportingManagerSearch;
+        private Krypton.Toolkit.KryptonTextBox txtAssignedRole;
     }
 }
