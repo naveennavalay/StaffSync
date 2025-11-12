@@ -1,6 +1,9 @@
-﻿using ModelStaffSync;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Krypton.Toolkit;
+using ModelStaffSync;
 using Quartz;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,10 +27,15 @@ namespace StaffSync
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
+        DALStaffSync.clsLeaveTypeMas objLeaveTypeMas = new DALStaffSync.clsLeaveTypeMas();
         DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
         DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
+        DALStaffSync.clsEmpMnthlyAttdInfo objEmpMnthlyAttdInfo = new DALStaffSync.clsEmpMnthlyAttdInfo();
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
+        DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
+
+        ArrayList arrControlList = new ArrayList();
 
         public frmAttendanceMater()
         {
@@ -64,6 +72,8 @@ namespace StaffSync
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            int selectedMonth = cmbMonthNameList.SelectedIndex + 1;
+
             if (lblActionMode.Text == "modify")
             {
                 if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
@@ -72,14 +82,21 @@ namespace StaffSync
                 }
             }
 
-            empAttCalender.DisplayMonth = new DateTime();
+            empAttCalender.ClearCalendar();
+            empAttCalender.DisplayMonth = new DateTime(DateTime.Today.Year, selectedMonth, 1);
             empAttCalender.Invalidate(); // Redraw the control
 
             lblActionMode.Text = "";
             onCancelButtonClick();
             disableControls();
             clearControls();
+            LoadMonthNameList();
             errValidator.Clear();
+            cmbMonthNameList.SelectedIndex = DateTime.Now.Month - 1; // Set to current month
+            selectedMonth = cmbMonthNameList.SelectedIndex + 1;
+            empAttCalender.DisplayMonth = new DateTime(DateTime.Today.Year, selectedMonth, 1);
+            empAttCalender.Invalidate(); // Redraw the control
+
         }
 
         public void onModifyButtonClick()
@@ -90,7 +107,8 @@ namespace StaffSync
             btnModifyDetails.Enabled = true;
             btnSaveDetails.Enabled = true;
             btnCancel.Enabled = true;
-            empAttCalender.DisplayMonth = new DateTime();
+            int selectedMonth = cmbMonthNameList.SelectedIndex + 1;
+            empAttCalender.DisplayMonth = new DateTime(DateTime.Today.Year, selectedMonth, 1);
             empAttCalender.Invalidate(); // Redraw the control
         }
 
@@ -123,9 +141,18 @@ namespace StaffSync
             txtRepEmpDesig.Text = "";
             txtRepEmpDepartment.Text = "";
             picRepEmpPhoto.Image = null;
+            int selectedMonth = cmbMonthNameList.SelectedIndex + 1;
+            empAttCalender.DisplayMonth = new DateTime(DateTime.Today.Year, selectedMonth, 1);
+            empAttCalender.Invalidate(); // Redraw the control
 
-            empAttCalender.DisplayMonth = new DateTime();
-            empAttCalender.Invalidate(); // Redraw the control                                         
+            int TotalDaysInMonth = DateTime.DaysInMonth(DateTime.Today.Year, selectedMonth);
+            DateTime dtSelectedMonth = new DateTime(DateTime.Now.Year, cmbMonthNameList.SelectedIndex + 1, 1, 1, 1, 1);
+            dtSelectedMonth = Convert.ToDateTime("1-" + (cmbMonthNameList.SelectedIndex + 1) + "-" + (DateTime.Now.Year));
+            empAttCalender.ClearCalendar();
+            //for (int day = 1; day <= TotalDaysInMonth; day++)
+            //{
+            //    empAttCalender.SetDayStyle(new DateTime(dtSelectedMonth.Year, dtSelectedMonth.Month, day), "", Color.FromArgb(213, 228, 242), 0f);
+            //}
         }
 
         public void enableControls()
@@ -160,8 +187,21 @@ namespace StaffSync
             DateTime dtSelectedMonth = new DateTime(DateTime.Now.Year, cmbMonthNameList.SelectedIndex + 1, 1, 1, 1, 1);
 
             int selectedMonth = cmbMonthNameList.SelectedIndex + 1;
+
+            int TotalDaysInMonth = DateTime.DaysInMonth(DateTime.Today.Year, selectedMonth);
+
+
+
             empAttCalender.DisplayMonth = new DateTime(DateTime.Today.Year, selectedMonth, 1);
+            //empAttCalender.SetDayStyle(new DateTime(DateTime.Today.Year, cmbMonthNameList.SelectedIndex + 1, 17), "", Color.FromArgb(213, 228, 242), 0f);
             empAttCalender.Invalidate(); // Redraw the control
+
+            dtSelectedMonth = Convert.ToDateTime("1-" + (cmbMonthNameList.SelectedIndex + 1) + "-" + (DateTime.Now.Year));
+            empAttCalender.ClearCalendar();
+            //for(int day = 1; day <= TotalDaysInMonth; day++)
+            //{
+            //    empAttCalender.SetDayStyle(new DateTime(dtSelectedMonth.Year, dtSelectedMonth.Month, day), "", Color.FromArgb(213, 228, 242), 0f);
+            //}
 
             List<EmployeeAttendanceInfo> objEmployeeAttendanceList = objAttendanceMas.GetDefaultEmployeeAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtSelectedMonth);
             foreach (EmployeeAttendanceInfo indEmployeeAttendanceInfo in objEmployeeAttendanceList)
@@ -173,24 +213,26 @@ namespace StaffSync
                 strDayAttendance = indEmployeeAttendanceInfo.AttStatus;
                 if (indEmployeeAttendanceInfo.AttStatus == "Present")
                 {
+                    strDayAttendance = "Present";
+                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.LimeGreen, 1f);
                     PresentCounter = PresentCounter + 1;
                 }
                 else if (indEmployeeAttendanceInfo.AttStatus == "Leave : Full Day" || indEmployeeAttendanceInfo.AttStatus == "Leave")
                 {
                     strDayAttendance = "Leave";
-                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, Color.Yellow, 1f);
+                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.Yellow, 1f);
                     LeaveCounter = LeaveCounter + 1;
                 }
                 else if (indEmployeeAttendanceInfo.AttStatus == "Leave : First Half")
                 {
                     strDayAttendance = "First Half";
-                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, Color.LightYellow, 0.5f);
+                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.LightYellow, 0.5f);
                     FirstHalfLeaveCounter = FirstHalfLeaveCounter + 1;
                 }
                 else if (indEmployeeAttendanceInfo.AttStatus == "Leave : Second Half")
                 {
                     strDayAttendance = "Second Half";
-                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, Color.LightYellow, -0.5f);
+                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.LightYellow, -0.5f);
                     SecondHalfLeaveCounter = SecondHalfLeaveCounter + 1;
                 }
             }
@@ -214,26 +256,108 @@ namespace StaffSync
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
-            int insertNewRecordCount = 0;
-            if (validateValues())
-            {
-                int deletedExistingRecordCount = 1;
+            //MessageBox.Show(empAttCalender.SelectedDay.Value.ToString("dd-MMM-yyyy"), "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                if (insertNewRecordCount > 0)
-                {
-                    //objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), Convert.ToDecimal(txtBalanceLeave.Text));
-                    MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Details not inserted successfully.\nPlease verify once again.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+            int RowCounter = 0;
+            int DailyAttendanceID = 0;
+            DateTime currSelectedDate = DateTime.Today;
+
+            if (chkAllowBackDated.Checked == true)
+            {
+                currSelectedDate = Convert.ToDateTime(empAttCalender.SelectedDay.Value.ToString("dd-MMM-yyyy"));
             }
-            objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()));
-            onSaveButtonClick();
-            clearControls();
-            disableControls();
+
+            if (empAttCalender.IsDayChecked(currSelectedDate))
+            {
+                DateTime dtAttSelectedDate = Convert.ToDateTime(empAttCalender.SelectedDay.Value.ToString("dd-MMM-yyyy"));
+
+                int insertNewRecordCount = 0;
+                int PresentCounter = 0;
+                int LeaveCounter = 0;
+                int FirstHalfLeaveCounter = 0;
+                int SecondHalfLeaveCounter = 0;
+                int MonthlyAttendanceSlNumber = 0;
+
+
+                if (validateValues())
+                {
+
+                    List<EmployeeAttendanceInfo> objEmployeeAttendanceList = objAttendanceMas.GetDefaultEmployeeAttendanceInfoForJobs(Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate);
+                    if (objEmployeeAttendanceList.Count > 0)
+                    {
+                        foreach (EmployeeAttendanceInfo indEmployeeAttendanceInfo in objEmployeeAttendanceList)
+                        {
+                            string strDayAttendance = "";
+                            //strDayAttendance = indEmployeeAttendanceInfo.AttStatus == "Present" ? "Present" : "Leave";
+
+                            strDayAttendance = indEmployeeAttendanceInfo.AttStatus;
+                            if (indEmployeeAttendanceInfo.AttStatus == "Present")
+                            {
+                                strDayAttendance = "Present";
+                            }
+                            else if (indEmployeeAttendanceInfo.AttStatus == "Leave : Full Day" || indEmployeeAttendanceInfo.AttStatus == "Leave")
+                            {
+                                strDayAttendance = indEmployeeAttendanceInfo.AttStatus; //"Leave : Full Day";
+                            }
+                            else if (indEmployeeAttendanceInfo.AttStatus == "Leave : First Half")
+                            {
+                                strDayAttendance = indEmployeeAttendanceInfo.AttStatus;
+                            }
+                            else if (indEmployeeAttendanceInfo.AttStatus == "Leave : Second Half")
+                            {
+                                strDayAttendance = indEmployeeAttendanceInfo.AttStatus;
+                            }
+
+                            MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.getMonthlyAttendanceInfo(indEmployeeAttendanceInfo.EmpID, dtAttSelectedDate);
+                            if (MonthlyAttendanceSlNumber == 0)
+                            {
+                                RowCounter = objEmpMnthlyAttdInfo.InsertMonthlyAttendanceInfo(indEmployeeAttendanceInfo.EmpID, dtAttSelectedDate);
+                            }
+                            else
+                            {
+                                RowCounter = objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, indEmployeeAttendanceInfo.EmpID, dtAttSelectedDate, "Day" + indEmployeeAttendanceInfo.AttDate.Day, strDayAttendance);
+                                RowCounter = objAttendanceInfo.UpdateDailyAttendance(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(dtAttSelectedDate.Date.ToString()), strDayAttendance, Convert.ToInt16(indEmployeeAttendanceInfo.LeaveTRID));
+                                if (RowCounter == 0)
+                                    RowCounter = objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(dtAttSelectedDate.Date.ToString()), strDayAttendance, Convert.ToInt16(indEmployeeAttendanceInfo.LeaveTRID));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.getMonthlyAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate);
+                        if (MonthlyAttendanceSlNumber == 0)
+                        {
+                            RowCounter = objEmpMnthlyAttdInfo.InsertMonthlyAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate);
+                            RowCounter = objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate, "Day" + dtAttSelectedDate.Day, "Present");
+                            RowCounter = objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(dtAttSelectedDate.Date.ToString()), "Present", 0);
+                        }
+                        else
+                        {
+                            MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate, "Day" + dtAttSelectedDate.Day, "Present");
+                            RowCounter = objAttendanceInfo.UpdateDailyAttendance(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(dtAttSelectedDate.Date.ToString()), "Present", 0);
+                            if (RowCounter == 0)
+                                RowCounter = objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(dtAttSelectedDate.Date.ToString()), "Present", 0);
+                        }
+                    }
+
+                    if (RowCounter > 0)
+                    {
+                        MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Details not inserted successfully.\nPlease verify once again.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()));
+                onSaveButtonClick();
+                clearControls();
+                disableControls();
+            }
+            else
+            {
+                MessageBox.Show("Select Attendance Date to continue", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private bool validateValues()
@@ -292,7 +416,7 @@ namespace StaffSync
             UserInfo objLoggingInUserInfo = objLogin.getSpecificUserInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()));
             if (objLoggingInUserInfo.UserID != 0)
             {
-
+                List<MonthlyAttendanceInfo> objMonthlyAttendanceInfo = objEmpMnthlyAttdInfo.getConsolidatedMonthlyAttendanceInfo(Convert.ToDateTime("1-" + (cmbMonthNameList.SelectedIndex+1) + "-" + (DateTime.Now.Year)));
             }
 
             RefreshEmpAttendanceInfo();
@@ -300,7 +424,7 @@ namespace StaffSync
 
         private void empAttCalender_DetailedDayClicked(object sender, DetailedDateClickedEventArgs e)
         {
-            MessageBox.Show("Detailed Day Clicked: " + e.Date.ToShortDateString() + ", " + e.FillAmount + ", " + e.CustomText, "Calendar Event", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("Detailed Day Clicked: " + e.Date.ToShortDateString() + ", " + e.FillAmount + ", " + e.CustomText, "Calendar Event", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void picViewLeaves_Click(object sender, EventArgs e)
@@ -326,6 +450,11 @@ namespace StaffSync
                 objDashboard.lblDashboardTitle.Text = "Dashboard";
                 this.Close();
             }
+        }
+
+        private void chkAllowBackDated_CheckedChanged(object sender, EventArgs e)
+        {
+            empAttCalender.AllowPreviousDates = chkAllowBackDated.Checked;
         }
     }
 }

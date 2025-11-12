@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
-using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -126,18 +125,6 @@ namespace StaffSync
             }
         }
 
-        [Category("Behavior")]
-        [Description("If true, allows selecting dates before the current date.")]
-        public bool AllowPreviousDates { get; set; } = false;
-
-        [Category("Behavior")]
-        [Description("If true, allows selecting dates after the current date.")]
-        public bool AllowFutureDates { get; set; } = false;
-
-        [Category("Behavior")]
-        [Description("If true, allows selecting multiple dates; otherwise only one date can be selected at a time.")]
-        public bool AllowMultiSelect { get; set; } = false;
-
         // Custom text styling
         private string _customTextFontFamily = "Segoe UI";
         private float _customTextFontSize = 7f;
@@ -245,7 +232,6 @@ namespace StaffSync
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Dictionary<DateTime, CalendarDayStyle> DayStyles { get; set; } = new Dictionary<DateTime, CalendarDayStyle>();
 
-        // Restored helper from your original base (keeps compatibility)
         public void SetDayStyle(DateTime date, string text = null, Color? bgColor = null, float fill = 1f)
         {
             var key = date.Date;
@@ -257,24 +243,6 @@ namespace StaffSync
             DayStyles[key].FillAmount = fill;
             Invalidate();
         }
-
-        // New selectable property (only today can be toggled)
-        private DateTime? _selectedDay = null;
-        [Category("Behavior")]
-        public DateTime? SelectedDay
-        {
-            get => _selectedDay;
-            private set
-            {
-                if (_selectedDay != value)
-                {
-                    _selectedDay = value;
-                    SelectedDayChanged?.Invoke(this, EventArgs.Empty);
-                }
-            }
-        }
-
-        public event EventHandler SelectedDayChanged;
 
         [Category("Appearance")]
         public bool ShowLegend { get; set; } = true;
@@ -453,62 +421,28 @@ namespace StaffSync
             DateTime? date = GetDateAtLocation(location);
             if (!date.HasValue) return;
 
-            var clickedDate = date.Value.Date;
-            bool isToday = clickedDate == DateTime.Today.Date;
-            bool isPast = clickedDate < DateTime.Today.Date;
-            bool isFuture = clickedDate > DateTime.Today.Date;
-
-            // 🔒 Allow logic — only permit clicking if configuration allows it
-            bool isAllowed = isToday ||
-                            (isPast && AllowPreviousDates) ||
-                            (isFuture && AllowFutureDates);
-
-            if (!isAllowed)
-            {
-                try { SystemSounds.Beep.Play(); } catch { }
-                return;
-            }
-
             if (button == MouseButtons.Left)
             {
-                // 🧩 Ensure entry exists for clicked date
-                if (!DayStyles.ContainsKey(clickedDate))
-                    DayStyles[clickedDate] = new CalendarDayStyle();
+                // Toggle check/uncheck on single click
+                if (!DayStyles.ContainsKey(date.Value))
+                    DayStyles[date.Value] = new CalendarDayStyle();
 
-                var style = DayStyles[clickedDate];
-
-                // 🧠 Determine new toggle state
-                bool newCheckState = !style.IsChecked;
-
-                // 🧩 Handle single / multi-select logic
-                if (!AllowMultiSelect)
-                {
-                    foreach (var key in DayStyles.Keys.ToList())
-                        DayStyles[key].IsChecked = false;
-                }
-
-                // ✅ Apply toggled checkmark only if allowed by settings
-                style.IsChecked = newCheckState;
-
-                // 🧭 Update SelectedDay (only for single select)
-                if (!AllowMultiSelect)
-                    SelectedDay = style.IsChecked ? clickedDate : (DateTime?)null;
-
-                // 🔄 Redraw immediately
+                DayStyles[date.Value].IsChecked = !DayStyles[date.Value].IsChecked;
                 Invalidate();
 
-                // 🔔 Fire events
                 if (doubleClick)
-                    DayDoubleClicked?.Invoke(this, new DateClickedEventArgs(clickedDate));
+                    DayDoubleClicked?.Invoke(this, new DateClickedEventArgs(date.Value));
                 else
-                    DayClicked?.Invoke(this, new DateClickedEventArgs(clickedDate));
+                    DayClicked?.Invoke(this, new DateClickedEventArgs(date.Value));
 
-                DetailedDayClicked?.Invoke(this,
-                    new DetailedDateClickedEventArgs(clickedDate, style.CustomText, style.FillAmount));
+                // Fire detailed event
+                CalendarDayStyle style = DayStyles[date.Value];
+                DetailedDayClicked?.Invoke(this, new DetailedDateClickedEventArgs(date.Value, style.CustomText, style.FillAmount));
             }
             else if (button == MouseButtons.Right)
             {
-                DayRightClicked?.Invoke(this, new DateClickedEventArgs(clickedDate));
+                DayRightClicked?.Invoke(this, new DateClickedEventArgs(date.Value));
+                // show context menu (ContextMenuStrip will show automatically on right-click)
             }
         }
 
@@ -718,20 +652,6 @@ namespace StaffSync
                 }
             }
 
-            // Highlight today's cell (subtle border)
-            if (currentDate.Date == DateTime.Today.Date)
-            {
-                try
-                {
-                    using (Pen highlightPen = new Pen(Color.DodgerBlue, 2))
-                    {
-                        Rectangle r = new Rectangle(cellRect.Left + 1, cellRect.Top + 1, Math.Max(1, cellRect.Width - 3), Math.Max(1, cellRect.Height - 3));
-                        g.DrawRectangle(highlightPen, r);
-                    }
-                }
-                catch { }
-            }
-
             // Day number
             FontStyle numberStyle = FontStyle.Regular;
             if (DayNumberFontBold) numberStyle |= FontStyle.Bold;
@@ -802,78 +722,6 @@ namespace StaffSync
                     g.DrawLines(pen, new[] { p1, p2, p3 });
                 }
             }
-        }
-
-        public void ClearCalendar()
-        {
-            DayStyles.Clear();            // remove all day style entries
-            SelectedDay = null;           // reset selected day
-            _toolTip.RemoveAll();         // clear tooltips (if any were active)
-            Invalidate();                 // redraw the control
-        }
-
-        public bool IsDayChecked(DateTime date)
-        {
-            CalendarDayStyle style;
-            if (DayStyles.TryGetValue(date.Date, out style))
-                return style.IsChecked;
-            return false;
-        }
-
-        /// <summary>
-        /// Marks a specific date as checked (shows tick mark).
-        /// If the date doesn't exist in DayStyles, it will be added.
-        /// </summary>
-        public void CheckDay(DateTime date)
-        {
-            var key = date.Date;
-            if (!DayStyles.ContainsKey(key))
-                DayStyles[key] = new CalendarDayStyle();
-
-            DayStyles[key].IsChecked = true;
-
-            // Update SelectedDay if single select mode
-            if (!AllowMultiSelect)
-                SelectedDay = key;
-
-            Invalidate();
-        }
-
-        /// <summary>
-        /// Unchecks a specific date (removes tick mark).
-        /// </summary>
-        public void UncheckDay(DateTime date)
-        {
-            var key = date.Date;
-            if (DayStyles.ContainsKey(key))
-                DayStyles[key].IsChecked = false;
-
-            // Reset SelectedDay if this was the selected one
-            if (SelectedDay.HasValue && SelectedDay.Value.Date == key)
-                SelectedDay = null;
-
-            Invalidate();
-        }
-
-        /// <summary>
-        /// Marks multiple dates as checked.
-        /// </summary>
-        public void CheckDays(IEnumerable<DateTime> dates)
-        {
-            foreach (var d in dates)
-                CheckDay(d);
-        }
-
-        /// <summary>
-        /// Unchecks all days but keeps existing colors and texts.
-        /// </summary>
-        public void UncheckAll()
-        {
-            foreach (var key in DayStyles.Keys.ToList())
-                DayStyles[key].IsChecked = false;
-
-            SelectedDay = null;
-            Invalidate();
         }
     }
 }

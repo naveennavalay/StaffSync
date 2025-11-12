@@ -177,6 +177,12 @@
     <Compile Include="frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDailyAttendanceProcess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDailyAttendanceProcess.Designer.cs">
+      <DependentUpon>frmDailyAttendanceProcess.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDailyAttendanceSheet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -569,6 +575,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StaffsyncDBDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="StaffsyncDBDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StaffsyncDBDataSet2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="StaffsyncDBDTSet.cs">
       <DependentUpon>StaffsyncDBDTSet.xsd</DependentUpon>
     </Compile>
@@ -580,6 +591,9 @@
     <Compile Include="TextBoxAutoCompleteHelper.cs" />
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDailyAttendanceProcess.resx">
+      <DependentUpon>frmDailyAttendanceProcess.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDailyAttendanceSheet.resx">
       <DependentUpon>frmDailyAttendanceSheet.cs</DependentUpon>
@@ -822,6 +836,17 @@
     </None>
     <None Include="StaffsyncDBDataSet1.xss">
       <DependentUpon>StaffsyncDBDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="StaffsyncDBDataSet2.xsc">
+      <DependentUpon>StaffsyncDBDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="StaffsyncDBDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>StaffsyncDBDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="StaffsyncDBDataSet2.xss">
+      <DependentUpon>StaffsyncDBDataSet2.xsd</DependentUpon>
     </None>
     <None Include="StaffsyncDBDTSet.xsc">
       <DependentUpon>StaffsyncDBDTSet.xsd</DependentUpon>

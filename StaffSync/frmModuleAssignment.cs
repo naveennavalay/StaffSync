@@ -289,22 +289,22 @@ namespace StaffSync
 
         private void dtgModulesList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridView dgv = sender as DataGridView;
+            //DataGridView dgv = sender as DataGridView;
 
-            // Only handle checkbox clicks
-            if (e.ColumnIndex == dgv.Columns["Access"].Index && e.RowIndex >= 0)
-            {
-                // Uncheck all other rows
-                foreach (DataGridViewRow row in dgv.Rows)
-                {
-                    if (row.Index != e.RowIndex)
-                        row.Cells["Access"].Value = false;
-                }
+            //// Only handle checkbox clicks
+            //if (e.ColumnIndex == dgv.Columns["Access"].Index && e.RowIndex >= 0)
+            //{
+            //    // Uncheck all other rows
+            //    foreach (DataGridViewRow row in dgv.Rows)
+            //    {
+            //        if (row.Index != e.RowIndex)
+            //            row.Cells["Access"].Value = false;
+            //    }
 
-                // Toggle the current one
-                bool currentValue = Convert.ToBoolean(dgv.Rows[e.RowIndex].Cells["Access"].Value ?? false);
-                dgv.Rows[e.RowIndex].Cells["Access"].Value = !currentValue;
-            }
+            //    // Toggle the current one
+            //    bool currentValue = Convert.ToBoolean(dgv.Rows[e.RowIndex].Cells["Access"].Value ?? false);
+            //    dgv.Rows[e.RowIndex].Cells["Access"].Value = !currentValue;
+            //}
         }
     }
 }

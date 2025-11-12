@@ -80,8 +80,8 @@ namespace DALStaffSync
             bool UserAuthenticated = true;
 
             UserInfo objLoggingInUserInfo = objLogin.getSpecificUserInfo(txtUserName);
-            if (objLoggingInUserInfo.UserID != 0)
-            {
+            //if (objLoggingInUserInfo.UserID != 0)
+            //{
                 if (objLoggingInUserInfo.IsActive == true)
                 {
                     if (objLoggingInUserInfo.IsLocked == false)
@@ -116,11 +116,11 @@ namespace DALStaffSync
                     //MessageBox.Show("User is no more active.\nPlease check your credentials to continue.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     UserAuthenticated = false;
                 }
-            }
-            else
-            {
-                UserAuthenticated = false;
-            }
+            //}
+            //else
+            //{
+            //    UserAuthenticated = false;
+            //}
 
             return UserAuthenticated;
         }
@@ -140,23 +140,23 @@ namespace DALStaffSync
             objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(txtEmpID);
 
             if (objTempCurrentlyLoggedInUserInfo.IsDeleted)
-                strValidationMessage = "Your account is deleted. Please contact system administrator.";
+                strValidationMessage = "Your account is deleted.\nPlease contact system administrator.";
             else if (objTempCurrentlyLoggedInUserInfo.IsActive == false)
-                strValidationMessage = "Your account is inactive. Please contact system administrator.";
+                strValidationMessage = "Your account is inactive.\nPlease contact system administrator.";
             else if (objTempCurrentlyLoggedInUserInfo.IsLocked)
-                strValidationMessage = "Your account is locked. Please contact system administrator.";
+                strValidationMessage = "Your account is locked.\nPlease contact system administrator.";
             else if (objTempCurrentlyLoggedInUserInfo.CanAdd == false && strAction == "add")
-                strValidationMessage = "You don't have permission to create record(s). Please contact system administrator.";
+                strValidationMessage = "You don't have permission to create record(s).\nPlease contact system administrator.";
             else if (objTempCurrentlyLoggedInUserInfo.CanUpdate == false && strAction == "update")
-                strValidationMessage = "You don't have permission to update record(s). Please contact system administrator.";
+                strValidationMessage = "You don't have permission to update record(s).\nPlease contact system administrator.";
             else if (objTempCurrentlyLoggedInUserInfo.CanDelete == false && strAction == "delete")
-                strValidationMessage = "You don't have permission to delete record(s). Please contact system administrator.";
+                strValidationMessage = "You don't have permission to delete record(s).\nPlease contact system administrator.";
             else if (objTempCurrentlyLoggedInUserInfo.CanApprove == false && strAction == "approve")
-                strValidationMessage = "You don't have permission to approve request(s). Please contact system administrator.";
+                strValidationMessage = "You don't have permission to approve request(s).\nPlease contact system administrator.";
             else if (objTempCurrentlyLoggedInUserInfo.CanReject == false && strAction == "reject")
-                strValidationMessage = "You don't have permission to reject request(s). Please contact system administrator.";
+                strValidationMessage = "You don't have permission to reject request(s).\nPlease contact system administrator.";
             else if (objTempCurrentlyLoggedInUserInfo.CanModifySettings == false && strAction == "config")
-                strValidationMessage = "You don't have permission to modify Application Settings. Please contact system administrator.";
+                strValidationMessage = "You don't have permission to modify Application Settings.\nPlease contact system administrator.";
 
             return strValidationMessage;
         }

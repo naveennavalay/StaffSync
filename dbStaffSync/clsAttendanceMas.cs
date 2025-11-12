@@ -31,7 +31,56 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 //DateTime.Now.Month
                 //string strQuery = "SELECT * FROM qryEmpAttendanceList WHERE EmpID = " + txtEmpID + " AND AttDate = #" + dtSelectedMonth.Date.ToString("dd-MMM-yyyy") + "# ORDER BY AttDate, OrderID Asc";
+                string strQuery = "SELECT * FROM qryEmpAttendanceList WHERE EmpID = " + txtEmpID + " AND Month(AttDate) = " + dtSelectedMonth.Date.Month + " AND Year(AttDate) = " + dtSelectedMonth.Date.Year + " ORDER BY AttDate, OrderID Asc";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeAttendanceInfo = JsonConvert.DeserializeObject<List<EmployeeAttendanceInfo>>(DataTableToJSon);
+                foreach (EmployeeAttendanceInfo indEmployeeAttendanceInfo in objEmployeeAttendanceInfo)
+                {
+                    objReturnEmployeeAttendanceInfoList.Add(new EmployeeAttendanceInfo
+                    {
+                        AttID = indEmployeeAttendanceInfo.AttID,
+                        AttDate = indEmployeeAttendanceInfo.AttDate,
+                        AttStatus = indEmployeeAttendanceInfo.AttStatus,
+                        EmpID = indEmployeeAttendanceInfo.EmpID,
+                        LeaveTRID = indEmployeeAttendanceInfo.LeaveTRID == null ? 0 : indEmployeeAttendanceInfo.LeaveTRID,
+                        LeaveComments = indEmployeeAttendanceInfo.LeaveComments == null ? "" : indEmployeeAttendanceInfo.LeaveComments
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return objReturnEmployeeAttendanceInfoList;
+        }
+
+        public List<EmployeeAttendanceInfo> GetDefaultEmployeeAttendanceInfoForJobs(int txtEmpID, DateTime dtSelectedMonth)
+        {
+            List<EmployeeAttendanceInfo> objEmployeeAttendanceInfo = new List<EmployeeAttendanceInfo>();
+            List<EmployeeAttendanceInfo> objReturnEmployeeAttendanceInfoList = new List<EmployeeAttendanceInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                //DateTime.Now.Month
                 string strQuery = "SELECT * FROM qryEmpAttendanceList WHERE EmpID = " + txtEmpID + " AND AttDate = #" + dtSelectedMonth.Date.ToString("dd-MMM-yyyy") + "# ORDER BY AttDate, OrderID Asc";
+                //string strQuery = "SELECT * FROM qryEmpAttendanceList WHERE EmpID = " + txtEmpID + " AND Month(AttDate) = " + dtSelectedMonth.Date.Month + " AND Year(AttDate) = " + dtSelectedMonth.Date.Year + " ORDER BY AttDate, OrderID Asc";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -91,7 +140,6 @@ namespace dbStaffSync
                 string DataTableToJSon = "";
                 DataTableToJSon = JsonConvert.SerializeObject(dt);
                 objMonthlyAttendanceReport = JsonConvert.DeserializeObject<List<MonthlyAttendanceInfo>>(DataTableToJSon);
-
             }
             catch (Exception ex)
             {

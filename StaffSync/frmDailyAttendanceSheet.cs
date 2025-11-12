@@ -101,108 +101,108 @@ namespace StaffSync
             List<AttendanceRecord> dtAttendanceRecord = new List<AttendanceRecord>();
 
             //// Add columns
-            attendanceGridControl1.AddColumns("SlNo", "Employee Code", "Employee Name");
-            attendanceGridControl1.DayNameFormat = StaffSync.Controls.DayNameFormat.None;
-            attendanceGridControl1.SetDisplayMonth(cmbAttendanceMonth.Text.ToString().Substring(0, cmbAttendanceMonth.Text.ToString().IndexOf("-") - 1));    // August
-            attendanceGridControl1.AddDayColumns(DateTime.DaysInMonth(DateTime.Now.Year, cmbAttendanceMonth.SelectedIndex + 1));
-            attendanceGridControl1.DisplayYear = DateTime.Now.Year;
-            attendanceGridControl1.AllowFutureDates = false;
-            attendanceGridControl1.WeeklyOffs = new[] { DayOfWeek.Sunday };
-            attendanceGridControl1.WeeklyOffsAreReadOnly = true;
-            attendanceGridControl1.DateHeaderAlignment = DateHeaderAlignment.Center;
-            attendanceGridControl1.OptionsList = new[] { "P", "P/L", "L/P", "L", "A", "WFH", "CompOff", "OOD" };
-            attendanceGridControl1.CellTextAlignment = CellTextAlignment.Left;
+            //attendanceGridControl1.AddColumns("SlNo", "Employee Code", "Employee Name");
+            //attendanceGridControl1.DayNameFormat = StaffSync.Controls.DayNameFormat.None;
+            //attendanceGridControl1.SetDisplayMonth(cmbAttendanceMonth.Text.ToString().Substring(0, cmbAttendanceMonth.Text.ToString().IndexOf("-") - 1));    // August
+            //attendanceGridControl1.AddDayColumns(DateTime.DaysInMonth(DateTime.Now.Year, cmbAttendanceMonth.SelectedIndex + 1));
+            //attendanceGridControl1.DisplayYear = DateTime.Now.Year;
+            //attendanceGridControl1.AllowFutureDates = false;
+            //attendanceGridControl1.WeeklyOffs = new[] { DayOfWeek.Sunday };
+            //attendanceGridControl1.WeeklyOffsAreReadOnly = true;
+            //attendanceGridControl1.DateHeaderAlignment = DateHeaderAlignment.Center;
+            //attendanceGridControl1.OptionsList = new[] { "P", "P/L", "L/P", "L", "A", "WFH", "CompOff", "OOD" };
+            //attendanceGridControl1.CellTextAlignment = CellTextAlignment.Left;
 
-            List<MonthlyAttendanceInfo> objMonthlyAttendanceReport = objAttendanceMas.MonthlyAttendanceReport(Convert.ToDateTime("01-" + (cmbAttendanceMonth.SelectedIndex + 1) + "-" + DateTime.Today.Year));
+            //List<MonthlyAttendanceInfo> objMonthlyAttendanceReport = objAttendanceMas.MonthlyAttendanceReport(Convert.ToDateTime("01-" + (cmbAttendanceMonth.SelectedIndex + 1) + "-" + DateTime.Today.Year));
 
-            foreach (MonthlyAttendanceInfo indInfo in objMonthlyAttendanceReport)
-            {
-                dtAttendanceRecord.Add(new AttendanceRecord
-                {
-                    SlNo = indInfo.SlNo,
-                    EmployeeCode = indInfo.EmpCode,
-                    EmployeeName = indInfo.EmpName,
-                    Day1 = indInfo.Day1,
-                    Day2 = indInfo.Day2,
-                    Day3 = indInfo.Day3,
-                    Day4 = indInfo.Day4,
-                    Day5 = indInfo.Day5,
-                    Day6 = indInfo.Day6,
-                    Day7 = indInfo.Day7,
-                    Day8 = indInfo.Day8,
-                    Day9 = indInfo.Day9,
-                    Day10 = indInfo.Day10,
-                    Day11 = indInfo.Day11,
-                    Day12 = indInfo.Day12,
-                    Day13 = indInfo.Day13,
-                    Day14 = indInfo.Day14,
-                    Day15 = indInfo.Day15,
-                    Day16 = indInfo.Day16,
-                    Day17 = indInfo.Day17,
-                    Day18 = indInfo.Day18,
-                    Day19 = indInfo.Day19,
-                    Day20 = indInfo.Day20,
-                    Day21 = indInfo.Day21,
-                    Day22 = indInfo.Day22,
-                    Day23 = indInfo.Day23,
-                    Day24 = indInfo.Day24,
-                    Day25 = indInfo.Day25,
-                    Day26 = indInfo.Day26,
-                    Day27 = indInfo.Day27,
-                    Day28 = indInfo.Day28,
-                    Day29 = indInfo.Day29,
-                    Day30 = indInfo.Day30,
-                    Day31 = indInfo.Day31
-                    //DayStatus = indInfo.Day1.ToDictionary(k => k.Key, v => v.Value)
-                });
-            }
+            //foreach (MonthlyAttendanceInfo indInfo in objMonthlyAttendanceReport)
+            //{
+            //    dtAttendanceRecord.Add(new AttendanceRecord
+            //    {
+            //        SlNo = indInfo.SlNo,
+            //        EmployeeCode = indInfo.EmpCode,
+            //        EmployeeName = indInfo.EmpName,
+            //        Day1 = indInfo.Day1,
+            //        Day2 = indInfo.Day2,
+            //        Day3 = indInfo.Day3,
+            //        Day4 = indInfo.Day4,
+            //        Day5 = indInfo.Day5,
+            //        Day6 = indInfo.Day6,
+            //        Day7 = indInfo.Day7,
+            //        Day8 = indInfo.Day8,
+            //        Day9 = indInfo.Day9,
+            //        Day10 = indInfo.Day10,
+            //        Day11 = indInfo.Day11,
+            //        Day12 = indInfo.Day12,
+            //        Day13 = indInfo.Day13,
+            //        Day14 = indInfo.Day14,
+            //        Day15 = indInfo.Day15,
+            //        Day16 = indInfo.Day16,
+            //        Day17 = indInfo.Day17,
+            //        Day18 = indInfo.Day18,
+            //        Day19 = indInfo.Day19,
+            //        Day20 = indInfo.Day20,
+            //        Day21 = indInfo.Day21,
+            //        Day22 = indInfo.Day22,
+            //        Day23 = indInfo.Day23,
+            //        Day24 = indInfo.Day24,
+            //        Day25 = indInfo.Day25,
+            //        Day26 = indInfo.Day26,
+            //        Day27 = indInfo.Day27,
+            //        Day28 = indInfo.Day28,
+            //        Day29 = indInfo.Day29,
+            //        Day30 = indInfo.Day30,
+            //        Day31 = indInfo.Day31
+            //        //DayStatus = indInfo.Day1.ToDictionary(k => k.Key, v => v.Value)
+            //    });
+            //}
 
-            attendanceGridControl1.BindData(dtAttendanceRecord);
+            //attendanceGridControl1.BindData(dtAttendanceRecord);
 
-            attendanceGridControl1.DayNameFormat = StaffSync.Controls.DayNameFormat.None;
-            attendanceGridControl1.SetColumnEditable("SlNo", false);
-            attendanceGridControl1.SetColumnEditable("EmployeeCode", false);
-            attendanceGridControl1.SetColumnEditable("EmployeeName", false);
-            attendanceGridControl1.SetDisplayMonth(cmbAttendanceMonth.Text.ToString().Substring(0, cmbAttendanceMonth.Text.ToString().IndexOf("-") - 1));    // August
-            attendanceGridControl1.DisplayYear = DateTime.Now.Year;
-            attendanceGridControl1.AllowFutureDates = false;
-            attendanceGridControl1.WeeklyOffs = new[] { DayOfWeek.Sunday };
-            attendanceGridControl1.WeeklyOffsAreReadOnly = true;
-            attendanceGridControl1.DateHeaderAlignment = DateHeaderAlignment.Center;
-            attendanceGridControl1.OptionsList = new[] { "P", "P/L", "L/P", "L", "A", "WFH", "CompOff", "OOD" };
-            attendanceGridControl1.CellTextAlignment = CellTextAlignment.Left;
+            //attendanceGridControl1.DayNameFormat = StaffSync.Controls.DayNameFormat.None;
+            //attendanceGridControl1.SetColumnEditable("SlNo", false);
+            //attendanceGridControl1.SetColumnEditable("EmployeeCode", false);
+            //attendanceGridControl1.SetColumnEditable("EmployeeName", false);
+            //attendanceGridControl1.SetDisplayMonth(cmbAttendanceMonth.Text.ToString().Substring(0, cmbAttendanceMonth.Text.ToString().IndexOf("-") - 1));    // August
+            //attendanceGridControl1.DisplayYear = DateTime.Now.Year;
+            //attendanceGridControl1.AllowFutureDates = false;
+            //attendanceGridControl1.WeeklyOffs = new[] { DayOfWeek.Sunday };
+            //attendanceGridControl1.WeeklyOffsAreReadOnly = true;
+            //attendanceGridControl1.DateHeaderAlignment = DateHeaderAlignment.Center;
+            //attendanceGridControl1.OptionsList = new[] { "P", "P/L", "L/P", "L", "A", "WFH", "CompOff", "OOD" };
+            //attendanceGridControl1.CellTextAlignment = CellTextAlignment.Left;
 
-            attendanceGridControl1.SetColumnAlignment("Day1", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day2", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day3", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day4", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day5", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day6", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day7", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day8", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day9", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day10", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day11", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day12", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day13", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day14", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day15", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day16", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day17", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day18", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day19", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day20", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day21", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day22", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day23", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day24", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day25", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day26", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day27", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day28", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day29", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day30", CellTextAlignment.Center);
-            attendanceGridControl1.SetColumnAlignment("Day31", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day1", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day2", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day3", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day4", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day5", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day6", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day7", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day8", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day9", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day10", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day11", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day12", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day13", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day14", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day15", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day16", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day17", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day18", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day19", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day20", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day21", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day22", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day23", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day24", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day25", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day26", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day27", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day28", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day29", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day30", CellTextAlignment.Center);
+            //attendanceGridControl1.SetColumnAlignment("Day31", CellTextAlignment.Center);
 
         }
 
@@ -331,10 +331,10 @@ namespace StaffSync
         private void btnRemoveDetails_Click(object sender, EventArgs e)
         {
 
-            attendanceGridControl1.ExportToPDF("DailyAttendanceSheet.pdf");
-            attendanceGridControl1.ExportToExcel("DailyAttendanceSheet.xlsx");
-            attendanceGridControl1.ExportToCSV("DailyAttendanceSheet.csv");
-            attendanceGridControl1.ExportToXML("DailyAttendanceSheet.xml");
+            //attendanceGridControl1.ExportToPDF("DailyAttendanceSheet.pdf");
+            //attendanceGridControl1.ExportToExcel("DailyAttendanceSheet.xlsx");
+            //attendanceGridControl1.ExportToCSV("DailyAttendanceSheet.csv");
+            //attendanceGridControl1.ExportToXML("DailyAttendanceSheet.xml");
 
             //var changes = attendanceGridControl1.GetChangedCells().OrderBy(x => x.RowIndex);
             //foreach (var xx in changes)
@@ -382,7 +382,8 @@ namespace StaffSync
 
         private void cmbAttendanceMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadAttendanceInfo();
+            //LoadAttendanceInfo();
+            RefreshEmpAttendanceInfo();
             //attendanceGridControl1.SetCellValue(1, 15, "P"); // row 1, column 3 → "P"
 
         }
@@ -390,6 +391,31 @@ namespace StaffSync
         private void attendanceGridControl1_DoubleClick(object sender, EventArgs e)
         {
             MessageBox.Show("Double Clicked on the grid", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void RefreshEmpAttendanceInfo()
+        {
+            int PresentCounter = 0;
+            int LeaveCounter = 0;
+            int FirstHalfLeaveCounter = 0;
+            int SecondHalfLeaveCounter = 0;
+
+            DateTime dtSelectedMonth = new DateTime(DateTime.Now.Year, cmbAttendanceMonth.SelectedIndex + 1, 1, 1, 1, 1);
+
+            int selectedMonth = cmbAttendanceMonth.SelectedIndex + 1;
+
+            int TotalDaysInMonth = DateTime.DaysInMonth(DateTime.Today.Year, selectedMonth);
+
+            dtgConsolidatedAttendanceReport.DataSource = null;
+
+            dtgConsolidatedAttendanceReport.DataSource = objAttendanceMas.MonthlyAttendanceReport(Convert.ToDateTime("01-" + (cmbAttendanceMonth.SelectedIndex + 1) + "-" + DateTime.Today.Year));
+            dtgConsolidatedAttendanceReport.Columns["EmpID"].Visible = false;
+            dtgConsolidatedAttendanceReport.Columns["EmpCode"].Width = 100;
+            dtgConsolidatedAttendanceReport.Columns["EmpName"].Width = 250;
+            dtgConsolidatedAttendanceReport.Columns["DesignationTitle"].Width = 250;
+            dtgConsolidatedAttendanceReport.Columns["DepartmentTitle"].Width = 250;
+            dtgConsolidatedAttendanceReport.Columns["SlNo"].Visible = false;
+            dtgConsolidatedAttendanceReport.Columns["AttdMonth"].Visible = false;
         }
     }
 }

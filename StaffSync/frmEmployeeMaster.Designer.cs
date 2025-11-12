@@ -1005,6 +1005,7 @@
             this.txtDateOfJoining.Size = new System.Drawing.Size(437, 21);
             this.txtDateOfJoining.TabIndex = 6;
             this.txtDateOfJoining.Tag = "Please enter Employeee Date Of Joining";
+            this.txtDateOfJoining.TextChanged += new System.EventHandler(this.txtDateOfJoining_TextChanged);
             // 
             // txtDateOfBirth
             // 
@@ -2285,6 +2286,7 @@
             this.txtTotalLeaveAllotment.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalLeaveAllotment.TabIndex = 13;
             this.txtTotalLeaveAllotment.WordWrap = false;
+            this.txtTotalLeaveAllotment.TextChanged += new System.EventHandler(this.txtTotalLeaveAllotment_TextChanged);
             // 
             // label40
             // 

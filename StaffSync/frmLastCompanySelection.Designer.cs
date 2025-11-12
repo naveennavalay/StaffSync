@@ -65,7 +65,6 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -76,9 +75,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1271, 597);
-            this.splitContainer1.SplitterDistance = 515;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(953, 485);
+            this.splitContainer1.SplitterDistance = 418;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -87,9 +85,8 @@
             this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1271, 515);
+            this.panel1.Size = new System.Drawing.Size(953, 418);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
@@ -103,11 +100,9 @@
             this.groupBox5.Controls.Add(this.label18);
             this.groupBox5.Controls.Add(this.label16);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(19, 15);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox5.Location = new System.Drawing.Point(14, 12);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(1235, 492);
+            this.groupBox5.Size = new System.Drawing.Size(926, 400);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Last Company Info";
@@ -117,8 +112,8 @@
             this.lblEmpID.AutoSize = true;
             this.lblEmpID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblEmpID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmpID.Location = new System.Drawing.Point(675, 283);
-            this.lblEmpID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblEmpID.Location = new System.Drawing.Point(506, 230);
+            this.lblEmpID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEmpID.Name = "lblEmpID";
             this.lblEmpID.Size = new System.Drawing.Size(11, 15);
             this.lblEmpID.TabIndex = 8;
@@ -127,12 +122,11 @@
             // 
             // txtMoreDetails
             // 
-            this.txtMoreDetails.Location = new System.Drawing.Point(147, 318);
-            this.txtMoreDetails.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMoreDetails.Location = new System.Drawing.Point(110, 258);
             this.txtMoreDetails.Multiline = true;
             this.txtMoreDetails.Name = "txtMoreDetails";
             this.txtMoreDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtMoreDetails.Size = new System.Drawing.Size(637, 159);
+            this.txtMoreDetails.Size = new System.Drawing.Size(478, 129);
             this.txtMoreDetails.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMoreDetails.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtMoreDetails.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -143,8 +137,8 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(19, 324);
-            this.label19.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label19.Location = new System.Drawing.Point(14, 263);
+            this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(89, 15);
             this.label19.TabIndex = 48;
@@ -154,22 +148,20 @@
             // txtEndDate
             // 
             this.txtEndDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.txtEndDate.Location = new System.Drawing.Point(456, 276);
-            this.txtEndDate.Margin = new System.Windows.Forms.Padding(4);
+            this.txtEndDate.Location = new System.Drawing.Point(342, 224);
             this.txtEndDate.Mask = "##-##-####";
             this.txtEndDate.Name = "txtEndDate";
-            this.txtEndDate.Size = new System.Drawing.Size(132, 21);
+            this.txtEndDate.Size = new System.Drawing.Size(100, 21);
             this.txtEndDate.TabIndex = 47;
             this.txtEndDate.Tag = "Please enter Employeee Date Of Joining";
             // 
             // txtStartDate
             // 
             this.txtStartDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.txtStartDate.Location = new System.Drawing.Point(147, 276);
-            this.txtStartDate.Margin = new System.Windows.Forms.Padding(4);
+            this.txtStartDate.Location = new System.Drawing.Point(110, 224);
             this.txtStartDate.Mask = "##-##-####";
             this.txtStartDate.Name = "txtStartDate";
-            this.txtStartDate.Size = new System.Drawing.Size(132, 21);
+            this.txtStartDate.Size = new System.Drawing.Size(100, 21);
             this.txtStartDate.TabIndex = 46;
             this.txtStartDate.Tag = "Please enter Employeee Date Of Birth";
             this.txtStartDate.ValidatingType = typeof(System.DateTime);
@@ -185,20 +177,19 @@
             this.dtgPreviousWorkExp.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dtgPreviousWorkExp.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
             this.dtgPreviousWorkExp.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
-            this.dtgPreviousWorkExp.Location = new System.Drawing.Point(20, 28);
-            this.dtgPreviousWorkExp.Margin = new System.Windows.Forms.Padding(4);
+            this.dtgPreviousWorkExp.Location = new System.Drawing.Point(15, 23);
             this.dtgPreviousWorkExp.Name = "dtgPreviousWorkExp";
             this.dtgPreviousWorkExp.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgPreviousWorkExp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgPreviousWorkExp.Size = new System.Drawing.Size(1179, 239);
+            this.dtgPreviousWorkExp.Size = new System.Drawing.Size(884, 194);
             this.dtgPreviousWorkExp.TabIndex = 45;
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(359, 279);
-            this.label18.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label18.Location = new System.Drawing.Point(269, 227);
+            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(66, 15);
             this.label18.TabIndex = 21;
@@ -209,8 +200,8 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(43, 279);
-            this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label16.Location = new System.Drawing.Point(32, 227);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(71, 15);
             this.label16.TabIndex = 7;
@@ -224,18 +215,16 @@
             this.panel2.Controls.Add(this.btnCloseMe);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1271, 77);
+            this.panel2.Size = new System.Drawing.Size(953, 63);
             this.panel2.TabIndex = 1;
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(48, 17);
-            this.btnOK.Margin = new System.Windows.Forms.Padding(4);
+            this.btnOK.Location = new System.Drawing.Point(36, 14);
             this.btnOK.Name = "btnOK";
             this.btnOK.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnOK.Size = new System.Drawing.Size(168, 47);
+            this.btnOK.Size = new System.Drawing.Size(126, 38);
             this.btnOK.TabIndex = 21;
             this.btnOK.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnOK.Values.Image = global::StaffSync.Properties.Resources.update;
@@ -244,11 +233,10 @@
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1059, 17);
-            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCloseMe.Location = new System.Drawing.Point(794, 14);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCloseMe.Size = new System.Drawing.Size(168, 47);
+            this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
             this.btnCloseMe.TabIndex = 20;
             this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
@@ -275,21 +263,19 @@
             // 
             // frmLastCompanySelection
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1271, 597);
+            this.ClientSize = new System.Drawing.Size(953, 485);
             this.Controls.Add(this.splitContainer1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmLastCompanySelection";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Last Company Info";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmLastCompanySelection_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmLastCompanySelection_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="StaffsyncDBDataSet2" targetNamespace="http://tempuri.org/StaffsyncDBDataSet2.xsd" xmlns:mstns="http://tempuri.org/StaffsyncDBDataSet2.xsd" xmlns="http://tempuri.org/StaffsyncDBDataSet2.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="StaffsyncDBConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="StaffsyncDBConnectionString (Settings)" PropertyReference="ApplicationSettings.StaffSync.Properties.Settings.GlobalReference.Default.StaffsyncDBConnectionString" Provider="System.Data.OleDb" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="qryMnthlyAttdInfoTableAdapter" GeneratorDataComponentClassName="qryMnthlyAttdInfoTableAdapter" Name="qryMnthlyAttdInfo" UserDataComponentName="qryMnthlyAttdInfoTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="qryMnthlyAttdInfo" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT EmpID, EmpCode, EmpName, DesignationTitle, DepartmentTitle, SlNo, AttdMonth, Day1, Day2, Day3, Day4, Day5, Day6, Day7, Day8, Day9, Day10, Day11, Day12, Day13, Day14, Day15, Day16, Day17, Day18, Day19, Day20, Day21, Day22, Day23, Day24, Day25, Day26, Day27, Day28, Day29, Day30, Day31, Day32 FROM qryMnthlyAttdInfo</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="EmpID" DataSetColumn="EmpID" />
+              <Mapping SourceColumn="EmpCode" DataSetColumn="EmpCode" />
+              <Mapping SourceColumn="EmpName" DataSetColumn="EmpName" />
+              <Mapping SourceColumn="DesignationTitle" DataSetColumn="DesignationTitle" />
+              <Mapping SourceColumn="DepartmentTitle" DataSetColumn="DepartmentTitle" />
+              <Mapping SourceColumn="SlNo" DataSetColumn="SlNo" />
+              <Mapping SourceColumn="AttdMonth" DataSetColumn="AttdMonth" />
+              <Mapping SourceColumn="Day1" DataSetColumn="Day1" />
+              <Mapping SourceColumn="Day2" DataSetColumn="Day2" />
+              <Mapping SourceColumn="Day3" DataSetColumn="Day3" />
+              <Mapping SourceColumn="Day4" DataSetColumn="Day4" />
+              <Mapping SourceColumn="Day5" DataSetColumn="Day5" />
+              <Mapping SourceColumn="Day6" DataSetColumn="Day6" />
+              <Mapping SourceColumn="Day7" DataSetColumn="Day7" />
+              <Mapping SourceColumn="Day8" DataSetColumn="Day8" />
+              <Mapping SourceColumn="Day9" DataSetColumn="Day9" />
+              <Mapping SourceColumn="Day10" DataSetColumn="Day10" />
+              <Mapping SourceColumn="Day11" DataSetColumn="Day11" />
+              <Mapping SourceColumn="Day12" DataSetColumn="Day12" />
+              <Mapping SourceColumn="Day13" DataSetColumn="Day13" />
+              <Mapping SourceColumn="Day14" DataSetColumn="Day14" />
+              <Mapping SourceColumn="Day15" DataSetColumn="Day15" />
+              <Mapping SourceColumn="Day16" DataSetColumn="Day16" />
+              <Mapping SourceColumn="Day17" DataSetColumn="Day17" />
+              <Mapping SourceColumn="Day18" DataSetColumn="Day18" />
+              <Mapping SourceColumn="Day19" DataSetColumn="Day19" />
+              <Mapping SourceColumn="Day20" DataSetColumn="Day20" />
+              <Mapping SourceColumn="Day21" DataSetColumn="Day21" />
+              <Mapping SourceColumn="Day22" DataSetColumn="Day22" />
+              <Mapping SourceColumn="Day23" DataSetColumn="Day23" />
+              <Mapping SourceColumn="Day24" DataSetColumn="Day24" />
+              <Mapping SourceColumn="Day25" DataSetColumn="Day25" />
+              <Mapping SourceColumn="Day26" DataSetColumn="Day26" />
+              <Mapping SourceColumn="Day27" DataSetColumn="Day27" />
+              <Mapping SourceColumn="Day28" DataSetColumn="Day28" />
+              <Mapping SourceColumn="Day29" DataSetColumn="Day29" />
+              <Mapping SourceColumn="Day30" DataSetColumn="Day30" />
+              <Mapping SourceColumn="Day31" DataSetColumn="Day31" />
+              <Mapping SourceColumn="Day32" DataSetColumn="Day32" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="StaffsyncDBDataSet2" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="StaffsyncDBDataSet2" msprop:Generator_DataSetName="StaffsyncDBDataSet2">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="qryMnthlyAttdInfo" msprop:Generator_RowEvHandlerName="qryMnthlyAttdInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="qryMnthlyAttdInfoRowDeleted" msprop:Generator_RowDeletingName="qryMnthlyAttdInfoRowDeleting" msprop:Generator_RowEvArgName="qryMnthlyAttdInfoRowChangeEvent" msprop:Generator_TablePropName="qryMnthlyAttdInfo" msprop:Generator_RowChangedName="qryMnthlyAttdInfoRowChanged" msprop:Generator_RowChangingName="qryMnthlyAttdInfoRowChanging" msprop:Generator_TableClassName="qryMnthlyAttdInfoDataTable" msprop:Generator_RowClassName="qryMnthlyAttdInfoRow" msprop:Generator_TableVarName="tableqryMnthlyAttdInfo" msprop:Generator_UserTableName="qryMnthlyAttdInfo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EmpID" msprop:Generator_ColumnPropNameInRow="EmpID" msprop:Generator_ColumnPropNameInTable="EmpIDColumn" msprop:Generator_ColumnVarNameInTable="columnEmpID" msprop:Generator_UserColumnName="EmpID" type="xs:int" minOccurs="0" />
+              <xs:element name="EmpCode" msprop:Generator_ColumnPropNameInRow="EmpCode" msprop:Generator_ColumnPropNameInTable="EmpCodeColumn" msprop:Generator_ColumnVarNameInTable="columnEmpCode" msprop:Generator_UserColumnName="EmpCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EmpName" msprop:Generator_ColumnPropNameInRow="EmpName" msprop:Generator_ColumnPropNameInTable="EmpNameColumn" msprop:Generator_ColumnVarNameInTable="columnEmpName" msprop:Generator_UserColumnName="EmpName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DesignationTitle" msprop:Generator_ColumnPropNameInRow="DesignationTitle" msprop:Generator_ColumnPropNameInTable="DesignationTitleColumn" msprop:Generator_ColumnVarNameInTable="columnDesignationTitle" msprop:Generator_UserColumnName="DesignationTitle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DepartmentTitle" msprop:Generator_ColumnPropNameInRow="DepartmentTitle" msprop:Generator_ColumnPropNameInTable="DepartmentTitleColumn" msprop:Generator_ColumnVarNameInTable="columnDepartmentTitle" msprop:Generator_UserColumnName="DepartmentTitle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SlNo" msprop:Generator_ColumnPropNameInRow="SlNo" msprop:Generator_ColumnPropNameInTable="SlNoColumn" msprop:Generator_ColumnVarNameInTable="columnSlNo" msprop:Generator_UserColumnName="SlNo" type="xs:int" minOccurs="0" />
+              <xs:element name="AttdMonth" msprop:Generator_ColumnPropNameInRow="AttdMonth" msprop:Generator_ColumnPropNameInTable="AttdMonthColumn" msprop:Generator_ColumnVarNameInTable="columnAttdMonth" msprop:Generator_UserColumnName="AttdMonth" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Day1" msprop:Generator_ColumnPropNameInRow="Day1" msprop:Generator_ColumnPropNameInTable="Day1Column" msprop:Generator_ColumnVarNameInTable="columnDay1" msprop:Generator_UserColumnName="Day1" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day2" msprop:Generator_ColumnPropNameInRow="Day2" msprop:Generator_ColumnPropNameInTable="Day2Column" msprop:Generator_ColumnVarNameInTable="columnDay2" msprop:Generator_UserColumnName="Day2" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day3" msprop:Generator_ColumnPropNameInRow="Day3" msprop:Generator_ColumnPropNameInTable="Day3Column" msprop:Generator_ColumnVarNameInTable="columnDay3" msprop:Generator_UserColumnName="Day3" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day4" msprop:Generator_ColumnPropNameInRow="Day4" msprop:Generator_ColumnPropNameInTable="Day4Column" msprop:Generator_ColumnVarNameInTable="columnDay4" msprop:Generator_UserColumnName="Day4" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day5" msprop:Generator_ColumnPropNameInRow="Day5" msprop:Generator_ColumnPropNameInTable="Day5Column" msprop:Generator_ColumnVarNameInTable="columnDay5" msprop:Generator_UserColumnName="Day5" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day6" msprop:Generator_ColumnPropNameInRow="Day6" msprop:Generator_ColumnPropNameInTable="Day6Column" msprop:Generator_ColumnVarNameInTable="columnDay6" msprop:Generator_UserColumnName="Day6" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day7" msprop:Generator_ColumnPropNameInRow="Day7" msprop:Generator_ColumnPropNameInTable="Day7Column" msprop:Generator_ColumnVarNameInTable="columnDay7" msprop:Generator_UserColumnName="Day7" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day8" msprop:Generator_ColumnPropNameInRow="Day8" msprop:Generator_ColumnPropNameInTable="Day8Column" msprop:Generator_ColumnVarNameInTable="columnDay8" msprop:Generator_UserColumnName="Day8" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day9" msprop:Generator_ColumnPropNameInRow="Day9" msprop:Generator_ColumnPropNameInTable="Day9Column" msprop:Generator_ColumnVarNameInTable="columnDay9" msprop:Generator_UserColumnName="Day9" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day10" msprop:Generator_ColumnPropNameInRow="Day10" msprop:Generator_ColumnPropNameInTable="Day10Column" msprop:Generator_ColumnVarNameInTable="columnDay10" msprop:Generator_UserColumnName="Day10" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day11" msprop:Generator_ColumnPropNameInRow="Day11" msprop:Generator_ColumnPropNameInTable="Day11Column" msprop:Generator_ColumnVarNameInTable="columnDay11" msprop:Generator_UserColumnName="Day11" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day12" msprop:Generator_ColumnPropNameInRow="Day12" msprop:Generator_ColumnPropNameInTable="Day12Column" msprop:Generator_ColumnVarNameInTable="columnDay12" msprop:Generator_UserColumnName="Day12" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day13" msprop:Generator_ColumnPropNameInRow="Day13" msprop:Generator_ColumnPropNameInTable="Day13Column" msprop:Generator_ColumnVarNameInTable="columnDay13" msprop:Generator_UserColumnName="Day13" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day14" msprop:Generator_ColumnPropNameInRow="Day14" msprop:Generator_ColumnPropNameInTable="Day14Column" msprop:Generator_ColumnVarNameInTable="columnDay14" msprop:Generator_UserColumnName="Day14" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day15" msprop:Generator_ColumnPropNameInRow="Day15" msprop:Generator_ColumnPropNameInTable="Day15Column" msprop:Generator_ColumnVarNameInTable="columnDay15" msprop:Generator_UserColumnName="Day15" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day16" msprop:Generator_ColumnPropNameInRow="Day16" msprop:Generator_ColumnPropNameInTable="Day16Column" msprop:Generator_ColumnVarNameInTable="columnDay16" msprop:Generator_UserColumnName="Day16" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day17" msprop:Generator_ColumnPropNameInRow="Day17" msprop:Generator_ColumnPropNameInTable="Day17Column" msprop:Generator_ColumnVarNameInTable="columnDay17" msprop:Generator_UserColumnName="Day17" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day18" msprop:Generator_ColumnPropNameInRow="Day18" msprop:Generator_ColumnPropNameInTable="Day18Column" msprop:Generator_ColumnVarNameInTable="columnDay18" msprop:Generator_UserColumnName="Day18" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day19" msprop:Generator_ColumnPropNameInRow="Day19" msprop:Generator_ColumnPropNameInTable="Day19Column" msprop:Generator_ColumnVarNameInTable="columnDay19" msprop:Generator_UserColumnName="Day19" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day20" msprop:Generator_ColumnPropNameInRow="Day20" msprop:Generator_ColumnPropNameInTable="Day20Column" msprop:Generator_ColumnVarNameInTable="columnDay20" msprop:Generator_UserColumnName="Day20" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day21" msprop:Generator_ColumnPropNameInRow="Day21" msprop:Generator_ColumnPropNameInTable="Day21Column" msprop:Generator_ColumnVarNameInTable="columnDay21" msprop:Generator_UserColumnName="Day21" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day22" msprop:Generator_ColumnPropNameInRow="Day22" msprop:Generator_ColumnPropNameInTable="Day22Column" msprop:Generator_ColumnVarNameInTable="columnDay22" msprop:Generator_UserColumnName="Day22" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day23" msprop:Generator_ColumnPropNameInRow="Day23" msprop:Generator_ColumnPropNameInTable="Day23Column" msprop:Generator_ColumnVarNameInTable="columnDay23" msprop:Generator_UserColumnName="Day23" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day24" msprop:Generator_ColumnPropNameInRow="Day24" msprop:Generator_ColumnPropNameInTable="Day24Column" msprop:Generator_ColumnVarNameInTable="columnDay24" msprop:Generator_UserColumnName="Day24" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day25" msprop:Generator_ColumnPropNameInRow="Day25" msprop:Generator_ColumnPropNameInTable="Day25Column" msprop:Generator_ColumnVarNameInTable="columnDay25" msprop:Generator_UserColumnName="Day25" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day26" msprop:Generator_ColumnPropNameInRow="Day26" msprop:Generator_ColumnPropNameInTable="Day26Column" msprop:Generator_ColumnVarNameInTable="columnDay26" msprop:Generator_UserColumnName="Day26" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day27" msprop:Generator_ColumnPropNameInRow="Day27" msprop:Generator_ColumnPropNameInTable="Day27Column" msprop:Generator_ColumnVarNameInTable="columnDay27" msprop:Generator_UserColumnName="Day27" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day28" msprop:Generator_ColumnPropNameInRow="Day28" msprop:Generator_ColumnPropNameInTable="Day28Column" msprop:Generator_ColumnVarNameInTable="columnDay28" msprop:Generator_UserColumnName="Day28" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day29" msprop:Generator_ColumnPropNameInRow="Day29" msprop:Generator_ColumnPropNameInTable="Day29Column" msprop:Generator_ColumnVarNameInTable="columnDay29" msprop:Generator_UserColumnName="Day29" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day30" msprop:Generator_ColumnPropNameInRow="Day30" msprop:Generator_ColumnPropNameInTable="Day30Column" msprop:Generator_ColumnVarNameInTable="columnDay30" msprop:Generator_UserColumnName="Day30" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day31" msprop:Generator_ColumnPropNameInRow="Day31" msprop:Generator_ColumnPropNameInTable="Day31Column" msprop:Generator_ColumnVarNameInTable="columnDay31" msprop:Generator_UserColumnName="Day31" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Day32" msprop:Generator_ColumnPropNameInRow="Day32" msprop:Generator_ColumnPropNameInTable="Day32Column" msprop:Generator_ColumnVarNameInTable="columnDay32" msprop:Generator_UserColumnName="Day32" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -26,6 +26,15 @@ namespace DALStaffSync
             return objReturnEmployeeAttendanceInfoList;
         }
 
+        public List<EmployeeAttendanceInfo> GetDefaultEmployeeAttendanceInfoForJobs(int txtEmpID, DateTime dtSelectedMonth)
+        {
+            List<EmployeeAttendanceInfo> objReturnEmployeeAttendanceInfoList = new List<EmployeeAttendanceInfo>();
+
+            objReturnEmployeeAttendanceInfoList = objAttendanceMas.GetDefaultEmployeeAttendanceInfoForJobs(txtEmpID, dtSelectedMonth);
+
+            return objReturnEmployeeAttendanceInfoList;
+        }
+
         public List<MonthlyAttendanceInfo> EmployeeSpecificMonthlyAttendanceInfo(int EmpID, DateTime ReportForTheMonth)
         {
             List<MonthlyAttendanceInfo> objMonthlyAttendanceReport = new List<MonthlyAttendanceInfo>();

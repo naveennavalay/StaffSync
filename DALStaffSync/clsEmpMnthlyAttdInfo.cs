@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -14,6 +15,15 @@ namespace DALStaffSync
         public clsEmpMnthlyAttdInfo()
         {
 
+        }
+
+        public List<MonthlyAttendanceInfo> getConsolidatedMonthlyAttendanceInfo(DateTime AttendanceMonth)
+        {
+            List<MonthlyAttendanceInfo> objMonthlyAttendanceInfo = new List<MonthlyAttendanceInfo>();
+
+            objMonthlyAttendanceInfo = objEmpMnthlyAttdInfo.getConsolidatedMonthlyAttendanceInfo(AttendanceMonth);
+
+            return objMonthlyAttendanceInfo;
         }
 
         public int getMonthlyAttendanceInfo(int txtEmpID, DateTime AttendanceMonth)

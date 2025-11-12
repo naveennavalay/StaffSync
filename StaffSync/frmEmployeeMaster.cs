@@ -62,7 +62,7 @@ namespace StaffSync
         DALStaffSync.clsTaxMas objTaxMas = new DALStaffSync.clsTaxMas();
         DALStaffSync.clsShiftMas objShiftMas = new DALStaffSync.clsShiftMas();
         DALStaffSync.clsEmploymentTypeInfo objEmploymentTypeInfo = new DALStaffSync.clsEmploymentTypeInfo();
-        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
+        frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
 
         public frmEmployeeMaster()
@@ -284,7 +284,7 @@ namespace StaffSync
                 MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             lblActionMode.Text = "add";
             onGenerateButtonClick();
             clearControls();
@@ -294,7 +294,7 @@ namespace StaffSync
             txtTotalUtilised.Enabled = true;
             lblEmpID.Text = objGenFunc.getMaxRowCount("EMPMas", "EmpID", CurrentUser.ClientID).Data.ToString();
             txtEmpCode.Text = "EMP-" + (lblEmpID.Text.Trim()).ToString().PadLeft(4, '0');
-            errValidator.Clear();            
+            errValidator.Clear();
 
             cmbDepartment.DataSource = objDepartment.GetDepartmentList();
             cmbDepartment.DisplayMember = "DepartmentTitle";
@@ -696,7 +696,7 @@ namespace StaffSync
                 MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             lblActionMode.Text = "modify";
             tabControl1.SelectedIndex = 0;
             onModifyButtonClick();
@@ -793,10 +793,10 @@ namespace StaffSync
                 MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             this.Cursor = Cursors.WaitCursor;
 
-            if(!ValidateValuesOnUI())
+            if (!ValidateValuesOnUI())
             {
                 this.Cursor = Cursors.Default;
                 return;
@@ -875,19 +875,22 @@ namespace StaffSync
                         int employeeBankAccountID = objBankInfo.InsertEmployeeBankReference(Convert.ToInt16(lblEmpID.Text.ToString()), txtBankAccountNumber.Text.Trim(), lstBankList.SelectedItems[0].Index + 1, true);
                     }
 
-                    if(tabPreviousExperience1.Visible == true)
+                    if (tabPreviousExperience1.Visible == true)
                     {
                         foreach (DataGridViewRow dc in dtgPreviousWorkExp.Rows)
                         {
-                            int EmpWorkExpID = 0;
-                            if (Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()) > 0)
-                                EmpWorkExpID = objEmpWorkExperienceInfo.InsertEmpWorkExpInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()), Convert.ToDateTime(dc.Cells["StartDate"].Value.ToString()), Convert.ToDateTime(dc.Cells["EndDate"].Value.ToString()), dc.Cells["Comments"].Value.ToString());
-                            else
-                                EmpWorkExpID = objEmpWorkExperienceInfo.UpdatetEmpWorkExpInfo(Convert.ToInt16(dc.Cells["LastCompID"].Value.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()), Convert.ToDateTime(dc.Cells["StartDate"].Value.ToString()), Convert.ToDateTime(dc.Cells["EndDate"].Value.ToString()), dc.Cells["Comments"].Value.ToString());
+                            if(!string.IsNullOrEmpty(dc.Cells["StartDate"].Value.ToString()) && !string.IsNullOrEmpty(dc.Cells["EndDate"].Value.ToString()))
+                            {
+                                int EmpWorkExpID = 0;
+                                if (Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()) > 0)
+                                    EmpWorkExpID = objEmpWorkExperienceInfo.InsertEmpWorkExpInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()), Convert.ToDateTime(dc.Cells["StartDate"].Value.ToString()), Convert.ToDateTime(dc.Cells["EndDate"].Value.ToString()), dc.Cells["Comments"].Value.ToString());
+                                else
+                                    EmpWorkExpID = objEmpWorkExperienceInfo.UpdatetEmpWorkExpInfo(Convert.ToInt16(dc.Cells["LastCompID"].Value.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()), Convert.ToDateTime(dc.Cells["StartDate"].Value.ToString()), Convert.ToDateTime(dc.Cells["EndDate"].Value.ToString()), dc.Cells["Comments"].Value.ToString());
+                            }
                         }
                     }
 
-                    if(tabDocuments1.Visible == true)
+                    if (tabDocuments1.Visible == true)
                     {
                         for (int linkedDocumentIDCount = 0; linkedDocumentIDCount <= lstLDocumentsList.Items.Count - 1; linkedDocumentIDCount++)
                         {
@@ -900,7 +903,7 @@ namespace StaffSync
                         }
                     }
 
-                    if(tabEducationalInfo1.Visible == true)
+                    if (tabEducationalInfo1.Visible == true)
                     {
                         int deletedEduQualCount = objEmpEduQualInfo.DeleteEmpEduQualInfo(employeeID);
                         for (int iEduQualCounter = 0; iEduQualCounter < chkEduQualList.Items.Count - 1; iEduQualCounter++)
@@ -954,7 +957,7 @@ namespace StaffSync
             }
             else if (lblActionMode.Text == "modify")
             {
-                if (Convert.ToInt16(lblBankID.Text.ToString()) != 0 &&  Convert.ToInt16(lblBankID.Text.ToString()) != lstBankList.SelectedItems[0].Index + 1)
+                if (Convert.ToInt16(lblBankID.Text.ToString()) != 0 && Convert.ToInt16(lblBankID.Text.ToString()) != lstBankList.SelectedItems[0].Index + 1)
                 {
                     if (MessageBox.Show("The Bank Name is getting changed from \n\n" + lstBankList.Items[Convert.ToInt16(lblBankID.Text.ToString()) - 1].SubItems[2].Text + " : " + lstBankList.Items[Convert.ToInt16(lblBankID.Text.ToString()) - 1].SubItems[3].Text + " [" + lstBankList.Items[Convert.ToInt16(lblBankID.Text.ToString()) - 1].SubItems[4].Text + "]" + " \n\nto\n\n " + lstBankList.SelectedItems[0].SubItems[2].Text + " : " + lstBankList.SelectedItems[0].SubItems[3].Text + " [" + lstBankList.SelectedItems[0].SubItems[4].Text + "]" + ".\n\n\nAre you sure to continue.?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     {
@@ -983,30 +986,33 @@ namespace StaffSync
                     int contactInfoID01 = objContactPerson.UdpateContactInfo(Convert.ToInt16(lblContactInfoID.Text.Trim()), txtContactPersonName.Text.Trim(), txtContactPersonNumber.Text.ToString(), cmbContactPersonRelationship.SelectedIndex + 1, 1);
                     int personalInfoID = objEmployeePersonalInfo.UpdateEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1);
                     int nomineeID = objNomineeInfo.UdpateNomineeInfo(Convert.ToInt16(lblNomineeID.Text.Trim()), txtNomineeName.Text.Trim(), employeeID, cmbNomineeRelationship.SelectedIndex + 1, txtNomineeContactNumber.Text.Trim());
-                    if(nomineeID == 0)
+                    if (nomineeID == 0)
                         nomineeID = objNomineeInfo.InsertNomineeIfo(txtNomineeName.Text.Trim(), employeeID, cmbNomineeRelationship.SelectedIndex + 1, txtNomineeContactNumber.Text.Trim());
 
 
                     int shiftInfoID = objShiftMas.UpdateEmployeeShiftInfo(1, employeeID, cmbShift.SelectedIndex + 1, Convert.ToDateTime(txtShiftEffectiveFrom.Text.Trim()));
-                    if(shiftInfoID == 0)
+                    if (shiftInfoID == 0)
                         shiftInfoID = objShiftMas.InsertEmployeeShiftInfo(employeeID, cmbShift.SelectedIndex + 1, Convert.ToDateTime(txtShiftEffectiveFrom.Text.Trim()));
 
                     int employmentTypeID = objEmploymentTypeInfo.UpdateEmploymentTypeInfo(1, employeeID, cmbEmploymentType.SelectedIndex + 1, Convert.ToDateTime(txtEmploymentEffectiveFrom.Text.Trim()));
-                    if(employmentTypeID == 0)
+                    if (employmentTypeID == 0)
                         employmentTypeID = objEmploymentTypeInfo.InsertEmploymentTypeInfo(employeeID, cmbEmploymentType.SelectedIndex + 1, Convert.ToDateTime(txtEmploymentEffectiveFrom.Text.Trim()));
 
                     int employeeBankAccountID = objBankInfo.UpdateEmployeeBankReference(Convert.ToInt16(lblBankID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtBankAccountNumber.Text.Trim(), lstBankList.SelectedItems[0].Index + 1, true);
-                    if(employeeBankAccountID == 0)
+                    if (employeeBankAccountID == 0)
                         employeeBankAccountID = objBankInfo.InsertEmployeeBankReference(Convert.ToInt16(lblEmpID.Text.ToString()), txtBankAccountNumber.Text.Trim(), lstBankList.SelectedItems[0].Index + 1, true);
 
 
                     foreach (DataGridViewRow dc in dtgPreviousWorkExp.Rows)
                     {
-                        int EmpWorkExpID = 0;
-                        if (Convert.ToInt16(dc.Cells["LastCompID"].Value.ToString()) > 0)
-                            EmpWorkExpID = objEmpWorkExperienceInfo.UpdatetEmpWorkExpInfo(Convert.ToInt16(dc.Cells["LastCompID"].Value.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()), Convert.ToDateTime(dc.Cells["StartDate"].Value.ToString()), Convert.ToDateTime(dc.Cells["EndDate"].Value.ToString()), dc.Cells["Comments"].Value.ToString());
-                        else
-                            EmpWorkExpID = objEmpWorkExperienceInfo.InsertEmpWorkExpInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()), Convert.ToDateTime(dc.Cells["StartDate"].Value.ToString()), Convert.ToDateTime(dc.Cells["EndDate"].Value.ToString()), dc.Cells["Comments"].Value.ToString());
+                        if (!string.IsNullOrEmpty(dc.Cells["StartDate"].Value.ToString()) && !string.IsNullOrEmpty(dc.Cells["EndDate"].Value.ToString()))
+                        {
+                            int EmpWorkExpID = 0;
+                            if (Convert.ToInt16(dc.Cells["LastCompID"].Value.ToString()) > 0)
+                                EmpWorkExpID = objEmpWorkExperienceInfo.UpdatetEmpWorkExpInfo(Convert.ToInt16(dc.Cells["LastCompID"].Value.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()), Convert.ToDateTime(dc.Cells["StartDate"].Value.ToString()), Convert.ToDateTime(dc.Cells["EndDate"].Value.ToString()), dc.Cells["Comments"].Value.ToString());
+                            else
+                                EmpWorkExpID = objEmpWorkExperienceInfo.InsertEmpWorkExpInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()), Convert.ToDateTime(dc.Cells["StartDate"].Value.ToString()), Convert.ToDateTime(dc.Cells["EndDate"].Value.ToString()), dc.Cells["Comments"].Value.ToString());
+                        }
                     }
 
                     for (int linkedDocumentIDCount = 0; linkedDocumentIDCount <= lstLDocumentsList.Items.Count - 1; linkedDocumentIDCount++)
@@ -1111,7 +1117,7 @@ namespace StaffSync
                 MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             if (lblActionMode.Text == "" || lblActionMode.Text == "remove")
             {
                 lblActionMode.Text = "remove";
@@ -1520,7 +1526,7 @@ namespace StaffSync
                 chkEduQualList.Focus();
                 errValidator.SetError(chkEduQualList, "Please select at least one Education Qualification.");
             }
-            
+
             if (chkSkillsList.CheckedItems.Count == 0)
             {
                 validationStatus = false;
@@ -1535,7 +1541,7 @@ namespace StaffSync
                 errValidator.SetError(lstLDocumentsList, "Please reference at least one document.");
             }
 
-            if(lblActionMode.Text.ToString() == "add")
+            if (lblActionMode.Text.ToString() == "add")
             {
                 if (string.IsNullOrEmpty(txtTotalLeaveAllotment.Text))
                 {
@@ -1585,7 +1591,7 @@ namespace StaffSync
 
         public void SelectedEmployeeID(string SearchOptionSelectedForm, int selectedEmployeeID)
         {
-            if(SearchOptionSelectedForm == "listEmployees")
+            if (SearchOptionSelectedForm == "listEmployees")
             {
                 lblEmpID.Text = selectedEmployeeID.ToString();
                 btnViewCalender.Visible = true;
@@ -1679,7 +1685,7 @@ namespace StaffSync
             txtContactPersonNumber.Text = objSelectedContactInfo.ContactPersonAddressInfo;
 
             NomineeInfo objSelectedNomineeInfo = objNomineeInfo.GetNomineeInfo(EmployeeID);
-            lblNomineeID.Text = objSelectedNomineeInfo.NomineeID.ToString(); 
+            lblNomineeID.Text = objSelectedNomineeInfo.NomineeID.ToString();
             txtNomineeName.Text = objSelectedNomineeInfo.NomineePerson;
             cmbNomineeRelationship.SelectedIndex = objSelectedNomineeInfo.RelationshipID - 1;
             txtNomineeContactNumber.Text = objSelectedNomineeInfo.ContactNumber;
@@ -1819,7 +1825,7 @@ namespace StaffSync
             txtTotalUtilised.Text = "0.00";
 
             dtgLeaveEntitlement.DataSource = null;
-            if(lblActionMode.Text == "add")
+            if (lblActionMode.Text == "add")
                 dtgLeaveEntitlement.DataSource = objEmpLeaveEntitlementInfo.getDefaultLeaveEntitilementList();
             else if (lblActionMode.Text == "modify")
                 dtgLeaveEntitlement.DataSource = objEmpLeaveEntitlementInfo.getEmployeeLeaveEntitilementList(Convert.ToInt16(lblEmpID.Text), Convert.ToInt16(lblLeaveMasID.Text));
@@ -1857,7 +1863,7 @@ namespace StaffSync
                 totalLeavesAllotted = totalLeavesAllotted + Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString());
                 totalBalanceLeaves = totalBalanceLeaves + Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString());
 
-                if(Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()) < Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()))
+                if (Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()) < Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()))
                 {
                     dc.Cells["BalanceLeaves"].Style.BackColor = Color.LightPink;
                 }
@@ -1936,11 +1942,11 @@ namespace StaffSync
 
         private void SalaryProfileInfo()
         {
-            if (lblActionMode.Text.ToLower() == "add") 
+            if (lblActionMode.Text.ToLower() == "add")
                 dtgSalaryProfileDetails.DataSource = objSalaryProfile.GetDefaultSalaryProfileInfo(cmbSalProfile.SelectedIndex + 1);
             else if (lblActionMode.Text.ToLower() == "modify")
                 dtgSalaryProfileDetails.DataSource = objSalaryProfile.GetEmployeeSpecificSalaryProfileInfo(Convert.ToInt16(lblEmpID.Text));
-            
+
             dtgSalaryProfileDetails.Columns["EmpSalDetID"].Visible = false;
             dtgSalaryProfileDetails.Columns["SalProDetID"].Visible = false;
             dtgSalaryProfileDetails.Columns["SalProfileID"].Visible = false;
@@ -1971,7 +1977,7 @@ namespace StaffSync
                 totalDeductions = totalDeductions + Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString());
                 totalReimbursement = totalReimbursement + Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString());
 
-                if(dc.Cells["CalcFormula"].Value != null)
+                if (dc.Cells["CalcFormula"].Value != null)
                     dc.Cells["HeaderTitle"].ToolTipText = dc.Cells["CalcFormula"].Value.ToString();
 
                 dc.Cells["EmpSalDetID"].ReadOnly = true;
@@ -2232,7 +2238,7 @@ namespace StaffSync
         private void cmbCurrentCountry_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (chkSamePerAddAsCurAdd.Checked == true)
-                if(cmbPermanentCountry.SelectedIndex != -1)
+                if (cmbPermanentCountry.SelectedIndex != -1)
                     cmbPermanentCountry.SelectedIndex = cmbCurrentCountry.SelectedIndex;
         }
 
@@ -2270,6 +2276,24 @@ namespace StaffSync
                 }
                 objDashboard.lblDashboardTitle.Text = "Dashboard";
                 this.Close();
+            }
+        }
+
+        private void txtDateOfJoining_TextChanged(object sender, EventArgs e)
+        {
+            if (lblActionMode.Text.ToString().Trim() == "add")
+            {
+                txtEmploymentEffectiveFrom.Text = txtDateOfJoining.Text.ToString();
+                txtShiftEffectiveFrom.Text = txtDateOfJoining.Text.ToString();
+                txtTaxSchemeEffectiveFrom.Text = txtDateOfJoining.Text.ToString();
+            }
+        }
+
+        private void txtTotalLeaveAllotment_TextChanged(object sender, EventArgs e)
+        {
+            if (lblActionMode.Text.ToString().Trim() == "add")
+            {
+                txtBalanceLeaveAllotment.Text = txtTotalLeaveAllotment.Text.ToString();
             }
         }
     }

@@ -53,7 +53,7 @@ namespace StaffSyncJobs
                     {
                         //Console.WriteLine($"Employee ID: { indReportingManagerInfo.EmpID }, Name: { indReportingManagerInfo.EmpName }, Designation : { indReportingManagerInfo.DesignationTitle }, Department : { indReportingManagerInfo.DepartmentTitle }");
 
-                        List<EmployeeAttendanceInfo> objEmployeeAttendanceList = objAttendanceMas.GetDefaultEmployeeAttendanceInfo(Convert.ToInt16(indReportingManagerInfo.EmpID.ToString()), dtSelectedMonth);
+                        List<EmployeeAttendanceInfo> objEmployeeAttendanceList = objAttendanceMas.GetDefaultEmployeeAttendanceInfoForJobs(Convert.ToInt16(indReportingManagerInfo.EmpID.ToString()), dtSelectedMonth);
                         if (objEmployeeAttendanceList.Count > 0)
                         {
                             foreach (EmployeeAttendanceInfo indEmployeeAttendanceInfo in objEmployeeAttendanceList)

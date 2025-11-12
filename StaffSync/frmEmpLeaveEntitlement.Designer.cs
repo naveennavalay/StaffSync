@@ -398,7 +398,7 @@
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnSearch.Size = new System.Drawing.Size(38, 28);
+            this.btnSearch.Size = new System.Drawing.Size(31, 27);
             this.btnSearch.TabIndex = 44;
             this.btnSearch.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSearch.Values.Image = global::StaffSync.Properties.Resources.search;

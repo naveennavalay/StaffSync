@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAttendanceMater));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkAllowBackDated = new Krypton.Toolkit.KryptonCheckBox();
             this.picViewLeaves = new Krypton.Toolkit.KryptonButton();
             this.empAttCalender = new StaffSync.Calender();
             this.cmbMonthNameList = new Krypton.Toolkit.KryptonComboBox();
@@ -94,6 +95,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.panel1.Controls.Add(this.chkAllowBackDated);
             this.panel1.Controls.Add(this.picViewLeaves);
             this.panel1.Controls.Add(this.empAttCalender);
             this.panel1.Controls.Add(this.cmbMonthNameList);
@@ -105,6 +107,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1231, 554);
             this.panel1.TabIndex = 1;
+            // 
+            // chkAllowBackDated
+            // 
+            this.chkAllowBackDated.Location = new System.Drawing.Point(365, 191);
+            this.chkAllowBackDated.Name = "chkAllowBackDated";
+            this.chkAllowBackDated.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
+            this.chkAllowBackDated.Size = new System.Drawing.Size(116, 20);
+            this.chkAllowBackDated.TabIndex = 61;
+            this.chkAllowBackDated.Values.Text = "Allow Back Dates";
+            this.chkAllowBackDated.CheckedChanged += new System.EventHandler(this.chkAllowBackDated_CheckedChanged);
             // 
             // picViewLeaves
             // 
@@ -121,6 +133,9 @@
             // 
             // empAttCalender
             // 
+            this.empAttCalender.AllowFutureDates = false;
+            this.empAttCalender.AllowMultiSelect = false;
+            this.empAttCalender.AllowPreviousDates = false;
             this.empAttCalender.CustomTextColor = System.Drawing.Color.Black;
             this.empAttCalender.CustomTextFontBold = true;
             this.empAttCalender.CustomTextFontFamily = "Segoe UI";
@@ -139,7 +154,7 @@
             this.empAttCalender.DayNumberFontFamily = "Segoe UI";
             this.empAttCalender.DayNumberFontItalic = false;
             this.empAttCalender.DayNumberFontSize = 12F;
-            this.empAttCalender.DisplayMonth = new System.DateTime(2025, 8, 9, 0, 0, 0, 0);
+            this.empAttCalender.DisplayMonth = new System.DateTime(2025, 11, 12, 0, 0, 0, 0);
             this.empAttCalender.HeaderBackColor = System.Drawing.SystemColors.ControlText;
             this.empAttCalender.HeaderFontBold = true;
             this.empAttCalender.HeaderFontItalic = false;
@@ -442,7 +457,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(167, 8);
+            this.btnCancel.Location = new System.Drawing.Point(301, 8);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -455,7 +470,7 @@
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(167, 12);
+            this.btnSaveDetails.Location = new System.Drawing.Point(167, 8);
             this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -464,7 +479,6 @@
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSaveDetails.Values.Image = global::StaffSync.Properties.Resources.save;
             this.btnSaveDetails.Values.Text = "Save";
-            this.btnSaveDetails.Visible = false;
             this.btnSaveDetails.Click += new System.EventHandler(this.btnSaveDetails_Click);
             // 
             // btnModifyDetails
@@ -563,6 +577,7 @@
         private Calender empAttCalender;
         private Krypton.Toolkit.KryptonButton picViewLeaves;
         public System.Windows.Forms.Label lblLeaveMasID;
+        private Krypton.Toolkit.KryptonCheckBox chkAllowBackDated;
         //private Calender empAttCalender;
     }
 }

@@ -15,6 +15,7 @@ namespace StaffSync
     {
         DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
         frmEmployeeMaster frmEmployeeMaster = null;
+        frmDailyAttendanceProcess frmDailyAttendanceProces = null;
         frmLeavesMaster frmLeavesMaster = null;
         frmUserManagement frmUserManagement = null;
         frmRolesAndResponsibilities frmRolesAndResponsibilities = null;

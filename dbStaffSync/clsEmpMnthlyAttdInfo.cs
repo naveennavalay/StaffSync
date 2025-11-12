@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -19,6 +21,78 @@ namespace dbStaffSync
         public clsEmpMnthlyAttdInfo()
         {
 
+        }
+
+        public List<MonthlyAttendanceInfo> getConsolidatedMonthlyAttendanceInfo(DateTime AttendanceMonth)
+        {
+            List<MonthlyAttendanceInfo> objMonthlyAttendanceInfo = new List<MonthlyAttendanceInfo>();
+
+            int SlNo = 0;
+            DataTable dt = new DataTable();
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+                string strQuery = "SELECT * FROM MnthlyAttdInfo WHERE AttdMonth = #" + AttendanceMonth + "#";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objMonthlyAttendanceInfo = JsonConvert.DeserializeObject<List<MonthlyAttendanceInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return objMonthlyAttendanceInfo;
+        }
+
+        public List<MonthlyAttendanceInfo> getEmployeeMonthlyAttendanceInfo(int txtEmpID, DateTime AttendanceMonth)
+        {
+            List<MonthlyAttendanceInfo> objMonthlyAttendanceInfo = new List<MonthlyAttendanceInfo>();
+
+            int SlNo = 0;
+            DataTable dt = new DataTable();
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+                string strQuery = "SELECT * FROM MnthlyAttdInfo WHERE EmpID = " + txtEmpID + " AND AttdMonth = #" + AttendanceMonth + "#";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objMonthlyAttendanceInfo = JsonConvert.DeserializeObject<List<MonthlyAttendanceInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return objMonthlyAttendanceInfo;
         }
 
         public int getMonthlyAttendanceInfo(int txtEmpID, DateTime AttendanceMonth)

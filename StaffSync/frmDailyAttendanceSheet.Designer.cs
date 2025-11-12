@@ -35,7 +35,6 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.cmbAttendanceMonth = new Krypton.Toolkit.KryptonComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.attendanceGridControl1 = new StaffSync.Controls.AttendanceGridControl();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
@@ -50,6 +49,7 @@
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
+            this.dtgConsolidatedAttendanceReport = new Krypton.Toolkit.KryptonDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -63,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgConsolidatedAttendanceReport)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -79,7 +80,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1292, 623);
+            this.splitContainer1.Size = new System.Drawing.Size(1194, 623);
             this.splitContainer1.SplitterDistance = 567;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -90,19 +91,19 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1292, 567);
+            this.panel1.Size = new System.Drawing.Size(1194, 567);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
             // 
             this.groupBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox5.Controls.Add(this.dtgConsolidatedAttendanceReport);
             this.groupBox5.Controls.Add(this.cmbAttendanceMonth);
             this.groupBox5.Controls.Add(this.label8);
-            this.groupBox5.Controls.Add(this.attendanceGridControl1);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.Location = new System.Drawing.Point(10, 12);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(1273, 553);
+            this.groupBox5.Size = new System.Drawing.Size(1171, 553);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             // 
@@ -113,7 +114,7 @@
             this.cmbAttendanceMonth.Location = new System.Drawing.Point(69, 20);
             this.cmbAttendanceMonth.Name = "cmbAttendanceMonth";
             this.cmbAttendanceMonth.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbAttendanceMonth.Size = new System.Drawing.Size(440, 22);
+            this.cmbAttendanceMonth.Size = new System.Drawing.Size(219, 22);
             this.cmbAttendanceMonth.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbAttendanceMonth.TabIndex = 62;
             this.cmbAttendanceMonth.SelectedIndexChanged += new System.EventHandler(this.cmbAttendanceMonth_SelectedIndexChanged);
@@ -130,37 +131,6 @@
             this.label8.Text = "Month";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // attendanceGridControl1
-            // 
-            this.attendanceGridControl1.AllowFutureDates = false;
-            this.attendanceGridControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.attendanceGridControl1.CellTextAlignment = StaffSync.Controls.CellTextAlignment.Center;
-            this.attendanceGridControl1.DateHeaderAlignment = StaffSync.Controls.DateHeaderAlignment.Center;
-            this.attendanceGridControl1.DayNameFormat = StaffSync.Controls.DayNameFormat.None;
-            this.attendanceGridControl1.DisabledForeColor = System.Drawing.Color.DarkGray;
-            this.attendanceGridControl1.DisplayMonth = 8;
-            this.attendanceGridControl1.DisplayYear = 2025;
-            this.attendanceGridControl1.FixedColumnCount = 3;
-            this.attendanceGridControl1.FutureBackColor = System.Drawing.Color.LightGray;
-            this.attendanceGridControl1.GridLines = StaffSync.Controls.GridLinesMode.Both;
-            this.attendanceGridControl1.HeaderBackColor = System.Drawing.Color.Gainsboro;
-            this.attendanceGridControl1.HeaderForeColor = System.Drawing.Color.Black;
-            this.attendanceGridControl1.KeyColumnName = "";
-            this.attendanceGridControl1.Location = new System.Drawing.Point(10, 55);
-            this.attendanceGridControl1.Name = "attendanceGridControl1";
-            this.attendanceGridControl1.OptionsList = new string[] {
-        "P",
-        "L",
-        "A"};
-            this.attendanceGridControl1.ReportFooter = "Generated on 21-Aug-2025";
-            this.attendanceGridControl1.ReportTitle = "Attendance Report";
-            this.attendanceGridControl1.Size = new System.Drawing.Size(1254, 489);
-            this.attendanceGridControl1.TabIndex = 60;
-            this.attendanceGridControl1.WeeklyOffBackColor = System.Drawing.Color.AliceBlue;
-            this.attendanceGridControl1.WeeklyOffs = new System.DayOfWeek[0];
-            this.attendanceGridControl1.WeeklyOffsAreReadOnly = false;
-            this.attendanceGridControl1.DoubleClick += new System.EventHandler(this.attendanceGridControl1_DoubleClick);
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
@@ -173,12 +143,12 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1292, 52);
+            this.panel2.Size = new System.Drawing.Size(1194, 52);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1148, 6);
+            this.btnCloseMe.Location = new System.Drawing.Point(1040, 6);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -190,7 +160,7 @@
             // 
             // btnRemoveDetails
             // 
-            this.btnRemoveDetails.Location = new System.Drawing.Point(284, 6);
+            this.btnRemoveDetails.Location = new System.Drawing.Point(152, 6);
             this.btnRemoveDetails.Name = "btnRemoveDetails";
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
@@ -284,11 +254,28 @@
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
             // 
+            // dtgConsolidatedAttendanceReport
+            // 
+            this.dtgConsolidatedAttendanceReport.AllowUserToAddRows = false;
+            this.dtgConsolidatedAttendanceReport.AllowUserToDeleteRows = false;
+            this.dtgConsolidatedAttendanceReport.AllowUserToResizeRows = false;
+            this.dtgConsolidatedAttendanceReport.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgConsolidatedAttendanceReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgConsolidatedAttendanceReport.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dtgConsolidatedAttendanceReport.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgConsolidatedAttendanceReport.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
+            this.dtgConsolidatedAttendanceReport.Location = new System.Drawing.Point(14, 58);
+            this.dtgConsolidatedAttendanceReport.Name = "dtgConsolidatedAttendanceReport";
+            this.dtgConsolidatedAttendanceReport.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgConsolidatedAttendanceReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgConsolidatedAttendanceReport.Size = new System.Drawing.Size(1142, 442);
+            this.dtgConsolidatedAttendanceReport.TabIndex = 63;
+            // 
             // frmDailyAttendanceSheet
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1292, 623);
+            this.ClientSize = new System.Drawing.Size(1194, 623);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -314,6 +301,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgConsolidatedAttendanceReport)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -337,8 +325,8 @@
         private StaffsyncDBDataSet1 staffsyncDBDataSet1;
         private System.Windows.Forms.BindingSource qryAllEmpLeavePendingStatementBindingSource;
         private StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter qryAllEmpLeavePendingStatementTableAdapter;
-        private Controls.AttendanceGridControl attendanceGridControl1;
         private Krypton.Toolkit.KryptonComboBox cmbAttendanceMonth;
         private System.Windows.Forms.Label label8;
+        private Krypton.Toolkit.KryptonDataGridView dtgConsolidatedAttendanceReport;
     }
 }

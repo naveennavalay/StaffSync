@@ -45,32 +45,34 @@ namespace StaffSync
 
         private async void btnCancel_Click(object sender, EventArgs e)
         {
-            // Define the job and associate it with MyJob class
-            IJobDetail job = JobBuilder.Create<StaffSyncLeaveJobs>()
-                .WithIdentity("myJob", "group1")
-                .UsingJobData("EmpID", "1")
-                .UsingJobData("LeaveTypeID", "1")
-                .UsingJobData("LeaveActionType", "Approved")
-                .UsingJobData("LeaveDateFrom", "21-Sep-2025")
-                .UsingJobData("LeaveDateTo", "21-Sep-2025")
-                .UsingJobData("LeaveDuration", "1")
-                .UsingJobData("LeaveDurationType", "FullDay")
+            //// Define the job and associate it with MyJob class
+            //IJobDetail job = JobBuilder.Create<StaffSyncLeaveJobs>()
+            //    .WithIdentity("myJob", "group1")
+            //    .UsingJobData("EmpID", "1")
+            //    .UsingJobData("LeaveTypeID", "1")
+            //    .UsingJobData("LeaveActionType", "Approved")
+            //    .UsingJobData("LeaveDateFrom", "21-Sep-2025")
+            //    .UsingJobData("LeaveDateTo", "21-Sep-2025")
+            //    .UsingJobData("LeaveDuration", "1")
+            //    .UsingJobData("LeaveDurationType", "FullDay")
 
-                //.UsingJobData("message", "Hello from Quartz.NET!")
-                //.UsingJobData("value", 3.141f)
-                .Build();
+            //    //.UsingJobData("message", "Hello from Quartz.NET!")
+            //    //.UsingJobData("value", 3.141f)
+            //    .Build();
 
-            // Trigger it to run immediately
-            ITrigger trigger = TriggerBuilder.Create()
-                .WithIdentity("myTrigger", "group1")
-                .StartNow()
-                .Build();
+            //// Trigger it to run immediately
+            //ITrigger trigger = TriggerBuilder.Create()
+            //    .WithIdentity("myTrigger", "group1")
+            //    .StartNow()
+            //    .Build();
 
-            await _scheduler.ScheduleJob(job, trigger);
+            //await _scheduler.ScheduleJob(job, trigger);
 
             //MessageBox.Show("Job scheduled! Check console output.");
 
             //this.Close();
+
+            Application.Exit();
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -88,13 +90,13 @@ namespace StaffSync
                 UserInfo loginUserInfo = objLogin.getSpecificUserInfo(txtUserName.Text.ToString());
                 if (loginUserInfo != null)
                 {
-                    if(loginUserInfo.UserID == 0 || loginUserInfo.EmpID == 0)
-                    {
-                        MessageBox.Show("Unauthorized access. \nThe user is not registered.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        this.Dispose();
-                        GC.Collect();
-                        return;
-                    }
+                    //if(loginUserInfo.UserID == 0 || loginUserInfo.EmpID == 0)
+                    //{
+                    //    MessageBox.Show("Unauthorized access. \nThe user is not registered.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    this.Dispose();
+                    //    GC.Collect();
+                    //    return;
+                    //}
 
                     if (objLogin.AuthenticateUserInfo(txtUserName.Text.ToString(), txtPassword.Text.ToString()))
                     {

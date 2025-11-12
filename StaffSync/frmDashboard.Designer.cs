@@ -161,6 +161,8 @@
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
             this.lblDashboardTitle = new System.Windows.Forms.Label();
+            this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmbBatchDailyAttendanceProcess = new System.Windows.Forms.ToolStripTextBox();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -416,9 +418,11 @@
             this.cmAttendanceManagementList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmbManageEmployeeAttendance,
             this.toolStripMenuItem13,
-            this.cmbDailyAttendanceSheet});
+            this.cmbDailyAttendanceSheet,
+            this.toolStripMenuItem14,
+            this.cmbBatchDailyAttendanceProcess});
             this.cmAttendanceManagementList.Name = "cmDatamartList01";
-            this.cmAttendanceManagementList.Size = new System.Drawing.Size(237, 54);
+            this.cmAttendanceManagementList.Size = new System.Drawing.Size(306, 107);
             this.cmAttendanceManagementList.Tag = "cmAttendanceManagementList";
             this.cmAttendanceManagementList.Text = "DatamartMenu";
             this.cmAttendanceManagementList.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmAttendanceManagementList_ItemClicked);
@@ -427,19 +431,19 @@
             // 
             this.cmbManageEmployeeAttendance.Image = global::StaffSync.Properties.Resources.attendance;
             this.cmbManageEmployeeAttendance.Name = "cmbManageEmployeeAttendance";
-            this.cmbManageEmployeeAttendance.Size = new System.Drawing.Size(236, 22);
+            this.cmbManageEmployeeAttendance.Size = new System.Drawing.Size(305, 22);
             this.cmbManageEmployeeAttendance.Tag = "cmbManageEmployeeAttendance";
-            this.cmbManageEmployeeAttendance.Text = "Manage Employee Attendance";
+            this.cmbManageEmployeeAttendance.Text = "Individual Employee Attendance";
             // 
             // toolStripMenuItem13
             // 
             this.toolStripMenuItem13.Name = "toolStripMenuItem13";
-            this.toolStripMenuItem13.Size = new System.Drawing.Size(233, 6);
+            this.toolStripMenuItem13.Size = new System.Drawing.Size(302, 6);
             // 
             // cmbDailyAttendanceSheet
             // 
             this.cmbDailyAttendanceSheet.Name = "cmbDailyAttendanceSheet";
-            this.cmbDailyAttendanceSheet.Size = new System.Drawing.Size(236, 22);
+            this.cmbDailyAttendanceSheet.Size = new System.Drawing.Size(305, 22);
             this.cmbDailyAttendanceSheet.Tag = "cmbDailyAttendanceSheet";
             this.cmbDailyAttendanceSheet.Text = "Daily Attendance Sheet";
             this.cmbDailyAttendanceSheet.Click += new System.EventHandler(this.cmbDailyAttendanceSheet_Click);
@@ -1150,6 +1154,18 @@
             this.lblDashboardTitle.Text = "Dashboard";
             this.lblDashboardTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // toolStripMenuItem14
+            // 
+            this.toolStripMenuItem14.Name = "toolStripMenuItem14";
+            this.toolStripMenuItem14.Size = new System.Drawing.Size(302, 6);
+            // 
+            // cmbBatchDailyAttendanceProcess
+            // 
+            this.cmbBatchDailyAttendanceProcess.Name = "cmbBatchDailyAttendanceProcess";
+            this.cmbBatchDailyAttendanceProcess.Size = new System.Drawing.Size(245, 23);
+            this.cmbBatchDailyAttendanceProcess.Text = "Daily Batch Attendance Process";
+            this.cmbBatchDailyAttendanceProcess.Click += new System.EventHandler(this.cmbBatchDailyAttendanceProcess_Click);
+            // 
             // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1177,6 +1193,7 @@
             this.cmMyOptions.ResumeLayout(false);
             this.cmManageEmployee.ResumeLayout(false);
             this.cmAttendanceManagementList.ResumeLayout(false);
+            this.cmAttendanceManagementList.PerformLayout();
             this.cmLeaveManagement.ResumeLayout(false);
             this.cmPayrollManagement.ResumeLayout(false);
             this.cmUserManagementList.ResumeLayout(false);
@@ -1320,6 +1337,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem13;
         private System.Windows.Forms.ToolStripMenuItem cmbDailyAttendanceSheet;
         public System.Windows.Forms.Label lblDashboardTitle;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem14;
+        private System.Windows.Forms.ToolStripTextBox cmbBatchDailyAttendanceProcess;
     }
 }
 
