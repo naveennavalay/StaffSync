@@ -1,0 +1,20 @@
+Employer PT/PF/
+
+State PT Applicable: (Organisation Screen)
+
+
+PF - should be picked from the list
+TDS - Should be picked from the list
+LWF - Should be picked from the list (Month/State/>0/50)
+PT - should be picked from the list
+ESI - should be picked from the list
+
+
+Gratuity - Should not be listed
+But, calculated on Demand during separation/resignation
+
+
+naveendnavalay@gmail.com
+
+
+Family Info for Insurance

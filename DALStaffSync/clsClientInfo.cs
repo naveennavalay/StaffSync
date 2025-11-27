@@ -42,6 +42,15 @@ namespace DALStaffSync
             return objClientInfoList;
         }
 
+        public List<ClientInfo> getClientInfoByEmpID(int txtClientID)
+        {
+            List<ClientInfo> objClientInfoList = new List<ClientInfo>();
+
+            objClientInfoList = objClientInfo.getClientInfoByEmpID(txtClientID);
+
+            return objClientInfoList;
+        }
+
         public int InsertClientInfo(string txtClientCode, string txtClientName, string txtClientAddress1, string txtClientAddress2, string txtClientArea, string txtClientCity, string txtClientState, string txtClientPIN, string txtClientCountry, string txtClientPhone, string txtClientMailID, string txtClientContactPerson, string txtClientContactNumber, string txtClientContactMail, string txtClientWebSite, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;

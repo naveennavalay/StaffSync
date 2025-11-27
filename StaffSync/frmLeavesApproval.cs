@@ -29,6 +29,7 @@ namespace StaffSync
         //Download objDownload = new Download();
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
         DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
+        DALStaffSync.clsEmpMnthlyAttdInfo objEmpMnthlyAttdInfo = new DALStaffSync.clsEmpMnthlyAttdInfo();
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
 
@@ -168,6 +169,10 @@ namespace StaffSync
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
+            string strDayAttendance = "";
+            DateTime dtSelectedMonth = new DateTime();
+            int MonthlyAttendanceSlNumber = 0;
+
             string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID, "");
             if (strValidationMessage != "Success")
             {
@@ -188,14 +193,22 @@ namespace StaffSync
                         employeeLeaveTRID = objLeaveTRList.ApproveLeave(Convert.ToInt16(lblLeaveTRID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), txtApprovalNote.Text, clsCurrentUser.UserID);
                         if (lstLeaveTRList.SelectedItems[0].SubItems[8].Text.ToString().ToLower() == "")
                         {
+                            strAttendanceStatus = "Leave : " + lstLeaveTRList.SelectedItems[0].SubItems[6].Text.ToString();
                             objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), (Convert.ToDecimal(txtBalanceLeave.Text)), DateTime.Now);
                             objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), "Leave : " + lstLeaveTRList.SelectedItems[0].SubItems[6].Text.ToString(), Convert.ToInt16(lblLeaveTRID.Text.ToString()));
                         }
                         else if (lstLeaveTRList.SelectedItems[0].SubItems[8].Text.ToString().ToLower() == "cancelled")
                         {
+                            strAttendanceStatus = "Present";
                             objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), (Convert.ToDecimal(txtBalanceLeave.Text) + Convert.ToDecimal(txtActualLeaveDays.Text)), DateTime.Now);
                             objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), "Present", Convert.ToInt16(lblLeaveTRID.Text.ToString()));
                         }
+
+                        MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.getMonthlyAttendanceInfo(Convert.ToInt16(lblEmpID.Text.ToString()), dtSelectedMonth);
+                        if (MonthlyAttendanceSlNumber == 0)
+                            MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.InsertMonthlyAttendanceInfo(Convert.ToInt16(lblEmpID.Text.ToString()), dtSelectedMonth);
+
+                        MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, Convert.ToInt16(lblEmpID.Text.ToString()), dtSelectedMonth, "Day" + dtSelectedMonth.Day, strAttendanceStatus);
                     }
                 }
                 else if (Convert.ToDecimal(txtActualLeaveDays.Text) < 0)

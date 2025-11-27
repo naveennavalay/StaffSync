@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmpEduQualInfo.cs" />
+    <Compile Include="EmpPersonalFamilyMemberInfo.cs" />
+    <Compile Include="EmpPersonalIDInfo.cs" />
     <Compile Include="WklyOffProfileDetailsInfo.cs" />
     <Compile Include="WklyOffProfileMasInfo.cs" />
     <Compile Include="EmployeeWklyOffInfo.cs" />

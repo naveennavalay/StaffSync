@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAttendanceMater));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbWeeklyOff = new Krypton.Toolkit.KryptonComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.chkAllowBackDated = new Krypton.Toolkit.KryptonCheckBox();
             this.picViewLeaves = new Krypton.Toolkit.KryptonButton();
             this.empAttCalender = new StaffSync.Calender();
@@ -65,6 +67,7 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbWeeklyOff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbMonthNameList)).BeginInit();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).BeginInit();
@@ -95,6 +98,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.panel1.Controls.Add(this.cmbWeeklyOff);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.chkAllowBackDated);
             this.panel1.Controls.Add(this.picViewLeaves);
             this.panel1.Controls.Add(this.empAttCalender);
@@ -107,6 +112,30 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1231, 554);
             this.panel1.TabIndex = 1;
+            // 
+            // cmbWeeklyOff
+            // 
+            this.cmbWeeklyOff.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWeeklyOff.DropDownWidth = 440;
+            this.cmbWeeklyOff.Enabled = false;
+            this.cmbWeeklyOff.Location = new System.Drawing.Point(572, 191);
+            this.cmbWeeklyOff.Name = "cmbWeeklyOff";
+            this.cmbWeeklyOff.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbWeeklyOff.Size = new System.Drawing.Size(177, 22);
+            this.cmbWeeklyOff.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbWeeklyOff.TabIndex = 63;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(495, 194);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(74, 15);
+            this.label1.TabIndex = 62;
+            this.label1.Text = "Weekly Off";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // chkAllowBackDated
             // 
@@ -176,6 +205,7 @@
             this.empAttCalender.WeekendColor = System.Drawing.Color.LightGray;
             this.empAttCalender.WeeklyOffColor = System.Drawing.Color.DarkGray;
             this.empAttCalender.WeeklyOffDay = null;
+            this.empAttCalender.DayClicked += new System.EventHandler<StaffSync.DateClickedEventArgs>(this.empAttCalender_DayClicked);
             this.empAttCalender.DetailedDayClicked += new System.EventHandler<StaffSync.DetailedDateClickedEventArgs>(this.empAttCalender_DetailedDayClicked);
             // 
             // cmbMonthNameList
@@ -536,6 +566,7 @@
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbWeeklyOff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbMonthNameList)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
@@ -578,6 +609,8 @@
         private Krypton.Toolkit.KryptonButton picViewLeaves;
         public System.Windows.Forms.Label lblLeaveMasID;
         private Krypton.Toolkit.KryptonCheckBox chkAllowBackDated;
+        private Krypton.Toolkit.KryptonComboBox cmbWeeklyOff;
+        private System.Windows.Forms.Label label1;
         //private Calender empAttCalender;
     }
 }

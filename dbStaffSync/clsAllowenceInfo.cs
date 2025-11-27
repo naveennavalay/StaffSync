@@ -113,12 +113,14 @@ namespace dbStaffSync
             {
                 conn = dbStaffSync.openDBConnection();
 
-                string strQuery = "SELECT AllowenceID FROM AllowanceHeaderMas WHERE AllowenceTitle = '" + AllowenceTitle + "'";
+                string strQuery = "SELECT AllID FROM AllowanceHeaderMas WHERE AllTitle = '" + AllowenceTitle + "'";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
-                selectedAllowenceID = (int)cmd.ExecuteScalar();
+                object a = cmd.ExecuteScalar();
+                if (a != null)
+                    selectedAllowenceID = (int)a;
             }
             catch (Exception ex)
             {

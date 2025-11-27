@@ -106,6 +106,35 @@ namespace dbStaffSync
             return selectedReimbuctionTitle;
         }
 
+        public int GetReimbursementTitleByTitle(string ReimbursementTitle)
+        {
+            int selectedReimbursementID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT ReimbID FROM ReimbursementHeaderMas WHERE ReimbTitle = '" + ReimbursementTitle + "'";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                object a = cmd.ExecuteScalar();
+                if (a != null)
+                    selectedReimbursementID = (int)a;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedReimbursementID;
+        }
+
         public int InsertReimbursement(string txtReimbCode, string txtReimbTitle, string txtReimbDescription, bool IsFixed, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;

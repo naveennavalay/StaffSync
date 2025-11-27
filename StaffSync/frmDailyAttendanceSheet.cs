@@ -1,5 +1,8 @@
-﻿using Krypton.Toolkit;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Krypton.Toolkit;
 using ModelStaffSync;
+using Org.BouncyCastle.Ocsp;
 using StaffSync.Controls;
 using StaffSync.StaffsyncDBDataSetTableAdapters;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
@@ -17,6 +20,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static StaffSync.PDFComponent;
+using static StaffSync.PDFComponent.SimplePdfGenerator;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace StaffSync
@@ -28,8 +33,11 @@ namespace StaffSync
         DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
         DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
         DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
+        DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
+        frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         List<WklyOffProfileDetailsInfo> lstWeeklyOffDetailsInfo = new List<WklyOffProfileDetailsInfo>();
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
+        List<ClientInfo> objActiveClientInfo = new List<ClientInfo>();
 
         private void Control_CellValueChangedCustom(object sender, CellValueChangedEventArgs e)
         {
@@ -48,6 +56,7 @@ namespace StaffSync
         {
             InitializeComponent();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+            objActiveClientInfo = objClientInfo.getClientInfoByEmpID(objTempCurrentlyLoggedInUserInfo.EmpID);
         }
 
         public frmDailyAttendanceSheet(int txtEmployeeID, int txtLeaveMasID)
@@ -238,11 +247,161 @@ namespace StaffSync
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
-            onSaveButtonClick();
-            disableControls();
-            clearControls();
-            //FormatTheGrid();
-            errValidator.Clear();          
+            string filePath = AppVariables.TempFolderPath + @"\Consolidated Employee Attendance Summary.pdf";
+            int columnCount = dtgConsolidatedAttendanceReport.Columns.Count;
+
+            string pdfPath = "Report.pdf";
+
+            SimplePdfGenerator.CreatePdf(filePath: filePath, pageSize: PdfPageSize.Letter, customW: PageSize.EXECUTIVE.Width, customH: PageSize.EXECUTIVE.Height, orientation: PageOrientation.Landscape,fontName: "Helvetica",fontSize: 10f,margins: PdfMargins.Default(),content: pdf =>
+            {
+                pdf.AddText("Consolidated Monthly Attendance Sheet", 18, true, HorizontalAlign.Center);
+
+                // ---------- EMPLOYEE INFO HEADER WITH PHOTO ----------
+                pdf.TableInfo(t =>
+                {
+                    Dictionary<string, string> info = new Dictionary<string, string>
+                    {
+                        { "Name", objActiveClientInfo.FirstOrDefault().ClientName },
+                        { "Address", objActiveClientInfo.FirstOrDefault().ClientAddress1 + ", " + objActiveClientInfo.FirstOrDefault().ClientAddress2 + "\n" + objActiveClientInfo.FirstOrDefault().ClientArea + "\n" + objActiveClientInfo.FirstOrDefault().ClientCity + "\n" + objActiveClientInfo.FirstOrDefault().ClientState + " - " + objActiveClientInfo.FirstOrDefault().ClientPIN + "\n" + objActiveClientInfo.FirstOrDefault().ClientCountry },
+                        { "Contact Person", objActiveClientInfo.FirstOrDefault().ClientContactPerson },
+                        { "Mail ID", objActiveClientInfo.FirstOrDefault().ClientContactMail },
+                        { "Contact Number", objActiveClientInfo.FirstOrDefault().ClientContactNumber },
+                        { "Website", objActiveClientInfo.FirstOrDefault().ClientWebSite },                        
+                    };
+
+                    string imagePath = objActiveClientInfo.FirstOrDefault().ClientCode + ".jpg";
+
+                    var headerTable = SimplePdfGenerator.BuildInfoWithImage(
+                        imagePath,
+                        imageSize: 95,
+                        items: info,
+                        font: FontFactory.GetFont("Helvetica", 11, BaseColor.BLACK)
+                    );
+                    t.CustomTable = headerTable;
+                });
+
+                pdf.AddText("Attendance Details", 14, true, HorizontalAlign.Center);
+
+                // ---------- SAMPLE DATA TABLE ----------
+                pdf.TableInfo(t =>
+                {
+                    t.Border = true;
+                    t.UseAlternateRowBackground = false;
+                    t.AutoWidth = true;
+                    t.UseEqualColumnWidth = true;
+
+                    for (int i = 0; i < columnCount; i++)
+                    {
+                        if (dtgConsolidatedAttendanceReport.Columns[i].Visible == true)
+                            t.AddColumn(dtgConsolidatedAttendanceReport.Columns[i].HeaderText.ToString(), dtgConsolidatedAttendanceReport.Columns[i].HeaderText.ToString().Replace("Day",""));
+                    }
+
+                    for (int i = 0; i < dtgConsolidatedAttendanceReport.Rows.Count; i++)
+                    {
+                        List<object> rowValues = new List<object>();
+                        foreach (PdfColumnDefinition column in t.Columns)
+                        {
+                            object cellValue = dtgConsolidatedAttendanceReport.Rows[i].Cells[column.ColumnName].Value;
+                            rowValues.Add(cellValue?.ToString() ?? "");
+                        }
+                        t.AddRow(rowValues.ToArray());
+                    }
+                });
+
+                pdf.PageFooter(f =>
+                {
+                    f.Alignment = HorizontalAlign.Right;
+                    f.AddItem("Generated", DateTime.Now.ToString("HH:mm"));
+                });
+            });
+
+            //var employeeInfo = new Dictionary<string, string>
+            //{
+            //    { "Employee Code", CurrentUser.EmpCode },
+            //    { "Employee Name", CurrentUser.EmpName },
+            //    { "Department", CurrentUser.DepartmentTitle },
+            //    { "Designation", CurrentUser.DesignationTitle },
+            //    { "Date Of Joining", CurrentUser.DOJ.ToString("dd-MMM-yyyy") }
+            //};
+
+            //columnCount = dtgConsolidatedAttendanceReport.Columns.Count;
+
+            //var leaveTable = new TableData
+            //{
+            //    Title = "Consolidated Attendance Statement",
+            //    Columns = new List<string> { }
+            //};
+
+            //string[] outputCsv = new string[dtgConsolidatedAttendanceReport.Rows.Count + 1];
+            //for (int i = 0; i < columnCount; i++)
+            //{
+            //    if (dtgConsolidatedAttendanceReport.Columns[i].Visible == true)
+            //        leaveTable.Columns.Add(dtgConsolidatedAttendanceReport.Columns[i].HeaderText.ToString());
+            //}
+
+            //// Create a 4-column table (Title: Value | Title: Value)
+            //PdfPTable empInfoTable = new PdfPTable(leaveTable.Columns.Count);
+            //empInfoTable.WidthPercentage = 100;
+            //empInfoTable.SpacingAfter = 10f;
+            ////empInfoTable.SetWidths(new float[] { 1.5f, 2.5f, 1.5f, 2.5f });
+
+            //iTextSharp.text.Font labelFont = FontFactory.GetFont(FontFactory.TIMES, 10);
+            //iTextSharp.text.Font valueFont = FontFactory.GetFont(FontFactory.TIMES, 10);
+
+            //for (int i = 0; i < dtgConsolidatedAttendanceReport.Rows.Count - 1; i++)
+            //{
+            //    var row = new Dictionary<string, object>();
+            //    foreach (var column in leaveTable.Columns)
+            //    {
+            //        if (dtgConsolidatedAttendanceReport.Rows[i].Cells[column].Value != null)
+            //            row[column] = dtgConsolidatedAttendanceReport.Rows[i].Cells[column].Value.ToString();
+            //    }
+            //    leaveTable.Rows.Add(row);
+            //}
+
+            ////var columnIndexMap = new Dictionary<string, int>();
+            ////foreach (ColumnHeader header in dtgConsolidatedAttendanceReport.Columns)
+            ////{
+            ////    if (leaveTable.Columns.Contains(header.Text))
+            ////    {
+            ////        columnIndexMap[header.Text] = header.Index;
+            ////    }
+            ////}
+
+            ////for (int i = 0; i < dtgConsolidatedAttendanceReport.Columns.Count; i++)
+            ////{
+            ////    var row = new Dictionary<string, object>();
+
+            ////    foreach (var column in leaveTable.Columns)
+            ////    {
+            ////        if (dtgConsolidatedAttendanceReport.Rows[1].Cells[column].Value != null)
+            ////            row[column] = dtgConsolidatedAttendanceReport.Rows[1].Cells[column].Value.ToString();
+            ////    }
+            ////    leaveTable.Rows.Add(row);
+            ////}
+
+            //string filePath = AppVariables.TempFolderPath + @"\Employee Leave Summary.pdf";
+            //var generator = new PDFTableGen(filePath, "Employee Leave Summary");
+            //generator.SetCompanyInfo(
+            //    companyName: AppVariables.CompanyName,
+            //    address: AppVariables.CompanyAddress,
+            //    phone: AppVariables.CompanyPhone,
+            //    email: AppVariables.CompanyEmail,
+            //    logoPath: AppVariables.CompanyCode + ".jpg"
+            //);
+            //generator.SetTopInfo(employeeInfo);
+            //generator.CreatePdf(new List<TableData> { leaveTable });
+
+            Download.DownloadPDF(filePath);
+
+            MessageBox.Show("Data Exported Successfully !!!", "Info");
+
+
+            //onSaveButtonClick();
+            //disableControls();
+            //clearControls();
+            ////FormatTheGrid();
+            //errValidator.Clear();
         }
 
         public void clearControls()
@@ -283,7 +442,7 @@ namespace StaffSync
         {
             btnGenerateDetails.Enabled = false;
             btnModifyDetails.Enabled = false;
-            btnSaveDetails.Enabled = false;
+            btnSaveDetails.Enabled = true;
             btnRemoveDetails.Enabled = true;
             btnCancel.Enabled = true;
         }
@@ -292,7 +451,7 @@ namespace StaffSync
         {
             btnGenerateDetails.Enabled = true;
             btnModifyDetails.Enabled = true;
-            btnSaveDetails.Enabled = false;
+            btnSaveDetails.Enabled = true;
             btnRemoveDetails.Enabled = true;
             btnCancel.Enabled = true;
         }
@@ -301,7 +460,7 @@ namespace StaffSync
         {
             btnGenerateDetails.Enabled = true;
             btnModifyDetails.Enabled = true;
-            btnSaveDetails.Enabled = false;
+            btnSaveDetails.Enabled = true;
             btnRemoveDetails.Enabled = true;
             btnCancel.Enabled = true;
         }
@@ -414,8 +573,25 @@ namespace StaffSync
             dtgConsolidatedAttendanceReport.Columns["EmpName"].Width = 250;
             dtgConsolidatedAttendanceReport.Columns["DesignationTitle"].Width = 250;
             dtgConsolidatedAttendanceReport.Columns["DepartmentTitle"].Width = 250;
+            dtgConsolidatedAttendanceReport.Columns["DesignationTitle"].Visible = false;
+            dtgConsolidatedAttendanceReport.Columns["DepartmentTitle"].Visible = false;
             dtgConsolidatedAttendanceReport.Columns["SlNo"].Visible = false;
             dtgConsolidatedAttendanceReport.Columns["AttdMonth"].Visible = false;
+            dtgConsolidatedAttendanceReport.Columns["Day32"].Visible = false;
+        }
+
+        private void frmDailyAttendanceSheet_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+                objDashboard.lblDashboardTitle.Text = "Dashboard";
+                this.Close();
+            }
+
         }
     }
 }

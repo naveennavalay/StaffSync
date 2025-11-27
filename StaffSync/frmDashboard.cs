@@ -33,6 +33,7 @@ namespace StaffSync
         DALStaffSync.clsLeaveTRList objLeaveInfo = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
+        List<ClientInfo> objActiveClientInfo = new List<ClientInfo>();
         UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = new UserRolesAndResponsibilitiesInfo();
 
         private async void InitializeScheduler()
@@ -81,7 +82,8 @@ namespace StaffSync
 
             objLogin.getLoggedInUserInfo(EmpID);
 
-            List<ClientInfo> objActiveClientInfo = objClientInfo.getClientInfo(1);
+            //objActiveClientInfo = objClientInfo.getClientInfo(1);
+            objActiveClientInfo = objClientInfo.getClientInfoByEmpID(EmpID);
 
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(EmpID);
         }
@@ -3999,6 +4001,19 @@ namespace StaffSync
                 frmDailyAttendanceProcess.Dock = DockStyle.Fill;
                 frmDailyAttendanceProcess.Show();
                 frmDailyAttendanceProcess.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void cmbPayrollBatch_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Payroll Batch Process";
+                frmPayrollBatchProcess frmPayrollBatchProcess = new frmPayrollBatchProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmPayrollBatchProcess.MdiParent = this;
+                frmPayrollBatchProcess.Dock = DockStyle.Fill;
+                frmPayrollBatchProcess.Show();
+                frmPayrollBatchProcess.WindowState = FormWindowState.Maximized;
             }
         }
     }

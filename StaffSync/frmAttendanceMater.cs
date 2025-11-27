@@ -30,10 +30,12 @@ namespace StaffSync
         DALStaffSync.clsLeaveTypeMas objLeaveTypeMas = new DALStaffSync.clsLeaveTypeMas();
         DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
         DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
+        DALStaffSync.clsWeeklyOffInfo objWeeklyOffInfo = new DALStaffSync.clsWeeklyOffInfo();
         DALStaffSync.clsEmpMnthlyAttdInfo objEmpMnthlyAttdInfo = new DALStaffSync.clsEmpMnthlyAttdInfo();
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
+        List<WklyOffProfileDetailsInfo> lstWeeklyOffDetailsInfo = new List<WklyOffProfileDetailsInfo>();
 
         ArrayList arrControlList = new ArrayList();
 
@@ -46,6 +48,7 @@ namespace StaffSync
         {
             InitializeComponent();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+            empAttCalender.ResetWeekendDaysToDefault();
         }
 
         //public frmAttendanceMater(string SearchOptionSelectedForm, int selectedEmployeeID)
@@ -149,6 +152,7 @@ namespace StaffSync
             DateTime dtSelectedMonth = new DateTime(DateTime.Now.Year, cmbMonthNameList.SelectedIndex + 1, 1, 1, 1, 1);
             dtSelectedMonth = Convert.ToDateTime("1-" + (cmbMonthNameList.SelectedIndex + 1) + "-" + (DateTime.Now.Year));
             empAttCalender.ClearCalendar();
+            empAttCalender.ResetWeekendDaysToDefault();
             //for (int day = 1; day <= TotalDaysInMonth; day++)
             //{
             //    empAttCalender.SetDayStyle(new DateTime(dtSelectedMonth.Year, dtSelectedMonth.Month, day), "", Color.FromArgb(213, 228, 242), 0f);
@@ -243,6 +247,10 @@ namespace StaffSync
             LoadMonthNameList();
             onModifyButtonClick();
             enableControls();
+
+            cmbWeeklyOff.DataSource = objWeeklyOffInfo.getWklyOffProfileMasInfoList("");
+            cmbWeeklyOff.DisplayMember = "WklyOffTitle";
+            cmbWeeklyOff.ValueMember = "WklyOffMasID";
         }
 
         private void LoadMonthNameList()
@@ -258,9 +266,23 @@ namespace StaffSync
         {
             //MessageBox.Show(empAttCalender.SelectedDay.Value.ToString("dd-MMM-yyyy"), "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+            if (empAttCalender.SelectedDay == null)
+            {
+                MessageBox.Show("To update your attendance, please choose a date before continue.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             int RowCounter = 0;
             int DailyAttendanceID = 0;
             DateTime currSelectedDate = DateTime.Today;
+
+            if(empAttCalender.IsWeekend(Convert.ToDateTime(empAttCalender.SelectedDay.Value.ToString("dd-MMM-yyyy"))))
+            {
+                if (MessageBox.Show("It appears that you selected \"Weekend\" as the Attendance Date. \nWould you like to proceed..?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
 
             if (chkAllowBackDated.Checked == true)
             {
@@ -380,6 +402,24 @@ namespace StaffSync
                 picRepEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblReportingManagerID.Text.ToString())).EmpPhoto);
                 lblLeaveMasID.Text = objLeaveTRList.getMaxLeaveMasID(Convert.ToInt16(selectedEmployeeID.ToString())).ToString();
 
+                List<EmployeeWklyOffInfo> objWeeklyOff = objWeeklyOffInfo.getEmployeeSpecificWeeklyOffMasterInfo(Convert.ToInt16(selectedEmployeeID.ToString()));
+                //lblEmployeeWeeklyOffID.Text = objWeeklyOff.OrderByDescending(x => x.EffectDateFrom).FirstOrDefault().WeeklyOffID.ToString();
+                cmbWeeklyOff.SelectedIndex = objWeeklyOff.OrderByDescending(x => x.EffectDateFrom).FirstOrDefault().WklyOffMasID - 1;
+                if (cmbWeeklyOff.SelectedIndex < 0)
+                    cmbWeeklyOff.SelectedIndex = 0;
+
+                lstWeeklyOffDetailsInfo = objWeeklyOffInfo.getWeeklyOffDetailsInfo(Convert.ToInt16(cmbWeeklyOff.SelectedIndex) + 1).ToList();
+                int[] arr = new int[lstWeeklyOffDetailsInfo.Count];
+                int iCounter = 0;
+                foreach (WklyOffProfileDetailsInfo indDay in lstWeeklyOffDetailsInfo)
+                {
+                    if (indDay.WklyOffDay > 6)
+                        indDay.WklyOffDay = 0;
+                    arr[iCounter] = indDay.WklyOffDay;   
+                    iCounter = iCounter + 1;
+                }
+                empAttCalender.SetWeekendDays(arr);
+
                 UserInfo objLoggingInUserInfo = objLogin.getSpecificUserInfo(Convert.ToInt16(selectedEmployeeID.ToString()));
                 if (objLoggingInUserInfo.UserID != 0)
                 {
@@ -455,6 +495,18 @@ namespace StaffSync
         private void chkAllowBackDated_CheckedChanged(object sender, EventArgs e)
         {
             empAttCalender.AllowPreviousDates = chkAllowBackDated.Checked;
+        }
+
+        private void empAttCalender_DayClicked(object sender, DateClickedEventArgs e)
+        {
+            //if (empAttCalender.IsWeekend(e.Date))
+            //{
+            //    MessageBox.Show("You clicked a WEEKEND");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("You clicked a WEEKDAY");
+            //}
         }
     }
 }

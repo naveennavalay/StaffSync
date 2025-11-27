@@ -39,6 +39,15 @@ namespace DALStaffSync
             return selectedDeductionTitle;
         }
 
+        public int GetDeductionTitleByTitle(string AllowenceTitle)
+        {
+            int selectedDeductionID = 0;
+
+            selectedDeductionID = objDeductionsInfo.GetDeductionTitleByTitle(AllowenceTitle);
+
+            return selectedDeductionID;
+        }
+
         public int InsertDeduction(string txtDedCode, string txtDedTitle, string txtDedDescription, bool IsFixed, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;

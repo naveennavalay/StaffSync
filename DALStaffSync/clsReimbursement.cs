@@ -41,6 +41,15 @@ namespace DALStaffSync
             return selectedReimbuctionTitle;
         }
 
+        public int GetReimbursementTitleByTitle(string AllowenceTitle)
+        {
+            int selectedReimbursementID = 0;
+
+            selectedReimbursementID = objReimbursement.GetReimbursementTitleByTitle(AllowenceTitle);
+
+            return selectedReimbursementID;
+        }
+
         public int InsertReimbursement(string txtReimbCode, string txtReimbTitle, string txtReimbDescription, bool IsFixed, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;

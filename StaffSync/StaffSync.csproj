@@ -207,6 +207,12 @@
     <Compile Include="frmLeaveRejectionList.Designer.cs">
       <DependentUpon>frmLeaveRejectionList.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPayrollBatchProcess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPayrollBatchProcess.Designer.cs">
+      <DependentUpon>frmPayrollBatchProcess.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPendingApprovalList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -562,6 +568,7 @@
       <DependentUpon>frmEmployeeMaster.cs</DependentUpon>
     </Compile>
     <Compile Include="myDBClass.cs" />
+    <Compile Include="PDFComponent.cs" />
     <Compile Include="PDFTableGen.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -606,6 +613,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmLeaveRejectionList.resx">
       <DependentUpon>frmLeaveRejectionList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPayrollBatchProcess.resx">
+      <DependentUpon>frmPayrollBatchProcess.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPendingApprovalList.resx">
       <DependentUpon>frmPendingApprovalList.cs</DependentUpon>
@@ -903,6 +913,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hrm02.ico" />
+    <None Include="images\imgs\background.png" />
     <None Include="images\icons\check.ico" />
     <None Include="images\icons\uncheck.ico" />
     <None Include="images\icons\execute.ico" />

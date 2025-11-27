@@ -200,7 +200,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO EmpSalMas (EmpSalID, EmpID, EmpSalDate, EmpSalMonthYear, TotalDaysInMonth, TotalDaysWorked, TotalDaysOnLeave, NetPayable, OrderID) VALUES " +
-                 "(" + maxRowCount.Data + "," + txtEmpID + ",'" + txtSalaryDate + "','" + txtSalaryMonthYear + "'," + txtTotalWorkingDays + "," + txtTotalWorkedDays + "," + txtTotalLeavesTaken + "," + txtNetPayableAmount  + "," + OrderID.Data + ")";
+                 "(" + maxRowCount.Data + "," + txtEmpID + ",'" + txtSalaryDate.ToString("dd-MMM-yyyy") + "','" + txtSalaryMonthYear + "'," + txtTotalWorkingDays + "," + txtTotalWorkedDays + "," + txtTotalLeavesTaken + "," + txtNetPayableAmount  + "," + OrderID.Data + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -229,7 +229,7 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE EmpSalMas SET EmpSalDate = '" + txtSalaryDate + "', EmpSalMonthYear = '" + txtSalaryMonthYear + "', TotalDaysInMonth = " + txtTotalWorkingDays + ", " +
+                string strQuery = "UPDATE EmpSalMas SET EmpSalDate = '" + txtSalaryDate.ToString("dd-MMM-yyyy") + "', EmpSalMonthYear = '" + txtSalaryMonthYear + "', TotalDaysInMonth = " + txtTotalWorkingDays + ", " +
                     " TotalDaysWorked = " + txtTotalWorkedDays + ", TotalDaysOnLeave = " + txtTotalLeavesTaken + ", NetPayable = " + txtNetPayableAmount +
                     " WHERE EmpSalID = " + txtEmpSalID;
 
@@ -283,7 +283,6 @@ namespace dbStaffSync
             }
             return affectedRows;
         }
-
 
         public int UpdateEmployeeSalaryDetailsInfo(int txtEmpSalDetID, int txtEmpSalID, int txtSalProDetID, int txtSalHeaderID, string txtSalHeaderTitle, string txtSalSalHeaderType, decimal txtAllAmount, decimal txtDedAmount, decimal txtReimbAmount, int txtOrderID)
         {

@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.dtgConsolidatedAttendanceReport = new Krypton.Toolkit.KryptonDataGridView();
             this.cmbAttendanceMonth = new Krypton.Toolkit.KryptonComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -49,13 +50,13 @@
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
-            this.dtgConsolidatedAttendanceReport = new Krypton.Toolkit.KryptonDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgConsolidatedAttendanceReport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbAttendanceMonth)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
@@ -63,7 +64,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgConsolidatedAttendanceReport)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -106,6 +106,23 @@
             this.groupBox5.Size = new System.Drawing.Size(1171, 553);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
+            // 
+            // dtgConsolidatedAttendanceReport
+            // 
+            this.dtgConsolidatedAttendanceReport.AllowUserToAddRows = false;
+            this.dtgConsolidatedAttendanceReport.AllowUserToDeleteRows = false;
+            this.dtgConsolidatedAttendanceReport.AllowUserToResizeRows = false;
+            this.dtgConsolidatedAttendanceReport.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgConsolidatedAttendanceReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgConsolidatedAttendanceReport.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dtgConsolidatedAttendanceReport.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgConsolidatedAttendanceReport.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
+            this.dtgConsolidatedAttendanceReport.Location = new System.Drawing.Point(14, 58);
+            this.dtgConsolidatedAttendanceReport.Name = "dtgConsolidatedAttendanceReport";
+            this.dtgConsolidatedAttendanceReport.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgConsolidatedAttendanceReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgConsolidatedAttendanceReport.Size = new System.Drawing.Size(1142, 442);
+            this.dtgConsolidatedAttendanceReport.TabIndex = 63;
             // 
             // cmbAttendanceMonth
             // 
@@ -168,6 +185,7 @@
             this.btnRemoveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnRemoveDetails.Values.Image = global::StaffSync.Properties.Resources.delete;
             this.btnRemoveDetails.Values.Text = "Delete";
+            this.btnRemoveDetails.Visible = false;
             this.btnRemoveDetails.Click += new System.EventHandler(this.btnRemoveDetails_Click);
             // 
             // btnSaveDetails
@@ -179,8 +197,7 @@
             this.btnSaveDetails.TabIndex = 18;
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSaveDetails.Values.Image = global::StaffSync.Properties.Resources.execute;
-            this.btnSaveDetails.Values.Text = "Execute";
-            this.btnSaveDetails.Visible = false;
+            this.btnSaveDetails.Values.Text = "Export Data";
             this.btnSaveDetails.Click += new System.EventHandler(this.btnSaveDetails_Click);
             // 
             // btnModifyDetails
@@ -254,23 +271,6 @@
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
             // 
-            // dtgConsolidatedAttendanceReport
-            // 
-            this.dtgConsolidatedAttendanceReport.AllowUserToAddRows = false;
-            this.dtgConsolidatedAttendanceReport.AllowUserToDeleteRows = false;
-            this.dtgConsolidatedAttendanceReport.AllowUserToResizeRows = false;
-            this.dtgConsolidatedAttendanceReport.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dtgConsolidatedAttendanceReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgConsolidatedAttendanceReport.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dtgConsolidatedAttendanceReport.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.dtgConsolidatedAttendanceReport.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
-            this.dtgConsolidatedAttendanceReport.Location = new System.Drawing.Point(14, 58);
-            this.dtgConsolidatedAttendanceReport.Name = "dtgConsolidatedAttendanceReport";
-            this.dtgConsolidatedAttendanceReport.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.dtgConsolidatedAttendanceReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgConsolidatedAttendanceReport.Size = new System.Drawing.Size(1142, 442);
-            this.dtgConsolidatedAttendanceReport.TabIndex = 63;
-            // 
             // frmDailyAttendanceSheet
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -279,6 +279,7 @@
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmDailyAttendanceSheet";
@@ -287,6 +288,7 @@
             this.Text = "Daily Attendance Sheet";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmDailyAttendanceSheet_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmDailyAttendanceSheet_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -294,6 +296,7 @@
             this.panel1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgConsolidatedAttendanceReport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbAttendanceMonth)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
@@ -301,7 +304,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgConsolidatedAttendanceReport)).EndInit();
             this.ResumeLayout(false);
 
         }

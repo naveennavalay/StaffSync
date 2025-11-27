@@ -49,6 +49,13 @@ namespace DALStaffSync
             return objSalaryProfileInfoList;
         }
 
+        public DataTable GetSalaryInfoForBatchProcess(DateTime dtSalaryDate)
+        {
+            DataTable dt = new DataTable();
+            dt = objSalaryProfile.GetSalaryInfoForBatchProcess(dtSalaryDate);
+            return dt;
+        }
+
         public List<SalaryProfileInfo> GetDefaultSalaryProfileInfo(int SalaryProfileID)
         {
             List<SalaryProfileInfo> objReturnSalaryProfileInfoList = new List<SalaryProfileInfo>();
@@ -65,6 +72,34 @@ namespace DALStaffSync
             objReturnSalaryProfileInfoList = objSalaryProfile.GetEmployeeSpecificSalaryProfileInfo(txtEmpID);
 
             return objReturnSalaryProfileInfoList;
+        }
+
+        public int GetAllowenceProfileDetailID(int txtSalaryProfileID, int txtAllowenceID)
+        {
+            int SalProDetID = 0;
+            SalProDetID = objSalaryProfile.GetAllowenceProfileDetailID(txtSalaryProfileID, txtAllowenceID);
+            return SalProDetID;
+        }
+
+        public int GetDeductionProfileDetailID(int txtSalaryProfileID, int txtDeductionID)
+        {
+            int SalProDetID = 0;
+            SalProDetID = objSalaryProfile.GetDeductionProfileDetailID(txtSalaryProfileID, txtDeductionID);
+            return SalProDetID;
+        }
+
+        public int GetReimbursementProfileDetailID(int txtSalaryProfileID, int txtReimbursementID)
+        {
+            int SalProDetID = 0;
+            SalProDetID = objSalaryProfile.GetReimbursementProfileDetailID(txtSalaryProfileID, txtReimbursementID);
+            return SalProDetID;
+        }
+
+        public int IsSalaryAlreadyProcessed(string strMonthYear)
+        {
+            int intSalaryProcessedID = 0;
+            intSalaryProcessedID = objSalaryProfile.IsSalaryAlreadyProcessed(strMonthYear);
+            return intSalaryProcessedID;
         }
 
         public int InsertSalaryProfileInfo(string txtSalProfileCode, string txtSalProfileTitle, string txtSalProfileDescription, bool IsActive, bool IsDeleted)

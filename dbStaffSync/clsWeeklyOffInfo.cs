@@ -349,7 +349,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO WklyOffProfileDetails (WklyOffDetID, WklyOffMasID, WklyOffDay, WklyOffOrderID) VALUES " +
-                 "(" + maxRowCount.Data + "," + txtWklyOffMasID + "," + txtWklyOffDay + "," + maxRowCount + ")";
+                 "(" + maxRowCount.Data + "," + txtWklyOffMasID + "," + txtWklyOffDay + "," + maxRowCount.Data + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

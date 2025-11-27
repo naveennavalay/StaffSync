@@ -150,6 +150,211 @@ namespace dbStaffSync
             return objSalaryProfileInfoList;
         }
 
+        public int GetAllowenceProfileDetailID(int txtSalaryProfileID, int txtAllowenceID)
+        {
+            int selectedAllowenceProfileDetailID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        "SalProfileDetails.SalProDetID, " +
+                                        "SalProfileDetails.SalProAmount, " +
+                                        "SalProfileDetails.AllID, " +
+                                        "SalProfileMas.SalProfileID " +
+                                    "FROM " + 
+                                        "SalProfileMas " +
+                                        "INNER JOIN SalProfileDetails ON SalProfileMas.SalProfileID = SalProfileDetails.SalProfileID " +
+                                    "WHERE " +
+                                        "( " +
+                                            "((SalProfileDetails.AllID) = " + txtAllowenceID + ") " +
+                                            "AND ((SalProfileMas.SalProfileID) = " + txtSalaryProfileID + " ) " +
+                                        ");";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                object a = cmd.ExecuteScalar();
+                if (a != null)
+                    selectedAllowenceProfileDetailID = (int)a;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedAllowenceProfileDetailID;
+        }
+
+        public int GetDeductionProfileDetailID(int txtSalaryProfileID, int txtDeductionID)
+        {
+            int selectedAllowenceProfileDetailID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        "SalProfileDetails.SalProDetID, " + 
+                                        "SalProfileDetails.SalProAmount, " + 
+                                        "SalProfileDetails.DedID, " + 
+                                        "SalProfileMas.SalProfileID " + 
+                                    "FROM " +
+                                        "SalProfileMas " + 
+                                        "INNER JOIN SalProfileDetails ON SalProfileMas.SalProfileID = SalProfileDetails.SalProfileID " + 
+                                    "WHERE " + 
+                                        "( " + 
+                                            "((SalProfileDetails.DedID) = " + txtDeductionID + ") " + 
+                                            "AND ((SalProfileMas.SalProfileID) = " + txtSalaryProfileID + ") " + 
+                                        ");";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                object a = cmd.ExecuteScalar();
+                if (a != null)
+                    selectedAllowenceProfileDetailID = (int)a;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedAllowenceProfileDetailID;
+        }
+
+        public int IsSalaryAlreadyProcessed(string strMonthYear)
+        {
+            int intSalaryProcessedID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                string strQuery = "SELECT " +
+                                        "EmpSalMas.EmpSalID, " +
+                                        "EmpSalMas.EmpSalMonthYear " +
+                                  "FROM " +
+                                        "EmpSalMas " +
+                                    "WHERE " + 
+                                        "EmpSalMas.EmpSalMonthYear = '" + strMonthYear + "'";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                object a = cmd.ExecuteScalar();
+                if (a != null)
+                    intSalaryProcessedID = (int)a;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return intSalaryProcessedID;
+        }
+
+        public int GetReimbursementProfileDetailID(int txtSalaryProfileID, int txtReimbursementID)
+        {
+            int selectedAllowenceProfileDetailID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        "SalProfileDetails.SalProDetID, " + 
+                                        "SalProfileDetails.SalProAmount, " + 
+                                        "SalProfileDetails.ReimbID, " + 
+                                        "SalProfileMas.SalProfileID " + 
+                                    "FROM " + 
+                                        "SalProfileMas " + 
+                                        "INNER JOIN SalProfileDetails ON SalProfileMas.SalProfileID = SalProfileDetails.SalProfileID " + 
+                                    "WHERE " + 
+                                        "(" + 
+                                            "((SalProfileDetails.ReimbID) = " + txtReimbursementID + ") " + 
+                                            "AND ((SalProfileMas.SalProfileID) = " + txtSalaryProfileID + ") " + 
+                                        ");";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                object a = cmd.ExecuteScalar();
+                if (a != null)
+                    selectedAllowenceProfileDetailID = (int)a;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedAllowenceProfileDetailID;
+        }
+
+        public DataTable GetSalaryInfoForBatchProcess(DateTime dtSalaryDate)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT * FROM qryConsolidatedSalaryStatement WHERE EmpSalDate <= #" + dtSalaryDate.Date.ToString("dd-MMM-yyyy") + "# ORDER BY EmpID Asc";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                //objSalaryProfileInfoList = JsonConvert.DeserializeObject<List<SalaryProfileTitleList>>(DataTableToJSon);
+                dt = (DataTable)JsonConvert.DeserializeObject(DataTableToJSon, (typeof(DataTable)));
+
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow dr1 = dt.NewRow();
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        if (i > 5)
+                        {
+                            var sum = dt.AsEnumerable().Where(r => !r.IsNull(i)).Sum(r => Convert.ToDouble(r[i]));
+                            dr1[i] = sum;
+                        }
+                    }
+                    dt.Rows.Add(dr1);
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return dt;
+        }
+
         public List<SalaryProfileInfo> GetDefaultSalaryProfileInfo(int SalaryProfileID)
         {
 

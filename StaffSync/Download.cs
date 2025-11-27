@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Krypton.Toolkit;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -43,6 +44,72 @@ namespace StaffSync
                     i++;
                 }
                 i2++;
+            }
+        }
+
+        public static bool DownloadExcel(string file, KryptonDataGridView dtSpecificDataGrid)
+        {
+            bool fileGenerated = false;
+            using (StreamWriter csv = new StreamWriter(file, false))
+            {
+                int totalcolms = dtSpecificDataGrid.ColumnCount;
+
+                foreach (DataGridViewColumn colm in dtSpecificDataGrid.Columns)
+                {
+                    if(!colm.Visible == false)
+                        csv.Write(colm.HeaderText + ',');
+                }
+
+                csv.Write('\n');
+                string data = "";
+                foreach (DataGridViewRow row in dtSpecificDataGrid.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
+
+                    data = "";
+                    for (int i = 0; i < totalcolms; i++)
+                    {
+                        if (!dtSpecificDataGrid.Columns[i].Visible == false)
+                            data += (row.Cells[i].Value ?? "").ToString() + ',';
+                    }
+                    if (data != string.Empty)
+                    {
+                        csv.WriteLine(data);
+                        fileGenerated = true;
+                    }
+                }
+            }
+            return fileGenerated;
+        }
+
+        public static void OpenCSV(string strFilePath)
+        {
+            if (!File.Exists(strFilePath))
+                return;
+
+            Process proc = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = strFilePath,
+                    UseShellExecute = true
+                }
+            };
+
+            proc.Start();
+
+            Thread.Sleep(1000);
+
+            proc.WaitForExit();
+
+            try
+            {
+                File.Delete(strFilePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting file: {ex.Message}");
             }
         }
 

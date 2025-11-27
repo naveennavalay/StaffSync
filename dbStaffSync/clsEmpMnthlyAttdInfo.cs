@@ -142,7 +142,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO MnthlyAttdInfo (SlNo, EmpID, AttdMonth) VALUES " +
-                 "(" + maxRowCount.Data + "," + txtEmpID + ",'" + AttendanceMonth.ToString("dd-MMM-yyyy") + "')";
+                 "(" + maxRowCount.Data + "," + txtEmpID + ",'01" + AttendanceMonth.ToString("-MMM-yyyy") + "')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

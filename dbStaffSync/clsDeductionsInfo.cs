@@ -106,6 +106,36 @@ namespace dbStaffSync
             return selectedDeductionTitle;
         }
 
+
+        public int GetDeductionTitleByTitle(string DeductionTitle)
+        {
+            int selectedDeductionID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT DedID FROM DeductionHeaderMas WHERE DedTitle = '" + DeductionTitle + "'";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                object a = cmd.ExecuteScalar();
+                if (a != null)
+                    selectedDeductionID = (int)a;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedDeductionID;
+        }
+
         public int InsertDeduction(string txtDedCode, string txtDedTitle, string txtDedDescription, bool IsFixed, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;

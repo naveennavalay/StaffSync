@@ -46,6 +46,8 @@
     <Compile Include="clsBirthdayList.cs" />
     <Compile Include="clsCurrentUserInfo.cs" />
     <Compile Include="clsEmployeeMaster.cs" />
+    <Compile Include="clsEmpPersonalFamilyMemberInfo.cs" />
+    <Compile Include="clsEmployeePersonalIDInfo.cs" />
     <Compile Include="clsEncryptDecrypt.cs" />
     <Compile Include="clsGenFunc.cs" />
     <Compile Include="clsLeaveTRList.cs" />

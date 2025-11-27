@@ -875,5 +875,41 @@ namespace StaffSync
             SelectedDay = null;
             Invalidate();
         }
+
+        public bool IsWeekend(DateTime date)
+        {
+            return _weekendDays.Contains(date.DayOfWeek);
+        }
+
+        public bool IsWeekday(DateTime date)
+        {
+            return !_weekendDays.Contains(date.DayOfWeek);
+        }
+
+        public bool IsWeeklyOff(DateTime date)
+        {
+            return WeeklyOffDay.HasValue && date.DayOfWeek == WeeklyOffDay.Value;
+        }
+
+        /// <summary>
+        /// Sets weekend days based on day numbers (0 = Sunday ... 6 = Saturday)
+        /// and refreshes the calendar.
+        /// </summary>
+        public void SetWeekendDays(params int[] dayNumbers)
+        {
+            // Convert the provided int day numbers into DayOfWeek enum
+            _weekendDays = dayNumbers
+                .Where(n => n >= 0 && n <= 6)               // must be valid day numbers
+                .Select(n => (DayOfWeek)n)
+                .ToArray();
+
+            Invalidate(); // force redraw
+        }
+
+        public void ResetWeekendDaysToDefault()
+        {
+            _weekendDays = new[] { DayOfWeek.Saturday, DayOfWeek.Sunday };
+            Invalidate();
+        }
     }
 }

@@ -90,6 +90,26 @@
             this.label39 = new System.Windows.Forms.Label();
             this.picEmpPhoto = new System.Windows.Forms.PictureBox();
             this.label24 = new System.Windows.Forms.Label();
+            this.tabFamilyMemberInfo = new Krypton.Navigator.KryptonPage();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.dtgFamilyMemberInforamtion = new Krypton.Toolkit.KryptonDataGridView();
+            this.tabIDInformation = new Krypton.Navigator.KryptonPage();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.txtPassportRenewalDate = new System.Windows.Forms.MaskedTextBox();
+            this.txtPassportIssueDate = new System.Windows.Forms.MaskedTextBox();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.txtAdditonalCardNumber = new Krypton.Toolkit.KryptonTextBox();
+            this.txtPANCardNumber = new Krypton.Toolkit.KryptonTextBox();
+            this.txtVoterCardNumber = new Krypton.Toolkit.KryptonTextBox();
+            this.txtAadhaarCardNumber = new Krypton.Toolkit.KryptonTextBox();
+            this.txtPassportNumber = new Krypton.Toolkit.KryptonTextBox();
+            this.lblEmpGovtID = new System.Windows.Forms.Label();
+            this.label60 = new System.Windows.Forms.Label();
+            this.label61 = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
+            this.label63 = new System.Windows.Forms.Label();
+            this.label64 = new System.Windows.Forms.Label();
             this.tabProfessionalInfo = new Krypton.Navigator.KryptonPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btnReportingManagerSearch = new Krypton.Toolkit.KryptonButton();
@@ -261,6 +281,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.tabPersonalPhoto)).BeginInit();
             this.tabPersonalPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).BeginInit();
+            this.tabFamilyMemberInfo.SuspendLayout();
+            this.groupBox14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabIDInformation)).BeginInit();
+            this.tabIDInformation.SuspendLayout();
+            this.groupBox13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabProfessionalInfo)).BeginInit();
             this.tabProfessionalInfo.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -368,10 +395,10 @@
             this.tabControl1.Bar.ItemMaximumSize = new System.Drawing.Size(200, 200);
             this.tabControl1.Bar.ItemMinimumSize = new System.Drawing.Size(20, 20);
             this.tabControl1.Bar.ItemOrientation = Krypton.Toolkit.ButtonOrientation.FixedTop;
-            this.tabControl1.Bar.ItemSizing = Krypton.Navigator.BarItemSizing.SameWidthAndHeight;
+            this.tabControl1.Bar.ItemSizing = Krypton.Navigator.BarItemSizing.SameWidth;
             this.tabControl1.Bar.TabBorderStyle = Krypton.Toolkit.TabBorderStyle.RoundedOutsizeLarge;
             this.tabControl1.Bar.TabStyle = Krypton.Toolkit.TabStyle.HighProfile;
-            this.tabControl1.Button.ButtonDisplayLogic = Krypton.Navigator.ButtonDisplayLogic.None;
+            this.tabControl1.Button.ButtonDisplayLogic = Krypton.Navigator.ButtonDisplayLogic.NextPrevious;
             this.tabControl1.Button.CloseButtonAction = Krypton.Navigator.CloseButtonAction.None;
             this.tabControl1.Button.CloseButtonDisplay = Krypton.Navigator.ButtonDisplay.Hide;
             this.tabControl1.Button.ContextButtonAction = Krypton.Navigator.ContextButtonAction.SelectPage;
@@ -398,6 +425,8 @@
             this.tabControl1.Pages.AddRange(new Krypton.Navigator.KryptonPage[] {
             this.tabPersonalInfo,
             this.tabPersonalPhoto,
+            this.tabFamilyMemberInfo,
+            this.tabIDInformation,
             this.tabProfessionalInfo,
             this.tabPreviousExperience1,
             this.tabSkils,
@@ -1129,7 +1158,7 @@
             this.btnEmpPhotoUpload.Size = new System.Drawing.Size(302, 38);
             this.btnEmpPhotoUpload.TabIndex = 25;
             this.btnEmpPhotoUpload.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnEmpPhotoUpload.Values.Image = global::StaffSync.Properties.Resources.upload;
+            this.btnEmpPhotoUpload.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnEmpPhotoUpload.Values.Image")));
             this.btnEmpPhotoUpload.Values.Text = "Upload";
             this.btnEmpPhotoUpload.Click += new System.EventHandler(this.btnEmpPhotoUpload_Click);
             // 
@@ -1182,6 +1211,271 @@
             this.label24.TabIndex = 19;
             this.label24.Text = "Upload Photo";
             // 
+            // tabFamilyMemberInfo
+            // 
+            this.tabFamilyMemberInfo.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabFamilyMemberInfo.Controls.Add(this.groupBox14);
+            this.tabFamilyMemberInfo.Flags = 65534;
+            this.tabFamilyMemberInfo.LastVisibleSet = true;
+            this.tabFamilyMemberInfo.MinimumSize = new System.Drawing.Size(150, 50);
+            this.tabFamilyMemberInfo.Name = "tabFamilyMemberInfo";
+            this.tabFamilyMemberInfo.Size = new System.Drawing.Size(1248, 519);
+            this.tabFamilyMemberInfo.Text = "Family Members Information";
+            this.tabFamilyMemberInfo.ToolTipTitle = "Page ToolTip";
+            this.tabFamilyMemberInfo.UniqueName = "bd52fcdd6ed046318c19f604b9a96b6f";
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox14.Controls.Add(this.dtgFamilyMemberInforamtion);
+            this.groupBox14.Location = new System.Drawing.Point(16, 11);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(1197, 491);
+            this.groupBox14.TabIndex = 15;
+            this.groupBox14.TabStop = false;
+            // 
+            // dtgFamilyMemberInforamtion
+            // 
+            this.dtgFamilyMemberInforamtion.AllowUserToResizeRows = false;
+            this.dtgFamilyMemberInforamtion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgFamilyMemberInforamtion.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgFamilyMemberInforamtion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgFamilyMemberInforamtion.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgFamilyMemberInforamtion.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgFamilyMemberInforamtion.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgFamilyMemberInforamtion.Location = new System.Drawing.Point(16, 29);
+            this.dtgFamilyMemberInforamtion.MultiSelect = false;
+            this.dtgFamilyMemberInforamtion.Name = "dtgFamilyMemberInforamtion";
+            this.dtgFamilyMemberInforamtion.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgFamilyMemberInforamtion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgFamilyMemberInforamtion.Size = new System.Drawing.Size(1168, 369);
+            this.dtgFamilyMemberInforamtion.TabIndex = 47;
+            // 
+            // tabIDInformation
+            // 
+            this.tabIDInformation.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabIDInformation.Controls.Add(this.groupBox13);
+            this.tabIDInformation.Flags = 65534;
+            this.tabIDInformation.LastVisibleSet = true;
+            this.tabIDInformation.MinimumSize = new System.Drawing.Size(150, 50);
+            this.tabIDInformation.Name = "tabIDInformation";
+            this.tabIDInformation.Size = new System.Drawing.Size(1248, 519);
+            this.tabIDInformation.Text = "ID Information";
+            this.tabIDInformation.ToolTipTitle = "Page ToolTip";
+            this.tabIDInformation.UniqueName = "8257e684ee444dfbb1b93402800d2536";
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.txtPassportRenewalDate);
+            this.groupBox13.Controls.Add(this.txtPassportIssueDate);
+            this.groupBox13.Controls.Add(this.label58);
+            this.groupBox13.Controls.Add(this.label59);
+            this.groupBox13.Controls.Add(this.txtAdditonalCardNumber);
+            this.groupBox13.Controls.Add(this.txtPANCardNumber);
+            this.groupBox13.Controls.Add(this.txtVoterCardNumber);
+            this.groupBox13.Controls.Add(this.txtAadhaarCardNumber);
+            this.groupBox13.Controls.Add(this.txtPassportNumber);
+            this.groupBox13.Controls.Add(this.lblEmpGovtID);
+            this.groupBox13.Controls.Add(this.label60);
+            this.groupBox13.Controls.Add(this.label61);
+            this.groupBox13.Controls.Add(this.label62);
+            this.groupBox13.Controls.Add(this.label63);
+            this.groupBox13.Controls.Add(this.label64);
+            this.groupBox13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox13.Location = new System.Drawing.Point(16, 19);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(1197, 485);
+            this.groupBox13.TabIndex = 17;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "ID Information";
+            // 
+            // txtPassportRenewalDate
+            // 
+            this.txtPassportRenewalDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.txtPassportRenewalDate.Location = new System.Drawing.Point(217, 90);
+            this.txtPassportRenewalDate.Mask = "##-##-####";
+            this.txtPassportRenewalDate.Name = "txtPassportRenewalDate";
+            this.txtPassportRenewalDate.Size = new System.Drawing.Size(125, 21);
+            this.txtPassportRenewalDate.TabIndex = 25;
+            this.txtPassportRenewalDate.Tag = "Please enter Employeee Date Of Joining";
+            // 
+            // txtPassportIssueDate
+            // 
+            this.txtPassportIssueDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.txtPassportIssueDate.Location = new System.Drawing.Point(217, 63);
+            this.txtPassportIssueDate.Mask = "##-##-####";
+            this.txtPassportIssueDate.Name = "txtPassportIssueDate";
+            this.txtPassportIssueDate.Size = new System.Drawing.Size(125, 21);
+            this.txtPassportIssueDate.TabIndex = 24;
+            this.txtPassportIssueDate.Tag = "Please enter Employeee Date Of Birth";
+            this.txtPassportIssueDate.ValidatingType = typeof(System.DateTime);
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label58.Location = new System.Drawing.Point(113, 93);
+            this.label58.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(97, 15);
+            this.label58.TabIndex = 27;
+            this.label58.Text = "Renewal Date";
+            this.label58.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label59.Location = new System.Drawing.Point(135, 66);
+            this.label59.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(75, 15);
+            this.label59.TabIndex = 26;
+            this.label59.Text = "Issue Date";
+            this.label59.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtAdditonalCardNumber
+            // 
+            this.txtAdditonalCardNumber.Location = new System.Drawing.Point(217, 226);
+            this.txtAdditonalCardNumber.Multiline = true;
+            this.txtAdditonalCardNumber.Name = "txtAdditonalCardNumber";
+            this.txtAdditonalCardNumber.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtAdditonalCardNumber.Size = new System.Drawing.Size(440, 28);
+            this.txtAdditonalCardNumber.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAdditonalCardNumber.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtAdditonalCardNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAdditonalCardNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAdditonalCardNumber.TabIndex = 23;
+            this.txtAdditonalCardNumber.WordWrap = false;
+            // 
+            // txtPANCardNumber
+            // 
+            this.txtPANCardNumber.Location = new System.Drawing.Point(217, 191);
+            this.txtPANCardNumber.Multiline = true;
+            this.txtPANCardNumber.Name = "txtPANCardNumber";
+            this.txtPANCardNumber.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtPANCardNumber.Size = new System.Drawing.Size(440, 28);
+            this.txtPANCardNumber.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPANCardNumber.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtPANCardNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPANCardNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPANCardNumber.TabIndex = 22;
+            this.txtPANCardNumber.WordWrap = false;
+            // 
+            // txtVoterCardNumber
+            // 
+            this.txtVoterCardNumber.Location = new System.Drawing.Point(217, 156);
+            this.txtVoterCardNumber.Multiline = true;
+            this.txtVoterCardNumber.Name = "txtVoterCardNumber";
+            this.txtVoterCardNumber.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtVoterCardNumber.Size = new System.Drawing.Size(440, 28);
+            this.txtVoterCardNumber.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVoterCardNumber.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtVoterCardNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVoterCardNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVoterCardNumber.TabIndex = 21;
+            // 
+            // txtAadhaarCardNumber
+            // 
+            this.txtAadhaarCardNumber.Location = new System.Drawing.Point(217, 121);
+            this.txtAadhaarCardNumber.Multiline = true;
+            this.txtAadhaarCardNumber.Name = "txtAadhaarCardNumber";
+            this.txtAadhaarCardNumber.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtAadhaarCardNumber.Size = new System.Drawing.Size(440, 28);
+            this.txtAadhaarCardNumber.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAadhaarCardNumber.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtAadhaarCardNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAadhaarCardNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAadhaarCardNumber.TabIndex = 20;
+            this.txtAadhaarCardNumber.WordWrap = false;
+            // 
+            // txtPassportNumber
+            // 
+            this.txtPassportNumber.Location = new System.Drawing.Point(217, 26);
+            this.txtPassportNumber.Multiline = true;
+            this.txtPassportNumber.Name = "txtPassportNumber";
+            this.txtPassportNumber.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtPassportNumber.Size = new System.Drawing.Size(440, 28);
+            this.txtPassportNumber.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassportNumber.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtPassportNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassportNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassportNumber.TabIndex = 19;
+            this.txtPassportNumber.WordWrap = false;
+            // 
+            // lblEmpGovtID
+            // 
+            this.lblEmpGovtID.AutoSize = true;
+            this.lblEmpGovtID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblEmpGovtID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmpGovtID.Location = new System.Drawing.Point(45, 35);
+            this.lblEmpGovtID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEmpGovtID.Name = "lblEmpGovtID";
+            this.lblEmpGovtID.Size = new System.Drawing.Size(11, 15);
+            this.lblEmpGovtID.TabIndex = 18;
+            this.lblEmpGovtID.Text = " ";
+            this.lblEmpGovtID.Visible = false;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label60.Location = new System.Drawing.Point(50, 233);
+            this.label60.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(160, 15);
+            this.label60.TabIndex = 13;
+            this.label60.Text = "Additional Card Number";
+            this.label60.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label61.Location = new System.Drawing.Point(92, 33);
+            this.label61.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(118, 15);
+            this.label61.TabIndex = 11;
+            this.label61.Text = "Passport Number";
+            this.label61.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label62.Location = new System.Drawing.Point(81, 163);
+            this.label62.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(129, 15);
+            this.label62.TabIndex = 9;
+            this.label62.Text = "Voter Card Number";
+            this.label62.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label63.Location = new System.Drawing.Point(95, 128);
+            this.label63.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(115, 15);
+            this.label63.TabIndex = 7;
+            this.label63.Text = "Aadhaar Number";
+            this.label63.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label64.Location = new System.Drawing.Point(24, 198);
+            this.label64.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(186, 15);
+            this.label64.TabIndex = 5;
+            this.label64.Text = "Permanent Account Number";
+            this.label64.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // tabProfessionalInfo
             // 
             this.tabProfessionalInfo.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
@@ -1230,7 +1524,7 @@
             this.btnReportingManagerSearch.Size = new System.Drawing.Size(29, 28);
             this.btnReportingManagerSearch.TabIndex = 27;
             this.btnReportingManagerSearch.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnReportingManagerSearch.Values.Image = global::StaffSync.Properties.Resources.search;
+            this.btnReportingManagerSearch.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnReportingManagerSearch.Values.Image")));
             this.btnReportingManagerSearch.Values.Text = "";
             this.btnReportingManagerSearch.Click += new System.EventHandler(this.btnReportingManagerSearch_Click);
             // 
@@ -1787,7 +2081,7 @@
             // 
             this.picPrevExperience.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picPrevExperience.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picPrevExperience.Image = global::StaffSync.Properties.Resources.add;
+            this.picPrevExperience.Image = ((System.Drawing.Image)(resources.GetObject("picPrevExperience.Image")));
             this.picPrevExperience.Location = new System.Drawing.Point(48, 29);
             this.picPrevExperience.Name = "picPrevExperience";
             this.picPrevExperience.Size = new System.Drawing.Size(23, 22);
@@ -1888,7 +2182,7 @@
             this.btnUploadDocument.Size = new System.Drawing.Size(302, 38);
             this.btnUploadDocument.TabIndex = 28;
             this.btnUploadDocument.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnUploadDocument.Values.Image = global::StaffSync.Properties.Resources.upload;
+            this.btnUploadDocument.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnUploadDocument.Values.Image")));
             this.btnUploadDocument.Values.Text = "Upload";
             this.btnUploadDocument.Click += new System.EventHandler(this.btnUploadDocument_Click);
             // 
@@ -1896,7 +2190,7 @@
             // 
             this.picDownloadDocumentsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picDownloadDocumentsList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picDownloadDocumentsList.Image = global::StaffSync.Properties.Resources.download01;
+            this.picDownloadDocumentsList.Image = ((System.Drawing.Image)(resources.GetObject("picDownloadDocumentsList.Image")));
             this.picDownloadDocumentsList.Location = new System.Drawing.Point(1070, 24);
             this.picDownloadDocumentsList.Name = "picDownloadDocumentsList";
             this.picDownloadDocumentsList.Size = new System.Drawing.Size(21, 20);
@@ -1908,7 +2202,7 @@
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox2.Image = global::StaffSync.Properties.Resources.mail01;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(1093, 23);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(23, 22);
@@ -1920,7 +2214,7 @@
             // 
             this.picRefreshDocumentsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picRefreshDocumentsList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picRefreshDocumentsList.Image = global::StaffSync.Properties.Resources.refresh01;
+            this.picRefreshDocumentsList.Image = ((System.Drawing.Image)(resources.GetObject("picRefreshDocumentsList.Image")));
             this.picRefreshDocumentsList.Location = new System.Drawing.Point(1118, 23);
             this.picRefreshDocumentsList.Name = "picRefreshDocumentsList";
             this.picRefreshDocumentsList.Size = new System.Drawing.Size(23, 22);
@@ -2043,13 +2337,13 @@
             // 
             // btnViewCalender
             // 
-            this.btnViewCalender.Location = new System.Drawing.Point(682, 76);
+            this.btnViewCalender.Location = new System.Drawing.Point(682, 78);
             this.btnViewCalender.Name = "btnViewCalender";
             this.btnViewCalender.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnViewCalender.Size = new System.Drawing.Size(29, 28);
             this.btnViewCalender.TabIndex = 58;
             this.btnViewCalender.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnViewCalender.Values.Image = global::StaffSync.Properties.Resources.attendance;
+            this.btnViewCalender.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnViewCalender.Values.Image")));
             this.btnViewCalender.Values.Text = "";
             this.btnViewCalender.Visible = false;
             this.btnViewCalender.Click += new System.EventHandler(this.btnViewCalender_Click);
@@ -2071,7 +2365,7 @@
             // 
             this.cmbWeeklyOff.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWeeklyOff.DropDownWidth = 440;
-            this.cmbWeeklyOff.Location = new System.Drawing.Point(138, 82);
+            this.cmbWeeklyOff.Location = new System.Drawing.Point(138, 81);
             this.cmbWeeklyOff.Name = "cmbWeeklyOff";
             this.cmbWeeklyOff.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbWeeklyOff.Size = new System.Drawing.Size(538, 22);
@@ -2161,7 +2455,7 @@
             // 
             this.picDownloadLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picDownloadLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picDownloadLeaveTRList.Image = global::StaffSync.Properties.Resources.download01;
+            this.picDownloadLeaveTRList.Image = ((System.Drawing.Image)(resources.GetObject("picDownloadLeaveTRList.Image")));
             this.picDownloadLeaveTRList.Location = new System.Drawing.Point(1138, 84);
             this.picDownloadLeaveTRList.Name = "picDownloadLeaveTRList";
             this.picDownloadLeaveTRList.Size = new System.Drawing.Size(21, 20);
@@ -2173,7 +2467,7 @@
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox3.Image = global::StaffSync.Properties.Resources.mail01;
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
             this.pictureBox3.Location = new System.Drawing.Point(1161, 82);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(23, 22);
@@ -2185,7 +2479,7 @@
             // 
             this.picRefreshLeaveTRList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picRefreshLeaveTRList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picRefreshLeaveTRList.Image = global::StaffSync.Properties.Resources.refresh01;
+            this.picRefreshLeaveTRList.Image = ((System.Drawing.Image)(resources.GetObject("picRefreshLeaveTRList.Image")));
             this.picRefreshLeaveTRList.Location = new System.Drawing.Point(1186, 82);
             this.picRefreshLeaveTRList.Name = "picRefreshLeaveTRList";
             this.picRefreshLeaveTRList.Size = new System.Drawing.Size(23, 22);
@@ -2321,31 +2615,33 @@
             // 
             this.picDownloadBankList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picDownloadBankList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picDownloadBankList.Image = global::StaffSync.Properties.Resources.download01;
+            this.picDownloadBankList.Image = ((System.Drawing.Image)(resources.GetObject("picDownloadBankList.Image")));
             this.picDownloadBankList.Location = new System.Drawing.Point(1138, 73);
             this.picDownloadBankList.Name = "picDownloadBankList";
             this.picDownloadBankList.Size = new System.Drawing.Size(21, 20);
             this.picDownloadBankList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picDownloadBankList.TabIndex = 27;
             this.picDownloadBankList.TabStop = false;
+            this.picDownloadBankList.Click += new System.EventHandler(this.picDownloadBankList_Click_1);
             // 
             // pictureBox4
             // 
             this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox4.Image = global::StaffSync.Properties.Resources.mail01;
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
             this.pictureBox4.Location = new System.Drawing.Point(1161, 72);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(23, 22);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 26;
             this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
             // picRefreshBankList
             // 
             this.picRefreshBankList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picRefreshBankList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picRefreshBankList.Image = global::StaffSync.Properties.Resources.refresh01;
+            this.picRefreshBankList.Image = ((System.Drawing.Image)(resources.GetObject("picRefreshBankList.Image")));
             this.picRefreshBankList.Location = new System.Drawing.Point(1186, 72);
             this.picRefreshBankList.Name = "picRefreshBankList";
             this.picRefreshBankList.Size = new System.Drawing.Size(23, 22);
@@ -2700,7 +2996,7 @@
             this.btnSearch.Size = new System.Drawing.Size(29, 28);
             this.btnSearch.TabIndex = 13;
             this.btnSearch.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnSearch.Values.Image = global::StaffSync.Properties.Resources.search;
+            this.btnSearch.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Values.Image")));
             this.btnSearch.Values.Text = "";
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
@@ -2780,7 +3076,7 @@
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
             this.btnCloseMe.TabIndex = 14;
             this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
+            this.btnCloseMe.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseMe.Values.Image")));
             this.btnCloseMe.Values.Text = "Close Me";
             this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click);
             // 
@@ -2792,7 +3088,7 @@
             this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnRemoveDetails.TabIndex = 13;
             this.btnRemoveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnRemoveDetails.Values.Image = global::StaffSync.Properties.Resources.delete;
+            this.btnRemoveDetails.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveDetails.Values.Image")));
             this.btnRemoveDetails.Values.Text = "Delete";
             this.btnRemoveDetails.Click += new System.EventHandler(this.btnRemoveDetails_Click);
             // 
@@ -2804,7 +3100,7 @@
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnSaveDetails.TabIndex = 12;
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnSaveDetails.Values.Image = global::StaffSync.Properties.Resources.save;
+            this.btnSaveDetails.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveDetails.Values.Image")));
             this.btnSaveDetails.Values.Text = "Save";
             this.btnSaveDetails.Click += new System.EventHandler(this.btnSaveDetails_Click);
             // 
@@ -2816,7 +3112,7 @@
             this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
             this.btnModifyDetails.TabIndex = 11;
             this.btnModifyDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnModifyDetails.Values.Image = global::StaffSync.Properties.Resources.update;
+            this.btnModifyDetails.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnModifyDetails.Values.Image")));
             this.btnModifyDetails.Values.Text = "Modify";
             this.btnModifyDetails.Click += new System.EventHandler(this.btnModifyDetails_Click);
             // 
@@ -2828,7 +3124,7 @@
             this.btnGenerateDetails.Size = new System.Drawing.Size(126, 38);
             this.btnGenerateDetails.TabIndex = 10;
             this.btnGenerateDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnGenerateDetails.Values.Image = global::StaffSync.Properties.Resources._new;
+            this.btnGenerateDetails.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnGenerateDetails.Values.Image")));
             this.btnGenerateDetails.Values.Text = "Generate";
             this.btnGenerateDetails.Click += new System.EventHandler(this.btnGenerateDetails_Click);
             // 
@@ -2840,7 +3136,7 @@
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
             this.btnCancel.TabIndex = 9;
             this.btnCancel.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnCancel.Values.Image = global::StaffSync.Properties.Resources.cancel;
+            this.btnCancel.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Values.Image")));
             this.btnCancel.Values.Text = "Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -2994,6 +3290,14 @@
             this.tabPersonalPhoto.ResumeLayout(false);
             this.tabPersonalPhoto.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).EndInit();
+            this.tabFamilyMemberInfo.ResumeLayout(false);
+            this.groupBox14.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabIDInformation)).EndInit();
+            this.tabIDInformation.ResumeLayout(false);
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabProfessionalInfo)).EndInit();
             this.tabProfessionalInfo.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
@@ -3281,5 +3585,25 @@
         private System.Windows.Forms.Label label55;
         private Krypton.Toolkit.KryptonComboBox cmbEmploymentType;
         private System.Windows.Forms.Label label56;
+        private Krypton.Navigator.KryptonPage tabFamilyMemberInfo;
+        private Krypton.Navigator.KryptonPage tabIDInformation;
+        private System.Windows.Forms.GroupBox groupBox13;
+        private Krypton.Toolkit.KryptonTextBox txtAdditonalCardNumber;
+        private Krypton.Toolkit.KryptonTextBox txtPANCardNumber;
+        private Krypton.Toolkit.KryptonTextBox txtVoterCardNumber;
+        private Krypton.Toolkit.KryptonTextBox txtAadhaarCardNumber;
+        private Krypton.Toolkit.KryptonTextBox txtPassportNumber;
+        private System.Windows.Forms.Label lblEmpGovtID;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.MaskedTextBox txtPassportRenewalDate;
+        private System.Windows.Forms.MaskedTextBox txtPassportIssueDate;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.GroupBox groupBox14;
+        private Krypton.Toolkit.KryptonDataGridView dtgFamilyMemberInforamtion;
     }
 }
