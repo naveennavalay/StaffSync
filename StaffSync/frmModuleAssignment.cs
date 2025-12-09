@@ -22,6 +22,7 @@ namespace StaffSync
         DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
+        ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
 
         public frmModuleAssignment()
         {
@@ -31,6 +32,14 @@ namespace StaffSync
         {
             InitializeComponent();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+        }
+
+        public frmModuleAssignment(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+            objTempClientFinYearInfo = objSelectedClientFinYearInfo;
+            ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
         }
 
 

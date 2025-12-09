@@ -14,6 +14,7 @@ namespace StaffSync
     public partial class frmEmployeePayrollReports : Form
     {
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
+        ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
 
         public frmEmployeePayrollReports()
         {
@@ -24,6 +25,14 @@ namespace StaffSync
         {
             InitializeComponent();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+        }
+
+        public frmEmployeePayrollReports(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+            objTempClientFinYearInfo = objSelectedClientFinYearInfo;
+            ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)

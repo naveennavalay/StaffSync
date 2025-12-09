@@ -61,6 +61,7 @@
     <Compile Include="clsEmpContactPersonMas.cs" />
     <Compile Include="clsEmpEduQualMas.cs" />
     <Compile Include="clsEmpLeaveEntitlementInfo.cs" />
+    <Compile Include="clsPublicHolidayInfo.cs" />
     <Compile Include="clsEmployeeMaster.cs" />
     <Compile Include="clsEmployeeFamilyMemberInfo.cs" />
     <Compile Include="clsEmployeePersonalIDInfo.cs" />

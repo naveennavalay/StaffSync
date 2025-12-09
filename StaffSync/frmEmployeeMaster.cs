@@ -1,6 +1,8 @@
-﻿using ModelStaffSync;
+﻿using Krypton.Toolkit;
+using ModelStaffSync;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Org.BouncyCastle.Asn1.Pkcs;
 using Org.BouncyCastle.Crypto.Encodings;
 using System;
 using System.Collections.Generic;
@@ -68,6 +70,7 @@ namespace StaffSync
         DALStaffSync.clsEmploymentTypeInfo objEmploymentTypeInfo = new DALStaffSync.clsEmploymentTypeInfo();
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
+        ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
 
         public frmEmployeeMaster()
         {
@@ -78,6 +81,15 @@ namespace StaffSync
         {
             InitializeComponent();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+            RefreshFamilyMembersInformation();
+        }
+
+        public frmEmployeeMaster(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+            objTempClientFinYearInfo = objSelectedClientFinYearInfo;
+            ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
             RefreshFamilyMembersInformation();
         }
 
@@ -299,7 +311,7 @@ namespace StaffSync
             txtTotalLeaveAllotment.Enabled = true;
             txtBalanceLeaveAllotment.Enabled = true;
             txtTotalUtilised.Enabled = true;
-            lblEmpID.Text = objGenFunc.getMaxRowCount("EMPMas", "EmpID", CurrentUser.ClientID).Data.ToString();
+            lblEmpID.Text = objGenFunc.getMaxRowCount("EMPMas", "EmpID", objTempClientFinYearInfo.ClientID).Data.ToString();
             txtEmpCode.Text = "EMP-" + (lblEmpID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
 
@@ -922,9 +934,9 @@ namespace StaffSync
                         {
                             int EmpWorkExpID = 0;
                             if (Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()) == 0)
-                                EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value.ToString()), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString() );
+                                EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value.ToString()), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString(), Convert.ToBoolean(dc.Cells["FamMemInsuranceEnrolled"].Value.ToString()));
                             else
-                                EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value.ToString()), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString());
+                                EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value.ToString()), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString(), Convert.ToBoolean(dc.Cells["FamMemInsuranceEnrolled"].Value.ToString()));
                         }
                     }
 
@@ -1060,13 +1072,13 @@ namespace StaffSync
 
                     foreach (DataGridViewRow dc in dtgFamilyMemberInforamtion.Rows)
                     {
-                        if (!string.IsNullOrEmpty(dc.Cells["EmpPerFamInfoID"].Value.ToString()))
+                        if (!string.IsNullOrEmpty(dc.Cells["FamMemName"].Value.ToString()))
                         {
                             int EmpWorkExpID = 0;
                             if (Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()) == 0)
-                                EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value.ToString()), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString());
+                                EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString(), Convert.ToBoolean(dc.Cells["FamMemInsuranceEnrolled"].Value.ToString()));
                             else
-                                EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value.ToString()), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString());
+                                EmpWorkExpID = objEmpPersonalFamilyMemberInfo.UpdateEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value.ToString()), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString(), Convert.ToBoolean(dc.Cells["FamMemInsuranceEnrolled"].Value.ToString()));
                         }
                     }
 
@@ -1330,7 +1342,6 @@ namespace StaffSync
                 errValidator.SetError(this.txtEmployeeName, txtEmployeeName.Tag?.ToString() ?? "Employee Name is required.");
             }
 
-            // Date of Birth
             if (string.IsNullOrEmpty(txtDateOfBirth.Text))
             {
                 validationStatus = false;
@@ -1608,6 +1619,30 @@ namespace StaffSync
                 errValidator.SetError(this.txtAdditonalCardNumber, "Enter a additional Card Number.");
             }
 
+            //EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString(), Convert.ToBoolean(dc.Cells["FamMemInsuranceEnrolled"].Value.ToString()));
+
+            //foreach (DataGridViewRow dc in dtgFamilyMemberInforamtion.Rows)
+            //{
+            //    if (dc.IsNewRow)
+            //        continue;
+
+            //    // Read values
+            //    string MemberName = Convert.ToString(dc.Cells["FamMemName"].Value)?.Trim();
+            //    string MemberDOB = Convert.ToString(dc.Cells["FamMemDOB"].Value)?.Trim();
+
+            //    bool isNameEmpty = string.IsNullOrWhiteSpace(MemberName);
+            //    bool isDobEmpty = string.IsNullOrWhiteSpace(MemberDOB);
+
+            //    if (isNameEmpty && isDobEmpty)
+            //        continue;
+
+            //    if (!isNameEmpty && isDobEmpty)
+            //    {
+            //        validationStatus = false;
+            //        errValidator.SetError(dtgFamilyMemberInforamtion, "Family Members Information is incomplete. Please fill in all the necessary details.");
+            //        break;
+            //    }
+            //}
 
             // Validate Previous Work Experience Grid
             foreach (DataGridViewRow row in dtgPreviousWorkExp.Rows)
@@ -1825,8 +1860,6 @@ namespace StaffSync
             cmbNomineeRelationship.SelectedIndex = objSelectedNomineeInfo.RelationshipID - 1;
             txtNomineeContactNumber.Text = objSelectedNomineeInfo.ContactNumber;
 
-            RefreshFamilyMembersInformation();
-
             lblEmpGovtID.Text = objSelectedPersonalInfo.PersonalInfoID.ToString();
             EmpPersonalIDInfo objEmpPersonalIDInfo = objEmployeePersonalIDInfo.GetEmpPersonalIDInfo(Convert.ToInt16(lblEmpGovtID.Text.Trim()));
             txtPassportNumber.Text = objEmpPersonalIDInfo.PassportNumber.ToString();
@@ -1836,6 +1869,8 @@ namespace StaffSync
             txtVoterCardNumber.Text = objEmpPersonalIDInfo.VoterCardNumber.ToString();
             txtPANCardNumber.Text = objEmpPersonalIDInfo.PANNumber.ToString();
             txtAdditonalCardNumber.Text = objEmpPersonalIDInfo.ID1.ToString();
+
+            RefreshFamilyMembersInformation();
 
             chkEduQualList.ColumnWidth = 300;
             ((ListBox)chkEduQualList).DataSource = objEduQualMas.GetEduQualMasList();
@@ -1963,7 +1998,8 @@ namespace StaffSync
 
         private void RefreshFamilyMembersInformation()
         {
-            lblEmpGovtID.Text = "0";
+            if(lblEmpID.Text.Trim() == "")
+                lblEmpGovtID.Text = "0";
             dtgFamilyMemberInforamtion.DataSource = objEmpPersonalFamilyMemberInfo.GetEmpPersonalFamilyMemberInfo(Convert.ToInt16(lblEmpGovtID.Text.Trim()));
             dtgFamilyMemberInforamtion.Columns["EmpPerFamInfoID"].Visible = false;
             dtgFamilyMemberInforamtion.Columns["EmpPerFamInfoID"].ReadOnly = true;
@@ -1973,60 +2009,63 @@ namespace StaffSync
             dtgFamilyMemberInforamtion.Columns["PersonalInfoID"].ReadOnly = true;
             dtgFamilyMemberInforamtion.Columns["FamMemName"].Visible = true;
             dtgFamilyMemberInforamtion.Columns["FamMemName"].HeaderText = "Member Name";
-            dtgFamilyMemberInforamtion.Columns["FamMemName"].Width = 300;
-            dtgFamilyMemberInforamtion.Columns["FamMemName"].ReadOnly = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemName"].Width = 250;
+            dtgFamilyMemberInforamtion.Columns["FamMemName"].ReadOnly = true;
             dtgFamilyMemberInforamtion.Columns["FamMemDOB"].HeaderText = "DOB";
             dtgFamilyMemberInforamtion.Columns["FamMemDOB"].DefaultCellStyle.Format = "dd-MMM-yyyy";
             dtgFamilyMemberInforamtion.Columns["FamMemDOB"].Width = 100;
-            dtgFamilyMemberInforamtion.Columns["FamMemDOB"].ReadOnly = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemDOB"].ReadOnly = true;
             dtgFamilyMemberInforamtion.Columns["FamMemAge"].HeaderText = "Age";
             dtgFamilyMemberInforamtion.Columns["FamMemAge"].Visible = true;
             dtgFamilyMemberInforamtion.Columns["FamMemAge"].Width = 75;
-            dtgFamilyMemberInforamtion.Columns["FamMemAge"].ReadOnly = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemAge"].ReadOnly = true;
             dtgFamilyMemberInforamtion.Columns["FamMemRelationship"].HeaderText = "Relationship";
             dtgFamilyMemberInforamtion.Columns["FamMemRelationship"].Visible = true;
             dtgFamilyMemberInforamtion.Columns["FamMemRelationship"].Width = 100;
-            dtgFamilyMemberInforamtion.Columns["FamMemRelationship"].ReadOnly = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemRelationship"].ReadOnly = true;
             dtgFamilyMemberInforamtion.Columns["FamMemAddr1"].HeaderText = "Address 1";
             dtgFamilyMemberInforamtion.Columns["FamMemAddr1"].Visible = true;
             dtgFamilyMemberInforamtion.Columns["FamMemAddr1"].Width = 250;
-            dtgFamilyMemberInforamtion.Columns["FamMemAddr1"].ReadOnly = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemAddr1"].ReadOnly = true;
             dtgFamilyMemberInforamtion.Columns["FamMemAddr2"].HeaderText = "Address 2";
             dtgFamilyMemberInforamtion.Columns["FamMemAddr2"].Visible = true;
             dtgFamilyMemberInforamtion.Columns["FamMemAddr2"].Width = 250;
-            dtgFamilyMemberInforamtion.Columns["FamMemAddr2"].ReadOnly = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemAddr2"].ReadOnly = true;
             dtgFamilyMemberInforamtion.Columns["FamMemArea"].HeaderText = "Area";
             dtgFamilyMemberInforamtion.Columns["FamMemArea"].Visible = true;
             dtgFamilyMemberInforamtion.Columns["FamMemArea"].Width = 250;
-            dtgFamilyMemberInforamtion.Columns["FamMemArea"].ReadOnly = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemArea"].ReadOnly = true;
             dtgFamilyMemberInforamtion.Columns["FamMemCity"].HeaderText = "City";
             dtgFamilyMemberInforamtion.Columns["FamMemCity"].Visible = true;
             dtgFamilyMemberInforamtion.Columns["FamMemCity"].Width = 250;
-            dtgFamilyMemberInforamtion.Columns["FamMemCity"].ReadOnly = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemCity"].ReadOnly = true;
             dtgFamilyMemberInforamtion.Columns["FamMemState"].HeaderText = "City";
             dtgFamilyMemberInforamtion.Columns["FamMemState"].Visible = true;
             dtgFamilyMemberInforamtion.Columns["FamMemState"].Width = 250;
-            dtgFamilyMemberInforamtion.Columns["FamMemState"].ReadOnly = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemState"].ReadOnly = true;
             dtgFamilyMemberInforamtion.Columns["FamMemPIN"].HeaderText = "PIN";
             dtgFamilyMemberInforamtion.Columns["FamMemPIN"].Visible = true;
             dtgFamilyMemberInforamtion.Columns["FamMemPIN"].Width = 100;
-            dtgFamilyMemberInforamtion.Columns["FamMemPIN"].ReadOnly = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemPIN"].ReadOnly = true;
             dtgFamilyMemberInforamtion.Columns["FamMemCountry"].HeaderText = "Country";
             dtgFamilyMemberInforamtion.Columns["FamMemCountry"].Visible = true;
             dtgFamilyMemberInforamtion.Columns["FamMemCountry"].Width = 250;
-            dtgFamilyMemberInforamtion.Columns["FamMemCountry"].ReadOnly = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemCountry"].ReadOnly = true;
             dtgFamilyMemberInforamtion.Columns["FamMemContactNumber"].HeaderText = "Contact Number";
             dtgFamilyMemberInforamtion.Columns["FamMemContactNumber"].Visible = true;
             dtgFamilyMemberInforamtion.Columns["FamMemContactNumber"].Width = 250;
-            dtgFamilyMemberInforamtion.Columns["FamMemContactNumber"].ReadOnly = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemContactNumber"].ReadOnly = true;
             dtgFamilyMemberInforamtion.Columns["FamMemMailID"].HeaderText = "Mail ID";
             dtgFamilyMemberInforamtion.Columns["FamMemMailID"].Visible = true;
             dtgFamilyMemberInforamtion.Columns["FamMemMailID"].Width = 250;
-            dtgFamilyMemberInforamtion.Columns["FamMemMailID"].ReadOnly = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemMailID"].ReadOnly = true;
             dtgFamilyMemberInforamtion.Columns["FamMemBloodGroup"].HeaderText = "Blood Group";
             dtgFamilyMemberInforamtion.Columns["FamMemBloodGroup"].Visible = true;
             dtgFamilyMemberInforamtion.Columns["FamMemBloodGroup"].Width = 250;
-            dtgFamilyMemberInforamtion.Columns["FamMemBloodGroup"].ReadOnly = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemBloodGroup"].ReadOnly = true;
+            dtgFamilyMemberInforamtion.Columns["FamMemInsuranceEnrolled"].HeaderText = "Insurance Enrolled";
+            dtgFamilyMemberInforamtion.Columns["FamMemInsuranceEnrolled"].Width = 150;
+            dtgFamilyMemberInforamtion.Columns["FamMemInsuranceEnrolled"].ReadOnly = true;
         }
 
         private void RefreshLeavesHistoryList()
@@ -2517,9 +2556,62 @@ namespace StaffSync
 
         }
 
-        private void pictureBox4_Click(object sender, EventArgs e)
+        private void dtgFamilyMemberInforamtion_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            bool boolSetDefaultDate = false;
+            EmpPersonalFamilyMemberInfo objMemberInfo = new EmpPersonalFamilyMemberInfo();
+            objMemberInfo.EmpPerFamInfoID = (int)dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["EmpPerFamInfoID"].Value;
+            objMemberInfo.PersonalInfoID = (int)dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["PersonalInfoID"].Value;
+            objMemberInfo.FamMemName = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemName"].Value.ToString();
+            objMemberInfo.FamMemDOB = Convert.ToDateTime(dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemDOB"].Value);
+            objMemberInfo.FamMemAge = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemAge"].Value == null
+                ? (int?)null : int.TryParse(dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemAge"].Value.ToString(), out var famMemAgeVal) ? famMemAgeVal : (int?)null;
+            if (objMemberInfo.FamMemDOB.Value.ToString("dd-MM-yyyy").Equals("01-01-0001"))
+            {
+                objMemberInfo.FamMemDOB = DateTime.Today;
+                objMemberInfo.FamMemAge = 0;
+                boolSetDefaultDate = true;
+            }
+            objMemberInfo.FamMemRelationship = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemRelationship"].Value.ToString();
+            objMemberInfo.FamMemAddr1 = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemAddr1"].Value.ToString();
+            objMemberInfo.FamMemAddr2 = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemAddr2"].Value.ToString();
+            objMemberInfo.FamMemArea = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemArea"].Value.ToString();
+            objMemberInfo.FamMemCity = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemCity"].Value.ToString();
+            objMemberInfo.FamMemState = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemState"].Value.ToString();
+            objMemberInfo.FamMemPIN = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemPIN"].Value.ToString();
+            objMemberInfo.FamMemCountry = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemCountry"].Value.ToString();
+            objMemberInfo.FamMemContactNumber = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemContactNumber"].Value.ToString();
+            objMemberInfo.FamMemMailID = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemMailID"].Value.ToString();
+            objMemberInfo.FamMemBloodGroup = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemBloodGroup"].Value.ToString();
+            objMemberInfo.FamMemInsuranceEnrolled = Convert.ToBoolean(dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemInsuranceEnrolled"].Value.ToString());
 
+            frmEmpFamilyMemberPopup frmEmpFamilyMemberPopup = new frmEmpFamilyMemberPopup(objMemberInfo);
+            frmEmpFamilyMemberPopup.ShowDialog(this);
+            objMemberInfo = frmEmpFamilyMemberPopup.objSaveTheseValues;
+
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["EmpPerFamInfoID"].Value = (int)objMemberInfo.EmpPerFamInfoID;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["PersonalInfoID"].Value = (int)objMemberInfo.PersonalInfoID;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemName"].Value = objMemberInfo.FamMemName;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemAge"].Value = objMemberInfo.FamMemAge;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemDOB"].Value = objMemberInfo.FamMemDOB;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemCountry"].Value = objMemberInfo.FamMemCountry;
+            if (boolSetDefaultDate && objMemberInfo.FamMemDOB.Value.ToString("dd-MM-yyyy").Equals(DateTime.Today.ToString("dd-MM-yyyy")))
+            {
+                dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemDOB"].Value = "";
+                dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemAge"].Value = "";
+                dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemCountry"].Value = "";
+            }
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemRelationship"].Value = objMemberInfo.FamMemRelationship;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemAddr1"].Value = objMemberInfo.FamMemAddr1;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemAddr2"].Value = objMemberInfo.FamMemAddr2;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemArea"].Value = objMemberInfo.FamMemArea;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemCity"].Value = objMemberInfo.FamMemCity;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemState"].Value = objMemberInfo.FamMemState;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemPIN"].Value = objMemberInfo.FamMemPIN;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemContactNumber"].Value = objMemberInfo.FamMemContactNumber;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemMailID"].Value = objMemberInfo.FamMemMailID;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemBloodGroup"].Value = objMemberInfo.FamMemBloodGroup;
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemInsuranceEnrolled"].Value = Convert.ToBoolean(objMemberInfo.FamMemInsuranceEnrolled);
         }
     }
 }

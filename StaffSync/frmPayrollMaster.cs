@@ -29,6 +29,7 @@ namespace StaffSync
         DALStaffSync.clsEmpPayroll objEmployeePayroll = new DALStaffSync.clsEmpPayroll();
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
+        ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
 
         public frmPayrollMaster()
         {
@@ -39,6 +40,14 @@ namespace StaffSync
         {
             InitializeComponent();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+        }
+
+        public frmPayrollMaster(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+            objTempClientFinYearInfo = objSelectedClientFinYearInfo;
+            ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -324,21 +333,21 @@ namespace StaffSync
 
             dtgSalaryDetails.DataSource = objSalaryProfile.GetDefaultSalaryProfileInfo(1);
 
-            dtgSalaryDetails.Columns["EmpSalDetID"].Visible = true;;
+            dtgSalaryDetails.Columns["EmpSalDetID"].Visible = false;
             dtgSalaryDetails.Columns["EmpSalDetID"].ReadOnly = true;
             dtgSalaryDetails.Columns["SalProDetID"].ReadOnly = true;
-            dtgSalaryDetails.Columns["SalProDetID"].Visible = true;;
+            dtgSalaryDetails.Columns["SalProDetID"].Visible = false;
             dtgSalaryDetails.Columns["SalProDetID"].ReadOnly = true;
-            dtgSalaryDetails.Columns["SalProfileID"].Visible = true;;
+            dtgSalaryDetails.Columns["SalProfileID"].Visible = false;
             dtgSalaryDetails.Columns["SalProfileID"].ReadOnly = true;
-            dtgSalaryDetails.Columns["HeaderID"].Visible = true;;
+            dtgSalaryDetails.Columns["HeaderID"].Visible = false;
             dtgSalaryDetails.Columns["HeaderID"].ReadOnly = true;
             dtgSalaryDetails.Columns["HeaderTitle"].Width = 250;
             dtgSalaryDetails.Columns["HeaderTitle"].ReadOnly = true;
             dtgSalaryDetails.Columns["HeaderType"].ReadOnly = true;
             dtgSalaryDetails.Columns["HeaderType"].Width = 125;
-            dtgSalaryDetails.Columns["CalcFormula"].Visible = true;;
-            dtgSalaryDetails.Columns["IsFixed"].Visible = true;;
+            dtgSalaryDetails.Columns["CalcFormula"].Visible = false;
+            dtgSalaryDetails.Columns["IsFixed"].Visible = false;
             dtgSalaryDetails.Columns["AllowanceAmount"].Width = 135;
             dtgSalaryDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgSalaryDetails.Columns["AllowanceAmount"].DefaultCellStyle.Format = "c2";
@@ -351,7 +360,7 @@ namespace StaffSync
             dtgSalaryDetails.Columns["SalProAmount"].Visible = true;;
             dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Deductions
             dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Format = "c2";
-            dtgSalaryDetails.Columns["OrderID"].Visible = true;;
+            dtgSalaryDetails.Columns["OrderID"].Visible = false;
             dtgSalaryDetails.Enabled = false;
             btnViewCalender.Visible = false;
         }
@@ -456,16 +465,16 @@ namespace StaffSync
                 dtgSalaryDetails.Enabled = true;
                 //dtgSalaryDetails.DataSource = objSalaryProfile.GetDefaultSalaryProfileInfo(SalaryProfileID);
                 dtgSalaryDetails.DataSource = objSalaryProfile.GetEmployeeSpecificSalaryProfileInfo(Convert.ToInt16(lblReportingManagerID.Text));
-                dtgSalaryDetails.Columns["EmpSalDetID"].Visible = true;;
-                dtgSalaryDetails.Columns["SalProDetID"].Visible = true;;
-                dtgSalaryDetails.Columns["SalProfileID"].Visible = true;;
-                dtgSalaryDetails.Columns["HeaderID"].Visible = true;;
+                dtgSalaryDetails.Columns["EmpSalDetID"].Visible = false;
+                dtgSalaryDetails.Columns["SalProDetID"].Visible = false;
+                dtgSalaryDetails.Columns["SalProfileID"].Visible = false;
+                dtgSalaryDetails.Columns["HeaderID"].Visible = false;
                 dtgSalaryDetails.Columns["HeaderTitle"].Width = 250;
                 dtgSalaryDetails.Columns["HeaderTitle"].ReadOnly = true;
                 dtgSalaryDetails.Columns["HeaderType"].ReadOnly = true;
                 dtgSalaryDetails.Columns["HeaderType"].Width = 125;
-                dtgSalaryDetails.Columns["CalcFormula"].Visible = true;;
-                dtgSalaryDetails.Columns["IsFixed"].Visible = true;;
+                dtgSalaryDetails.Columns["CalcFormula"].Visible = false;
+                dtgSalaryDetails.Columns["IsFixed"].Visible = false;
                 dtgSalaryDetails.Columns["AllowanceAmount"].Width = 135;
                 dtgSalaryDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
                 dtgSalaryDetails.Columns["AllowanceAmount"].DefaultCellStyle.Format = "c2";
@@ -475,10 +484,10 @@ namespace StaffSync
                 dtgSalaryDetails.Columns["DeductionAmount"].DefaultCellStyle.Format = "c2";
                 dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Reimbursments
                 dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Format = "c2";
-                dtgSalaryDetails.Columns["SalProAmount"].Visible = true;;
+                dtgSalaryDetails.Columns["SalProAmount"].Visible = true;
                 dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Deductions
                 dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Format = "c2";
-                dtgSalaryDetails.Columns["OrderID"].Visible = true;;
+                dtgSalaryDetails.Columns["OrderID"].Visible = false;
 
                 decimal totalAallowences = 0;
                 decimal totalDeductions = 0;
@@ -551,13 +560,13 @@ namespace StaffSync
                 dtgSalaryDetails.DataSource = objEmployeePayroll.getSelectedSpecificMonthSalaryDetails(selectedMonthSalaryID);
 
                 dtgSalaryDetails.Enabled = true;
-                dtgSalaryDetails.Columns["EmpSalDetID"].Visible = true;;
+                dtgSalaryDetails.Columns["EmpSalDetID"].Visible = false;
                 dtgSalaryDetails.Columns["EmpSalDetID"].ReadOnly = true;
-                dtgSalaryDetails.Columns["SalProDetID"].Visible = true;;
+                dtgSalaryDetails.Columns["SalProDetID"].Visible = false;
                 dtgSalaryDetails.Columns["SalProDetID"].ReadOnly = true;
-                dtgSalaryDetails.Columns["EmpSalID"].Visible = true;;
+                dtgSalaryDetails.Columns["EmpSalID"].Visible = false;
                 dtgSalaryDetails.Columns["EmpSalID"].ReadOnly = true;
-                dtgSalaryDetails.Columns["HeaderID"].Visible = true;;
+                dtgSalaryDetails.Columns["HeaderID"].Visible = false;
                 dtgSalaryDetails.Columns["HeaderID"].ReadOnly = true;
                 dtgSalaryDetails.Columns["HeaderTitle"].Width = 250;
                 dtgSalaryDetails.Columns["HeaderTitle"].ReadOnly = true;
@@ -572,10 +581,10 @@ namespace StaffSync
                 dtgSalaryDetails.Columns["DeductionAmount"].DefaultCellStyle.Format = "c2";
                 dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Reimbursments
                 dtgSalaryDetails.Columns["ReimbursmentAmount"].DefaultCellStyle.Format = "c2";
-                dtgSalaryDetails.Columns["SalProAmount"].Visible = true;;
-                dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Deductions
-                dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Format = "c2";
-                dtgSalaryDetails.Columns["OrderID"].Visible = true;;
+                //dtgSalaryDetails.Columns["SalProAmount"].Visible = true;;
+                //dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Deductions
+                //dtgSalaryDetails.Columns["SalProAmount"].DefaultCellStyle.Format = "c2";
+                dtgSalaryDetails.Columns["OrderID"].Visible = false;
 
                 decimal totalAallowences = 0;
                 decimal totalDeductions = 0;

@@ -28,6 +28,7 @@ namespace StaffSync
         DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
         List<WklyOffProfileDetailsInfo> lstWeeklyOffDetailsInfo = new List<WklyOffProfileDetailsInfo>();
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
+        ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
 
         public frmPendingApprovalList()
         {
@@ -38,6 +39,14 @@ namespace StaffSync
         {
             InitializeComponent();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+        }
+
+        public frmPendingApprovalList(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+            objTempClientFinYearInfo = objSelectedClientFinYearInfo;
+            ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
         }
 
         public frmPendingApprovalList(int txtEmployeeID, int txtLeaveMasID)

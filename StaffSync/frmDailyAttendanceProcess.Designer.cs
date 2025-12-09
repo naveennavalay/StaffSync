@@ -531,7 +531,7 @@
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(167, 12);
+            this.btnSaveDetails.Location = new System.Drawing.Point(293, 8);
             this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;

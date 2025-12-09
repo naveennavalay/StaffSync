@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="EmpEduQualInfo.cs" />
     <Compile Include="EmpPersonalFamilyMemberInfo.cs" />
+    <Compile Include="PublicHolidayInfo.cs" />
     <Compile Include="EmpPersonalIDInfo.cs" />
     <Compile Include="WklyOffProfileDetailsInfo.cs" />
     <Compile Include="WklyOffProfileMasInfo.cs" />

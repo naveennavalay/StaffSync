@@ -183,11 +183,35 @@
     <Compile Include="frmDailyAttendanceProcess.Designer.cs">
       <DependentUpon>frmDailyAttendanceProcess.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmActiveCompanyInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmActiveCompanyInfo.Designer.cs">
+      <DependentUpon>frmActiveCompanyInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPublicHolidayConfigPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPublicHolidayConfigPopup.Designer.cs">
+      <DependentUpon>frmPublicHolidayConfigPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPublicHolidayConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPublicHolidayConfig.Designer.cs">
+      <DependentUpon>frmPublicHolidayConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDailyAttendanceSheet.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmDailyAttendanceSheet.Designer.cs">
       <DependentUpon>frmDailyAttendanceSheet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEmpFamilyMemberPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmpFamilyMemberPopup.Designer.cs">
+      <DependentUpon>frmEmpFamilyMemberPopup.cs</DependentUpon>
     </Compile>
     <Compile Include="frmOutstandingLeaveStatement.cs">
       <SubType>Form</SubType>
@@ -602,8 +626,20 @@
     <EmbeddedResource Include="frmDailyAttendanceProcess.resx">
       <DependentUpon>frmDailyAttendanceProcess.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmActiveCompanyInfo.resx">
+      <DependentUpon>frmActiveCompanyInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPublicHolidayConfigPopup.resx">
+      <DependentUpon>frmPublicHolidayConfigPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPublicHolidayConfig.resx">
+      <DependentUpon>frmPublicHolidayConfig.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDailyAttendanceSheet.resx">
       <DependentUpon>frmDailyAttendanceSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmpFamilyMemberPopup.resx">
+      <DependentUpon>frmEmpFamilyMemberPopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmOutstandingLeaveStatement.resx">
       <DependentUpon>frmOutstandingLeaveStatement.cs</DependentUpon>

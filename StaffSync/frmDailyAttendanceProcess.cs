@@ -29,6 +29,7 @@ namespace StaffSync
         DALStaffSync.clsEmpMnthlyAttdInfo objEmpMnthlyAttdInfo = new DALStaffSync.clsEmpMnthlyAttdInfo();
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
+        ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
 
         public frmDailyAttendanceProcess()
         {
@@ -41,20 +42,19 @@ namespace StaffSync
             InitializeComponent();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
 
+            dtgDailyAttendanceProcess.DataSource = null;
+            dtgDailyAttendanceProcess.DataSource = objEmpMnthlyAttdInfo.getConsolidatedMonthlyAttendanceInfo(DateTime.Now);
+        }
+
+        public frmDailyAttendanceProcess(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+            objTempClientFinYearInfo = objSelectedClientFinYearInfo;
+            ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
 
             dtgDailyAttendanceProcess.DataSource = null;
-
             dtgDailyAttendanceProcess.DataSource = objEmpMnthlyAttdInfo.getConsolidatedMonthlyAttendanceInfo(DateTime.Now);
-            //dtgDailyAttendanceProcess.Columns["LastCompID"].Visible = false;
-            //dtgDailyAttendanceProcess.Columns["LastCompanyInfoID"].Visible = false;
-            //dtgDailyAttendanceProcess.Columns["EmpID"].Visible = false;
-            //dtgDailyAttendanceProcess.Columns["LastCompanyTitle"].Width = 200;
-            //dtgDailyAttendanceProcess.Columns["Address"].Width = 350;
-            //dtgDailyAttendanceProcess.Columns["StartDate"].Width = 100;
-            //dtgDailyAttendanceProcess.Columns["StartDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
-            //dtgDailyAttendanceProcess.Columns["EndDate"].Width = 100;
-            //dtgDailyAttendanceProcess.Columns["EndDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
-            //dtgDailyAttendanceProcess.Columns["Comments"].Width = 350;
         }
 
         //public frmDailyAttendanceProcess(string SearchOptionSelectedForm, int selectedEmployeeID)

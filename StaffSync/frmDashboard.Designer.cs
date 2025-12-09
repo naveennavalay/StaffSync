@@ -169,6 +169,8 @@
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.lblDashboardTitle = new System.Windows.Forms.Label();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
+            this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmbPublicHolidayConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -681,7 +683,7 @@
             this.toolStripMenuItem15,
             this.cmbPayrollReports});
             this.cmPayrollManagement.Name = "cmDatamartList01";
-            this.cmPayrollManagement.Size = new System.Drawing.Size(187, 132);
+            this.cmPayrollManagement.Size = new System.Drawing.Size(187, 110);
             this.cmPayrollManagement.Tag = "DatamartMenu";
             this.cmPayrollManagement.Text = "Datamart Menu";
             // 
@@ -918,9 +920,11 @@
             this.toolStripMenuItem3,
             this.cmbLeaveConfiguration,
             this.toolStripMenuItem7,
-            this.payrollConfigurationToolStripMenuItem});
+            this.payrollConfigurationToolStripMenuItem,
+            this.toolStripMenuItem16,
+            this.cmbPublicHolidayConfig});
             this.cmbApplicationSettings.Name = "cmDatamartList01";
-            this.cmbApplicationSettings.Size = new System.Drawing.Size(188, 110);
+            this.cmbApplicationSettings.Size = new System.Drawing.Size(229, 160);
             this.cmbApplicationSettings.Tag = "DatamartMenu";
             this.cmbApplicationSettings.Text = "Datamart Menu";
             this.cmbApplicationSettings.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmbApplicationSettings_ItemClicked);
@@ -940,7 +944,7 @@
             this.cmbWeeklyOffConfiguration});
             this.cmbMasterList.Image = global::StaffSync.Properties.Resources.master_data;
             this.cmbMasterList.Name = "cmbMasterList";
-            this.cmbMasterList.Size = new System.Drawing.Size(187, 22);
+            this.cmbMasterList.Size = new System.Drawing.Size(228, 22);
             this.cmbMasterList.Tag = "cmbMasterList";
             this.cmbMasterList.Text = "Master List";
             // 
@@ -1019,7 +1023,7 @@
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(184, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(225, 6);
             // 
             // cmbSalaryConfiguration
             // 
@@ -1028,7 +1032,7 @@
             this.cmbConfigureSalaryProfile});
             this.cmbSalaryConfiguration.Image = global::StaffSync.Properties.Resources.salayconfig;
             this.cmbSalaryConfiguration.Name = "cmbSalaryConfiguration";
-            this.cmbSalaryConfiguration.Size = new System.Drawing.Size(187, 22);
+            this.cmbSalaryConfiguration.Size = new System.Drawing.Size(228, 22);
             this.cmbSalaryConfiguration.Tag = "cmbSalaryConfiguration";
             this.cmbSalaryConfiguration.Text = "Salary Configuration";
             // 
@@ -1053,7 +1057,7 @@
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(184, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(225, 6);
             // 
             // cmbLeaveConfiguration
             // 
@@ -1061,7 +1065,7 @@
             this.cmbLeaveTypeMaster});
             this.cmbLeaveConfiguration.Image = global::StaffSync.Properties.Resources.leave_config;
             this.cmbLeaveConfiguration.Name = "cmbLeaveConfiguration";
-            this.cmbLeaveConfiguration.Size = new System.Drawing.Size(187, 22);
+            this.cmbLeaveConfiguration.Size = new System.Drawing.Size(228, 22);
             this.cmbLeaveConfiguration.Tag = "cmbLeaveConfiguration";
             this.cmbLeaveConfiguration.Text = "Leave Configuration";
             // 
@@ -1077,7 +1081,7 @@
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(184, 6);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(225, 6);
             // 
             // payrollConfigurationToolStripMenuItem
             // 
@@ -1087,7 +1091,7 @@
             this.cmbReimbursmentListConfig});
             this.payrollConfigurationToolStripMenuItem.Image = global::StaffSync.Properties.Resources.payroll;
             this.payrollConfigurationToolStripMenuItem.Name = "payrollConfigurationToolStripMenuItem";
-            this.payrollConfigurationToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.payrollConfigurationToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.payrollConfigurationToolStripMenuItem.Text = "Payroll Configuration";
             // 
             // cmbEarningsListConfig
@@ -1222,6 +1226,19 @@
             // kryptonRibbonGroupButton5
             // 
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
+            // 
+            // toolStripMenuItem16
+            // 
+            this.toolStripMenuItem16.Name = "toolStripMenuItem16";
+            this.toolStripMenuItem16.Size = new System.Drawing.Size(225, 6);
+            // 
+            // cmbPublicHolidayConfig
+            // 
+            this.cmbPublicHolidayConfig.Name = "cmbPublicHolidayConfig";
+            this.cmbPublicHolidayConfig.Size = new System.Drawing.Size(228, 22);
+            this.cmbPublicHolidayConfig.Tag = "cmbPublicHolidayConfig";
+            this.cmbPublicHolidayConfig.Text = "Public Holiday Configuration";
+            this.cmbPublicHolidayConfig.Click += new System.EventHandler(this.cmbPublicHolidayConfig_Click);
             // 
             // frmDashboard
             // 
@@ -1402,6 +1419,8 @@
         private System.Windows.Forms.ToolStripMenuItem cmbSalaryStatement;
         private System.Windows.Forms.ToolStripMenuItem cmbPayrollSummaryReport;
         private System.Windows.Forms.ToolStripMenuItem cmbEarningsDeductions;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem16;
+        private System.Windows.Forms.ToolStripMenuItem cmbPublicHolidayConfig;
     }
 }
 

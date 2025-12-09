@@ -61,4 +61,10 @@ namespace ModelStaffSync
 
         public bool IsDeleted { get; set; }
     }
+
+    public class ClientFinYearInfo
+    {
+        public int ClientID { get; set; }
+        public int FinYearID { get; set; }
+    }
 }

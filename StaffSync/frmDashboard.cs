@@ -32,8 +32,11 @@ namespace StaffSync
         DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsLeaveTRList objLeaveInfo = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
+        DALStaffSync.clsFinYearMas objFinYearInfo = new DALStaffSync.clsFinYearMas();
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         List<ClientInfo> objActiveClientInfo = new List<ClientInfo>();
+        List<FinYearMas> objActiveFinYear = new List<FinYearMas>();
+        ClientFinYearInfo objSelectedClientFinYearInfo = new ClientFinYearInfo();
         UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = new UserRolesAndResponsibilitiesInfo();
 
         private async void InitializeScheduler()
@@ -104,7 +107,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Employee Details";
-                    frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmployeeMasterDetails.MdiParent = this;
                     frmEmployeeMasterDetails.Dock = DockStyle.Fill;
                     frmEmployeeMasterDetails.Show();
@@ -118,7 +121,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Employee Details";
-                        frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmEmployeeMasterDetails.MdiParent = this;
                         frmEmployeeMasterDetails.Dock = DockStyle.Fill;
                         frmEmployeeMasterDetails.Show();
@@ -143,7 +146,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Employee Details";
-                    frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmployeeMasterDetails.MdiParent = this;
                     frmEmployeeMasterDetails.Dock = DockStyle.Fill;
                     frmEmployeeMasterDetails.Show();
@@ -158,7 +161,7 @@ namespace StaffSync
 
             AppModuleID = 4;
 
-            frmDailyAttendanceProcess frmDailyAttendanceProcessDetails = new frmDailyAttendanceProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+            frmDailyAttendanceProcess frmDailyAttendanceProcessDetails = new frmDailyAttendanceProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
             frmDailyAttendanceProcessDetails.MdiParent = this;
             frmDailyAttendanceProcessDetails.Dock = DockStyle.Fill;
             frmDailyAttendanceProcessDetails.Show();
@@ -170,7 +173,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Attendance Master Details";
-                    frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmAttendanceMaterDetails.MdiParent = this;
                     frmAttendanceMaterDetails.Dock = DockStyle.Fill;
                     frmAttendanceMaterDetails.Show();
@@ -184,7 +187,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Attendance Master Details";
-                        frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmAttendanceMaterDetails.MdiParent = this;
                         frmAttendanceMaterDetails.Dock = DockStyle.Fill;
                         frmAttendanceMaterDetails.Show();
@@ -209,7 +212,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Attendance Master Details";
-                    frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmAttendanceMaterDetails.MdiParent = this;
                     frmAttendanceMaterDetails.Dock = DockStyle.Fill;
                     frmAttendanceMaterDetails.Show();
@@ -235,7 +238,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Employee Details";
-                        frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmEmployeeMasterDetails.MdiParent = this;
                         frmEmployeeMasterDetails.Dock = DockStyle.Fill;
                         frmEmployeeMasterDetails.Show();
@@ -274,7 +277,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Leave Master Details";
-                    frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLeavesMasterDetails.MdiParent = this;
                     frmLeavesMasterDetails.Dock = DockStyle.Fill;
                     frmLeavesMasterDetails.Show();
@@ -288,7 +291,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Leave Master Details";
-                        frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmLeavesMasterDetails.MdiParent = this;
                         frmLeavesMasterDetails.Dock = DockStyle.Fill;
                         frmLeavesMasterDetails.Show();
@@ -313,7 +316,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Leave Master Details";
-                    frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLeavesMasterDetails.MdiParent = this;
                     frmLeavesMasterDetails.Dock = DockStyle.Fill;
                     frmLeavesMasterDetails.Show();
@@ -327,7 +330,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Employee Wise Reports";
-                frmEmployeeWiseReports frmEmployeeWiseReportsDetails = new frmEmployeeWiseReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmEmployeeWiseReports frmEmployeeWiseReportsDetails = new frmEmployeeWiseReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEmployeeWiseReportsDetails.MdiParent = this;
                 frmEmployeeWiseReportsDetails.Dock = DockStyle.Fill;
                 frmEmployeeWiseReportsDetails.Show();
@@ -340,7 +343,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Employee Attendance Reports";
-                frmEmployeeAttendanceReports frmEmployeeAttendanceReportsDetails = new frmEmployeeAttendanceReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmEmployeeAttendanceReports frmEmployeeAttendanceReportsDetails = new frmEmployeeAttendanceReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEmployeeAttendanceReportsDetails.MdiParent = this;
                 frmEmployeeAttendanceReportsDetails.Dock = DockStyle.Fill;
                 frmEmployeeAttendanceReportsDetails.Show();
@@ -354,7 +357,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Employee Payroll Reports";
-                frmEmployeePayrollReports frmEmployeePayrollReportsDetails = new frmEmployeePayrollReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmEmployeePayrollReports frmEmployeePayrollReportsDetails = new frmEmployeePayrollReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEmployeePayrollReportsDetails.MdiParent = this;
                 frmEmployeePayrollReportsDetails.Dock = DockStyle.Fill;
                 frmEmployeePayrollReportsDetails.Show();
@@ -367,7 +370,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Employee Leave Reports";
-                frmEmployeeLeavesReports frmEmployeeLeavesReportsDetails = new frmEmployeeLeavesReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmEmployeeLeavesReports frmEmployeeLeavesReportsDetails = new frmEmployeeLeavesReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEmployeeLeavesReportsDetails.MdiParent = this;
                 frmEmployeeLeavesReportsDetails.Dock = DockStyle.Fill;
                 frmEmployeeLeavesReportsDetails.Show();
@@ -393,7 +396,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Department Master Details";
-                frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmDepartmentMaster.MdiParent = this;
                 frmDepartmentMaster.Dock = DockStyle.Fill;
                 frmDepartmentMaster.Show();
@@ -406,7 +409,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Country Master Details";
-                frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmCountryMaster.MdiParent = this;
                 frmCountryMaster.Dock = DockStyle.Fill;
                 frmCountryMaster.Show();
@@ -419,7 +422,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Designation Master Details";
-                frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmDesignationMaster.MdiParent = this;
                 frmDesignationMaster.Dock = DockStyle.Fill;
                 frmDesignationMaster.Show();
@@ -432,7 +435,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "State Master Details";
-                frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmStateMaster.MdiParent = this;
                 frmStateMaster.Dock = DockStyle.Fill;
                 frmStateMaster.Show();
@@ -445,7 +448,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Relationship Master Details";
-                frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmRelationshipMaster.MdiParent = this;
                 frmRelationshipMaster.Dock = DockStyle.Fill;
                 frmRelationshipMaster.Show();
@@ -458,7 +461,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Last Company Master Details";
-                frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmLastCompanyMaster.MdiParent = this;
                 frmLastCompanyMaster.Dock = DockStyle.Fill;
                 frmLastCompanyMaster.Show();
@@ -471,7 +474,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Qualification Master Details";
-                frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEduQualMaster.MdiParent = this;
                 frmEduQualMaster.Dock = DockStyle.Fill;
                 frmEduQualMaster.Show();
@@ -490,7 +493,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Department Master Details";
-                    frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDepartmentMaster.MdiParent = this;
                     frmDepartmentMaster.Dock = DockStyle.Fill;
                     frmDepartmentMaster.Show();
@@ -504,7 +507,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Department Master Details";
-                        frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmDepartmentMaster.MdiParent = this;
                         frmDepartmentMaster.Dock = DockStyle.Fill;
                         frmDepartmentMaster.Show();
@@ -529,7 +532,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Department Master Details";
-                    frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDepartmentMaster.MdiParent = this;
                     frmDepartmentMaster.Dock = DockStyle.Fill;
                     frmDepartmentMaster.Show();
@@ -554,7 +557,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Designation Master Details";
-                    frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDesignationMaster.MdiParent = this;
                     frmDesignationMaster.Dock = DockStyle.Fill;
                     frmDesignationMaster.Show();
@@ -568,7 +571,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Designation Master Details";
-                        frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmDesignationMaster.MdiParent = this;
                         frmDesignationMaster.Dock = DockStyle.Fill;
                         frmDesignationMaster.Show();
@@ -593,7 +596,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Designation Master Details";
-                    frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDesignationMaster.MdiParent = this;
                     frmDesignationMaster.Dock = DockStyle.Fill;
                     frmDesignationMaster.Show();
@@ -613,7 +616,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Qualification Master Details";
-                    frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                    frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEduQualMaster.MdiParent = this;
                     frmEduQualMaster.Dock = DockStyle.Fill;
                     frmEduQualMaster.Show();
@@ -627,7 +630,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Qualification Master Details";
-                        frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                        frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmEduQualMaster.MdiParent = this;
                         frmEduQualMaster.Dock = DockStyle.Fill;
                         frmEduQualMaster.Show();
@@ -652,7 +655,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Qualification Master Details";
-                    frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEduQualMaster.MdiParent = this;
                     frmEduQualMaster.Dock = DockStyle.Fill;
                     frmEduQualMaster.Show();
@@ -672,7 +675,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Relationship Master Details";
-                    frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRelationshipMaster.MdiParent = this;
                     frmRelationshipMaster.Dock = DockStyle.Fill;
                     frmRelationshipMaster.Show();
@@ -686,7 +689,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Relationship Master Details";
-                        frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmRelationshipMaster.MdiParent = this;
                         frmRelationshipMaster.Dock = DockStyle.Fill;
                         frmRelationshipMaster.Show();
@@ -711,7 +714,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Relationship Master Details";
-                    frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRelationshipMaster.MdiParent = this;
                     frmRelationshipMaster.Dock = DockStyle.Fill;
                     frmRelationshipMaster.Show();
@@ -731,7 +734,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "State Master Details";
-                    frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmStateMaster.MdiParent = this;
                     frmStateMaster.Dock = DockStyle.Fill;
                     frmStateMaster.Show();
@@ -745,7 +748,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "State Master Details";
-                        frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmStateMaster.MdiParent = this;
                         frmStateMaster.Dock = DockStyle.Fill;
                         frmStateMaster.Show();
@@ -770,7 +773,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "State Master Details";
-                    frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmStateMaster.MdiParent = this;
                     frmStateMaster.Dock = DockStyle.Fill;
                     frmStateMaster.Show();
@@ -791,7 +794,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Country Master Details";
-                    frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmCountryMaster.MdiParent = this;
                     frmCountryMaster.Dock = DockStyle.Fill;
                     frmCountryMaster.Show();
@@ -805,7 +808,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Country Master Details";
-                        frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmCountryMaster.MdiParent = this;
                         frmCountryMaster.Dock = DockStyle.Fill;
                         frmCountryMaster.Show();
@@ -830,7 +833,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Country Master Details";
-                    frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmCountryMaster.MdiParent = this;
                     frmCountryMaster.Dock = DockStyle.Fill;
                     frmCountryMaster.Show();
@@ -850,7 +853,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Last Company Master Details";
-                    frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLastCompanyMaster.MdiParent = this;
                     frmLastCompanyMaster.Dock = DockStyle.Fill;
                     frmLastCompanyMaster.Show();
@@ -864,7 +867,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Last Company Master Details";
-                        frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmLastCompanyMaster.MdiParent = this;
                         frmLastCompanyMaster.Dock = DockStyle.Fill;
                         frmLastCompanyMaster.Show();
@@ -889,7 +892,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Last Company Master Details";
-                    frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLastCompanyMaster.MdiParent = this;
                     frmLastCompanyMaster.Dock = DockStyle.Fill;
                     frmLastCompanyMaster.Show();
@@ -908,7 +911,7 @@ namespace StaffSync
             {
                 if (this.MdiChildren.Length == 0)
                 {
-                    frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
+                    frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmSkillsMaster.MdiParent = this;
                     frmSkillsMaster.Dock = DockStyle.Fill;
                     frmSkillsMaster.Show();
@@ -921,7 +924,7 @@ namespace StaffSync
                 {
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
-                        frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
+                        frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmSkillsMaster.MdiParent = this;
                         frmSkillsMaster.Dock = DockStyle.Fill;
                         frmSkillsMaster.Show();
@@ -943,7 +946,7 @@ namespace StaffSync
                     MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
+                frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmSkillsMaster.MdiParent = this;
                 frmSkillsMaster.Dock = DockStyle.Fill;
                 frmSkillsMaster.Show();
@@ -1081,7 +1084,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Leave Approval Details";
-                    frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLeavesApproval.MdiParent = this;
                     frmLeavesApproval.Dock = DockStyle.Fill;
                     frmLeavesApproval.Show();
@@ -1095,7 +1098,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Leave Approval Details";
-                        frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmLeavesApproval.MdiParent = this;
                         frmLeavesApproval.Dock = DockStyle.Fill;
                         frmLeavesApproval.Show();
@@ -1120,7 +1123,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Leave Approval Details";
-                    frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLeavesApproval.MdiParent = this;
                     frmLeavesApproval.Dock = DockStyle.Fill;
                     frmLeavesApproval.Show();
@@ -1140,7 +1143,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "User Management Details";
-                    frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmUserManagement.MdiParent = this;
                     frmUserManagement.Dock = DockStyle.Fill;
                     frmUserManagement.Show();
@@ -1154,7 +1157,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "User Management Details";
-                        frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmUserManagement.MdiParent = this;
                         frmUserManagement.Dock = DockStyle.Fill;
                         frmUserManagement.Show();
@@ -1179,7 +1182,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "User Management Details";
-                    frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmUserManagement.MdiParent = this;
                     frmUserManagement.Dock = DockStyle.Fill;
                     frmUserManagement.Show();
@@ -1199,7 +1202,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Roles and Responsibilities Details";
-                    frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRolesAndResponsibilities.MdiParent = this;
                     frmRolesAndResponsibilities.Dock = DockStyle.Fill;
                     frmRolesAndResponsibilities.Show();
@@ -1213,7 +1216,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Roles and Responsibilities Details";
-                        frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmRolesAndResponsibilities.MdiParent = this;
                         frmRolesAndResponsibilities.Dock = DockStyle.Fill;
                         frmRolesAndResponsibilities.Show();
@@ -1238,7 +1241,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Roles and Responsibilities Details";
-                    frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRolesAndResponsibilities.MdiParent = this;
                     frmRolesAndResponsibilities.Dock = DockStyle.Fill;
                     frmRolesAndResponsibilities.Show();
@@ -1258,7 +1261,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Modules Assignment Details";
-                    frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmModuleAssignment.MdiParent = this;
                     frmModuleAssignment.Dock = DockStyle.Fill;
                     frmModuleAssignment.Show();
@@ -1272,7 +1275,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Modules Assignment Details";
-                        frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmModuleAssignment.MdiParent = this;
                         frmModuleAssignment.Dock = DockStyle.Fill;
                         frmModuleAssignment.Show();
@@ -1297,7 +1300,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Modules Assignment Details";
-                    frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmModuleAssignment.MdiParent = this;
                     frmModuleAssignment.Dock = DockStyle.Fill;
                     frmModuleAssignment.Show();
@@ -1343,7 +1346,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Roles Profile Master Details";
-                    frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
+                    frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRolesProfileMaster.MdiParent = this;
                     frmRolesProfileMaster.Dock = DockStyle.Fill;
                     frmRolesProfileMaster.Show();
@@ -1357,7 +1360,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Roles Profile Master Details";
-                        frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster();
+                        frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmRolesProfileMaster.MdiParent = this;
                         frmRolesProfileMaster.Dock = DockStyle.Fill;
                         frmRolesProfileMaster.Show();
@@ -1382,7 +1385,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Roles Profile Master Details";
-                    frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRolesProfileMaster.MdiParent = this;
                     frmRolesProfileMaster.Dock = DockStyle.Fill;
                     frmRolesProfileMaster.Show();
@@ -1452,7 +1455,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "User Management Details";
-                            frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmUserManagement.MdiParent = this;
                             frmUserManagement.Dock = DockStyle.Fill;
                             frmUserManagement.Show();
@@ -1466,7 +1469,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "User Management Details";
-                                frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmUserManagement.MdiParent = this;
                                 frmUserManagement.Dock = DockStyle.Fill;
                                 frmUserManagement.Show();
@@ -1491,7 +1494,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "User Management Details";
-                            frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmUserManagement.MdiParent = this;
                             frmUserManagement.Dock = DockStyle.Fill;
                             frmUserManagement.Show();
@@ -1508,7 +1511,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Roles and Responsibilities Details";
-                            frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmRolesAndResponsibilities.MdiParent = this;
                             frmRolesAndResponsibilities.Dock = DockStyle.Fill;
                             frmRolesAndResponsibilities.Show();
@@ -1522,7 +1525,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Roles and Responsibilities Details";
-                                frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmRolesAndResponsibilities.MdiParent = this;
                                 frmRolesAndResponsibilities.Dock = DockStyle.Fill;
                                 frmRolesAndResponsibilities.Show();
@@ -1547,7 +1550,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Roles and Responsibilities Details";
-                            frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmRolesAndResponsibilities.MdiParent = this;
                             frmRolesAndResponsibilities.Dock = DockStyle.Fill;
                             frmRolesAndResponsibilities.Show();
@@ -1564,7 +1567,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Module Assignment Details";
-                            frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmModuleAssignment.MdiParent = this;
                             frmModuleAssignment.Dock = DockStyle.Fill;
                             frmModuleAssignment.Show();
@@ -1578,7 +1581,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Module Assignment Details";
-                                frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmModuleAssignment.MdiParent = this;
                                 frmModuleAssignment.Dock = DockStyle.Fill;
                                 frmModuleAssignment.Show();
@@ -1603,7 +1606,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Module Assignment Details";
-                            frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmModuleAssignment.MdiParent = this;
                             frmModuleAssignment.Dock = DockStyle.Fill;
                             frmModuleAssignment.Show();
@@ -1620,7 +1623,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Roles Profile Master Details";
-                            frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmRolesProfileMaster.MdiParent = this;
                             frmRolesProfileMaster.Dock = DockStyle.Fill;
                             frmRolesProfileMaster.Show();
@@ -1634,7 +1637,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Roles Profile Master Details";
-                                frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmRolesProfileMaster.MdiParent = this;
                                 frmRolesProfileMaster.Dock = DockStyle.Fill;
                                 frmRolesProfileMaster.Show();
@@ -1659,7 +1662,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Roles Profile Master Details";
-                            frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmRolesProfileMaster.MdiParent = this;
                             frmRolesProfileMaster.Dock = DockStyle.Fill;
                             frmRolesProfileMaster.Show();
@@ -1695,7 +1698,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Attendance Master Details";
-                            frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmAttendanceMaterDetails.MdiParent = this;
                             frmAttendanceMaterDetails.Dock = DockStyle.Fill;
                             frmAttendanceMaterDetails.Show();
@@ -1709,7 +1712,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Attendance Master Details";
-                                frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmAttendanceMaterDetails.MdiParent = this;
                                 frmAttendanceMaterDetails.Dock = DockStyle.Fill;
                                 frmAttendanceMaterDetails.Show();
@@ -1734,7 +1737,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Attendance Master Details";
-                            frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmAttendanceMaterDetails.MdiParent = this;
                             frmAttendanceMaterDetails.Dock = DockStyle.Fill;
                             frmAttendanceMaterDetails.Show();
@@ -1762,7 +1765,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Leaves Master Details";
-                            frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeavesMasterDetails.MdiParent = this;
                             frmLeavesMasterDetails.Dock = DockStyle.Fill;
                             frmLeavesMasterDetails.Show();
@@ -1776,7 +1779,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Leaves Master Details";
-                                frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmLeavesMasterDetails.MdiParent = this;
                                 frmLeavesMasterDetails.Dock = DockStyle.Fill;
                                 frmLeavesMasterDetails.Show();
@@ -1801,7 +1804,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Leaves Master Details";
-                            frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeavesMasterDetails.MdiParent = this;
                             frmLeavesMasterDetails.Dock = DockStyle.Fill;
                             frmLeavesMasterDetails.Show();
@@ -1819,7 +1822,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Leaves Approval Details";
-                            frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeavesApproval.MdiParent = this;
                             frmLeavesApproval.Dock = DockStyle.Fill;
                             frmLeavesApproval.Show();
@@ -1833,7 +1836,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Leaves Approval Details";
-                                frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmLeavesApproval.MdiParent = this;
                                 frmLeavesApproval.Dock = DockStyle.Fill;
                                 frmLeavesApproval.Show();
@@ -1858,7 +1861,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Leaves Approval Details";
-                            frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeavesApproval.MdiParent = this;
                             frmLeavesApproval.Dock = DockStyle.Fill;
                             frmLeavesApproval.Show();
@@ -1877,7 +1880,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Leaves Rejection Details";
-                            frmLeavesReject frmLeavesReject = new frmLeavesReject(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmLeavesReject frmLeavesReject = new frmLeavesReject(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeavesReject.MdiParent = this;
                             frmLeavesReject.Dock = DockStyle.Fill;
                             frmLeavesReject.Show();
@@ -1891,7 +1894,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Leaves Rejection Details";
-                                frmLeavesReject frmLeavesReject = new frmLeavesReject(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmLeavesReject frmLeavesReject = new frmLeavesReject(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmLeavesReject.MdiParent = this;
                                 frmLeavesReject.Dock = DockStyle.Fill;
                                 frmLeavesReject.Show();
@@ -1916,7 +1919,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Leaves Rejection Details";
-                            frmLeavesReject frmLeavesReject = new frmLeavesReject(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmLeavesReject frmLeavesReject = new frmLeavesReject(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeavesReject.MdiParent = this;
                             frmLeavesReject.Dock = DockStyle.Fill;
                             frmLeavesReject.Show();
@@ -1954,7 +1957,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Last Company Master Details";
-                            frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLastCompanyMaster.MdiParent = this;
                             frmLastCompanyMaster.Dock = DockStyle.Fill;
                             frmLastCompanyMaster.Show();
@@ -1968,7 +1971,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Last Company Master Details";
-                                frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmLastCompanyMaster.MdiParent = this;
                                 frmLastCompanyMaster.Dock = DockStyle.Fill;
                                 frmLastCompanyMaster.Show();
@@ -1993,7 +1996,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Last Company Master Details";
-                            frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLastCompanyMaster.MdiParent = this;
                             frmLastCompanyMaster.Dock = DockStyle.Fill;
                             frmLastCompanyMaster.Show();
@@ -2009,7 +2012,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Qualification Master Details";
-                            frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmEduQualMaster.MdiParent = this;
                             frmEduQualMaster.Dock = DockStyle.Fill;
                             frmEduQualMaster.Show();
@@ -2023,7 +2026,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Qualification Master Details";
-                                frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmEduQualMaster.MdiParent = this;
                                 frmEduQualMaster.Dock = DockStyle.Fill;
                                 frmEduQualMaster.Show();
@@ -2048,7 +2051,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Qualification Master Details";
-                            frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmEduQualMaster.MdiParent = this;
                             frmEduQualMaster.Dock = DockStyle.Fill;
                             frmEduQualMaster.Show();
@@ -2064,7 +2067,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Skills Master Details";
-                            frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
+                            frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmSkillsMaster.MdiParent = this;
                             frmSkillsMaster.Dock = DockStyle.Fill;
                             frmSkillsMaster.Show();
@@ -2078,7 +2081,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Skills Master Details";
-                                frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
+                                frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmSkillsMaster.MdiParent = this;
                                 frmSkillsMaster.Dock = DockStyle.Fill;
                                 frmSkillsMaster.Show();
@@ -2101,7 +2104,7 @@ namespace StaffSync
                             return;
                         }
 
-                        frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmSkillsMaster.MdiParent = this;
                         frmSkillsMaster.Dock = DockStyle.Fill;
                         frmSkillsMaster.Show();
@@ -2116,7 +2119,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Department Master Details";
-                            frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmDepartmentMaster.MdiParent = this;
                             frmDepartmentMaster.Dock = DockStyle.Fill;
                             frmDepartmentMaster.Show();
@@ -2130,7 +2133,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Department Master Details";
-                                frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmDepartmentMaster.MdiParent = this;
                                 frmDepartmentMaster.Dock = DockStyle.Fill;
                                 frmDepartmentMaster.Show();
@@ -2156,7 +2159,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Department Master Details";
-                            frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmDepartmentMaster.MdiParent = this;
                             frmDepartmentMaster.Dock = DockStyle.Fill;
                             frmDepartmentMaster.Show();
@@ -2172,7 +2175,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Designation Master Details";
-                            frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmDesignationMaster.MdiParent = this;
                             frmDesignationMaster.Dock = DockStyle.Fill;
                             frmDesignationMaster.Show();
@@ -2186,7 +2189,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Designation Master Details";
-                                frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmDesignationMaster.MdiParent = this;
                                 frmDesignationMaster.Dock = DockStyle.Fill;
                                 frmDesignationMaster.Show();
@@ -2211,7 +2214,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Designation Master Details";
-                            frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmDesignationMaster.MdiParent = this;
                             frmDesignationMaster.Dock = DockStyle.Fill;
                             frmDesignationMaster.Show();
@@ -2227,7 +2230,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Country Master Details";
-                            frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmCountryMaster.MdiParent = this;
                             frmCountryMaster.Dock = DockStyle.Fill;
                             frmCountryMaster.Show();
@@ -2241,7 +2244,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Country Master Details";
-                                frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmCountryMaster.MdiParent = this;
                                 frmCountryMaster.Dock = DockStyle.Fill;
                                 frmCountryMaster.Show();
@@ -2266,7 +2269,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Country Master Details";
-                            frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmCountryMaster.MdiParent = this;
                             frmCountryMaster.Dock = DockStyle.Fill;
                             frmCountryMaster.Show();
@@ -2282,7 +2285,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "State Master Details";
-                            frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmStateMaster.MdiParent = this;
                             frmStateMaster.Dock = DockStyle.Fill;
                             frmStateMaster.Show();
@@ -2296,7 +2299,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "State Master Details";
-                                frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmStateMaster.MdiParent = this;
                                 frmStateMaster.Dock = DockStyle.Fill;
                                 frmStateMaster.Show();
@@ -2321,7 +2324,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "State Master Details";
-                            frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmStateMaster.MdiParent = this;
                             frmStateMaster.Dock = DockStyle.Fill;
                             frmStateMaster.Show();
@@ -2337,7 +2340,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Relationship Master Details";
-                            frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmRelationshipMaster.MdiParent = this;
                             frmRelationshipMaster.Dock = DockStyle.Fill;
                             frmRelationshipMaster.Show();
@@ -2351,7 +2354,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Relationship Master Details";
-                                frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmRelationshipMaster.MdiParent = this;
                                 frmRelationshipMaster.Dock = DockStyle.Fill;
                                 frmRelationshipMaster.Show();
@@ -2376,7 +2379,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Relationship Master Details";
-                            frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmRelationshipMaster.MdiParent = this;
                             frmRelationshipMaster.Dock = DockStyle.Fill;
                             frmRelationshipMaster.Show();
@@ -2392,7 +2395,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Leave Type Master Details";
-                            frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeaveTypeMaster.MdiParent = this;
                             frmLeaveTypeMaster.Dock = DockStyle.Fill;
                             frmLeaveTypeMaster.Show();
@@ -2406,7 +2409,7 @@ namespace StaffSync
                             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                             {
                                 lblDashboardTitle.Text = "Leave Type Master Details";
-                                frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                                frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmLeaveTypeMaster.MdiParent = this;
                                 frmLeaveTypeMaster.Dock = DockStyle.Fill;
                                 frmLeaveTypeMaster.Show();
@@ -2431,7 +2434,7 @@ namespace StaffSync
                         if (this.MdiChildren.Length == 0)
                         {
                             lblDashboardTitle.Text = "Leave Type Master Details";
-                            frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                            frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeaveTypeMaster.MdiParent = this;
                             frmLeaveTypeMaster.Dock = DockStyle.Fill;
                             frmLeaveTypeMaster.Show();
@@ -2453,7 +2456,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Last Company Master Details";
-                    frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLastCompanyMaster.MdiParent = this;
                     frmLastCompanyMaster.Dock = DockStyle.Fill;
                     frmLastCompanyMaster.Show();
@@ -2467,7 +2470,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Last Company Master Details";
-                        frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmLastCompanyMaster.MdiParent = this;
                         frmLastCompanyMaster.Dock = DockStyle.Fill;
                         frmLastCompanyMaster.Show();
@@ -2493,7 +2496,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Last Company Master Details";
-                    frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLastCompanyMaster.MdiParent = this;
                     frmLastCompanyMaster.Dock = DockStyle.Fill;
                     frmLastCompanyMaster.Show();
@@ -2513,7 +2516,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Qualification Master Details";
-                    frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                    frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEduQualMaster.MdiParent = this;
                     frmEduQualMaster.Dock = DockStyle.Fill;
                     frmEduQualMaster.Show();
@@ -2527,7 +2530,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Qualification Master Details";
-                        frmEduQualMaster frmEduQualMaster = new frmEduQualMaster();
+                        frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmEduQualMaster.MdiParent = this;
                         frmEduQualMaster.Dock = DockStyle.Fill;
                         frmEduQualMaster.Show();
@@ -2553,7 +2556,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Qualification Master Details";
-                    frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEduQualMaster.MdiParent = this;
                     frmEduQualMaster.Dock = DockStyle.Fill;
                     frmEduQualMaster.Show();
@@ -2573,7 +2576,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Skills Master Details";
-                    frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmSkillsMaster.MdiParent = this;
                     frmSkillsMaster.Dock = DockStyle.Fill;
                     frmSkillsMaster.Show();
@@ -2587,7 +2590,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Skills Master Details";
-                        frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmSkillsMaster.MdiParent = this;
                         frmSkillsMaster.Dock = DockStyle.Fill;
                         frmSkillsMaster.Show();
@@ -2629,7 +2632,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Department Master Details";
-                    frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDepartmentMaster.MdiParent = this;
                     frmDepartmentMaster.Dock = DockStyle.Fill;
                     frmDepartmentMaster.Show();
@@ -2643,7 +2646,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Department Master Details";
-                        frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmDepartmentMaster.MdiParent = this;
                         frmDepartmentMaster.Dock = DockStyle.Fill;
                         frmDepartmentMaster.Show();
@@ -2668,7 +2671,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Department Master Details";
-                    frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDepartmentMaster.MdiParent = this;
                     frmDepartmentMaster.Dock = DockStyle.Fill;
                     frmDepartmentMaster.Show();
@@ -2688,7 +2691,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Designation Master Details";
-                    frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDesignationMaster.MdiParent = this;
                     frmDesignationMaster.Dock = DockStyle.Fill;
                     frmDesignationMaster.Show();
@@ -2702,7 +2705,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Designation Master Details";
-                        frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmDesignationMaster.MdiParent = this;
                         frmDesignationMaster.Dock = DockStyle.Fill;
                         frmDesignationMaster.Show();
@@ -2727,7 +2730,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Designation Master Details";
-                    frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDesignationMaster.MdiParent = this;
                     frmDesignationMaster.Dock = DockStyle.Fill;
                     frmDesignationMaster.Show();
@@ -2747,7 +2750,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "State Master Details";
-                    frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmStateMaster.MdiParent = this;
                     frmStateMaster.Dock = DockStyle.Fill;
                     frmStateMaster.Show();
@@ -2761,7 +2764,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "State Master Details";
-                        frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmStateMaster.MdiParent = this;
                         frmStateMaster.Dock = DockStyle.Fill;
                         frmStateMaster.Show();
@@ -2787,7 +2790,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "State Master Details";
-                    frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmStateMaster.MdiParent = this;
                     frmStateMaster.Dock = DockStyle.Fill;
                     frmStateMaster.Show();
@@ -2807,7 +2810,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Relationship Master Details";
-                    frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRelationshipMaster.MdiParent = this;
                     frmRelationshipMaster.Dock = DockStyle.Fill;
                     frmRelationshipMaster.Show();
@@ -2821,7 +2824,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Relationship Master Details";
-                        frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmRelationshipMaster.MdiParent = this;
                         frmRelationshipMaster.Dock = DockStyle.Fill;
                         frmRelationshipMaster.Show();
@@ -2846,7 +2849,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Relationship Master Details";
-                    frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRelationshipMaster.MdiParent = this;
                     frmRelationshipMaster.Dock = DockStyle.Fill;
                     frmRelationshipMaster.Show();
@@ -2866,7 +2869,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Payroll Master Details";
-                    frmPayrollMaster payrollMaster = new frmPayrollMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmPayrollMaster payrollMaster = new frmPayrollMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     payrollMaster.MdiParent = this;
                     payrollMaster.Dock = DockStyle.Fill;
                     payrollMaster.Show();
@@ -2880,7 +2883,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Payroll Master Details";
-                        frmPayrollMaster payrollMaster = new frmPayrollMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmPayrollMaster payrollMaster = new frmPayrollMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         payrollMaster.MdiParent = this;
                         payrollMaster.Dock = DockStyle.Fill;
                         payrollMaster.Show();
@@ -2905,7 +2908,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Payroll Master Details";
-                    frmPayrollMaster payrollMaster = new frmPayrollMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmPayrollMaster payrollMaster = new frmPayrollMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     payrollMaster.MdiParent = this;
                     payrollMaster.Dock = DockStyle.Fill;
                     payrollMaster.Show();
@@ -2925,7 +2928,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Allowence Master Details";
-                    frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollAllowences.MdiParent = this;
                     frmPayrollAllowences.Dock = DockStyle.Fill;
                     frmPayrollAllowences.Show();
@@ -2939,7 +2942,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Allowence Master Details";
-                        frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmPayrollAllowences.MdiParent = this;
                         frmPayrollAllowences.Dock = DockStyle.Fill;
                         frmPayrollAllowences.Show();
@@ -2964,7 +2967,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Allowence Master Details";
-                    frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollAllowences.MdiParent = this;
                     frmPayrollAllowences.Dock = DockStyle.Fill;
                     frmPayrollAllowences.Show();
@@ -2984,7 +2987,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Deduction Master Details";
-                    frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollDeductions.MdiParent = this;
                     frmPayrollDeductions.Dock = DockStyle.Fill;
                     frmPayrollDeductions.Show();
@@ -2998,7 +3001,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Deduction Master Details";
-                        frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmPayrollDeductions.MdiParent = this;
                         frmPayrollDeductions.Dock = DockStyle.Fill;
                         frmPayrollDeductions.Show();
@@ -3023,7 +3026,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Deduction Master Details";
-                    frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollDeductions.MdiParent = this;
                     frmPayrollDeductions.Dock = DockStyle.Fill;
                     frmPayrollDeductions.Show();
@@ -3043,7 +3046,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Reimbursement Master Details";
-                    frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmReimbursement.MdiParent = this;
                     frmReimbursement.Dock = DockStyle.Fill;
                     frmReimbursement.Show();
@@ -3057,7 +3060,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Reimbursement Master Details";
-                        frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmReimbursement.MdiParent = this;
                         frmReimbursement.Dock = DockStyle.Fill;
                         frmReimbursement.Show();
@@ -3082,7 +3085,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Reimbursement Master Details";
-                    frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmReimbursement.MdiParent = this;
                     frmReimbursement.Dock = DockStyle.Fill;
                     frmReimbursement.Show();
@@ -3102,7 +3105,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Leave Statement Details";
-                frmLeaveStatement frmLeaveStatement = new frmLeaveStatement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmLeaveStatement frmLeaveStatement = new frmLeaveStatement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmLeaveStatement.MdiParent = this;
                 frmLeaveStatement.Dock = DockStyle.Fill;
                 frmLeaveStatement.Show();
@@ -3121,7 +3124,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Company Master Details";
-                    frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmCompanyInfo.MdiParent = this;
                     frmCompanyInfo.Dock = DockStyle.Fill;
                     frmCompanyInfo.Show();
@@ -3135,7 +3138,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Company Master Details";
-                        frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmCompanyInfo.MdiParent = this;
                         frmCompanyInfo.Dock = DockStyle.Fill;
                         frmCompanyInfo.Show();
@@ -3160,7 +3163,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Company Master Details";
-                    frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmCompanyInfo.MdiParent = this;
                     frmCompanyInfo.Dock = DockStyle.Fill;
                     frmCompanyInfo.Show();
@@ -3174,7 +3177,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Current User Master Details";
-                frmUpdateCurrentUserInfo frmUpdateCurrentUserInfo = new frmUpdateCurrentUserInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmUpdateCurrentUserInfo frmUpdateCurrentUserInfo = new frmUpdateCurrentUserInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmUpdateCurrentUserInfo.MdiParent = this;
                 frmUpdateCurrentUserInfo.Dock = DockStyle.Fill;
                 frmUpdateCurrentUserInfo.Show();
@@ -3187,7 +3190,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Current User Leave Master Details";
-                frmCurrentUserLeaveMaster frmCurrentUserLeaveMaster = new frmCurrentUserLeaveMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmCurrentUserLeaveMaster frmCurrentUserLeaveMaster = new frmCurrentUserLeaveMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmCurrentUserLeaveMaster.MdiParent = this;
                 frmCurrentUserLeaveMaster.Dock = DockStyle.Fill;
                 frmCurrentUserLeaveMaster.Show();
@@ -3200,7 +3203,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Leave Statement Details";
-                frmLeaveStatement frmLeaveStatement = new frmLeaveStatement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmLeaveStatement frmLeaveStatement = new frmLeaveStatement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmLeaveStatement.MdiParent = this;
                 frmLeaveStatement.Dock = DockStyle.Fill;
                 frmLeaveStatement.Show();
@@ -3219,7 +3222,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Leave Entitlement Details";
-                    frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmpLeaveEntitlement.MdiParent = this;
                     frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
                     frmEmpLeaveEntitlement.Show();
@@ -3233,7 +3236,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Leave Entitlement Details";
-                        frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmEmpLeaveEntitlement.MdiParent = this;
                         frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
                         frmEmpLeaveEntitlement.Show();
@@ -3258,7 +3261,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Leave Entitlement Details";
-                    frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmpLeaveEntitlement.MdiParent = this;
                     frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
                     frmEmpLeaveEntitlement.Show();
@@ -3284,7 +3287,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Salary Profile Details";
-                    frmSalaryProfile frmSalaryProfile = new frmSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmSalaryProfile frmSalaryProfile = new frmSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmSalaryProfile.MdiParent = this;
                     frmSalaryProfile.Dock = DockStyle.Fill;
                     frmSalaryProfile.Show();
@@ -3298,7 +3301,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Salary Profile Details";
-                        frmSalaryProfile frmSalaryProfile = new frmSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmSalaryProfile frmSalaryProfile = new frmSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmSalaryProfile.MdiParent = this;
                         frmSalaryProfile.Dock = DockStyle.Fill;
                         frmSalaryProfile.Show();
@@ -3323,7 +3326,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Salary Profile Details";
-                    frmSalaryProfile frmSalaryProfile = new frmSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmSalaryProfile frmSalaryProfile = new frmSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmSalaryProfile.MdiParent = this;
                     frmSalaryProfile.Dock = DockStyle.Fill;
                     frmSalaryProfile.Show();
@@ -3343,7 +3346,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Salary Profile Details";
-                    frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmUpdateSalaryProfile.MdiParent = this;
                     frmUpdateSalaryProfile.Dock = DockStyle.Fill;
                     frmUpdateSalaryProfile.Show();
@@ -3357,7 +3360,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Salary Profile Details";
-                        frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmUpdateSalaryProfile.MdiParent = this;
                         frmUpdateSalaryProfile.Dock = DockStyle.Fill;
                         frmUpdateSalaryProfile.Show();
@@ -3382,7 +3385,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Salary Profile Details";
-                    frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmUpdateSalaryProfile.MdiParent = this;
                     frmUpdateSalaryProfile.Dock = DockStyle.Fill;
                     frmUpdateSalaryProfile.Show();
@@ -3396,7 +3399,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Bulk Leave Approval Details";
-                frmEmpBulkLeaveApproval frmEmpBulkLeaveApproval = new frmEmpBulkLeaveApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmEmpBulkLeaveApproval frmEmpBulkLeaveApproval = new frmEmpBulkLeaveApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEmpBulkLeaveApproval.MdiParent = this;
                 frmEmpBulkLeaveApproval.Dock = DockStyle.Fill;
                 frmEmpBulkLeaveApproval.Show();
@@ -3415,7 +3418,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Leave Type Master Details";
-                    frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLeaveTypeMaster.MdiParent = this;
                     frmLeaveTypeMaster.Dock = DockStyle.Fill;
                     frmLeaveTypeMaster.Show();
@@ -3429,7 +3432,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Leave Type Master Details";
-                        frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmLeaveTypeMaster.MdiParent = this;
                         frmLeaveTypeMaster.Dock = DockStyle.Fill;
                         frmLeaveTypeMaster.Show();
@@ -3454,7 +3457,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Leave Type Master Details";
-                    frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLeaveTypeMaster.MdiParent = this;
                     frmLeaveTypeMaster.Dock = DockStyle.Fill;
                     frmLeaveTypeMaster.Show();
@@ -3479,7 +3482,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Employee Master Details";
-                    frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmployeeMasterDetails.MdiParent = this;
                     frmEmployeeMasterDetails.Dock = DockStyle.Fill;
                     frmEmployeeMasterDetails.Show();
@@ -3493,7 +3496,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Employee Master Details";
-                        frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmEmployeeMasterDetails.MdiParent = this;
                         frmEmployeeMasterDetails.Dock = DockStyle.Fill;
                         frmEmployeeMasterDetails.Show();
@@ -3518,7 +3521,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Employee Master Details";
-                    frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmployeeMasterDetails.MdiParent = this;
                     frmEmployeeMasterDetails.Dock = DockStyle.Fill;
                     frmEmployeeMasterDetails.Show();
@@ -3538,7 +3541,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Employee Leave Entitlement Details";
-                    frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmpLeaveEntitlement.MdiParent = this;
                     frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
                     frmEmpLeaveEntitlement.Show();
@@ -3552,7 +3555,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Employee Leave Entitlement Details";
-                        frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmEmpLeaveEntitlement.MdiParent = this;
                         frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
                         frmEmpLeaveEntitlement.Show();
@@ -3577,7 +3580,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Employee Leave Entitlement Details";
-                    frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmpLeaveEntitlement.MdiParent = this;
                     frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
                     frmEmpLeaveEntitlement.Show();
@@ -3591,7 +3594,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Leave Statement Details";
-                frmLeaveStatements frmLeaveStatements = new frmLeaveStatements(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmLeaveStatements frmLeaveStatements = new frmLeaveStatements(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmLeaveStatements.MdiParent = this;
                 frmLeaveStatements.Dock = DockStyle.Fill;
                 frmLeaveStatements.Show();
@@ -3610,7 +3613,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Weekly Profile Master Details";
-                    frmWeeklyProfileMas frmWeeklyProfileMas = new frmWeeklyProfileMas(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmWeeklyProfileMas frmWeeklyProfileMas = new frmWeeklyProfileMas(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmWeeklyProfileMas.MdiParent = this;
                     frmWeeklyProfileMas.Dock = DockStyle.Fill;
                     frmWeeklyProfileMas.Show();
@@ -3624,7 +3627,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Weekly Profile Master Details";
-                        frmWeeklyProfileMas frmWeeklyProfileMas = new frmWeeklyProfileMas(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmWeeklyProfileMas frmWeeklyProfileMas = new frmWeeklyProfileMas(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmWeeklyProfileMas.MdiParent = this;
                         frmWeeklyProfileMas.Dock = DockStyle.Fill;
                         frmWeeklyProfileMas.Show();
@@ -3649,7 +3652,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Weekly Profile Master Details";
-                    frmWeeklyProfileMas frmWeeklyProfileMas = new frmWeeklyProfileMas(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmWeeklyProfileMas frmWeeklyProfileMas = new frmWeeklyProfileMas(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmWeeklyProfileMas.MdiParent = this;
                     frmWeeklyProfileMas.Dock = DockStyle.Fill;
                     frmWeeklyProfileMas.Show();
@@ -3671,7 +3674,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Weekly Profile Details Information";
-                    frmWeeklyProfileDetailsInfo frmWeeklyProfileDetailsInfo = new frmWeeklyProfileDetailsInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmWeeklyProfileDetailsInfo frmWeeklyProfileDetailsInfo = new frmWeeklyProfileDetailsInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmWeeklyProfileDetailsInfo.MdiParent = this;
                     frmWeeklyProfileDetailsInfo.Dock = DockStyle.Fill;
                     frmWeeklyProfileDetailsInfo.Show();
@@ -3685,7 +3688,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Weekly Profile Details Information";
-                        frmWeeklyProfileDetailsInfo frmWeeklyProfileDetailsInfo = new frmWeeklyProfileDetailsInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmWeeklyProfileDetailsInfo frmWeeklyProfileDetailsInfo = new frmWeeklyProfileDetailsInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmWeeklyProfileDetailsInfo.MdiParent = this;
                         frmWeeklyProfileDetailsInfo.Dock = DockStyle.Fill;
                         frmWeeklyProfileDetailsInfo.Show();
@@ -3710,7 +3713,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Weekly Profile Details Information";
-                    frmWeeklyProfileDetailsInfo frmWeeklyProfileDetailsInfo = new frmWeeklyProfileDetailsInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmWeeklyProfileDetailsInfo frmWeeklyProfileDetailsInfo = new frmWeeklyProfileDetailsInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmWeeklyProfileDetailsInfo.MdiParent = this;
                     frmWeeklyProfileDetailsInfo.Dock = DockStyle.Fill;
                     frmWeeklyProfileDetailsInfo.Show();
@@ -3724,7 +3727,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Bulk Leave Approval Details";
-                frmBulkLeaveApproval frmBulkLeaveApproval = new frmBulkLeaveApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmBulkLeaveApproval frmBulkLeaveApproval = new frmBulkLeaveApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmBulkLeaveApproval.MdiParent = this;
                 frmBulkLeaveApproval.Dock = DockStyle.Fill;
                 frmBulkLeaveApproval.Show();
@@ -3743,7 +3746,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Payroll Allowance Master Details";
-                    frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollAllowences.MdiParent = this;
                     frmPayrollAllowences.Dock = DockStyle.Fill;
                     frmPayrollAllowences.Show();
@@ -3757,7 +3760,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Payroll Allowance Master Details";
-                        frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmPayrollAllowences.MdiParent = this;
                         frmPayrollAllowences.Dock = DockStyle.Fill;
                         frmPayrollAllowences.Show();
@@ -3782,7 +3785,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Payroll Allowance Master Details";
-                    frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollAllowences.MdiParent = this;
                     frmPayrollAllowences.Dock = DockStyle.Fill;
                     frmPayrollAllowences.Show();
@@ -3802,7 +3805,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Reimbursement Master Details";
-                    frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmReimbursement.MdiParent = this;
                     frmReimbursement.Dock = DockStyle.Fill;
                     frmReimbursement.Show();
@@ -3816,7 +3819,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Reimbursement Master Details";
-                        frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmReimbursement.MdiParent = this;
                         frmReimbursement.Dock = DockStyle.Fill;
                         frmReimbursement.Show();
@@ -3841,7 +3844,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Reimbursement Master Details";
-                    frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmReimbursement.MdiParent = this;
                     frmReimbursement.Dock = DockStyle.Fill;
                     frmReimbursement.Show();
@@ -3861,7 +3864,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Deduction Master Details";
-                    frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollDeductions.MdiParent = this;
                     frmPayrollDeductions.Dock = DockStyle.Fill;
                     frmPayrollDeductions.Show();
@@ -3875,7 +3878,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         lblDashboardTitle.Text = "Deduction Master Details";
-                        frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                        frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmPayrollDeductions.MdiParent = this;
                         frmPayrollDeductions.Dock = DockStyle.Fill;
                         frmPayrollDeductions.Show();
@@ -3900,7 +3903,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     lblDashboardTitle.Text = "Deduction Master Details";
-                    frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                    frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollDeductions.MdiParent = this;
                     frmPayrollDeductions.Dock = DockStyle.Fill;
                     frmPayrollDeductions.Show();
@@ -3914,7 +3917,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Pending Approval Details";
-                frmPendingApprovalList frmPendingApprovalList = new frmPendingApprovalList(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmPendingApprovalList frmPendingApprovalList = new frmPendingApprovalList(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmPendingApprovalList.MdiParent = this;
                 frmPendingApprovalList.Dock = DockStyle.Fill;
                 frmPendingApprovalList.Show();
@@ -3940,7 +3943,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Consolidated Leave Statement";
-                frmConsolidatedLeaveStatement frmConsolidatedLeaveStatement = new frmConsolidatedLeaveStatement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmConsolidatedLeaveStatement frmConsolidatedLeaveStatement = new frmConsolidatedLeaveStatement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmConsolidatedLeaveStatement.MdiParent = this;
                 frmConsolidatedLeaveStatement.Dock = DockStyle.Fill;
                 frmConsolidatedLeaveStatement.Show();
@@ -3953,7 +3956,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Outstanding Leave Statement";
-                frmOutstandingLeaveStatement frmOutstandingLeaveStatement = new frmOutstandingLeaveStatement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmOutstandingLeaveStatement frmOutstandingLeaveStatement = new frmOutstandingLeaveStatement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmOutstandingLeaveStatement.MdiParent = this;
                 frmOutstandingLeaveStatement.Dock = DockStyle.Fill;
                 frmOutstandingLeaveStatement.Show();
@@ -3966,7 +3969,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Daily Attendance Sheet";
-                frmDailyAttendanceSheet frmDailyAttendanceSheet = new frmDailyAttendanceSheet(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmDailyAttendanceSheet frmDailyAttendanceSheet = new frmDailyAttendanceSheet(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmDailyAttendanceSheet.MdiParent = this;
                 frmDailyAttendanceSheet.Dock = DockStyle.Fill;
                 frmDailyAttendanceSheet.Show();
@@ -3981,7 +3984,19 @@ namespace StaffSync
 
         private void frmDashboard_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
+            if (e.KeyCode == Keys.F5)
+            {
+                frmActiveCompanyInfo frmActiveCompanyInfo = new frmActiveCompanyInfo(objSelectedClientFinYearInfo);
+                frmActiveCompanyInfo.ShowDialog(this);
+                objSelectedClientFinYearInfo = frmActiveCompanyInfo.GetSelectedClientAndFinYearDetails();
+
+                objActiveClientInfo = objClientInfo.getClientInfo(objSelectedClientFinYearInfo.ClientID);
+                objActiveFinYear = objFinYearInfo.GetSpecificFinYearInfo(objSelectedClientFinYearInfo.FinYearID);
+
+                this.Text = "Staffsync Dashboard - " + objActiveClientInfo.FirstOrDefault().ClientName + " [ FY - " + objActiveFinYear.FirstOrDefault().FinYearFromTo + " ]";
+                CurrentUser.ClientID = objActiveClientInfo.FirstOrDefault().ClientID;
+            }
+            else if (e.KeyCode == Keys.Escape)
             {
                 if (MessageBox.Show("Are you sure you want to exit.?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
@@ -3996,7 +4011,7 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Daily Attendance Sheet";
-                frmDailyAttendanceProcess frmDailyAttendanceProcess = new frmDailyAttendanceProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmDailyAttendanceProcess frmDailyAttendanceProcess = new frmDailyAttendanceProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmDailyAttendanceProcess.MdiParent = this;
                 frmDailyAttendanceProcess.Dock = DockStyle.Fill;
                 frmDailyAttendanceProcess.Show();
@@ -4009,11 +4024,24 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Payroll Batch Process";
-                frmPayrollBatchProcess frmPayrollBatchProcess = new frmPayrollBatchProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo);
+                frmPayrollBatchProcess frmPayrollBatchProcess = new frmPayrollBatchProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmPayrollBatchProcess.MdiParent = this;
                 frmPayrollBatchProcess.Dock = DockStyle.Fill;
                 frmPayrollBatchProcess.Show();
                 frmPayrollBatchProcess.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void cmbPublicHolidayConfig_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Public Holiday Configuration";
+                frmPublicHolidayConfig frmPublicHolidayConfig = new frmPublicHolidayConfig(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmPublicHolidayConfig.MdiParent = this;
+                frmPublicHolidayConfig.Dock = DockStyle.Fill;
+                frmPublicHolidayConfig.Show();
+                frmPublicHolidayConfig.WindowState = FormWindowState.Maximized;
             }
         }
     }

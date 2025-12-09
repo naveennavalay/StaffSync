@@ -398,7 +398,7 @@
             this.tabControl1.Bar.ItemSizing = Krypton.Navigator.BarItemSizing.SameWidth;
             this.tabControl1.Bar.TabBorderStyle = Krypton.Toolkit.TabBorderStyle.RoundedOutsizeLarge;
             this.tabControl1.Bar.TabStyle = Krypton.Toolkit.TabStyle.HighProfile;
-            this.tabControl1.Button.ButtonDisplayLogic = Krypton.Navigator.ButtonDisplayLogic.NextPrevious;
+            this.tabControl1.Button.ButtonDisplayLogic = Krypton.Navigator.ButtonDisplayLogic.None;
             this.tabControl1.Button.CloseButtonAction = Krypton.Navigator.CloseButtonAction.None;
             this.tabControl1.Button.CloseButtonDisplay = Krypton.Navigator.ButtonDisplay.Hide;
             this.tabControl1.Button.ContextButtonAction = Krypton.Navigator.ContextButtonAction.SelectPage;
@@ -1248,8 +1248,9 @@
             this.dtgFamilyMemberInforamtion.Name = "dtgFamilyMemberInforamtion";
             this.dtgFamilyMemberInforamtion.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgFamilyMemberInforamtion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgFamilyMemberInforamtion.Size = new System.Drawing.Size(1168, 369);
+            this.dtgFamilyMemberInforamtion.Size = new System.Drawing.Size(1168, 275);
             this.dtgFamilyMemberInforamtion.TabIndex = 47;
+            this.dtgFamilyMemberInforamtion.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgFamilyMemberInforamtion_CellDoubleClick);
             // 
             // tabIDInformation
             // 
@@ -2635,7 +2636,6 @@
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox4.TabIndex = 26;
             this.pictureBox4.TabStop = false;
-            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
             // picRefreshBankList
             // 

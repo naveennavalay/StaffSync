@@ -12,8 +12,8 @@ namespace ModelStaffSync
         public int EmpPerFamInfoID { get; set; }
         public int PersonalInfoID { get; set; }
         public string FamMemName { get; set; }
-        public DateTime FamMemDOB { get; set; }
-        public int FamMemAge { get; set; }
+        public DateTime? FamMemDOB { get; set; }
+        public int? FamMemAge { get; set; }
         public string FamMemRelationship { get; set; }
         public string FamMemAddr1 { get; set; }
         public string FamMemAddr2 { get; set; }
@@ -25,5 +25,6 @@ namespace ModelStaffSync
         public string FamMemContactNumber { get; set; }
         public string FamMemMailID { get; set; }
         public string FamMemBloodGroup { get; set; }
+        public bool FamMemInsuranceEnrolled { get; set; }
     }
 }

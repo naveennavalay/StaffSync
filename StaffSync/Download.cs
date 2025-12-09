@@ -1,4 +1,5 @@
-﻿using Krypton.Toolkit;
+﻿using DocumentFormat.OpenXml;
+using Krypton.Toolkit;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,12 +7,14 @@ using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Quartz.Logging.OperationName;
 
 namespace StaffSync
 {
@@ -22,6 +25,8 @@ namespace StaffSync
         //DataSet dtDataset;
         //clsStates objState = new clsStates();
         //clsCountries objCountry = new clsCountries();
+
+        public static DateTime dtValue;
 
         //public Download() { 
 
@@ -71,7 +76,27 @@ namespace StaffSync
                     for (int i = 0; i < totalcolms; i++)
                     {
                         if (!dtSpecificDataGrid.Columns[i].Visible == false)
-                            data += (row.Cells[i].Value ?? "").ToString() + ',';
+                        {
+                            string value = (row.Cells[i].Value ?? "").ToString();
+                            if (!string.IsNullOrEmpty(value))
+                            {
+                                if(DetectDataType(value) == "Date")
+                                {
+                                    if (DateTime.TryParse(value, out DateTime dt))
+                                    {
+                                        if (dt.TimeOfDay == new TimeSpan(12, 0, 0))
+                                        {
+                                            value = dt.Date.ToString("dd-MMM-yyyy");
+                                        }
+                                        data += (value ?? "").ToString() + ',';
+                                    }
+                                }
+                                else
+                                    data += (row.Cells[i].Value ?? "").ToString() + ',';
+                            }
+                            else
+                                data += (row.Cells[i].Value ?? "").ToString() + ',';
+                        }
                     }
                     if (data != string.Empty)
                     {
@@ -81,6 +106,20 @@ namespace StaffSync
                 }
             }
             return fileGenerated;
+        }
+
+        public static string DetectDataType(string input)
+        {
+            if (int.TryParse(input, out _))
+                return "Integer";
+
+            if (decimal.TryParse(input, out _))
+                return "Decimal";
+
+            if (DateTime.TryParse(input, out _))
+                return "Date";
+
+            return "String";
         }
 
         public static void OpenCSV(string strFilePath)

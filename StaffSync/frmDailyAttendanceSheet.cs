@@ -38,6 +38,7 @@ namespace StaffSync
         List<WklyOffProfileDetailsInfo> lstWeeklyOffDetailsInfo = new List<WklyOffProfileDetailsInfo>();
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         List<ClientInfo> objActiveClientInfo = new List<ClientInfo>();
+        ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
 
         private void Control_CellValueChangedCustom(object sender, CellValueChangedEventArgs e)
         {
@@ -56,6 +57,15 @@ namespace StaffSync
         {
             InitializeComponent();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+            objActiveClientInfo = objClientInfo.getClientInfoByEmpID(objTempCurrentlyLoggedInUserInfo.EmpID);
+        }
+
+        public frmDailyAttendanceSheet(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+            objTempClientFinYearInfo = objSelectedClientFinYearInfo;
+            ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
             objActiveClientInfo = objClientInfo.getClientInfoByEmpID(objTempCurrentlyLoggedInUserInfo.EmpID);
         }
 
@@ -531,7 +541,7 @@ namespace StaffSync
 
         private void chkSelectUnselect_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void dtgRejectionLeaveList_DoubleClick(object sender, EventArgs e)

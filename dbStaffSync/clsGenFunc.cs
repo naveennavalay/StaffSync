@@ -147,8 +147,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "SELECT MAX(" + ColumnName.ToString().Trim() + ") FROM " + tableName;
-                //string strQuery = "SELECT MAX(EmpCode) FROM EMPMAS WHERE ClientID = " + CurrentCompanyID;
+                //string strQuery = "SELECT MAX(" + ColumnName.ToString().Trim() + ") FROM " + tableName;
+                string strQuery = "SELECT MAX(EmpCode) FROM EMPMAS WHERE ClientID = " + CurrentCompanyID;
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
