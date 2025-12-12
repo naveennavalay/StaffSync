@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.chkCompactDetailedView = new Krypton.Toolkit.KryptonCheckButton();
             this.dtgConsolidatedAttendanceReport = new Krypton.Toolkit.KryptonDataGridView();
             this.cmbYearlyPublicHoliday = new Krypton.Toolkit.KryptonComboBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
-            this.chkCompactDetailedView = new Krypton.Toolkit.KryptonCheckButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -87,6 +87,7 @@
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -109,11 +110,23 @@
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             // 
+            // chkCompactDetailedView
+            // 
+            this.chkCompactDetailedView.Location = new System.Drawing.Point(990, 20);
+            this.chkCompactDetailedView.Name = "chkCompactDetailedView";
+            this.chkCompactDetailedView.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.chkCompactDetailedView.Size = new System.Drawing.Size(166, 22);
+            this.chkCompactDetailedView.TabIndex = 64;
+            this.chkCompactDetailedView.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.chkCompactDetailedView.Values.Text = "Detailed View";
+            this.chkCompactDetailedView.Click += new System.EventHandler(this.chkCompactDetailedView_Click);
+            // 
             // dtgConsolidatedAttendanceReport
             // 
             this.dtgConsolidatedAttendanceReport.AllowUserToAddRows = false;
             this.dtgConsolidatedAttendanceReport.AllowUserToDeleteRows = false;
             this.dtgConsolidatedAttendanceReport.AllowUserToResizeRows = false;
+            this.dtgConsolidatedAttendanceReport.AutoGenerateKryptonColumns = false;
             this.dtgConsolidatedAttendanceReport.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dtgConsolidatedAttendanceReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgConsolidatedAttendanceReport.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
@@ -274,17 +287,6 @@
             // qryAllEmpLeavePendingStatementTableAdapter
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
-            // 
-            // chkCompactDetailedView
-            // 
-            this.chkCompactDetailedView.Location = new System.Drawing.Point(990, 20);
-            this.chkCompactDetailedView.Name = "chkCompactDetailedView";
-            this.chkCompactDetailedView.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.chkCompactDetailedView.Size = new System.Drawing.Size(166, 22);
-            this.chkCompactDetailedView.TabIndex = 64;
-            this.chkCompactDetailedView.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.chkCompactDetailedView.Values.Text = "Detailed View";
-            this.chkCompactDetailedView.Click += new System.EventHandler(this.chkCompactDetailedView_Click);
             // 
             // frmPublicHolidayConfig
             // 

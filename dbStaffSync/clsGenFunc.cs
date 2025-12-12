@@ -148,21 +148,25 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 //string strQuery = "SELECT MAX(" + ColumnName.ToString().Trim() + ") FROM " + tableName;
-                string strQuery = "SELECT MAX(EmpCode) FROM EMPMAS WHERE ClientID = " + CurrentCompanyID;
+                string strQuery = "SELECT MAX(Val(MID([EmpCode], 5))) AS EmpCode1 FROM EMPMAS WHERE ClientID = " + CurrentCompanyID;
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
-                int maxRow = (Int32)cmd.ExecuteScalar();
-                if (maxRow == 0)
+                string maxRow = cmd.ExecuteScalar().ToString();
+                if (maxRow.ToString() == "" || maxRow.ToString() == "0")
                     rowCount = 1;
-                else if (maxRow > 0)
-                    rowCount = maxRow + 1;
+                else if (Convert.ToInt16(maxRow) > 0)
+                    rowCount = Convert.ToInt16(maxRow) + 1;
 
             }
             catch (Exception ex)
             {
                 if (ex.Message.ToString().ToLower() == "Specified cast is not valid.".ToLower())
+                {
+                    rowCount = 1;
+                }
+                else if (ex.Message.ToString().ToLower() == "Input string was not in a correct format.")
                 {
                     rowCount = 1;
                 }

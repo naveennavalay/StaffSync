@@ -42,6 +42,27 @@ namespace dbStaffSync
                                     "WHERE " + 
                                         "(((PubHolidayDetails.PubHolMasID) = " + txtYearID + "));";
 
+                strQuery = "SELECT " +
+                                "PubHolidayDetails.PubHolDetID, " +
+                                "PubHolidayDetails.PubHolMasID, " +
+                                "PubHolidayDetails.PubHolidayTitle, " +
+                                "PubHolidayDetails.PubHolDate, " +
+                                "PubHolidayDetails.OrderID, " +
+                                "WeekdayName (Weekday ([PubHolDate], 0)) AS DayName, " +
+                                "ClientMas.ClientID " +
+                            "FROM " +
+                                "( " +
+                                    "ClientMas " +
+                                    "INNER JOIN PublicHolidayMas ON ClientMas.ClientID = PublicHolidayMas.ClientID " +
+                                ") " +
+                                "INNER JOIN PubHolidayDetails ON PublicHolidayMas.PubHolMasID = PubHolidayDetails.PubHolMasID " +
+                            "WHERE " +
+                                "(" +
+                                    "((PubHolidayDetails.PubHolMasID) = " + txtYearID + ") " +
+                                    "AND ((ClientMas.ClientID) = " + +CurrentUser.ClientID + ") " +
+                                ");";
+
+
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
@@ -119,8 +140,8 @@ namespace dbStaffSync
                     affectedRows = maxRowCount.Data;
 
 
-                strQuery = "INSERT INTO PublicHolidayMas (PubHolMasID, PubHolYear, IsDefault, OrderID, FinYearID) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + txtPublicHolidayYear + "'," + IsDefault + "," + OrderID.Data + "," + txtFinYearID + ")";
+                strQuery = "INSERT INTO PublicHolidayMas (PubHolMasID, PubHolYear, IsDefault, OrderID, FinYearID, ClientID) VALUES " +
+                 "(" + maxRowCount.Data + ",'" + txtPublicHolidayYear + "'," + IsDefault + "," + OrderID.Data + "," + txtFinYearID + "," + CurrentUser.ClientID + ")";
 
                 cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

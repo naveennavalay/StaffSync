@@ -93,6 +93,7 @@ namespace StaffSync
 
         private void btnCloseMe_Click(object sender, EventArgs e)
         {
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
             this.Close();
         }
 
@@ -372,7 +373,7 @@ namespace StaffSync
             dtgConsolidatedAttendanceReport.DataSource = dt;
 
             dtgConsolidatedAttendanceReport.EditMode = DataGridViewEditMode.EditProgrammatically;
-            dtgConsolidatedAttendanceReport.Columns["MonthName"].Frozen = true;
+            //dtgConsolidatedAttendanceReport.Columns["MonthName"].Frozen = true;
 
             // Style the columns
             for (int d = 1; d <= 31; d++)

@@ -212,7 +212,7 @@ namespace dbStaffSync
                     ModelStaffSync.CurrentUser.EmpID = objLoggedInUser[0].EmpID;
                     ModelStaffSync.CurrentUser.EmpCode = objLoggedInUser[0].EmpCode;
                     ModelStaffSync.CurrentUser.EmpName = objLoggedInUser[0].EmpName;
-                    ModelStaffSync.CurrentUser.ClientID = objLoggedInUser[0].ClientID;
+                    ModelStaffSync.CurrentUser.ClientID = 0; // objLoggedInUser[0].ClientID;
                     ModelStaffSync.CurrentUser.DesignationTitle = objLoggedInUser[0].DesignationTitle;
                     ModelStaffSync.CurrentUser.DepartmentTitle = objLoggedInUser[0].DepartmentTitle;
                     ModelStaffSync.CurrentUser.BloodGroupTitle = objLoggedInUser[0].BloodGroupTitle;

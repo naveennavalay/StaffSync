@@ -145,6 +145,8 @@
             this.cmbEarningsListConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbDeductionsListConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbReimbursmentListConfig = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmbPublicHolidayConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.tlbApplicationGroup = new Krypton.Ribbon.KryptonRibbonGroup();
             this.kryptonRibbonGroupTriple2 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbApplicationHelp = new Krypton.Ribbon.KryptonRibbonGroupButton();
@@ -169,8 +171,7 @@
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.lblDashboardTitle = new System.Windows.Forms.Label();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
-            this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripSeparator();
-            this.cmbPublicHolidayConfig = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbCountriesList = new System.Windows.Forms.ToolStripMenuItem();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -934,11 +935,12 @@
             // 
             this.cmbMasterList.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmbCompanyList01,
+            this.cmbCountriesList,
+            this.cmbStatesList01,
             this.cmbEducationList01,
             this.cmbSkillsList01,
             this.cmbDepartmentList01,
             this.cmbDesignationList01,
-            this.cmbStatesList01,
             this.cmbRelationshipList01,
             this.cmbWeeklyOffList,
             this.cmbWeeklyOffConfiguration});
@@ -1073,7 +1075,7 @@
             // 
             this.cmbLeaveTypeMaster.Image = global::StaffSync.Properties.Resources.leave_config;
             this.cmbLeaveTypeMaster.Name = "cmbLeaveTypeMaster";
-            this.cmbLeaveTypeMaster.Size = new System.Drawing.Size(132, 22);
+            this.cmbLeaveTypeMaster.Size = new System.Drawing.Size(180, 22);
             this.cmbLeaveTypeMaster.Tag = "cmbLeaveTypeMaster";
             this.cmbLeaveTypeMaster.Text = "Leave Type";
             this.cmbLeaveTypeMaster.Click += new System.EventHandler(this.cmbLeaveTypeMaster_Click);
@@ -1098,7 +1100,7 @@
             // 
             this.cmbEarningsListConfig.Image = global::StaffSync.Properties.Resources.earnings;
             this.cmbEarningsListConfig.Name = "cmbEarningsListConfig";
-            this.cmbEarningsListConfig.Size = new System.Drawing.Size(173, 22);
+            this.cmbEarningsListConfig.Size = new System.Drawing.Size(180, 22);
             this.cmbEarningsListConfig.Tag = "cmbEarningsListConfig";
             this.cmbEarningsListConfig.Text = "Earnings List";
             this.cmbEarningsListConfig.Click += new System.EventHandler(this.cmbEarningsListConfig_Click);
@@ -1107,7 +1109,7 @@
             // 
             this.cmbDeductionsListConfig.Image = global::StaffSync.Properties.Resources.deductions;
             this.cmbDeductionsListConfig.Name = "cmbDeductionsListConfig";
-            this.cmbDeductionsListConfig.Size = new System.Drawing.Size(173, 22);
+            this.cmbDeductionsListConfig.Size = new System.Drawing.Size(180, 22);
             this.cmbDeductionsListConfig.Tag = "cmbDeductionsListConfig";
             this.cmbDeductionsListConfig.Text = "Deductions List";
             this.cmbDeductionsListConfig.Click += new System.EventHandler(this.cmbDeductionsListConfig_Click);
@@ -1116,10 +1118,23 @@
             // 
             this.cmbReimbursmentListConfig.Image = global::StaffSync.Properties.Resources.reimbursement;
             this.cmbReimbursmentListConfig.Name = "cmbReimbursmentListConfig";
-            this.cmbReimbursmentListConfig.Size = new System.Drawing.Size(173, 22);
+            this.cmbReimbursmentListConfig.Size = new System.Drawing.Size(180, 22);
             this.cmbReimbursmentListConfig.Tag = "cmbReimbursmentListConfig";
             this.cmbReimbursmentListConfig.Text = "Reimbursment List";
             this.cmbReimbursmentListConfig.Click += new System.EventHandler(this.cmbReimbursmentListConfig_Click);
+            // 
+            // toolStripMenuItem16
+            // 
+            this.toolStripMenuItem16.Name = "toolStripMenuItem16";
+            this.toolStripMenuItem16.Size = new System.Drawing.Size(225, 6);
+            // 
+            // cmbPublicHolidayConfig
+            // 
+            this.cmbPublicHolidayConfig.Name = "cmbPublicHolidayConfig";
+            this.cmbPublicHolidayConfig.Size = new System.Drawing.Size(228, 22);
+            this.cmbPublicHolidayConfig.Tag = "cmbPublicHolidayConfig";
+            this.cmbPublicHolidayConfig.Text = "Public Holiday Configuration";
+            this.cmbPublicHolidayConfig.Click += new System.EventHandler(this.cmbPublicHolidayConfig_Click);
             // 
             // tlbApplicationGroup
             // 
@@ -1227,18 +1242,13 @@
             // 
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             // 
-            // toolStripMenuItem16
+            // cmbCountriesList
             // 
-            this.toolStripMenuItem16.Name = "toolStripMenuItem16";
-            this.toolStripMenuItem16.Size = new System.Drawing.Size(225, 6);
-            // 
-            // cmbPublicHolidayConfig
-            // 
-            this.cmbPublicHolidayConfig.Name = "cmbPublicHolidayConfig";
-            this.cmbPublicHolidayConfig.Size = new System.Drawing.Size(228, 22);
-            this.cmbPublicHolidayConfig.Tag = "cmbPublicHolidayConfig";
-            this.cmbPublicHolidayConfig.Text = "Public Holiday Configuration";
-            this.cmbPublicHolidayConfig.Click += new System.EventHandler(this.cmbPublicHolidayConfig_Click);
+            this.cmbCountriesList.Name = "cmbCountriesList";
+            this.cmbCountriesList.Size = new System.Drawing.Size(209, 22);
+            this.cmbCountriesList.Tag = "cmbCountriesList";
+            this.cmbCountriesList.Text = "Countries List";
+            this.cmbCountriesList.Click += new System.EventHandler(this.cmbCountriesList_Click);
             // 
             // frmDashboard
             // 
@@ -1421,6 +1431,7 @@
         private System.Windows.Forms.ToolStripMenuItem cmbEarningsDeductions;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem16;
         private System.Windows.Forms.ToolStripMenuItem cmbPublicHolidayConfig;
+        private System.Windows.Forms.ToolStripMenuItem cmbCountriesList;
     }
 }
 

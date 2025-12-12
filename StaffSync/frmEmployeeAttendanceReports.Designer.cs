@@ -31,6 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEmployeeAttendanceReports));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.dtgConsolidatedAttendanceReport = new Krypton.Toolkit.KryptonDataGridView();
+            this.cmbAttendanceMonth = new Krypton.Toolkit.KryptonComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
@@ -38,19 +42,15 @@
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.dtgConsolidatedAttendanceReport = new Krypton.Toolkit.KryptonDataGridView();
-            this.cmbAttendanceMonth = new Krypton.Toolkit.KryptonComboBox();
-            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgConsolidatedAttendanceReport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbAttendanceMonth)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -73,6 +73,7 @@
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -80,6 +81,59 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1193, 562);
             this.panel1.TabIndex = 1;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox5.Controls.Add(this.dtgConsolidatedAttendanceReport);
+            this.groupBox5.Controls.Add(this.cmbAttendanceMonth);
+            this.groupBox5.Controls.Add(this.label8);
+            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox5.Location = new System.Drawing.Point(12, 12);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(1171, 542);
+            this.groupBox5.TabIndex = 10;
+            this.groupBox5.TabStop = false;
+            // 
+            // dtgConsolidatedAttendanceReport
+            // 
+            this.dtgConsolidatedAttendanceReport.AllowUserToAddRows = false;
+            this.dtgConsolidatedAttendanceReport.AllowUserToDeleteRows = false;
+            this.dtgConsolidatedAttendanceReport.AllowUserToResizeRows = false;
+            this.dtgConsolidatedAttendanceReport.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgConsolidatedAttendanceReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgConsolidatedAttendanceReport.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dtgConsolidatedAttendanceReport.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgConsolidatedAttendanceReport.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
+            this.dtgConsolidatedAttendanceReport.Location = new System.Drawing.Point(14, 58);
+            this.dtgConsolidatedAttendanceReport.Name = "dtgConsolidatedAttendanceReport";
+            this.dtgConsolidatedAttendanceReport.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgConsolidatedAttendanceReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgConsolidatedAttendanceReport.Size = new System.Drawing.Size(1142, 470);
+            this.dtgConsolidatedAttendanceReport.TabIndex = 63;
+            // 
+            // cmbAttendanceMonth
+            // 
+            this.cmbAttendanceMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAttendanceMonth.DropDownWidth = 440;
+            this.cmbAttendanceMonth.Location = new System.Drawing.Point(69, 20);
+            this.cmbAttendanceMonth.Name = "cmbAttendanceMonth";
+            this.cmbAttendanceMonth.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbAttendanceMonth.Size = new System.Drawing.Size(219, 22);
+            this.cmbAttendanceMonth.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbAttendanceMonth.TabIndex = 62;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(11, 24);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(47, 15);
+            this.label8.TabIndex = 61;
+            this.label8.Text = "Month";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel2
             // 
@@ -162,59 +216,6 @@
             this.btnCancel.Values.Image = global::StaffSync.Properties.Resources.cancel;
             this.btnCancel.Values.Text = "Cancel";
             // 
-            // groupBox5
-            // 
-            this.groupBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.groupBox5.Controls.Add(this.dtgConsolidatedAttendanceReport);
-            this.groupBox5.Controls.Add(this.cmbAttendanceMonth);
-            this.groupBox5.Controls.Add(this.label8);
-            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(12, 12);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(1171, 542);
-            this.groupBox5.TabIndex = 10;
-            this.groupBox5.TabStop = false;
-            // 
-            // dtgConsolidatedAttendanceReport
-            // 
-            this.dtgConsolidatedAttendanceReport.AllowUserToAddRows = false;
-            this.dtgConsolidatedAttendanceReport.AllowUserToDeleteRows = false;
-            this.dtgConsolidatedAttendanceReport.AllowUserToResizeRows = false;
-            this.dtgConsolidatedAttendanceReport.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dtgConsolidatedAttendanceReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgConsolidatedAttendanceReport.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dtgConsolidatedAttendanceReport.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.dtgConsolidatedAttendanceReport.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
-            this.dtgConsolidatedAttendanceReport.Location = new System.Drawing.Point(14, 58);
-            this.dtgConsolidatedAttendanceReport.Name = "dtgConsolidatedAttendanceReport";
-            this.dtgConsolidatedAttendanceReport.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.dtgConsolidatedAttendanceReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgConsolidatedAttendanceReport.Size = new System.Drawing.Size(1142, 470);
-            this.dtgConsolidatedAttendanceReport.TabIndex = 63;
-            // 
-            // cmbAttendanceMonth
-            // 
-            this.cmbAttendanceMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAttendanceMonth.DropDownWidth = 440;
-            this.cmbAttendanceMonth.Location = new System.Drawing.Point(69, 20);
-            this.cmbAttendanceMonth.Name = "cmbAttendanceMonth";
-            this.cmbAttendanceMonth.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbAttendanceMonth.Size = new System.Drawing.Size(219, 22);
-            this.cmbAttendanceMonth.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbAttendanceMonth.TabIndex = 62;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(11, 24);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(47, 15);
-            this.label8.TabIndex = 61;
-            this.label8.Text = "Month";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // frmEmployeeAttendanceReports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,11 +238,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgConsolidatedAttendanceReport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbAttendanceMonth)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

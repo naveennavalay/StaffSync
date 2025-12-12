@@ -47,6 +47,8 @@
             this.label35 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtAssignedRole = new Krypton.Toolkit.KryptonTextBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.dtgModulesList = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
@@ -63,8 +65,6 @@
             this.qryUserRolesTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryUserRolesTableAdapter();
             this.qryRolesDefTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRolesDefTableAdapter();
             this.qryUserSpecificRolesTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryUserSpecificRolesTableAdapter();
-            this.txtAssignedRole = new Krypton.Toolkit.KryptonTextBox();
-            this.label28 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -105,6 +105,7 @@
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.panel1.Controls.Add(this.groupBox8);
             this.panel1.Controls.Add(this.groupBox1);
@@ -321,6 +322,32 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             // 
+            // txtAssignedRole
+            // 
+            this.txtAssignedRole.Enabled = false;
+            this.txtAssignedRole.Location = new System.Drawing.Point(188, 20);
+            this.txtAssignedRole.Multiline = true;
+            this.txtAssignedRole.Name = "txtAssignedRole";
+            this.txtAssignedRole.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtAssignedRole.Size = new System.Drawing.Size(587, 28);
+            this.txtAssignedRole.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAssignedRole.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtAssignedRole.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAssignedRole.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAssignedRole.TabIndex = 42;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(85, 27);
+            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(99, 15);
+            this.label28.TabIndex = 41;
+            this.label28.Text = "Assigned Role";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // dtgModulesList
             // 
             this.dtgModulesList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
@@ -448,32 +475,6 @@
             // qryUserSpecificRolesTableAdapter
             // 
             this.qryUserSpecificRolesTableAdapter.ClearBeforeFill = true;
-            // 
-            // txtAssignedRole
-            // 
-            this.txtAssignedRole.Enabled = false;
-            this.txtAssignedRole.Location = new System.Drawing.Point(188, 20);
-            this.txtAssignedRole.Multiline = true;
-            this.txtAssignedRole.Name = "txtAssignedRole";
-            this.txtAssignedRole.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtAssignedRole.Size = new System.Drawing.Size(587, 28);
-            this.txtAssignedRole.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAssignedRole.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtAssignedRole.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAssignedRole.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAssignedRole.TabIndex = 42;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(85, 27);
-            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(99, 15);
-            this.label28.TabIndex = 41;
-            this.label28.Text = "Assigned Role";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frmModuleAssignment
             // 

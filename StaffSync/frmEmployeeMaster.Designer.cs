@@ -373,6 +373,7 @@
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Controls.Add(this.groupBox4);
@@ -447,6 +448,7 @@
             // tabPersonalInfo
             // 
             this.tabPersonalInfo.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabPersonalInfo.AutoScroll = true;
             this.tabPersonalInfo.Controls.Add(this.groupBox10);
             this.tabPersonalInfo.Controls.Add(this.groupBox3);
             this.tabPersonalInfo.Controls.Add(this.groupBox2);

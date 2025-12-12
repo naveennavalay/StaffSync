@@ -74,7 +74,6 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -85,21 +84,20 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1248, 678);
-            this.splitContainer1.SplitterDistance = 593;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(936, 551);
+            this.splitContainer1.SplitterDistance = 481;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1248, 593);
+            this.panel1.Size = new System.Drawing.Size(936, 481);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
@@ -108,11 +106,9 @@
             this.groupBox5.Controls.Add(this.chkSelectUnselect);
             this.groupBox5.Controls.Add(this.dtgBulkLeaveApproval);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(19, 105);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox5.Location = new System.Drawing.Point(14, 85);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(1204, 482);
+            this.groupBox5.Size = new System.Drawing.Size(903, 392);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Bulk Leave Approval";
@@ -120,12 +116,11 @@
             // chkSelectUnselect
             // 
             this.chkSelectUnselect.AutoSize = false;
-            this.chkSelectUnselect.Location = new System.Drawing.Point(947, -2);
-            this.chkSelectUnselect.Margin = new System.Windows.Forms.Padding(4);
+            this.chkSelectUnselect.Location = new System.Drawing.Point(710, -2);
             this.chkSelectUnselect.Name = "chkSelectUnselect";
             this.chkSelectUnselect.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.chkSelectUnselect.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.chkSelectUnselect.Size = new System.Drawing.Size(240, 25);
+            this.chkSelectUnselect.Size = new System.Drawing.Size(180, 20);
             this.chkSelectUnselect.TabIndex = 35;
             this.chkSelectUnselect.Values.Text = "Select All";
             this.chkSelectUnselect.CheckedChanged += new System.EventHandler(this.chkSelectUnselect_CheckedChanged);
@@ -137,11 +132,10 @@
             this.dtgBulkLeaveApproval.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dtgBulkLeaveApproval.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgBulkLeaveApproval.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dtgBulkLeaveApproval.Location = new System.Drawing.Point(17, 30);
-            this.dtgBulkLeaveApproval.Margin = new System.Windows.Forms.Padding(4);
+            this.dtgBulkLeaveApproval.Location = new System.Drawing.Point(13, 24);
             this.dtgBulkLeaveApproval.Name = "dtgBulkLeaveApproval";
             this.dtgBulkLeaveApproval.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgBulkLeaveApproval.Size = new System.Drawing.Size(1169, 446);
+            this.dtgBulkLeaveApproval.Size = new System.Drawing.Size(877, 362);
             this.dtgBulkLeaveApproval.TabIndex = 34;
             this.dtgBulkLeaveApproval.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgBulkLeaveApproval_CellContentClick);
             this.dtgBulkLeaveApproval.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgBulkLeaveApproval_CellValueChanged);
@@ -154,22 +148,19 @@
             this.groupBox4.Controls.Add(this.lblActionMode);
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(24, 15);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Location = new System.Drawing.Point(18, 12);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(1212, 63);
+            this.groupBox4.Size = new System.Drawing.Size(909, 51);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             // 
             // txtLeaveApprovalDate
             // 
             this.txtLeaveApprovalDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.txtLeaveApprovalDate.Location = new System.Drawing.Point(252, 25);
-            this.txtLeaveApprovalDate.Margin = new System.Windows.Forms.Padding(4);
+            this.txtLeaveApprovalDate.Location = new System.Drawing.Point(189, 20);
             this.txtLeaveApprovalDate.Mask = "##-##-####";
             this.txtLeaveApprovalDate.Name = "txtLeaveApprovalDate";
-            this.txtLeaveApprovalDate.Size = new System.Drawing.Size(139, 21);
+            this.txtLeaveApprovalDate.Size = new System.Drawing.Size(105, 21);
             this.txtLeaveApprovalDate.TabIndex = 6;
             this.txtLeaveApprovalDate.Tag = "Please enter Employeee Date Of Birth";
             this.txtLeaveApprovalDate.ValidatingType = typeof(System.DateTime);
@@ -180,8 +171,8 @@
             this.lblWeeklyOffID.AutoSize = true;
             this.lblWeeklyOffID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblWeeklyOffID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWeeklyOffID.Location = new System.Drawing.Point(776, 28);
-            this.lblWeeklyOffID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblWeeklyOffID.Location = new System.Drawing.Point(582, 23);
+            this.lblWeeklyOffID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWeeklyOffID.Name = "lblWeeklyOffID";
             this.lblWeeklyOffID.Size = new System.Drawing.Size(11, 15);
             this.lblWeeklyOffID.TabIndex = 5;
@@ -192,8 +183,8 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(573, 28);
-            this.lblActionMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblActionMode.Location = new System.Drawing.Point(430, 23);
+            this.lblActionMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
             this.lblActionMode.TabIndex = 4;
@@ -204,8 +195,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(59, 28);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.Location = new System.Drawing.Point(44, 23);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(138, 15);
             this.label1.TabIndex = 3;
@@ -222,18 +213,16 @@
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1248, 80);
+            this.panel2.Size = new System.Drawing.Size(936, 66);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1037, 16);
-            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCloseMe.Location = new System.Drawing.Point(778, 13);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCloseMe.Size = new System.Drawing.Size(168, 47);
+            this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
             this.btnCloseMe.TabIndex = 20;
             this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
@@ -242,11 +231,10 @@
             // 
             // btnRemoveDetails
             // 
-            this.btnRemoveDetails.Location = new System.Drawing.Point(580, 16);
-            this.btnRemoveDetails.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRemoveDetails.Location = new System.Drawing.Point(435, 13);
             this.btnRemoveDetails.Name = "btnRemoveDetails";
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnRemoveDetails.Size = new System.Drawing.Size(168, 47);
+            this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnRemoveDetails.TabIndex = 19;
             this.btnRemoveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnRemoveDetails.Values.Image = global::StaffSync.Properties.Resources.delete;
@@ -256,11 +244,10 @@
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(36, 16);
-            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSaveDetails.Location = new System.Drawing.Point(27, 13);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnSaveDetails.Size = new System.Drawing.Size(168, 47);
+            this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnSaveDetails.TabIndex = 18;
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSaveDetails.Values.Image = global::StaffSync.Properties.Resources.execute;
@@ -269,11 +256,10 @@
             // 
             // btnModifyDetails
             // 
-            this.btnModifyDetails.Location = new System.Drawing.Point(36, 20);
-            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4);
+            this.btnModifyDetails.Location = new System.Drawing.Point(27, 16);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnModifyDetails.Size = new System.Drawing.Size(168, 47);
+            this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
             this.btnModifyDetails.TabIndex = 17;
             this.btnModifyDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnModifyDetails.Values.Image = global::StaffSync.Properties.Resources.update;
@@ -283,11 +269,10 @@
             // 
             // btnGenerateDetails
             // 
-            this.btnGenerateDetails.Location = new System.Drawing.Point(36, 20);
-            this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4);
+            this.btnGenerateDetails.Location = new System.Drawing.Point(27, 16);
             this.btnGenerateDetails.Name = "btnGenerateDetails";
             this.btnGenerateDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnGenerateDetails.Size = new System.Drawing.Size(168, 47);
+            this.btnGenerateDetails.Size = new System.Drawing.Size(126, 38);
             this.btnGenerateDetails.TabIndex = 16;
             this.btnGenerateDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnGenerateDetails.Values.Image = global::StaffSync.Properties.Resources._new;
@@ -297,11 +282,10 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(223, 16);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Location = new System.Drawing.Point(167, 13);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCancel.Size = new System.Drawing.Size(168, 47);
+            this.btnCancel.Size = new System.Drawing.Size(126, 38);
             this.btnCancel.TabIndex = 15;
             this.btnCancel.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCancel.Values.Image = global::StaffSync.Properties.Resources.cancel;
@@ -342,15 +326,14 @@
             // 
             // frmBulkLeaveApproval
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1248, 678);
+            this.ClientSize = new System.Drawing.Size(936, 551);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmBulkLeaveApproval";

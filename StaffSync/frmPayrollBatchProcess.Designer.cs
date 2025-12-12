@@ -33,6 +33,9 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.picDownloadDataAsCSV = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.picRefreshBankList = new System.Windows.Forms.PictureBox();
             this.dtSalaryDate = new Krypton.Toolkit.KryptonDateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label29 = new System.Windows.Forms.Label();
@@ -47,22 +50,19 @@
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.picDownloadDataAsCSV = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.picRefreshBankList = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDownloadDataAsCSV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefreshBankList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbSalaryMonth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgSalaryDetails)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDownloadDataAsCSV)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRefreshBankList)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -87,6 +87,7 @@
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -116,6 +117,43 @@
             this.groupBox1.Size = new System.Drawing.Size(1032, 557);
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
+            // 
+            // picDownloadDataAsCSV
+            // 
+            this.picDownloadDataAsCSV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picDownloadDataAsCSV.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picDownloadDataAsCSV.Image = global::StaffSync.Properties.Resources.download01;
+            this.picDownloadDataAsCSV.Location = new System.Drawing.Point(942, 69);
+            this.picDownloadDataAsCSV.Name = "picDownloadDataAsCSV";
+            this.picDownloadDataAsCSV.Size = new System.Drawing.Size(21, 20);
+            this.picDownloadDataAsCSV.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picDownloadDataAsCSV.TabIndex = 61;
+            this.picDownloadDataAsCSV.TabStop = false;
+            this.picDownloadDataAsCSV.Click += new System.EventHandler(this.picDownloadDataAsCSV_Click);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox4.Image = global::StaffSync.Properties.Resources.mail01;
+            this.pictureBox4.Location = new System.Drawing.Point(965, 68);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(23, 22);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 60;
+            this.pictureBox4.TabStop = false;
+            // 
+            // picRefreshBankList
+            // 
+            this.picRefreshBankList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picRefreshBankList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picRefreshBankList.Image = global::StaffSync.Properties.Resources.refresh01;
+            this.picRefreshBankList.Location = new System.Drawing.Point(990, 68);
+            this.picRefreshBankList.Name = "picRefreshBankList";
+            this.picRefreshBankList.Size = new System.Drawing.Size(23, 22);
+            this.picRefreshBankList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRefreshBankList.TabIndex = 59;
+            this.picRefreshBankList.TabStop = false;
             // 
             // dtSalaryDate
             // 
@@ -298,43 +336,6 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
-            // picDownloadDataAsCSV
-            // 
-            this.picDownloadDataAsCSV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picDownloadDataAsCSV.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picDownloadDataAsCSV.Image = global::StaffSync.Properties.Resources.download01;
-            this.picDownloadDataAsCSV.Location = new System.Drawing.Point(942, 69);
-            this.picDownloadDataAsCSV.Name = "picDownloadDataAsCSV";
-            this.picDownloadDataAsCSV.Size = new System.Drawing.Size(21, 20);
-            this.picDownloadDataAsCSV.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picDownloadDataAsCSV.TabIndex = 61;
-            this.picDownloadDataAsCSV.TabStop = false;
-            this.picDownloadDataAsCSV.Click += new System.EventHandler(this.picDownloadDataAsCSV_Click);
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox4.Image = global::StaffSync.Properties.Resources.mail01;
-            this.pictureBox4.Location = new System.Drawing.Point(965, 68);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(23, 22);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 60;
-            this.pictureBox4.TabStop = false;
-            // 
-            // picRefreshBankList
-            // 
-            this.picRefreshBankList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picRefreshBankList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picRefreshBankList.Image = global::StaffSync.Properties.Resources.refresh01;
-            this.picRefreshBankList.Location = new System.Drawing.Point(990, 68);
-            this.picRefreshBankList.Name = "picRefreshBankList";
-            this.picRefreshBankList.Size = new System.Drawing.Size(23, 22);
-            this.picRefreshBankList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picRefreshBankList.TabIndex = 59;
-            this.picRefreshBankList.TabStop = false;
-            // 
             // frmPayrollBatchProcess
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -361,13 +362,13 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDownloadDataAsCSV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefreshBankList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbSalaryMonth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgSalaryDetails)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDownloadDataAsCSV)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRefreshBankList)).EndInit();
             this.ResumeLayout(false);
 
         }

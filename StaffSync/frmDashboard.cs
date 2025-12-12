@@ -98,6 +98,12 @@ namespace StaffSync
 
         private void manageEmployeeDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
 
             AppModuleID = 2;
@@ -157,6 +163,12 @@ namespace StaffSync
 
         private void manageEmployeeAttendanceToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
 
             AppModuleID = 4;
@@ -223,6 +235,12 @@ namespace StaffSync
 
         private void manageEmployeePayrollToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
 
             AppModuleID = 3;
@@ -268,6 +286,12 @@ namespace StaffSync
 
         private void manageEmployeeLeavesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 5;
@@ -327,6 +351,12 @@ namespace StaffSync
 
         private void employeeWiseReportsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Employee Wise Reports";
@@ -340,6 +370,12 @@ namespace StaffSync
 
         private void employeeAttendanceReportsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Employee Attendance Reports";
@@ -354,6 +390,12 @@ namespace StaffSync
 
         private void employeePayrollReportsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Employee Payroll Reports";
@@ -367,6 +409,12 @@ namespace StaffSync
 
         private void employeeLeavesReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Employee Leave Reports";
@@ -380,6 +428,12 @@ namespace StaffSync
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "StaffSync - About";
@@ -393,6 +447,12 @@ namespace StaffSync
 
         private void departmentListToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Department Master Details";
@@ -406,6 +466,12 @@ namespace StaffSync
 
         private void countriesListToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Country Master Details";
@@ -419,6 +485,12 @@ namespace StaffSync
 
         private void designationListToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Designation Master Details";
@@ -432,6 +504,12 @@ namespace StaffSync
 
         private void countriesListToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "State Master Details";
@@ -445,6 +523,12 @@ namespace StaffSync
 
         private void relationshipListToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Relationship Master Details";
@@ -458,6 +542,12 @@ namespace StaffSync
 
         private void companyDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Last Company Master Details";
@@ -471,6 +561,12 @@ namespace StaffSync
 
         private void educationListToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Qualification Master Details";
@@ -484,6 +580,12 @@ namespace StaffSync
 
         private void departmentListToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
 
             AppModuleID = 10;
@@ -548,6 +650,12 @@ namespace StaffSync
 
         private void designationListToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -607,6 +715,12 @@ namespace StaffSync
 
         private void educationListToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -666,6 +780,12 @@ namespace StaffSync
 
         private void relationshipListToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -725,6 +845,12 @@ namespace StaffSync
 
         private void statesListToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -785,6 +911,12 @@ namespace StaffSync
 
         private void countriesListToolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -844,6 +976,12 @@ namespace StaffSync
 
         private void companyListToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -903,6 +1041,12 @@ namespace StaffSync
 
         private void skillsListToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -1075,6 +1219,12 @@ namespace StaffSync
 
         private void leaveApprovalRejectToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 5;
@@ -1134,6 +1284,12 @@ namespace StaffSync
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 9;
@@ -1193,6 +1349,12 @@ namespace StaffSync
 
         private void rolesAndResponsibilitiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 9;
@@ -1252,6 +1414,12 @@ namespace StaffSync
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 9;
@@ -1311,6 +1479,12 @@ namespace StaffSync
 
         private void assetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 6;
@@ -1337,6 +1511,12 @@ namespace StaffSync
 
         private void roleProfileManagementToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 8;
@@ -1440,6 +1620,12 @@ namespace StaffSync
 
         private void cmUserManagementList_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (e.ClickedItem.Tag == null)
                 return;
 
@@ -1676,6 +1862,12 @@ namespace StaffSync
 
         private void cmAttendanceManagementList_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (e.ClickedItem.Tag == null)
                 return;
 
@@ -1750,6 +1942,12 @@ namespace StaffSync
 
         private void cmLeaveManagement_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (e.ClickedItem.Tag == null)
                 return;
 
@@ -1942,6 +2140,12 @@ namespace StaffSync
 
         private void cmbApplicationSettings_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (e.ClickedItem.Tag == null)
                 return;
 
@@ -2447,6 +2651,12 @@ namespace StaffSync
 
         private void cmbCompanyList01_Click_1(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -2507,6 +2717,12 @@ namespace StaffSync
 
         private void cmbEducationList01_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -2567,6 +2783,12 @@ namespace StaffSync
 
         private void cmbSkillsList01_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -2623,6 +2845,12 @@ namespace StaffSync
 
         private void cmbDepartmentList01_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -2682,6 +2910,12 @@ namespace StaffSync
 
         private void cmbDesignationList01_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -2741,6 +2975,12 @@ namespace StaffSync
 
         private void cmbStatesList01_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -2801,6 +3041,12 @@ namespace StaffSync
 
         private void cmbRelationshipList01_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -2860,6 +3106,12 @@ namespace StaffSync
 
         private void cmbPayrollSystem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 3;
@@ -2919,6 +3171,12 @@ namespace StaffSync
 
         private void cmbEarningsList_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
 
             AppModuleID = 3;
@@ -2978,6 +3236,12 @@ namespace StaffSync
 
         private void cmbDeductionsList_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
 
             AppModuleID = 3;
@@ -3037,6 +3301,12 @@ namespace StaffSync
 
         private void cmbReimbursmentList_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
 
             AppModuleID = 3;
@@ -3115,6 +3385,12 @@ namespace StaffSync
 
         private void tlbCompanyInfo_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
 
             AppModuleID = 1;
@@ -3213,6 +3489,12 @@ namespace StaffSync
 
         private void cmbLeaveEntitlement_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
 
             AppModuleID = 1;
@@ -3278,6 +3560,12 @@ namespace StaffSync
 
         private void cmbSalaryProfile_Click_1(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -3337,6 +3625,12 @@ namespace StaffSync
 
         private void cmbConfigureSalaryProfile_Click_1(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -3396,6 +3690,12 @@ namespace StaffSync
 
         private void bulkLeaveApprovalToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Bulk Leave Approval Details";
@@ -3409,6 +3709,12 @@ namespace StaffSync
 
         private void cmbLeaveTypeMaster_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -3473,6 +3779,12 @@ namespace StaffSync
 
         private void cmbManageEmployee_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
             
             AppModuleID = 2;
@@ -3532,6 +3844,12 @@ namespace StaffSync
 
         private void cmbLeaveEntitlement1_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -3591,6 +3909,12 @@ namespace StaffSync
 
         private void cmbMyLeaveStatementReport01_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Leave Statement Details";
@@ -3604,6 +3928,12 @@ namespace StaffSync
 
         private void cmbWeeklyOffList_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
 
             AppModuleID = 10;
@@ -3665,6 +3995,12 @@ namespace StaffSync
 
         private void cmbWeeklyOffConfiguration_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
 
             AppModuleID = 10;
@@ -3737,6 +4073,12 @@ namespace StaffSync
 
         private void cmbEarningsListConfig_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -3796,6 +4138,12 @@ namespace StaffSync
 
         private void cmbReimbursmentListConfig_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -3855,6 +4203,12 @@ namespace StaffSync
 
         private void cmbDeductionsListConfig_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
             
             AppModuleID = 10;
@@ -3914,6 +4268,12 @@ namespace StaffSync
 
         private void cmbPendingLeaveApprovalList_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Pending Approval Details";
@@ -3927,6 +4287,12 @@ namespace StaffSync
 
         private void cmbRejectionLeaveList_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Leave Rejection Details";
@@ -3940,6 +4306,12 @@ namespace StaffSync
 
         private void cmbConsolidatedLeaveStatement_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Consolidated Leave Statement";
@@ -3953,6 +4325,12 @@ namespace StaffSync
 
         private void cmbOutstandingLeaveStatement_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Outstanding Leave Statement";
@@ -3966,6 +4344,12 @@ namespace StaffSync
 
         private void cmbDailyAttendanceSheet_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Daily Attendance Sheet";
@@ -4008,6 +4392,12 @@ namespace StaffSync
 
         private void cmbBatchDailyAttendanceProcess_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Daily Attendance Sheet";
@@ -4021,6 +4411,12 @@ namespace StaffSync
 
         private void cmbPayrollBatch_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Payroll Batch Process";
@@ -4034,6 +4430,12 @@ namespace StaffSync
 
         private void cmbPublicHolidayConfig_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Public Holiday Configuration";
@@ -4042,6 +4444,63 @@ namespace StaffSync
                 frmPublicHolidayConfig.Dock = DockStyle.Fill;
                 frmPublicHolidayConfig.Show();
                 frmPublicHolidayConfig.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void cmbCountriesList_Click(object sender, EventArgs e)
+        {
+            AppModuleID = 10;
+
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
+            {
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Country Master Details";
+                    frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                    frmCountryMaster.MdiParent = this;
+                    frmCountryMaster.Dock = DockStyle.Fill;
+                    frmCountryMaster.Show();
+                    frmCountryMaster.WindowState = FormWindowState.Maximized;
+                }
+            }
+            else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
+            {
+                if (this.MdiChildren.Length == 0)
+                {
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
+                    {
+                        lblDashboardTitle.Text = "Country Master Details";
+                        frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                        frmCountryMaster.MdiParent = this;
+                        frmCountryMaster.Dock = DockStyle.Fill;
+                        frmCountryMaster.Show();
+                        frmCountryMaster.WindowState = FormWindowState.Maximized;
+                    }
+                    else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
+                {
+                    lblDashboardTitle.Text = "Dashboard";
+                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Country Master Details";
+                    frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                    frmCountryMaster.MdiParent = this;
+                    frmCountryMaster.Dock = DockStyle.Fill;
+                    frmCountryMaster.Show();
+                    frmCountryMaster.WindowState = FormWindowState.Maximized;
+                }
             }
         }
     }

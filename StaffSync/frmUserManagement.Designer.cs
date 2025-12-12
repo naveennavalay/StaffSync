@@ -100,6 +100,7 @@
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.panel1.Controls.Add(this.groupBox8);
             this.panel1.Controls.Add(this.groupBox1);
@@ -399,7 +400,7 @@
             this.cmbLockStatus.Location = new System.Drawing.Point(188, 57);
             this.cmbLockStatus.Margin = new System.Windows.Forms.Padding(4);
             this.cmbLockStatus.Name = "cmbLockStatus";
-            this.cmbLockStatus.Size = new System.Drawing.Size(540, 24);
+            this.cmbLockStatus.Size = new System.Drawing.Size(540, 21);
             this.cmbLockStatus.TabIndex = 28;
             this.cmbLockStatus.Tag = "Please enter Employeee Blood Group";
             this.cmbLockStatus.SelectedIndexChanged += new System.EventHandler(this.cmbLockStatus_SelectedIndexChanged);
@@ -423,7 +424,7 @@
             this.cmbActiveStatus.Location = new System.Drawing.Point(188, 23);
             this.cmbActiveStatus.Margin = new System.Windows.Forms.Padding(4);
             this.cmbActiveStatus.Name = "cmbActiveStatus";
-            this.cmbActiveStatus.Size = new System.Drawing.Size(540, 24);
+            this.cmbActiveStatus.Size = new System.Drawing.Size(540, 21);
             this.cmbActiveStatus.TabIndex = 26;
             this.cmbActiveStatus.Tag = "Please enter Employeee Blood Group";
             this.cmbActiveStatus.SelectedIndexChanged += new System.EventHandler(this.cmbActiveStatus_SelectedIndexChanged);

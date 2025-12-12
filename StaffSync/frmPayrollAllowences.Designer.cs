@@ -89,12 +89,13 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
             this.splitContainer1.Size = new System.Drawing.Size(1127, 446);
-            this.splitContainer1.SplitterDistance = 374;
+            this.splitContainer1.SplitterDistance = 373;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Controls.Add(this.groupBox4);
@@ -102,7 +103,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1127, 374);
+            this.panel1.Size = new System.Drawing.Size(1127, 373);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
@@ -312,7 +313,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1127, 67);
+            this.panel2.Size = new System.Drawing.Size(1127, 68);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe

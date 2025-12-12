@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.chkConsiderAsNew = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNetSalary = new Krypton.Toolkit.KryptonTextBox();
             this.chkAutomaticCalculate = new System.Windows.Forms.CheckBox();
@@ -60,7 +61,6 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.chkConsiderAsNew = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -97,6 +97,7 @@
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Controls.Add(this.groupBox4);
@@ -128,6 +129,20 @@
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Salary Profile Details";
+            // 
+            // chkConsiderAsNew
+            // 
+            this.chkConsiderAsNew.AutoSize = true;
+            this.chkConsiderAsNew.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkConsiderAsNew.Checked = true;
+            this.chkConsiderAsNew.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkConsiderAsNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkConsiderAsNew.Location = new System.Drawing.Point(540, -1);
+            this.chkConsiderAsNew.Name = "chkConsiderAsNew";
+            this.chkConsiderAsNew.Size = new System.Drawing.Size(145, 19);
+            this.chkConsiderAsNew.TabIndex = 73;
+            this.chkConsiderAsNew.Text = "Consider as Latest";
+            this.chkConsiderAsNew.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -473,20 +488,6 @@
             // empMasInfoTableAdapter
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
-            // 
-            // chkConsiderAsNew
-            // 
-            this.chkConsiderAsNew.AutoSize = true;
-            this.chkConsiderAsNew.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkConsiderAsNew.Checked = true;
-            this.chkConsiderAsNew.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkConsiderAsNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkConsiderAsNew.Location = new System.Drawing.Point(540, -1);
-            this.chkConsiderAsNew.Name = "chkConsiderAsNew";
-            this.chkConsiderAsNew.Size = new System.Drawing.Size(145, 19);
-            this.chkConsiderAsNew.TabIndex = 73;
-            this.chkConsiderAsNew.Text = "Consider as Latest";
-            this.chkConsiderAsNew.UseVisualStyleBackColor = true;
             // 
             // frmUpdateSalaryProfile
             // 
