@@ -7,11 +7,9 @@ using System.IO;
 
 namespace ModelStaffSync
 {
-    public class PhotoInfo
+    public class CompanyLogoInfo
     {
-        public int PhotoID { get; set; }
-        public int EmpID { get; set; }
-        public byte[] EmpPhoto { get; set; }
-
+        public int CompanyID { get; set; }
+        public byte[] ClientLogo { get; set; }
     }
 }

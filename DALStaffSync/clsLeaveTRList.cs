@@ -140,11 +140,11 @@ namespace DALStaffSync
             return EmpOOOList;
         }
 
-        public bool AttendanceExistsForToday(int txtEmpID, DateTime dtDate)
+        public bool AttendanceExistsForToday(int txtEmpID, DateTime dtDate, int LeaveTypeID, string LeaveMode)
         {
             bool attendanceExists = false;
             
-            attendanceExists = objLeaveTRList.AttendanceExistsForToday(txtEmpID, dtDate);
+            attendanceExists = objLeaveTRList.AttendanceExistsForToday(txtEmpID, dtDate, LeaveTypeID, LeaveMode);
 
             return attendanceExists;
         }

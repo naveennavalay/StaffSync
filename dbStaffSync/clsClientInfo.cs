@@ -31,8 +31,8 @@ namespace dbStaffSync
 
                 string strQuery = "SELECT ClientMas.ClientID, ClientMas.ClientCode, ClientMas.ClientName, ClientMas.ClientAddress1, ClientMas.ClientAddress2, ClientMas.ClientArea, ClientMas.ClientCity, ClientMas.ClientState, ClientMas.ClientPIN, ClientMas.ClientCountry, ClientMas.ClientPhone, ClientMas.ClientMailID, ClientMas.ClientContactPerson, ClientMas.ClientContactNumber, ClientMas.ClientContactMail, ClientMas.ClientWebSite, ClientMas.IsActive, ClientMas.IsDeleted " +
                                           " FROM ClientMas " + 
-                                  " WHERE " + 
-                                          " (((ClientMas.IsActive)=True) AND ((ClientMas.IsDeleted)=False))";
+                                  " WHERE " +
+                                          " (((ClientMas.IsActive)=True) AND ((ClientMas.IsDeleted)=False)) ORDER BY ClientMas.ClientID";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -72,7 +72,7 @@ namespace dbStaffSync
 
                 string strQuery = "SELECT ClientMas.ClientID, ClientMas.ClientCode, ClientMas.ClientName, ClientMas.ClientAddress1, ClientMas.ClientAddress2, ClientMas.ClientArea, ClientMas.ClientCity, ClientMas.ClientState, ClientMas.ClientPIN, ClientMas.ClientCountry, ClientMas.ClientPhone, ClientMas.ClientMailID, ClientMas.ClientContactPerson, ClientMas.ClientContactNumber, ClientMas.ClientContactMail, ClientMas.ClientWebSite, ClientMas.IsActive, ClientMas.IsDeleted " +
                                         " FROM ClientMas " +
-                                  " WHERE ClientMas.IsActive = true AND ClientMas.IsDeleted = false AND ClientMas.ClientName LIKE '" + filterText + "%'";
+                                  " WHERE ClientMas.IsActive = true AND ClientMas.IsDeleted = false AND ClientMas.ClientName LIKE '" + filterText + "%' ORDER BY ClientMas.ClientID";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -234,7 +234,7 @@ namespace dbStaffSync
             return objClientInfoList;
         }
 
-        public int InsertClientInfo(string txtClientCode, string txtClientName, string txtClientAddress1, string txtClientAddress2, string txtClientArea, string txtClientCity, string txtClientState, string txtClientPIN, string txtClientCountry, string txtClientPhone, string txtClientMailID, string txtClientContactPerson, string txtClientContactNumber, string txtClientContactMail, string txtClientWebSite, bool IsActive, bool IsDeleted)
+        public int InsertClientInfo(string txtClientCode, string txtClientName, string txtClientAddress1, string txtClientAddress2, string txtClientArea, string txtClientCity, string txtClientState, string txtClientPIN, string txtClientCountry, string txtClientPhone, string txtClientMailID, string txtClientContactPerson, string txtClientContactNumber, string txtClientContactMail, string txtClientWebSite, bool IsActive, bool IsDeleted, int txtFinYearID)
         {
             int affectedRows = 0;
 
@@ -244,8 +244,8 @@ namespace dbStaffSync
 
                 conn = dbStaffSync.openDBConnection();
 
-                string strQuery = "INSERT INTO ClientMas (ClientID, ClientCode, ClientName, ClientAddress1, ClientAddress2, ClientArea, ClientCity, ClientState, ClientPIN, ClientCountry, ClientPhone, ClientMailID, ClientContactPerson, ClientContactNumber, ClientContactMail, ClientWebSite, IsActive, IsDeleted) VALUES " +
-                "(" + maxRowCount.Data + ",'" + "CNT-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtClientName.Trim() + "','" + txtClientAddress1.Trim() + "','" + txtClientAddress2.Trim() + "','" + txtClientArea.Trim() + "','" + txtClientCity.Trim() + "','" + txtClientState.Trim() + "','" + txtClientPIN + "','" + txtClientCountry.Trim() + "','" + txtClientPhone.Trim() + "','" + txtClientMailID.Trim() + "','" + txtClientContactPerson.Trim() + "','" + txtClientContactNumber.Trim() + "','" + txtClientContactMail.Trim() + "','" + txtClientWebSite.Trim() + "'," + IsActive + "," + IsDeleted + ")";
+                string strQuery = "INSERT INTO ClientMas (ClientID, ClientCode, ClientName, ClientAddress1, ClientAddress2, ClientArea, ClientCity, ClientState, ClientPIN, ClientCountry, ClientPhone, ClientMailID, ClientContactPerson, ClientContactNumber, ClientContactMail, ClientWebSite, IsActive, IsDeleted, FinYearID) VALUES " +
+                "(" + maxRowCount.Data + ",'" + "CNT-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtClientName.Trim() + "','" + txtClientAddress1.Trim() + "','" + txtClientAddress2.Trim() + "','" + txtClientArea.Trim() + "','" + txtClientCity.Trim() + "','" + txtClientState.Trim() + "','" + txtClientPIN + "','" + txtClientCountry.Trim() + "','" + txtClientPhone.Trim() + "','" + txtClientMailID.Trim() + "','" + txtClientContactPerson.Trim() + "','" + txtClientContactNumber.Trim() + "','" + txtClientContactMail.Trim() + "','" + txtClientWebSite.Trim() + "'," + IsActive + "," + IsDeleted + "," + txtFinYearID + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

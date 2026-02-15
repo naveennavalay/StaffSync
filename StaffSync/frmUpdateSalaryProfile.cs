@@ -35,6 +35,7 @@ namespace StaffSync
         DALStaffSync.clsSalaryProfile objSalaryProfile = new DALStaffSync.clsSalaryProfile();
         DALStaffSync.clsEmployeeSalaryProfileInfo objEmployeeSalaryProfileInfo = new DALStaffSync.clsEmployeeSalaryProfileInfo();
         DALStaffSync.clsEmpPayroll objEmployeePayroll = new DALStaffSync.clsEmpPayroll();
+        DALStaffSync.clsProfessionalTaxCalculation objProfessionalTaxCalculation = new DALStaffSync.clsProfessionalTaxCalculation();
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
@@ -503,7 +504,8 @@ namespace StaffSync
 
             var formula = dgv.Rows[rowIndex].Cells["CalcFormula"].Value?.ToString();
             var headerType = dgv.Rows[rowIndex].Cells["HeaderType"].Value?.ToString().ToLower();
-            if (string.IsNullOrWhiteSpace(formula)) return;
+            if (string.IsNullOrWhiteSpace(formula))
+                return;
 
             // Example: "Basic Salary * 40 / 100"
             string[] parts = formula.Split('*');
@@ -512,8 +514,9 @@ namespace StaffSync
                 parts = formula.Split('*');
             else if (formula.Contains("<"))
                 parts = formula.Split('<');
-
-            if (parts.Length < 2) return;
+            
+            if (formula.ToString().ToLower() != "computetax1" && parts.Length < 2)
+                return;
 
             string headerName = parts[0]; // e.g. "Basic Salary"
             headerName = headerName.ToString().Substring(headerName.IndexOf("(") + 1).ToString().Trim();

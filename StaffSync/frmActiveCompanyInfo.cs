@@ -118,6 +118,7 @@ namespace StaffSync
 
             objClientFinYearInfo.ClientID = selectedCompany.ClientID;
             objClientFinYearInfo.FinYearID = selectedFinYearMas.FirstOrDefault().FinYearID;
+
             this.Close();
         }
 

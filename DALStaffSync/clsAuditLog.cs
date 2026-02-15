@@ -12,11 +12,11 @@ namespace DALStaffSync
     {
         dbStaffSync.clsAuditLog objAuditLog = new dbStaffSync.clsAuditLog();
 
-        public int InsertAuditLog(int txtEmpID, string txtAuditLogStatement, string txtUserName)
+        public int InsertAuditLog(int txtEmpID, int txtSourceID, string txtAuditLogStatement, string txtUserName, string txtEventGroup)
         {
             int affectedRows = 0;
             
-            affectedRows = objAuditLog.InsertAuditLog(txtEmpID, txtAuditLogStatement, txtUserName);
+            affectedRows = objAuditLog.InsertAuditLog(txtEmpID, txtSourceID, txtAuditLogStatement, txtUserName, txtEventGroup);
 
             return affectedRows;
         }

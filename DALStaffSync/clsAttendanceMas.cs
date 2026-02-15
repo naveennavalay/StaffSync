@@ -35,6 +35,24 @@ namespace DALStaffSync
             return objReturnEmployeeAttendanceInfoList;
         }
 
+        public EmployeeTotalWorkingInfo GetEmployeeMonthlyWorkingDays(int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
+        {
+            EmployeeTotalWorkingInfo objReturnEmployeeTotalWorkingInfo = new EmployeeTotalWorkingInfo();
+
+            objReturnEmployeeTotalWorkingInfo = objAttendanceMas.GetEmployeeMonthlyWorkingDays(txtEmpID, dtSelectedDateFrom, dtSelectedDateTo);
+
+            return objReturnEmployeeTotalWorkingInfo;
+        }
+
+        public EmployeeAttendanceInfo GetEmployeeSpecificDailyAttendanceInfo(int txtEmpID, DateTime dtSelectedDate)
+        {
+            EmployeeAttendanceInfo objReturnEmployeeAttendanceInfo = new EmployeeAttendanceInfo();
+
+            objReturnEmployeeAttendanceInfo = objAttendanceMas.GetEmployeeSpecificDailyAttendanceInfo(txtEmpID, dtSelectedDate);
+
+            return objReturnEmployeeAttendanceInfo;
+        }
+
         public List<MonthlyAttendanceInfo> EmployeeSpecificMonthlyAttendanceInfo(int EmpID, DateTime ReportForTheMonth)
         {
             List<MonthlyAttendanceInfo> objMonthlyAttendanceReport = new List<MonthlyAttendanceInfo>();
@@ -51,6 +69,15 @@ namespace DALStaffSync
             objMonthlyAttendanceReport = objAttendanceMas.MonthlyAttendanceReport(ReportForTheMonth);
 
             return objMonthlyAttendanceReport;
+        }
+
+        public List<MonthlyAttendanceInfo> DailyBatchAttendance(int txtCompanyID, DateTime ReportForTheMonth, string DayNumber)
+        {
+            List<MonthlyAttendanceInfo> objDailyBatchAttendance = new List<MonthlyAttendanceInfo>();
+            
+            objDailyBatchAttendance = objAttendanceMas.DailyBatchAttendance(txtCompanyID, ReportForTheMonth, DayNumber);
+            
+            return objDailyBatchAttendance;
         }
 
         public int InsertDailyAttendance(int txtEmpID, DateTime AttendanceDate, string AttendanceStatus, int LeaveTRID)

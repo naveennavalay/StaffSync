@@ -31,10 +31,28 @@ namespace DALStaffSync
         public List<LeaveEntitlementInfo> getEmployeeLeaveEntitilementList(int txtEmpID, int txtLeaveMasID)
         {
             List<LeaveEntitlementInfo> LeaveEntitlementInfoList = new List<LeaveEntitlementInfo>();
-            
+
             LeaveEntitlementInfoList = objEmpLeaveEntitlementInfo.getEmployeeLeaveEntitilementList(txtEmpID, txtLeaveMasID);
 
             return LeaveEntitlementInfoList;
+        }
+
+        public List<LeaveOutStandingSummary> getConsolidatedLeaveOutStandingStatement(int txtClientID)
+        {
+            List<LeaveOutStandingSummary> LeaveOutStandingSummaryList = new List<LeaveOutStandingSummary>();
+
+            LeaveOutStandingSummaryList = objEmpLeaveEntitlementInfo.getConsolidatedLeaveOutStandingStatement(txtClientID);
+
+            return LeaveOutStandingSummaryList;
+        }
+
+        public List<ConsolidatedLeaveOutStandingStatement> getDetailedLeaveStatement(int txtClientID)
+        {
+            List<ConsolidatedLeaveOutStandingStatement> objConsolidatedLeaveOutStandingStatement = new List<ConsolidatedLeaveOutStandingStatement>();
+
+            objConsolidatedLeaveOutStandingStatement = objEmpLeaveEntitlementInfo.getDetailedLeaveStatement(txtClientID);
+
+            return objConsolidatedLeaveOutStandingStatement;
         }
 
         public List<LeaveEntitlementInfo> AddNewEntryOnGridEmployeeLeaveEntitilementList(int txtEmpID, int[] intLeaveTypeIDs, int txtNewLeaveTypeID)
@@ -69,6 +87,15 @@ namespace DALStaffSync
             int affectedRows = 0;
             
             affectedRows = objEmpLeaveEntitlementInfo.UpadateLeaveEntitlementInfo(txtLeaveEntmtID, txtEmpID, txtLeaveMasID, txtLeaveTypeID, txtTotalLeaves, txtBalanceLeaves, txtOrderID);
+
+            return affectedRows;
+        }
+
+        public int UpadateSpecificLeaveBalanceOnly(int txtLeaveEntmtID, int txtEmpID, decimal txtBalanceLeaves)
+        {
+            int affectedRows = 0;
+
+            affectedRows = objEmpLeaveEntitlementInfo.UpadateSpecificLeaveBalanceOnly(txtLeaveEntmtID, txtEmpID, txtBalanceLeaves);
 
             return affectedRows;
         }

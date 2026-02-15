@@ -18,7 +18,7 @@ namespace StaffSync
 {
     public partial class frmPublicHolidayConfigPopup : Form
     {
-        DALStaffSync.clsPublicHolidayInfo objPublicHolidayInfo = new DALStaffSync.clsPublicHolidayInfo();
+        DALStaffSync.clsPublicHolidayInfo objPublicHolidayInfo1 = new DALStaffSync.clsPublicHolidayInfo();
         PublicHolidayInfo objOriginalValues = new PublicHolidayInfo();
         public PublicHolidayInfo objSaveTheseValues = new PublicHolidayInfo();
 
@@ -36,10 +36,15 @@ namespace StaffSync
         {
             InitializeComponent();
 
+            cmbHolidayType.DataSource = objPublicHolidayInfo1.getHolidayTypeList();
+            cmbHolidayType.DisplayMember = "PubHolTypeTitle";
+            cmbHolidayType.ValueMember = "PubHolTypeID";
+
             objOriginalValues = objPublicHolidayInfo;
             lblPubHolDetID.Text = objPublicHolidayInfo.PubHolDetID.ToString();
             txtHolidayName.Text = objPublicHolidayInfo.PubHolidayTitle;
             txtHolidayDate.Text = objPublicHolidayInfo.PubHolDate?.ToString("dd-MM-yyyy");
+            cmbHolidayType.SelectedIndex = (int) objPublicHolidayInfo.PubHolTypeID - 1;
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -81,20 +86,23 @@ namespace StaffSync
                 objSaveTheseValues.PubHolDate = Convert.ToDateTime(txtHolidayDate.Text.ToString());
 
             objSaveTheseValues.OrderID = objOriginalValues.OrderID;
+            objSaveTheseValues.PubHolTypeID = Convert.ToInt16(cmbHolidayType.SelectedIndex + 1);
 
-            if(objSaveTheseValues.PubHolDetID == 0)
-                objSaveTheseValues.PubHolDetID = objPublicHolidayInfo.InsertPublicHolidayDetailInfo(objSaveTheseValues.PubHolMasID, txtHolidayName.Text, Convert.ToDateTime(txtHolidayDate.Text), Convert.ToInt16(objSaveTheseValues.OrderID));
+            if (objSaveTheseValues.PubHolDetID == 0)
+                objSaveTheseValues.PubHolDetID = objPublicHolidayInfo1.InsertPublicHolidayDetailInfo(objSaveTheseValues.PubHolMasID, txtHolidayName.Text, Convert.ToDateTime(txtHolidayDate.Text), Convert.ToInt16(cmbHolidayType.SelectedIndex + 1),  Convert.ToInt16(objSaveTheseValues.OrderID));
             else
             {
                 if(!string.IsNullOrEmpty(objSaveTheseValues.PubHolidayTitle.ToString().Trim()) && (txtHolidayDate.Text.ToString().Trim().Replace(" ", "") != "--"))
                 {
-                    objSaveTheseValues.PubHolDetID = objPublicHolidayInfo.UpdatePublicHolidayDetailInfo(objSaveTheseValues.PubHolDetID, objSaveTheseValues.PubHolMasID, txtHolidayName.Text, Convert.ToDateTime(txtHolidayDate.Text), Convert.ToInt16(objSaveTheseValues.OrderID));
+                    objSaveTheseValues.PubHolDetID = objPublicHolidayInfo1.UpdatePublicHolidayDetailInfo(objSaveTheseValues.PubHolDetID, objSaveTheseValues.PubHolMasID, txtHolidayName.Text, Convert.ToDateTime(txtHolidayDate.Text), Convert.ToInt16(cmbHolidayType.SelectedIndex + 1), Convert.ToInt16(objSaveTheseValues.OrderID));
                 }
                 else
                 {
-                    objPublicHolidayInfo.DeletePublicHolidayDetailInfo(objSaveTheseValues.PubHolDetID);
+                    objPublicHolidayInfo1.DeletePublicHolidayDetailInfo(objSaveTheseValues.PubHolDetID);
                 }
             }
+
+            MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             this.Close();
         }

@@ -145,9 +145,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -217,9 +224,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -333,9 +347,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -697,9 +718,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -762,9 +790,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -827,9 +862,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -892,9 +934,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -958,9 +1007,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -1023,9 +1079,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -1086,9 +1149,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmSkillsMaster.MdiParent = this;
@@ -1104,6 +1174,13 @@ namespace StaffSync
             {
                 myStatusBar.Items[0].Text = "User Name : ";
                 myStatusBar.Items[1].Text = "Log In : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
+
+                frmActiveCompanyInfo frmActiveCompanyInfo = new frmActiveCompanyInfo(objSelectedClientFinYearInfo);
+                frmActiveCompanyInfo.ShowDialog(this);
+                objSelectedClientFinYearInfo = frmActiveCompanyInfo.GetSelectedClientAndFinYearDetails();
+
+                objActiveClientInfo = objClientInfo.getClientInfo(objSelectedClientFinYearInfo.ClientID);
+                objActiveFinYear = objFinYearInfo.GetSpecificFinYearInfo(objSelectedClientFinYearInfo.FinYearID);
             }
             else
             {
@@ -1113,6 +1190,9 @@ namespace StaffSync
 
             cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
             cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
+
+            this.Text = "Staffsync Dashboard - " + objActiveClientInfo.FirstOrDefault().ClientName + " [ FY - " + objActiveFinYear.FirstOrDefault().FinYearFromTo + " ]";
+            CurrentUser.ClientID = objActiveClientInfo.FirstOrDefault().ClientID;
 
             //lstBirthdayList.Items.Clear();
             //List<BirthdayList> objEmployeesBirthdayList = objBirthdayList.GetEmployeesBirthdayList();
@@ -1266,9 +1346,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -1331,9 +1418,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -1396,9 +1490,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -1461,9 +1562,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -1558,9 +1666,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -1673,9 +1788,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -1729,9 +1851,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -1785,9 +1914,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -1841,9 +1977,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -1922,9 +2065,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -1995,9 +2145,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -2052,9 +2209,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -2110,9 +2274,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -2193,9 +2364,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -2248,9 +2426,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -2303,9 +2488,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
 
                         frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
@@ -2355,9 +2547,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
 
                         if (this.MdiChildren.Length == 0)
@@ -2411,9 +2610,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -2466,9 +2672,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -2521,9 +2734,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -2576,9 +2796,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -2631,9 +2858,16 @@ namespace StaffSync
                     {
                         if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                         {
-                            lblDashboardTitle.Text = "Dashboard";
-                            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                            {
+
+                            }
+                            else
+                            {
+                                lblDashboardTitle.Text = "Dashboard";
+                                MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         if (this.MdiChildren.Length == 0)
                         {
@@ -2698,9 +2932,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
 
                 if (this.MdiChildren.Length == 0)
@@ -2764,9 +3005,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
 
                 if (this.MdiChildren.Length == 0)
@@ -2830,9 +3078,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
                 frmSkillsMaster.MdiParent = this;
@@ -2892,9 +3147,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -2957,9 +3219,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -3022,9 +3291,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
 
                 if (this.MdiChildren.Length == 0)
@@ -3088,9 +3364,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -3153,9 +3436,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -3218,9 +3508,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -3283,9 +3580,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -3348,9 +3652,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -3385,80 +3696,74 @@ namespace StaffSync
 
         private void tlbCompanyInfo_Click(object sender, EventArgs e)
         {
-            if (CurrentUser.ClientID == 0)
-            {
-                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (CurrentUser.ClientID == 0)
+            //{
+            //    MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+            //objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
 
-            AppModuleID = 1;
+            //AppModuleID = 1;
 
-            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
-            {
-                if (this.MdiChildren.Length == 0)
-                {
-                    lblDashboardTitle.Text = "Company Master Details";
-                    frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
-                    frmCompanyInfo.MdiParent = this;
-                    frmCompanyInfo.Dock = DockStyle.Fill;
-                    frmCompanyInfo.Show();
-                    frmCompanyInfo.WindowState = FormWindowState.Maximized;
-                }
-            }
-            else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1)
-            {
-                if (this.MdiChildren.Length == 0)
-                {
-                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
-                    {
-                        lblDashboardTitle.Text = "Company Master Details";
-                        frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
-                        frmCompanyInfo.MdiParent = this;
-                        frmCompanyInfo.Dock = DockStyle.Fill;
-                        frmCompanyInfo.Show();
-                        frmCompanyInfo.WindowState = FormWindowState.Maximized;
-                    }
-                    else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
-                    {
-                        lblDashboardTitle.Text = "Dashboard";
-                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-            }
-            else
-            {
-                if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
-                {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                if (this.MdiChildren.Length == 0)
-                {
-                    lblDashboardTitle.Text = "Company Master Details";
-                    frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
-                    frmCompanyInfo.MdiParent = this;
-                    frmCompanyInfo.Dock = DockStyle.Fill;
-                    frmCompanyInfo.Show();
-                    frmCompanyInfo.WindowState = FormWindowState.Maximized;
-                }
-            }
-        }
+            //if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
+            //{
+            //    if (this.MdiChildren.Length == 0)
+            //    {
+            //        lblDashboardTitle.Text = "Company Master Details";
+            //        frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+            //        frmCompanyInfo.MdiParent = this;
+            //        frmCompanyInfo.Dock = DockStyle.Fill;
+            //        frmCompanyInfo.Show();
+            //        frmCompanyInfo.WindowState = FormWindowState.Maximized;
+            //    }
+            //}
+            //else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1)
+            //{
+            //    if (this.MdiChildren.Length == 0)
+            //    {
+            //        if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
+            //        {
+            //            lblDashboardTitle.Text = "Company Master Details";
+            //            frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+            //            frmCompanyInfo.MdiParent = this;
+            //            frmCompanyInfo.Dock = DockStyle.Fill;
+            //            frmCompanyInfo.Show();
+            //            frmCompanyInfo.WindowState = FormWindowState.Maximized;
+            //        }
+            //        else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
+            //        {
+            //            lblDashboardTitle.Text = "Dashboard";
+            //            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            return;
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
+            //    {
+            //        if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+            //        {
 
-        private void cmbUpdateAddressInfo_Click(object sender, EventArgs e)
-        {
-            if (this.MdiChildren.Length == 0)
-            {
-                lblDashboardTitle.Text = "Current User Master Details";
-                frmUpdateCurrentUserInfo frmUpdateCurrentUserInfo = new frmUpdateCurrentUserInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
-                frmUpdateCurrentUserInfo.MdiParent = this;
-                frmUpdateCurrentUserInfo.Dock = DockStyle.Fill;
-                frmUpdateCurrentUserInfo.Show();
-                frmUpdateCurrentUserInfo.WindowState = FormWindowState.Maximized;
-            }
+            //        }
+            //        else
+            //        {
+            //            lblDashboardTitle.Text = "Dashboard";
+            //            MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //            return;
+            //        }
+            //    }
+            //    if (this.MdiChildren.Length == 0)
+            //    {
+            //        lblDashboardTitle.Text = "Company Master Details";
+            //        frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+            //        frmCompanyInfo.MdiParent = this;
+            //        frmCompanyInfo.Dock = DockStyle.Fill;
+            //        frmCompanyInfo.Show();
+            //        frmCompanyInfo.WindowState = FormWindowState.Maximized;
+            //    }
+            //}
         }
 
         private void cmbApplyLeave_Click(object sender, EventArgs e)
@@ -3476,15 +3781,15 @@ namespace StaffSync
 
         private void cmbIndividualLeaveStatement_Click(object sender, EventArgs e)
         {
-            if (this.MdiChildren.Length == 0)
-            {
-                lblDashboardTitle.Text = "Leave Statement Details";
-                frmLeaveStatement frmLeaveStatement = new frmLeaveStatement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
-                frmLeaveStatement.MdiParent = this;
-                frmLeaveStatement.Dock = DockStyle.Fill;
-                frmLeaveStatement.Show();
-                frmLeaveStatement.WindowState = FormWindowState.Maximized;
-            }
+            //if (this.MdiChildren.Length == 0)
+            //{
+            //    lblDashboardTitle.Text = "Leave Statement Details";
+            //    frmLeaveStatement frmLeaveStatement = new frmLeaveStatement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+            //    frmLeaveStatement.MdiParent = this;
+            //    frmLeaveStatement.Dock = DockStyle.Fill;
+            //    frmLeaveStatement.Show();
+            //    frmLeaveStatement.WindowState = FormWindowState.Maximized;
+            //}
         }
 
         private void cmbLeaveEntitlement_Click(object sender, EventArgs e)
@@ -3536,9 +3841,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -3607,9 +3919,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -3672,9 +3991,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -3756,9 +4082,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -3826,9 +4159,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -3891,9 +4231,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -3975,9 +4322,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -4042,9 +4396,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -4120,9 +4481,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -4185,9 +4553,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -4250,9 +4625,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -4353,12 +4735,28 @@ namespace StaffSync
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Daily Attendance Sheet";
-                frmDailyAttendanceSheet frmDailyAttendanceSheet = new frmDailyAttendanceSheet(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
-                frmDailyAttendanceSheet.MdiParent = this;
-                frmDailyAttendanceSheet.Dock = DockStyle.Fill;
-                frmDailyAttendanceSheet.Show();
-                frmDailyAttendanceSheet.WindowState = FormWindowState.Maximized;
+                frmDailyAttendanceProcess frmDailyAttendanceProcess = new frmDailyAttendanceProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmDailyAttendanceProcess.MdiParent = this;
+                frmDailyAttendanceProcess.Dock = DockStyle.Fill;
+                frmDailyAttendanceProcess.Show();
+                frmDailyAttendanceProcess.WindowState = FormWindowState.Maximized;
             }
+
+            //if (CurrentUser.ClientID == 0)
+            //{
+            //    MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+
+            //if (this.MdiChildren.Length == 0)
+            //{
+            //    lblDashboardTitle.Text = "Daily Attendance Sheet";
+            //    frmDailyAttendanceSheet frmDailyAttendanceSheet = new frmDailyAttendanceSheet(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+            //    frmDailyAttendanceSheet.MdiParent = this;
+            //    frmDailyAttendanceSheet.Dock = DockStyle.Fill;
+            //    frmDailyAttendanceSheet.Show();
+            //    frmDailyAttendanceSheet.WindowState = FormWindowState.Maximized;
+            //}
         }
 
         private void frmDashboard_ResizeEnd(object sender, EventArgs e)
@@ -4488,9 +4886,16 @@ namespace StaffSync
             {
                 if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                 {
-                    lblDashboardTitle.Text = "Dashboard";
-                    MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                 }
                 if (this.MdiChildren.Length == 0)
                 {
@@ -4501,6 +4906,311 @@ namespace StaffSync
                     frmCountryMaster.Show();
                     frmCountryMaster.WindowState = FormWindowState.Maximized;
                 }
+            }
+        }
+
+        private void cmbSSManageMyDetails_Click(object sender, EventArgs e)
+        {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
+            AppModuleID = 2;
+
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
+            {
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Employee Details";
+                    frmSSEmployeeMaster frmSSEmployeeMaster = new frmSSEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                    frmSSEmployeeMaster.MdiParent = this;
+                    frmSSEmployeeMaster.Dock = DockStyle.Fill;
+                    frmSSEmployeeMaster.Show();
+                    frmSSEmployeeMaster.WindowState = FormWindowState.Maximized;
+                }
+            }
+            else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
+            {
+                if (this.MdiChildren.Length == 0)
+                {
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
+                    {
+                        lblDashboardTitle.Text = "Employee Details";
+                        frmSSEmployeeMaster frmSSEmployeeMaster = new frmSSEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                        frmSSEmployeeMaster.MdiParent = this;
+                        frmSSEmployeeMaster.Dock = DockStyle.Fill;
+                        frmSSEmployeeMaster.Show();
+                        frmSSEmployeeMaster.WindowState = FormWindowState.Maximized;
+                    }
+                    else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
+                {
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Employee Details";
+                    frmSSEmployeeMaster frmSSEmployeeMaster = new frmSSEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                    frmSSEmployeeMaster.MdiParent = this;
+                    frmSSEmployeeMaster.Dock = DockStyle.Fill;
+                    frmSSEmployeeMaster.Show();
+                    frmSSEmployeeMaster.WindowState = FormWindowState.Maximized;
+                }
+            }
+        }
+
+        private void cmbManageCompanyInfo_Click(object sender, EventArgs e)
+        {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
+            AppModuleID = 1;
+
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
+            {
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Company Master Details";
+                    frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                    frmCompanyInfo.MdiParent = this;
+                    frmCompanyInfo.Dock = DockStyle.Fill;
+                    frmCompanyInfo.Show();
+                    frmCompanyInfo.WindowState = FormWindowState.Maximized;
+                }
+            }
+            else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1)
+            {
+                if (this.MdiChildren.Length == 0)
+                {
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
+                    {
+                        lblDashboardTitle.Text = "Company Master Details";
+                        frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                        frmCompanyInfo.MdiParent = this;
+                        frmCompanyInfo.Dock = DockStyle.Fill;
+                        frmCompanyInfo.Show();
+                        frmCompanyInfo.WindowState = FormWindowState.Maximized;
+                    }
+                    else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
+                {
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Company Master Details";
+                    frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                    frmCompanyInfo.MdiParent = this;
+                    frmCompanyInfo.Dock = DockStyle.Fill;
+                    frmCompanyInfo.Show();
+                    frmCompanyInfo.WindowState = FormWindowState.Maximized;
+                }
+            }
+        }
+
+        private void cmbManageBranchInfo_Click(object sender, EventArgs e)
+        {
+
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
+            AppModuleID = 1;
+
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
+            {
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Branch Master Details";
+                    frmBranchInfo frmBranchInfo = new frmBranchInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                    frmBranchInfo.MdiParent = this;
+                    frmBranchInfo.Dock = DockStyle.Fill;
+                    frmBranchInfo.Show();
+                    frmBranchInfo.WindowState = FormWindowState.Maximized;
+                }
+            }
+            else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1)
+            {
+                if (this.MdiChildren.Length == 0)
+                {
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
+                    {
+                        lblDashboardTitle.Text = "Branch Master Details";
+                        frmBranchInfo frmBranchInfo = new frmBranchInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                        frmBranchInfo.MdiParent = this;
+                        frmBranchInfo.Dock = DockStyle.Fill;
+                        frmBranchInfo.Show();
+                        frmBranchInfo.WindowState = FormWindowState.Maximized;
+                    }
+                    else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
+                {
+                    if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 12)
+                    {
+
+                    }
+                    else
+                    {
+                        lblDashboardTitle.Text = "Dashboard";
+                        MessageBox.Show("Access denied. \nYou are not authorised to access this module.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                if (this.MdiChildren.Length == 0)
+                {
+                    lblDashboardTitle.Text = "Branch Master Details";
+                    frmBranchInfo frmBranchInfo = new frmBranchInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                    frmBranchInfo.MdiParent = this;
+                    frmBranchInfo.Dock = DockStyle.Fill;
+                    frmBranchInfo.Show();
+                    frmBranchInfo.WindowState = FormWindowState.Maximized;
+                }
+            }
+        }
+
+        private void cmbBulkLeaveRejection_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Bulk Leave Rejection Details";
+                frmBulkLeaveRejection frmBulkLeaveRejection = new frmBulkLeaveRejection(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmBulkLeaveRejection.MdiParent = this;
+                frmBulkLeaveRejection.Dock = DockStyle.Fill;
+                frmBulkLeaveRejection.Show();
+                frmBulkLeaveRejection.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void cmbApplicationSettings_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void cmbAdvanceConfiguration_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Advance Configuration Details";
+                frmAdvanceTypeMas frmAdvanceTypeMas = new frmAdvanceTypeMas(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmAdvanceTypeMas.MdiParent = this;
+                frmAdvanceTypeMas.Dock = DockStyle.Fill;
+                frmAdvanceTypeMas.Show();
+                frmAdvanceTypeMas.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void cmbAdvanceRequest_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Advance Request Details";
+                frmEmpAdvanceRequest frmEmpAdvanceRequest = new frmEmpAdvanceRequest(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmEmpAdvanceRequest.MdiParent = this;
+                frmEmpAdvanceRequest.Dock = DockStyle.Fill;
+                frmEmpAdvanceRequest.Show();
+                frmEmpAdvanceRequest.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void tlbMyTasks_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbFirstApproval_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "My Tasks List";
+                frmAdvanceApprovalList frmAdvanceApprovalList = new frmAdvanceApprovalList(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo, "FirstApprover");
+                frmAdvanceApprovalList.MdiParent = this;
+                frmAdvanceApprovalList.Dock = DockStyle.Fill;
+                frmAdvanceApprovalList.Show();
+                frmAdvanceApprovalList.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void cmbSecondApproval_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "My Tasks List";
+                frmAdvanceApprovalList frmAdvanceApprovalList = new frmAdvanceApprovalList(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo, "SecondApprover");
+                frmAdvanceApprovalList.MdiParent = this;
+                frmAdvanceApprovalList.Dock = DockStyle.Fill;
+                frmAdvanceApprovalList.Show();
+                frmAdvanceApprovalList.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void cmbAdvanceRepayment_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Advance Repayment Details";
+                frmEmpAdvanceRepayment frmEmpAdvanceRepayment = new frmEmpAdvanceRepayment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmEmpAdvanceRepayment.MdiParent = this;
+                frmEmpAdvanceRepayment.Dock = DockStyle.Fill;
+                frmEmpAdvanceRepayment.Show();
+                frmEmpAdvanceRepayment.WindowState = FormWindowState.Maximized;
             }
         }
     }

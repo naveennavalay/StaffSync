@@ -5,6 +5,7 @@ using System.Text;
 using System.Configuration;
 using System.IO;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace ModelStaffSync
 {
@@ -15,15 +16,15 @@ namespace ModelStaffSync
         public int EmpID { get; set; }
         public string AttStatus { get; set; }
 
-        [JsonProperty("EmpDailyAttendanceInfo.LeaveTRID")]
+        //[JsonProperty("EmpDailyAttendanceInfo.LeaveTRID")]
         public int? LeaveTRID { get; set; }
 
         public string LeaveComments { get; set; }
     }
 
-
     public class MonthlyAttendanceInfo
     {
+        public int ClientID { get; set; }        
         public int EmpID { get; set; }
         public string EmpCode { get; set; }
         public string EmpName { get; set; }
@@ -64,4 +65,53 @@ namespace ModelStaffSync
         public object Day31 { get; set; }
         public object Day32 { get; set; }
     }
+
+    public class UnProcessedAttendanceInfo
+    {
+        public int BatchAttndEntrNotProcID { get; set; }
+        public int EmpID { get; set; }
+
+        [DisplayName("Employee Code")]
+        public string EmpCode { get; set; }
+        
+        [DisplayName("Employee Name")]         
+        public string EmpName { get; set; }
+        
+        [DisplayName("Designation")]        
+        public string DesignationTitle { get; set; }
+        
+        [DisplayName("Department")]
+        public string DepartmentTitle { get; set; }
+        
+        [DisplayName("Processed Date")] 
+        public DateTime BatchAttndEntrNotProcDate { get; set; }
+
+        [DisplayName("Comments")]
+        public string Comments { get; set; }
+        
+        public int OrderID { get; set; }
+
+        public int BatchNumber { get; set; }
+    }
+
+    public class EmployeeTotalWorkingInfo
+    {
+        public int EmpID { get; set; }
+        public DateTime AttDate { get; set; }
+        public decimal TotalDaysInMonth { get; set; }
+        public decimal PresentCount { get; set; }
+        public decimal FullDayLeaveCount { get; set; }
+        public decimal FirstHalfLeaveCount { get; set; }
+        public decimal SecondHalfLeaveCount { get; set; }
+        public decimal TotalLeaveCount { get; set; }
+        public decimal TotalWorkedDays { get; set; }
+    }
+
+    public class DaySpecificLeaveCheck
+    {
+        public string LeaveMode { get; set; }
+        public decimal LeaveDuration { get; set; }
+        public decimal LeaveDuration1 { get; set; }
+    }
+
 }

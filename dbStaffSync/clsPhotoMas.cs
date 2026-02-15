@@ -148,5 +148,171 @@ namespace dbStaffSync
             }
             return affectedRows;
         }
+
+        public int UpdateCompanyLogoInfo(int txtCompanyID, byte[] txtPhoto)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE ClientMas SET ClientLogo = '" + txtPhoto + "'" +
+                " WHERE ClientID = " + txtCompanyID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtCompanyID;
+
+                cmd = new OleDbCommand("UPDATE ClientMas SET ClientLogo=@Image WHERE ClientID = " + txtCompanyID + "", conn);
+
+                // Add the image as a parameter.
+                OleDbParameter param = new OleDbParameter();
+                param.OleDbType = OleDbType.Binary;
+                param.ParameterName = "Image";
+                param.Value = txtPhoto;
+                cmd.Parameters.Add(param);
+                cmd.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public CompanyLogoInfo getCompanyLogo(int txtCompanyID)
+        {
+            CompanyLogoInfo photoInfo = new CompanyLogoInfo();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT * FROM ClientMas WHERE ClientID = " + txtCompanyID + "";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                List<CompanyLogoInfo> objPhotoInfo = JsonConvert.DeserializeObject<List<CompanyLogoInfo>>(DataTableToJSon);
+                if (objPhotoInfo.Count > 0)
+                {
+                    photoInfo.CompanyID = objPhotoInfo[0].CompanyID;
+                    photoInfo.ClientLogo = objPhotoInfo[0].ClientLogo;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return photoInfo;
+        }
+
+        public int UpdateCompanyBranchLogoInfo(int txtCompanyBranchID, byte[] txtPhoto)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE ClientBranchMas SET ClientBranchLogo = '" + txtPhoto + "'" +
+                " WHERE ClientBranchID = " + txtCompanyBranchID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = txtCompanyBranchID;
+
+                cmd = new OleDbCommand("UPDATE ClientBranchMas SET ClientBranchLogo=@Image WHERE ClientBranchID = " + txtCompanyBranchID + "", conn);
+
+                // Add the image as a parameter.
+                OleDbParameter param = new OleDbParameter();
+                param.OleDbType = OleDbType.Binary;
+                param.ParameterName = "Image";
+                param.Value = txtPhoto;
+                cmd.Parameters.Add(param);
+                cmd.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public CompanyBranchLogoInfo getCompanyBranchLogo(int txtCompanyBranchID)
+        {
+            CompanyBranchLogoInfo photoInfo = new CompanyBranchLogoInfo();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT * FROM ClientBranchMas WHERE ClientBranchID = " + txtCompanyBranchID + "";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                List<CompanyBranchLogoInfo> objPhotoInfo = JsonConvert.DeserializeObject<List<CompanyBranchLogoInfo>>(DataTableToJSon);
+                if (objPhotoInfo.Count > 0)
+                {
+                    photoInfo.ClientBranchID = objPhotoInfo[0].ClientBranchID;
+                    photoInfo.ClientBranchLogo = objPhotoInfo[0].ClientBranchLogo;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return photoInfo;
+        }
     }
 }

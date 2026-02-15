@@ -31,6 +31,8 @@ namespace ModelStaffSync
         [DisplayName("Leave Type")]
         public string LeaveTypeTitle { get; set; }
 
+        public int LeaveEntmtID { get; set; }
+
         [DisplayName("Leave Trans ID")]
         public int LeaveTRID { get; set; }
 

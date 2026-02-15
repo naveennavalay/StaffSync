@@ -176,7 +176,6 @@
             this.lblSpecificLeaveBalance.Size = new System.Drawing.Size(11, 15);
             this.lblSpecificLeaveBalance.TabIndex = 53;
             this.lblSpecificLeaveBalance.Text = " ";
-            this.lblSpecificLeaveBalance.Visible = false;
             // 
             // lblLeaveMasID
             // 
@@ -189,7 +188,6 @@
             this.lblLeaveMasID.Size = new System.Drawing.Size(11, 15);
             this.lblLeaveMasID.TabIndex = 52;
             this.lblLeaveMasID.Text = " ";
-            this.lblLeaveMasID.Visible = false;
             // 
             // lblCancelStatus
             // 
@@ -202,7 +200,6 @@
             this.lblCancelStatus.Size = new System.Drawing.Size(11, 15);
             this.lblCancelStatus.TabIndex = 51;
             this.lblCancelStatus.Text = " ";
-            this.lblCancelStatus.Visible = false;
             // 
             // lstLeaveTRList
             // 
@@ -280,7 +277,6 @@
             this.lblLeaveTRID.Size = new System.Drawing.Size(11, 15);
             this.lblLeaveTRID.TabIndex = 23;
             this.lblLeaveTRID.Text = " ";
-            this.lblLeaveTRID.Visible = false;
             // 
             // picDownloadLeaveTRList
             // 

@@ -1,0 +1,264 @@
+
+function calculateRes()
+{	 
+    var stateId = document.getElementById("stateId").value;
+    var salary = document.getElementById("salary").value;	 
+    var amount = 0;
+    var annualAmount = 0;
+    if(stateId == 'ap')
+    {				
+        if(salary <= 15000)
+        {
+            amount = 0;					
+        }
+        else if(salary >=15001 && salary <=20000)
+        {
+            amount=150;
+        }
+        else if(salary>20000)
+        {
+            amount=200;
+        }
+
+        annualAmount=amount*12;
+        document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+        document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";				
+    }
+    else if(stateId == 'assam')
+    {				
+        if(salary <= 10000)
+        {
+            amount = 0;
+            annualAmount = amount*12;
+            document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+            document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+        }
+        else if(salary >=10001 && salary <=15000)
+        {
+            amount = 150;
+            annualAmount = amount*12;
+            document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+            document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+        }
+        else if(salary >=15001 && salary <=24999)
+        {
+            amount = 180;
+            annualAmount = amount*12;
+            document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+            document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+        }
+        else if(salary > 25000)
+        {
+            amount = 208;
+            annualAmount=(amount*11)+212;
+            document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+            document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+            var message="<p style='color: red'> &nbsp; Note : Professional Tax is payable @Rs 208 for first 11 months and Rs 212 in the last month</p>";
+            document.getElementById("msg").innerHTML = message;
+        }																
+    }
+    else if(stateId == 'bihar')
+    {
+        if(salary <= 25000)
+        {
+            amount = 0;
+        }
+        else if(salary >= 25001 && salary <= 41666)
+        {
+            amount = 83.33;
+        }
+        else if(salary >= 41667 && salary <= 83333)
+        {
+            amount = 166.67;
+        }
+        else if(salary >= 83334)
+        {
+            amount = 208.33;				
+        }
+
+        annualAmount = amount*12;
+        document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+        document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount.toFixed(2) + "</h4>";				
+    }
+    else if(stateId == 'goa')
+    {
+        if(salary <= 15000)
+        {
+            amount = 0;
+        }
+        else if(salary >= 15001 && salary <= 25000)
+        {
+            amount = 150;
+        }
+        else if(salary >= 25001)
+        {
+            amount = 200;
+        }	
+        
+        annualAmount = amount*12;
+        document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+        document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";				
+    }
+    else if(stateId == 'gujarat')
+    {
+        if(salary <= 5999)
+        {
+            amount = 0;
+        }
+        else if(salary >= 6000 && salary <= 8999)
+        {
+            amount = 80;
+        }
+        else if(salary >= 9000 && salary <= 11999)
+        {
+            amount = 150;
+        }
+        else if(salary >= 12000)
+        {
+            amount = 200;
+        }
+        annualAmount = amount*12;
+        document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+        document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+    }
+    else if(stateId == 'jharkhand')
+    {
+        if(salary <= "25000")
+        {
+            amount = 0;
+        }
+        else if(salary > 25000 && salary <= 41666)
+        {
+            amount = 100;
+        }
+        else if(salary >= 41667 && salary <= 66666)
+        {
+            amount = 150;
+        }
+        else if(salary >= 66667 && salary <= 83333)
+        {
+            amount = 175;
+        }
+        else if(salary > 83333)
+        {
+            amount = 208;
+        }
+        
+        annualAmount = amount*12;
+        document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+        document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+    }
+    else if(stateId == 'karnataka')
+    {
+        if(salary <= 15000)
+        {
+            amount = 0;
+        }
+        else if(salary > 15000)
+        {
+            amount = 200;
+        }
+        
+        annualAmount = amount*12;
+        document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+        document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+    }
+    else if(stateId == 'kerala')
+    {
+        if(salary <= 11999)
+        {
+            amount = 0;
+        }
+        else if(salary >= 12000 && salary <= 17999)
+        {
+            amount = 120;
+        }
+        else if(salary >= 18000 && salary <= 29999)
+        {
+            amount = 180;
+        }
+        else if(salary >= 30000 && salary <= 44999)
+        {
+            amount = 300;
+        }
+        else if(salary >= 45000 && salary <= 59999)
+        {
+            amount = 450;
+        }
+        else if(salary >= 60000 && salary <= 74999)
+        {
+            amount = 600;
+        }
+        else if(salary >= 75000 && salary <= 99999)
+        {
+            amount = 750;
+        }
+        else if(salary >= 100000 && salary <= 124999)
+        {
+            amount = 1000;
+        }
+        else if(salary >= 125000 )
+        {
+            amount = 1250;
+        }
+
+        annualAmount = amount*12;
+        document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+        document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+    }
+    else if(stateId == 'mp')
+    {
+        if(salary <= 18750)
+        {
+            amount = 0;
+            annualAmount = amount*12;
+            document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+            document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+        }
+        else if(salary > 18750 && salary <= 25000)
+        {
+            amount = 125;
+            annualAmount = amount*12;
+            document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+            document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+        }
+        else if(salary > 25000 && salary <= 33333)
+        {
+            amount = 167;
+            annualAmount = amount*12;
+            document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+            document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+        }
+        else if(salary > 33333)
+        {
+            amount = 208;
+            annualAmount = (amount*11)+212;
+            document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+            document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+            var message="<p style='color: red'> &nbsp; Note : Madhya Pradesh levies the Professional tax at Rs. 208 for 11 months and Rs. 212 for the last month.</p>";
+            document.getElementById("msg").innerHTML = message; 
+        }
+    }
+    else if(stateId == 'maharashtra')
+    {
+        if(salary <= 7500)
+        {
+            amount = 0;
+            annualAmount = amount*12;
+            document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+            document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+        }
+        else if(salary >= 7501 && salary <= 10000)
+        {
+            amount = 175;
+            annualAmount = amount*12;
+            document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+            document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+        }
+        else if(salary >= 10001)
+        {
+            amount = 200;
+            annualAmount = (amount*11)+300;
+            document.getElementById("sal_mon").innerHTML = "<h4> &nbsp; Professional Tax per Month : " + amount + "</h4>";
+            document.getElementById("sal_ann").innerHTML = "<h4> &nbsp; Professional Tax per Annum : " + annualAmount + "</h4>";
+            var message="<p style='color: red'> &nbsp; Note : Women who earn the salary up to Rs. 10,000/- per month are exempted fro…

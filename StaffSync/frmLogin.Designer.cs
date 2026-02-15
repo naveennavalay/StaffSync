@@ -61,22 +61,18 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(543, 256);
+            this.panel2.Size = new System.Drawing.Size(543, 179);
             this.panel2.TabIndex = 2;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.cmbCurrentFinYear);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.cmbCurrentCompany);
-            this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.txtPassword);
             this.groupBox2.Controls.Add(this.txtUserName);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(144, 0);
+            this.groupBox2.Location = new System.Drawing.Point(144, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(387, 174);
+            this.groupBox2.Size = new System.Drawing.Size(387, 105);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             // 
@@ -84,51 +80,55 @@
             // 
             this.cmbCurrentFinYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCurrentFinYear.DropDownWidth = 440;
-            this.cmbCurrentFinYear.Location = new System.Drawing.Point(90, 56);
+            this.cmbCurrentFinYear.Location = new System.Drawing.Point(122, -48);
             this.cmbCurrentFinYear.Name = "cmbCurrentFinYear";
             this.cmbCurrentFinYear.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbCurrentFinYear.Size = new System.Drawing.Size(268, 22);
             this.cmbCurrentFinYear.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbCurrentFinYear.TabIndex = 44;
+            this.cmbCurrentFinYear.Visible = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(9, 60);
+            this.label3.Location = new System.Drawing.Point(41, -44);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 15);
             this.label3.TabIndex = 43;
             this.label3.Text = "Active Year";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label3.Visible = false;
             // 
             // cmbCurrentCompany
             // 
             this.cmbCurrentCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCurrentCompany.DropDownWidth = 440;
-            this.cmbCurrentCompany.Location = new System.Drawing.Point(90, 28);
+            this.cmbCurrentCompany.Location = new System.Drawing.Point(122, -76);
             this.cmbCurrentCompany.Name = "cmbCurrentCompany";
             this.cmbCurrentCompany.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbCurrentCompany.Size = new System.Drawing.Size(268, 22);
             this.cmbCurrentCompany.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbCurrentCompany.TabIndex = 42;
+            this.cmbCurrentCompany.Visible = false;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(20, 32);
+            this.label8.Location = new System.Drawing.Point(52, -72);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(66, 15);
             this.label8.TabIndex = 41;
             this.label8.Text = "Company";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label8.Visible = false;
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(90, 138);
+            this.txtPassword.Location = new System.Drawing.Point(100, 53);
             this.txtPassword.Multiline = true;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -139,11 +139,11 @@
             this.txtPassword.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.TabIndex = 9;
-            this.txtPassword.Text = "12-12-1991";
+            this.txtPassword.Text = "01-01-2001";
             // 
             // txtUserName
             // 
-            this.txtUserName.Location = new System.Drawing.Point(90, 104);
+            this.txtUserName.Location = new System.Drawing.Point(100, 19);
             this.txtUserName.Multiline = true;
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -153,13 +153,13 @@
             this.txtUserName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUserName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUserName.TabIndex = 8;
-            this.txtUserName.Text = "gaurav.gupta@temp.com";
+            this.txtUserName.Text = "support.user@softsolutions.com";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(17, 145);
+            this.label2.Location = new System.Drawing.Point(27, 60);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 15);
@@ -170,7 +170,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(7, 111);
+            this.label1.Location = new System.Drawing.Point(17, 26);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(79, 15);
@@ -181,9 +181,13 @@
             // 
             this.groupBox1.Controls.Add(this.btnCancel);
             this.groupBox1.Controls.Add(this.btnLogin);
-            this.groupBox1.Location = new System.Drawing.Point(12, 180);
+            this.groupBox1.Controls.Add(this.cmbCurrentFinYear);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.cmbCurrentCompany);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Location = new System.Drawing.Point(12, 111);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(506, 64);
+            this.groupBox1.Size = new System.Drawing.Size(519, 64);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             // 
@@ -214,7 +218,7 @@
             this.pictureBox1.Image = global::StaffSync.Properties.Resources.auth01;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(118, 93);
+            this.pictureBox1.Size = new System.Drawing.Size(126, 99);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -223,7 +227,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(543, 256);
+            this.ClientSize = new System.Drawing.Size(543, 179);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -242,6 +246,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cmbCurrentFinYear)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbCurrentCompany)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

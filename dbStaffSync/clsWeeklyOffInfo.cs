@@ -254,6 +254,53 @@ namespace dbStaffSync
             return objEmployeeWklyOffInfoList;
         }
 
+        public List<EmpSpecificWklyOffInfo> getEmployeeSpecificWeeklyOffInfo(int txtEmpID)
+        {
+            DataTable dt = new DataTable();
+            List<EmpSpecificWklyOffInfo> objEmpSpecificWklyOffInfoList = new List<EmpSpecificWklyOffInfo>();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " +
+                                        " EmpMas.EmpID, " + 
+                                        " WklyOffProfileInfo.WklyOffMasID, " + 
+                                        " WklyOffProfileInfo.WklyOffTitle, " + 
+                                        " WklyOffProfileDetails.WklyOffDetID, " + 
+                                        " WklyOffProfileDetails.WklyOffDay " + 
+                                    " FROM " + 
+                                        " ( WklyOffProfileInfo INNER JOIN ( EmpMas INNER JOIN EmpWeeklyOff ON EmpMas.EmpID = EmpWeeklyOff.EmpID) ON WklyOffProfileInfo.WklyOffMasID = EmpWeeklyOff.WklyOffMasID ) " +
+                                        " INNER JOIN WklyOffProfileDetails ON WklyOffProfileInfo.WklyOffMasID = WklyOffProfileDetails.WklyOffMasID " + 
+                                    " WHERE " + 
+                                        " (((EmpMas.EmpID) = " + txtEmpID + "))" +
+                                    " ORDER BY " + 
+                                        " WklyOffProfileDetails.WklyOffOrderID;";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmpSpecificWklyOffInfoList = JsonConvert.DeserializeObject<List<EmpSpecificWklyOffInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objEmpSpecificWklyOffInfoList;
+        }
+
         public int InsertEmployeeSpecificWeeklyInfo(int txtEmpID, int txtWklyOffMasID, DateTime txtEffectDateFrom)
         {
             int affectedRows = 0;

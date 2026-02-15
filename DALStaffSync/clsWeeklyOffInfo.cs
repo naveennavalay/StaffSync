@@ -76,6 +76,15 @@ namespace DALStaffSync
             return objEmployeeWklyOffInfoList;
         }
 
+        public List<EmpSpecificWklyOffInfo> getEmployeeSpecificWeeklyOffInfo(int txtEmpID)
+        {
+            List<EmpSpecificWklyOffInfo> objEmpSpecificWklyOffInfoList = new List<EmpSpecificWklyOffInfo>();
+
+            objEmpSpecificWklyOffInfoList = objWeeklyOffInfo.getEmployeeSpecificWeeklyOffInfo(txtEmpID);
+
+            return objEmpSpecificWklyOffInfoList;
+        }
+
         public int InsertEmployeeSpecificWeeklyInfo(int txtEmpID, int txtWklyOffMasID, DateTime txtEffectDateFrom)
         {
             int affectedRows = 0;

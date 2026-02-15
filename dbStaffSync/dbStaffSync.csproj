@@ -44,14 +44,22 @@
   <ItemGroup>
     <Compile Include="AppVariables.cs" />
     <Compile Include="clsAddressInfo.cs" />
+    <Compile Include="clsAppUserTasks.cs" />
+    <Compile Include="clsAdvanceTypeConfigInfo.cs" />
+    <Compile Include="clsAdvanceTransaction.cs" />
     <Compile Include="clsAllowenceInfo.cs" />
     <Compile Include="clsAppModule.cs" />
     <Compile Include="clsAttendanceMas.cs" />
+    <Compile Include="clsAdvanceTypeMas.cs" />
+    <Compile Include="clsProvidentFundCalculation.cs" />
+    <Compile Include="clsProfessionalTaxCalculation.cs" />
     <Compile Include="clsAuditLog.cs" />
     <Compile Include="clsBankMas.cs" />
     <Compile Include="clsBirthdayList.cs" />
     <Compile Include="clsBloodGroup.cs" />
+    <Compile Include="clsClientBranchInfo.cs" />
     <Compile Include="clsClientInfo.cs" />
+    <Compile Include="clsClientStatutory.cs" />
     <Compile Include="clsCountries.cs" />
     <Compile Include="clsCurrentUserInfo.cs" />
     <Compile Include="clsDeductionsInfo.cs" />

@@ -94,6 +94,7 @@
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonCommand1 = new Krypton.Toolkit.KryptonCommand();
             this.kryptonCommand2 = new Krypton.Toolkit.KryptonCommand();
+            this.btnAttCalender = new Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -318,6 +319,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnAttCalender);
             this.groupBox1.Controls.Add(this.picViewLeaves);
             this.groupBox1.Controls.Add(this.txtApprovalNote);
             this.groupBox1.Controls.Add(this.label8);
@@ -823,6 +825,19 @@
             // 
             this.kryptonCommand2.Text = "kryptonCommand2";
             // 
+            // btnAttCalender
+            // 
+            this.btnAttCalender.Location = new System.Drawing.Point(604, 25);
+            this.btnAttCalender.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAttCalender.Name = "btnAttCalender";
+            this.btnAttCalender.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnAttCalender.Size = new System.Drawing.Size(30, 28);
+            this.btnAttCalender.TabIndex = 52;
+            this.btnAttCalender.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnAttCalender.Values.Image = global::StaffSync.Properties.Resources.attendance;
+            this.btnAttCalender.Values.Text = "";
+            this.btnAttCalender.Click += new System.EventHandler(this.btnAttCalender_Click);
+            // 
             // frmLeavesApproval
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -932,5 +947,6 @@
         private System.Windows.Forms.ColumnHeader Canceled;
         private System.Windows.Forms.ColumnHeader CanceledDate;
         private System.Windows.Forms.PictureBox picViewLeaves;
+        private Krypton.Toolkit.KryptonButton btnAttCalender;
     }
 }

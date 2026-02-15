@@ -338,6 +338,7 @@ namespace StaffSync
 
         private void frmLeaveStatements_Load(object sender, EventArgs e)
         {
+
             RefreshDataOnGrid(-1);
 
             lblActionMode.Text = "";
@@ -596,8 +597,13 @@ namespace StaffSync
 
         private void RefreshDataOnGrid(int EmpID)
         {
+            if (lblEmpID.Text.ToString().Trim() == "")
+                return;
+
             dtgLeaveStatement.DataSource = null;
-            dtgLeaveStatement.DataSource = objLeaveTRList.getAllEmployeesLeaveStatement(EmpID);
+            List<EmployeeLeaveTRList> objEmployeeLeaveTRList = objLeaveTRList.getEmployeeLeaveTRList(Convert.ToInt16(lblEmpID.Text));
+            dtgLeaveStatement.DataSource = objEmployeeLeaveTRList;
+
             dtgLeaveStatement.Columns["LeaveTRID"].Visible = false;
             dtgLeaveStatement.Columns["EmpID"].Visible = false;
             dtgLeaveStatement.Columns["EmpCode"].Visible = false;
@@ -608,9 +614,8 @@ namespace StaffSync
             dtgLeaveStatement.Columns["DesignationTitle"].Width = 200;
             dtgLeaveStatement.Columns["DepartmentTitle"].Visible = false;
             dtgLeaveStatement.Columns["DepartmentTitle"].Width = 200;
-            dtgLeaveStatement.Columns["AttDate"].Width = 100;
-            dtgLeaveStatement.Columns["AttDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
-            dtgLeaveStatement.Columns["AttStatus"].Width = 150;
+            dtgLeaveStatement.Columns["AttDate"].Visible = false;
+            dtgLeaveStatement.Columns["AttStatus"].Visible = false;
             dtgLeaveStatement.Columns["LeaveTypeID"].Visible = false;
             dtgLeaveStatement.Columns["LeaveTypeID"].Width = 150;
             dtgLeaveStatement.Columns["LeaveTypeTitle"].Width = 150;
@@ -624,21 +629,21 @@ namespace StaffSync
             dtgLeaveStatement.Columns["LeaveComments"].Width = 250;
             dtgLeaveStatement.Columns["LeaveApprovalComments"].Width = 250;
             dtgLeaveStatement.Columns["LeaveRejectionComments"].Width = 250;
-            dtgLeaveStatement.Columns["OrderID"].Visible = false; 
+            dtgLeaveStatement.Columns["OrderID"].Visible = false;
             dtgLeaveStatement.Columns["OrderID"].Width = 150;
             dtgLeaveStatement.Columns["LeaveApprovedDate"].Visible = false;
             dtgLeaveStatement.Columns["LeaveAppliedDate"].Visible = false;
             dtgLeaveStatement.Columns["LeaveRejectedDate"].Visible = false;
-            dtgLeaveStatement.Columns["LeaveStatus"].Visible = false; 
+            dtgLeaveStatement.Columns["LeaveStatus"].Visible = false;
             dtgLeaveStatement.Columns["ApprovedOrRejectedByEmpID"].Visible = false;
 
-            foreach (DataGridViewRow dc in dtgLeaveStatement.Rows)
-            {
-                if (dc.Cells["LeaveStatus"].Value.ToString().ToLower() == "cancelled")
-                {
-                    dc.DefaultCellStyle.BackColor = Color.LightGray;
-                }
-            }
+            //foreach (DataGridViewRow dc in dtgLeaveStatement.Rows)
+            //{
+            //    //if (dc.Cells["LeaveStatus"].Value.ToString().ToLower() == "cancelled")
+            //    {
+            //        dc.DefaultCellStyle.BackColor = Color.LightGray;
+            //    }
+            //}
         }
 
         private void frmLeaveStatements_KeyDown(object sender, KeyEventArgs e)

@@ -197,6 +197,7 @@ namespace StaffSync
             int LeaveCounter = 0;
             int FirstHalfLeaveCounter = 0;
             int SecondHalfLeaveCounter = 0;
+            DateTime dtCurrentDate = new DateTime();
 
             DateTime dtSelectedMonth = new DateTime(DateTime.Now.Year, cmbMonthNameList.SelectedIndex + 1, 1, 1, 1, 1);
 
@@ -223,6 +224,10 @@ namespace StaffSync
 
                 string strDayAttendance = "";
                 //strDayAttendance = indEmployeeAttendanceInfo.AttStatus == "Present" ? "Present" : "Leave";
+                if (indEmployeeAttendanceInfo.AttDate != dtCurrentDate)
+                {
+                    dtCurrentDate = indEmployeeAttendanceInfo.AttDate;
+                }
 
                 strDayAttendance = indEmployeeAttendanceInfo.AttStatus;
                 if (indEmployeeAttendanceInfo.AttStatus == "Present")
@@ -245,9 +250,24 @@ namespace StaffSync
                 }
                 else if (indEmployeeAttendanceInfo.AttStatus == "Leave : Second Half")
                 {
-                    strDayAttendance = "Second Half";
-                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.LightYellow, -0.5f);
-                    SecondHalfLeaveCounter = SecondHalfLeaveCounter + 1;
+                    if (strDayAttendance.Contains("First") || strDayAttendance.Contains("Second"))
+                    {
+                        strDayAttendance = "Leave";
+                        empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.LightYellow, 1f);
+                        SecondHalfLeaveCounter = SecondHalfLeaveCounter + 1;
+                    }
+                    else
+                    {
+                        strDayAttendance = "Second Half";
+                        empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.LightYellow, -0.5f);
+                        SecondHalfLeaveCounter = SecondHalfLeaveCounter + 1;
+                    }
+                }
+                else if (indEmployeeAttendanceInfo.AttStatus == "Leave : First Half, Leave : Second Half" || indEmployeeAttendanceInfo.AttStatus == "Leave : Second Half, Leave : First Half")
+                {
+                    strDayAttendance = "Leave";
+                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.LightYellow, 1f);
+                    LeaveCounter = LeaveCounter + 1;
                 }
             }
         }
@@ -276,6 +296,12 @@ namespace StaffSync
         {
             //MessageBox.Show(empAttCalender.SelectedDay.Value.ToString("dd-MMM-yyyy"), "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+            if(lblReportingManagerID.Text == "")
+            {
+                MessageBox.Show("Browser and select an Employee.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (empAttCalender.SelectedDay == null)
             {
                 MessageBox.Show("To update your attendance, please choose a date before continue.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -288,7 +314,7 @@ namespace StaffSync
 
             if(empAttCalender.IsWeekend(Convert.ToDateTime(empAttCalender.SelectedDay.Value.ToString("dd-MMM-yyyy"))))
             {
-                if (MessageBox.Show("It appears that you selected \"Weekend\" as the Attendance Date. \nWould you like to proceed..?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show("It appears that you have chosen \"Weekend\" as the Attendance Date. \nWould you like to proceed..?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
                     return;
                 }
@@ -356,20 +382,37 @@ namespace StaffSync
                     }
                     else
                     {
-                        MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.getMonthlyAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate);
-                        if (MonthlyAttendanceSlNumber == 0)
+                        EmployeeAttendanceInfo objEmployeeAttendanceInfo = objAttendanceMas.GetEmployeeSpecificDailyAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(dtAttSelectedDate));
+                        List<MonthlyAttendanceInfo> objMonthlyAttInfoList = objEmpMnthlyAttdInfo.getEmployeeMonthlyAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime("01" + Convert.ToDateTime(dtAttSelectedDate).Date.ToString("-MMM-yyyy")));
+                        if (objMonthlyAttInfoList.Count == 0)
                         {
-                            RowCounter = objEmpMnthlyAttdInfo.InsertMonthlyAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate);
-                            RowCounter = objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate, "Day" + dtAttSelectedDate.Day, "Present");
-                            RowCounter = objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(dtAttSelectedDate.Date.ToString()), "Present", 0);
+                            MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.InsertMonthlyAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime("01" + Convert.ToDateTime(dtAttSelectedDate).Date.ToString("-MMM-yyyy")));
+                            objMonthlyAttInfoList = objEmpMnthlyAttdInfo.getEmployeeMonthlyAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime("01" + Convert.ToDateTime(dtAttSelectedDate).Date.ToString("-MMM-yyyy")));
                         }
-                        else
-                        {
-                            MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate, "Day" + dtAttSelectedDate.Day, "Present");
-                            RowCounter = objAttendanceInfo.UpdateDailyAttendance(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(dtAttSelectedDate.Date.ToString()), "Present", 0);
-                            if (RowCounter == 0)
-                                RowCounter = objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(dtAttSelectedDate.Date.ToString()), "Present", 0);
-                        }
+
+                        MonthlyAttendanceSlNumber = objMonthlyAttInfoList[0].SlNo;
+                        MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate, "Day" + Convert.ToDateTime(dtAttSelectedDate).Date.Day, objEmployeeAttendanceInfo.AttStatus == null ? "Present" : objEmployeeAttendanceInfo.AttStatus);
+
+                        if(objEmployeeAttendanceInfo.AttStatus == null)
+                            RowCounter = objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(dtAttSelectedDate.Date.ToString()), objEmployeeAttendanceInfo.AttStatus == null ? "Present" : objEmployeeAttendanceInfo.AttStatus, objEmployeeAttendanceInfo.AttStatus == null ? 0 : (int)objEmployeeAttendanceInfo.LeaveTRID);
+                        else if(objEmployeeAttendanceInfo.AttStatus != null)
+                            RowCounter = objAttendanceInfo.UpdateDailyAttendance(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(dtAttSelectedDate.Date.ToString()), objEmployeeAttendanceInfo.AttStatus, Convert.ToInt16(objEmployeeAttendanceInfo.LeaveTRID));
+
+
+                        //MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.getMonthlyAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate);
+                        //if (MonthlyAttendanceSlNumber == 0)
+                        //{
+                        //    RowCounter = objEmpMnthlyAttdInfo.InsertMonthlyAttendanceInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate);
+                        //    RowCounter = objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate, "Day" + dtAttSelectedDate.Day, "Present");
+                        //    //RowCounter = objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(dtAttSelectedDate.Date.ToString()), "Present", 0);
+                        //}
+                        //else
+                        //{
+                        //    MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate, "Day" + dtAttSelectedDate.Day, "Present");
+                        //    RowCounter = objAttendanceInfo.UpdateDailyAttendance(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(dtAttSelectedDate.Date.ToString()), "Present", 0);
+                        //    //if (RowCounter == 0)
+                        //    //    RowCounter = objAttendanceInfo.InsertDailyAttendance(MonthlyAttendanceSlNumber, Convert.ToInt16(lblReportingManagerID.Text.ToString()), dtAttSelectedDate, "Day" + dtAttSelectedDate.Day, "Present");
+                        //}
                     }
 
                     if (RowCounter > 0)

@@ -52,35 +52,7 @@ namespace StaffSync
         public frmOutstandingLeaveStatement(int txtEmployeeID, int txtLeaveMasID)
         {
             InitializeComponent();
-
-            dtgOutstandingLeaveStatement.DataSource = null;
-            dtgOutstandingLeaveStatement.DataSource = objEmpLeaveEntitlementInfo.getEmployeeLeaveEntitilementList(Convert.ToInt16(txtEmployeeID), Convert.ToInt16(txtLeaveMasID));
-
-            dtgOutstandingLeaveStatement.Columns["LeaveEntmtID"].Visible = false;
-            dtgOutstandingLeaveStatement.Columns["EmpID"].Visible = false;
-            dtgOutstandingLeaveStatement.Columns["EmpID"].ReadOnly = true;
-            dtgOutstandingLeaveStatement.Columns["LeaveMasID"].Visible = false;
-            dtgOutstandingLeaveStatement.Columns["LeaveMasID"].ReadOnly = true;
-            dtgOutstandingLeaveStatement.Columns["LeaveTypeID"].Visible = false;
-            dtgOutstandingLeaveStatement.Columns["LeaveTypeID"].ReadOnly = true;
-            dtgOutstandingLeaveStatement.Columns["LeaveTypeTitle"].ReadOnly = true;
-            dtgOutstandingLeaveStatement.Columns["LeaveTypeTitle"].Width = 325;
-
-            dtgOutstandingLeaveStatement.Columns["TotalLeaves"].Width = 135;
-            dtgOutstandingLeaveStatement.Columns["TotalLeaves"].ReadOnly = true;
-            dtgOutstandingLeaveStatement.Columns["TotalLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgOutstandingLeaveStatement.Columns["TotalLeaves"].DefaultCellStyle.Format = "0.00";
-
-            dtgOutstandingLeaveStatement.Columns["BalanceLeaves"].Width = 135;
-            dtgOutstandingLeaveStatement.Columns["BalanceLeaves"].ReadOnly = true;
-            dtgOutstandingLeaveStatement.Columns["BalanceLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgOutstandingLeaveStatement.Columns["BalanceLeaves"].DefaultCellStyle.Format = "0.00";
-
-            dtgOutstandingLeaveStatement.Columns["UsedLeaves"].Width = 135;
-            dtgOutstandingLeaveStatement.Columns["UsedLeaves"].ReadOnly = true;
-            dtgOutstandingLeaveStatement.Columns["UsedLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgOutstandingLeaveStatement.Columns["UsedLeaves"].DefaultCellStyle.Format = "0.00";
-            dtgOutstandingLeaveStatement.Columns["OrderID"].Visible = false;         
+            CompactView(objTempClientFinYearInfo.ClientID);
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -94,10 +66,8 @@ namespace StaffSync
             //this.qryAllEmpLeavePendingStatementTableAdapter.Fill(this.staffsyncDBDataSet1.qryAllEmpLeavePendingStatement);
             //// TODO: This line of code loads data into the 'staffsyncDBDTSet.EmpMasInfo' table. You can move, or remove it, as needed.
             //this.empMasInfoTableAdapter.Fill(this.staffsyncDBDTSet.EmpMasInfo);
-            onCancelButtonClick();
-            disableControls();
-            clearControls();
-            FormatTheGrid();
+            chkCompactDetailedView.Text = "Detailed View";
+            CompactView(objTempClientFinYearInfo.ClientID);
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -131,13 +101,21 @@ namespace StaffSync
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
-            objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
+            string filePath = AppVariables.TempFolderPath + @"\Consolidated Leave Summary.csv";
+            bool ReportGenerated = Download.DownloadExcel(filePath, dtgOutstandingLeaveStatement);
+            if (ReportGenerated)
+                Download.OpenCSV(filePath);
 
-            onSaveButtonClick();
-            disableControls();
-            clearControls();
-            //FormatTheGrid();
-            errValidator.Clear();          
+            //if (chkCompactDetailedView.Checked)
+            //{
+            //    chkCompactDetailedView.Text = "Compact View";
+            //    DetailedView(objTempClientFinYearInfo.ClientID);
+            //}
+            //else
+            //{
+            //    chkCompactDetailedView.Text = "Detailed View";
+            //    CompactView(objTempClientFinYearInfo.ClientID);
+            //}
         }
 
         public void clearControls()
@@ -311,12 +289,114 @@ namespace StaffSync
 
         private void chkSelectUnselect_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void dtgRejectionLeaveList_DoubleClick(object sender, EventArgs e)
         {
             //MessageBox.Show(dtgRejectionLeaveList.SelectedRows[0].Cells["EmpID"].Value.ToString(), "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void chkCompactDetailedView_Click(object sender, EventArgs e)
+        {
+            if (chkCompactDetailedView.Checked)
+            {
+                chkCompactDetailedView.Text = "Compact View";
+                DetailedView(objTempClientFinYearInfo.ClientID);
+            }
+            else
+            {
+                chkCompactDetailedView.Text = "Detailed View";
+                CompactView(objTempClientFinYearInfo.ClientID);
+            }
+        }
+
+        public void CompactView(int ClientID)
+        {
+            dtgOutstandingLeaveStatement.DataSource = null;
+            dtgOutstandingLeaveStatement.DataSource = objEmpLeaveEntitlementInfo.getConsolidatedLeaveOutStandingStatement(Convert.ToInt16(ClientID));
+            dtgOutstandingLeaveStatement.Columns["EmpID"].Visible = false;
+            dtgOutstandingLeaveStatement.Columns["EmpID"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["EmpCode"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["EmpCode"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["EmpName"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["EmpName"].Width = 200;
+            dtgOutstandingLeaveStatement.Columns["DesignationTitle"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["DesignationTitle"].Width = 200;
+            dtgOutstandingLeaveStatement.Columns["DepartmentTitle"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["DepartmentTitle"].Width = 200;
+            dtgOutstandingLeaveStatement.Columns["LeaveBalance"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["LeaveBalance"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["LeaveBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgOutstandingLeaveStatement.Columns["LeaveBalance"].DefaultCellStyle.Format = "0.00";
+        }
+
+        public void DetailedView(int ClientID)
+        {
+            dtgOutstandingLeaveStatement.DataSource = null;
+            dtgOutstandingLeaveStatement.DataSource = objEmpLeaveEntitlementInfo.getDetailedLeaveStatement(Convert.ToInt16(ClientID));
+            dtgOutstandingLeaveStatement.Columns["EmpID"].Visible = false;
+            dtgOutstandingLeaveStatement.Columns["EmpID"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["EmpCode"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["EmpCode"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["EmpName"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["EmpName"].Width = 200;
+            dtgOutstandingLeaveStatement.Columns["DesignationTitle"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["DesignationTitle"].Width = 200;
+            dtgOutstandingLeaveStatement.Columns["DepartmentTitle"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["DepartmentTitle"].Width = 200;
+            dtgOutstandingLeaveStatement.Columns["_01PaidLeave"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["_01PaidLeave"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["_01PaidLeave"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgOutstandingLeaveStatement.Columns["_01PaidLeave"].DefaultCellStyle.Format = "0.00";
+            dtgOutstandingLeaveStatement.Columns["_02CompensatoryOff"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["_02CompensatoryOff"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["_02CompensatoryOff"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgOutstandingLeaveStatement.Columns["_02CompensatoryOff"].DefaultCellStyle.Format = "0.00";
+            dtgOutstandingLeaveStatement.Columns["_03UnpaidLeave"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["_03UnpaidLeave"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["_03UnpaidLeave"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgOutstandingLeaveStatement.Columns["_03UnpaidLeave"].DefaultCellStyle.Format = "0.00";
+            dtgOutstandingLeaveStatement.Columns["_04LossofPayLOPLeaveWithoutPayLWP"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["_04LossofPayLOPLeaveWithoutPayLWP"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["_04LossofPayLOPLeaveWithoutPayLWP"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgOutstandingLeaveStatement.Columns["_04LossofPayLOPLeaveWithoutPayLWP"].DefaultCellStyle.Format = "0.00";
+            dtgOutstandingLeaveStatement.Columns["_05SickLeave"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["_05SickLeave"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["_05SickLeave"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgOutstandingLeaveStatement.Columns["_05SickLeave"].DefaultCellStyle.Format = "0.00";
+            dtgOutstandingLeaveStatement.Columns["_06PrivilegeLeaveEarnedLeave"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["_06PrivilegeLeaveEarnedLeave"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["_06PrivilegeLeaveEarnedLeave"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgOutstandingLeaveStatement.Columns["_06PrivilegeLeaveEarnedLeave"].DefaultCellStyle.Format = "0.00";
+            dtgOutstandingLeaveStatement.Columns["_07CasualLeave"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["_07CasualLeave"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["_07CasualLeave"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgOutstandingLeaveStatement.Columns["_07CasualLeave"].DefaultCellStyle.Format = "0.00";
+            dtgOutstandingLeaveStatement.Columns["_08MaternityLeave"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["_08MaternityLeave"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["_08MaternityLeave"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgOutstandingLeaveStatement.Columns["_08MaternityLeave"].DefaultCellStyle.Format = "0.00";
+            dtgOutstandingLeaveStatement.Columns["_09MarriageLeave"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["_09MarriageLeave"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["_09MarriageLeave"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgOutstandingLeaveStatement.Columns["_09MarriageLeave"].DefaultCellStyle.Format = "0.00";
+            dtgOutstandingLeaveStatement.Columns["_10PaternityLeave"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["_10PaternityLeave"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["_10PaternityLeave"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgOutstandingLeaveStatement.Columns["_10PaternityLeave"].DefaultCellStyle.Format = "0.00";
+            dtgOutstandingLeaveStatement.Columns["_11BereavementLeave"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["_11BereavementLeave"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["_11BereavementLeave"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgOutstandingLeaveStatement.Columns["_11BereavementLeave"].DefaultCellStyle.Format = "0.00";
+            dtgOutstandingLeaveStatement.Columns["_12PublicHoliday"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["_12PublicHoliday"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["_12PublicHoliday"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgOutstandingLeaveStatement.Columns["_12PublicHoliday"].DefaultCellStyle.Format = "0.00";
+            dtgOutstandingLeaveStatement.Columns["_13BirthdayLeave"].ReadOnly = true;
+            dtgOutstandingLeaveStatement.Columns["_13BirthdayLeave"].Width = 150;
+            dtgOutstandingLeaveStatement.Columns["_13BirthdayLeave"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgOutstandingLeaveStatement.Columns["_13BirthdayLeave"].DefaultCellStyle.Format = "0.00";
         }
     }
 }

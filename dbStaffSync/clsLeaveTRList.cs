@@ -685,39 +685,163 @@ namespace dbStaffSync
             return EmpOOOList;
         }
 
-        public bool AttendanceExistsForToday(int txtEmpID, DateTime dtDate)
+        public bool AttendanceExistsForToday(int txtEmpID, DateTime dtDate, int LeaveTypeID, string LeaveMode)
         {
             bool attendanceExists = false;
+            DataTable dt = new DataTable();
+            List<DaySpecificLeaveCheck> objDaySpecificLeaveCheck = new List<DaySpecificLeaveCheck>();
+
             try
             {
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
                 string strQuery = "SELECT COUNT(AttID) FROM EmpMas " +
-                    " INNER JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " + 
-                    " WHERE " + 
-                    " ( ( " + 
+                    " INNER JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " +
+                    " WHERE " +
+                    " ( ( " +
                     " (EmpDailyAttendanceInfo.AttDate) = #" + dtDate.ToString("dd-MMM-yyyy") + "#" +
                     " )" +
-                    " AND ((EmpMas.EmpID) = " +  txtEmpID + "));";
+                    " AND ((EmpMas.EmpID) = " + txtEmpID + "));";
 
 
                 strQuery = "SELECT Count(AttID) AS AttIDCount " +
-                                   " FROM EmpMas INNER JOIN (EmpDailyAttendanceInfo INNER JOIN EmpLeaveTransMas ON EmpDailyAttendanceInfo.LeaveTRID = EmpLeaveTransMas.LeaveTRID) ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " + 
-                           " WHERE " + 
+                                   " FROM EmpMas INNER JOIN (EmpDailyAttendanceInfo INNER JOIN EmpLeaveTransMas ON EmpDailyAttendanceInfo.LeaveTRID = EmpLeaveTransMas.LeaveTRID) ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " +
+                           " WHERE " +
                                    " ( " +
-                                       " ( " + 
+                                       " ( " +
                                             " (EmpDailyAttendanceInfo.AttDate) = #" + dtDate.ToString("dd-MMM-yyyy") + "#" +
-                                        " ) " + 
-                                        " AND ((EmpMas.EmpID) = " + txtEmpID + ") " + 
-                                        " AND ((EmpLeaveTransMas.Canceled) = false) " + 
+                                        " ) " +
+                                        " AND ((EmpMas.EmpID) = " + txtEmpID + ") " +
+                                        " AND ((EmpLeaveTransMas.Canceled) = false) " +
                                     ")";
-                OleDbCommand cmd = conn.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strQuery;
-                int count = (int)cmd.ExecuteScalar();
-                
-                if (count > 0)
-                    attendanceExists = true;
+
+                strQuery = "SELECT " +
+                                   " Sum([LeaveDuration]) AS LeaveDuration1 " +
+                                   " FROM EmpMas " +
+                                        " INNER JOIN ( " +
+                                            " EmpDailyAttendanceInfo " +
+                                            " INNER JOIN EmpLeaveTransMas ON EmpDailyAttendanceInfo.LeaveTRID = EmpLeaveTransMas.LeaveTRID " +
+                                            " ) ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " +
+                                    " WHERE " +
+                                        " ( " +
+                                            " ( " +
+                                                " (EmpDailyAttendanceInfo.AttDate) = #" + dtDate.ToString("dd-MMM-yyyy") + "#" +
+                                            " ) " +
+                                            " AND ((EmpMas.EmpID) = " + txtEmpID + ") " +
+                                            " AND ((EmpLeaveTransMas.Canceled) = False) " +
+                                        " );";
+
+                strQuery = "SELECT " +
+                                " Sum([LeaveDuration]) AS LeaveDuration1 " +
+                            " FROM " +
+                                " EmpMas " +
+                                " INNER JOIN( " +
+                                    " EmpDailyAttendanceInfo " +
+                                    " INNER JOIN EmpLeaveTransMas ON EmpDailyAttendanceInfo.LeaveTRID = EmpLeaveTransMas.LeaveTRID " +
+                                " ) ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " +
+                            " WHERE " +
+                                " ( " +
+                                    " ((EmpLeaveTransMas.LeaveMode) = '" + LeaveMode + "') " +
+                                    " AND ((EmpLeaveTransMas.LeaveTypeID) = " + LeaveTypeID + ") " +
+                                    " AND ((EmpDailyAttendanceInfo.AttDate) = #" + dtDate.ToString("dd-MMM-yyyy") + "# ) " +
+                                    " AND ((EmpMas.EmpID) = " + txtEmpID + " ) " +
+                                    " AND ((EmpLeaveTransMas.Canceled) = False) " +
+                                " );";
+
+                strQuery = "SELECT " +
+                                " Sum([LeaveDuration]) AS LeaveDuration1 " +
+                            " FROM " +
+                                " EmpLeaveTransMas " +
+                            " WHERE " +
+                                " ( " +
+                                    " ((EmpLeaveTransMas.EmpID) = " + txtEmpID + " ) " +
+                                    " AND ((EmpLeaveTransMas.LeaveMode) = 'Full Day' OR (EmpLeaveTransMas.LeaveMode) = 'First Half' OR (EmpLeaveTransMas.LeaveMode) = 'Second Half') " +
+                                    " AND ((EmpLeaveTransMas.LeaveTypeID) = " + LeaveTypeID + ") " +
+                                    " AND ((EmpLeaveTransMas.ActualLeaveDateFrom) = #" + dtDate.ToString("dd-MMM-yyyy") + "#) " +
+                                    " AND ((EmpLeaveTransMas.Canceled) = False) " +
+                                " );";
+
+                if (LeaveMode == "Full Day")
+                {
+                    strQuery = "SELECT " +
+                                    " Sum([LeaveDuration]) AS LeaveDuration1 " +
+                                " FROM " +
+                                    " EmpLeaveTransMas " +
+                                " WHERE " +
+                                    " ( " +
+                                        " ((EmpLeaveTransMas.EmpID) = " + txtEmpID + " ) " +
+                                        " AND ((EmpLeaveTransMas.LeaveMode) = 'Full Day' OR (EmpLeaveTransMas.LeaveMode) = 'First Half' OR (EmpLeaveTransMas.LeaveMode) = 'Second Half') " +
+                                        " AND ((EmpLeaveTransMas.LeaveTypeID) = " + LeaveTypeID + ") " +
+                                        " AND ((EmpLeaveTransMas.ActualLeaveDateFrom) = #" + dtDate.ToString("dd-MMM-yyyy") + "#) " +
+                                        " AND ((EmpLeaveTransMas.Canceled) = False) " +
+                                    " );";
+                    OleDbCommand cmd = conn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strQuery;
+                    cmd.ExecuteNonQuery();
+
+                    OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                    da.Fill(dt);
+
+                    string DataTableToJSon = "";
+                    DataTableToJSon = JsonConvert.SerializeObject(dt);
+                    objDaySpecificLeaveCheck = JsonConvert.DeserializeObject<List<DaySpecificLeaveCheck>>(DataTableToJSon);
+
+                    if (objDaySpecificLeaveCheck.Count == 1)
+                    {
+                        if (objDaySpecificLeaveCheck[0].LeaveDuration1 == Convert.ToDecimal("1.0"))
+                            attendanceExists = true;
+                        else if (objDaySpecificLeaveCheck[0].LeaveDuration1 == Convert.ToDecimal("0.5"))
+                            attendanceExists = true;
+                        else
+                            attendanceExists = false;
+                    }
+                    else
+                    {
+                        attendanceExists = false;
+                    }
+                }
+                else
+                {
+                    strQuery = "SELECT " +
+                                    " LeaveMode, " +
+                                    " LeaveDuration " +
+                                " FROM " +
+                                    " EmpLeaveTransMas " +
+                                " WHERE " +
+                                    " ( " +
+                                        " ((EmpLeaveTransMas.EmpID) = " + txtEmpID + ") " +
+                                        " AND ((EmpLeaveTransMas.LeaveMode) = '" + LeaveMode + "') " +
+                                        " AND ((EmpLeaveTransMas.LeaveTypeID) = " + LeaveTypeID + ") " +
+                                        " AND ((EmpLeaveTransMas.ActualLeaveDateFrom) = #" + dtDate.ToString("dd-MMM-yyyy") + "#) " +
+                                        " AND ((EmpLeaveTransMas.Canceled) = False) " +
+                                    " );";
+                    OleDbCommand cmd = conn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strQuery;
+                    cmd.ExecuteNonQuery();
+
+                    OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                    da.Fill(dt);
+
+                    string DataTableToJSon = "";
+                    DataTableToJSon = JsonConvert.SerializeObject(dt);
+                    objDaySpecificLeaveCheck = JsonConvert.DeserializeObject<List<DaySpecificLeaveCheck>>(DataTableToJSon);
+
+                    if (objDaySpecificLeaveCheck.Count == 1)
+                    {
+                        if (objDaySpecificLeaveCheck[0].LeaveMode == "Full Day" && objDaySpecificLeaveCheck[0].LeaveDuration == Convert.ToDecimal("1.0"))
+                            attendanceExists = true;
+                        else if (objDaySpecificLeaveCheck[0].LeaveMode == "First Half" && objDaySpecificLeaveCheck[0].LeaveDuration == Convert.ToDecimal("0.5"))
+                            attendanceExists = true;
+                        else if (objDaySpecificLeaveCheck[0].LeaveMode == "Second Half" && objDaySpecificLeaveCheck[0].LeaveDuration == Convert.ToDecimal("0.5"))
+                            attendanceExists = true;
+                    }
+                    else
+                    {
+                        attendanceExists = false;
+                    }
+                }
             }
             catch (Exception ex)
             {

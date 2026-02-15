@@ -33,6 +33,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cmbHolidayType = new Krypton.Toolkit.KryptonComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtHolidayDate = new System.Windows.Forms.MaskedTextBox();
             this.label29 = new System.Windows.Forms.Label();
             this.txtHolidayName = new Krypton.Toolkit.KryptonTextBox();
@@ -54,6 +56,7 @@
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbHolidayType)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
@@ -76,8 +79,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(585, 184);
-            this.splitContainer1.SplitterDistance = 126;
+            this.splitContainer1.Size = new System.Drawing.Size(585, 210);
+            this.splitContainer1.SplitterDistance = 150;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -87,22 +90,47 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(585, 126);
+            this.panel1.Size = new System.Drawing.Size(585, 150);
             this.panel1.TabIndex = 1;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cmbHolidayType);
+            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.txtHolidayDate);
             this.groupBox2.Controls.Add(this.label29);
             this.groupBox2.Controls.Add(this.txtHolidayName);
             this.groupBox2.Controls.Add(this.lblPubHolDetID);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(15, 10);
+            this.groupBox2.Location = new System.Drawing.Point(11, 5);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(552, 103);
+            this.groupBox2.Size = new System.Drawing.Size(552, 139);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
+            // 
+            // cmbHolidayType
+            // 
+            this.cmbHolidayType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbHolidayType.DropDownWidth = 440;
+            this.cmbHolidayType.Location = new System.Drawing.Point(144, 101);
+            this.cmbHolidayType.Name = "cmbHolidayType";
+            this.cmbHolidayType.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbHolidayType.Size = new System.Drawing.Size(177, 22);
+            this.cmbHolidayType.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbHolidayType.TabIndex = 65;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(45, 104);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 15);
+            this.label1.TabIndex = 64;
+            this.label1.Text = "Holiday Type";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtHolidayDate
             // 
@@ -119,7 +147,7 @@
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(50, 68);
+            this.label29.Location = new System.Drawing.Point(45, 68);
             this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(89, 15);
@@ -174,7 +202,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(585, 54);
+            this.panel2.Size = new System.Drawing.Size(585, 56);
             this.panel2.TabIndex = 1;
             // 
             // btnUpdate
@@ -237,7 +265,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(585, 184);
+            this.ClientSize = new System.Drawing.Size(585, 210);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -256,6 +284,7 @@
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbHolidayType)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
@@ -286,5 +315,7 @@
         private System.Windows.Forms.Label label29;
         private Krypton.Toolkit.KryptonButton btnUpdate;
         private System.Windows.Forms.ErrorProvider errValidator;
+        private Krypton.Toolkit.KryptonComboBox cmbHolidayType;
+        private System.Windows.Forms.Label label1;
     }
 }

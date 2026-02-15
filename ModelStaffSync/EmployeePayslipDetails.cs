@@ -21,6 +21,8 @@ namespace ModelStaffSync
         [DisplayName("Type")]
         public string HeaderType { get; set; }
 
+        public string CalcFormula { get; set; }
+
         [DisplayName("Allowance Amount")]
         public decimal AllowanceAmount { get; set; }
 

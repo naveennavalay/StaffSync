@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkAutoCalculate = new System.Windows.Forms.CheckBox();
             this.btnViewCalender = new Krypton.Toolkit.KryptonButton();
             this.label5 = new System.Windows.Forms.Label();
             this.txtReimbursement = new Krypton.Toolkit.KryptonTextBox();
@@ -51,8 +52,14 @@
             this.label29 = new System.Windows.Forms.Label();
             this.cmbSalaryMonth = new Krypton.Toolkit.KryptonComboBox();
             this.label42 = new System.Windows.Forms.Label();
+            this.tabControl1 = new Krypton.Docking.KryptonDockableNavigator();
+            this.tabSalaryHeaders = new Krypton.Navigator.KryptonPage();
             this.dtgSalaryDetails = new Krypton.Toolkit.KryptonDataGridView();
+            this.tabAdvanceHeaders = new Krypton.Navigator.KryptonPage();
+            this.dtgAdvanceDetails = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.lblSexID = new System.Windows.Forms.Label();
+            this.lblStateID = new System.Windows.Forms.Label();
             this.lblSelectedMonthSalaryID = new System.Windows.Forms.Label();
             this.btnReportingManagerSearch = new Krypton.Toolkit.KryptonButton();
             this.txtRepEmpDepartment = new Krypton.Toolkit.KryptonTextBox();
@@ -82,7 +89,14 @@
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbSalaryMonth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tabSalaryHeaders)).BeginInit();
+            this.tabSalaryHeaders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgSalaryDetails)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabAdvanceHeaders)).BeginInit();
+            this.tabAdvanceHeaders.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgAdvanceDetails)).BeginInit();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).BeginInit();
             this.panel2.SuspendLayout();
@@ -125,6 +139,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox1.Controls.Add(this.chkAutoCalculate);
             this.groupBox1.Controls.Add(this.btnViewCalender);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtReimbursement);
@@ -143,7 +158,7 @@
             this.groupBox1.Controls.Add(this.label29);
             this.groupBox1.Controls.Add(this.cmbSalaryMonth);
             this.groupBox1.Controls.Add(this.label42);
-            this.groupBox1.Controls.Add(this.dtgSalaryDetails);
+            this.groupBox1.Controls.Add(this.tabControl1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.groupBox1.Location = new System.Drawing.Point(16, 178);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
@@ -152,6 +167,20 @@
             this.groupBox1.Size = new System.Drawing.Size(1032, 443);
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
+            // 
+            // chkAutoCalculate
+            // 
+            this.chkAutoCalculate.AutoSize = true;
+            this.chkAutoCalculate.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkAutoCalculate.Checked = true;
+            this.chkAutoCalculate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAutoCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkAutoCalculate.Location = new System.Drawing.Point(619, 96);
+            this.chkAutoCalculate.Name = "chkAutoCalculate";
+            this.chkAutoCalculate.Size = new System.Drawing.Size(118, 19);
+            this.chkAutoCalculate.TabIndex = 63;
+            this.chkAutoCalculate.Text = "Auto Calculate";
+            this.chkAutoCalculate.UseVisualStyleBackColor = true;
             // 
             // btnViewCalender
             // 
@@ -245,13 +274,13 @@
             // 
             // txtNetPayable
             // 
-            this.txtNetPayable.Location = new System.Drawing.Point(706, 400);
+            this.txtNetPayable.Location = new System.Drawing.Point(701, 400);
             this.txtNetPayable.Margin = new System.Windows.Forms.Padding(4);
             this.txtNetPayable.Multiline = true;
             this.txtNetPayable.Name = "txtNetPayable";
             this.txtNetPayable.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtNetPayable.ReadOnly = true;
-            this.txtNetPayable.Size = new System.Drawing.Size(129, 28);
+            this.txtNetPayable.Size = new System.Drawing.Size(134, 28);
             this.txtNetPayable.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNetPayable.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtNetPayable.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -287,7 +316,7 @@
             // 
             // txtLeaveDays
             // 
-            this.txtLeaveDays.Location = new System.Drawing.Point(616, 52);
+            this.txtLeaveDays.Location = new System.Drawing.Point(616, 51);
             this.txtLeaveDays.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtLeaveDays.MaxLength = 255;
             this.txtLeaveDays.Multiline = true;
@@ -312,7 +341,7 @@
             // 
             // txtTotalWorkedDays
             // 
-            this.txtTotalWorkedDays.Location = new System.Drawing.Point(383, 52);
+            this.txtTotalWorkedDays.Location = new System.Drawing.Point(383, 51);
             this.txtTotalWorkedDays.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtTotalWorkedDays.MaxLength = 255;
             this.txtTotalWorkedDays.Multiline = true;
@@ -337,7 +366,7 @@
             // 
             // txtTotalWorkingDays
             // 
-            this.txtTotalWorkingDays.Location = new System.Drawing.Point(150, 52);
+            this.txtTotalWorkingDays.Location = new System.Drawing.Point(150, 51);
             this.txtTotalWorkingDays.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtTotalWorkingDays.MaxLength = 255;
             this.txtTotalWorkingDays.Multiline = true;
@@ -398,6 +427,72 @@
             this.label42.Text = "Salary Month";
             this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Bar.BarMapExtraText = Krypton.Navigator.MapKryptonPageText.None;
+            this.tabControl1.Bar.BarMapImage = Krypton.Navigator.MapKryptonPageImage.Small;
+            this.tabControl1.Bar.BarMapText = Krypton.Navigator.MapKryptonPageText.TextTitle;
+            this.tabControl1.Bar.BarMultiline = Krypton.Navigator.BarMultiline.Singleline;
+            this.tabControl1.Bar.BarOrientation = Krypton.Toolkit.VisualOrientation.Top;
+            this.tabControl1.Bar.CheckButtonStyle = Krypton.Toolkit.ButtonStyle.Standalone;
+            this.tabControl1.Bar.ItemAlignment = Krypton.Toolkit.RelativePositionAlign.Near;
+            this.tabControl1.Bar.ItemMaximumSize = new System.Drawing.Size(200, 200);
+            this.tabControl1.Bar.ItemMinimumSize = new System.Drawing.Size(20, 20);
+            this.tabControl1.Bar.ItemOrientation = Krypton.Toolkit.ButtonOrientation.FixedTop;
+            this.tabControl1.Bar.ItemSizing = Krypton.Navigator.BarItemSizing.SameWidthAndHeight;
+            this.tabControl1.Bar.TabBorderStyle = Krypton.Toolkit.TabBorderStyle.RoundedOutsizeLarge;
+            this.tabControl1.Bar.TabStyle = Krypton.Toolkit.TabStyle.HighProfile;
+            this.tabControl1.Button.ButtonDisplayLogic = Krypton.Navigator.ButtonDisplayLogic.None;
+            this.tabControl1.Button.CloseButtonAction = Krypton.Navigator.CloseButtonAction.None;
+            this.tabControl1.Button.CloseButtonDisplay = Krypton.Navigator.ButtonDisplay.Hide;
+            this.tabControl1.Button.ContextButtonAction = Krypton.Navigator.ContextButtonAction.SelectPage;
+            this.tabControl1.Button.ContextButtonDisplay = Krypton.Navigator.ButtonDisplay.Logic;
+            this.tabControl1.Button.ContextMenuMapImage = Krypton.Navigator.MapKryptonPageImage.Small;
+            this.tabControl1.Button.ContextMenuMapText = Krypton.Navigator.MapKryptonPageText.TextTitle;
+            this.tabControl1.Button.NextButtonAction = Krypton.Navigator.DirectionButtonAction.None;
+            this.tabControl1.Button.NextButtonDisplay = Krypton.Navigator.ButtonDisplay.Logic;
+            this.tabControl1.Button.PreviousButtonAction = Krypton.Navigator.DirectionButtonAction.ModeAppropriateAction;
+            this.tabControl1.Button.PreviousButtonDisplay = Krypton.Navigator.ButtonDisplay.Logic;
+            this.tabControl1.ControlKryptonFormFeatures = false;
+            this.tabControl1.Group.GroupBackStyle = Krypton.Toolkit.PaletteBackStyle.PanelClient;
+            this.tabControl1.Group.GroupBorderStyle = Krypton.Toolkit.PaletteBorderStyle.ButtonStandalone;
+            this.tabControl1.Location = new System.Drawing.Point(7, 96);
+            this.tabControl1.NavigatorMode = Krypton.Navigator.NavigatorMode.BarTabGroup;
+            this.tabControl1.Outlook.BorderEdgeStyle = Krypton.Toolkit.PaletteBorderStyle.ControlClient;
+            this.tabControl1.Outlook.CheckButtonStyle = Krypton.Toolkit.ButtonStyle.Standalone;
+            this.tabControl1.Outlook.HeaderSecondaryVisible = Krypton.Toolkit.InheritBool.False;
+            this.tabControl1.Outlook.ItemOrientation = Krypton.Toolkit.ButtonOrientation.Auto;
+            this.tabControl1.Outlook.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.tabControl1.Outlook.OverflowButtonStyle = Krypton.Toolkit.ButtonStyle.NavigatorStack;
+            this.tabControl1.Owner = null;
+            this.tabControl1.PageBackStyle = Krypton.Toolkit.PaletteBackStyle.ButtonNavigatorMini;
+            this.tabControl1.Pages.AddRange(new Krypton.Navigator.KryptonPage[] {
+            this.tabSalaryHeaders,
+            this.tabAdvanceHeaders});
+            this.tabControl1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.tabControl1.Panel.PanelBackStyle = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.tabControl1.PopupPages.AllowPopupPages = Krypton.Navigator.PopupPageAllow.Never;
+            this.tabControl1.PopupPages.Element = Krypton.Navigator.PopupPageElement.Item;
+            this.tabControl1.PopupPages.Position = Krypton.Navigator.PopupPagePosition.ModeAppropriate;
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1006, 265);
+            this.tabControl1.TabIndex = 64;
+            // 
+            // tabSalaryHeaders
+            // 
+            this.tabSalaryHeaders.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabSalaryHeaders.AutoScroll = true;
+            this.tabSalaryHeaders.Controls.Add(this.dtgSalaryDetails);
+            this.tabSalaryHeaders.Flags = 65534;
+            this.tabSalaryHeaders.LastVisibleSet = true;
+            this.tabSalaryHeaders.MinimumSize = new System.Drawing.Size(50, 50);
+            this.tabSalaryHeaders.Name = "tabSalaryHeaders";
+            this.tabSalaryHeaders.Size = new System.Drawing.Size(1002, 236);
+            this.tabSalaryHeaders.Text = "Salary Headers";
+            this.tabSalaryHeaders.TextDescription = "";
+            this.tabSalaryHeaders.ToolTipTitle = "Page ToolTip";
+            this.tabSalaryHeaders.UniqueName = "410b78002c6e42e38be14684af8f8fb9";
+            // 
             // dtgSalaryDetails
             // 
             this.dtgSalaryDetails.AllowUserToAddRows = false;
@@ -409,20 +504,58 @@
             this.dtgSalaryDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dtgSalaryDetails.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
             this.dtgSalaryDetails.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgSalaryDetails.Location = new System.Drawing.Point(15, 95);
+            this.dtgSalaryDetails.Location = new System.Drawing.Point(6, 4);
             this.dtgSalaryDetails.Margin = new System.Windows.Forms.Padding(4);
             this.dtgSalaryDetails.MultiSelect = false;
             this.dtgSalaryDetails.Name = "dtgSalaryDetails";
             this.dtgSalaryDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgSalaryDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgSalaryDetails.Size = new System.Drawing.Size(998, 263);
-            this.dtgSalaryDetails.TabIndex = 44;
+            this.dtgSalaryDetails.Size = new System.Drawing.Size(990, 220);
+            this.dtgSalaryDetails.TabIndex = 45;
             this.dtgSalaryDetails.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dtgSalaryDetails_CellBeginEdit);
             this.dtgSalaryDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryDetails_CellEndEdit);
+            // 
+            // tabAdvanceHeaders
+            // 
+            this.tabAdvanceHeaders.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabAdvanceHeaders.Controls.Add(this.dtgAdvanceDetails);
+            this.tabAdvanceHeaders.Enabled = false;
+            this.tabAdvanceHeaders.Flags = 65534;
+            this.tabAdvanceHeaders.LastVisibleSet = true;
+            this.tabAdvanceHeaders.MinimumSize = new System.Drawing.Size(150, 50);
+            this.tabAdvanceHeaders.Name = "tabAdvanceHeaders";
+            this.tabAdvanceHeaders.Size = new System.Drawing.Size(1002, 236);
+            this.tabAdvanceHeaders.Text = "Advance Headers";
+            this.tabAdvanceHeaders.ToolTipTitle = "Page ToolTip";
+            this.tabAdvanceHeaders.UniqueName = "7b4809ade98340beb18a313b3e589dac";
+            // 
+            // dtgAdvanceDetails
+            // 
+            this.dtgAdvanceDetails.AllowUserToAddRows = false;
+            this.dtgAdvanceDetails.AllowUserToDeleteRows = false;
+            this.dtgAdvanceDetails.AllowUserToResizeRows = false;
+            this.dtgAdvanceDetails.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgAdvanceDetails.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgAdvanceDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgAdvanceDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgAdvanceDetails.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgAdvanceDetails.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgAdvanceDetails.Location = new System.Drawing.Point(6, 4);
+            this.dtgAdvanceDetails.Margin = new System.Windows.Forms.Padding(4);
+            this.dtgAdvanceDetails.MultiSelect = false;
+            this.dtgAdvanceDetails.Name = "dtgAdvanceDetails";
+            this.dtgAdvanceDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgAdvanceDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgAdvanceDetails.Size = new System.Drawing.Size(990, 220);
+            this.dtgAdvanceDetails.TabIndex = 46;
+            this.dtgAdvanceDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAdvanceDetails_CellEndEdit);
+            this.dtgAdvanceDetails.DoubleClick += new System.EventHandler(this.dtgAdvanceDetails_DoubleClick);
             // 
             // groupBox8
             // 
             this.groupBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox8.Controls.Add(this.lblSexID);
+            this.groupBox8.Controls.Add(this.lblStateID);
             this.groupBox8.Controls.Add(this.lblSelectedMonthSalaryID);
             this.groupBox8.Controls.Add(this.btnReportingManagerSearch);
             this.groupBox8.Controls.Add(this.txtRepEmpDepartment);
@@ -446,6 +579,32 @@
             this.groupBox8.TabIndex = 33;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "User Information";
+            // 
+            // lblSexID
+            // 
+            this.lblSexID.AutoSize = true;
+            this.lblSexID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblSexID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSexID.Location = new System.Drawing.Point(760, 98);
+            this.lblSexID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblSexID.Name = "lblSexID";
+            this.lblSexID.Size = new System.Drawing.Size(11, 15);
+            this.lblSexID.TabIndex = 35;
+            this.lblSexID.Text = " ";
+            this.lblSexID.Visible = false;
+            // 
+            // lblStateID
+            // 
+            this.lblStateID.AutoSize = true;
+            this.lblStateID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblStateID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStateID.Location = new System.Drawing.Point(760, 68);
+            this.lblStateID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblStateID.Name = "lblStateID";
+            this.lblStateID.Size = new System.Drawing.Size(11, 15);
+            this.lblStateID.TabIndex = 34;
+            this.lblStateID.Text = " ";
+            this.lblStateID.Visible = false;
             // 
             // lblSelectedMonthSalaryID
             // 
@@ -744,6 +903,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Payroll Master Details";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmPayrollMaster_Activated);
             this.Load += new System.EventHandler(this.frmPayrollMaster_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmPayrollMaster_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -754,7 +914,14 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbSalaryMonth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tabSalaryHeaders)).EndInit();
+            this.tabSalaryHeaders.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgSalaryDetails)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabAdvanceHeaders)).EndInit();
+            this.tabAdvanceHeaders.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgAdvanceDetails)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).EndInit();
@@ -790,7 +957,6 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.GroupBox groupBox1;
-        private Krypton.Toolkit.KryptonDataGridView dtgSalaryDetails;
         private Krypton.Toolkit.KryptonComboBox cmbSalaryMonth;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.MaskedTextBox txtSalaryDate;
@@ -811,5 +977,13 @@
         private Krypton.Toolkit.KryptonTextBox txtAallowences;
         private System.Windows.Forms.Label label5;
         private Krypton.Toolkit.KryptonButton btnViewCalender;
+        private System.Windows.Forms.Label lblSexID;
+        private System.Windows.Forms.Label lblStateID;
+        private System.Windows.Forms.CheckBox chkAutoCalculate;
+        private Krypton.Docking.KryptonDockableNavigator tabControl1;
+        private Krypton.Navigator.KryptonPage tabSalaryHeaders;
+        private Krypton.Navigator.KryptonPage tabAdvanceHeaders;
+        private Krypton.Toolkit.KryptonDataGridView dtgSalaryDetails;
+        private Krypton.Toolkit.KryptonDataGridView dtgAdvanceDetails;
     }
 }

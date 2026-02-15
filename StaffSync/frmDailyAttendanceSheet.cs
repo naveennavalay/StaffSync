@@ -312,6 +312,13 @@ namespace StaffSync
                         foreach (PdfColumnDefinition column in t.Columns)
                         {
                             object cellValue = dtgConsolidatedAttendanceReport.Rows[i].Cells[column.ColumnName].Value;
+                            if(cellValue != null)
+                            {
+                                if (cellValue.ToString().ToLower() == "present")
+                                    cellValue = "P";
+                                else if (cellValue.ToString().ToLower() == "present")
+                                    cellValue = "L";
+                            }
                             rowValues.Add(cellValue?.ToString() ?? "");
                         }
                         t.AddRow(rowValues.ToArray());

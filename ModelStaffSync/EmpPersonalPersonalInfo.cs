@@ -22,5 +22,6 @@ namespace ModelStaffSync
         public int ContactID2 { get; set; }
         public int SexID { get; set; }
         public int LastCompanyInfoID { get; set; }
+        public int ClientBranchID { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace dbStaffSync
         DataSet dtDataset;
         clsGenFunc objGenFunc = new clsGenFunc();
 
-        public int InsertAuditLog(int txtEmpID, string txtAuditLogStatement, string txtUserName)
+        public int InsertAuditLog(int txtEmpID, int txtSourceID, string txtAuditLogStatement, string txtUserName, string txtEventGroup)
         {
             int affectedRows = 0;
             try
@@ -25,8 +25,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO UserAuditLog (UserAuditLogID, EmpID, EventDateTime, AuditLogStatement, UserName) VALUES " +
-                 "(" + maxRowCount.Data + "," + txtEmpID + ",'" + DateTime.Now + "','" + txtAuditLogStatement + "','" + txtUserName + "')";
+                string strQuery = "INSERT INTO UserAuditLog (UserAuditLogID, EmpID, SourceID, EventDateTime, AuditLogStatement, UserName, EventGroup) VALUES " +
+                 "(" + maxRowCount.Data + "," + txtEmpID + ", " + txtSourceID + ", '" + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt") + "','" + txtAuditLogStatement + "','" + txtUserName + "', '" + txtEventGroup + "')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

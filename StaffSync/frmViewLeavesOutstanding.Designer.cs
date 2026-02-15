@@ -29,10 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmViewLeavesOutstanding));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cmbChartType = new System.Windows.Forms.ComboBox();
+            this.chrtLeaveSummary = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.btnChart = new Krypton.Toolkit.KryptonButton();
             this.dtgOutstandingLeaveInfo = new Krypton.Toolkit.KryptonDataGridView();
             this.txtTotalUtilised = new Krypton.Toolkit.KryptonTextBox();
             this.txtTotalBalanceLeaves = new Krypton.Toolkit.KryptonTextBox();
@@ -58,6 +64,7 @@
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chrtLeaveSummary)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgOutstandingLeaveInfo)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
@@ -82,7 +89,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(877, 451);
+            this.splitContainer1.Size = new System.Drawing.Size(1238, 451);
             this.splitContainer1.SplitterDistance = 387;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
@@ -96,12 +103,15 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(877, 387);
+            this.panel1.Size = new System.Drawing.Size(1238, 387);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
             // 
             this.groupBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox5.Controls.Add(this.cmbChartType);
+            this.groupBox5.Controls.Add(this.chrtLeaveSummary);
+            this.groupBox5.Controls.Add(this.btnChart);
             this.groupBox5.Controls.Add(this.dtgOutstandingLeaveInfo);
             this.groupBox5.Controls.Add(this.txtTotalUtilised);
             this.groupBox5.Controls.Add(this.txtTotalBalanceLeaves);
@@ -112,10 +122,70 @@
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(850, 367);
+            this.groupBox5.Size = new System.Drawing.Size(1212, 367);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Outstanding Leave Information";
+            // 
+            // cmbChartType
+            // 
+            this.cmbChartType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbChartType.FormattingEnabled = true;
+            this.cmbChartType.Location = new System.Drawing.Point(55, 336);
+            this.cmbChartType.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbChartType.Name = "cmbChartType";
+            this.cmbChartType.Size = new System.Drawing.Size(174, 23);
+            this.cmbChartType.TabIndex = 61;
+            this.cmbChartType.Tag = "Please enter Employee Department";
+            this.cmbChartType.Visible = false;
+            this.cmbChartType.SelectedIndexChanged += new System.EventHandler(this.cmbChartType_SelectedIndexChanged);
+            // 
+            // chrtLeaveSummary
+            // 
+            this.chrtLeaveSummary.BackColor = System.Drawing.Color.Transparent;
+            this.chrtLeaveSummary.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.chrtLeaveSummary.BackSecondaryColor = System.Drawing.Color.Transparent;
+            this.chrtLeaveSummary.BorderlineColor = System.Drawing.Color.Transparent;
+            this.chrtLeaveSummary.BorderlineWidth = 0;
+            this.chrtLeaveSummary.BorderSkin.BackColor = System.Drawing.Color.Transparent;
+            this.chrtLeaveSummary.BorderSkin.BackImageTransparentColor = System.Drawing.Color.Transparent;
+            this.chrtLeaveSummary.BorderSkin.BackSecondaryColor = System.Drawing.Color.Transparent;
+            this.chrtLeaveSummary.BorderSkin.BorderWidth = 0;
+            this.chrtLeaveSummary.BorderSkin.PageColor = System.Drawing.Color.Transparent;
+            chartArea1.Area3DStyle.Inclination = 15;
+            chartArea1.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.BackSecondaryColor = System.Drawing.Color.Transparent;
+            chartArea1.BorderWidth = 0;
+            chartArea1.Name = "ChartArea1";
+            this.chrtLeaveSummary.ChartAreas.Add(chartArea1);
+            legend1.BackColor = System.Drawing.Color.Transparent;
+            legend1.BackSecondaryColor = System.Drawing.Color.Transparent;
+            legend1.Name = "Legend1";
+            legend1.TitleBackColor = System.Drawing.Color.Transparent;
+            this.chrtLeaveSummary.Legends.Add(legend1);
+            this.chrtLeaveSummary.Location = new System.Drawing.Point(814, 30);
+            this.chrtLeaveSummary.Name = "chrtLeaveSummary";
+            series1.BorderColor = System.Drawing.Color.Transparent;
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chrtLeaveSummary.Series.Add(series1);
+            this.chrtLeaveSummary.Size = new System.Drawing.Size(399, 318);
+            this.chrtLeaveSummary.TabIndex = 2;
+            // 
+            // btnChart
+            // 
+            this.btnChart.Location = new System.Drawing.Point(17, 331);
+            this.btnChart.Margin = new System.Windows.Forms.Padding(4);
+            this.btnChart.Name = "btnChart";
+            this.btnChart.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnChart.Size = new System.Drawing.Size(30, 28);
+            this.btnChart.TabIndex = 60;
+            this.btnChart.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnChart.Values.Image = global::StaffSync.Properties.Resources.pie_chart;
+            this.btnChart.Values.Text = "";
+            this.btnChart.Visible = false;
+            this.btnChart.Click += new System.EventHandler(this.btnChart_Click);
             // 
             // dtgOutstandingLeaveInfo
             // 
@@ -137,6 +207,7 @@
             this.dtgOutstandingLeaveInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgOutstandingLeaveInfo.Size = new System.Drawing.Size(790, 286);
             this.dtgOutstandingLeaveInfo.TabIndex = 59;
+            this.dtgOutstandingLeaveInfo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgOutstandingLeaveInfo_CellDoubleClick);
             // 
             // txtTotalUtilised
             // 
@@ -220,12 +291,12 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(877, 59);
+            this.panel2.Size = new System.Drawing.Size(1238, 59);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(719, 7);
+            this.btnCloseMe.Location = new System.Drawing.Point(694, 8);
             this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -342,7 +413,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(877, 451);
+            this.ClientSize = new System.Drawing.Size(1238, 451);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -363,6 +434,7 @@
             this.panel1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chrtLeaveSummary)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgOutstandingLeaveInfo)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
@@ -398,5 +470,8 @@
         private System.Windows.Forms.Label label49;
         private Krypton.Toolkit.KryptonTextBox txtTotalUtilised;
         private Krypton.Toolkit.KryptonDataGridView dtgOutstandingLeaveInfo;
+        private Krypton.Toolkit.KryptonButton btnChart;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chrtLeaveSummary;
+        private System.Windows.Forms.ComboBox cmbChartType;
     }
 }

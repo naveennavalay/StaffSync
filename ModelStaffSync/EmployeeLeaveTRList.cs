@@ -75,5 +75,4 @@ namespace ModelStaffSync
         [DisplayName("Cancelled Date")]
         public DateTime? CanceledDate { get; set; }
     }
-
 }

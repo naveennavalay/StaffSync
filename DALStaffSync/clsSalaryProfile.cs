@@ -20,6 +20,15 @@ namespace DALStaffSync
     {
         dbStaffSync.clsSalaryProfile objSalaryProfile = new dbStaffSync.clsSalaryProfile();
 
+        public SpecificEmployeeSalaryInfo getSpecificEmployeeSalaryInfo(int txtEmpID)
+        {
+            SpecificEmployeeSalaryInfo specificEmployeeSalaryInfo = new SpecificEmployeeSalaryInfo();
+
+            specificEmployeeSalaryInfo = objSalaryProfile.getSpecificEmployeeSalaryInfo(txtEmpID);
+
+            return specificEmployeeSalaryInfo;
+        }
+
         public SpecificEmployeeSalaryProfileInfo getEmployeeSpecificSalaryProfile(int txtEmpID)
         {
             SpecificEmployeeSalaryProfileInfo specificEmployeeSalaryProfileInfo = new SpecificEmployeeSalaryProfileInfo();

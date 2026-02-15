@@ -17,20 +17,20 @@ namespace DALStaffSync
 
         }
 
-        public int InsertEmployeePersonalInfo(int txtEmployeeID, DateTime txtEmployeeDOB, DateTime txtEmployeeDOJ, int txtEmployeeQualID, int txtPermanentAddressID, int txtCurrentAddressID, string ContactNumber1, string ContactNumber2, int txtContactID1, int txtContactID2, int txtEmployeeSexID, int txtEmployeeLastCompayID)
+        public int InsertEmployeePersonalInfo(int txtEmployeeID, DateTime txtEmployeeDOB, DateTime txtEmployeeDOJ, int txtEmployeeQualID, int txtPermanentAddressID, int txtCurrentAddressID, string ContactNumber1, string ContactNumber2, int txtContactID1, int txtContactID2, int txtEmployeeSexID, int txtEmployeeLastCompayID, int txtClientBranchID)
         {
             int affectedRows = 0;
 
-            affectedRows = objEmployeePersonalInfo.InsertEmployeePersonalInfo(txtEmployeeID, txtEmployeeDOB, txtEmployeeDOJ, txtEmployeeQualID, txtPermanentAddressID, txtCurrentAddressID, ContactNumber1, ContactNumber2, txtContactID1, txtContactID2, txtEmployeeSexID, txtEmployeeLastCompayID);
+            affectedRows = objEmployeePersonalInfo.InsertEmployeePersonalInfo(txtEmployeeID, txtEmployeeDOB, txtEmployeeDOJ, txtEmployeeQualID, txtPermanentAddressID, txtCurrentAddressID, ContactNumber1, ContactNumber2, txtContactID1, txtContactID2, txtEmployeeSexID, txtEmployeeLastCompayID, txtClientBranchID);
 
             return affectedRows;
         }
 
-        public int UpdateEmployeePersonalInfo(int txtEmployeeID, DateTime txtEmployeeDOB, DateTime txtEmployeeDOJ, int txtEmployeeQualID, int txtPermanentAddressID, int txtCurrentAddressID, string ContactNumber1, string ContactNumber2, int txtContactID1, int txtContactID2, int txtEmployeeSexID, int txtEmployeeLastCompayID)
+        public int UpdateEmployeePersonalInfo(int txtEmployeeID, DateTime txtEmployeeDOB, DateTime txtEmployeeDOJ, int txtEmployeeQualID, int txtPermanentAddressID, int txtCurrentAddressID, string ContactNumber1, string ContactNumber2, int txtContactID1, int txtContactID2, int txtEmployeeSexID, int txtEmployeeLastCompayID, int txtClientBranchID)
         {
             int affectedRows = 0;
 
-            affectedRows = objEmployeePersonalInfo.UpdateEmployeePersonalInfo(txtEmployeeID, txtEmployeeDOB, txtEmployeeDOJ, txtEmployeeQualID, txtPermanentAddressID, txtCurrentAddressID, ContactNumber1, ContactNumber2, txtContactID1, txtContactID2, txtEmployeeSexID, txtEmployeeLastCompayID);
+            affectedRows = objEmployeePersonalInfo.UpdateEmployeePersonalInfo(txtEmployeeID, txtEmployeeDOB, txtEmployeeDOJ, txtEmployeeQualID, txtPermanentAddressID, txtCurrentAddressID, ContactNumber1, ContactNumber2, txtContactID1, txtContactID2, txtEmployeeSexID, txtEmployeeLastCompayID, txtClientBranchID);
 
             return affectedRows;
         }

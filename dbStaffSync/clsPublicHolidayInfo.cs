@@ -20,6 +20,41 @@ namespace dbStaffSync
 
         }
 
+        public List<PublicHolidayType> getHolidayTypeList()
+        {
+            List<PublicHolidayType> lstPublicHolidayType = new List<PublicHolidayType>();
+            DataTable dt = new DataTable();
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                string strQuery = "SELECT PubHolTypeID, PubHolTypeCode, PubHolTypeTitle FROM PubHolType";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                List<PublicHolidayType> objPublicHolidayType = JsonConvert.DeserializeObject<List<PublicHolidayType>>(DataTableToJSon);
+                if (objPublicHolidayType.Count > 0)
+                {
+                    lstPublicHolidayType = objPublicHolidayType;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return lstPublicHolidayType;
+        }
+
+
         public List<PublicHolidayInfo> GetHolidayDetailsInfo(int txtYearID)
         {
             List<PublicHolidayInfo> lstPublicHolidayInfo = new List<PublicHolidayInfo>();
@@ -62,6 +97,21 @@ namespace dbStaffSync
                                     "AND ((ClientMas.ClientID) = " + +CurrentUser.ClientID + ") " +
                                 ");";
 
+                strQuery = "SELECT " +
+                                   " PubHolidayDetails.PubHolDetID, " +
+                                   " PubHolidayDetails.PubHolMasID, " +
+                                   " PubHolidayDetails.PubHolidayTitle, " +
+                                   " PubHolidayDetails.PubHolDate, " +
+                                   " PubHolType.PubHolTypeID, " +
+                                   " PubHolType.PubHolTypeTitle, " +
+                                   " PubHolidayDetails.OrderID, " +
+                                   " WeekdayName (Weekday ([PubHolDate], 0)) AS DayName, " +
+                                   " ClientMas.ClientID " +
+                                " FROM " +
+                                    " PubHolType INNER JOIN (( ClientMas INNER JOIN PublicHolidayMas ON ClientMas.ClientID = PublicHolidayMas.ClientID) INNER JOIN PubHolidayDetails ON PublicHolidayMas.PubHolMasID = PubHolidayDetails.PubHolMasID ) " +
+                                    " ON PubHolType.PubHolTypeID = PubHolidayDetails.PubHolTypeID " +
+                                " WHERE " +
+                                    " (((PubHolidayDetails.PubHolMasID) = " + txtYearID + ") AND ((ClientMas.ClientID) = " + CurrentUser.ClientID + "))";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -86,7 +136,9 @@ namespace dbStaffSync
                             PubHolMasID = txtYearID,
                             PubHolidayTitle = "",
                             PubHolDate = null,
-                            OrderID = 0
+                            OrderID = 0,
+                            PubHolTypeID = 0,
+                            PubHolTypeTitle = ""
                         });
                     }
                 }
@@ -100,7 +152,9 @@ namespace dbStaffSync
                             PubHolMasID = txtYearID,
                             PubHolidayTitle = "",
                             PubHolDate = null,
-                            OrderID = 0
+                            OrderID = 0,
+                            PubHolTypeID = 0,
+                            PubHolTypeTitle = ""
                         });
                     }
                 }
@@ -163,7 +217,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int InsertPublicHolidayDetailInfo(int txtPubHolMasID, string txtPublicHolidayTitle, DateTime txtPublicHolidayDate, int txtOrderID)
+        public int InsertPublicHolidayDetailInfo(int txtPubHolMasID, string txtPublicHolidayTitle, DateTime txtPublicHolidayDate, int txtPubHolTypeID, int txtOrderID)
         {
             int affectedRows = 0;
             try
@@ -175,8 +229,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO PubHolidayDetails (PubHolDetID, PubHolMasID, PubHolidayTitle, PubHolDate, OrderID) VALUES " +
-                 "(" + maxRowCount.Data + "," + txtPubHolMasID + ",'" + txtPublicHolidayTitle + "','" + txtPublicHolidayDate.ToString("dd-MM-yyyy") + "'," + OrderID.Data + ")";
+                string strQuery = "INSERT INTO PubHolidayDetails (PubHolDetID, PubHolMasID, PubHolidayTitle, PubHolDate, PubHolTypeID, OrderID) VALUES " +
+                 "(" + maxRowCount.Data + "," + txtPubHolMasID + ",'" + txtPublicHolidayTitle + "','" + txtPublicHolidayDate.ToString("dd-MM-yyyy") + "'," + txtPubHolTypeID + "," + OrderID.Data + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -198,7 +252,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpdatePublicHolidayDetailInfo(int txtPubHolDetID, int txtPubHolMasID, string txtPublicHolidayTitle, DateTime txtPublicHolidayDate, int txtOrderID)
+        public int UpdatePublicHolidayDetailInfo(int txtPubHolDetID, int txtPubHolMasID, string txtPublicHolidayTitle, DateTime txtPublicHolidayDate, int txtPubHolTypeID, int txtOrderID)
         {
             int affectedRows = 0;
             try
@@ -206,8 +260,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE PubHolidayDetails SET PubHolidayTitle = '" + txtPublicHolidayTitle + "', PubHolDate = '" + txtPublicHolidayDate.ToString("dd-MM-yyyy") + "'" +
-                 "WHERE PubHolDetID = " + txtPubHolDetID + "";
+                string strQuery = "UPDATE PubHolidayDetails SET PubHolidayTitle = '" + txtPublicHolidayTitle + "', PubHolDate = '" + txtPublicHolidayDate.ToString("dd-MM-yyyy") + "', PubHolTypeID = " + txtPubHolTypeID +
+                 " WHERE PubHolDetID = " + txtPubHolDetID + "";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

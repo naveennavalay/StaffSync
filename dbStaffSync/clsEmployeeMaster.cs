@@ -36,7 +36,7 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "SELECT * FROM EmpMasInfo WHERE IsActive = true AND IsDeleted = false and ClientID = " + CurrentUser.ClientID;
+                string strQuery = "SELECT * FROM EmpMasInfo WHERE IsActive = true AND IsDeleted = false and ClientID = " + CurrentUser.ClientID + " ORDER BY EmpID Asc";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -357,6 +357,8 @@ namespace dbStaffSync
                     reportingManagerInfo.DesignationTitle = objReportingManagerInfo[0].DesignationTitle;
                     reportingManagerInfo.DepartmentTitle = objReportingManagerInfo[0].DepartmentTitle;
                     reportingManagerInfo.ContactNumber1= objReportingManagerInfo[0].ContactNumber1;
+                    reportingManagerInfo.StateID = objReportingManagerInfo[0].StateID;
+                    reportingManagerInfo.SexID = objReportingManagerInfo[0].SexID;
                 }
             }
             catch (Exception ex)
@@ -378,7 +380,7 @@ namespace dbStaffSync
             try
             {
 
-                Response<int> maxRowCount = objGenFunc.getMaxRowCount("EmpMas", "EmpID", txtClientID);
+                Response<int> maxRowCount = objGenFunc.getMaxRowCount("EmpMas", "EmpID");
                 
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();

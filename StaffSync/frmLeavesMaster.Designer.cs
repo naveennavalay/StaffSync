@@ -91,6 +91,7 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnAttCalender = new Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -170,7 +171,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(400, 32);
+            this.btnSearch.Location = new System.Drawing.Point(396, 32);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -537,6 +538,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnAttCalender);
             this.groupBox1.Controls.Add(this.chkAllowBackDate);
             this.groupBox1.Controls.Add(this.picViewLeaves);
             this.groupBox1.Controls.Add(this.txtLeaveNote);
@@ -578,7 +580,7 @@
             this.picViewLeaves.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picViewLeaves.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picViewLeaves.Image = global::StaffSync.Properties.Resources.search;
-            this.picViewLeaves.Location = new System.Drawing.Point(374, 34);
+            this.picViewLeaves.Location = new System.Drawing.Point(376, 32);
             this.picViewLeaves.Margin = new System.Windows.Forms.Padding(4);
             this.picViewLeaves.Name = "picViewLeaves";
             this.picViewLeaves.Size = new System.Drawing.Size(31, 27);
@@ -866,6 +868,19 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
+            // btnAttCalender
+            // 
+            this.btnAttCalender.Location = new System.Drawing.Point(758, 31);
+            this.btnAttCalender.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAttCalender.Name = "btnAttCalender";
+            this.btnAttCalender.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnAttCalender.Size = new System.Drawing.Size(30, 28);
+            this.btnAttCalender.TabIndex = 51;
+            this.btnAttCalender.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnAttCalender.Values.Image = global::StaffSync.Properties.Resources.attendance;
+            this.btnAttCalender.Values.Text = "";
+            this.btnAttCalender.Click += new System.EventHandler(this.btnAttCalender_Click);
+            // 
             // frmLeavesMaster
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -971,5 +986,6 @@
         private System.Windows.Forms.PictureBox picViewLeaves;
         private Krypton.Toolkit.KryptonCheckBox chkAllowBackDate;
         private System.Windows.Forms.ColumnHeader LeaveMode;
+        private Krypton.Toolkit.KryptonButton btnAttCalender;
     }
 }

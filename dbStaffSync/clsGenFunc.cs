@@ -148,7 +148,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 //string strQuery = "SELECT MAX(" + ColumnName.ToString().Trim() + ") FROM " + tableName;
-                string strQuery = "SELECT MAX(Val(MID([EmpCode], 5))) AS EmpCode1 FROM EMPMAS WHERE ClientID = " + CurrentCompanyID;
+                string strQuery = "SELECT MAX(Val(MID([" + ColumnName + "], 5))) AS " + ColumnName + "1 FROM " + tableName + " WHERE ClientID = " + CurrentCompanyID;
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -183,6 +183,5 @@ namespace dbStaffSync
 
             return Response<int>.Success(rowCount);
         }
-
     }
 }

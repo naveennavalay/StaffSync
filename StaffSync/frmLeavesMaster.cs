@@ -197,7 +197,7 @@ namespace StaffSync
                 return;
             }
 
-            bool AttendanceEntryAlreadyExist = objLeaveTRList.AttendanceExistsForToday(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text));
+            bool AttendanceEntryAlreadyExist = objLeaveTRList.AttendanceExistsForToday(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text), cmbLeaveType.SelectedIndex + 1, cmbDuration.Text.ToString());
             if(AttendanceEntryAlreadyExist)
             {
                 MessageBox.Show(cmbLeaveType.Text + " - Leave already applied for the selected date.\nPlease verify once again to continue.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -759,6 +759,18 @@ namespace StaffSync
         private void btnRemoveDetails_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAttCalender_Click(object sender, EventArgs e)
+        {
+            if (lblEmpID.Text.Trim() == "")
+            {
+                MessageBox.Show("Please select an Employee to continue", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                return;
+            }
+
+            frmIndEmpAttendanceCalender frmIndEmpAttendanceCalender = new frmIndEmpAttendanceCalender(objTempCurrentlyLoggedInUserInfo, objTempClientFinYearInfo, Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()));
+            frmIndEmpAttendanceCalender.ShowDialog();
         }
     }
 }

@@ -43,7 +43,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsAddressInfo.cs" />
+    <Compile Include="clsAdvanceTransaction.cs" />
+    <Compile Include="clsAdvanceTypeConfigInfo.cs" />
+    <Compile Include="clsAdvanceTypeMas.cs" />
+    <Compile Include="clsAppUserTasks.cs" />
+    <Compile Include="clsProvidentFundCalculation.cs" />
+    <Compile Include="clsProfessionalTaxCalculation.cs" />
     <Compile Include="clsBirthdayList.cs" />
+    <Compile Include="clsClientBranchInfo.cs" />
+    <Compile Include="clsClientStatutory.cs" />
     <Compile Include="clsCurrentUserInfo.cs" />
     <Compile Include="clsEmployeeMaster.cs" />
     <Compile Include="clsPublicHolidayInfo.cs" />

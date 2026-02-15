@@ -43,5 +43,41 @@ namespace DALStaffSync
 
             return affectedRows;
         }
+
+        public int UpdateCompanyLogoInfo(int txtCompanyID, byte[] txtPhoto)
+        {
+            int affectedRows = 0;
+
+            affectedRows = objPhotoMas.UpdateCompanyLogoInfo(txtCompanyID, txtPhoto);
+
+            return affectedRows;
+        }
+
+        public CompanyLogoInfo getCompanyLogo(int txtCompanyID)
+        {
+            CompanyLogoInfo photoInfo = new CompanyLogoInfo();
+
+            photoInfo = objPhotoMas.getCompanyLogo(txtCompanyID);
+
+            return photoInfo;
+        }
+
+        public int UpdateCompanyBranchLogoInfo(int txtCompanyBranchID, byte[] txtPhoto)
+        {
+            int affectedRows = 0;
+
+            affectedRows = objPhotoMas.UpdateCompanyBranchLogoInfo(txtCompanyBranchID, txtPhoto);
+
+            return affectedRows;
+        }
+
+        public CompanyBranchLogoInfo getCompanyBranchLogo(int txtCompanyBranchID)
+        {
+            CompanyBranchLogoInfo photoInfo = new CompanyBranchLogoInfo();
+
+            photoInfo = objPhotoMas.getCompanyBranchLogo(txtCompanyBranchID);
+
+            return photoInfo;
+        }
     }
 }

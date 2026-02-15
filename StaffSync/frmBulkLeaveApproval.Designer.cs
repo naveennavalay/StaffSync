@@ -244,6 +244,7 @@
             // 
             // btnSaveDetails
             // 
+            this.btnSaveDetails.Enabled = false;
             this.btnSaveDetails.Location = new System.Drawing.Point(27, 13);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;

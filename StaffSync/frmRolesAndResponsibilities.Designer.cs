@@ -342,6 +342,7 @@
             this.dtgRolesAndResponsibilties.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgRolesAndResponsibilties.Size = new System.Drawing.Size(854, 213);
             this.dtgRolesAndResponsibilties.TabIndex = 31;
+            this.dtgRolesAndResponsibilties.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dtgRolesAndResponsibilties_CellBeginEdit);
             this.dtgRolesAndResponsibilties.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgRolesAndResponsibilties_CellContentClick);
             // 
             // label28

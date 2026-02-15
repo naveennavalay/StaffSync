@@ -276,10 +276,10 @@ namespace StaffSync
             dtgPendingApprovalLeaveInfo.Columns["LeaveComments"].Visible = true;
             dtgPendingApprovalLeaveInfo.Columns["Canceled"].ReadOnly = true;
             dtgPendingApprovalLeaveInfo.Columns["Canceled"].Width = 100;
-            dtgPendingApprovalLeaveInfo.Columns["Canceled"].Visible = true;
+            dtgPendingApprovalLeaveInfo.Columns["Canceled"].Visible = false;
             dtgPendingApprovalLeaveInfo.Columns["CanceledDate"].ReadOnly = true;
             dtgPendingApprovalLeaveInfo.Columns["CanceledDate"].Width = 125;
-            dtgPendingApprovalLeaveInfo.Columns["CanceledDate"].Visible = true;
+            dtgPendingApprovalLeaveInfo.Columns["CanceledDate"].Visible = false;
             dtgPendingApprovalLeaveInfo.Columns["CanceledDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
             dtgPendingApprovalLeaveInfo.Columns["LeaveApprovalComments"].ReadOnly = true;
             dtgPendingApprovalLeaveInfo.Columns["LeaveApprovalComments"].Width = 350;

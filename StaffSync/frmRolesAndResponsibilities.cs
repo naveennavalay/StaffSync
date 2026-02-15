@@ -313,6 +313,15 @@ namespace StaffSync
                 // Toggle the current one
                 bool currentValue = Convert.ToBoolean(dgv.Rows[e.RowIndex].Cells["Access"].Value ?? false);
                 dgv.Rows[e.RowIndex].Cells["Access"].Value = !currentValue;
+                dgv.Rows[6].Cells["Access"].Value = true;
+            }
+        }
+
+        private void dtgRolesAndResponsibilties_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (e.RowIndex == dtgRolesAndResponsibilties.Rows.Count - 1 && dtgRolesAndResponsibilties.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn)
+            {
+                e.Cancel = true;
             }
         }
     }

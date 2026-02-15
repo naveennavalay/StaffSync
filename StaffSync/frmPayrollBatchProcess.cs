@@ -197,7 +197,7 @@ namespace StaffSync
                 for (int j = 0; j < dtgSalaryDetails.Columns.Count; j++)
                 {
                     if(j == 0)
-                        EmpSalMasID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString().Trim()), Convert.ToDateTime(dtSalaryDate.Text), cmbSalaryMonth.Text, 0, 0, 0, 0, 1);
+                        EmpSalMasID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString().Trim()), Convert.ToDateTime(dtSalaryDate.Text), cmbSalaryMonth.Text, 0, 0, 0, 0, 0, 0, 0);
 
                     if(j > 5)
                     {
@@ -211,17 +211,17 @@ namespace StaffSync
                             if (AllowenceHeaderID > 0)
                             {
                                 SalProDetID = objSalaryProfile.GetAllowenceProfileDetailID(empSalProfileID, AllowenceHeaderID);
-                                EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(AllowenceHeaderID), dtgSalaryDetails.Columns[j].HeaderCell.Value.ToString(), "Allowences", Convert.ToDecimal(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString()), 0, 0, iRowCounter);
+                                //EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(AllowenceHeaderID), dtgSalaryDetails.Columns[j].HeaderCell.Value.ToString(), "Allowences", Convert.ToDecimal(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString()), 0, 0, iRowCounter);
                             }
                             else if (DeductionHeaderID > 0)
                             {
                                 SalProDetID = objSalaryProfile.GetDeductionProfileDetailID(empSalProfileID, DeductionHeaderID);
-                                EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(DeductionHeaderID), dtgSalaryDetails.Columns[j].HeaderCell.Value.ToString(), "Deductions", 0, Convert.ToDecimal(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString()), 0, iRowCounter);
+                                //EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(DeductionHeaderID), dtgSalaryDetails.Columns[j].HeaderCell.Value.ToString(), "Deductions", 0, Convert.ToDecimal(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString()), 0, iRowCounter);
                             }
                             else if (ReimbursementHeaderID > 0)
                             {
                                 SalProDetID = objSalaryProfile.GetReimbursementProfileDetailID(empSalProfileID, ReimbursementHeaderID);
-                                EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(ReimbursementHeaderID), dtgSalaryDetails.Columns[j].HeaderCell.Value.ToString(), "Reimbursement", 0, 0, dtgSalaryDetails.Rows[i].Cells[j].Value == "{}" ? Convert.ToDecimal(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString()) : 0, iRowCounter);
+                                //EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(ReimbursementHeaderID), dtgSalaryDetails.Columns[j].HeaderCell.Value.ToString(), "Reimbursement", 0, 0, dtgSalaryDetails.Rows[i].Cells[j].Value == "{}" ? Convert.ToDecimal(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString()) : 0, iRowCounter);
                             }
                             iRowCounter = iRowCounter + 1;
                         }

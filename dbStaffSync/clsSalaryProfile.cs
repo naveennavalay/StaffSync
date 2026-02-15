@@ -23,6 +23,60 @@ namespace dbStaffSync
         DataSet dtDataset = null;
         clsGenFunc objGenFunc = new clsGenFunc();
 
+
+        public SpecificEmployeeSalaryInfo getSpecificEmployeeSalaryInfo(int txtEmpID)
+        {
+            List<SpecificEmployeeSalaryInfo> objSpecificEmployeeSalaryInfoList = new List<SpecificEmployeeSalaryInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        " TOP 1 EmpSalID, " + 
+                                        " EmpSalDate, " + 
+                                        " TotalAllowance, " + 
+                                        " TotalDeduction, " + 
+                                        " TotalReimbursement, " + 
+                                        " NetPayable, " + 
+                                        " OrderID, " + 
+                                        " EmpID " + 
+                                    " FROM " + 
+                                        " EmpSalMas " + 
+                                    " WHERE " + 
+                                        " EmpID = " + txtEmpID +  
+                                    " ORDER BY " +
+                                        " EmpSalMas.OrderID DESC;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objSpecificEmployeeSalaryInfoList = JsonConvert.DeserializeObject<List<SpecificEmployeeSalaryInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            if (objSpecificEmployeeSalaryInfoList.Count == 0)
+                return new SpecificEmployeeSalaryInfo();
+            else
+                return objSpecificEmployeeSalaryInfoList[0];
+        }
+
         public SpecificEmployeeSalaryProfileInfo getEmployeeSpecificSalaryProfile(int txtEmpID)
         {
             SpecificEmployeeSalaryProfileInfo specificEmployeeSalaryProfileInfo = new SpecificEmployeeSalaryProfileInfo();
@@ -649,7 +703,8 @@ namespace dbStaffSync
                         "EmpSalDetails.EmpSalID as SalProfileID, " +
                         "EmpSalDetails.SalHeaderID as HeaderID, " +
                         "EmpSalDetails.SalHeaderTitle as HeaderTitle, " + 
-                        "EmpSalDetails.SalHeaderType as HeaderType, " + 
+                        "EmpSalDetails.SalHeaderType as HeaderType, " +
+                        "EmpSalDetails.CalcFormula, " +
                         "EmpSalDetails.AllowanceAmount, " + 
                         "EmpSalDetails.DeductionAmount, " + 
                         "EmpSalDetails.ReimbursmentAmount, " + 
@@ -666,8 +721,7 @@ namespace dbStaffSync
                                     "FROM " + 
                                         "EmpSalMas " + 
                                     "WHERE " + 
-                                        "EmpID = " + txtEmpID + 
-                                        " AND [EmpSalMas].[EmpSalMonthYear] = 'Jan - 1900' " + 
+                                        "EmpID = " + txtEmpID + //" AND [EmpSalMas].[EmpSalMonthYear] = 'Jan - 1900' " + 
                                 ") " + 
                             ") " + 
                         ") " + 
@@ -696,6 +750,7 @@ namespace dbStaffSync
                         HeaderID = indSalaryProfileInfo.HeaderID,
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
                         HeaderType = indSalaryProfileInfo.HeaderType,
+                        CalcFormula = indSalaryProfileInfo.CalcFormula,
                         AllowanceAmount = indSalaryProfileInfo.AllowanceAmount,
                         DeductionAmount = indSalaryProfileInfo.DeductionAmount,
                         ReimbursmentAmount = indSalaryProfileInfo.ReimbursmentAmount,

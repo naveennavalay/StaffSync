@@ -78,6 +78,9 @@
     <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
+    <Reference Include="Humanizer, Version=2.14.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
+      <HintPath>packages\Humanizer.Core.2.14.1\lib\netstandard2.0\Humanizer.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
     </Reference>
@@ -99,8 +102,29 @@
     <Reference Include="Krypton.Workspace, Version=95.25.4.111, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
       <HintPath>packages\Krypton.Workspace.95.25.4.111\lib\net48\Krypton.Workspace.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis, Version=4.13.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.CodeAnalysis.Common.4.13.0\lib\netstandard2.0\Microsoft.CodeAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=4.13.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.CodeAnalysis.CSharp.4.13.0\lib\netstandard2.0\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp.Workspaces, Version=4.13.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.CodeAnalysis.CSharp.Workspaces.4.13.0\lib\netstandard2.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.VisualBasic, Version=4.13.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.CodeAnalysis.VisualBasic.4.13.0\lib\netstandard2.0\Microsoft.CodeAnalysis.VisualBasic.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.VisualBasic.Workspaces, Version=4.13.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.CodeAnalysis.VisualBasic.Workspaces.4.13.0\lib\netstandard2.0\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.Workspaces, Version=4.13.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.CodeAnalysis.Workspaces.Common.4.13.0\lib\netstandard2.0\Microsoft.CodeAnalysis.Workspaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Extensions.Logging.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
@@ -125,12 +149,34 @@
     <Reference Include="System.Buffers, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Buffers.4.6.0\lib\net462\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.Collections.Immutable, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Collections.Immutable.8.0.0\lib\net462\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Composition.AttributedModel, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Composition.AttributedModel.8.0.0\lib\net462\System.Composition.AttributedModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Composition.Convention, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Composition.Convention.8.0.0\lib\net462\System.Composition.Convention.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Composition.Hosting, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Composition.Hosting.8.0.0\lib\net462\System.Composition.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Composition.Runtime, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Composition.Runtime.8.0.0\lib\net462\System.Composition.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Composition.TypedParts, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Composition.TypedParts.8.0.0\lib\net462\System.Composition.TypedParts.dll</HintPath>
+    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipelines, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.IO.Pipelines.8.0.0\lib\net462\System.IO.Pipelines.dll</HintPath>
     </Reference>
     <Reference Include="System.Memory, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Memory.4.6.0\lib\net462\System.Memory.dll</HintPath>
@@ -139,11 +185,24 @@
     <Reference Include="System.Numerics.Vectors, Version=4.1.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Numerics.Vectors.4.6.0\lib\net462\System.Numerics.Vectors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Reflection.Metadata.8.0.0\lib\net462\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.1.0\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encoding.CodePages, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encoding.CodePages.7.0.0\lib\net462\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Channels, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Channels.7.0.0\lib\net462\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -177,6 +236,66 @@
     <Compile Include="frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmAdvanceConfigInfoReadOnly.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAdvanceConfigInfoReadOnly.Designer.cs">
+      <DependentUpon>frmAdvanceConfigInfoReadOnly.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEmpAdvanceTRList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmpAdvanceTRList.Designer.cs">
+      <DependentUpon>frmEmpAdvanceTRList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEmpAdvanceRepayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmpAdvanceRepayment.Designer.cs">
+      <DependentUpon>frmEmpAdvanceRepayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUpdateAdvanceStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUpdateAdvanceStatus.Designer.cs">
+      <DependentUpon>frmUpdateAdvanceStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmBulkLeaveRejection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBulkLeaveRejection.Designer.cs">
+      <DependentUpon>frmBulkLeaveRejection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAdvanceTypeMas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAdvanceTypeMas.Designer.cs">
+      <DependentUpon>frmAdvanceTypeMas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAdvanceTypeMasList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAdvanceTypeMasList.Designer.cs">
+      <DependentUpon>frmAdvanceTypeMasList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmIndEmpAttendanceCalender.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmIndEmpAttendanceCalender.Designer.cs">
+      <DependentUpon>frmIndEmpAttendanceCalender.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmBranchInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBranchInfo.Designer.cs">
+      <DependentUpon>frmBranchInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmBranchList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBranchList.Designer.cs">
+      <DependentUpon>frmBranchList.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDailyAttendanceProcess.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +307,18 @@
     </Compile>
     <Compile Include="frmActiveCompanyInfo.Designer.cs">
       <DependentUpon>frmActiveCompanyInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEmpAdvanceRequest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmpAdvanceRequest.Designer.cs">
+      <DependentUpon>frmEmpAdvanceRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSSEmployeeMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSSEmployeeMaster.Designer.cs">
+      <DependentUpon>frmSSEmployeeMaster.cs</DependentUpon>
     </Compile>
     <Compile Include="frmPublicHolidayConfigPopup.cs">
       <SubType>Form</SubType>
@@ -242,6 +373,12 @@
     </Compile>
     <Compile Include="frmPendingApprovalList.Designer.cs">
       <DependentUpon>frmPendingApprovalList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAdvanceApprovalList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAdvanceApprovalList.Designer.cs">
+      <DependentUpon>frmAdvanceApprovalList.cs</DependentUpon>
     </Compile>
     <Compile Include="frmViewLeavesOutstanding.cs">
       <SubType>Form</SubType>
@@ -623,11 +760,47 @@
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAdvanceConfigInfoReadOnly.resx">
+      <DependentUpon>frmAdvanceConfigInfoReadOnly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmpAdvanceTRList.resx">
+      <DependentUpon>frmEmpAdvanceTRList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmpAdvanceRepayment.resx">
+      <DependentUpon>frmEmpAdvanceRepayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUpdateAdvanceStatus.resx">
+      <DependentUpon>frmUpdateAdvanceStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBulkLeaveRejection.resx">
+      <DependentUpon>frmBulkLeaveRejection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdvanceTypeMas.resx">
+      <DependentUpon>frmAdvanceTypeMas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdvanceTypeMasList.resx">
+      <DependentUpon>frmAdvanceTypeMasList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmIndEmpAttendanceCalender.resx">
+      <DependentUpon>frmIndEmpAttendanceCalender.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBranchInfo.resx">
+      <DependentUpon>frmBranchInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBranchList.resx">
+      <DependentUpon>frmBranchList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDailyAttendanceProcess.resx">
       <DependentUpon>frmDailyAttendanceProcess.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmActiveCompanyInfo.resx">
       <DependentUpon>frmActiveCompanyInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmpAdvanceRequest.resx">
+      <DependentUpon>frmEmpAdvanceRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSSEmployeeMaster.resx">
+      <DependentUpon>frmSSEmployeeMaster.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPublicHolidayConfigPopup.resx">
       <DependentUpon>frmPublicHolidayConfigPopup.cs</DependentUpon>
@@ -655,6 +828,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPendingApprovalList.resx">
       <DependentUpon>frmPendingApprovalList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAdvanceApprovalList.resx">
+      <DependentUpon>frmAdvanceApprovalList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmViewLeavesOutstanding.resx">
       <DependentUpon>frmViewLeavesOutstanding.cs</DependentUpon>
@@ -949,6 +1125,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hrm02.ico" />
+    <None Include="images\icons\tooltip.ico" />
+    <None Include="images\icons\task.ico" />
+    <None Include="images\icons\advance-request.ico" />
+    <None Include="images\icons\advances.ico" />
+    <None Include="images\icons\pie-chart.ico" />
     <None Include="images\imgs\background.png" />
     <None Include="images\icons\check.ico" />
     <None Include="images\icons\uncheck.ico" />
@@ -1018,6 +1199,10 @@
       <Project>{ddbce129-fef0-4fc2-bcf2-126ee18b56e8}</Project>
       <Name>StaffSyncJobs</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="packages\Microsoft.CodeAnalysis.Analyzers.3.11.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+    <Analyzer Include="packages\Microsoft.CodeAnalysis.Analyzers.3.11.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

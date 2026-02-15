@@ -65,7 +65,7 @@ namespace StaffSync
             if (cmbYearlyPublicHoliday.Items.Count > 0)
                 cmbYearlyPublicHoliday.SelectedIndex = 0;
 
-            objPublicHolidayInfo.GetHolidayDetailsInfo(cmbYearlyPublicHoliday.SelectedIndex + 2);
+            objPublicHolidayInfo.GetHolidayDetailsInfo(cmbYearlyPublicHoliday.Items.Count - cmbYearlyPublicHoliday.SelectedIndex);
         }
 
         public frmPublicHolidayConfig(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
@@ -83,7 +83,7 @@ namespace StaffSync
             if (cmbYearlyPublicHoliday.Items.Count > 0)
                 cmbYearlyPublicHoliday.SelectedIndex = 0;
 
-            objPublicHolidayInfo.GetHolidayDetailsInfo(cmbYearlyPublicHoliday.SelectedIndex + 2);
+            objPublicHolidayInfo.GetHolidayDetailsInfo(cmbYearlyPublicHoliday.Items.Count - cmbYearlyPublicHoliday.SelectedIndex);
         }
 
         public frmPublicHolidayConfig(int txtEmployeeID, int txtLeaveMasID)
@@ -237,7 +237,7 @@ namespace StaffSync
         {
             dtgConsolidatedAttendanceReport.EditMode = DataGridViewEditMode.EditProgrammatically;
             dtgConsolidatedAttendanceReport.DataSource = null;
-            dtgConsolidatedAttendanceReport.DataSource = objPublicHolidayInfo.GetHolidayDetailsInfo(cmbYearlyPublicHoliday.SelectedIndex + 2);
+            dtgConsolidatedAttendanceReport.DataSource = objPublicHolidayInfo.GetHolidayDetailsInfo(cmbYearlyPublicHoliday.Items.Count - cmbYearlyPublicHoliday.SelectedIndex);
             dtgConsolidatedAttendanceReport.Columns["PubHolDetID"].Visible = false;
             dtgConsolidatedAttendanceReport.Columns["PubHolMasID"].Visible = false;
             dtgConsolidatedAttendanceReport.Columns["PubHolidayTitle"].HeaderText = "Holiday Name";
@@ -252,6 +252,12 @@ namespace StaffSync
             dtgConsolidatedAttendanceReport.Columns["DayName"].Visible = true;
             dtgConsolidatedAttendanceReport.Columns["DayName"].ReadOnly = true;
             dtgConsolidatedAttendanceReport.Columns["DayName"].Width = 150;
+            dtgConsolidatedAttendanceReport.Columns["PubHolTypeID"].Visible = false;
+            dtgConsolidatedAttendanceReport.Columns["PubHolTypeID"].ReadOnly = true;
+            dtgConsolidatedAttendanceReport.Columns["PubHolTypeID"].Width = 150;
+            dtgConsolidatedAttendanceReport.Columns["PubHolTypeTitle"].Visible = true;
+            dtgConsolidatedAttendanceReport.Columns["PubHolTypeTitle"].ReadOnly = true;
+            dtgConsolidatedAttendanceReport.Columns["PubHolTypeTitle"].Width = 150;
         }
 
         private void frmPublicHolidayConfig_KeyDown(object sender, KeyEventArgs e)
@@ -298,6 +304,9 @@ namespace StaffSync
                 boolSetDefaultDate = true;
             }
 
+            objPublicHolidayInfo.PubHolTypeID = Convert.ToInt16(dtgConsolidatedAttendanceReport.Rows[e.RowIndex].Cells["PubHolTypeID"].Value.ToString());
+            objPublicHolidayInfo.PubHolTypeTitle = dtgConsolidatedAttendanceReport.Rows[e.RowIndex].Cells["PubHolTypeTitle"].Value.ToString();
+
             frmPublicHolidayConfigPopup frmPublicHolidayConfigPopup = new frmPublicHolidayConfigPopup(objPublicHolidayInfo);
             frmPublicHolidayConfigPopup.ShowDialog(this);
             objPublicHolidayInfo = frmPublicHolidayConfigPopup.objSaveTheseValues;
@@ -310,6 +319,8 @@ namespace StaffSync
             {
                 dtgConsolidatedAttendanceReport.Rows[e.RowIndex].Cells["PubHolDate"].Value = "";
             }
+            dtgConsolidatedAttendanceReport.Rows[e.RowIndex].Cells["PubHolTypeID"].Value = objPublicHolidayInfo.PubHolTypeID;
+            dtgConsolidatedAttendanceReport.Rows[e.RowIndex].Cells["PubHolTypeTitle"].Value = objPublicHolidayInfo.PubHolTypeTitle;
 
             RefreshPublicHolidayList();
         }
@@ -330,7 +341,7 @@ namespace StaffSync
 
         private DataTable BuildCalendarTable()
         {
-            List<PublicHolidayInfo> lstPublicHolidayList = objPublicHolidayInfo.GetHolidayDetailsInfo(cmbYearlyPublicHoliday.SelectedIndex + 2);
+            List<PublicHolidayInfo> lstPublicHolidayList = objPublicHolidayInfo.GetHolidayDetailsInfo(cmbYearlyPublicHoliday.Items.Count - cmbYearlyPublicHoliday.SelectedIndex);
 
             DataTable dt = new DataTable();
             dt.Columns.Add("MonthName", typeof(string));
@@ -355,7 +366,7 @@ namespace StaffSync
                     var IsHoliday = lstPublicHolidayList.FirstOrDefault(x => x.PubHolDate.HasValue && x.PubHolDate.Value.Date == date);
                     if (IsHoliday != null)
                     {
-                        row[$"Day{d}"] = IsHoliday.PubHolidayTitle;
+                        row[$"Day{d}"] = IsHoliday.PubHolidayTitle;// + Environment.NewLine + "[" + IsHoliday.PubHolTypeTitle + "]";
                     }
                     else
                         row[$"Day{d}"] = "";
@@ -372,6 +383,7 @@ namespace StaffSync
             var dt = BuildCalendarTable();
             dtgConsolidatedAttendanceReport.DataSource = dt;
 
+            dtgConsolidatedAttendanceReport.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dtgConsolidatedAttendanceReport.EditMode = DataGridViewEditMode.EditProgrammatically;
             //dtgConsolidatedAttendanceReport.Columns["MonthName"].Frozen = true;
 
@@ -396,8 +408,16 @@ namespace StaffSync
 
                     if (cell.Value.ToString() != "")
                     {
-                        cell.Style.BackColor = Color.Red;
-                        cell.Style.ForeColor = Color.White;
+                        if (cell.Value.ToString().ToLower().Contains("public"))
+                        {
+                            cell.Style.BackColor = Color.Red;
+                            cell.Style.ForeColor = Color.White;
+                        }
+                        else if (cell.Value.ToString().ToLower().Contains("regional"))
+                        {
+                            cell.Style.BackColor = Color.LemonChiffon;
+                            cell.Style.ForeColor = Color.Black;
+                        }
                     }
                     cell.ReadOnly = true;
                 }
@@ -418,22 +438,26 @@ namespace StaffSync
 
         private void btnExportData_Click(object sender, EventArgs e)
         {
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.Filter = "CSV Files (*.csv)|*.csv";
-                if (chkCompactDetailedView.Checked)
-                    sfd.FileName = "Public Holiday Year View.csv";
-                else
-                    sfd.FileName = "Public Holiday Compact View.csv";
+            string filePath = AppVariables.TempFolderPath + @"\Public Holiday List.csv";
+            bool ReportGenerated = Download.DownloadExcel(filePath, dtgConsolidatedAttendanceReport);
+            if (ReportGenerated)
+                Download.OpenCSV(filePath);
 
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    bool ReportGenerated = Download.DownloadExcel(sfd.FileName, dtgConsolidatedAttendanceReport);
-                    if (ReportGenerated)
-                        Download.OpenCSV(sfd.FileName);
-                }
-            }
+            //using (SaveFileDialog sfd = new SaveFileDialog())
+            //{
+            //    sfd.Filter = "CSV Files (*.csv)|*.csv";
+            //    if (chkCompactDetailedView.Checked)
+            //        sfd.FileName = "Public Holiday Year View.csv";
+            //    else
+            //        sfd.FileName = "Public Holiday Compact View.csv";
+
+            //    if (sfd.ShowDialog() == DialogResult.OK)
+            //    {
+            //        bool ReportGenerated = Download.DownloadExcel(sfd.FileName, dtgConsolidatedAttendanceReport);
+            //        if (ReportGenerated)
+            //            Download.OpenCSV(sfd.FileName);
+            //    }
+            //}
         }
-
     }
 }

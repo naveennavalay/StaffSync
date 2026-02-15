@@ -26,6 +26,15 @@ namespace DALStaffSync
             return objMonthlyAttendanceInfo;
         }
 
+        public List<MonthlyAttendanceInfo> getEmployeeMonthlyAttendanceInfo(int txtEmpID, DateTime AttendanceMonth)
+        {
+            List<MonthlyAttendanceInfo> objMonthlyAttendanceInfo = new List<MonthlyAttendanceInfo>();
+
+            objMonthlyAttendanceInfo = objEmpMnthlyAttdInfo.getEmployeeMonthlyAttendanceInfo(txtEmpID, AttendanceMonth);
+
+            return objMonthlyAttendanceInfo;
+        }
+
         public int getMonthlyAttendanceInfo(int txtEmpID, DateTime AttendanceMonth)
         {
             int affectedRows = 0;
@@ -53,5 +62,14 @@ namespace DALStaffSync
             return affectedRows;
         }
 
+        public int InsertUnprocessedBatchAttendanceEntries(int txtEmpID, int txtBatchNumber, DateTime txtAttendanceSkipDate, string txtComments)
+        {
+            return objEmpMnthlyAttdInfo.InsertUnprocessedBatchAttendanceEntries(txtEmpID, txtBatchNumber, txtAttendanceSkipDate, txtComments);
+        }
+
+        public List<UnProcessedAttendanceInfo> GetUnprocessedBatchAttendanceEntries(int txtBatchProcessNumber)
+        {
+            return objEmpMnthlyAttdInfo.GetUnprocessedBatchAttendanceEntries(txtBatchProcessNumber);
+        }
     }
 }

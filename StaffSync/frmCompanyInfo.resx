@@ -117,19 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnCompanyLogoUpload.Values.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAlhJREFUWEftlsurjlEUxn/uCUmJMmJARBRzJMxRlGKAAROmDPkPXKYYnCSUZGRi
+        gmRkgBIZIHJLotyFfl/702u19uf9zuec0Xnqqd1az17Pvr17vzCG/jARmAcsA1YA84GpUTQSmAZsAc4B
+        D4A3wFvgMXAF2AfMiZ3+FxYB54EvwK8KfwI3gDWx86BYDNxKDGt8AmyMRYaLmcDlxORfvAdsBjYB64C5
+        sXBb7AZ+JAZt+BX4DnwCbgPbgfHRoBc8dFeTwsPle2BrNOmFJcCrpNAgvAnMikYZ3LNDZQljkUH4AVgb
+        zZrwQtkL3AG+JQUy+vnJGK/xLrAnu7xmACf6mLWH8yKwo9B22wPr5I4Xzw48nYf7nMkQML0xAdvGoq5G
+        vY4AE+zst/o6EdV4H1hYvhRXTdo2Zi7qa/Q6X+8AziTJGj+XJRcHGmfAtjCnJvar8aydniWJGk+XF3El
+        8LQRt23MnJrYr8bnDqDt4Wku/aUkb6zfrdC7c23GRGRc+mzQxrpbsbPlVujNwyQR6ewmA6vC0keaU6M2
+        W6VIvTmaJCIPlpkdS3KRaoR9Yi5Sb5YDj5Jkk14cYgNwCniRaIyZUyPsEzVN6ql3Bz69HxNRl57W7o+G
+        1+i1RGOse8WqtU/UdKmXnn/g57O/XA5R3BzEamBKjwGYU9PLXA+99PwL48prdQF4WXkXtpUDVhuAOTUx
+        Zy1rWlsPvapwFkvLL9Wu8npJl2xBiy1Qo7bbzxrWsqa1B4aXTW0A5kYcmlxPBmBsVAYwCThZ/vPeFdo2
+        Zm5UMLs8Pk0aG0Pf+A1tQ/amjDtg6gAAAABJRU5ErkJggg==
+</value>
+  </data>
   <metadata name="empMasInfoBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>162, 17</value>
+    <value>162, 14</value>
   </metadata>
   <metadata name="staffsyncDBDTSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+    <value>17, 14</value>
+  </metadata>
+  <metadata name="staffsyncDBDTSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 14</value>
   </metadata>
   <metadata name="empMasInfoTableAdapter.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>360, 17</value>
+    <value>360, 14</value>
   </metadata>
   <metadata name="errValidator.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>550, 17</value>
+    <value>550, 14</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>128</value>
+  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAkAEBAAAAEAIABoBAAAlgAAABgYAAABACAAiAkAAP4EAAAgIAAAAQAgAKgQAACGDgAAMDAAAAEA
@@ -3021,4 +3043,7 @@
         MAzDMAzDMAzDMAwjL/w/9TJC0eOlQSEAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="ofdImage.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>674, 88</value>
+  </metadata>
 </root>

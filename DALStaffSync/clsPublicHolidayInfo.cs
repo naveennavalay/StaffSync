@@ -17,6 +17,15 @@ namespace DALStaffSync
 
         }
 
+        public List<PublicHolidayType> getHolidayTypeList()
+        {
+            List<PublicHolidayType> lstPublicHolidayType = new List<PublicHolidayType>();
+            
+            lstPublicHolidayType = objPublicHolidayInfo.getHolidayTypeList();
+
+            return lstPublicHolidayType;
+        }
+
         public int InsertPublicHolidayMasterInfo(string txtPublicHolidayYear, bool IsDefault, int txtOrderID, int txtFinYearID)
         {
             int affectedRows = 0;
@@ -26,21 +35,21 @@ namespace DALStaffSync
             return affectedRows;
         }
 
-        public int InsertPublicHolidayDetailInfo(int txtPubHolMasID, string txtPublicHolidayTitle, DateTime txtPublicHolidayDate, int txtOrderID)
+        public int InsertPublicHolidayDetailInfo(int txtPubHolMasID, string txtPublicHolidayTitle, DateTime txtPublicHolidayDate, int txtPubHolTypeID, int txtOrderID)
         {
             int affectedRows = 0;
 
-            affectedRows = objPublicHolidayInfo.InsertPublicHolidayDetailInfo(txtPubHolMasID, txtPublicHolidayTitle, txtPublicHolidayDate, txtOrderID);
+            affectedRows = objPublicHolidayInfo.InsertPublicHolidayDetailInfo(txtPubHolMasID, txtPublicHolidayTitle, txtPublicHolidayDate, txtPubHolTypeID, txtOrderID);
 
             return affectedRows;
         }
 
 
-        public int UpdatePublicHolidayDetailInfo(int txtPubHolDetID, int txtPubHolMasID, string txtPublicHolidayTitle, DateTime txtPublicHolidayDate, int txtOrderID)
+        public int UpdatePublicHolidayDetailInfo(int txtPubHolDetID, int txtPubHolMasID, string txtPublicHolidayTitle, DateTime txtPublicHolidayDate, int txtPubHolTypeID, int txtOrderID)
         {
             int affectedRows = 0;
 
-            affectedRows = objPublicHolidayInfo.UpdatePublicHolidayDetailInfo(txtPubHolDetID, txtPubHolMasID, txtPublicHolidayTitle, txtPublicHolidayDate, txtOrderID);
+            affectedRows = objPublicHolidayInfo.UpdatePublicHolidayDetailInfo(txtPubHolDetID, txtPubHolMasID, txtPublicHolidayTitle, txtPublicHolidayDate, txtPubHolTypeID, txtOrderID);
 
             return affectedRows;
         }

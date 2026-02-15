@@ -33,6 +33,9 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cmbCompanyList = new Krypton.Toolkit.KryptonComboBox();
+            this.cmbFinYear = new Krypton.Toolkit.KryptonComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.lblPubHolDetID = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -45,23 +48,20 @@
             this.empMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.empMasTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.cmbFinYear = new Krypton.Toolkit.KryptonComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cmbCompanyList = new Krypton.Toolkit.KryptonComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbCompanyList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbFinYear)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbFinYear)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbCompanyList)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -106,6 +106,40 @@
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             // 
+            // cmbCompanyList
+            // 
+            this.cmbCompanyList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCompanyList.DropDownWidth = 440;
+            this.cmbCompanyList.Location = new System.Drawing.Point(126, 57);
+            this.cmbCompanyList.Name = "cmbCompanyList";
+            this.cmbCompanyList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbCompanyList.Size = new System.Drawing.Size(411, 22);
+            this.cmbCompanyList.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbCompanyList.TabIndex = 65;
+            // 
+            // cmbFinYear
+            // 
+            this.cmbFinYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFinYear.DropDownWidth = 440;
+            this.cmbFinYear.Location = new System.Drawing.Point(126, 20);
+            this.cmbFinYear.Name = "cmbFinYear";
+            this.cmbFinYear.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbFinYear.Size = new System.Drawing.Size(144, 22);
+            this.cmbFinYear.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbFinYear.TabIndex = 64;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(83, 24);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(36, 15);
+            this.label8.TabIndex = 63;
+            this.label8.Text = "Year";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblPubHolDetID
             // 
             this.lblPubHolDetID.AutoSize = true;
@@ -144,6 +178,7 @@
             // 
             // btnContinue
             // 
+            this.btnContinue.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnContinue.Location = new System.Drawing.Point(426, 9);
             this.btnContinue.Name = "btnContinue";
             this.btnContinue.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -198,40 +233,6 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
-            // cmbFinYear
-            // 
-            this.cmbFinYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFinYear.DropDownWidth = 440;
-            this.cmbFinYear.Location = new System.Drawing.Point(126, 20);
-            this.cmbFinYear.Name = "cmbFinYear";
-            this.cmbFinYear.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbFinYear.Size = new System.Drawing.Size(144, 22);
-            this.cmbFinYear.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbFinYear.TabIndex = 64;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(83, 24);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(36, 15);
-            this.label8.TabIndex = 63;
-            this.label8.Text = "Year";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cmbCompanyList
-            // 
-            this.cmbCompanyList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCompanyList.DropDownWidth = 440;
-            this.cmbCompanyList.Location = new System.Drawing.Point(126, 57);
-            this.cmbCompanyList.Name = "cmbCompanyList";
-            this.cmbCompanyList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbCompanyList.Size = new System.Drawing.Size(411, 22);
-            this.cmbCompanyList.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbCompanyList.TabIndex = 65;
-            // 
             // frmActiveCompanyInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -255,14 +256,14 @@
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbCompanyList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbFinYear)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbFinYear)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbCompanyList)).EndInit();
             this.ResumeLayout(false);
 
         }

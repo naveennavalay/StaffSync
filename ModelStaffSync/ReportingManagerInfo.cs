@@ -29,5 +29,9 @@ namespace ModelStaffSync
 
         [DisplayName("Mail ID")]
         public string ContactNumber2 { get; set; }
+
+        public int StateID { get; set; }
+
+        public int SexID { get; set; }
     }
 }

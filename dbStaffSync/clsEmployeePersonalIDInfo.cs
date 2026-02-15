@@ -58,6 +58,17 @@ namespace dbStaffSync
                     EmpPersonalIDInfo.ID3 = objEmpPersonalIDInfo[0].ID3;
                     EmpPersonalIDInfo.ID4 = objEmpPersonalIDInfo[0].ID4;
                     EmpPersonalIDInfo.ID5 = objEmpPersonalIDInfo[0].ID5;
+                    EmpPersonalIDInfo.PFApplicable = objEmpPersonalIDInfo[0].PFApplicable;
+                    EmpPersonalIDInfo.PFAccNumber = objEmpPersonalIDInfo[0].PFAccNumber;
+                    EmpPersonalIDInfo.PFJoiningDate = objEmpPersonalIDInfo[0].PFJoiningDate;
+                    EmpPersonalIDInfo.PFRelievingDate = objEmpPersonalIDInfo[0].PFRelievingDate;
+                    EmpPersonalIDInfo.PTApplicable = objEmpPersonalIDInfo[0].PTApplicable;
+                    EmpPersonalIDInfo.PTAccNumber = objEmpPersonalIDInfo[0].PTAccNumber;
+                    EmpPersonalIDInfo.ESIApplicable = objEmpPersonalIDInfo[0].ESIApplicable;
+                    EmpPersonalIDInfo.ESIAccNumber = objEmpPersonalIDInfo[0].ESIAccNumber;
+                    EmpPersonalIDInfo.ESIDispensary = objEmpPersonalIDInfo[0].ESIDispensary;
+                    EmpPersonalIDInfo.NPSApplicable = objEmpPersonalIDInfo[0].NPSApplicable;
+                    EmpPersonalIDInfo.NPSAccNumber = objEmpPersonalIDInfo[0].NPSAccNumber;
                 }
             }
             catch (Exception ex)
@@ -73,7 +84,7 @@ namespace dbStaffSync
             return EmpPersonalIDInfo;
         }
 
-        public int InsertEmployeePersonalIDInfo(int txtPersonalInfoID, string txtAadhaarCardNumber, string txtVoterCardNumber, string txtPANNumber, string txtPassportNumber, DateTime txtPassportIssueDate, DateTime txtPassportRenewalDate, string txtID1, string txtID2, string txtID3, string txtID4, string txtID5)
+        public int InsertEmployeePersonalIDInfo(int txtPersonalInfoID, string txtAadhaarCardNumber, string txtVoterCardNumber, string txtPANNumber, string txtPassportNumber, DateTime txtPassportIssueDate, DateTime txtPassportRenewalDate, string txtID1, string txtID2, string txtID3, string txtID4, string txtID5, bool PFApplicable, string PFAccNumber, DateTime PFJoiningDate, DateTime PFRelievingDate, bool PTApplicable, string PTAccNumber, bool ESIApplicable, string ESIAccNumber, string ESIDispensary, bool NPSApplicable, string NPSAccNumber)
         {
             int affectedRows = 0;
             try
@@ -83,8 +94,9 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO EmpGovtIDInfo (EmpGovtID, PersonalInfoID, AadhaarCardNumber, VoterCardNumber, PANNumber, PassportNumber, IssueDate, RenewalDate, ID1, ID2, ID3, ID4, ID5) VALUES " +
-                 "(" + maxRowCount.Data + "," + txtPersonalInfoID + ",'" + txtAadhaarCardNumber + "','" + txtVoterCardNumber + "','" + txtPANNumber + "','" + txtPassportNumber + "','" + txtPassportIssueDate.ToString("dd-MMM-yyyy") + "','" + txtPassportRenewalDate.ToString("dd-MMM-yyyy") + "','" + txtID1 + "','" + txtID2 +"','" + txtID3 + "','" + txtID4 + "','" + txtID5 + "')";
+                string strQuery = "INSERT INTO EmpGovtIDInfo (EmpGovtID, PersonalInfoID, AadhaarCardNumber, VoterCardNumber, PANNumber, PassportNumber, IssueDate, RenewalDate, ID1, ID2, ID3, ID4, ID5, PFApplicable, PFAccNumber, PFJoiningDate, PFRelievingDate, PTApplicable, PTAccNumber, ESIApplicable, ESIAccNumber, ESIDispensary, NPSApplicable, NPSAccNumber) VALUES " +
+                 "(" + maxRowCount.Data + "," + txtPersonalInfoID + ",'" + txtAadhaarCardNumber + "','" + txtVoterCardNumber + "','" + txtPANNumber + "','" + txtPassportNumber + "','" + txtPassportIssueDate.ToString("dd-MMM-yyyy") + "','" + txtPassportRenewalDate.ToString("dd-MMM-yyyy") + "','" + txtID1 + "','" + txtID2 +"','" + txtID3 + "','" + txtID4 + "','" + txtID5 + "'," + 
+                 "" + PFApplicable + ", '" + PFAccNumber + "','" + PFJoiningDate.ToString("dd-MMM-yyyy") + "','" + PFRelievingDate.ToString("dd-MMM-yyyy") + "'," + PTApplicable + ",'" + PTAccNumber + "'," + ESIApplicable + ",'" + ESIAccNumber + "'," + ESIDispensary + "'," + NPSApplicable + ",'" + NPSAccNumber + "')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -106,7 +118,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpdateEmployeePersonalIDInfo(int txtPersonalIDInfoID, int txtPersonalInfoID, string txtAadhaarCardNumber, string txtVoterCardNumber, string txtPANNumber, string txtPassportNumber, DateTime txtPassportIssueDate, DateTime txtPassportRenewalDate, string txtID1, string txtID2, string txtID3, string txtID4, string txtID5)
+        public int UpdateEmployeePersonalIDInfo(int txtPersonalIDInfoID, int txtPersonalInfoID, string txtAadhaarCardNumber, string txtVoterCardNumber, string txtPANNumber, string txtPassportNumber, DateTime txtPassportIssueDate, DateTime txtPassportRenewalDate, string txtID1, string txtID2, string txtID3, string txtID4, string txtID5, bool PFApplicable, string PFAccNumber, DateTime PFJoiningDate, DateTime PFRelievingDate, bool PTApplicable, string PTAccNumber, bool ESIApplicable, string ESIAccNumber, string ESIDispensary, bool NPSApplicable, string NPSAccNumber)
         {
             int affectedRows = 0;
             try
@@ -115,7 +127,8 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE EmpGovtIDInfo SET " +
-                "PersonalInfoID = " + txtPersonalIDInfoID + ", AadhaarCardNumber = '" + txtAadhaarCardNumber + "', VoterCardNumber = '" + txtVoterCardNumber + "', PANNumber = '" + txtPANNumber + "', PassportNumber = '" + txtPassportNumber + "', IssueDate = '" + txtPassportIssueDate.ToString("dd-MMM-yyyy") + "', RenewalDate = '" + txtPassportRenewalDate.ToString("dd-MMM-yyyy") + "', ID1 = '" + txtID1 + "', ID2 = '" + txtID2 + "', ID3 = '" + txtID3 + "', ID4 = '" + txtID4 + "', ID5 = '" + txtID5 + "'" + 
+                "PersonalInfoID = " + txtPersonalIDInfoID + ", AadhaarCardNumber = '" + txtAadhaarCardNumber + "', VoterCardNumber = '" + txtVoterCardNumber + "', PANNumber = '" + txtPANNumber + "', PassportNumber = '" + txtPassportNumber + "', IssueDate = '" + txtPassportIssueDate.ToString("dd-MMM-yyyy") + "', RenewalDate = '" + txtPassportRenewalDate.ToString("dd-MMM-yyyy") + "', ID1 = '" + txtID1 + "', ID2 = '" + txtID2 + "', ID3 = '" + txtID3 + "', ID4 = '" + txtID4 + "', ID5 = '" + txtID5 + "'," +
+                "PFApplicable = " + PFApplicable + ", PFAccNumber = '" + PFAccNumber + "', PFJoiningDate = '" + PFJoiningDate.ToString("dd-MMM-yyyy") + "', PFRelievingDate = '" + PFRelievingDate.ToString("dd-MMM-yyyy") + "', PTApplicable = " + PTApplicable + ", PTAccNumber = '" + PTAccNumber + "', ESIApplicable = " + ESIApplicable + ", ESIAccNumber = '" + ESIAccNumber + "', ESIDispensary = '" + ESIDispensary + "', NPSApplicable = " + NPSApplicable + ", NPSAccNumber = '" + NPSAccNumber + "'" +
                 " WHERE EmpGovtID = " + txtPersonalIDInfoID;
 
                 OleDbCommand cmd = conn.CreateCommand();

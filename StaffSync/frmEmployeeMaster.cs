@@ -50,12 +50,14 @@ namespace StaffSync
         DALStaffSync.clsEduQalification objEduQualMas = new DALStaffSync.clsEduQalification();
         DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
         DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
+        DALStaffSync.clsClientBranchInfo objClientBranchInfo = new DALStaffSync.clsClientBranchInfo();
         DALStaffSync.clsRelationship objRelationship = new DALStaffSync.clsRelationship();
         DALStaffSync.clsSexMas objSexMaster = new DALStaffSync.clsSexMas();
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
         DALStaffSync.clsUploadDocuments objUploadDocument = new DALStaffSync.clsUploadDocuments();
         DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
+        DALStaffSync.clsClientStatutory objClientStatutory = new DALStaffSync.clsClientStatutory();
         //Download objDownload = new Download();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         DALStaffSync.clsUploadDocuments objUploadedDocuments = new DALStaffSync.clsUploadDocuments();
@@ -68,9 +70,12 @@ namespace StaffSync
         DALStaffSync.clsTaxMas objTaxMas = new DALStaffSync.clsTaxMas();
         DALStaffSync.clsShiftMas objShiftMas = new DALStaffSync.clsShiftMas();
         DALStaffSync.clsEmploymentTypeInfo objEmploymentTypeInfo = new DALStaffSync.clsEmploymentTypeInfo();
+        DALStaffSync.clsProfessionalTaxCalculation objProfessionalTaxCalculation = new DALStaffSync.clsProfessionalTaxCalculation();
+
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
+        ClientStatutory tmpClientStatutory = new ClientStatutory();
 
         public frmEmployeeMaster()
         {
@@ -110,6 +115,10 @@ namespace StaffSync
             cmbDepartment.DataSource = objDepartment.GetDepartmentList();
             cmbDepartment.DisplayMember = "DepartmentTitle";
             cmbDepartment.ValueMember = "DepartmentID";
+
+            cmbEmpBranch.DataSource = objClientBranchInfo.getBranchInfoList(objTempClientFinYearInfo.ClientID);
+            cmbEmpBranch.DisplayMember = "ClientBranchName";
+            cmbEmpBranch.ValueMember = "ClientBranchID";
 
             cmbGender.DataSource = objSexMaster.GetSexList();
             cmbGender.DisplayMember = "SexTitle";
@@ -317,13 +326,17 @@ namespace StaffSync
             txtTotalLeaveAllotment.Enabled = true;
             txtBalanceLeaveAllotment.Enabled = true;
             txtTotalUtilised.Enabled = true;
-            lblEmpID.Text = objGenFunc.getMaxRowCount("EMPMas", "EmpID", objTempClientFinYearInfo.ClientID).Data.ToString();
+            lblEmpID.Text = objGenFunc.getMaxRowCount("EMPMas", "EmpCode", objTempClientFinYearInfo.ClientID).Data.ToString();
             txtEmpCode.Text = "EMP-" + (lblEmpID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
 
             cmbDepartment.DataSource = objDepartment.GetDepartmentList();
             cmbDepartment.DisplayMember = "DepartmentTitle";
             cmbDepartment.ValueMember = "DepartmentID";
+
+            cmbEmpBranch.DataSource = objClientBranchInfo.getBranchInfoList(objTempClientFinYearInfo.ClientID);
+            cmbEmpBranch.DisplayMember = "ClientBranchName";
+            cmbEmpBranch.ValueMember = "ClientBranchID";
 
             cmbGender.DataSource = objSexMaster.GetSexList();
             cmbGender.DisplayMember = "SexTitle";
@@ -485,6 +498,21 @@ namespace StaffSync
             btnSaveDetails.Enabled = false;
             btnRemoveDetails.Enabled = true;
             btnCancel.Enabled = true;
+
+            chkProvidentFundEnabled.Enabled = false;
+            //txtPFNumber.Enabled = false;
+            //txtPFJoiningDate.Enabled = false;
+            //txtPFRelievingDate.Enabled = false;
+
+            chkESIEnabled.Enabled = false;
+            //txtESINumber.Enabled = false;
+            //txtESIDispName.Enabled = false;
+
+            chkProfessionalTaxEnabled.Enabled = false;
+            //txtPTNumber.Enabled = false;
+
+            chkNationalPensionScheme.Enabled = false;
+            //txtNPSNumber.Enabled = false;
         }
 
         public void clearControls()
@@ -532,6 +560,7 @@ namespace StaffSync
 
             cmbDesignation.DataSource = null;
             cmbDepartment.DataSource = null;
+            cmbEmpBranch.DataSource = null;
 
             cmbEmploymentType.DataSource = null;
             txtEmploymentEffectiveFrom.Text = "";
@@ -595,6 +624,21 @@ namespace StaffSync
             dtgPreviousWorkExp.Columns["Comments"].Width = 350;
             btnViewCalender.Visible = false;
 
+            chkProvidentFundEnabled.Checked = false;
+            txtPFNumber.Text = "";
+            txtPFJoiningDate.Text = "";
+            txtPFRelievingDate.Text = "";
+
+            chkESIEnabled.Checked = false;
+            txtESINumber.Text = "";
+            txtESIDispName.Text = "";
+
+            chkProfessionalTaxEnabled.Checked = false;
+            txtPTNumber.Text = "";
+
+            chkNationalPensionScheme.Checked = false;
+            txtNPSNumber.Text = "";
+
             RefreshFamilyMembersInformation();
         }
 
@@ -631,6 +675,8 @@ namespace StaffSync
 
             cmbDesignation.Enabled = true;
             cmbDepartment.Enabled = true;
+            cmbEmpBranch.Enabled = true;
+
             cmbEmploymentType.Enabled = true;
             txtEmploymentEffectiveFrom.Enabled = true;
             cmbShift.Enabled = true;
@@ -667,6 +713,21 @@ namespace StaffSync
             cmbWeeklyOff.Enabled = true;
 
             txtBankAccountNumber.Enabled = true;
+
+            chkProvidentFundEnabled.Enabled = true;
+            //txtPFNumber.Enabled = false;
+            //txtPFJoiningDate.Enabled = false;
+            //txtPFRelievingDate.Enabled = false;
+
+            chkESIEnabled.Enabled = true;
+            //txtESINumber.Enabled = false;
+            //txtESIDispName.Enabled = false;
+
+            chkProfessionalTaxEnabled.Enabled = true;
+            //txtPTNumber.Enabled = false;
+
+            chkNationalPensionScheme.Enabled = true;
+            //txtNPSNumber.Enabled = false;
         }
 
         public void disableControls()
@@ -702,6 +763,8 @@ namespace StaffSync
 
             cmbDesignation.Enabled = false;
             cmbDepartment.Enabled = false;
+            cmbEmpBranch.Enabled = false;
+
             cmbEmploymentType.Enabled = false;
             txtEmploymentEffectiveFrom.Enabled = false;
             cmbShift.Enabled = false;
@@ -744,6 +807,26 @@ namespace StaffSync
             cmbWeeklyOff.Enabled = false;
 
             txtBankAccountNumber.Enabled = false;
+
+
+            chkProvidentFundEnabled.Enabled = false;
+            grpProvidentFundEnabled.Enabled = false;
+            grpProvidentFundEnabled.Enabled = false;
+            grpESIEnabled.Enabled = false;
+            grpESIEnabled.Enabled = false;
+            //txtPFNumber.Enabled = false;
+            //txtPFJoiningDate.Enabled = false;
+            //txtPFRelievingDate.Enabled = false;
+
+            chkESIEnabled.Enabled = false;
+            //txtESINumber.Enabled = false;
+            //txtESIDispName.Enabled = false;
+
+            chkProfessionalTaxEnabled.Enabled = false;
+            //txtPTNumber.Enabled = false;
+
+            chkNationalPensionScheme.Enabled = false;
+            //txtNPSNumber.Enabled = false;
         }
 
         private void btnModifyDetails_Click(object sender, EventArgs e)
@@ -773,6 +856,10 @@ namespace StaffSync
             cmbDepartment.DataSource = objDepartment.GetDepartmentList();
             cmbDepartment.DisplayMember = "DepartmentTitle";
             cmbDepartment.ValueMember = "DepartmentID";
+
+            cmbEmpBranch.DataSource = objClientBranchInfo.getBranchInfoList(objTempClientFinYearInfo.ClientID);
+            cmbEmpBranch.DisplayMember = "ClientBranchName";
+            cmbEmpBranch.ValueMember = "ClientBranchID";
 
             cmbGender.DataSource = objSexMaster.GetSexList();
             cmbGender.DisplayMember = "SexTitle";
@@ -907,8 +994,8 @@ namespace StaffSync
                     {
                         int curAddressID = objAddressInfo.InsertAddressInfo(txtCurrentAddress01.Text.Trim(), txtCurrentAddress02.Text.Trim(), txtCurrentArea.Text.Trim(), txtCurrentCity.Text.Trim(), txtCurrentPIN.Text.Trim(), txtCurrentState.Text.Trim(), cmbCurrentCountry.Text);
                         int perAddressID = objAddressInfo.InsertAddressInfo(txtPermanentAddress01.Text.Trim(), txtPermanentAddress02.Text.Trim(), txtPermanentArea.Text.Trim(), txtPermanentCity.Text.Trim(), txtPermanentPIN.Text.Trim(), txtPermanentState.Text.Trim(), cmbPermanentCountry.Text);
-                        int personalInfoID = objEmployeePersonalInfo.InsertEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1);
-                        int personalIDInfoID = objEmployeePersonalIDInfo.InsertEmployeePersonalIDInfo(personalInfoID, txtAadhaarCardNumber.Text.Trim(), txtVoterCardNumber.Text.Trim(), txtPANCardNumber.Text.Trim(), txtPassportNumber.Text.Trim(), Convert.ToDateTime(txtPassportIssueDate.Text), Convert.ToDateTime(txtPassportRenewalDate.Text), txtAdditonalCardNumber.Text.Trim(), "", "", "", "");
+                        int personalInfoID = objEmployeePersonalInfo.InsertEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
+                        int personalIDInfoID = objEmployeePersonalIDInfo.InsertEmployeePersonalIDInfo(personalInfoID, txtAadhaarCardNumber.Text.Trim(), txtVoterCardNumber.Text.Trim(), txtPANCardNumber.Text.Trim(), txtPassportNumber.Text.Trim(), Convert.ToDateTime(txtPassportIssueDate.Text), Convert.ToDateTime(txtPassportRenewalDate.Text), txtAdditonalCardNumber.Text.Trim(), "", "", "", "", chkProvidentFundEnabled.Checked, txtPFNumber.Text, Convert.ToDateTime(txtDateOfJoining.Text), Convert.ToDateTime(txtPFRelievingDate.Text), chkProfessionalTaxEnabled.Checked, txtPTNumber.Text, chkESIEnabled.Checked, txtESINumber.Text, txtESIDispName.Text, chkNationalPensionScheme.Checked, txtNPSNumber.Text);
                     }
 
                     if (tabLeaves.Visible == true)
@@ -1015,10 +1102,10 @@ namespace StaffSync
                     {
                         int employeeSalaryProfileID = objEmployeeSalaryProfileInfo.InsertEmployeeEmployeeSalaryProfileInfo(Convert.ToInt16(lblEmpID.Text.ToString()), cmbSalProfile.SelectedIndex + 1, DateTime.Now);
 
-                        int empSalaryID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblEmpID.Text.ToString().ToString().Trim()), Convert.ToDateTime(DateTime.Now.ToString()), "Jan - 1900", 1, 1, 1, 0, 0);
+                        int empSalaryID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblEmpID.Text.ToString().ToString().Trim()), Convert.ToDateTime(DateTime.Now.ToString()), "Jan - 1900", 1, 1, 1, 0, 0, 0, 0);
                         foreach (DataGridViewRow dc in dtgSalaryProfileDetails.Rows)
                         {
-                            int EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(empSalaryID), Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), dc.Cells["HeaderTitle"].Value.ToString(), dc.Cells["HeaderType"].Value.ToString(), Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()), 0);
+                            int EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(empSalaryID), Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), dc.Cells["HeaderTitle"].Value.ToString(), dc.Cells["HeaderType"].Value.ToString(), dc.Cells["CalcFormula"].Value.ToString(), Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()), 0);
                             iRowCounter = iRowCounter + 1;
                         }
 
@@ -1061,8 +1148,8 @@ namespace StaffSync
                     int curAddressID = objAddressInfo.UpdateAddressInfo(Convert.ToInt16(lblCurrentAddressID.Text.Trim()), txtCurrentAddress01.Text.Trim(), txtCurrentAddress02.Text.Trim(), txtCurrentArea.Text.Trim(), txtCurrentCity.Text.Trim(), txtCurrentPIN.Text.Trim(), txtCurrentState.Text.Trim(), cmbCurrentCountry.Text);
                     int perAddressID = objAddressInfo.UpdateAddressInfo(Convert.ToInt16(lblPermanentAddressID.Text.Trim()), txtPermanentAddress01.Text.Trim(), txtPermanentAddress02.Text.Trim(), txtPermanentArea.Text.Trim(), txtPermanentCity.Text.Trim(), txtPermanentPIN.Text.Trim(), txtPermanentState.Text.Trim(), cmbPermanentCountry.Text);
                     int contactInfoID01 = objContactPerson.UdpateContactInfo(Convert.ToInt16(lblContactInfoID.Text.Trim()), txtContactPersonName.Text.Trim(), txtContactPersonNumber.Text.ToString(), cmbContactPersonRelationship.SelectedIndex + 1, 1);
-                    int personalInfoID = objEmployeePersonalInfo.UpdateEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1);
-                    int personalIDInfoID = objEmployeePersonalIDInfo.UpdateEmployeePersonalIDInfo(Convert.ToInt16(lblEmpGovtID.Text.Trim()), personalInfoID, txtAadhaarCardNumber.Text.Trim(), txtVoterCardNumber.Text.Trim(), txtPANCardNumber.Text.Trim(), txtPassportNumber.Text.Trim(), Convert.ToDateTime(txtPassportIssueDate.Text), Convert.ToDateTime(txtPassportRenewalDate.Text), txtAdditonalCardNumber.Text.Trim(), "", "", "", "");
+                    int personalInfoID = objEmployeePersonalInfo.UpdateEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
+                    int personalIDInfoID = objEmployeePersonalIDInfo.UpdateEmployeePersonalIDInfo(Convert.ToInt16(lblEmpGovtID.Text.Trim()), personalInfoID, txtAadhaarCardNumber.Text.Trim(), txtVoterCardNumber.Text.Trim(), txtPANCardNumber.Text.Trim(), txtPassportNumber.Text.Trim(), Convert.ToDateTime(txtPassportIssueDate.Text), Convert.ToDateTime(txtPassportRenewalDate.Text), txtAdditonalCardNumber.Text.Trim(), "", "", "", "", chkProvidentFundEnabled.Checked, txtPFNumber.Text, Convert.ToDateTime(txtDateOfJoining.Text), Convert.ToDateTime(txtPFRelievingDate.Text), chkProfessionalTaxEnabled.Checked, txtPTNumber.Text, chkESIEnabled.Checked, txtESINumber.Text, txtESIDispName.Text, chkNationalPensionScheme.Checked, txtNPSNumber.Text);
 
                     int nomineeID = objNomineeInfo.UdpateNomineeInfo(Convert.ToInt16(lblNomineeID.Text.Trim()), txtNomineeName.Text.Trim(), employeeID, cmbNomineeRelationship.SelectedIndex + 1, txtNomineeContactNumber.Text.Trim());
                     if (nomineeID == 0)
@@ -1088,9 +1175,9 @@ namespace StaffSync
                         {
                             int EmpWorkExpID = 0;
                             if (Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()) == 0)
-                                EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString(), Convert.ToBoolean(dc.Cells["FamMemInsuranceEnrolled"].Value.ToString()));
+                                EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"]?.Value), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString(), Convert.ToBoolean(dc.Cells["FamMemInsuranceEnrolled"].Value.ToString()));
                             else
-                                EmpWorkExpID = objEmpPersonalFamilyMemberInfo.UpdateEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value.ToString()), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString(), Convert.ToBoolean(dc.Cells["FamMemInsuranceEnrolled"].Value.ToString()));
+                                EmpWorkExpID = objEmpPersonalFamilyMemberInfo.UpdateEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value?.ToString()), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString(), Convert.ToBoolean(dc.Cells["FamMemInsuranceEnrolled"].Value.ToString()));
                         }
                     }
 
@@ -1172,10 +1259,10 @@ namespace StaffSync
                         int employeeSalaryProfileID = objEmployeeSalaryProfileInfo.InsertEmployeeEmployeeSalaryProfileInfo(Convert.ToInt16(lblEmpID.Text.ToString()), cmbSalProfile.SelectedIndex + 1, DateTime.Now);
 
                         iRowCounter = 1;
-                        int empSalaryID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(DateTime.Now.ToString()), "Jan - 1900", 1, 1, 1, 0, 0);
+                        int empSalaryID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(DateTime.Now.ToString()), "Jan - 1900", 1, 1, 1, 0, 0, 0, 0);
                         foreach (DataGridViewRow dc in dtgSalaryProfileDetails.Rows)
                         {
-                            int EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(empSalaryID.ToString()), Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), dc.Cells["HeaderTitle"].Value.ToString(), dc.Cells["HeaderType"].Value.ToString(), Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()), iRowCounter);
+                            int EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(empSalaryID.ToString()), Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), dc.Cells["HeaderTitle"].Value.ToString(), dc.Cells["HeaderType"].Value.ToString(), dc.Cells["CalcFormula"].Value.ToString(), Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()), iRowCounter);
                             iRowCounter = iRowCounter + 1;
                         }
 
@@ -1229,6 +1316,10 @@ namespace StaffSync
                 cmbDepartment.DataSource = objDepartment.GetDepartmentList();
                 cmbDepartment.DisplayMember = "DepartmentTitle";
                 cmbDepartment.ValueMember = "DepartmentID";
+
+                cmbEmpBranch.DataSource = objClientBranchInfo.getBranchInfoList(objTempClientFinYearInfo.ClientID);
+                cmbEmpBranch.DisplayMember = "ClientBranchName";
+                cmbEmpBranch.ValueMember = "ClientBranchID";
 
                 cmbGender.DataSource = objSexMaster.GetSexList();
                 cmbGender.DisplayMember = "SexTitle";
@@ -1564,7 +1655,7 @@ namespace StaffSync
             {
                 validationStatus = false;
                 cmbShift.Focus();
-                errValidator.SetError(this.cmbShift, cmbDesignation.Tag?.ToString() ?? "Active Shift is required.");
+                errValidator.SetError(this.cmbShift, cmbShift.Tag?.ToString() ?? "Active Shift is required.");
             }
 
             // Contact Person
@@ -1635,6 +1726,100 @@ namespace StaffSync
                 validationStatus = false;
                 txtPassportNumber.Focus();
                 errValidator.SetError(this.txtAdditonalCardNumber, "Enter a additional Card Number.");
+            }
+
+            if(chkProvidentFundEnabled.Checked)
+            {
+                if (string.IsNullOrEmpty(txtPFNumber.Text))
+                {
+                    validationStatus = false;
+                    txtPFNumber.Focus();
+                    errValidator.SetError(this.txtPFNumber, "Enter a valid Provident Fund Number.");
+                }
+                if (string.IsNullOrEmpty(txtPFJoiningDate.Text))
+                {
+                    validationStatus = false;
+                    txtPFJoiningDate.Focus();
+                    errValidator.SetError(this.txtPFJoiningDate, txtPFJoiningDate.Tag?.ToString() ?? "PF Date of Joining is required.");
+                }
+                else if (!DateTime.TryParseExact(txtPFJoiningDate.Text, dateFormat, provider, DateTimeStyles.None, out dob))
+                {
+                    validationStatus = false;
+                    txtPFJoiningDate.Focus();
+                    errValidator.SetError(this.txtPFJoiningDate, "Invalid PF Joining Date format (dd-MM-yyyy).");
+                }
+                else if (dob > DateTime.Now.Date)
+                {
+                    validationStatus = false;
+                    txtPFJoiningDate.Focus();
+                    errValidator.SetError(this.txtPFJoiningDate, "PF Joining cannot be in the future.");
+                }
+
+                if (string.IsNullOrEmpty(txtPFRelievingDate.Text))
+                {
+                    validationStatus = false;
+                    txtPFRelievingDate.Focus();
+                    errValidator.SetError(this.txtPFRelievingDate, txtPFRelievingDate.Tag?.ToString() ?? "PF Relieveing Date is required.");
+                }
+                else if (!DateTime.TryParseExact(txtPFRelievingDate.Text, dateFormat, provider, DateTimeStyles.None, out dob))
+                {
+                    validationStatus = false;
+                    txtPFRelievingDate.Focus();
+                    errValidator.SetError(this.txtPFRelievingDate, "Invalid PF Relieving Date format (dd-MM-yyyy).");
+                }
+                else if (dob < DateTime.ParseExact(txtPFJoiningDate.Text, dateFormat, provider))
+                {
+                    validationStatus = false;
+                    txtPFRelievingDate.Focus();
+                    errValidator.SetError(this.txtPFRelievingDate, "PF relieving date should be above PF joining date.");
+                }
+            }
+            else
+            {
+                txtPFNumber.Text = "";
+                txtPFJoiningDate.Text = "";
+                txtPFRelievingDate.Text = "";
+            }
+
+            if (chkESIEnabled.Checked)
+            {
+                if (string.IsNullOrEmpty(txtESINumber.Text))
+                {
+                    validationStatus = false;
+                    txtESINumber.Focus();
+                    errValidator.SetError(this.txtESINumber, "Enter a valid ESI Number.");
+                }
+                if (string.IsNullOrEmpty(txtESIDispName.Text))
+                {
+                    validationStatus = false;
+                    txtESIDispName.Focus();
+                    errValidator.SetError(this.txtESIDispName, "Enter a valid ESI Dispensary Name.");
+                }
+            }
+            else
+            {
+                txtESINumber.Text = "";
+                txtESIDispName.Text = "";
+            }
+
+            if (chkProfessionalTaxEnabled.Checked)
+            {
+                if (string.IsNullOrEmpty(txtPTNumber.Text))
+                {
+                    validationStatus = false;
+                    txtPTNumber.Focus();
+                    errValidator.SetError(this.txtPTNumber, "Enter a valid Professional Tax Number.");
+                }
+            }
+
+            if (chkNationalPensionScheme.Checked)
+            {
+                if (string.IsNullOrEmpty(txtNPSNumber.Text))
+                {
+                    validationStatus = false;
+                    txtNPSNumber.Focus();
+                    errValidator.SetError(this.txtNPSNumber, "Enter a valid National Pension Scheme Number.");
+                }
             }
 
             //EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString(), Convert.ToBoolean(dc.Cells["FamMemInsuranceEnrolled"].Value.ToString()));
@@ -1831,6 +2016,7 @@ namespace StaffSync
             txtEmployeeContactNumber.Text = objSelectedPersonalInfo.ContactNumber1;
             txtEmployeeMailID.Text = objSelectedPersonalInfo.ContactNumber2;
             cmbGender.SelectedIndex = objSelectedPersonalInfo.SexID - 1;
+            cmbEmpBranch.SelectedIndex = objSelectedPersonalInfo.ClientBranchID - 1;
 
             AddressInfo objSelectedCurrAddressInfo = objAddressInfo.GetAddressInfo(Convert.ToInt16(objSelectedPersonalInfo.CurAddressID));
             lblCurrentAddressID.Text = objSelectedCurrAddressInfo.AddressID.ToString();
@@ -1881,12 +2067,24 @@ namespace StaffSync
             lblEmpGovtID.Text = objSelectedPersonalInfo.PersonalInfoID.ToString();
             EmpPersonalIDInfo objEmpPersonalIDInfo = objEmployeePersonalIDInfo.GetEmpPersonalIDInfo(Convert.ToInt16(lblEmpGovtID.Text.Trim()));
             txtPassportNumber.Text = objEmpPersonalIDInfo.PassportNumber.ToString();
-            txtPassportIssueDate.Text = objEmpPersonalIDInfo.IssueDate.ToString("dd-MM-yyyy");
-            txtPassportRenewalDate.Text = objEmpPersonalIDInfo.RenewalDate.ToString("dd-MM-yyyy");
+            txtPassportIssueDate.Text = Convert.ToDateTime(objEmpPersonalIDInfo.IssueDate.ToString()).Date.ToString("dd-MM-yyyy");
+            txtPassportRenewalDate.Text = Convert.ToDateTime(objEmpPersonalIDInfo.RenewalDate.ToString()).Date.ToString("dd-MM-yyyy");
             txtAadhaarCardNumber.Text = objEmpPersonalIDInfo.AadhaarCardNumber.ToString();
             txtVoterCardNumber.Text = objEmpPersonalIDInfo.VoterCardNumber.ToString();
             txtPANCardNumber.Text = objEmpPersonalIDInfo.PANNumber.ToString();
             txtAdditonalCardNumber.Text = objEmpPersonalIDInfo.ID1.ToString();
+            chkProvidentFundEnabled.Checked = objEmpPersonalIDInfo.PFApplicable;
+            txtPFNumber.Text = objEmpPersonalIDInfo.PFAccNumber.ToString();
+            txtPFJoiningDate.Text = Convert.ToDateTime(objEmpPersonalIDInfo.PFJoiningDate.ToString()).Date.ToString("dd-MM-yyyy"); 
+            txtPFRelievingDate.Text = Convert.ToDateTime(objEmpPersonalIDInfo.PFRelievingDate.ToString()).Date.ToString("dd-MM-yyyy");
+            chkProfessionalTaxEnabled.Checked = objEmpPersonalIDInfo.PTApplicable;
+            txtPTNumber.Text = objEmpPersonalIDInfo.PTAccNumber;
+            chkNationalPensionScheme.Checked = objEmpPersonalIDInfo.NPSApplicable;
+            txtNPSNumber.Text = objEmpPersonalIDInfo.NPSAccNumber.ToString();
+            chkESIEnabled.Checked = objEmpPersonalIDInfo.ESIApplicable;
+            txtESINumber.Text = objEmpPersonalIDInfo.ESIAccNumber.ToString();
+            txtESIDispName.Text = objEmpPersonalIDInfo.ESIDispensary.ToString();
+
 
             RefreshFamilyMembersInformation();
 
@@ -2225,7 +2423,7 @@ namespace StaffSync
             dtgSalaryProfileDetails.Columns["HeaderID"].Visible = false;
             dtgSalaryProfileDetails.Columns["HeaderTitle"].Width = 350;
             dtgSalaryProfileDetails.Columns["HeaderType"].Width = 150;
-            dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = false;
+            dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = true;
             dtgSalaryProfileDetails.Columns["IsFixed"].Visible = false;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].Width = 150;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
@@ -2341,7 +2539,7 @@ namespace StaffSync
             dtgSalaryProfileDetails.Columns["HeaderID"].Visible = false;
             dtgSalaryProfileDetails.Columns["HeaderTitle"].Width = 350;
             dtgSalaryProfileDetails.Columns["HeaderType"].Width = 150;
-            dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = false;
+            dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = true;
             dtgSalaryProfileDetails.Columns["IsFixed"].Visible = false;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].Width = 150;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
@@ -2531,8 +2729,10 @@ namespace StaffSync
         private void btnViewCalender_Click(object sender, EventArgs e)
         {
             //frmAttendanceMater frmAttendanceMater = new frmAttendanceMater("listAttendanceMasterList", Convert.ToInt16(lblEmpID.Text));
-            frmAttendanceMater frmAttendanceMater = new frmAttendanceMater();
-            frmAttendanceMater.ShowDialog(this);
+            //frmAttendanceMater frmAttendanceMater = new frmAttendanceMater();
+            //frmAttendanceMater.ShowDialog(this);
+            frmIndEmpAttendanceCalender frmIndEmpAttendanceCalender = new frmIndEmpAttendanceCalender(objTempCurrentlyLoggedInUserInfo, objTempClientFinYearInfo, Convert.ToInt16(lblEmpID.Text), Convert.ToDateTime(DateTime.Today));
+            frmIndEmpAttendanceCalender.ShowDialog();
         }
 
         private void frmEmployeeMaster_KeyDown(object sender, KeyEventArgs e)
@@ -2630,6 +2830,104 @@ namespace StaffSync
             dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemMailID"].Value = objMemberInfo.FamMemMailID;
             dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemBloodGroup"].Value = objMemberInfo.FamMemBloodGroup;
             dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemInsuranceEnrolled"].Value = Convert.ToBoolean(objMemberInfo.FamMemInsuranceEnrolled);
+        }
+
+        private void chkProvidentFundEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            tmpClientStatutory = objClientStatutory.getClientStatutory(Convert.ToInt16(objTempClientFinYearInfo.ClientID));
+
+            if(tmpClientStatutory.EnablePF == false)
+            {
+                MessageBox.Show("Provident Fund (PF) is not enabled for this client. \nPlease contact system administrator.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                chkProvidentFundEnabled.Checked = false;
+                return;
+            }
+
+            if (chkProvidentFundEnabled.Checked == true)
+            {
+                chkProvidentFundEnabled.Text = "Provident Fund (PF) Applicable : Yes";
+                grpProvidentFundEnabled.Enabled = true;
+            }
+            else
+            {
+                chkProvidentFundEnabled.Text = "Provident Fund (PF) Applicable : No";
+                grpProvidentFundEnabled.Enabled = false;
+                txtPFNumber.Text = "";
+                txtPFJoiningDate.Text = "";
+                txtPFRelievingDate.Text = "";
+            }
+        }
+
+        private void chkProfessionalTaxEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            tmpClientStatutory = objClientStatutory.getClientStatutory(Convert.ToInt16(objTempClientFinYearInfo.ClientID));
+
+            if (tmpClientStatutory.EnablePT == false)
+            { 
+                MessageBox.Show("Professional Tax (PT) is not enabled for this client. \nPlease contact system administrator.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                chkProfessionalTaxEnabled.Checked = false;
+                return;
+            }
+
+            if (chkProfessionalTaxEnabled.Checked == true)
+            {
+                chkProfessionalTaxEnabled.Text = "Professional Tax (PT) Applicable : Yes";
+                grpProfessionalTaxEnabled.Enabled = true;
+            }
+            else
+            {
+                chkProfessionalTaxEnabled.Text = "Professional Tax (PT) Applicable : No";
+                grpProfessionalTaxEnabled.Enabled = false;
+                txtPTNumber.Text = "";
+            }
+        }
+
+        private void chkESIEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            tmpClientStatutory = objClientStatutory.getClientStatutory(Convert.ToInt16(objTempClientFinYearInfo.ClientID));
+
+            if (tmpClientStatutory.EnableESI == false)
+            {
+                MessageBox.Show("Employee State Insurance (ESI) is not enabled for this client. \nPlease contact system administrator.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                chkESIEnabled.Checked = false;
+                return;
+            }
+            
+            if (chkESIEnabled.Checked == true) {
+                chkESIEnabled.Text = "Employee State Insurance (ESI) Applicable : Yes";
+                grpESIEnabled.Enabled = true;
+            }
+            else
+            {
+                chkESIEnabled.Text = "Employee State Insurance (ESI) Applicable : No";
+                grpESIEnabled.Enabled = false;
+                txtESINumber.Text = "";
+                txtESIDispName.Text = "";
+            }
+        }
+
+        private void chkNationalPensionScheme_CheckedChanged(object sender, EventArgs e)
+        {
+            tmpClientStatutory = objClientStatutory.getClientStatutory(Convert.ToInt16(objTempClientFinYearInfo.ClientID));
+
+            if (tmpClientStatutory.EnableNPS == false)
+            {
+                MessageBox.Show("National Pension Scheme (NPS) is not enabled for this client. \nPlease contact system administrator.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                chkNationalPensionScheme.Checked = false;
+                return;
+            }
+            
+            if (chkNationalPensionScheme.Checked == true)
+            {
+                chkNationalPensionScheme.Text = "National Pension Scheme (NPS) Applicable : Yes";
+                grpNPSEnabled.Enabled = true;
+            }
+            else
+            {
+                chkNationalPensionScheme.Text = "National Pension Scheme (NPS) Applicable : No";
+                grpNPSEnabled.Enabled = false;
+                txtNPSNumber.Text = "";
+            }
         }
     }
 }

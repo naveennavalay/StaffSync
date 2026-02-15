@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace StaffSync
@@ -41,8 +42,11 @@ namespace StaffSync
             txtTotalLeavesAlloted.Text = "0.00";
             txtTotalBalanceLeaves.Text = "0.00";
 
+            cmbChartType.DataSource = Enum.GetValues(typeof(SeriesChartType));
+
+            List<LeaveEntitlementInfo> objEmployeeLeaveEntitlementList = objEmpLeaveEntitlementInfo.getEmployeeLeaveEntitilementList(Convert.ToInt16(txtEmployeeID), Convert.ToInt16(txtLeaveMasID));
             dtgOutstandingLeaveInfo.DataSource = null;
-            dtgOutstandingLeaveInfo.DataSource = objEmpLeaveEntitlementInfo.getEmployeeLeaveEntitilementList(Convert.ToInt16(txtEmployeeID), Convert.ToInt16(txtLeaveMasID));
+            dtgOutstandingLeaveInfo.DataSource = objEmployeeLeaveEntitlementList;
 
             dtgOutstandingLeaveInfo.Columns["LeaveEntmtID"].Visible = false;
             dtgOutstandingLeaveInfo.Columns["EmpID"].Visible = false;
@@ -88,6 +92,8 @@ namespace StaffSync
             txtTotalLeavesAlloted.Text = Convert.ToDecimal(totalLeavesAllotted.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
             txtTotalBalanceLeaves.Text = Convert.ToDecimal(totalBalanceLeaves.ToString()).ToString("0.00", CultureInfo.InvariantCulture);
             txtTotalUtilised.Text = (Convert.ToDecimal(txtTotalLeavesAlloted.Text.ToString())  - Convert.ToDecimal(txtTotalBalanceLeaves.Text.ToString())).ToString("0.00", CultureInfo.InvariantCulture);
+
+            ShowLeaveChart(Convert.ToDecimal(txtTotalLeavesAlloted.Text.ToString()), Convert.ToDecimal(txtTotalUtilised.Text.ToString()), Convert.ToDecimal(txtTotalBalanceLeaves.Text.ToString()));
         }
 
 
@@ -356,7 +362,61 @@ namespace StaffSync
 
         private void frmViewLeavesOutstanding_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
 
+        private void btnChart_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void cmbChartType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //SeriesChartType selectedType = (SeriesChartType)cmbChartType.SelectedItem;
+            //chrtLeaveSummary.Series[0].ChartType = selectedType;
+        }
+
+        private void dtgOutstandingLeaveInfo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return; // ignore header
+
+            DataGridViewRow row = dtgOutstandingLeaveInfo.Rows[e.RowIndex];
+            ShowLeaveChart(Convert.ToDecimal(row.Cells["TotalLeaves"].Value), Convert.ToDecimal(row.Cells["UsedLeaves"].Value), Convert.ToDecimal(row.Cells["BalanceLeaves"].Value));
+        }
+
+        private void ShowLeaveChart(decimal allotedLeaves, decimal usedLeaves, decimal balanceLeaves)
+        {
+            chrtLeaveSummary.Series.Clear();
+            chrtLeaveSummary.ChartAreas.Clear();
+            chrtLeaveSummary.Legends.Clear();
+
+            ChartArea area = new ChartArea();
+            area.BackColor = Color.Transparent;
+            chrtLeaveSummary.ChartAreas.Add(area);
+
+            Series series = new Series
+            {
+                Name = "LeaveSummary",
+                ChartType = SeriesChartType.Doughnut,
+                IsValueShownAsLabel = true,
+                LabelFormat = "0.##",
+            };
+
+            chrtLeaveSummary.Series.Add(series);
+
+            Legend legend = new Legend();
+            chrtLeaveSummary.Legends.Add(legend);
+
+            series.Points.Clear();
+
+            series.Points.AddXY("Alloted Leaves", allotedLeaves);
+            series.Points.AddXY("Used Leaves", usedLeaves);
+            series.Points.AddXY("Balance Leaves", balanceLeaves);
+
+            series.Points[0].Color = Color.OrangeRed;
+            series.Points[1].Color = Color.RoyalBlue;
         }
     }
 }

@@ -24,7 +24,9 @@ namespace StaffSync
         DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsWeeklyOffInfo objWeeklyOffInfo = new DALStaffSync.clsWeeklyOffInfo();
         DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
+        DALStaffSync.clsEmpMnthlyAttdInfo objEmpMnthlyAttdInfo = new DALStaffSync.clsEmpMnthlyAttdInfo();
         List<WklyOffProfileDetailsInfo> lstWeeklyOffDetailsInfo = new List<WklyOffProfileDetailsInfo>();
+        DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
@@ -72,16 +74,17 @@ namespace StaffSync
             clearControls();
             FormatTheGrid();
 
-            if (this.dtgBulkLeaveApproval.Rows.Count > 0)
-            {
-                chkSelectUnselect.Enabled = true;
-                btnSaveDetails.Enabled = true;
-            }
-            else
-            {
-                chkSelectUnselect.Enabled = false;
-                btnSaveDetails.Enabled = false;
-            }
+            //if (this.dtgBulkLeaveApproval.Rows.Count > 0)
+            //{
+            //    chkSelectUnselect.Enabled = true;
+            //    btnSaveDetails.Enabled = true;
+            //}
+            //else
+            //{
+            //    chkSelectUnselect.Enabled = false;
+            //    btnSaveDetails.Enabled = false;
+            //}
+            btnSaveDetails.Enabled = false;
 
         }
 
@@ -126,32 +129,49 @@ namespace StaffSync
             }
 
             int WeeklyOffDayID = 0;
+            int MonthlyAttendanceSlNumber = 0;
             int employeeLeaveTRID = 0;
+            string strAttendanceStatus = "";
+            int RowCounter = 0;
+            decimal txtAvailableLeave = 0;
+            decimal txtBalanceLeave = 0;
+            DateTime dtSelectedMonth = new DateTime();
+
             foreach (DataGridViewRow indRow in this.dtgBulkLeaveApproval.Rows)
             {
                 if (Convert.ToBoolean(indRow.Cells["Select"].Value.ToString()) == true)
                 {
                     employeeLeaveTRID = objLeaveTRList.ApproveLeave(Convert.ToInt16(indRow.Cells["LeaveTRID"].Value.ToString()), Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), "Request Approved via Bulk Approval", clsCurrentUser.UserID);
-
-                    int lblLeaveMasID = Convert.ToInt16(objLeaveTRList.getMaxLeaveMasID(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString())).ToString());
-
-                    decimal txtAvailableLeave = 0;
-                    decimal txtBalanceLeave = 0;
-
                     if (Convert.ToBoolean(indRow.Cells["Canceled"].Value.ToString()) == false)
                     {
                         txtAvailableLeave = Convert.ToDecimal(objLeaveTRList.getBalanceLeave(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString())));
-                        txtBalanceLeave = Convert.ToDecimal(txtAvailableLeave);
-                        objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.ToString()), Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDecimal(txtAvailableLeave), Convert.ToDecimal(txtBalanceLeave), DateTime.Now);
-                        objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(indRow.Cells["ActualLeaveDateFrom"].Value.ToString()), "Leave", Convert.ToInt16(indRow.Cells["LeaveTRID"].Value.ToString()));
+                        txtBalanceLeave = Convert.ToDecimal(txtAvailableLeave) - Convert.ToDecimal(indRow.Cells["LeaveDuration"].Value.ToString());
+                        strAttendanceStatus = "Leave : " + indRow.Cells["LeaveMode"].Value.ToString();
+                        objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(indRow.Cells["LeaveTypeID"].Value.ToString()), Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDecimal(txtAvailableLeave), (Convert.ToDecimal(txtBalanceLeave)), DateTime.Now);
+                        EmployeeAttendanceInfo objEmployeeAttendanceInfo = objAttendanceMas.GetEmployeeSpecificDailyAttendanceInfo(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(indRow.Cells["ActualLeaveDateFrom"].Value.ToString()));
+                        if (objEmployeeAttendanceInfo.AttStatus == null)
+                        {
+                            objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(indRow.Cells["ActualLeaveDateFrom"].Value.ToString()), "Leave : " + indRow.Cells["LeaveMode"].Value.ToString(), Convert.ToInt16(indRow.Cells["LeaveTRID"].Value.ToString()));
+                        }
+                        else if (objEmployeeAttendanceInfo.AttStatus == "Present")
+                        {
+                            objAttendanceInfo.UpdateDailyAttendance(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(indRow.Cells["ActualLeaveDateFrom"].Value.ToString()), "Leave : " + indRow.Cells["LeaveMode"].Value.ToString(), Convert.ToInt16(indRow.Cells["LeaveTRID"].Value.ToString()));
+                        }
+                        else
+                        {
+                            strAttendanceStatus = objEmployeeAttendanceInfo.AttStatus + ", " + strAttendanceStatus;
+                            //objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(indRow.Cells["ActualLeaveDateFrom"].Value.ToString()), "Leave : " + lstLeaveTRList.SelectedItems[0].SubItems[6].Text.ToString(), Convert.ToInt16(indRow.Cells["LeaveTRID"].Value.ToString()));
+                            RowCounter = objAttendanceInfo.UpdateDailyAttendance(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(indRow.Cells["ActualLeaveDateFrom"].Value.ToString()), strAttendanceStatus, Convert.ToInt16(indRow.Cells["LeaveTRID"].Value.ToString()));
+                        }
                     }
-                    else if (Convert.ToBoolean(indRow.Cells["Canceled"].Value.ToString()) == true)
-                    {
-                        txtAvailableLeave = Convert.ToDecimal(objLeaveTRList.getSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID), Convert.ToInt16(indRow.Cells["LeaveTypeID"].Value.ToString())).ToString());
-                        txtBalanceLeave = Convert.ToDecimal(txtAvailableLeave) + Convert.ToDecimal(indRow.Cells["LeaveDuration"].Value.ToString());
-                        objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblLeaveMasID.ToString()), Convert.ToInt16(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString())), Convert.ToDecimal(txtAvailableLeave.ToString()), Convert.ToDecimal(txtBalanceLeave.ToString()), DateTime.Now);
-                        objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(indRow.Cells["ActualLeaveDateFrom"].Value.ToString()), "Leave", Convert.ToInt16(indRow.Cells["LeaveTRID"].Value.ToString()));
-                    }
+
+                    List<MonthlyAttendanceInfo> objMonthlyAttInfoList = objEmpMnthlyAttdInfo.getEmployeeMonthlyAttendanceInfo(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime("01" + Convert.ToDateTime(indRow.Cells["ActualLeaveDateFrom"].Value.ToString()).Date.ToString("-MMM-yyyy")));
+                    if (objMonthlyAttInfoList.Count == 0)
+                        MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.InsertMonthlyAttendanceInfo(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime("01" + Convert.ToDateTime(indRow.Cells["ActualLeaveDateFrom"].Value.ToString()).Date.ToString("-MMM-yyyy")));
+
+                    MonthlyAttendanceSlNumber = objMonthlyAttInfoList[0].SlNo;
+                    MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), dtSelectedMonth, "Day" + Convert.ToDateTime(indRow.Cells["ActualLeaveDateFrom"].Value.ToString()).Date.Day, strAttendanceStatus);
+
                 }
             }
             MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -338,6 +358,7 @@ namespace StaffSync
             dtgBulkLeaveApproval.Columns["LeaveTypeTitle"].ReadOnly = true;
             dtgBulkLeaveApproval.Columns["LeaveTypeTitle"].Width = 200;
             dtgBulkLeaveApproval.Columns["LeaveTypeTitle"].Visible = true;
+            dtgBulkLeaveApproval.Columns["LeaveEntmtID"].Visible = false;
             dtgBulkLeaveApproval.Columns["LeaveTRID"].ReadOnly = true;
             dtgBulkLeaveApproval.Columns["LeaveTRID"].Width = 100;
             dtgBulkLeaveApproval.Columns["LeaveTRID"].Visible = false;
@@ -349,9 +370,12 @@ namespace StaffSync
             dtgBulkLeaveApproval.Columns["ActualLeaveDateTo"].Width = 100;
             dtgBulkLeaveApproval.Columns["ActualLeaveDateTo"].Visible = true;
             dtgBulkLeaveApproval.Columns["ActualLeaveDateTo"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            dtgBulkLeaveApproval.Columns["LeaveMode"].ReadOnly = true;
+            dtgBulkLeaveApproval.Columns["LeaveMode"].Width = 100;
+            dtgBulkLeaveApproval.Columns["LeaveMode"].Visible = true;
             dtgBulkLeaveApproval.Columns["LeaveDuration"].ReadOnly = true;
             dtgBulkLeaveApproval.Columns["LeaveDuration"].Width = 100;
-            dtgBulkLeaveApproval.Columns["LeaveDuration"].Visible = true;
+            dtgBulkLeaveApproval.Columns["LeaveDuration"].Visible = true;            
             dtgBulkLeaveApproval.Columns["LeaveComments"].ReadOnly = true;
             dtgBulkLeaveApproval.Columns["LeaveComments"].Width = 250;
             dtgBulkLeaveApproval.Columns["LeaveComments"].Visible = true;

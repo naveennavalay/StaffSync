@@ -1,0 +1,65 @@
+TRANSFORM Sum(EmpLeaveEntitlement.BalanceLeaves) AS SumOfBalanceLeaves
+SELECT
+    EmpMas.EmpCode,
+    EmpMas.EmpName,
+    DesigMas.DesignationTitle,
+    DepMas.DepartmentTitle
+FROM
+    ClientMas
+    INNER JOIN (
+        LeaveTypeMas
+        INNER JOIN (
+            (
+                (
+                    DesigMas
+                    INNER JOIN (
+                        DepMas
+                        INNER JOIN EmpMas ON DepMas.DepartmentID = EmpMas.DepartmentID
+                    ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                )
+                INNER JOIN EmpLeaveEntitlement ON EmpMas.EmpID = EmpLeaveEntitlement.EmpID
+            )
+            INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+        ) ON LeaveTypeMas.LeaveTypeID = EmpLeaveEntitlement.LeaveTypeID
+    ) ON ClientMas.ClientID = EmpMas.ClientID
+WHERE
+    (
+        ((EmpMas.EmpID) = 1)
+        AND ((EmpMas.IsActive) = True)
+        AND ((EmpMas.IsDeleted) = False)
+        AND ((ClientMas.ClientID) = 1)
+    )
+GROUP BY
+    EmpMas.EmpID,
+    EmpMas.EmpCode,
+    EmpMas.EmpName,
+    DesigMas.DesignationTitle,
+    DepMas.DepartmentTitle,
+    EmpMas.IsActive,
+    EmpMas.IsDeleted,
+    ClientMas.ClientID
+ORDER BY
+    EmpMas.EmpID PIVOT Format(LeaveTypeMas.LeaveTypeID, '00') & ' - ' & LeaveTypeMas.LeaveTypeTitle;
+
+
+
+
+
+
+
+SELECT
+    EmpDailyAttendanceInfo.EmpID,
+    Day(DateSerial (Year(AttDate), Month(AttDate) + 1, 0)) AS TotalDaysInMonth,
+    Sum(IIf(AttStatus = 'Present', 1, 0)) AS PresentCount,
+    Sum(IIf(AttStatus = 'Leave : Full Day', 1, 0)) AS FullDayLeaveCount,
+    Sum(IIf(AttStatus = 'Leave : First Half', 1, 0)) AS FirstHalfLeaveCount,
+    Sum(IIf(AttStatus = 'Leave : Second Half', 1, 0)) AS SecondHalfLeaveCount,
+    FullDayLeaveCount + FirstHalfLeaveCount + SecondHalfLeaveCount AS TotalLeaveCount,
+    TotalDaysInMonth - PresentCount - TotalLeaveCount AS Expr1
+FROM
+    EmpDailyAttendanceInfo
+WHERE
+    (((EmpDailyAttendanceInfo.EmpID) = 1))
+GROUP BY
+    EmpDailyAttendanceInfo.EmpID,
+    Day(DateSerial (Year(AttDate), Month(AttDate) + 1, 0));

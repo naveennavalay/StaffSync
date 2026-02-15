@@ -118,16 +118,16 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "SELECT " +
-                                    "LeaveTypeMas.LeaveTypeID, " + 
-                                    "LeaveTypeMas.LeaveTypeTitle " + 
-                                "FROM " + 
-                                    "LeaveTypeMas " + 
-                                "WHERE " + 
-                                    "(" + 
-                                        "((LeaveTypeMas.IsActive) = True) " + 
-                                        "AND ((LeaveTypeMas.IsDelete) = False) " + 
-                                    ") " + 
-                                "ORDER BY " + 
+                                    "LeaveTypeMas.LeaveTypeID, " +
+                                    "LeaveTypeMas.LeaveTypeTitle " +
+                                "FROM " +
+                                    "LeaveTypeMas " +
+                                "WHERE " +
+                                    "(" +
+                                        "((LeaveTypeMas.IsActive) = True) " +
+                                        "AND ((LeaveTypeMas.IsDelete) = False) " +
+                                    ") " +
+                                "ORDER BY " +
                                     "LeaveTypeMas.OrderID;";
 
                 strQuery = "SELECT " +
@@ -189,6 +189,189 @@ namespace dbStaffSync
             }
 
             return LeaveEntitlementInfoList;
+        }
+
+        public List<LeaveOutStandingSummary> getConsolidatedLeaveOutStandingStatement(int txtClientID)
+        {
+            List<LeaveOutStandingSummary> LeaveOutStandingSummaryList = new List<LeaveOutStandingSummary>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " +
+                                    "LeaveTypeMas.LeaveTypeID, " + 
+                                    "LeaveTypeMas.LeaveTypeTitle " + 
+                                "FROM " + 
+                                    "LeaveTypeMas " + 
+                                "WHERE " + 
+                                    "(" + 
+                                        "((LeaveTypeMas.IsActive) = True) " + 
+                                        "AND ((LeaveTypeMas.IsDelete) = False) " + 
+                                    ") " + 
+                                "ORDER BY " + 
+                                    "LeaveTypeMas.OrderID;";
+
+                //strQuery = "SELECT " +
+                //                "EmpLeaveEntitlement.LeaveEntmtID, " +
+                //                "EmpMas.EmpID, " +
+                //                "LeaveMas.LeaveMasID, " +
+                //                "LeaveTypeMas.LeaveTypeID, " +
+                //                "LeaveTypeMas.LeaveTypeTitle, " +
+                //                "EmpLeaveEntitlement.TotalLeaves, " +
+                //                "EmpLeaveEntitlement.BalanceLeaves, " +
+                //                "0 As UsedLeaves, " +
+                //                "LeaveTypeMas.OrderID " +
+                //            "FROM " +
+                //                "LeaveTypeMas " +
+                //                "INNER JOIN( " +
+                //                    "(" +
+                //                        "EmpMas " +
+                //                        "INNER JOIN LeaveMas ON EmpMas.EmpID = LeaveMas.EmpID " +
+                //                    ") " +
+                //                    "INNER JOIN EmpLeaveEntitlement ON LeaveMas.LeaveMasID = EmpLeaveEntitlement.LeaveMasID " +
+                //                ") ON LeaveTypeMas.LeaveTypeID = EmpLeaveEntitlement.LeaveTypeID " +
+                //            "WHERE " +
+                //                "(((EmpMas.EmpID) = " + txtEmpID + ") AND ((LeaveMas.LeaveMasID) = " + txtLeaveMasID + ")) " +
+                //            "ORDER BY " +
+                //                "LeaveTypeMas.OrderID;";
+
+                strQuery = "SELECT " +
+                                " qryEmpCrosstabOutstandingLeaveStatement.EmpID, " +
+                                " qryEmpCrosstabOutstandingLeaveStatement.EmpCode, " +
+                                " qryEmpCrosstabOutstandingLeaveStatement.EmpName, " +
+                                " qryEmpCrosstabOutstandingLeaveStatement.DesignationTitle, " +
+                                " qryEmpCrosstabOutstandingLeaveStatement.DepartmentTitle, " +
+                                " qryEmpCrosstabOutstandingLeaveStatement.[01 - Paid Leave] + qryEmpCrosstabOutstandingLeaveStatement.[02 - Compensatory Off] + qryEmpCrosstabOutstandingLeaveStatement.[03 - Unpaid Leave] + qryEmpCrosstabOutstandingLeaveStatement.[04 - Loss of Pay (LOP) / Leave Without Pay (LWP)] + qryEmpCrosstabOutstandingLeaveStatement.[05 - Sick Leave] + qryEmpCrosstabOutstandingLeaveStatement.[06 - Privilege Leave/Earned Leave] + qryEmpCrosstabOutstandingLeaveStatement.[07 - Casual Leave] + qryEmpCrosstabOutstandingLeaveStatement.[08 - Maternity Leave] + qryEmpCrosstabOutstandingLeaveStatement.[10 - Paternity Leave] + qryEmpCrosstabOutstandingLeaveStatement.[11 - Bereavement Leave] + qryEmpCrosstabOutstandingLeaveStatement.[12 - Public Holiday] + qryEmpCrosstabOutstandingLeaveStatement.[13 - Birthday Leave] AS LeaveBalance " +
+                            " FROM " +
+                                "qryEmpCrosstabOutstandingLeaveStatement;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                LeaveOutStandingSummaryList = JsonConvert.DeserializeObject<List<LeaveOutStandingSummary>>(DataTableToJSon);
+                //foreach (LeaveOutStandingSummary indLeaveOutStandingSummary in LeaveOutStandingSummaryList)
+                //{
+                //    indLeaveOutStandingSummary.LeaveEntmtID = indLeaveOutStandingSummary.LeaveEntmtID;
+                //    indLeaveOutStandingSummary.EmpID = txtEmpID;
+                //    indLeaveOutStandingSummary.LeaveMasID = indLeaveOutStandingSummary.LeaveMasID;
+                //    indLeaveOutStandingSummary.LeaveTypeID = indLeaveOutStandingSummary.LeaveTypeID;
+                //    indLeaveOutStandingSummary.TotalLeaves = indLeaveOutStandingSummary.TotalLeaves;
+                //    indLeaveOutStandingSummary.BalanceLeaves = indLeaveOutStandingSummary.BalanceLeaves;
+                //    indLeaveOutStandingSummary.UsedLeaves = indLeaveOutStandingSummary.TotalLeaves - indLeaveOutStandingSummary.BalanceLeaves;
+                //    indLeaveOutStandingSummary.OrderID = indLeaveOutStandingSummary.OrderID;
+                //}
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return LeaveOutStandingSummaryList;
+        }
+
+        public List<ConsolidatedLeaveOutStandingStatement> getDetailedLeaveStatement(int txtClientID)
+        {
+            List<ConsolidatedLeaveOutStandingStatement> objConsolidatedLeaveOutStandingStatementList = new List<ConsolidatedLeaveOutStandingStatement>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "TRANSFORM Sum(EmpLeaveEntitlement.BalanceLeaves) AS SumOfBalanceLeaves " + 
+                                            " SELECT " +
+                                                " EmpMas.EmpID, " +
+                                                " EmpMas.EmpCode, " +
+                                                " EmpMas.EmpName, " +
+                                                " DesigMas.DesignationTitle, " +
+                                                " DepMas.DepartmentTitle " +
+                                            " FROM " +
+                                                " ClientMas " +
+                                                " INNER JOIN ( " +
+                                                    " LeaveTypeMas " +
+                                                    " INNER JOIN( " +
+                                                        " (" +
+                                                            " ( " +
+                                                                " DesigMas " +
+                                                                " INNER JOIN ( " +
+                                                                    " DepMas " +
+                                                                    " INNER JOIN EmpMas ON DepMas.DepartmentID = EmpMas.DepartmentID " +
+                                                                " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " +
+                                                            " ) " +
+                                                            " INNER JOIN EmpLeaveEntitlement ON EmpMas.EmpID = EmpLeaveEntitlement.EmpID " +
+                                                        " ) " +
+                                                        " INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID " +
+                                                    " ) ON LeaveTypeMas.LeaveTypeID = EmpLeaveEntitlement.LeaveTypeID " +
+                                                " ) ON ClientMas.ClientID = EmpMas.ClientID " +
+                                            " WHERE " +
+                                                " ( " + 
+                                                    " ((EmpMas.IsActive) = True) " +
+                                                    " AND ((EmpMas.IsDeleted) = False) " +
+                                                    " AND ((ClientMas.ClientID) = " + txtClientID + ") " +
+                                                " ) " +
+                                            " GROUP BY " +
+                                                " EmpMas.EmpID, " +
+                                                " EmpMas.EmpCode, " +
+                                                " EmpMas.EmpName, " +
+                                                " DesigMas.DesignationTitle, " +
+                                                " DepMas.DepartmentTitle, " +
+                                                " EmpMas.IsActive, " +
+                                                " EmpMas.IsDeleted, " +
+                                                " ClientMas.ClientID " +
+                                            " ORDER BY " +
+                                                " EmpMas.EmpID PIVOT Format(LeaveTypeMas.LeaveTypeID, '00') & ' - ' & LeaveTypeMas.LeaveTypeTitle;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objConsolidatedLeaveOutStandingStatementList = JsonConvert.DeserializeObject<List<ConsolidatedLeaveOutStandingStatement>>(DataTableToJSon);
+                //foreach (LeaveEntitlementInfo indLeaveEntitlementInfo in objConsolidatedLeaveOutStandingStatementList)
+                //{
+                //    indLeaveEntitlementInfo.LeaveEntmtID = indLeaveEntitlementInfo.LeaveEntmtID;
+                //    indLeaveEntitlementInfo.EmpID = CurrentUser.EmpID;
+                //    indLeaveEntitlementInfo.LeaveMasID = indLeaveEntitlementInfo.LeaveMasID;
+                //    indLeaveEntitlementInfo.LeaveTypeID = indLeaveEntitlementInfo.LeaveTypeID;
+                //    indLeaveEntitlementInfo.TotalLeaves = indLeaveEntitlementInfo.TotalLeaves;
+                //    indLeaveEntitlementInfo.BalanceLeaves = indLeaveEntitlementInfo.BalanceLeaves;
+                //    indLeaveEntitlementInfo.OrderID = indLeaveEntitlementInfo.OrderID;
+                //}
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objConsolidatedLeaveOutStandingStatementList;
         }
 
         public List<LeaveEntitlementInfo> AddNewEntryOnGridEmployeeLeaveEntitilementList(int txtEmpID, int[] intLeaveTypeIDs, int txtNewLeaveTypeID)
@@ -370,6 +553,36 @@ namespace dbStaffSync
                 string strQuery = "UPDATE EmpLeaveEntitlement SET " +
                 "LeaveMasID = " + txtLeaveMasID + ", EmpID = " + txtEmpID + ", LeaveTypeID = " + txtLeaveTypeID + ", TotalLeaves = " + txtTotalLeaves + ", BalanceLeaves = " + txtBalanceLeaves + ", OrderID = " + txtOrderID +
                 " WHERE LeaveEntmtID = " + txtLeaveEntmtID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return affectedRows;
+        }
+
+        public int UpadateSpecificLeaveBalanceOnly(int txtLeaveEntmtID, int txtEmpID, decimal txtBalanceLeaves)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpLeaveEntitlement SET " +
+                "BalanceLeaves = " + txtBalanceLeaves +
+                " WHERE LeaveEntmtID = " + txtLeaveEntmtID + " AND EmpID = " + txtEmpID;
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
