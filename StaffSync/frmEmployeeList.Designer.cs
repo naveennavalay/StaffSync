@@ -207,6 +207,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Employee List";
+            this.Activated += new System.EventHandler(this.frmEmployeeList_Activated);
             this.Load += new System.EventHandler(this.frmEmployeeList_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.frmEmployeeList_KeyUp);
             this.splitContainer1.Panel1.ResumeLayout(false);

@@ -19,6 +19,11 @@ namespace DALStaffSync
             return objClientStatutory.GetCompanyProvidentFundSettings(ClientID);
         }
 
+        public ESIModel GetCompanyESISettings(int ClientID)
+        {
+            return objClientStatutory.GetCompanyESISettings(ClientID);
+        }
+
         public int InsertClientProvidentFundSettings(int txtPFMasID, string txtEmpPFPercentageOrAmount, decimal txtEmpPFPercentage, decimal txtEmpPFAmount, string txtEmprPFPercentageOrAmount, decimal txtEmprPFPercentage, decimal txtEmprPFAmount, string txtEmprPSPercentageOrAmount, decimal txtEmprPSPercentage, decimal txtEmprPSAmount, DateTime txtEffectiveDate)
         {
             return objClientStatutory.InsertClientProvidentFundSettings(txtPFMasID, txtEmpPFPercentageOrAmount, txtEmpPFPercentage, txtEmpPFAmount, txtEmprPFPercentageOrAmount, txtEmprPFPercentage, txtEmprPFAmount, txtEmprPSPercentageOrAmount, txtEmprPSPercentage, txtEmprPSAmount, txtEffectiveDate);

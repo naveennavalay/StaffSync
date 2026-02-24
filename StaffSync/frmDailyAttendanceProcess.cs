@@ -91,7 +91,7 @@ namespace StaffSync
             clearControls();
             errValidator.Clear();
 
-            txtDailyAttendanceDate.Value = DateTime.Today;
+            //txtDailyAttendanceDate.Value = DateTime.Today;
             chkCompactDetailedView.Checked = false;
             chkCompactDetailedView.Text = "Detailed View";
             RefreshEmpAttendanceInfo("Compact View");
@@ -285,7 +285,7 @@ namespace StaffSync
                     if (ReportGenerated)
                         Download.OpenCSV(filePath);
                 }
-                txtDailyAttendanceDate.Value = DateTime.Today;
+                //txtDailyAttendanceDate.Value = DateTime.Today;
                 chkCompactDetailedView.Checked = false;
                 chkCompactDetailedView.Text = "Detailed View";
                 RefreshEmpAttendanceInfo("Compact View");
@@ -467,6 +467,16 @@ namespace StaffSync
                 RefreshEmpAttendanceInfo("Compact View");
                 btnSaveDetails.Enabled = true;
             }
+        }
+
+        private void frmDailyAttendanceProcess_Activated(object sender, EventArgs e)
+        {
+            dtgDailyAttendanceProcess.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
+
+        private void btnAttCalender_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

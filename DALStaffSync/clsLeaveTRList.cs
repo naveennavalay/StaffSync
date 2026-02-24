@@ -1,4 +1,5 @@
 ﻿//using C1.Framework;
+using Common;
 using ModelStaffSync;
 using Newtonsoft.Json;
 //using Org.BouncyCastle.Asn1.X509;
@@ -57,6 +58,11 @@ namespace DALStaffSync
             BalanceLeave = objLeaveTRList.getSpecificLeaveTypeBalance(txtLeaveMasID, txtLeaveTypeID).ToString();
 
             return Convert.ToDecimal(BalanceLeave.ToString());
+        }
+
+        public bool IsLeavePaidOrNot(int txtLeaveMasID)
+        { 
+            return objLeaveTRList.IsLeavePaidOrNot(txtLeaveMasID);
         }
 
         public List<PendingLeaveApprovalList> getPendingLeaveApprovalList()

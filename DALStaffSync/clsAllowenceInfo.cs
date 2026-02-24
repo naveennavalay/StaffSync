@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
+using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
-using System.ComponentModel;
 
 namespace DALStaffSync
 {
@@ -48,20 +49,25 @@ namespace DALStaffSync
             return selectedAllowenceID;
         }
 
-        public int InsertAllowence(string txtAllCode, string txtAllTitle, string txtAllDescription, bool IsFixed, bool IsActive, bool IsDeleted)
+        public AllowenceModel getSelectedAllowenceInfo(int txtAllowenceID)
+        {
+            return objAllowenceInfo.getSelectedAllowenceInfo(txtAllowenceID);
+        }
+
+        public int InsertAllowence(string txtAllCode, string txtAllTitle, string txtAllDescription, bool IsFixed, bool IsActive, bool IsDeleted, decimal txtMaxCap, bool ShowInPayslip, bool ConsiderProrataBasis)
         {
             int affectedRows = 0;
             
-            affectedRows = objAllowenceInfo.InsertAllowence(txtAllCode, txtAllTitle, txtAllDescription, IsFixed, IsActive, IsDeleted);
+            affectedRows = objAllowenceInfo.InsertAllowence(txtAllCode, txtAllTitle, txtAllDescription, IsFixed, IsActive, IsDeleted, txtMaxCap, ShowInPayslip, ConsiderProrataBasis);
 
             return affectedRows;
         }
 
-        public int UpdateAllowence(int txtAllID, string txtAllCode, string txtAllTitle, string txtAllDescription, bool IsFixed, bool IsActive, bool IsDeleted)
+        public int UpdateAllowence(int txtAllID, string txtAllCode, string txtAllTitle, string txtAllDescription, bool IsFixed, bool IsActive, bool IsDeleted, decimal txtMaxCap, bool ShowInPayslip, bool ConsiderProrataBasis)
         {
             int affectedRows = 0;
             
-            affectedRows = objAllowenceInfo.UpdateAllowence(txtAllID, txtAllCode, txtAllTitle, txtAllDescription, IsFixed, IsActive, IsDeleted);
+            affectedRows = objAllowenceInfo.UpdateAllowence(txtAllID, txtAllCode, txtAllTitle, txtAllDescription, IsFixed, IsActive, IsDeleted, txtMaxCap, ShowInPayslip, ConsiderProrataBasis);
 
             return affectedRows;
         }

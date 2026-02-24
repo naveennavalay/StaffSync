@@ -46,7 +46,9 @@
     <Compile Include="clsAdvanceTransaction.cs" />
     <Compile Include="clsAdvanceTypeConfigInfo.cs" />
     <Compile Include="clsAdvanceTypeMas.cs" />
+    <Compile Include="clsAppSettings.cs" />
     <Compile Include="clsAppUserTasks.cs" />
+    <Compile Include="clsDashboardWidgetData.cs" />
     <Compile Include="clsProvidentFundCalculation.cs" />
     <Compile Include="clsProfessionalTaxCalculation.cs" />
     <Compile Include="clsBirthdayList.cs" />
@@ -104,6 +106,10 @@
     <Compile Include="Response.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{bf74c7dc-c97c-4510-9a19-f6f3dd8aaa71}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dbStaffSync\dbStaffSync.csproj">
       <Project>{5988d8ec-617c-47a8-a024-753c1fb66410}</Project>
       <Name>dbStaffSync</Name>

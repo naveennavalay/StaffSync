@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
+using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
-using System.ComponentModel;
 
 namespace DALStaffSync
 {
@@ -48,20 +49,30 @@ namespace DALStaffSync
             return selectedDeductionID;
         }
 
-        public int InsertDeduction(string txtDedCode, string txtDedTitle, string txtDedDescription, bool IsFixed, bool IsActive, bool IsDeleted)
+        public DeductionModel getSelectedDeductionInfo(int txtDeductionID)
+        {
+            return objDeductionsInfo.getSelectedDeductionInfo(txtDeductionID);
+        }
+
+        public decimal getDeductionMaxCap(int txtDeductionID)
+        {
+            return objDeductionsInfo.getDeductionMaxCap(txtDeductionID);
+        }
+
+        public int InsertDeduction(string txtDedCode, string txtDedTitle, string txtDedDescription, bool IsFixed, bool IsActive, bool IsDeleted, decimal txtMaxCap, bool ShowInPayslip, bool ConsiderProrataBasis)
         {
             int affectedRows = 0;
             
-            affectedRows = objDeductionsInfo.InsertDeduction(txtDedCode, txtDedTitle, txtDedDescription, IsFixed, IsActive, IsDeleted);
+            affectedRows = objDeductionsInfo.InsertDeduction(txtDedCode, txtDedTitle, txtDedDescription, IsFixed, IsActive, IsDeleted, txtMaxCap, ShowInPayslip, ConsiderProrataBasis);
 
             return affectedRows;
         }
 
-        public int UpdateDeduction(int txtDedID, string txtDedCode, string txtDedTitle, string txtDedDescription, bool IsFixed, bool IsActive, bool IsDeleted)
+        public int UpdateDeduction(int txtDedID, string txtDedCode, string txtDedTitle, string txtDedDescription, bool IsFixed, bool IsActive, bool IsDeleted, decimal txtMaxCap, bool ShowInPayslip, bool ConsiderProrataBasis)
         {
             int affectedRows = 0;
             
-            affectedRows = objDeductionsInfo.UpdateDeduction(txtDedID, txtDedCode, txtDedTitle, txtDedDescription, IsFixed, IsActive, IsDeleted);
+            affectedRows = objDeductionsInfo.UpdateDeduction(txtDedID, txtDedCode, txtDedTitle, txtDedDescription, IsFixed, IsActive, IsDeleted, txtMaxCap, ShowInPayslip, ConsiderProrataBasis);
 
             return affectedRows;
         }

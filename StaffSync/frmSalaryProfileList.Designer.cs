@@ -33,12 +33,12 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dtgSalaryProfileList = new System.Windows.Forms.DataGridView();
-            this.qryRelationshipListBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.staffsyncDBDataSet = new StaffSync.StaffsyncDBDataSet();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
+            this.qryRelationshipListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.staffsyncDBDataSet = new StaffSync.StaffsyncDBDataSet();
             this.countryMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryDepartmentListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dsDepartmentList = new StaffSync.dsDepartmentList();
@@ -60,9 +60,9 @@
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgSalaryProfileList)).BeginInit();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qryRelationshipListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet)).BeginInit();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryDepartmentListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dsDepartmentList)).BeginInit();
@@ -121,16 +121,6 @@
             this.dtgSalaryProfileList.TabIndex = 7;
             this.dtgSalaryProfileList.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
             // 
-            // qryRelationshipListBindingSource
-            // 
-            this.qryRelationshipListBindingSource.DataMember = "qryRelationshipList";
-            this.qryRelationshipListBindingSource.DataSource = this.staffsyncDBDataSet;
-            // 
-            // staffsyncDBDataSet
-            // 
-            this.staffsyncDBDataSet.DataSetName = "StaffsyncDBDataSet";
-            this.staffsyncDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // txtSearch
             // 
             this.txtSearch.Location = new System.Drawing.Point(215, 24);
@@ -174,6 +164,16 @@
             this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
             this.btnCloseMe.Values.Text = "Close Me";
             this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click_2);
+            // 
+            // qryRelationshipListBindingSource
+            // 
+            this.qryRelationshipListBindingSource.DataMember = "qryRelationshipList";
+            this.qryRelationshipListBindingSource.DataSource = this.staffsyncDBDataSet;
+            // 
+            // staffsyncDBDataSet
+            // 
+            this.staffsyncDBDataSet.DataSetName = "StaffsyncDBDataSet";
+            this.staffsyncDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // qryDepartmentListBindingSource
             // 
@@ -236,6 +236,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Salary Profile List";
+            this.Activated += new System.EventHandler(this.frmSalaryProfileList_Activated);
             this.Load += new System.EventHandler(this.frmSalaryProfileList_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.frmSalaryProfileList_KeyUp);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -245,9 +246,9 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgSalaryProfileList)).EndInit();
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.qryRelationshipListBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet)).EndInit();
-            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryDepartmentListBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dsDepartmentList)).EndInit();

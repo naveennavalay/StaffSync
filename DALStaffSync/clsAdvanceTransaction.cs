@@ -81,9 +81,9 @@ namespace DALStaffSync
             return objAdvanceTransaction.DeleteAdvanceTransaction(txtEmpAdvanceRecoveryID);
         }
 
-        public List<EmployeeSpecificAdvanceInformation> EmployeeSpecificAdvanceInformation(int txtEmpID)
+        public List<EmployeeSpecificAdvanceInformation> EmployeeSpecificAdvanceInformation(int txtEmpID, int txtAdvanceID)
         {
-            return objAdvanceTransaction.EmployeeSpecificAdvanceInformation(txtEmpID);
+            return objAdvanceTransaction.EmployeeSpecificAdvanceInformation(txtEmpID, txtAdvanceID);
         }
 
         public List<EmployeeSpecificAdvanceStatemetns> EmployeeSpecificAdvanceStatemetns(int txtEmpAdvanceRequestID)

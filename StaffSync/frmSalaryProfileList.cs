@@ -130,5 +130,10 @@ namespace StaffSync
             dtgSalaryProfileList.Columns["OrderID"].Visible = false;
             dtgSalaryProfileList.Columns["IsAutomaticCalculation"].Visible = false;
         }
+
+        private void frmSalaryProfileList_Activated(object sender, EventArgs e)
+        {
+            //dtgSalaryProfileList.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
     }
 }

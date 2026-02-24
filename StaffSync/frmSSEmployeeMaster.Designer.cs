@@ -233,11 +233,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
-            this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
             this.btnSaveDetails = new Krypton.Toolkit.KryptonButton();
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
+            this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
             this.qryDocListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDataSet = new StaffSync.StaffsyncDBDataSet();
             this.empMasInfoBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
@@ -3081,19 +3081,6 @@
             this.btnCloseMe.Values.Text = "Close Me";
             this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click);
             // 
-            // btnRemoveDetails
-            // 
-            this.btnRemoveDetails.Location = new System.Drawing.Point(302, 14);
-            this.btnRemoveDetails.Name = "btnRemoveDetails";
-            this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
-            this.btnRemoveDetails.TabIndex = 13;
-            this.btnRemoveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnRemoveDetails.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveDetails.Values.Image")));
-            this.btnRemoveDetails.Values.Text = "Delete";
-            this.btnRemoveDetails.Visible = false;
-            this.btnRemoveDetails.Click += new System.EventHandler(this.btnRemoveDetails_Click);
-            // 
             // btnSaveDetails
             // 
             this.btnSaveDetails.Location = new System.Drawing.Point(166, 14);
@@ -3142,6 +3129,19 @@
             this.btnCancel.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Values.Image")));
             this.btnCancel.Values.Text = "Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnRemoveDetails
+            // 
+            this.btnRemoveDetails.Location = new System.Drawing.Point(302, 14);
+            this.btnRemoveDetails.Name = "btnRemoveDetails";
+            this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
+            this.btnRemoveDetails.TabIndex = 13;
+            this.btnRemoveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnRemoveDetails.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnRemoveDetails.Values.Image")));
+            this.btnRemoveDetails.Values.Text = "Delete";
+            this.btnRemoveDetails.Visible = false;
+            this.btnRemoveDetails.Click += new System.EventHandler(this.btnRemoveDetails_Click);
             // 
             // qryDocListBindingSource
             // 
@@ -3264,6 +3264,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Employee Details";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmSSEmployeeMaster_Activated);
             this.Load += new System.EventHandler(this.frmSSEmployeeMaster_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmSSEmployeeMaster_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

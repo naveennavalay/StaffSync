@@ -248,6 +248,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Advance Type List";
+            this.Activated += new System.EventHandler(this.frmAdvanceTypeMasList_Activated);
             this.Load += new System.EventHandler(this.frmAdvanceTypeMasList_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.frmAdvanceTypeMasList_KeyUp);
             this.splitContainer1.Panel1.ResumeLayout(false);

@@ -20,36 +20,19 @@ namespace StaffSync
         //frmCountryMaster frmCountryMas = null;
         frmEmpAdvanceRepayment frmEmpAdvanceRepayment = null;
         frmEmpAdvanceRequest frmEmpAdvanceRequest = null;
+        frmPayrollMaster frmPayrollMastr = null;
         public frmEmpAdvanceTRList()
         {
             InitializeComponent();
         }
 
-        public frmEmpAdvanceTRList(frmEmpAdvanceRepayment frmEmpAdvanceRepymnt, string strQueryFor, int filterID)
+        public frmEmpAdvanceTRList(frmEmpAdvanceRepayment frmEmpAdvanceRepymnt, string strQueryFor, int txtEmpID, int txtAdvanceID)
         {
             InitializeComponent();
             this.frmEmpAdvanceRepayment = frmEmpAdvanceRepymnt;
             lblSearchOptionClickedFor.Text = strQueryFor;
-            lblFilterID.Text = filterID.ToString();
-
-            if(lblSearchOptionClickedFor.Text == "empadvancerepayment" || lblSearchOptionClickedFor.Text == "empadvanceoutstanding")
-            {
-                this.Text = "Employee Advance Repayment List";
-                lblSearchCaption.Text = "Search by Employee Name :";
-            }
-            else if (lblSearchOptionClickedFor.Text == "empadvancestatement")
-            {
-                this.Text = "Employee Advance Statement List";
-                lblSearchCaption.Text = "Search by Comments :";
-            }
-        }
-
-        public frmEmpAdvanceTRList(frmEmpAdvanceRequest frmEmpAdvanceRequst, string strQueryFor, int filterID)
-        {
-            InitializeComponent();
-            this.frmEmpAdvanceRequest = frmEmpAdvanceRequst;
-            lblSearchOptionClickedFor.Text = strQueryFor;
-            lblFilterID.Text = filterID.ToString();
+            lblEmpID.Text = txtEmpID.ToString();
+            lblAdvanceID.Text = txtAdvanceID.ToString();
 
             if (lblSearchOptionClickedFor.Text == "empadvancerepayment" || lblSearchOptionClickedFor.Text == "empadvanceoutstanding")
             {
@@ -60,6 +43,43 @@ namespace StaffSync
             {
                 this.Text = "Employee Advance Statement List";
                 lblSearchCaption.Text = "Search by Comments :";
+            }
+        }
+
+        public frmEmpAdvanceTRList(frmEmpAdvanceRequest frmEmpAdvanceRequst, string strQueryFor, int filterID, int txtEmpID, int txtAdvanceID)
+        {
+            InitializeComponent();
+            this.frmEmpAdvanceRequest = frmEmpAdvanceRequst;
+            lblSearchOptionClickedFor.Text = strQueryFor;
+            lblFilterID.Text = filterID.ToString();
+            lblEmpID.Text = txtEmpID.ToString();
+            lblAdvanceID.Text = txtAdvanceID.ToString();
+
+            if (lblSearchOptionClickedFor.Text == "empadvancerepayment" || lblSearchOptionClickedFor.Text == "beforeempadvanceoutstanding")
+            {
+                this.Text = "Employee Advance Repayment List";
+                lblSearchCaption.Text = "Search by Employee Name :";
+            }
+            else if (lblSearchOptionClickedFor.Text == "empadvancestatement")
+            {
+                this.Text = "Employee Advance Statement List";
+                lblSearchCaption.Text = "Search by Comments :";
+            }
+        }
+
+        public frmEmpAdvanceTRList(frmPayrollMaster frmPayrollMaster, string strQueryFor, int filterID, int txtEmpID, int txtAdvanceID)
+        {
+            InitializeComponent();
+            this.frmPayrollMastr = frmPayrollMaster;
+            lblSearchOptionClickedFor.Text = strQueryFor;
+            lblFilterID.Text = filterID.ToString();
+            lblEmpID.Text = txtEmpID.ToString();
+            lblAdvanceID.Text = txtAdvanceID.ToString();
+
+            if (lblSearchOptionClickedFor.Text == "emppayrolladvancestatement")
+            {
+                this.Text = "Employee Advance Repayment List";
+                lblSearchCaption.Text = "Search by Employee Name :";
             }
         }
 
@@ -89,13 +109,20 @@ namespace StaffSync
                         row.Visible = row.Cells["EmpName"].Value.ToString().ToLower().Contains(txtSearch.Text.ToLower());
                     }
                 }
-                else if (lblSearchOptionClickedFor.Text == "empadvancestatement")
+                else if (lblSearchOptionClickedFor.Text == "beforeempadvanceoutstanding")
                 {
                     foreach (DataGridViewRow row in dtgAdvanceList.Rows)
                     {
                         row.Visible = row.Cells["Comments"].Value.ToString().ToLower().Contains(txtSearch.Text.ToLower());
                     }
                 }
+                else if (lblSearchOptionClickedFor.Text == "emppayrolladvancestatement")
+                {
+                    foreach (DataGridViewRow row in dtgAdvanceList.Rows)
+                    {
+                        row.Visible = row.Cells["Comments"].Value.ToString().ToLower().Contains(txtSearch.Text.ToLower());
+                    }
+                }                
             }
             catch (Exception ex)
             {
@@ -105,11 +132,27 @@ namespace StaffSync
 
         private void dtgEmployeeList_DoubleClick(object sender, EventArgs e)
         {
-            if (lblSearchOptionClickedFor.Text == "empadvancerepayment")
+            if (lblSearchOptionClickedFor.Text == "beforeempadvanceoutstanding" || lblSearchOptionClickedFor.Text == "emppayrolladvancestatement")
             {
-                this.frmEmpAdvanceRepayment.displaySelectedValuesOnUI(Convert.ToInt16(dtgAdvanceList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+                this.Close();
+                return;
+            }
+
+            if (lblSearchOptionClickedFor.Text == "empadvancerepayment" || lblSearchOptionClickedFor.Text == "empadvanceoutstanding")
+            {
+                this.frmEmpAdvanceRepayment.displaySelectedValuesOnUI(Convert.ToInt16(dtgAdvanceList.SelectedRows[0].Cells["EmpID"].Value.ToString()), Convert.ToInt16(dtgAdvanceList.SelectedRows[0].Cells["EmpAdvanceRequestID"].Value.ToString()));
                 this.Close();
             }
+            else if (lblSearchOptionClickedFor.Text == "beforeempadvanceoutstanding")
+            {
+                this.frmEmpAdvanceRequest.SelectedEmployeeID("beforeempadvanceoutstanding", Convert.ToInt16(dtgAdvanceList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+                this.Close();
+            }
+            else if (lblSearchOptionClickedFor.Text == "emppayrolladvancestatement")
+            {
+                this.frmPayrollMastr.SelectedEmployeeID("emppayrolladvancestatement", Convert.ToInt16(dtgAdvanceList.SelectedRows[0].Cells["EmpID"].Value.ToString()), Convert.ToInt16(dtgAdvanceList.SelectedRows[0].Cells["EmpAdvanceRequestID"].Value.ToString()));
+                this.Close();
+            }            
         }
 
         private void frmEmpAdvanceTRList_KeyUp(object sender, KeyEventArgs e)
@@ -124,9 +167,9 @@ namespace StaffSync
         {
             try
             {
-                if (lblSearchOptionClickedFor.Text == "empadvancerepayment" || lblSearchOptionClickedFor.Text == "empadvanceoutstanding")
+                if (lblSearchOptionClickedFor.Text == "empadvancerepayment" || lblSearchOptionClickedFor.Text == "beforeempadvanceoutstanding" || lblSearchOptionClickedFor.Text == "empadvanceoutstanding")
                 {
-                    dtgAdvanceList.DataSource = objAdvanceTransaction.EmployeeSpecificAdvanceInformation(Convert.ToInt32(lblFilterID.Text.ToString()));
+                    dtgAdvanceList.DataSource = objAdvanceTransaction.EmployeeSpecificAdvanceInformation(Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToInt32(lblAdvanceID.Text.ToString()));
                     dtgAdvanceList.Columns["Select"].Visible = false;
 
                     dtgAdvanceList.Columns["EmpID"].Visible = false;
@@ -205,13 +248,13 @@ namespace StaffSync
                     dtgAdvanceList.Columns["LastRepayDate"].Width = 125;
                     dtgAdvanceList.Columns["LastRepayDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
 
-                    dtgAdvanceList.Columns["CBalance"].Visible = true;
+                    dtgAdvanceList.Columns["CBalance"].Visible = false;
                     dtgAdvanceList.Columns["CBalance"].ReadOnly = true;
                     dtgAdvanceList.Columns["CBalance"].Width = 125;
                     dtgAdvanceList.Columns["CBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
                     dtgAdvanceList.Columns["CBalance"].DefaultCellStyle.Format = "c2";
 
-                    dtgAdvanceList.Columns["RePaymentBalance"].Visible = false;
+                    dtgAdvanceList.Columns["RePaymentBalance"].Visible = true;
                     dtgAdvanceList.Columns["RePaymentBalance"].ReadOnly = true;
                     dtgAdvanceList.Columns["RePaymentBalance"].Width = 125;
                     dtgAdvanceList.Columns["RePaymentBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
@@ -227,7 +270,7 @@ namespace StaffSync
                 }
                 else if (lblSearchOptionClickedFor.Text == "empadvancestatement")
                 {
-                    dtgAdvanceList.DataSource = objAdvanceTransaction.EmployeeSpecificAdvanceStatemetns(Convert.ToInt32(lblFilterID.Text.ToString()));
+                    dtgAdvanceList.DataSource = objAdvanceTransaction.EmployeeSpecificAdvanceStatemetns(Convert.ToInt32(lblAdvanceID.Text.ToString()));
                     dtgAdvanceList.Columns["EmpAdvanceRecoveryID"].Visible = false;
                     dtgAdvanceList.Columns["EmpAdvanceRecoveryID"].ReadOnly = true;
                     dtgAdvanceList.Columns["EmpAdvanceRecoveryID"].Width = 100;
@@ -266,13 +309,59 @@ namespace StaffSync
                     dtgAdvanceList.Columns["EmpAdvanceRequestID"].Visible = false;
                     dtgAdvanceList.Columns["EmpAdvanceRequestID"].ReadOnly = true;
                     dtgAdvanceList.Columns["EmpAdvanceRequestID"].Width = 175;
-
+                }
+                else if (lblSearchOptionClickedFor.Text == "emppayrolladvancestatement")
+                {
+                    dtgAdvanceList.DataSource = objAdvanceTransaction.EmployeeSpecificAdvanceStatemetns(Convert.ToInt32(lblAdvanceID.Text.ToString()));
+                    dtgAdvanceList.Columns["EmpAdvanceRecoveryID"].Visible = false;
+                    dtgAdvanceList.Columns["EmpAdvanceRecoveryID"].ReadOnly = true;
+                    dtgAdvanceList.Columns["EmpAdvanceRecoveryID"].Width = 100;
+                    dtgAdvanceList.Columns["AdvanceDate"].Visible = true;
+                    dtgAdvanceList.Columns["AdvanceDate"].ReadOnly = true;
+                    dtgAdvanceList.Columns["AdvanceDate"].Width = 100;
+                    dtgAdvanceList.Columns["OBalance"].Visible = true;
+                    dtgAdvanceList.Columns["OBalance"].ReadOnly = true;
+                    dtgAdvanceList.Columns["OBalance"].Width = 125;
+                    dtgAdvanceList.Columns["OBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+                    dtgAdvanceList.Columns["OBalance"].DefaultCellStyle.Format = "c2";
+                    dtgAdvanceList.Columns["CrBalance"].Visible = true;
+                    dtgAdvanceList.Columns["CrBalance"].ReadOnly = true;
+                    dtgAdvanceList.Columns["CrBalance"].Width = 125;
+                    dtgAdvanceList.Columns["CrBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+                    dtgAdvanceList.Columns["CrBalance"].DefaultCellStyle.Format = "c2";
+                    dtgAdvanceList.Columns["DrBalance"].Visible = true;
+                    dtgAdvanceList.Columns["DrBalance"].ReadOnly = true;
+                    dtgAdvanceList.Columns["DrBalance"].Width = 125;
+                    dtgAdvanceList.Columns["DrBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+                    dtgAdvanceList.Columns["DrBalance"].DefaultCellStyle.Format = "c2";
+                    dtgAdvanceList.Columns["CBalance"].Visible = true;
+                    dtgAdvanceList.Columns["CBalance"].ReadOnly = true;
+                    dtgAdvanceList.Columns["CBalance"].Width = 125;
+                    dtgAdvanceList.Columns["CBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+                    dtgAdvanceList.Columns["CBalance"].DefaultCellStyle.Format = "c2";
+                    dtgAdvanceList.Columns["TRType"].Visible = true;
+                    dtgAdvanceList.Columns["TRType"].ReadOnly = true;
+                    dtgAdvanceList.Columns["TRType"].Width = 100;
+                    dtgAdvanceList.Columns["Comments"].Visible = true;
+                    dtgAdvanceList.Columns["Comments"].ReadOnly = true;
+                    dtgAdvanceList.Columns["Comments"].Width = 300;
+                    dtgAdvanceList.Columns["OrderID"].Visible = false;
+                    dtgAdvanceList.Columns["OrderID"].ReadOnly = true;
+                    dtgAdvanceList.Columns["OrderID"].Width = 175;
+                    dtgAdvanceList.Columns["EmpAdvanceRequestID"].Visible = false;
+                    dtgAdvanceList.Columns["EmpAdvanceRequestID"].ReadOnly = true;
+                    dtgAdvanceList.Columns["EmpAdvanceRequestID"].Width = 175;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void frmEmpAdvanceTRList_Activated(object sender, EventArgs e)
+        {
+            dtgAdvanceList.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
         }
     }
 }

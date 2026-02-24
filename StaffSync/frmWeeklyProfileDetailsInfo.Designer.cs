@@ -406,6 +406,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Weekly Off Profile Details";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmWeeklyProfileDetailsInfo_Activated);
             this.Load += new System.EventHandler(this.frmWeeklyProfileDetailsInfo_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmWeeklyProfileDetailsInfo_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

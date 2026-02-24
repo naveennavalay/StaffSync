@@ -260,6 +260,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pending Leave Approval Information";
+            this.Activated += new System.EventHandler(this.frmPendingApprovalList_Activated);
             this.Load += new System.EventHandler(this.frmPendingApprovalList_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

@@ -332,5 +332,10 @@ namespace StaffSync
         {
             //MessageBox.Show(dtgRejectionLeaveList.SelectedRows[0].Cells["EmpID"].Value.ToString(), "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void frmLeaveRejectionList_Activated(object sender, EventArgs e)
+        {
+            dtgRejectionLeaveList.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
     }
 }

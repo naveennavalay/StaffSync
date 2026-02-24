@@ -35,6 +35,7 @@ namespace StaffSync
         DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
         DALStaffSync.clsAdvanceTypeMas objAdvanceTypeMas = new DALStaffSync.clsAdvanceTypeMas();
         DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
+        DALStaffSync.clsAppSettings objAppSettings = new DALStaffSync.clsAppSettings();
         DALStaffSync.clsProvidentFundCalculation objProvidentFundCalculation = new DALStaffSync.clsProvidentFundCalculation();
         DALStaffSync.clsProfessionalTaxCalculation objProfessionalTaxCalculation = new DALStaffSync.clsProfessionalTaxCalculation();
         DALStaffSync.clsAdvanceTransaction objAdvanceTransaction = new DALStaffSync.clsAdvanceTransaction();
@@ -158,11 +159,11 @@ namespace StaffSync
                 validationStatus = false;
                 errValidator.SetError(this.txtAdvanceStartDate, "Invalid Date of Salary format (dd-MM-yyyy).");
             }
-            else if (dos > DateTime.Now.Date)
-            {
-                validationStatus = false;
-                errValidator.SetError(this.txtAdvanceStartDate, "Date of Salary cannot be in the future.");
-            }
+            //else if (dos > DateTime.Now.Date)
+            //{
+            //    validationStatus = false;
+            //    errValidator.SetError(this.txtAdvanceStartDate, "Date of Salary cannot be in the future.");
+            //}
             else
             {
                 errValidator.SetError(this.txtAdvanceStartDate, "");
@@ -212,12 +213,12 @@ namespace StaffSync
             {
                 DateTime advanceStartDate = DateTime.ParseExact(txtAdvanceStartDate.Text.Trim(), dateFormat, provider);
                 DateTime advanceEndDate = DateTime.ParseExact(txtAdvanceEndDate.Text.Trim(), dateFormat, provider);
-                if (advanceStartDate > DateTime.Today)
-                {
-                    errValidator.SetError(txtAdvanceEndDate, "Advance Start Date cannot be future date");
-                    validationStatus = false;
-                }
-                else if (advanceEndDate < advanceStartDate)
+                //if (advanceStartDate > DateTime.Today)
+                //{
+                //    errValidator.SetError(txtAdvanceEndDate, "Advance Start Date cannot be future date");
+                //    validationStatus = false;
+                //} else 
+                if (advanceEndDate < advanceStartDate)
                 {
                     errValidator.SetError(txtAdvanceEndDate, "Advance End Date cannot be earlier than Advance Start Date");
                     validationStatus = false;
@@ -233,10 +234,13 @@ namespace StaffSync
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
-            if(objAdvanceTransaction.IsAdvanceAlreadyExist(Convert.ToInt16(lblPersonalInfoID.Text.Trim())) && lblActionMode.Text == "add")
+            if (Convert.ToBoolean(objAppSettings.GetSpecificAppSettingsInfo("Allow Multiple Advance Requests").AppSettingValue.ToString()) == false)
             {
-                MessageBox.Show("An advance request already exists for the selected employee. Please modify the existing request or select a different employee.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                if (objAdvanceTransaction.IsAdvanceAlreadyExist(Convert.ToInt16(lblPersonalInfoID.Text.Trim())) && lblActionMode.Text == "add")
+                {
+                    MessageBox.Show("An advance request already exists for the selected employee. Please modify the existing request or select a different employee.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
 
             string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID, "");
@@ -872,7 +876,7 @@ namespace StaffSync
         private void txtComments_Enter(object sender, EventArgs e)
         {
             if (txtComments.Text == "")
-                txtComments.Text = "Request to approve the \"" + cmbAdvanceType.Text + "\" of " + Convert.ToDecimal(txtAdvanceAmount.Text.ToString()).ToString("#0.00") + "/- which will be paid back in " + txtTenure.Text + " months starting from \"" + Convert.ToDateTime(txtAdvanceStartDate.Text.ToString()).Date.ToString("dd-MMM-yyyy") + " and ends on \"" + Convert.ToDateTime(txtAdvanceStartDate.Text.ToString()).Date.ToString("dd-MMM-yyyy") + "\".";
+                txtComments.Text = "Request to approve the \"" + cmbAdvanceType.Text + "\" of " + Convert.ToDecimal(txtAdvanceAmount.Text.ToString()).ToString("#0.00") + "/- which will be paid back in " + txtTenure.Text + " months starting from \"" + Convert.ToDateTime(txtAdvanceStartDate.Text.ToString()).Date.ToString("dd-MMM-yyyy") + " and ends on \"" + Convert.ToDateTime(txtAdvanceEndDate.Text.ToString()).Date.ToString("dd-MMM-yyyy") + "\".";
         }
 
         private void lblViewEmpSpecificAdvanceInfo_Click(object sender, EventArgs e)
@@ -880,11 +884,8 @@ namespace StaffSync
             if(lblEmpID.Text.Trim() == "")
                 return;
 
-            frmEmpAdvanceTRList frmEmpAdvanceTRList = new frmEmpAdvanceTRList(this, "empadvanceoutstanding", Convert.ToInt32(lblEmpID.Text.ToString()));
+            frmEmpAdvanceTRList frmEmpAdvanceTRList = new frmEmpAdvanceTRList(this, "beforeempadvanceoutstanding", 0, Convert.ToInt32(lblEmpID.Text.ToString()), 0);
             frmEmpAdvanceTRList.ShowDialog(this);
-
-            //frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAdvanceRequestToUsers");
-            //frmEmployeeList.ShowDialog(this);
         }
 
         private void txtAdvanceAmount_Leave(object sender, EventArgs e)

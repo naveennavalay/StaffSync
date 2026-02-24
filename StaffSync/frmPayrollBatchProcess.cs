@@ -197,7 +197,7 @@ namespace StaffSync
                 for (int j = 0; j < dtgSalaryDetails.Columns.Count; j++)
                 {
                     if(j == 0)
-                        EmpSalMasID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString().Trim()), Convert.ToDateTime(dtSalaryDate.Text), cmbSalaryMonth.Text, 0, 0, 0, 0, 0, 0, 0);
+                        EmpSalMasID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString().Trim()), Convert.ToDateTime(dtSalaryDate.Text), cmbSalaryMonth.Text, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false);
 
                     if(j > 5)
                     {
@@ -489,6 +489,11 @@ namespace StaffSync
             bool ReportGenerated = Download.DownloadExcel(filePath, dtgSalaryDetails);
             if(ReportGenerated)
                 Download.OpenCSV(filePath);
+        }
+
+        private void frmPayrollBatchProcess_Activated(object sender, EventArgs e)
+        {
+            dtgSalaryDetails.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
         }
     }
 }

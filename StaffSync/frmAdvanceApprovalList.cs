@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Office2016.Drawing.Charts;
+﻿using Common;
+using DocumentFormat.OpenXml.Office2016.Drawing.Charts;
 using Krypton.Toolkit;
 using ModelStaffSync;
 using Org.BouncyCastle.Asn1.Ocsp;
@@ -402,6 +403,11 @@ namespace StaffSync
         {
             btnSaveDetails.Enabled = false;
             GetAdvancePendingList(strApproverType);
+        }
+
+        private void frmAdvanceApprovalList_Activated(object sender, EventArgs e)
+        {
+            dtgAdvanceRequestersList.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
         }
     }
 }

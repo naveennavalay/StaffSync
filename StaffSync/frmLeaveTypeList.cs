@@ -154,5 +154,10 @@ namespace StaffSync
         {
             this.Close();
         }
+
+        private void frmLeaveTypeList_Activated(object sender, EventArgs e)
+        {
+            //dtgLeaveTypeList.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
     }
 }

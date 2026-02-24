@@ -37,30 +37,39 @@ namespace DALStaffSync
             return objEmployeePaySlipList;
         }
 
-        public List<EmployeePayslipDetails> getSelectedSpecificMonthSalaryDetails(int txtEmpSalID)
+        public List<SalaryProfileInfo> getSelectedSpecificMonthSalaryDetails(int txtEmpID, int txtEmpSalID)
         {
-            List<EmployeePayslipDetails> objEmployeePaySlipList = new List<EmployeePayslipDetails>();
+            List<SalaryProfileInfo> objEmployeePaySlipList = new List<SalaryProfileInfo>();
 
-            objEmployeePaySlipList = objEmpPayroll.getSelectedSpecificMonthSalaryDetails(txtEmpSalID);
+            objEmployeePaySlipList = objEmpPayroll.getSelectedSpecificMonthSalaryDetails(txtEmpID, txtEmpSalID);
 
             return objEmployeePaySlipList;
         }
 
+        public bool IsMasterInfoFound(int txtEmpID, DateTime txtMasterDataDate)
+        {
+            return objEmpPayroll.IsMasterInfoFound(txtEmpID, txtMasterDataDate);
+        }
 
-        public int InsertEmployeeSalaryMasterInfo(int txtEmpID, DateTime txtSalaryDate, string txtSalaryMonthYear, decimal txtTotalWorkingDays, decimal txtTotalWorkedDays, decimal txtTotalLeavesTaken, decimal txtTotalAllowance, decimal txtTotalDeduction, decimal txtTotalReimbursement, decimal txtNetPayableAmount)
+        public int InsertEmployeeSalaryMasterInfo(int txtEmpID, DateTime txtSalaryDate, string txtSalaryMonthYear, decimal txtTotalWorkingDays, decimal txtTotalWorkedDays, decimal txtTotalLeavesTaken, decimal txtTotalUnpaidDaysLeave, decimal txtTotalPayableDays, decimal txtBasicPay, decimal txtBasicPerDay, decimal txtBasicPerHour, decimal txtTotalAllowance, decimal txtTotalDeduction, decimal txtTotalReimbursement, decimal txtNetPayableAmount, bool boolStructureEntry)
         {
             int affectedRows = 0;
             
-            affectedRows = objEmpPayroll.InsertEmployeeSalaryMasterInfo(txtEmpID, txtSalaryDate, txtSalaryMonthYear, txtTotalWorkingDays, txtTotalWorkedDays, txtTotalLeavesTaken, txtTotalAllowance, txtTotalDeduction, txtTotalReimbursement, txtNetPayableAmount);
+            affectedRows = objEmpPayroll.InsertEmployeeSalaryMasterInfo(txtEmpID, txtSalaryDate, txtSalaryMonthYear, txtTotalWorkingDays, txtTotalWorkedDays, txtTotalLeavesTaken, txtTotalUnpaidDaysLeave, txtTotalPayableDays, txtBasicPay, txtBasicPerDay, txtBasicPerHour, txtTotalAllowance, txtTotalDeduction, txtTotalReimbursement, txtNetPayableAmount, boolStructureEntry);
 
             return affectedRows;
         }
 
-        public int UpdateEmployeeSalaryMasterInfo(int txtEmpSalID, int txtEmpID, DateTime txtSalaryDate, string txtSalaryMonthYear, decimal txtTotalWorkingDays, decimal txtTotalWorkedDays, decimal txtTotalLeavesTaken, decimal txtTotalAllowance, decimal txtTotalDeduction, decimal txtTotalReimbursement, decimal txtNetPayableAmount)
+        public bool IsSalaryAlreadyProcessed(int txtEmpID, DateTime txtMasterDataDate, string txtSalMonthYear)
+        {
+            return objEmpPayroll.IsSalaryAlreadyProcessed(txtEmpID, txtMasterDataDate, txtSalMonthYear);
+        }
+
+        public int UpdateEmployeeSalaryMasterInfo(int txtEmpSalID, int txtEmpID, DateTime txtSalaryDate, string txtSalaryMonthYear, decimal txtTotalWorkingDays, decimal txtTotalWorkedDays, decimal txtTotalUnpaidDaysLeave, decimal txtTotalPayableDays, decimal txtTotalLeavesTaken, decimal txtBasicPay, decimal txtBasicPerDay, decimal txtBasicPerHour, decimal txtTotalAllowance, decimal txtTotalDeduction, decimal txtTotalReimbursement, decimal txtNetPayableAmount, bool boolStructureEntry)
         {
             int affectedRows = 0;
             
-            affectedRows = objEmpPayroll.UpdateEmployeeSalaryMasterInfo(txtEmpSalID, txtEmpID, txtSalaryDate, txtSalaryMonthYear, txtTotalWorkingDays, txtTotalWorkedDays, txtTotalLeavesTaken, txtTotalAllowance, txtTotalDeduction, txtTotalReimbursement, txtNetPayableAmount);
+            affectedRows = objEmpPayroll.UpdateEmployeeSalaryMasterInfo(txtEmpSalID, txtEmpID, txtSalaryDate, txtSalaryMonthYear, txtTotalWorkingDays, txtTotalWorkedDays, txtTotalLeavesTaken, txtTotalUnpaidDaysLeave, txtTotalPayableDays, txtBasicPay, txtBasicPerDay, txtBasicPerHour, txtTotalAllowance, txtTotalDeduction, txtTotalReimbursement, txtNetPayableAmount, boolStructureEntry);
 
             return affectedRows;
         }

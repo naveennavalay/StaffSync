@@ -342,6 +342,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bulk Leave Approval";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmBulkLeaveRejection_Activated);
             this.Load += new System.EventHandler(this.frmBulkLeaveRejection_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmBulkLeaveRejection_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

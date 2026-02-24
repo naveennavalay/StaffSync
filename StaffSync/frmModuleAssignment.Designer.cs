@@ -493,6 +493,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "User Management";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmModuleAssignment_Activated);
             this.Load += new System.EventHandler(this.frmModuleAssignment_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmModuleAssignment_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

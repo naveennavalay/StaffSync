@@ -398,5 +398,10 @@ namespace StaffSync
             dtgOutstandingLeaveStatement.Columns["_13BirthdayLeave"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgOutstandingLeaveStatement.Columns["_13BirthdayLeave"].DefaultCellStyle.Format = "0.00";
         }
+
+        private void frmOutstandingLeaveStatement_Activated(object sender, EventArgs e)
+        {
+            dtgOutstandingLeaveStatement.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
     }
 }

@@ -346,5 +346,10 @@ namespace StaffSync
         {
             
         }
+
+        private void frmPendingApprovalList_Activated(object sender, EventArgs e)
+        {
+            dtgPendingApprovalLeaveInfo.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
     }
 }

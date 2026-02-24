@@ -44,7 +44,8 @@ namespace dbStaffSync
                                         "ProvFundDetails.EmprPSPercentage, " +
                                         "ProvFundDetails.EmprPSAmount, " +
                                         "ProvFundDetails.EffectiveDate, " +
-                                        "ProvFundDetails.OrderID " +
+                                        "ProvFundDetails.OrderID, " +
+                                        "ProvFundMas.MaxPFAmount " + 
                                     " FROM " +
                                         " ProvFundMas INNER JOIN ProvFundDetails ON ProvFundMas.PFMasID = ProvFundDetails.PFMasID " +
                                     " WHERE " +
@@ -76,6 +77,7 @@ namespace dbStaffSync
                                         "ProvFundDetails.EmprPSAmount, " +
                                         "ProvFundDetails.EffectiveDate, " +
                                         "ProvFundDetails.OrderID, " +
+                                        "ProvFundMas.MaxPFAmount, " +
                                         "ProvFundMas.ClientID, " +
                                         "ProvFundMas.IsActive, " +
                                         "ProvFundMas.IsDeleted " +
@@ -113,6 +115,99 @@ namespace dbStaffSync
             }
 
             return tmpProvidentFund;
+        }
+
+        public ESIModel GetCompanyESISettings(int ClientID)
+        {
+            ESIModel tmpESIModel = new ESIModel();
+
+            List<ESIModel> objESIModel = new List<ESIModel>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " + 
+                                         " ESIMas.ESIMasID, " + 
+                                         " ESIMas.ESIMasTitle, " + 
+                                         " ESIMas.MaxESIAmount, " + 
+                                         " ESIDetails.ESIDetID, " + 
+                                         " ESIDetails.EmpESIPercentageOrAmount, " + 
+                                         " ESIDetails.EmpESIPercentage, " + 
+                                         " ESIDetails.EmpESIAmount, " + 
+                                         " ESIDetails.EmprESIPercentageOrAmount, " + 
+                                         " ESIDetails.EmprPercentage, " + 
+                                         " ESIDetails.EmprESIAmount, " + 
+                                         " ESIDetails.EffectiveDate, " + 
+                                         " ESIDetails.OrderID, " + 
+                                         " ESIMas.ClientID, " + 
+                                         " ESIMas.IsActive, " + 
+                                         " ESIMas.IsDeleted " +
+                                    " FROM " + 
+                                        " ESIMas " +
+                                        " INNER JOIN ESIDetails ON ESIMas.ESIMasID = ESIDetails.ESIMasID " +
+                                    " GROUP BY " +
+                                        " ESIMas.ESIMasID, " +
+                                        " ESIMas.ESIMasTitle, " +
+                                        " ESIMas.MaxESIAmount, " +
+                                        " ESIDetails.ESIDetID, " +
+                                        " ESIDetails.EmpESIPercentageOrAmount, " +
+                                        " ESIDetails.EmpESIPercentage, " +
+                                        " ESIDetails.EmpESIAmount, " +
+                                        " ESIDetails.EmprESIPercentageOrAmount, " +
+                                        " ESIDetails.EmprPercentage, " +
+                                        " ESIDetails.EmprESIAmount, " +
+                                        " ESIDetails.EffectiveDate, " +
+                                        " ESIDetails.OrderID, " +
+                                        " ESIMas.ClientID, " +
+                                        " ESIMas.IsActive, " +
+                                        " ESIMas.IsDeleted " +
+                                    " HAVING " +
+                                        " (" +
+                                            " ( " +
+                                                " (ESIDetails.OrderID) IN ( " +
+                                                    " SELECT " +
+                                                        " MAX(OrderID) " +
+                                                    " FROM " +
+                                                        " ESIDetails " +
+                                                    " WHERE " +
+                                                        " ESIMas.ClientID = " + ClientID + 
+                                                " ) " +
+                                            " ) " +
+                                            " AND ((ESIMas.ClientID) = " + ClientID + " ) " +
+                                            " AND ((ESIMas.IsActive) = True) " +
+                                            " AND ((ESIMas.IsDeleted) = False) " +
+                                        " );";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objESIModel = JsonConvert.DeserializeObject<List<ESIModel>>(DataTableToJSon);
+                if (objESIModel.Count > 0)
+                {
+                    tmpESIModel = objESIModel[0];
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return tmpESIModel;
         }
 
         public int InsertClientProvidentFundSettings(int txtPFMasID, string txtEmpPFPercentageOrAmount, decimal txtEmpPFPercentage, decimal txtEmpPFAmount, string txtEmprPFPercentageOrAmount, decimal txtEmprPFPercentage, decimal txtEmprPFAmount, string txtEmprPSPercentageOrAmount, decimal txtEmprPSPercentage, decimal txtEmprPSAmount, DateTime txtEffectiveDate)

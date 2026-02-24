@@ -23,6 +23,9 @@ namespace ModelStaffSync
 
         public string CalcFormula { get; set; }
 
+        [DisplayName("Actual Amount")]
+        public decimal ActualAmount { get; set; }
+
         [DisplayName("Allowance Amount")]
         public decimal AllowanceAmount { get; set; }
 

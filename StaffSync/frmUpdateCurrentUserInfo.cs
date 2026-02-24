@@ -1687,5 +1687,11 @@ namespace StaffSync
                 this.Close();
             }
         }
+
+        private void frmUpdateCurrentUserInfo_Activated(object sender, EventArgs e)
+        {
+            dtgPreviousWorkExp.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+            dtgSalaryProfileDetails.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
     }
 }

@@ -209,6 +209,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reimbursement List";
+            this.Activated += new System.EventHandler(this.frmPayrollReimbursementList_Activated);
             this.Load += new System.EventHandler(this.frmPayrollReimbursementList_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

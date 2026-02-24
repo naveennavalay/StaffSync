@@ -15,8 +15,11 @@ namespace dbStaffSync
     {
         dbStaffSync dbStaffSync = new dbStaffSync();
         OleDbConnection conn = null;
+        clsSalaryProfile objSalaryProfile = new clsSalaryProfile();
         DataSet dtDataset = null;
         clsGenFunc objGenFunc = new clsGenFunc();
+        
+
 
         public clsEmpPayroll() { 
 
@@ -133,9 +136,13 @@ namespace dbStaffSync
             return objEmployeePaySlipList;
         }
 
-        public List<EmployeePayslipDetails> getSelectedSpecificMonthSalaryDetails(int txtEmpSalID)
+        public List<SalaryProfileInfo> getSelectedSpecificMonthSalaryDetails(int txtEmpID, int txtEmpSalID)
         {
-            List<EmployeePayslipDetails> objEmployeePaySlipList = new List<EmployeePayslipDetails>();
+            //List<EmployeePayslipDetails> objEmployeePaySlipList = new List<EmployeePayslipDetails>();
+            //List<EmployeePayslipDetails> objReturnSalaryProfileInfoList = new List<EmployeePayslipDetails>();
+            List<SalaryProfileInfo> objEmployeePaySlipList = new List<SalaryProfileInfo>();
+            List<SalaryProfileInfo> objReturnSalaryProfileInfoList = new List<SalaryProfileInfo>();
+
             try
             {
                 conn = dbStaffSync.openDBConnection();
@@ -150,6 +157,7 @@ namespace dbStaffSync
                                         "EmpSalDetails.SalHeaderTitle as HeaderTitle, " + 
                                         "EmpSalDetails.SalHeaderType as HeaderType, " +
                                         "EmpSalDetails.CalcFormula, " +
+                                        "EmpSalDetails.AllowanceAmount AS ActualAmount, " +
                                         "EmpSalDetails.AllowanceAmount, " + 
                                         "EmpSalDetails.DeductionAmount, " + 
                                         "EmpSalDetails.ReimbursmentAmount, " + 
@@ -171,7 +179,25 @@ namespace dbStaffSync
 
                 string DataTableToJSon = "";
                 DataTableToJSon = JsonConvert.SerializeObject(dt);
-                objEmployeePaySlipList = JsonConvert.DeserializeObject<List<EmployeePayslipDetails>>(DataTableToJSon);
+                objEmployeePaySlipList = JsonConvert.DeserializeObject<List<SalaryProfileInfo>>(DataTableToJSon);
+                foreach (SalaryProfileInfo indSalaryProfileInfo in objEmployeePaySlipList)
+                {
+                    objReturnSalaryProfileInfoList.Add(new SalaryProfileInfo
+                    {
+                        EmpSalDetID = indSalaryProfileInfo.EmpSalDetID,
+                        SalProDetID = indSalaryProfileInfo.SalProDetID,
+                        SalProfileID = indSalaryProfileInfo.SalProfileID,
+                        HeaderID = indSalaryProfileInfo.HeaderID,
+                        HeaderTitle = indSalaryProfileInfo.HeaderTitle,
+                        HeaderType = indSalaryProfileInfo.HeaderType,
+                        CalcFormula = indSalaryProfileInfo.CalcFormula,
+                        ActualAmount = objSalaryProfile.getOriginalSalaryActualAmount(txtEmpID, indSalaryProfileInfo.HeaderID, indSalaryProfileInfo.HeaderType),
+                        AllowanceAmount = indSalaryProfileInfo.AllowanceAmount,
+                        DeductionAmount = indSalaryProfileInfo.DeductionAmount,
+                        ReimbursmentAmount = indSalaryProfileInfo.ReimbursmentAmount,
+                        OrderID = indSalaryProfileInfo.OrderID
+                    });
+                }
             }
             catch (Exception ex)
             {
@@ -183,11 +209,92 @@ namespace dbStaffSync
                 conn = dbStaffSync.closeDBConnection();
             }
 
-            return objEmployeePaySlipList;
+            return objReturnSalaryProfileInfoList;
         }
 
+        public bool IsMasterInfoFound(int txtEmpID, DateTime txtMasterDataDate)
+        {
+            bool MasterInfoFound = false;
 
-        public int InsertEmployeeSalaryMasterInfo(int txtEmpID, DateTime txtSalaryDate, string txtSalaryMonthYear, decimal txtTotalWorkingDays, decimal txtTotalWorkedDays, decimal txtTotalLeavesTaken, decimal txtTotalAllowance, decimal txtTotalDeduction, decimal txtTotalReimbursement, decimal txtNetPayableAmount)
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+                DataTable dt = new DataTable();
+
+                string strQuery = "SELECT " +
+                                        " EmpSalMas.EmpID " +
+                                    " FROM " + 
+                                        " EmpSalMas " + 
+                                    " WHERE " + 
+                                          " EmpSalMas.EmpSalDate = #" + txtMasterDataDate.ToString("dd-MMM-yyyy") + "# AND EmpSalMas.EmpID = " + txtEmpID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                //object result = cmd.ExecuteScalar();
+                int a = Common.DBCommon.ExecuteScalarInt(cmd);
+
+
+                //int a = result == null ? 0 : Convert.ToInt32(result);
+                if (a > 0)
+                    MasterInfoFound = true;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return MasterInfoFound;
+        }
+
+        public bool IsSalaryAlreadyProcessed(int txtEmpID, DateTime txtMasterDataDate, string txtSalMonthYear)
+        {
+            bool MasterInfoFound = false;
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+                DataTable dt = new DataTable();
+
+                string strQuery = "SELECT " + 
+                                          " EmpSalMas.EmpSalID " +
+                                        " FROM " + 
+                                            " EmpSalMas " + 
+                                        " WHERE " + 
+                                            " EmpSalMas.EmpSalMonthYear = '" + txtSalMonthYear + "'" + 
+                                            " AND EmpSalMas.EmpID = " + txtEmpID;
+                                            //" EmpSalMas.EmpSalDate = #" + txtMasterDataDate.ToString("dd-MMM-yyyy") + "# " + 
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                object result = cmd.ExecuteScalar();
+                int a = result == null ? 0 : Convert.ToInt32(result);
+
+                if (a > 0)
+                    MasterInfoFound = true;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return MasterInfoFound;
+        }
+
+        public int InsertEmployeeSalaryMasterInfo(int txtEmpID, DateTime txtSalaryDate, string txtSalaryMonthYear, decimal txtTotalWorkingDays, decimal txtTotalWorkedDays, decimal txtTotalLeavesTaken, decimal txtTotalUnpaidDaysLeave, decimal txtTotalPayableDays, decimal txtBasicPay, decimal txtBasicPerDay, decimal txtBasicPerHour, decimal txtTotalAllowance, decimal txtTotalDeduction, decimal txtTotalReimbursement, decimal txtNetPayableAmount, bool boolStructureEntry)
         {
             int affectedRows = 0;
             try
@@ -200,8 +307,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO EmpSalMas (EmpSalID, EmpID, EmpSalDate, EmpSalMonthYear, TotalDaysInMonth, TotalDaysWorked, TotalDaysOnLeave, TotalAllowance, TotalDeduction, TotalReimbursement, NetPayable, OrderID) VALUES " +
-                 "(" + maxRowCount.Data + "," + txtEmpID + ",'" + txtSalaryDate.ToString("dd-MMM-yyyy") + "','" + txtSalaryMonthYear + "'," + txtTotalWorkingDays + "," + txtTotalWorkedDays + "," + txtTotalLeavesTaken + "," + txtTotalAllowance + "," + txtTotalDeduction + "," + txtTotalReimbursement + "," + txtNetPayableAmount  + "," + OrderID.Data + ")";
+                string strQuery = "INSERT INTO EmpSalMas (EmpSalID, EmpID, EmpSalDate, EmpSalMonthYear, TotalDaysInMonth, TotalDaysWorked, TotalDaysOnLeave, TotalUnpaidDaysLeave, TotalPayableDays, BasicPay, BasicPerDay, BasicPerHour, TotalAllowance, TotalDeduction, TotalReimbursement, NetPayable, OrderID, StructureEntry) VALUES " +
+                 "(" + maxRowCount.Data + "," + txtEmpID + ",'" + txtSalaryDate.ToString("dd-MMM-yyyy") + "','" + txtSalaryMonthYear + "'," + txtTotalWorkingDays + "," + txtTotalWorkedDays + "," + txtTotalLeavesTaken + "," + txtTotalUnpaidDaysLeave + "," + txtTotalPayableDays + "," + txtBasicPay  + "," + txtBasicPerDay + "," + txtBasicPerHour + "," + txtTotalAllowance + "," + txtTotalDeduction + "," + txtTotalReimbursement + "," + txtNetPayableAmount  + "," + OrderID.Data + ", " + boolStructureEntry + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -222,7 +329,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpdateEmployeeSalaryMasterInfo(int txtEmpSalID, int txtEmpID, DateTime txtSalaryDate, string txtSalaryMonthYear, decimal txtTotalWorkingDays, decimal txtTotalWorkedDays, decimal txtTotalLeavesTaken, decimal txtTotalAllowance, decimal txtTotalDeduction, decimal txtTotalReimbursement, decimal txtNetPayableAmount)
+        public int UpdateEmployeeSalaryMasterInfo(int txtEmpSalID, int txtEmpID, DateTime txtSalaryDate, string txtSalaryMonthYear, decimal txtTotalWorkingDays, decimal txtTotalWorkedDays, decimal txtTotalLeavesTaken, decimal txtTotalUnpaidDaysLeave, decimal txtTotalPayableDays, decimal txtBasicPay, decimal txtBasicPerDay, decimal txtBasicPerHour, decimal txtTotalAllowance, decimal txtTotalDeduction, decimal txtTotalReimbursement, decimal txtNetPayableAmount, bool boolStructureEntry)
         {
             int affectedRows = 0;
             try
@@ -231,7 +338,9 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE EmpSalMas SET EmpSalDate = '" + txtSalaryDate.ToString("dd-MMM-yyyy") + "', EmpSalMonthYear = '" + txtSalaryMonthYear + "', TotalDaysInMonth = " + txtTotalWorkingDays + ", " +
-                    " TotalDaysWorked = " + txtTotalWorkedDays + ", TotalDaysOnLeave = " + txtTotalLeavesTaken + ", TotalAllowance = " + txtTotalAllowance + ", TotalDeduction = " + txtTotalDeduction + ", TotalReimbursement = " + txtTotalReimbursement +  ", NetPayable = " + txtNetPayableAmount +
+                    " TotalDaysWorked = " + txtTotalWorkedDays + ", TotalDaysOnLeave = " + txtTotalLeavesTaken + ", TotalUnpaidDaysLeave = " + txtTotalUnpaidDaysLeave + ", TotalPayableDays = " + txtTotalPayableDays + ", " +
+                    " BasicPay = " + txtBasicPay + ", BasicPerDay = " + txtBasicPerDay + ", BasicPerHour = " + txtBasicPerDay + ", " +
+                    " TotalAllowance = " + txtTotalAllowance + ", TotalDeduction = " + txtTotalDeduction + ", TotalReimbursement = " + txtTotalReimbursement +  ", NetPayable = " + txtNetPayableAmount + ", StructureEntry = " + boolStructureEntry +
                     " WHERE EmpSalID = " + txtEmpSalID;
 
                 OleDbCommand cmd = conn.CreateCommand();

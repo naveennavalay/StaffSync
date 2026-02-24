@@ -113,6 +113,8 @@ namespace StaffSync
             onGenerateButtonClick();
             clearControls();
             enableControls();
+            cmbProrataBased.SelectedIndex = 1;
+            cmbProrataBased.SelectedIndex = 1;
             cmbIsFixed.SelectedIndex = 1;
             cmbIsActive.SelectedIndex = 1;
             lblDeductionID.Text = objGenFunc.getMaxRowCount("DeductionHeaderMas", "DedID").Data.ToString();
@@ -151,17 +153,34 @@ namespace StaffSync
                 cmbIsActive.SelectedIndex = 1;
                 errValidator.SetError(this.cmbIsActive, "Please select Allowence Status");
             }
+            else if (string.IsNullOrEmpty(cmbShowInPayslip.Text))
+            {
+                cmbShowInPayslip.Focus();
+                cmbShowInPayslip.SelectedIndex = 1;
+                errValidator.SetError(this.cmbShowInPayslip, "Show In Payslip.?");
+            }
+            else if (string.IsNullOrEmpty(cmbProrataBased.Text))
+            {
+                cmbProrataBased.Focus();
+                cmbProrataBased.SelectedIndex = 1;
+                errValidator.SetError(this.cmbProrataBased, "Consider calculation based on Pro-rata based.?");
+            }
+            else if (string.IsNullOrEmpty(txtMaxCap.Text))
+            {
+                txtMaxCap.Focus();
+                errValidator.SetError(this.txtMaxCap, "Please enter Maximum Cap Amount Limit");
+            }
             else
             {
                 if (lblActionMode.Text == "add")
                 {
-                    int affectedRows = objDeductionInfo.InsertDeduction(txtDedCode.Text.Trim(), txtDedTitle.Text.Trim(), txtDedDescription.Text.Trim(), cmbIsFixed.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
+                    int affectedRows = objDeductionInfo.InsertDeduction(txtDedCode.Text.Trim(), txtDedTitle.Text.Trim(), txtDedDescription.Text.Trim(), cmbIsFixed.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, Convert.ToDecimal(txtMaxCap.Text.ToString()), cmbShowInPayslip.Text.Trim() == "Yes" ? true : false, cmbProrataBased.Text.Trim() == "Yes" ? true : false);
                     if (affectedRows > 0)
                         MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (lblActionMode.Text == "modify")
                 {
-                    int affectedRows = objDeductionInfo.UpdateDeduction(Convert.ToInt16(lblDeductionID.Text.Trim()), txtDedCode.Text.Trim(), txtDedTitle.Text.Trim(), txtDedDescription.Text.Trim(), cmbIsFixed.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
+                    int affectedRows = objDeductionInfo.UpdateDeduction(Convert.ToInt16(lblDeductionID.Text.Trim()), txtDedCode.Text.Trim(), txtDedTitle.Text.Trim(), txtDedDescription.Text.Trim(), cmbIsFixed.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, Convert.ToDecimal(txtMaxCap.Text.ToString()), cmbShowInPayslip.Text.Trim() == "Yes" ? true : false, cmbProrataBased.Text.Trim() == "Yes" ? true : false);
                     if (affectedRows > 0)
                         MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -181,6 +200,19 @@ namespace StaffSync
             txtDedCode.ReadOnly = true;
             txtDedTitle.Text = "";
             txtDedDescription.Text = "";
+
+            cmbShowInPayslip.Items.Clear();
+            cmbShowInPayslip.Items.Add("");
+            cmbShowInPayslip.Items.Add("Yes");
+            cmbShowInPayslip.Items.Add("No");
+            cmbShowInPayslip.SelectedIndex = 0;
+
+            cmbProrataBased.Items.Clear();
+            cmbProrataBased.Items.Add("");
+            cmbProrataBased.Items.Add("Yes");
+            cmbProrataBased.Items.Add("No");
+            cmbProrataBased.SelectedIndex = 0;
+
             cmbIsActive.Items.Clear();
             cmbIsActive.Items.Add("");
             cmbIsActive.Items.Add("Yes");
@@ -192,6 +224,7 @@ namespace StaffSync
             cmbIsFixed.Items.Add("Yes");
             cmbIsFixed.Items.Add("No");
             cmbIsFixed.SelectedIndex = 0;
+            txtMaxCap.Text = "0.00";
         }
 
         public void enableControls()
@@ -200,6 +233,19 @@ namespace StaffSync
             txtDedCode.ReadOnly = true;
             txtDedTitle.Enabled = true;
             txtDedDescription.Enabled = true;
+
+            cmbShowInPayslip.Items.Clear();
+            cmbShowInPayslip.Items.Add("");
+            cmbShowInPayslip.Items.Add("Yes");
+            cmbShowInPayslip.Items.Add("No");
+            cmbShowInPayslip.SelectedIndex = 0;
+
+            cmbProrataBased.Items.Clear();
+            cmbProrataBased.Items.Add("");
+            cmbProrataBased.Items.Add("Yes");
+            cmbProrataBased.Items.Add("No");
+            cmbProrataBased.SelectedIndex = 0;
+
             cmbIsActive.Items.Clear();
             cmbIsActive.Items.Add("");
             cmbIsActive.Items.Add("Yes");
@@ -213,6 +259,7 @@ namespace StaffSync
             cmbIsFixed.Items.Add("No");
             cmbIsFixed.Enabled = true;
             cmbIsFixed.SelectedIndex = 1;
+            txtMaxCap.Enabled = true;
         }
 
         public void disableControls()
@@ -221,6 +268,19 @@ namespace StaffSync
             txtDedCode.ReadOnly = true;
             txtDedTitle.Enabled = false;
             txtDedDescription.Enabled = false;
+
+            cmbShowInPayslip.Items.Clear();
+            cmbShowInPayslip.Items.Add("");
+            cmbShowInPayslip.Items.Add("Yes");
+            cmbShowInPayslip.Items.Add("No");
+            cmbShowInPayslip.SelectedIndex = 0;
+
+            cmbProrataBased.Items.Clear();
+            cmbProrataBased.Items.Add("");
+            cmbProrataBased.Items.Add("Yes");
+            cmbProrataBased.Items.Add("No");
+            cmbProrataBased.SelectedIndex = 0;
+
             cmbIsActive.Items.Clear();
             cmbIsActive.Items.Add("");
             cmbIsActive.Items.Add("Yes");
@@ -232,6 +292,7 @@ namespace StaffSync
             cmbIsFixed.Items.Add("Yes");
             cmbIsFixed.Items.Add("No");
             cmbIsFixed.Enabled = false;
+            txtMaxCap.Enabled = false;
         }
 
         public void onGenerateButtonClick()
@@ -302,6 +363,9 @@ namespace StaffSync
             txtDedDescription.Text = DeductionModel.DedDescription;
             cmbIsActive.Text = DeductionModel.IsActive == true ? "Yes" : "No";
             cmbIsFixed.Text = DeductionModel.IsFixed == true ? "Yes" : "No";
+            cmbShowInPayslip.Text = DeductionModel.VisibleInPayslip == true ? "Yes" : "No";
+            cmbProrataBased.Text = DeductionModel.ProrataBasis == true ? "Yes" : "No";
+            txtMaxCap.Text = DeductionModel.MaxCap.ToString();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

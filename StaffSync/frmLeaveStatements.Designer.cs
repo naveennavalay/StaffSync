@@ -606,6 +606,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Leave Statement";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmLeaveStatements_Activated);
             this.Load += new System.EventHandler(this.frmLeaveStatements_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmLeaveStatements_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

@@ -44,6 +44,33 @@ namespace DALStaffSync
             return objReturnEmployeeTotalWorkingInfo;
         }
 
+        public EmployeeTotalWorkingInfo getTotalPresentDays(int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
+        {
+            EmployeeTotalWorkingInfo objReturnEmployeeTotalWorkingInfo = new EmployeeTotalWorkingInfo();
+
+            objReturnEmployeeTotalWorkingInfo = objAttendanceMas.getTotalPresentDays(txtEmpID, dtSelectedDateFrom, dtSelectedDateTo);
+
+            return objReturnEmployeeTotalWorkingInfo;
+        }
+
+        public EmployeeTotalWorkingInfo getTotalLossOfPayDays(int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
+        {
+            EmployeeTotalWorkingInfo objReturnEmployeeTotalWorkingInfo = new EmployeeTotalWorkingInfo();
+
+            objReturnEmployeeTotalWorkingInfo = objAttendanceMas.getTotalLossOfPayDays(txtEmpID, dtSelectedDateFrom, dtSelectedDateTo);
+
+            return objReturnEmployeeTotalWorkingInfo;
+        }
+
+        public EmployeeTotalWorkingInfo getTotalPaidLeave(int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
+        {
+            EmployeeTotalWorkingInfo objReturnEmployeeTotalWorkingInfo = new EmployeeTotalWorkingInfo();
+
+            objReturnEmployeeTotalWorkingInfo = objAttendanceMas.getTotalPaidLeave(txtEmpID, dtSelectedDateFrom, dtSelectedDateTo);
+
+            return objReturnEmployeeTotalWorkingInfo;
+        }
+
         public EmployeeAttendanceInfo GetEmployeeSpecificDailyAttendanceInfo(int txtEmpID, DateTime dtSelectedDate)
         {
             EmployeeAttendanceInfo objReturnEmployeeAttendanceInfo = new EmployeeAttendanceInfo();

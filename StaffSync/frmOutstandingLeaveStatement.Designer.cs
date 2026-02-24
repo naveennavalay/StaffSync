@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOutstandingLeaveStatement));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkCompactDetailedView = new Krypton.Toolkit.KryptonCheckButton();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.dtgOutstandingLeaveStatement = new Krypton.Toolkit.KryptonDataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -48,7 +49,6 @@
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
-            this.chkCompactDetailedView = new Krypton.Toolkit.KryptonCheckButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -92,6 +92,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1295, 458);
             this.panel1.TabIndex = 1;
+            // 
+            // chkCompactDetailedView
+            // 
+            this.chkCompactDetailedView.Location = new System.Drawing.Point(1108, 17);
+            this.chkCompactDetailedView.Name = "chkCompactDetailedView";
+            this.chkCompactDetailedView.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.chkCompactDetailedView.Size = new System.Drawing.Size(166, 22);
+            this.chkCompactDetailedView.TabIndex = 65;
+            this.chkCompactDetailedView.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.chkCompactDetailedView.Values.Text = "Detailed View";
+            this.chkCompactDetailedView.Click += new System.EventHandler(this.chkCompactDetailedView_Click);
             // 
             // groupBox5
             // 
@@ -248,17 +259,6 @@
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
             // 
-            // chkCompactDetailedView
-            // 
-            this.chkCompactDetailedView.Location = new System.Drawing.Point(1108, 17);
-            this.chkCompactDetailedView.Name = "chkCompactDetailedView";
-            this.chkCompactDetailedView.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.chkCompactDetailedView.Size = new System.Drawing.Size(166, 22);
-            this.chkCompactDetailedView.TabIndex = 65;
-            this.chkCompactDetailedView.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.chkCompactDetailedView.Values.Text = "Detailed View";
-            this.chkCompactDetailedView.Click += new System.EventHandler(this.chkCompactDetailedView_Click);
-            // 
             // frmOutstandingLeaveStatement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -276,6 +276,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Outstanding Leave Statement";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmOutstandingLeaveStatement_Activated);
             this.Load += new System.EventHandler(this.frmOutstandingLeaveStatement_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);

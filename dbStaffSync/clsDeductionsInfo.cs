@@ -1,10 +1,12 @@
-﻿using System;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
+using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
-using System.ComponentModel;
 
 namespace dbStaffSync
 {
@@ -106,7 +108,6 @@ namespace dbStaffSync
             return selectedDeductionTitle;
         }
 
-
         public int GetDeductionTitleByTitle(string DeductionTitle)
         {
             int selectedDeductionID = 0;
@@ -136,7 +137,90 @@ namespace dbStaffSync
             return selectedDeductionID;
         }
 
-        public int InsertDeduction(string txtDedCode, string txtDedTitle, string txtDedDescription, bool IsFixed, bool IsActive, bool IsDeleted)
+        public DeductionModel getSelectedDeductionInfo(int txtDeductionID)
+        {
+            List<DeductionModel> objDeductionModelInfo = new List<DeductionModel>();
+
+            try
+            {
+                DataTable dt = new DataTable();
+
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        " DeductionHeaderMas.DedID, " + 
+                                        " DeductionHeaderMas.DedCode, " + 
+                                        " DeductionHeaderMas.DedTitle, " + 
+                                        " DeductionHeaderMas.DedDescription, " + 
+                                        " DeductionHeaderMas.IsActive, " + 
+                                        " DeductionHeaderMas.IsDeleted, " + 
+                                        " DeductionHeaderMas.OrderID, " + 
+                                        " DeductionHeaderMas.CalcFormula, " + 
+                                        " DeductionHeaderMas.IsFixed, " + 
+                                        " DeductionHeaderMas.MaxCap, " + 
+                                        " DeductionHeaderMas.VisibleInPayslip, " + 
+                                        " DeductionHeaderMas.ProrataBasis " + 
+                                    " FROM " + 
+                                        " DeductionHeaderMas " + 
+                                    " WHERE " + 
+                                        " DeductionHeaderMas.DedID = " + txtDeductionID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objDeductionModelInfo = JsonConvert.DeserializeObject<List<DeductionModel>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            if (objDeductionModelInfo.Count > 0)
+                return objDeductionModelInfo[0];
+            else
+                return new DeductionModel();
+        }
+
+        public decimal getDeductionMaxCap(int txtDeductionID)
+        {
+            decimal selectedDeductionMaxCap = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT MaxCap FROM DeductionHeaderMas WHERE DedID = " + txtDeductionID + "";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                selectedDeductionMaxCap = (decimal)cmd.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedDeductionMaxCap;
+        }
+
+        public int InsertDeduction(string txtDedCode, string txtDedTitle, string txtDedDescription, bool IsFixed, bool IsActive, bool IsDeleted, decimal txtMaxCap, bool ShowInPayslip, bool ConsiderProrataBasis)
         {
             int affectedRows = 0;
             try
@@ -147,8 +231,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO DeductionHeaderMas (DedID, DedCode, DedTitle, DedDescription, IsFixed, IsActive, IsDeleted, OrderID, CalcFormula) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + "DDN-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtDedTitle.Trim() + "','" + txtDedDescription.Trim() + "'," + IsFixed  + "," + IsActive + "," + IsDeleted + "," + maxRowCount.Data + ",'')";
+                string strQuery = "INSERT INTO DeductionHeaderMas (DedID, DedCode, DedTitle, DedDescription, IsFixed, IsActive, IsDeleted, OrderID, CalcFormula, MaxCap, VisibleInPayslip, ProrataBasis) VALUES " +
+                 "(" + maxRowCount.Data + ",'" + "DDN-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtDedTitle.Trim() + "','" + txtDedDescription.Trim() + "'," + IsFixed  + "," + IsActive + "," + IsDeleted + "," + maxRowCount.Data + ",'', " + txtMaxCap + ", " + ShowInPayslip + ", " + ConsiderProrataBasis + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -168,7 +252,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpdateDeduction(int txtDedID, string txtDedCode, string txtDedTitle, string txtDedDescription, bool IsFixed, bool IsActive, bool IsDeleted)
+        public int UpdateDeduction(int txtDedID, string txtDedCode, string txtDedTitle, string txtDedDescription, bool IsFixed, bool IsActive, bool IsDeleted, decimal txtMaxCap, bool ShowInPayslip, bool ConsiderProrataBasis)
         {
             int affectedRows = 0;
             try
@@ -177,7 +261,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE DeductionHeaderMas SET " +
-                 "DedCode = '" + txtDedCode.Trim() + "', DedTitle = '" + txtDedTitle.Trim() + "', DedDescription = '" + txtDedDescription.Trim() + "', IsFixed = " + IsFixed + ", IsActive = " + IsActive +
+                 "DedCode = '" + txtDedCode.Trim() + "', DedTitle = '" + txtDedTitle.Trim() + "', DedDescription = '" + txtDedDescription.Trim() + "', IsFixed = " + IsFixed + ", IsActive = " + IsActive + ", MaxCap = " + txtMaxCap + ", VisibleInPayslip = " + ShowInPayslip + ", ProrataBasis = " + ConsiderProrataBasis+
                  " WHERE DedID = " + txtDedID.ToString().Trim();
 
                 OleDbCommand cmd = conn.CreateCommand();

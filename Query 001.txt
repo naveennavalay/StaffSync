@@ -63,3 +63,146 @@ WHERE
 GROUP BY
     EmpDailyAttendanceInfo.EmpID,
     Day(DateSerial (Year(AttDate), Month(AttDate) + 1, 0));
+
+
+
+
+Weekly Off
+----------
+SELECT
+    EmpMas.EmpID,
+    EmpMas.EmpCode,
+    EmpMas.EmpName,
+    DesigMas.DesignationTitle,
+    DepMas.DepartmentTitle,
+    WklyOffProfileInfo.WklyOffMasID,
+    WklyOffProfileInfo.WklyOffCode,
+    WklyOffProfileInfo.WklyOffTitle,
+    WklyOffProfileDetails.WklyOffDetID,
+    WklyOffProfileDetails.WklyOffDay,
+    Choose(
+        WklyOffProfileDetails.WklyOffDay,
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+    ) AS DayName
+FROM
+    (
+        WklyOffProfileInfo
+        INNER JOIN WklyOffProfileDetails ON WklyOffProfileInfo.WklyOffMasID = WklyOffProfileDetails.WklyOffMasID
+    )
+    INNER JOIN (
+        (
+            DesigMas
+            INNER JOIN (
+                DepMas
+                INNER JOIN EmpMas ON DepMas.DepartmentID = EmpMas.DepartmentID
+            ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+        )
+        INNER JOIN EmpWeeklyOff ON EmpMas.EmpID = EmpWeeklyOff.EmpID
+    ) ON WklyOffProfileInfo.WklyOffMasID = EmpWeeklyOff.WklyOffMasID
+WHERE
+    (((EmpMas.EmpID) = 1));
+
+
+
+Consolidated Advance Statement
+------------------------------
+SELECT
+    EmpMas.EmpID,
+    EmpMas.EmpCode,
+    EmpMas.EmpName,
+    DesigMas.DesignationTitle,
+    DepMas.DepartmentTitle,
+    EmpAdvanceRequestMas.EmpAdvanceRequestID,
+    EmpAdvanceRequestMas.EmpAdvReqCode,
+    AdvanceTypeMas.AdvanceTypeTitle,
+    EmpAdvanceRequestMas.AdvanceAmount,
+    EmpAdvanceRequestMas.AdvanceInstallment,
+    EmpAdvanceRequestMas.AdvanceStartDate,
+    (
+        SELECT
+            TOP 1 AdvanceDate
+        FROM
+            EmpAdvanceDetails AS d
+        WHERE
+            d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID
+        ORDER BY
+            d.EmpAdvanceRecoveryID DESC
+    ) AS LastRepayDate,
+    (
+        SELECT
+            TOP 1 CBalance
+        FROM
+            EmpAdvanceDetails AS d
+        WHERE
+            d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID
+        ORDER BY
+            d.EmpAdvanceRecoveryID DESC
+    ) AS RemainingBalance,
+    Nz (
+        (
+            SELECT
+                SUM(d.DrBalance)
+            FROM
+                EmpAdvanceDetails AS d
+            WHERE
+                d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID
+        ),
+        0
+    ) AS TotalRecovered,
+    Nz (
+        (
+            SELECT
+                COUNT(*)
+            FROM
+                EmpAdvanceDetails AS d
+            WHERE
+                d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID
+                AND d.DrBalance > 0
+        ),
+        0
+    ) AS PaidInstallments,
+    (
+        EmpAdvanceRequestMas.AdvanceInstallment - Nz (
+            (
+                SELECT
+                    COUNT(*)
+                FROM
+                    EmpAdvanceDetails AS d
+                WHERE
+                    d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID
+                    AND d.DrBalance > 0
+            ),
+            0
+        )
+    ) AS PendingInstallments,
+    DateDiff(
+        "d",
+        EmpAdvanceRequestMas.AdvanceStartDate,
+        Date()
+    ) AS AdvanceAgeDays
+FROM
+    (
+        (
+            (
+                (
+                    EmpAdvanceRequestMas
+                    INNER JOIN PersonalInfoMas ON PersonalInfoMas.PersonalInfoID = EmpAdvanceRequestMas.PersonalInfoID
+                )
+                INNER JOIN EmpMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+            )
+            INNER JOIN AdvanceTypeMas ON AdvanceTypeMas.AdvanceTypeID = EmpAdvanceRequestMas.AdvanceTypeID
+        )
+        INNER JOIN DepMas ON DepMas.DepartmentID = EmpMas.DepartmentID
+    )
+    INNER JOIN DesigMas ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+WHERE
+    EmpAdvanceRequestMas.AdvanceRequestStatus = False
+    AND EmpMas.EmpID = 1
+    AND EmpAdvanceRequestMas.IsActive = True
+    AND EmpAdvanceRequestMas.IsDeleted = False;

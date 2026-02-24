@@ -425,6 +425,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Outstanding Leave Information";
+            this.Activated += new System.EventHandler(this.frmViewLeavesOutstanding_Activated);
             this.Load += new System.EventHandler(this.frmViewLeavesOutstanding_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmViewLeavesOutstanding_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

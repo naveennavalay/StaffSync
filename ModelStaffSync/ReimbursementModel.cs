@@ -23,9 +23,14 @@ namespace ModelStaffSync
         public bool IsFixed { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public bool VisibleInPayslip { get; set; }
+        public bool ProrataBasis { get; set; }
+
         public int OrderID { get; set; }
 
         [DisplayName("Calculation Formula")]
         public string CalcFormula { get; set; }
+
+        public decimal MaxCap { get; set; }
     }
 }

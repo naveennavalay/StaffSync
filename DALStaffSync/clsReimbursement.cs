@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
+using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
-using System.ComponentModel;
 
 namespace DALStaffSync
 {
@@ -50,20 +51,25 @@ namespace DALStaffSync
             return selectedReimbursementID;
         }
 
-        public int InsertReimbursement(string txtReimbCode, string txtReimbTitle, string txtReimbDescription, bool IsFixed, bool IsActive, bool IsDeleted)
+        public ReimbursementModel getSelectedDeductionInfo(int txtReimbursementID)
+        {
+            return objReimbursement.getSelectedDeductionInfo(txtReimbursementID);
+        }
+
+        public int InsertReimbursement(string txtReimbCode, string txtReimbTitle, string txtReimbDescription, bool IsFixed, bool IsActive, bool IsDeleted, decimal txtMaxCap, bool ShowInPayslip, bool ConsiderProrataBasis)
         {
             int affectedRows = 0;
             
-            affectedRows = objReimbursement.InsertReimbursement( txtReimbCode, txtReimbTitle, txtReimbDescription, IsFixed, IsActive, IsDeleted);
+            affectedRows = objReimbursement.InsertReimbursement( txtReimbCode, txtReimbTitle, txtReimbDescription, IsFixed, IsActive, IsDeleted, txtMaxCap, ShowInPayslip, ConsiderProrataBasis);
 
             return affectedRows;
         }
 
-        public int UpdateReimbursement(int txtReimbID, string txtReimbCode, string txtReimbTitle, string txtReimbDescription, bool IsFixed, bool IsActive, bool IsDeleted)
+        public int UpdateReimbursement(int txtReimbID, string txtReimbCode, string txtReimbTitle, string txtReimbDescription, bool IsFixed, bool IsActive, bool IsDeleted, decimal txtMaxCap, bool ShowInPayslip, bool ConsiderProrataBasis)
         {
             int affectedRows = 0;
             
-            affectedRows = objReimbursement.UpdateReimbursement(txtReimbID, txtReimbCode, txtReimbTitle, txtReimbDescription, IsFixed, IsActive, IsDeleted);
+            affectedRows = objReimbursement.UpdateReimbursement(txtReimbID, txtReimbCode, txtReimbTitle, txtReimbDescription, IsFixed, IsActive, IsDeleted, txtMaxCap, ShowInPayslip, ConsiderProrataBasis);
 
             return affectedRows;
         }

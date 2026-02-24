@@ -112,6 +112,8 @@ namespace StaffSync
             onGenerateButtonClick();
             clearControls();
             enableControls();
+            cmbShowInPayslip.SelectedIndex = 1;
+            cmbProrataBased.SelectedIndex = 1;
             cmbIsFixed.SelectedIndex = 1;
             cmbIsActive.SelectedIndex = 1;
             lblReimbursementID.Text = objGenFunc.getMaxRowCount("ReimbursementHeaderMas", "ReimbID").Data.ToString();
@@ -150,17 +152,34 @@ namespace StaffSync
                 cmbIsActive.SelectedIndex = 1;
                 errValidator.SetError(this.cmbIsActive, "Please select Reimbursement Status");
             }
+            else if (string.IsNullOrEmpty(cmbShowInPayslip.Text))
+            {
+                cmbShowInPayslip.Focus();
+                cmbShowInPayslip.SelectedIndex = 1;
+                errValidator.SetError(this.cmbShowInPayslip, "Show In Payslip.?");
+            }
+            else if (string.IsNullOrEmpty(cmbProrataBased.Text))
+            {
+                cmbProrataBased.Focus();
+                cmbProrataBased.SelectedIndex = 1;
+                errValidator.SetError(this.cmbProrataBased, "Consider calculation based on Pro-rata based.?");
+            }
+            else if (string.IsNullOrEmpty(txtMaxCap.Text))
+            {
+                txtMaxCap.Focus();
+                errValidator.SetError(this.txtMaxCap, "Please enter Maximum Cap Amount Limit");
+            }
             else
             {
                 if (lblActionMode.Text == "add")
                 {
-                    int affectedRows = objReimbursement.InsertReimbursement(txtReimbCode.Text.Trim(), txtReimbTitle.Text.Trim(), txtReimbDescription.Text.Trim(), cmbIsFixed.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
+                    int affectedRows = objReimbursement.InsertReimbursement(txtReimbCode.Text.Trim(), txtReimbTitle.Text.Trim(), txtReimbDescription.Text.Trim(), cmbIsFixed.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, Convert.ToDecimal(txtMaxCap.Text.ToString()), cmbShowInPayslip.Text.Trim() == "Yes" ? true : false, cmbProrataBased.Text.Trim() == "Yes" ? true : false);
                     if (affectedRows > 0)
                         MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (lblActionMode.Text == "modify")
                 {
-                    int affectedRows = objReimbursement.UpdateReimbursement(Convert.ToInt16(lblReimbursementID.Text.Trim()), txtReimbCode.Text.Trim(), txtReimbTitle.Text.Trim(), txtReimbDescription.Text.Trim(), cmbIsFixed.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
+                    int affectedRows = objReimbursement.UpdateReimbursement(Convert.ToInt16(lblReimbursementID.Text.Trim()), txtReimbCode.Text.Trim(), txtReimbTitle.Text.Trim(), txtReimbDescription.Text.Trim(), cmbIsFixed.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, Convert.ToDecimal(txtMaxCap.Text.ToString()), cmbShowInPayslip.Text.Trim() == "Yes" ? true : false, cmbProrataBased.Text.Trim() == "Yes" ? true : false);
                     if (affectedRows > 0)
                         MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -180,6 +199,19 @@ namespace StaffSync
             txtReimbCode.ReadOnly = true;
             txtReimbTitle.Text = "";
             txtReimbDescription.Text = "";
+            
+            cmbShowInPayslip.Items.Clear();
+            cmbShowInPayslip.Items.Add("");
+            cmbShowInPayslip.Items.Add("Yes");
+            cmbShowInPayslip.Items.Add("No");
+            cmbShowInPayslip.SelectedIndex = 0;
+
+            cmbProrataBased.Items.Clear();
+            cmbProrataBased.Items.Add("");
+            cmbProrataBased.Items.Add("Yes");
+            cmbProrataBased.Items.Add("No");
+            cmbProrataBased.SelectedIndex = 0;
+
             cmbIsActive.Items.Clear();
             cmbIsActive.Items.Add("");
             cmbIsActive.Items.Add("Yes");
@@ -191,6 +223,7 @@ namespace StaffSync
             cmbIsFixed.Items.Add("Yes");
             cmbIsFixed.Items.Add("No");
             cmbIsFixed.SelectedIndex = 0;
+            txtMaxCap.Text = "0.00";
         }
 
         public void enableControls()
@@ -199,6 +232,19 @@ namespace StaffSync
             txtReimbCode.ReadOnly = true;
             txtReimbTitle.Enabled = true;
             txtReimbDescription.Enabled = true;
+
+            cmbShowInPayslip.Items.Clear();
+            cmbShowInPayslip.Items.Add("");
+            cmbShowInPayslip.Items.Add("Yes");
+            cmbShowInPayslip.Items.Add("No");
+            cmbShowInPayslip.SelectedIndex = 0;
+
+            cmbProrataBased.Items.Clear();
+            cmbProrataBased.Items.Add("");
+            cmbProrataBased.Items.Add("Yes");
+            cmbProrataBased.Items.Add("No");
+            cmbProrataBased.SelectedIndex = 0;
+
             cmbIsActive.Items.Clear();
             cmbIsActive.Items.Add("");
             cmbIsActive.Items.Add("Yes");
@@ -212,6 +258,7 @@ namespace StaffSync
             cmbIsFixed.Items.Add("No");
             cmbIsFixed.Enabled = true;
             cmbIsFixed.SelectedIndex = 1;
+            txtMaxCap.Enabled = true;
         }
 
         public void disableControls()
@@ -220,6 +267,19 @@ namespace StaffSync
             txtReimbCode.ReadOnly = true;
             txtReimbTitle.Enabled = false;
             txtReimbDescription.Enabled = false;
+
+            cmbShowInPayslip.Items.Clear();
+            cmbShowInPayslip.Items.Add("");
+            cmbShowInPayslip.Items.Add("Yes");
+            cmbShowInPayslip.Items.Add("No");
+            cmbShowInPayslip.SelectedIndex = 0;
+
+            cmbProrataBased.Items.Clear();
+            cmbProrataBased.Items.Add("");
+            cmbProrataBased.Items.Add("Yes");
+            cmbProrataBased.Items.Add("No");
+            cmbProrataBased.SelectedIndex = 0;
+
             cmbIsActive.Items.Clear();
             cmbIsActive.Items.Add("");
             cmbIsActive.Items.Add("Yes");
@@ -233,6 +293,7 @@ namespace StaffSync
             cmbIsFixed.Items.Add("No");
             cmbIsFixed.Enabled = false;
             cmbIsFixed.SelectedIndex = 0;
+            txtMaxCap.Enabled = false;
         }
 
         public void onGenerateButtonClick()
@@ -303,6 +364,9 @@ namespace StaffSync
             txtReimbDescription.Text = ReimbursementModel.ReimbDescription;
             cmbIsFixed.Text = ReimbursementModel.IsFixed == true ? "Yes" : "No";
             cmbIsActive.Text = ReimbursementModel.IsActive == true ? "Yes" : "No";
+            cmbShowInPayslip.Text = ReimbursementModel.VisibleInPayslip == true ? "Yes" : "No";
+            cmbProrataBased.Text = ReimbursementModel.ProrataBasis == true ? "Yes" : "No";
+            txtMaxCap.Text = ReimbursementModel.MaxCap.ToString();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -355,6 +419,8 @@ namespace StaffSync
             onModifyButtonClick();
             clearControls();
             enableControls();
+            cmbShowInPayslip.SelectedIndex = 1;
+            cmbProrataBased.SelectedIndex = 1;
             cmbIsFixed.SelectedIndex = 1;
             cmbIsActive.SelectedIndex = 1;
             errValidator.Clear();
@@ -381,6 +447,8 @@ namespace StaffSync
                 onRemoveButtonClick();
                 clearControls();
                 enableControls();
+                cmbShowInPayslip.SelectedIndex = 1;
+                cmbProrataBased.SelectedIndex = 1;
                 cmbIsFixed.SelectedIndex = 1;
                 cmbIsActive.SelectedIndex = 1;
             }
@@ -396,6 +464,8 @@ namespace StaffSync
                 onCancelButtonClick();
                 disableControls();
                 clearControls();
+                cmbShowInPayslip.SelectedIndex = 1;
+                cmbProrataBased.SelectedIndex = 1;
                 cmbIsFixed.SelectedIndex = 0;
                 cmbIsActive.SelectedIndex = 0;
                 lblActionMode.Text = "";

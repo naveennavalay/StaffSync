@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLeaveTypeList));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblSearchOptionClickedFor = new System.Windows.Forms.Label();
             this.dtgLeaveTypeList = new System.Windows.Forms.DataGridView();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,7 +55,6 @@
             this.qryDesignationListTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.qryDesignationListTableAdapter();
             this.qryStateListTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.qryStateListTableAdapter();
             this.qryRelationshipListTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.qryRelationshipListTableAdapter();
-            this.lblSearchOptionClickedFor = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -106,6 +106,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1227, 515);
             this.panel1.TabIndex = 1;
+            // 
+            // lblSearchOptionClickedFor
+            // 
+            this.lblSearchOptionClickedFor.AutoSize = true;
+            this.lblSearchOptionClickedFor.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblSearchOptionClickedFor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSearchOptionClickedFor.Location = new System.Drawing.Point(780, 31);
+            this.lblSearchOptionClickedFor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblSearchOptionClickedFor.Name = "lblSearchOptionClickedFor";
+            this.lblSearchOptionClickedFor.Size = new System.Drawing.Size(11, 15);
+            this.lblSearchOptionClickedFor.TabIndex = 9;
+            this.lblSearchOptionClickedFor.Text = " ";
+            this.lblSearchOptionClickedFor.Visible = false;
             // 
             // dtgLeaveTypeList
             // 
@@ -222,19 +235,6 @@
             // 
             this.qryRelationshipListTableAdapter.ClearBeforeFill = true;
             // 
-            // lblSearchOptionClickedFor
-            // 
-            this.lblSearchOptionClickedFor.AutoSize = true;
-            this.lblSearchOptionClickedFor.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblSearchOptionClickedFor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSearchOptionClickedFor.Location = new System.Drawing.Point(780, 31);
-            this.lblSearchOptionClickedFor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblSearchOptionClickedFor.Name = "lblSearchOptionClickedFor";
-            this.lblSearchOptionClickedFor.Size = new System.Drawing.Size(11, 15);
-            this.lblSearchOptionClickedFor.TabIndex = 9;
-            this.lblSearchOptionClickedFor.Text = " ";
-            this.lblSearchOptionClickedFor.Visible = false;
-            // 
             // frmLeaveTypeList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -251,6 +251,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Leave Type List";
+            this.Activated += new System.EventHandler(this.frmLeaveTypeList_Activated);
             this.Load += new System.EventHandler(this.frmLeaveTypeList_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.frmLeaveTypeList_KeyUp);
             this.splitContainer1.Panel1.ResumeLayout(false);

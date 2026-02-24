@@ -1,7 +1,10 @@
 ﻿//using C1.Framework;
+using Common;
 using dbStaffSync;
 using ModelStaffSync;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 //using Org.BouncyCastle.Asn1.X509;
 using System;
 using System.Collections.Generic;
@@ -187,6 +190,49 @@ namespace dbStaffSync
             }
 
             return Convert.ToDecimal(BalanceLeave.ToString());
+        }
+
+        public bool IsLeavePaidOrNot(int txtLeaveMasID)
+        {
+            List<LeaveIsPaid> objLeaveIsPaid = new List<LeaveIsPaid>();
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+                DataTable dt = new DataTable();
+
+                string strQuery = "SELECT " + 
+                                        " LeaveTypeMas.IsPaid " + 
+                                    " FROM " + 
+                                        " LeaveTypeMas " + 
+                                    " WHERE " + 
+                                        " LeaveTypeMas.LeaveTypeID = " + txtLeaveMasID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objLeaveIsPaid = JsonConvert.DeserializeObject<List<LeaveIsPaid>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            if (objLeaveIsPaid.Count > 0)
+                return objLeaveIsPaid[0].IsPaid;
+            else
+                return false;
         }
 
         public List<PendingLeaveApprovalList> getPendingLeaveApprovalList()

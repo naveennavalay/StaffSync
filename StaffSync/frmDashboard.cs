@@ -5213,5 +5213,18 @@ namespace StaffSync
                 frmEmpAdvanceRepayment.WindowState = FormWindowState.Maximized;
             }
         }
+
+        private void cmbManageEmployeePayrollConfiguration_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Payroll Configuration Details";
+                frmPayrollConfiguration frmPayrollConfiguration = new frmPayrollConfiguration(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmPayrollConfiguration.MdiParent = this;
+                frmPayrollConfiguration.Dock = DockStyle.Fill;
+                frmPayrollConfiguration.Show();
+                frmPayrollConfiguration.WindowState = FormWindowState.Maximized;
+            }
+        }
     }
 }

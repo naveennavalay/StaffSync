@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDailyAttendanceProcess));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblNote = new System.Windows.Forms.Label();
             this.dtgDailyAttendanceProcess = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -51,7 +52,6 @@
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.qryMnthlyAttdInfoTableAdapter = new StaffSync.StaffsyncDBDataSet2TableAdapters.qryMnthlyAttdInfoTableAdapter();
             this.qryDepartmentListTableAdapter1 = new StaffSync.dsDepartmentListTableAdapters.qryDepartmentListTableAdapter();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -101,6 +101,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1177, 554);
             this.panel1.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(875, 525);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(283, 15);
+            this.label1.TabIndex = 62;
+            this.label1.Text = "* Double Click to view Attendance Calender";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblNote
             // 
@@ -324,18 +336,6 @@
             // 
             this.qryDepartmentListTableAdapter1.ClearBeforeFill = true;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(875, 525);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(283, 15);
-            this.label1.TabIndex = 62;
-            this.label1.Text = "* Double Click to view Attendance Calender";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // frmDailyAttendanceProcess
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -353,6 +353,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Attendance Details";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmDailyAttendanceProcess_Activated);
             this.Load += new System.EventHandler(this.frmDailyAttendanceProcess_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmDailyAttendanceProcess_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

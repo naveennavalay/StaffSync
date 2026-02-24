@@ -24,5 +24,6 @@ namespace ModelStaffSync
         public decimal TotalReimbursement { get; set; }
         public decimal NetPayable { get; set; }
         public int OrderID { get; set; }
+        public bool StructureEntry {  get; set; }
     }
 }

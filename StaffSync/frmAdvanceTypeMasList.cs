@@ -115,5 +115,10 @@ namespace StaffSync
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void frmAdvanceTypeMasList_Activated(object sender, EventArgs e)
+        {
+            dtgEmployeeList.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
     }
 }

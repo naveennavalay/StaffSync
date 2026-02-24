@@ -45,6 +45,10 @@ namespace StaffSync
             dtgAllowancesList.Columns["IsDeleted"].Visible = false;
             dtgAllowancesList.Columns["OrderID"].Visible = false;
             dtgAllowancesList.Columns["CalcFormula"].Visible = false;
+            dtgAllowancesList.Columns["MaxCap"].Visible = false;
+            dtgAllowancesList.Columns["IsFixed"].Visible = false;
+            dtgAllowancesList.Columns["VisibleInPayslip"].Visible = false;
+            dtgAllowancesList.Columns["ProrataBasis"].Visible = false;
         }
 
 
@@ -76,12 +80,20 @@ namespace StaffSync
             objAllowenceModel.AllDescription = dtgAllowancesList.SelectedRows[0].Cells["AllDescription"].Value.ToString();
             objAllowenceModel.IsFixed = Convert.ToBoolean(dtgAllowancesList.SelectedRows[0].Cells["IsFixed"].Value);
             objAllowenceModel.IsActive = Convert.ToBoolean(dtgAllowancesList.SelectedRows[0].Cells["IsActive"].Value);
+            objAllowenceModel.MaxCap = Convert.ToDecimal(dtgAllowancesList.SelectedRows[0].Cells["MaxCap"].Value);
+            objAllowenceModel.VisibleInPayslip = Convert.ToBoolean(dtgAllowancesList.SelectedRows[0].Cells["VisibleInPayslip"].Value);
+            objAllowenceModel.ProrataBasis = Convert.ToBoolean(dtgAllowancesList.SelectedRows[0].Cells["ProrataBasis"].Value);
 
             if (this.frmPayrollAllowence.lblActionMode.Text == "remove")
                 this.frmPayrollAllowence.lblActionMode.Text = "delete";
 
             this.frmPayrollAllowence.displaySelectedValuesOnUI(objAllowenceModel);
             this.Close();
+        }
+
+        private void frmPayrollAllowencesList_Activated(object sender, EventArgs e)
+        {
+            //dtgAllowancesList.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
         }
     }
 }

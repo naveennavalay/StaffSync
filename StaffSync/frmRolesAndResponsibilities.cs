@@ -324,5 +324,10 @@ namespace StaffSync
                 e.Cancel = true;
             }
         }
+
+        private void frmRolesAndResponsibilities_Activated(object sender, EventArgs e)
+        {
+            //dtgRolesAndResponsibilties.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
     }
 }

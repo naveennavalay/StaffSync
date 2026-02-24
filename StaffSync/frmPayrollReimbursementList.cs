@@ -47,6 +47,10 @@ namespace StaffSync
             dtgReimbursementList.Columns["IsDeleted"].Visible = false;
             dtgReimbursementList.Columns["OrderID"].Visible = false;
             dtgReimbursementList.Columns["CalcFormula"].Visible = false;
+            dtgReimbursementList.Columns["MaxCap"].Visible = false;
+            dtgReimbursementList.Columns["IsFixed"].Visible = false;
+            dtgReimbursementList.Columns["VisibleInPayslip"].Visible = false;
+            dtgReimbursementList.Columns["ProrataBasis"].Visible = false;
         }
 
 
@@ -78,12 +82,20 @@ namespace StaffSync
             objReimbursementModel.ReimbDescription= dtgReimbursementList.SelectedRows[0].Cells["ReimbDescription"].Value.ToString();
             objReimbursementModel.IsFixed = Convert.ToBoolean(dtgReimbursementList.SelectedRows[0].Cells["IsFixed"].Value);
             objReimbursementModel.IsActive = Convert.ToBoolean(dtgReimbursementList.SelectedRows[0].Cells["IsActive"].Value);
+            objReimbursementModel.MaxCap = Convert.ToDecimal(dtgReimbursementList.SelectedRows[0].Cells["MaxCap"].Value);
+            objReimbursementModel.VisibleInPayslip = Convert.ToBoolean(dtgReimbursementList.SelectedRows[0].Cells["VisibleInPayslip"].Value);
+            objReimbursementModel.ProrataBasis = Convert.ToBoolean(dtgReimbursementList.SelectedRows[0].Cells["ProrataBasis"].Value);
 
             if (this.frmReimbursement.lblActionMode.Text == "remove")
                 this.frmReimbursement.lblActionMode.Text = "delete";
 
             this.frmReimbursement.displaySelectedValuesOnUI(objReimbursementModel);
             this.Close();
+        }
+
+        private void frmPayrollReimbursementList_Activated(object sender, EventArgs e)
+        {
+            //dtgReimbursementList.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
         }
     }
 }

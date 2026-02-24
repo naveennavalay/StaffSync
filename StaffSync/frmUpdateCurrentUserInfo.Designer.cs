@@ -2703,6 +2703,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update My Details";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmUpdateCurrentUserInfo_Activated);
             this.Load += new System.EventHandler(this.frmUpdateCurrentUserInfo_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmUpdateCurrentUserInfo_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

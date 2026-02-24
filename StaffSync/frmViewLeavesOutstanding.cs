@@ -418,5 +418,10 @@ namespace StaffSync
             series.Points[0].Color = Color.OrangeRed;
             series.Points[1].Color = Color.RoyalBlue;
         }
+
+        private void frmViewLeavesOutstanding_Activated(object sender, EventArgs e)
+        {
+            dtgOutstandingLeaveInfo.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
     }
 }

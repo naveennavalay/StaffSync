@@ -1,4 +1,6 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
+﻿using Common;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Krypton.Ribbon;
 using ModelStaffSync;
 using Quartz.Impl.AdoJobStore.Common;
 using System;
@@ -537,13 +539,18 @@ namespace StaffSync
 
         private void btnEmpSearch_Click(object sender, EventArgs e)
         {
-            frmEmpAdvanceTRList frmEmpAdvanceTRList = new frmEmpAdvanceTRList(this, "empadvancerepayment", 0);
+            if (lblEmpID.Text == "")
+                lblEmpID.Text = "0";
+            if (lblEmpAdvanceRequestID.Text == "")
+                lblEmpAdvanceRequestID.Text = "0";
+
+            frmEmpAdvanceTRList frmEmpAdvanceTRList = new frmEmpAdvanceTRList(this, "empadvancerepayment", 0, 0);
             frmEmpAdvanceTRList.ShowDialog(this);
         }
 
-        public void displaySelectedValuesOnUI(int txtEmpID)
+        public void displaySelectedValuesOnUI(int txtEmpID, int txtAdvanceID)
         {
-            List<EmployeeSpecificAdvanceInformation> objEmployeeSpecificAdvanceInformation = objAdvanceTransaction.EmployeeSpecificAdvanceInformation(txtEmpID);
+            List<EmployeeSpecificAdvanceInformation> objEmployeeSpecificAdvanceInformation = objAdvanceTransaction.EmployeeSpecificAdvanceInformation(txtEmpID, txtAdvanceID);
             lblEmpID.Text = txtEmpID.ToString();
             txtEmpCode.Text = objEmployeeSpecificAdvanceInformation[0].EmpAdvReqCode.ToString();
             txtEmpName.Text = objEmployeeSpecificAdvanceInformation[0].EmpName.ToString();
@@ -560,9 +567,9 @@ namespace StaffSync
             txtInstallmentAmount.Text = Convert.ToDecimal(txtInstallmentAmount.Text.ToString()).ToString("###0.00");
             txtAdvanceStartDate.Text = Convert.ToDateTime(objEmployeeSpecificAdvanceInformation[0].AdvanceStartDate.ToString()).Date.ToString("dd-MMM-yyyy");
             txtAdvanceEndDate.Text = Convert.ToDateTime(objEmployeeSpecificAdvanceInformation[0].AdvanceEndDate.ToString()).Date.ToString("dd-MMM-yyyy");
-            txtClosingBalance.Text = Convert.ToDecimal(objEmployeeSpecificAdvanceInformation[0].CBalance.ToString()).ToString("#,##0.00");
+            txtClosingBalance.Text = Convert.ToDecimal(objEmployeeSpecificAdvanceInformation[0].RePaymentBalance.ToString()).ToString("#,##0.00");
             txtClosingBalance.Text = Convert.ToDecimal(txtClosingBalance.Text.ToString()).ToString("###0.00");
-            txtCBalance.Text = Convert.ToDecimal(objEmployeeSpecificAdvanceInformation[0].CBalance.ToString()).ToString("#,##0.00");
+            txtCBalance.Text = Convert.ToDecimal(objEmployeeSpecificAdvanceInformation[0].RePaymentBalance.ToString()).ToString("#,##0.00");
             txtCBalance.Text = Convert.ToDecimal(txtCBalance.Text.ToString()).ToString("###0.00");
             lblLastTRDate.Text = Convert.ToDateTime(objEmployeeSpecificAdvanceInformation[0].LastRepayDate.ToString()).Date.ToString("dd-MMM-yyyy");
 
@@ -624,7 +631,7 @@ namespace StaffSync
             if (lblEmpAdvanceRequestID.Text.Trim() == "")
                 return;
 
-            frmEmpAdvanceTRList frmEmpAdvanceTRList = new frmEmpAdvanceTRList(this, "empadvancestatement", Convert.ToInt32(lblEmpAdvanceRequestID.Text.ToString()));
+            frmEmpAdvanceTRList frmEmpAdvanceTRList = new frmEmpAdvanceTRList(this, "empadvancestatement", Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToInt32(lblEmpAdvanceRequestID.Text.ToString()));
             frmEmpAdvanceTRList.ShowDialog(this);
         }
 
@@ -637,6 +644,11 @@ namespace StaffSync
             if(txtAdvanceTRAmount.Text.Trim() != "" && Convert.ToDecimal(txtAdvanceTRAmount.Text) > 0)
             {
                 txtCBalance.Text = (Convert.ToDecimal(txtClosingBalance.Text.Trim()) - Convert.ToDecimal(txtAdvanceTRAmount.Text.Trim())).ToString("#,##0.00");
+                if (Convert.ToDecimal(txtCBalance.Text) < 0)
+                {
+                    txtAdvanceTRAmount.Text = Convert.ToDecimal(txtClosingBalance.Text.ToString()).ToString("###0.00");
+                    txtCBalance.Text = "0.00";
+                }
             }
             else
             {

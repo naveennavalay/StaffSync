@@ -689,6 +689,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Leave Entitlement";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmEmpLeaveEntitlement_Activated);
             this.Load += new System.EventHandler(this.frmEmpLeaveEntitlement_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmEmpLeaveEntitlement_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

@@ -99,12 +99,13 @@ namespace ModelStaffSync
         public int EmpID { get; set; }
         public DateTime AttDate { get; set; }
         public decimal TotalDaysInMonth { get; set; }
-        public decimal PresentCount { get; set; }
-        public decimal FullDayLeaveCount { get; set; }
-        public decimal FirstHalfLeaveCount { get; set; }
-        public decimal SecondHalfLeaveCount { get; set; }
-        public decimal TotalLeaveCount { get; set; }
-        public decimal TotalWorkedDays { get; set; }
+        public decimal TotalPresent { get; set; }
+        public decimal TotalPaidLeave { get; set; }
+        public decimal TotalLossOfPay { get; set; }
+        public decimal TotalPayableDays { get; set; }
+        public decimal BasicPay { get; set; }
+        public decimal BasicPerDay { get; set; }
+        public decimal BasicPerHour { get; set; }
     }
 
     public class DaySpecificLeaveCheck

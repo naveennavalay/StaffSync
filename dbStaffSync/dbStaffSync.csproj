@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AppVariables.cs" />
     <Compile Include="clsAddressInfo.cs" />
+    <Compile Include="clsAppSettings.cs" />
     <Compile Include="clsAppUserTasks.cs" />
     <Compile Include="clsAdvanceTypeConfigInfo.cs" />
     <Compile Include="clsAdvanceTransaction.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="clsAppModule.cs" />
     <Compile Include="clsAttendanceMas.cs" />
     <Compile Include="clsAdvanceTypeMas.cs" />
+    <Compile Include="clsDashboardWidgetData.cs" />
     <Compile Include="clsProvidentFundCalculation.cs" />
     <Compile Include="clsProfessionalTaxCalculation.cs" />
     <Compile Include="clsAuditLog.cs" />
@@ -135,6 +137,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{bf74c7dc-c97c-4510-9a19-f6f3dd8aaa71}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ModelStaffSync\ModelStaffSync.csproj">
       <Project>{79a01532-92d7-431f-aee6-fcc9cf4050d7}</Project>
       <Name>ModelStaffSync</Name>

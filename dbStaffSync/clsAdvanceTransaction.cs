@@ -7,6 +7,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Text;
 
 namespace dbStaffSync
@@ -620,7 +621,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public List<EmployeeSpecificAdvanceInformation> EmployeeSpecificAdvanceInformation(int txtEmpID)
+        public List<EmployeeSpecificAdvanceInformation> EmployeeSpecificAdvanceInformation(int txtEmpID, int txtAdvanceID)
         {
             List<EmployeeSpecificAdvanceInformation> objEmployeeSpecificAdvanceInformation = new List<EmployeeSpecificAdvanceInformation>();
 
@@ -631,52 +632,187 @@ namespace dbStaffSync
                 DataTable dt = new DataTable();
 
                 string strQuery = "SELECT " + 
-                                        " TOP 1 EmpMas.EmpID, " + 
-                                        " EmpMas.EmpCode, " + 
-                                        " EmpMas.EmpName, " + 
-                                        " DesigMas.DesignationTitle, " +
-                                        " DepMas.DepartmentTitle, " +
-                                        " PersonalInfoMas.PersonalInfoID, " +
-                                        " PersonalInfoMas.ContactNumber2, " +
-                                        " EmpAdvanceRequestMas.EmpAdvanceRequestID, " + 
-                                        " EmpAdvanceRequestMas.EmpAdvReqCode, " +
-                                        " AdvanceTypeMas.AdvanceTypeID, " + 
-                                        " AdvanceTypeMas.AdvanceTypeTitle, " + 
-                                        " EmpAdvanceRequestMas.AdvanceAmount, " + 
-                                        " EmpAdvanceRequestMas.AdvanceInstallment, " + 
-                                        " EmpAdvanceRequestMas.AdvanceStartDate, " + 
-                                        " EmpAdvanceRequestMas.AdvanceEndDate, " + 
-                                        " EmpAdvanceRequestMas.AdvanceRequestStatus, " + 
-                                        " EmpAdvanceDetails.AdvanceDate AS LastRepayDate, " + 
-                                        " EmpAdvanceDetails.EmpAdvanceRecoveryID, " + 
-                                        " EmpAdvanceDetails.CBalance, " +
-                                        " EmpAdvanceDetails.CBalance As RePaymentBalance" +
+                                        "EmpMas.EmpID, " + 
+                                        "EmpMas.EmpCode, " + 
+                                        "EmpMas.EmpName, " +
+                                        "DesigMas.DesignationTitle, " + 
+                                        "DepMas.DepartmentTitle, " + 
+                                        "PersonalInfoMas.PersonalInfoID, " + 
+                                        "PersonalInfoMas.ContactNumber2, " + 
+                                        "EmpAdvanceRequestMas.EmpAdvanceRequestID, " + 
+                                        "EmpAdvanceRequestMas.EmpAdvReqCode, " + 
+                                        "AdvanceTypeMas.AdvanceTypeID, " + 
+                                        "AdvanceTypeMas.AdvanceTypeTitle, " + 
+                                        "EmpAdvanceRequestMas.AdvanceAmount, " + 
+                                        "EmpAdvanceRequestMas.AdvanceInstallment, " + 
+                                        "EmpAdvanceRequestMas.AdvanceStartDate, " + 
+                                        "EmpAdvanceRequestMas.AdvanceEndDate, " + 
+                                        "EmpAdvanceRequestMas.AdvanceRequestStatus, " + 
+                                        "( " + 
+                                            " SELECT " + 
+                                                " TOP 1 AdvanceDate " + 
+                                            " FROM " + 
+                                                " EmpAdvanceDetails AS d " + 
+                                            " WHERE " + 
+                                                " d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID " + 
+                                            " ORDER BY " + 
+                                                " d.EmpAdvanceRecoveryID DESC " + 
+                                        " ) AS LastRepayDate, " +
+                                        " ( " +
+                                            " SELECT " +
+                                                " TOP 1 CBalance " +
+                                            " FROM " +
+                                                " EmpAdvanceDetails AS d " +
+                                            " WHERE " +
+                                                " d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID " +
+                                            " ORDER BY " +
+                                                " d.EmpAdvanceRecoveryID DESC " +
+                                        " ) AS CBalance, " +
+                                        " ( " + 
+                                            " SELECT " + 
+                                                " TOP 1 CBalance " + 
+                                            " FROM " + 
+                                                " EmpAdvanceDetails AS d " + 
+                                            " WHERE " + 
+                                                " d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID " + 
+                                            " ORDER BY " + 
+                                                " d.EmpAdvanceRecoveryID DESC " + 
+                                        " ) AS RePaymentBalance " + 
                                     " FROM " + 
-                                        " DesigMas " + 
-                                        " INNER JOIN ( " + 
-                                            " DepMas " + 
-                                            " INNER JOIN ( " + 
-                                                " ( " + 
-                                                    " EmpMas " + 
-                                                    " INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID " + 
-                                                " ) " + 
-                                                " INNER JOIN ( " + 
-                                                    " ( " + 
-                                                        " AdvanceTypeMas " + 
-                                                        " INNER JOIN EmpAdvanceRequestMas ON AdvanceTypeMas.AdvanceTypeID = EmpAdvanceRequestMas.AdvanceTypeID " + 
-                                                    " ) " + 
-                                                    " INNER JOIN EmpAdvanceDetails ON EmpAdvanceRequestMas.EmpAdvanceRequestID = EmpAdvanceDetails.EmpAdvanceRequestID " + 
-                                                " ) ON PersonalInfoMas.PersonalInfoID = EmpAdvanceRequestMas.PersonalInfoID " + 
-                                            " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " + 
-                                        " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " + 
+                                        " ( " + 
+                                            " (  " + 
+                                                " DesigMas " + 
+                                                " INNER JOIN( " + 
+                                                    " DepMas " + 
+                                                    " INNER JOIN EmpMas ON DepMas.DepartmentID = EmpMas.DepartmentID " + 
+                                                " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " + 
+                                            " ) " + 
+                                            " INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID " + 
+                                        " ) " + 
+                                        " INNER JOIN( " + 
+                                            " AdvanceTypeMas " + 
+                                            " INNER JOIN EmpAdvanceRequestMas ON AdvanceTypeMas.AdvanceTypeID = EmpAdvanceRequestMas.AdvanceTypeID " + 
+                                        " ) ON PersonalInfoMas.PersonalInfoID = EmpAdvanceRequestMas.PersonalInfoID " + 
                                     " WHERE " + 
-                                        " (((EmpAdvanceRequestMas.AdvanceRequestStatus) = False) AND ((EmpMas.EmpID) = " + txtEmpID + ") AND ((EmpAdvanceRequestMas.IsActive) = True) AND ((EmpAdvanceRequestMas.IsDeleted) = False)) " + 
+                                        " ( " + 
+                                            " ((EmpMas.EmpID) = " + txtEmpID + ") " + 
+                                            " AND (  " + 
+                                                " (EmpAdvanceRequestMas.AdvanceRequestStatus) = False " + 
+                                            " ) " + 
+                                            " AND ( " +  
+                                                " ( " + 
+                                                    " ( " + 
+                                                        " SELECT " + 
+                                                            " TOP 1 CBalance " + 
+                                                        " FROM " + 
+                                                            " EmpAdvanceDetails AS d " + 
+                                                        " WHERE " + 
+                                                            " d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID " + 
+                                                        " ORDER BY " + 
+                                                            " d.EmpAdvanceRecoveryID DESC " + 
+                                                    " ) " + 
+                                                " ) > 0 " + 
+                                            " ) " + 
+                                            " AND((EmpAdvanceRequestMas.IsActive) = True) " + 
+                                            " AND((EmpAdvanceRequestMas.IsDeleted) = False) " + 
+                                        " ) " + 
                                     " ORDER BY " + 
-                                        " EmpAdvanceDetails.EmpAdvanceRecoveryID DESC;";
+                                        " EmpAdvanceRequestMas.EmpAdvanceRequestID DESC;";
 
-                if (txtEmpID == 0)
+                if (txtEmpID != 0 && txtAdvanceID != 0)
                     strQuery = "SELECT " +
-                                    " TOP 1 EmpMas.EmpID, " +
+                                                            "EmpMas.EmpID, " +
+                                                            "EmpMas.EmpCode, " +
+                                                            "EmpMas.EmpName, " +
+                                                            "DesigMas.DesignationTitle, " +
+                                                            "DepMas.DepartmentTitle, " +
+                                                            "PersonalInfoMas.PersonalInfoID, " +
+                                                            "PersonalInfoMas.ContactNumber2, " +
+                                                            "EmpAdvanceRequestMas.EmpAdvanceRequestID, " +
+                                                            "EmpAdvanceRequestMas.EmpAdvReqCode, " +
+                                                            "AdvanceTypeMas.AdvanceTypeID, " +
+                                                            "AdvanceTypeMas.AdvanceTypeTitle, " +
+                                                            "EmpAdvanceRequestMas.AdvanceAmount, " +
+                                                            "EmpAdvanceRequestMas.AdvanceInstallment, " +
+                                                            "EmpAdvanceRequestMas.AdvanceStartDate, " +
+                                                            "EmpAdvanceRequestMas.AdvanceEndDate, " +
+                                                            "EmpAdvanceRequestMas.AdvanceRequestStatus, " +
+                                                            "( " +
+                                                                " SELECT " +
+                                                                    " TOP 1 AdvanceDate " +
+                                                                " FROM " +
+                                                                    " EmpAdvanceDetails AS d " +
+                                                                " WHERE " +
+                                                                    " d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID " +
+                                                                " ORDER BY " +
+                                                                    " d.EmpAdvanceRecoveryID DESC " +
+                                                            " ) AS LastRepayDate, " +
+                                                            " ( " +
+                                                                " SELECT " +
+                                                                    " TOP 1 CBalance " +
+                                                                " FROM " +
+                                                                    " EmpAdvanceDetails AS d " +
+                                                                " WHERE " +
+                                                                    " d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID " +
+                                                                " ORDER BY " +
+                                                                    " d.EmpAdvanceRecoveryID DESC " +
+                                                            " ) AS CBalance, " +
+                                                            " ( " +
+                                                                " SELECT " +
+                                                                    " TOP 1 CBalance " +
+                                                                " FROM " +
+                                                                    " EmpAdvanceDetails AS d " +
+                                                                " WHERE " +
+                                                                    " d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID " +
+                                                                " ORDER BY " +
+                                                                    " d.EmpAdvanceRecoveryID DESC " +
+                                                            " ) AS RePaymentBalance " +
+                                                        " FROM " +
+                                                            " ( " +
+                                                                " (  " +
+                                                                    " DesigMas " +
+                                                                    " INNER JOIN( " +
+                                                                        " DepMas " +
+                                                                        " INNER JOIN EmpMas ON DepMas.DepartmentID = EmpMas.DepartmentID " +
+                                                                    " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " +
+                                                                " ) " +
+                                                                " INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID " +
+                                                            " ) " +
+                                                            " INNER JOIN( " +
+                                                                " AdvanceTypeMas " +
+                                                                " INNER JOIN EmpAdvanceRequestMas ON AdvanceTypeMas.AdvanceTypeID = EmpAdvanceRequestMas.AdvanceTypeID " +
+                                                            " ) ON PersonalInfoMas.PersonalInfoID = EmpAdvanceRequestMas.PersonalInfoID " +
+                                                        " WHERE " +
+                                                            " ( " +
+                                                                " ((EmpMas.EmpID) = " + txtEmpID + ") " +
+                                                                " AND ((EmpAdvanceRequestMas.EmpAdvanceRequestID) = " + txtAdvanceID + ") " + 
+                                                                " AND (  " +
+                                                                    " (EmpAdvanceRequestMas.AdvanceRequestStatus) = False " +
+                                                                " ) " +
+                                                                " AND ( " +
+                                                                    " ( " +
+                                                                        " ( " +
+                                                                            " SELECT " +
+                                                                                " TOP 1 CBalance " +
+                                                                            " FROM " +
+                                                                                " EmpAdvanceDetails AS d " +
+                                                                            " WHERE " +
+                                                                                " d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID " +
+                                                                            " ORDER BY " +
+                                                                                " d.EmpAdvanceRecoveryID DESC " +
+                                                                        " ) " +
+                                                                    " ) > 0 " +
+                                                                " ) " +
+                                                                " AND((EmpAdvanceRequestMas.IsActive) = True) " +
+                                                                " AND((EmpAdvanceRequestMas.IsDeleted) = False) " +
+                                                            " ) " +
+                                                        " ORDER BY " +
+                                                            " EmpAdvanceRequestMas.EmpAdvanceRequestID DESC;";
+
+
+                if (txtEmpID == 0 && txtAdvanceID == 0)
+                    strQuery = "SELECT " + 
+                                    " EmpMas.EmpID, " +
                                     " EmpMas.EmpCode, " +
                                     " EmpMas.EmpName, " +
                                     " DesigMas.DesignationTitle, " +
@@ -692,12 +828,39 @@ namespace dbStaffSync
                                     " EmpAdvanceRequestMas.AdvanceStartDate, " +
                                     " EmpAdvanceRequestMas.AdvanceEndDate, " +
                                     " EmpAdvanceRequestMas.AdvanceRequestStatus, " +
-                                    " EmpAdvanceDetails.AdvanceDate AS LastRepayDate, " +
-                                    " EmpAdvanceDetails.EmpAdvanceRecoveryID, " +
-                                    " EmpAdvanceDetails.CBalance " +
-                                " FROM " +
                                     " ( " +
-                                        " ( " +
+                                        " SELECT " +
+                                            " TOP 1 AdvanceDate " +
+                                        " FROM " +
+                                            " EmpAdvanceDetails AS d " +
+                                        " WHERE " +
+                                            " d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID " +
+                                        " ORDER BY " +
+                                            " d.EmpAdvanceRecoveryID DESC " +
+                                    " ) AS LastRepayDate, " +
+                                    " ( " +
+                                        " SELECT " +
+                                            " TOP 1 CBalance " +
+                                        " FROM " +
+                                            " EmpAdvanceDetails AS d " +
+                                        " WHERE " +
+                                            " d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID " +
+                                        " ORDER BY " +
+                                            " d.EmpAdvanceRecoveryID DESC " +
+                                    " ) AS CBalance, " +
+                                    " ( " +
+                                        " SELECT " +
+                                            " TOP 1 CBalance " +
+                                        " FROM " +
+                                            " EmpAdvanceDetails AS d " +
+                                        " WHERE " +
+                                            " d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID " +
+                                        " ORDER BY " +
+                                            " d.EmpAdvanceRecoveryID DESC " +
+                                    " ) AS RePaymentBalance " +
+                                " FROM " +
+                                    " (" +
+                                        " (" +
                                             " DesigMas " +
                                             " INNER JOIN ( " +
                                                 " DepMas " +
@@ -707,21 +870,33 @@ namespace dbStaffSync
                                         " INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID " +
                                     " ) " +
                                     " INNER JOIN ( " +
-                                        " ( " +
-                                            " AdvanceTypeMas " +
-                                            " INNER JOIN EmpAdvanceRequestMas ON AdvanceTypeMas.AdvanceTypeID = EmpAdvanceRequestMas.AdvanceTypeID " +
-                                        " ) " +
-                                        " INNER JOIN EmpAdvanceDetails ON EmpAdvanceRequestMas.EmpAdvanceRequestID = EmpAdvanceDetails.EmpAdvanceRequestID " +
+                                        " AdvanceTypeMas " +
+                                        " INNER JOIN EmpAdvanceRequestMas ON AdvanceTypeMas.AdvanceTypeID = EmpAdvanceRequestMas.AdvanceTypeID " +
                                     " ) ON PersonalInfoMas.PersonalInfoID = EmpAdvanceRequestMas.PersonalInfoID " +
                                 " WHERE " +
                                     " ( " +
                                         " ( " +
                                             " (EmpAdvanceRequestMas.AdvanceRequestStatus) = False " +
                                         " ) " +
-                                        " AND ((EmpMas.IsActive) = True) " +
-                                        " AND ((EmpMas.IsDeleted) = False) " +
-                                   " ) " +
-                                " ORDER BY EmpAdvanceDetails.EmpAdvanceRecoveryID DESC;";
+                                        " AND ( " +
+                                            " ( " +
+                                                " ( " +
+                                                    " SELECT " +
+                                                        " TOP 1 CBalance " +
+                                                    " FROM " +
+                                                        " EmpAdvanceDetails AS d " +
+                                                    " WHERE " +
+                                                        " d.EmpAdvanceRequestID = EmpAdvanceRequestMas.EmpAdvanceRequestID " +
+                                                    " ORDER BY " +
+                                                        " d.EmpAdvanceRecoveryID DESC " +
+                                                " ) " +
+                                            " ) > 0 " +
+                                        " ) " +
+                                        " AND ((EmpAdvanceRequestMas.IsActive) = True) " +
+                                        " AND ((EmpAdvanceRequestMas.IsDeleted) = False) " +
+                                    " ) " +
+                                " ORDER BY " +
+                                    " EmpAdvanceRequestMas.EmpAdvanceRequestID DESC;";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

@@ -22,8 +22,10 @@ namespace StaffSync
         DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
         DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
         DALStaffSync.clsLeaveTypeMas objLeaveTypeInfo = new DALStaffSync.clsLeaveTypeMas();
+        DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
         DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
+        DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
         //Download objDownload = new Download();
@@ -197,6 +199,8 @@ namespace StaffSync
                 return;
             }
 
+            int employeeLeaveTRID = 0;
+
             bool AttendanceEntryAlreadyExist = objLeaveTRList.AttendanceExistsForToday(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text), cmbLeaveType.SelectedIndex + 1, cmbDuration.Text.ToString());
             if(AttendanceEntryAlreadyExist)
             {
@@ -205,10 +209,38 @@ namespace StaffSync
                 return;
             }
 
+            if(lblLeaveIsPaid.Text == "lop")
+            {
+                if (MessageBox.Show("Selected \"" + cmbLeaveType.Text + "\" leave is unpaid leave and will be considered as \"Approved\" directly. \nContinuing with this leave, will affect the Salary calculation.\n\nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+
+                    EmployeeAttendanceInfo objEmployeeAttendanceInfo = objAttendanceMas.GetEmployeeSpecificDailyAttendanceInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text));
+
+                    employeeLeaveTRID = objLeaveTRList.InsertLeaveTransaction(Convert.ToInt16(lblEmpID.Text.ToString()), cmbLeaveType.SelectedIndex + 1, DateTime.Now, txtLeaveNote.Text.Trim(), Convert.ToDateTime(txtLeaveDateFrom.Text), Convert.ToDateTime(txtLeaveDateTo.Text), Convert.ToDecimal(txtActualLeaveDays.Text), cmbDuration.Text.ToString(), DateTime.Now, "Approved : Approved", DateTime.Now, "Not Rejected", Convert.ToInt16(lblEmpID.Text.ToString()));
+                    objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) - Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
+
+                    if (objEmployeeAttendanceInfo.AttStatus == null)
+                        objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), "Leave : " + cmbDuration.Text + " - Loss Of Pay", 0);
+                    else if (objEmployeeAttendanceInfo.AttStatus != "")
+                        objAttendanceInfo.UpdateDailyAttendance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()), objEmployeeAttendanceInfo.AttStatus + ", " + "Leave : " + cmbDuration.Text + " - Loss Of Pay", 0);
+
+                    RefreshLeavesHistoryList();
+                    MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
+
+                    onSaveButtonClick();
+                    disableControls();
+                    clearControls();
+                    errValidator.Clear();
+                    this.Cursor = Cursors.Default;
+                }
+                this.Cursor = Cursors.Default;
+                return;
+            }
 
             if (lblActionMode.Text == "add")
             {
-                int employeeLeaveTRID = 0;
                 if (lblCancelStatus.Text == "")
                 {
                     if (cmbDuration.SelectedIndex == 0)
@@ -246,8 +278,6 @@ namespace StaffSync
             }
             else if (lblActionMode.Text == "modify")
             {
-                int employeeLeaveTRID = 0;
-
                 if(lblCancelStatus.Text == "")
                 {
                     if (cmbDuration.SelectedIndex == 0)
@@ -365,6 +395,7 @@ namespace StaffSync
             lblLeaveMasID.Text = "";
             lblLeaveTRID.Text = "";
             lblSpecificLeaveBalance.Text = "";
+            lblLeaveIsPaid.Text = "";
 
             txtEmpCode.Text = "";
             txtEmployeeName.Text = "";
@@ -674,10 +705,13 @@ namespace StaffSync
             //    isValid = false;
             //}
 
-            if (string.IsNullOrWhiteSpace(lblSpecificLeaveBalance.Text) || !decimal.TryParse(lblSpecificLeaveBalance.Text, out decimal leaveBalance) || leaveBalance == 0 && (lblCancelStatus.Text.ToString() == ""))
+            if (lblLeaveIsPaid.Text == "paid")
             {
-                errValidator.SetError(cmbLeaveType, cmbLeaveType.Text + " : Zero leaves available.");
-                isValid = false;
+                if (string.IsNullOrWhiteSpace(lblSpecificLeaveBalance.Text) || !decimal.TryParse(lblSpecificLeaveBalance.Text, out decimal leaveBalance) || leaveBalance == 0 && (lblCancelStatus.Text.ToString() == ""))
+                {
+                    errValidator.SetError(cmbLeaveType, cmbLeaveType.Text + " : Zero leaves available.");
+                    isValid = false;
+                }
             }
 
             if (string.IsNullOrWhiteSpace(txtActualLeaveDays.Text) || !decimal.TryParse(txtActualLeaveDays.Text, out decimal leaveDays) || leaveDays <= 0)
@@ -695,6 +729,12 @@ namespace StaffSync
                 return;
 
             lblSpecificLeaveBalance.Text = objLeaveTRList.getSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1)).ToString();
+
+            lblLeaveIsPaid.Text = "";
+            if (objLeaveTRList.IsLeavePaidOrNot(Convert.ToInt16(cmbLeaveType.SelectedIndex + 1)) == true)
+                lblLeaveIsPaid.Text = "paid";
+            else
+                lblLeaveIsPaid.Text = "lop";
         }
 
         private void picViewLeaves_Click(object sender, EventArgs e)

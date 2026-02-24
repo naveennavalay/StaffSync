@@ -288,6 +288,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Daily Attendance Sheet";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmDailyAttendanceSheet_Activated);
             this.Load += new System.EventHandler(this.frmDailyAttendanceSheet_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmDailyAttendanceSheet_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

@@ -486,5 +486,10 @@ namespace StaffSync
                 this.Close();
             }
         }
+
+        private void frmBulkLeaveApproval_Activated(object sender, EventArgs e)
+        {
+            dtgBulkLeaveApproval.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
     }
 }

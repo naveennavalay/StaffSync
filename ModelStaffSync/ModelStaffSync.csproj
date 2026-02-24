@@ -42,9 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsAppSettings.cs" />
     <Compile Include="AppUserTasks.cs" />
     <Compile Include="AdvanceTypeMasModel.cs" />
     <Compile Include="ClientBranchInfo.cs" />
+    <Compile Include="ESIModel.cs" />
     <Compile Include="ProvidentFund.cs" />
     <Compile Include="ProfessionalTax.cs" />
     <Compile Include="ClientStatutory.cs" />

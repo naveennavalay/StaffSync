@@ -3596,6 +3596,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Employee Details";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmEmployeeMaster_Activated);
             this.Load += new System.EventHandler(this.frmEmployeeMaster_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmEmployeeMaster_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

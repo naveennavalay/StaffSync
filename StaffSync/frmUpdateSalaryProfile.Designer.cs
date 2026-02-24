@@ -506,6 +506,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Salary Profile Details";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmUpdateSalaryProfile_Activated);
             this.Load += new System.EventHandler(this.frmUpdateSalaryProfile_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmUpdateSalaryProfile_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

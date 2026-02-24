@@ -315,5 +315,10 @@ namespace StaffSync
             //    dgv.Rows[e.RowIndex].Cells["Access"].Value = !currentValue;
             //}
         }
+
+        private void frmModuleAssignment_Activated(object sender, EventArgs e)
+        {
+            //dtgModulesList.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
     }
 }

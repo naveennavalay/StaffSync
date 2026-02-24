@@ -151,7 +151,347 @@ namespace dbStaffSync
                                         " ) " + 
                                     " GROUP BY " + 
                                         " EmpDailyAttendanceInfo.EmpID, Day(DateSerial (Year(AttDate), Month(AttDate) + 1, 0));";
-            
+
+                strQuery = "SELECT " +
+                                    " DateDiff(\"d\", " + "#" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "#, #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#) AS TotalDaysInMonth, " +
+                                    " SUM(PresentVal) AS TotalPresent, " +
+                                    " SUM(PaidLeaveVal) AS TotalPaidLeave, " +
+                                    " SUM(LOPVal) AS TotalLossOfPay, " +
+                                    " (DateDiff(\"d\", " + "#" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "#, #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#)) - SUM(LOPVal) AS TotalPayableDays " +
+                                " FROM " +
+                                    " ( " +
+                                        " SELECT " +
+                                            " AttDate, " +
+                                            " IIF(AttStatus = 'Present', 1, 0) AS PresentVal, " +
+                                            " IIF( " +
+                                                " AttStatus LIKE '*Full Day*' " +
+                                                " AND AttStatus NOT LIKE '*Loss Of Pay*', " +
+                                                " 1, " +
+                                                " IIF( " +
+                                                    " AttStatus LIKE '*First Half*' " +
+                                                    " AND AttStatus LIKE '*Second Half*' " +
+                                                    " AND AttStatus NOT LIKE '*Loss Of Pay*', " +
+                                                    " 1, " +
+                                                    " IIF( " +
+                                                        " AttStatus LIKE '*First Half*' " +
+                                                        " AND AttStatus NOT LIKE '*Loss Of Pay*', " +
+                                                        " 0.5, " +
+                                                        " IIF( " +
+                                                            " AttStatus LIKE '*Second Half*' " +
+                                                            " AND AttStatus NOT LIKE '*Loss Of Pay*', " +
+                                                            " 0.5, " +
+                                                            " 0 " +
+                                                        " ) " +
+                                                    " ) " +
+                                                " ) " +
+                                            " ) AS PaidLeaveVal, " +
+                                            " IIF( " +
+                                                " AttStatus LIKE '*Full Day - Loss Of Pay*', " +
+                                                " 1, " +
+                                                " IIF( " +
+                                                    " AttStatus LIKE '*First Half - Loss Of Pay*' " +
+                                                    " AND AttStatus LIKE '*Second Half - Loss Of Pay*', " +
+                                                    " 1, " +
+                                                    " IIF( " +
+                                                        " AttStatus LIKE '*First Half - Loss Of Pay*', " +
+                                                        " 0.5, " +
+                                                        " IIF( " +
+                                                            " AttStatus LIKE '*Second Half - Loss Of Pay*', " +
+                                                            " 0.5, " +
+                                                            " 0 " +
+                                                        " ) " +
+                                                    " ) " +
+                                                " ) " +
+                                            " ) AS LOPVal " +
+                                        " FROM " +
+                                            " EmpDailyAttendanceInfo " +
+                                         " WHERE " +
+                                            " AttDate >= #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "# AND AttDate < #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "# " +
+                                            " AND EmpID = " + txtEmpID +
+                                    ") AS X;";
+
+                strQuery = "SELECT " +
+                                    "DateDiff(\"d\", #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "#, #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#) AS TotalDaysInMonth," +
+                                    "SUM(PresentVal) AS TotalPresent," +
+                                    "SUM(PaidLeaveVal) AS TotalPaidLeave," +
+                                    "SUM(LOPVal) AS TotalLossOfPay," +
+                                    "(DateDiff(\"d\", #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "#, #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#)) - SUM(LOPVal) AS TotalPayableDays" +
+                                " FROM " +
+                                    "(SELECT " +
+                                            "AttDate, " +
+                                            "IIF(AttStatus = 'Present', 1, 0) AS PresentVal, " + 
+                                            "IIF(AttStatus LIKE '*Full Day*' AND AttStatus NOT LIKE '*Loss Of Pay', 1, " + 
+                                            "IIF(AttStatus LIKE '*First Half*' AND AttStatus LIKE '*Second Half*' AND AttStatus NOT LIKE '*Loss Of Pay', 1, " + 
+                                            "IIF(AttStatus LIKE '*First Half*' AND AttStatus NOT LIKE '*Loss Of Pay', 0.5, " + 
+                                            "IIF(AttStatus LIKE '*Second Half*' AND AttStatus NOT LIKE '*Loss Of Pay', 0.5, 0)))) AS PaidLeaveVal, " + 
+                                            "IIF(AttStatus LIKE '*Full Day - Loss Of Pay', 1, " + 
+                                            "IIF(AttStatus LIKE '*First Half - Loss Of Pay' AND AttStatus LIKE '*Second Half - Loss Of Pay', 1, " + 
+                                            "IIF(AttStatus LIKE '*First Half - Loss Of Pay', 0.5, " + 
+                                            "IIF(AttStatus LIKE '*Second Half - Loss Of Pay', 0.5, 0)))) AS LOPVal " + 
+                                        "FROM " + 
+                                            "EmpDailyAttendanceInfo " + 
+                                        "WHERE " + 
+                                            "AttDate >= #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "# AND AttDate <#" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "# AND EmpID = " + txtEmpID + ")" +
+                                        " AS X;";
+
+                strQuery = "SELECT " + 
+                                " DateDiff(\"d\", #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "#, #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#) AS TotalDaysInMonth, " +
+                                " SUM(IIF(AttStatus = 'Present', 1, 0)) AS TotalPresent, " +
+                                " ( " + 
+                                    " SUM( " + 
+                                        " IIF( " + 
+                                            " InStr (1, AttStatus, 'Full Day') > 0 " + 
+                                            " AND InStr (1, AttStatus, 'Loss Of Pay') = 0, " + 
+                                            " 1, " + 
+                                            " 0 " + 
+                                        " ) " + 
+                                    " ) + " +
+                                    " SUM( " + 
+                                        " IIF( " + 
+                                            " InStr (1, AttStatus, 'First Half') > 0 " + 
+                                            " AND InStr (1, AttStatus, 'Second Half') = 0 " + 
+                                            " AND InStr (1, AttStatus, 'Loss Of Pay') = 0, " + 
+                                            " 0.5, " + 
+                                            " 0 " + 
+                                        " ) " + 
+                                    " ) + " + 
+                                    " SUM( " + 
+                                        " IIF( " + 
+                                            " InStr (1, AttStatus, 'Second Half') > 0 " +
+                                            " AND InStr (1, AttStatus, 'First Half') = 0 " + 
+                                            " AND InStr (1, AttStatus, 'Loss Of Pay') = 0, " + 
+                                            " 0.5, " + 
+                                            " 0 " + 
+                                        " ) " +
+                                    " ) + " +
+                                    " SUM( " + 
+                                        " IIF( " + 
+                                            " InStr (1, AttStatus, 'First Half') > 0 " + 
+                                            " AND InStr (1, AttStatus, 'Second Half') > 0 " + 
+                                            " AND InStr (1, AttStatus, 'Loss Of Pay') = 0, " + 
+                                            " 1, " + 
+                                            " 0 " + 
+                                        " ) " + 
+                                    " ) " + 
+                                " ) AS TotalPaidLeave, " + 
+                                " ( " + 
+                                    " SUM( " + 
+                                        " IIF( " + 
+                                            " InStr (1, AttStatus, 'Full Day - Loss Of Pay') > 0, " + 
+                                            " 1, " + 
+                                            " 0 " + 
+                                        " ) " + 
+                                    " ) + " +
+                                " SUM( " + 
+                                        " IIF( " + 
+                                            " InStr (1, AttStatus, 'First Half - Loss Of Pay') > 0 " + 
+                                            " AND InStr (1, AttStatus, 'Second Half - Loss Of Pay') = 0, " + 
+                                            " 0.5, " + 
+                                            " 0 " + 
+                                        " ) " + 
+                                    " ) + " +
+                                " SUM( " + 
+                                        " IIF( " + 
+                                            " InStr (1, AttStatus, 'Second Half - Loss Of Pay') > 0 " + 
+                                            " AND InStr (1, AttStatus, 'First Half - Loss Of Pay') = 0, " + 
+                                            " 0.5, " + 
+                                            " 0 " + 
+                                        " ) " + 
+                                    " ) + " +
+                                " SUM( " + 
+                                        " IIF( " + 
+                                            " InStr (1, AttStatus, 'First Half - Loss Of Pay') > 0 " + 
+                                            " AND InStr (1, AttStatus, 'Second Half - Loss Of Pay') > 0, " + 
+                                            " 1, " + 
+                                            " 0 " + 
+                                        " ) " + 
+                                    " ) " + 
+                                " ) AS TotalLossOfPay, " + 
+                                " DateDiff(\"d\", #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "#, #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#) - " +
+                                " ( " +
+                                    " SUM( " +
+                                        " IIF( " +
+                                            " InStr (1, AttStatus, 'Full Day - Loss Of Pay') > 0, " +
+                                            " 1, " +
+                                            " 0 " +
+                                        " ) " +
+                                    " ) + " +
+                                    " SUM( " +
+                                        " IIF( " +
+                                            " InStr (1, AttStatus, 'First Half - Loss Of Pay') > 0 " +
+                                            " AND InStr (1, AttStatus, 'Second Half - Loss Of Pay') = 0, " +
+                                            " 0.5, " +
+                                            " 0 " +
+                                        " ) " +
+                                    " ) + " +
+                                    "SUM( " +
+                                        " IIF( " +
+                                            " InStr (1, AttStatus, 'Second Half - Loss Of Pay') > 0 " +
+                                            " AND InStr (1, AttStatus, 'First Half - Loss Of Pay') = 0, " +
+                                            " 0.5, " +
+                                            " 0 " +
+                                        " ) " +
+                                    " ) + " +
+                                    "SUM( " +
+                                        " IIF( " +
+                                            " InStr (1, AttStatus, 'First Half - Loss Of Pay') > 0 " +
+                                            " AND InStr (1, AttStatus, 'Second Half - Loss Of Pay') > 0, " +
+                                            " 1, " +
+                                            " 0 " +
+                                        " ) " +
+                                    " ) " +
+                                " ) AS TotalPayableDays " +
+                            " FROM " +
+                                " EmpDailyAttendanceInfo " +
+                            " WHERE " +
+                                " AttDate >= #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "# AND AttDate <#" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "# AND EmpID = " + txtEmpID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeSpecificDailyAttendanceInfo = JsonConvert.DeserializeObject<List<EmployeeTotalWorkingInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            if (objEmployeeSpecificDailyAttendanceInfo.Count > 0)
+                return objEmployeeSpecificDailyAttendanceInfo[0];
+            else
+                return new EmployeeTotalWorkingInfo();
+        }
+
+        public EmployeeTotalWorkingInfo getTotalPresentDays(int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
+        {
+            List<EmployeeTotalWorkingInfo> objEmployeeSpecificDailyAttendanceInfo = new List<EmployeeTotalWorkingInfo>();
+
+            try
+            {
+                DataTable dt = new DataTable();
+
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        " SUM(IIF(AttStatus = 'Present', 1, 0)) AS TotalPresent " + 
+                                   " FROM " + 
+                                        " EmpDailyAttendanceInfo " + 
+                                   " WHERE " +
+                                        " AttDate >= #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "# AND AttDate < #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#" + 
+                                        " AND EmpID = " + txtEmpID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeSpecificDailyAttendanceInfo = JsonConvert.DeserializeObject<List<EmployeeTotalWorkingInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            if (objEmployeeSpecificDailyAttendanceInfo.Count > 0)
+                return objEmployeeSpecificDailyAttendanceInfo[0];
+            else
+                return new EmployeeTotalWorkingInfo();
+        }
+
+        public EmployeeTotalWorkingInfo getTotalLossOfPayDays(int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
+        {
+            List<EmployeeTotalWorkingInfo> objEmployeeSpecificDailyAttendanceInfo = new List<EmployeeTotalWorkingInfo>();
+
+            try
+            {
+                DataTable dt = new DataTable();
+
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        " SUM( " + 
+                                            " IIF(AttStatus LIKE '*Full Day - Loss Of Pay*', 1," +
+                                            " IIF(AttStatus LIKE '*First Half - Loss Of Pay*' AND AttStatus LIKE '*Second Half - Loss Of Pay*', 1," +
+                                            " IIF(AttStatus LIKE '*First Half - Loss Of Pay*', 0.5," +
+                                            " IIF(AttStatus LIKE '*Second Half - Loss Of Pay*', 0.5, 0 ))) " + 
+                                            " )" + 
+                                        " ) AS TotalLossOfPay " + 
+                                    " FROM " + 
+                                        " EmpDailyAttendanceInfo " + 
+                                   " WHERE " +
+                                        " AttDate >= #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "# AND AttDate < #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#" +
+                                        " AND EmpID = " + txtEmpID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeSpecificDailyAttendanceInfo = JsonConvert.DeserializeObject<List<EmployeeTotalWorkingInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            if (objEmployeeSpecificDailyAttendanceInfo.Count > 0)
+                return objEmployeeSpecificDailyAttendanceInfo[0];
+            else
+                return new EmployeeTotalWorkingInfo();
+        }
+
+        public EmployeeTotalWorkingInfo getTotalPaidLeave(int txtEmpID, DateTime dtSelectedDateFrom, DateTime dtSelectedDateTo)
+        {
+            List<EmployeeTotalWorkingInfo> objEmployeeSpecificDailyAttendanceInfo = new List<EmployeeTotalWorkingInfo>();
+
+            try
+            {
+                DataTable dt = new DataTable();
+
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " +
+                                        "SUM(IIF(InStr (1, AttStatus, 'Full Day') > 0 AND InStr (1, AttStatus, 'Loss Of Pay') = 0, 1,0)) + " +
+                                        "SUM(IIF(InStr (1, AttStatus, 'First Half') > 0 AND InStr (1, AttStatus, 'Second Half') = 0 AND InStr (1, AttStatus, 'Loss Of Pay') = 0, 0.5, 0)) + " +
+                                        "SUM(IIF(InStr (1, AttStatus, 'Second Half') > 0 AND InStr (1, AttStatus, 'First Half') = 0 AND InStr (1, AttStatus, 'Loss Of Pay') = 0, 0.5, 0)) + " +
+                                        "SUM(IIF(InStr (1, AttStatus, 'First Half') > 0 AND InStr (1, AttStatus, 'Second Half') > 0 AND InStr (1, AttStatus, 'Loss Of Pay') = 0, 1, 0)) AS TotalPaidLeave " +
+                                   " FROM EmpDailyAttendanceInfo " +
+                                   " WHERE " +
+                                        " AttDate >= #" + dtSelectedDateFrom.ToString("dd-MMM-yyyy") + "# AND AttDate < #" + dtSelectedDateTo.ToString("dd-MMM-yyyy") + "#" +
+                                        " AND EmpID = " + txtEmpID;
+
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;

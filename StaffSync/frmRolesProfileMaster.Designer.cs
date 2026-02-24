@@ -271,6 +271,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Role Profile Management";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmRolesProfileMaster_Activated);
             this.Load += new System.EventHandler(this.frmRolesProfileMaster_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmRolesProfileMaster_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

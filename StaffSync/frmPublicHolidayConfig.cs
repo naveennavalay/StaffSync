@@ -459,5 +459,10 @@ namespace StaffSync
             //    }
             //}
         }
+
+        private void frmPublicHolidayConfig_Activated(object sender, EventArgs e)
+        {
+            dtgConsolidatedAttendanceReport.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
     }
 }

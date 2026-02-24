@@ -183,5 +183,10 @@ namespace dbStaffSync
 
             return Response<int>.Success(rowCount);
         }
+
+        decimal RoundUp(decimal value)
+        {
+            return Math.Ceiling(value);
+        }
     }
 }

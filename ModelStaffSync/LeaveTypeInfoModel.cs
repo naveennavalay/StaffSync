@@ -24,4 +24,9 @@ namespace ModelStaffSync
         public bool IsDelete { get; set; }
         public int OrderID { get; set; }
     }
+
+    public class LeaveIsPaid
+    {
+        public bool IsPaid { get; set; }
+    }
 }

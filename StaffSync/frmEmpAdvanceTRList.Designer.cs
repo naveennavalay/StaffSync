@@ -54,6 +54,8 @@
             this.countryMasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.countryMasBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.qryCountryListTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.qryCountryListTableAdapter();
+            this.lblEmpID = new System.Windows.Forms.Label();
+            this.lblAdvanceID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -145,6 +147,8 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.panel2.Controls.Add(this.lblAdvanceID);
+            this.panel2.Controls.Add(this.lblEmpID);
             this.panel2.Controls.Add(this.lblFilterID);
             this.panel2.Controls.Add(this.lblSearchOptionClickedFor);
             this.panel2.Controls.Add(this.btnCloseMe);
@@ -262,6 +266,32 @@
             // 
             this.qryCountryListTableAdapter.ClearBeforeFill = true;
             // 
+            // lblEmpID
+            // 
+            this.lblEmpID.AutoSize = true;
+            this.lblEmpID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblEmpID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmpID.Location = new System.Drawing.Point(409, 20);
+            this.lblEmpID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblEmpID.Name = "lblEmpID";
+            this.lblEmpID.Size = new System.Drawing.Size(11, 15);
+            this.lblEmpID.TabIndex = 23;
+            this.lblEmpID.Text = " ";
+            this.lblEmpID.Visible = false;
+            // 
+            // lblAdvanceID
+            // 
+            this.lblAdvanceID.AutoSize = true;
+            this.lblAdvanceID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblAdvanceID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAdvanceID.Location = new System.Drawing.Point(464, 20);
+            this.lblAdvanceID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAdvanceID.Name = "lblAdvanceID";
+            this.lblAdvanceID.Size = new System.Drawing.Size(11, 15);
+            this.lblAdvanceID.TabIndex = 24;
+            this.lblAdvanceID.Text = " ";
+            this.lblAdvanceID.Visible = false;
+            // 
             // frmEmpAdvanceTRList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -278,6 +308,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Advance Type List";
+            this.Activated += new System.EventHandler(this.frmEmpAdvanceTRList_Activated);
             this.Load += new System.EventHandler(this.frmEmpAdvanceTRList_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.frmEmpAdvanceTRList_KeyUp);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -329,5 +360,7 @@
         private Krypton.Toolkit.KryptonDataGridView dtgAdvanceList;
         public System.Windows.Forms.Label lblSearchOptionClickedFor;
         public System.Windows.Forms.Label lblFilterID;
+        public System.Windows.Forms.Label lblAdvanceID;
+        public System.Windows.Forms.Label lblEmpID;
     }
 }

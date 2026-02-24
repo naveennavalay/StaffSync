@@ -353,6 +353,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Payroll Batch Process";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmPayrollBatchProcess_Activated);
             this.Load += new System.EventHandler(this.frmPayrollBatchProcess_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmPayrollBatchProcess_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

@@ -251,6 +251,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Weekly Off Profile List";
+            this.Activated += new System.EventHandler(this.frmWeeklyProfileMasterList_Activated);
             this.Load += new System.EventHandler(this.frmWeeklyProfileMasterList_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.frmWeeklyProfileMasterList_KeyUp);
             this.splitContainer1.Panel1.ResumeLayout(false);

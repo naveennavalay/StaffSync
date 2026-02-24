@@ -1,10 +1,12 @@
-﻿using System;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
+using System.ComponentModel;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
-using System.ComponentModel;
 
 namespace dbStaffSync
 {
@@ -135,7 +137,63 @@ namespace dbStaffSync
             return selectedAllowenceID;
         }
 
-        public int InsertAllowence(string txtAllCode, string txtAllTitle, string txtAllDescription, bool IsFixed, bool IsActive, bool IsDeleted)
+        public AllowenceModel getSelectedAllowenceInfo(int txtAllowenceID)
+        {
+            List<AllowenceModel> objAllowenceModelInfo = new List<AllowenceModel>();
+
+            try
+            {
+                DataTable dt = new DataTable();
+
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        " AllowanceHeaderMas.AllID, " + 
+                                        " AllowanceHeaderMas.AllCode, " + 
+                                        " AllowanceHeaderMas.AllTitle, " + 
+                                        " AllowanceHeaderMas.AllDescription, " + 
+                                        " AllowanceHeaderMas.IsActive, " + 
+                                        " AllowanceHeaderMas.IsDeleted, " + 
+                                        " AllowanceHeaderMas.OrderID, " + 
+                                        " AllowanceHeaderMas.CalcFormula, " + 
+                                        " AllowanceHeaderMas.IsFixed, " + 
+                                        " AllowanceHeaderMas.MaxCap, " + 
+                                        " AllowanceHeaderMas.VisibleInPayslip, " + 
+                                        " AllowanceHeaderMas.ProrataBasis " + 
+                                    " FROM " + 
+                                        " AllowanceHeaderMas " + 
+                                    " WHERE " + 
+                                        " AllowanceHeaderMas.AllID = " + txtAllowenceID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objAllowenceModelInfo = JsonConvert.DeserializeObject<List<AllowenceModel>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            if (objAllowenceModelInfo.Count > 0)
+                return objAllowenceModelInfo[0];
+            else
+                return new AllowenceModel();
+        }
+
+        public int InsertAllowence(string txtAllCode, string txtAllTitle, string txtAllDescription, bool IsFixed, bool IsActive, bool IsDeleted, decimal txtMaxCap, bool ShowInPayslip, bool ConsiderProrataBasis)
         {
             int affectedRows = 0;
             try
@@ -146,8 +204,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO AllowanceHeaderMas (AllID, AllCode, AllTitle, AllDescription, IsFixed, IsActive, IsDeleted, OrderID, CalcFormula) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + "ALL-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtAllTitle.Trim() + "','" + txtAllDescription.Trim() + "'," + IsFixed  + "," + IsActive + "," + IsDeleted + "," + maxRowCount.Data + ",'')";
+                string strQuery = "INSERT INTO AllowanceHeaderMas (AllID, AllCode, AllTitle, AllDescription, IsFixed, IsActive, IsDeleted, OrderID, CalcFormula, MaxCap, VisibleInPayslip, ProrataBasis) VALUES " +
+                 "(" + maxRowCount.Data + ",'" + "ALL-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtAllTitle.Trim() + "','" + txtAllDescription.Trim() + "'," + IsFixed  + "," + IsActive + "," + IsDeleted + "," + maxRowCount.Data + ",''," + txtMaxCap + ", " + ShowInPayslip + ", " + ConsiderProrataBasis + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -167,7 +225,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpdateAllowence(int txtAllID, string txtAllCode, string txtAllTitle, string txtAllDescription, bool IsFixed, bool IsActive, bool IsDeleted)
+        public int UpdateAllowence(int txtAllID, string txtAllCode, string txtAllTitle, string txtAllDescription, bool IsFixed, bool IsActive, bool IsDeleted, decimal txtMaxCap, bool ShowInPayslip, bool ConsiderProrataBasis)
         {
             int affectedRows = 0;
             try
@@ -176,7 +234,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE AllowanceHeaderMas SET " +
-                 "AllCode = '" + txtAllCode.Trim() + "', AllTitle = '" + txtAllTitle.Trim() + "', AllDescription = '" + txtAllDescription.Trim() + "', IsFixed = " + IsFixed + ", IsActive = " + IsActive +
+                 "AllCode = '" + txtAllCode.Trim() + "', AllTitle = '" + txtAllTitle.Trim() + "', AllDescription = '" + txtAllDescription.Trim() + "', IsFixed = " + IsFixed + ", IsActive = " + IsActive + ", MaxCap = " + txtMaxCap  + ", VisibleInPayslip = " + ShowInPayslip + ", ProrataBasis = " + ConsiderProrataBasis +  
                  " WHERE AllID = " + txtAllID.ToString().Trim();
 
                 OleDbCommand cmd = conn.CreateCommand();

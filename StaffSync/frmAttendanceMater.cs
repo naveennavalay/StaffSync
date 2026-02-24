@@ -253,7 +253,7 @@ namespace StaffSync
                     if (strDayAttendance.Contains("First") || strDayAttendance.Contains("Second"))
                     {
                         strDayAttendance = "Leave";
-                        empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.LightYellow, 1f);
+                        empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.LightYellow, -0.5f);
                         SecondHalfLeaveCounter = SecondHalfLeaveCounter + 1;
                     }
                     else
@@ -267,6 +267,36 @@ namespace StaffSync
                 {
                     strDayAttendance = "Leave";
                     empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.LightYellow, 1f);
+                    LeaveCounter = LeaveCounter + 1;
+                }
+                else if (indEmployeeAttendanceInfo.AttStatus == "Leave : First Half, Leave : Second Half" || indEmployeeAttendanceInfo.AttStatus == "Leave : Second Half, Leave : First Half")
+                {
+                    strDayAttendance = "Leave";
+                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.LightYellow, 1f);
+                    LeaveCounter = LeaveCounter + 1;
+                }
+                else if (indEmployeeAttendanceInfo.AttStatus == "Leave : Full Day - Loss Of Pay")
+                {
+                    strDayAttendance = "Leave (LOP)";
+                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.PaleVioletRed, 1f);
+                    LeaveCounter = LeaveCounter + 1;
+                }
+                else if (indEmployeeAttendanceInfo.AttStatus == "Leave : First Half - Loss Of Pay")
+                {
+                    strDayAttendance = "Leave (LOP)";
+                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.PaleVioletRed, 0.5f);
+                    LeaveCounter = LeaveCounter + 1;
+                }
+                else if (indEmployeeAttendanceInfo.AttStatus == "Leave : Second Half - Loss Of Pay")
+                {
+                    strDayAttendance = "Leave (LOP)";
+                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.PaleVioletRed, -0.5f);
+                    LeaveCounter = LeaveCounter + 1;
+                }
+                else if (indEmployeeAttendanceInfo.AttStatus == "Leave : First Half - Loss Of Pay, Leave : Second Half - Loss Of Pay" || indEmployeeAttendanceInfo.AttStatus == "Leave : Second Half - Loss Of Pay, Leave : First Half - Loss Of Pay")
+                {
+                    strDayAttendance = "Leave (LOP)";
+                    empAttCalender.SetDayStyle(new DateTime(indEmployeeAttendanceInfo.AttDate.Year, indEmployeeAttendanceInfo.AttDate.Month, indEmployeeAttendanceInfo.AttDate.Day), strDayAttendance, System.Drawing.Color.PaleVioletRed, 1f);
                     LeaveCounter = LeaveCounter + 1;
                 }
             }

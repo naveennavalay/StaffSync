@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 //using static C1.Util.Win.Win32;
 
@@ -22,7 +23,6 @@ namespace dbStaffSync
         OleDbConnection conn = null;
         DataSet dtDataset = null;
         clsGenFunc objGenFunc = new clsGenFunc();
-
 
         public SpecificEmployeeSalaryInfo getSpecificEmployeeSalaryInfo(int txtEmpID)
         {
@@ -41,11 +41,12 @@ namespace dbStaffSync
                                         " TotalReimbursement, " + 
                                         " NetPayable, " + 
                                         " OrderID, " + 
-                                        " EmpID " + 
+                                        " EmpID, " +
+                                        " StructureEntry " +
                                     " FROM " + 
                                         " EmpSalMas " + 
-                                    " WHERE " + 
-                                        " EmpID = " + txtEmpID +  
+                                    " WHERE " +
+                                        " EmpSalMas.StructureEntry = true AND EmpID = " + txtEmpID +  
                                     " ORDER BY " +
                                         " EmpSalMas.OrderID DESC;";
 
@@ -76,6 +77,200 @@ namespace dbStaffSync
             else
                 return objSpecificEmployeeSalaryInfoList[0];
         }
+
+        public int getEmployeeSalaryConfigStructure(int txtEmpID)
+        {
+            int intSalaryConfigStructureID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+                DataTable dt = new DataTable();
+
+                string strQuery = "SELECT " + 
+                                        " TOP 1 EmpSalMas.EmpSalID " + 
+                                    " FROM " + 
+                                        " EmpSalMas " + 
+                                    " WHERE " + 
+                                        " EmpSalMas.EmpID = " + txtEmpID + 
+                                    " ORDER BY " +
+                                        " EmpSalMas.EmpSalID DESC;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                object a = cmd.ExecuteScalar();
+                if (a != null)
+                    intSalaryConfigStructureID = (int)a;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return intSalaryConfigStructureID;
+        }
+
+        public decimal getOriginalSalaryActualAmount(int txtEmpID, int txtSalHeaderID, string txtHeaderType)
+        {
+            decimal SalHeaderAmount = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+                DataTable dt = new DataTable();
+
+                string strQuery = "SELECT " + 
+                                        " TOP 1 EmpSalDetails.AllowanceAmount " + 
+                                    " FROM " + 
+                                        " EmpSalMas " + 
+                                        " INNER JOIN EmpSalDetails ON EmpSalMas.EmpSalID = EmpSalDetails.EmpSalID " + 
+                                    " WHERE " + 
+                                        " ( " + 
+                                            " ((EmpSalDetails.SalHeaderID) = " + txtSalHeaderID + ") " +
+                                            " AND ((EmpSalDetails.SalHeaderType) = '" + txtHeaderType + "') " +
+                                            " AND ((EmpSalMas.EmpID) = " + txtEmpID + " ) " + 
+                                            " AND ((EmpSalMas.StructureEntry) = True) " + 
+                                        " ) " + 
+                                    " ORDER BY " + 
+                                        " EmpSalMas.OrderID DESC;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                object a = cmd.ExecuteScalar();
+                if (a != null)
+                    SalHeaderAmount = (decimal)a;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return SalHeaderAmount;
+        }
+
+        public List<SalaryProfileInfo> getEmployeeSpecificSalaryConfigStructure(int txtEmpID, int txtEmpSalID)
+        {
+            List<SalaryProfileInfo> objSalaryProfileInfo = new List<SalaryProfileInfo>();
+            List<SalaryProfileInfo> objReturnSalaryProfileInfoList = new List<SalaryProfileInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        " EmpSalDetails.EmpSalDetID, " + 
+                                        " EmpSalDetails.SalProDetID, " + 
+                                        " EmpSalDetails.EmpSalID AS SalProfileID, " + 
+                                        " EmpSalDetails.SalHeaderID AS HeaderID, " + 
+                                        " EmpSalDetails.SalHeaderTitle AS HeaderTitle, " + 
+                                        " EmpSalDetails.SalHeaderType AS HeaderType, " + 
+                                        " EmpSalDetails.CalcFormula, " +
+                                        " EmpSalDetails.AllowanceAmount AS ActualAmount, " +
+                                        " EmpSalDetails.AllowanceAmount, " + 
+                                        " EmpSalDetails.DeductionAmount, " + 
+                                        " EmpSalDetails.ReimbursmentAmount, " + 
+                                        " EmpSalDetails.OrderID " + 
+                                    " FROM " +
+                                        " EmpSalDetails " +
+                                    " WHERE " +
+                                        " EmpSalDetails.EmpSalID = " + txtEmpSalID +
+                                    " ORDER BY " + 
+                                        "EmpSalDetails.EmpSalDetID, EmpSalDetails.OrderID;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objSalaryProfileInfo = JsonConvert.DeserializeObject<List<SalaryProfileInfo>>(DataTableToJSon);
+                foreach (SalaryProfileInfo indSalaryProfileInfo in objSalaryProfileInfo)
+                {
+                    objReturnSalaryProfileInfoList.Add(new SalaryProfileInfo
+                    {
+                        EmpSalDetID = indSalaryProfileInfo.EmpSalDetID,
+                        SalProDetID = indSalaryProfileInfo.SalProDetID,
+                        SalProfileID = indSalaryProfileInfo.SalProfileID,
+                        HeaderID = indSalaryProfileInfo.HeaderID,
+                        HeaderTitle = indSalaryProfileInfo.HeaderTitle,
+                        HeaderType = indSalaryProfileInfo.HeaderType,
+                        CalcFormula = indSalaryProfileInfo.CalcFormula,
+                        ActualAmount = getOriginalSalaryActualAmount(txtEmpID, indSalaryProfileInfo.HeaderID, indSalaryProfileInfo.HeaderType),
+                        AllowanceAmount = indSalaryProfileInfo.AllowanceAmount,
+                        DeductionAmount = indSalaryProfileInfo.DeductionAmount,
+                        ReimbursmentAmount = indSalaryProfileInfo.ReimbursmentAmount,
+                        OrderID = indSalaryProfileInfo.OrderID
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return objReturnSalaryProfileInfoList;
+        }
+
+        public int getEmployeeSalaryConfigStructureInfo(int txtEmpID)
+        {
+            int intSalaryConfigStructureID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+                DataTable dt = new DataTable();
+
+                string strQuery = "SELECT " +
+                                        " TOP 1 EmpSalMas.EmpSalID " +
+                                    " FROM " +
+                                        " EmpSalMas " +
+                                    " WHERE " +
+                                        " EmpSalMas.EmpID = " + txtEmpID +
+                                    " ORDER BY " +
+                                        " EmpSalMas.EmpSalID DESC;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                object a = cmd.ExecuteScalar();
+                if (a != null)
+                    intSalaryConfigStructureID = (int)a;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return intSalaryConfigStructureID;
+        }
+
+
 
         public SpecificEmployeeSalaryProfileInfo getEmployeeSpecificSalaryProfile(int txtEmpID)
         {
@@ -438,7 +633,7 @@ namespace dbStaffSync
                                         "AND ((AllowanceHeaderMas.IsDeleted) = False) " +
                                     ") " +
                                 "ORDER BY " +
-                                    "AllowanceHeaderMas.OrderID";
+                                    " SalProfileDetails.SalProDetID, AllowanceHeaderMas.OrderID;";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -469,8 +664,8 @@ namespace dbStaffSync
                                     " ((AllowanceHeaderMas.IsActive) = True) " +
                                     " AND ((AllowanceHeaderMas.IsDeleted) = False) " +
                                 ") " +
-                            "ORDER BY " +
-                                "OrderID";
+                            " " +
+                                "";
                     cmd = conn.CreateCommand();
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = strQuery;
@@ -519,7 +714,7 @@ namespace dbStaffSync
                                     "AND ((DeductionHeaderMas.IsDeleted) = False) " +
                                 ") " +
                             "ORDER BY " +
-                                "DeductionHeaderMas.OrderID";
+                                " SalProfileDetails.SalProDetID, DeductionHeaderMas.OrderID";
 
                 cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -553,7 +748,7 @@ namespace dbStaffSync
                                         "AND ((DeductionHeaderMas.IsDeleted) = False)  " +
                                     ") " +
                                 "ORDER BY " +
-                                    "DeductionHeaderMas.OrderID;";
+                                    " DeductionHeaderMas.OrderID;";
 
                     cmd = conn.CreateCommand();
                     cmd.CommandType = CommandType.Text;
@@ -606,7 +801,7 @@ namespace dbStaffSync
                                 "AND ((ReimbursementHeaderMas.IsDeleted) = False) " +
                             ") " +
                         "ORDER BY " +
-                            "ReimbursementHeaderMas.OrderID; ";
+                            " SalProfileDetails.SalProDetID, ReimbursementHeaderMas.OrderID; ";
 
                 cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

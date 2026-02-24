@@ -245,6 +245,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Adavnce Request List";
+            this.Activated += new System.EventHandler(this.frmAdvanceApprovalList_Activated);
             this.Load += new System.EventHandler(this.frmAdvanceApprovalList_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmAdvanceApprovalList_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);

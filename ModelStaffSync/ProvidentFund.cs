@@ -28,5 +28,6 @@ namespace ModelStaffSync
         public int ClientID { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public decimal MaxPFAmount { get; set; }
     }
 }

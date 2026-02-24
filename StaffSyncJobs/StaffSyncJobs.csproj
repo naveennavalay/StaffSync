@@ -76,6 +76,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{bf74c7dc-c97c-4510-9a19-f6f3dd8aaa71}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DALStaffSync\DALStaffSync.csproj">
       <Project>{3dbf3bc3-0d0f-4463-9f55-c1d60c3ffce6}</Project>
       <Name>DALStaffSync</Name>

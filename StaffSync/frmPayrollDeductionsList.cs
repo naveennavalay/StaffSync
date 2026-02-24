@@ -45,6 +45,10 @@ namespace StaffSync
             dtgDeductionsList.Columns["IsDeleted"].Visible = false;
             dtgDeductionsList.Columns["OrderID"].Visible = false;
             dtgDeductionsList.Columns["CalcFormula"].Visible = false;
+            dtgDeductionsList.Columns["MaxCap"].Visible = false;
+            dtgDeductionsList.Columns["IsFixed"].Visible = false;
+            dtgDeductionsList.Columns["VisibleInPayslip"].Visible = false;
+            dtgDeductionsList.Columns["ProrataBasis"].Visible = false;
         }
 
 
@@ -76,12 +80,20 @@ namespace StaffSync
             objDeductionModel.DedDescription = dtgDeductionsList.SelectedRows[0].Cells["DedDescription"].Value.ToString();
             objDeductionModel.IsFixed = Convert.ToBoolean(dtgDeductionsList.SelectedRows[0].Cells["IsFixed"].Value);
             objDeductionModel.IsActive = Convert.ToBoolean(dtgDeductionsList.SelectedRows[0].Cells["IsActive"].Value);
+            objDeductionModel.MaxCap = Convert.ToDecimal(dtgDeductionsList.SelectedRows[0].Cells["MaxCap"].Value);
+            objDeductionModel.VisibleInPayslip = Convert.ToBoolean(dtgDeductionsList.SelectedRows[0].Cells["VisibleInPayslip"].Value);
+            objDeductionModel.ProrataBasis = Convert.ToBoolean(dtgDeductionsList.SelectedRows[0].Cells["ProrataBasis"].Value);
 
             if (this.frmPayrollDeduction.lblActionMode.Text == "remove")
                 this.frmPayrollDeduction.lblActionMode.Text = "delete";
 
             this.frmPayrollDeduction.displaySelectedValuesOnUI(objDeductionModel);
             this.Close();
+        }
+
+        private void frmPayrollDeductionsList_Activated(object sender, EventArgs e)
+        {
+            //dtgDeductionsList.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
         }
     }
 }

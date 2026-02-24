@@ -28,6 +28,20 @@ namespace DALStaffSync
 
             return specificEmployeeSalaryInfo;
         }
+        public int getEmployeeSalaryConfigStructure(int txtEmpID)
+        {
+            return objSalaryProfile.getEmployeeSalaryConfigStructure(txtEmpID);
+        }
+
+        public List<SalaryProfileInfo> getEmployeeSpecificSalaryConfigStructure(int txtEmpID, int txtEmpSalID)
+        {
+            return objSalaryProfile.getEmployeeSpecificSalaryConfigStructure(txtEmpID, txtEmpSalID);
+        }
+
+        public decimal getOriginalSalaryActualAmount(int txtEmpID, int txtSalHeaderID, string txtHeaderType)
+        {
+            return objSalaryProfile.getOriginalSalaryActualAmount(txtEmpID, txtSalHeaderID, txtHeaderType);
+        }
 
         public SpecificEmployeeSalaryProfileInfo getEmployeeSpecificSalaryProfile(int txtEmpID)
         {

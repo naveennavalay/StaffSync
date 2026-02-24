@@ -33,6 +33,7 @@ namespace StaffSync
         frmEmpLeaveEntitlement frmEmpLeaveEntitlement = null;
         frmLeaveStatements frmLeaveStatements = null;
         frmEmpAdvanceRequest frmEmpAdvancRequest = null;
+        frmPayrollConfiguration frmPayrollConfiguration = null;
         DALStaffSync.clsLeaveTRList objLeaveInfo = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsUserManagement objUsersInfo = new DALStaffSync.clsUserManagement();
         DALStaffSync.clsRolesAndResponsibilities objRolesAndResponsibilities = new DALStaffSync.clsRolesAndResponsibilities();
@@ -158,6 +159,13 @@ namespace StaffSync
         {
             InitializeComponent();
             this.frmEmpAdvancRequest = frmEmpAdvanceRequest;
+            lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+        }
+
+        public frmEmployeeList(frmPayrollConfiguration frmPayrollConfig, string SearchOptionClickedFor)
+        {
+            InitializeComponent();
+            this.frmPayrollConfiguration = frmPayrollConfig;
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
         }
 
@@ -491,6 +499,20 @@ namespace StaffSync
                 dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+                dtgEmployeeList.Columns["StateID"].Visible = false;
+                dtgEmployeeList.Columns["SexID"].Visible = false;
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listPayrollConfigUsersList")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
             }
         }
 
@@ -581,6 +603,10 @@ namespace StaffSync
             {
                 this.frmEmpAdvancRequest.SelectedEmployeeID("listAdvanceRequestToUsers", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
             }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listPayrollConfigUsersList")
+            {
+                this.frmPayrollConfiguration.SelectedEmployeeID("listPayrollConfigUsersList", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+            }
 
             this.Close();
         }
@@ -613,6 +639,11 @@ namespace StaffSync
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void frmEmployeeList_Activated(object sender, EventArgs e)
+        {
+            dtgEmployeeList.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
         }
     }
 }

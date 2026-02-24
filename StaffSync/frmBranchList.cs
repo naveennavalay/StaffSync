@@ -158,5 +158,10 @@ namespace StaffSync
             this.frmBranchInfo.displaySelectedValuesOnUI(objClientBranchInfo);
             this.Close();
         }
+
+        private void frmBranchList_Activated(object sender, EventArgs e)
+        {
+            dtgCompanyList.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
     }
 }

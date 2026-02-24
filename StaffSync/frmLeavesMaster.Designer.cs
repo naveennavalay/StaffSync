@@ -66,6 +66,7 @@
             this.cmLeaveCancel = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tlbCancelLeave = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnAttCalender = new Krypton.Toolkit.KryptonButton();
             this.chkAllowBackDate = new Krypton.Toolkit.KryptonCheckBox();
             this.picViewLeaves = new System.Windows.Forms.PictureBox();
             this.txtLeaveNote = new System.Windows.Forms.TextBox();
@@ -91,7 +92,7 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnAttCalender = new Krypton.Toolkit.KryptonButton();
+            this.lblLeaveIsPaid = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -332,6 +333,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblLeaveIsPaid);
             this.groupBox2.Controls.Add(this.lblSpecificLeaveBalance);
             this.groupBox2.Controls.Add(this.lblLeaveMasID);
             this.groupBox2.Controls.Add(this.lblCancelStatus);
@@ -565,6 +567,19 @@
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Leave Request";
+            // 
+            // btnAttCalender
+            // 
+            this.btnAttCalender.Location = new System.Drawing.Point(758, 31);
+            this.btnAttCalender.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAttCalender.Name = "btnAttCalender";
+            this.btnAttCalender.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnAttCalender.Size = new System.Drawing.Size(30, 28);
+            this.btnAttCalender.TabIndex = 51;
+            this.btnAttCalender.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnAttCalender.Values.Image = global::StaffSync.Properties.Resources.attendance;
+            this.btnAttCalender.Values.Text = "";
+            this.btnAttCalender.Click += new System.EventHandler(this.btnAttCalender_Click);
             // 
             // chkAllowBackDate
             // 
@@ -868,18 +883,18 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
-            // btnAttCalender
+            // lblLeaveIsPaid
             // 
-            this.btnAttCalender.Location = new System.Drawing.Point(758, 31);
-            this.btnAttCalender.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAttCalender.Name = "btnAttCalender";
-            this.btnAttCalender.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnAttCalender.Size = new System.Drawing.Size(30, 28);
-            this.btnAttCalender.TabIndex = 51;
-            this.btnAttCalender.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnAttCalender.Values.Image = global::StaffSync.Properties.Resources.attendance;
-            this.btnAttCalender.Values.Text = "";
-            this.btnAttCalender.Click += new System.EventHandler(this.btnAttCalender_Click);
+            this.lblLeaveIsPaid.AutoSize = true;
+            this.lblLeaveIsPaid.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblLeaveIsPaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLeaveIsPaid.Location = new System.Drawing.Point(755, 27);
+            this.lblLeaveIsPaid.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblLeaveIsPaid.Name = "lblLeaveIsPaid";
+            this.lblLeaveIsPaid.Size = new System.Drawing.Size(11, 15);
+            this.lblLeaveIsPaid.TabIndex = 51;
+            this.lblLeaveIsPaid.Text = " ";
+            this.lblLeaveIsPaid.Visible = false;
             // 
             // frmLeavesMaster
             // 
@@ -987,5 +1002,6 @@
         private Krypton.Toolkit.KryptonCheckBox chkAllowBackDate;
         private System.Windows.Forms.ColumnHeader LeaveMode;
         private Krypton.Toolkit.KryptonButton btnAttCalender;
+        public System.Windows.Forms.Label lblLeaveIsPaid;
     }
 }
