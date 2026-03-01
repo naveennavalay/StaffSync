@@ -44,6 +44,9 @@
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.empMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.empMasTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasTableAdapter();
+            this.lblClientID = new System.Windows.Forms.Label();
+            this.lblFinYearID = new System.Windows.Forms.Label();
+            this.lblFilterDate = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -78,6 +81,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.panel1.Controls.Add(this.lblFilterDate);
+            this.panel1.Controls.Add(this.lblFinYearID);
+            this.panel1.Controls.Add(this.lblClientID);
             this.panel1.Controls.Add(this.dtgEmployeeList);
             this.panel1.Controls.Add(this.lblSearchOptionClickedFor);
             this.panel1.Controls.Add(this.txtSearch);
@@ -192,6 +198,45 @@
             // 
             this.empMasTableAdapter.ClearBeforeFill = true;
             // 
+            // lblClientID
+            // 
+            this.lblClientID.AutoSize = true;
+            this.lblClientID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblClientID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClientID.Location = new System.Drawing.Point(654, 31);
+            this.lblClientID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblClientID.Name = "lblClientID";
+            this.lblClientID.Size = new System.Drawing.Size(11, 15);
+            this.lblClientID.TabIndex = 10;
+            this.lblClientID.Text = " ";
+            this.lblClientID.Visible = false;
+            // 
+            // lblFinYearID
+            // 
+            this.lblFinYearID.AutoSize = true;
+            this.lblFinYearID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblFinYearID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFinYearID.Location = new System.Drawing.Point(690, 31);
+            this.lblFinYearID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblFinYearID.Name = "lblFinYearID";
+            this.lblFinYearID.Size = new System.Drawing.Size(11, 15);
+            this.lblFinYearID.TabIndex = 11;
+            this.lblFinYearID.Text = " ";
+            this.lblFinYearID.Visible = false;
+            // 
+            // lblFilterDate
+            // 
+            this.lblFilterDate.AutoSize = true;
+            this.lblFilterDate.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblFilterDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilterDate.Location = new System.Drawing.Point(761, 31);
+            this.lblFilterDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblFilterDate.Name = "lblFilterDate";
+            this.lblFilterDate.Size = new System.Drawing.Size(11, 15);
+            this.lblFilterDate.TabIndex = 12;
+            this.lblFilterDate.Text = " ";
+            this.lblFilterDate.Visible = false;
+            // 
             // frmEmployeeList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -242,5 +287,8 @@
         private System.Windows.Forms.BindingSource empMasInfoBindingSource1;
         private Krypton.Toolkit.KryptonButton btnCloseMe;
         private Krypton.Toolkit.KryptonDataGridView dtgEmployeeList;
+        public System.Windows.Forms.Label lblFinYearID;
+        public System.Windows.Forms.Label lblClientID;
+        public System.Windows.Forms.Label lblFilterDate;
     }
 }

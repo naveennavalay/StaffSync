@@ -36,7 +36,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chkAllowBackDated = new Krypton.Toolkit.KryptonCheckBox();
             this.picViewLeaves = new Krypton.Toolkit.KryptonButton();
-            this.empAttCalender = new StaffSync.Calender();
             this.cmbMonthNameList = new Krypton.Toolkit.KryptonComboBox();
             this.label50 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -62,6 +61,7 @@
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.empAttCalender = new StaffSync.Calender();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -77,7 +77,6 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
@@ -160,54 +159,6 @@
             this.picViewLeaves.Values.Image = global::StaffSync.Properties.Resources.search;
             this.picViewLeaves.Values.Text = "";
             this.picViewLeaves.Click += new System.EventHandler(this.picViewLeaves_Click);
-            // 
-            // empAttCalender
-            // 
-            this.empAttCalender.AllowFutureDates = false;
-            this.empAttCalender.AllowMultiSelect = false;
-            this.empAttCalender.AllowPreviousDates = false;
-            this.empAttCalender.CustomTextColor = System.Drawing.Color.Black;
-            this.empAttCalender.CustomTextFontBold = true;
-            this.empAttCalender.CustomTextFontFamily = "Segoe UI";
-            this.empAttCalender.CustomTextFontItalic = false;
-            this.empAttCalender.CustomTextFontSize = 12F;
-            this.empAttCalender.DateFormat = "MMMM yyyy";
-            this.empAttCalender.DayHeaderBackColor = System.Drawing.SystemColors.ControlText;
-            this.empAttCalender.DayHeaderFontBold = true;
-            this.empAttCalender.DayHeaderFontItalic = false;
-            this.empAttCalender.DayHeaderFontSize = 12F;
-            this.empAttCalender.DayHeaderForeColor = System.Drawing.Color.LimeGreen;
-            this.empAttCalender.DayNameFormat = StaffSync.DayNameFormat.Short;
-            this.empAttCalender.DayNumberAlignment = StaffSync.DateAlignment.TopLeft;
-            this.empAttCalender.DayNumberColor = System.Drawing.Color.Black;
-            this.empAttCalender.DayNumberFontBold = true;
-            this.empAttCalender.DayNumberFontFamily = "Segoe UI";
-            this.empAttCalender.DayNumberFontItalic = false;
-            this.empAttCalender.DayNumberFontSize = 12F;
-            this.empAttCalender.DisplayMonth = new System.DateTime(2025, 11, 12, 0, 0, 0, 0);
-            this.empAttCalender.HeaderBackColor = System.Drawing.SystemColors.ControlText;
-            this.empAttCalender.HeaderFontBold = true;
-            this.empAttCalender.HeaderFontItalic = false;
-            this.empAttCalender.HeaderFontSize = 12F;
-            this.empAttCalender.HeaderForeColor = System.Drawing.Color.LimeGreen;
-            this.empAttCalender.LegendPosition = StaffSync.LegendAlignment.BottomRight;
-            this.empAttCalender.Location = new System.Drawing.Point(33, 227);
-            this.empAttCalender.Name = "empAttCalender";
-            this.empAttCalender.SaturdaySundayTogether = false;
-            this.empAttCalender.ShowGridLines = true;
-            this.empAttCalender.ShowHeader = true;
-            this.empAttCalender.ShowLegend = true;
-            this.empAttCalender.ShowToolTips = true;
-            this.empAttCalender.ShowWeekends = true;
-            this.empAttCalender.ShowWeeklyOff = true;
-            this.empAttCalender.Size = new System.Drawing.Size(1150, 325);
-            this.empAttCalender.TabIndex = 59;
-            this.empAttCalender.Text = "calender1";
-            this.empAttCalender.WeekendColor = System.Drawing.Color.LightGray;
-            this.empAttCalender.WeeklyOffColor = System.Drawing.Color.DarkGray;
-            this.empAttCalender.WeeklyOffDay = null;
-            this.empAttCalender.DayClicked += new System.EventHandler<StaffSync.DateClickedEventArgs>(this.empAttCalender_DayClicked);
-            this.empAttCalender.DetailedDayClicked += new System.EventHandler<StaffSync.DetailedDateClickedEventArgs>(this.empAttCalender_DetailedDayClicked);
             // 
             // cmbMonthNameList
             // 
@@ -474,12 +425,13 @@
             // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Controls.Add(this.btnSaveDetails);
             this.panel2.Controls.Add(this.btnModifyDetails);
             this.panel2.Controls.Add(this.btnCloseMe);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
@@ -541,6 +493,54 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
+            // 
+            // empAttCalender
+            // 
+            this.empAttCalender.AllowFutureDates = false;
+            this.empAttCalender.AllowMultiSelect = false;
+            this.empAttCalender.AllowPreviousDates = false;
+            this.empAttCalender.CustomTextColor = System.Drawing.Color.Black;
+            this.empAttCalender.CustomTextFontBold = true;
+            this.empAttCalender.CustomTextFontFamily = "Segoe UI";
+            this.empAttCalender.CustomTextFontItalic = false;
+            this.empAttCalender.CustomTextFontSize = 12F;
+            this.empAttCalender.DateFormat = "MMMM yyyy";
+            this.empAttCalender.DayHeaderBackColor = System.Drawing.SystemColors.ControlText;
+            this.empAttCalender.DayHeaderFontBold = true;
+            this.empAttCalender.DayHeaderFontItalic = false;
+            this.empAttCalender.DayHeaderFontSize = 12F;
+            this.empAttCalender.DayHeaderForeColor = System.Drawing.Color.LimeGreen;
+            this.empAttCalender.DayNameFormat = StaffSync.DayNameFormat.Short;
+            this.empAttCalender.DayNumberAlignment = StaffSync.DateAlignment.TopLeft;
+            this.empAttCalender.DayNumberColor = System.Drawing.Color.Black;
+            this.empAttCalender.DayNumberFontBold = true;
+            this.empAttCalender.DayNumberFontFamily = "Segoe UI";
+            this.empAttCalender.DayNumberFontItalic = false;
+            this.empAttCalender.DayNumberFontSize = 12F;
+            this.empAttCalender.DisplayMonth = new System.DateTime(2025, 11, 12, 0, 0, 0, 0);
+            this.empAttCalender.HeaderBackColor = System.Drawing.SystemColors.ControlText;
+            this.empAttCalender.HeaderFontBold = true;
+            this.empAttCalender.HeaderFontItalic = false;
+            this.empAttCalender.HeaderFontSize = 12F;
+            this.empAttCalender.HeaderForeColor = System.Drawing.Color.LimeGreen;
+            this.empAttCalender.LegendPosition = StaffSync.LegendAlignment.BottomRight;
+            this.empAttCalender.Location = new System.Drawing.Point(33, 227);
+            this.empAttCalender.Name = "empAttCalender";
+            this.empAttCalender.SaturdaySundayTogether = false;
+            this.empAttCalender.ShowGridLines = true;
+            this.empAttCalender.ShowHeader = true;
+            this.empAttCalender.ShowLegend = true;
+            this.empAttCalender.ShowToolTips = true;
+            this.empAttCalender.ShowWeekends = true;
+            this.empAttCalender.ShowWeeklyOff = true;
+            this.empAttCalender.Size = new System.Drawing.Size(1150, 325);
+            this.empAttCalender.TabIndex = 59;
+            this.empAttCalender.Text = "calender1";
+            this.empAttCalender.WeekendColor = System.Drawing.Color.LightGray;
+            this.empAttCalender.WeeklyOffColor = System.Drawing.Color.DarkGray;
+            this.empAttCalender.WeeklyOffDay = null;
+            this.empAttCalender.DayClicked += new System.EventHandler<StaffSync.DateClickedEventArgs>(this.empAttCalender_DayClicked);
+            this.empAttCalender.DetailedDayClicked += new System.EventHandler<StaffSync.DetailedDateClickedEventArgs>(this.empAttCalender_DetailedDayClicked);
             // 
             // frmAttendanceMater
             // 

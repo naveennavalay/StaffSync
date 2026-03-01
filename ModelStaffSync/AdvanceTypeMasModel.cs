@@ -204,4 +204,50 @@ namespace ModelStaffSync
         [DisplayName("OrderID")] 
         public int OrderID { get; set; }
     }
+
+    public class AdvanceRiskBaseInfo
+    {
+        [DisplayName("Employee ID")]
+        public int EmpID { get; set; }
+
+        [DisplayName("Employee Code")]
+        public string EmpCode { get; set; }
+
+        [DisplayName("Employee Name")]
+        public string EmpName { get; set; }
+
+        [DisplayName("Designation")]
+        public string DesignationTitle { get; set; }
+
+        [DisplayName("Department")]
+        public string DepartmentTitle { get; set; }
+
+        public int AdvanceTypeID { get; set; }
+
+        [DisplayName("Advance Type")]
+        public string AdvanceTypeTitle { get; set; }
+
+        public int EmpAdvanceRequestID { get; set; }
+
+        [DisplayName("Advance Request Code")]
+        public string EmpAdvReqCode { get; set; }
+
+        [DisplayName("Advance Amount")]
+        public decimal AdvanceAmount { get; set; }
+
+        [DisplayName("Start Date")]
+        public DateTime AdvanceStartDate { get; set; }
+
+        [DisplayName("End Date")]
+        public DateTime AdvanceEndDate { get; set; }
+
+        [DisplayName("Recovered Amount")]
+        public decimal TotalRecovered { get; set; }
+
+        [DisplayName("Balance Amount")]
+        public decimal RemainingBalance { get; set; }
+
+        [DisplayName("Age Days")]
+        public decimal AdvanceAgeDays {  get; set; }
+    }
 }

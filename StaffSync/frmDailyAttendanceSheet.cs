@@ -606,6 +606,7 @@ namespace StaffSync
                     return;
                 }
                 objDashboard.lblDashboardTitle.Text = "Dashboard";
+                objDashboard.sptrDashboardContainer.Visible = true;
                 this.Close();
             }
 

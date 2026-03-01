@@ -8,13 +8,17 @@ using System.Text;
 
 namespace DALStaffSync
 {
-    public class clsDashboardWidgetData
+    public class clsAuditLog
     {
-        dbStaffSync.clsDashboardWidgetData objDashboardWidgetData = new dbStaffSync.clsDashboardWidgetData();
+        dbStaffSync.clsAuditLog objAuditLog = new dbStaffSync.clsAuditLog();
 
-        public DataTable GetDepartmentExposure()
+        public int InsertAuditLog(int txtEmpID, int txtSourceID, string txtAuditLogStatement, string txtUserName, string txtEventGroup)
         {
-            return objDashboardWidgetData.GetDepartmentExposure();
+            int affectedRows = 0;
+
+            affectedRows = objAuditLog.InsertAuditLog(txtEmpID, txtSourceID, txtAuditLogStatement, txtUserName, txtEventGroup);
+
+            return affectedRows;
         }
     }
 }

@@ -17,6 +17,7 @@ namespace StaffSync
         DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
 
         frmCompanyInfo frmCompanyInfo = null;
+        frmOrgMasterInfo frmOrgMasterInfo = null;
         public frmCompanyList()
         {
             InitializeComponent();
@@ -26,6 +27,12 @@ namespace StaffSync
         {
             InitializeComponent();
             this.frmCompanyInfo = frmCompInfo;
+        }
+
+        public frmCompanyList(frmOrgMasterInfo frmOrgMastrInfo)
+        {
+            InitializeComponent();
+            this.frmOrgMasterInfo = frmOrgMastrInfo;
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -141,12 +148,10 @@ namespace StaffSync
             objClientInfo.ClientWebSite = dtgCompanyList.SelectedRows[0].Cells["ClientWebSite"].Value.ToString();
             objClientInfo.IsActive = Convert.ToBoolean(dtgCompanyList.SelectedRows[0].Cells["IsActive"].Value.ToString());
 
+            if (this.frmOrgMasterInfo.lblActionMode.Text == "remove")
+                this.frmOrgMasterInfo.lblActionMode.Text = "delete";
 
-
-            if (this.frmCompanyInfo.lblActionMode.Text == "remove")
-                this.frmCompanyInfo.lblActionMode.Text = "delete";
-
-            this.frmCompanyInfo.displaySelectedValuesOnUI(objClientInfo);
+            this.frmOrgMasterInfo.displaySelectedValuesOnUI(objClientInfo);
             this.Close();
         }
 

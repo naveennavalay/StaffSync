@@ -35,7 +35,22 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label24 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.optEmprPFFixedAmount = new Krypton.Toolkit.KryptonRadioButton();
+            this.optEmprPFPercentage = new Krypton.Toolkit.KryptonRadioButton();
+            this.txtEmprPFFixedAmount = new Krypton.Toolkit.KryptonTextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtEmprPFPercentage = new Krypton.Toolkit.KryptonTextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.optEmprNPSFixedAmount = new Krypton.Toolkit.KryptonRadioButton();
+            this.optEmprNPSPercentage = new Krypton.Toolkit.KryptonRadioButton();
+            this.txtEmprNPSFixedAmount = new Krypton.Toolkit.KryptonTextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.txtEmprNPSPercentage = new Krypton.Toolkit.KryptonTextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.grpEmpPFSettings = new System.Windows.Forms.GroupBox();
             this.optEmpPFFixedAmount = new Krypton.Toolkit.KryptonRadioButton();
@@ -44,6 +59,7 @@
             this.label18 = new System.Windows.Forms.Label();
             this.txtEmpPFPercentage = new Krypton.Toolkit.KryptonTextBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.chkEnablePayrollStatutory = new System.Windows.Forms.CheckBox();
             this.grpPayrollStatutory = new System.Windows.Forms.GroupBox();
             this.chkNationalPensionScheme = new System.Windows.Forms.CheckBox();
@@ -110,22 +126,6 @@
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.ofdImage = new System.Windows.Forms.OpenFileDialog();
-            this.label27 = new System.Windows.Forms.Label();
-            this.optEmprNPSFixedAmount = new Krypton.Toolkit.KryptonRadioButton();
-            this.optEmprNPSPercentage = new Krypton.Toolkit.KryptonRadioButton();
-            this.txtEmprNPSFixedAmount = new Krypton.Toolkit.KryptonTextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.txtEmprNPSPercentage = new Krypton.Toolkit.KryptonTextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.optEmprPFFixedAmount = new Krypton.Toolkit.KryptonRadioButton();
-            this.optEmprPFPercentage = new Krypton.Toolkit.KryptonRadioButton();
-            this.txtEmprPFFixedAmount = new Krypton.Toolkit.KryptonTextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.txtEmprPFPercentage = new Krypton.Toolkit.KryptonTextBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -133,6 +133,7 @@
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.grpEmpPFSettings.SuspendLayout();
             this.grpPayrollStatutory.SuspendLayout();
@@ -148,7 +149,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -253,6 +253,111 @@
             this.groupBox1.TabIndex = 79;
             this.groupBox1.TabStop = false;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.optEmprPFFixedAmount);
+            this.groupBox3.Controls.Add(this.optEmprPFPercentage);
+            this.groupBox3.Controls.Add(this.txtEmprPFFixedAmount);
+            this.groupBox3.Controls.Add(this.label20);
+            this.groupBox3.Controls.Add(this.txtEmprPFPercentage);
+            this.groupBox3.Controls.Add(this.label23);
+            this.groupBox3.Controls.Add(this.label29);
+            this.groupBox3.Location = new System.Drawing.Point(0, 0);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(410, 104);
+            this.groupBox3.TabIndex = 76;
+            this.groupBox3.TabStop = false;
+            // 
+            // optEmprPFFixedAmount
+            // 
+            this.optEmprPFFixedAmount.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
+            this.optEmprPFFixedAmount.LabelStyle = Krypton.Toolkit.LabelStyle.BoldPanel;
+            this.optEmprPFFixedAmount.Location = new System.Drawing.Point(200, 24);
+            this.optEmprPFFixedAmount.Name = "optEmprPFFixedAmount";
+            this.optEmprPFFixedAmount.Size = new System.Drawing.Size(104, 20);
+            this.optEmprPFFixedAmount.TabIndex = 81;
+            this.optEmprPFFixedAmount.Values.Text = "Fixed Amount";
+            // 
+            // optEmprPFPercentage
+            // 
+            this.optEmprPFPercentage.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
+            this.optEmprPFPercentage.LabelStyle = Krypton.Toolkit.LabelStyle.BoldPanel;
+            this.optEmprPFPercentage.Location = new System.Drawing.Point(10, 24);
+            this.optEmprPFPercentage.Name = "optEmprPFPercentage";
+            this.optEmprPFPercentage.Size = new System.Drawing.Size(88, 20);
+            this.optEmprPFPercentage.TabIndex = 80;
+            this.optEmprPFPercentage.Values.Text = "Percentage";
+            // 
+            // txtEmprPFFixedAmount
+            // 
+            this.txtEmprPFFixedAmount.Location = new System.Drawing.Point(293, 51);
+            this.txtEmprPFFixedAmount.Margin = new System.Windows.Forms.Padding(4);
+            this.txtEmprPFFixedAmount.Multiline = true;
+            this.txtEmprPFFixedAmount.Name = "txtEmprPFFixedAmount";
+            this.txtEmprPFFixedAmount.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtEmprPFFixedAmount.Size = new System.Drawing.Size(91, 28);
+            this.txtEmprPFFixedAmount.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmprPFFixedAmount.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtEmprPFFixedAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmprPFFixedAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmprPFFixedAmount.TabIndex = 78;
+            this.txtEmprPFFixedAmount.Text = "0.00";
+            this.txtEmprPFFixedAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtEmprPFFixedAmount.WordWrap = false;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(191, 58);
+            this.label20.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(94, 15);
+            this.label20.TabIndex = 79;
+            this.label20.Text = "Fixed Amount";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtEmprPFPercentage
+            // 
+            this.txtEmprPFPercentage.Location = new System.Drawing.Point(87, 51);
+            this.txtEmprPFPercentage.Margin = new System.Windows.Forms.Padding(4);
+            this.txtEmprPFPercentage.Multiline = true;
+            this.txtEmprPFPercentage.Name = "txtEmprPFPercentage";
+            this.txtEmprPFPercentage.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtEmprPFPercentage.Size = new System.Drawing.Size(65, 28);
+            this.txtEmprPFPercentage.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmprPFPercentage.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtEmprPFPercentage.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmprPFPercentage.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmprPFPercentage.TabIndex = 76;
+            this.txtEmprPFPercentage.Text = "0.00";
+            this.txtEmprPFPercentage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtEmprPFPercentage.WordWrap = false;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(1, 58);
+            this.label23.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(80, 15);
+            this.label23.TabIndex = 77;
+            this.label23.Text = "Percentage";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(152, 58);
+            this.label29.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(19, 15);
+            this.label29.TabIndex = 82;
+            this.label29.Text = "%";
+            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.optEmprNPSFixedAmount);
@@ -267,6 +372,96 @@
             this.groupBox2.Size = new System.Drawing.Size(410, 104);
             this.groupBox2.TabIndex = 68;
             this.groupBox2.TabStop = false;
+            // 
+            // optEmprNPSFixedAmount
+            // 
+            this.optEmprNPSFixedAmount.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
+            this.optEmprNPSFixedAmount.LabelStyle = Krypton.Toolkit.LabelStyle.BoldPanel;
+            this.optEmprNPSFixedAmount.Location = new System.Drawing.Point(200, 25);
+            this.optEmprNPSFixedAmount.Name = "optEmprNPSFixedAmount";
+            this.optEmprNPSFixedAmount.Size = new System.Drawing.Size(104, 20);
+            this.optEmprNPSFixedAmount.TabIndex = 82;
+            this.optEmprNPSFixedAmount.Values.Text = "Fixed Amount";
+            // 
+            // optEmprNPSPercentage
+            // 
+            this.optEmprNPSPercentage.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
+            this.optEmprNPSPercentage.LabelStyle = Krypton.Toolkit.LabelStyle.BoldPanel;
+            this.optEmprNPSPercentage.Location = new System.Drawing.Point(10, 25);
+            this.optEmprNPSPercentage.Name = "optEmprNPSPercentage";
+            this.optEmprNPSPercentage.Size = new System.Drawing.Size(88, 20);
+            this.optEmprNPSPercentage.TabIndex = 81;
+            this.optEmprNPSPercentage.Values.Text = "Percentage";
+            // 
+            // txtEmprNPSFixedAmount
+            // 
+            this.txtEmprNPSFixedAmount.Location = new System.Drawing.Point(293, 52);
+            this.txtEmprNPSFixedAmount.Margin = new System.Windows.Forms.Padding(4);
+            this.txtEmprNPSFixedAmount.Multiline = true;
+            this.txtEmprNPSFixedAmount.Name = "txtEmprNPSFixedAmount";
+            this.txtEmprNPSFixedAmount.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtEmprNPSFixedAmount.Size = new System.Drawing.Size(91, 28);
+            this.txtEmprNPSFixedAmount.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmprNPSFixedAmount.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtEmprNPSFixedAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmprNPSFixedAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmprNPSFixedAmount.TabIndex = 79;
+            this.txtEmprNPSFixedAmount.Text = "0.00";
+            this.txtEmprNPSFixedAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtEmprNPSFixedAmount.WordWrap = false;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(191, 59);
+            this.label25.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(94, 15);
+            this.label25.TabIndex = 80;
+            this.label25.Text = "Fixed Amount";
+            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtEmprNPSPercentage
+            // 
+            this.txtEmprNPSPercentage.Location = new System.Drawing.Point(87, 52);
+            this.txtEmprNPSPercentage.Margin = new System.Windows.Forms.Padding(4);
+            this.txtEmprNPSPercentage.Multiline = true;
+            this.txtEmprNPSPercentage.Name = "txtEmprNPSPercentage";
+            this.txtEmprNPSPercentage.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtEmprNPSPercentage.Size = new System.Drawing.Size(65, 28);
+            this.txtEmprNPSPercentage.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmprNPSPercentage.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtEmprNPSPercentage.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmprNPSPercentage.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmprNPSPercentage.TabIndex = 77;
+            this.txtEmprNPSPercentage.Text = "0.00";
+            this.txtEmprNPSPercentage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtEmprNPSPercentage.WordWrap = false;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(1, 59);
+            this.label26.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(80, 15);
+            this.label26.TabIndex = 78;
+            this.label26.Text = "Percentage";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(152, 59);
+            this.label28.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(19, 15);
+            this.label28.TabIndex = 83;
+            this.label28.Text = "%";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label19
             // 
@@ -371,6 +566,18 @@
             this.label15.TabIndex = 63;
             this.label15.Text = "Percentage";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(154, 59);
+            this.label27.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(19, 15);
+            this.label27.TabIndex = 68;
+            this.label27.Text = "%";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // chkEnablePayrollStatutory
             // 
@@ -1197,213 +1404,6 @@
             this.ofdImage.FileName = "openFileDialog1";
             this.ofdImage.Filter = "JPG files (*.jpg)|*.jpg|PNG files (*.png)|*.png\"";
             // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(154, 59);
-            this.label27.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(19, 15);
-            this.label27.TabIndex = 68;
-            this.label27.Text = "%";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // optEmprNPSFixedAmount
-            // 
-            this.optEmprNPSFixedAmount.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
-            this.optEmprNPSFixedAmount.LabelStyle = Krypton.Toolkit.LabelStyle.BoldPanel;
-            this.optEmprNPSFixedAmount.Location = new System.Drawing.Point(200, 25);
-            this.optEmprNPSFixedAmount.Name = "optEmprNPSFixedAmount";
-            this.optEmprNPSFixedAmount.Size = new System.Drawing.Size(104, 20);
-            this.optEmprNPSFixedAmount.TabIndex = 82;
-            this.optEmprNPSFixedAmount.Values.Text = "Fixed Amount";
-            // 
-            // optEmprNPSPercentage
-            // 
-            this.optEmprNPSPercentage.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
-            this.optEmprNPSPercentage.LabelStyle = Krypton.Toolkit.LabelStyle.BoldPanel;
-            this.optEmprNPSPercentage.Location = new System.Drawing.Point(10, 25);
-            this.optEmprNPSPercentage.Name = "optEmprNPSPercentage";
-            this.optEmprNPSPercentage.Size = new System.Drawing.Size(88, 20);
-            this.optEmprNPSPercentage.TabIndex = 81;
-            this.optEmprNPSPercentage.Values.Text = "Percentage";
-            // 
-            // txtEmprNPSFixedAmount
-            // 
-            this.txtEmprNPSFixedAmount.Location = new System.Drawing.Point(293, 52);
-            this.txtEmprNPSFixedAmount.Margin = new System.Windows.Forms.Padding(4);
-            this.txtEmprNPSFixedAmount.Multiline = true;
-            this.txtEmprNPSFixedAmount.Name = "txtEmprNPSFixedAmount";
-            this.txtEmprNPSFixedAmount.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtEmprNPSFixedAmount.Size = new System.Drawing.Size(91, 28);
-            this.txtEmprNPSFixedAmount.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmprNPSFixedAmount.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtEmprNPSFixedAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmprNPSFixedAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmprNPSFixedAmount.TabIndex = 79;
-            this.txtEmprNPSFixedAmount.Text = "0.00";
-            this.txtEmprNPSFixedAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtEmprNPSFixedAmount.WordWrap = false;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(191, 59);
-            this.label25.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(94, 15);
-            this.label25.TabIndex = 80;
-            this.label25.Text = "Fixed Amount";
-            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtEmprNPSPercentage
-            // 
-            this.txtEmprNPSPercentage.Location = new System.Drawing.Point(87, 52);
-            this.txtEmprNPSPercentage.Margin = new System.Windows.Forms.Padding(4);
-            this.txtEmprNPSPercentage.Multiline = true;
-            this.txtEmprNPSPercentage.Name = "txtEmprNPSPercentage";
-            this.txtEmprNPSPercentage.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtEmprNPSPercentage.Size = new System.Drawing.Size(65, 28);
-            this.txtEmprNPSPercentage.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmprNPSPercentage.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtEmprNPSPercentage.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmprNPSPercentage.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmprNPSPercentage.TabIndex = 77;
-            this.txtEmprNPSPercentage.Text = "0.00";
-            this.txtEmprNPSPercentage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtEmprNPSPercentage.WordWrap = false;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(1, 59);
-            this.label26.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(80, 15);
-            this.label26.TabIndex = 78;
-            this.label26.Text = "Percentage";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(152, 59);
-            this.label28.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(19, 15);
-            this.label28.TabIndex = 83;
-            this.label28.Text = "%";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.optEmprPFFixedAmount);
-            this.groupBox3.Controls.Add(this.optEmprPFPercentage);
-            this.groupBox3.Controls.Add(this.txtEmprPFFixedAmount);
-            this.groupBox3.Controls.Add(this.label20);
-            this.groupBox3.Controls.Add(this.txtEmprPFPercentage);
-            this.groupBox3.Controls.Add(this.label23);
-            this.groupBox3.Controls.Add(this.label29);
-            this.groupBox3.Location = new System.Drawing.Point(0, 0);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(410, 104);
-            this.groupBox3.TabIndex = 76;
-            this.groupBox3.TabStop = false;
-            // 
-            // optEmprPFFixedAmount
-            // 
-            this.optEmprPFFixedAmount.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
-            this.optEmprPFFixedAmount.LabelStyle = Krypton.Toolkit.LabelStyle.BoldPanel;
-            this.optEmprPFFixedAmount.Location = new System.Drawing.Point(200, 24);
-            this.optEmprPFFixedAmount.Name = "optEmprPFFixedAmount";
-            this.optEmprPFFixedAmount.Size = new System.Drawing.Size(104, 20);
-            this.optEmprPFFixedAmount.TabIndex = 81;
-            this.optEmprPFFixedAmount.Values.Text = "Fixed Amount";
-            // 
-            // optEmprPFPercentage
-            // 
-            this.optEmprPFPercentage.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
-            this.optEmprPFPercentage.LabelStyle = Krypton.Toolkit.LabelStyle.BoldPanel;
-            this.optEmprPFPercentage.Location = new System.Drawing.Point(10, 24);
-            this.optEmprPFPercentage.Name = "optEmprPFPercentage";
-            this.optEmprPFPercentage.Size = new System.Drawing.Size(88, 20);
-            this.optEmprPFPercentage.TabIndex = 80;
-            this.optEmprPFPercentage.Values.Text = "Percentage";
-            // 
-            // txtEmprPFFixedAmount
-            // 
-            this.txtEmprPFFixedAmount.Location = new System.Drawing.Point(293, 51);
-            this.txtEmprPFFixedAmount.Margin = new System.Windows.Forms.Padding(4);
-            this.txtEmprPFFixedAmount.Multiline = true;
-            this.txtEmprPFFixedAmount.Name = "txtEmprPFFixedAmount";
-            this.txtEmprPFFixedAmount.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtEmprPFFixedAmount.Size = new System.Drawing.Size(91, 28);
-            this.txtEmprPFFixedAmount.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmprPFFixedAmount.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtEmprPFFixedAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmprPFFixedAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmprPFFixedAmount.TabIndex = 78;
-            this.txtEmprPFFixedAmount.Text = "0.00";
-            this.txtEmprPFFixedAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtEmprPFFixedAmount.WordWrap = false;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(191, 58);
-            this.label20.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(94, 15);
-            this.label20.TabIndex = 79;
-            this.label20.Text = "Fixed Amount";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtEmprPFPercentage
-            // 
-            this.txtEmprPFPercentage.Location = new System.Drawing.Point(87, 51);
-            this.txtEmprPFPercentage.Margin = new System.Windows.Forms.Padding(4);
-            this.txtEmprPFPercentage.Multiline = true;
-            this.txtEmprPFPercentage.Name = "txtEmprPFPercentage";
-            this.txtEmprPFPercentage.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtEmprPFPercentage.Size = new System.Drawing.Size(65, 28);
-            this.txtEmprPFPercentage.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmprPFPercentage.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtEmprPFPercentage.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmprPFPercentage.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmprPFPercentage.TabIndex = 76;
-            this.txtEmprPFPercentage.Text = "0.00";
-            this.txtEmprPFPercentage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtEmprPFPercentage.WordWrap = false;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(1, 58);
-            this.label23.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(80, 15);
-            this.label23.TabIndex = 77;
-            this.label23.Text = "Percentage";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(152, 58);
-            this.label29.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(19, 15);
-            this.label29.TabIndex = 82;
-            this.label29.Text = "%";
-            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // frmCompanyInfo
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1431,6 +1431,8 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.grpEmpPFSettings.ResumeLayout(false);
@@ -1454,8 +1456,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }

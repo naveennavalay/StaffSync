@@ -33,8 +33,10 @@ namespace StaffSync
         frmEmpLeaveEntitlement frmEmpLeaveEntitlement = null;
         frmLeaveStatements frmLeaveStatements = null;
         frmEmpAdvanceRequest frmEmpAdvancRequest = null;
+        frmDashboard frmDashboard = null;
         frmPayrollConfiguration frmPayrollConfiguration = null;
         DALStaffSync.clsLeaveTRList objLeaveInfo = new DALStaffSync.clsLeaveTRList();
+        DALStaffSync.clsDashboardWidgetData objDashboard = new DALStaffSync.clsDashboardWidgetData();
         DALStaffSync.clsUserManagement objUsersInfo = new DALStaffSync.clsUserManagement();
         DALStaffSync.clsRolesAndResponsibilities objRolesAndResponsibilities = new DALStaffSync.clsRolesAndResponsibilities();
         DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
@@ -167,6 +169,16 @@ namespace StaffSync
             InitializeComponent();
             this.frmPayrollConfiguration = frmPayrollConfig;
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+        }
+
+        public frmEmployeeList(frmDashboard frmDashbard, string SearchOptionClickedFor, int txtClientID, int txtFinYearID, DateTime filterDate)
+        {
+            InitializeComponent();
+            this.frmDashboard = frmDashbard;
+            lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+            lblClientID.Text = txtClientID.ToString();
+            lblFinYearID.Text = txtFinYearID.ToString();
+            lblFilterDate.Text = filterDate.ToString("dd-MMM-yyyy");
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -514,6 +526,168 @@ namespace StaffSync
                 dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
             }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeeLeaveApprovalPendingRequestList")
+            {
+                this.Text = "Leave Request List";
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objLeaveInfo.getPendingLeaveApprovalList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["LeaveTRID"].Visible = false;
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 100;
+                dtgEmployeeList.Columns["EmpName"].Width = 200;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
+                dtgEmployeeList.Columns["LeaveTypeID"].Visible = false;
+                dtgEmployeeList.Columns["LeaveTypeTitle"].Width = 150;
+                dtgEmployeeList.Columns["LeaveAppliedDate"].Visible = false;
+                dtgEmployeeList.Columns["LeaveAppliedDate"].Width = 100;
+                dtgEmployeeList.Columns["LeaveAppliedDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgEmployeeList.Columns["LeaveDuration"].Width = 100;
+                dtgEmployeeList.Columns["ActualLeaveDateFrom"].Width = 100;
+                dtgEmployeeList.Columns["ActualLeaveDateFrom"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgEmployeeList.Columns["ActualLeaveDateTo"].Width = 100;
+                dtgEmployeeList.Columns["ActualLeaveDateTo"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgEmployeeList.Columns["LeaveComments"].Width = 250;
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeeLeaveApprovedList")
+            {
+                this.Text = "Leave Request List";
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objLeaveInfo.GetEmployeeOOOList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(lblFinYearID.Text.ToString()), Convert.ToDateTime(lblFilterDate.Text.ToString()));
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 100;
+                dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpName"].Width = 200;
+                dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+                dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
+                dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["LeaveTypeTitle"].Width = 150;
+                dtgEmployeeList.Columns["LeaveTypeTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["ActualLeaveDateFrom"].Width = 100;
+                dtgEmployeeList.Columns["ActualLeaveDateFrom"].ReadOnly = true;
+                dtgEmployeeList.Columns["ActualLeaveDateFrom"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgEmployeeList.Columns["ActualLeaveDateTo"].Width = 100;
+                dtgEmployeeList.Columns["ActualLeaveDateTo"].ReadOnly = true;
+                dtgEmployeeList.Columns["ActualLeaveDateTo"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgEmployeeList.Columns["LeaveDuration"].Width = 100;
+                dtgEmployeeList.Columns["LeaveDuration"].ReadOnly = true;
+                dtgEmployeeList.Columns["LeaveMode"].Width = 100;
+                dtgEmployeeList.Columns["LeaveMode"].ReadOnly = true;
+                dtgEmployeeList.Columns["OrderID"].Visible = false;
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeePresentList")
+            {
+                this.Text = "Leave Request List";
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objDashboard.GetAllEmployeesPresentList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(lblFinYearID.Text.ToString()));
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 100;
+                dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpName"].Width = 200;
+                dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+                dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
+                dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
+                dtgEmployeeList.Columns["ContactNumber1"].ReadOnly = true;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 150;
+                dtgEmployeeList.Columns["ContactNumber2"].ReadOnly = true;
+                dtgEmployeeList.Columns["AttStatus"].Width = 150;
+                dtgEmployeeList.Columns["AttStatus"].ReadOnly = true;
+                dtgEmployeeList.Columns["AttDate"].Visible = false;
+                dtgEmployeeList.Columns["ClientID"].Visible = false;
+                dtgEmployeeList.Columns["FinYearID"].Visible = false;
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeesWeeklyOffList")
+            {
+                this.Text = "Employees Weekly Off List";
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objDashboard.GetAllEmployeesWeeklyOffList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(lblFinYearID.Text.ToString()));
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 100;
+                dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpName"].Width = 200;
+                dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+                dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
+                dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
+                dtgEmployeeList.Columns["ContactNumber1"].ReadOnly = true;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 150;
+                dtgEmployeeList.Columns["ContactNumber2"].ReadOnly = true;
+                dtgEmployeeList.Columns["WklyOffCode"].Width = 150;
+                dtgEmployeeList.Columns["WklyOffCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["WklyOffTitle"].Width = 150;
+                dtgEmployeeList.Columns["WklyOffTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["WklyOffDay"].Visible = false;
+                dtgEmployeeList.Columns["ClientID"].Visible = false;
+                dtgEmployeeList.Columns["FinYearID"].Visible = false;
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeesBirthdayList")
+            {
+                this.Text = "Employees Weekly Off List";
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objDashboard.GetTodaysEmployeesBirthdayList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(lblFinYearID.Text.ToString()));
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].HeaderText = "Emp Code";
+                dtgEmployeeList.Columns["EmpCode"].Width = 100;
+                dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpName"].HeaderText = "Employee Name";
+                dtgEmployeeList.Columns["EmpName"].Width = 200;
+                dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+                dtgEmployeeList.Columns["DesignationTitle"].HeaderText = "Designation";
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+                dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["DepartmentTitle"].HeaderText = "Department";
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
+                dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["ContactNumber1"].HeaderText = "Contact Number";
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
+                dtgEmployeeList.Columns["ContactNumber1"].ReadOnly = true;
+                dtgEmployeeList.Columns["ContactNumber2"].HeaderText = "Mail ID";
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 200;
+                dtgEmployeeList.Columns["ContactNumber2"].ReadOnly = true;
+                dtgEmployeeList.Columns["DOB"].HeaderText = "BirthDay Date";
+                dtgEmployeeList.Columns["DOB"].Width = 100;
+                dtgEmployeeList.Columns["DOB"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgEmployeeList.Columns["ClientID"].Visible = false;
+                dtgEmployeeList.Columns["FinYearID"].Visible = false;
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeesWorkAnniversaryList")
+            {
+                this.Text = "Employees Weekly Off List";
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objDashboard.GetTodaysEmployeesWorkAnniversaryList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(lblFinYearID.Text.ToString()));
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].HeaderText = "Emp Code";
+                dtgEmployeeList.Columns["EmpCode"].Width = 100;
+                dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpName"].HeaderText = "Employee Name";
+                dtgEmployeeList.Columns["EmpName"].Width = 200;
+                dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+                dtgEmployeeList.Columns["DesignationTitle"].HeaderText = "Designation";
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+                dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["DepartmentTitle"].HeaderText = "Department";
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
+                dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["ContactNumber1"].HeaderText = "Contact Number";
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
+                dtgEmployeeList.Columns["ContactNumber1"].ReadOnly = true;
+                dtgEmployeeList.Columns["ContactNumber2"].HeaderText = "Mail ID";
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 200;
+                dtgEmployeeList.Columns["ContactNumber2"].ReadOnly = true;
+                dtgEmployeeList.Columns["DOJ"].HeaderText = "Joining Date";
+                dtgEmployeeList.Columns["DOJ"].Width = 100;
+                dtgEmployeeList.Columns["DOJ"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgEmployeeList.Columns["ClientID"].Visible = false;
+                dtgEmployeeList.Columns["FinYearID"].Visible = false;
+            }
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -606,6 +780,26 @@ namespace StaffSync
             else if (lblSearchOptionClickedFor.Text.Trim() == "listPayrollConfigUsersList")
             {
                 this.frmPayrollConfiguration.SelectedEmployeeID("listPayrollConfigUsersList", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeeLeaveApprovalPendingRequestList")
+            {
+                //Just Close this form
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeeLeaveApprovedList")
+            {
+                //Just Close this form
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeePresentList")
+            {
+                //Just Close this form
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeesBirthdayList")
+            {
+                //Just Close this form
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeesWorkAnniversaryList")
+            {
+                //Just Close this form
             }
 
             this.Close();

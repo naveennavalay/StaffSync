@@ -137,11 +137,11 @@ namespace DALStaffSync
             return EmployeeLeaveStatements;
         }
 
-        public List<EmployeeOOOList> GetEmployeeOOOList()
+        public List<EmployeeOOOList> GetEmployeeOOOList(int txtClientID, int txtFinYearID, DateTime dtLeaveDate)
         {
             List<EmployeeOOOList> EmpOOOList = new List<EmployeeOOOList>();
             
-            EmpOOOList = objLeaveTRList.GetEmployeeOOOList();
+            EmpOOOList = objLeaveTRList.GetEmployeeOOOList(txtClientID, txtFinYearID, dtLeaveDate);
 
             return EmpOOOList;
         }

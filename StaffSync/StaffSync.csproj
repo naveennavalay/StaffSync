@@ -232,6 +232,12 @@
     <Compile Include="Calender.cs" />
     <Compile Include="AppVariables.cs" />
     <Compile Include="AppMail.cs" />
+    <Compile Include="BadgeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BadgeControl.Designer.cs">
+      <DependentUpon>BadgeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="clsAppModule.cs" />
     <Compile Include="clsAuditLog.cs" />
     <Compile Include="clsCurrentUser.cs" />
@@ -254,6 +260,12 @@
     </Compile>
     <Compile Include="frmAdvanceConfigInfoReadOnly.Designer.cs">
       <DependentUpon>frmAdvanceConfigInfoReadOnly.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmOrgMasterInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOrgMasterInfo.Designer.cs">
+      <DependentUpon>frmOrgMasterInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="frmEmpAdvanceTRList.cs">
       <SubType>Form</SubType>
@@ -776,11 +788,17 @@
       <DependentUpon>StaffsyncDBDTSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="TextBoxAutoCompleteHelper.cs" />
+    <EmbeddedResource Include="BadgeControl.resx">
+      <DependentUpon>BadgeControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAdvanceConfigInfoReadOnly.resx">
       <DependentUpon>frmAdvanceConfigInfoReadOnly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOrgMasterInfo.resx">
+      <DependentUpon>frmOrgMasterInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEmpAdvanceTRList.resx">
       <DependentUpon>frmEmpAdvanceTRList.cs</DependentUpon>
@@ -1147,6 +1165,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hrm02.ico" />
+    <None Include="images\icons\work-anniversary.ico" />
+    <None Include="images\icons\birthday-cake.ico" />
+    <None Include="images\icons\weekly-off.ico" />
+    <None Include="images\icons\all-emps.ico" />
+    <None Include="images\icons\total-emp-leave.ico" />
+    <None Include="images\icons\total-emp-present.ico" />
+    <None Include="images\icons\pending.ico" />
     <None Include="images\icons\tooltip.ico" />
     <None Include="images\icons\task.ico" />
     <None Include="images\icons\advance-request.ico" />

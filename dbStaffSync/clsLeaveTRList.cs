@@ -695,7 +695,7 @@ namespace dbStaffSync
             return EmployeeLeaveStatements;
         }
 
-        public List<EmployeeOOOList> GetEmployeeOOOList()
+        public List<EmployeeOOOList> GetEmployeeOOOList(int txtClientID, int txtFinYearID, DateTime dtLeaveDate)
         {
             List<EmployeeOOOList> EmpOOOList = new List<EmployeeOOOList>();
             DataTable dt = new DataTable();
@@ -704,7 +704,7 @@ namespace dbStaffSync
             {
                 conn = dbStaffSync.openDBConnection();
 
-                string strQuery = "SELECT * FROM qryEmpOOOList WHERE ActualLeaveDateFrom = Date()";
+                string strQuery = "SELECT * FROM qryEmpOOOList WHERE ActualLeaveDateFrom = Date() AND ClientID = " + txtClientID + " AND FinYearID = " + txtFinYearID;
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

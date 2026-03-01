@@ -220,18 +220,48 @@
             this.kryptonContextMenuItem3 = new Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem4 = new Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuItem6 = new Krypton.Toolkit.KryptonContextMenuItem();
+            this.lblDashboardTitle = new System.Windows.Forms.Label();
+            this.sptrDashboardContainer = new Krypton.Toolkit.KryptonSplitContainer();
+            this.kryptonSplitContainer4 = new Krypton.Toolkit.KryptonSplitContainer();
+            this.kryptonGroupBox1 = new Krypton.Toolkit.KryptonGroupBox();
+            this.chrtCompanySummaryMatrix = new LiveCharts.WinForms.CartesianChart();
+            this.kryptonGroupBox4 = new Krypton.Toolkit.KryptonGroupBox();
+            this.dtgUpcomingHolidays = new Krypton.Toolkit.KryptonDataGridView();
+            this.kryptonSplitContainer2 = new Krypton.Toolkit.KryptonSplitContainer();
+            this.kryptonSplitContainer5 = new Krypton.Toolkit.KryptonSplitContainer();
+            this.kryptonGroupBox2 = new Krypton.Toolkit.KryptonGroupBox();
+            this.chrtCompanyAdvanceSummaryMatrix = new LiveCharts.WinForms.CartesianChart();
+            this.kryptonGroupBox5 = new Krypton.Toolkit.KryptonGroupBox();
+            this.kryptonPictureBox7 = new Krypton.Toolkit.KryptonPictureBox();
+            this.bdgWorkAnniversary = new StaffSync.BadgeControl();
+            this.label6 = new System.Windows.Forms.Label();
+            this.kryptonPictureBox6 = new Krypton.Toolkit.KryptonPictureBox();
+            this.bdgEmployeesBirthday = new StaffSync.BadgeControl();
+            this.label5 = new System.Windows.Forms.Label();
+            this.kryptonPictureBox5 = new Krypton.Toolkit.KryptonPictureBox();
+            this.bdgEmployeesWithWeeklyOff = new StaffSync.BadgeControl();
+            this.label4 = new System.Windows.Forms.Label();
+            this.kryptonPictureBox4 = new Krypton.Toolkit.KryptonPictureBox();
+            this.kryptonPictureBox3 = new Krypton.Toolkit.KryptonPictureBox();
+            this.kryptonPictureBox2 = new Krypton.Toolkit.KryptonPictureBox();
+            this.kryptonPictureBox1 = new Krypton.Toolkit.KryptonPictureBox();
+            this.bdgTotalLeaveApprovals = new StaffSync.BadgeControl();
+            this.label3 = new System.Windows.Forms.Label();
+            this.bdgTotalLeaveEmployees = new StaffSync.BadgeControl();
+            this.label2 = new System.Windows.Forms.Label();
+            this.bdgTotalPresentEmployees = new StaffSync.BadgeControl();
+            this.label1 = new System.Windows.Forms.Label();
+            this.bdgTotalActiveEmployees = new StaffSync.BadgeControl();
+            this.label9 = new System.Windows.Forms.Label();
+            this.kryptonSplitContainer1 = new Krypton.Toolkit.KryptonSplitContainer();
+            this.kryptonGroupBox3 = new Krypton.Toolkit.KryptonGroupBox();
+            this.dtgAdvanceRiskBase = new Krypton.Toolkit.KryptonDataGridView();
+            this.kryptonSplitContainer3 = new Krypton.Toolkit.KryptonSplitContainer();
+            this.kryptonSplitContainer6 = new Krypton.Toolkit.KryptonSplitContainer();
             this.qryRoleProfileBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
-            this.lblDashboardTitle = new System.Windows.Forms.Label();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
-            this.kryptonSplitContainer1 = new Krypton.Toolkit.KryptonSplitContainer();
-            this.kryptonSplitContainer4 = new Krypton.Toolkit.KryptonSplitContainer();
-            this.kryptonSplitContainer2 = new Krypton.Toolkit.KryptonSplitContainer();
-            this.kryptonSplitContainer5 = new Krypton.Toolkit.KryptonSplitContainer();
-            this.kryptonSplitContainer3 = new Krypton.Toolkit.KryptonSplitContainer();
-            this.kryptonSplitContainer6 = new Krypton.Toolkit.KryptonSplitContainer();
-            this.kryptonSplitContainer7 = new Krypton.Toolkit.KryptonSplitContainer();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -244,18 +274,27 @@
             this.cmCompanyInfo.SuspendLayout();
             this.cmbApplicationSettings.SuspendLayout();
             this.cmbApprovals.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).BeginInit();
-            this.kryptonSplitContainer1.Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel2)).BeginInit();
-            this.kryptonSplitContainer1.Panel2.SuspendLayout();
-            this.kryptonSplitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sptrDashboardContainer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sptrDashboardContainer.Panel1)).BeginInit();
+            this.sptrDashboardContainer.Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sptrDashboardContainer.Panel2)).BeginInit();
+            this.sptrDashboardContainer.Panel2.SuspendLayout();
+            this.sptrDashboardContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer4.Panel1)).BeginInit();
+            this.kryptonSplitContainer4.Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer4.Panel2)).BeginInit();
+            this.kryptonSplitContainer4.Panel2.SuspendLayout();
             this.kryptonSplitContainer4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).BeginInit();
+            this.kryptonGroupBox1.Panel.SuspendLayout();
+            this.kryptonGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4.Panel)).BeginInit();
+            this.kryptonGroupBox4.Panel.SuspendLayout();
+            this.kryptonGroupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgUpcomingHolidays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2.Panel1)).BeginInit();
             this.kryptonSplitContainer2.Panel1.SuspendLayout();
@@ -264,11 +303,38 @@
             this.kryptonSplitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer5.Panel1)).BeginInit();
+            this.kryptonSplitContainer5.Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer5.Panel2)).BeginInit();
+            this.kryptonSplitContainer5.Panel2.SuspendLayout();
             this.kryptonSplitContainer5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).BeginInit();
+            this.kryptonGroupBox2.Panel.SuspendLayout();
+            this.kryptonGroupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
+            this.kryptonGroupBox5.Panel.SuspendLayout();
+            this.kryptonGroupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).BeginInit();
+            this.kryptonSplitContainer1.Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel2)).BeginInit();
+            this.kryptonSplitContainer1.Panel2.SuspendLayout();
+            this.kryptonSplitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3.Panel)).BeginInit();
+            this.kryptonGroupBox3.Panel.SuspendLayout();
+            this.kryptonGroupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgAdvanceRiskBase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3.Panel1)).BeginInit();
-            this.kryptonSplitContainer3.Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3.Panel2)).BeginInit();
             this.kryptonSplitContainer3.Panel2.SuspendLayout();
             this.kryptonSplitContainer3.SuspendLayout();
@@ -276,10 +342,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer6.Panel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer6.Panel2)).BeginInit();
             this.kryptonSplitContainer6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer7.Panel1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer7.Panel2)).BeginInit();
-            this.kryptonSplitContainer7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             this.SuspendLayout();
             // 
             // imgEmpPhotos
@@ -299,18 +363,21 @@
             this.LoggedInUser.Size = new System.Drawing.Size(66, 17);
             this.LoggedInUser.Text = "Logged In :";
             this.LoggedInUser.ToolTipText = "Logged In User";
+            this.LoggedInUser.Click += new System.EventHandler(this.LoggedInUser_Click);
             // 
             // LogInTime
             // 
             this.LogInTime.Name = "LogInTime";
             this.LogInTime.Size = new System.Drawing.Size(46, 17);
             this.LogInTime.Text = "Log In :";
+            this.LogInTime.Click += new System.EventHandler(this.LogInTime_Click);
             // 
             // LastActionByLoggedInUser
             // 
             this.LastActionByLoggedInUser.Name = "LastActionByLoggedInUser";
             this.LastActionByLoggedInUser.Size = new System.Drawing.Size(131, 17);
             this.LastActionByLoggedInUser.Text = "Last Action Performed :";
+            this.LastActionByLoggedInUser.Click += new System.EventHandler(this.LastActionByLoggedInUser_Click);
             // 
             // myStatusBar
             // 
@@ -319,12 +386,13 @@
             this.LoggedInUser,
             this.LogInTime,
             this.LastActionByLoggedInUser});
-            this.myStatusBar.Location = new System.Drawing.Point(0, 610);
+            this.myStatusBar.Location = new System.Drawing.Point(0, 974);
             this.myStatusBar.Name = "myStatusBar";
             this.myStatusBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
             this.myStatusBar.Size = new System.Drawing.Size(1507, 22);
             this.myStatusBar.TabIndex = 2;
             this.myStatusBar.Text = "statusStrip1";
+            this.myStatusBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.myStatusBar_ItemClicked);
             // 
             // tblRibbon
             // 
@@ -338,6 +406,7 @@
             this.tblRibbon.ShowMinimizeButton = false;
             this.tblRibbon.Size = new System.Drawing.Size(1507, 143);
             this.tblRibbon.TabIndex = 5;
+            this.tblRibbon.SelectedTabChanged += new System.EventHandler(this.tblRibbon_SelectedTabChanged);
             // 
             // kryptonRibbonTab1
             // 
@@ -357,6 +426,7 @@
             this.kryptonRibbonGroup5.Items.AddRange(new Krypton.Ribbon.KryptonRibbonGroupContainer[] {
             this.kryptonRibbonGroupTriple11});
             this.kryptonRibbonGroup5.TextLine1 = "My Options";
+            this.kryptonRibbonGroup5.DialogBoxLauncherClick += new System.EventHandler(this.kryptonRibbonGroup5_DialogBoxLauncherClick);
             // 
             // kryptonRibbonGroupTriple11
             // 
@@ -370,6 +440,7 @@
             this.tlbMyOptions.ImageLarge = global::StaffSync.Properties.Resources.myOptions;
             this.tlbMyOptions.ImageSmall = global::StaffSync.Properties.Resources.myOptions;
             this.tlbMyOptions.TextLine1 = "My Options";
+            this.tlbMyOptions.Click += new System.EventHandler(this.tlbMyOptions_Click);
             // 
             // cmMyOptions
             // 
@@ -386,6 +457,7 @@
             this.cmMyOptions.Size = new System.Drawing.Size(210, 88);
             this.cmMyOptions.Tag = "cmMyOptions";
             this.cmMyOptions.Text = "cmMyOptions";
+            this.cmMyOptions.Opening += new System.ComponentModel.CancelEventHandler(this.cmMyOptions_Opening);
             // 
             // cmbSSEmployeeManagement
             // 
@@ -397,6 +469,7 @@
             this.cmbSSEmployeeManagement.Size = new System.Drawing.Size(209, 22);
             this.cmbSSEmployeeManagement.Tag = "cmbSSEmployeeManagement";
             this.cmbSSEmployeeManagement.Text = "Employee Management";
+            this.cmbSSEmployeeManagement.Click += new System.EventHandler(this.cmbSSEmployeeManagement_Click);
             // 
             // cmbSSManageMyDetails
             // 
@@ -419,6 +492,7 @@
             this.cmbSSReports.Size = new System.Drawing.Size(175, 22);
             this.cmbSSReports.Tag = "cmbSSReports";
             this.cmbSSReports.Text = "Reports";
+            this.cmbSSReports.Click += new System.EventHandler(this.cmbSSReports_Click);
             // 
             // cmbSSEmployeeDetails
             // 
@@ -426,6 +500,7 @@
             this.cmbSSEmployeeDetails.Size = new System.Drawing.Size(236, 22);
             this.cmbSSEmployeeDetails.Tag = "cmbSSEmployeeDetails";
             this.cmbSSEmployeeDetails.Text = "Employee Details (Complete)";
+            this.cmbSSEmployeeDetails.Click += new System.EventHandler(this.cmbSSEmployeeDetails_Click);
             // 
             // cmbSSEmployeeFamilyDetails
             // 
@@ -433,6 +508,7 @@
             this.cmbSSEmployeeFamilyDetails.Size = new System.Drawing.Size(236, 22);
             this.cmbSSEmployeeFamilyDetails.Tag = "cmbSSEmployeeFamilyDetails";
             this.cmbSSEmployeeFamilyDetails.Text = "Family Member(s) Details";
+            this.cmbSSEmployeeFamilyDetails.Click += new System.EventHandler(this.cmbSSEmployeeFamilyDetails_Click);
             // 
             // cmbSSEmployeePreviousExperienceDetails
             // 
@@ -440,6 +516,7 @@
             this.cmbSSEmployeePreviousExperienceDetails.Size = new System.Drawing.Size(236, 22);
             this.cmbSSEmployeePreviousExperienceDetails.Tag = "cmbSSEmployeePreviousExperienceDetails";
             this.cmbSSEmployeePreviousExperienceDetails.Text = "Previous Experience Details";
+            this.cmbSSEmployeePreviousExperienceDetails.Click += new System.EventHandler(this.cmbSSEmployeePreviousExperienceDetails_Click);
             // 
             // cmbSSEmployeeSkillsDetails
             // 
@@ -447,6 +524,7 @@
             this.cmbSSEmployeeSkillsDetails.Size = new System.Drawing.Size(236, 22);
             this.cmbSSEmployeeSkillsDetails.Tag = "cmbSSEmployeeSkillsDetails";
             this.cmbSSEmployeeSkillsDetails.Text = "Skills Details";
+            this.cmbSSEmployeeSkillsDetails.Click += new System.EventHandler(this.cmbSSEmployeeSkillsDetails_Click);
             // 
             // cmbSSEmployeeQualificationDetails
             // 
@@ -454,6 +532,7 @@
             this.cmbSSEmployeeQualificationDetails.Size = new System.Drawing.Size(236, 22);
             this.cmbSSEmployeeQualificationDetails.Tag = "cmbSSEmployeeQualificationDetails";
             this.cmbSSEmployeeQualificationDetails.Text = "Education Qualification Details";
+            this.cmbSSEmployeeQualificationDetails.Click += new System.EventHandler(this.cmbSSEmployeeQualificationDetails_Click);
             // 
             // cmbSSEmployeeOrganisationDetails
             // 
@@ -461,11 +540,13 @@
             this.cmbSSEmployeeOrganisationDetails.Size = new System.Drawing.Size(236, 22);
             this.cmbSSEmployeeOrganisationDetails.Tag = "cmbSSEmployeeOrganisationDetails";
             this.cmbSSEmployeeOrganisationDetails.Text = "Organisation Chart";
+            this.cmbSSEmployeeOrganisationDetails.Click += new System.EventHandler(this.cmbSSEmployeeOrganisationDetails_Click);
             // 
             // toolStripMenuItem17
             // 
             this.toolStripMenuItem17.Name = "toolStripMenuItem17";
             this.toolStripMenuItem17.Size = new System.Drawing.Size(206, 6);
+            this.toolStripMenuItem17.Click += new System.EventHandler(this.toolStripMenuItem17_Click);
             // 
             // cmbSSAttendanceManagement
             // 
@@ -475,6 +556,7 @@
             this.cmbSSAttendanceManagement.Name = "cmbSSAttendanceManagement";
             this.cmbSSAttendanceManagement.Size = new System.Drawing.Size(209, 22);
             this.cmbSSAttendanceManagement.Text = "Attendance Management";
+            this.cmbSSAttendanceManagement.Click += new System.EventHandler(this.cmbSSAttendanceManagement_Click);
             // 
             // cmbSSMyAttendanceManagement
             // 
@@ -482,6 +564,7 @@
             this.cmbSSMyAttendanceManagement.Size = new System.Drawing.Size(181, 22);
             this.cmbSSMyAttendanceManagement.Tag = "cmbSSMyAttendanceManagement";
             this.cmbSSMyAttendanceManagement.Text = "Manage Attendance";
+            this.cmbSSMyAttendanceManagement.Click += new System.EventHandler(this.cmbSSMyAttendanceManagement_Click);
             // 
             // cmbSSMyAttendanceReports
             // 
@@ -492,6 +575,7 @@
             this.cmbSSMyAttendanceReports.Name = "cmbSSMyAttendanceReports";
             this.cmbSSMyAttendanceReports.Size = new System.Drawing.Size(181, 22);
             this.cmbSSMyAttendanceReports.Text = "Reports";
+            this.cmbSSMyAttendanceReports.Click += new System.EventHandler(this.cmbSSMyAttendanceReports_Click);
             // 
             // cmbSSMyAttendanceReportsMonthly
             // 
@@ -499,6 +583,7 @@
             this.cmbSSMyAttendanceReportsMonthly.Size = new System.Drawing.Size(234, 22);
             this.cmbSSMyAttendanceReportsMonthly.Tag = "cmbSSMyAttendanceReportsMonthly";
             this.cmbSSMyAttendanceReportsMonthly.Text = "Attendance Reports (Monthly)";
+            this.cmbSSMyAttendanceReportsMonthly.Click += new System.EventHandler(this.cmbSSMyAttendanceReportsMonthly_Click);
             // 
             // cmbSSMyAttendanceReportsCustom
             // 
@@ -506,6 +591,7 @@
             this.cmbSSMyAttendanceReportsCustom.Size = new System.Drawing.Size(234, 22);
             this.cmbSSMyAttendanceReportsCustom.Tag = "cmbSSMyAttendanceReportsCustom";
             this.cmbSSMyAttendanceReportsCustom.Text = "Attendance Reports (Custom)";
+            this.cmbSSMyAttendanceReportsCustom.Click += new System.EventHandler(this.cmbSSMyAttendanceReportsCustom_Click);
             // 
             // cmbSSMyAttendanceLeaveStatement
             // 
@@ -513,11 +599,13 @@
             this.cmbSSMyAttendanceLeaveStatement.Size = new System.Drawing.Size(234, 22);
             this.cmbSSMyAttendanceLeaveStatement.Tag = "cmbSSMyAttendanceLeaveStatement";
             this.cmbSSMyAttendanceLeaveStatement.Text = "Leave Statement";
+            this.cmbSSMyAttendanceLeaveStatement.Click += new System.EventHandler(this.cmbSSMyAttendanceLeaveStatement_Click);
             // 
             // toolStripMenuItem18
             // 
             this.toolStripMenuItem18.Name = "toolStripMenuItem18";
             this.toolStripMenuItem18.Size = new System.Drawing.Size(206, 6);
+            this.toolStripMenuItem18.Click += new System.EventHandler(this.toolStripMenuItem18_Click);
             // 
             // cmbSSLeaveManagement
             // 
@@ -528,6 +616,7 @@
             this.cmbSSLeaveManagement.Size = new System.Drawing.Size(209, 22);
             this.cmbSSLeaveManagement.Tag = "cmbSSLeaveManagement";
             this.cmbSSLeaveManagement.Text = "Leave Management";
+            this.cmbSSLeaveManagement.Click += new System.EventHandler(this.cmbSSLeaveManagement_Click);
             // 
             // cmbSSLeaveRequest
             // 
@@ -535,6 +624,7 @@
             this.cmbSSLeaveRequest.Size = new System.Drawing.Size(149, 22);
             this.cmbSSLeaveRequest.Tag = "cmbSSLeaveRequest";
             this.cmbSSLeaveRequest.Text = "Leave Request";
+            this.cmbSSLeaveRequest.Click += new System.EventHandler(this.cmbSSLeaveRequest_Click);
             // 
             // cmbSSLeaveReports
             // 
@@ -544,23 +634,27 @@
             this.cmbSSLeaveReports.Size = new System.Drawing.Size(149, 22);
             this.cmbSSLeaveReports.Tag = "cmbSSLeaveReports";
             this.cmbSSLeaveReports.Text = "Reports";
+            this.cmbSSLeaveReports.Click += new System.EventHandler(this.cmbSSLeaveReports_Click);
             // 
             // leaveReportsToolStripMenuItem
             // 
             this.leaveReportsToolStripMenuItem.Name = "leaveReportsToolStripMenuItem";
             this.leaveReportsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.leaveReportsToolStripMenuItem.Text = "Leave Reports";
+            this.leaveReportsToolStripMenuItem.Click += new System.EventHandler(this.leaveReportsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem19
             // 
             this.toolStripMenuItem19.Name = "toolStripMenuItem19";
             this.toolStripMenuItem19.Size = new System.Drawing.Size(206, 6);
+            this.toolStripMenuItem19.Click += new System.EventHandler(this.toolStripMenuItem19_Click);
             // 
             // kryptonRibbonGroup2
             // 
             this.kryptonRibbonGroup2.Items.AddRange(new Krypton.Ribbon.KryptonRibbonGroupContainer[] {
             this.kryptonRibbonGroupTriple13});
             this.kryptonRibbonGroup2.TextLine1 = "Recruitment";
+            this.kryptonRibbonGroup2.DialogBoxLauncherClick += new System.EventHandler(this.kryptonRibbonGroup2_DialogBoxLauncherClick);
             // 
             // kryptonRibbonGroupTriple13
             // 
@@ -572,6 +666,7 @@
             this.tlbManageRecruitmentButton.ImageLarge = global::StaffSync.Properties.Resources.recruitment;
             this.tlbManageRecruitmentButton.ImageSmall = global::StaffSync.Properties.Resources.recruitment;
             this.tlbManageRecruitmentButton.TextLine1 = "Manage Recruitment";
+            this.tlbManageRecruitmentButton.Click += new System.EventHandler(this.tlbManageRecruitmentButton_Click);
             // 
             // kryptonRibbonGroup1
             // 
@@ -584,6 +679,7 @@
             this.kryptonRibbonGroupSeparator3,
             this.kryptonRibbonGroupTriple15});
             this.kryptonRibbonGroup1.TextLine1 = "Employee Management";
+            this.kryptonRibbonGroup1.DialogBoxLauncherClick += new System.EventHandler(this.kryptonRibbonGroup1_DialogBoxLauncherClick);
             // 
             // kryptonRibbonGroupTriple1
             // 
@@ -613,6 +709,7 @@
             this.cmManageEmployee.Size = new System.Drawing.Size(234, 82);
             this.cmManageEmployee.Tag = "cmAttendanceManagementList";
             this.cmManageEmployee.Text = "DatamartMenu";
+            this.cmManageEmployee.Opening += new System.ComponentModel.CancelEventHandler(this.cmManageEmployee_Opening);
             this.cmManageEmployee.Click += new System.EventHandler(this.cmManageEmployee_Click);
             // 
             // cmbManageEmployee
@@ -628,6 +725,7 @@
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
             this.toolStripMenuItem8.Size = new System.Drawing.Size(230, 6);
+            this.toolStripMenuItem8.Click += new System.EventHandler(this.toolStripMenuItem8_Click);
             // 
             // cmbManageEmployeePayrollConfiguration
             // 
@@ -640,6 +738,7 @@
             // 
             this.toolStripMenuItem29.Name = "toolStripMenuItem29";
             this.toolStripMenuItem29.Size = new System.Drawing.Size(230, 6);
+            this.toolStripMenuItem29.Click += new System.EventHandler(this.toolStripMenuItem29_Click);
             // 
             // cmbLeaveEntitlement1
             // 
@@ -677,6 +776,7 @@
             this.cmAttendanceManagementList.Size = new System.Drawing.Size(281, 54);
             this.cmAttendanceManagementList.Tag = "cmAttendanceManagementList";
             this.cmAttendanceManagementList.Text = "DatamartMenu";
+            this.cmAttendanceManagementList.Opening += new System.ComponentModel.CancelEventHandler(this.cmAttendanceManagementList_Opening);
             this.cmAttendanceManagementList.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmAttendanceManagementList_ItemClicked);
             // 
             // cmbManageEmployeeAttendance
@@ -686,11 +786,13 @@
             this.cmbManageEmployeeAttendance.Size = new System.Drawing.Size(280, 22);
             this.cmbManageEmployeeAttendance.Tag = "cmbManageEmployeeAttendance";
             this.cmbManageEmployeeAttendance.Text = "Individual Employee Attendance";
+            this.cmbManageEmployeeAttendance.Click += new System.EventHandler(this.cmbManageEmployeeAttendance_Click);
             // 
             // toolStripMenuItem13
             // 
             this.toolStripMenuItem13.Name = "toolStripMenuItem13";
             this.toolStripMenuItem13.Size = new System.Drawing.Size(277, 6);
+            this.toolStripMenuItem13.Click += new System.EventHandler(this.toolStripMenuItem13_Click);
             // 
             // cmbDailyAttendanceSheet
             // 
@@ -712,6 +814,7 @@
             this.tlbManageEmployeeLeavesButton.ImageLarge = global::StaffSync.Properties.Resources.vacation;
             this.tlbManageEmployeeLeavesButton.ImageSmall = global::StaffSync.Properties.Resources.vacation;
             this.tlbManageEmployeeLeavesButton.TextLine1 = "Manage Leaves";
+            this.tlbManageEmployeeLeavesButton.Click += new System.EventHandler(this.tlbManageEmployeeLeavesButton_Click);
             // 
             // cmLeaveManagement
             // 
@@ -732,6 +835,7 @@
             this.cmLeaveManagement.Size = new System.Drawing.Size(183, 182);
             this.cmLeaveManagement.Tag = "DatamartMenu";
             this.cmLeaveManagement.Text = "Datamart Menu";
+            this.cmLeaveManagement.Opening += new System.ComponentModel.CancelEventHandler(this.cmLeaveManagement_Opening);
             this.cmLeaveManagement.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmLeaveManagement_ItemClicked);
             // 
             // cmbLeaveEntitlement
@@ -747,6 +851,7 @@
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(179, 6);
+            this.toolStripSeparator4.Click += new System.EventHandler(this.toolStripSeparator4_Click);
             // 
             // cmbLeaveRequest
             // 
@@ -755,11 +860,13 @@
             this.cmbLeaveRequest.Size = new System.Drawing.Size(182, 22);
             this.cmbLeaveRequest.Tag = "cmbLeaveRequest";
             this.cmbLeaveRequest.Text = "Leave Request";
+            this.cmbLeaveRequest.Click += new System.EventHandler(this.cmbLeaveRequest_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(179, 6);
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // cmbLeaveApproval
             // 
@@ -768,6 +875,7 @@
             this.cmbLeaveApproval.Size = new System.Drawing.Size(182, 22);
             this.cmbLeaveApproval.Tag = "cmbLeaveApproval";
             this.cmbLeaveApproval.Text = "Leave Approval";
+            this.cmbLeaveApproval.Click += new System.EventHandler(this.cmbLeaveApproval_Click);
             // 
             // cmbLeaveReject
             // 
@@ -776,11 +884,13 @@
             this.cmbLeaveReject.Size = new System.Drawing.Size(182, 22);
             this.cmbLeaveReject.Tag = "cmbLeaveReject";
             this.cmbLeaveReject.Text = "Leave Reject";
+            this.cmbLeaveReject.Click += new System.EventHandler(this.cmbLeaveReject_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(179, 6);
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // cmbBulkLeaveApproval
             // 
@@ -803,6 +913,7 @@
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
             this.toolStripMenuItem6.Size = new System.Drawing.Size(179, 6);
+            this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
             // cmbMyLeaveReports
             // 
@@ -821,6 +932,7 @@
             this.cmbMyLeaveReports.Size = new System.Drawing.Size(182, 22);
             this.cmbMyLeaveReports.Tag = "cmbMyLeaveReports";
             this.cmbMyLeaveReports.Text = "Reports";
+            this.cmbMyLeaveReports.Click += new System.EventHandler(this.cmbMyLeaveReports_Click);
             // 
             // cmbMyLeaveStatementReport01
             // 
@@ -835,6 +947,7 @@
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
             this.toolStripMenuItem9.Size = new System.Drawing.Size(236, 6);
+            this.toolStripMenuItem9.Click += new System.EventHandler(this.toolStripMenuItem9_Click);
             // 
             // cmbPendingLeaveApprovalList
             // 
@@ -848,6 +961,7 @@
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
             this.toolStripMenuItem10.Size = new System.Drawing.Size(236, 6);
+            this.toolStripMenuItem10.Click += new System.EventHandler(this.toolStripMenuItem10_Click);
             // 
             // cmbRejectionLeaveList
             // 
@@ -861,6 +975,7 @@
             // 
             this.toolStripMenuItem11.Name = "toolStripMenuItem11";
             this.toolStripMenuItem11.Size = new System.Drawing.Size(236, 6);
+            this.toolStripMenuItem11.Click += new System.EventHandler(this.toolStripMenuItem11_Click);
             // 
             // cmbConsolidatedLeaveStatement
             // 
@@ -874,6 +989,7 @@
             // 
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
             this.toolStripMenuItem12.Size = new System.Drawing.Size(236, 6);
+            this.toolStripMenuItem12.Click += new System.EventHandler(this.toolStripMenuItem12_Click);
             // 
             // cmbOutstandingLeaveStatement
             // 
@@ -895,6 +1011,7 @@
             this.tlbManageEmployeeAdvancesButton.ImageLarge = global::StaffSync.Properties.Resources.advances1;
             this.tlbManageEmployeeAdvancesButton.ImageSmall = global::StaffSync.Properties.Resources.advances1;
             this.tlbManageEmployeeAdvancesButton.TextLine1 = "Manage Advances";
+            this.tlbManageEmployeeAdvancesButton.Click += new System.EventHandler(this.tlbManageEmployeeAdvancesButton_Click);
             // 
             // cmbManageAdvances
             // 
@@ -905,6 +1022,7 @@
             this.cmbAdvanceManagementReports});
             this.cmbManageAdvances.Name = "cmbManageAdvances";
             this.cmbManageAdvances.Size = new System.Drawing.Size(238, 54);
+            this.cmbManageAdvances.Opening += new System.ComponentModel.CancelEventHandler(this.cmbManageAdvances_Opening);
             // 
             // cmbAdvanceManagement
             // 
@@ -916,6 +1034,7 @@
             this.cmbAdvanceManagement.Name = "cmbAdvanceManagement";
             this.cmbAdvanceManagement.Size = new System.Drawing.Size(237, 22);
             this.cmbAdvanceManagement.Text = "Advance Management";
+            this.cmbAdvanceManagement.Click += new System.EventHandler(this.cmbAdvanceManagement_Click);
             // 
             // cmbAdvanceRequest
             // 
@@ -930,6 +1049,7 @@
             // 
             this.toolStripMenuItem25.Name = "toolStripMenuItem25";
             this.toolStripMenuItem25.Size = new System.Drawing.Size(180, 6);
+            this.toolStripMenuItem25.Click += new System.EventHandler(this.toolStripMenuItem25_Click);
             // 
             // cmbAdvanceRepayment
             // 
@@ -943,6 +1063,7 @@
             // 
             this.toolStripMenuItem20.Name = "toolStripMenuItem20";
             this.toolStripMenuItem20.Size = new System.Drawing.Size(234, 6);
+            this.toolStripMenuItem20.Click += new System.EventHandler(this.toolStripMenuItem20_Click);
             // 
             // cmbAdvanceManagementReports
             // 
@@ -960,62 +1081,73 @@
             this.cmbAdvanceManagementReports.Name = "cmbAdvanceManagementReports";
             this.cmbAdvanceManagementReports.Size = new System.Drawing.Size(237, 22);
             this.cmbAdvanceManagementReports.Text = "Advance Management Reports";
+            this.cmbAdvanceManagementReports.Click += new System.EventHandler(this.cmbAdvanceManagementReports_Click);
             // 
             // employeeAdvanceOutstandingSummaryToolStripMenuItem
             // 
             this.employeeAdvanceOutstandingSummaryToolStripMenuItem.Name = "employeeAdvanceOutstandingSummaryToolStripMenuItem";
             this.employeeAdvanceOutstandingSummaryToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
             this.employeeAdvanceOutstandingSummaryToolStripMenuItem.Text = "Employee Advance Outstanding Summary";
+            this.employeeAdvanceOutstandingSummaryToolStripMenuItem.Click += new System.EventHandler(this.employeeAdvanceOutstandingSummaryToolStripMenuItem_Click);
             // 
             // toolStripMenuItem24
             // 
             this.toolStripMenuItem24.Name = "toolStripMenuItem24";
             this.toolStripMenuItem24.Size = new System.Drawing.Size(316, 6);
+            this.toolStripMenuItem24.Click += new System.EventHandler(this.toolStripMenuItem24_Click);
             // 
             // advanceRecoveryStatementEmployeewiseToolStripMenuItem
             // 
             this.advanceRecoveryStatementEmployeewiseToolStripMenuItem.Name = "advanceRecoveryStatementEmployeewiseToolStripMenuItem";
             this.advanceRecoveryStatementEmployeewiseToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
             this.advanceRecoveryStatementEmployeewiseToolStripMenuItem.Text = "Advance Recovery Statement (Employee-wise)";
+            this.advanceRecoveryStatementEmployeewiseToolStripMenuItem.Click += new System.EventHandler(this.advanceRecoveryStatementEmployeewiseToolStripMenuItem_Click);
             // 
             // toolStripMenuItem26
             // 
             this.toolStripMenuItem26.Name = "toolStripMenuItem26";
             this.toolStripMenuItem26.Size = new System.Drawing.Size(316, 6);
+            this.toolStripMenuItem26.Click += new System.EventHandler(this.toolStripMenuItem26_Click);
             // 
             // monthlyAdvanceRecoveryReportToolStripMenuItem
             // 
             this.monthlyAdvanceRecoveryReportToolStripMenuItem.Name = "monthlyAdvanceRecoveryReportToolStripMenuItem";
             this.monthlyAdvanceRecoveryReportToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
             this.monthlyAdvanceRecoveryReportToolStripMenuItem.Text = "Monthly Advance Recovery Report";
+            this.monthlyAdvanceRecoveryReportToolStripMenuItem.Click += new System.EventHandler(this.monthlyAdvanceRecoveryReportToolStripMenuItem_Click);
             // 
             // toolStripMenuItem27
             // 
             this.toolStripMenuItem27.Name = "toolStripMenuItem27";
             this.toolStripMenuItem27.Size = new System.Drawing.Size(316, 6);
+            this.toolStripMenuItem27.Click += new System.EventHandler(this.toolStripMenuItem27_Click);
             // 
             // advanceDeductionThroughPayrollReportToolStripMenuItem
             // 
             this.advanceDeductionThroughPayrollReportToolStripMenuItem.Name = "advanceDeductionThroughPayrollReportToolStripMenuItem";
             this.advanceDeductionThroughPayrollReportToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
             this.advanceDeductionThroughPayrollReportToolStripMenuItem.Text = "Advance Deduction Through Payroll Report";
+            this.advanceDeductionThroughPayrollReportToolStripMenuItem.Click += new System.EventHandler(this.advanceDeductionThroughPayrollReportToolStripMenuItem_Click);
             // 
             // toolStripMenuItem28
             // 
             this.toolStripMenuItem28.Name = "toolStripMenuItem28";
             this.toolStripMenuItem28.Size = new System.Drawing.Size(316, 6);
+            this.toolStripMenuItem28.Click += new System.EventHandler(this.toolStripMenuItem28_Click);
             // 
             // advanceRepaymentHistoryReportToolStripMenuItem
             // 
             this.advanceRepaymentHistoryReportToolStripMenuItem.Name = "advanceRepaymentHistoryReportToolStripMenuItem";
             this.advanceRepaymentHistoryReportToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
             this.advanceRepaymentHistoryReportToolStripMenuItem.Text = "Advance Repayment History Report";
+            this.advanceRepaymentHistoryReportToolStripMenuItem.Click += new System.EventHandler(this.advanceRepaymentHistoryReportToolStripMenuItem_Click);
             // 
             // kryptonRibbonGroup6
             // 
             this.kryptonRibbonGroup6.Items.AddRange(new Krypton.Ribbon.KryptonRibbonGroupContainer[] {
             this.kryptonRibbonGroupTriple14});
             this.kryptonRibbonGroup6.TextLine1 = "Payroll Management";
+            this.kryptonRibbonGroup6.DialogBoxLauncherClick += new System.EventHandler(this.kryptonRibbonGroup6_DialogBoxLauncherClick);
             // 
             // kryptonRibbonGroupTriple14
             // 
@@ -1030,6 +1162,7 @@
             this.tlbManagePayrollManagement.ImageSmall = global::StaffSync.Properties.Resources.payroll;
             this.tlbManagePayrollManagement.TextLine1 = "Payroll Management";
             this.tlbManagePayrollManagement.ToolTipValues.Description = "Manage Payroll";
+            this.tlbManagePayrollManagement.Click += new System.EventHandler(this.tlbManagePayrollManagement_Click);
             // 
             // cmPayrollManagement
             // 
@@ -1046,6 +1179,7 @@
             this.cmPayrollManagement.Size = new System.Drawing.Size(187, 110);
             this.cmPayrollManagement.Tag = "DatamartMenu";
             this.cmPayrollManagement.Text = "Datamart Menu";
+            this.cmPayrollManagement.Opening += new System.ComponentModel.CancelEventHandler(this.cmPayrollManagement_Opening);
             // 
             // cmbPayrollSettings
             // 
@@ -1058,6 +1192,7 @@
             this.cmbPayrollSettings.Size = new System.Drawing.Size(186, 22);
             this.cmbPayrollSettings.Tag = "cmbPayrollSettings";
             this.cmbPayrollSettings.Text = "Payroll Settings";
+            this.cmbPayrollSettings.Click += new System.EventHandler(this.cmbPayrollSettings_Click);
             // 
             // cmbEarningsList
             // 
@@ -1090,6 +1225,7 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(183, 6);
+            this.toolStripSeparator2.Click += new System.EventHandler(this.toolStripSeparator2_Click);
             // 
             // cmbPayrollSystem
             // 
@@ -1104,6 +1240,7 @@
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(183, 6);
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // cmbPayrollBatch
             // 
@@ -1118,6 +1255,7 @@
             // 
             this.toolStripMenuItem15.Name = "toolStripMenuItem15";
             this.toolStripMenuItem15.Size = new System.Drawing.Size(183, 6);
+            this.toolStripMenuItem15.Click += new System.EventHandler(this.toolStripMenuItem15_Click);
             // 
             // cmbPayrollReports
             // 
@@ -1131,6 +1269,7 @@
             this.cmbPayrollReports.Size = new System.Drawing.Size(186, 22);
             this.cmbPayrollReports.Tag = "cmbPayrollReports";
             this.cmbPayrollReports.Text = "Reports";
+            this.cmbPayrollReports.Click += new System.EventHandler(this.cmbPayrollReports_Click);
             // 
             // cmbPayslipRegister
             // 
@@ -1138,6 +1277,7 @@
             this.cmbPayslipRegister.Size = new System.Drawing.Size(202, 22);
             this.cmbPayslipRegister.Tag = "cmbPayslipRegister";
             this.cmbPayslipRegister.Text = "Payslip Register";
+            this.cmbPayslipRegister.Click += new System.EventHandler(this.cmbPayslipRegister_Click);
             // 
             // cmbSalaryStatement
             // 
@@ -1145,6 +1285,7 @@
             this.cmbSalaryStatement.Size = new System.Drawing.Size(202, 22);
             this.cmbSalaryStatement.Tag = "cmbSalaryStatement";
             this.cmbSalaryStatement.Text = "Salary Statement";
+            this.cmbSalaryStatement.Click += new System.EventHandler(this.cmbSalaryStatement_Click);
             // 
             // cmbPayrollSummaryReport
             // 
@@ -1152,6 +1293,7 @@
             this.cmbPayrollSummaryReport.Size = new System.Drawing.Size(202, 22);
             this.cmbPayrollSummaryReport.Tag = "cmbPayrollSummaryReport";
             this.cmbPayrollSummaryReport.Text = "Payroll Summary Report";
+            this.cmbPayrollSummaryReport.Click += new System.EventHandler(this.cmbPayrollSummaryReport_Click);
             // 
             // cmbEarningsDeductions
             // 
@@ -1159,6 +1301,7 @@
             this.cmbEarningsDeductions.Size = new System.Drawing.Size(202, 22);
             this.cmbEarningsDeductions.Tag = "cmbEarningsDeductions";
             this.cmbEarningsDeductions.Text = "Earnings & Deductions";
+            this.cmbEarningsDeductions.Click += new System.EventHandler(this.cmbEarningsDeductions_Click);
             // 
             // kryptonRibbonGroup7
             // 
@@ -1166,6 +1309,7 @@
             this.kryptonRibbonGroup7.Items.AddRange(new Krypton.Ribbon.KryptonRibbonGroupContainer[] {
             this.kryptonRibbonGroupTriple5});
             this.kryptonRibbonGroup7.TextLine1 = "User Management";
+            this.kryptonRibbonGroup7.DialogBoxLauncherClick += new System.EventHandler(this.kryptonRibbonGroup7_DialogBoxLauncherClick);
             // 
             // kryptonRibbonGroupTriple5
             // 
@@ -1179,6 +1323,7 @@
             this.tlbUserManagement.ImageLarge = ((System.Drawing.Image)(resources.GetObject("tlbUserManagement.ImageLarge")));
             this.tlbUserManagement.ImageSmall = ((System.Drawing.Image)(resources.GetObject("tlbUserManagement.ImageSmall")));
             this.tlbUserManagement.TextLine1 = "User Management";
+            this.tlbUserManagement.Click += new System.EventHandler(this.tlbUserManagement_Click);
             // 
             // cmUserManagementList
             // 
@@ -1193,6 +1338,7 @@
             this.cmUserManagementList.Size = new System.Drawing.Size(182, 98);
             this.cmUserManagementList.Tag = "DatamartMenu";
             this.cmUserManagementList.Text = "DatamartMenu";
+            this.cmUserManagementList.Opening += new System.ComponentModel.CancelEventHandler(this.cmUserManagementList_Opening);
             this.cmUserManagementList.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmUserManagementList_ItemClicked);
             // 
             // tlbManageUsers
@@ -1211,6 +1357,7 @@
             this.tlbRoleAssignment.Size = new System.Drawing.Size(181, 22);
             this.tlbRoleAssignment.Tag = "cmbRoleAssignment";
             this.tlbRoleAssignment.Text = "Role Assignment";
+            this.tlbRoleAssignment.Click += new System.EventHandler(this.tlbRoleAssignment_Click);
             // 
             // tlbModuleAssignment
             // 
@@ -1219,11 +1366,13 @@
             this.tlbModuleAssignment.Size = new System.Drawing.Size(181, 22);
             this.tlbModuleAssignment.Tag = "cmbModuleAssignment";
             this.tlbModuleAssignment.Text = "Module Assignment";
+            this.tlbModuleAssignment.Click += new System.EventHandler(this.tlbModuleAssignment_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
+            this.toolStripSeparator1.Click += new System.EventHandler(this.toolStripSeparator1_Click);
             // 
             // cmbRoleProfilement
             // 
@@ -1232,12 +1381,14 @@
             this.cmbRoleProfilement.Size = new System.Drawing.Size(181, 22);
             this.cmbRoleProfilement.Tag = "cmbRoleProfilement";
             this.cmbRoleProfilement.Text = "Role Profile";
+            this.cmbRoleProfilement.Click += new System.EventHandler(this.cmbRoleProfilement_Click);
             // 
             // kryptonRibbonGroup3
             // 
             this.kryptonRibbonGroup3.Items.AddRange(new Krypton.Ribbon.KryptonRibbonGroupContainer[] {
             this.kryptonRibbonGroupTriple12});
             this.kryptonRibbonGroup3.TextLine1 = "Company Information";
+            this.kryptonRibbonGroup3.DialogBoxLauncherClick += new System.EventHandler(this.kryptonRibbonGroup3_DialogBoxLauncherClick);
             // 
             // kryptonRibbonGroupTriple12
             // 
@@ -1265,6 +1416,7 @@
             this.cmCompanyInfo.Size = new System.Drawing.Size(224, 54);
             this.cmCompanyInfo.Tag = "cmAttendanceManagementList";
             this.cmCompanyInfo.Text = "DatamartMenu";
+            this.cmCompanyInfo.Opening += new System.ComponentModel.CancelEventHandler(this.cmCompanyInfo_Opening);
             // 
             // cmbManageCompanyInfo
             // 
@@ -1279,6 +1431,7 @@
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(220, 6);
+            this.toolStripSeparator3.Click += new System.EventHandler(this.toolStripSeparator3_Click);
             // 
             // cmbManageBranchInfo
             // 
@@ -1294,6 +1447,7 @@
             this.kryptonRibbonGroup4.Items.AddRange(new Krypton.Ribbon.KryptonRibbonGroupContainer[] {
             this.kryptonRibbonGroupTriple10});
             this.kryptonRibbonGroup4.TextLine1 = "Settings";
+            this.kryptonRibbonGroup4.DialogBoxLauncherClick += new System.EventHandler(this.kryptonRibbonGroup4_DialogBoxLauncherClick);
             // 
             // kryptonRibbonGroupTriple10
             // 
@@ -1307,6 +1461,7 @@
             this.tlbApplicationSettings.ImageLarge = global::StaffSync.Properties.Resources.settings;
             this.tlbApplicationSettings.ImageSmall = global::StaffSync.Properties.Resources.settings;
             this.tlbApplicationSettings.TextLine1 = "Application Settings";
+            this.tlbApplicationSettings.Click += new System.EventHandler(this.tlbApplicationSettings_Click);
             // 
             // cmbApplicationSettings
             // 
@@ -1349,6 +1504,7 @@
             this.cmbMasterList.Size = new System.Drawing.Size(228, 22);
             this.cmbMasterList.Tag = "cmbMasterList";
             this.cmbMasterList.Text = "Master List";
+            this.cmbMasterList.Click += new System.EventHandler(this.cmbMasterList_Click);
             // 
             // cmbCompanyList01
             // 
@@ -1434,6 +1590,7 @@
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.Size = new System.Drawing.Size(225, 6);
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click_1);
             // 
             // cmbSalaryConfiguration
             // 
@@ -1445,6 +1602,7 @@
             this.cmbSalaryConfiguration.Size = new System.Drawing.Size(228, 22);
             this.cmbSalaryConfiguration.Tag = "cmbSalaryConfiguration";
             this.cmbSalaryConfiguration.Text = "Salary Configuration";
+            this.cmbSalaryConfiguration.Click += new System.EventHandler(this.cmbSalaryConfiguration_Click);
             // 
             // cmbSalaryProfile
             // 
@@ -1468,6 +1626,7 @@
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(225, 6);
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // cmbLeaveConfiguration
             // 
@@ -1478,6 +1637,7 @@
             this.cmbLeaveConfiguration.Size = new System.Drawing.Size(228, 22);
             this.cmbLeaveConfiguration.Tag = "cmbLeaveConfiguration";
             this.cmbLeaveConfiguration.Text = "Leave Configuration";
+            this.cmbLeaveConfiguration.Click += new System.EventHandler(this.cmbLeaveConfiguration_Click);
             // 
             // cmbLeaveTypeMaster
             // 
@@ -1492,6 +1652,7 @@
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
             this.toolStripMenuItem7.Size = new System.Drawing.Size(225, 6);
+            this.toolStripMenuItem7.Click += new System.EventHandler(this.toolStripMenuItem7_Click);
             // 
             // payrollConfigurationToolStripMenuItem
             // 
@@ -1503,6 +1664,7 @@
             this.payrollConfigurationToolStripMenuItem.Name = "payrollConfigurationToolStripMenuItem";
             this.payrollConfigurationToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.payrollConfigurationToolStripMenuItem.Text = "Payroll Configuration";
+            this.payrollConfigurationToolStripMenuItem.Click += new System.EventHandler(this.payrollConfigurationToolStripMenuItem_Click);
             // 
             // cmbEarningsListConfig
             // 
@@ -1535,6 +1697,7 @@
             // 
             this.toolStripMenuItem16.Name = "toolStripMenuItem16";
             this.toolStripMenuItem16.Size = new System.Drawing.Size(225, 6);
+            this.toolStripMenuItem16.Click += new System.EventHandler(this.toolStripMenuItem16_Click);
             // 
             // advanceConfigurationToolStripMenuItem
             // 
@@ -1543,6 +1706,7 @@
             this.advanceConfigurationToolStripMenuItem.Name = "advanceConfigurationToolStripMenuItem";
             this.advanceConfigurationToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.advanceConfigurationToolStripMenuItem.Text = "Advance Configuration";
+            this.advanceConfigurationToolStripMenuItem.Click += new System.EventHandler(this.advanceConfigurationToolStripMenuItem_Click);
             // 
             // cmbAdvanceConfiguration
             // 
@@ -1557,6 +1721,7 @@
             // 
             this.toolStripMenuItem14.Name = "toolStripMenuItem14";
             this.toolStripMenuItem14.Size = new System.Drawing.Size(225, 6);
+            this.toolStripMenuItem14.Click += new System.EventHandler(this.toolStripMenuItem14_Click);
             // 
             // cmbPublicHolidayConfig
             // 
@@ -1576,6 +1741,7 @@
             this.kryptonRibbonGroupTriple6});
             this.tlbApplicationGroup.MinimumWidth = 150;
             this.tlbApplicationGroup.TextLine1 = "Application";
+            this.tlbApplicationGroup.DialogBoxLauncherClick += new System.EventHandler(this.tlbApplicationGroup_DialogBoxLauncherClick);
             // 
             // kryptonRibbonGroupTriple16
             // 
@@ -1600,6 +1766,7 @@
             this.toolStripMenuItem23});
             this.cmbApprovals.Name = "cmbManageAdvances";
             this.cmbApprovals.Size = new System.Drawing.Size(238, 54);
+            this.cmbApprovals.Opening += new System.ComponentModel.CancelEventHandler(this.cmbApprovals_Opening);
             // 
             // toolStripMenuItem21
             // 
@@ -1611,6 +1778,7 @@
             this.toolStripMenuItem21.Name = "toolStripMenuItem21";
             this.toolStripMenuItem21.Size = new System.Drawing.Size(237, 22);
             this.toolStripMenuItem21.Text = "Approvals";
+            this.toolStripMenuItem21.Click += new System.EventHandler(this.toolStripMenuItem21_Click);
             // 
             // cmbFirstApproval
             // 
@@ -1625,6 +1793,7 @@
             // 
             this.toolStripMenuItem22.Name = "toolStripMenuItem22";
             this.toolStripMenuItem22.Size = new System.Drawing.Size(161, 6);
+            this.toolStripMenuItem22.Click += new System.EventHandler(this.toolStripMenuItem22_Click);
             // 
             // cmbSecondApproval
             // 
@@ -1638,6 +1807,7 @@
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(234, 6);
+            this.toolStripSeparator5.Click += new System.EventHandler(this.toolStripSeparator5_Click);
             // 
             // toolStripMenuItem23
             // 
@@ -1645,6 +1815,7 @@
             this.toolStripMenuItem23.Name = "toolStripMenuItem23";
             this.toolStripMenuItem23.Size = new System.Drawing.Size(237, 22);
             this.toolStripMenuItem23.Text = "Advance Management Reports";
+            this.toolStripMenuItem23.Click += new System.EventHandler(this.toolStripMenuItem23_Click);
             // 
             // kryptonRibbonGroupTriple2
             // 
@@ -1656,6 +1827,7 @@
             this.tlbApplicationHelp.ImageLarge = global::StaffSync.Properties.Resources.help;
             this.tlbApplicationHelp.ImageSmall = global::StaffSync.Properties.Resources.help;
             this.tlbApplicationHelp.TextLine1 = "Help";
+            this.tlbApplicationHelp.Click += new System.EventHandler(this.tlbApplicationHelp_Click);
             // 
             // kryptonRibbonGroupTriple6
             // 
@@ -1681,12 +1853,14 @@
             this.tlbManageEmployeePayroll.ImageLarge = global::StaffSync.Properties.Resources.payroll;
             this.tlbManageEmployeePayroll.ImageSmall = global::StaffSync.Properties.Resources.payroll;
             this.tlbManageEmployeePayroll.TextLine1 = "Manage Payroll";
+            this.tlbManageEmployeePayroll.Click += new System.EventHandler(this.tlbManageEmployeePayroll_Click);
             // 
             // kryptonRibbonGroupButton14
             // 
             this.kryptonRibbonGroupButton14.ImageLarge = null;
             this.kryptonRibbonGroupButton14.ImageSmall = null;
             this.kryptonRibbonGroupButton14.TextLine1 = "Manage Employee Assets";
+            this.kryptonRibbonGroupButton14.Click += new System.EventHandler(this.kryptonRibbonGroupButton14_Click);
             // 
             // kryptonRibbonGroupTriple3
             // 
@@ -1698,6 +1872,7 @@
             this.kryptonRibbonGroupButton4.ImageLarge = null;
             this.kryptonRibbonGroupButton4.ImageSmall = null;
             this.kryptonRibbonGroupButton4.TextLine1 = "Help";
+            this.kryptonRibbonGroupButton4.Click += new System.EventHandler(this.kryptonRibbonGroupButton4_Click);
             // 
             // kryptonRibbonGroupTriple4
             // 
@@ -1709,20 +1884,23 @@
             this.kryptonRibbonGroupButton7.ImageLarge = null;
             this.kryptonRibbonGroupButton7.ImageSmall = null;
             this.kryptonRibbonGroupButton7.TextLine1 = "Exit";
+            this.kryptonRibbonGroupButton7.Click += new System.EventHandler(this.kryptonRibbonGroupButton7_Click);
             // 
-            // qryRoleProfileBindingSource
+            // kryptonContextMenuItem2
             // 
-            this.qryRoleProfileBindingSource.DataMember = "qryRoleProfile";
-            this.qryRoleProfileBindingSource.DataSource = this.staffsyncDBDTSet;
+            this.kryptonContextMenuItem2.Click += new System.EventHandler(this.kryptonContextMenuItem2_Click);
             // 
-            // staffsyncDBDTSet
+            // kryptonContextMenuItem3
             // 
-            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
-            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.kryptonContextMenuItem3.Click += new System.EventHandler(this.kryptonContextMenuItem3_Click);
             // 
-            // qryRoleProfileTableAdapter
+            // kryptonContextMenuItem4
             // 
-            this.qryRoleProfileTableAdapter.ClearBeforeFill = true;
+            this.kryptonContextMenuItem4.Click += new System.EventHandler(this.kryptonContextMenuItem4_Click);
+            // 
+            // kryptonContextMenuItem6
+            // 
+            this.kryptonContextMenuItem6.Click += new System.EventHandler(this.kryptonContextMenuItem6_Click);
             // 
             // lblDashboardTitle
             // 
@@ -1738,28 +1916,27 @@
             this.lblDashboardTitle.TabIndex = 10;
             this.lblDashboardTitle.Text = "Dashboard";
             this.lblDashboardTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDashboardTitle.Click += new System.EventHandler(this.lblDashboardTitle_Click);
             // 
-            // kryptonRibbonGroupButton5
+            // sptrDashboardContainer
             // 
-            this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
+            this.sptrDashboardContainer.Cursor = System.Windows.Forms.Cursors.Default;
+            this.sptrDashboardContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sptrDashboardContainer.Location = new System.Drawing.Point(0, 184);
             // 
-            // kryptonSplitContainer1
+            // sptrDashboardContainer.Panel1
             // 
-            this.kryptonSplitContainer1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.kryptonSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonSplitContainer1.Location = new System.Drawing.Point(0, 184);
+            this.sptrDashboardContainer.Panel1.Controls.Add(this.kryptonSplitContainer4);
             // 
-            // kryptonSplitContainer1.Panel1
+            // sptrDashboardContainer.Panel2
             // 
-            this.kryptonSplitContainer1.Panel1.Controls.Add(this.kryptonSplitContainer4);
-            // 
-            // kryptonSplitContainer1.Panel2
-            // 
-            this.kryptonSplitContainer1.Panel2.Controls.Add(this.kryptonSplitContainer2);
-            this.kryptonSplitContainer1.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer1.Size = new System.Drawing.Size(1507, 426);
-            this.kryptonSplitContainer1.SplitterDistance = 367;
-            this.kryptonSplitContainer1.TabIndex = 12;
+            this.sptrDashboardContainer.Panel2.Controls.Add(this.kryptonSplitContainer2);
+            this.sptrDashboardContainer.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
+            this.sptrDashboardContainer.Size = new System.Drawing.Size(1507, 790);
+            this.sptrDashboardContainer.SplitterDistance = 367;
+            this.sptrDashboardContainer.TabIndex = 12;
+            this.sptrDashboardContainer.Visible = false;
+            this.sptrDashboardContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.sptrDashboardContainer_SplitterMoved);
             // 
             // kryptonSplitContainer4
             // 
@@ -1767,10 +1944,85 @@
             this.kryptonSplitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonSplitContainer4.Location = new System.Drawing.Point(0, 0);
             this.kryptonSplitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // kryptonSplitContainer4.Panel1
+            // 
+            this.kryptonSplitContainer4.Panel1.Controls.Add(this.kryptonGroupBox1);
+            // 
+            // kryptonSplitContainer4.Panel2
+            // 
+            this.kryptonSplitContainer4.Panel2.Controls.Add(this.kryptonGroupBox4);
             this.kryptonSplitContainer4.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer4.Size = new System.Drawing.Size(367, 426);
-            this.kryptonSplitContainer4.SplitterDistance = 211;
+            this.kryptonSplitContainer4.Size = new System.Drawing.Size(367, 790);
+            this.kryptonSplitContainer4.SplitterDistance = 389;
             this.kryptonSplitContainer4.TabIndex = 0;
+            this.kryptonSplitContainer4.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.kryptonSplitContainer4_SplitterMoved);
+            // 
+            // kryptonGroupBox1
+            // 
+            this.kryptonGroupBox1.CaptionOverlap = 0D;
+            this.kryptonGroupBox1.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
+            this.kryptonGroupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonGroupBox1.GroupBorderStyle = Krypton.Toolkit.PaletteBorderStyle.ButtonLowProfile;
+            this.kryptonGroupBox1.Location = new System.Drawing.Point(0, 0);
+            // 
+            // kryptonGroupBox1.Panel
+            // 
+            this.kryptonGroupBox1.Panel.Controls.Add(this.chrtCompanySummaryMatrix);
+            this.kryptonGroupBox1.Size = new System.Drawing.Size(367, 389);
+            this.kryptonGroupBox1.TabIndex = 0;
+            this.kryptonGroupBox1.Values.Heading = "Company Summary Metrics";
+            // 
+            // chrtCompanySummaryMatrix
+            // 
+            this.chrtCompanySummaryMatrix.BackColorTransparent = true;
+            this.chrtCompanySummaryMatrix.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chrtCompanySummaryMatrix.Location = new System.Drawing.Point(0, 0);
+            this.chrtCompanySummaryMatrix.Name = "chrtCompanySummaryMatrix";
+            this.chrtCompanySummaryMatrix.Size = new System.Drawing.Size(365, 359);
+            this.chrtCompanySummaryMatrix.TabIndex = 0;
+            this.chrtCompanySummaryMatrix.Text = "cartesianChart1";
+            this.chrtCompanySummaryMatrix.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.chrtCompanySummaryMatrix_ChildChanged);
+            // 
+            // kryptonGroupBox4
+            // 
+            this.kryptonGroupBox4.CaptionOverlap = 0D;
+            this.kryptonGroupBox4.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
+            this.kryptonGroupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonGroupBox4.GroupBorderStyle = Krypton.Toolkit.PaletteBorderStyle.ButtonLowProfile;
+            this.kryptonGroupBox4.Location = new System.Drawing.Point(0, 0);
+            // 
+            // kryptonGroupBox4.Panel
+            // 
+            this.kryptonGroupBox4.Panel.Controls.Add(this.dtgUpcomingHolidays);
+            this.kryptonGroupBox4.Size = new System.Drawing.Size(367, 396);
+            this.kryptonGroupBox4.TabIndex = 2;
+            this.kryptonGroupBox4.Values.Heading = "Upcoming Holidays";
+            this.kryptonGroupBox4.Paint += new System.Windows.Forms.PaintEventHandler(this.kryptonGroupBox4_Paint_1);
+            // 
+            // dtgUpcomingHolidays
+            // 
+            this.dtgUpcomingHolidays.AllowUserToAddRows = false;
+            this.dtgUpcomingHolidays.AllowUserToDeleteRows = false;
+            this.dtgUpcomingHolidays.AllowUserToResizeColumns = false;
+            this.dtgUpcomingHolidays.AllowUserToResizeRows = false;
+            this.dtgUpcomingHolidays.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgUpcomingHolidays.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgUpcomingHolidays.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgUpcomingHolidays.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtgUpcomingHolidays.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dtgUpcomingHolidays.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgUpcomingHolidays.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgUpcomingHolidays.Location = new System.Drawing.Point(0, 0);
+            this.dtgUpcomingHolidays.MultiSelect = false;
+            this.dtgUpcomingHolidays.Name = "dtgUpcomingHolidays";
+            this.dtgUpcomingHolidays.ReadOnly = true;
+            this.dtgUpcomingHolidays.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgUpcomingHolidays.Size = new System.Drawing.Size(365, 366);
+            this.dtgUpcomingHolidays.TabIndex = 49;
+            this.dtgUpcomingHolidays.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgUpcomingHolidays_CellContentClick);
+            this.dtgUpcomingHolidays.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dtgUpcomingHolidays_CellFormatting);
+            this.dtgUpcomingHolidays.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dtgUpcomingHolidays_CellPainting);
             // 
             // kryptonSplitContainer2
             // 
@@ -1784,11 +2036,12 @@
             // 
             // kryptonSplitContainer2.Panel2
             // 
-            this.kryptonSplitContainer2.Panel2.Controls.Add(this.kryptonSplitContainer3);
+            this.kryptonSplitContainer2.Panel2.Controls.Add(this.kryptonSplitContainer1);
             this.kryptonSplitContainer2.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer2.Size = new System.Drawing.Size(1135, 426);
-            this.kryptonSplitContainer2.SplitterDistance = 350;
+            this.kryptonSplitContainer2.Size = new System.Drawing.Size(1135, 790);
+            this.kryptonSplitContainer2.SplitterDistance = 348;
             this.kryptonSplitContainer2.TabIndex = 13;
+            this.kryptonSplitContainer2.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.kryptonSplitContainer2_SplitterMoved);
             // 
             // kryptonSplitContainer5
             // 
@@ -1796,10 +2049,440 @@
             this.kryptonSplitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonSplitContainer5.Location = new System.Drawing.Point(0, 0);
             this.kryptonSplitContainer5.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // kryptonSplitContainer5.Panel1
+            // 
+            this.kryptonSplitContainer5.Panel1.Controls.Add(this.kryptonGroupBox2);
+            // 
+            // kryptonSplitContainer5.Panel2
+            // 
+            this.kryptonSplitContainer5.Panel2.Controls.Add(this.kryptonGroupBox5);
+            this.kryptonSplitContainer5.Panel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlackDarkMode;
             this.kryptonSplitContainer5.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer5.Size = new System.Drawing.Size(350, 426);
-            this.kryptonSplitContainer5.SplitterDistance = 211;
+            this.kryptonSplitContainer5.Size = new System.Drawing.Size(348, 790);
+            this.kryptonSplitContainer5.SplitterDistance = 389;
             this.kryptonSplitContainer5.TabIndex = 1;
+            this.kryptonSplitContainer5.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.kryptonSplitContainer5_SplitterMoved);
+            // 
+            // kryptonGroupBox2
+            // 
+            this.kryptonGroupBox2.CaptionOverlap = 0D;
+            this.kryptonGroupBox2.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
+            this.kryptonGroupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonGroupBox2.GroupBorderStyle = Krypton.Toolkit.PaletteBorderStyle.ButtonLowProfile;
+            this.kryptonGroupBox2.Location = new System.Drawing.Point(0, 0);
+            // 
+            // kryptonGroupBox2.Panel
+            // 
+            this.kryptonGroupBox2.Panel.Controls.Add(this.chrtCompanyAdvanceSummaryMatrix);
+            this.kryptonGroupBox2.Size = new System.Drawing.Size(348, 389);
+            this.kryptonGroupBox2.TabIndex = 1;
+            this.kryptonGroupBox2.Values.Heading = "Advance Summary Matrix";
+            // 
+            // chrtCompanyAdvanceSummaryMatrix
+            // 
+            this.chrtCompanyAdvanceSummaryMatrix.BackColorTransparent = true;
+            this.chrtCompanyAdvanceSummaryMatrix.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chrtCompanyAdvanceSummaryMatrix.Location = new System.Drawing.Point(0, 0);
+            this.chrtCompanyAdvanceSummaryMatrix.Name = "chrtCompanyAdvanceSummaryMatrix";
+            this.chrtCompanyAdvanceSummaryMatrix.Size = new System.Drawing.Size(346, 359);
+            this.chrtCompanyAdvanceSummaryMatrix.TabIndex = 0;
+            this.chrtCompanyAdvanceSummaryMatrix.Text = "cartesianChart1";
+            this.chrtCompanyAdvanceSummaryMatrix.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.chrtCompanyAdvanceSummaryMatrix_ChildChanged);
+            // 
+            // kryptonGroupBox5
+            // 
+            this.kryptonGroupBox5.CaptionOverlap = 0D;
+            this.kryptonGroupBox5.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
+            this.kryptonGroupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonGroupBox5.GroupBorderStyle = Krypton.Toolkit.PaletteBorderStyle.ButtonLowProfile;
+            this.kryptonGroupBox5.Location = new System.Drawing.Point(0, 0);
+            // 
+            // kryptonGroupBox5.Panel
+            // 
+            this.kryptonGroupBox5.Panel.Controls.Add(this.kryptonPictureBox7);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.bdgWorkAnniversary);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.label6);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.kryptonPictureBox6);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.bdgEmployeesBirthday);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.label5);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.kryptonPictureBox5);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.bdgEmployeesWithWeeklyOff);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.label4);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.kryptonPictureBox4);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.kryptonPictureBox3);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.kryptonPictureBox2);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.kryptonPictureBox1);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.bdgTotalLeaveApprovals);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.label3);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.bdgTotalLeaveEmployees);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.label2);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.bdgTotalPresentEmployees);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.label1);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.bdgTotalActiveEmployees);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.label9);
+            this.kryptonGroupBox5.Size = new System.Drawing.Size(348, 396);
+            this.kryptonGroupBox5.TabIndex = 2;
+            this.kryptonGroupBox5.Values.Heading = "Workforce Overview";
+            this.kryptonGroupBox5.Paint += new System.Windows.Forms.PaintEventHandler(this.kryptonGroupBox5_Paint);
+            // 
+            // kryptonPictureBox7
+            // 
+            this.kryptonPictureBox7.Image = global::StaffSync.Properties.Resources.work_anniversary;
+            this.kryptonPictureBox7.Location = new System.Drawing.Point(247, 306);
+            this.kryptonPictureBox7.Name = "kryptonPictureBox7";
+            this.kryptonPictureBox7.Size = new System.Drawing.Size(25, 25);
+            this.kryptonPictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.kryptonPictureBox7.TabIndex = 90;
+            this.kryptonPictureBox7.TabStop = false;
+            // 
+            // bdgWorkAnniversary
+            // 
+            this.bdgWorkAnniversary.BackColor = System.Drawing.Color.Transparent;
+            this.bdgWorkAnniversary.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgWorkAnniversary.BorderThickness = 0;
+            this.bdgWorkAnniversary.CircleBackColor = System.Drawing.Color.DarkSlateGray;
+            this.bdgWorkAnniversary.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgWorkAnniversary.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgWorkAnniversary.ForeColor = System.Drawing.Color.Orange;
+            this.bdgWorkAnniversary.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgWorkAnniversary.Location = new System.Drawing.Point(196, 299);
+            this.bdgWorkAnniversary.Name = "bdgWorkAnniversary";
+            this.bdgWorkAnniversary.Size = new System.Drawing.Size(42, 42);
+            this.bdgWorkAnniversary.TabIndex = 89;
+            this.bdgWorkAnniversary.TextColor = System.Drawing.Color.PaleGoldenrod;
+            this.bdgWorkAnniversary.Value = 0;
+            this.bdgWorkAnniversary.DoubleClick += new System.EventHandler(this.bdgWorkAnniversary_DoubleClick);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(27, 311);
+            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(158, 15);
+            this.label6.TabIndex = 88;
+            this.label6.Text = "Work Anniversary Today";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // kryptonPictureBox6
+            // 
+            this.kryptonPictureBox6.Image = global::StaffSync.Properties.Resources.birthday_cake1;
+            this.kryptonPictureBox6.Location = new System.Drawing.Point(247, 258);
+            this.kryptonPictureBox6.Name = "kryptonPictureBox6";
+            this.kryptonPictureBox6.Size = new System.Drawing.Size(25, 25);
+            this.kryptonPictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.kryptonPictureBox6.TabIndex = 87;
+            this.kryptonPictureBox6.TabStop = false;
+            // 
+            // bdgEmployeesBirthday
+            // 
+            this.bdgEmployeesBirthday.BackColor = System.Drawing.Color.Transparent;
+            this.bdgEmployeesBirthday.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgEmployeesBirthday.BorderThickness = 0;
+            this.bdgEmployeesBirthday.CircleBackColor = System.Drawing.Color.SteelBlue;
+            this.bdgEmployeesBirthday.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgEmployeesBirthday.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgEmployeesBirthday.ForeColor = System.Drawing.Color.Orange;
+            this.bdgEmployeesBirthday.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgEmployeesBirthday.Location = new System.Drawing.Point(196, 251);
+            this.bdgEmployeesBirthday.Name = "bdgEmployeesBirthday";
+            this.bdgEmployeesBirthday.Size = new System.Drawing.Size(42, 42);
+            this.bdgEmployeesBirthday.TabIndex = 86;
+            this.bdgEmployeesBirthday.TextColor = System.Drawing.Color.Black;
+            this.bdgEmployeesBirthday.Value = 0;
+            this.bdgEmployeesBirthday.DoubleClick += new System.EventHandler(this.bdgEmployeesBirthday_DoubleClick);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(77, 263);
+            this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(108, 15);
+            this.label5.TabIndex = 85;
+            this.label5.Text = "Birthdays Today";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // kryptonPictureBox5
+            // 
+            this.kryptonPictureBox5.Image = global::StaffSync.Properties.Resources.weekly_off;
+            this.kryptonPictureBox5.Location = new System.Drawing.Point(247, 210);
+            this.kryptonPictureBox5.Name = "kryptonPictureBox5";
+            this.kryptonPictureBox5.Size = new System.Drawing.Size(25, 25);
+            this.kryptonPictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.kryptonPictureBox5.TabIndex = 84;
+            this.kryptonPictureBox5.TabStop = false;
+            // 
+            // bdgEmployeesWithWeeklyOff
+            // 
+            this.bdgEmployeesWithWeeklyOff.BackColor = System.Drawing.Color.Transparent;
+            this.bdgEmployeesWithWeeklyOff.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgEmployeesWithWeeklyOff.BorderThickness = 0;
+            this.bdgEmployeesWithWeeklyOff.CircleBackColor = System.Drawing.Color.Gray;
+            this.bdgEmployeesWithWeeklyOff.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgEmployeesWithWeeklyOff.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgEmployeesWithWeeklyOff.ForeColor = System.Drawing.Color.Orange;
+            this.bdgEmployeesWithWeeklyOff.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgEmployeesWithWeeklyOff.Location = new System.Drawing.Point(196, 203);
+            this.bdgEmployeesWithWeeklyOff.Name = "bdgEmployeesWithWeeklyOff";
+            this.bdgEmployeesWithWeeklyOff.Size = new System.Drawing.Size(42, 42);
+            this.bdgEmployeesWithWeeklyOff.TabIndex = 83;
+            this.bdgEmployeesWithWeeklyOff.TextColor = System.Drawing.Color.PaleGoldenrod;
+            this.bdgEmployeesWithWeeklyOff.Value = 0;
+            this.bdgEmployeesWithWeeklyOff.DoubleClick += new System.EventHandler(this.bdgEmployeesWithWeeklyOff_DoubleClick);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(17, 215);
+            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(168, 15);
+            this.label4.TabIndex = 82;
+            this.label4.Text = "Employees on Weekly Off";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // kryptonPictureBox4
+            // 
+            this.kryptonPictureBox4.Image = global::StaffSync.Properties.Resources.pending;
+            this.kryptonPictureBox4.Location = new System.Drawing.Point(247, 162);
+            this.kryptonPictureBox4.Name = "kryptonPictureBox4";
+            this.kryptonPictureBox4.Size = new System.Drawing.Size(25, 25);
+            this.kryptonPictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.kryptonPictureBox4.TabIndex = 81;
+            this.kryptonPictureBox4.TabStop = false;
+            this.kryptonPictureBox4.Click += new System.EventHandler(this.kryptonPictureBox4_Click);
+            // 
+            // kryptonPictureBox3
+            // 
+            this.kryptonPictureBox3.Image = global::StaffSync.Properties.Resources.total_emp_leave;
+            this.kryptonPictureBox3.Location = new System.Drawing.Point(244, 114);
+            this.kryptonPictureBox3.Name = "kryptonPictureBox3";
+            this.kryptonPictureBox3.Size = new System.Drawing.Size(31, 29);
+            this.kryptonPictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.kryptonPictureBox3.TabIndex = 80;
+            this.kryptonPictureBox3.TabStop = false;
+            this.kryptonPictureBox3.Click += new System.EventHandler(this.kryptonPictureBox3_Click);
+            // 
+            // kryptonPictureBox2
+            // 
+            this.kryptonPictureBox2.Image = global::StaffSync.Properties.Resources.total_emp_present;
+            this.kryptonPictureBox2.Location = new System.Drawing.Point(239, 59);
+            this.kryptonPictureBox2.Name = "kryptonPictureBox2";
+            this.kryptonPictureBox2.Size = new System.Drawing.Size(44, 42);
+            this.kryptonPictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.kryptonPictureBox2.TabIndex = 79;
+            this.kryptonPictureBox2.TabStop = false;
+            this.kryptonPictureBox2.Click += new System.EventHandler(this.kryptonPictureBox2_Click);
+            // 
+            // kryptonPictureBox1
+            // 
+            this.kryptonPictureBox1.Image = global::StaffSync.Properties.Resources.all_emps;
+            this.kryptonPictureBox1.Location = new System.Drawing.Point(244, 18);
+            this.kryptonPictureBox1.Name = "kryptonPictureBox1";
+            this.kryptonPictureBox1.Size = new System.Drawing.Size(31, 29);
+            this.kryptonPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.kryptonPictureBox1.TabIndex = 78;
+            this.kryptonPictureBox1.TabStop = false;
+            this.kryptonPictureBox1.Click += new System.EventHandler(this.kryptonPictureBox1_Click);
+            // 
+            // bdgTotalLeaveApprovals
+            // 
+            this.bdgTotalLeaveApprovals.BackColor = System.Drawing.Color.Transparent;
+            this.bdgTotalLeaveApprovals.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgTotalLeaveApprovals.BorderThickness = 0;
+            this.bdgTotalLeaveApprovals.CircleBackColor = System.Drawing.Color.Magenta;
+            this.bdgTotalLeaveApprovals.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgTotalLeaveApprovals.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgTotalLeaveApprovals.ForeColor = System.Drawing.Color.Orange;
+            this.bdgTotalLeaveApprovals.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgTotalLeaveApprovals.Location = new System.Drawing.Point(196, 155);
+            this.bdgTotalLeaveApprovals.Name = "bdgTotalLeaveApprovals";
+            this.bdgTotalLeaveApprovals.Size = new System.Drawing.Size(42, 42);
+            this.bdgTotalLeaveApprovals.TabIndex = 77;
+            this.bdgTotalLeaveApprovals.TextColor = System.Drawing.Color.PaleGoldenrod;
+            this.bdgTotalLeaveApprovals.Value = 0;
+            this.bdgTotalLeaveApprovals.DoubleClick += new System.EventHandler(this.bdgTotalLeaveApprovals_DoubleClick);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(24, 169);
+            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(161, 15);
+            this.label3.TabIndex = 76;
+            this.label3.Text = "Leave Approval Pending";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // bdgTotalLeaveEmployees
+            // 
+            this.bdgTotalLeaveEmployees.BackColor = System.Drawing.Color.Transparent;
+            this.bdgTotalLeaveEmployees.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bdgTotalLeaveEmployees.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgTotalLeaveEmployees.BorderThickness = 0;
+            this.bdgTotalLeaveEmployees.CircleBackColor = System.Drawing.Color.DarkOliveGreen;
+            this.bdgTotalLeaveEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgTotalLeaveEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgTotalLeaveEmployees.ForeColor = System.Drawing.Color.SteelBlue;
+            this.bdgTotalLeaveEmployees.HoverBackColor = System.Drawing.Color.Blue;
+            this.bdgTotalLeaveEmployees.Location = new System.Drawing.Point(196, 107);
+            this.bdgTotalLeaveEmployees.Name = "bdgTotalLeaveEmployees";
+            this.bdgTotalLeaveEmployees.Size = new System.Drawing.Size(42, 42);
+            this.bdgTotalLeaveEmployees.TabIndex = 75;
+            this.bdgTotalLeaveEmployees.TextColor = System.Drawing.Color.Gold;
+            this.bdgTotalLeaveEmployees.Value = 0;
+            this.bdgTotalLeaveEmployees.DoubleClick += new System.EventHandler(this.bdgTotalLeaveEmployees_DoubleClick);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(44, 121);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(141, 15);
+            this.label2.TabIndex = 74;
+            this.label2.Text = "Employees On Leave";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label2.Click += new System.EventHandler(this.label2_Click_1);
+            // 
+            // bdgTotalPresentEmployees
+            // 
+            this.bdgTotalPresentEmployees.BackColor = System.Drawing.Color.Transparent;
+            this.bdgTotalPresentEmployees.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgTotalPresentEmployees.BorderThickness = 0;
+            this.bdgTotalPresentEmployees.CircleBackColor = System.Drawing.Color.Green;
+            this.bdgTotalPresentEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgTotalPresentEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgTotalPresentEmployees.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgTotalPresentEmployees.Location = new System.Drawing.Point(196, 59);
+            this.bdgTotalPresentEmployees.Name = "bdgTotalPresentEmployees";
+            this.bdgTotalPresentEmployees.Size = new System.Drawing.Size(42, 42);
+            this.bdgTotalPresentEmployees.TabIndex = 73;
+            this.bdgTotalPresentEmployees.TextColor = System.Drawing.Color.Yellow;
+            this.bdgTotalPresentEmployees.Value = 0;
+            this.bdgTotalPresentEmployees.DoubleClick += new System.EventHandler(this.bdgTotalPresentEmployees_DoubleClick);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(55, 73);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(130, 15);
+            this.label1.TabIndex = 72;
+            this.label1.Text = "Employees Present";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Click += new System.EventHandler(this.label1_Click_1);
+            // 
+            // bdgTotalActiveEmployees
+            // 
+            this.bdgTotalActiveEmployees.BackColor = System.Drawing.Color.Transparent;
+            this.bdgTotalActiveEmployees.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgTotalActiveEmployees.BorderThickness = 0;
+            this.bdgTotalActiveEmployees.CircleBackColor = System.Drawing.Color.Blue;
+            this.bdgTotalActiveEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgTotalActiveEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgTotalActiveEmployees.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgTotalActiveEmployees.Location = new System.Drawing.Point(196, 11);
+            this.bdgTotalActiveEmployees.Name = "bdgTotalActiveEmployees";
+            this.bdgTotalActiveEmployees.Size = new System.Drawing.Size(42, 42);
+            this.bdgTotalActiveEmployees.TabIndex = 71;
+            this.bdgTotalActiveEmployees.TextColor = System.Drawing.Color.Yellow;
+            this.bdgTotalActiveEmployees.Value = 0;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.Black;
+            this.label9.Location = new System.Drawing.Point(75, 25);
+            this.label9.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(110, 15);
+            this.label9.TabIndex = 70;
+            this.label9.Text = "Active Emplyees";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label9.Click += new System.EventHandler(this.label9_Click_1);
+            // 
+            // kryptonSplitContainer1
+            // 
+            this.kryptonSplitContainer1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.kryptonSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonSplitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.kryptonSplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // kryptonSplitContainer1.Panel1
+            // 
+            this.kryptonSplitContainer1.Panel1.Controls.Add(this.kryptonGroupBox3);
+            // 
+            // kryptonSplitContainer1.Panel2
+            // 
+            this.kryptonSplitContainer1.Panel2.Controls.Add(this.kryptonSplitContainer3);
+            this.kryptonSplitContainer1.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
+            this.kryptonSplitContainer1.Size = new System.Drawing.Size(782, 790);
+            this.kryptonSplitContainer1.SplitterDistance = 390;
+            this.kryptonSplitContainer1.TabIndex = 0;
+            this.kryptonSplitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.kryptonSplitContainer1_SplitterMoved);
+            // 
+            // kryptonGroupBox3
+            // 
+            this.kryptonGroupBox3.CaptionOverlap = 0D;
+            this.kryptonGroupBox3.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
+            this.kryptonGroupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonGroupBox3.GroupBorderStyle = Krypton.Toolkit.PaletteBorderStyle.ButtonLowProfile;
+            this.kryptonGroupBox3.Location = new System.Drawing.Point(0, 0);
+            // 
+            // kryptonGroupBox3.Panel
+            // 
+            this.kryptonGroupBox3.Panel.Controls.Add(this.dtgAdvanceRiskBase);
+            this.kryptonGroupBox3.Size = new System.Drawing.Size(782, 390);
+            this.kryptonGroupBox3.TabIndex = 4;
+            this.kryptonGroupBox3.Values.Heading = "Advance Risk Base Matrix";
+            this.kryptonGroupBox3.Paint += new System.Windows.Forms.PaintEventHandler(this.kryptonGroupBox3_Paint);
+            // 
+            // dtgAdvanceRiskBase
+            // 
+            this.dtgAdvanceRiskBase.AllowUserToAddRows = false;
+            this.dtgAdvanceRiskBase.AllowUserToDeleteRows = false;
+            this.dtgAdvanceRiskBase.AllowUserToResizeRows = false;
+            this.dtgAdvanceRiskBase.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgAdvanceRiskBase.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgAdvanceRiskBase.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgAdvanceRiskBase.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtgAdvanceRiskBase.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dtgAdvanceRiskBase.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgAdvanceRiskBase.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgAdvanceRiskBase.Location = new System.Drawing.Point(0, 0);
+            this.dtgAdvanceRiskBase.MultiSelect = false;
+            this.dtgAdvanceRiskBase.Name = "dtgAdvanceRiskBase";
+            this.dtgAdvanceRiskBase.ReadOnly = true;
+            this.dtgAdvanceRiskBase.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgAdvanceRiskBase.Size = new System.Drawing.Size(780, 360);
+            this.dtgAdvanceRiskBase.TabIndex = 48;
+            this.dtgAdvanceRiskBase.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAdvanceRiskBase_CellContentClick);
+            this.dtgAdvanceRiskBase.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAdvanceRiskBase_CellDoubleClick);
             // 
             // kryptonSplitContainer3
             // 
@@ -1807,39 +2490,45 @@
             this.kryptonSplitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonSplitContainer3.Location = new System.Drawing.Point(0, 0);
             // 
-            // kryptonSplitContainer3.Panel1
-            // 
-            this.kryptonSplitContainer3.Panel1.Controls.Add(this.kryptonSplitContainer6);
-            // 
             // kryptonSplitContainer3.Panel2
             // 
-            this.kryptonSplitContainer3.Panel2.Controls.Add(this.kryptonSplitContainer7);
+            this.kryptonSplitContainer3.Panel2.Controls.Add(this.kryptonSplitContainer6);
             this.kryptonSplitContainer3.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer3.Size = new System.Drawing.Size(780, 426);
-            this.kryptonSplitContainer3.SplitterDistance = 373;
-            this.kryptonSplitContainer3.TabIndex = 14;
+            this.kryptonSplitContainer3.Size = new System.Drawing.Size(782, 395);
+            this.kryptonSplitContainer3.SplitterDistance = 290;
+            this.kryptonSplitContainer3.TabIndex = 0;
+            this.kryptonSplitContainer3.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.kryptonSplitContainer3_SplitterMoved);
             // 
             // kryptonSplitContainer6
             // 
             this.kryptonSplitContainer6.Cursor = System.Windows.Forms.Cursors.Default;
             this.kryptonSplitContainer6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonSplitContainer6.Location = new System.Drawing.Point(0, 0);
-            this.kryptonSplitContainer6.Orientation = System.Windows.Forms.Orientation.Horizontal;
             this.kryptonSplitContainer6.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer6.Size = new System.Drawing.Size(373, 426);
-            this.kryptonSplitContainer6.SplitterDistance = 211;
+            this.kryptonSplitContainer6.Size = new System.Drawing.Size(487, 395);
+            this.kryptonSplitContainer6.SplitterDistance = 243;
             this.kryptonSplitContainer6.TabIndex = 0;
+            this.kryptonSplitContainer6.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.kryptonSplitContainer6_SplitterMoved);
             // 
-            // kryptonSplitContainer7
+            // qryRoleProfileBindingSource
             // 
-            this.kryptonSplitContainer7.Cursor = System.Windows.Forms.Cursors.Default;
-            this.kryptonSplitContainer7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonSplitContainer7.Location = new System.Drawing.Point(0, 0);
-            this.kryptonSplitContainer7.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.kryptonSplitContainer7.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer7.Size = new System.Drawing.Size(402, 426);
-            this.kryptonSplitContainer7.SplitterDistance = 211;
-            this.kryptonSplitContainer7.TabIndex = 1;
+            this.qryRoleProfileBindingSource.DataMember = "qryRoleProfile";
+            this.qryRoleProfileBindingSource.DataSource = this.staffsyncDBDTSet;
+            this.qryRoleProfileBindingSource.CurrentChanged += new System.EventHandler(this.qryRoleProfileBindingSource_CurrentChanged);
+            // 
+            // staffsyncDBDTSet
+            // 
+            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
+            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // qryRoleProfileTableAdapter
+            // 
+            this.qryRoleProfileTableAdapter.ClearBeforeFill = true;
+            // 
+            // kryptonRibbonGroupButton5
+            // 
+            this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
+            this.kryptonRibbonGroupButton5.Click += new System.EventHandler(this.kryptonRibbonGroupButton5_Click);
             // 
             // frmDashboard
             // 
@@ -1847,8 +2536,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1507, 632);
-            this.Controls.Add(this.kryptonSplitContainer1);
+            this.ClientSize = new System.Drawing.Size(1507, 996);
+            this.Controls.Add(this.sptrDashboardContainer);
             this.Controls.Add(this.lblDashboardTitle);
             this.Controls.Add(this.tblRibbon);
             this.Controls.Add(this.myStatusBar);
@@ -1859,6 +2548,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Staffsync Dashboard";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.frmDashboard_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmDashboard_FormClosed);
             this.Load += new System.EventHandler(this.frmDashboard_Load);
             this.ResizeEnd += new System.EventHandler(this.frmDashboard_ResizeEnd);
@@ -1876,18 +2566,27 @@
             this.cmCompanyInfo.ResumeLayout(false);
             this.cmbApplicationSettings.ResumeLayout(false);
             this.cmbApprovals.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).EndInit();
-            this.kryptonSplitContainer1.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel2)).EndInit();
-            this.kryptonSplitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).EndInit();
-            this.kryptonSplitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.sptrDashboardContainer.Panel1)).EndInit();
+            this.sptrDashboardContainer.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.sptrDashboardContainer.Panel2)).EndInit();
+            this.sptrDashboardContainer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.sptrDashboardContainer)).EndInit();
+            this.sptrDashboardContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer4.Panel1)).EndInit();
+            this.kryptonSplitContainer4.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer4.Panel2)).EndInit();
+            this.kryptonSplitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer4)).EndInit();
             this.kryptonSplitContainer4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).EndInit();
+            this.kryptonGroupBox1.Panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).EndInit();
+            this.kryptonGroupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4.Panel)).EndInit();
+            this.kryptonGroupBox4.Panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4)).EndInit();
+            this.kryptonGroupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgUpcomingHolidays)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2.Panel1)).EndInit();
             this.kryptonSplitContainer2.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2.Panel2)).EndInit();
@@ -1895,11 +2594,39 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer2)).EndInit();
             this.kryptonSplitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer5.Panel1)).EndInit();
+            this.kryptonSplitContainer5.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer5.Panel2)).EndInit();
+            this.kryptonSplitContainer5.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer5)).EndInit();
             this.kryptonSplitContainer5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).EndInit();
+            this.kryptonGroupBox2.Panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).EndInit();
+            this.kryptonGroupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).EndInit();
+            this.kryptonGroupBox5.Panel.ResumeLayout(false);
+            this.kryptonGroupBox5.Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).EndInit();
+            this.kryptonGroupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).EndInit();
+            this.kryptonSplitContainer1.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel2)).EndInit();
+            this.kryptonSplitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).EndInit();
+            this.kryptonSplitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3.Panel)).EndInit();
+            this.kryptonGroupBox3.Panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3)).EndInit();
+            this.kryptonGroupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgAdvanceRiskBase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3.Panel1)).EndInit();
-            this.kryptonSplitContainer3.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3.Panel2)).EndInit();
             this.kryptonSplitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3)).EndInit();
@@ -1908,10 +2635,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer6.Panel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer6)).EndInit();
             this.kryptonSplitContainer6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer7.Panel1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer7.Panel2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer7)).EndInit();
-            this.kryptonSplitContainer7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2113,13 +2838,43 @@
         private System.Windows.Forms.ToolStripMenuItem advanceRepaymentHistoryReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem29;
         private System.Windows.Forms.ToolStripMenuItem cmbManageEmployeePayrollConfiguration;
-        private Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer1;
         private Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer2;
-        private Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer3;
         private Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer4;
         private Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer5;
+        private Krypton.Toolkit.KryptonGroupBox kryptonGroupBox1;
+        private LiveCharts.WinForms.CartesianChart chrtCompanySummaryMatrix;
+        private Krypton.Toolkit.KryptonGroupBox kryptonGroupBox2;
+        private LiveCharts.WinForms.CartesianChart chrtCompanyAdvanceSummaryMatrix;
+        public Krypton.Toolkit.KryptonSplitContainer sptrDashboardContainer;
+        private Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer1;
+        private Krypton.Toolkit.KryptonGroupBox kryptonGroupBox3;
+        private Krypton.Toolkit.KryptonDataGridView dtgAdvanceRiskBase;
+        private Krypton.Toolkit.KryptonGroupBox kryptonGroupBox4;
+        private Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer3;
         private Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer6;
-        private Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer7;
+        private Krypton.Toolkit.KryptonGroupBox kryptonGroupBox5;
+        private BadgeControl bdgTotalLeaveEmployees;
+        private System.Windows.Forms.Label label2;
+        private BadgeControl bdgTotalPresentEmployees;
+        private System.Windows.Forms.Label label1;
+        private BadgeControl bdgTotalActiveEmployees;
+        private System.Windows.Forms.Label label9;
+        private BadgeControl bdgTotalLeaveApprovals;
+        private System.Windows.Forms.Label label3;
+        private Krypton.Toolkit.KryptonPictureBox kryptonPictureBox1;
+        private Krypton.Toolkit.KryptonPictureBox kryptonPictureBox2;
+        private Krypton.Toolkit.KryptonPictureBox kryptonPictureBox4;
+        private Krypton.Toolkit.KryptonPictureBox kryptonPictureBox3;
+        private Krypton.Toolkit.KryptonDataGridView dtgUpcomingHolidays;
+        private Krypton.Toolkit.KryptonPictureBox kryptonPictureBox5;
+        private BadgeControl bdgEmployeesWithWeeklyOff;
+        private System.Windows.Forms.Label label4;
+        private Krypton.Toolkit.KryptonPictureBox kryptonPictureBox6;
+        private BadgeControl bdgEmployeesBirthday;
+        private System.Windows.Forms.Label label5;
+        private Krypton.Toolkit.KryptonPictureBox kryptonPictureBox7;
+        private BadgeControl bdgWorkAnniversary;
+        private System.Windows.Forms.Label label6;
     }
 }
 

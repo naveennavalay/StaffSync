@@ -21,9 +21,26 @@ namespace StaffSync
         frmEmpAdvanceRepayment frmEmpAdvanceRepayment = null;
         frmEmpAdvanceRequest frmEmpAdvanceRequest = null;
         frmPayrollMaster frmPayrollMastr = null;
+        frmDashboard frmDashboard = null;
+
         public frmEmpAdvanceTRList()
         {
             InitializeComponent();
+        }
+
+        public frmEmpAdvanceTRList(frmDashboard frmDashbard, string strQueryFor, int txtEmpID, int txtAdvanceID)
+        {
+            InitializeComponent();
+            this.frmDashboard = frmDashbard;
+            lblSearchOptionClickedFor.Text = strQueryFor;
+            lblEmpID.Text = txtEmpID.ToString();
+            lblAdvanceID.Text = txtAdvanceID.ToString();
+
+            if (lblSearchOptionClickedFor.Text == "dashboardempadvancestatement")
+            {
+                this.Text = "Employee Advance Statement List";
+                lblSearchCaption.Text = "Search by Comments :";
+            }
         }
 
         public frmEmpAdvanceTRList(frmEmpAdvanceRepayment frmEmpAdvanceRepymnt, string strQueryFor, int txtEmpID, int txtAdvanceID)
@@ -152,7 +169,12 @@ namespace StaffSync
             {
                 this.frmPayrollMastr.SelectedEmployeeID("emppayrolladvancestatement", Convert.ToInt16(dtgAdvanceList.SelectedRows[0].Cells["EmpID"].Value.ToString()), Convert.ToInt16(dtgAdvanceList.SelectedRows[0].Cells["EmpAdvanceRequestID"].Value.ToString()));
                 this.Close();
-            }            
+            }
+            else if(lblSearchOptionClickedFor.Text == "dashboardempadvancestatement")
+            {
+                this.frmDashboard.SelectedEmployeeID("dashboardempadvancestatement", Convert.ToInt16(dtgAdvanceList.SelectedRows[0].Cells["EmpID"].Value.ToString()), Convert.ToInt16(dtgAdvanceList.SelectedRows[0].Cells["EmpAdvanceRequestID"].Value.ToString()));
+                this.Close();
+            }
         }
 
         private void frmEmpAdvanceTRList_KeyUp(object sender, KeyEventArgs e)
@@ -268,7 +290,7 @@ namespace StaffSync
                     dtgAdvanceList.Columns["AdvanceRequestStatus"].ReadOnly = true;
                     dtgAdvanceList.Columns["AdvanceRequestStatus"].Width = 175;
                 }
-                else if (lblSearchOptionClickedFor.Text == "empadvancestatement")
+                else if (lblSearchOptionClickedFor.Text == "empadvancestatement" || lblSearchOptionClickedFor.Text == "dashboardempadvancestatement")
                 {
                     dtgAdvanceList.DataSource = objAdvanceTransaction.EmployeeSpecificAdvanceStatemetns(Convert.ToInt32(lblAdvanceID.Text.ToString()));
                     dtgAdvanceList.Columns["EmpAdvanceRecoveryID"].Visible = false;

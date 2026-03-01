@@ -94,6 +94,7 @@ namespace StaffSync
         private void btnCloseMe_Click(object sender, EventArgs e)
         {
             objDashboard.lblDashboardTitle.Text = "Dashboard";
+            objDashboard.sptrDashboardContainer.Visible = true;
             this.Close();
         }
 
@@ -269,6 +270,7 @@ namespace StaffSync
                     return;
                 }
                 objDashboard.lblDashboardTitle.Text = "Dashboard";
+                objDashboard.sptrDashboardContainer.Visible = true;
                 this.Close();
             }
 
