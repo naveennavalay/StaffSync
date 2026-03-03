@@ -54,6 +54,10 @@
             this.countryMasBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.qryCountryListTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.qryCountryListTableAdapter();
             this.lastCompDetMasTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.LastCompDetMasTableAdapter();
+            this.lblListFor = new System.Windows.Forms.Label();
+            this.lblClientID = new System.Windows.Forms.Label();
+            this.lblBranchID = new System.Windows.Forms.Label();
+            this.lblStateID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -95,6 +99,10 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.panel1.Controls.Add(this.lblStateID);
+            this.panel1.Controls.Add(this.lblBranchID);
+            this.panel1.Controls.Add(this.lblClientID);
+            this.panel1.Controls.Add(this.lblListFor);
             this.panel1.Controls.Add(this.dtgCompanyList);
             this.panel1.Controls.Add(this.txtSearch);
             this.panel1.Controls.Add(this.label1);
@@ -113,9 +121,12 @@
             this.dtgCompanyList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dtgCompanyList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgCompanyList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dtgCompanyList.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgCompanyList.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
             this.dtgCompanyList.Location = new System.Drawing.Point(18, 76);
             this.dtgCompanyList.Name = "dtgCompanyList";
             this.dtgCompanyList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgCompanyList.ReadOnly = true;
             this.dtgCompanyList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgCompanyList.Size = new System.Drawing.Size(1191, 393);
             this.dtgCompanyList.TabIndex = 10;
@@ -123,6 +134,7 @@
             // 
             // txtSearch
             // 
+            this.txtSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.txtSearch.Location = new System.Drawing.Point(197, 24);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSearch.Multiline = true;
@@ -244,6 +256,58 @@
             // 
             this.lastCompDetMasTableAdapter.ClearBeforeFill = true;
             // 
+            // lblListFor
+            // 
+            this.lblListFor.AutoSize = true;
+            this.lblListFor.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblListFor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListFor.Location = new System.Drawing.Point(821, 31);
+            this.lblListFor.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblListFor.Name = "lblListFor";
+            this.lblListFor.Size = new System.Drawing.Size(11, 15);
+            this.lblListFor.TabIndex = 11;
+            this.lblListFor.Text = " ";
+            this.lblListFor.Visible = false;
+            // 
+            // lblClientID
+            // 
+            this.lblClientID.AutoSize = true;
+            this.lblClientID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblClientID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClientID.Location = new System.Drawing.Point(884, 31);
+            this.lblClientID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblClientID.Name = "lblClientID";
+            this.lblClientID.Size = new System.Drawing.Size(11, 15);
+            this.lblClientID.TabIndex = 12;
+            this.lblClientID.Text = " ";
+            this.lblClientID.Visible = false;
+            // 
+            // lblBranchID
+            // 
+            this.lblBranchID.AutoSize = true;
+            this.lblBranchID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblBranchID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBranchID.Location = new System.Drawing.Point(935, 31);
+            this.lblBranchID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblBranchID.Name = "lblBranchID";
+            this.lblBranchID.Size = new System.Drawing.Size(11, 15);
+            this.lblBranchID.TabIndex = 13;
+            this.lblBranchID.Text = " ";
+            this.lblBranchID.Visible = false;
+            // 
+            // lblStateID
+            // 
+            this.lblStateID.AutoSize = true;
+            this.lblStateID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblStateID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStateID.Location = new System.Drawing.Point(985, 31);
+            this.lblStateID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblStateID.Name = "lblStateID";
+            this.lblStateID.Size = new System.Drawing.Size(11, 15);
+            this.lblStateID.TabIndex = 14;
+            this.lblStateID.Text = " ";
+            this.lblStateID.Visible = false;
+            // 
             // frmCompanyList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -312,5 +376,9 @@
         private StaffsyncDBDataSetTableAdapters.LastCompDetMasTableAdapter lastCompDetMasTableAdapter;
         private Krypton.Toolkit.KryptonButton btnCloseMe;
         private Krypton.Toolkit.KryptonDataGridView dtgCompanyList;
+        private System.Windows.Forms.Label lblListFor;
+        private System.Windows.Forms.Label lblStateID;
+        private System.Windows.Forms.Label lblBranchID;
+        private System.Windows.Forms.Label lblClientID;
     }
 }

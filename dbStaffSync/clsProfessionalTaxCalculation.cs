@@ -6,7 +6,9 @@ using System.Data;
 using System.Data.OleDb;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace dbStaffSync
 {
@@ -117,5 +119,138 @@ namespace dbStaffSync
 
             return tmpProfessionalTax.PTAmount;
         }
+
+        public int getProfessionalTaxSlab(int txtClientID, int txtBranchID, int txtStateID)
+        {
+            int intBranchWiseEmployeeCount = 0;
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT DISTINCT " + 
+                                            " Count(ProfTaxDetailedSlab.GrossFrom) AS CountOfSlabs " +
+                                        " FROM " +
+                                            " ( " +
+                                                " (  " +
+                                                    " ( " +
+                                                        " DeductionHeaderMas " +
+                                                        " INNER JOIN ( " +
+                                                            " ClientMas " +
+                                                            " INNER JOIN ProfTaxMas ON ClientMas.ClientID = ProfTaxMas.ClientID " +
+                                                        " ) ON DeductionHeaderMas.DedID = ProfTaxMas.DedID " +
+                                                    " ) " +
+                                                    " INNER JOIN ProfTaxDetailedSlab ON ProfTaxMas.PTMasID = ProfTaxDetailedSlab.PTMasID " +
+                                                " ) " +
+                                                " INNER JOIN ClientBranchMas ON ClientMas.ClientID = ClientBranchMas.ClientID " +
+                                            " ) " +
+                                            " INNER JOIN StateMas ON ClientBranchMas.ClientBranchState = StateMas.StateTitle " +
+                                        " GROUP BY " +
+                                            " DeductionHeaderMas.DedID, " +
+                                            " ClientMas.ClientID, " +
+                                            " ClientBranchMas.ClientBranchID, " +
+                                            " StateMas.StateID, " +
+                                            " ProfTaxDetailedSlab.MonthNumber " +
+                                        " HAVING " +
+                                            " ( " +
+                                                " ((DeductionHeaderMas.DedID) = 2) " +
+                                                " AND ((ClientMas.ClientID) = " + txtClientID + ") " +
+                                                " AND ((ClientBranchMas.ClientBranchID) = " + txtBranchID + ") " +
+                                                " AND ((StateMas.StateID) = " + txtStateID + ") " +
+                                            " ); ";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    intBranchWiseEmployeeCount = Convert.ToInt32(dt.Rows[0]["CountOfSlabs"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return intBranchWiseEmployeeCount;
+        }
+
+        public DataTable getProfessionalTaxSlabList(int txtClientID, int txtBranchID, int txtStateID)
+        {
+            int intBranchWiseEmployeeCount = 0;
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT DISTINCT " + 
+                                        " ProfTaxDetailedSlab.GrossFrom, " +
+                                        " ProfTaxDetailedSlab.GrossTo, " +
+                                        " ProfTaxDetailedSlab.PTAmount " +
+                                    " FROM " +
+                                        " ( " +
+                                            " DeductionHeaderMas " +
+                                            " INNER JOIN ( " +
+                                                " ( " +
+                                                    " ClientMas " +
+                                                    " INNER JOIN ( " +
+                                                        " ClientBranchMas " +
+                                                        " INNER JOIN StateMas ON ClientBranchMas.ClientBranchState = StateMas.StateTitle " +
+                                                    " ) ON ClientMas.ClientID = ClientBranchMas.ClientID " +
+                                                " ) " +
+                                                " INNER JOIN ProfTaxMas ON ClientMas.ClientID = ProfTaxMas.ClientID " +
+                                            " ) ON DeductionHeaderMas.DedID = ProfTaxMas.DedID " +
+                                        " ) " +
+                                        " INNER JOIN ProfTaxDetailedSlab ON ProfTaxMas.PTMasID = ProfTaxDetailedSlab.PTMasID " +
+                                    " GROUP BY " + 
+                                        " ProfTaxDetailedSlab.GrossFrom, " + 
+                                        " ProfTaxDetailedSlab.GrossTo, " + 
+                                        " ProfTaxDetailedSlab.PTAmount, " + 
+                                        " ClientBranchMas.ClientBranchID, " + 
+                                        " DeductionHeaderMas.DedID, " + 
+                                        " ClientMas.ClientID, " + 
+                                        " StateMas.StateID " +
+                                    " HAVING " +
+                                        " ( " +
+                                            " ((ClientBranchMas.ClientBranchID) = " + txtBranchID + ") " +
+                                            " AND ((DeductionHeaderMas.DedID) = 2) " +
+                                            " AND ((ClientMas.ClientID) = " + txtClientID + ") " +
+                                            " AND ((StateMas.StateID) = " + txtStateID + ") " +
+                                        " );";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);                
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return dt;
+        }
+
     }
 }

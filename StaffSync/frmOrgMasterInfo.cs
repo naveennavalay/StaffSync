@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using YourNamespace;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace StaffSync
@@ -31,6 +32,8 @@ namespace StaffSync
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         DALStaffSync.clsClientStatutory objClientStatutory = new DALStaffSync.clsClientStatutory();
+        DALStaffSync.clsClientBranchInfo objClientBranchInfo = new DALStaffSync.clsClientBranchInfo();
+        DALStaffSync.clsProfessionalTaxCalculation objProfessionalTaxSlab = new DALStaffSync.clsProfessionalTaxCalculation();
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
@@ -90,7 +93,10 @@ namespace StaffSync
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            frmCompanyList frmCompanyList = new frmCompanyList(this);
+            if (lblCompID.Text.ToString().Trim() == "")
+                lblCompID.Text = "0";
+
+            frmCompanyList frmCompanyList = new frmCompanyList(this, "clientlist", Convert.ToInt32(lblCompID.Text.ToString()), 0, 0);
             frmCompanyList.ShowDialog(this);
         }
 
@@ -447,6 +453,7 @@ namespace StaffSync
             optEmprESIFixedAmount.Checked = false;
             txtEmprESIFixedAmount.Text = "0.00";
 
+            flowLayoutPanel1.Controls.Clear();
             tabControl1.SelectedIndex = 0;
         }
 
@@ -679,8 +686,8 @@ namespace StaffSync
                     optEmpPFPercentage.Checked = false;
                     optEmpPFFixedAmount.Checked = true;
                 }
-                txtEmpPFPercentage.Text = objProvidentFund.EmpPFPercentage.ToString();
-                txtEmpPFFixedAmount.Text = objProvidentFund.EmpPFAmount.ToString();
+                txtEmpPFPercentage.Text = objProvidentFund.EmpPFPercentage.ToString("#,#0.00");
+                txtEmpPFFixedAmount.Text = objProvidentFund.EmpPFAmount.ToString("#,#0.00");
             }
 
             if (chkEnableProfessionalTax.Checked == true)
@@ -695,8 +702,8 @@ namespace StaffSync
                     optEmprPFPercentage.Checked = false;
                     optEmprPFFixedAmount.Checked = true;
                 }
-                txtEmprPFPercentage.Text = objProvidentFund.EmprPFPercentage.ToString();
-                txtEmprPFFixedAmount.Text = objProvidentFund.EmprPFAmount.ToString();
+                txtEmprPFPercentage.Text = objProvidentFund.EmprPFPercentage.ToString("#,#0.00");
+                txtEmprPFFixedAmount.Text = objProvidentFund.EmprPFAmount.ToString("#,#0.00");
 
                 if (objProvidentFund.EmprPSPercentageOrAmount.ToString().ToUpper() == "P")
                 {
@@ -708,8 +715,36 @@ namespace StaffSync
                     optEmprEPSPercentage.Checked = false;
                     optEmprESIFixedAmount.Checked = true;
                 }
-                txtEmprEPSPercentage.Text = objProvidentFund.EmprPSPercentage.ToString();
-                txtEmprEPSFixedAmount.Text = objProvidentFund.EmprPSAmount.ToString();
+                txtEmprEPSPercentage.Text = objProvidentFund.EmprPSPercentage.ToString("#,#0.00");
+                txtEmprEPSFixedAmount.Text = objProvidentFund.EmprPSAmount.ToString("#,#0.00");
+
+                flowLayoutPanel1.Controls.Clear();
+                List<ClientBranchInfo> objBranchList = objClientBranchInfo.getBranchesOfSelectedClientID(Convert.ToInt16(lblCompID.Text.ToString()));
+                //branchTileControl1.DataBindings.Clear();
+                foreach (var xx in objBranchList)
+                {
+                    BranchTilesControl tile = new BranchTilesControl();
+                    tile.BackColor = Color.Transparent;
+                    tile.TileBackColor = Color.Transparent;
+
+                    tile.BranchID = xx.ClientBranchID;
+                    tile.BranchCode = xx.ClientBranchCode;
+                    tile.BranchName = xx.ClientBranchName;
+                    tile.CityState = xx.ClientBranchAddress1 + ", " + xx.ClientBranchAddress2 + ", " + xx.ClientBranchArea + ", " + xx.ClientBranchCity + "\n" + xx.ClientBranchState;
+                    tile.Country = xx.ClientBranchCountry;
+                    tile.StateID = xx.StateID;                    
+                    tile.BadgeText = objClientBranchInfo.getBranchesWiseEmployeeCount(Convert.ToInt16(lblCompID.Text.ToString()), xx.ClientBranchID).ToString();
+                    tile.IsConfigured = objProfessionalTaxSlab.getProfessionalTaxSlab(Convert.ToInt16(lblCompID.Text.ToString()), Convert.ToInt16(xx.ClientBranchID.ToString()), Convert.ToInt16(xx.StateID.ToString())) > 0 ? true : false;
+
+                    tile.ViewSlabClicked += (s, e) =>
+                    {
+                        MessageBox.Show($"BranchID: {e.BranchID}\nStateID: {e.StateID}");
+                        frmCompanyList frmCompanyList = new frmCompanyList(this, "professionaltaxslab", Convert.ToInt32(lblCompID.Text.ToString()), Convert.ToInt16(xx.ClientBranchID.ToString()), Convert.ToInt16(xx.StateID.ToString()));
+                        frmCompanyList.ShowDialog(this);
+                    };
+
+                    flowLayoutPanel1.Controls.Add(tile);
+                }
             }
         }
 

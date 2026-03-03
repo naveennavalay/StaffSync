@@ -138,7 +138,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.chkEnableProfessionalTax = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.dtgOrgBranchInfo = new Krypton.Toolkit.KryptonDataGridView();
             this.tabOrgLabourWelfareFund = new Krypton.Navigator.KryptonPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -159,6 +158,7 @@
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.ofdImage = new System.Windows.Forms.OpenFileDialog();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -191,7 +191,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.tabOrgProfessionalTax)).BeginInit();
             this.tabOrgProfessionalTax.SuspendLayout();
             this.grpProfTaxGroup.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgOrgBranchInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabOrgLabourWelfareFund)).BeginInit();
             this.tabOrgLabourWelfareFund.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -1670,11 +1669,11 @@
             // 
             // grpProfTaxGroup
             // 
+            this.grpProfTaxGroup.Controls.Add(this.flowLayoutPanel1);
             this.grpProfTaxGroup.Controls.Add(this.txtProfTaxRegNumber);
             this.grpProfTaxGroup.Controls.Add(this.label14);
             this.grpProfTaxGroup.Controls.Add(this.chkEnableProfessionalTax);
             this.grpProfTaxGroup.Controls.Add(this.label13);
-            this.grpProfTaxGroup.Controls.Add(this.dtgOrgBranchInfo);
             this.grpProfTaxGroup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grpProfTaxGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpProfTaxGroup.Location = new System.Drawing.Point(0, 0);
@@ -1719,7 +1718,7 @@
             this.chkEnableProfessionalTax.Checked = true;
             this.chkEnableProfessionalTax.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnableProfessionalTax.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkEnableProfessionalTax.Location = new System.Drawing.Point(38, 21);
+            this.chkEnableProfessionalTax.Location = new System.Drawing.Point(17, 21);
             this.chkEnableProfessionalTax.Name = "chkEnableProfessionalTax";
             this.chkEnableProfessionalTax.Size = new System.Drawing.Size(204, 19);
             this.chkEnableProfessionalTax.TabIndex = 79;
@@ -1730,33 +1729,13 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(17, 94);
+            this.label13.Location = new System.Drawing.Point(17, 110);
             this.label13.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(234, 15);
             this.label13.TabIndex = 64;
             this.label13.Text = "State Government specific Tax Slab";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // dtgOrgBranchInfo
-            // 
-            this.dtgOrgBranchInfo.AllowUserToAddRows = false;
-            this.dtgOrgBranchInfo.AllowUserToDeleteRows = false;
-            this.dtgOrgBranchInfo.AllowUserToResizeColumns = false;
-            this.dtgOrgBranchInfo.AllowUserToResizeRows = false;
-            this.dtgOrgBranchInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dtgOrgBranchInfo.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dtgOrgBranchInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgOrgBranchInfo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dtgOrgBranchInfo.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.dtgOrgBranchInfo.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgOrgBranchInfo.Location = new System.Drawing.Point(17, 117);
-            this.dtgOrgBranchInfo.MultiSelect = false;
-            this.dtgOrgBranchInfo.Name = "dtgOrgBranchInfo";
-            this.dtgOrgBranchInfo.ReadOnly = true;
-            this.dtgOrgBranchInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgOrgBranchInfo.Size = new System.Drawing.Size(876, 308);
-            this.dtgOrgBranchInfo.TabIndex = 50;
             // 
             // tabOrgLabourWelfareFund
             // 
@@ -1984,6 +1963,14 @@
             this.ofdImage.FileName = "openFileDialog1";
             this.ofdImage.Filter = "JPG files (*.jpg)|*.jpg|PNG files (*.png)|*.png\"";
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 130);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(873, 301);
+            this.flowLayoutPanel1.TabIndex = 83;
+            // 
             // frmOrgMasterInfo
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -2045,7 +2032,6 @@
             this.tabOrgProfessionalTax.ResumeLayout(false);
             this.grpProfTaxGroup.ResumeLayout(false);
             this.grpProfTaxGroup.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgOrgBranchInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabOrgLabourWelfareFund)).EndInit();
             this.tabOrgLabourWelfareFund.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
@@ -2183,11 +2169,11 @@
         private Krypton.Toolkit.KryptonTextBox txtEmprESIPercentage;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label35;
-        private Krypton.Toolkit.KryptonDataGridView dtgOrgBranchInfo;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.CheckBox chkEnableProfessionalTax;
         private Krypton.Toolkit.KryptonTextBox txtProfTaxRegNumber;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.CheckBox chkNationalPensionScheme;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

@@ -1,4 +1,5 @@
-﻿using ModelStaffSync;
+﻿using Microsoft.CodeAnalysis;
+using ModelStaffSync;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,10 +15,12 @@ namespace StaffSync
     public partial class frmCompanyList : Form
     {
         DALStaffSync.clsLastCompanyMas objLastCompany = new DALStaffSync.clsLastCompanyMas();
+        DALStaffSync.clsProfessionalTaxCalculation objProfessionalTaxSlab = new DALStaffSync.clsProfessionalTaxCalculation();
         DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
 
         frmCompanyInfo frmCompanyInfo = null;
         frmOrgMasterInfo frmOrgMasterInfo = null;
+
         public frmCompanyList()
         {
             InitializeComponent();
@@ -29,10 +32,14 @@ namespace StaffSync
             this.frmCompanyInfo = frmCompInfo;
         }
 
-        public frmCompanyList(frmOrgMasterInfo frmOrgMastrInfo)
+        public frmCompanyList(frmOrgMasterInfo frmOrgMastrInfo, string ListFor, int txtClientID, int txtBranchID, int txtStateID)
         {
             InitializeComponent();
             this.frmOrgMasterInfo = frmOrgMastrInfo;
+            lblListFor.Text = ListFor;
+            lblClientID.Text = txtClientID.ToString();
+            lblBranchID.Text = txtBranchID.ToString();
+            lblStateID.Text = txtStateID.ToString();
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -42,42 +49,9 @@ namespace StaffSync
 
         private void frmCompanyList_Load(object sender, EventArgs e)
         {
-            dtgCompanyList.DataSource = objClientInfo.getAllCompanyList();
-            dtgCompanyList.Columns["ClientID"].Visible = false;
-            dtgCompanyList.Columns["ClientCode"].Width = 100;
-            dtgCompanyList.Columns["ClientName"].Width = 250;
-            dtgCompanyList.Columns["ClientAddress1"].Width = 200;
-            dtgCompanyList.Columns["ClientAddress2"].Width = 200;
-            dtgCompanyList.Columns["ClientArea"].Width = 100;
-            dtgCompanyList.Columns["ClientState"].Width = 100;
-            dtgCompanyList.Columns["ClientPIN"].Width = 100;
-            dtgCompanyList.Columns["ClientCountry"].Width = 150;
-            dtgCompanyList.Columns["ClientPhone"].Width = 150;
-            dtgCompanyList.Columns["ClientContactMail"].Width = 200;
-            dtgCompanyList.Columns["ClientWebSite"].Width = 200;
-            dtgCompanyList.Columns["ClientContactPerson"].Visible = false;
-            dtgCompanyList.Columns["IsActive"].Visible = false;
-            dtgCompanyList.Columns["IsDeleted"].Visible = false;
-        }
-
-        private void btnCloseMe_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            try
+            if (lblListFor.Text.Trim().ToLower() == "clientlist")
             {
-                if(string.IsNullOrEmpty(txtSearch.Text))
-                {
-                    dtgCompanyList.DataSource = objClientInfo.getAllCompanyList();
-                }
-                else
-                {
-                    dtgCompanyList.DataSource = objClientInfo.getAllCompanyList(txtSearch.Text.Trim());
-                }
-
+                dtgCompanyList.DataSource = objClientInfo.getAllCompanyList();
                 dtgCompanyList.Columns["ClientID"].Visible = false;
                 dtgCompanyList.Columns["ClientCode"].Width = 100;
                 dtgCompanyList.Columns["ClientName"].Width = 250;
@@ -93,6 +67,66 @@ namespace StaffSync
                 dtgCompanyList.Columns["ClientContactPerson"].Visible = false;
                 dtgCompanyList.Columns["IsActive"].Visible = false;
                 dtgCompanyList.Columns["IsDeleted"].Visible = false;
+            }
+            else if (lblListFor.Text.Trim().ToLower() == "professionaltaxslab")
+            {
+                dtgCompanyList.DataSource = objProfessionalTaxSlab.getProfessionalTaxSlabList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(lblBranchID.Text.ToString()), Convert.ToInt32(lblStateID.Text.ToString()));
+                dtgCompanyList.Columns["GrossFrom"].HeaderText = "Gross From";
+                dtgCompanyList.Columns["GrossFrom"].Width = 150;
+                dtgCompanyList.Columns["GrossFrom"].ReadOnly = true;
+                dtgCompanyList.Columns["GrossFrom"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+                dtgCompanyList.Columns["GrossFrom"].DefaultCellStyle.Format = "c2";
+
+                dtgCompanyList.Columns["GrossTo"].HeaderText = "Gross To";
+                dtgCompanyList.Columns["GrossTo"].Width = 150;
+                dtgCompanyList.Columns["GrossTo"].ReadOnly = true;
+                dtgCompanyList.Columns["GrossTo"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+                dtgCompanyList.Columns["GrossTo"].DefaultCellStyle.Format = "c2";
+
+                dtgCompanyList.Columns["PTAmount"].HeaderText = "Tax Amount";
+                dtgCompanyList.Columns["PTAmount"].Width = 150;
+                dtgCompanyList.Columns["PTAmount"].ReadOnly = true;
+                dtgCompanyList.Columns["PTAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+                dtgCompanyList.Columns["PTAmount"].DefaultCellStyle.Format = "c2";
+            }
+        }
+
+        private void btnCloseMe_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lblListFor.Text.Trim().ToLower() == "clientlist")
+                {
+                    if (string.IsNullOrEmpty(txtSearch.Text))
+                    {
+                        dtgCompanyList.DataSource = objClientInfo.getAllCompanyList();
+                    }
+                    else
+                    {
+                        dtgCompanyList.DataSource = objClientInfo.getAllCompanyList(txtSearch.Text.Trim());
+                    }
+
+                    dtgCompanyList.Columns["ClientID"].Visible = false;
+                    dtgCompanyList.Columns["ClientCode"].Width = 100;
+                    dtgCompanyList.Columns["ClientName"].Width = 250;
+                    dtgCompanyList.Columns["ClientAddress1"].Width = 200;
+                    dtgCompanyList.Columns["ClientAddress2"].Width = 200;
+                    dtgCompanyList.Columns["ClientArea"].Width = 100;
+                    dtgCompanyList.Columns["ClientState"].Width = 100;
+                    dtgCompanyList.Columns["ClientPIN"].Width = 100;
+                    dtgCompanyList.Columns["ClientCountry"].Width = 150;
+                    dtgCompanyList.Columns["ClientPhone"].Width = 150;
+                    dtgCompanyList.Columns["ClientContactMail"].Width = 200;
+                    dtgCompanyList.Columns["ClientWebSite"].Width = 200;
+                    dtgCompanyList.Columns["ClientContactPerson"].Visible = false;
+                    dtgCompanyList.Columns["IsActive"].Visible = false;
+                    dtgCompanyList.Columns["IsDeleted"].Visible = false;
+                }
             }
             catch (Exception ex)
             {
@@ -125,13 +159,23 @@ namespace StaffSync
                 objClientInfo.ClientWebSite = "";
 
                 objClientInfo.IsActive = false;
-                this.frmCompanyInfo.displaySelectedValuesOnUI(objClientInfo);
+                if (lblListFor.Text.Trim().ToLower() == "clientlist")
+                {
+                    this.frmCompanyInfo.displaySelectedValuesOnUI(objClientInfo);
+                }
+
                 this.Close();
             }
         }
 
         private void dtgCompanyList_DoubleClick(object sender, EventArgs e)
         {
+            if (lblListFor.Text.Trim().ToLower() == "professionaltaxslab")
+            {
+                this.Close();
+                return;
+            }
+
             ClientInfo objClientInfo = new ClientInfo();
             objClientInfo.ClientID = Convert.ToInt16(dtgCompanyList.SelectedRows[0].Cells["ClientID"].Value.ToString()); ;
             objClientInfo.ClientCode = dtgCompanyList.SelectedRows[0].Cells["ClientCode"].Value.ToString();

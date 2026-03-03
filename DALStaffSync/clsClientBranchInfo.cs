@@ -24,6 +24,15 @@ namespace DALStaffSync
             return branchInfoList;
         }
 
+
+        public int getBranchesWiseEmployeeCount(int txtClientID, int txtBranchID)
+        {
+            int employeeCount = 0;
+
+            employeeCount = objClientBranchInfo.getBranchesWiseEmployeeCount(txtClientID, txtBranchID);
+
+            return employeeCount;
+        }
         public List<ClientBranchInfo> getAllCompanyList(int txtClientID)
         {
             List<ClientBranchInfo> companyList = new List<ClientBranchInfo>();
@@ -31,6 +40,13 @@ namespace DALStaffSync
             companyList = objClientBranchInfo.getAllCompanyList(txtClientID);
 
             return companyList;
+        }
+
+        public List<ClientBranchInfo> getBranchesOfSelectedClientID(int txtClientID)
+        {
+            List<ClientBranchInfo> branchInfoList = new List<ClientBranchInfo>();
+            branchInfoList = objClientBranchInfo.getBranchesOfSelectedClientID(txtClientID);
+            return branchInfoList;
         }
 
         public List<ClientBranchInfo> getAllCompanyList(int txtClientID, string filterText)

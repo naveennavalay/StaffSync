@@ -104,6 +104,124 @@ namespace dbStaffSync
             return companyList;
         }
 
+        public int getBranchesWiseEmployeeCount(int txtClientID, int txtBranchID)
+        {
+            int intBranchWiseEmployeeCount = 0;
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " +
+                                        " Count(EmpMas.EmpID) AS TotalEmployees " +
+                                    " FROM " +
+                                        " ( " +
+                                            " ClientMas " +
+                                            " INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " +
+                                        " ) " +
+                                        " INNER JOIN ( " +
+                                            " ClientBranchMas " +
+                                            " INNER JOIN PersonalInfoMas ON ClientBranchMas.ClientBranchID = PersonalInfoMas.ClientBranchID " +
+                                        " ) ON EmpMas.EmpID = PersonalInfoMas.EmpID " +
+                                    " GROUP BY " +
+                                        " ClientBranchMas.ClientBranchID, " +
+                                        " ClientMas.ClientID " +
+                                    " HAVING " + 
+                                        " ( " +
+                                            " ((ClientBranchMas.ClientBranchID) = " + txtBranchID + ") " + 
+                                            " AND ((ClientMas.ClientID) = " + txtClientID + ") " + 
+                                        ");";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    intBranchWiseEmployeeCount = Convert.ToInt32(dt.Rows[0]["TotalEmployees"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return intBranchWiseEmployeeCount;
+        }
+
+        public List<ClientBranchInfo> getBranchesOfSelectedClientID(int txtClientID)
+        {
+            List<ClientBranchInfo> companyList = new List<ClientBranchInfo>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " +
+                                        "ClientBranchMas.ClientBranchID, " + 
+                                        "ClientBranchMas.ClientBranchCode, " + 
+                                        "ClientBranchMas.ClientBranchName, " + 
+                                        "ClientBranchMas.ClientBranchAddress1, " + 
+                                        "ClientBranchMas.ClientBranchAddress2, " + 
+                                        "ClientBranchMas.ClientBranchArea, " + 
+                                        "ClientBranchMas.ClientBranchCity, " + 
+                                        "ClientBranchMas.ClientBranchState, " + 
+                                        "StateMas.StateTitle, " +
+                                        "StateMas.StateID, " +
+                                        "ClientBranchMas.ClientBranchPIN, " + 
+                                        "ClientBranchMas.ClientBranchCountry, " + 
+                                        "ClientBranchMas.ClientBranchPhone, " + 
+                                        "ClientBranchMas.IsActive, " + 
+                                        "ClientBranchMas.IsDeleted, " + 
+                                        "ClientBranchMas.ClientID " + 
+                                    " FROM " +
+                                        " ClientBranchMas " + 
+                                        " INNER JOIN StateMas ON ClientBranchMas.ClientBranchState = StateMas.StateTitle " + 
+                                    " WHERE " + 
+                                            " ClientBranchMas.IsActive = True " + 
+                                            " AND ClientBranchMas.IsDeleted = False " +
+                                            " AND ClientBranchMas.ClientID = " + txtClientID + 
+                                    " ORDER BY " + 
+                                        " ClientBranchMas.ClientBranchID;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                companyList = JsonConvert.DeserializeObject<List<ClientBranchInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return companyList;
+        }
+
         public List<ClientBranchInfo> getAllCompanyList(int txtClientID, string filterText)
         {
             List<ClientBranchInfo> companyList = new List<ClientBranchInfo>();

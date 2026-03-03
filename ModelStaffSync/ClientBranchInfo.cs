@@ -33,6 +33,7 @@ namespace ModelStaffSync
 
         [DisplayName("State")]
         public string ClientBranchState { get; set; }
+        public int StateID { get; set; }
 
         [DisplayName("PIN")]
         public string ClientBranchPIN { get; set; }

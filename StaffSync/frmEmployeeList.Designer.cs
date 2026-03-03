@@ -32,6 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEmployeeList));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblFilterDate = new System.Windows.Forms.Label();
+            this.lblFinYearID = new System.Windows.Forms.Label();
+            this.lblClientID = new System.Windows.Forms.Label();
             this.dtgEmployeeList = new Krypton.Toolkit.KryptonDataGridView();
             this.lblSearchOptionClickedFor = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
@@ -44,9 +47,6 @@
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.empMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.empMasTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasTableAdapter();
-            this.lblClientID = new System.Windows.Forms.Label();
-            this.lblFinYearID = new System.Windows.Forms.Label();
-            this.lblFilterDate = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -94,6 +94,45 @@
             this.panel1.Size = new System.Drawing.Size(1227, 515);
             this.panel1.TabIndex = 1;
             // 
+            // lblFilterDate
+            // 
+            this.lblFilterDate.AutoSize = true;
+            this.lblFilterDate.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblFilterDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilterDate.Location = new System.Drawing.Point(761, 31);
+            this.lblFilterDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblFilterDate.Name = "lblFilterDate";
+            this.lblFilterDate.Size = new System.Drawing.Size(11, 15);
+            this.lblFilterDate.TabIndex = 12;
+            this.lblFilterDate.Text = " ";
+            this.lblFilterDate.Visible = false;
+            // 
+            // lblFinYearID
+            // 
+            this.lblFinYearID.AutoSize = true;
+            this.lblFinYearID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblFinYearID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFinYearID.Location = new System.Drawing.Point(690, 31);
+            this.lblFinYearID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblFinYearID.Name = "lblFinYearID";
+            this.lblFinYearID.Size = new System.Drawing.Size(11, 15);
+            this.lblFinYearID.TabIndex = 11;
+            this.lblFinYearID.Text = " ";
+            this.lblFinYearID.Visible = false;
+            // 
+            // lblClientID
+            // 
+            this.lblClientID.AutoSize = true;
+            this.lblClientID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblClientID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClientID.Location = new System.Drawing.Point(654, 31);
+            this.lblClientID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblClientID.Name = "lblClientID";
+            this.lblClientID.Size = new System.Drawing.Size(11, 15);
+            this.lblClientID.TabIndex = 10;
+            this.lblClientID.Text = " ";
+            this.lblClientID.Visible = false;
+            // 
             // dtgEmployeeList
             // 
             this.dtgEmployeeList.AllowUserToAddRows = false;
@@ -102,10 +141,12 @@
             this.dtgEmployeeList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dtgEmployeeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgEmployeeList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dtgEmployeeList.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgEmployeeList.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
             this.dtgEmployeeList.Location = new System.Drawing.Point(18, 68);
             this.dtgEmployeeList.MultiSelect = false;
             this.dtgEmployeeList.Name = "dtgEmployeeList";
-            this.dtgEmployeeList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.dtgEmployeeList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgEmployeeList.ReadOnly = true;
             this.dtgEmployeeList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgEmployeeList.ShowRowErrors = false;
@@ -128,6 +169,7 @@
             // 
             // txtSearch
             // 
+            this.txtSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.txtSearch.Location = new System.Drawing.Point(127, 24);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSearch.Multiline = true;
@@ -197,45 +239,6 @@
             // empMasTableAdapter
             // 
             this.empMasTableAdapter.ClearBeforeFill = true;
-            // 
-            // lblClientID
-            // 
-            this.lblClientID.AutoSize = true;
-            this.lblClientID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblClientID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClientID.Location = new System.Drawing.Point(654, 31);
-            this.lblClientID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblClientID.Name = "lblClientID";
-            this.lblClientID.Size = new System.Drawing.Size(11, 15);
-            this.lblClientID.TabIndex = 10;
-            this.lblClientID.Text = " ";
-            this.lblClientID.Visible = false;
-            // 
-            // lblFinYearID
-            // 
-            this.lblFinYearID.AutoSize = true;
-            this.lblFinYearID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblFinYearID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFinYearID.Location = new System.Drawing.Point(690, 31);
-            this.lblFinYearID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblFinYearID.Name = "lblFinYearID";
-            this.lblFinYearID.Size = new System.Drawing.Size(11, 15);
-            this.lblFinYearID.TabIndex = 11;
-            this.lblFinYearID.Text = " ";
-            this.lblFinYearID.Visible = false;
-            // 
-            // lblFilterDate
-            // 
-            this.lblFilterDate.AutoSize = true;
-            this.lblFilterDate.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblFilterDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFilterDate.Location = new System.Drawing.Point(761, 31);
-            this.lblFilterDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblFilterDate.Name = "lblFilterDate";
-            this.lblFilterDate.Size = new System.Drawing.Size(11, 15);
-            this.lblFilterDate.TabIndex = 12;
-            this.lblFilterDate.Text = " ";
-            this.lblFilterDate.Visible = false;
             // 
             // frmEmployeeList
             // 

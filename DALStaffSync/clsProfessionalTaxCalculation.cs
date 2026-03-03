@@ -16,5 +16,15 @@ namespace DALStaffSync
         {
             return objAuditLog.CalculateProfessionalTax(PTMasID, StateID, grossIncome, monthNo, SexID);
         }
+
+        public int getProfessionalTaxSlab(int txtClientID, int txtBranchID, int txtStateID)
+        {
+            return objAuditLog.getProfessionalTaxSlab(txtClientID, txtBranchID, txtStateID);
+        }
+
+        public DataTable getProfessionalTaxSlabList(int txtClientID, int txtBranchID, int txtStateID)
+        {
+            return objAuditLog.getProfessionalTaxSlabList(txtClientID, txtBranchID, txtStateID);
+        }
     }
 }
