@@ -36,8 +36,6 @@
             this.tabOrgAddressInfo = new Krypton.Navigator.KryptonPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.chkEnablePayrollStatutory = new System.Windows.Forms.CheckBox();
-            this.txtContactPerson = new Krypton.Toolkit.KryptonTextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.txtCompLogo = new Krypton.Toolkit.KryptonTextBox();
             this.btnCompanyLogoUpload = new Krypton.Toolkit.KryptonButton();
             this.cmbIsActive = new Krypton.Toolkit.KryptonComboBox();
@@ -48,9 +46,7 @@
             this.txtWebsite = new Krypton.Toolkit.KryptonTextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txtMailID = new Krypton.Toolkit.KryptonTextBox();
-            this.txtContactNumber = new Krypton.Toolkit.KryptonTextBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
             this.cmbCountry = new Krypton.Toolkit.KryptonComboBox();
             this.txtPIN = new Krypton.Toolkit.KryptonTextBox();
             this.txtState = new Krypton.Toolkit.KryptonTextBox();
@@ -134,6 +130,7 @@
             this.chkEnableEmployeeStateInsurance = new System.Windows.Forms.CheckBox();
             this.tabOrgProfessionalTax = new Krypton.Navigator.KryptonPage();
             this.grpProfTaxGroup = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.txtProfTaxRegNumber = new Krypton.Toolkit.KryptonTextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.chkEnableProfessionalTax = new System.Windows.Forms.CheckBox();
@@ -153,12 +150,28 @@
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
+            this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ofdImage = new System.Windows.Forms.OpenFileDialog();
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.ofdImage = new System.Windows.Forms.OpenFileDialog();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtContactPerson = new Krypton.Toolkit.KryptonTextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtFatherName = new Krypton.Toolkit.KryptonTextBox();
+            this.label44 = new System.Windows.Forms.Label();
+            this.txtPANNumber = new Krypton.Toolkit.KryptonTextBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.txtDateOfBirth = new System.Windows.Forms.MaskedTextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.cmbGender = new Krypton.Toolkit.KryptonComboBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.cmbDesignation = new Krypton.Toolkit.KryptonComboBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.txtContactNumber = new Krypton.Toolkit.KryptonTextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.lblSignatoryID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -195,9 +208,12 @@
             this.tabOrgLabourWelfareFund.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbGender)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbDesignation)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -215,7 +231,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1600, 629);
+            this.splitContainer1.Size = new System.Drawing.Size(982, 629);
             this.splitContainer1.SplitterDistance = 563;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
@@ -230,7 +246,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1600, 563);
+            this.panel1.Size = new System.Drawing.Size(982, 563);
             this.panel1.TabIndex = 1;
             // 
             // tabControl1
@@ -297,9 +313,9 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label49);
             this.groupBox5.Controls.Add(this.chkEnablePayrollStatutory);
-            this.groupBox5.Controls.Add(this.txtContactPerson);
-            this.groupBox5.Controls.Add(this.label6);
+            this.groupBox5.Controls.Add(this.groupBox3);
             this.groupBox5.Controls.Add(this.txtCompLogo);
             this.groupBox5.Controls.Add(this.btnCompanyLogoUpload);
             this.groupBox5.Controls.Add(this.cmbIsActive);
@@ -310,9 +326,7 @@
             this.groupBox5.Controls.Add(this.txtWebsite);
             this.groupBox5.Controls.Add(this.label16);
             this.groupBox5.Controls.Add(this.txtMailID);
-            this.groupBox5.Controls.Add(this.txtContactNumber);
             this.groupBox5.Controls.Add(this.label22);
-            this.groupBox5.Controls.Add(this.label21);
             this.groupBox5.Controls.Add(this.cmbCountry);
             this.groupBox5.Controls.Add(this.txtPIN);
             this.groupBox5.Controls.Add(this.txtState);
@@ -341,44 +355,16 @@
             // chkEnablePayrollStatutory
             // 
             this.chkEnablePayrollStatutory.AutoSize = true;
-            this.chkEnablePayrollStatutory.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkEnablePayrollStatutory.Checked = true;
             this.chkEnablePayrollStatutory.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnablePayrollStatutory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkEnablePayrollStatutory.Location = new System.Drawing.Point(22, 375);
+            this.chkEnablePayrollStatutory.Location = new System.Drawing.Point(609, 302);
             this.chkEnablePayrollStatutory.Name = "chkEnablePayrollStatutory";
             this.chkEnablePayrollStatutory.Size = new System.Drawing.Size(179, 19);
             this.chkEnablePayrollStatutory.TabIndex = 76;
             this.chkEnablePayrollStatutory.Text = "Enable Payroll Statutory";
             this.chkEnablePayrollStatutory.UseVisualStyleBackColor = true;
             this.chkEnablePayrollStatutory.CheckedChanged += new System.EventHandler(this.chkEnablePayrollStatutory_CheckedChanged_1);
-            // 
-            // txtContactPerson
-            // 
-            this.txtContactPerson.Location = new System.Drawing.Point(609, 184);
-            this.txtContactPerson.Margin = new System.Windows.Forms.Padding(4);
-            this.txtContactPerson.Multiline = true;
-            this.txtContactPerson.Name = "txtContactPerson";
-            this.txtContactPerson.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtContactPerson.Size = new System.Drawing.Size(272, 28);
-            this.txtContactPerson.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContactPerson.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtContactPerson.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContactPerson.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContactPerson.TabIndex = 7;
-            this.txtContactPerson.WordWrap = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(496, 191);
-            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(104, 15);
-            this.label6.TabIndex = 69;
-            this.label6.Text = "Contact Person";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtCompLogo
             // 
@@ -397,7 +383,7 @@
             // 
             // btnCompanyLogoUpload
             // 
-            this.btnCompanyLogoUpload.Location = new System.Drawing.Point(783, 37);
+            this.btnCompanyLogoUpload.Location = new System.Drawing.Point(783, 23);
             this.btnCompanyLogoUpload.Name = "btnCompanyLogoUpload";
             this.btnCompanyLogoUpload.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCompanyLogoUpload.Size = new System.Drawing.Size(39, 34);
@@ -410,7 +396,7 @@
             // 
             this.cmbIsActive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbIsActive.DropDownWidth = 440;
-            this.cmbIsActive.Location = new System.Drawing.Point(188, 329);
+            this.cmbIsActive.Location = new System.Drawing.Point(151, 267);
             this.cmbIsActive.Margin = new System.Windows.Forms.Padding(4);
             this.cmbIsActive.Name = "cmbIsActive";
             this.cmbIsActive.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -421,12 +407,12 @@
             // 
             // txtCompanyName
             // 
-            this.txtCompanyName.Location = new System.Drawing.Point(188, 37);
+            this.txtCompanyName.Location = new System.Drawing.Point(151, 25);
             this.txtCompanyName.Margin = new System.Windows.Forms.Padding(4);
             this.txtCompanyName.Multiline = true;
             this.txtCompanyName.Name = "txtCompanyName";
             this.txtCompanyName.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtCompanyName.Size = new System.Drawing.Size(272, 28);
+            this.txtCompanyName.Size = new System.Drawing.Size(272, 22);
             this.txtCompanyName.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCompanyName.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtCompanyName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -438,7 +424,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(71, 44);
+            this.label9.Location = new System.Drawing.Point(41, 29);
             this.label9.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(108, 15);
@@ -450,7 +436,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.Location = new System.Drawing.Point(561, 41);
+            this.label38.Location = new System.Drawing.Point(561, 27);
             this.label38.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(39, 15);
@@ -461,7 +447,7 @@
             // picCompLogo
             // 
             this.picCompLogo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picCompLogo.Location = new System.Drawing.Point(609, 37);
+            this.picCompLogo.Location = new System.Drawing.Point(609, 23);
             this.picCompLogo.Margin = new System.Windows.Forms.Padding(4);
             this.picCompLogo.Name = "picCompLogo";
             this.picCompLogo.Size = new System.Drawing.Size(167, 133);
@@ -471,12 +457,12 @@
             // 
             // txtWebsite
             // 
-            this.txtWebsite.Location = new System.Drawing.Point(609, 295);
+            this.txtWebsite.Location = new System.Drawing.Point(609, 176);
             this.txtWebsite.Margin = new System.Windows.Forms.Padding(4);
             this.txtWebsite.Multiline = true;
             this.txtWebsite.Name = "txtWebsite";
             this.txtWebsite.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtWebsite.Size = new System.Drawing.Size(272, 28);
+            this.txtWebsite.Size = new System.Drawing.Size(272, 22);
             this.txtWebsite.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtWebsite.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtWebsite.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -488,7 +474,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(536, 302);
+            this.label16.Location = new System.Drawing.Point(543, 180);
             this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(64, 15);
@@ -498,12 +484,12 @@
             // 
             // txtMailID
             // 
-            this.txtMailID.Location = new System.Drawing.Point(609, 258);
+            this.txtMailID.Location = new System.Drawing.Point(609, 206);
             this.txtMailID.Margin = new System.Windows.Forms.Padding(4);
             this.txtMailID.Multiline = true;
             this.txtMailID.Name = "txtMailID";
             this.txtMailID.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtMailID.Size = new System.Drawing.Size(272, 28);
+            this.txtMailID.Size = new System.Drawing.Size(272, 22);
             this.txtMailID.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMailID.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtMailID.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -511,26 +497,11 @@
             this.txtMailID.TabIndex = 9;
             this.txtMailID.WordWrap = false;
             // 
-            // txtContactNumber
-            // 
-            this.txtContactNumber.Location = new System.Drawing.Point(609, 221);
-            this.txtContactNumber.Margin = new System.Windows.Forms.Padding(4);
-            this.txtContactNumber.Multiline = true;
-            this.txtContactNumber.Name = "txtContactNumber";
-            this.txtContactNumber.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtContactNumber.Size = new System.Drawing.Size(272, 28);
-            this.txtContactNumber.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContactNumber.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtContactNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContactNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContactNumber.TabIndex = 8;
-            this.txtContactNumber.WordWrap = false;
-            // 
             // label22
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(547, 265);
+            this.label22.Location = new System.Drawing.Point(553, 210);
             this.label22.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(53, 15);
@@ -538,23 +509,11 @@
             this.label22.Text = "Mail ID";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(490, 228);
-            this.label21.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(110, 15);
-            this.label21.TabIndex = 55;
-            this.label21.Text = "Contact Number";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // cmbCountry
             // 
             this.cmbCountry.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCountry.DropDownWidth = 440;
-            this.cmbCountry.Location = new System.Drawing.Point(188, 298);
+            this.cmbCountry.Location = new System.Drawing.Point(151, 236);
             this.cmbCountry.Margin = new System.Windows.Forms.Padding(4);
             this.cmbCountry.Name = "cmbCountry";
             this.cmbCountry.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -565,12 +524,12 @@
             // 
             // txtPIN
             // 
-            this.txtPIN.Location = new System.Drawing.Point(188, 258);
+            this.txtPIN.Location = new System.Drawing.Point(151, 206);
             this.txtPIN.Margin = new System.Windows.Forms.Padding(4);
             this.txtPIN.Multiline = true;
             this.txtPIN.Name = "txtPIN";
             this.txtPIN.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtPIN.Size = new System.Drawing.Size(272, 28);
+            this.txtPIN.Size = new System.Drawing.Size(272, 22);
             this.txtPIN.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPIN.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtPIN.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -580,12 +539,12 @@
             // 
             // txtState
             // 
-            this.txtState.Location = new System.Drawing.Point(188, 221);
+            this.txtState.Location = new System.Drawing.Point(151, 176);
             this.txtState.Margin = new System.Windows.Forms.Padding(4);
             this.txtState.Multiline = true;
             this.txtState.Name = "txtState";
             this.txtState.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtState.Size = new System.Drawing.Size(272, 28);
+            this.txtState.Size = new System.Drawing.Size(272, 22);
             this.txtState.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtState.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtState.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -595,12 +554,12 @@
             // 
             // txtCity
             // 
-            this.txtCity.Location = new System.Drawing.Point(188, 184);
+            this.txtCity.Location = new System.Drawing.Point(151, 146);
             this.txtCity.Margin = new System.Windows.Forms.Padding(4);
             this.txtCity.Multiline = true;
             this.txtCity.Name = "txtCity";
             this.txtCity.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtCity.Size = new System.Drawing.Size(272, 28);
+            this.txtCity.Size = new System.Drawing.Size(272, 22);
             this.txtCity.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCity.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtCity.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -610,12 +569,12 @@
             // 
             // txtArea
             // 
-            this.txtArea.Location = new System.Drawing.Point(188, 147);
+            this.txtArea.Location = new System.Drawing.Point(151, 116);
             this.txtArea.Margin = new System.Windows.Forms.Padding(4);
             this.txtArea.Multiline = true;
             this.txtArea.Name = "txtArea";
             this.txtArea.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtArea.Size = new System.Drawing.Size(272, 28);
+            this.txtArea.Size = new System.Drawing.Size(272, 22);
             this.txtArea.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtArea.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtArea.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -624,12 +583,12 @@
             // 
             // txtAddress02
             // 
-            this.txtAddress02.Location = new System.Drawing.Point(188, 110);
+            this.txtAddress02.Location = new System.Drawing.Point(151, 86);
             this.txtAddress02.Margin = new System.Windows.Forms.Padding(4);
             this.txtAddress02.Multiline = true;
             this.txtAddress02.Name = "txtAddress02";
             this.txtAddress02.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtAddress02.Size = new System.Drawing.Size(272, 28);
+            this.txtAddress02.Size = new System.Drawing.Size(272, 22);
             this.txtAddress02.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAddress02.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtAddress02.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -639,12 +598,12 @@
             // 
             // txtAddress01
             // 
-            this.txtAddress01.Location = new System.Drawing.Point(188, 73);
+            this.txtAddress01.Location = new System.Drawing.Point(151, 56);
             this.txtAddress01.Margin = new System.Windows.Forms.Padding(4);
             this.txtAddress01.Multiline = true;
             this.txtAddress01.Name = "txtAddress01";
             this.txtAddress01.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtAddress01.Size = new System.Drawing.Size(272, 28);
+            this.txtAddress01.Size = new System.Drawing.Size(272, 22);
             this.txtAddress01.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAddress01.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtAddress01.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -656,7 +615,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(124, 302);
+            this.label8.Location = new System.Drawing.Point(94, 240);
             this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(55, 15);
@@ -668,7 +627,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(149, 265);
+            this.label7.Location = new System.Drawing.Point(119, 210);
             this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(30, 15);
@@ -680,7 +639,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(139, 228);
+            this.label10.Location = new System.Drawing.Point(109, 180);
             this.label10.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(40, 15);
@@ -692,7 +651,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(149, 191);
+            this.label5.Location = new System.Drawing.Point(119, 150);
             this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(30, 15);
@@ -704,7 +663,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(143, 154);
+            this.label4.Location = new System.Drawing.Point(113, 120);
             this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(36, 15);
@@ -716,7 +675,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(121, 117);
+            this.label3.Location = new System.Drawing.Point(91, 90);
             this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 15);
@@ -728,7 +687,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(121, 80);
+            this.label2.Location = new System.Drawing.Point(91, 59);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 15);
@@ -740,7 +699,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(120, 333);
+            this.label17.Location = new System.Drawing.Point(90, 271);
             this.label17.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(59, 15);
@@ -1684,6 +1643,14 @@
             this.grpProfTaxGroup.TabIndex = 12;
             this.grpProfTaxGroup.TabStop = false;
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 130);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(873, 301);
+            this.flowLayoutPanel1.TabIndex = 83;
+            // 
             // txtProfTaxRegNumber
             // 
             this.txtProfTaxRegNumber.Location = new System.Drawing.Point(136, 54);
@@ -1859,7 +1826,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1600, 61);
+            this.panel2.Size = new System.Drawing.Size(982, 61);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
@@ -1940,6 +1907,15 @@
             this.btnCancel.Values.Text = "Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // errValidator
+            // 
+            this.errValidator.ContainerControl = this;
+            // 
+            // ofdImage
+            // 
+            this.ofdImage.FileName = "openFileDialog1";
+            this.ofdImage.Filter = "JPG files (*.jpg)|*.jpg|PNG files (*.png)|*.png\"";
+            // 
             // empMasInfoBindingSource
             // 
             this.empMasInfoBindingSource.DataMember = "EmpMasInfo";
@@ -1954,28 +1930,244 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
-            // errValidator
+            // groupBox3
             // 
-            this.errValidator.ContainerControl = this;
+            this.groupBox3.Controls.Add(this.lblSignatoryID);
+            this.groupBox3.Controls.Add(this.txtContactNumber);
+            this.groupBox3.Controls.Add(this.label21);
+            this.groupBox3.Controls.Add(this.cmbDesignation);
+            this.groupBox3.Controls.Add(this.label48);
+            this.groupBox3.Controls.Add(this.cmbGender);
+            this.groupBox3.Controls.Add(this.label47);
+            this.groupBox3.Controls.Add(this.txtDateOfBirth);
+            this.groupBox3.Controls.Add(this.label46);
+            this.groupBox3.Controls.Add(this.txtPANNumber);
+            this.groupBox3.Controls.Add(this.label45);
+            this.groupBox3.Controls.Add(this.txtFatherName);
+            this.groupBox3.Controls.Add(this.label44);
+            this.groupBox3.Controls.Add(this.txtContactPerson);
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Location = new System.Drawing.Point(32, 309);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(849, 123);
+            this.groupBox3.TabIndex = 98;
+            this.groupBox3.TabStop = false;
             // 
-            // ofdImage
+            // txtContactPerson
             // 
-            this.ofdImage.FileName = "openFileDialog1";
-            this.ofdImage.Filter = "JPG files (*.jpg)|*.jpg|PNG files (*.png)|*.png\"";
+            this.txtContactPerson.Location = new System.Drawing.Point(120, 30);
+            this.txtContactPerson.Margin = new System.Windows.Forms.Padding(4);
+            this.txtContactPerson.Multiline = true;
+            this.txtContactPerson.Name = "txtContactPerson";
+            this.txtContactPerson.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtContactPerson.Size = new System.Drawing.Size(272, 22);
+            this.txtContactPerson.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContactPerson.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtContactPerson.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContactPerson.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContactPerson.TabIndex = 70;
+            this.txtContactPerson.Tag = "Contact Person Name should not be blank";
+            this.txtContactPerson.WordWrap = false;
             // 
-            // flowLayoutPanel1
+            // label6
             // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 130);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(873, 301);
-            this.flowLayoutPanel1.TabIndex = 83;
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(8, 34);
+            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(109, 15);
+            this.label6.TabIndex = 71;
+            this.label6.Text = "Signatory Name";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtFatherName
+            // 
+            this.txtFatherName.Location = new System.Drawing.Point(577, 30);
+            this.txtFatherName.Margin = new System.Windows.Forms.Padding(4);
+            this.txtFatherName.Multiline = true;
+            this.txtFatherName.Name = "txtFatherName";
+            this.txtFatherName.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtFatherName.Size = new System.Drawing.Size(272, 22);
+            this.txtFatherName.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFatherName.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtFatherName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFatherName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFatherName.TabIndex = 72;
+            this.txtFatherName.Tag = "Contact Person\'s Father Name should not be blank";
+            this.txtFatherName.WordWrap = false;
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label44.Location = new System.Drawing.Point(485, 34);
+            this.label44.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(90, 15);
+            this.label44.TabIndex = 73;
+            this.label44.Text = "Father Name";
+            this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtPANNumber
+            // 
+            this.txtPANNumber.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtPANNumber.Location = new System.Drawing.Point(577, 59);
+            this.txtPANNumber.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPANNumber.Multiline = true;
+            this.txtPANNumber.Name = "txtPANNumber";
+            this.txtPANNumber.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtPANNumber.Size = new System.Drawing.Size(166, 22);
+            this.txtPANNumber.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPANNumber.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtPANNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPANNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPANNumber.TabIndex = 74;
+            this.txtPANNumber.Tag = "Contact Person\'s PAN Number should not be blank";
+            this.txtPANNumber.WordWrap = false;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label45.Location = new System.Drawing.Point(515, 63);
+            this.label45.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(60, 15);
+            this.label45.TabIndex = 75;
+            this.label45.Text = "PAN No.";
+            this.label45.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtDateOfBirth
+            // 
+            this.txtDateOfBirth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.txtDateOfBirth.Location = new System.Drawing.Point(119, 88);
+            this.txtDateOfBirth.Mask = "##-##-####";
+            this.txtDateOfBirth.Name = "txtDateOfBirth";
+            this.txtDateOfBirth.Size = new System.Drawing.Size(99, 21);
+            this.txtDateOfBirth.TabIndex = 76;
+            this.txtDateOfBirth.Tag = "Contact Person\'s Date Of Birth should not be blank";
+            this.txtDateOfBirth.ValidatingType = typeof(System.DateTime);
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label46.Location = new System.Drawing.Point(28, 91);
+            this.label46.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(89, 15);
+            this.label46.TabIndex = 77;
+            this.label46.Text = "Date Of Birth";
+            this.label46.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbGender
+            // 
+            this.cmbGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGender.DropDownWidth = 440;
+            this.cmbGender.Location = new System.Drawing.Point(289, 87);
+            this.cmbGender.Name = "cmbGender";
+            this.cmbGender.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbGender.Size = new System.Drawing.Size(101, 22);
+            this.cmbGender.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbGender.TabIndex = 79;
+            this.cmbGender.Tag = "Contact Person\'s Gender should not be blank";
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label47.Location = new System.Drawing.Point(232, 91);
+            this.label47.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(54, 15);
+            this.label47.TabIndex = 78;
+            this.label47.Text = "Gender";
+            this.label47.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbDesignation
+            // 
+            this.cmbDesignation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbDesignation.DropDownWidth = 440;
+            this.cmbDesignation.Location = new System.Drawing.Point(119, 59);
+            this.cmbDesignation.Name = "cmbDesignation";
+            this.cmbDesignation.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbDesignation.Size = new System.Drawing.Size(273, 22);
+            this.cmbDesignation.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbDesignation.TabIndex = 81;
+            this.cmbDesignation.Tag = "Contact Person\'s Designation should not be blank";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label48.Location = new System.Drawing.Point(33, 63);
+            this.label48.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(84, 15);
+            this.label48.TabIndex = 80;
+            this.label48.Text = "Designation";
+            this.label48.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtContactNumber
+            // 
+            this.txtContactNumber.Location = new System.Drawing.Point(577, 87);
+            this.txtContactNumber.Margin = new System.Windows.Forms.Padding(4);
+            this.txtContactNumber.MaxLength = 15;
+            this.txtContactNumber.Multiline = true;
+            this.txtContactNumber.Name = "txtContactNumber";
+            this.txtContactNumber.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtContactNumber.Size = new System.Drawing.Size(167, 22);
+            this.txtContactNumber.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContactNumber.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtContactNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContactNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContactNumber.TabIndex = 83;
+            this.txtContactNumber.Tag = "Contact Person\'s Contact Number hould not be blank";
+            this.txtContactNumber.WordWrap = false;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(465, 91);
+            this.label21.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(110, 15);
+            this.label21.TabIndex = 84;
+            this.label21.Text = "Contact Number";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label49.Location = new System.Drawing.Point(46, 304);
+            this.label49.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(216, 15);
+            this.label49.TabIndex = 100;
+            this.label49.Text = "Authorized Signatory Information";
+            this.label49.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblSignatoryID
+            // 
+            this.lblSignatoryID.AutoSize = true;
+            this.lblSignatoryID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblSignatoryID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSignatoryID.Location = new System.Drawing.Point(413, 17);
+            this.lblSignatoryID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblSignatoryID.Name = "lblSignatoryID";
+            this.lblSignatoryID.Size = new System.Drawing.Size(11, 15);
+            this.lblSignatoryID.TabIndex = 85;
+            this.lblSignatoryID.Text = " ";
+            this.lblSignatoryID.Visible = false;
             // 
             // frmOrgMasterInfo
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1600, 629);
+            this.ClientSize = new System.Drawing.Size(982, 629);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -2037,9 +2229,13 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbGender)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbDesignation)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2069,8 +2265,6 @@
         private Krypton.Navigator.KryptonNavigator tabControl1;
         private Krypton.Navigator.KryptonPage tabOrgAddressInfo;
         private System.Windows.Forms.GroupBox groupBox5;
-        private Krypton.Toolkit.KryptonTextBox txtContactPerson;
-        private System.Windows.Forms.Label label6;
         private Krypton.Toolkit.KryptonTextBox txtCompLogo;
         private Krypton.Toolkit.KryptonButton btnCompanyLogoUpload;
         private Krypton.Toolkit.KryptonComboBox cmbIsActive;
@@ -2081,9 +2275,7 @@
         private Krypton.Toolkit.KryptonTextBox txtWebsite;
         private System.Windows.Forms.Label label16;
         private Krypton.Toolkit.KryptonTextBox txtMailID;
-        private Krypton.Toolkit.KryptonTextBox txtContactNumber;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label21;
         private Krypton.Toolkit.KryptonComboBox cmbCountry;
         private Krypton.Toolkit.KryptonTextBox txtPIN;
         private Krypton.Toolkit.KryptonTextBox txtState;
@@ -2175,5 +2367,22 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.CheckBox chkNationalPensionScheme;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private Krypton.Toolkit.KryptonTextBox txtPANNumber;
+        private System.Windows.Forms.Label label45;
+        private Krypton.Toolkit.KryptonTextBox txtFatherName;
+        private System.Windows.Forms.Label label44;
+        private Krypton.Toolkit.KryptonTextBox txtContactPerson;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.MaskedTextBox txtDateOfBirth;
+        private System.Windows.Forms.Label label46;
+        private Krypton.Toolkit.KryptonComboBox cmbGender;
+        private System.Windows.Forms.Label label47;
+        private Krypton.Toolkit.KryptonComboBox cmbDesignation;
+        private System.Windows.Forms.Label label48;
+        private Krypton.Toolkit.KryptonTextBox txtContactNumber;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.Label lblSignatoryID;
     }
 }

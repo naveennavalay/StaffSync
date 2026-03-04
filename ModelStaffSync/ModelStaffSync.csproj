@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientSigningPerson.cs" />
     <Compile Include="clsAppSettings.cs" />
     <Compile Include="AppUserTasks.cs" />
     <Compile Include="AdvanceTypeMasModel.cs" />

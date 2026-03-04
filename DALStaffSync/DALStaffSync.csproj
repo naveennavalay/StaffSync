@@ -48,6 +48,7 @@
     <Compile Include="clsAdvanceTypeMas.cs" />
     <Compile Include="clsAppSettings.cs" />
     <Compile Include="clsAppUserTasks.cs" />
+    <Compile Include="clsClientSignatoryInfo.cs" />
     <Compile Include="clsDashboardWidgetData.cs" />
     <Compile Include="clsProvidentFundCalculation.cs" />
     <Compile Include="clsProfessionalTaxCalculation.cs" />

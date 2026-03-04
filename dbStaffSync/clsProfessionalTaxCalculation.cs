@@ -196,37 +196,32 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "SELECT DISTINCT " + 
+                string strQuery = "SELECT " + 
                                         " ProfTaxDetailedSlab.GrossFrom, " +
                                         " ProfTaxDetailedSlab.GrossTo, " +
                                         " ProfTaxDetailedSlab.PTAmount " +
                                     " FROM " +
-                                        " ( " +
-                                            " DeductionHeaderMas " +
-                                            " INNER JOIN ( " +
+                                        " StateMas " +
+                                        " INNER JOIN ( " +
+                                            " ( " +
                                                 " ( " +
                                                     " ClientMas " +
-                                                    " INNER JOIN ( " +
-                                                        " ClientBranchMas " +
-                                                        " INNER JOIN StateMas ON ClientBranchMas.ClientBranchState = StateMas.StateTitle " +
-                                                    " ) ON ClientMas.ClientID = ClientBranchMas.ClientID " +
+                                                    " INNER JOIN ClientBranchMas ON ClientMas.ClientID = ClientBranchMas.ClientID " +
                                                 " ) " +
                                                 " INNER JOIN ProfTaxMas ON ClientMas.ClientID = ProfTaxMas.ClientID " +
-                                            " ) ON DeductionHeaderMas.DedID = ProfTaxMas.DedID " +
-                                        " ) " +
-                                        " INNER JOIN ProfTaxDetailedSlab ON ProfTaxMas.PTMasID = ProfTaxDetailedSlab.PTMasID " +
-                                    " GROUP BY " + 
-                                        " ProfTaxDetailedSlab.GrossFrom, " + 
-                                        " ProfTaxDetailedSlab.GrossTo, " + 
-                                        " ProfTaxDetailedSlab.PTAmount, " + 
-                                        " ClientBranchMas.ClientBranchID, " + 
-                                        " DeductionHeaderMas.DedID, " + 
-                                        " ClientMas.ClientID, " + 
+                                            " ) " +
+                                            " INNER JOIN ProfTaxDetailedSlab ON ProfTaxMas.PTMasID = ProfTaxDetailedSlab.PTMasID " +
+                                        " ) ON StateMas.StateID = ProfTaxMas.StateID " +
+                                    " GROUP BY " +
+                                        " ProfTaxDetailedSlab.GrossFrom, " +
+                                        " ProfTaxDetailedSlab.GrossTo, " +
+                                        " ProfTaxDetailedSlab.PTAmount, " +
+                                        " ClientBranchMas.ClientBranchID, " +
+                                        " ClientMas.ClientID, " +
                                         " StateMas.StateID " +
                                     " HAVING " +
-                                        " ( " +
+                                        " (" +
                                             " ((ClientBranchMas.ClientBranchID) = " + txtBranchID + ") " +
-                                            " AND ((DeductionHeaderMas.DedID) = 2) " +
                                             " AND ((ClientMas.ClientID) = " + txtClientID + ") " +
                                             " AND ((StateMas.StateID) = " + txtStateID + ") " +
                                         " );";
@@ -251,6 +246,5 @@ namespace dbStaffSync
 
             return dt;
         }
-
     }
 }

@@ -1050,7 +1050,6 @@
             this.cmbGender.Name = "cmbGender";
             this.cmbGender.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbGender.Size = new System.Drawing.Size(440, 22);
-            this.cmbGender.Sorted = true;
             this.cmbGender.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbGender.TabIndex = 40;
             // 

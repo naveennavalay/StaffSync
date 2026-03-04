@@ -27,12 +27,15 @@ namespace StaffSync
         DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
         DALStaffSync.clsCountries objCountries = new DALStaffSync.clsCountries();
         DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
+        DALStaffSync.clsClientSignatoryInfo objClientSignatoryInfo = new DALStaffSync.clsClientSignatoryInfo();
         DALStaffSync.clsClientBranchInfo clsClientBranchInfo = new DALStaffSync.clsClientBranchInfo();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         DALStaffSync.clsClientStatutory objClientStatutory = new DALStaffSync.clsClientStatutory();
         DALStaffSync.clsClientBranchInfo objClientBranchInfo = new DALStaffSync.clsClientBranchInfo();
+        DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
+        DALStaffSync.clsSexMas objGender = new DALStaffSync.clsSexMas();
         DALStaffSync.clsProfessionalTaxCalculation objProfessionalTaxSlab = new DALStaffSync.clsProfessionalTaxCalculation();
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
@@ -133,6 +136,14 @@ namespace StaffSync
             cmbCountry.DataSource = objCountries.GetCountryList();
             cmbCountry.DisplayMember = "CountryTitle";
             cmbCountry.ValueMember = "CountryID";
+
+            cmbDesignation.DataSource = objDesignation.GetDesignationList();
+            cmbDesignation.DisplayMember = "DesignationTitle";
+            cmbDesignation.ValueMember = "DesignationID";
+
+            cmbGender.DataSource = objGender.GetSexList();
+            cmbGender.DisplayMember = "SexTitle";
+            cmbGender.ValueMember = "SexID";
         }
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
@@ -160,6 +171,7 @@ namespace StaffSync
 
                     if (newID > 0)
                     {
+                        objClientSignatoryInfo.InsertSignatoryInfo(newID, txtContactPerson.Text, cmbDesignation.Text, txtFatherName.Text, txtPANNumber.Text, cmbGender.Text, Convert.ToDateTime(txtDateOfBirth.Text), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                         objClientStatutory.InsertClientStatutory(Convert.ToInt16(lblCompID.Text), DateTime.Now, chkEnablePayrollStatutory.Checked, chkEnableProvidentFund.Checked, txtProvidentFundRegNumber.Text, chkEnableProfessionalTax.Checked, txtProfTaxRegNumber.Text, chkEnableEmployeeStateInsurance.Checked, txtESIRegNumber.Text, chkNationalPensionScheme.Checked, "NPS Reg. Number");
                         objClientStatutory.InsertClientProvidentFundSettings(1, optEmpPFPercentage.Checked == true ? "P" : "A", Convert.ToDecimal(txtEmpPFPercentage.Text == "" ? "0" : txtEmpPFPercentage.Text), Convert.ToDecimal(txtEmpPFFixedAmount.Text == "" ? "0" : txtEmpPFFixedAmount.Text), optEmprPFPercentage.Checked == true ? "P" : "A", Convert.ToDecimal(txtEmprPFPercentage.Text == "" ? "0" : txtEmprPFPercentage.Text), Convert.ToDecimal(txtEmprPFFixedAmount.Text == "" ? "0" : txtEmprPFFixedAmount.Text), optEmprEPSPercentage.Checked == true ? "P" : "A", Convert.ToDecimal(txtEmprEPSPercentage.Text == "" ? "0" : txtEmprEPSPercentage.Text), Convert.ToDecimal(txtEmprEPSFixedAmount.Text == "" ? "0" : txtEmprEPSFixedAmount.Text), DateTime.Now);
 
@@ -180,6 +192,11 @@ namespace StaffSync
                     int affectedRows = objClientInfo.UpdateClientInfo(Convert.ToInt16(lblCompID.Text), txtCompCode.Text, txtCompanyName.Text, txtAddress01.Text, txtAddress02.Text, txtArea.Text, txtCity.Text, txtState.Text, txtPIN.Text, cmbCountry.Text, txtContactNumber.Text, txtMailID.Text, txtContactPerson.Text, txtContactNumber.Text, txtMailID.Text, txtWebsite.Text, cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                     objClientStatutory.InsertClientStatutory(Convert.ToInt16(lblCompID.Text), DateTime.Now, chkEnablePayrollStatutory.Checked, chkEnableProvidentFund.Checked, txtProvidentFundRegNumber.Text, chkEnableProfessionalTax.Checked, txtProfTaxRegNumber.Text, chkEnableEmployeeStateInsurance.Checked, txtESIRegNumber.Text, chkNationalPensionScheme.Checked, "NSP Reg. Number" );
                     objClientStatutory.InsertClientProvidentFundSettings(1, optEmpPFPercentage.Checked == true ? "P" : "A", Convert.ToDecimal(txtEmpPFPercentage.Text == "" ? "0" : txtEmpPFPercentage.Text), Convert.ToDecimal(txtEmpPFFixedAmount.Text == "" ? "0" : txtEmpPFFixedAmount.Text), optEmprPFPercentage.Checked == true ? "P" : "A", Convert.ToDecimal(txtEmprPFPercentage.Text == "" ? "0" : txtEmprPFPercentage.Text), Convert.ToDecimal(txtEmprPFFixedAmount.Text == "" ? "0" : txtEmprPFFixedAmount.Text), optEmprEPSPercentage.Checked == true ? "P" : "A", Convert.ToDecimal(txtEmprEPSPercentage.Text == "" ? "0" : txtEmprEPSPercentage.Text), Convert.ToDecimal(txtEmprEPSFixedAmount.Text == "" ? "0" : txtEmprEPSFixedAmount.Text), DateTime.Now);
+                    
+                    if(lblSignatoryID.Text == "" || lblSignatoryID.Text == "0")
+                        objClientSignatoryInfo.InsertSignatoryInfo(Convert.ToInt16(lblCompID.Text), txtContactPerson.Text, cmbDesignation.Text, txtFatherName.Text, txtPANNumber.Text, cmbGender.Text, Convert.ToDateTime(txtDateOfBirth.Text), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
+                    else
+                        objClientSignatoryInfo.UpdateSignatoryInfo(Convert.ToInt16(lblSignatoryID.Text.ToString()), Convert.ToInt16(lblCompID.Text), txtContactPerson.Text, cmbDesignation.Text, txtFatherName.Text, txtPANNumber.Text, cmbGender.Text, Convert.ToDateTime(txtDateOfBirth.Text), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
 
                     if (txtCompLogo.Text == "overwrite")
                     {
@@ -246,6 +263,42 @@ namespace StaffSync
 
             if (chkEnablePayrollStatutory.Checked)
             {
+                if (string.IsNullOrEmpty(txtContactPerson.Text))
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.txtContactPerson, txtContactPerson.Tag?.ToString() ?? "Contact Person Name should not be blank.");
+                }
+                if (string.IsNullOrEmpty(txtFatherName.Text))
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.txtFatherName, txtFatherName.Tag?.ToString() ?? "Contact Person's Father Name should not be blank.");
+                }
+                if (string.IsNullOrEmpty(cmbDesignation.Text.ToString()))
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.cmbDesignation, cmbDesignation.Tag?.ToString() ?? "Contact Person's Designation should not be blank.");
+                }
+                if (string.IsNullOrEmpty(txtPANNumber.Text.ToString()))
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.txtPANNumber, txtPANNumber.Tag?.ToString() ?? "Contact Person's PAN Number should not be blank.");
+                }
+                if (string.IsNullOrEmpty(txtDateOfBirth.Text.ToString()))
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.txtDateOfBirth, txtDateOfBirth.Tag?.ToString() ?? "Contact Person's Date Of Birth should not be blank.");
+                }
+                if (string.IsNullOrEmpty(cmbGender.Text.ToString()))
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.cmbGender, cmbGender.Tag?.ToString() ?? "Contact Person's Gender should not be blank.");
+                }
+                if (string.IsNullOrEmpty(txtContactNumber.Text.ToString()))
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.txtContactNumber, txtContactNumber.Tag?.ToString() ?? "Contact Person's Contact Number hould not be blank.");
+                }
+
                 if (chkEnableProvidentFund.Checked)
                 {
                     if (string.IsNullOrEmpty(txtProvidentFundRegNumber.Text))
@@ -369,6 +422,10 @@ namespace StaffSync
                 else
                 {
                     txtESIRegNumber.Text = "0.00";
+                    txtContactPerson.Text = "N/A";
+                    txtFatherName.Text = "N/A";
+                    txtContactPerson.Text = "N/A";
+                    txtDateOfBirth.Text = "";
                 }
             }
             else
@@ -399,6 +456,11 @@ namespace StaffSync
             txtContactNumber.Text = "";
             txtMailID.Text = "";
             txtWebsite.Text = "";
+            txtDateOfBirth.Text = DateTime.Now.ToString("dd-MM-yyyy");
+            txtContactPerson.Text = "";
+            txtFatherName.Text = "";
+            txtPANNumber.Text = "";
+            lblSignatoryID.Text = "";
 
             picCompLogo.Image = null;
 
@@ -419,6 +481,14 @@ namespace StaffSync
             cmbESIDurationCycle.Items.Add("Monthly");
             cmbESIDurationCycle.SelectedIndex = 0;
             cmbESIDurationCycle.Enabled = false;
+
+            cmbDesignation.DataSource = objDesignation.GetDesignationList();
+            cmbDesignation.DisplayMember = "DesignationTitle";
+            cmbDesignation.ValueMember = "DesignationID";
+
+            cmbGender.DataSource = objGender.GetSexList();
+            cmbGender.DisplayMember = "SexTitle";
+            cmbGender.ValueMember = "SexID";
 
             //chkEnableProvidentFund.Checked = false;
             grpPFGroup.Enabled = false;
@@ -472,6 +542,11 @@ namespace StaffSync
             txtContactNumber.Enabled = true;
             txtMailID.Enabled = true;
             txtWebsite.Enabled = true;
+            txtFatherName.Enabled = true;
+            cmbGender.Enabled = true;
+            cmbDesignation.Enabled = true;
+            txtDateOfBirth.Enabled = true;
+            txtPANNumber.Enabled = true;
 
             cmbIsActive.Items.Clear();
             cmbIsActive.Items.Add("");
@@ -532,12 +607,25 @@ namespace StaffSync
             txtContactNumber.Enabled = false;
             txtMailID.Enabled = false;
             txtWebsite.Enabled = false;
-            
+            txtFatherName.Enabled = true;
+            cmbGender.Enabled = false;
+            cmbDesignation.Enabled = false;
+            txtDateOfBirth.Enabled = false;
+            txtPANNumber.Enabled = false;
+
             cmbIsActive.Items.Clear();
             cmbIsActive.Items.Add("");
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.Enabled = false;
+
+            cmbDesignation.DataSource = objDesignation.GetDesignationList();
+            cmbDesignation.DisplayMember = "DesignationTitle";
+            cmbDesignation.ValueMember = "DesignationID";
+
+            cmbGender.DataSource = objGender.GetSexList();
+            cmbGender.DisplayMember = "SexTitle";
+            cmbGender.ValueMember = "SexID";
 
             cmbEPFDeductionCycleType.Items.Clear();
             //cmbEPFDeductionCycleType.Items.Add("");
@@ -659,6 +747,18 @@ namespace StaffSync
 
             cmbIsActive.Text = ClientInfoModel.IsActive == true ? "Yes" : "No";
 
+            List<ClientSigningPerson> objClientSigningPerson = objClientSignatoryInfo.getClientSpecificSignatoryInfo(Convert.ToInt16(lblCompID.Text.ToString()));
+            if (objClientSigningPerson.Count > 0)
+            {
+                lblSignatoryID.Text = objClientSigningPerson[0].ClientSigningPersonID.ToString();
+                txtContactPerson.Text = objClientSigningPerson[0].ClientSigningPersonName.ToString();
+                cmbDesignation.Text = objClientSigningPerson[0].ClientSigningPersonDesignation.ToString();
+                txtFatherName.Text = objClientSigningPerson[0].ClientSigningPersonFatherName.ToString();
+                txtPANNumber.Text = objClientSigningPerson[0].ClientSigningPersonPANNumber.ToString();
+                cmbGender.Text = objClientSigningPerson[0].ClientSigningPersonSex.ToString();
+                txtDateOfBirth.Text = objClientSigningPerson[0].ClientSigningPersonDOB.ToString("dd-MM-yyyy");
+            }
+
             ClientStatutory selectedClientStatutory = objClientStatutory.getClientStatutory(Convert.ToInt16(lblCompID.Text.ToString()));
             chkEnablePayrollStatutory.Checked = selectedClientStatutory.EnableClientStatutory;
             chkEnableProvidentFund.Checked = selectedClientStatutory.EnablePF;
@@ -738,7 +838,7 @@ namespace StaffSync
 
                     tile.ViewSlabClicked += (s, e) =>
                     {
-                        MessageBox.Show($"BranchID: {e.BranchID}\nStateID: {e.StateID}");
+                        //MessageBox.Show($"BranchID: {e.BranchID}\nStateID: {e.StateID}");
                         frmCompanyList frmCompanyList = new frmCompanyList(this, "professionaltaxslab", Convert.ToInt32(lblCompID.Text.ToString()), Convert.ToInt16(xx.ClientBranchID.ToString()), Convert.ToInt16(xx.StateID.ToString()));
                         frmCompanyList.ShowDialog(this);
                     };
@@ -800,6 +900,14 @@ namespace StaffSync
             enableControls();
             cmbIsActive.SelectedIndex = 1;
             errValidator.Clear();
+
+            cmbDesignation.DataSource = objDesignation.GetDesignationList();
+            cmbDesignation.DisplayMember = "DesignationTitle";
+            cmbDesignation.ValueMember = "DesignationID";
+
+            cmbGender.DataSource = objGender.GetSexList();
+            cmbGender.DisplayMember = "SexTitle";
+            cmbGender.ValueMember = "SexID";
 
             cmbCountry.DataSource = objCountries.GetCountryList();
             cmbCountry.DisplayMember = "CountryTitle";

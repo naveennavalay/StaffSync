@@ -22,7 +22,7 @@ namespace dbStaffSync
             {
                 conn = dbStaffSync.openDBConnection();
 
-                string strQuery = "SELECT * FROM SexMas WHERE IsDeleted = false";
+                string strQuery = "SELECT * FROM SexMas WHERE IsDeleted = false Order By SexID Asc";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

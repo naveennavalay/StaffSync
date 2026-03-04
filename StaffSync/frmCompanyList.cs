@@ -70,6 +70,7 @@ namespace StaffSync
             }
             else if (lblListFor.Text.Trim().ToLower() == "professionaltaxslab")
             {
+                this.Text = "Professional Tax Slab";
                 dtgCompanyList.DataSource = objProfessionalTaxSlab.getProfessionalTaxSlabList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(lblBranchID.Text.ToString()), Convert.ToInt32(lblStateID.Text.ToString()));
                 dtgCompanyList.Columns["GrossFrom"].HeaderText = "Gross From";
                 dtgCompanyList.Columns["GrossFrom"].Width = 150;
@@ -159,10 +160,10 @@ namespace StaffSync
                 objClientInfo.ClientWebSite = "";
 
                 objClientInfo.IsActive = false;
-                if (lblListFor.Text.Trim().ToLower() == "clientlist")
-                {
-                    this.frmCompanyInfo.displaySelectedValuesOnUI(objClientInfo);
-                }
+                //if (lblListFor.Text.Trim().ToLower() == "clientlist")
+                //{
+                //    this.frmCompanyInfo.displaySelectedValuesOnUI(objClientInfo);
+                //}
 
                 this.Close();
             }
