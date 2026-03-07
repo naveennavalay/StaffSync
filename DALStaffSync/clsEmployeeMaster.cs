@@ -31,6 +31,15 @@ namespace DALStaffSync
             return employeesList;
         }
 
+        public List<EmpStateAndGenderInfo> getEmpStateAndGenderInfo(int txtEmpID)
+        {
+            List<EmpStateAndGenderInfo> EmpStateAndGenderInfoList = new List<EmpStateAndGenderInfo>();
+
+            EmpStateAndGenderInfoList = objEmployeeMaster.getEmpStateAndGenderInfo(txtEmpID);
+
+            return EmpStateAndGenderInfoList;
+        }
+
         public DataTable GetEmployeeList()
         {
             DataTable dt = new DataTable();

@@ -38,4 +38,11 @@ namespace ModelStaffSync
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
     }
+
+    public class EmpStateAndGenderInfo
+    {
+        public int EmpID { get; set; }
+        public int StateID { get; set; }
+        public int SexID { get; set; }
+    }
 }

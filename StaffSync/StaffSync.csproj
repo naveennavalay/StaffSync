@@ -1172,6 +1172,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hrm02.ico" />
+    <None Include="images\icons\flip1.ico" />
+    <None Include="images\icons\flip.ico" />
     <None Include="images\icons\work-anniversary.ico" />
     <None Include="images\icons\birthday-cake.ico" />
     <None Include="images\icons\weekly-off.ico" />

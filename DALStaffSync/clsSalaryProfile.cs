@@ -20,6 +20,12 @@ namespace DALStaffSync
     {
         dbStaffSync.clsSalaryProfile objSalaryProfile = new dbStaffSync.clsSalaryProfile();
 
+        public Dictionary<string, string> getSalaryHeadersList()
+        {
+            Dictionary<string, string> salaryHeadersList = new Dictionary<string, string>();
+            salaryHeadersList = objSalaryProfile.getSalaryHeadersList();
+            return salaryHeadersList;
+        }
         public SpecificEmployeeSalaryInfo getSpecificEmployeeSalaryInfo(int txtEmpID)
         {
             SpecificEmployeeSalaryInfo specificEmployeeSalaryInfo = new SpecificEmployeeSalaryInfo();
@@ -72,10 +78,10 @@ namespace DALStaffSync
             return objSalaryProfileInfoList;
         }
 
-        public DataTable GetSalaryInfoForBatchProcess(DateTime dtSalaryDate)
+        public DataTable GetSalaryInfoForBatchProcess(int txtClientID, DateTime dtSalaryDate)
         {
             DataTable dt = new DataTable();
-            dt = objSalaryProfile.GetSalaryInfoForBatchProcess(dtSalaryDate);
+            dt = objSalaryProfile.GetSalaryInfoForBatchProcess(txtClientID, dtSalaryDate);
             return dt;
         }
 

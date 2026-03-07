@@ -63,6 +63,64 @@ namespace dbStaffSync
             return employeesList;
         }
 
+        public List<EmpStateAndGenderInfo> getEmpStateAndGenderInfo(int txtEmpID)
+        {
+            List<EmpStateAndGenderInfo> EmpStateAndGenderInfoList = new List<EmpStateAndGenderInfo>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " + 
+                                        " StateMas.StateID, " +
+                                        " SexMas.SexID, " +
+                                        " EmpMas.EmpID " +
+                                    " FROM " +
+                                        " StateMas " +
+                                        " INNER JOIN ( " +
+                                            " AddressMas " +
+                                            " INNER JOIN ( " +
+                                                " SexMas " +
+                                                " INNER JOIN ( " +
+                                                    " EmpMas " +
+                                                    " INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID " +
+                                                " ) ON SexMas.SexID = PersonalInfoMas.SexID " +
+                                            " ) ON AddressMas.AddressID = PersonalInfoMas.CurAddressID " +
+                                        " ) ON StateMas.StateID = AddressMas.StateID " +
+                                    " WHERE " +
+                                        " (((EmpMas.EmpID) = " + txtEmpID + "))";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                EmpStateAndGenderInfoList = JsonConvert.DeserializeObject<List<EmpStateAndGenderInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            if(EmpStateAndGenderInfoList.Count > 0)
+                return EmpStateAndGenderInfoList;
+            else
+                return new List<EmpStateAndGenderInfo>();
+        }
+
         public DataTable GetEmployeeList()
         {
             DataTable dt = new DataTable();

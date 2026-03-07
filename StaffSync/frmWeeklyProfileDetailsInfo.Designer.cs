@@ -132,6 +132,8 @@
             this.WklyOffDayName,
             this.OrderID});
             this.dtgWeeklyOffDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgWeeklyOffDetails.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgWeeklyOffDetails.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
             this.dtgWeeklyOffDetails.Location = new System.Drawing.Point(17, 42);
             this.dtgWeeklyOffDetails.Margin = new System.Windows.Forms.Padding(4);
             this.dtgWeeklyOffDetails.Name = "dtgWeeklyOffDetails";

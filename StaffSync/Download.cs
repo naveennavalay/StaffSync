@@ -61,7 +61,7 @@ namespace StaffSync
 
                 foreach (DataGridViewColumn colm in dtSpecificDataGrid.Columns)
                 {
-                    if(!colm.Visible == false)
+                    if (!colm.Visible == false)
                         csv.Write(colm.HeaderText + ',');
                 }
 

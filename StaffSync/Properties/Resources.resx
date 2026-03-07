@@ -127,8 +127,8 @@
   <data name="leave-allotment" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\leave-allotment.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="work-anniversary" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\work-anniversary.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bar-chart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\bar-chart.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="close" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\close.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,20 +139,26 @@
   <data name="exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\exit.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="multiple-users" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\multiple-users.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="flip" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\flip.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pie-chart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\pie-chart.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="update" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\update.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="birthday-cake1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\birthday-cake.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="leave-config" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\leave-config.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="work-anniversary" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\work-anniversary.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\settings.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="leave-config" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\leave-config.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="advance-request" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\advance-request.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="all-emps" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\all-emps.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -187,9 +193,6 @@
   <data name="profile-setting" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\profile-setting.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="advance-request" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\advance-request.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="refresh01" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\refresh01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -220,6 +223,9 @@
   <data name="reports" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\reports.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="salayconfig" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\salayconfig.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -238,8 +244,8 @@
   <data name="deductions" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\deductions.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="salayconfig" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\salayconfig.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="update" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\update.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="request" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\request.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -289,8 +295,8 @@
   <data name="auth01" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\png\auth01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="birthday-cake1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\birthday-cake.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="multiple-users" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\multiple-users.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="master-data" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\master-data.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -301,7 +307,7 @@
   <data name="tooltip" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\icons\tooltip.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bar-chart" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\icons\bar-chart.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="flip1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\icons\flip1.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

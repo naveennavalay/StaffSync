@@ -23,6 +23,74 @@ namespace dbStaffSync
         OleDbConnection conn = null;
         DataSet dtDataset = null;
         clsGenFunc objGenFunc = new clsGenFunc();
+        Dictionary<string, string> formulaMap = new Dictionary<string, string>();
+
+        public Dictionary<string, string> getSalaryHeadersList()
+        {
+            DataTable dt = new DataTable();
+            formulaMap = new Dictionary<string, string>();
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                string strQuery = "SELECT " + 
+                                        " AllTitle As HeaderTitle, " + 
+                                        " CalcFormula, " + 
+                                        " ProrataBasis, " + 
+                                        " MaxCap " + 
+                                    " FROM " + 
+                                        " AllowanceHeaderMas " + 
+                                    " UNION ALL " + 
+                                    " SELECT " +
+                                        " DedTitle As HeaderTitle, " + 
+                                        " CalcFormula, " + 
+                                        " ProrataBasis, " + 
+                                        " MaxCap " + 
+                                    " FROM " + 
+                                        " DeductionHeaderMas " + 
+                                    " UNION ALL " + 
+                                    " SELECT " +
+                                        " ReimbTitle As HeaderTitle, " + 
+                                        " CalcFormula, " + 
+                                        " ProrataBasis, " + 
+                                        " MaxCap " + 
+                                    " FROM " + 
+                                        " ReimbursementHeaderMas";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                if(dt.Rows.Count > 0)
+                {
+                    string headerTitle = "";
+                    string formula = "";
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        headerTitle = dr["HeaderTitle"].ToString().Trim();
+                        formula = dr["CalcFormula"].ToString().Trim();
+
+                        if (!formulaMap.ContainsKey(headerTitle))
+                        {
+                            formulaMap.Add(headerTitle, formula);
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return formulaMap;
+        }
 
         public SpecificEmployeeSalaryInfo getSpecificEmployeeSalaryInfo(int txtEmpID)
         {
@@ -554,7 +622,7 @@ namespace dbStaffSync
             return selectedAllowenceProfileDetailID;
         }
 
-        public DataTable GetSalaryInfoForBatchProcess(DateTime dtSalaryDate)
+        public DataTable GetSalaryInfoForBatchProcess(int txtClientID, DateTime dtSalaryDate)
         {
             DataTable dt = new DataTable();
 
@@ -563,6 +631,7 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
 
                 string strQuery = "SELECT * FROM qryConsolidatedSalaryStatement WHERE EmpSalDate <= #" + dtSalaryDate.Date.ToString("dd-MMM-yyyy") + "# ORDER BY EmpID Asc";
+                strQuery = "SELECT * FROM tmpQrySalPivotTable WHERE ClientID = " + txtClientID  + " ORDER BY EmpID Asc";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -584,8 +653,8 @@ namespace dbStaffSync
                     {
                         if (i > 5)
                         {
-                            var sum = dt.AsEnumerable().Where(r => !r.IsNull(i)).Sum(r => Convert.ToDouble(r[i]));
-                            dr1[i] = sum;
+                            //var sum = dt.AsEnumerable().Where(r => !r.IsNull(i)).Sum(r => Convert.ToDouble(r[i]));
+                            dr1[i] = "0.00";
                         }
                     }
                     dt.Rows.Add(dr1);

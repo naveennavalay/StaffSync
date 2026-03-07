@@ -7660,7 +7660,16 @@
             <Sources />
           </TableAdapter>
         </Tables>
-        <Sources />
+        <Sources>
+          <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="tmpQrySalPivotTable" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="tmpQrySalPivotTable" MethodsParameterType="CLR" Modifier="Public" Name="tmpQrySalPivotTable" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="tmpQrySalPivotTable">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>tmpQrySalPivotTable</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+        </Sources>
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
@@ -11755,107 +11764,107 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="qryEmpOOOList" msprop:Generator_RowClassName="qryEmpOOOListRow" msprop:Generator_RowEvHandlerName="qryEmpOOOListRowChangeEventHandler" msprop:Generator_RowDeletedName="qryEmpOOOListRowDeleted" msprop:Generator_RowDeletingName="qryEmpOOOListRowDeleting" msprop:Generator_RowEvArgName="qryEmpOOOListRowChangeEvent" msprop:Generator_TablePropName="qryEmpOOOList" msprop:Generator_RowChangedName="qryEmpOOOListRowChanged" msprop:Generator_UserTableName="qryEmpOOOList" msprop:Generator_RowChangingName="qryEmpOOOListRowChanging" msprop:Generator_TableClassName="qryEmpOOOListDataTable" msprop:Generator_TableVarName="tableqryEmpOOOList">
+        <xs:element name="qryEmpOOOList" msprop:Generator_RowEvHandlerName="qryEmpOOOListRowChangeEventHandler" msprop:Generator_RowDeletedName="qryEmpOOOListRowDeleted" msprop:Generator_RowDeletingName="qryEmpOOOListRowDeleting" msprop:Generator_RowEvArgName="qryEmpOOOListRowChangeEvent" msprop:Generator_TablePropName="qryEmpOOOList" msprop:Generator_RowChangedName="qryEmpOOOListRowChanged" msprop:Generator_UserTableName="qryEmpOOOList" msprop:Generator_RowChangingName="qryEmpOOOListRowChanging" msprop:Generator_RowClassName="qryEmpOOOListRow" msprop:Generator_TableClassName="qryEmpOOOListDataTable" msprop:Generator_TableVarName="tableqryEmpOOOList">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="EmpID" msprop:Generator_UserColumnName="EmpID" msprop:Generator_ColumnPropNameInTable="EmpIDColumn" msprop:Generator_ColumnPropNameInRow="EmpID" msprop:Generator_ColumnVarNameInTable="columnEmpID" type="xs:int" minOccurs="0" />
-              <xs:element name="EmpCode" msprop:Generator_UserColumnName="EmpCode" msprop:Generator_ColumnPropNameInTable="EmpCodeColumn" msprop:Generator_ColumnPropNameInRow="EmpCode" msprop:Generator_ColumnVarNameInTable="columnEmpCode" minOccurs="0">
+              <xs:element name="EmpID" msprop:Generator_ColumnPropNameInTable="EmpIDColumn" msprop:Generator_ColumnPropNameInRow="EmpID" msprop:Generator_UserColumnName="EmpID" msprop:Generator_ColumnVarNameInTable="columnEmpID" type="xs:int" minOccurs="0" />
+              <xs:element name="EmpCode" msprop:Generator_ColumnPropNameInTable="EmpCodeColumn" msprop:Generator_ColumnPropNameInRow="EmpCode" msprop:Generator_UserColumnName="EmpCode" msprop:Generator_ColumnVarNameInTable="columnEmpCode" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="EmpName" msprop:Generator_UserColumnName="EmpName" msprop:Generator_ColumnPropNameInTable="EmpNameColumn" msprop:Generator_ColumnPropNameInRow="EmpName" msprop:Generator_ColumnVarNameInTable="columnEmpName" minOccurs="0">
+              <xs:element name="EmpName" msprop:Generator_ColumnPropNameInTable="EmpNameColumn" msprop:Generator_ColumnPropNameInRow="EmpName" msprop:Generator_UserColumnName="EmpName" msprop:Generator_ColumnVarNameInTable="columnEmpName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="IsActive" msprop:Generator_UserColumnName="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_ColumnVarNameInTable="columnIsActive" type="xs:boolean" minOccurs="0" />
-              <xs:element name="IsDeleted" msprop:Generator_UserColumnName="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" type="xs:boolean" minOccurs="0" />
-              <xs:element name="DesignationTitle" msprop:Generator_UserColumnName="DesignationTitle" msprop:Generator_ColumnPropNameInTable="DesignationTitleColumn" msprop:Generator_ColumnPropNameInRow="DesignationTitle" msprop:Generator_ColumnVarNameInTable="columnDesignationTitle" minOccurs="0">
+              <xs:element name="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_UserColumnName="IsActive" msprop:Generator_ColumnVarNameInTable="columnIsActive" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_UserColumnName="IsDeleted" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" type="xs:boolean" minOccurs="0" />
+              <xs:element name="DesignationTitle" msprop:Generator_ColumnPropNameInTable="DesignationTitleColumn" msprop:Generator_ColumnPropNameInRow="DesignationTitle" msprop:Generator_UserColumnName="DesignationTitle" msprop:Generator_ColumnVarNameInTable="columnDesignationTitle" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="DepartmentTitle" msprop:Generator_UserColumnName="DepartmentTitle" msprop:Generator_ColumnPropNameInTable="DepartmentTitleColumn" msprop:Generator_ColumnPropNameInRow="DepartmentTitle" msprop:Generator_ColumnVarNameInTable="columnDepartmentTitle" minOccurs="0">
+              <xs:element name="DepartmentTitle" msprop:Generator_ColumnPropNameInTable="DepartmentTitleColumn" msprop:Generator_ColumnPropNameInRow="DepartmentTitle" msprop:Generator_UserColumnName="DepartmentTitle" msprop:Generator_ColumnVarNameInTable="columnDepartmentTitle" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="LeaveTypeTitle" msprop:Generator_UserColumnName="LeaveTypeTitle" msprop:Generator_ColumnPropNameInTable="LeaveTypeTitleColumn" msprop:Generator_ColumnPropNameInRow="LeaveTypeTitle" msprop:Generator_ColumnVarNameInTable="columnLeaveTypeTitle" minOccurs="0">
+              <xs:element name="LeaveTypeTitle" msprop:Generator_ColumnPropNameInTable="LeaveTypeTitleColumn" msprop:Generator_ColumnPropNameInRow="LeaveTypeTitle" msprop:Generator_UserColumnName="LeaveTypeTitle" msprop:Generator_ColumnVarNameInTable="columnLeaveTypeTitle" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="ActualLeaveDateFrom" msprop:Generator_UserColumnName="ActualLeaveDateFrom" msprop:Generator_ColumnPropNameInTable="ActualLeaveDateFromColumn" msprop:Generator_ColumnPropNameInRow="ActualLeaveDateFrom" msprop:Generator_ColumnVarNameInTable="columnActualLeaveDateFrom" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="ActualLeaveDateTo" msprop:Generator_UserColumnName="ActualLeaveDateTo" msprop:Generator_ColumnPropNameInTable="ActualLeaveDateToColumn" msprop:Generator_ColumnPropNameInRow="ActualLeaveDateTo" msprop:Generator_ColumnVarNameInTable="columnActualLeaveDateTo" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="LeaveDuration" msprop:Generator_UserColumnName="LeaveDuration" msprop:Generator_ColumnPropNameInTable="LeaveDurationColumn" msprop:Generator_ColumnPropNameInRow="LeaveDuration" msprop:Generator_ColumnVarNameInTable="columnLeaveDuration" type="xs:decimal" minOccurs="0" />
-              <xs:element name="LeaveMode" msprop:Generator_UserColumnName="LeaveMode" msprop:Generator_ColumnPropNameInTable="LeaveModeColumn" msprop:Generator_ColumnPropNameInRow="LeaveMode" msprop:Generator_ColumnVarNameInTable="columnLeaveMode" minOccurs="0">
+              <xs:element name="ActualLeaveDateFrom" msprop:Generator_ColumnPropNameInTable="ActualLeaveDateFromColumn" msprop:Generator_ColumnPropNameInRow="ActualLeaveDateFrom" msprop:Generator_UserColumnName="ActualLeaveDateFrom" msprop:Generator_ColumnVarNameInTable="columnActualLeaveDateFrom" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ActualLeaveDateTo" msprop:Generator_ColumnPropNameInTable="ActualLeaveDateToColumn" msprop:Generator_ColumnPropNameInRow="ActualLeaveDateTo" msprop:Generator_UserColumnName="ActualLeaveDateTo" msprop:Generator_ColumnVarNameInTable="columnActualLeaveDateTo" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LeaveDuration" msprop:Generator_ColumnPropNameInTable="LeaveDurationColumn" msprop:Generator_ColumnPropNameInRow="LeaveDuration" msprop:Generator_UserColumnName="LeaveDuration" msprop:Generator_ColumnVarNameInTable="columnLeaveDuration" type="xs:decimal" minOccurs="0" />
+              <xs:element name="LeaveMode" msprop:Generator_ColumnPropNameInTable="LeaveModeColumn" msprop:Generator_ColumnPropNameInRow="LeaveMode" msprop:Generator_UserColumnName="LeaveMode" msprop:Generator_ColumnVarNameInTable="columnLeaveMode" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="OrderID" msprop:Generator_UserColumnName="OrderID" msprop:Generator_ColumnPropNameInTable="OrderIDColumn" msprop:Generator_ColumnPropNameInRow="OrderID" msprop:Generator_ColumnVarNameInTable="columnOrderID" type="xs:int" minOccurs="0" />
-              <xs:element name="ClientID" msprop:Generator_UserColumnName="ClientID" msprop:Generator_ColumnPropNameInTable="ClientIDColumn" msprop:Generator_ColumnPropNameInRow="ClientID" msprop:Generator_ColumnVarNameInTable="columnClientID" type="xs:int" minOccurs="0" />
-              <xs:element name="FinYearID" msprop:Generator_UserColumnName="FinYearID" msprop:Generator_ColumnPropNameInTable="FinYearIDColumn" msprop:Generator_ColumnPropNameInRow="FinYearID" msprop:Generator_ColumnVarNameInTable="columnFinYearID" type="xs:int" minOccurs="0" />
+              <xs:element name="OrderID" msprop:Generator_ColumnPropNameInTable="OrderIDColumn" msprop:Generator_ColumnPropNameInRow="OrderID" msprop:Generator_UserColumnName="OrderID" msprop:Generator_ColumnVarNameInTable="columnOrderID" type="xs:int" minOccurs="0" />
+              <xs:element name="ClientID" msprop:Generator_ColumnPropNameInTable="ClientIDColumn" msprop:Generator_ColumnPropNameInRow="ClientID" msprop:Generator_UserColumnName="ClientID" msprop:Generator_ColumnVarNameInTable="columnClientID" type="xs:int" minOccurs="0" />
+              <xs:element name="FinYearID" msprop:Generator_ColumnPropNameInTable="FinYearIDColumn" msprop:Generator_ColumnPropNameInRow="FinYearID" msprop:Generator_UserColumnName="FinYearID" msprop:Generator_ColumnVarNameInTable="columnFinYearID" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="ClientSigningPerson" msprop:Generator_RowEvHandlerName="ClientSigningPersonRowChangeEventHandler" msprop:Generator_RowDeletedName="ClientSigningPersonRowDeleted" msprop:Generator_RowDeletingName="ClientSigningPersonRowDeleting" msprop:Generator_RowEvArgName="ClientSigningPersonRowChangeEvent" msprop:Generator_TablePropName="ClientSigningPerson" msprop:Generator_RowChangedName="ClientSigningPersonRowChanged" msprop:Generator_RowChangingName="ClientSigningPersonRowChanging" msprop:Generator_TableClassName="ClientSigningPersonDataTable" msprop:Generator_RowClassName="ClientSigningPersonRow" msprop:Generator_TableVarName="tableClientSigningPerson" msprop:Generator_UserTableName="ClientSigningPerson">
+        <xs:element name="ClientSigningPerson" msprop:Generator_RowEvHandlerName="ClientSigningPersonRowChangeEventHandler" msprop:Generator_RowDeletedName="ClientSigningPersonRowDeleted" msprop:Generator_RowDeletingName="ClientSigningPersonRowDeleting" msprop:Generator_RowEvArgName="ClientSigningPersonRowChangeEvent" msprop:Generator_TablePropName="ClientSigningPerson" msprop:Generator_RowChangedName="ClientSigningPersonRowChanged" msprop:Generator_UserTableName="ClientSigningPerson" msprop:Generator_RowChangingName="ClientSigningPersonRowChanging" msprop:Generator_RowClassName="ClientSigningPersonRow" msprop:Generator_TableClassName="ClientSigningPersonDataTable" msprop:Generator_TableVarName="tableClientSigningPerson">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="ClientSigningPersonID" msprop:Generator_ColumnPropNameInRow="ClientSigningPersonID" msprop:Generator_ColumnPropNameInTable="ClientSigningPersonIDColumn" msprop:Generator_ColumnVarNameInTable="columnClientSigningPersonID" msprop:Generator_UserColumnName="ClientSigningPersonID" type="xs:int" />
-              <xs:element name="ClientID" msprop:Generator_ColumnPropNameInRow="ClientID" msprop:Generator_ColumnPropNameInTable="ClientIDColumn" msprop:Generator_ColumnVarNameInTable="columnClientID" msprop:Generator_UserColumnName="ClientID" type="xs:int" minOccurs="0" />
-              <xs:element name="ClientSigningPersonName" msprop:Generator_ColumnPropNameInRow="ClientSigningPersonName" msprop:Generator_ColumnPropNameInTable="ClientSigningPersonNameColumn" msprop:Generator_ColumnVarNameInTable="columnClientSigningPersonName" msprop:Generator_UserColumnName="ClientSigningPersonName" minOccurs="0">
+              <xs:element name="ClientSigningPersonID" msprop:Generator_ColumnPropNameInTable="ClientSigningPersonIDColumn" msprop:Generator_ColumnPropNameInRow="ClientSigningPersonID" msprop:Generator_UserColumnName="ClientSigningPersonID" msprop:Generator_ColumnVarNameInTable="columnClientSigningPersonID" type="xs:int" />
+              <xs:element name="ClientID" msprop:Generator_ColumnPropNameInTable="ClientIDColumn" msprop:Generator_ColumnPropNameInRow="ClientID" msprop:Generator_UserColumnName="ClientID" msprop:Generator_ColumnVarNameInTable="columnClientID" type="xs:int" minOccurs="0" />
+              <xs:element name="ClientSigningPersonName" msprop:Generator_ColumnPropNameInTable="ClientSigningPersonNameColumn" msprop:Generator_ColumnPropNameInRow="ClientSigningPersonName" msprop:Generator_UserColumnName="ClientSigningPersonName" msprop:Generator_ColumnVarNameInTable="columnClientSigningPersonName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="ClientSigningPersonDesignation" msprop:Generator_ColumnPropNameInRow="ClientSigningPersonDesignation" msprop:Generator_ColumnPropNameInTable="ClientSigningPersonDesignationColumn" msprop:Generator_ColumnVarNameInTable="columnClientSigningPersonDesignation" msprop:Generator_UserColumnName="ClientSigningPersonDesignation" minOccurs="0">
+              <xs:element name="ClientSigningPersonDesignation" msprop:Generator_ColumnPropNameInTable="ClientSigningPersonDesignationColumn" msprop:Generator_ColumnPropNameInRow="ClientSigningPersonDesignation" msprop:Generator_UserColumnName="ClientSigningPersonDesignation" msprop:Generator_ColumnVarNameInTable="columnClientSigningPersonDesignation" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="ClientSigningPersonFatherName" msprop:Generator_ColumnPropNameInRow="ClientSigningPersonFatherName" msprop:Generator_ColumnPropNameInTable="ClientSigningPersonFatherNameColumn" msprop:Generator_ColumnVarNameInTable="columnClientSigningPersonFatherName" msprop:Generator_UserColumnName="ClientSigningPersonFatherName" minOccurs="0">
+              <xs:element name="ClientSigningPersonFatherName" msprop:Generator_ColumnPropNameInTable="ClientSigningPersonFatherNameColumn" msprop:Generator_ColumnPropNameInRow="ClientSigningPersonFatherName" msprop:Generator_UserColumnName="ClientSigningPersonFatherName" msprop:Generator_ColumnVarNameInTable="columnClientSigningPersonFatherName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="ClientSigningPersonPANNumber" msprop:Generator_ColumnPropNameInRow="ClientSigningPersonPANNumber" msprop:Generator_ColumnPropNameInTable="ClientSigningPersonPANNumberColumn" msprop:Generator_ColumnVarNameInTable="columnClientSigningPersonPANNumber" msprop:Generator_UserColumnName="ClientSigningPersonPANNumber" minOccurs="0">
+              <xs:element name="ClientSigningPersonPANNumber" msprop:Generator_ColumnPropNameInTable="ClientSigningPersonPANNumberColumn" msprop:Generator_ColumnPropNameInRow="ClientSigningPersonPANNumber" msprop:Generator_UserColumnName="ClientSigningPersonPANNumber" msprop:Generator_ColumnVarNameInTable="columnClientSigningPersonPANNumber" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="ClientSigningPersonSex" msprop:Generator_ColumnPropNameInRow="ClientSigningPersonSex" msprop:Generator_ColumnPropNameInTable="ClientSigningPersonSexColumn" msprop:Generator_ColumnVarNameInTable="columnClientSigningPersonSex" msprop:Generator_UserColumnName="ClientSigningPersonSex" minOccurs="0">
+              <xs:element name="ClientSigningPersonSex" msprop:Generator_ColumnPropNameInTable="ClientSigningPersonSexColumn" msprop:Generator_ColumnPropNameInRow="ClientSigningPersonSex" msprop:Generator_UserColumnName="ClientSigningPersonSex" msprop:Generator_ColumnVarNameInTable="columnClientSigningPersonSex" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="ClientSigningPersonDOB" msprop:Generator_ColumnPropNameInRow="ClientSigningPersonDOB" msprop:Generator_ColumnPropNameInTable="ClientSigningPersonDOBColumn" msprop:Generator_ColumnVarNameInTable="columnClientSigningPersonDOB" msprop:Generator_UserColumnName="ClientSigningPersonDOB" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="IsActive" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnVarNameInTable="columnIsActive" msprop:Generator_UserColumnName="IsActive" type="xs:int" minOccurs="0" />
-              <xs:element name="IsDeleted" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" msprop:Generator_UserColumnName="IsDeleted" type="xs:int" minOccurs="0" />
-              <xs:element name="OrderID" msprop:Generator_ColumnPropNameInRow="OrderID" msprop:Generator_ColumnPropNameInTable="OrderIDColumn" msprop:Generator_ColumnVarNameInTable="columnOrderID" msprop:Generator_UserColumnName="OrderID" type="xs:int" minOccurs="0" />
+              <xs:element name="ClientSigningPersonDOB" msprop:Generator_ColumnPropNameInTable="ClientSigningPersonDOBColumn" msprop:Generator_ColumnPropNameInRow="ClientSigningPersonDOB" msprop:Generator_UserColumnName="ClientSigningPersonDOB" msprop:Generator_ColumnVarNameInTable="columnClientSigningPersonDOB" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_UserColumnName="IsActive" msprop:Generator_ColumnVarNameInTable="columnIsActive" type="xs:int" minOccurs="0" />
+              <xs:element name="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_UserColumnName="IsDeleted" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" type="xs:int" minOccurs="0" />
+              <xs:element name="OrderID" msprop:Generator_ColumnPropNameInTable="OrderIDColumn" msprop:Generator_ColumnPropNameInRow="OrderID" msprop:Generator_UserColumnName="OrderID" msprop:Generator_ColumnVarNameInTable="columnOrderID" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
