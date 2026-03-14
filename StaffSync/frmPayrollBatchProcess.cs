@@ -42,6 +42,9 @@ namespace StaffSync
         DALStaffSync.clsEmployeePersonalInfo objEmployeePersonalInfo = new DALStaffSync.clsEmployeePersonalInfo();
         DALStaffSync.clsAdvanceTransaction objAdvanceTransaction = new DALStaffSync.clsAdvanceTransaction();
         DALStaffSync.clsProfessionalTaxCalculation objProfessionalTaxCalculation = new DALStaffSync.clsProfessionalTaxCalculation();
+        DALStaffSync.clsProvidentFundCalculation objProvidentFundCalculation = new DALStaffSync.clsProvidentFundCalculation();
+        DALStaffSync.clsEmployeeStateInsurance objEmployeeStateInsurance = new DALStaffSync.clsEmployeeStateInsurance();
+        DALStaffSync.clsEmployerContributionInfo objEmployerContributionInfo = new DALStaffSync.clsEmployerContributionInfo();
 
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
@@ -233,8 +236,9 @@ namespace StaffSync
             DataGridView gridRight = dtgSalaryDetails1;    // second grid
 
             int totalRowIndex = gridLeft.Rows.Count - 1;
-
             int rowCounter = 1;
+            lblPFCalcAmount.Text = "0.00";
+
             foreach (DataGridViewRow row in dtgSalaryDetails.Rows)
             {
                 if (rowCounter == dtgSalaryDetails.Rows.Count)
@@ -259,6 +263,9 @@ namespace StaffSync
                 lblBasicSalary.Text = basicSalary.RoundUp().ToString("#,#0.00");
                 lblBasicSalaryPerDay.Text = Convert.ToDecimal(basicSalary / Convert.ToDecimal(txtTotalWorkingDays.Text.ToString())).RoundUp().ToString("#,#0.00");
                 lblBasicSalaryPerHour.Text = Convert.ToDecimal(Convert.ToDecimal(lblBasicSalaryPerDay.Text.ToString()) / Convert.ToDecimal("8.0")).RoundUp().ToString("#,#0.00");
+
+                lblPFCalcAmount.Text = "0";
+                lblPFCalcAmount.Text = Convert.ToDecimal(row.Cells["PFCalculatedAmount"].Value).RoundUp().ToString("#,#0.00");
 
                 int empID = Convert.ToInt16(row.Cells["EmpID"].Value);
                 lblReportingManagerID.Text = empID.ToString();
@@ -326,7 +333,7 @@ namespace StaffSync
 
                 OrderID = 1;
 
-                EmpSalMasID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblReportingManagerID.Text.Trim()), Convert.ToDateTime(dtSalaryDate.Text), cmbSalaryMonth.Text, Convert.ToDecimal(txtTotalWorkingDays.Text).RoundUp(), Convert.ToDecimal(txtTotalWorkedDays.Text), Convert.ToDecimal(txtLeaveDays.Text), Convert.ToDecimal(txtUnpaidLeaves.Text), Convert.ToDecimal(txtTotalPayableDays.Text), Convert.ToDecimal(lblBasicSalary.Text).RoundUp(), Convert.ToDecimal(lblBasicSalaryPerDay.Text).RoundUp(), Convert.ToDecimal(lblBasicSalaryPerHour.Text).RoundUp(), Convert.ToDecimal(txtAallowences.Text).RoundUp(), Convert.ToDecimal(txtDeductions.Text).RoundUp(), Convert.ToDecimal(txtReimbursement.Text).RoundUp(), 0, Convert.ToDecimal(txtNetPayable.Text).RoundUp(), false);
+                EmpSalMasID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblReportingManagerID.Text.Trim()), Convert.ToDateTime(dtSalaryDate.Text), cmbSalaryMonth.Text, Convert.ToDecimal(txtTotalWorkingDays.Text).RoundUp(), Convert.ToDecimal(txtTotalWorkedDays.Text), Convert.ToDecimal(txtLeaveDays.Text), Convert.ToDecimal(txtUnpaidLeaves.Text), Convert.ToDecimal(txtTotalPayableDays.Text), Convert.ToDecimal(lblBasicSalary.Text).RoundUp(), Convert.ToDecimal(lblBasicSalaryPerDay.Text).RoundUp(), Convert.ToDecimal(lblBasicSalaryPerHour.Text).RoundUp(), Convert.ToDecimal(txtAallowences.Text).RoundUp(), Convert.ToDecimal(txtDeductions.Text).RoundUp(), Convert.ToDecimal(txtReimbursement.Text).RoundUp(), Convert.ToDecimal(lblPFCalcAmount.Text).RoundUp(), Convert.ToDecimal(txtNetPayable.Text).RoundUp(), false);
                 foreach (DataGridViewRow headerRow in gridRight.Rows)
                 {
                     if (headerRow.IsNewRow) continue;
@@ -352,7 +359,46 @@ namespace StaffSync
                     if (headerType == "Allowences")
                         EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(headerID), headerName.ToString(), headerType.ToString(), headerCalcFormula.ToString(), Convert.ToDecimal(cellValue.ToString()), 0, 0, OrderID);
                     else if (headerType == "Deductions")
+                    {
                         EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(headerID), headerName.ToString(), headerType.ToString(), headerCalcFormula.ToString(), 0, Convert.ToDecimal(cellValue.ToString()), 0, OrderID);
+
+                        DeductionModel tmpObj = objDeductionsInfo.getSelectedDeductionInfo(Convert.ToInt32(headerID));
+
+                        if (tmpObj.CalcFormula.ToString().ToLower() == "computepf1")
+                        {
+                            ProvidentFund objProvidentFundResult = objProvidentFundCalculation.GetProvidentFundMasterInfo(Convert.ToInt32(headerID));
+                            if (objProvidentFundResult != null)
+                            {
+                                if (objProvidentFundResult.EmprPFPercentageOrAmount.ToString().ToUpper() == "P")
+                                    objEmployerContributionInfo.InsertEmployerContribution(Convert.ToInt32(EmpSalDetID), ((Convert.ToDecimal(lblPFCalcAmount.Text.ToString()).RoundUp() * Convert.ToDecimal(objProvidentFundResult.EmprPFPercentage)) / 100).RoundUp(), 0, 0, 0, 0, 0);
+                                else
+                                    objEmployerContributionInfo.InsertEmployerContribution(Convert.ToInt32(EmpSalDetID), Convert.ToDecimal(objProvidentFundResult.EmprPFAmount).RoundUp(), 0, 0, 0, 0, 0);
+
+                                if (objProvidentFundResult.EmprPSPercentageOrAmount.ToString().ToUpper() == "P")
+                                    objEmployerContributionInfo.InsertEmployerContribution(Convert.ToInt32(EmpSalDetID), 0, 0, ((Convert.ToDecimal(lblPFCalcAmount.Text.ToString()).RoundUp() * Convert.ToDecimal(objProvidentFundResult.EmprPSPercentage)) / 100).RoundUp(), 0, 0, 0);
+                                else
+                                    objEmployerContributionInfo.InsertEmployerContribution(Convert.ToInt32(EmpSalDetID), 0, 0, Convert.ToDecimal(objProvidentFundResult.EmprPSAmount).RoundUp(), 0, 0, 0);
+                            }
+                        }
+                        else if (tmpObj.CalcFormula.ToString().ToLower() == "computepf1")
+                        {
+
+                        }
+                        else if (tmpObj.CalcFormula.ToString().ToLower() == "computeesi1")
+                        {
+                            ESIModel objEmployeeStateInsuranceResult = objEmployeeStateInsurance.GetEmployeeStateInsuranceMasterInfo(Convert.ToInt32(headerID));
+                            if (objEmployeeStateInsuranceResult != null)
+                            {
+                                if (Convert.ToDecimal(txtAallowences.Text.ToString()) <= Convert.ToDecimal(objEmployeeStateInsuranceResult.MaxESIAmount))
+                                {
+                                    if (objEmployeeStateInsuranceResult.EmpESIPercentageOrAmount.ToString().ToUpper() == "P")
+                                        objEmployerContributionInfo.InsertEmployerContribution(Convert.ToInt32(EmpSalDetID), 0, 0, 0, ((Convert.ToDecimal(txtAallowences.Text.ToString()).RoundUp() * Convert.ToDecimal(objEmployeeStateInsuranceResult.EmprPercentage)) / 100).RoundUp(), 0, 0);
+                                    else
+                                        objEmployerContributionInfo.InsertEmployerContribution(Convert.ToInt32(EmpSalDetID), 0, 0, Convert.ToDecimal(objEmployeeStateInsuranceResult.EmprESIAmount).RoundUp(), 0, 0, 0);
+                                }
+                            }
+                        }
+                    }
                     else if (headerType == "Reimbursement")
                         EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(headerID), headerName.ToString(), headerType.ToString(), headerCalcFormula.ToString(), 0, 0, Convert.ToDecimal(cellValue.ToString()), OrderID);
 
@@ -364,6 +410,7 @@ namespace StaffSync
 
             MessageBox.Show("Salary processed for the for the month : " + cmbSalaryMonth.SelectedItem.ToString() + " successfully.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+            lblPFCalcAmount.Text = "0.00";
             onGenerateButtonClick();
             clearControls();
             enableControls();
@@ -430,6 +477,7 @@ namespace StaffSync
             lblBasicSalary.Text = "0.00";
             lblBasicSalaryPerDay.Text = "0.00";
             lblBasicSalaryPerHour.Text = "0.00";
+            lblPFCalcAmount.Text = "0.00";
             txtTotalWorkingDays.Text = "0";
             txtTotalWorkedDays.Text = "0";
             txtLeaveDays.Text = "0";
@@ -740,7 +788,7 @@ namespace StaffSync
                         
             btnGenerateDetails.Enabled = true;
 
-            MessageBox.Show("Batch process executed successfully.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Salary information processed and initiated.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ProcessSalaryBatch()
@@ -774,6 +822,17 @@ namespace StaffSync
                     chk.TrueValue = true;
 
                     dtgSalaryDetails.Columns.Insert(0, chk);
+                }
+                if (!dtgSalaryDetails.Columns.Contains("PFCalculatedAmount"))
+                {
+                    DataGridViewTextBoxColumn colPFCalculatedAmount = new DataGridViewTextBoxColumn();
+                    colPFCalculatedAmount.Name = "PFCalculatedAmount";
+                    colPFCalculatedAmount.HeaderText = "PFCalculatedAmount";
+                    colPFCalculatedAmount.Width = 20;
+                    colPFCalculatedAmount.ReadOnly = false;
+                    colPFCalculatedAmount.ValueType = typeof(decimal);
+
+                    dtgSalaryDetails.Columns.Insert(0, colPFCalculatedAmount);
                 }
 
                 int lastRow = dtgSalaryDetails.Rows.Count - 1;
@@ -819,6 +878,7 @@ namespace StaffSync
                     txtDeductions.Text = "0.00";
                     txtReimbursement.Text = "0.00";
                     txtNetPayable.Text = "0.00";
+                    lblPFCalcAmount.Text = "0";
 
                     rowCounter = rowCounter + 1;
                     decimal basicSalary = Convert.ToDecimal(row.Cells["Basic Salary"].Value);
@@ -929,7 +989,7 @@ namespace StaffSync
                 DataGridViewRow totalRow = new DataGridViewRow();
                 totalRow = dtgSalaryDetails.Rows[dtgSalaryDetails.Rows.Count - 1];
 
-                totalRow.Cells[6].Value = "Total";
+                totalRow.Cells[7].Value = "Total";
                 for (int col = 7; col < dtgSalaryDetails.Columns.Count; col++) // skip employee info columns
                 {
                     decimal sum = 0;
@@ -1549,8 +1609,8 @@ namespace StaffSync
                 DataGridViewRow totalRow = new DataGridViewRow();
                 totalRow = dtgSalaryDetails.Rows[dtgSalaryDetails.Rows.Count - 1];
 
-                totalRow.Cells[6].Value = "Total";
-                for (int col = 7; col < dtgSalaryDetails.Columns.Count; col++) // skip employee info columns
+                totalRow.Cells[7].Value = "Total";
+                for (int col = 8; col < dtgSalaryDetails.Columns.Count; col++) // skip employee info columns
                 {
                     decimal sum = 0;
 

@@ -1941,6 +1941,7 @@ namespace StaffSync
                     UpdatedSalaryValues[headerTitle] = value;
                 }
 
+                UpdatedSalaryValues.Add("PFCalculatedAmount", Convert.ToDecimal(lblPFCalcAmount.Text.ToString()));
                 this.DialogResult = DialogResult.OK;
                 //this.Close();
             }
