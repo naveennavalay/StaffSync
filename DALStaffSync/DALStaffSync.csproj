@@ -50,6 +50,7 @@
     <Compile Include="clsAppUserTasks.cs" />
     <Compile Include="clsClientSignatoryInfo.cs" />
     <Compile Include="clsDashboardWidgetData.cs" />
+    <Compile Include="clsEmployeeStateInsurance.cs" />
     <Compile Include="clsProvidentFundCalculation.cs" />
     <Compile Include="clsProfessionalTaxCalculation.cs" />
     <Compile Include="clsBirthdayList.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="clsRelationship.cs" />
     <Compile Include="clsRolesAndResponsibilities.cs" />
     <Compile Include="clsSalaryProfile.cs" />
+    <Compile Include="clsEmployerContributionInfo.cs" />
     <Compile Include="clsSexMas.cs" />
     <Compile Include="clsShiftMas.cs" />
     <Compile Include="clsSkillsMas.cs" />

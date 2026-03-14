@@ -289,6 +289,12 @@
     <Compile Include="frmPayrollConfiguration.Designer.cs">
       <DependentUpon>frmPayrollConfiguration.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmIndPayrollMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmIndPayrollMaster.Designer.cs">
+      <DependentUpon>frmIndPayrollMaster.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUpdateAdvanceStatus.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -804,6 +810,9 @@
     <EmbeddedResource Include="frmAdvanceConfigInfoReadOnly.resx">
       <DependentUpon>frmAdvanceConfigInfoReadOnly.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmIndPayrollMaster.resx">
+      <DependentUpon>frmIndPayrollMaster.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmOrgMasterInfo.resx">
       <DependentUpon>frmOrgMasterInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -1172,6 +1181,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hrm02.ico" />
+    <None Include="images\icons\uncheck_16x16_5.ico" />
+    <None Include="images\icons\check_unfilled_16x16.ico" />
+    <None Include="images\icons\check_filled_16x16.ico" />
+    <None Include="images\icons\uncheck16x16_2.ico" />
+    <None Include="images\icons\uncheck_16x16.ico" />
+    <None Include="images\icons\check_16x16.ico" />
     <None Include="images\icons\flip1.ico" />
     <None Include="images\icons\flip.ico" />
     <None Include="images\icons\work-anniversary.ico" />

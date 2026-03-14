@@ -1,4 +1,5 @@
 ﻿using Common;
+using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Humanizer;
 using Krypton.Ribbon;
@@ -14,6 +15,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Quartz.Logging.OperationName;
@@ -38,6 +40,7 @@ namespace StaffSync
         DALStaffSync.clsAppSettings objAppSettings = new DALStaffSync.clsAppSettings();
         DALStaffSync.clsClientStatutory objClientStatutory = new DALStaffSync.clsClientStatutory();
         DALStaffSync.clsEmployeePersonalInfo objEmployeePersonalInfo = new DALStaffSync.clsEmployeePersonalInfo();
+        DALStaffSync.clsAdvanceTransaction objAdvanceTransaction = new DALStaffSync.clsAdvanceTransaction();
         DALStaffSync.clsProfessionalTaxCalculation objProfessionalTaxCalculation = new DALStaffSync.clsProfessionalTaxCalculation();
 
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
@@ -77,6 +80,25 @@ namespace StaffSync
             dtSalaryDate.Enabled = true;
             dtgSalaryDetails.Enabled = true;
             errValidator.Clear();
+
+
+            this.Cursor = Cursors.WaitCursor;
+
+            chkExcludeEmpWithPendingAdvances.Checked = false;
+            //chkExcludeEmpWithPendingAdvances.Values.Image = Properties.Resources.uncheck;
+            chkExcludeEmpWithPendingAdvances.Text = "☐ Show Salary Summary excluding employees who have Pending Advances";
+
+            ProcessSalaryBatch();
+
+            //dtgSalaryDetails.Columns["SelectRow"].Frozen = true;
+            //dtgSalaryDetails.Columns["EmpCode"].Frozen = true;
+            //dtgSalaryDetails.Columns["EmpName"].Frozen = true;
+            //dtgSalaryDetails.Columns["DesignationTitle"].Frozen = true;
+            //dtgSalaryDetails.Columns["DepartmentTitle"].Frozen = true;
+
+            this.Cursor = Cursors.Default;
+
+            btnGenerateDetails.Enabled = true;
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -201,42 +223,140 @@ namespace StaffSync
             long EmpSalDetID = 0;
             long SalProDetID = 0;
             int iRowCounter = 1;
+            int OrderID = 1;
 
-            for (int i = 0; i <= dtgSalaryDetails.Rows.Count - 2; i++)
+            decimal allowancesTotal = 0;
+            decimal deductionsTotal = 0;
+            decimal reimbursementsTotal = 0;
+
+            DataGridView gridLeft = dtgSalaryDetails;     // first grid
+            DataGridView gridRight = dtgSalaryDetails1;    // second grid
+
+            int totalRowIndex = gridLeft.Rows.Count - 1;
+
+            int rowCounter = 1;
+            foreach (DataGridViewRow row in dtgSalaryDetails.Rows)
             {
-                iRowCounter = 1;
-                for (int j = 0; j < dtgSalaryDetails.Columns.Count; j++)
+                if (rowCounter == dtgSalaryDetails.Rows.Count)
+                    break;
+
+                rowCounter = rowCounter + 1;
+                lblReportingManagerID.Text = "";
+                lblBasicSalary.Text = "0.00";
+                lblBasicSalaryPerDay.Text = "0.00";
+                lblBasicSalaryPerHour.Text = "0.00";
+                txtTotalWorkedDays.Text = "0";
+                txtLeaveDays.Text = "0";
+                txtUnpaidLeaves.Text = "0";
+                txtTotalPayableDays.Text = "0";
+                txtAallowences.Text = "0.00";
+                txtDeductions.Text = "0.00";
+                txtReimbursement.Text = "0.00";
+                txtNetPayable.Text = "0.00";
+
+                decimal basicSalary = Convert.ToDecimal(row.Cells["Basic Salary"].Value);
+
+                lblBasicSalary.Text = basicSalary.RoundUp().ToString("#,#0.00");
+                lblBasicSalaryPerDay.Text = Convert.ToDecimal(basicSalary / Convert.ToDecimal(txtTotalWorkingDays.Text.ToString())).RoundUp().ToString("#,#0.00");
+                lblBasicSalaryPerHour.Text = Convert.ToDecimal(Convert.ToDecimal(lblBasicSalaryPerDay.Text.ToString()) / Convert.ToDecimal("8.0")).RoundUp().ToString("#,#0.00");
+
+                int empID = Convert.ToInt16(row.Cells["EmpID"].Value);
+                lblReportingManagerID.Text = empID.ToString();
+
+                //List<EmpStateAndGenderInfo> objEmpStateAndGenderInfo = objEmployeeMaster.getEmpStateAndGenderInfo(empID);
+                //lblStateID.Text = objEmpStateAndGenderInfo[0].StateID.ToString();
+                //lblSexID.Text = objEmpStateAndGenderInfo[0].SexID.ToString();
+
+                int SalaryProfileID = 0;
+
+                DateTime parsedDate = DateTime.ParseExact(cmbSalaryMonth.SelectedItem.ToString(), "MMM - yyyy", CultureInfo.InvariantCulture);
+                int daysInMonth = DateTime.DaysInMonth(parsedDate.Year, parsedDate.Month);
+                txtTotalWorkingDays.Text = daysInMonth.ToString();
+
+                EmployeeTotalWorkingInfo objEmployeeTotalWorkingInfo = objAttendanceMas.GetEmployeeMonthlyWorkingDays(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(parsedDate), parsedDate.AddDays(daysInMonth).Date);
+                if (objEmployeeTotalWorkingInfo != null)
                 {
-                    if(j == 0)
-                        EmpSalMasID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString().Trim()), Convert.ToDateTime(dtSalaryDate.Text), cmbSalaryMonth.Text, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, false);
+                    txtTotalWorkedDays.Text = objEmployeeTotalWorkingInfo.TotalPresent.ToString();
+                    txtLeaveDays.Text = objEmployeeTotalWorkingInfo.TotalPaidLeave.ToString();
+                    txtUnpaidLeaves.Text = objEmployeeTotalWorkingInfo.TotalLossOfPay.ToString();
+                    txtTotalPayableDays.Text = objEmployeeTotalWorkingInfo.TotalPayableDays.ToString();
+                }
+                else
+                {
+                    txtTotalWorkedDays.Text = "0";
+                    txtLeaveDays.Text = "0";
+                }
 
-                    if(j > 5)
-                    {
-                        if (dtgSalaryDetails.Columns[j].Visible == true)
-                        {
-                            int empSalProfileID = objSalaryProfile.getEmployeeSpecificSalaryProfile(Convert.ToInt16(dtgSalaryDetails.Rows[i].Cells[0].Value.ToString().Trim())).SalProfileID;
-                            int AllowenceHeaderID = objAllowenceInfo.GetAllowenceTitleByTitle(dtgSalaryDetails.Columns[j].HeaderCell.Value.ToString());
-                            int DeductionHeaderID = objDeductionsInfo.GetDeductionTitleByTitle(dtgSalaryDetails.Columns[j].HeaderCell.Value.ToString());
-                            int ReimbursementHeaderID = objReimbursement.GetReimbursementTitleByTitle(dtgSalaryDetails.Columns[j].HeaderCell.Value.ToString());
+                foreach (DataGridViewRow headerRow in gridRight.Rows)
+                {
+                    if (headerRow.IsNewRow) continue;
 
-                            if (AllowenceHeaderID > 0)
-                            {
-                                SalProDetID = objSalaryProfile.GetAllowenceProfileDetailID(empSalProfileID, AllowenceHeaderID);
-                                //EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(AllowenceHeaderID), dtgSalaryDetails.Columns[j].HeaderCell.Value.ToString(), "Allowences", Convert.ToDecimal(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString()), 0, 0, iRowCounter);
-                            }
-                            else if (DeductionHeaderID > 0)
-                            {
-                                SalProDetID = objSalaryProfile.GetDeductionProfileDetailID(empSalProfileID, DeductionHeaderID);
-                                //EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(DeductionHeaderID), dtgSalaryDetails.Columns[j].HeaderCell.Value.ToString(), "Deductions", 0, Convert.ToDecimal(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString()), 0, iRowCounter);
-                            }
-                            else if (ReimbursementHeaderID > 0)
-                            {
-                                SalProDetID = objSalaryProfile.GetReimbursementProfileDetailID(empSalProfileID, ReimbursementHeaderID);
-                                //EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(ReimbursementHeaderID), dtgSalaryDetails.Columns[j].HeaderCell.Value.ToString(), "Reimbursement", 0, 0, dtgSalaryDetails.Rows[i].Cells[j].Value == "{}" ? Convert.ToDecimal(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString()) : 0, iRowCounter);
-                            }
-                            iRowCounter = iRowCounter + 1;
-                        }
-                    }
+                    int headerID = Convert.ToInt32(headerRow.Cells["HeaderID"].Value);
+                    string headerName = Convert.ToString(headerRow.Cells["HeaderTitle"].Value);
+                    string headerType = Convert.ToString(headerRow.Cells["HeaderType"].Value);
+
+                    if (!gridLeft.Columns.Contains(headerName))
+                        continue;
+
+                    decimal value = 0;
+
+                    var cellValue = gridLeft.Rows[totalRowIndex].Cells[headerName].Value;
+
+                    if (chkExcludeEmpWithPendingAdvances.Checked && gridLeft.Rows[totalRowIndex].Cells["SelectRow"].ReadOnly == true)
+                        continue;
+
+                    if (cellValue != null)
+                        decimal.TryParse(cellValue.ToString(), out value);
+
+                    if (headerType == "Allowences" || headerType == "Allowances")
+                        allowancesTotal += value;
+
+                    else if (headerType == "Deductions")
+                        deductionsTotal += value;
+
+                    else if (headerType == "Reimbursement")
+                        reimbursementsTotal += value;
+                }
+
+                txtAallowences.Text = allowancesTotal.ToString("N2");
+                txtDeductions.Text = deductionsTotal.ToString("N2");
+                txtReimbursement.Text = reimbursementsTotal.ToString("N2");
+
+                txtNetPayable.Text = (allowancesTotal - deductionsTotal + reimbursementsTotal).ToString("N2");
+
+                OrderID = 1;
+
+                EmpSalMasID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblReportingManagerID.Text.Trim()), Convert.ToDateTime(dtSalaryDate.Text), cmbSalaryMonth.Text, Convert.ToDecimal(txtTotalWorkingDays.Text).RoundUp(), Convert.ToDecimal(txtTotalWorkedDays.Text), Convert.ToDecimal(txtLeaveDays.Text), Convert.ToDecimal(txtUnpaidLeaves.Text), Convert.ToDecimal(txtTotalPayableDays.Text), Convert.ToDecimal(lblBasicSalary.Text).RoundUp(), Convert.ToDecimal(lblBasicSalaryPerDay.Text).RoundUp(), Convert.ToDecimal(lblBasicSalaryPerHour.Text).RoundUp(), Convert.ToDecimal(txtAallowences.Text).RoundUp(), Convert.ToDecimal(txtDeductions.Text).RoundUp(), Convert.ToDecimal(txtReimbursement.Text).RoundUp(), 0, Convert.ToDecimal(txtNetPayable.Text).RoundUp(), false);
+                foreach (DataGridViewRow headerRow in gridRight.Rows)
+                {
+                    if (headerRow.IsNewRow) continue;
+
+                    int headerID = Convert.ToInt32(headerRow.Cells["HeaderID"].Value);
+                    string headerName = Convert.ToString(headerRow.Cells["HeaderTitle"].Value);
+                    string headerType = Convert.ToString(headerRow.Cells["HeaderType"].Value);
+                    string headerCalcFormula = Convert.ToString(headerRow.Cells["CalcFormula"].Value);
+
+                    if (!gridLeft.Columns.Contains(headerName))
+                        continue;
+
+                    decimal value = 0;
+
+                    var cellValue = gridLeft.Rows[totalRowIndex].Cells[headerName].Value;
+
+                    if (chkExcludeEmpWithPendingAdvances.Checked && gridLeft.Rows[totalRowIndex].Cells["SelectRow"].ReadOnly == true)
+                        continue;
+
+                    if (cellValue != null)
+                        decimal.TryParse(cellValue.ToString(), out value);
+
+                    if (headerType == "Allowences")
+                        EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(headerID), headerName.ToString(), headerType.ToString(), headerCalcFormula.ToString(), Convert.ToDecimal(cellValue.ToString()), 0, 0, OrderID);
+                    else if (headerType == "Deductions")
+                        EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(headerID), headerName.ToString(), headerType.ToString(), headerCalcFormula.ToString(), 0, Convert.ToDecimal(cellValue.ToString()), 0, OrderID);
+                    else if (headerType == "Reimbursement")
+                        EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(EmpSalMasID), Convert.ToInt16(SalProDetID), Convert.ToInt16(headerID), headerName.ToString(), headerType.ToString(), headerCalcFormula.ToString(), 0, 0, Convert.ToDecimal(cellValue.ToString()), OrderID);
+
+                    OrderID = OrderID + 1;
                 }
             }
 
@@ -302,6 +422,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            btnGenerateDetails.Enabled = false; 
             dtgSalaryDetails.Text = DateTime.Now.ToString("dd-MM-yyyy");
             cmbSalaryMonth.DataSource = null;
             LoadSalaryMonthList();
@@ -334,6 +455,9 @@ namespace StaffSync
             lblTotalDeductions.Text = "0.00";
             lblTotalReimbursement.Text = "0.00";
             lblNetPayable.Text = "0.00";
+            chkExcludeEmpWithPendingAdvances.Checked = false;
+            //chkExcludeEmpWithPendingAdvances.Values.Image = Properties.Resources.uncheck;
+            chkExcludeEmpWithPendingAdvances.Text = "☐ Show Salary Summary excluding employees who have Pending Advances";
         }
 
         public void enableControls()
@@ -352,17 +476,51 @@ namespace StaffSync
 
         public void LoadSalaryMonthList()
         {
+            //cmbSalaryMonth.Items.Clear();
+
+            //List<string> last6Months = new List<string>();
+            //DateTime currentMonth = DateTime.Now;
+
+            //for (int i = 6; i >= 0; i--)
+            //{
+            //    DateTime month = currentMonth.AddMonths(-i);
+            //    cmbSalaryMonth.Items.Add(month.ToString("MMM - yyyy"));
+            //}
+            //cmbSalaryMonth.SelectedIndex = cmbSalaryMonth.Items.Count - 1;
+
             cmbSalaryMonth.Items.Clear();
 
             List<string> last6Months = new List<string>();
             DateTime currentMonth = DateTime.Now;
 
-            for (int i = 6; i >= 0; i--)
+            //for (int i = 6; i >= 0; i--)
+            //{
+            //    DateTime month = currentMonth.AddMonths(-i);
+            //    cmbSalaryMonth.Items.Add(month.ToString("MMM - yyyy"));
+            //}
+
+            currentMonth = DateTime.Parse("01-01-" + DateTime.Now.Year.ToString());
+            for (int i = 0; i < DateTime.Now.Month - 1; i++)
             {
-                DateTime month = currentMonth.AddMonths(-i);
+                DateTime month = currentMonth.AddMonths(i);
                 cmbSalaryMonth.Items.Add(month.ToString("MMM - yyyy"));
             }
+            //cmbSalaryMonth.SelectedIndex = DateTime.Now.Month-1;
             cmbSalaryMonth.SelectedIndex = cmbSalaryMonth.Items.Count - 1;
+
+            //cmbSalaryMonth.Items.Add("Jan - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Feb - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Mar - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Apr - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("May - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Jun - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Jul - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Aug - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Sep - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Oct - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Nov - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.Items.Add("Dec - " + DateTime.Now.Year.ToString());
+            //cmbSalaryMonth.SelectedIndex = cmbSalaryMonth.Items.Count - 1;
         }
 
         private void frmPayrollBatchProcess_Load(object sender, EventArgs e)
@@ -372,6 +530,7 @@ namespace StaffSync
             cmbSalaryMonth.Enabled = true;
             dtSalaryDate.Enabled = true;
             dtgSalaryDetails.Enabled = true;
+            btnGenerateDetails.Enabled = false;
 
             //ProcessSalaryBatch();
         }
@@ -422,26 +581,6 @@ namespace StaffSync
             {
                 e.Cancel = true;
             }
-            //if (dtgSalaryDetails.Rows.Count > 0)
-            //{
-            //    decimal sum = 0;
-            //    for (int j = 0; j < dtgSalaryDetails.Columns.Count; j++)
-            //    {
-            //        if (j > 6)
-            //        {
-            //            for (int i = 0; i <= dtgSalaryDetails.Rows.Count - 2; i++)
-            //            {
-            //                if (!string.IsNullOrEmpty(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString()))
-            //                    sum = sum + Convert.ToDecimal(dtgSalaryDetails.Rows[i].Cells[j].Value.ToString());    //dtgSalaryDetails.AsEnumerable().Where(r => !r.IsNull(i)).Sum(r => Convert.ToDouble(r[i]));
-            //                else
-            //                    sum = sum + 0;
-            //            }
-            //            dtgSalaryDetails.Rows[dtgSalaryDetails.Rows.Count - 1].Cells[j].Value = sum;
-            //            sum = 0;
-            //        }
-            //    }
-            //    FormatDataGridView();
-            //}
         }
 
         private void dtgSalaryDetails_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -487,17 +626,19 @@ namespace StaffSync
 
         private void dtSalaryDate_ValueChanged(object sender, EventArgs e)
         {
-            dtgSalaryDetails.DataSource = null;
-            dtgSalaryDetails.DataSource = objSalaryProfile.GetSalaryInfoForBatchProcess(Convert.ToInt32(objTempClientFinYearInfo.ClientID), Convert.ToDateTime(dtSalaryDate.Value));
-            if (dtgSalaryDetails.Columns.Count > 0)
-            {
-                dtgSalaryDetails.Enabled = true;
-                FormatDataGridView();
-            }
+            //dtgSalaryDetails.DataSource = null;
+            //dtgSalaryDetails.DataSource = objSalaryProfile.GetSalaryInfoForBatchProcess(Convert.ToInt32(objTempClientFinYearInfo.ClientID), Convert.ToDateTime(dtSalaryDate.Value));
+            //if (dtgSalaryDetails.Columns.Count > 0)
+            //{
+            //    dtgSalaryDetails.Enabled = true;
+            //    FormatDataGridView();
+            //}
         }
 
         private void FormatDataGridView()
         {
+            int intEmployeesExcluded = 0;
+
             dtgSalaryDetails.Columns["ClientID"].Visible = false;
             dtgSalaryDetails.Columns["EmpID"].Visible = false;
             dtgSalaryDetails.Columns["EmpCode"].HeaderText = "Employee Code";
@@ -522,8 +663,8 @@ namespace StaffSync
             {
                 if (col.Name != "SelectRow")
                     col.ReadOnly = true;
-                else
-                    col.ReadOnly = false;
+                //else
+                //    col.ReadOnly = false;
 
                 col.Width = 165;
                 if (col.Index > 5)
@@ -532,6 +673,7 @@ namespace StaffSync
                     col.DefaultCellStyle.Format = "c2";
                 }
             }
+            dtgSalaryDetails.Columns["SelectRow"].Width = 75;
             //dtgSalaryDetails.Columns["SelectRow"].ReadOnly = false;
 
             //if (dtgSalaryDetails.Rows.Count > 0)
@@ -541,6 +683,26 @@ namespace StaffSync
             //    dtgSalaryDetails.Rows[dtgSalaryDetails.Rows.Count - 1].Cells[0].Style.BackColor = System.Drawing.Color.Blue;
             //    dtgSalaryDetails.Rows[dtgSalaryDetails.Rows.Count - 1].Cells[1].Style.ForeColor = System.Drawing.Color.Black;
             //}
+
+            int rowCounter = 1;
+            foreach (DataGridViewRow row in dtgSalaryDetails.Rows)
+            {
+                if (rowCounter == dtgSalaryDetails.Rows.Count)
+                    break;
+
+                rowCounter = rowCounter + 1;
+                if (objAdvanceTransaction.getEmployeeAdvancePendingCount(Convert.ToInt16(row.Cells["EmpID"].Value)) > 0)
+                {
+                    intEmployeesExcluded = intEmployeesExcluded + 1;
+                    row.Cells["SelectRow"].ReadOnly = true;
+                    row.Cells["SelectRow"].Value = Convert.ToBoolean(false);
+                    row.Cells["SelectRow"].ToolTipText = "Advance pending. Please process salary individually.";
+                }
+                else
+                    row.Cells["SelectRow"].ReadOnly = false;
+            }
+
+            lblSalarySummary.Text = "Employees loaded : " + Convert.ToInt32(dtgSalaryDetails.Rows.Count - 1) + "\nExcluded due to advances : " + Convert.ToInt32(intEmployeesExcluded)  + "\nEligible for batch processing : " + (Convert.ToInt32(dtgSalaryDetails.Rows.Count - 1) - Convert.ToInt32(intEmployeesExcluded));
         }
 
         private void picDownloadDataAsCSV_Click(object sender, EventArgs e)
@@ -560,10 +722,23 @@ namespace StaffSync
         {
             
             this.Cursor = Cursors.WaitCursor;
-            
+
+            btnGenerateDetails.Enabled = false;
+
+            chkExcludeEmpWithPendingAdvances.Checked = false;
+            //chkExcludeEmpWithPendingAdvances.Values.Image = Properties.Resources.uncheck;
+            chkExcludeEmpWithPendingAdvances.Text = "☐ Show Salary Summary excluding employees who have Pending Advances";
+
             ProcessSalaryBatch();
 
+            foreach (DataGridViewColumn col in dtgSalaryDetails.Columns)
+            {
+                col.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
             this.Cursor = Cursors.Default;
+                        
+            btnGenerateDetails.Enabled = true;
 
             MessageBox.Show("Batch process executed successfully.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -576,6 +751,7 @@ namespace StaffSync
 
             dtgSalaryDetails.ReadOnly = false;
             chkSelectUnSelect.Checked = false;
+            //chkExcludeEmpWithPendingAdvances.Checked = false;
             dtgSalaryDetails.DataSource = null;
             dtgSalaryDetails1.DataSource = null;
             dtgSalaryDetails1.Rows.Clear();
@@ -583,6 +759,9 @@ namespace StaffSync
             dtgSalaryDetails.DataSource = objSalaryProfile.GetSalaryInfoForBatchProcess(Convert.ToInt32(objTempClientFinYearInfo.ClientID), Convert.ToDateTime(dtSalaryDate.Value));
             if (dtgSalaryDetails.Columns.Count > 0)
             {
+                dtgSalaryDetails.Columns["ClientID"].Visible = false;
+                dtgSalaryDetails.Columns["EmpID"].Visible = false;
+
                 // Remove existing checkbox column if already added
                 if (!dtgSalaryDetails.Columns.Contains("SelectRow"))
                 {
@@ -601,6 +780,7 @@ namespace StaffSync
 
                 dtgSalaryDetails.Rows[lastRow].Cells["SelectRow"].ReadOnly = true;
                 dtgSalaryDetails.Rows[lastRow].Cells["SelectRow"].Value = false;
+                dtgSalaryDetails.Rows[lastRow].Cells["EmpName"].ReadOnly = false;
                 dtgSalaryDetails.Rows[lastRow].DefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
                 dtgSalaryDetails.Rows[lastRow].ReadOnly = true;
 
@@ -608,12 +788,14 @@ namespace StaffSync
                 foreach (DataGridViewColumn col in dtgSalaryDetails.Columns)
                 {
                     if (col.Name != "SelectRow")
-                        col.ReadOnly = false;
-                    else
-                        col.ReadOnly = false;
+                        col.ReadOnly = true;
+                    //else
+                    //    col.ReadOnly = false;
 
                     col.Width = 150;
                 }
+
+                dtgSalaryDetails.Columns["SelectRow"].Width = 75;
 
                 int rowCounter = 1;
                 formulaMap = objSalaryProfile.getSalaryHeadersList();
@@ -730,6 +912,18 @@ namespace StaffSync
                             }
                         }
                     }
+
+                    int selectedRowIndex = row.Index;
+                    int SelectedEmpID = Convert.ToInt32(dtgSalaryDetails.Rows[row.Index].Cells["EmpID"].Value);
+
+                    frmIndPayrollMaster frmIndPayrollMaster = new frmIndPayrollMaster("listPayrollUsersList", objTempCurrentlyLoggedInUserInfo, objTempClientFinYearInfo, this, Convert.ToInt32(SelectedEmpID), cmbSalaryMonth.Text.ToString(), Convert.ToDateTime(dtSalaryDate.Value.ToString()), true);
+                    frmIndPayrollMaster.Visible = false;
+                    frmIndPayrollMaster.StartPosition = FormStartPosition.Manual;
+                    frmIndPayrollMaster.Location = new System.Drawing.Point(-5000, -5000);
+                    if (frmIndPayrollMaster.ShowDialog() == DialogResult.OK)
+                    {
+                        UpdateSalaryRow(selectedRowIndex, frmIndPayrollMaster.UpdatedSalaryValues);
+                    }
                 }
 
                 DataGridViewRow totalRow = new DataGridViewRow();
@@ -742,6 +936,9 @@ namespace StaffSync
 
                     foreach (DataGridViewRow row in dtgSalaryDetails.Rows)
                     {
+                        if (row.Index == totalRow.Index)
+                            continue;
+
                         if (row.IsNewRow) continue;
 
                         decimal value = 0;
@@ -753,60 +950,13 @@ namespace StaffSync
                     totalRow.Cells[col].Value = sum;
                 }
 
-                //rowCounter1 = 1;
-                //foreach (DataGridViewRow rowTop in dtgSalaryDetails.Rows)
-                //{
-                //    if (rowTop.IsNewRow) continue;
-
-                //    if (rowCounter1 == dtgSalaryDetails.Rows.Count)
-                //        break;
-
-                //    rowCounter1 = rowCounter1 + 1;
-
-                //    // Start after non-salary columns
-                //    for (int colIndex = 6; colIndex < dtgSalaryDetails.Columns.Count; colIndex++)
-                //    {
-                //        string salaryHeader = dtgSalaryDetails.Columns[colIndex].HeaderText;
-
-                //        foreach (DataGridViewRow rowBottom in dtgSalaryDetails1.Rows)
-                //        {
-                //            if (rowBottom.IsNewRow) continue;
-
-                //            string headerBottom = Convert.ToString(rowBottom.Cells["HeaderTitle"].Value);
-
-                //            if (headerBottom == salaryHeader)
-                //            {
-                //                string type = Convert.ToString(rowBottom.Cells["HeaderType"].Value);
-
-                //                decimal value = 0;
-
-                //                if (type == "Allowences")
-                //                {
-                //                    value = Convert.ToDecimal(rowBottom.Cells["AllowanceAmount"].Value ?? 0);
-                //                }
-                //                else if (type == "Deductions")
-                //                {
-                //                    value = Convert.ToDecimal(rowBottom.Cells["DeductionAmount"].Value ?? 0);
-                //                }
-                //                else if (type == "Reimbursement")
-                //                {
-                //                    value = Convert.ToDecimal(rowBottom.Cells["ReimbursmentAmount"].Value ?? 0);
-                //                }
-
-                //                rowTop.Cells[colIndex].Value = value;
-
-                //                break; // stop searching once matched
-                //            }
-                //        }
-                //    }
-                //}
-
                 totalRow.DefaultCellStyle.BackColor = System.Drawing.Color.LightGray;
                 totalRow.DefaultCellStyle.Font = new System.Drawing.Font(dtgSalaryDetails.Font, FontStyle.Bold);
 
                 chkSelectUnSelect.Checked = true;
-                FormatDataGridView();
 
+                //chkExcludeEmpWithPendingAdvances.Checked = false;
+                FormatDataGridView();
                 CalculateSalarySummary();
             }
         }
@@ -836,6 +986,9 @@ namespace StaffSync
 
                 var cellValue = gridLeft.Rows[totalRowIndex].Cells[headerName].Value;
 
+                if (chkExcludeEmpWithPendingAdvances.Checked && gridLeft.Rows[totalRowIndex].Cells["SelectRow"].ReadOnly == true)
+                    continue;
+
                 if (cellValue != null)
                     decimal.TryParse(cellValue.ToString(), out value);
 
@@ -860,6 +1013,11 @@ namespace StaffSync
         {
             for (int i = 0; i < dtgSalaryDetails.Rows.Count - 1; i++) // skip total row
             {
+                if (dtgSalaryDetails.Rows[i].Cells["SelectRow"].ReadOnly == true)
+                {
+                    dtgSalaryDetails.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.Red;
+                    continue;
+                }
                 dtgSalaryDetails.Rows[i].Cells["SelectRow"].Value = true;
             }
         }
@@ -868,6 +1026,12 @@ namespace StaffSync
         {
             for (int i = 0; i < dtgSalaryDetails.Rows.Count - 1; i++)
             {
+                if (dtgSalaryDetails.Rows[i].Cells["SelectRow"].ReadOnly == true)
+                {
+                    dtgSalaryDetails.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.Red;
+                    continue;
+                }
+
                 dtgSalaryDetails.Rows[i].Cells["SelectRow"].Value = false;
             }
         }
@@ -947,7 +1111,7 @@ namespace StaffSync
                         int daysInMonth = DateTime.DaysInMonth(parsedDate.Year, parsedDate.Month);
                         txtTotalWorkingDays.Text = daysInMonth.ToString();
 
-                        EmployeeTotalWorkingInfo objEmployeeTotalWorkingInfo = objAttendanceMas.GetEmployeeMonthlyWorkingDays(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(parsedDate), Convert.ToDateTime(parsedDate));
+                        EmployeeTotalWorkingInfo objEmployeeTotalWorkingInfo = objAttendanceMas.GetEmployeeMonthlyWorkingDays(Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime(parsedDate), parsedDate.AddDays(daysInMonth).Date);
                         if (objEmployeeTotalWorkingInfo != null)
                         {
                             txtTotalWorkedDays.Text = objEmployeeTotalWorkingInfo.TotalPresent.ToString();
@@ -1326,18 +1490,104 @@ namespace StaffSync
             chkFlipOnOff.Refresh();
 
             foreach (DataGridViewRow row in dtgSalaryDetails.Rows)
+            {
+                // Skip new row and Total row
+                if (row.IsNewRow || row.Index == dtgSalaryDetails.Rows.Count - 1)
+                    continue;
+
+                if (row.Cells["SelectRow"].ReadOnly == true)
                 {
-                    // Skip new row and Total row
-                    if (row.IsNewRow || row.Index == dtgSalaryDetails.Rows.Count - 1)
-                        continue;
-
-                    bool currentValue = false;
-
-                    if (row.Cells["SelectRow"].Value != null)
-                        currentValue = Convert.ToBoolean(row.Cells["SelectRow"].Value);
-
-                    row.Cells["SelectRow"].Value = !currentValue;
+                    dtgSalaryDetails.Rows[row.Index].DefaultCellStyle.BackColor = System.Drawing.Color.Red;
+                    continue;
                 }
+
+                bool currentValue = false;
+
+                if (row.Cells["SelectRow"].Value != null)
+                    currentValue = Convert.ToBoolean(row.Cells["SelectRow"].Value);
+
+                row.Cells["SelectRow"].Value = !currentValue;
+            }
+        }
+
+        private void chkEmpWithPendingAdvances_CheckedChanged(object sender, EventArgs e)
+        {
+            CalculateSalarySummary();
+        }
+
+        private void chkExcludeEmpWithPendingAdvances_Click(object sender, EventArgs e)
+        {
+            if(chkExcludeEmpWithPendingAdvances.Checked == true)
+            {
+                //chkExcludeEmpWithPendingAdvances.Values.Image = Properties.Resources.check_16x16;
+                chkExcludeEmpWithPendingAdvances.Text = "☑ Show Salary Summary including employees who have Pending Advances";
+            }
+            else
+            {
+                //chkExcludeEmpWithPendingAdvances.Values.Image = Properties.Resources.uncheck;
+                chkExcludeEmpWithPendingAdvances.Text = "☐ Show Salary Summary excluding employees who have Pending Advances";
+            }
+            CalculateSalarySummary();
+        }
+
+        private void dtgSalaryDetails_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            //if (dtgSalaryDetails.Columns[e.ColumnIndex].Name == "EmpCode")
+            {
+                int selectedRowIndex = e.RowIndex;
+                int SelectedEmpID = Convert.ToInt32(dtgSalaryDetails.Rows[e.RowIndex].Cells["EmpID"].Value);                
+
+                frmIndPayrollMaster frmIndPayrollMaster = new frmIndPayrollMaster("listPayrollUsersList", objTempCurrentlyLoggedInUserInfo, objTempClientFinYearInfo, this, Convert.ToInt32(SelectedEmpID), cmbSalaryMonth.Text.ToString(), Convert.ToDateTime(dtSalaryDate.Value.ToString()), false);
+                if (frmIndPayrollMaster.ShowDialog() == DialogResult.OK)
+                {
+                    UpdateSalaryRow(selectedRowIndex, frmIndPayrollMaster.UpdatedSalaryValues);
+                }
+
+                DataGridViewRow totalRow = new DataGridViewRow();
+                totalRow = dtgSalaryDetails.Rows[dtgSalaryDetails.Rows.Count - 1];
+
+                totalRow.Cells[6].Value = "Total";
+                for (int col = 7; col < dtgSalaryDetails.Columns.Count; col++) // skip employee info columns
+                {
+                    decimal sum = 0;
+
+                    foreach (DataGridViewRow row in dtgSalaryDetails.Rows)
+                    {
+                        if (row.Index == totalRow.Index)
+                            continue;
+
+                        if (row.IsNewRow) continue;
+
+                        decimal value = 0;
+                        decimal.TryParse(Convert.ToString(row.Cells[col].Value), out value);
+
+                        sum += value;
+                    }
+
+                    totalRow.Cells[col].Value = sum;
+                }
+                FormatDataGridView();
+                CalculateSalarySummary();
+            }
+        }
+
+        private void UpdateSalaryRow(int rowIndex, Dictionary<string, decimal> salaryValues)
+        {
+            DataGridViewRow row = dtgSalaryDetails.Rows[rowIndex];
+
+            foreach (var item in salaryValues)
+            {
+                string header = item.Key;
+                decimal value = item.Value;
+
+                if (dtgSalaryDetails.Columns.Contains(header))
+                {
+                    row.Cells[header].Value = value;
+                }
+            }
         }
     }
 }

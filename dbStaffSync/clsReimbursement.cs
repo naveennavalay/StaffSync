@@ -159,7 +159,8 @@ namespace dbStaffSync
                                         " ReimbursementHeaderMas.IsFixed, " + 
                                         " ReimbursementHeaderMas.MaxCap, " + 
                                         " ReimbursementHeaderMas.VisibleInPayslip, " + 
-                                        " ReimbursementHeaderMas.ProrataBasis " +
+                                        " ReimbursementHeaderMas.ProrataBasis, " +
+                                        " ReimbursementHeaderMas.CompContribute " +
                                     " FROM " + 
                                         " ReimbursementHeaderMas " + 
                                     " WHERE " + 

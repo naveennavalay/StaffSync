@@ -11,11 +11,11 @@ namespace DALStaffSync
 {
     public class clsProvidentFundCalculation
     {
-        dbStaffSync.clsProvidentFundCalculation objAuditLog = new dbStaffSync.clsProvidentFundCalculation();
+        dbStaffSync.clsProvidentFundCalculation objProvidentFundCalculation = new dbStaffSync.clsProvidentFundCalculation();
 
-        public ProvidentFund CalculatePF(int PFMasID)
+        public ProvidentFund GetProvidentFundMasterInfo(int PFMasID)
         {
-            return objAuditLog.CalculatePF(PFMasID);
+            return objProvidentFundCalculation.GetProvidentFundMasterInfo(PFMasID);
         }
     }
 }

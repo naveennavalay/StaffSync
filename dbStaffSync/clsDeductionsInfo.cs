@@ -159,7 +159,8 @@ namespace dbStaffSync
                                         " DeductionHeaderMas.IsFixed, " + 
                                         " DeductionHeaderMas.MaxCap, " + 
                                         " DeductionHeaderMas.VisibleInPayslip, " + 
-                                        " DeductionHeaderMas.ProrataBasis " + 
+                                        " DeductionHeaderMas.ProrataBasis, " +
+                                        " DeductionHeaderMas.CompContribute " +
                                     " FROM " + 
                                         " DeductionHeaderMas " + 
                                     " WHERE " + 

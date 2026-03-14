@@ -233,6 +233,36 @@ namespace StaffSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap check_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("check_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap check_filled_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("check_filled_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap check_unfilled_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("check_unfilled_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap close {
             get {
                 object obj = ResourceManager.GetObject("close", resourceCulture);
@@ -626,6 +656,46 @@ namespace StaffSync.Properties {
         internal static System.Drawing.Bitmap uncheck {
             get {
                 object obj = ResourceManager.GetObject("uncheck", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap uncheck_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("uncheck_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap uncheck_16x16_5 {
+            get {
+                object obj = ResourceManager.GetObject("uncheck_16x16_5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap uncheck_16x161 {
+            get {
+                object obj = ResourceManager.GetObject("uncheck_16x161", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap uncheck16x16_2 {
+            get {
+                object obj = ResourceManager.GetObject("uncheck16x16_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

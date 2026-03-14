@@ -17,7 +17,7 @@ namespace dbStaffSync
         DataSet dtDataset;
         clsGenFunc objGenFunc = new clsGenFunc();
 
-        public ProvidentFund CalculatePF(int PFMasID)
+        public ProvidentFund GetProvidentFundMasterInfo(int PFMasID)
         {
             ProvidentFund tmpProvidentFund = new ProvidentFund();
             List<ProvidentFund> objProvidentFund = new List<ProvidentFund>();
@@ -64,33 +64,33 @@ namespace dbStaffSync
                 string DataTableToJSon = "";
                 DataTableToJSon = JsonConvert.SerializeObject(dt);
                 objProvidentFund = JsonConvert.DeserializeObject<List<ProvidentFund>>(DataTableToJSon);
-                if (objProvidentFund.Count > 0)
-                {
-                    strQuery = "";
-                    cmd = conn.CreateCommand();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = strQuery;
-                    cmd.ExecuteNonQuery();
+                //if (objProvidentFund.Count > 0)
+                //{
+                //    strQuery = "";
+                //    cmd = conn.CreateCommand();
+                //    cmd.CommandType = CommandType.Text;
+                //    cmd.CommandText = strQuery;
+                //    cmd.ExecuteNonQuery();
 
-                    da = new OleDbDataAdapter(cmd);
-                    da.Fill(dt);
+                //    da = new OleDbDataAdapter(cmd);
+                //    da.Fill(dt);
 
-                    DataTableToJSon = "";
-                    DataTableToJSon = JsonConvert.SerializeObject(dt);
-                    objProvidentFund = JsonConvert.DeserializeObject<List<ProvidentFund>>(DataTableToJSon);
-                    //if (objProvidentFund.Count > 0)
-                    //{
-                    //    foreach (ProvidentFund PT in objProvidentFund)
-                    //    {
-                    //        if (grossIncome >= PT.GrossFrom && grossIncome <= PT.GrossTo)
-                    //        {
-                    //            tmpProvidentFund = PT;
-                    //            break;
-                    //        }
-                    //    }
+                //    DataTableToJSon = "";
+                //    DataTableToJSon = JsonConvert.SerializeObject(dt);
+                //    objProvidentFund = JsonConvert.DeserializeObject<List<ProvidentFund>>(DataTableToJSon);
+                //    //if (objProvidentFund.Count > 0)
+                //    //{
+                //    //    foreach (ProvidentFund PT in objProvidentFund)
+                //    //    {
+                //    //        if (grossIncome >= PT.GrossFrom && grossIncome <= PT.GrossTo)
+                //    //        {
+                //    //            tmpProvidentFund = PT;
+                //    //            break;
+                //    //        }
+                //    //    }
 
-                    //}
-                }
+                //    //}
+                //}
             }
             catch (Exception ex)
             {
@@ -101,6 +101,9 @@ namespace dbStaffSync
             {
                 conn = dbStaffSync.closeDBConnection();
             }
+
+            if(objProvidentFund.Count > 0)
+                tmpProvidentFund = objProvidentFund[0];
 
             return tmpProvidentFund;
         }

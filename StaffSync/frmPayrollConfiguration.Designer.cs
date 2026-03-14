@@ -33,6 +33,10 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkAutoCalculate = new System.Windows.Forms.CheckBox();
+            this.lblBasicSalaryPerHour = new System.Windows.Forms.Label();
+            this.lblBasicSalaryPerDay = new System.Windows.Forms.Label();
+            this.lblBasicSalary = new System.Windows.Forms.Label();
             this.btnViewCalender = new Krypton.Toolkit.KryptonButton();
             this.label5 = new System.Windows.Forms.Label();
             this.txtReimbursement = new Krypton.Toolkit.KryptonTextBox();
@@ -74,10 +78,7 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lblBasicSalary = new System.Windows.Forms.Label();
-            this.lblBasicSalaryPerHour = new System.Windows.Forms.Label();
-            this.lblBasicSalaryPerDay = new System.Windows.Forms.Label();
-            this.chkAutoCalculate = new System.Windows.Forms.CheckBox();
+            this.lblPFCalcAmount = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -132,6 +133,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox1.Controls.Add(this.lblPFCalcAmount);
             this.groupBox1.Controls.Add(this.chkAutoCalculate);
             this.groupBox1.Controls.Add(this.lblBasicSalaryPerHour);
             this.groupBox1.Controls.Add(this.lblBasicSalaryPerDay);
@@ -157,6 +159,57 @@
             this.groupBox1.Size = new System.Drawing.Size(1032, 443);
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
+            // 
+            // chkAutoCalculate
+            // 
+            this.chkAutoCalculate.AutoSize = true;
+            this.chkAutoCalculate.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkAutoCalculate.Checked = true;
+            this.chkAutoCalculate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAutoCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkAutoCalculate.Location = new System.Drawing.Point(844, 372);
+            this.chkAutoCalculate.Name = "chkAutoCalculate";
+            this.chkAutoCalculate.Size = new System.Drawing.Size(118, 19);
+            this.chkAutoCalculate.TabIndex = 75;
+            this.chkAutoCalculate.Text = "Auto Calculate";
+            this.chkAutoCalculate.UseVisualStyleBackColor = true;
+            this.chkAutoCalculate.Visible = false;
+            // 
+            // lblBasicSalaryPerHour
+            // 
+            this.lblBasicSalaryPerHour.AutoSize = true;
+            this.lblBasicSalaryPerHour.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblBasicSalaryPerHour.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBasicSalaryPerHour.Location = new System.Drawing.Point(760, 53);
+            this.lblBasicSalaryPerHour.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblBasicSalaryPerHour.Name = "lblBasicSalaryPerHour";
+            this.lblBasicSalaryPerHour.Size = new System.Drawing.Size(11, 15);
+            this.lblBasicSalaryPerHour.TabIndex = 74;
+            this.lblBasicSalaryPerHour.Text = " ";
+            // 
+            // lblBasicSalaryPerDay
+            // 
+            this.lblBasicSalaryPerDay.AutoSize = true;
+            this.lblBasicSalaryPerDay.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblBasicSalaryPerDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBasicSalaryPerDay.Location = new System.Drawing.Point(760, 31);
+            this.lblBasicSalaryPerDay.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblBasicSalaryPerDay.Name = "lblBasicSalaryPerDay";
+            this.lblBasicSalaryPerDay.Size = new System.Drawing.Size(11, 15);
+            this.lblBasicSalaryPerDay.TabIndex = 73;
+            this.lblBasicSalaryPerDay.Text = " ";
+            // 
+            // lblBasicSalary
+            // 
+            this.lblBasicSalary.AutoSize = true;
+            this.lblBasicSalary.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblBasicSalary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBasicSalary.Location = new System.Drawing.Point(760, 10);
+            this.lblBasicSalary.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblBasicSalary.Name = "lblBasicSalary";
+            this.lblBasicSalary.Size = new System.Drawing.Size(11, 15);
+            this.lblBasicSalary.TabIndex = 67;
+            this.lblBasicSalary.Text = " ";
             // 
             // btnViewCalender
             // 
@@ -764,56 +817,17 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
-            // lblBasicSalary
+            // lblPFCalcAmount
             // 
-            this.lblBasicSalary.AutoSize = true;
-            this.lblBasicSalary.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblBasicSalary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBasicSalary.Location = new System.Drawing.Point(760, 10);
-            this.lblBasicSalary.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblBasicSalary.Name = "lblBasicSalary";
-            this.lblBasicSalary.Size = new System.Drawing.Size(11, 15);
-            this.lblBasicSalary.TabIndex = 67;
-            this.lblBasicSalary.Text = " ";
-            // 
-            // lblBasicSalaryPerHour
-            // 
-            this.lblBasicSalaryPerHour.AutoSize = true;
-            this.lblBasicSalaryPerHour.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblBasicSalaryPerHour.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBasicSalaryPerHour.Location = new System.Drawing.Point(760, 53);
-            this.lblBasicSalaryPerHour.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblBasicSalaryPerHour.Name = "lblBasicSalaryPerHour";
-            this.lblBasicSalaryPerHour.Size = new System.Drawing.Size(11, 15);
-            this.lblBasicSalaryPerHour.TabIndex = 74;
-            this.lblBasicSalaryPerHour.Text = " ";
-            // 
-            // lblBasicSalaryPerDay
-            // 
-            this.lblBasicSalaryPerDay.AutoSize = true;
-            this.lblBasicSalaryPerDay.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblBasicSalaryPerDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBasicSalaryPerDay.Location = new System.Drawing.Point(760, 31);
-            this.lblBasicSalaryPerDay.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblBasicSalaryPerDay.Name = "lblBasicSalaryPerDay";
-            this.lblBasicSalaryPerDay.Size = new System.Drawing.Size(11, 15);
-            this.lblBasicSalaryPerDay.TabIndex = 73;
-            this.lblBasicSalaryPerDay.Text = " ";
-            // 
-            // chkAutoCalculate
-            // 
-            this.chkAutoCalculate.AutoSize = true;
-            this.chkAutoCalculate.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkAutoCalculate.Checked = true;
-            this.chkAutoCalculate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAutoCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkAutoCalculate.Location = new System.Drawing.Point(844, 372);
-            this.chkAutoCalculate.Name = "chkAutoCalculate";
-            this.chkAutoCalculate.Size = new System.Drawing.Size(118, 19);
-            this.chkAutoCalculate.TabIndex = 75;
-            this.chkAutoCalculate.Text = "Auto Calculate";
-            this.chkAutoCalculate.UseVisualStyleBackColor = true;
-            this.chkAutoCalculate.Visible = false;
+            this.lblPFCalcAmount.AutoSize = true;
+            this.lblPFCalcAmount.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblPFCalcAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPFCalcAmount.Location = new System.Drawing.Point(841, 21);
+            this.lblPFCalcAmount.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblPFCalcAmount.Name = "lblPFCalcAmount";
+            this.lblPFCalcAmount.Size = new System.Drawing.Size(11, 15);
+            this.lblPFCalcAmount.TabIndex = 107;
+            this.lblPFCalcAmount.Text = " ";
             // 
             // frmPayrollConfiguration
             // 
@@ -907,5 +921,6 @@
         private System.Windows.Forms.Label lblBasicSalaryPerHour;
         private System.Windows.Forms.Label lblBasicSalaryPerDay;
         private System.Windows.Forms.CheckBox chkAutoCalculate;
+        private System.Windows.Forms.Label lblPFCalcAmount;
     }
 }

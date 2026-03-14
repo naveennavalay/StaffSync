@@ -106,7 +106,8 @@ namespace dbStaffSync
                                         " EmpSalDate, " + 
                                         " TotalAllowance, " + 
                                         " TotalDeduction, " + 
-                                        " TotalReimbursement, " + 
+                                        " TotalReimbursement, " +
+                                        " PFCalculatedAmount, " +
                                         " NetPayable, " + 
                                         " OrderID, " + 
                                         " EmpID, " +
@@ -257,6 +258,29 @@ namespace dbStaffSync
                                         " EmpSalDetails.EmpSalID = " + txtEmpSalID +
                                     " ORDER BY " + 
                                         "EmpSalDetails.EmpSalDetID, EmpSalDetails.OrderID;";
+
+                strQuery = "SELECT " + 
+                                " EmpSalDetails.EmpSalDetID, " + 
+                                " EmpSalDetails.SalProDetID, " + 
+                                " EmpSalDetails.EmpSalID AS SalProfileID, " + 
+                                " EmpSalDetails.SalHeaderID AS HeaderID, " + 
+                                " EmpSalDetails.SalHeaderTitle AS HeaderTitle, " + 
+                                " EmpSalDetails.SalHeaderType AS HeaderType, " + 
+                                " EmpSalDetails.CalcFormula, " + 
+                                " EmpSalDetails.AllowanceAmount AS ActualAmount, " + 
+                                " EmpSalDetails.AllowanceAmount, " + 
+                                " EmpSalDetails.DeductionAmount, " + 
+                                " EmpSalDetails.ReimbursmentAmount, " + 
+                                " EmpSalDetails.OrderID " + 
+                            " FROM " + 
+                                " EmpSalMas INNER JOIN EmpSalDetails ON EmpSalMas.EmpSalID = EmpSalDetails.EmpSalID " + 
+                            " WHERE " + 
+                                " ( " + 
+                                    " ((EmpSalMas.StructureEntry) = True) " + 
+                                    " AND ((EmpSalMas.EmpID) = " + txtEmpID + " ) " + 
+                                " ) " + 
+                            " ORDER BY " + 
+                                " EmpSalDetails.EmpSalDetID,EmpSalDetails.OrderID;";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

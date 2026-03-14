@@ -159,7 +159,8 @@ namespace dbStaffSync
                                         " AllowanceHeaderMas.IsFixed, " + 
                                         " AllowanceHeaderMas.MaxCap, " + 
                                         " AllowanceHeaderMas.VisibleInPayslip, " + 
-                                        " AllowanceHeaderMas.ProrataBasis " + 
+                                        " AllowanceHeaderMas.ProrataBasis, " +
+                                        " AllowanceHeaderMas.CompContribute " +
                                     " FROM " + 
                                         " AllowanceHeaderMas " + 
                                     " WHERE " + 

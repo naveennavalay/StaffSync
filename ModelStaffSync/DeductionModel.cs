@@ -31,5 +31,7 @@ namespace ModelStaffSync
         public string CalcFormula { get; set; }
 
         public decimal MaxCap { get; set; }
+
+        public bool CompContribute { get; set; }
     }
 }

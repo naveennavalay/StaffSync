@@ -19,6 +19,57 @@ namespace dbStaffSync
         DataSet dtDataset;
         clsGenFunc objGenFunc = new clsGenFunc();
 
+        public int getEmployeeAdvancePendingCount(int txtEmpID)
+        {
+            int intEmployeeAdvancePendingCount = 0;
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " +
+                                        " Count(EmpAdvanceRequestMas.EmpAdvanceRequestID) AS TotalPendingAdvances " +
+                                    " FROM " +
+                                        " ( EmpMas INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID ) " +
+                                        " INNER JOIN EmpAdvanceRequestMas ON PersonalInfoMas.PersonalInfoID = EmpAdvanceRequestMas.PersonalInfoID " +
+                                    " GROUP BY " +
+                                        " EmpAdvanceRequestMas.AdvanceRequestStatus, EmpMas.EmpID " +
+                                    " HAVING " +
+                                        " ( " +
+                                            " ( " +
+                                                " (EmpAdvanceRequestMas.AdvanceRequestStatus) = False  " +
+                                            " ) " +
+                                            " AND ((EmpMas.EmpID) = " + txtEmpID + ") " +
+                                        ");";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    intEmployeeAdvancePendingCount = Convert.ToInt32(dt.Rows[0]["TotalPendingAdvances"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return intEmployeeAdvancePendingCount;
+        }
+
+
         public bool IsAdvanceAlreadyExist(int txtEmpPersonalInfoID)
         {
             List<AdvanceRequestStatusInfo> objAdvanceRequestStatusInfo = new List<AdvanceRequestStatusInfo>();

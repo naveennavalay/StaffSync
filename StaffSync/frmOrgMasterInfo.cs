@@ -491,7 +491,7 @@ namespace StaffSync
             cmbGender.ValueMember = "SexID";
 
             //chkEnableProvidentFund.Checked = false;
-            grpPFGroup.Enabled = false;
+            //grpPFGroup.Enabled = false;
             txtProvidentFundRegNumber.Text = "";
             txtEmpPFMaxLimit.Text = "0.00";
             optEmpPFPercentage.Checked = true;
@@ -634,7 +634,7 @@ namespace StaffSync
             cmbEPFDeductionCycleType.Enabled = false;
 
             //chkEnableProvidentFund.Checked = false;
-            grpPFGroup.Enabled = false;
+            //grpPFGroup.Enabled = false;
             txtProvidentFundRegNumber.Enabled = false;
             txtEmpPFMaxLimit.Enabled = false;
             optEmpPFPercentage.Enabled = false;
@@ -647,7 +647,7 @@ namespace StaffSync
             txtEmprPFFixedAmount.Enabled = false;
 
             //chkEnableEmployeeStateInsurance.Checked = false;
-            grpESIGroup.Enabled = false;
+            //grpESIGroup.Enabled = false;
             txtESIRegNumber.Enabled = false;
 
             cmbESIDurationCycle.Items.Clear();
@@ -838,9 +838,11 @@ namespace StaffSync
 
                     tile.ViewSlabClicked += (s, e) =>
                     {
-                        //MessageBox.Show($"BranchID: {e.BranchID}\nStateID: {e.StateID}");
-                        frmCompanyList frmCompanyList = new frmCompanyList(this, "professionaltaxslab", Convert.ToInt32(lblCompID.Text.ToString()), Convert.ToInt16(xx.ClientBranchID.ToString()), Convert.ToInt16(xx.StateID.ToString()));
-                        frmCompanyList.ShowDialog(this);
+                        //if (Convert.ToInt32(tile.BadgeText.ToString()) > 0)
+                        {
+                            frmCompanyList frmCompanyList = new frmCompanyList(this, "professionaltaxslab", Convert.ToInt32(lblCompID.Text.ToString()), Convert.ToInt16(xx.ClientBranchID.ToString()), Convert.ToInt16(xx.StateID.ToString()));
+                            frmCompanyList.ShowDialog(this);
+                        }
                     };
 
                     flowLayoutPanel1.Controls.Add(tile);
@@ -1001,16 +1003,17 @@ namespace StaffSync
         private void chkEnableProvidentFund_CheckedChanged(object sender, EventArgs e)
         {
             grpPFGroup.Enabled = chkEnableProvidentFund.Checked;
+            chkEnableProvidentFund.Enabled = true;
         }
 
         private void chkEnableProfessionalTax_CheckedChanged(object sender, EventArgs e)
         {
-
         }
 
         private void chkEnableEmployeeStateInsurance_CheckedChanged(object sender, EventArgs e)
         {
-
+            grpESIGroup.Enabled = chkEnableEmployeeStateInsurance.Checked;
+            chkEnableEmployeeStateInsurance.Enabled = true;
         }
 
         private void chkNationalPensionScheme_CheckedChanged(object sender, EventArgs e)
@@ -1021,6 +1024,7 @@ namespace StaffSync
         private void chkEnableESI_CheckedChanged(object sender, EventArgs e)
         {
             grpESIGroup.Enabled = chkEnableEmployeeStateInsurance.Checked;
+            chkEnableEmployeeStateInsurance.Enabled = true;
         }
 
         private void optEmpPFPercentage_CheckedChanged(object sender, EventArgs e)
@@ -1127,12 +1131,21 @@ namespace StaffSync
         {
             if (chkEnablePayrollStatutory.Checked)
             {
+                tabOrgEPFSettings.Enabled = true;
+                chkEnableProvidentFund.Checked = true;
+                grpPFGroup.Enabled = true;
+
                 tabOrgESISettings.Enabled = true;
+                chkEnableEmployeeStateInsurance.Checked = true;
+                grpESIGroup.Enabled = true;
+
                 tabOrgProfessionalTax.Enabled = true;
+                chkEnableProfessionalTax.Checked = true;
                 tabOrgLabourWelfareFund.Enabled = true;
             }
             else
             {
+                tabOrgEPFSettings.Enabled = false;
                 tabOrgESISettings.Enabled = false;
                 tabOrgProfessionalTax.Enabled = false;
                 tabOrgLabourWelfareFund.Enabled = false;

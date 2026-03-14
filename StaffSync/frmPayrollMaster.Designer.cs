@@ -66,6 +66,7 @@
             this.dtgSalaryDetails = new Krypton.Toolkit.KryptonDataGridView();
             this.tabAdvanceHeaders = new Krypton.Navigator.KryptonPage();
             this.dtgAdvanceDetails = new Krypton.Toolkit.KryptonDataGridView();
+            this.lblAdvanceNote = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.lblSexID = new System.Windows.Forms.Label();
             this.lblStateID = new System.Windows.Forms.Label();
@@ -91,6 +92,7 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lblPFCalcAmount = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -127,7 +129,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1063, 699);
+            this.splitContainer1.Size = new System.Drawing.Size(1592, 699);
             this.splitContainer1.SplitterDistance = 631;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
@@ -142,12 +144,13 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1063, 631);
+            this.panel1.Size = new System.Drawing.Size(1592, 631);
             this.panel1.TabIndex = 1;
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox1.Controls.Add(this.lblPFCalcAmount);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.lblBasicSalaryPerHour);
@@ -177,6 +180,7 @@
             this.groupBox1.Controls.Add(this.cmbSalaryMonth);
             this.groupBox1.Controls.Add(this.label42);
             this.groupBox1.Controls.Add(this.tabControl1);
+            this.groupBox1.Controls.Add(this.lblAdvanceNote);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.groupBox1.Location = new System.Drawing.Point(16, 178);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
@@ -295,7 +299,6 @@
             this.lblBasicSalary.Size = new System.Drawing.Size(11, 15);
             this.lblBasicSalary.TabIndex = 66;
             this.lblBasicSalary.Text = " ";
-            this.lblBasicSalary.Visible = false;
             // 
             // chkAutoCalculate
             // 
@@ -330,7 +333,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(513, 373);
+            this.label5.Location = new System.Drawing.Point(513, 372);
             this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(39, 15);
@@ -340,7 +343,7 @@
             // 
             // txtReimbursement
             // 
-            this.txtReimbursement.Location = new System.Drawing.Point(831, 366);
+            this.txtReimbursement.Location = new System.Drawing.Point(831, 365);
             this.txtReimbursement.Margin = new System.Windows.Forms.Padding(4);
             this.txtReimbursement.Multiline = true;
             this.txtReimbursement.Name = "txtReimbursement";
@@ -358,7 +361,7 @@
             // 
             // txtDeductions
             // 
-            this.txtDeductions.Location = new System.Drawing.Point(696, 366);
+            this.txtDeductions.Location = new System.Drawing.Point(696, 365);
             this.txtDeductions.Margin = new System.Windows.Forms.Padding(4);
             this.txtDeductions.Multiline = true;
             this.txtDeductions.Name = "txtDeductions";
@@ -376,7 +379,7 @@
             // 
             // txtAallowences
             // 
-            this.txtAallowences.Location = new System.Drawing.Point(561, 366);
+            this.txtAallowences.Location = new System.Drawing.Point(561, 365);
             this.txtAallowences.Margin = new System.Windows.Forms.Padding(4);
             this.txtAallowences.Multiline = true;
             this.txtAallowences.Name = "txtAallowences";
@@ -607,6 +610,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1006, 265);
             this.tabControl1.TabIndex = 64;
+            this.tabControl1.TabClicked += new System.EventHandler<Krypton.Navigator.KryptonPageEventArgs>(this.tabControl1_TabClicked);
             // 
             // tabSalaryHeaders
             // 
@@ -622,6 +626,7 @@
             this.tabSalaryHeaders.TextDescription = "";
             this.tabSalaryHeaders.ToolTipTitle = "Page ToolTip";
             this.tabSalaryHeaders.UniqueName = "410b78002c6e42e38be14684af8f8fb9";
+            this.tabSalaryHeaders.Click += new System.EventHandler(this.tabSalaryHeaders_Click);
             // 
             // dtgSalaryDetails
             // 
@@ -683,7 +688,22 @@
             this.dtgAdvanceDetails.TabIndex = 46;
             this.dtgAdvanceDetails.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAdvanceDetails_CellDoubleClick);
             this.dtgAdvanceDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAdvanceDetails_CellEndEdit);
+            this.dtgAdvanceDetails.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAdvanceDetails_CellValueChanged);
+            this.dtgAdvanceDetails.CurrentCellDirtyStateChanged += new System.EventHandler(this.dtgAdvanceDetails_CurrentCellDirtyStateChanged);
             this.dtgAdvanceDetails.DoubleClick += new System.EventHandler(this.dtgAdvanceDetails_DoubleClick);
+            // 
+            // lblAdvanceNote
+            // 
+            this.lblAdvanceNote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblAdvanceNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAdvanceNote.Location = new System.Drawing.Point(2, 359);
+            this.lblAdvanceNote.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblAdvanceNote.Name = "lblAdvanceNote";
+            this.lblAdvanceNote.Size = new System.Drawing.Size(506, 41);
+            this.lblAdvanceNote.TabIndex = 103;
+            this.lblAdvanceNote.Text = "💡 Tip: One or more advances found. Please review before continuing.";
+            this.lblAdvanceNote.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblAdvanceNote.Visible = false;
             // 
             // groupBox8
             // 
@@ -935,7 +955,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1063, 63);
+            this.panel2.Size = new System.Drawing.Size(1592, 63);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
@@ -1020,11 +1040,23 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
+            // lblPFCalcAmount
+            // 
+            this.lblPFCalcAmount.AutoSize = true;
+            this.lblPFCalcAmount.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblPFCalcAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPFCalcAmount.Location = new System.Drawing.Point(841, 31);
+            this.lblPFCalcAmount.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblPFCalcAmount.Name = "lblPFCalcAmount";
+            this.lblPFCalcAmount.Size = new System.Drawing.Size(11, 15);
+            this.lblPFCalcAmount.TabIndex = 104;
+            this.lblPFCalcAmount.Text = " ";
+            // 
             // frmPayrollMaster
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1063, 699);
+            this.ClientSize = new System.Drawing.Size(1592, 699);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1128,5 +1160,7 @@
         private System.Windows.Forms.CheckBox chkAutoCalculate;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblAdvanceNote;
+        private System.Windows.Forms.Label lblPFCalcAmount;
     }
 }

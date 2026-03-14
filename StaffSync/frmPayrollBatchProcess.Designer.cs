@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPayrollBatchProcess));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dtgSalaryDetails1 = new Krypton.Toolkit.KryptonDataGridView();
             this.txtNetPayable = new Krypton.Toolkit.KryptonTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lblBasicSalary = new System.Windows.Forms.Label();
@@ -54,19 +55,35 @@
             this.label3 = new System.Windows.Forms.Label();
             this.chkAutoCalculate = new System.Windows.Forms.CheckBox();
             this.txtLeaveDays = new System.Windows.Forms.TextBox();
-            this.dtgSalaryDetails1 = new Krypton.Toolkit.KryptonDataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.chkExcludeEmpWithPendingAdvances = new Krypton.Toolkit.KryptonCheckButton();
+            this.label16 = new System.Windows.Forms.Label();
+            this.lblSalarySummary = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.dtgSalaryDetails = new Krypton.Toolkit.KryptonDataGridView();
             this.chkFlipOnOff = new Krypton.Toolkit.KryptonCheckButton();
             this.label10 = new System.Windows.Forms.Label();
             this.chkSelectUnSelect = new System.Windows.Forms.CheckBox();
             this.btnBatchProcess = new Krypton.Toolkit.KryptonButton();
+            this.picDownloadDataAsCSV = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.picRefreshBankList = new System.Windows.Forms.PictureBox();
             this.dtSalaryDate = new Krypton.Toolkit.KryptonDateTimePicker();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label29 = new System.Windows.Forms.Label();
             this.cmbSalaryMonth = new Krypton.Toolkit.KryptonComboBox();
             this.label42 = new System.Windows.Forms.Label();
-            this.dtgSalaryDetails = new Krypton.Toolkit.KryptonDataGridView();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.lblNetPayable = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.lblTotalReimbursement = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.lblTotalDeductions = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lblTotalEarnings = new System.Windows.Forms.Label();
             this.txtTotalWorkedDays = new System.Windows.Forms.TextBox();
             this.txtTotalWorkingDays = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -78,20 +95,7 @@
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.picDownloadDataAsCSV = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.picRefreshBankList = new System.Windows.Forms.PictureBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.lblTotalEarnings = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.lblTotalDeductions = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.lblTotalReimbursement = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.lblNetPayable = new System.Windows.Forms.Label();
-            this.lblSalarySummary = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
+            this.lblPFCalcAmount = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -99,13 +103,14 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgSalaryDetails1)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbSalaryMonth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgSalaryDetails)).BeginInit();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDownloadDataAsCSV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRefreshBankList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbSalaryMonth)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -123,8 +128,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1065, 641);
-            this.splitContainer1.SplitterDistance = 578;
+            this.splitContainer1.Size = new System.Drawing.Size(1065, 652);
+            this.splitContainer1.SplitterDistance = 587;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -163,8 +168,30 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1065, 578);
+            this.panel1.Size = new System.Drawing.Size(1065, 587);
             this.panel1.TabIndex = 1;
+            // 
+            // dtgSalaryDetails1
+            // 
+            this.dtgSalaryDetails1.AllowUserToAddRows = false;
+            this.dtgSalaryDetails1.AllowUserToDeleteRows = false;
+            this.dtgSalaryDetails1.AllowUserToResizeRows = false;
+            this.dtgSalaryDetails1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgSalaryDetails1.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgSalaryDetails1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgSalaryDetails1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgSalaryDetails1.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgSalaryDetails1.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgSalaryDetails1.Location = new System.Drawing.Point(1076, 340);
+            this.dtgSalaryDetails1.Margin = new System.Windows.Forms.Padding(4);
+            this.dtgSalaryDetails1.MultiSelect = false;
+            this.dtgSalaryDetails1.Name = "dtgSalaryDetails1";
+            this.dtgSalaryDetails1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgSalaryDetails1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgSalaryDetails1.Size = new System.Drawing.Size(564, 227);
+            this.dtgSalaryDetails1.TabIndex = 46;
+            this.dtgSalaryDetails1.Visible = false;
+            this.dtgSalaryDetails1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryDetails1_CellEndEdit);
             // 
             // txtNetPayable
             // 
@@ -480,28 +507,6 @@
             this.txtLeaveDays.Visible = false;
             this.txtLeaveDays.WordWrap = false;
             // 
-            // dtgSalaryDetails1
-            // 
-            this.dtgSalaryDetails1.AllowUserToAddRows = false;
-            this.dtgSalaryDetails1.AllowUserToDeleteRows = false;
-            this.dtgSalaryDetails1.AllowUserToResizeRows = false;
-            this.dtgSalaryDetails1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dtgSalaryDetails1.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dtgSalaryDetails1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgSalaryDetails1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dtgSalaryDetails1.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.dtgSalaryDetails1.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgSalaryDetails1.Location = new System.Drawing.Point(1076, 340);
-            this.dtgSalaryDetails1.Margin = new System.Windows.Forms.Padding(4);
-            this.dtgSalaryDetails1.MultiSelect = false;
-            this.dtgSalaryDetails1.Name = "dtgSalaryDetails1";
-            this.dtgSalaryDetails1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.dtgSalaryDetails1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgSalaryDetails1.Size = new System.Drawing.Size(564, 227);
-            this.dtgSalaryDetails1.TabIndex = 46;
-            this.dtgSalaryDetails1.Visible = false;
-            this.dtgSalaryDetails1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryDetails1_CellEndEdit);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -518,17 +523,12 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox1.Controls.Add(this.lblPFCalcAmount);
+            this.groupBox1.Controls.Add(this.label17);
+            this.groupBox1.Controls.Add(this.chkExcludeEmpWithPendingAdvances);
             this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.lblSalarySummary);
-            this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.lblNetPayable);
             this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.label15);
-            this.groupBox1.Controls.Add(this.lblTotalReimbursement);
-            this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Controls.Add(this.lblTotalDeductions);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.lblTotalEarnings);
             this.groupBox1.Controls.Add(this.dtgSalaryDetails);
             this.groupBox1.Controls.Add(this.chkFlipOnOff);
             this.groupBox1.Controls.Add(this.label10);
@@ -542,38 +542,119 @@
             this.groupBox1.Controls.Add(this.label29);
             this.groupBox1.Controls.Add(this.cmbSalaryMonth);
             this.groupBox1.Controls.Add(this.label42);
+            this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.groupBox1.Location = new System.Drawing.Point(16, 10);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(1032, 557);
+            this.groupBox1.Size = new System.Drawing.Size(1032, 566);
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
             // 
+            // label17
+            // 
+            this.label17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(9, 380);
+            this.label17.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(400, 22);
+            this.label17.TabIndex = 102;
+            this.label17.Text = "💡 Tip: Double-click an employee row to review or update salary details.";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // chkExcludeEmpWithPendingAdvances
+            // 
+            this.errValidator.SetIconAlignment(this.chkExcludeEmpWithPendingAdvances, System.Windows.Forms.ErrorIconAlignment.MiddleLeft);
+            this.chkExcludeEmpWithPendingAdvances.Location = new System.Drawing.Point(575, 380);
+            this.chkExcludeEmpWithPendingAdvances.Name = "chkExcludeEmpWithPendingAdvances";
+            this.chkExcludeEmpWithPendingAdvances.Size = new System.Drawing.Size(439, 22);
+            this.chkExcludeEmpWithPendingAdvances.TabIndex = 100;
+            this.chkExcludeEmpWithPendingAdvances.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.chkExcludeEmpWithPendingAdvances.Values.Text = "☐ Show Salary Summary excluding employees who have Pending Advances";
+            this.chkExcludeEmpWithPendingAdvances.Click += new System.EventHandler(this.chkExcludeEmpWithPendingAdvances_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(678, 482);
+            this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(111, 15);
+            this.label16.TabIndex = 98;
+            this.label16.Text = "Salary Summary";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblSalarySummary
+            // 
+            this.lblSalarySummary.AutoSize = true;
+            this.lblSalarySummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSalarySummary.Location = new System.Drawing.Point(678, 500);
+            this.lblSalarySummary.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblSalarySummary.Name = "lblSalarySummary";
+            this.lblSalarySummary.Size = new System.Drawing.Size(145, 15);
+            this.lblSalarySummary.TabIndex = 97;
+            this.lblSalarySummary.Text = "Employees loaded : 0";
+            this.lblSalarySummary.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(10, 482);
+            this.label12.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(45, 15);
+            this.label12.TabIndex = 94;
+            this.label12.Text = "Note :";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // dtgSalaryDetails
+            // 
+            this.dtgSalaryDetails.AllowUserToAddRows = false;
+            this.dtgSalaryDetails.AllowUserToDeleteRows = false;
+            this.dtgSalaryDetails.AllowUserToResizeRows = false;
+            this.dtgSalaryDetails.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgSalaryDetails.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgSalaryDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgSalaryDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dtgSalaryDetails.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgSalaryDetails.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgSalaryDetails.Location = new System.Drawing.Point(15, 96);
+            this.dtgSalaryDetails.Margin = new System.Windows.Forms.Padding(4);
+            this.dtgSalaryDetails.MultiSelect = false;
+            this.dtgSalaryDetails.Name = "dtgSalaryDetails";
+            this.dtgSalaryDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgSalaryDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgSalaryDetails.Size = new System.Drawing.Size(998, 280);
+            this.dtgSalaryDetails.TabIndex = 44;
+            this.dtgSalaryDetails.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dtgSalaryDetails_CellBeginEdit);
+            this.dtgSalaryDetails.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryDetails_CellDoubleClick);
+            this.dtgSalaryDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryDetails_CellEndEdit);
+            this.dtgSalaryDetails.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryDetails_CellValueChanged);
+            this.dtgSalaryDetails.CurrentCellDirtyStateChanged += new System.EventHandler(this.dtgSalaryDetails_CurrentCellDirtyStateChanged);
+            // 
             // chkFlipOnOff
             // 
-            this.chkFlipOnOff.AutoSize = true;
             this.errValidator.SetIconAlignment(this.chkFlipOnOff, System.Windows.Forms.ErrorIconAlignment.MiddleLeft);
-            this.chkFlipOnOff.Location = new System.Drawing.Point(210, 65);
+            this.chkFlipOnOff.Location = new System.Drawing.Point(194, 66);
             this.chkFlipOnOff.Name = "chkFlipOnOff";
-            this.chkFlipOnOff.Size = new System.Drawing.Size(126, 36);
+            this.chkFlipOnOff.Size = new System.Drawing.Size(142, 28);
             this.chkFlipOnOff.TabIndex = 87;
             this.chkFlipOnOff.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.chkFlipOnOff.Values.Image = global::StaffSync.Properties.Resources.flip1;
             this.chkFlipOnOff.Values.Text = "Invert Selection";
             this.chkFlipOnOff.Click += new System.EventHandler(this.chkFlipOnOff_Click);
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.SystemColors.Info;
             this.label10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(10, 474);
+            this.label10.Location = new System.Drawing.Point(10, 500);
             this.label10.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(551, 30);
+            this.label10.Size = new System.Drawing.Size(567, 30);
             this.label10.TabIndex = 86;
             this.label10.Text = "⚠ Some employees have pending advances, so they cannot be included in batch salar" +
     "y processing.\nPlease complete individual salary processing for those employees t" +
@@ -584,8 +665,10 @@
             // 
             this.chkSelectUnSelect.AutoSize = true;
             this.chkSelectUnSelect.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkSelectUnSelect.Checked = true;
+            this.chkSelectUnSelect.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSelectUnSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkSelectUnSelect.Location = new System.Drawing.Point(10, 71);
+            this.chkSelectUnSelect.Location = new System.Drawing.Point(12, 71);
             this.chkSelectUnSelect.Name = "chkSelectUnSelect";
             this.chkSelectUnSelect.Size = new System.Drawing.Size(160, 19);
             this.chkSelectUnSelect.TabIndex = 75;
@@ -604,6 +687,43 @@
             this.btnBatchProcess.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnBatchProcess.Values.Text = "Initate Batch Process";
             this.btnBatchProcess.Click += new System.EventHandler(this.btnBatchProcess_Click);
+            // 
+            // picDownloadDataAsCSV
+            // 
+            this.picDownloadDataAsCSV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picDownloadDataAsCSV.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picDownloadDataAsCSV.Image = global::StaffSync.Properties.Resources.download01;
+            this.picDownloadDataAsCSV.Location = new System.Drawing.Point(942, 70);
+            this.picDownloadDataAsCSV.Name = "picDownloadDataAsCSV";
+            this.picDownloadDataAsCSV.Size = new System.Drawing.Size(21, 20);
+            this.picDownloadDataAsCSV.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picDownloadDataAsCSV.TabIndex = 61;
+            this.picDownloadDataAsCSV.TabStop = false;
+            this.picDownloadDataAsCSV.Click += new System.EventHandler(this.picDownloadDataAsCSV_Click);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox4.Image = global::StaffSync.Properties.Resources.mail01;
+            this.pictureBox4.Location = new System.Drawing.Point(965, 69);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(23, 22);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 60;
+            this.pictureBox4.TabStop = false;
+            // 
+            // picRefreshBankList
+            // 
+            this.picRefreshBankList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picRefreshBankList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picRefreshBankList.Image = global::StaffSync.Properties.Resources.refresh01;
+            this.picRefreshBankList.Location = new System.Drawing.Point(990, 69);
+            this.picRefreshBankList.Name = "picRefreshBankList";
+            this.picRefreshBankList.Size = new System.Drawing.Size(23, 22);
+            this.picRefreshBankList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRefreshBankList.TabIndex = 59;
+            this.picRefreshBankList.TabStop = false;
             // 
             // dtSalaryDate
             // 
@@ -663,29 +783,118 @@
             this.label42.Text = "Salary Month";
             this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // dtgSalaryDetails
+            // groupBox3
             // 
-            this.dtgSalaryDetails.AllowUserToAddRows = false;
-            this.dtgSalaryDetails.AllowUserToDeleteRows = false;
-            this.dtgSalaryDetails.AllowUserToResizeRows = false;
-            this.dtgSalaryDetails.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dtgSalaryDetails.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dtgSalaryDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgSalaryDetails.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dtgSalaryDetails.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.dtgSalaryDetails.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgSalaryDetails.Location = new System.Drawing.Point(15, 96);
-            this.dtgSalaryDetails.Margin = new System.Windows.Forms.Padding(4);
-            this.dtgSalaryDetails.MultiSelect = false;
-            this.dtgSalaryDetails.Name = "dtgSalaryDetails";
-            this.dtgSalaryDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.dtgSalaryDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgSalaryDetails.Size = new System.Drawing.Size(998, 303);
-            this.dtgSalaryDetails.TabIndex = 44;
-            this.dtgSalaryDetails.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dtgSalaryDetails_CellBeginEdit);
-            this.dtgSalaryDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryDetails_CellEndEdit);
-            this.dtgSalaryDetails.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryDetails_CellValueChanged);
-            this.dtgSalaryDetails.CurrentCellDirtyStateChanged += new System.EventHandler(this.dtgSalaryDetails_CurrentCellDirtyStateChanged);
+            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Controls.Add(this.lblNetPayable);
+            this.groupBox3.Controls.Add(this.label15);
+            this.groupBox3.Controls.Add(this.lblTotalReimbursement);
+            this.groupBox3.Controls.Add(this.label14);
+            this.groupBox3.Controls.Add(this.lblTotalDeductions);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.lblTotalEarnings);
+            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox3.Location = new System.Drawing.Point(15, 389);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(998, 67);
+            this.groupBox3.TabIndex = 101;
+            this.groupBox3.TabStop = false;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(783, 39);
+            this.label13.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(84, 15);
+            this.label13.TabIndex = 104;
+            this.label13.Text = "Net Payable";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblNetPayable
+            // 
+            this.lblNetPayable.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblNetPayable.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNetPayable.Location = new System.Drawing.Point(870, 35);
+            this.lblNetPayable.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblNetPayable.Name = "lblNetPayable";
+            this.lblNetPayable.Size = new System.Drawing.Size(130, 22);
+            this.lblNetPayable.TabIndex = 103;
+            this.lblNetPayable.Text = "0.00";
+            this.lblNetPayable.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(497, 39);
+            this.label15.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(145, 15);
+            this.label15.TabIndex = 102;
+            this.label15.Text = "Reimbursement Total";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblTotalReimbursement
+            // 
+            this.lblTotalReimbursement.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblTotalReimbursement.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalReimbursement.Location = new System.Drawing.Point(646, 35);
+            this.lblTotalReimbursement.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblTotalReimbursement.Name = "lblTotalReimbursement";
+            this.lblTotalReimbursement.Size = new System.Drawing.Size(130, 22);
+            this.lblTotalReimbursement.TabIndex = 101;
+            this.lblTotalReimbursement.Text = "0.00";
+            this.lblTotalReimbursement.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(245, 39);
+            this.label14.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(115, 15);
+            this.label14.TabIndex = 100;
+            this.label14.Text = "Deductions Total";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblTotalDeductions
+            // 
+            this.lblTotalDeductions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblTotalDeductions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalDeductions.Location = new System.Drawing.Point(362, 35);
+            this.lblTotalDeductions.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblTotalDeductions.Name = "lblTotalDeductions";
+            this.lblTotalDeductions.Size = new System.Drawing.Size(130, 22);
+            this.lblTotalDeductions.TabIndex = 99;
+            this.lblTotalDeductions.Text = "0.00";
+            this.lblTotalDeductions.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(-1, 39);
+            this.label11.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(100, 15);
+            this.label11.TabIndex = 98;
+            this.label11.Text = "Earnings Total";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblTotalEarnings
+            // 
+            this.lblTotalEarnings.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblTotalEarnings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalEarnings.Location = new System.Drawing.Point(102, 35);
+            this.lblTotalEarnings.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblTotalEarnings.Name = "lblTotalEarnings";
+            this.lblTotalEarnings.Size = new System.Drawing.Size(130, 22);
+            this.lblTotalEarnings.TabIndex = 97;
+            this.lblTotalEarnings.Text = "0.00";
+            this.lblTotalEarnings.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtTotalWorkedDays
             // 
@@ -742,7 +951,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1065, 58);
+            this.panel2.Size = new System.Drawing.Size(1065, 60);
             this.panel2.TabIndex = 1;
             // 
             // btnCancel
@@ -815,6 +1024,7 @@
             // 
             // btnGenerateDetails
             // 
+            this.btnGenerateDetails.Enabled = false;
             this.btnGenerateDetails.Location = new System.Drawing.Point(31, 12);
             this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerateDetails.Name = "btnGenerateDetails";
@@ -830,180 +1040,23 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
-            // picDownloadDataAsCSV
+            // lblPFCalcAmount
             // 
-            this.picDownloadDataAsCSV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picDownloadDataAsCSV.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picDownloadDataAsCSV.Image = global::StaffSync.Properties.Resources.download01;
-            this.picDownloadDataAsCSV.Location = new System.Drawing.Point(942, 70);
-            this.picDownloadDataAsCSV.Name = "picDownloadDataAsCSV";
-            this.picDownloadDataAsCSV.Size = new System.Drawing.Size(21, 20);
-            this.picDownloadDataAsCSV.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picDownloadDataAsCSV.TabIndex = 61;
-            this.picDownloadDataAsCSV.TabStop = false;
-            this.picDownloadDataAsCSV.Click += new System.EventHandler(this.picDownloadDataAsCSV_Click);
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox4.Image = global::StaffSync.Properties.Resources.mail01;
-            this.pictureBox4.Location = new System.Drawing.Point(965, 69);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(23, 22);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 60;
-            this.pictureBox4.TabStop = false;
-            // 
-            // picRefreshBankList
-            // 
-            this.picRefreshBankList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picRefreshBankList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picRefreshBankList.Image = global::StaffSync.Properties.Resources.refresh01;
-            this.picRefreshBankList.Location = new System.Drawing.Point(990, 69);
-            this.picRefreshBankList.Name = "picRefreshBankList";
-            this.picRefreshBankList.Size = new System.Drawing.Size(23, 22);
-            this.picRefreshBankList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picRefreshBankList.TabIndex = 59;
-            this.picRefreshBankList.TabStop = false;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(12, 410);
-            this.label11.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(100, 15);
-            this.label11.TabIndex = 89;
-            this.label11.Text = "Earnings Total";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblTotalEarnings
-            // 
-            this.lblTotalEarnings.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblTotalEarnings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalEarnings.Location = new System.Drawing.Point(115, 406);
-            this.lblTotalEarnings.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblTotalEarnings.Name = "lblTotalEarnings";
-            this.lblTotalEarnings.Size = new System.Drawing.Size(130, 22);
-            this.lblTotalEarnings.TabIndex = 88;
-            this.lblTotalEarnings.Text = "0.00";
-            this.lblTotalEarnings.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(258, 410);
-            this.label14.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(115, 15);
-            this.label14.TabIndex = 91;
-            this.label14.Text = "Deductions Total";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblTotalDeductions
-            // 
-            this.lblTotalDeductions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblTotalDeductions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalDeductions.Location = new System.Drawing.Point(375, 406);
-            this.lblTotalDeductions.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblTotalDeductions.Name = "lblTotalDeductions";
-            this.lblTotalDeductions.Size = new System.Drawing.Size(130, 22);
-            this.lblTotalDeductions.TabIndex = 90;
-            this.lblTotalDeductions.Text = "0.00";
-            this.lblTotalDeductions.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(510, 410);
-            this.label15.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(145, 15);
-            this.label15.TabIndex = 93;
-            this.label15.Text = "Reimbursement Total";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblTotalReimbursement
-            // 
-            this.lblTotalReimbursement.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblTotalReimbursement.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalReimbursement.Location = new System.Drawing.Point(659, 406);
-            this.lblTotalReimbursement.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblTotalReimbursement.Name = "lblTotalReimbursement";
-            this.lblTotalReimbursement.Size = new System.Drawing.Size(130, 22);
-            this.lblTotalReimbursement.TabIndex = 92;
-            this.lblTotalReimbursement.Text = "0.00";
-            this.lblTotalReimbursement.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(10, 456);
-            this.label12.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(45, 15);
-            this.label12.TabIndex = 94;
-            this.label12.Text = "Note :";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(796, 410);
-            this.label13.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(84, 15);
-            this.label13.TabIndex = 96;
-            this.label13.Text = "Net Payable";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblNetPayable
-            // 
-            this.lblNetPayable.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblNetPayable.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNetPayable.Location = new System.Drawing.Point(883, 406);
-            this.lblNetPayable.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblNetPayable.Name = "lblNetPayable";
-            this.lblNetPayable.Size = new System.Drawing.Size(130, 22);
-            this.lblNetPayable.TabIndex = 95;
-            this.lblNetPayable.Text = "0.00";
-            this.lblNetPayable.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblSalarySummary
-            // 
-            this.lblSalarySummary.AutoSize = true;
-            this.lblSalarySummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSalarySummary.Location = new System.Drawing.Point(678, 474);
-            this.lblSalarySummary.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblSalarySummary.Name = "lblSalarySummary";
-            this.lblSalarySummary.Size = new System.Drawing.Size(145, 15);
-            this.lblSalarySummary.TabIndex = 97;
-            this.lblSalarySummary.Text = "Employees loaded : 0";
-            this.lblSalarySummary.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(678, 456);
-            this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(111, 15);
-            this.label16.TabIndex = 98;
-            this.label16.Text = "Salary Summary";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblPFCalcAmount.AutoSize = true;
+            this.lblPFCalcAmount.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblPFCalcAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPFCalcAmount.Location = new System.Drawing.Point(566, 66);
+            this.lblPFCalcAmount.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblPFCalcAmount.Name = "lblPFCalcAmount";
+            this.lblPFCalcAmount.Size = new System.Drawing.Size(11, 15);
+            this.lblPFCalcAmount.TabIndex = 106;
+            this.lblPFCalcAmount.Text = " ";
             // 
             // frmPayrollBatchProcess
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1065, 641);
+            this.ClientSize = new System.Drawing.Size(1065, 652);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1028,13 +1081,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgSalaryDetails1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbSalaryMonth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgSalaryDetails)).EndInit();
-            this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picDownloadDataAsCSV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRefreshBankList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbSalaryMonth)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1092,16 +1147,20 @@
         private System.Windows.Forms.CheckBox chkSelectUnSelect;
         private System.Windows.Forms.Label label10;
         private Krypton.Toolkit.KryptonCheckButton chkFlipOnOff;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label lblSalarySummary;
+        private Krypton.Toolkit.KryptonCheckButton chkExcludeEmpWithPendingAdvances;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblNetPayable;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label lblTotalReimbursement;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label lblTotalDeductions;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblTotalEarnings;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label lblNetPayable;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label lblSalarySummary;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label lblPFCalcAmount;
     }
 }

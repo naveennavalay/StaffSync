@@ -13,6 +13,11 @@ namespace DALStaffSync
     {
         dbStaffSync.clsAdvanceTransaction objAdvanceTransaction = new dbStaffSync.clsAdvanceTransaction();
 
+        public int getEmployeeAdvancePendingCount(int txtEmpID)
+        {
+            return objAdvanceTransaction.getEmployeeAdvancePendingCount(txtEmpID);
+        }
+
         public bool IsAdvanceAlreadyExist(int txtEmpPersonalInfoID)
         { 
             return objAdvanceTransaction.IsAdvanceAlreadyExist(txtEmpPersonalInfoID);

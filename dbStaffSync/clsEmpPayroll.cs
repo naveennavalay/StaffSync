@@ -294,7 +294,7 @@ namespace dbStaffSync
             return MasterInfoFound;
         }
 
-        public int InsertEmployeeSalaryMasterInfo(int txtEmpID, DateTime txtSalaryDate, string txtSalaryMonthYear, decimal txtTotalWorkingDays, decimal txtTotalWorkedDays, decimal txtTotalLeavesTaken, decimal txtTotalUnpaidDaysLeave, decimal txtTotalPayableDays, decimal txtBasicPay, decimal txtBasicPerDay, decimal txtBasicPerHour, decimal txtTotalAllowance, decimal txtTotalDeduction, decimal txtTotalReimbursement, decimal txtNetPayableAmount, bool boolStructureEntry)
+        public int InsertEmployeeSalaryMasterInfo(int txtEmpID, DateTime txtSalaryDate, string txtSalaryMonthYear, decimal txtTotalWorkingDays, decimal txtTotalWorkedDays, decimal txtTotalLeavesTaken, decimal txtTotalUnpaidDaysLeave, decimal txtTotalPayableDays, decimal txtBasicPay, decimal txtBasicPerDay, decimal txtBasicPerHour, decimal txtTotalAllowance, decimal txtTotalDeduction, decimal txtTotalReimbursement, decimal txtPFCalculatedAmount, decimal txtNetPayableAmount, bool boolStructureEntry)
         {
             int affectedRows = 0;
             try
@@ -307,8 +307,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO EmpSalMas (EmpSalID, EmpID, EmpSalDate, EmpSalMonthYear, TotalDaysInMonth, TotalDaysWorked, TotalDaysOnLeave, TotalUnpaidDaysLeave, TotalPayableDays, BasicPay, BasicPerDay, BasicPerHour, TotalAllowance, TotalDeduction, TotalReimbursement, NetPayable, OrderID, StructureEntry) VALUES " +
-                 "(" + maxRowCount.Data + "," + txtEmpID + ",'" + txtSalaryDate.ToString("dd-MMM-yyyy") + "','" + txtSalaryMonthYear + "'," + txtTotalWorkingDays + "," + txtTotalWorkedDays + "," + txtTotalLeavesTaken + "," + txtTotalUnpaidDaysLeave + "," + txtTotalPayableDays + "," + txtBasicPay  + "," + txtBasicPerDay + "," + txtBasicPerHour + "," + txtTotalAllowance + "," + txtTotalDeduction + "," + txtTotalReimbursement + "," + txtNetPayableAmount  + "," + OrderID.Data + ", " + boolStructureEntry + ")";
+                string strQuery = "INSERT INTO EmpSalMas (EmpSalID, EmpID, EmpSalDate, EmpSalMonthYear, TotalDaysInMonth, TotalDaysWorked, TotalDaysOnLeave, TotalUnpaidDaysLeave, TotalPayableDays, BasicPay, BasicPerDay, BasicPerHour, TotalAllowance, TotalDeduction, TotalReimbursement, PFCalculatedAmount, NetPayable, OrderID, StructureEntry) VALUES " +
+                 "(" + maxRowCount.Data + "," + txtEmpID + ",'" + txtSalaryDate.ToString("dd-MMM-yyyy") + "','" + txtSalaryMonthYear + "'," + txtTotalWorkingDays + "," + txtTotalWorkedDays + "," + txtTotalLeavesTaken + "," + txtTotalUnpaidDaysLeave + "," + txtTotalPayableDays + "," + txtBasicPay  + "," + txtBasicPerDay + "," + txtBasicPerHour + "," + txtTotalAllowance + "," + txtTotalDeduction + "," + txtTotalReimbursement + "," + txtPFCalculatedAmount + "," + txtNetPayableAmount + "," + OrderID.Data + ", " + boolStructureEntry + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -329,7 +329,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpdateEmployeeSalaryMasterInfo(int txtEmpSalID, int txtEmpID, DateTime txtSalaryDate, string txtSalaryMonthYear, decimal txtTotalWorkingDays, decimal txtTotalWorkedDays, decimal txtTotalLeavesTaken, decimal txtTotalUnpaidDaysLeave, decimal txtTotalPayableDays, decimal txtBasicPay, decimal txtBasicPerDay, decimal txtBasicPerHour, decimal txtTotalAllowance, decimal txtTotalDeduction, decimal txtTotalReimbursement, decimal txtNetPayableAmount, bool boolStructureEntry)
+        public int UpdateEmployeeSalaryMasterInfo(int txtEmpSalID, int txtEmpID, DateTime txtSalaryDate, string txtSalaryMonthYear, decimal txtTotalWorkingDays, decimal txtTotalWorkedDays, decimal txtTotalLeavesTaken, decimal txtTotalUnpaidDaysLeave, decimal txtTotalPayableDays, decimal txtBasicPay, decimal txtBasicPerDay, decimal txtBasicPerHour, decimal txtTotalAllowance, decimal txtTotalDeduction, decimal txtTotalReimbursement, decimal txtPFCalculatedAmount, decimal txtNetPayableAmount, bool boolStructureEntry)
         {
             int affectedRows = 0;
             try
@@ -339,8 +339,8 @@ namespace dbStaffSync
 
                 string strQuery = "UPDATE EmpSalMas SET EmpSalDate = '" + txtSalaryDate.ToString("dd-MMM-yyyy") + "', EmpSalMonthYear = '" + txtSalaryMonthYear + "', TotalDaysInMonth = " + txtTotalWorkingDays + ", " +
                     " TotalDaysWorked = " + txtTotalWorkedDays + ", TotalDaysOnLeave = " + txtTotalLeavesTaken + ", TotalUnpaidDaysLeave = " + txtTotalUnpaidDaysLeave + ", TotalPayableDays = " + txtTotalPayableDays + ", " +
-                    " BasicPay = " + txtBasicPay + ", BasicPerDay = " + txtBasicPerDay + ", BasicPerHour = " + txtBasicPerDay + ", " +
-                    " TotalAllowance = " + txtTotalAllowance + ", TotalDeduction = " + txtTotalDeduction + ", TotalReimbursement = " + txtTotalReimbursement +  ", NetPayable = " + txtNetPayableAmount + ", StructureEntry = " + boolStructureEntry +
+                    " BasicPay = " + txtBasicPay + ", BasicPerDay = " + txtBasicPerDay + ", BasicPerHour = " + txtBasicPerHour + ", " +
+                    " TotalAllowance = " + txtTotalAllowance + ", TotalDeduction = " + txtTotalDeduction + ", TotalReimbursement = " + txtTotalReimbursement + ", PFCalculatedAmount = " + txtPFCalculatedAmount + ", NetPayable = " + txtNetPayableAmount + ", StructureEntry = " + boolStructureEntry +
                     " WHERE EmpSalID = " + txtEmpSalID;
 
                 OleDbCommand cmd = conn.CreateCommand();

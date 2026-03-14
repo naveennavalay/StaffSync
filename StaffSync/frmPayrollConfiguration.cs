@@ -206,7 +206,7 @@ namespace StaffSync
 
             if (lblActionMode.Text == "add")
             {
-                empSalaryID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblReportingManagerID.Text.Trim()), Convert.ToDateTime(txtSalaryDate.Text), cmbSalaryMonth.Text, 0, 0, 0, 0, 0, 0, 0, 0,  Convert.ToDecimal(txtAallowences.Text).RoundUp(), Convert.ToDecimal(txtDeductions.Text).RoundUp(), Convert.ToDecimal(txtReimbursement.Text).RoundUp(), Convert.ToDecimal(txtNetPayable.Text).RoundUp(), true);
+                empSalaryID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblReportingManagerID.Text.Trim()), Convert.ToDateTime(txtSalaryDate.Text), cmbSalaryMonth.Text, 0, 0, 0, 0, 0, 0, 0, 0,  Convert.ToDecimal(txtAallowences.Text).RoundUp(), Convert.ToDecimal(txtDeductions.Text).RoundUp(), Convert.ToDecimal(txtReimbursement.Text).RoundUp(), Convert.ToDecimal(lblPFCalcAmount.Text), Convert.ToDecimal(txtNetPayable.Text).RoundUp(), true);
                 foreach (DataGridViewRow dc in dtgSalaryDetails.Rows)
                 {
                     int EmpSalDetID = objEmployeePayroll.InsertEmployeeSalaryDetailsInfo(Convert.ToInt16(empSalaryID), Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), dc.Cells["HeaderTitle"].Value.ToString(), dc.Cells["HeaderType"].Value.ToString(), dc.Cells["CalcFormula"].Value.ToString(), Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()).RoundUp(), Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()).RoundUp(), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()).RoundUp(), iRowCounter);
@@ -218,7 +218,7 @@ namespace StaffSync
             }
             else if (lblActionMode.Text == "modify")
             {
-                empSalaryID = objEmployeePayroll.UpdateEmployeeSalaryMasterInfo(Convert.ToInt16(lblEmpSalID.Text.Trim()), Convert.ToInt16(lblReportingManagerID.Text.Trim()), Convert.ToDateTime(txtSalaryDate.Text), cmbSalaryMonth.Text, 0, 0, 0, 0, 0, 0, 0, 0, Convert.ToDecimal(txtAallowences.Text), Convert.ToDecimal(txtDeductions.Text), Convert.ToDecimal(txtReimbursement.Text), Convert.ToDecimal(txtNetPayable.Text), true);
+                empSalaryID = objEmployeePayroll.UpdateEmployeeSalaryMasterInfo(Convert.ToInt16(lblEmpSalID.Text.Trim()), Convert.ToInt16(lblReportingManagerID.Text.Trim()), Convert.ToDateTime(txtSalaryDate.Text), cmbSalaryMonth.Text, 0, 0, 0, 0, 0, 0, 0, 0, Convert.ToDecimal(txtAallowences.Text), Convert.ToDecimal(txtDeductions.Text), Convert.ToDecimal(txtReimbursement.Text), Convert.ToDecimal(lblPFCalcAmount.Text.ToString()).RoundUp(), Convert.ToDecimal(txtNetPayable.Text), true);
                 foreach (DataGridViewRow dc in dtgSalaryDetails.Rows)
                 {
                     int EmpSalDetID = objEmployeePayroll.UpdateEmployeeSalaryDetailsInfo(Convert.ToInt16(dc.Cells["EmpSalDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["EmpSalID"].Value.ToString()), Convert.ToInt16(dc.Cells["SalProDetID"].Value.ToString()), Convert.ToInt16(dc.Cells["HeaderID"].Value.ToString()), dc.Cells["HeaderTitle"].Value.ToString(), dc.Cells["HeaderType"].Value.ToString(), dc.Cells["CalcFormula"].Value.ToString(), Convert.ToDecimal(dc.Cells["AllowanceAmount"].Value.ToString()).RoundUp(), Convert.ToDecimal(dc.Cells["DeductionAmount"].Value.ToString()).RoundUp(), Convert.ToDecimal(dc.Cells["ReimbursmentAmount"].Value.ToString()).RoundUp(), Convert.ToInt16(dc.Cells["OrderID"].Value.ToString()));

@@ -22,6 +22,7 @@ namespace ModelStaffSync
         public decimal TotalAllowance { get; set; }
         public decimal TotalDeduction { get; set; }
         public decimal TotalReimbursement { get; set; }
+        public decimal PFCalculatedAmount { get; set; }
         public decimal NetPayable { get; set; }
         public int OrderID { get; set; }
         public bool StructureEntry {  get; set; }

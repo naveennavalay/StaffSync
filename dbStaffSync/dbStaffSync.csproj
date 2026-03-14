@@ -54,6 +54,7 @@
     <Compile Include="clsAdvanceTypeMas.cs" />
     <Compile Include="clsClientSignatoryInfo.cs" />
     <Compile Include="clsDashboardWidgetData.cs" />
+    <Compile Include="clsEmployeeStateInsurance.cs" />
     <Compile Include="clsProvidentFundCalculation.cs" />
     <Compile Include="clsProfessionalTaxCalculation.cs" />
     <Compile Include="clsAuditLog.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="clsShiftMas.cs" />
     <Compile Include="clsSkillsMas.cs" />
     <Compile Include="clsStates.cs" />
+    <Compile Include="clsEmployerContributionInfo.cs" />
     <Compile Include="clsTaxMas.cs" />
     <Compile Include="clsUploadDocuments.cs" />
     <Compile Include="clsUserManagement.cs" />
