@@ -151,6 +151,7 @@
             this.dtgLeaveStatement.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgLeaveStatement.Size = new System.Drawing.Size(880, 200);
             this.dtgLeaveStatement.TabIndex = 47;
+            this.dtgLeaveStatement.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgLeaveStatement_Paint);
             // 
             // picDownloadLeaveTRList
             // 

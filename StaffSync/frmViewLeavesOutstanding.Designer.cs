@@ -208,6 +208,7 @@
             this.dtgOutstandingLeaveInfo.Size = new System.Drawing.Size(790, 286);
             this.dtgOutstandingLeaveInfo.TabIndex = 59;
             this.dtgOutstandingLeaveInfo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgOutstandingLeaveInfo_CellDoubleClick);
+            this.dtgOutstandingLeaveInfo.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgOutstandingLeaveInfo_Paint);
             // 
             // txtTotalUtilised
             // 

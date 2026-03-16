@@ -31,7 +31,6 @@ namespace dbStaffSync
 
                 OleDbDataAdapter da = new OleDbDataAdapter(cmd);
                 da.Fill(dt);
-
             }
             catch (Exception ex)
             {
@@ -90,7 +89,10 @@ namespace dbStaffSync
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
-                selectedStateID = (int)cmd.ExecuteScalar();
+                object a = cmd.ExecuteScalar();
+                if (a != null)
+                    selectedStateID = (int)a;
+                //selectedStateID = (int)cmd.ExecuteScalar();
             }
             catch (Exception ex)
             {

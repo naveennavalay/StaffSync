@@ -157,6 +157,7 @@
             this.dtgAdvanceRequestersList.Size = new System.Drawing.Size(1104, 286);
             this.dtgAdvanceRequestersList.TabIndex = 59;
             this.dtgAdvanceRequestersList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAdvanceRequestersList_CellDoubleClick);
+            this.dtgAdvanceRequestersList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAdvanceRequestersList_Paint);
             // 
             // panel2
             // 

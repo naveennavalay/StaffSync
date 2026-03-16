@@ -120,6 +120,7 @@
             this.dtgConsolidatedLeaveStatement.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgConsolidatedLeaveStatement.Size = new System.Drawing.Size(1254, 344);
             this.dtgConsolidatedLeaveStatement.TabIndex = 59;
+            this.dtgConsolidatedLeaveStatement.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgConsolidatedLeaveStatement_Paint);
             this.dtgConsolidatedLeaveStatement.DoubleClick += new System.EventHandler(this.dtgRejectionLeaveList_DoubleClick);
             // 
             // panel2

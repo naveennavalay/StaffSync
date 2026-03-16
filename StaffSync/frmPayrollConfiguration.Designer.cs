@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblPFCalcAmount = new System.Windows.Forms.Label();
             this.chkAutoCalculate = new System.Windows.Forms.CheckBox();
             this.lblBasicSalaryPerHour = new System.Windows.Forms.Label();
             this.lblBasicSalaryPerDay = new System.Windows.Forms.Label();
@@ -78,7 +79,6 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lblPFCalcAmount = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -159,6 +159,18 @@
             this.groupBox1.Size = new System.Drawing.Size(1032, 443);
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
+            // 
+            // lblPFCalcAmount
+            // 
+            this.lblPFCalcAmount.AutoSize = true;
+            this.lblPFCalcAmount.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblPFCalcAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPFCalcAmount.Location = new System.Drawing.Point(841, 21);
+            this.lblPFCalcAmount.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblPFCalcAmount.Name = "lblPFCalcAmount";
+            this.lblPFCalcAmount.Size = new System.Drawing.Size(11, 15);
+            this.lblPFCalcAmount.TabIndex = 107;
+            this.lblPFCalcAmount.Text = " ";
             // 
             // chkAutoCalculate
             // 
@@ -467,6 +479,7 @@
             this.dtgSalaryDetails.TabIndex = 45;
             this.dtgSalaryDetails.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dtgSalaryDetails_CellBeginEdit);
             this.dtgSalaryDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryDetails_CellEndEdit);
+            this.dtgSalaryDetails.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgSalaryDetails_Paint);
             // 
             // groupBox8
             // 
@@ -816,18 +829,6 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
-            // 
-            // lblPFCalcAmount
-            // 
-            this.lblPFCalcAmount.AutoSize = true;
-            this.lblPFCalcAmount.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblPFCalcAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPFCalcAmount.Location = new System.Drawing.Point(841, 21);
-            this.lblPFCalcAmount.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblPFCalcAmount.Name = "lblPFCalcAmount";
-            this.lblPFCalcAmount.Size = new System.Drawing.Size(11, 15);
-            this.lblPFCalcAmount.TabIndex = 107;
-            this.lblPFCalcAmount.Text = " ";
             // 
             // frmPayrollConfiguration
             // 

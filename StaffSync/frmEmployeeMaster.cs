@@ -58,6 +58,7 @@ namespace StaffSync
         DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
         DALStaffSync.clsClientStatutory objClientStatutory = new DALStaffSync.clsClientStatutory();
+        DALStaffSync.clsProfessionalTaxCalculation objProfessionalTaxSlab = new DALStaffSync.clsProfessionalTaxCalculation();
         //Download objDownload = new Download();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         DALStaffSync.clsUploadDocuments objUploadedDocuments = new DALStaffSync.clsUploadDocuments();
@@ -639,6 +640,9 @@ namespace StaffSync
 
             chkNationalPensionScheme.Checked = false;
             txtNPSNumber.Text = "";
+
+            picCurrentState.Visible = false;
+            picPermState.Visible = false;
 
             RefreshFamilyMembersInformation();
         }
@@ -1557,6 +1561,17 @@ namespace StaffSync
                 errValidator.SetError(this.txtEmployeeMailID, "Enter a valid email address.");
             }
 
+            if(picCurrentState.Visible == true)
+            {
+                validationStatus = false;
+                errValidator.SetError(this.picCurrentState, "The Professional Tax slab for the selected state has not yet been configured.\nContinuing without configuration may affect payroll calculations.");
+            }
+            if (picPermState.Visible == true)
+            {
+                validationStatus = false;
+                errValidator.SetError(this.picPermState, "The Professional Tax slab for the selected state has not yet been configured.\nContinuing without configuration may affect payroll calculations.");
+            }
+
             // Permanent Address
             if (string.IsNullOrEmpty(txtPassportIssueDate.Text))
             {
@@ -2424,7 +2439,7 @@ namespace StaffSync
             dtgSalaryProfileDetails.Columns["HeaderID"].Visible = false;
             dtgSalaryProfileDetails.Columns["HeaderTitle"].Width = 350;
             dtgSalaryProfileDetails.Columns["HeaderType"].Width = 150;
-            dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = true;
+            dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = false;
             dtgSalaryProfileDetails.Columns["IsFixed"].Visible = false;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].Width = 150;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
@@ -2540,7 +2555,7 @@ namespace StaffSync
             dtgSalaryProfileDetails.Columns["HeaderID"].Visible = false;
             dtgSalaryProfileDetails.Columns["HeaderTitle"].Width = 350;
             dtgSalaryProfileDetails.Columns["HeaderType"].Width = 150;
-            dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = true;
+            dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = false;
             dtgSalaryProfileDetails.Columns["IsFixed"].Visible = false;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].Width = 150;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
@@ -2938,6 +2953,53 @@ namespace StaffSync
             dtgLeaveEntitlement.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
             dtgPreviousWorkExp.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
             dtgSalaryProfileDetails.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
+
+        private void txtCurrentState_Leave(object sender, EventArgs e)
+        {
+            picCurrentState.Visible = false;
+            picPermState.Visible = false;
+
+            int StateID = objStates.GetStateByTitle(txtCurrentState.Text.ToString().Trim());
+
+            DataTable tmpStateSpecificProfessionalTaxSlabConfigStatus = objProfessionalTaxSlab.getStateSpecificProfessionalTaxSlabList(Convert.ToInt32(objTempClientFinYearInfo.ClientID.ToString()), Convert.ToInt32(StateID));
+            if (tmpStateSpecificProfessionalTaxSlabConfigStatus.Rows.Count <= 0)
+            {
+                picCurrentState.Visible = true;
+                picCurrentState.Image = SystemIcons.Warning.ToBitmap();
+                toolTip1.SetToolTip(picCurrentState, "Slab Not Configured");
+                if (chkSamePerAddAsCurAdd.Checked)
+                {
+                    picPermState.Visible = true;
+                    picPermState.Image = SystemIcons.Warning.ToBitmap();
+                    toolTip1.SetToolTip(picPermState, "Slab Not Configured");
+                }
+                MessageBox.Show("The Professional Tax slab for the selected state has not yet been configured.\nContinuing without configuration may affect payroll calculations.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                picCurrentState.Visible = false;
+            }
+        }
+
+        private void txtPermanentState_Leave(object sender, EventArgs e)
+        {
+            picPermState.Visible = false;
+
+            int StateID = objStates.GetStateByTitle(txtCurrentState.Text.ToString().Trim());
+
+            DataTable tmpStateSpecificProfessionalTaxSlabConfigStatus = objProfessionalTaxSlab.getStateSpecificProfessionalTaxSlabList(Convert.ToInt32(objTempClientFinYearInfo.ClientID.ToString()), Convert.ToInt32(StateID));
+            if (tmpStateSpecificProfessionalTaxSlabConfigStatus.Rows.Count <= 0)
+            {
+                picPermState.Visible = true;
+                picPermState.Image = SystemIcons.Warning.ToBitmap();
+                toolTip1.SetToolTip(picPermState, "Slab Not Configured");
+                MessageBox.Show("The Professional Tax slab for the selected state has not yet been configured.\nContinuing without configuration may affect payroll calculations.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                picCurrentState.Visible = false;
+            }
         }
     }
 }

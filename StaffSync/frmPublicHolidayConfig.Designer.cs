@@ -140,6 +140,7 @@
             this.dtgConsolidatedAttendanceReport.TabIndex = 63;
             this.dtgConsolidatedAttendanceReport.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgConsolidatedAttendanceReport_CellDoubleClick);
             this.dtgConsolidatedAttendanceReport.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dtgConsolidatedAttendanceReport_CellFormatting);
+            this.dtgConsolidatedAttendanceReport.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgConsolidatedAttendanceReport_Paint);
             // 
             // cmbYearlyPublicHoliday
             // 

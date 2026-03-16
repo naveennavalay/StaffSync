@@ -110,6 +110,7 @@
             this.dtgAllowancesList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgAllowancesList.Size = new System.Drawing.Size(1283, 390);
             this.dtgAllowancesList.TabIndex = 7;
+            this.dtgAllowancesList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAllowancesList_Paint);
             this.dtgAllowancesList.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
             // 
             // txtSearch

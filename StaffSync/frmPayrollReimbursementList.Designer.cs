@@ -106,6 +106,7 @@
             this.dtgReimbursementList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgReimbursementList.Size = new System.Drawing.Size(962, 317);
             this.dtgReimbursementList.TabIndex = 7;
+            this.dtgReimbursementList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgReimbursementList_Paint);
             this.dtgReimbursementList.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
             // 
             // txtSearch

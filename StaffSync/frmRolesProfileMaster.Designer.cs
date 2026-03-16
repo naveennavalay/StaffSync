@@ -120,6 +120,7 @@
             this.dtgRoleProfileManagement.Name = "dtgRoleProfileManagement";
             this.dtgRoleProfileManagement.Size = new System.Drawing.Size(1139, 299);
             this.dtgRoleProfileManagement.TabIndex = 33;
+            this.dtgRoleProfileManagement.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgRoleProfileManagement_Paint);
             // 
             // lblActionMode
             // 

@@ -284,6 +284,9 @@
             this.docUploadsTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.DocUploadsTableAdapter();
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.picCurrentState = new System.Windows.Forms.PictureBox();
+            this.picPermState = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -378,6 +381,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.docUploadsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryEmpBirthdayListBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCurrentState)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPermState)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -559,6 +564,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.picPermState);
             this.groupBox3.Controls.Add(this.cmbPermanentCountry);
             this.groupBox3.Controls.Add(this.txtPermanentPIN);
             this.groupBox3.Controls.Add(this.txtPermanentState);
@@ -622,6 +628,7 @@
             this.txtPermanentState.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPermanentState.TabIndex = 37;
             this.txtPermanentState.WordWrap = false;
+            this.txtPermanentState.Leave += new System.EventHandler(this.txtPermanentState_Leave);
             // 
             // txtPermanentCity
             // 
@@ -792,6 +799,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.picCurrentState);
             this.groupBox2.Controls.Add(this.cmbCurrentCountry);
             this.groupBox2.Controls.Add(this.txtCurrentPIN);
             this.groupBox2.Controls.Add(this.txtCurrentState);
@@ -855,8 +863,10 @@
             this.txtCurrentState.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCurrentState.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCurrentState.TabIndex = 23;
+            this.txtCurrentState.Text = "```";
             this.txtCurrentState.WordWrap = false;
             this.txtCurrentState.TextChanged += new System.EventHandler(this.txtCurrentState_TextChanged);
+            this.txtCurrentState.Leave += new System.EventHandler(this.txtCurrentState_Leave);
             // 
             // txtCurrentCity
             // 
@@ -3576,6 +3586,26 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
+            // picCurrentState
+            // 
+            this.picCurrentState.Location = new System.Drawing.Point(573, 172);
+            this.picCurrentState.Name = "picCurrentState";
+            this.picCurrentState.Size = new System.Drawing.Size(16, 16);
+            this.picCurrentState.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCurrentState.TabIndex = 41;
+            this.picCurrentState.TabStop = false;
+            this.picCurrentState.Visible = false;
+            // 
+            // picPermState
+            // 
+            this.picPermState.Location = new System.Drawing.Point(573, 172);
+            this.picPermState.Name = "picPermState";
+            this.picPermState.Size = new System.Drawing.Size(16, 16);
+            this.picPermState.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picPermState.TabIndex = 42;
+            this.picPermState.TabStop = false;
+            this.picPermState.Visible = false;
+            // 
             // frmEmployeeMaster
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -3713,6 +3743,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.docUploadsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryEmpBirthdayListBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCurrentState)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPermState)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3973,5 +4005,8 @@
         private System.Windows.Forms.Label label68;
         private Krypton.Toolkit.KryptonTextBox txtESIDispName;
         private System.Windows.Forms.Label label69;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.PictureBox picPermState;
+        private System.Windows.Forms.PictureBox picCurrentState;
     }
 }

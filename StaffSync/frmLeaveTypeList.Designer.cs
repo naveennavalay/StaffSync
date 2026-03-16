@@ -134,6 +134,7 @@
             this.dtgLeaveTypeList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgLeaveTypeList.Size = new System.Drawing.Size(1192, 423);
             this.dtgLeaveTypeList.TabIndex = 7;
+            this.dtgLeaveTypeList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgLeaveTypeList_Paint);
             this.dtgLeaveTypeList.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
             // 
             // txtSearch

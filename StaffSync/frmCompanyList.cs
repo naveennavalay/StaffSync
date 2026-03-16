@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Krypton.Toolkit;
+using Microsoft.CodeAnalysis;
 using ModelStaffSync;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace StaffSync
 
         frmCompanyInfo frmCompanyInfo = null;
         frmOrgMasterInfo frmOrgMasterInfo = null;
+        frmStateMaster frmStateMaster = null;
 
         public frmCompanyList()
         {
@@ -39,6 +41,15 @@ namespace StaffSync
             lblListFor.Text = ListFor;
             lblClientID.Text = txtClientID.ToString();
             lblBranchID.Text = txtBranchID.ToString();
+            lblStateID.Text = txtStateID.ToString();
+        }
+
+        public frmCompanyList(frmStateMaster frmStateMastr, string ListFor, int txtClientID, int txtStateID)
+        {
+            InitializeComponent();
+            this.frmStateMaster = frmStateMastr;
+            lblListFor.Text = ListFor;
+            lblClientID.Text = txtClientID.ToString();
             lblStateID.Text = txtStateID.ToString();
         }
 
@@ -72,6 +83,28 @@ namespace StaffSync
             {
                 this.Text = "Professional Tax Slab";
                 dtgCompanyList.DataSource = objProfessionalTaxSlab.getProfessionalTaxSlabList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(lblBranchID.Text.ToString()), Convert.ToInt32(lblStateID.Text.ToString()));
+                dtgCompanyList.Columns["GrossFrom"].HeaderText = "Gross From";
+                dtgCompanyList.Columns["GrossFrom"].Width = 150;
+                dtgCompanyList.Columns["GrossFrom"].ReadOnly = true;
+                dtgCompanyList.Columns["GrossFrom"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+                dtgCompanyList.Columns["GrossFrom"].DefaultCellStyle.Format = "c2";
+
+                dtgCompanyList.Columns["GrossTo"].HeaderText = "Gross To";
+                dtgCompanyList.Columns["GrossTo"].Width = 150;
+                dtgCompanyList.Columns["GrossTo"].ReadOnly = true;
+                dtgCompanyList.Columns["GrossTo"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+                dtgCompanyList.Columns["GrossTo"].DefaultCellStyle.Format = "c2";
+
+                dtgCompanyList.Columns["PTAmount"].HeaderText = "Tax Amount";
+                dtgCompanyList.Columns["PTAmount"].Width = 150;
+                dtgCompanyList.Columns["PTAmount"].ReadOnly = true;
+                dtgCompanyList.Columns["PTAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+                dtgCompanyList.Columns["PTAmount"].DefaultCellStyle.Format = "c2";
+            }
+            else if (lblListFor.Text.Trim().ToLower() == "stateprofessionaltaxslab")
+            {
+                this.Text = "State specific Professional Tax Slab";
+                dtgCompanyList.DataSource = objProfessionalTaxSlab.getStateSpecificProfessionalTaxSlabList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(lblStateID.Text.ToString()));
                 dtgCompanyList.Columns["GrossFrom"].HeaderText = "Gross From";
                 dtgCompanyList.Columns["GrossFrom"].Width = 150;
                 dtgCompanyList.Columns["GrossFrom"].ReadOnly = true;
@@ -171,7 +204,7 @@ namespace StaffSync
 
         private void dtgCompanyList_DoubleClick(object sender, EventArgs e)
         {
-            if (lblListFor.Text.Trim().ToLower() == "professionaltaxslab")
+            if (lblListFor.Text.Trim().ToLower() == "professionaltaxslab" || lblListFor.Text.Trim().ToLower() == "stateprofessionaltaxslab")
             {
                 this.Close();
                 return;
@@ -203,6 +236,23 @@ namespace StaffSync
         private void frmCompanyList_Activated(object sender, EventArgs e)
         {
             dtgCompanyList.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
+
+        private void dtgCompanyList_Paint(object sender, PaintEventArgs e)
+        {
+            KryptonDataGridView dgv = sender as KryptonDataGridView;
+
+            if (dgv.Rows.Count == 0)
+            {
+                string message = "No Data Available";
+
+                using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
+                {
+                    SizeF size = e.Graphics.MeasureString(message, font);
+
+                    e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
+                }
+            }
         }
     }
 }

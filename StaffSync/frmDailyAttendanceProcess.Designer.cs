@@ -144,6 +144,7 @@
             this.dtgDailyAttendanceProcess.Size = new System.Drawing.Size(1142, 442);
             this.dtgDailyAttendanceProcess.TabIndex = 59;
             this.dtgDailyAttendanceProcess.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgDailyAttendanceProcess_CellDoubleClick);
+            this.dtgDailyAttendanceProcess.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgDailyAttendanceProcess_Paint);
             // 
             // groupBox8
             // 

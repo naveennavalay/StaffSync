@@ -769,6 +769,7 @@
     <Compile Include="frmEmployeeMaster.Designer.cs">
       <DependentUpon>frmEmployeeMaster.cs</DependentUpon>
     </Compile>
+    <Compile Include="GridSearchHelper.cs" />
     <Compile Include="myDBClass.cs" />
     <Compile Include="PDFComponent.cs" />
     <Compile Include="PDFTableGen.cs" />

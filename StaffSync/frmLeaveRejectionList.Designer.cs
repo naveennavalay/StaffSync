@@ -120,6 +120,7 @@
             this.dtgRejectionLeaveList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgRejectionLeaveList.Size = new System.Drawing.Size(1254, 344);
             this.dtgRejectionLeaveList.TabIndex = 59;
+            this.dtgRejectionLeaveList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgRejectionLeaveList_Paint);
             this.dtgRejectionLeaveList.DoubleClick += new System.EventHandler(this.dtgRejectionLeaveList_DoubleClick);
             // 
             // panel2

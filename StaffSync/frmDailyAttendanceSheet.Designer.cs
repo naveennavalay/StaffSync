@@ -124,6 +124,7 @@
             this.dtgConsolidatedAttendanceReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgConsolidatedAttendanceReport.Size = new System.Drawing.Size(1142, 442);
             this.dtgConsolidatedAttendanceReport.TabIndex = 63;
+            this.dtgConsolidatedAttendanceReport.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgConsolidatedAttendanceReport_Paint);
             // 
             // cmbAttendanceMonth
             // 

@@ -648,6 +648,7 @@
             this.dtgSalaryDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryDetails_CellEndEdit);
             this.dtgSalaryDetails.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryDetails_CellValueChanged);
             this.dtgSalaryDetails.CurrentCellDirtyStateChanged += new System.EventHandler(this.dtgSalaryDetails_CurrentCellDirtyStateChanged);
+            this.dtgSalaryDetails.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgSalaryDetails_Paint);
             // 
             // chkFlipOnOff
             // 

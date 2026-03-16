@@ -119,6 +119,7 @@
             this.dtgSalaryProfileList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgSalaryProfileList.Size = new System.Drawing.Size(1192, 423);
             this.dtgSalaryProfileList.TabIndex = 7;
+            this.dtgSalaryProfileList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgSalaryProfileList_Paint);
             this.dtgSalaryProfileList.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
             // 
             // txtSearch

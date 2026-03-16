@@ -26,5 +26,10 @@ namespace DALStaffSync
         {
             return objAuditLog.getProfessionalTaxSlabList(txtClientID, txtBranchID, txtStateID);
         }
+
+        public DataTable getStateSpecificProfessionalTaxSlabList(int txtClientID, int txtStateID)
+        {
+            return objAuditLog.getStateSpecificProfessionalTaxSlabList(txtClientID, txtStateID);
+        }
     }
 }

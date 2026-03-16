@@ -134,6 +134,7 @@
             this.dtgOutstandingLeaveStatement.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgOutstandingLeaveStatement.Size = new System.Drawing.Size(1254, 344);
             this.dtgOutstandingLeaveStatement.TabIndex = 59;
+            this.dtgOutstandingLeaveStatement.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgOutstandingLeaveStatement_Paint);
             this.dtgOutstandingLeaveStatement.DoubleClick += new System.EventHandler(this.dtgRejectionLeaveList_DoubleClick);
             // 
             // panel2

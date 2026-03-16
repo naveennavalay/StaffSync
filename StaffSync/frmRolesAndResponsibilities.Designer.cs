@@ -344,6 +344,7 @@
             this.dtgRolesAndResponsibilties.TabIndex = 31;
             this.dtgRolesAndResponsibilties.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dtgRolesAndResponsibilties_CellBeginEdit);
             this.dtgRolesAndResponsibilties.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgRolesAndResponsibilties_CellContentClick);
+            this.dtgRolesAndResponsibilties.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgRolesAndResponsibilties_Paint);
             // 
             // label28
             // 

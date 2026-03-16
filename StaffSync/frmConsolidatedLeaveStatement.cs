@@ -1,4 +1,5 @@
-﻿using ModelStaffSync;
+﻿using Krypton.Toolkit;
+using ModelStaffSync;
 using StaffSync.StaffsyncDBDataSetTableAdapters;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System;
@@ -353,6 +354,23 @@ namespace StaffSync
         private void frmConsolidatedLeaveStatement_Activated(object sender, EventArgs e)
         {
             dtgConsolidatedLeaveStatement.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
+
+        private void dtgConsolidatedLeaveStatement_Paint(object sender, PaintEventArgs e)
+        {
+            KryptonDataGridView dgv = sender as KryptonDataGridView;
+
+            if (dgv.Rows.Count == 0)
+            {
+                string message = "No Data Available";
+
+                using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
+                {
+                    SizeF size = e.Graphics.MeasureString(message, font);
+
+                    e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
+                }
+            }
         }
     }
 }

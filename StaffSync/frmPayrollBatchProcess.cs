@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Humanizer;
 using Krypton.Ribbon;
+using Krypton.Toolkit;
 using ModelStaffSync;
 using Quartz.Impl.AdoJobStore.Common;
 using System;
@@ -1646,6 +1647,23 @@ namespace StaffSync
                 if (dtgSalaryDetails.Columns.Contains(header))
                 {
                     row.Cells[header].Value = value;
+                }
+            }
+        }
+
+        private void dtgSalaryDetails_Paint(object sender, PaintEventArgs e)
+        {
+            KryptonDataGridView dgv = sender as KryptonDataGridView;
+
+            if (dgv.Rows.Count == 0)
+            {
+                string message = "No Data Available";
+
+                using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
+                {
+                    SizeF size = e.Graphics.MeasureString(message, font);
+
+                    e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
                 }
             }
         }

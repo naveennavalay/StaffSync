@@ -134,6 +134,7 @@
             this.dtgWeeklyOffList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgWeeklyOffList.Size = new System.Drawing.Size(1192, 423);
             this.dtgWeeklyOffList.TabIndex = 7;
+            this.dtgWeeklyOffList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgWeeklyOffList_Paint);
             this.dtgWeeklyOffList.DoubleClick += new System.EventHandler(this.dtgWeeklyOffList_DoubleClick);
             // 
             // txtSearch

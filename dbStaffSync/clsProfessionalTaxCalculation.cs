@@ -246,5 +246,55 @@ namespace dbStaffSync
 
             return dt;
         }
+
+        public DataTable getStateSpecificProfessionalTaxSlabList(int txtClientID, int txtStateID)
+        {
+            int intBranchWiseEmployeeCount = 0;
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " + 
+                                        " ProfTaxDetailedSlab.GrossFrom, " +
+                                        " ProfTaxDetailedSlab.GrossTo, " +
+                                        " ProfTaxDetailedSlab.PTAmount " +
+                                    " FROM " + 
+                                        " StateMas INNER JOIN ((ClientMas INNER JOIN ProfTaxMas ON ClientMas.ClientID = ProfTaxMas.ClientID) INNER JOIN ProfTaxDetailedSlab ON ProfTaxMas.PTMasID = ProfTaxDetailedSlab.PTMasID) " + 
+                                        " ON StateMas.StateID = ProfTaxMas.StateID " + 
+                                    " GROUP BY " + 
+                                        " ProfTaxDetailedSlab.GrossFrom, " + 
+                                        " ProfTaxDetailedSlab.GrossTo, " + 
+                                        " ProfTaxDetailedSlab.PTAmount, " + 
+                                        " ClientMas.ClientID, " +
+                                        " StateMas.StateID " +
+                                    " HAVING " +
+                                        " ( " +
+                                            " ((ClientMas.ClientID) = " + txtClientID + ") " +
+                                            " AND ((StateMas.StateID) = " + txtStateID + ") " +
+                                        ");";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return dt;
+        }
     }
 }

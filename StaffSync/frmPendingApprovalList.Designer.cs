@@ -120,6 +120,7 @@
             this.dtgPendingApprovalLeaveInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgPendingApprovalLeaveInfo.Size = new System.Drawing.Size(1254, 344);
             this.dtgPendingApprovalLeaveInfo.TabIndex = 59;
+            this.dtgPendingApprovalLeaveInfo.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgPendingApprovalLeaveInfo_Paint);
             // 
             // panel2
             // 

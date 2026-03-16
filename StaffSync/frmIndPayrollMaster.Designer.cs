@@ -666,6 +666,7 @@
             this.dtgSalaryDetails.TabIndex = 45;
             this.dtgSalaryDetails.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dtgSalaryDetails_CellBeginEdit);
             this.dtgSalaryDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryDetails_CellEndEdit);
+            this.dtgSalaryDetails.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgSalaryDetails_Paint);
             this.dtgSalaryDetails.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtgSalaryDetails_KeyDown);
             // 
             // tabAdvanceHeaders
@@ -704,6 +705,7 @@
             this.dtgAdvanceDetails.TabIndex = 46;
             this.dtgAdvanceDetails.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAdvanceDetails_CellDoubleClick);
             this.dtgAdvanceDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAdvanceDetails_CellEndEdit);
+            this.dtgAdvanceDetails.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAdvanceDetails_Paint);
             this.dtgAdvanceDetails.DoubleClick += new System.EventHandler(this.dtgAdvanceDetails_DoubleClick);
             // 
             // groupBox8

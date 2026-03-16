@@ -289,7 +289,7 @@
             this.tabOrgProfessionalTax,
             this.tabOrgLabourWelfareFund});
             this.tabControl1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.SelectedIndex = 3;
             this.tabControl1.Size = new System.Drawing.Size(916, 470);
             this.tabControl1.TabIndex = 8;
             // 

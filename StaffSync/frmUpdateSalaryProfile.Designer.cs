@@ -270,6 +270,7 @@
             this.dtgSalaryProfileDetails.TabIndex = 34;
             this.dtgSalaryProfileDetails.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dtgSalaryProfileDetails_CellBeginEdit);
             this.dtgSalaryProfileDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryProfileDetails_CellEndEdit);
+            this.dtgSalaryProfileDetails.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgSalaryProfileDetails_Paint);
             // 
             // groupBox4
             // 

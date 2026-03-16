@@ -359,6 +359,7 @@
             this.dtgModulesList.Size = new System.Drawing.Size(1139, 262);
             this.dtgModulesList.TabIndex = 31;
             this.dtgModulesList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgModulesList_CellContentClick);
+            this.dtgModulesList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgModulesList_Paint);
             // 
             // panel2
             // 

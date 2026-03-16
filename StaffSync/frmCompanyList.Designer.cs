@@ -32,6 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCompanyList));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblStateID = new System.Windows.Forms.Label();
+            this.lblBranchID = new System.Windows.Forms.Label();
+            this.lblClientID = new System.Windows.Forms.Label();
+            this.lblListFor = new System.Windows.Forms.Label();
             this.dtgCompanyList = new Krypton.Toolkit.KryptonDataGridView();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,10 +58,6 @@
             this.countryMasBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.qryCountryListTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.qryCountryListTableAdapter();
             this.lastCompDetMasTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.LastCompDetMasTableAdapter();
-            this.lblListFor = new System.Windows.Forms.Label();
-            this.lblClientID = new System.Windows.Forms.Label();
-            this.lblBranchID = new System.Windows.Forms.Label();
-            this.lblStateID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -112,6 +112,58 @@
             this.panel1.Size = new System.Drawing.Size(1227, 483);
             this.panel1.TabIndex = 1;
             // 
+            // lblStateID
+            // 
+            this.lblStateID.AutoSize = true;
+            this.lblStateID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblStateID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStateID.Location = new System.Drawing.Point(985, 31);
+            this.lblStateID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblStateID.Name = "lblStateID";
+            this.lblStateID.Size = new System.Drawing.Size(11, 15);
+            this.lblStateID.TabIndex = 14;
+            this.lblStateID.Text = " ";
+            this.lblStateID.Visible = false;
+            // 
+            // lblBranchID
+            // 
+            this.lblBranchID.AutoSize = true;
+            this.lblBranchID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblBranchID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBranchID.Location = new System.Drawing.Point(935, 31);
+            this.lblBranchID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblBranchID.Name = "lblBranchID";
+            this.lblBranchID.Size = new System.Drawing.Size(11, 15);
+            this.lblBranchID.TabIndex = 13;
+            this.lblBranchID.Text = " ";
+            this.lblBranchID.Visible = false;
+            // 
+            // lblClientID
+            // 
+            this.lblClientID.AutoSize = true;
+            this.lblClientID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblClientID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClientID.Location = new System.Drawing.Point(884, 31);
+            this.lblClientID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblClientID.Name = "lblClientID";
+            this.lblClientID.Size = new System.Drawing.Size(11, 15);
+            this.lblClientID.TabIndex = 12;
+            this.lblClientID.Text = " ";
+            this.lblClientID.Visible = false;
+            // 
+            // lblListFor
+            // 
+            this.lblListFor.AutoSize = true;
+            this.lblListFor.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblListFor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListFor.Location = new System.Drawing.Point(821, 31);
+            this.lblListFor.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblListFor.Name = "lblListFor";
+            this.lblListFor.Size = new System.Drawing.Size(11, 15);
+            this.lblListFor.TabIndex = 11;
+            this.lblListFor.Text = " ";
+            this.lblListFor.Visible = false;
+            // 
             // dtgCompanyList
             // 
             this.dtgCompanyList.AllowUserToAddRows = false;
@@ -130,6 +182,7 @@
             this.dtgCompanyList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgCompanyList.Size = new System.Drawing.Size(1191, 393);
             this.dtgCompanyList.TabIndex = 10;
+            this.dtgCompanyList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgCompanyList_Paint);
             this.dtgCompanyList.DoubleClick += new System.EventHandler(this.dtgCompanyList_DoubleClick);
             // 
             // txtSearch
@@ -255,58 +308,6 @@
             // lastCompDetMasTableAdapter
             // 
             this.lastCompDetMasTableAdapter.ClearBeforeFill = true;
-            // 
-            // lblListFor
-            // 
-            this.lblListFor.AutoSize = true;
-            this.lblListFor.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblListFor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblListFor.Location = new System.Drawing.Point(821, 31);
-            this.lblListFor.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblListFor.Name = "lblListFor";
-            this.lblListFor.Size = new System.Drawing.Size(11, 15);
-            this.lblListFor.TabIndex = 11;
-            this.lblListFor.Text = " ";
-            this.lblListFor.Visible = false;
-            // 
-            // lblClientID
-            // 
-            this.lblClientID.AutoSize = true;
-            this.lblClientID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblClientID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClientID.Location = new System.Drawing.Point(884, 31);
-            this.lblClientID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblClientID.Name = "lblClientID";
-            this.lblClientID.Size = new System.Drawing.Size(11, 15);
-            this.lblClientID.TabIndex = 12;
-            this.lblClientID.Text = " ";
-            this.lblClientID.Visible = false;
-            // 
-            // lblBranchID
-            // 
-            this.lblBranchID.AutoSize = true;
-            this.lblBranchID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblBranchID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBranchID.Location = new System.Drawing.Point(935, 31);
-            this.lblBranchID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblBranchID.Name = "lblBranchID";
-            this.lblBranchID.Size = new System.Drawing.Size(11, 15);
-            this.lblBranchID.TabIndex = 13;
-            this.lblBranchID.Text = " ";
-            this.lblBranchID.Visible = false;
-            // 
-            // lblStateID
-            // 
-            this.lblStateID.AutoSize = true;
-            this.lblStateID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblStateID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStateID.Location = new System.Drawing.Point(985, 31);
-            this.lblStateID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblStateID.Name = "lblStateID";
-            this.lblStateID.Size = new System.Drawing.Size(11, 15);
-            this.lblStateID.TabIndex = 14;
-            this.lblStateID.Text = " ";
-            this.lblStateID.Visible = false;
             // 
             // frmCompanyList
             // 

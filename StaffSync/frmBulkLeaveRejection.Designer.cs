@@ -139,6 +139,7 @@
             this.dtgBulkLeaveApproval.TabIndex = 34;
             this.dtgBulkLeaveApproval.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgBulkLeaveApproval_CellContentClick);
             this.dtgBulkLeaveApproval.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgBulkLeaveApproval_CellValueChanged);
+            this.dtgBulkLeaveApproval.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgBulkLeaveApproval_Paint);
             // 
             // groupBox4
             // 

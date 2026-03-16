@@ -16,5 +16,6 @@ namespace ModelStaffSync
         public string StateInitial { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsConfigured { get; set; }
     }
 }

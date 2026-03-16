@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.VisualBasic.Syntax;
+﻿//using Krypton.Toolkit;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using ModelStaffSync;
 using System;
 using System.Collections.Generic;
@@ -815,24 +816,514 @@ namespace StaffSync
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            try
-            {                
-                if (lblSearchOptionClickedFor.Text.Trim() == "listUpdateEmployeeInfo" || lblSearchOptionClickedFor.Text.Trim() == "listApplyLeaveInfo")  //Don't Search
-                    return;
+            //try
+            //{                
+            //    if (lblSearchOptionClickedFor.Text.Trim() == "listUpdateEmployeeInfo" || lblSearchOptionClickedFor.Text.Trim() == "listApplyLeaveInfo")  //Don't Search
+            //        return;
 
-                if (string.IsNullOrEmpty(txtSearch.Text))
-                {
-                    dtgEmployeeList.DataSource = objEmployeeMaster.GetEmployeeList();
-                }
-                else
-                {
-                    dtgEmployeeList.DataSource = objEmployeeMaster.GetEmployeeList(txtSearch.Text.ToString().Trim());
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //    if (string.IsNullOrEmpty(txtSearch.Text))
+            //    {
+            //        if (lblSearchOptionClickedFor.Text.Trim() == "listEmployees" || lblSearchOptionClickedFor.Text.Trim() == "listRepManagers" || lblSearchOptionClickedFor.Text.Trim() == "listAttendanceMasterList")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 250;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+            //            dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+            //            dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listSSEmployees")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objEmployeeMaster.getMyEmployeeInformation(CurrentUser.EmpID);
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 250;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+            //            dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+            //            dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listEmployeeLeaveList")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 250;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+            //            dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+            //            dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listEmployeeLeaveApprovalRequestList")
+            //        {
+            //            this.Text = "Leave Request List";
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objLeaveInfo.getPendingLeaveApprovalList();
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["LeaveTRID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 100;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 200;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["LeaveTypeID"].Visible = false;
+            //            dtgEmployeeList.Columns["LeaveTypeTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["LeaveAppliedDate"].Visible = false;
+            //            dtgEmployeeList.Columns["LeaveAppliedDate"].Width = 100;
+            //            dtgEmployeeList.Columns["LeaveAppliedDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["LeaveDuration"].Width = 100;
+            //            dtgEmployeeList.Columns["ActualLeaveDateFrom"].Width = 100;
+            //            dtgEmployeeList.Columns["ActualLeaveDateFrom"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["ActualLeaveDateTo"].Width = 100;
+            //            dtgEmployeeList.Columns["ActualLeaveDateTo"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["LeaveComments"].Width = 250;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listEmployeeLeaveRejectRequestList")
+            //        {
+            //            this.Text = "Leave Request List";
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objLeaveInfo.getPendingLeaveApprovalList();
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["LeaveTRID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 100;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 200;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["LeaveTypeID"].Visible = false;
+            //            dtgEmployeeList.Columns["LeaveTypeTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["LeaveAppliedDate"].Visible = false;
+            //            dtgEmployeeList.Columns["LeaveAppliedDate"].Width = 100;
+            //            dtgEmployeeList.Columns["LeaveAppliedDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["ActualLeaveDateFrom"].Width = 100;
+            //            dtgEmployeeList.Columns["ActualLeaveDateFrom"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["ActualLeaveDateTo"].Width = 100;
+            //            dtgEmployeeList.Columns["ActualLeaveDateTo"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["LeaveDuration"].Width = 100;
+            //            dtgEmployeeList.Columns["LeaveComments"].Width = 250;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listUserModuleAssignment")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objUsersInfo.GetUserManagementList();
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 350;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 300;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 300;
+            //            dtgEmployeeList.Columns["UserID"].Visible = false;
+            //            dtgEmployeeList.Columns["IsActive"].Visible = false;
+            //            dtgEmployeeList.Columns["IsDeleted"].Visible = false;
+            //            dtgEmployeeList.Columns["IsLocked"].Visible = false;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listUserRolesAndResponsibilities")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objUsersInfo.GetUserManagementList();
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 350;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 300;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 300;
+            //            dtgEmployeeList.Columns["UserID"].Visible = false;
+            //            dtgEmployeeList.Columns["IsActive"].Visible = false;
+            //            dtgEmployeeList.Columns["IsDeleted"].Visible = false;
+            //            dtgEmployeeList.Columns["IsLocked"].Visible = false;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listRoleProfileManagement")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objRolesAndResponsibilities.GetDefaultRolesProfileList();
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listUserManagementList")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objUsersInfo.GetUserManagementList();
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 350;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 300;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 300;
+            //            dtgEmployeeList.Columns["UserID"].Visible = false;
+            //            dtgEmployeeList.Columns["IsActive"].Visible = false;
+            //            dtgEmployeeList.Columns["IsDeleted"].Visible = false;
+            //            dtgEmployeeList.Columns["IsLocked"].Visible = false;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listPayrollUsersList")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 250;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+            //            dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+            //            dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+            //            dtgEmployeeList.Columns["StateID"].Visible = false;
+            //            dtgEmployeeList.Columns["SexID"].Visible = false;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listPayrollUsersList")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 350;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
+            //            dtgEmployeeList.Columns["ContactNumber2"].Width = 150;
+            //            dtgEmployeeList.Columns["StateID"].Visible = false;
+            //            dtgEmployeeList.Columns["SexID"].Visible = false;
+
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listEmployeesPayslip")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objEmpPayroll.getAllEmployeePayslipList();
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpSalID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 350;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpSalDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["EmpSalDate"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpSalMonthYear"].Width = 150;
+            //            dtgEmployeeList.Columns["OrderID"].Visible = false;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listLeaveStatement")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objEmployeeMaster.getMyEmployeeInformation(CurrentUser.EmpID);
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 350;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["DOJ"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["DOB"].Visible = false;
+            //            dtgEmployeeList.Columns["Address1"].Visible = false;
+            //            dtgEmployeeList.Columns["Address2"].Visible = false;
+            //            dtgEmployeeList.Columns["Area"].Visible = false;
+            //            dtgEmployeeList.Columns["City"].Visible = false;
+            //            dtgEmployeeList.Columns["StateTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["PIN"].Visible = false;
+            //            dtgEmployeeList.Columns["CountryTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["SexTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["BloodGroupTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["NomineePerson"].Visible = false;
+            //            dtgEmployeeList.Columns["RelationShipTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["ContactNumber1"].Visible = false;
+            //            dtgEmployeeList.Columns["ContactNumber2"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpACNumber"].Visible = false;
+            //            dtgEmployeeList.Columns["BankName"].Visible = false;
+            //            dtgEmployeeList.Columns["BankAddress"].Visible = false;
+            //            dtgEmployeeList.Columns["IFSCCode"].Visible = false;
+            //            dtgEmployeeList.Columns["BalanceLeaves"].Visible = false;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listLeaveStatements")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objEmployeeMaster.getMyEmployeeInformation(CurrentUser.EmpID);
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 350;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["DOJ"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["DOB"].Visible = false;
+            //            dtgEmployeeList.Columns["Address1"].Visible = false;
+            //            dtgEmployeeList.Columns["Address2"].Visible = false;
+            //            dtgEmployeeList.Columns["Area"].Visible = false;
+            //            dtgEmployeeList.Columns["City"].Visible = false;
+            //            dtgEmployeeList.Columns["StateTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["PIN"].Visible = false;
+            //            dtgEmployeeList.Columns["CountryTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["SexTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["BloodGroupTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["NomineePerson"].Visible = false;
+            //            dtgEmployeeList.Columns["RelationShipTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["ContactNumber1"].Visible = false;
+            //            dtgEmployeeList.Columns["ContactNumber2"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpACNumber"].Visible = false;
+            //            dtgEmployeeList.Columns["BankName"].Visible = false;
+            //            dtgEmployeeList.Columns["BankAddress"].Visible = false;
+            //            dtgEmployeeList.Columns["IFSCCode"].Visible = false;
+            //            dtgEmployeeList.Columns["BalanceLeaves"].Visible = false;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listUpdateEmployeeInfo")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objEmployeeMaster.getMyEmployeeInformation(CurrentUser.EmpID);
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 350;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["DOJ"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["DOB"].Visible = false;
+            //            dtgEmployeeList.Columns["Address1"].Visible = false;
+            //            dtgEmployeeList.Columns["Address2"].Visible = false;
+            //            dtgEmployeeList.Columns["Area"].Visible = false;
+            //            dtgEmployeeList.Columns["City"].Visible = false;
+            //            dtgEmployeeList.Columns["StateTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["PIN"].Visible = false;
+            //            dtgEmployeeList.Columns["CountryTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["SexTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["BloodGroupTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["NomineePerson"].Visible = false;
+            //            dtgEmployeeList.Columns["RelationShipTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["ContactNumber1"].Visible = false;
+            //            dtgEmployeeList.Columns["ContactNumber2"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpACNumber"].Visible = false;
+            //            dtgEmployeeList.Columns["BankName"].Visible = false;
+            //            dtgEmployeeList.Columns["BankAddress"].Visible = false;
+            //            dtgEmployeeList.Columns["IFSCCode"].Visible = false;
+            //            dtgEmployeeList.Columns["BalanceLeaves"].Visible = false;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listApplyLeaveInfo")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objEmployeeMaster.getMyEmployeeInformation(CurrentUser.EmpID);
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 350;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["DOJ"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["DOB"].Visible = false;
+            //            dtgEmployeeList.Columns["Address1"].Visible = false;
+            //            dtgEmployeeList.Columns["Address2"].Visible = false;
+            //            dtgEmployeeList.Columns["Area"].Visible = false;
+            //            dtgEmployeeList.Columns["City"].Visible = false;
+            //            dtgEmployeeList.Columns["StateTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["PIN"].Visible = false;
+            //            dtgEmployeeList.Columns["CountryTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["SexTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["BloodGroupTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["NomineePerson"].Visible = false;
+            //            dtgEmployeeList.Columns["RelationShipTitle"].Visible = false;
+            //            dtgEmployeeList.Columns["ContactNumber1"].Visible = false;
+            //            dtgEmployeeList.Columns["ContactNumber2"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpACNumber"].Visible = false;
+            //            dtgEmployeeList.Columns["BankName"].Visible = false;
+            //            dtgEmployeeList.Columns["BankAddress"].Visible = false;
+            //            dtgEmployeeList.Columns["IFSCCode"].Visible = false;
+            //            dtgEmployeeList.Columns["BalanceLeaves"].Visible = false;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listEmpLeaveEntitlements")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 250;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+            //            dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+            //            dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listAdvanceRequestingUsers" || lblSearchOptionClickedFor.Text.Trim() == "listAdvanceRequestToUsers")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 250;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+            //            dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+            //            dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+            //            dtgEmployeeList.Columns["StateID"].Visible = false;
+            //            dtgEmployeeList.Columns["SexID"].Visible = false;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "listPayrollConfigUsersList")
+            //        {
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 150;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 250;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+            //            dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+            //            dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeeLeaveApprovalPendingRequestList")
+            //        {
+            //            this.Text = "Leave Request List";
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objLeaveInfo.getPendingLeaveApprovalList();
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["LeaveTRID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 100;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 200;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["LeaveTypeID"].Visible = false;
+            //            dtgEmployeeList.Columns["LeaveTypeTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["LeaveAppliedDate"].Visible = false;
+            //            dtgEmployeeList.Columns["LeaveAppliedDate"].Width = 100;
+            //            dtgEmployeeList.Columns["LeaveAppliedDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["LeaveDuration"].Width = 100;
+            //            dtgEmployeeList.Columns["ActualLeaveDateFrom"].Width = 100;
+            //            dtgEmployeeList.Columns["ActualLeaveDateFrom"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["ActualLeaveDateTo"].Width = 100;
+            //            dtgEmployeeList.Columns["ActualLeaveDateTo"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["LeaveComments"].Width = 250;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeeLeaveApprovedList")
+            //        {
+            //            this.Text = "Leave Request List";
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objLeaveInfo.GetEmployeeOOOList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(lblFinYearID.Text.ToString()), Convert.ToDateTime(lblFilterDate.Text.ToString()));
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 100;
+            //            dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 200;
+            //            dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["LeaveTypeTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["LeaveTypeTitle"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["ActualLeaveDateFrom"].Width = 100;
+            //            dtgEmployeeList.Columns["ActualLeaveDateFrom"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["ActualLeaveDateFrom"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["ActualLeaveDateTo"].Width = 100;
+            //            dtgEmployeeList.Columns["ActualLeaveDateTo"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["ActualLeaveDateTo"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["LeaveDuration"].Width = 100;
+            //            dtgEmployeeList.Columns["LeaveDuration"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["LeaveMode"].Width = 100;
+            //            dtgEmployeeList.Columns["LeaveMode"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["OrderID"].Visible = false;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeePresentList")
+            //        {
+            //            this.Text = "Leave Request List";
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objDashboard.GetAllEmployeesPresentList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(lblFinYearID.Text.ToString()));
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 100;
+            //            dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 200;
+            //            dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
+            //            dtgEmployeeList.Columns["ContactNumber1"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["ContactNumber2"].Width = 150;
+            //            dtgEmployeeList.Columns["ContactNumber2"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["AttStatus"].Width = 150;
+            //            dtgEmployeeList.Columns["AttStatus"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["AttDate"].Visible = false;
+            //            dtgEmployeeList.Columns["ClientID"].Visible = false;
+            //            dtgEmployeeList.Columns["FinYearID"].Visible = false;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeesWeeklyOffList")
+            //        {
+            //            this.Text = "Employees Weekly Off List";
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objDashboard.GetAllEmployeesWeeklyOffList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(lblFinYearID.Text.ToString()));
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 100;
+            //            dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["EmpName"].Width = 200;
+            //            dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
+            //            dtgEmployeeList.Columns["ContactNumber1"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["ContactNumber2"].Width = 150;
+            //            dtgEmployeeList.Columns["ContactNumber2"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["WklyOffCode"].Width = 150;
+            //            dtgEmployeeList.Columns["WklyOffCode"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["WklyOffTitle"].Width = 150;
+            //            dtgEmployeeList.Columns["WklyOffTitle"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["WklyOffDay"].Visible = false;
+            //            dtgEmployeeList.Columns["ClientID"].Visible = false;
+            //            dtgEmployeeList.Columns["FinYearID"].Visible = false;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeesBirthdayList")
+            //        {
+            //            this.Text = "Employees Weekly Off List";
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objDashboard.GetTodaysEmployeesBirthdayList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(lblFinYearID.Text.ToString()));
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].HeaderText = "Emp Code";
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 100;
+            //            dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["EmpName"].HeaderText = "Employee Name";
+            //            dtgEmployeeList.Columns["EmpName"].Width = 200;
+            //            dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["DesignationTitle"].HeaderText = "Designation";
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].HeaderText = "Department";
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["ContactNumber1"].HeaderText = "Contact Number";
+            //            dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
+            //            dtgEmployeeList.Columns["ContactNumber1"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["ContactNumber2"].HeaderText = "Mail ID";
+            //            dtgEmployeeList.Columns["ContactNumber2"].Width = 200;
+            //            dtgEmployeeList.Columns["ContactNumber2"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["DOB"].HeaderText = "BirthDay Date";
+            //            dtgEmployeeList.Columns["DOB"].Width = 100;
+            //            dtgEmployeeList.Columns["DOB"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["ClientID"].Visible = false;
+            //            dtgEmployeeList.Columns["FinYearID"].Visible = false;
+            //        }
+            //        else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeesWorkAnniversaryList")
+            //        {
+            //            this.Text = "Employees Weekly Off List";
+            //            dtgEmployeeList.DataSource = null;
+            //            dtgEmployeeList.DataSource = objDashboard.GetTodaysEmployeesWorkAnniversaryList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(lblFinYearID.Text.ToString()));
+            //            dtgEmployeeList.Columns["EmpID"].Visible = false;
+            //            dtgEmployeeList.Columns["EmpCode"].HeaderText = "Emp Code";
+            //            dtgEmployeeList.Columns["EmpCode"].Width = 100;
+            //            dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["EmpName"].HeaderText = "Employee Name";
+            //            dtgEmployeeList.Columns["EmpName"].Width = 200;
+            //            dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["DesignationTitle"].HeaderText = "Designation";
+            //            dtgEmployeeList.Columns["DesignationTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].HeaderText = "Department";
+            //            dtgEmployeeList.Columns["DepartmentTitle"].Width = 200;
+            //            dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["ContactNumber1"].HeaderText = "Contact Number";
+            //            dtgEmployeeList.Columns["ContactNumber1"].Width = 150;
+            //            dtgEmployeeList.Columns["ContactNumber1"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["ContactNumber2"].HeaderText = "Mail ID";
+            //            dtgEmployeeList.Columns["ContactNumber2"].Width = 200;
+            //            dtgEmployeeList.Columns["ContactNumber2"].ReadOnly = true;
+            //            dtgEmployeeList.Columns["DOJ"].HeaderText = "Joining Date";
+            //            dtgEmployeeList.Columns["DOJ"].Width = 100;
+            //            dtgEmployeeList.Columns["DOJ"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            //            dtgEmployeeList.Columns["ClientID"].Visible = false;
+            //            dtgEmployeeList.Columns["FinYearID"].Visible = false;
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void frmEmployeeList_Activated(object sender, EventArgs e)

@@ -119,6 +119,7 @@
             this.dtgCompanyList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgCompanyList.Size = new System.Drawing.Size(1191, 393);
             this.dtgCompanyList.TabIndex = 10;
+            this.dtgCompanyList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgCompanyList_Paint);
             this.dtgCompanyList.DoubleClick += new System.EventHandler(this.dtgCompanyList_DoubleClick);
             // 
             // txtSearch

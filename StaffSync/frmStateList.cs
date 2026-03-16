@@ -1,4 +1,5 @@
-﻿using ModelStaffSync;
+﻿using Krypton.Toolkit;
+using ModelStaffSync;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace StaffSync
     public partial class frmStateList : Form
     {
         DALStaffSync.clsStates clsStates = new DALStaffSync.clsStates();
+        DALStaffSync.clsProfessionalTaxCalculation objProfessionalTaxSlab = new DALStaffSync.clsProfessionalTaxCalculation();
         frmStateMaster frmStateMas = null;
 
         public frmStateList()
@@ -27,6 +29,14 @@ namespace StaffSync
             this.frmStateMas = frmStateMastr;
         }
 
+        public frmStateList(frmStateMaster frmStateMastr, int txtClientID, int txtStateID)
+        {
+            InitializeComponent();
+            this.frmStateMas = frmStateMastr;
+            this.lblClientID.Text = txtClientID.ToString();
+            this.lblStateID.Text = txtStateID.ToString();
+        }
+
         private void btnCloseMe_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -35,6 +45,15 @@ namespace StaffSync
         private void frmStateList_Load(object sender, EventArgs e)
         {
             dtgStateList.DataSource = clsStates.GetStateList();
+            dtgStateList.Columns["StateID"].Visible = false;
+            dtgStateList.Columns["StateCode"].ReadOnly = true;
+            dtgStateList.Columns["StateCode"].Width = 125;
+            dtgStateList.Columns["StateTitle"].ReadOnly = true;
+            dtgStateList.Columns["StateTitle"].Width = 300;
+            dtgStateList.Columns["StateInitial"].ReadOnly = true;
+            dtgStateList.Columns["StateInitial"].Width = 125;
+            dtgStateList.Columns["IsActive"].Visible = false;
+            dtgStateList.Columns["IsDeleted"].Visible = false;
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -69,6 +88,10 @@ namespace StaffSync
             objStateModel.StateTitle = dtgStateList.SelectedRows[0].Cells["StateTitle"].Value.ToString();
             objStateModel.StateInitial = dtgStateList.SelectedRows[0].Cells["StateInitial"].Value.ToString();
             objStateModel.IsActive = Convert.ToBoolean(dtgStateList.SelectedRows[0].Cells["IsActive"].Value);
+
+            DataTable tmpStateSpecificProfessionalTaxSlabConfigStatus = objProfessionalTaxSlab.getStateSpecificProfessionalTaxSlabList(Convert.ToInt32(lblClientID.Text.ToString()), Convert.ToInt32(objStateModel.StateID.ToString()));
+            if (tmpStateSpecificProfessionalTaxSlabConfigStatus.Rows.Count > 0)
+                objStateModel.IsConfigured = true;
 
             if (this.frmStateMas.lblActionMode.Text == "remove")
                 this.frmStateMas.lblActionMode.Text = "delete";

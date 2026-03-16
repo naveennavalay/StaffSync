@@ -142,6 +142,7 @@
             this.dtgWeeklyOffDetails.TabIndex = 34;
             this.dtgWeeklyOffDetails.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dtgSalaryProfileDetails_CellBeginEdit);
             this.dtgWeeklyOffDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryProfileDetails_CellEndEdit);
+            this.dtgWeeklyOffDetails.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgWeeklyOffDetails_Paint);
             // 
             // Select
             // 

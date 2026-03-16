@@ -32,18 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmStateList));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblStateID = new System.Windows.Forms.Label();
+            this.lblClientID = new System.Windows.Forms.Label();
             this.dtgStateList = new System.Windows.Forms.DataGridView();
-            this.StateID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StateCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StateTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StateInitial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.stateIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stateCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stateTitleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stateInitialDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isActiveDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.isDeletedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.qryStateListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDataSet = new StaffSync.StaffsyncDBDataSet();
             this.txtSearch = new System.Windows.Forms.TextBox();
@@ -109,6 +100,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.panel1.Controls.Add(this.lblStateID);
+            this.panel1.Controls.Add(this.lblClientID);
             this.panel1.Controls.Add(this.dtgStateList);
             this.panel1.Controls.Add(this.txtSearch);
             this.panel1.Controls.Add(this.label1);
@@ -118,28 +111,40 @@
             this.panel1.Size = new System.Drawing.Size(1227, 515);
             this.panel1.TabIndex = 1;
             // 
+            // lblStateID
+            // 
+            this.lblStateID.AutoSize = true;
+            this.lblStateID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblStateID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStateID.Location = new System.Drawing.Point(937, 31);
+            this.lblStateID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblStateID.Name = "lblStateID";
+            this.lblStateID.Size = new System.Drawing.Size(11, 15);
+            this.lblStateID.TabIndex = 16;
+            this.lblStateID.Text = " ";
+            this.lblStateID.Visible = false;
+            // 
+            // lblClientID
+            // 
+            this.lblClientID.AutoSize = true;
+            this.lblClientID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblClientID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClientID.Location = new System.Drawing.Point(836, 31);
+            this.lblClientID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblClientID.Name = "lblClientID";
+            this.lblClientID.Size = new System.Drawing.Size(11, 15);
+            this.lblClientID.TabIndex = 15;
+            this.lblClientID.Text = " ";
+            this.lblClientID.Visible = false;
+            // 
             // dtgStateList
             // 
             this.dtgStateList.AllowUserToAddRows = false;
             this.dtgStateList.AllowUserToDeleteRows = false;
             this.dtgStateList.AllowUserToOrderColumns = true;
-            this.dtgStateList.AutoGenerateColumns = false;
             this.dtgStateList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgStateList.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dtgStateList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgStateList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.StateID,
-            this.StateCode,
-            this.StateTitle,
-            this.StateInitial,
-            this.IsActive,
-            this.stateIDDataGridViewTextBoxColumn,
-            this.stateCodeDataGridViewTextBoxColumn,
-            this.stateTitleDataGridViewTextBoxColumn,
-            this.stateInitialDataGridViewTextBoxColumn,
-            this.isActiveDataGridViewCheckBoxColumn,
-            this.isDeletedDataGridViewCheckBoxColumn});
-            this.dtgStateList.DataSource = this.qryStateListBindingSource;
             this.dtgStateList.Location = new System.Drawing.Point(18, 78);
             this.dtgStateList.Name = "dtgStateList";
             this.dtgStateList.ReadOnly = true;
@@ -147,89 +152,6 @@
             this.dtgStateList.Size = new System.Drawing.Size(1192, 423);
             this.dtgStateList.TabIndex = 7;
             this.dtgStateList.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
-            // 
-            // StateID
-            // 
-            this.StateID.DataPropertyName = "StateID";
-            this.StateID.HeaderText = "State ID";
-            this.StateID.Name = "StateID";
-            this.StateID.ReadOnly = true;
-            this.StateID.Visible = false;
-            this.StateID.Width = 150;
-            // 
-            // StateCode
-            // 
-            this.StateCode.DataPropertyName = "StateCode";
-            this.StateCode.HeaderText = "State Code";
-            this.StateCode.Name = "StateCode";
-            this.StateCode.ReadOnly = true;
-            this.StateCode.Width = 150;
-            // 
-            // StateTitle
-            // 
-            this.StateTitle.DataPropertyName = "StateTitle";
-            this.StateTitle.HeaderText = "State Title";
-            this.StateTitle.Name = "StateTitle";
-            this.StateTitle.ReadOnly = true;
-            this.StateTitle.Width = 150;
-            // 
-            // StateInitial
-            // 
-            this.StateInitial.DataPropertyName = "StateInitial";
-            this.StateInitial.HeaderText = "State Initial";
-            this.StateInitial.Name = "StateInitial";
-            this.StateInitial.ReadOnly = true;
-            this.StateInitial.Width = 150;
-            // 
-            // IsActive
-            // 
-            this.IsActive.DataPropertyName = "IsActive";
-            this.IsActive.HeaderText = "Is Active";
-            this.IsActive.Name = "IsActive";
-            this.IsActive.ReadOnly = true;
-            this.IsActive.Width = 150;
-            // 
-            // stateIDDataGridViewTextBoxColumn
-            // 
-            this.stateIDDataGridViewTextBoxColumn.DataPropertyName = "StateID";
-            this.stateIDDataGridViewTextBoxColumn.HeaderText = "StateID";
-            this.stateIDDataGridViewTextBoxColumn.Name = "stateIDDataGridViewTextBoxColumn";
-            this.stateIDDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // stateCodeDataGridViewTextBoxColumn
-            // 
-            this.stateCodeDataGridViewTextBoxColumn.DataPropertyName = "StateCode";
-            this.stateCodeDataGridViewTextBoxColumn.HeaderText = "StateCode";
-            this.stateCodeDataGridViewTextBoxColumn.Name = "stateCodeDataGridViewTextBoxColumn";
-            this.stateCodeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // stateTitleDataGridViewTextBoxColumn
-            // 
-            this.stateTitleDataGridViewTextBoxColumn.DataPropertyName = "StateTitle";
-            this.stateTitleDataGridViewTextBoxColumn.HeaderText = "StateTitle";
-            this.stateTitleDataGridViewTextBoxColumn.Name = "stateTitleDataGridViewTextBoxColumn";
-            this.stateTitleDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // stateInitialDataGridViewTextBoxColumn
-            // 
-            this.stateInitialDataGridViewTextBoxColumn.DataPropertyName = "StateInitial";
-            this.stateInitialDataGridViewTextBoxColumn.HeaderText = "StateInitial";
-            this.stateInitialDataGridViewTextBoxColumn.Name = "stateInitialDataGridViewTextBoxColumn";
-            this.stateInitialDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // isActiveDataGridViewCheckBoxColumn
-            // 
-            this.isActiveDataGridViewCheckBoxColumn.DataPropertyName = "IsActive";
-            this.isActiveDataGridViewCheckBoxColumn.HeaderText = "IsActive";
-            this.isActiveDataGridViewCheckBoxColumn.Name = "isActiveDataGridViewCheckBoxColumn";
-            this.isActiveDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // isDeletedDataGridViewCheckBoxColumn
-            // 
-            this.isDeletedDataGridViewCheckBoxColumn.DataPropertyName = "IsDeleted";
-            this.isDeletedDataGridViewCheckBoxColumn.HeaderText = "IsDeleted";
-            this.isDeletedDataGridViewCheckBoxColumn.Name = "isDeletedDataGridViewCheckBoxColumn";
-            this.isDeletedDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
             // qryStateListBindingSource
             // 
@@ -297,8 +219,8 @@
             // 
             // staffsyncDBDTSet
             // 
-            //this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
-            //this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
+            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // qryDepartmentListBindingSource
             // 
@@ -432,17 +354,8 @@
         private StaffsyncDBDataSetTableAdapters.qryDesignationListTableAdapter qryDesignationListTableAdapter;
         private System.Windows.Forms.BindingSource qryStateListBindingSource;
         private StaffsyncDBDataSetTableAdapters.qryStateListTableAdapter qryStateListTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StateID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StateCode;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StateTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StateInitial;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn IsActive;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stateIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stateCodeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stateTitleDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stateInitialDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn isActiveDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn isDeletedDataGridViewCheckBoxColumn;
         private Krypton.Toolkit.KryptonButton btnCloseMe;
+        private System.Windows.Forms.Label lblStateID;
+        private System.Windows.Forms.Label lblClientID;
     }
 }

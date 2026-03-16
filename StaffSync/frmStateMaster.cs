@@ -1,19 +1,20 @@
-﻿using StaffSync.StaffsyncDBDataSetTableAdapters;
+﻿using ModelStaffSync;
+using StaffSync.StaffsyncDBDataSetTableAdapters;
+using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Data.OleDb;
-using StaffSync.StaffsyncDBDTSetTableAdapters;
-using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using ModelStaffSync;
 
 namespace StaffSync
 {
@@ -80,7 +81,7 @@ namespace StaffSync
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            frmStateList frmStateList = new frmStateList(this);
+            frmStateList frmStateList = new frmStateList(this, Convert.ToInt32(objTempClientFinYearInfo.ClientID), 1);
             frmStateList.ShowDialog(this);
         }
 
@@ -174,6 +175,8 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.SelectedIndex = 0;
+            picConfigStatus.Visible = false;
+            lnlViewProfessionalTaxSlab.Visible = false;
         }
 
         public void enableControls()
@@ -269,6 +272,20 @@ namespace StaffSync
             txtStateTitle.Text = stateModel.StateTitle;
             txtStateInitial.Text = stateModel.StateInitial;
             cmbIsActive.Text = stateModel.IsActive == true ? "Yes" : "No";
+            picConfigStatus.Visible = true;
+            lnlViewProfessionalTaxSlab.Visible = true;
+            if (stateModel.IsConfigured)
+            {
+                picConfigStatus.Image = SystemIcons.Shield.ToBitmap();
+                toolTip1.SetToolTip(lnlViewProfessionalTaxSlab, "Slab Configured");
+                toolTip1.SetToolTip(picConfigStatus, "Slab Configured");
+            }
+            else
+            {
+                picConfigStatus.Image = SystemIcons.Warning.ToBitmap();
+                toolTip1.SetToolTip(lnlViewProfessionalTaxSlab, "Slab Not Configured");
+                toolTip1.SetToolTip(picConfigStatus, "Slab Not Configured");
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -381,6 +398,16 @@ namespace StaffSync
                 objDashboard.sptrDashboardContainer.Visible = true;
                 this.Close();
             }
+        }
+
+        private void lnlViewProfessionalTaxSlab_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void lnlViewProfessionalTaxSlab_LinkClicked(object sender, EventArgs e)
+        {
+            frmCompanyList frmCompanyList = new frmCompanyList(this, "stateprofessionaltaxslab", Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID), Convert.ToInt16(lblCountryID.Text.ToString()));
+            frmCompanyList.ShowDialog(this);
         }
     }
 }

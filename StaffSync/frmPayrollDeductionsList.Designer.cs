@@ -110,6 +110,7 @@
             this.dtgDeductionsList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgDeductionsList.Size = new System.Drawing.Size(1283, 390);
             this.dtgDeductionsList.TabIndex = 7;
+            this.dtgDeductionsList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgDeductionsList_Paint);
             this.dtgDeductionsList.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
             // 
             // txtSearch

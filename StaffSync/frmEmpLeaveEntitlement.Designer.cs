@@ -300,6 +300,7 @@
             this.dtgLeaveEntitlement.Size = new System.Drawing.Size(985, 239);
             this.dtgLeaveEntitlement.TabIndex = 45;
             this.dtgLeaveEntitlement.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgLeaveEntitlement_CellEndEdit);
+            this.dtgLeaveEntitlement.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgLeaveEntitlement_Paint);
             // 
             // lblCancelStatus
             // 

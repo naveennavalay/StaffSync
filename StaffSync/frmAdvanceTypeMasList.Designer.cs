@@ -116,6 +116,7 @@
             this.dtgEmployeeList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgEmployeeList.Size = new System.Drawing.Size(794, 240);
             this.dtgEmployeeList.TabIndex = 11;
+            this.dtgEmployeeList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgEmployeeList_Paint);
             this.dtgEmployeeList.DoubleClick += new System.EventHandler(this.dtgEmployeeList_DoubleClick);
             // 
             // txtSearch

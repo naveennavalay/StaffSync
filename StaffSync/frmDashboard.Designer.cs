@@ -2023,6 +2023,7 @@
             this.dtgUpcomingHolidays.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgUpcomingHolidays_CellContentClick);
             this.dtgUpcomingHolidays.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dtgUpcomingHolidays_CellFormatting);
             this.dtgUpcomingHolidays.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dtgUpcomingHolidays_CellPainting);
+            this.dtgUpcomingHolidays.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgUpcomingHolidays_Paint);
             // 
             // kryptonSplitContainer2
             // 
@@ -2483,6 +2484,7 @@
             this.dtgAdvanceRiskBase.TabIndex = 48;
             this.dtgAdvanceRiskBase.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAdvanceRiskBase_CellContentClick);
             this.dtgAdvanceRiskBase.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAdvanceRiskBase_CellDoubleClick);
+            this.dtgAdvanceRiskBase.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAdvanceRiskBase_Paint);
             // 
             // kryptonSplitContainer3
             // 

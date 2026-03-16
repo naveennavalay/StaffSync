@@ -142,6 +142,7 @@
             this.dtgBulkLeaveList.Name = "dtgBulkLeaveList";
             this.dtgBulkLeaveList.Size = new System.Drawing.Size(1053, 357);
             this.dtgBulkLeaveList.TabIndex = 33;
+            this.dtgBulkLeaveList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgBulkLeaveList_Paint);
             // 
             // SelectEmp
             // 
