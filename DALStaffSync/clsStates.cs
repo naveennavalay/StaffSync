@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 
@@ -11,22 +12,22 @@ namespace DALStaffSync
     {
         dbStaffSync.clsStates objStates = new dbStaffSync.clsStates();
 
-        public DataTable GetStateList()
+        public List<StateModel> GetStateList()
         {
-            DataTable dt = new DataTable();
+            List<StateModel> objStatesList = new List<StateModel>();
 
-            dt = objStates.GetStateList();
+            objStatesList = objStates.GetStateList();
 
-            return dt;
+            return objStatesList;
         }
 
-        public DataTable GetStateList(string filterText)
+        public List<StateModel> GetStateList(string filterText)
         {
-            DataTable dt = new DataTable();
+            List<StateModel> objStatesList = new List<StateModel>();
 
-            dt = objStates.GetStateList(filterText);
+            objStatesList = objStates.GetStateList(filterText);
 
-            return dt;
+            return objStatesList;
         }
 
         public int GetStateByTitle(string StateName)

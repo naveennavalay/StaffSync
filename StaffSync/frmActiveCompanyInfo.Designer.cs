@@ -110,7 +110,7 @@
             // 
             this.cmbCompanyList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCompanyList.DropDownWidth = 440;
-            this.cmbCompanyList.Location = new System.Drawing.Point(126, 57);
+            this.cmbCompanyList.Location = new System.Drawing.Point(126, 53);
             this.cmbCompanyList.Name = "cmbCompanyList";
             this.cmbCompanyList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbCompanyList.Size = new System.Drawing.Size(411, 22);
@@ -132,7 +132,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(83, 24);
+            this.label8.Location = new System.Drawing.Point(88, 24);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(36, 15);
@@ -157,12 +157,12 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(19, 57);
+            this.label2.Location = new System.Drawing.Point(16, 57);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 15);
+            this.label2.Size = new System.Drawing.Size(108, 15);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Holiday Name";
+            this.label2.Text = "Company Name";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel2

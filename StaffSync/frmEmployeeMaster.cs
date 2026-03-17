@@ -149,6 +149,14 @@ namespace StaffSync
             cmbBloodGroup.DisplayMember = "BloodGroupTitle";
             cmbBloodGroup.ValueMember = "BloodGroupID";
 
+            cmbPermanentState.DataSource = objStates.GetStateList();
+            cmbPermanentState.DisplayMember = "StateTitle";
+            cmbPermanentState.ValueMember = "StateID";
+
+            cmbCurrentState.DataSource = objStates.GetStateList();
+            cmbCurrentState.DisplayMember = "StateTitle";
+            cmbCurrentState.ValueMember = "StateID";
+
             cmbCurrentCountry.DataSource = objCountries.GetCountryList();
             cmbCurrentCountry.DisplayMember = "CountryTitle";
             cmbCurrentCountry.ValueMember = "CountryID";
@@ -363,7 +371,7 @@ namespace StaffSync
             //txtCurrentArea.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Area"), "Area");
             //txtCurrentCity.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("City"), "City");
             //txtCurrentPIN.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("PIN"), "PIN");
-            txtCurrentState.EnableAutoCompleteFromDataTable(objStates.GetStateList(), "StateTitle");
+            //txtCurrentState.EnableAutoCompleteFromDataTable(objStates.GetStateList(), "StateTitle");
 
             //txtPermanentAddress01.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Address1"), "Address1");
             //txtPermanentAddress02.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Address2"), "Address2");
@@ -384,6 +392,14 @@ namespace StaffSync
             cmbBloodGroup.DataSource = objBloodGroup.GetBloodGroupList();
             cmbBloodGroup.DisplayMember = "BloodGroupTitle";
             cmbBloodGroup.ValueMember = "BloodGroupID";
+
+            cmbCurrentState.DataSource = objStates.GetStateList();
+            cmbCurrentState.DisplayMember = "StateTitle";
+            cmbCurrentState.ValueMember = "StateID";
+
+            cmbPermanentState.DataSource = objStates.GetStateList();
+            cmbPermanentState.DisplayMember = "StateTitle";
+            cmbPermanentState.ValueMember = "StateID";
 
             cmbCurrentCountry.DataSource = objCountries.GetCountryList();
             cmbCurrentCountry.DisplayMember = "CountryTitle";
@@ -519,6 +535,8 @@ namespace StaffSync
 
         public void clearControls()
         {
+
+            tabControl1.Enabled = false;
             lblEmpID.Text = "";
             txtEmpCode.Text = "";
             txtEmployeeName.Text = "";
@@ -533,8 +551,10 @@ namespace StaffSync
             txtCurrentAddress02.Text = "";
             txtCurrentArea.Text = "";
             txtCurrentCity.Text = "";
-            txtCurrentState.Text = "";
             txtCurrentPIN.Text = "";
+
+            cmbCurrentState.DataSource = null;
+            cmbPermanentState.DataSource = null;
             cmbCurrentCountry.DataSource = null;
             txtEmployeeContactNumber.Text = "";
             txtEmployeeMailID.Text = "";
@@ -544,7 +564,7 @@ namespace StaffSync
             txtPermanentAddress02.Text = "";
             txtPermanentArea.Text = "";
             txtPermanentCity.Text = "";
-            txtPermanentState.Text = "";
+            cmbPermanentState.DataSource = null;
             txtPermanentPIN.Text = "";
             cmbPermanentCountry.DataSource = null;
 
@@ -649,6 +669,7 @@ namespace StaffSync
 
         public void enableControls()
         {
+            tabControl1.Enabled = true;
             txtEmpCode.Enabled = true;
             txtEmployeeName.Enabled = true;
             txtDateOfBirth.Enabled = true;
@@ -660,7 +681,8 @@ namespace StaffSync
             txtCurrentAddress02.Enabled = true;
             txtCurrentArea.Enabled = true;
             txtCurrentCity.Enabled = true;
-            txtCurrentState.Enabled = true;
+            //txtCurrentState.Enabled = true;
+            cmbCurrentState.Enabled = true;
             txtCurrentPIN.Enabled = true;
             cmbCurrentCountry.Enabled = true;
             txtEmployeeContactNumber.Enabled = true;
@@ -671,7 +693,8 @@ namespace StaffSync
             txtPermanentAddress02.Enabled = true;
             txtPermanentArea.Enabled = true;
             txtPermanentCity.Enabled = true;
-            txtPermanentState.Enabled = true;
+            //txtPermanentState.Enabled = true;
+            cmbPermanentState.Enabled = true;
             txtPermanentPIN.Enabled = true;
             cmbPermanentCountry.Enabled = true;
             cmbSalProfile.Enabled = true;
@@ -737,6 +760,7 @@ namespace StaffSync
 
         public void disableControls()
         {
+            tabControl1.Enabled = false;
             txtEmpCode.Enabled = false;
             txtEmployeeName.Enabled = false;
             txtDateOfBirth.Enabled = false;
@@ -748,7 +772,7 @@ namespace StaffSync
             txtCurrentAddress02.Enabled = false;
             txtCurrentArea.Enabled = false;
             txtCurrentCity.Enabled = false;
-            txtCurrentState.Enabled = false;
+            cmbCurrentState.Enabled = false;
             txtCurrentPIN.Enabled = false;
             cmbCurrentCountry.Enabled = false;
             txtEmployeeContactNumber.Enabled = false;
@@ -759,7 +783,8 @@ namespace StaffSync
             txtPermanentAddress02.Enabled = false;
             txtPermanentArea.Enabled = false;
             txtPermanentCity.Enabled = false;
-            txtPermanentState.Enabled = false;
+            //txtPermanentState.Enabled = false;
+            cmbPermanentState.Enabled = false;
             txtPermanentPIN.Enabled = false;
             cmbPermanentCountry.Enabled = false;
             cmbSalProfile.Enabled = false;
@@ -910,6 +935,14 @@ namespace StaffSync
             //txtPermanentPIN.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("PIN"), "PIN");
             //txtPermanentState.EnableAutoCompleteFromDataTable(objStates.GetStateList("StateTitle"), "StateTitle");
 
+            cmbCurrentState.DataSource = objStates.GetStateList();
+            cmbCurrentState.DisplayMember = "StateTitle";
+            cmbCurrentState.ValueMember = "StateID";
+
+            cmbPermanentState.DataSource = objStates.GetStateList();
+            cmbPermanentState.DisplayMember = "StateTitle";
+            cmbPermanentState.ValueMember = "StateID";
+
             cmbCurrentCountry.DataSource = objCountries.GetCountryList();
             cmbCurrentCountry.DisplayMember = "CountryTitle";
             cmbCurrentCountry.ValueMember = "CountryID";
@@ -997,8 +1030,8 @@ namespace StaffSync
 
                     if (tabPersonalInfo.Visible == true)
                     {
-                        int curAddressID = objAddressInfo.InsertAddressInfo(txtCurrentAddress01.Text.Trim(), txtCurrentAddress02.Text.Trim(), txtCurrentArea.Text.Trim(), txtCurrentCity.Text.Trim(), txtCurrentPIN.Text.Trim(), txtCurrentState.Text.Trim(), cmbCurrentCountry.Text);
-                        int perAddressID = objAddressInfo.InsertAddressInfo(txtPermanentAddress01.Text.Trim(), txtPermanentAddress02.Text.Trim(), txtPermanentArea.Text.Trim(), txtPermanentCity.Text.Trim(), txtPermanentPIN.Text.Trim(), txtPermanentState.Text.Trim(), cmbPermanentCountry.Text);
+                        int curAddressID = objAddressInfo.InsertAddressInfo(txtCurrentAddress01.Text.Trim(), txtCurrentAddress02.Text.Trim(), txtCurrentArea.Text.Trim(), txtCurrentCity.Text.Trim(), txtCurrentPIN.Text.Trim(), cmbCurrentState.Text.Trim(), cmbCurrentCountry.Text);
+                        int perAddressID = objAddressInfo.InsertAddressInfo(txtPermanentAddress01.Text.Trim(), txtPermanentAddress02.Text.Trim(), txtPermanentArea.Text.Trim(), txtPermanentCity.Text.Trim(), txtPermanentPIN.Text.Trim(), cmbPermanentState.Text.Trim(), cmbPermanentCountry.Text);
                         int personalInfoID = objEmployeePersonalInfo.InsertEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
                         int personalIDInfoID = objEmployeePersonalIDInfo.InsertEmployeePersonalIDInfo(personalInfoID, txtAadhaarCardNumber.Text.Trim(), txtVoterCardNumber.Text.Trim(), txtPANCardNumber.Text.Trim(), txtPassportNumber.Text.Trim(), Convert.ToDateTime(txtPassportIssueDate.Text), Convert.ToDateTime(txtPassportRenewalDate.Text), txtAdditonalCardNumber.Text.Trim(), "", "", "", "", chkProvidentFundEnabled.Checked, txtPFNumber.Text, Convert.ToDateTime(txtDateOfJoining.Text), Convert.ToDateTime(txtPFRelievingDate.Text), chkProfessionalTaxEnabled.Checked, txtPTNumber.Text, chkESIEnabled.Checked, txtESINumber.Text, txtESIDispName.Text, chkNationalPensionScheme.Checked, txtNPSNumber.Text);
                     }
@@ -1150,8 +1183,8 @@ namespace StaffSync
                                 photoID = objPhotoMas.InsertPhotoInfo(employeeID, image_bytes);
                         }
                     }
-                    int curAddressID = objAddressInfo.UpdateAddressInfo(Convert.ToInt16(lblCurrentAddressID.Text.Trim()), txtCurrentAddress01.Text.Trim(), txtCurrentAddress02.Text.Trim(), txtCurrentArea.Text.Trim(), txtCurrentCity.Text.Trim(), txtCurrentPIN.Text.Trim(), txtCurrentState.Text.Trim(), cmbCurrentCountry.Text);
-                    int perAddressID = objAddressInfo.UpdateAddressInfo(Convert.ToInt16(lblPermanentAddressID.Text.Trim()), txtPermanentAddress01.Text.Trim(), txtPermanentAddress02.Text.Trim(), txtPermanentArea.Text.Trim(), txtPermanentCity.Text.Trim(), txtPermanentPIN.Text.Trim(), txtPermanentState.Text.Trim(), cmbPermanentCountry.Text);
+                    int curAddressID = objAddressInfo.UpdateAddressInfo(Convert.ToInt16(lblCurrentAddressID.Text.Trim()), txtCurrentAddress01.Text.Trim(), txtCurrentAddress02.Text.Trim(), txtCurrentArea.Text.Trim(), txtCurrentCity.Text.Trim(), txtCurrentPIN.Text.Trim(), cmbCurrentState.Text.Trim(), cmbCurrentCountry.Text);
+                    int perAddressID = objAddressInfo.UpdateAddressInfo(Convert.ToInt16(lblPermanentAddressID.Text.Trim()), txtPermanentAddress01.Text.Trim(), txtPermanentAddress02.Text.Trim(), txtPermanentArea.Text.Trim(), txtPermanentCity.Text.Trim(), txtPermanentPIN.Text.Trim(), cmbPermanentState.Text.Trim(), cmbPermanentCountry.Text);
                     int contactInfoID01 = objContactPerson.UdpateContactInfo(Convert.ToInt16(lblContactInfoID.Text.Trim()), txtContactPersonName.Text.Trim(), txtContactPersonNumber.Text.ToString(), cmbContactPersonRelationship.SelectedIndex + 1, 1);
                     int personalInfoID = objEmployeePersonalInfo.UpdateEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
                     int personalIDInfoID = objEmployeePersonalIDInfo.UpdateEmployeePersonalIDInfo(Convert.ToInt16(lblEmpGovtID.Text.Trim()), personalInfoID, txtAadhaarCardNumber.Text.Trim(), txtVoterCardNumber.Text.Trim(), txtPANCardNumber.Text.Trim(), txtPassportNumber.Text.Trim(), Convert.ToDateTime(txtPassportIssueDate.Text), Convert.ToDateTime(txtPassportRenewalDate.Text), txtAdditonalCardNumber.Text.Trim(), "", "", "", "", chkProvidentFundEnabled.Checked, txtPFNumber.Text, Convert.ToDateTime(txtDateOfJoining.Text), Convert.ToDateTime(txtPFRelievingDate.Text), chkProfessionalTaxEnabled.Checked, txtPTNumber.Text, chkESIEnabled.Checked, txtESINumber.Text, txtESIDispName.Text, chkNationalPensionScheme.Checked, txtNPSNumber.Text);
@@ -1346,6 +1379,14 @@ namespace StaffSync
                 cmbBloodGroup.DisplayMember = "BloodGroupTitle";
                 cmbBloodGroup.ValueMember = "BloodGroupID";
 
+                cmbPermanentState.DataSource = objStates.GetStateList();
+                cmbPermanentState.DisplayMember = "StateTitle";
+                cmbPermanentState.ValueMember = "StateID";
+
+                cmbCurrentState.DataSource = objStates.GetStateList();
+                cmbCurrentState.DisplayMember = "StateTitle";
+                cmbCurrentState.ValueMember = "StateID";
+
                 cmbCurrentCountry.DataSource = objCountries.GetCountryList();
                 cmbCurrentCountry.DisplayMember = "CountryTitle";
                 cmbCurrentCountry.ValueMember = "CountryID";
@@ -1411,8 +1452,8 @@ namespace StaffSync
 
         private void txtCurrentState_TextChanged(object sender, EventArgs e)
         {
-            if (chkSamePerAddAsCurAdd.Checked == true)
-                txtPermanentState.Text = txtCurrentState.Text.Trim();
+            //if (chkSamePerAddAsCurAdd.Checked == true)
+                //txtPermanentState.Text = txtCurrentState.Text.Trim();
         }
 
         private void txtCurrentPIN_TextChanged(object sender, EventArgs e)
@@ -1433,7 +1474,7 @@ namespace StaffSync
             txtPermanentAddress02.ReadOnly = chkSamePerAddAsCurAdd.Checked;
             txtPermanentArea.ReadOnly = chkSamePerAddAsCurAdd.Checked;
             txtPermanentCity.ReadOnly = chkSamePerAddAsCurAdd.Checked;
-            txtCurrentState.ReadOnly = chkSamePerAddAsCurAdd.Checked;
+            cmbPermanentState.Enabled = chkSamePerAddAsCurAdd.Checked;
             txtPermanentPIN.ReadOnly = chkSamePerAddAsCurAdd.Checked;
             cmbPermanentCountry.Enabled = chkSamePerAddAsCurAdd.Checked;
         }
@@ -1532,11 +1573,11 @@ namespace StaffSync
                 txtCurrentPIN.Focus();
                 errValidator.SetError(this.txtCurrentPIN, "Enter a valid 6-digit PIN code.");
             }
-            if (string.IsNullOrEmpty(txtCurrentState.Text))
+            if (string.IsNullOrEmpty(cmbCurrentState.Text))
             {
                 validationStatus = false;
-                txtCurrentState.Focus();
-                errValidator.SetError(this.txtCurrentState, txtCurrentState.Tag?.ToString() ?? "Current State is required.");
+                cmbCurrentState.Focus();
+                errValidator.SetError(this.cmbCurrentState, cmbCurrentState.Tag?.ToString() ?? "Current State is required.");
             }
             if (string.IsNullOrEmpty(cmbCurrentCountry.Text))
             {
@@ -1641,11 +1682,11 @@ namespace StaffSync
                 txtPermanentPIN.Focus();
                 errValidator.SetError(this.txtPermanentPIN, "Enter a valid 6-digit PIN code.");
             }
-            if (string.IsNullOrEmpty(txtPermanentState.Text))
+            if (string.IsNullOrEmpty(cmbPermanentState.Text))
             {
                 validationStatus = false;
-                txtPermanentState.Focus();
-                errValidator.SetError(this.txtPermanentState, txtPermanentState.Tag?.ToString() ?? "Permanent State is required.");
+                cmbPermanentState.Focus();
+                errValidator.SetError(this.cmbPermanentState, cmbPermanentState.Tag?.ToString() ?? "Permanent State is required.");
             }
             if (string.IsNullOrEmpty(cmbPermanentCountry.Text))
             {
@@ -2040,7 +2081,8 @@ namespace StaffSync
             txtCurrentAddress02.Text = objSelectedCurrAddressInfo.Address2;
             txtCurrentArea.Text = objSelectedCurrAddressInfo.Area;
             txtCurrentCity.Text = objSelectedCurrAddressInfo.City;
-            txtCurrentState.Text = objSelectedCurrAddressInfo.State;
+            //txtCurrentState.Text = objSelectedCurrAddressInfo.State;
+            cmbCurrentState.Text = objSelectedCurrAddressInfo.State;
             txtCurrentPIN.Text = objSelectedCurrAddressInfo.PIN;
             cmbCurrentCountry.SelectedIndex = objSelectedCurrAddressInfo.CountryID - 1;
 
@@ -2050,7 +2092,8 @@ namespace StaffSync
             txtPermanentAddress02.Text = objSelectedPermAddressInfo.Address2;
             txtPermanentArea.Text = objSelectedPermAddressInfo.Area;
             txtPermanentCity.Text = objSelectedPermAddressInfo.City;
-            txtPermanentState.Text = objSelectedPermAddressInfo.State;
+            //txtPermanentState.Text = objSelectedPermAddressInfo.State;
+            cmbPermanentState.Text = objSelectedPermAddressInfo.State;
             txtPermanentPIN.Text = objSelectedPermAddressInfo.PIN;
             cmbPermanentCountry.SelectedIndex = objSelectedPermAddressInfo.CountryID - 1;
 
@@ -2441,6 +2484,7 @@ namespace StaffSync
             dtgSalaryProfileDetails.Columns["HeaderType"].Width = 150;
             dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = false;
             dtgSalaryProfileDetails.Columns["IsFixed"].Visible = false;
+            dtgSalaryProfileDetails.Columns["ActualAmount"].Visible = false;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].Width = 150;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Format = "c2";
@@ -2557,6 +2601,7 @@ namespace StaffSync
             dtgSalaryProfileDetails.Columns["HeaderType"].Width = 150;
             dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = false;
             dtgSalaryProfileDetails.Columns["IsFixed"].Visible = false;
+            dtgSalaryProfileDetails.Columns["ActualAmount"].Visible = false;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].Width = 150;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].DefaultCellStyle.Format = "c2";
@@ -2960,7 +3005,7 @@ namespace StaffSync
             picCurrentState.Visible = false;
             picPermState.Visible = false;
 
-            int StateID = objStates.GetStateByTitle(txtCurrentState.Text.ToString().Trim());
+            int StateID = objStates.GetStateByTitle(cmbCurrentState.Text.ToString().Trim());
 
             DataTable tmpStateSpecificProfessionalTaxSlabConfigStatus = objProfessionalTaxSlab.getStateSpecificProfessionalTaxSlabList(Convert.ToInt32(objTempClientFinYearInfo.ClientID.ToString()), Convert.ToInt32(StateID));
             if (tmpStateSpecificProfessionalTaxSlabConfigStatus.Rows.Count <= 0)
@@ -2986,7 +3031,7 @@ namespace StaffSync
         {
             picPermState.Visible = false;
 
-            int StateID = objStates.GetStateByTitle(txtCurrentState.Text.ToString().Trim());
+            int StateID = objStates.GetStateByTitle(cmbPermanentState.Text.ToString().Trim());
 
             DataTable tmpStateSpecificProfessionalTaxSlabConfigStatus = objProfessionalTaxSlab.getStateSpecificProfessionalTaxSlabList(Convert.ToInt32(objTempClientFinYearInfo.ClientID.ToString()), Convert.ToInt32(StateID));
             if (tmpStateSpecificProfessionalTaxSlabConfigStatus.Rows.Count <= 0)
@@ -2995,6 +3040,60 @@ namespace StaffSync
                 picPermState.Image = SystemIcons.Warning.ToBitmap();
                 toolTip1.SetToolTip(picPermState, "Slab Not Configured");
                 MessageBox.Show("The Professional Tax slab for the selected state has not yet been configured.\nContinuing without configuration may affect payroll calculations.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                picCurrentState.Visible = false;
+            }
+        }
+
+        private void cmbPermanentState_Leave(object sender, EventArgs e)
+        {
+            picCurrentState.Visible = false;
+            picPermState.Visible = false;
+
+            int StateID = objStates.GetStateByTitle(cmbPermanentState.Text.ToString().Trim());
+
+            DataTable tmpStateSpecificProfessionalTaxSlabConfigStatus = objProfessionalTaxSlab.getStateSpecificProfessionalTaxSlabList(Convert.ToInt32(objTempClientFinYearInfo.ClientID.ToString()), Convert.ToInt32(StateID));
+            if (tmpStateSpecificProfessionalTaxSlabConfigStatus.Rows.Count <= 0)
+            {
+                picCurrentState.Visible = true;
+                picCurrentState.Image = SystemIcons.Warning.ToBitmap();
+                toolTip1.SetToolTip(picCurrentState, "Slab Not Configured");
+                if (chkSamePerAddAsCurAdd.Checked)
+                {
+                    picPermState.Visible = true;
+                    picPermState.Image = SystemIcons.Warning.ToBitmap();
+                    toolTip1.SetToolTip(picPermState, "Slab Not Configured");
+                }
+                MessageBox.Show("The Professional Tax slab for the selected state has not yet been configured. Continuing without configuration may affect payroll calculations.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                picCurrentState.Visible = false;
+            }
+        }
+
+        private void cmbCurrentState_Leave(object sender, EventArgs e)
+        {
+            picCurrentState.Visible = false;
+            picPermState.Visible = false;
+
+            int StateID = objStates.GetStateByTitle(cmbCurrentState.Text.ToString().Trim());
+
+            DataTable tmpStateSpecificProfessionalTaxSlabConfigStatus = objProfessionalTaxSlab.getStateSpecificProfessionalTaxSlabList(Convert.ToInt32(objTempClientFinYearInfo.ClientID.ToString()), Convert.ToInt32(StateID));
+            if (tmpStateSpecificProfessionalTaxSlabConfigStatus.Rows.Count <= 0)
+            {
+                picCurrentState.Visible = true;
+                picCurrentState.Image = SystemIcons.Warning.ToBitmap();
+                toolTip1.SetToolTip(picCurrentState, "Slab Not Configured");
+                if (chkSamePerAddAsCurAdd.Checked)
+                {
+                    picPermState.Visible = true;
+                    picPermState.Image = SystemIcons.Warning.ToBitmap();
+                    toolTip1.SetToolTip(picPermState, "Slab Not Configured");
+                }
+                MessageBox.Show("The Professional Tax slab for the selected state has not yet been configured. Continuing without configuration may affect payroll calculations.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {

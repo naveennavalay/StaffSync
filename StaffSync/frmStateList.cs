@@ -45,6 +45,14 @@ namespace StaffSync
         private void frmStateList_Load(object sender, EventArgs e)
         {
             dtgStateList.DataSource = clsStates.GetStateList();
+            DataGridViewImageColumn colStatus = new DataGridViewImageColumn();
+            colStatus.Name = "ConfigStatus";
+            colStatus.ReadOnly = true;
+            colStatus.HeaderText = "Prof. Tax Slab Configured.?";
+            colStatus.Width = 125;
+            colStatus.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            dtgStateList.Columns.Add(colStatus);
+
             dtgStateList.Columns["StateID"].Visible = false;
             dtgStateList.Columns["StateCode"].ReadOnly = true;
             dtgStateList.Columns["StateCode"].Width = 125;
@@ -52,6 +60,7 @@ namespace StaffSync
             dtgStateList.Columns["StateTitle"].Width = 300;
             dtgStateList.Columns["StateInitial"].ReadOnly = true;
             dtgStateList.Columns["StateInitial"].Width = 125;
+            dtgStateList.Columns["IsConfigured"].Visible = false;
             dtgStateList.Columns["IsActive"].Visible = false;
             dtgStateList.Columns["IsDeleted"].Visible = false;
         }
@@ -118,6 +127,35 @@ namespace StaffSync
         private void btnCloseMe_Click_2(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void dtgStateList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dtgStateList.Columns[e.ColumnIndex].Name == "ConfigStatus")
+            {
+                var row = dtgStateList.Rows[e.RowIndex];
+
+                bool isConfigured = false;
+
+                if (row.Cells["IsConfigured"].Value != DBNull.Value)
+                    isConfigured = Convert.ToBoolean(row.Cells["IsConfigured"].Value);
+
+                if (isConfigured)
+                {
+                    e.Value = ResizeImage(SystemIcons.Shield.ToBitmap(), 16, 16);   // 🛡
+                    row.Cells["ConfigStatus"].ToolTipText = "Professional Tax is configured for this state.";
+                }
+                else
+                {
+                    e.Value = ResizeImage(SystemIcons.Warning.ToBitmap(), 16, 16);  // ⚠
+                    row.Cells["ConfigStatus"].ToolTipText = "Professional Tax slab is not configured for this state.";
+                }
+            }
+        }
+
+        public Image ResizeImage(Image img, int width, int height)
+        {
+            return new Bitmap(img, new Size(width, height));
         }
     }
 }

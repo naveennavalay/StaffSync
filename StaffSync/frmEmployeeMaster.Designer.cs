@@ -40,9 +40,10 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cmbPermanentState = new Krypton.Toolkit.KryptonComboBox();
+            this.picPermState = new System.Windows.Forms.PictureBox();
             this.cmbPermanentCountry = new Krypton.Toolkit.KryptonComboBox();
             this.txtPermanentPIN = new Krypton.Toolkit.KryptonTextBox();
-            this.txtPermanentState = new Krypton.Toolkit.KryptonTextBox();
             this.txtPermanentCity = new Krypton.Toolkit.KryptonTextBox();
             this.txtPermanentArea = new Krypton.Toolkit.KryptonTextBox();
             this.txtPermanentAddress02 = new Krypton.Toolkit.KryptonTextBox();
@@ -57,9 +58,10 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cmbCurrentState = new Krypton.Toolkit.KryptonComboBox();
+            this.picCurrentState = new System.Windows.Forms.PictureBox();
             this.cmbCurrentCountry = new Krypton.Toolkit.KryptonComboBox();
             this.txtCurrentPIN = new Krypton.Toolkit.KryptonTextBox();
-            this.txtCurrentState = new Krypton.Toolkit.KryptonTextBox();
             this.txtCurrentCity = new Krypton.Toolkit.KryptonTextBox();
             this.txtCurrentArea = new Krypton.Toolkit.KryptonTextBox();
             this.txtCurrentAddress02 = new Krypton.Toolkit.KryptonTextBox();
@@ -285,8 +287,6 @@
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.picCurrentState = new System.Windows.Forms.PictureBox();
-            this.picPermState = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -298,8 +298,12 @@
             this.tabPersonalInfo.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbPermanentState)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPermState)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbPermanentCountry)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbCurrentState)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCurrentState)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbCurrentCountry)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbBloodGroup)).BeginInit();
@@ -381,8 +385,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.docUploadsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryEmpBirthdayListBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picCurrentState)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picPermState)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -477,6 +479,12 @@
             this.tabControl1.PopupPages.Position = Krypton.Navigator.PopupPagePosition.ModeAppropriate;
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1252, 548);
+            this.tabControl1.StateDisabled.HeaderGroup.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.tabControl1.StateDisabled.HeaderGroup.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.tabControl1.StateDisabled.Page.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.tabControl1.StateDisabled.Page.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.tabControl1.StateDisabled.Panel.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.tabControl1.StateDisabled.Panel.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.tabControl1.TabIndex = 28;
             // 
             // tabPersonalInfo
@@ -564,10 +572,10 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.cmbPermanentState);
             this.groupBox3.Controls.Add(this.picPermState);
             this.groupBox3.Controls.Add(this.cmbPermanentCountry);
             this.groupBox3.Controls.Add(this.txtPermanentPIN);
-            this.groupBox3.Controls.Add(this.txtPermanentState);
             this.groupBox3.Controls.Add(this.txtPermanentCity);
             this.groupBox3.Controls.Add(this.txtPermanentArea);
             this.groupBox3.Controls.Add(this.txtPermanentAddress02);
@@ -588,6 +596,28 @@
             this.groupBox3.TabIndex = 17;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Permanent Address Info";
+            // 
+            // cmbPermanentState
+            // 
+            this.cmbPermanentState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPermanentState.DropDownWidth = 440;
+            this.cmbPermanentState.Location = new System.Drawing.Point(129, 169);
+            this.cmbPermanentState.Name = "cmbPermanentState";
+            this.cmbPermanentState.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbPermanentState.Size = new System.Drawing.Size(211, 22);
+            this.cmbPermanentState.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbPermanentState.TabIndex = 43;
+            this.cmbPermanentState.Leave += new System.EventHandler(this.cmbPermanentState_Leave);
+            // 
+            // picPermState
+            // 
+            this.picPermState.Location = new System.Drawing.Point(346, 172);
+            this.picPermState.Name = "picPermState";
+            this.picPermState.Size = new System.Drawing.Size(16, 16);
+            this.picPermState.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picPermState.TabIndex = 42;
+            this.picPermState.TabStop = false;
+            this.picPermState.Visible = false;
             // 
             // cmbPermanentCountry
             // 
@@ -614,21 +644,6 @@
             this.txtPermanentPIN.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPermanentPIN.TabIndex = 38;
             this.txtPermanentPIN.WordWrap = false;
-            // 
-            // txtPermanentState
-            // 
-            this.txtPermanentState.Location = new System.Drawing.Point(129, 166);
-            this.txtPermanentState.Multiline = true;
-            this.txtPermanentState.Name = "txtPermanentState";
-            this.txtPermanentState.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtPermanentState.Size = new System.Drawing.Size(440, 28);
-            this.txtPermanentState.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPermanentState.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtPermanentState.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPermanentState.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPermanentState.TabIndex = 37;
-            this.txtPermanentState.WordWrap = false;
-            this.txtPermanentState.Leave += new System.EventHandler(this.txtPermanentState_Leave);
             // 
             // txtPermanentCity
             // 
@@ -799,10 +814,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cmbCurrentState);
             this.groupBox2.Controls.Add(this.picCurrentState);
             this.groupBox2.Controls.Add(this.cmbCurrentCountry);
             this.groupBox2.Controls.Add(this.txtCurrentPIN);
-            this.groupBox2.Controls.Add(this.txtCurrentState);
             this.groupBox2.Controls.Add(this.txtCurrentCity);
             this.groupBox2.Controls.Add(this.txtCurrentArea);
             this.groupBox2.Controls.Add(this.txtCurrentAddress02);
@@ -822,6 +837,28 @@
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Current Address Info";
+            // 
+            // cmbCurrentState
+            // 
+            this.cmbCurrentState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCurrentState.DropDownWidth = 440;
+            this.cmbCurrentState.Location = new System.Drawing.Point(127, 169);
+            this.cmbCurrentState.Name = "cmbCurrentState";
+            this.cmbCurrentState.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbCurrentState.Size = new System.Drawing.Size(211, 22);
+            this.cmbCurrentState.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbCurrentState.TabIndex = 42;
+            this.cmbCurrentState.Leave += new System.EventHandler(this.cmbCurrentState_Leave);
+            // 
+            // picCurrentState
+            // 
+            this.picCurrentState.Location = new System.Drawing.Point(344, 172);
+            this.picCurrentState.Name = "picCurrentState";
+            this.picCurrentState.Size = new System.Drawing.Size(16, 16);
+            this.picCurrentState.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCurrentState.TabIndex = 41;
+            this.picCurrentState.TabStop = false;
+            this.picCurrentState.Visible = false;
             // 
             // cmbCurrentCountry
             // 
@@ -850,23 +887,6 @@
             this.txtCurrentPIN.TabIndex = 24;
             this.txtCurrentPIN.WordWrap = false;
             this.txtCurrentPIN.TextChanged += new System.EventHandler(this.txtCurrentPIN_TextChanged);
-            // 
-            // txtCurrentState
-            // 
-            this.txtCurrentState.Location = new System.Drawing.Point(127, 166);
-            this.txtCurrentState.Multiline = true;
-            this.txtCurrentState.Name = "txtCurrentState";
-            this.txtCurrentState.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtCurrentState.Size = new System.Drawing.Size(440, 28);
-            this.txtCurrentState.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCurrentState.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtCurrentState.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCurrentState.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCurrentState.TabIndex = 23;
-            this.txtCurrentState.Text = "```";
-            this.txtCurrentState.WordWrap = false;
-            this.txtCurrentState.TextChanged += new System.EventHandler(this.txtCurrentState_TextChanged);
-            this.txtCurrentState.Leave += new System.EventHandler(this.txtCurrentState_Leave);
             // 
             // txtCurrentCity
             // 
@@ -3586,26 +3606,6 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
-            // picCurrentState
-            // 
-            this.picCurrentState.Location = new System.Drawing.Point(573, 172);
-            this.picCurrentState.Name = "picCurrentState";
-            this.picCurrentState.Size = new System.Drawing.Size(16, 16);
-            this.picCurrentState.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picCurrentState.TabIndex = 41;
-            this.picCurrentState.TabStop = false;
-            this.picCurrentState.Visible = false;
-            // 
-            // picPermState
-            // 
-            this.picPermState.Location = new System.Drawing.Point(573, 172);
-            this.picPermState.Name = "picPermState";
-            this.picPermState.Size = new System.Drawing.Size(16, 16);
-            this.picPermState.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picPermState.TabIndex = 42;
-            this.picPermState.TabStop = false;
-            this.picPermState.Visible = false;
-            // 
             // frmEmployeeMaster
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -3641,9 +3641,13 @@
             this.groupBox10.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbPermanentState)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPermState)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbPermanentCountry)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbCurrentState)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCurrentState)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbCurrentCountry)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
@@ -3743,8 +3747,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.docUploadsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryEmpBirthdayListBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picCurrentState)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picPermState)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3883,11 +3885,9 @@
         private Krypton.Toolkit.KryptonTextBox txtCurrentArea;
         private Krypton.Toolkit.KryptonTextBox txtCurrentAddress02;
         private Krypton.Toolkit.KryptonTextBox txtCurrentPIN;
-        private Krypton.Toolkit.KryptonTextBox txtCurrentState;
         private Krypton.Toolkit.KryptonTextBox txtEmployeeMailID;
         private Krypton.Toolkit.KryptonTextBox txtEmployeeContactNumber;
         private Krypton.Toolkit.KryptonTextBox txtPermanentPIN;
-        private Krypton.Toolkit.KryptonTextBox txtPermanentState;
         private Krypton.Toolkit.KryptonTextBox txtPermanentCity;
         private Krypton.Toolkit.KryptonTextBox txtPermanentArea;
         private Krypton.Toolkit.KryptonTextBox txtPermanentAddress02;
@@ -4008,5 +4008,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.PictureBox picPermState;
         private System.Windows.Forms.PictureBox picCurrentState;
+        private Krypton.Toolkit.KryptonComboBox cmbCurrentState;
+        private Krypton.Toolkit.KryptonComboBox cmbPermanentState;
     }
 }

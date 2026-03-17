@@ -35,12 +35,12 @@
             this.lblStateID = new System.Windows.Forms.Label();
             this.lblClientID = new System.Windows.Forms.Label();
             this.dtgStateList = new System.Windows.Forms.DataGridView();
-            this.qryStateListBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.staffsyncDBDataSet = new StaffSync.StaffsyncDBDataSet();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
+            this.qryStateListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.staffsyncDBDataSet = new StaffSync.StaffsyncDBDataSet();
             this.qryDesignationListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.countryMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
@@ -64,9 +64,9 @@
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgStateList)).BeginInit();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qryStateListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet)).BeginInit();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qryDesignationListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
@@ -93,8 +93,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1227, 583);
-            this.splitContainer1.SplitterDistance = 515;
+            this.splitContainer1.Size = new System.Drawing.Size(966, 550);
+            this.splitContainer1.SplitterDistance = 481;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -108,7 +108,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1227, 515);
+            this.panel1.Size = new System.Drawing.Size(966, 481);
             this.panel1.TabIndex = 1;
             // 
             // lblStateID
@@ -149,23 +149,14 @@
             this.dtgStateList.Name = "dtgStateList";
             this.dtgStateList.ReadOnly = true;
             this.dtgStateList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgStateList.Size = new System.Drawing.Size(1192, 423);
+            this.dtgStateList.Size = new System.Drawing.Size(930, 388);
             this.dtgStateList.TabIndex = 7;
+            this.dtgStateList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dtgStateList_CellFormatting);
             this.dtgStateList.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
-            // 
-            // qryStateListBindingSource
-            // 
-            this.qryStateListBindingSource.DataMember = "qryStateList";
-            this.qryStateListBindingSource.DataSource = this.staffsyncDBDataSet;
-            // 
-            // staffsyncDBDataSet
-            // 
-            this.staffsyncDBDataSet.DataSetName = "StaffsyncDBDataSet";
-            this.staffsyncDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(157, 24);
+            this.txtSearch.Location = new System.Drawing.Point(159, 24);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
@@ -178,7 +169,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 31);
+            this.label1.Location = new System.Drawing.Point(16, 31);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(139, 15);
@@ -192,12 +183,12 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1227, 64);
+            this.panel2.Size = new System.Drawing.Size(966, 65);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1035, 14);
+            this.btnCloseMe.Location = new System.Drawing.Point(822, 14);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -206,6 +197,16 @@
             this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
             this.btnCloseMe.Values.Text = "Close Me";
             this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click_2);
+            // 
+            // qryStateListBindingSource
+            // 
+            this.qryStateListBindingSource.DataMember = "qryStateList";
+            this.qryStateListBindingSource.DataSource = this.staffsyncDBDataSet;
+            // 
+            // staffsyncDBDataSet
+            // 
+            this.staffsyncDBDataSet.DataSetName = "StaffsyncDBDataSet";
+            this.staffsyncDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // qryDesignationListBindingSource
             // 
@@ -290,7 +291,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1227, 583);
+            this.ClientSize = new System.Drawing.Size(966, 550);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -310,9 +311,9 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgStateList)).EndInit();
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.qryStateListBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet)).EndInit();
-            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.qryDesignationListBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();

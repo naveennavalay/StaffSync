@@ -349,7 +349,7 @@ namespace StaffSync
             //txtCurrentArea.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Area"), "Area");
             //txtCurrentCity.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("City"), "City");
             //txtCurrentPIN.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("PIN"), "PIN");
-            txtCurrentState.EnableAutoCompleteFromDataTable(objStates.GetStateList(), "StateTitle");
+            //txtCurrentState.EnableAutoCompleteFromDataTable(objStates.GetStateList(), "StateTitle");
 
             //txtPermanentAddress01.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Address1"), "Address1");
             //txtPermanentAddress02.EnableAutoCompleteFromDataTable(objAddressInfo.GetAddressList("Address2"), "Address2");

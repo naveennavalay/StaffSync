@@ -289,7 +289,7 @@
             this.tabOrgProfessionalTax,
             this.tabOrgLabourWelfareFund});
             this.tabControl1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.tabControl1.SelectedIndex = 3;
+            this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(916, 470);
             this.tabControl1.TabIndex = 8;
             // 
@@ -370,7 +370,7 @@
             this.chkEnablePayrollStatutory.Checked = true;
             this.chkEnablePayrollStatutory.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEnablePayrollStatutory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkEnablePayrollStatutory.Location = new System.Drawing.Point(609, 304);
+            this.chkEnablePayrollStatutory.Location = new System.Drawing.Point(609, 307);
             this.chkEnablePayrollStatutory.Name = "chkEnablePayrollStatutory";
             this.chkEnablePayrollStatutory.Size = new System.Drawing.Size(179, 19);
             this.chkEnablePayrollStatutory.TabIndex = 76;
@@ -1879,14 +1879,14 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 115);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 105);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(873, 316);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(873, 326);
             this.flowLayoutPanel1.TabIndex = 83;
             // 
             // txtProfTaxRegNumber
             // 
-            this.txtProfTaxRegNumber.Location = new System.Drawing.Point(136, 54);
+            this.txtProfTaxRegNumber.Location = new System.Drawing.Point(136, 53);
             this.txtProfTaxRegNumber.Margin = new System.Windows.Forms.Padding(4);
             this.txtProfTaxRegNumber.Multiline = true;
             this.txtProfTaxRegNumber.Name = "txtProfTaxRegNumber";
@@ -1904,7 +1904,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(17, 61);
+            this.label14.Location = new System.Drawing.Point(17, 60);
             this.label14.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(116, 15);
@@ -1929,7 +1929,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(17, 97);
+            this.label13.Location = new System.Drawing.Point(17, 87);
             this.label13.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(234, 15);

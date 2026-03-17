@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 
@@ -14,8 +16,9 @@ namespace dbStaffSync
         DataSet dtDataset;
         clsGenFunc objGenFunc = new clsGenFunc();
 
-        public DataTable GetStateList()
+        public List<StateModel> GetStateList()
         {
+            List<StateModel> objStatesList = new List<StateModel>();
             DataTable dt = new DataTable();
 
             try
@@ -31,6 +34,14 @@ namespace dbStaffSync
 
                 OleDbDataAdapter da = new OleDbDataAdapter(cmd);
                 da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objStatesList = JsonConvert.DeserializeObject<List<StateModel>>(DataTableToJSon);
+                foreach (var item in objStatesList)
+                {
+                    item.IsConfigured = IsStateProfessionalTaxSlabConfigured(item.StateID) > 0 ? true : false;
+                }
             }
             catch (Exception ex)
             {
@@ -42,11 +53,13 @@ namespace dbStaffSync
                 conn = dbStaffSync.closeDBConnection();
             }
 
-            return dt;
+            return objStatesList;
         }
 
-        public DataTable GetStateList(string filterText)
+        public List<StateModel> GetStateList(string filterText)
         {
+            List<StateModel> objStatesList = new List<StateModel>();
+
             DataTable dt = new DataTable();
 
             try
@@ -63,6 +76,13 @@ namespace dbStaffSync
                 OleDbDataAdapter da = new OleDbDataAdapter(cmd);
                 da.Fill(dt);
 
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objStatesList = JsonConvert.DeserializeObject<List<StateModel>>(DataTableToJSon);
+                foreach (var item in objStatesList)
+                {
+                    item.IsConfigured = IsStateProfessionalTaxSlabConfigured(item.StateID) > 0 ? true : false;
+                }
             }
             catch (Exception ex)
             {
@@ -74,7 +94,43 @@ namespace dbStaffSync
                 conn = dbStaffSync.closeDBConnection();
             }
 
-            return dt;
+            return objStatesList;
+        }
+
+        public int IsStateProfessionalTaxSlabConfigured(int txtStateID)
+        {
+            int intProfTaxSlabCount = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        " Count(ProfTaxDetailedSlab.PTMasID) AS TaxSlabCount " +
+                                    " FROM " +
+                                        " ProfTaxMas INNER JOIN ProfTaxDetailedSlab ON ProfTaxMas.PTMasID = ProfTaxDetailedSlab.PTMasID " +
+                                    " GROUP BY " +
+                                        " ProfTaxMas.StateID " +
+                                    " HAVING " +
+                                        " ProfTaxMas.StateID = " + txtStateID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                object a = cmd.ExecuteScalar();
+                if (a != null)
+                    intProfTaxSlabCount = (int)a;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return intProfTaxSlabCount;
         }
 
         public int GetStateByTitle(string StateName)
