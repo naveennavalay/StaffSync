@@ -1182,6 +1182,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hrm02.ico" />
+    <None Include="images\icons\asset-operations.ico" />
+    <None Include="images\icons\asset-master.ico" />
+    <None Include="images\icons\assets.ico" />
     <None Include="images\icons\uncheck_16x16_5.ico" />
     <None Include="images\icons\check_unfilled_16x16.ico" />
     <None Include="images\icons\check_filled_16x16.ico" />
