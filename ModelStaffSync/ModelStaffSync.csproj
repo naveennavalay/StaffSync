@@ -47,6 +47,7 @@
     <Compile Include="AppUserTasks.cs" />
     <Compile Include="AdvanceTypeMasModel.cs" />
     <Compile Include="ClientBranchInfo.cs" />
+    <Compile Include="AssetsCategory.cs" />
     <Compile Include="ESIModel.cs" />
     <Compile Include="ProvidentFund.cs" />
     <Compile Include="ProfessionalTax.cs" />

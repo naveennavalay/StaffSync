@@ -52,6 +52,7 @@
     <Compile Include="clsAppModule.cs" />
     <Compile Include="clsAttendanceMas.cs" />
     <Compile Include="clsAdvanceTypeMas.cs" />
+    <Compile Include="clsAssetsCategory.cs" />
     <Compile Include="clsClientSignatoryInfo.cs" />
     <Compile Include="clsDashboardWidgetData.cs" />
     <Compile Include="clsEmployeeStateInsurance.cs" />

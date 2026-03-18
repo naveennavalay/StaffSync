@@ -265,6 +265,18 @@
     <Compile Include="frmAdvanceConfigInfoReadOnly.Designer.cs">
       <DependentUpon>frmAdvanceConfigInfoReadOnly.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmAssetCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAssetCategory.Designer.cs">
+      <DependentUpon>frmAssetCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAssetCategoryList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAssetCategoryList.Designer.cs">
+      <DependentUpon>frmAssetCategoryList.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmOrgMasterInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -810,6 +822,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAdvanceConfigInfoReadOnly.resx">
       <DependentUpon>frmAdvanceConfigInfoReadOnly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAssetCategory.resx">
+      <DependentUpon>frmAssetCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAssetCategoryList.resx">
+      <DependentUpon>frmAssetCategoryList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmIndPayrollMaster.resx">
       <DependentUpon>frmIndPayrollMaster.cs</DependentUpon>

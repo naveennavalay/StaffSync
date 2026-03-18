@@ -6979,5 +6979,19 @@ namespace StaffSync
                 }
             }
         }
+
+        private void assetsCategoryListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Asset Category Details";
+                sptrDashboardContainer.Visible = false;
+                frmAssetCategory frmAssetCategory = new frmAssetCategory(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmAssetCategory.MdiParent = this;
+                frmAssetCategory.Dock = DockStyle.Fill;
+                frmAssetCategory.Show();
+                frmAssetCategory.WindowState = FormWindowState.Maximized;
+            }
+        }
     }
 }
