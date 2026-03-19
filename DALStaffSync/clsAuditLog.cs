@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -12,11 +13,21 @@ namespace DALStaffSync
     {
         dbStaffSync.clsAuditLog objAuditLog = new dbStaffSync.clsAuditLog();
 
-        public int InsertAuditLog(int txtEmpID, int txtSourceID, string txtAuditLogStatement, string txtUserName, string txtEventGroup)
+        public List<AuditLogs> getAuditLogStatements(int txtSourceID, string txtAuditLogStatementFilter, string txtEventGroup, int txtClientiD)
+        {
+            return objAuditLog.getAuditLogStatements(txtSourceID, txtAuditLogStatementFilter, txtEventGroup, txtClientiD);
+        }
+
+        public List<AuditLogs> getAuditLogStatements(int txtSourceID, string txtEventGroup, int txtClientiD)
+        {
+            return objAuditLog.getAuditLogStatements(txtSourceID, txtEventGroup, txtClientiD);
+        }
+
+        public int InsertAuditLog(int txtEmpID, int txtSourceID, string txtAuditLogStatement, string txtUserName, string txtEventGroup, int txtClientID)
         {
             int affectedRows = 0;
 
-            affectedRows = objAuditLog.InsertAuditLog(txtEmpID, txtSourceID, txtAuditLogStatement, txtUserName, txtEventGroup);
+            affectedRows = objAuditLog.InsertAuditLog(txtEmpID, txtSourceID, txtAuditLogStatement, txtUserName, txtEventGroup, txtClientID);
 
             return affectedRows;
         }

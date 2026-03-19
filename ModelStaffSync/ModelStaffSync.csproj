@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditLogs.cs" />
+    <Compile Include="AssetsInfo.cs" />
     <Compile Include="ClientSigningPerson.cs" />
     <Compile Include="clsAppSettings.cs" />
     <Compile Include="AppUserTasks.cs" />

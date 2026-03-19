@@ -6993,5 +6993,19 @@ namespace StaffSync
                 frmAssetCategory.WindowState = FormWindowState.Maximized;
             }
         }
+
+        private void assetsListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Assets Details";
+                sptrDashboardContainer.Visible = false;
+                frmAssetsInfo frmAssetsInfo = new frmAssetsInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmAssetsInfo.MdiParent = this;
+                frmAssetsInfo.Dock = DockStyle.Fill;
+                frmAssetsInfo.Show();
+                frmAssetsInfo.WindowState = FormWindowState.Maximized;
+            }
+        }
     }
 }

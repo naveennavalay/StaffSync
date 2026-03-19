@@ -227,7 +227,7 @@ namespace StaffSync
                         objAdvanceTransaction.CloseEmployeeSpecificAdvanceRequest(Convert.ToInt32(lblEmpAdvanceRequestID.Text.ToString()));
                     }
 
-                    objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), newTransactionID, txtComments.Text, ModelStaffSync.CurrentUser.EmpName, "AdvanceAmountRepayment");
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), newTransactionID, txtComments.Text, ModelStaffSync.CurrentUser.EmpName, "AdvanceAmountRepayment", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                     MessageBox.Show("Advance repayment details saved successfully.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }

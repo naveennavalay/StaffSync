@@ -412,11 +412,11 @@ namespace StaffSync
                         if(Convert.ToBoolean(dc.Cells["Select"].Value) == true)
                         {
                             int newTransactionID = objAdvanceTransaction.InsertAdvanceTransaction(dc.Cells["EmpAdvReqCode"].Value.ToString(), Convert.ToInt32(AdvanceRequestID), Convert.ToDateTime(DateTime.Today.Date), Convert.ToDecimal(dc.Cells["CBalance"].Value.ToString()).RoundUp(), 0, Convert.ToDecimal(dc.Cells["RePaymentBalance"].Value.ToString()).RoundUp(), Convert.ToDecimal(dc.Cells["CBalance"].Value.ToString()).RoundUp() - Convert.ToDecimal(dc.Cells["RePaymentBalance"].Value.ToString()).RoundUp(), "Dr", "Via Deduction in Salary [" + cmbSalaryMonth.SelectedText.ToString() + " Dated on " + Convert.ToDateTime(txtSalaryDate.Text.ToString()).ToString("dd-MMM-yyyy") + " ]", empSalaryID);
-                            objAuditLog.InsertAuditLog(Convert.ToInt32(lblReportingManagerID.Text.ToString()), Convert.ToInt32(empSalaryID), "To " + dc.Cells["AdvanceTypeTitle"].Value.ToString() + " Repayment via Salary Deduction", ModelStaffSync.CurrentUser.EmpName, "SalaryToAdvanceRepayment");
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(lblReportingManagerID.Text.ToString()), Convert.ToInt32(empSalaryID), "To " + dc.Cells["AdvanceTypeTitle"].Value.ToString() + " Repayment via Salary Deduction", ModelStaffSync.CurrentUser.EmpName, "SalaryToAdvanceRepayment", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                             if (Convert.ToDecimal(dc.Cells["CBalance"].Value.ToString()) - Convert.ToDecimal(dc.Cells["RePaymentBalance"].Value.ToString()) == 0)
                             {
                                 objAdvanceTransaction.CloseEmployeeSpecificAdvanceRequest(Convert.ToInt32(AdvanceRequestID.ToString()));
-                                objAuditLog.InsertAuditLog(Convert.ToInt32(lblReportingManagerID.Text.ToString()), Convert.ToInt32(empSalaryID), "\"" + dc.Cells["AdvanceTypeTitle"].Value.ToString() + "\" completely recovered from Employee : \"" + txtRepEmpName.Text + " [ EmpCode : " + txtRepEmpCode.Text.ToString() + " ] \" via Salary Deduction" , ModelStaffSync.CurrentUser.EmpName, "SalaryToAdvanceRepayment");
+                                objAuditLog.InsertAuditLog(Convert.ToInt32(lblReportingManagerID.Text.ToString()), Convert.ToInt32(empSalaryID), "\"" + dc.Cells["AdvanceTypeTitle"].Value.ToString() + "\" completely recovered from Employee : \"" + txtRepEmpName.Text + " [ EmpCode : " + txtRepEmpCode.Text.ToString() + " ] \" via Salary Deduction" , ModelStaffSync.CurrentUser.EmpName, "SalaryToAdvanceRepayment", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                             }
                         }
                     }

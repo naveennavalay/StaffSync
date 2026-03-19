@@ -14,6 +14,22 @@ namespace DALStaffSync
     {
         dbStaffSync.clsAssetsCategory objAssetsCategory = new dbStaffSync.clsAssetsCategory();
 
+
+        public DataTable getAssetsCategoryNamesList(int txtClientID)
+        {
+            return objAssetsCategory.getAssetsCategoryNamesList(txtClientID);
+        }
+
+        public DataTable getRecoveryTypeNamesList()
+        {
+            return objAssetsCategory.getRecoveryTypeNamesList();
+        }
+
+        public DataTable getCurrentStatusNamesList()
+        {
+            return objAssetsCategory.getCurrentStatusNamesList();
+        }
+
         public List<AssetsCategory> getAssetsCategoryList(int txtClientID)
         {
             return objAssetsCategory.getAssetsCategoryList(txtClientID);

@@ -21,10 +21,13 @@ namespace StaffSync
     {
         DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
         DALStaffSync.clsAssetsCategory objAssetsCategory = new DALStaffSync.clsAssetsCategory();
+        DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog(); 
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
+
+        private Dictionary<string, object> _originalValues;
 
         public frmAssetCategory()
         {
@@ -141,17 +144,37 @@ namespace StaffSync
             }
             else
             {
+                var updatedValues = AuditLogger.getOriginalValues(this);
+                var onlyChangedValues = (dynamic)null;
+
+                string strActionStatement = "";
+
                 if (lblActionMode.Text == "add")
                 {
+                    strActionStatement = "AssetCategoryNewUpdates";
+                    onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
+
                     int newID = objAssetsCategory.InsertAssetCategoryInfo(txtAssetCode.Text.Trim(), txtAssetName.Text.Trim(), txtAssetDescription.Text.Trim(), "", cmbIsActive.Text.Trim() == "Yes" ? true : false, false, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                     if (newID > 0)
                         MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 }
                 else if (lblActionMode.Text == "modify")
                 {
+                    strActionStatement = "AssetCategoryExistingUpdates";
+                    onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
+
                     int affectedRows = objAssetsCategory.UpdateAssetCategoryInfo(Convert.ToInt16(lblCategoryID.Text.Trim()), txtAssetCode.Text.Trim(), txtAssetName.Text.Trim(), txtAssetDescription.Text.Trim(), "", cmbIsActive.Text.Trim() == "Yes" ? true : false, false, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                     if (affectedRows > 0)
                         MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               }
+
+                //if (onlyChangedValues.Any())
+                {
+                    foreach (var changedValues in onlyChangedValues)
+                    {
+                        objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblCategoryID.Text.ToString()), changedValues.ToString().Trim(), ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                    }
                 }
 
                 objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
@@ -174,6 +197,7 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.SelectedIndex = 0;
+            lnkViewAuditLog.Visible = false;
         }
 
         public void enableControls()
@@ -269,6 +293,9 @@ namespace StaffSync
             txtAssetName.Text = AssetsCategoryModel.AssetName;
             txtAssetDescription.Text = AssetsCategoryModel.AssetDescription;
             cmbIsActive.Text = AssetsCategoryModel.IsActive == true ? "Yes" : "No";
+
+            _originalValues = AuditLogger.getOriginalValues(this);
+            lnkViewAuditLog.Visible = true;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -322,7 +349,7 @@ namespace StaffSync
             clearControls();
             enableControls();
             cmbIsActive.SelectedIndex = 1;
-            errValidator.Clear();
+            errValidator.Clear();            
         }
 
         private void btnRemoveDetails_Click(object sender, EventArgs e)
@@ -381,6 +408,12 @@ namespace StaffSync
                 objDashboard.sptrDashboardContainer.Visible = true;
                 this.Close();
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblCategoryID.Text.ToString()), "AssetCategory", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

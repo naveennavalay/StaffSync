@@ -229,6 +229,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttendanceGridControl.cs" />
+    <Compile Include="AuditLogger.cs" />
     <Compile Include="BranchTilesControl.cs" />
     <Compile Include="BranchTilesControl.Designer.cs">
       <DependentUpon>BranchTilesControl.cs</DependentUpon>
@@ -271,11 +272,29 @@
     <Compile Include="frmAssetCategory.Designer.cs">
       <DependentUpon>frmAssetCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmAuditLogStatements.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAuditLogStatements.Designer.cs">
+      <DependentUpon>frmAuditLogStatements.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAssetInfoList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAssetInfoList.Designer.cs">
+      <DependentUpon>frmAssetInfoList.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAssetCategoryList.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmAssetCategoryList.Designer.cs">
       <DependentUpon>frmAssetCategoryList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAssetsInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAssetsInfo.Designer.cs">
+      <DependentUpon>frmAssetsInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="frmOrgMasterInfo.cs">
       <SubType>Form</SubType>
@@ -826,11 +845,20 @@
     <EmbeddedResource Include="frmAssetCategory.resx">
       <DependentUpon>frmAssetCategory.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAuditLogStatements.resx">
+      <DependentUpon>frmAuditLogStatements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAssetInfoList.resx">
+      <DependentUpon>frmAssetInfoList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAssetCategoryList.resx">
       <DependentUpon>frmAssetCategoryList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmIndPayrollMaster.resx">
       <DependentUpon>frmIndPayrollMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAssetsInfo.resx">
+      <DependentUpon>frmAssetsInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmOrgMasterInfo.resx">
       <DependentUpon>frmOrgMasterInfo.cs</DependentUpon>

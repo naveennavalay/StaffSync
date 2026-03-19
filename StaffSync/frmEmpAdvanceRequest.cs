@@ -273,7 +273,7 @@ namespace StaffSync
                     DateTime.Now, false, Convert.ToDecimal(txtAdvanceAmount.Text.Trim()), Convert.ToDecimal(txtTenure.Text.Trim()), Convert.ToDecimal(txtInstallmentAmount.Text.Trim()), 
                     DateTime.ParseExact(txtAdvanceStartDate.Text.Trim(), "dd-MM-yyyy", CultureInfo.InvariantCulture), DateTime.ParseExact(txtAdvanceEndDate.Text.Trim(), "dd-MM-yyyy", CultureInfo.InvariantCulture));
 
-                objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), EmpAdvanceRequestID, "Advance Request - " + "\"ADV-REQ-" + (EmpAdvanceRequestID).ToString().PadLeft(4, '0').Trim() + "\" Raised by Employee Code : \"" + txtEmpCode.Text.Trim() + "\" and Employee Name : \"" + txtEmpName.Text.Trim() + "\".", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestRaised");
+                objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), EmpAdvanceRequestID, "Advance Request - " + "\"ADV-REQ-" + (EmpAdvanceRequestID).ToString().PadLeft(4, '0').Trim() + "\" Raised by Employee Code : \"" + txtEmpCode.Text.Trim() + "\" and Employee Name : \"" + txtEmpName.Text.Trim() + "\".", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestRaised", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
 
                 if (EmpAdvanceRequestID > 0)
                 {
@@ -289,7 +289,7 @@ namespace StaffSync
                     Convert.ToDecimal(txtInstallmentAmount.Text.Trim()), DateTime.ParseExact(txtAdvanceStartDate.Text.Trim(), "dd-MM-yyyy", CultureInfo.InvariantCulture), 
                     DateTime.ParseExact(txtAdvanceEndDate.Text.Trim(), "dd-MM-yyyy", CultureInfo.InvariantCulture));
 
-                objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), EmpAdvanceRequestID, "Advance Request - " + "\"ADV-REQ-" + (EmpAdvanceRequestID).ToString().PadLeft(4, '0').Trim() + "\" Raised by Employee Code : \"" + txtEmpCode.Text.Trim() + "\" and Employee Name : \"" + txtEmpName.Text.Trim() + "\".", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestRaised");
+                objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), EmpAdvanceRequestID, "Advance Request - " + "\"ADV-REQ-" + (EmpAdvanceRequestID).ToString().PadLeft(4, '0').Trim() + "\" Raised by Employee Code : \"" + txtEmpCode.Text.Trim() + "\" and Employee Name : \"" + txtEmpName.Text.Trim() + "\".", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestRaised", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
 
                 if (EmpAdvanceRequestID > 0)
                     MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -130,23 +130,23 @@ namespace StaffSync
 
                         if (ApproverRequestedToComments1 == "In Progress" || ApproverRequestedToComments1 == "Pending")
                         {
-                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "First Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + ApproverRequestedToComments1 + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate");
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "First Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + ApproverRequestedToComments1 + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                         else if (ApproverRequestedToComments1 == "Approved")
                         {
-                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "First Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + ApproverRequestedToComments1 + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate");
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "First Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + ApproverRequestedToComments1 + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                         else if (ApproverRequestedToComments1 == "Rejected")
                         {
                             objAdvanceTransaction.InsertAdvanceTransaction(dc.Cells["EmpAdvReqCode"].Value.ToString(), AdvanceRequestID, DateTime.Now.Date, 0, 0, 0, 0, "Cr", "By Advance Request : \"" + AdvanceRequestCode + "\" Rejection", 0);
                             objAdvanceTransaction.RejectOrCancleApproverStatus(AdvanceRequestID, "Rejected", DateTime.Now.Date);
-                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "First Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + ApproverRequestedToComments1 + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate");
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "First Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + ApproverRequestedToComments1 + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                         else if (ApproverRequestedToComments1 == "Cancelled")
                         {
                             objAdvanceTransaction.InsertAdvanceTransaction(dc.Cells["EmpAdvReqCode"].Value.ToString(), AdvanceRequestID, DateTime.Now.Date, 0, 0, 0, 0, "Cr", "By Advance Request : \"" + AdvanceRequestCode + "\" Rejection", 0);
                             objAdvanceTransaction.RejectOrCancleApproverStatus(AdvanceRequestID, "Cancelled", DateTime.Now.Date);
-                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "First Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + ApproverRequestedToComments1 + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate");
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "First Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + ApproverRequestedToComments1 + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                     }
                 }
@@ -164,25 +164,25 @@ namespace StaffSync
 
                         if (RequestMovedToComments == "In Progress" || RequestMovedToComments == "Pending")
                         {
-                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID,"Second Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + RequestMovedToComments + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate");
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID,"Second Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + RequestMovedToComments + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                         else if (RequestMovedToComments == "Approved")
                         {
                             objAdvanceTransaction.InsertAdvanceTransaction(dc.Cells["EmpAdvReqCode"].Value.ToString(), AdvanceRequestID, DateTime.Now.Date, 0, Convert.ToDecimal(dc.Cells["AdvanceAmount"].Value.ToString()), 0, Convert.ToDecimal(dc.Cells["AdvanceAmount"].Value.ToString()), "Cr", "By Advance Request : \"" + AdvanceRequestCode + "\" Approval", 0);
-                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "Second Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + RequestMovedToComments + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate");
-                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "Advance Request : \"" + dc.Cells["EmpAdvReqCode"].Value.ToString() +  "\" raised by Employee Code : \"" + dc.Cells["RequesterEmpCode"].Value.ToString() + "\" and Employee Name : \"" + dc.Cells["RequesterEmpName"].Value.ToString() + "\" has been approved and credited", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate");
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "Second Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + RequestMovedToComments + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "Advance Request : \"" + dc.Cells["EmpAdvReqCode"].Value.ToString() +  "\" raised by Employee Code : \"" + dc.Cells["RequesterEmpCode"].Value.ToString() + "\" and Employee Name : \"" + dc.Cells["RequesterEmpName"].Value.ToString() + "\" has been approved and credited", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                         else if (RequestMovedToComments == "Rejected")
                         {
                             objAdvanceTransaction.InsertAdvanceTransaction(dc.Cells["EmpAdvReqCode"].Value.ToString(), AdvanceRequestID, DateTime.Now.Date, 0, 0, 0, 0, "Cr", "By Advance Request : \"" + AdvanceRequestCode + "\" Rejection", 0);
                             objAdvanceTransaction.RejectOrCancleApproverStatus(AdvanceRequestID, "Rejected", DateTime.Now.Date);
-                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "Second Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + RequestMovedToComments + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate");
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "Second Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + RequestMovedToComments + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                         else if (RequestMovedToComments == "Cancelled")
                         {
                             objAdvanceTransaction.InsertAdvanceTransaction(dc.Cells["EmpAdvReqCode"].Value.ToString(), AdvanceRequestID, DateTime.Now.Date, 0, 0, 0, 0, "Cr", "By Advance Request : \"" + AdvanceRequestCode + "\" Rejection", 0);
                             objAdvanceTransaction.RejectOrCancleApproverStatus(AdvanceRequestID, "Cancelled", DateTime.Now.Date);
-                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "Second Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + RequestMovedToComments + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate");
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "Second Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + RequestMovedToComments + "\"", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                     }
                 }

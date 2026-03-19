@@ -52,10 +52,11 @@
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
+            this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -64,9 +65,9 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -117,19 +118,21 @@
             // 
             // cmbIsActive
             // 
+            this.cmbIsActive.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.cmbIsActive.FormattingEnabled = true;
-            this.cmbIsActive.Location = new System.Drawing.Point(141, 173);
+            this.cmbIsActive.Location = new System.Drawing.Point(160, 173);
             this.cmbIsActive.MaxDropDownItems = 5;
             this.cmbIsActive.Name = "cmbIsActive";
             this.cmbIsActive.Size = new System.Drawing.Size(427, 23);
             this.cmbIsActive.TabIndex = 34;
+            this.cmbIsActive.Tag = "Is Active";
             this.cmbIsActive.SelectedIndexChanged += new System.EventHandler(this.cmbRelationship_SelectedIndexChanged);
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(80, 177);
+            this.label17.Location = new System.Drawing.Point(97, 177);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(59, 15);
@@ -139,52 +142,57 @@
             // 
             // txtAssetDescription
             // 
-            this.txtAssetDescription.Location = new System.Drawing.Point(141, 59);
+            this.txtAssetDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.txtAssetDescription.Location = new System.Drawing.Point(160, 59);
             this.txtAssetDescription.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtAssetDescription.MaxLength = 255;
             this.txtAssetDescription.Multiline = true;
             this.txtAssetDescription.Name = "txtAssetDescription";
             this.txtAssetDescription.Size = new System.Drawing.Size(427, 108);
             this.txtAssetDescription.TabIndex = 4;
+            this.txtAssetDescription.Tag = "Category Description";
             this.txtAssetDescription.WordWrap = false;
             // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(11, 66);
+            this.label18.Location = new System.Drawing.Point(16, 66);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(118, 15);
+            this.label18.Size = new System.Drawing.Size(140, 15);
             this.label18.TabIndex = 21;
-            this.label18.Text = "Asset Description";
+            this.label18.Text = "Category Description";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtAssetName
             // 
-            this.txtAssetName.Location = new System.Drawing.Point(141, 25);
+            this.txtAssetName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.txtAssetName.Location = new System.Drawing.Point(160, 25);
             this.txtAssetName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtAssetName.MaxLength = 255;
             this.txtAssetName.Multiline = true;
             this.txtAssetName.Name = "txtAssetName";
             this.txtAssetName.Size = new System.Drawing.Size(427, 28);
             this.txtAssetName.TabIndex = 3;
+            this.txtAssetName.Tag = "Category Name";
             this.txtAssetName.WordWrap = false;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(19, 32);
+            this.label16.Location = new System.Drawing.Point(51, 32);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(83, 15);
+            this.label16.Size = new System.Drawing.Size(105, 15);
             this.label16.TabIndex = 7;
-            this.label16.Text = "Asset Name";
+            this.label16.Text = "Category Name";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.lblCategoryID);
             this.groupBox4.Controls.Add(this.lblActionMode);
@@ -200,7 +208,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(312, 23);
+            this.btnSearch.Location = new System.Drawing.Point(330, 23);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSearch.Size = new System.Drawing.Size(29, 28);
@@ -227,7 +235,7 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(430, 30);
+            this.lblActionMode.Location = new System.Drawing.Point(761, 30);
             this.lblActionMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
@@ -237,7 +245,7 @@
             // 
             // txtAssetCode
             // 
-            this.txtAssetCode.Location = new System.Drawing.Point(137, 23);
+            this.txtAssetCode.Location = new System.Drawing.Point(160, 23);
             this.txtAssetCode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtAssetCode.MaxLength = 255;
             this.txtAssetCode.Multiline = true;
@@ -245,6 +253,7 @@
             this.txtAssetCode.ReadOnly = true;
             this.txtAssetCode.Size = new System.Drawing.Size(168, 28);
             this.txtAssetCode.TabIndex = 2;
+            this.txtAssetCode.Tag = "Category Code";
             this.txtAssetCode.WordWrap = false;
             // 
             // label1
@@ -254,9 +263,9 @@
             this.label1.Location = new System.Drawing.Point(56, 30);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 15);
+            this.label1.Size = new System.Drawing.Size(100, 15);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Asset Code";
+            this.label1.Text = "Category Code";
             // 
             // panel2
             // 
@@ -345,6 +354,10 @@
             this.btnCancel.Values.Text = "Cancel";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // errValidator
+            // 
+            this.errValidator.ContainerControl = this;
+            // 
             // empMasInfoBindingSource
             // 
             this.empMasInfoBindingSource.DataMember = "EmpMasInfo";
@@ -359,9 +372,15 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
-            // errValidator
+            // lnkViewAuditLog
             // 
-            this.errValidator.ContainerControl = this;
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(365, 27);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 36;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmAssetCategory
             // 
@@ -391,9 +410,9 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -426,5 +445,6 @@
         public System.Windows.Forms.Label lblActionMode;
         private System.Windows.Forms.TextBox txtAssetCode;
         private System.Windows.Forms.Label label1;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

@@ -240,18 +240,25 @@
             this.chrtCompanyAdvanceSummaryMatrix = new LiveCharts.WinForms.CartesianChart();
             this.kryptonGroupBox5 = new Krypton.Toolkit.KryptonGroupBox();
             this.kryptonPictureBox7 = new Krypton.Toolkit.KryptonPictureBox();
+            this.bdgWorkAnniversary = new StaffSync.BadgeControl();
             this.label6 = new System.Windows.Forms.Label();
             this.kryptonPictureBox6 = new Krypton.Toolkit.KryptonPictureBox();
+            this.bdgEmployeesBirthday = new StaffSync.BadgeControl();
             this.label5 = new System.Windows.Forms.Label();
             this.kryptonPictureBox5 = new Krypton.Toolkit.KryptonPictureBox();
+            this.bdgEmployeesWithWeeklyOff = new StaffSync.BadgeControl();
             this.label4 = new System.Windows.Forms.Label();
             this.kryptonPictureBox4 = new Krypton.Toolkit.KryptonPictureBox();
             this.kryptonPictureBox3 = new Krypton.Toolkit.KryptonPictureBox();
             this.kryptonPictureBox2 = new Krypton.Toolkit.KryptonPictureBox();
             this.kryptonPictureBox1 = new Krypton.Toolkit.KryptonPictureBox();
+            this.bdgTotalLeaveApprovals = new StaffSync.BadgeControl();
             this.label3 = new System.Windows.Forms.Label();
+            this.bdgTotalLeaveEmployees = new StaffSync.BadgeControl();
             this.label2 = new System.Windows.Forms.Label();
+            this.bdgTotalPresentEmployees = new StaffSync.BadgeControl();
             this.label1 = new System.Windows.Forms.Label();
+            this.bdgTotalActiveEmployees = new StaffSync.BadgeControl();
             this.label9 = new System.Windows.Forms.Label();
             this.kryptonSplitContainer1 = new Krypton.Toolkit.KryptonSplitContainer();
             this.kryptonGroupBox3 = new Krypton.Toolkit.KryptonGroupBox();
@@ -262,13 +269,6 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
-            this.bdgWorkAnniversary = new StaffSync.BadgeControl();
-            this.bdgEmployeesBirthday = new StaffSync.BadgeControl();
-            this.bdgEmployeesWithWeeklyOff = new StaffSync.BadgeControl();
-            this.bdgTotalLeaveApprovals = new StaffSync.BadgeControl();
-            this.bdgTotalLeaveEmployees = new StaffSync.BadgeControl();
-            this.bdgTotalPresentEmployees = new StaffSync.BadgeControl();
-            this.bdgTotalActiveEmployees = new StaffSync.BadgeControl();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -831,13 +831,13 @@
             this.cmbAssesmentManagement.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.assetAllocationToolStripMenuItem});
             this.cmbAssesmentManagement.Name = "cmbAssesmentManagement";
-            this.cmbAssesmentManagement.Size = new System.Drawing.Size(181, 48);
+            this.cmbAssesmentManagement.Size = new System.Drawing.Size(164, 26);
             // 
             // assetAllocationToolStripMenuItem
             // 
             this.assetAllocationToolStripMenuItem.Image = global::StaffSync.Properties.Resources.asset_operations;
             this.assetAllocationToolStripMenuItem.Name = "assetAllocationToolStripMenuItem";
-            this.assetAllocationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.assetAllocationToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.assetAllocationToolStripMenuItem.Text = "Asset Operations";
             // 
             // kryptonRibbonGroupTriple8
@@ -1517,7 +1517,7 @@
             this.toolStripMenuItem14,
             this.cmbPublicHolidayConfig});
             this.cmbApplicationSettings.Name = "cmDatamartList01";
-            this.cmbApplicationSettings.Size = new System.Drawing.Size(229, 166);
+            this.cmbApplicationSettings.Size = new System.Drawing.Size(229, 188);
             this.cmbApplicationSettings.Tag = "DatamartMenu";
             this.cmbApplicationSettings.Text = "Datamart Menu";
             this.cmbApplicationSettings.Opening += new System.ComponentModel.CancelEventHandler(this.cmbApplicationSettings_Opening);
@@ -1638,6 +1638,7 @@
             this.assetsListToolStripMenuItem.Name = "assetsListToolStripMenuItem";
             this.assetsListToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.assetsListToolStripMenuItem.Text = "Assets List";
+            this.assetsListToolStripMenuItem.Click += new System.EventHandler(this.assetsListToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
@@ -2190,6 +2191,24 @@
             this.kryptonPictureBox7.TabIndex = 90;
             this.kryptonPictureBox7.TabStop = false;
             // 
+            // bdgWorkAnniversary
+            // 
+            this.bdgWorkAnniversary.BackColor = System.Drawing.Color.Transparent;
+            this.bdgWorkAnniversary.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgWorkAnniversary.BorderThickness = 0;
+            this.bdgWorkAnniversary.CircleBackColor = System.Drawing.Color.DarkSlateGray;
+            this.bdgWorkAnniversary.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgWorkAnniversary.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgWorkAnniversary.ForeColor = System.Drawing.Color.Orange;
+            this.bdgWorkAnniversary.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgWorkAnniversary.Location = new System.Drawing.Point(196, 299);
+            this.bdgWorkAnniversary.Name = "bdgWorkAnniversary";
+            this.bdgWorkAnniversary.Size = new System.Drawing.Size(42, 42);
+            this.bdgWorkAnniversary.TabIndex = 89;
+            this.bdgWorkAnniversary.TextColor = System.Drawing.Color.PaleGoldenrod;
+            this.bdgWorkAnniversary.Value = 0;
+            this.bdgWorkAnniversary.DoubleClick += new System.EventHandler(this.bdgWorkAnniversary_DoubleClick);
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -2214,6 +2233,24 @@
             this.kryptonPictureBox6.TabIndex = 87;
             this.kryptonPictureBox6.TabStop = false;
             // 
+            // bdgEmployeesBirthday
+            // 
+            this.bdgEmployeesBirthday.BackColor = System.Drawing.Color.Transparent;
+            this.bdgEmployeesBirthday.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgEmployeesBirthday.BorderThickness = 0;
+            this.bdgEmployeesBirthday.CircleBackColor = System.Drawing.Color.SteelBlue;
+            this.bdgEmployeesBirthday.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgEmployeesBirthday.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgEmployeesBirthday.ForeColor = System.Drawing.Color.Orange;
+            this.bdgEmployeesBirthday.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgEmployeesBirthday.Location = new System.Drawing.Point(196, 251);
+            this.bdgEmployeesBirthday.Name = "bdgEmployeesBirthday";
+            this.bdgEmployeesBirthday.Size = new System.Drawing.Size(42, 42);
+            this.bdgEmployeesBirthday.TabIndex = 86;
+            this.bdgEmployeesBirthday.TextColor = System.Drawing.Color.Black;
+            this.bdgEmployeesBirthday.Value = 0;
+            this.bdgEmployeesBirthday.DoubleClick += new System.EventHandler(this.bdgEmployeesBirthday_DoubleClick);
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -2237,6 +2274,24 @@
             this.kryptonPictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.kryptonPictureBox5.TabIndex = 84;
             this.kryptonPictureBox5.TabStop = false;
+            // 
+            // bdgEmployeesWithWeeklyOff
+            // 
+            this.bdgEmployeesWithWeeklyOff.BackColor = System.Drawing.Color.Transparent;
+            this.bdgEmployeesWithWeeklyOff.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgEmployeesWithWeeklyOff.BorderThickness = 0;
+            this.bdgEmployeesWithWeeklyOff.CircleBackColor = System.Drawing.Color.Gray;
+            this.bdgEmployeesWithWeeklyOff.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgEmployeesWithWeeklyOff.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgEmployeesWithWeeklyOff.ForeColor = System.Drawing.Color.Orange;
+            this.bdgEmployeesWithWeeklyOff.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgEmployeesWithWeeklyOff.Location = new System.Drawing.Point(196, 203);
+            this.bdgEmployeesWithWeeklyOff.Name = "bdgEmployeesWithWeeklyOff";
+            this.bdgEmployeesWithWeeklyOff.Size = new System.Drawing.Size(42, 42);
+            this.bdgEmployeesWithWeeklyOff.TabIndex = 83;
+            this.bdgEmployeesWithWeeklyOff.TextColor = System.Drawing.Color.PaleGoldenrod;
+            this.bdgEmployeesWithWeeklyOff.Value = 0;
+            this.bdgEmployeesWithWeeklyOff.DoubleClick += new System.EventHandler(this.bdgEmployeesWithWeeklyOff_DoubleClick);
             // 
             // label4
             // 
@@ -2296,6 +2351,24 @@
             this.kryptonPictureBox1.TabStop = false;
             this.kryptonPictureBox1.Click += new System.EventHandler(this.kryptonPictureBox1_Click);
             // 
+            // bdgTotalLeaveApprovals
+            // 
+            this.bdgTotalLeaveApprovals.BackColor = System.Drawing.Color.Transparent;
+            this.bdgTotalLeaveApprovals.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgTotalLeaveApprovals.BorderThickness = 0;
+            this.bdgTotalLeaveApprovals.CircleBackColor = System.Drawing.Color.Magenta;
+            this.bdgTotalLeaveApprovals.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgTotalLeaveApprovals.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgTotalLeaveApprovals.ForeColor = System.Drawing.Color.Orange;
+            this.bdgTotalLeaveApprovals.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgTotalLeaveApprovals.Location = new System.Drawing.Point(196, 155);
+            this.bdgTotalLeaveApprovals.Name = "bdgTotalLeaveApprovals";
+            this.bdgTotalLeaveApprovals.Size = new System.Drawing.Size(42, 42);
+            this.bdgTotalLeaveApprovals.TabIndex = 77;
+            this.bdgTotalLeaveApprovals.TextColor = System.Drawing.Color.PaleGoldenrod;
+            this.bdgTotalLeaveApprovals.Value = 0;
+            this.bdgTotalLeaveApprovals.DoubleClick += new System.EventHandler(this.bdgTotalLeaveApprovals_DoubleClick);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -2310,6 +2383,25 @@
             this.label3.Text = "Leave Approval Pending";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // bdgTotalLeaveEmployees
+            // 
+            this.bdgTotalLeaveEmployees.BackColor = System.Drawing.Color.Transparent;
+            this.bdgTotalLeaveEmployees.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bdgTotalLeaveEmployees.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgTotalLeaveEmployees.BorderThickness = 0;
+            this.bdgTotalLeaveEmployees.CircleBackColor = System.Drawing.Color.DarkOliveGreen;
+            this.bdgTotalLeaveEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgTotalLeaveEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgTotalLeaveEmployees.ForeColor = System.Drawing.Color.SteelBlue;
+            this.bdgTotalLeaveEmployees.HoverBackColor = System.Drawing.Color.Blue;
+            this.bdgTotalLeaveEmployees.Location = new System.Drawing.Point(196, 107);
+            this.bdgTotalLeaveEmployees.Name = "bdgTotalLeaveEmployees";
+            this.bdgTotalLeaveEmployees.Size = new System.Drawing.Size(42, 42);
+            this.bdgTotalLeaveEmployees.TabIndex = 75;
+            this.bdgTotalLeaveEmployees.TextColor = System.Drawing.Color.Gold;
+            this.bdgTotalLeaveEmployees.Value = 0;
+            this.bdgTotalLeaveEmployees.DoubleClick += new System.EventHandler(this.bdgTotalLeaveEmployees_DoubleClick);
             // 
             // label2
             // 
@@ -2326,6 +2418,23 @@
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label2.Click += new System.EventHandler(this.label2_Click_1);
             // 
+            // bdgTotalPresentEmployees
+            // 
+            this.bdgTotalPresentEmployees.BackColor = System.Drawing.Color.Transparent;
+            this.bdgTotalPresentEmployees.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgTotalPresentEmployees.BorderThickness = 0;
+            this.bdgTotalPresentEmployees.CircleBackColor = System.Drawing.Color.Green;
+            this.bdgTotalPresentEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgTotalPresentEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgTotalPresentEmployees.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgTotalPresentEmployees.Location = new System.Drawing.Point(196, 59);
+            this.bdgTotalPresentEmployees.Name = "bdgTotalPresentEmployees";
+            this.bdgTotalPresentEmployees.Size = new System.Drawing.Size(42, 42);
+            this.bdgTotalPresentEmployees.TabIndex = 73;
+            this.bdgTotalPresentEmployees.TextColor = System.Drawing.Color.Yellow;
+            this.bdgTotalPresentEmployees.Value = 0;
+            this.bdgTotalPresentEmployees.DoubleClick += new System.EventHandler(this.bdgTotalPresentEmployees_DoubleClick);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -2340,6 +2449,22 @@
             this.label1.Text = "Employees Present";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label1.Click += new System.EventHandler(this.label1_Click_1);
+            // 
+            // bdgTotalActiveEmployees
+            // 
+            this.bdgTotalActiveEmployees.BackColor = System.Drawing.Color.Transparent;
+            this.bdgTotalActiveEmployees.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgTotalActiveEmployees.BorderThickness = 0;
+            this.bdgTotalActiveEmployees.CircleBackColor = System.Drawing.Color.Blue;
+            this.bdgTotalActiveEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgTotalActiveEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgTotalActiveEmployees.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgTotalActiveEmployees.Location = new System.Drawing.Point(196, 11);
+            this.bdgTotalActiveEmployees.Name = "bdgTotalActiveEmployees";
+            this.bdgTotalActiveEmployees.Size = new System.Drawing.Size(42, 42);
+            this.bdgTotalActiveEmployees.TabIndex = 71;
+            this.bdgTotalActiveEmployees.TextColor = System.Drawing.Color.Yellow;
+            this.bdgTotalActiveEmployees.Value = 0;
             // 
             // label9
             // 
@@ -2460,130 +2585,6 @@
             // 
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             this.kryptonRibbonGroupButton5.Click += new System.EventHandler(this.kryptonRibbonGroupButton5_Click);
-            // 
-            // bdgWorkAnniversary
-            // 
-            this.bdgWorkAnniversary.BackColor = System.Drawing.Color.Transparent;
-            this.bdgWorkAnniversary.BorderColor = System.Drawing.Color.Transparent;
-            this.bdgWorkAnniversary.BorderThickness = 0;
-            this.bdgWorkAnniversary.CircleBackColor = System.Drawing.Color.DarkSlateGray;
-            this.bdgWorkAnniversary.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bdgWorkAnniversary.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.bdgWorkAnniversary.ForeColor = System.Drawing.Color.Orange;
-            this.bdgWorkAnniversary.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
-            this.bdgWorkAnniversary.Location = new System.Drawing.Point(196, 299);
-            this.bdgWorkAnniversary.Name = "bdgWorkAnniversary";
-            this.bdgWorkAnniversary.Size = new System.Drawing.Size(42, 42);
-            this.bdgWorkAnniversary.TabIndex = 89;
-            this.bdgWorkAnniversary.TextColor = System.Drawing.Color.PaleGoldenrod;
-            this.bdgWorkAnniversary.Value = 0;
-            this.bdgWorkAnniversary.DoubleClick += new System.EventHandler(this.bdgWorkAnniversary_DoubleClick);
-            // 
-            // bdgEmployeesBirthday
-            // 
-            this.bdgEmployeesBirthday.BackColor = System.Drawing.Color.Transparent;
-            this.bdgEmployeesBirthday.BorderColor = System.Drawing.Color.Transparent;
-            this.bdgEmployeesBirthday.BorderThickness = 0;
-            this.bdgEmployeesBirthday.CircleBackColor = System.Drawing.Color.SteelBlue;
-            this.bdgEmployeesBirthday.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bdgEmployeesBirthday.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.bdgEmployeesBirthday.ForeColor = System.Drawing.Color.Orange;
-            this.bdgEmployeesBirthday.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
-            this.bdgEmployeesBirthday.Location = new System.Drawing.Point(196, 251);
-            this.bdgEmployeesBirthday.Name = "bdgEmployeesBirthday";
-            this.bdgEmployeesBirthday.Size = new System.Drawing.Size(42, 42);
-            this.bdgEmployeesBirthday.TabIndex = 86;
-            this.bdgEmployeesBirthday.TextColor = System.Drawing.Color.Black;
-            this.bdgEmployeesBirthday.Value = 0;
-            this.bdgEmployeesBirthday.DoubleClick += new System.EventHandler(this.bdgEmployeesBirthday_DoubleClick);
-            // 
-            // bdgEmployeesWithWeeklyOff
-            // 
-            this.bdgEmployeesWithWeeklyOff.BackColor = System.Drawing.Color.Transparent;
-            this.bdgEmployeesWithWeeklyOff.BorderColor = System.Drawing.Color.Transparent;
-            this.bdgEmployeesWithWeeklyOff.BorderThickness = 0;
-            this.bdgEmployeesWithWeeklyOff.CircleBackColor = System.Drawing.Color.Gray;
-            this.bdgEmployeesWithWeeklyOff.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bdgEmployeesWithWeeklyOff.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.bdgEmployeesWithWeeklyOff.ForeColor = System.Drawing.Color.Orange;
-            this.bdgEmployeesWithWeeklyOff.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
-            this.bdgEmployeesWithWeeklyOff.Location = new System.Drawing.Point(196, 203);
-            this.bdgEmployeesWithWeeklyOff.Name = "bdgEmployeesWithWeeklyOff";
-            this.bdgEmployeesWithWeeklyOff.Size = new System.Drawing.Size(42, 42);
-            this.bdgEmployeesWithWeeklyOff.TabIndex = 83;
-            this.bdgEmployeesWithWeeklyOff.TextColor = System.Drawing.Color.PaleGoldenrod;
-            this.bdgEmployeesWithWeeklyOff.Value = 0;
-            this.bdgEmployeesWithWeeklyOff.DoubleClick += new System.EventHandler(this.bdgEmployeesWithWeeklyOff_DoubleClick);
-            // 
-            // bdgTotalLeaveApprovals
-            // 
-            this.bdgTotalLeaveApprovals.BackColor = System.Drawing.Color.Transparent;
-            this.bdgTotalLeaveApprovals.BorderColor = System.Drawing.Color.Transparent;
-            this.bdgTotalLeaveApprovals.BorderThickness = 0;
-            this.bdgTotalLeaveApprovals.CircleBackColor = System.Drawing.Color.Magenta;
-            this.bdgTotalLeaveApprovals.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bdgTotalLeaveApprovals.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.bdgTotalLeaveApprovals.ForeColor = System.Drawing.Color.Orange;
-            this.bdgTotalLeaveApprovals.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
-            this.bdgTotalLeaveApprovals.Location = new System.Drawing.Point(196, 155);
-            this.bdgTotalLeaveApprovals.Name = "bdgTotalLeaveApprovals";
-            this.bdgTotalLeaveApprovals.Size = new System.Drawing.Size(42, 42);
-            this.bdgTotalLeaveApprovals.TabIndex = 77;
-            this.bdgTotalLeaveApprovals.TextColor = System.Drawing.Color.PaleGoldenrod;
-            this.bdgTotalLeaveApprovals.Value = 0;
-            this.bdgTotalLeaveApprovals.DoubleClick += new System.EventHandler(this.bdgTotalLeaveApprovals_DoubleClick);
-            // 
-            // bdgTotalLeaveEmployees
-            // 
-            this.bdgTotalLeaveEmployees.BackColor = System.Drawing.Color.Transparent;
-            this.bdgTotalLeaveEmployees.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bdgTotalLeaveEmployees.BorderColor = System.Drawing.Color.Transparent;
-            this.bdgTotalLeaveEmployees.BorderThickness = 0;
-            this.bdgTotalLeaveEmployees.CircleBackColor = System.Drawing.Color.DarkOliveGreen;
-            this.bdgTotalLeaveEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bdgTotalLeaveEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.bdgTotalLeaveEmployees.ForeColor = System.Drawing.Color.SteelBlue;
-            this.bdgTotalLeaveEmployees.HoverBackColor = System.Drawing.Color.Blue;
-            this.bdgTotalLeaveEmployees.Location = new System.Drawing.Point(196, 107);
-            this.bdgTotalLeaveEmployees.Name = "bdgTotalLeaveEmployees";
-            this.bdgTotalLeaveEmployees.Size = new System.Drawing.Size(42, 42);
-            this.bdgTotalLeaveEmployees.TabIndex = 75;
-            this.bdgTotalLeaveEmployees.TextColor = System.Drawing.Color.Gold;
-            this.bdgTotalLeaveEmployees.Value = 0;
-            this.bdgTotalLeaveEmployees.DoubleClick += new System.EventHandler(this.bdgTotalLeaveEmployees_DoubleClick);
-            // 
-            // bdgTotalPresentEmployees
-            // 
-            this.bdgTotalPresentEmployees.BackColor = System.Drawing.Color.Transparent;
-            this.bdgTotalPresentEmployees.BorderColor = System.Drawing.Color.Transparent;
-            this.bdgTotalPresentEmployees.BorderThickness = 0;
-            this.bdgTotalPresentEmployees.CircleBackColor = System.Drawing.Color.Green;
-            this.bdgTotalPresentEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bdgTotalPresentEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.bdgTotalPresentEmployees.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
-            this.bdgTotalPresentEmployees.Location = new System.Drawing.Point(196, 59);
-            this.bdgTotalPresentEmployees.Name = "bdgTotalPresentEmployees";
-            this.bdgTotalPresentEmployees.Size = new System.Drawing.Size(42, 42);
-            this.bdgTotalPresentEmployees.TabIndex = 73;
-            this.bdgTotalPresentEmployees.TextColor = System.Drawing.Color.Yellow;
-            this.bdgTotalPresentEmployees.Value = 0;
-            this.bdgTotalPresentEmployees.DoubleClick += new System.EventHandler(this.bdgTotalPresentEmployees_DoubleClick);
-            // 
-            // bdgTotalActiveEmployees
-            // 
-            this.bdgTotalActiveEmployees.BackColor = System.Drawing.Color.Transparent;
-            this.bdgTotalActiveEmployees.BorderColor = System.Drawing.Color.Transparent;
-            this.bdgTotalActiveEmployees.BorderThickness = 0;
-            this.bdgTotalActiveEmployees.CircleBackColor = System.Drawing.Color.Blue;
-            this.bdgTotalActiveEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bdgTotalActiveEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.bdgTotalActiveEmployees.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
-            this.bdgTotalActiveEmployees.Location = new System.Drawing.Point(196, 11);
-            this.bdgTotalActiveEmployees.Name = "bdgTotalActiveEmployees";
-            this.bdgTotalActiveEmployees.Size = new System.Drawing.Size(42, 42);
-            this.bdgTotalActiveEmployees.TabIndex = 71;
-            this.bdgTotalActiveEmployees.TextColor = System.Drawing.Color.Yellow;
-            this.bdgTotalActiveEmployees.Value = 0;
             // 
             // frmDashboard
             // 

@@ -465,8 +465,8 @@
             this.tabProfessionalInfo,
             this.tabPreviousExperience1,
             this.tabSkils,
-            this.tabEducationalInfo1,
             this.tabFamilyMemberInfo,
+            this.tabEducationalInfo1,
             this.tabDocuments1,
             this.tabLeaves,
             this.tabBankAccountInfo1,
@@ -2059,6 +2059,7 @@
             this.picDownloadDocumentsList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picDownloadDocumentsList.TabIndex = 27;
             this.picDownloadDocumentsList.TabStop = false;
+            this.picDownloadDocumentsList.Click += new System.EventHandler(this.picDownloadDocumentsList_Click_1);
             // 
             // pictureBox2
             // 
@@ -2083,6 +2084,7 @@
             this.picRefreshDocumentsList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picRefreshDocumentsList.TabIndex = 25;
             this.picRefreshDocumentsList.TabStop = false;
+            this.picRefreshDocumentsList.Click += new System.EventHandler(this.picRefreshDocumentsList_Click_1);
             // 
             // lstLDocumentsList
             // 

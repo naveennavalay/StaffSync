@@ -51,6 +51,8 @@ namespace StaffSync
             dtgCategoryList.Columns["AssetDescription"].Width = 300;
             dtgCategoryList.Columns["IsActive"].ReadOnly = true;
             dtgCategoryList.Columns["IsActive"].Width = 50;
+            dtgCategoryList.Columns["IsActive"].Visible = false;
+            dtgCategoryList.Columns["AssetNote"].Visible = false;
             dtgCategoryList.Columns["ClientID"].Visible = false;
             dtgCategoryList.Columns["IsDeleted"].Visible =false;            
         }

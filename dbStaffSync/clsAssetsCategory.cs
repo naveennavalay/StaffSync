@@ -18,8 +18,129 @@ namespace dbStaffSync
         DataSet dtDataset;
         clsGenFunc objGenFunc = new clsGenFunc();
 
+        public DataTable getAssetsCategoryNamesList(int txtClientID)
+        {
+            DataTable dt = new DataTable();
 
-        public List<AssetsCategory> getAssetsCategoryList(int txtClient)
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT * FROM AssetCategoryMas WHERE IsActive = true AND IsDeleted = false AND ClientID = " + txtClientID + " ORDER BY AssetCatMasID ASC";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return dt;
+        }
+
+        public DataTable getRecoveryTypeNamesList()
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        " RecoveryTypeMas.RecoveryTypeID, " + 
+                                        " RecoveryTypeMas.RecoveryTypeCode, " + 
+                                        " RecoveryTypeMas.RecoveryTypeName, " + 
+                                        " RecoveryTypeMas.RecoveryTypeDescription, " + 
+                                        " RecoveryTypeMas.IsActive, " + 
+                                        " RecoveryTypeMas.IsDeleted " + 
+                                    " FROM " + 
+                                        " RecoveryTypeMas " + 
+                                    " WHERE " + 
+                                        " RecoveryTypeMas.IsActive = True " + 
+                                        " AND RecoveryTypeMas.IsDeleted = False  " + 
+                                    " ORDER BY " + 
+                                        " RecoveryTypeMas.RecoveryTypeID;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return dt;
+        }
+
+        public DataTable getCurrentStatusNamesList()
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        " CurrentAssetStatus.CurrentAssetStatusID, " + 
+                                        " CurrentAssetStatus.CurrentAssetStatusCode, " + 
+                                        " CurrentAssetStatus.CurrentAssetStatusName, " + 
+                                        " CurrentAssetStatus.CurrentAssetDescription, " + 
+                                        " CurrentAssetStatus.IsActive, " + 
+                                        " CurrentAssetStatus.IsDeleted " + 
+                                    " FROM " + 
+                                        " CurrentAssetStatus " + 
+                                    " WHERE " + 
+                                            " CurrentAssetStatus.IsActive = True " + 
+                                            " AND CurrentAssetStatus.IsDeleted = False " + 
+                                    " ORDER BY " + 
+                                        " CurrentAssetStatus.CurrentAssetStatusID ASC";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return dt;
+        }
+
+        public List<AssetsCategory> getAssetsCategoryList(int txtClientID)
         {
             List<AssetsCategory> objAssetsCategoryList = new List<AssetsCategory>();
             DataTable dt = new DataTable();
@@ -28,7 +149,7 @@ namespace dbStaffSync
             {
                 conn = dbStaffSync.openDBConnection();
 
-                string strQuery = "SELECT * FROM AssetCategoryMas WHERE IsActive = true AND IsDeleted = false AND ClientID = " + txtClient + " ORDER BY AssetCatMasID ASC";
+                string strQuery = "SELECT * FROM AssetCategoryMas WHERE IsActive = true AND IsDeleted = false AND ClientID = " + txtClientID + " ORDER BY AssetCatMasID ASC";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -148,7 +269,7 @@ namespace dbStaffSync
                     " FROM " +
                         " AssetCategoryMas " +
                     " WHERE " +
-                        " AssetCategoryMas.AssetName LIKE '*" + txtAssetName + " *' AND IsActive = true and IsDeleted = false AND ClientiD = " + txtClientID + " ORDER BY AssetCatMasID ASC";
+                        " AssetCategoryMas.AssetName LIKE '%" + txtAssetName + "%' AND IsActive = true and IsDeleted = false AND ClientiD = " + txtClientID + " ORDER BY AssetCatMasID ASC";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

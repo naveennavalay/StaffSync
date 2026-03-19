@@ -50,6 +50,7 @@
     <Compile Include="clsAdvanceTransaction.cs" />
     <Compile Include="clsAllowenceInfo.cs" />
     <Compile Include="clsAppModule.cs" />
+    <Compile Include="clsAssetsInfo.cs" />
     <Compile Include="clsAttendanceMas.cs" />
     <Compile Include="clsAdvanceTypeMas.cs" />
     <Compile Include="clsAssetsCategory.cs" />

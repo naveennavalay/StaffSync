@@ -3100,5 +3100,15 @@ namespace StaffSync
                 picCurrentState.Visible = false;
             }
         }
+
+        private void picDownloadDocumentsList_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void picRefreshDocumentsList_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
