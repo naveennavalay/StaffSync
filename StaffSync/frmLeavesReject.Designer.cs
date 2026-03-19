@@ -92,6 +92,7 @@
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonCommand1 = new Krypton.Toolkit.KryptonCommand();
             this.kryptonCommand2 = new Krypton.Toolkit.KryptonCommand();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -547,6 +548,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.label38);
             this.groupBox4.Controls.Add(this.picEmpPhoto);
@@ -845,6 +847,16 @@
             // 
             this.kryptonCommand2.Text = "kryptonCommand2";
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(442, 34);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 87;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // frmLeavesReject
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -952,5 +964,6 @@
         public System.Windows.Forms.Label lblLeaveMasID;
         public System.Windows.Forms.Label lblCancelStatus;
         private System.Windows.Forms.PictureBox picViewLeaves;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

@@ -86,6 +86,7 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -499,6 +500,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.txtEmployeeName);
             this.groupBox4.Controls.Add(this.txtEmpCode);
@@ -656,7 +658,7 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(439, 30);
+            this.lblActionMode.Location = new System.Drawing.Point(607, 30);
             this.lblActionMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
@@ -692,7 +694,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(290, 9);
+            this.btnCancel.Location = new System.Drawing.Point(426, 9);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
@@ -753,7 +755,7 @@
             // 
             // btnRemoveDetails
             // 
-            this.btnRemoveDetails.Location = new System.Drawing.Point(426, 9);
+            this.btnRemoveDetails.Location = new System.Drawing.Point(289, 9);
             this.btnRemoveDetails.Name = "btnRemoveDetails";
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
@@ -766,6 +768,16 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(335, 27);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 45;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmCurrentUserLeaveMaster
             // 
@@ -866,5 +878,6 @@
         private System.Windows.Forms.ToolStripMenuItem tlbCancelLeave;
         public System.Windows.Forms.Label lblCancelStatus;
         private System.Windows.Forms.ColumnHeader LeaveStatus;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

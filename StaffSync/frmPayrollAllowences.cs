@@ -193,6 +193,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             txtAllCode.Text = "";
             txtAllCode.ReadOnly = true;
             txtAllTitle.Text = "";
@@ -353,6 +354,7 @@ namespace StaffSync
 
         public void displaySelectedValuesOnUI(AllowenceModel AllowenceModel)
         {
+            lnkViewAuditLog.Visible = true;
             lblAllowenceID.Text = AllowenceModel.AllID.ToString();
             txtAllCode.Text = AllowenceModel.AllCode;
             txtAllTitle.Text = AllowenceModel.AllTitle;
@@ -483,6 +485,12 @@ namespace StaffSync
                 objDashboard.sptrDashboardContainer.Visible = true;
                 this.Close();
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblAllowenceID.Text.ToString()), "AllowanceMasterInformation", "Allowance Master Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

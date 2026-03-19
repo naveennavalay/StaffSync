@@ -168,6 +168,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             txtRelationshipCode.Text = "";
             txtRelationshipCode.ReadOnly = true;
             txtRelationshipTitle.Text = "";
@@ -267,6 +268,7 @@ namespace StaffSync
 
         public void displaySelectedValuesOnUI(RelationshipModel stateModel)
         {
+            lnkViewAuditLog.Visible = true;
             lblCountryID.Text = stateModel.RelationshipID.ToString();
             txtRelationshipCode.Text = stateModel.RelationshipCode;
             txtRelationshipTitle.Text = stateModel.RelationshipTitle;
@@ -384,6 +386,12 @@ namespace StaffSync
                 objDashboard.sptrDashboardContainer.Visible = true;
                 this.Close();
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblCountryID.Text.ToString()), "RelationshipMasterInformation", "Relationship Master Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

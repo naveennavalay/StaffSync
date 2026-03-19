@@ -178,6 +178,7 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.SelectedIndex = 0;
+            lnkViewAuditLog.Visible = false;
         }
 
         public void enableControls()
@@ -273,6 +274,7 @@ namespace StaffSync
             txtDepTitle.Text = departmentModel.DepartmentTitle;
             txtDepInitial.Text = departmentModel.DepartmentInitial;
             cmbIsActive.Text = departmentModel.IsActive == true ? "Yes" : "No";
+            lnkViewAuditLog.Visible = true;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -385,6 +387,12 @@ namespace StaffSync
                 objDashboard.sptrDashboardContainer.Visible = true;
                 this.Close();
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblDepartmentID.Text.ToString()), "DepartmentMaster", "Department Master", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

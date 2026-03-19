@@ -64,6 +64,7 @@
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.imgList = new System.Windows.Forms.ImageList(this.components);
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -113,6 +114,7 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.lnkViewAuditLog);
             this.groupBox8.Controls.Add(this.btnReportingManagerSearch);
             this.groupBox8.Controls.Add(this.txtRepEmpContactNumber);
             this.groupBox8.Controls.Add(this.txtRepEmpDepartment);
@@ -140,7 +142,7 @@
             // 
             // btnReportingManagerSearch
             // 
-            this.btnReportingManagerSearch.Location = new System.Drawing.Point(420, 25);
+            this.btnReportingManagerSearch.Location = new System.Drawing.Point(420, 23);
             this.btnReportingManagerSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnReportingManagerSearch.Name = "btnReportingManagerSearch";
             this.btnReportingManagerSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -213,7 +215,7 @@
             // txtRepEmpCode
             // 
             this.txtRepEmpCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtRepEmpCode.Location = new System.Drawing.Point(188, 25);
+            this.txtRepEmpCode.Location = new System.Drawing.Point(188, 23);
             this.txtRepEmpCode.Margin = new System.Windows.Forms.Padding(4);
             this.txtRepEmpCode.Multiline = true;
             this.txtRepEmpCode.Name = "txtRepEmpCode";
@@ -231,7 +233,7 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(509, 33);
+            this.lblActionMode.Location = new System.Drawing.Point(734, 33);
             this.lblActionMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
@@ -244,7 +246,7 @@
             this.lblReportingManagerID.AutoSize = true;
             this.lblReportingManagerID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblReportingManagerID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblReportingManagerID.Location = new System.Drawing.Point(484, 33);
+            this.lblReportingManagerID.Location = new System.Drawing.Point(709, 33);
             this.lblReportingManagerID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblReportingManagerID.Name = "lblReportingManagerID";
             this.lblReportingManagerID.Size = new System.Drawing.Size(11, 15);
@@ -520,6 +522,16 @@
             this.imgList.Images.SetKeyName(2, "green-circle.png");
             this.imgList.Images.SetKeyName(3, "red-circle.png");
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(466, 30);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 105;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // frmUserManagement
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -593,5 +605,6 @@
         private Krypton.Toolkit.KryptonButton btnSaveDetails;
         private Krypton.Toolkit.KryptonButton btnModifyDetails;
         private Krypton.Toolkit.KryptonButton btnReportingManagerSearch;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

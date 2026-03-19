@@ -412,7 +412,7 @@ namespace StaffSync
 
         private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
         {
-            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblCategoryID.Text.ToString()), "AssetCategory", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblCategoryID.Text.ToString()), "AssetCategory", "Asset Category", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             objAuditLogStatements.ShowDialog(this);
         }
     }

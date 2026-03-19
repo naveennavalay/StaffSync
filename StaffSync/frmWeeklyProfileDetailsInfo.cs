@@ -138,6 +138,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             txtWeeklyCode.Text = "";
             txtWeeklyCode.ReadOnly = true;
             txtWeeklyOffTitle.Text = "";
@@ -222,6 +223,7 @@ namespace StaffSync
 
         public void displaySelectedValuesOnUI(WklyOffProfileMasInfo WklyOffProfileMasInfoModel)
         {
+            lnkViewAuditLog.Visible = true;
             lblWeeklyOffID.Text = WklyOffProfileMasInfoModel.WklyOffMasID.ToString();
             txtWeeklyCode.Text = WklyOffProfileMasInfoModel.WklyOffCode;
             txtWeeklyOffTitle.Text = WklyOffProfileMasInfoModel.WklyOffTitle;
@@ -398,6 +400,12 @@ namespace StaffSync
                     e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
                 }
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblWeeklyOffID.Text.ToString()), "WeeklyProfileDetailsInformation", "Weekly Profile Details Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

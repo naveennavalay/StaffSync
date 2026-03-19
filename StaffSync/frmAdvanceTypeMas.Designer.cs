@@ -75,6 +75,7 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -451,6 +452,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.lblAdvanceTypeID);
             this.groupBox4.Controls.Add(this.lblActionMode);
@@ -493,7 +495,7 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(430, 30);
+            this.lblActionMode.Location = new System.Drawing.Point(802, 30);
             this.lblActionMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
@@ -629,6 +631,16 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(347, 27);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 38;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // frmAdvanceTypeMas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -713,5 +725,6 @@
         private System.Windows.Forms.TextBox txtMaxTenure;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblAdvanceTypeConfigID;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

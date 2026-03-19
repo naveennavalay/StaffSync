@@ -33,6 +33,10 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cmbProrataBased = new Krypton.Toolkit.KryptonComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cmbShowInPayslip = new Krypton.Toolkit.KryptonComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.txtMaxCap = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmbIsFixed = new Krypton.Toolkit.KryptonComboBox();
@@ -57,26 +61,23 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.cmbShowInPayslip = new Krypton.Toolkit.KryptonComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cmbProrataBased = new Krypton.Toolkit.KryptonComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbProrataBased)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbShowInPayslip)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbIsFixed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbShowInPayslip)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbProrataBased)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             this.SuspendLayout();
@@ -140,6 +141,54 @@
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Allowance Details";
+            // 
+            // cmbProrataBased
+            // 
+            this.cmbProrataBased.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbProrataBased.DropDownWidth = 440;
+            this.cmbProrataBased.Location = new System.Drawing.Point(187, 208);
+            this.cmbProrataBased.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbProrataBased.Name = "cmbProrataBased";
+            this.cmbProrataBased.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbProrataBased.Size = new System.Drawing.Size(114, 22);
+            this.cmbProrataBased.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbProrataBased.TabIndex = 52;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(76, 212);
+            this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(103, 15);
+            this.label5.TabIndex = 51;
+            this.label5.Text = "Pro-rata Based";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbShowInPayslip
+            // 
+            this.cmbShowInPayslip.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbShowInPayslip.DropDownWidth = 440;
+            this.cmbShowInPayslip.Location = new System.Drawing.Point(187, 179);
+            this.cmbShowInPayslip.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbShowInPayslip.Name = "cmbShowInPayslip";
+            this.cmbShowInPayslip.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbShowInPayslip.Size = new System.Drawing.Size(114, 22);
+            this.cmbShowInPayslip.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbShowInPayslip.TabIndex = 50;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(75, 183);
+            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(108, 15);
+            this.label4.TabIndex = 49;
+            this.label4.Text = "Show in Payslip";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtMaxCap
             // 
@@ -261,6 +310,7 @@
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.lblAllowenceID);
             this.groupBox4.Controls.Add(this.lblActionMode);
@@ -278,7 +328,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(416, 28);
+            this.btnSearch.Location = new System.Drawing.Point(416, 30);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -306,7 +356,7 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(573, 37);
+            this.lblActionMode.Location = new System.Drawing.Point(668, 37);
             this.lblActionMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
@@ -316,7 +366,7 @@
             // 
             // txtAllCode
             // 
-            this.txtAllCode.Location = new System.Drawing.Point(187, 28);
+            this.txtAllCode.Location = new System.Drawing.Point(187, 30);
             this.txtAllCode.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtAllCode.MaxLength = 255;
             this.txtAllCode.Multiline = true;
@@ -435,54 +485,6 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
-            // cmbShowInPayslip
-            // 
-            this.cmbShowInPayslip.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbShowInPayslip.DropDownWidth = 440;
-            this.cmbShowInPayslip.Location = new System.Drawing.Point(187, 179);
-            this.cmbShowInPayslip.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbShowInPayslip.Name = "cmbShowInPayslip";
-            this.cmbShowInPayslip.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbShowInPayslip.Size = new System.Drawing.Size(114, 22);
-            this.cmbShowInPayslip.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbShowInPayslip.TabIndex = 50;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(75, 183);
-            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(108, 15);
-            this.label4.TabIndex = 49;
-            this.label4.Text = "Show in Payslip";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cmbProrataBased
-            // 
-            this.cmbProrataBased.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbProrataBased.DropDownWidth = 440;
-            this.cmbProrataBased.Location = new System.Drawing.Point(187, 208);
-            this.cmbProrataBased.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbProrataBased.Name = "cmbProrataBased";
-            this.cmbProrataBased.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbProrataBased.Size = new System.Drawing.Size(114, 22);
-            this.cmbProrataBased.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbProrataBased.TabIndex = 52;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(76, 212);
-            this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(103, 15);
-            this.label5.TabIndex = 51;
-            this.label5.Text = "Pro-rata Based";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // empMasInfoBindingSource
             // 
             this.empMasInfoBindingSource.DataMember = "EmpMasInfo";
@@ -496,6 +498,16 @@
             // empMasInfoTableAdapter
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(452, 34);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 92;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmPayrollAllowences
             // 
@@ -523,14 +535,14 @@
             this.panel1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbProrataBased)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbShowInPayslip)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbIsFixed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbShowInPayslip)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbProrataBased)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             this.ResumeLayout(false);
@@ -573,5 +585,6 @@
         private System.Windows.Forms.Label label5;
         private Krypton.Toolkit.KryptonComboBox cmbShowInPayslip;
         private System.Windows.Forms.Label label4;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

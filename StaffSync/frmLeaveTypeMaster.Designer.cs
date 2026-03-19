@@ -56,6 +56,7 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -194,6 +195,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.lblLeaveTypeID);
             this.groupBox4.Controls.Add(this.lblActionMode);
@@ -382,6 +384,16 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(462, 34);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 90;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // frmLeaveTypeMaster
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -448,5 +460,6 @@
         private System.Windows.Forms.Label label2;
         private Krypton.Toolkit.KryptonComboBox cmbIsActive;
         private Krypton.Toolkit.KryptonComboBox cmbLeavePaid;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

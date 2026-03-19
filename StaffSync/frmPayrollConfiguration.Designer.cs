@@ -79,6 +79,7 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -484,6 +485,7 @@
             // groupBox8
             // 
             this.groupBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox8.Controls.Add(this.lnkViewAuditLog);
             this.groupBox8.Controls.Add(this.lblEmpSalID);
             this.groupBox8.Controls.Add(this.lblSexID);
             this.groupBox8.Controls.Add(this.lblStateID);
@@ -830,6 +832,16 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(337, 30);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 93;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // frmPayrollConfiguration
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -923,5 +935,6 @@
         private System.Windows.Forms.Label lblBasicSalaryPerDay;
         private System.Windows.Forms.CheckBox chkAutoCalculate;
         private System.Windows.Forms.Label lblPFCalcAmount;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

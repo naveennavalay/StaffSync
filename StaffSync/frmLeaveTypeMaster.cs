@@ -176,6 +176,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             txtLeaveCode.Text = "";
             txtLeaveCode.ReadOnly = true;
             txtLeaveTitle.Text = "";
@@ -292,6 +293,7 @@ namespace StaffSync
 
         public void displaySelectedValuesOnUI(LeaveTypeInfoModel LeaveTypeInfoModel)
         {
+            lnkViewAuditLog.Visible = true;
             lblLeaveTypeID.Text = LeaveTypeInfoModel.LeaveTypeID.ToString();
             txtLeaveCode.Text = LeaveTypeInfoModel.LeaveCode;
             txtLeaveTitle.Text = LeaveTypeInfoModel.LeaveTypeTitle;
@@ -409,6 +411,12 @@ namespace StaffSync
                 objDashboard.sptrDashboardContainer.Visible = true;
                 this.Close();
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblLeaveTypeID.Text.ToString()), "LeaveTypeMaster", "Leave Type Master", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

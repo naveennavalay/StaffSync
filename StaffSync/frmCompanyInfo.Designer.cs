@@ -126,6 +126,7 @@
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.ofdImage = new System.Windows.Forms.OpenFileDialog();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -1211,6 +1212,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.lblCompID);
             this.groupBox4.Controls.Add(this.lblActionMode);
@@ -1256,7 +1258,7 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(573, 34);
+            this.lblActionMode.Location = new System.Drawing.Point(802, 34);
             this.lblActionMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
@@ -1286,6 +1288,7 @@
             this.label1.Size = new System.Drawing.Size(103, 15);
             this.label1.TabIndex = 3;
             this.label1.Text = "Company Code";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // panel2
             // 
@@ -1403,6 +1406,16 @@
             // 
             this.ofdImage.FileName = "openFileDialog1";
             this.ofdImage.Filter = "JPG files (*.jpg)|*.jpg|PNG files (*.png)|*.png\"";
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(465, 23);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 40;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmCompanyInfo
             // 
@@ -1558,5 +1571,6 @@
         private Krypton.Toolkit.KryptonTextBox txtEmprPFPercentage;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label29;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

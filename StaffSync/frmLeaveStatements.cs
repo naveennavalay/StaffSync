@@ -264,6 +264,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             lblEmpID.Text = "";
             txtEmpCode.Text = "";
             txtEmployeeName.Text = "";
@@ -324,6 +325,7 @@ namespace StaffSync
         {
             if (SearchOptionSelectedForm == "listLeaveStatements")
             {
+                lnkViewAuditLog.Visible = true;
                 lblEmpID.Text = selectedEmployeeID.ToString();
                 EmployeeInfo objSelectedEmployeeInfo = objEmployeeMaster.GetSelectedEmployeeInfo(Convert.ToInt16(lblEmpID.Text));
                 txtEmpCode.Text = objSelectedEmployeeInfo.EmpCode;
@@ -690,6 +692,12 @@ namespace StaffSync
                     e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
                 }
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblEmpID.Text.ToString()), "LeaveStatementInformation", "Leave Statement Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

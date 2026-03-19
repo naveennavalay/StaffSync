@@ -91,6 +91,7 @@
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.ttAdvanceType = new System.Windows.Forms.ToolTip(this.components);
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -598,6 +599,7 @@
             // groupBox8
             // 
             this.groupBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox8.Controls.Add(this.lnkViewAuditLog);
             this.groupBox8.Controls.Add(this.lblViewEmpSpecificAdvanceInfo);
             this.groupBox8.Controls.Add(this.lblRequestFromMailID);
             this.groupBox8.Controls.Add(this.lblEmpID);
@@ -642,7 +644,7 @@
             // 
             this.lblRequestFromMailID.AutoSize = true;
             this.lblRequestFromMailID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRequestFromMailID.Location = new System.Drawing.Point(398, 33);
+            this.lblRequestFromMailID.Location = new System.Drawing.Point(547, 10);
             this.lblRequestFromMailID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblRequestFromMailID.Name = "lblRequestFromMailID";
             this.lblRequestFromMailID.Size = new System.Drawing.Size(82, 15);
@@ -656,7 +658,7 @@
             this.lblEmpID.AutoSize = true;
             this.lblEmpID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblEmpID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmpID.Location = new System.Drawing.Point(362, 33);
+            this.lblEmpID.Location = new System.Drawing.Point(509, 15);
             this.lblEmpID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblEmpID.Name = "lblEmpID";
             this.lblEmpID.Size = new System.Drawing.Size(11, 15);
@@ -936,6 +938,16 @@
             this.ttAdvanceType.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.ttAdvanceType.ToolTipTitle = "This is sample tooltip text";
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(360, 28);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 80;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // frmEmpAdvanceRequest
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1039,5 +1051,6 @@
         private System.Windows.Forms.PictureBox picMoreInfo;
         private System.Windows.Forms.ToolTip ttAdvanceType;
         private System.Windows.Forms.Label lblViewEmpSpecificAdvanceInfo;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

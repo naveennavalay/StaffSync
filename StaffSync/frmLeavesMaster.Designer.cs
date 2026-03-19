@@ -47,6 +47,7 @@
             this.lblActionMode = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblLeaveIsPaid = new System.Windows.Forms.Label();
             this.lblSpecificLeaveBalance = new System.Windows.Forms.Label();
             this.lblLeaveMasID = new System.Windows.Forms.Label();
             this.lblCancelStatus = new System.Windows.Forms.Label();
@@ -92,7 +93,7 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lblLeaveIsPaid = new System.Windows.Forms.Label();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -147,6 +148,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.txtEmployeeName);
             this.groupBox4.Controls.Add(this.txtEmpCode);
@@ -351,6 +353,19 @@
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Leave History";
+            // 
+            // lblLeaveIsPaid
+            // 
+            this.lblLeaveIsPaid.AutoSize = true;
+            this.lblLeaveIsPaid.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblLeaveIsPaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLeaveIsPaid.Location = new System.Drawing.Point(755, 27);
+            this.lblLeaveIsPaid.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblLeaveIsPaid.Name = "lblLeaveIsPaid";
+            this.lblLeaveIsPaid.Size = new System.Drawing.Size(11, 15);
+            this.lblLeaveIsPaid.TabIndex = 51;
+            this.lblLeaveIsPaid.Text = " ";
+            this.lblLeaveIsPaid.Visible = false;
             // 
             // lblSpecificLeaveBalance
             // 
@@ -883,18 +898,15 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
-            // lblLeaveIsPaid
+            // lnkViewAuditLog
             // 
-            this.lblLeaveIsPaid.AutoSize = true;
-            this.lblLeaveIsPaid.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblLeaveIsPaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLeaveIsPaid.Location = new System.Drawing.Point(755, 27);
-            this.lblLeaveIsPaid.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblLeaveIsPaid.Name = "lblLeaveIsPaid";
-            this.lblLeaveIsPaid.Size = new System.Drawing.Size(11, 15);
-            this.lblLeaveIsPaid.TabIndex = 51;
-            this.lblLeaveIsPaid.Text = " ";
-            this.lblLeaveIsPaid.Visible = false;
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(433, 36);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 86;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmLeavesMaster
             // 
@@ -1003,5 +1015,6 @@
         private System.Windows.Forms.ColumnHeader LeaveMode;
         private Krypton.Toolkit.KryptonButton btnAttCalender;
         public System.Windows.Forms.Label lblLeaveIsPaid;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

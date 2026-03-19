@@ -144,11 +144,11 @@
             this.dtgPreviousWorkExp = new Krypton.Toolkit.KryptonDataGridView();
             this.tabSkils = new Krypton.Navigator.KryptonPage();
             this.chkSkillsList = new System.Windows.Forms.CheckedListBox();
-            this.tabEducationalInfo1 = new Krypton.Navigator.KryptonPage();
-            this.chkEduQualList = new System.Windows.Forms.CheckedListBox();
             this.tabFamilyMemberInfo = new Krypton.Navigator.KryptonPage();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.dtgFamilyMemberInforamtion = new Krypton.Toolkit.KryptonDataGridView();
+            this.tabEducationalInfo1 = new Krypton.Navigator.KryptonPage();
+            this.chkEduQualList = new System.Windows.Forms.CheckedListBox();
             this.tabDocuments1 = new Krypton.Navigator.KryptonPage();
             this.btnUploadDocument = new Krypton.Toolkit.KryptonButton();
             this.picDownloadDocumentsList = new System.Windows.Forms.PictureBox();
@@ -287,6 +287,7 @@
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -332,12 +333,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgPreviousWorkExp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabSkils)).BeginInit();
             this.tabSkils.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tabEducationalInfo1)).BeginInit();
-            this.tabEducationalInfo1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).BeginInit();
             this.tabFamilyMemberInfo.SuspendLayout();
             this.groupBox14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabEducationalInfo1)).BeginInit();
+            this.tabEducationalInfo1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabDocuments1)).BeginInit();
             this.tabDocuments1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDownloadDocumentsList)).BeginInit();
@@ -1953,30 +1954,6 @@
             this.chkSkillsList.Size = new System.Drawing.Size(1195, 466);
             this.chkSkillsList.TabIndex = 1;
             // 
-            // tabEducationalInfo1
-            // 
-            this.tabEducationalInfo1.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.tabEducationalInfo1.Controls.Add(this.chkEduQualList);
-            this.tabEducationalInfo1.Flags = 65534;
-            this.tabEducationalInfo1.LastVisibleSet = true;
-            this.tabEducationalInfo1.MinimumSize = new System.Drawing.Size(150, 50);
-            this.tabEducationalInfo1.Name = "tabEducationalInfo1";
-            this.tabEducationalInfo1.Size = new System.Drawing.Size(1248, 519);
-            this.tabEducationalInfo1.Text = "Educational Info";
-            this.tabEducationalInfo1.ToolTipTitle = "Page ToolTip";
-            this.tabEducationalInfo1.UniqueName = "f9837b105de44806af73caf55b4bb72c";
-            // 
-            // chkEduQualList
-            // 
-            this.chkEduQualList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.chkEduQualList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.chkEduQualList.FormattingEnabled = true;
-            this.chkEduQualList.Location = new System.Drawing.Point(16, 19);
-            this.chkEduQualList.MultiColumn = true;
-            this.chkEduQualList.Name = "chkEduQualList";
-            this.chkEduQualList.Size = new System.Drawing.Size(1195, 466);
-            this.chkEduQualList.TabIndex = 2;
-            // 
             // tabFamilyMemberInfo
             // 
             this.tabFamilyMemberInfo.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
@@ -2017,6 +1994,30 @@
             this.dtgFamilyMemberInforamtion.Size = new System.Drawing.Size(1168, 275);
             this.dtgFamilyMemberInforamtion.TabIndex = 47;
             this.dtgFamilyMemberInforamtion.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgFamilyMemberInforamtion_CellDoubleClick);
+            // 
+            // tabEducationalInfo1
+            // 
+            this.tabEducationalInfo1.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabEducationalInfo1.Controls.Add(this.chkEduQualList);
+            this.tabEducationalInfo1.Flags = 65534;
+            this.tabEducationalInfo1.LastVisibleSet = true;
+            this.tabEducationalInfo1.MinimumSize = new System.Drawing.Size(150, 50);
+            this.tabEducationalInfo1.Name = "tabEducationalInfo1";
+            this.tabEducationalInfo1.Size = new System.Drawing.Size(1248, 519);
+            this.tabEducationalInfo1.Text = "Educational Info";
+            this.tabEducationalInfo1.ToolTipTitle = "Page ToolTip";
+            this.tabEducationalInfo1.UniqueName = "f9837b105de44806af73caf55b4bb72c";
+            // 
+            // chkEduQualList
+            // 
+            this.chkEduQualList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkEduQualList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.chkEduQualList.FormattingEnabled = true;
+            this.chkEduQualList.Location = new System.Drawing.Point(16, 19);
+            this.chkEduQualList.MultiColumn = true;
+            this.chkEduQualList.Name = "chkEduQualList";
+            this.chkEduQualList.Size = new System.Drawing.Size(1195, 466);
+            this.chkEduQualList.TabIndex = 2;
             // 
             // tabDocuments1
             // 
@@ -3339,6 +3340,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.txtEmpCode);
             this.groupBox4.Controls.Add(this.lblEmpID);
@@ -3399,7 +3401,7 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(439, 30);
+            this.lblActionMode.Location = new System.Drawing.Point(610, 30);
             this.lblActionMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
@@ -3608,6 +3610,16 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(339, 27);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 82;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // frmEmployeeMaster
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -3685,12 +3697,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgPreviousWorkExp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabSkils)).EndInit();
             this.tabSkils.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.tabEducationalInfo1)).EndInit();
-            this.tabEducationalInfo1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).EndInit();
             this.tabFamilyMemberInfo.ResumeLayout(false);
             this.groupBox14.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabEducationalInfo1)).EndInit();
+            this.tabEducationalInfo1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabDocuments1)).EndInit();
             this.tabDocuments1.ResumeLayout(false);
             this.tabDocuments1.PerformLayout();
@@ -4012,5 +4024,6 @@
         private System.Windows.Forms.PictureBox picCurrentState;
         private Krypton.Toolkit.KryptonComboBox cmbCurrentState;
         private Krypton.Toolkit.KryptonComboBox cmbPermanentState;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

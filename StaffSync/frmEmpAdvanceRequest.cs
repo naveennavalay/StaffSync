@@ -430,6 +430,8 @@ namespace StaffSync
 
             lblRequestFromMailID.Text = "";
             lblRequestToMailID.Text = "";
+
+            lnkViewAuditLog.Visible = false;
         }
 
         public void enableControls()
@@ -522,6 +524,7 @@ namespace StaffSync
 
                 cmbAdvanceType.SelectedIndex = 1;
                 cmbAdvanceType.SelectedIndex = 0;
+                lnkViewAuditLog.Visible = true;
             }
             else if (SearchOptionSelectedForm == "listAdvanceRequestToUsers")
             {
@@ -536,6 +539,7 @@ namespace StaffSync
                 cmbAdvanceType.SelectedIndex = 0;
                 EmpPersonalPersonalInfo objSelectedReportingManagerPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblReportingManagerID.Text));
                 lblRequestToMailID.Text = objSelectedReportingManagerPersonalInfo.ContactNumber2.ToString();
+                lnkViewAuditLog.Visible = true;
             }
         }
 
@@ -905,6 +909,12 @@ namespace StaffSync
                 return;
 
             txtInstallmentAmount.Text = Convert.ToDecimal(txtInstallmentAmount.Text.ToString()).ToString("###0.00");
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblPersonalInfoID.Text.ToString()), "AdvanceRequest", "Advance Request", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

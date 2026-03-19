@@ -72,6 +72,7 @@
             this.cmLeaveCancel = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tlbCancelLeave = new System.Windows.Forms.ToolStripMenuItem();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -371,6 +372,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.txtEmployeeName);
             this.groupBox4.Controls.Add(this.txtEmpCode);
@@ -672,6 +674,16 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(438, 36);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 81;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // frmEmpLeaveEntitlement
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -759,5 +771,6 @@
         private Krypton.Toolkit.KryptonCheckBox chkNewAllotment;
         private System.Windows.Forms.PictureBox picAddLeave;
         private Krypton.Toolkit.KryptonTextBox txtTotalUtilised;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

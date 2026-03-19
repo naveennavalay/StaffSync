@@ -535,7 +535,7 @@ namespace StaffSync
 
         public void clearControls()
         {
-
+            lnkViewAuditLog.Visible = false;
             tabControl1.Enabled = false;
             lblEmpID.Text = "";
             txtEmpCode.Text = "";
@@ -2025,12 +2025,14 @@ namespace StaffSync
             if (SearchOptionSelectedForm == "listEmployees")
             {
                 lblEmpID.Text = selectedEmployeeID.ToString();
+                lnkViewAuditLog.Visible = true;
                 btnViewCalender.Visible = true;
                 UpdateUIWithSelectedEmployeeDetails(Convert.ToInt16(lblEmpID.Text));
             }
             else if (SearchOptionSelectedForm == "listRepManagers")
             {
                 lblReportingManagerID.Text = selectedEmployeeID.ToString();
+                lnkViewAuditLog.Visible = true;
                 ReportingManagerInfo objReportingManagerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(selectedEmployeeID.ToString()));
                 txtRepEmpCode.Text = objReportingManagerInfo.EmpCode;
                 txtRepEmpName.Text = objReportingManagerInfo.EmpName;
@@ -3109,6 +3111,12 @@ namespace StaffSync
         private void picRefreshDocumentsList_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblEmpID.Text.ToString()), "EmployeeMasterInformation", "Employee Master Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

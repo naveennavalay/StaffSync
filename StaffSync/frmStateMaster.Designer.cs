@@ -33,6 +33,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.picConfigStatus = new System.Windows.Forms.PictureBox();
+            this.lnlViewProfessionalTaxSlab = new Krypton.Toolkit.KryptonLinkLabel();
             this.cmbIsActive = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtStateInitial = new System.Windows.Forms.TextBox();
@@ -56,21 +58,20 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lnlViewProfessionalTaxSlab = new Krypton.Toolkit.KryptonLinkLabel();
-            this.picConfigStatus = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picConfigStatus)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picConfigStatus)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -119,6 +120,25 @@
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "State Details";
+            // 
+            // picConfigStatus
+            // 
+            this.picConfigStatus.Location = new System.Drawing.Point(612, 33);
+            this.picConfigStatus.Name = "picConfigStatus";
+            this.picConfigStatus.Size = new System.Drawing.Size(16, 16);
+            this.picConfigStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picConfigStatus.TabIndex = 36;
+            this.picConfigStatus.TabStop = false;
+            // 
+            // lnlViewProfessionalTaxSlab
+            // 
+            this.lnlViewProfessionalTaxSlab.Location = new System.Drawing.Point(637, 29);
+            this.lnlViewProfessionalTaxSlab.Name = "lnlViewProfessionalTaxSlab";
+            this.lnlViewProfessionalTaxSlab.Size = new System.Drawing.Size(154, 20);
+            this.lnlViewProfessionalTaxSlab.TabIndex = 35;
+            this.lnlViewProfessionalTaxSlab.Values.Text = "View Professional Tax Slab";
+            this.lnlViewProfessionalTaxSlab.LinkClicked += new System.EventHandler(this.lnlViewProfessionalTaxSlab_LinkClicked);
+            this.lnlViewProfessionalTaxSlab.Click += new System.EventHandler(this.lnlViewProfessionalTaxSlab_Click);
             // 
             // cmbIsActive
             // 
@@ -190,6 +210,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.lblCountryID);
             this.groupBox4.Controls.Add(this.lblActionMode);
@@ -232,7 +253,7 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(430, 30);
+            this.lblActionMode.Location = new System.Drawing.Point(601, 30);
             this.lblActionMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
@@ -369,24 +390,15 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
-            // lnlViewProfessionalTaxSlab
+            // lnkViewAuditLog
             // 
-            this.lnlViewProfessionalTaxSlab.Location = new System.Drawing.Point(637, 29);
-            this.lnlViewProfessionalTaxSlab.Name = "lnlViewProfessionalTaxSlab";
-            this.lnlViewProfessionalTaxSlab.Size = new System.Drawing.Size(154, 20);
-            this.lnlViewProfessionalTaxSlab.TabIndex = 35;
-            this.lnlViewProfessionalTaxSlab.Values.Text = "View Professional Tax Slab";
-            this.lnlViewProfessionalTaxSlab.LinkClicked += new System.EventHandler(this.lnlViewProfessionalTaxSlab_LinkClicked);
-            this.lnlViewProfessionalTaxSlab.Click += new System.EventHandler(this.lnlViewProfessionalTaxSlab_Click);
-            // 
-            // picConfigStatus
-            // 
-            this.picConfigStatus.Location = new System.Drawing.Point(612, 33);
-            this.picConfigStatus.Name = "picConfigStatus";
-            this.picConfigStatus.Size = new System.Drawing.Size(16, 16);
-            this.picConfigStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picConfigStatus.TabIndex = 36;
-            this.picConfigStatus.TabStop = false;
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(347, 27);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 102;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmStateMaster
             // 
@@ -414,13 +426,13 @@
             this.panel1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picConfigStatus)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picConfigStatus)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -456,5 +468,6 @@
         private Krypton.Toolkit.KryptonLinkLabel lnlViewProfessionalTaxSlab;
         private System.Windows.Forms.PictureBox picConfigStatus;
         private System.Windows.Forms.ToolTip toolTip1;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

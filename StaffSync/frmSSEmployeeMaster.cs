@@ -490,6 +490,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             lblEmpID.Text = "";
             txtEmpCode.Text = "";
             txtEmployeeName.Text = "";
@@ -1783,12 +1784,14 @@ namespace StaffSync
         {
             if (SearchOptionSelectedForm == "listSSEmployees")
             {
+                lnkViewAuditLog.Visible = true;
                 lblEmpID.Text = selectedEmployeeID.ToString();
                 btnViewCalender.Visible = true;
                 UpdateUIWithSelectedEmployeeDetails(Convert.ToInt16(lblEmpID.Text));
             }
             else if (SearchOptionSelectedForm == "listRepManagers")
             {
+                lnkViewAuditLog.Visible = true;
                 lblReportingManagerID.Text = selectedEmployeeID.ToString();
                 ReportingManagerInfo objReportingManagerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(selectedEmployeeID.ToString()));
                 txtRepEmpCode.Text = objReportingManagerInfo.EmpCode;
@@ -2640,6 +2643,12 @@ namespace StaffSync
             dtgLeaveEntitlement.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
             dtgPreviousWorkExp.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
             dtgSalaryProfileDetails.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblReportingManagerID.Text.ToString()), "SelfServiceEmployeeMaster", "Self Service Employee Master Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

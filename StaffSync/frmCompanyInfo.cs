@@ -423,6 +423,7 @@ namespace StaffSync
             txtContactNumber.Text = "";
             txtMailID.Text = "";
             txtWebsite.Text = "";
+            lnkViewAuditLog.Visible = false;
 
             picCompLogo.Image = null;
 
@@ -629,6 +630,7 @@ namespace StaffSync
             txtContactNumber.Text = ClientInfoModel.ClientPhone.ToString();
             txtMailID.Text = ClientInfoModel.ClientContactMail.ToString(); ;
             txtWebsite.Text = ClientInfoModel.ClientWebSite.ToString();
+            lnkViewAuditLog.Visible = true;
 
             txtCompLogo.Text = "";
             picCompLogo.Image = objImpageOperation.BytesToImage(objPhotoMas.getCompanyLogo(Convert.ToInt16(lblCompID.Text.ToString())).ClientLogo);
@@ -892,6 +894,17 @@ namespace StaffSync
                 grpNationalPensionScheme.Enabled = false;
                 txtNPSRegNumber.Text = "";
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblCompID.Text.ToString()), "CompanyInformation", "Company Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

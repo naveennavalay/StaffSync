@@ -166,6 +166,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             txtCompanyCode.Text = "";
             txtCompanyCode.ReadOnly = true;
             txtCompanyTitle.Text = "";
@@ -265,6 +266,7 @@ namespace StaffSync
 
         public void displaySelectedValuesOnUI(LastCompnayMasterModel objLastCompnayModel)
         {
+            lnkViewAuditLog.Visible = true;
             lblCountryID.Text = objLastCompnayModel.LastCompanyInfoID.ToString();
             txtCompanyCode.Text = objLastCompnayModel.LastCompanyCode;
             txtCompanyTitle.Text = objLastCompnayModel.LastCompanyTitle;
@@ -382,6 +384,12 @@ namespace StaffSync
                 objDashboard.sptrDashboardContainer.Visible = true;
                 this.Close();
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblCountryID.Text.ToString()), "LastCompanyMaster", "Last Company Master", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

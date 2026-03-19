@@ -332,6 +332,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             lblReportingManagerID.Text = "";
             txtRepEmpCode.Text = "";
             txtRepEmpName.Text = "";
@@ -475,6 +476,7 @@ namespace StaffSync
             tabControl1.SelectedIndex = 0;
             if (SearchOptionSelectedForm == "listPayrollConfigUsersList")
             {
+                lnkViewAuditLog.Visible = true;
                 lblReportingManagerID.Text = selectedEmployeeID.ToString();
                 ReportingManagerInfo objReportingManagerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(selectedEmployeeID.ToString()));
                 txtRepEmpCode.Text = objReportingManagerInfo.EmpCode;
@@ -1174,6 +1176,12 @@ namespace StaffSync
                     e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
                 }
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblReportingManagerID.Text.ToString()), "PayrollConfiguration", "Payroll Configuration", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

@@ -32,6 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAuditLogStatements));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.picDownloadDocumentsList = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.picRefreshDocumentsList = new System.Windows.Forms.PictureBox();
             this.lblEventGroup = new System.Windows.Forms.Label();
             this.lblSourceID = new System.Windows.Forms.Label();
             this.lblClientID = new System.Windows.Forms.Label();
@@ -55,14 +58,15 @@
             this.countryMasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.countryMasBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.qryCountryListTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.qryCountryListTableAdapter();
-            this.picDownloadDocumentsList = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.picRefreshDocumentsList = new System.Windows.Forms.PictureBox();
+            this.lblFileName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDownloadDocumentsList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefreshDocumentsList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgAuditLogStatements)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qryCountryListBindingSource)).BeginInit();
@@ -75,9 +79,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.countryMasAddressMasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDownloadDocumentsList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRefreshDocumentsList)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -101,6 +102,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.panel1.Controls.Add(this.lblFileName);
             this.panel1.Controls.Add(this.picDownloadDocumentsList);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.picRefreshDocumentsList);
@@ -115,6 +117,43 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1064, 401);
             this.panel1.TabIndex = 1;
+            // 
+            // picDownloadDocumentsList
+            // 
+            this.picDownloadDocumentsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picDownloadDocumentsList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picDownloadDocumentsList.Image = ((System.Drawing.Image)(resources.GetObject("picDownloadDocumentsList.Image")));
+            this.picDownloadDocumentsList.Location = new System.Drawing.Point(968, 28);
+            this.picDownloadDocumentsList.Name = "picDownloadDocumentsList";
+            this.picDownloadDocumentsList.Size = new System.Drawing.Size(21, 20);
+            this.picDownloadDocumentsList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picDownloadDocumentsList.TabIndex = 30;
+            this.picDownloadDocumentsList.TabStop = false;
+            this.picDownloadDocumentsList.Click += new System.EventHandler(this.picDownloadDocumentsList_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(991, 27);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(23, 22);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 29;
+            this.pictureBox2.TabStop = false;
+            // 
+            // picRefreshDocumentsList
+            // 
+            this.picRefreshDocumentsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picRefreshDocumentsList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picRefreshDocumentsList.Image = ((System.Drawing.Image)(resources.GetObject("picRefreshDocumentsList.Image")));
+            this.picRefreshDocumentsList.Location = new System.Drawing.Point(1016, 27);
+            this.picRefreshDocumentsList.Name = "picRefreshDocumentsList";
+            this.picRefreshDocumentsList.Size = new System.Drawing.Size(23, 22);
+            this.picRefreshDocumentsList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRefreshDocumentsList.TabIndex = 28;
+            this.picRefreshDocumentsList.TabStop = false;
             // 
             // lblEventGroup
             // 
@@ -285,41 +324,18 @@
             // 
             this.qryCountryListTableAdapter.ClearBeforeFill = true;
             // 
-            // picDownloadDocumentsList
+            // lblFileName
             // 
-            this.picDownloadDocumentsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picDownloadDocumentsList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picDownloadDocumentsList.Image = ((System.Drawing.Image)(resources.GetObject("picDownloadDocumentsList.Image")));
-            this.picDownloadDocumentsList.Location = new System.Drawing.Point(968, 28);
-            this.picDownloadDocumentsList.Name = "picDownloadDocumentsList";
-            this.picDownloadDocumentsList.Size = new System.Drawing.Size(21, 20);
-            this.picDownloadDocumentsList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picDownloadDocumentsList.TabIndex = 30;
-            this.picDownloadDocumentsList.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(991, 27);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(23, 22);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 29;
-            this.pictureBox2.TabStop = false;
-            // 
-            // picRefreshDocumentsList
-            // 
-            this.picRefreshDocumentsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picRefreshDocumentsList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picRefreshDocumentsList.Image = ((System.Drawing.Image)(resources.GetObject("picRefreshDocumentsList.Image")));
-            this.picRefreshDocumentsList.Location = new System.Drawing.Point(1016, 27);
-            this.picRefreshDocumentsList.Name = "picRefreshDocumentsList";
-            this.picRefreshDocumentsList.Size = new System.Drawing.Size(23, 22);
-            this.picRefreshDocumentsList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picRefreshDocumentsList.TabIndex = 28;
-            this.picRefreshDocumentsList.TabStop = false;
+            this.lblFileName.AutoSize = true;
+            this.lblFileName.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblFileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFileName.Location = new System.Drawing.Point(819, 31);
+            this.lblFileName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblFileName.Name = "lblFileName";
+            this.lblFileName.Size = new System.Drawing.Size(11, 15);
+            this.lblFileName.TabIndex = 31;
+            this.lblFileName.Text = " ";
+            this.lblFileName.Visible = false;
             // 
             // frmAuditLogStatements
             // 
@@ -344,6 +360,9 @@
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDownloadDocumentsList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefreshDocumentsList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgAuditLogStatements)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.qryCountryListBindingSource)).EndInit();
@@ -356,9 +375,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.countryMasAddressMasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDownloadDocumentsList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picRefreshDocumentsList)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -393,5 +409,6 @@
         private System.Windows.Forms.PictureBox picDownloadDocumentsList;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox picRefreshDocumentsList;
+        private System.Windows.Forms.Label lblFileName;
     }
 }

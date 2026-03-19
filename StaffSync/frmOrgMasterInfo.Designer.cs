@@ -172,6 +172,7 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -1970,6 +1971,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.lblCompID);
             this.groupBox4.Controls.Add(this.lblActionMode);
@@ -2162,6 +2164,16 @@
             // empMasInfoTableAdapter
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(412, 31);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 91;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmOrgMasterInfo
             // 
@@ -2386,5 +2398,6 @@
         private System.Windows.Forms.Label lblSignatoryID;
         private System.Windows.Forms.CheckBox chkEnableProvidentFund;
         private System.Windows.Forms.CheckBox chkEnableEmployeeStateInsurance;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

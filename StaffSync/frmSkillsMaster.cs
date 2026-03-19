@@ -169,6 +169,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             txtSkillsCode.Text = "";
             txtSkillsCode.ReadOnly = true;
             txtSkillTitle.Text = "";
@@ -268,6 +269,7 @@ namespace StaffSync
 
         public void displaySelectedValuesOnUI(SkillModel skillsModel)
         {
+            lnkViewAuditLog.Visible = true;
             lblCountryID.Text = skillsModel.SkillID.ToString();
             txtSkillsCode.Text = skillsModel.SkillCode;
             txtSkillTitle.Text = skillsModel.SkillTitle;
@@ -385,6 +387,12 @@ namespace StaffSync
                 objDashboard.sptrDashboardContainer.Visible = true;
                 this.Close();
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblCountryID.Text.ToString()), "SkillsMasterInformation", "Skills Master Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

@@ -206,6 +206,7 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.SelectedIndex = 2;
+            lnkViewAuditLog.Visible = false;
         }
 
         public void enableControls()
@@ -338,6 +339,8 @@ namespace StaffSync
             picCompLogo.Image = objImpageOperation.BytesToImage(objPhotoMas.getCompanyBranchLogo(Convert.ToInt16(lblCompID.Text.ToString())).ClientBranchLogo);
 
             cmbIsActive.Text = ClientBranchInfoModel.IsActive == true ? "Yes" : "No";
+
+            lnkViewAuditLog.Visible = true;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -475,6 +478,12 @@ namespace StaffSync
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblCompID.Text.ToString()), "BranchInformation", "Branch Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

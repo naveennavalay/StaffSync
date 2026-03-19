@@ -80,6 +80,7 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -434,6 +435,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.txtEmployeeName);
             this.groupBox4.Controls.Add(this.txtEmpCode);
@@ -459,7 +461,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(400, 32);
+            this.btnSearch.Location = new System.Drawing.Point(400, 27);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -488,7 +490,7 @@
             // txtEmpCode
             // 
             this.txtEmpCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtEmpCode.Location = new System.Drawing.Point(167, 32);
+            this.txtEmpCode.Location = new System.Drawing.Point(167, 30);
             this.txtEmpCode.Margin = new System.Windows.Forms.Padding(4);
             this.txtEmpCode.Multiline = true;
             this.txtEmpCode.Name = "txtEmpCode";
@@ -718,6 +720,16 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(446, 34);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 88;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // frmLeaveStatement
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -811,5 +823,6 @@
         public System.Windows.Forms.Label lblCancelStatus;
         private System.Windows.Forms.ColumnHeader LeaveStatus;
         public System.Windows.Forms.Label lblLeaveMasID;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

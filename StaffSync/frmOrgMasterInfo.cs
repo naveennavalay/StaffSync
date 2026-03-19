@@ -443,6 +443,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             txtCompCode.Text = "";
             txtCompCode.ReadOnly = true;
             txtCompanyName.Text = "";
@@ -728,6 +729,7 @@ namespace StaffSync
 
         public void displaySelectedValuesOnUI(ClientInfo ClientInfoModel)
         {
+            lnkViewAuditLog.Visible = true;
             lblCompID.Text = ClientInfoModel.ClientID.ToString();
             txtCompCode.Text = ClientInfoModel.ClientCode.ToString();
             txtCompanyName.Text = ClientInfoModel.ClientName.ToString();
@@ -1150,6 +1152,12 @@ namespace StaffSync
                 tabOrgProfessionalTax.Enabled = false;
                 tabOrgLabourWelfareFund.Enabled = false;
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblCompID.Text.ToString()), "CompanyMasterInformation", "Company Master Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

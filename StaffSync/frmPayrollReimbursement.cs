@@ -196,6 +196,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             txtReimbCode.Text = "";
             txtReimbCode.ReadOnly = true;
             txtReimbTitle.Text = "";
@@ -359,6 +360,7 @@ namespace StaffSync
 
         public void displaySelectedValuesOnUI(ReimbursementModel ReimbursementModel)
         {
+            lnkViewAuditLog.Visible = true;
             lblReimbursementID.Text = ReimbursementModel.ReimbID.ToString();
             txtReimbCode.Text = ReimbursementModel.ReimbCode;
             txtReimbTitle.Text = ReimbursementModel.ReimbTitle;
@@ -489,6 +491,12 @@ namespace StaffSync
                 objDashboard.sptrDashboardContainer.Visible = true;
                 this.Close();
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblReimbursementID.Text.ToString()), "ReimbursementMasterInformation", "Reimbursement Master Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

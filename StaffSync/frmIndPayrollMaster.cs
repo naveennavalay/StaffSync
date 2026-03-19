@@ -505,6 +505,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             txtRepEmpCode.Text = "";
             txtRepEmpName.Text = "";
             txtRepEmpDesig.Text = "";
@@ -670,6 +671,7 @@ namespace StaffSync
             tabControl1.SelectedIndex = 0;
             if (SearchOptionSelectedForm == "listPayrollUsersList")
             {
+                lnkViewAuditLog.Visible = true;
                 LoadSalaryMonthList();
                 
                 //cmbSalaryMonth.SelectedText = cmbSalaryMonthSelectedText;
@@ -2120,6 +2122,12 @@ namespace StaffSync
                     e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
                 }
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblReportingManagerID.Text.ToString()), "IndividualPayrollMaster", "Individual Payroll Master", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

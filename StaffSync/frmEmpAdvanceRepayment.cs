@@ -363,6 +363,7 @@ namespace StaffSync
             cmbPaymentType.Items.Clear();
             txtAdvanceTRDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
             lblEmpMailID.Text = "";
+            lnkViewAuditLog.Visible = false;
         }
 
         public void enableControls()
@@ -577,6 +578,8 @@ namespace StaffSync
 
             txtAdvanceTRAmount.Text = Convert.ToDecimal(objEmployeeSpecificAdvanceInformation[0].AdvanceInstallment.ToString()).ToString("#,##0.00");
             txtAdvanceTRAmount.Text = Convert.ToDecimal(txtAdvanceTRAmount.Text.ToString()).ToString("###0.00");
+
+            lnkViewAuditLog.Visible = true;
         }
 
         private void btnRepSearch_Click(object sender, EventArgs e)
@@ -664,6 +667,12 @@ namespace StaffSync
                 return;
 
             txtAdvanceTRAmount.Text = Convert.ToDecimal(txtAdvanceTRAmount.Text.ToString()).ToString("###0.00");
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblEmpID.Text.ToString()), "AdvancesRepayment", "Advance Repayment", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

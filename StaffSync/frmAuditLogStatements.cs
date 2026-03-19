@@ -22,11 +22,12 @@ namespace StaffSync
             InitializeComponent();
         }
 
-        public frmAuditLogStatements(int SourceID, string EventGroup, int ClientID)
+        public frmAuditLogStatements(int SourceID, string EventGroup, string ModuleName, int ClientID)
         {
             InitializeComponent();
             lblSourceID.Text = SourceID.ToString();
             lblEventGroup.Text = EventGroup.ToString();
+            lblFileName.Text = ModuleName.ToString();
             lblClientID.Text = ClientID.ToString();
         }
 
@@ -103,6 +104,14 @@ namespace StaffSync
             {
                 this.Close();
             }
+        }
+
+        private void picDownloadDocumentsList_Click(object sender, EventArgs e)
+        {
+            //string filePath = AppVariables.TempFolderPath + @"\" +  lblFileName + " - " + DateTime.Now.ToString() + ".csv";
+            //bool ReportGenerated = Download.DownloadExcel(filePath, dtgAuditLogStatements);
+            //if (ReportGenerated)
+            //    Download.OpenCSV(filePath);
         }
     }
 }

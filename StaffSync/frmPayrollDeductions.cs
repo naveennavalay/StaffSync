@@ -197,6 +197,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             txtDedCode.Text = "";
             txtDedCode.ReadOnly = true;
             txtDedTitle.Text = "";
@@ -358,6 +359,7 @@ namespace StaffSync
 
         public void displaySelectedValuesOnUI(DeductionModel DeductionModel)
         {
+            lnkViewAuditLog.Visible = true;
             lblDeductionID.Text = DeductionModel.DedID.ToString();
             txtDedCode.Text = DeductionModel.DedCode;
             txtDedTitle.Text = DeductionModel.DedTitle;
@@ -482,6 +484,12 @@ namespace StaffSync
                 objDashboard.sptrDashboardContainer.Visible = true;
                 this.Close();
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblDeductionID.Text.ToString()), "DeductionsMasterInforamtion", "Deduction Master Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

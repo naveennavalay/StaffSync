@@ -166,6 +166,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             txtStateCode.Text = "";
             txtStateCode.ReadOnly = true;
             txtStateTitle.Text = "";
@@ -267,6 +268,7 @@ namespace StaffSync
 
         public void displaySelectedValuesOnUI(StateModel stateModel)
         {
+            lnkViewAuditLog.Visible = true;
             lblCountryID.Text = stateModel.StateID.ToString();
             txtStateCode.Text = stateModel.StateCode;
             txtStateTitle.Text = stateModel.StateTitle;
@@ -408,6 +410,12 @@ namespace StaffSync
         {
             frmCompanyList frmCompanyList = new frmCompanyList(this, "stateprofessionaltaxslab", Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID), Convert.ToInt16(lblCountryID.Text.ToString()));
             frmCompanyList.ShowDialog(this);
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblCountryID.Text.ToString()), "StateMasterInformation", "State Master Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

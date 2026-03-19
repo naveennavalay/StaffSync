@@ -596,6 +596,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             lblReportingManagerID.Text = "";
             txtRepEmpCode.Text = "";
             txtRepEmpName.Text = "";
@@ -766,6 +767,7 @@ namespace StaffSync
             tabControl1.SelectedIndex = 0;
             if (SearchOptionSelectedForm == "listPayrollUsersList")
             {
+                lnkViewAuditLog.Visible = true;
                 bool includeIncludeAdvanceRepaymentInIndividualSalaryProcessing = Convert.ToBoolean(objAppSettings.GetSpecificAppSettingsInfo("Include Advance Repayment in Individual Salary Processing").AppSettingValue.ToString());
 
                 lblReportingManagerID.Text = selectedEmployeeID.ToString();
@@ -1057,6 +1059,7 @@ namespace StaffSync
             }
             else if (SearchOptionSelectedForm == "listEmployeesPayslip")
             {
+                lnkViewAuditLog.Visible = true;
                 lblReportingManagerID.Text = selectedEmployeeID.ToString();
                 ReportingManagerInfo objReportingManagerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(selectedEmployeeID.ToString()));
                 txtRepEmpCode.Text = objReportingManagerInfo.EmpCode;
@@ -2719,6 +2722,12 @@ namespace StaffSync
                     e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
                 }
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblReportingManagerID.Text.ToString()), "PayrollMasterInformation", "Payroll Master Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

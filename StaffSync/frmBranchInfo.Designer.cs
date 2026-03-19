@@ -33,6 +33,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.txtCompLogo = new Krypton.Toolkit.KryptonTextBox();
+            this.btnCompanyLogoUpload = new Krypton.Toolkit.KryptonButton();
             this.txtContactPerson = new Krypton.Toolkit.KryptonTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.cmbIsActive = new Krypton.Toolkit.KryptonComboBox();
@@ -78,9 +80,8 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.txtCompLogo = new Krypton.Toolkit.KryptonTextBox();
-            this.btnCompanyLogoUpload = new Krypton.Toolkit.KryptonButton();
             this.ofdImage = new System.Windows.Forms.OpenFileDialog();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -171,6 +172,33 @@
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Branch Details";
+            // 
+            // txtCompLogo
+            // 
+            this.txtCompLogo.Location = new System.Drawing.Point(1248, 38);
+            this.txtCompLogo.Multiline = true;
+            this.txtCompLogo.Name = "txtCompLogo";
+            this.txtCompLogo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtCompLogo.Size = new System.Drawing.Size(101, 28);
+            this.txtCompLogo.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCompLogo.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtCompLogo.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCompLogo.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCompLogo.TabIndex = 69;
+            this.txtCompLogo.Visible = false;
+            this.txtCompLogo.WordWrap = false;
+            // 
+            // btnCompanyLogoUpload
+            // 
+            this.btnCompanyLogoUpload.Location = new System.Drawing.Point(1203, 38);
+            this.btnCompanyLogoUpload.Name = "btnCompanyLogoUpload";
+            this.btnCompanyLogoUpload.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnCompanyLogoUpload.Size = new System.Drawing.Size(39, 34);
+            this.btnCompanyLogoUpload.TabIndex = 68;
+            this.btnCompanyLogoUpload.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnCompanyLogoUpload.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnCompanyLogoUpload.Values.Image")));
+            this.btnCompanyLogoUpload.Values.Text = "Upload";
+            this.btnCompanyLogoUpload.Click += new System.EventHandler(this.btnCompanyLogoUpload_Click);
             // 
             // txtContactPerson
             // 
@@ -543,6 +571,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.lblCompID);
             this.groupBox4.Controls.Add(this.lblActionMode);
@@ -588,7 +617,7 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(573, 37);
+            this.lblActionMode.Location = new System.Drawing.Point(972, 37);
             this.lblActionMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
@@ -731,37 +760,20 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
-            // txtCompLogo
-            // 
-            this.txtCompLogo.Location = new System.Drawing.Point(1248, 38);
-            this.txtCompLogo.Multiline = true;
-            this.txtCompLogo.Name = "txtCompLogo";
-            this.txtCompLogo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtCompLogo.Size = new System.Drawing.Size(101, 28);
-            this.txtCompLogo.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCompLogo.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtCompLogo.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCompLogo.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCompLogo.TabIndex = 69;
-            this.txtCompLogo.Visible = false;
-            this.txtCompLogo.WordWrap = false;
-            // 
-            // btnCompanyLogoUpload
-            // 
-            this.btnCompanyLogoUpload.Location = new System.Drawing.Point(1203, 38);
-            this.btnCompanyLogoUpload.Name = "btnCompanyLogoUpload";
-            this.btnCompanyLogoUpload.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCompanyLogoUpload.Size = new System.Drawing.Size(39, 34);
-            this.btnCompanyLogoUpload.TabIndex = 68;
-            this.btnCompanyLogoUpload.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnCompanyLogoUpload.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnCompanyLogoUpload.Values.Image")));
-            this.btnCompanyLogoUpload.Values.Text = "Upload";
-            this.btnCompanyLogoUpload.Click += new System.EventHandler(this.btnCompanyLogoUpload_Click);
-            // 
             // ofdImage
             // 
             this.ofdImage.FileName = "openFileDialog1";
             this.ofdImage.Filter = "JPG files (*.jpg)|*.jpg|PNG files (*.png)|*.png\"";
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(462, 34);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 39;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmBranchInfo
             // 
@@ -855,5 +867,6 @@
         private Krypton.Toolkit.KryptonTextBox txtCompLogo;
         private Krypton.Toolkit.KryptonButton btnCompanyLogoUpload;
         private System.Windows.Forms.OpenFileDialog ofdImage;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

@@ -358,6 +358,7 @@ namespace StaffSync
             cmbDuration.DataSource = null;
 
             lstLeaveTRList.Items.Clear();
+            lnkViewAuditLog.Visible = false;
         }
 
         public void enableControls()
@@ -409,6 +410,8 @@ namespace StaffSync
                 cmbDesignation.SelectedIndex = objSelectedEmployeeInfo.EmpDesignationID - 1;
                 cmbDepartment.SelectedIndex = objSelectedEmployeeInfo.DepartmentID - 1;
                 picEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblEmpID.Text)).EmpPhoto);
+
+                lnkViewAuditLog.Visible = true;
 
                 txtAvailableLeave.Text = objLeaveTRList.getBalanceLeave(Convert.ToInt16(lblEmpID.Text)).ToString();
 
@@ -583,6 +586,12 @@ namespace StaffSync
         private void btnRemoveDetails_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblEmpID.Text.ToString()), "UserLeaveMaster", "Keave Master", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

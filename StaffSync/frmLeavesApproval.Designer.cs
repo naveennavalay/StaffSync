@@ -51,6 +51,7 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.picRefreshLeaveTRList = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnAttCalender = new Krypton.Toolkit.KryptonButton();
             this.picViewLeaves = new System.Windows.Forms.PictureBox();
             this.txtApprovalNote = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -94,7 +95,7 @@
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonCommand1 = new Krypton.Toolkit.KryptonCommand();
             this.kryptonCommand2 = new Krypton.Toolkit.KryptonCommand();
-            this.btnAttCalender = new Krypton.Toolkit.KryptonButton();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -344,6 +345,19 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Leave Request";
             // 
+            // btnAttCalender
+            // 
+            this.btnAttCalender.Location = new System.Drawing.Point(604, 25);
+            this.btnAttCalender.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAttCalender.Name = "btnAttCalender";
+            this.btnAttCalender.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnAttCalender.Size = new System.Drawing.Size(30, 28);
+            this.btnAttCalender.TabIndex = 52;
+            this.btnAttCalender.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnAttCalender.Values.Image = global::StaffSync.Properties.Resources.attendance;
+            this.btnAttCalender.Values.Text = "";
+            this.btnAttCalender.Click += new System.EventHandler(this.btnAttCalender_Click);
+            // 
             // picViewLeaves
             // 
             this.picViewLeaves.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -540,6 +554,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.label38);
             this.groupBox4.Controls.Add(this.picEmpPhoto);
@@ -679,7 +694,7 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(439, 30);
+            this.lblActionMode.Location = new System.Drawing.Point(485, 30);
             this.lblActionMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
@@ -825,18 +840,15 @@
             // 
             this.kryptonCommand2.Text = "kryptonCommand2";
             // 
-            // btnAttCalender
+            // lnkViewAuditLog
             // 
-            this.btnAttCalender.Location = new System.Drawing.Point(604, 25);
-            this.btnAttCalender.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAttCalender.Name = "btnAttCalender";
-            this.btnAttCalender.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnAttCalender.Size = new System.Drawing.Size(30, 28);
-            this.btnAttCalender.TabIndex = 52;
-            this.btnAttCalender.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnAttCalender.Values.Image = global::StaffSync.Properties.Resources.attendance;
-            this.btnAttCalender.Values.Text = "";
-            this.btnAttCalender.Click += new System.EventHandler(this.btnAttCalender_Click);
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(338, 27);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 85;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmLeavesApproval
             // 
@@ -948,5 +960,6 @@
         private System.Windows.Forms.ColumnHeader CanceledDate;
         private System.Windows.Forms.PictureBox picViewLeaves;
         private Krypton.Toolkit.KryptonButton btnAttCalender;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

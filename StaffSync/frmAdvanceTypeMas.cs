@@ -258,6 +258,7 @@ namespace StaffSync
             chkIncludeAsDeductionInSalary.Checked = false;
             chkWaiverAllowed.Checked = false;
             chkWaiverAllowed.Checked = false;
+            lnkViewAuditLog.Visible = false;
         }
 
         public void enableControls()
@@ -438,6 +439,7 @@ namespace StaffSync
             chkAllowPause.Checked = objAdvanceTypeConfigModel.AllowPause;
             chkWaiverAllowed.Checked = objAdvanceTypeConfigModel.WaiverAllowed;
             txtMaxTenure.Text = objAdvanceTypeConfigModel.MaxTenure.ToString();
+            lnkViewAuditLog.Visible = true;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -599,6 +601,12 @@ namespace StaffSync
                 chkAutoDeductFromNextSaslary.Enabled = false;
                 chkIncludeAsDeductionInSalary.Enabled = false;
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblAdvanceTypeID.Text.ToString()), "AdvanceType", "Advance Type", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

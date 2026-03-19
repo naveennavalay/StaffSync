@@ -65,6 +65,7 @@
             this.qryUserRolesTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryUserRolesTableAdapter();
             this.qryRolesDefTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRolesDefTableAdapter();
             this.qryUserSpecificRolesTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryUserSpecificRolesTableAdapter();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -118,6 +119,7 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.lnkViewAuditLog);
             this.groupBox8.Controls.Add(this.btnReportingManagerSearch);
             this.groupBox8.Controls.Add(this.txtRepEmpDepartment);
             this.groupBox8.Controls.Add(this.txtRepEmpDesig);
@@ -143,7 +145,7 @@
             // 
             // btnReportingManagerSearch
             // 
-            this.btnReportingManagerSearch.Location = new System.Drawing.Point(420, 25);
+            this.btnReportingManagerSearch.Location = new System.Drawing.Point(420, 26);
             this.btnReportingManagerSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnReportingManagerSearch.Name = "btnReportingManagerSearch";
             this.btnReportingManagerSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -219,7 +221,7 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(509, 33);
+            this.lblActionMode.Location = new System.Drawing.Point(789, 33);
             this.lblActionMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
@@ -232,7 +234,7 @@
             this.lblReportingManagerID.AutoSize = true;
             this.lblReportingManagerID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblReportingManagerID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblReportingManagerID.Location = new System.Drawing.Point(484, 33);
+            this.lblReportingManagerID.Location = new System.Drawing.Point(764, 33);
             this.lblReportingManagerID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblReportingManagerID.Name = "lblReportingManagerID";
             this.lblReportingManagerID.Size = new System.Drawing.Size(11, 15);
@@ -477,6 +479,16 @@
             // 
             this.qryUserSpecificRolesTableAdapter.ClearBeforeFill = true;
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(462, 30);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 90;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // frmModuleAssignment
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -556,5 +568,6 @@
         private Krypton.Toolkit.KryptonButton btnReportingManagerSearch;
         private Krypton.Toolkit.KryptonTextBox txtAssignedRole;
         private System.Windows.Forms.Label label28;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

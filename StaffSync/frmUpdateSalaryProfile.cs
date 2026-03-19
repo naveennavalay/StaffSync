@@ -211,6 +211,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             txtSalProfCode.Text = "";
             txtSalProfCode.ReadOnly = true;
             txtSalProfTitle.Text = "";
@@ -316,6 +317,7 @@ namespace StaffSync
 
         public void displaySelectedValuesOnUI(SalaryProfileTitleList SalaryProfileInfoModel)
         {
+            lnkViewAuditLog.Visible = true;
             lblSalaryProfileID.Text = SalaryProfileInfoModel.SalProfileID.ToString();
             txtSalProfCode.Text = SalaryProfileInfoModel.SalProfileCode;
             txtSalProfTitle.Text = SalaryProfileInfoModel.SalProfileTitle;
@@ -709,6 +711,12 @@ namespace StaffSync
                     e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
                 }
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblSalaryProfileID.Text.ToString()), "UpdateSalaryProfileInformation", "Update Salary Profile Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

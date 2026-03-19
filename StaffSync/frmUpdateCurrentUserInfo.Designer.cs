@@ -226,6 +226,7 @@
             this.docUploadsTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.DocUploadsTableAdapter();
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -2414,6 +2415,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.txtEmpCode);
             this.groupBox4.Controls.Add(this.lblEmpID);
@@ -2430,7 +2432,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(304, 25);
+            this.btnSearch.Location = new System.Drawing.Point(304, 23);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSearch.Size = new System.Drawing.Size(29, 28);
@@ -2443,7 +2445,7 @@
             // txtEmpCode
             // 
             this.txtEmpCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtEmpCode.Location = new System.Drawing.Point(130, 25);
+            this.txtEmpCode.Location = new System.Drawing.Point(130, 23);
             this.txtEmpCode.Multiline = true;
             this.txtEmpCode.Name = "txtEmpCode";
             this.txtEmpCode.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -2473,7 +2475,7 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(439, 30);
+            this.lblActionMode.Location = new System.Drawing.Point(610, 30);
             this.lblActionMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
@@ -2683,6 +2685,16 @@
             // qryEmpBirthdayListTableAdapter
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(339, 27);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 103;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmUpdateCurrentUserInfo
             // 
@@ -3000,5 +3012,6 @@
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.ColumnHeader LeaveComments;
         private System.Windows.Forms.ColumnHeader LeaveStatus;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }

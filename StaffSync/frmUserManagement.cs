@@ -128,6 +128,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lnkViewAuditLog.Visible = false;
             btnReportingManagerSearch.Enabled = false;
             txtRepEmpCode.Text = "";
             txtRepEmpName.Text = "";
@@ -251,6 +252,7 @@ namespace StaffSync
         {
             if (SearchOptionSelectedForm == "listUserManagementList")
             {
+                lnkViewAuditLog.Visible = true;
                 picActiveInActive.Visible = true;
                 picLockUnlock.Visible = true;
                 lblReportingManagerID.Text = selectedEmployeeID.ToString();
@@ -309,6 +311,12 @@ namespace StaffSync
                 objDashboard.sptrDashboardContainer.Visible = true;
                 this.Close();
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblReportingManagerID.Text.ToString()), "UserManagementInformation", "User Management Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

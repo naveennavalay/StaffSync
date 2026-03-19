@@ -247,6 +247,7 @@ namespace StaffSync
 
             tabControl1.SelectedIndex = 0;
             tabControl1.Enabled = false;
+            lnkViewAuditLog.Visible = false;
         }
 
         public void enableControls()
@@ -416,6 +417,8 @@ namespace StaffSync
             dtWarrantyEndDate.Value = Convert.ToDateTime(objSelectedAssetMoreInfo.WarrantyEndDate.ToString("dd-MMM-yyyy"));
             dtLastServiceDate.Value = Convert.ToDateTime(objSelectedAssetMoreInfo.LastServiceDate.ToString("dd-MMM-yyyy"));
             dtNextServiceDate.Value = Convert.ToDateTime(objSelectedAssetMoreInfo.NextServiceDate.ToString("dd-MMM-yyyy"));
+
+            lnkViewAuditLog.Visible = true;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -657,6 +660,12 @@ namespace StaffSync
                 dtWarrantyStartDate.Enabled  = false;
                 dtWarrantyEndDate.Enabled = false;
             }
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblAsssetID.Text.ToString()), "AssetInfo", "Assets Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

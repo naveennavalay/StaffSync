@@ -61,6 +61,7 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -275,6 +276,7 @@
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.txtSalProfTitle);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Controls.Add(this.btnSearch);
@@ -490,6 +492,16 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(421, 34);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 104;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // frmUpdateSalaryProfile
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -561,5 +573,6 @@
         private System.Windows.Forms.Label label2;
         private Krypton.Toolkit.KryptonTextBox txtNetSalary;
         private System.Windows.Forms.CheckBox chkConsiderAsNew;
+        private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
     }
 }
