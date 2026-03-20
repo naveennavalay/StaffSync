@@ -40,6 +40,7 @@
             this.txtDepTitle = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
             this.lblDepartmentID = new System.Windows.Forms.Label();
             this.lblActionMode = new System.Windows.Forms.Label();
@@ -56,7 +57,6 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -131,6 +131,7 @@
             this.cmbIsActive.Name = "cmbIsActive";
             this.cmbIsActive.Size = new System.Drawing.Size(568, 23);
             this.cmbIsActive.TabIndex = 34;
+            this.cmbIsActive.Tag = "Is Active";
             this.cmbIsActive.SelectedIndexChanged += new System.EventHandler(this.cmbRelationship_SelectedIndexChanged);
             // 
             // label17
@@ -154,6 +155,7 @@
             this.txtDepInitial.Name = "txtDepInitial";
             this.txtDepInitial.Size = new System.Drawing.Size(568, 34);
             this.txtDepInitial.TabIndex = 4;
+            this.txtDepInitial.Tag = "Department Initials";
             this.txtDepInitial.WordWrap = false;
             // 
             // label18
@@ -177,6 +179,7 @@
             this.txtDepTitle.Name = "txtDepTitle";
             this.txtDepTitle.Size = new System.Drawing.Size(568, 34);
             this.txtDepTitle.TabIndex = 3;
+            this.txtDepTitle.Tag = "Department Title";
             this.txtDepTitle.WordWrap = false;
             // 
             // label16
@@ -209,6 +212,16 @@
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Department Info";
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(462, 34);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 46;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // btnSearch
             // 
@@ -258,6 +271,7 @@
             this.txtDepCode.ReadOnly = true;
             this.txtDepCode.Size = new System.Drawing.Size(223, 34);
             this.txtDepCode.TabIndex = 2;
+            this.txtDepCode.Tag = "Department Code";
             this.txtDepCode.WordWrap = false;
             // 
             // label1
@@ -382,16 +396,6 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(462, 34);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 46;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmDepartmentMaster
             // 

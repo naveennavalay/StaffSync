@@ -48,6 +48,7 @@
             this.txtReimbTitle = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
             this.lblReimbursementID = new System.Windows.Forms.Label();
             this.lblActionMode = new System.Windows.Forms.Label();
@@ -64,7 +65,6 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -148,6 +148,7 @@
             this.cmbProrataBased.Size = new System.Drawing.Size(114, 22);
             this.cmbProrataBased.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbProrataBased.TabIndex = 72;
+            this.cmbProrataBased.Tag = "Pro-rata Based";
             // 
             // label5
             // 
@@ -172,6 +173,7 @@
             this.cmbShowInPayslip.Size = new System.Drawing.Size(114, 22);
             this.cmbShowInPayslip.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbShowInPayslip.TabIndex = 70;
+            this.cmbShowInPayslip.Tag = "Show in Payslip";
             // 
             // label4
             // 
@@ -194,6 +196,7 @@
             this.txtMaxCap.Name = "txtMaxCap";
             this.txtMaxCap.Size = new System.Drawing.Size(114, 22);
             this.txtMaxCap.TabIndex = 68;
+            this.txtMaxCap.Tag = "Max. Cap";
             this.txtMaxCap.WordWrap = false;
             // 
             // label3
@@ -219,6 +222,7 @@
             this.cmbIsFixed.Size = new System.Drawing.Size(114, 22);
             this.cmbIsFixed.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbIsFixed.TabIndex = 66;
+            this.cmbIsFixed.Tag = "Is Fixed";
             // 
             // cmbIsActive
             // 
@@ -231,6 +235,7 @@
             this.cmbIsActive.Size = new System.Drawing.Size(114, 22);
             this.cmbIsActive.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbIsActive.TabIndex = 65;
+            this.cmbIsActive.Tag = "Is Active";
             // 
             // label2
             // 
@@ -265,6 +270,7 @@
             this.txtReimbDescription.Name = "txtReimbDescription";
             this.txtReimbDescription.Size = new System.Drawing.Size(568, 96);
             this.txtReimbDescription.TabIndex = 4;
+            this.txtReimbDescription.Tag = "Reimbursement Description";
             this.txtReimbDescription.WordWrap = false;
             // 
             // label18
@@ -288,6 +294,7 @@
             this.txtReimbTitle.Name = "txtReimbTitle";
             this.txtReimbTitle.Size = new System.Drawing.Size(568, 28);
             this.txtReimbTitle.TabIndex = 3;
+            this.txtReimbTitle.Tag = "Reimbursement Title";
             this.txtReimbTitle.WordWrap = false;
             // 
             // label16
@@ -318,6 +325,16 @@
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Reimbursement Info";
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(456, 32);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 96;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // btnSearch
             // 
@@ -366,6 +383,7 @@
             this.txtReimbCode.ReadOnly = true;
             this.txtReimbCode.Size = new System.Drawing.Size(223, 28);
             this.txtReimbCode.TabIndex = 2;
+            this.txtReimbCode.Tag = "Reimbursement Code";
             this.txtReimbCode.WordWrap = false;
             // 
             // label1
@@ -483,16 +501,6 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(456, 32);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 96;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmReimbursement
             // 

@@ -66,6 +66,7 @@
             this.cmbAdvanceType = new Krypton.Toolkit.KryptonComboBox();
             this.label42 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.lblViewEmpSpecificAdvanceInfo = new System.Windows.Forms.Label();
             this.lblRequestFromMailID = new System.Windows.Forms.Label();
             this.lblEmpID = new System.Windows.Forms.Label();
@@ -91,7 +92,6 @@
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.ttAdvanceType = new System.Windows.Forms.ToolTip(this.components);
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -205,7 +205,7 @@
             this.txtMaxLoanAmountAvail.ReadOnly = true;
             this.txtMaxLoanAmountAvail.Size = new System.Drawing.Size(103, 21);
             this.txtMaxLoanAmountAvail.TabIndex = 77;
-            this.txtMaxLoanAmountAvail.Tag = "";
+            this.txtMaxLoanAmountAvail.Tag = "Max. Allowed Advance";
             this.txtMaxLoanAmountAvail.Text = "0";
             this.ttAdvanceType.SetToolTip(this.txtMaxLoanAmountAvail, "123");
             this.txtMaxLoanAmountAvail.WordWrap = false;
@@ -257,7 +257,7 @@
             this.txtInstallmentAmount.ReadOnly = true;
             this.txtInstallmentAmount.Size = new System.Drawing.Size(103, 21);
             this.txtInstallmentAmount.TabIndex = 71;
-            this.txtInstallmentAmount.Tag = "Please enter Employeee Code";
+            this.txtInstallmentAmount.Tag = "Installment Amount";
             this.txtInstallmentAmount.Text = "0";
             this.txtInstallmentAmount.WordWrap = false;
             this.txtInstallmentAmount.Leave += new System.EventHandler(this.txtInstallmentAmount_Leave);
@@ -348,6 +348,7 @@
             this.txtRepDepartment.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepDepartment.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepDepartment.TabIndex = 39;
+            this.txtRepDepartment.Tag = "Department";
             // 
             // txtRepDesignation
             // 
@@ -362,6 +363,7 @@
             this.txtRepDesignation.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepDesignation.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepDesignation.TabIndex = 38;
+            this.txtRepDesignation.Tag = "Designation";
             this.txtRepDesignation.WordWrap = false;
             // 
             // txtRepName
@@ -377,6 +379,7 @@
             this.txtRepName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepName.TabIndex = 37;
+            this.txtRepName.Tag = "Name";
             this.txtRepName.WordWrap = false;
             // 
             // txtRepCode
@@ -394,6 +397,7 @@
             this.txtRepCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepCode.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepCode.TabIndex = 36;
+            this.txtRepCode.Tag = "Employee Code";
             this.txtRepCode.WordWrap = false;
             // 
             // picRepEmpPhoto
@@ -479,6 +483,7 @@
             this.txtComments.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtComments.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtComments.TabIndex = 4;
+            this.txtComments.Tag = "Reason";
             this.txtComments.WordWrap = false;
             this.txtComments.Enter += new System.EventHandler(this.txtComments_Enter);
             // 
@@ -504,7 +509,7 @@
             this.txtAdvanceEndDate.ReadOnly = true;
             this.txtAdvanceEndDate.Size = new System.Drawing.Size(103, 21);
             this.txtAdvanceEndDate.TabIndex = 65;
-            this.txtAdvanceEndDate.Tag = "Please enter Employeee Date Of Birth";
+            this.txtAdvanceEndDate.Tag = "End Date";
             this.txtAdvanceEndDate.ValidatingType = typeof(System.DateTime);
             // 
             // label3
@@ -539,7 +544,7 @@
             this.txtAdvanceAmount.Name = "txtAdvanceAmount";
             this.txtAdvanceAmount.Size = new System.Drawing.Size(224, 21);
             this.txtAdvanceAmount.TabIndex = 2;
-            this.txtAdvanceAmount.Tag = "Please enter Employeee Code";
+            this.txtAdvanceAmount.Tag = "Advance Amount";
             this.txtAdvanceAmount.Text = "0.00";
             this.txtAdvanceAmount.WordWrap = false;
             this.txtAdvanceAmount.TextChanged += new System.EventHandler(this.txtAdvanceAmount_TextChanged);
@@ -555,7 +560,7 @@
             this.txtAdvanceStartDate.Name = "txtAdvanceStartDate";
             this.txtAdvanceStartDate.Size = new System.Drawing.Size(103, 21);
             this.txtAdvanceStartDate.TabIndex = 3;
-            this.txtAdvanceStartDate.Tag = "Please enter Employeee Date Of Birth";
+            this.txtAdvanceStartDate.Tag = "Start Date";
             this.txtAdvanceStartDate.ValidatingType = typeof(System.DateTime);
             this.txtAdvanceStartDate.TextChanged += new System.EventHandler(this.txtAdvanceStartDate_TextChanged);
             // 
@@ -582,6 +587,7 @@
             this.cmbAdvanceType.Size = new System.Drawing.Size(224, 22);
             this.cmbAdvanceType.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbAdvanceType.TabIndex = 0;
+            this.cmbAdvanceType.Tag = "Advance Type";
             this.cmbAdvanceType.SelectedIndexChanged += new System.EventHandler(this.cmbAdvanceType_SelectedIndexChanged);
             // 
             // label42
@@ -625,6 +631,16 @@
             this.groupBox8.TabIndex = 33;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Employee Information";
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(360, 28);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 80;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // lblViewEmpSpecificAdvanceInfo
             // 
@@ -705,6 +721,7 @@
             this.txtDepartment.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDepartment.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDepartment.TabIndex = 30;
+            this.txtDepartment.Tag = "Department";
             // 
             // txtDesignation
             // 
@@ -719,6 +736,7 @@
             this.txtDesignation.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDesignation.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDesignation.TabIndex = 29;
+            this.txtDesignation.Tag = "Designation";
             this.txtDesignation.WordWrap = false;
             // 
             // txtEmpName
@@ -734,6 +752,7 @@
             this.txtEmpName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpName.TabIndex = 28;
+            this.txtEmpName.Tag = "Name";
             this.txtEmpName.WordWrap = false;
             // 
             // txtEmpCode
@@ -751,6 +770,7 @@
             this.txtEmpCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpCode.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpCode.TabIndex = 27;
+            this.txtEmpCode.Tag = "Employee Code";
             this.txtEmpCode.WordWrap = false;
             // 
             // lblActionMode
@@ -937,16 +957,6 @@
             // 
             this.ttAdvanceType.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.ttAdvanceType.ToolTipTitle = "This is sample tooltip text";
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(360, 28);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 80;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmEmpAdvanceRequest
             // 

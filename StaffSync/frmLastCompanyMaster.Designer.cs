@@ -40,6 +40,7 @@
             this.txtCompanyTitle = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
             this.lblCountryID = new System.Windows.Forms.Label();
             this.lblActionMode = new System.Windows.Forms.Label();
@@ -56,7 +57,6 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -125,6 +125,7 @@
             this.cmbIsActive.Name = "cmbIsActive";
             this.cmbIsActive.Size = new System.Drawing.Size(427, 23);
             this.cmbIsActive.TabIndex = 34;
+            this.cmbIsActive.Tag = "Is Active";
             this.cmbIsActive.SelectedIndexChanged += new System.EventHandler(this.cmbRelationship_SelectedIndexChanged);
             // 
             // label17
@@ -148,6 +149,7 @@
             this.txtCompanyAddress.Name = "txtCompanyAddress";
             this.txtCompanyAddress.Size = new System.Drawing.Size(427, 55);
             this.txtCompanyAddress.TabIndex = 4;
+            this.txtCompanyAddress.Tag = "Company Address";
             this.txtCompanyAddress.WordWrap = false;
             // 
             // label18
@@ -171,6 +173,7 @@
             this.txtCompanyTitle.Name = "txtCompanyTitle";
             this.txtCompanyTitle.Size = new System.Drawing.Size(427, 28);
             this.txtCompanyTitle.TabIndex = 3;
+            this.txtCompanyTitle.Tag = "Company Title";
             this.txtCompanyTitle.WordWrap = false;
             // 
             // label16
@@ -201,6 +204,16 @@
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Company Info";
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(347, 27);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 84;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // btnSearch
             // 
@@ -249,6 +262,7 @@
             this.txtCompanyCode.ReadOnly = true;
             this.txtCompanyCode.Size = new System.Drawing.Size(168, 28);
             this.txtCompanyCode.TabIndex = 2;
+            this.txtCompanyCode.Tag = "Company Code";
             this.txtCompanyCode.WordWrap = false;
             // 
             // label1
@@ -366,16 +380,6 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(347, 27);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 84;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmLastCompanyMaster
             // 

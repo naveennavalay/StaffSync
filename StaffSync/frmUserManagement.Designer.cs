@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnReportingManagerSearch = new Krypton.Toolkit.KryptonButton();
             this.txtRepEmpContactNumber = new Krypton.Toolkit.KryptonTextBox();
             this.txtRepEmpDepartment = new Krypton.Toolkit.KryptonTextBox();
@@ -64,7 +65,6 @@
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.imgList = new System.Windows.Forms.ImageList(this.components);
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -140,6 +140,16 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "User Information";
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(466, 30);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 105;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // btnReportingManagerSearch
             // 
             this.btnReportingManagerSearch.Location = new System.Drawing.Point(420, 23);
@@ -166,6 +176,7 @@
             this.txtRepEmpContactNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpContactNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpContactNumber.TabIndex = 36;
+            this.txtRepEmpContactNumber.Tag = "Contact Number";
             this.txtRepEmpContactNumber.WordWrap = false;
             // 
             // txtRepEmpDepartment
@@ -181,6 +192,7 @@
             this.txtRepEmpDepartment.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDepartment.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDepartment.TabIndex = 35;
+            this.txtRepEmpDepartment.Tag = "Department";
             // 
             // txtRepEmpDesig
             // 
@@ -195,6 +207,7 @@
             this.txtRepEmpDesig.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDesig.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDesig.TabIndex = 34;
+            this.txtRepEmpDesig.Tag = "Designation";
             this.txtRepEmpDesig.WordWrap = false;
             // 
             // txtRepEmpName
@@ -210,6 +223,7 @@
             this.txtRepEmpName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpName.TabIndex = 33;
+            this.txtRepEmpName.Tag = "Name";
             this.txtRepEmpName.WordWrap = false;
             // 
             // txtRepEmpCode
@@ -227,6 +241,7 @@
             this.txtRepEmpCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpCode.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpCode.TabIndex = 32;
+            this.txtRepEmpCode.Tag = "Employee Code";
             this.txtRepEmpCode.WordWrap = false;
             // 
             // lblActionMode
@@ -404,7 +419,7 @@
             this.cmbLockStatus.Name = "cmbLockStatus";
             this.cmbLockStatus.Size = new System.Drawing.Size(540, 21);
             this.cmbLockStatus.TabIndex = 28;
-            this.cmbLockStatus.Tag = "Please enter Employeee Blood Group";
+            this.cmbLockStatus.Tag = "Lock Status";
             this.cmbLockStatus.SelectedIndexChanged += new System.EventHandler(this.cmbLockStatus_SelectedIndexChanged);
             // 
             // label1
@@ -428,7 +443,7 @@
             this.cmbActiveStatus.Name = "cmbActiveStatus";
             this.cmbActiveStatus.Size = new System.Drawing.Size(540, 21);
             this.cmbActiveStatus.TabIndex = 26;
-            this.cmbActiveStatus.Tag = "Please enter Employeee Blood Group";
+            this.cmbActiveStatus.Tag = "Active Status";
             this.cmbActiveStatus.SelectedIndexChanged += new System.EventHandler(this.cmbActiveStatus_SelectedIndexChanged);
             // 
             // label30
@@ -521,16 +536,6 @@
             this.imgList.Images.SetKeyName(1, "unlock.png");
             this.imgList.Images.SetKeyName(2, "green-circle.png");
             this.imgList.Images.SetKeyName(3, "red-circle.png");
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(466, 30);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 105;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmUserManagement
             // 

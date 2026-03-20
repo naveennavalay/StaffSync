@@ -54,6 +54,7 @@
             this.tabSalaryHeaders = new Krypton.Navigator.KryptonPage();
             this.dtgSalaryDetails = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.lblEmpSalID = new System.Windows.Forms.Label();
             this.lblSexID = new System.Windows.Forms.Label();
             this.lblStateID = new System.Windows.Forms.Label();
@@ -79,7 +80,6 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -353,7 +353,7 @@
             this.txtSalaryDate.Name = "txtSalaryDate";
             this.txtSalaryDate.Size = new System.Drawing.Size(120, 21);
             this.txtSalaryDate.TabIndex = 47;
-            this.txtSalaryDate.Tag = "Please enter Employeee Date Of Birth";
+            this.txtSalaryDate.Tag = "Effective Date";
             this.txtSalaryDate.ValidatingType = typeof(System.DateTime);
             // 
             // label29
@@ -379,6 +379,7 @@
             this.cmbSalaryMonth.Size = new System.Drawing.Size(84, 22);
             this.cmbSalaryMonth.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbSalaryMonth.TabIndex = 46;
+            this.cmbSalaryMonth.Tag = "Salary Month";
             this.cmbSalaryMonth.SelectedIndexChanged += new System.EventHandler(this.cmbSalaryMonth_SelectedIndexChanged);
             // 
             // label42
@@ -513,6 +514,16 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "User Information";
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(337, 30);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 93;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // lblEmpSalID
             // 
             this.lblEmpSalID.AutoSize = true;
@@ -591,6 +602,7 @@
             this.txtRepEmpDepartment.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDepartment.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDepartment.TabIndex = 30;
+            this.txtRepEmpDepartment.Tag = "Department";
             // 
             // txtRepEmpDesig
             // 
@@ -605,6 +617,7 @@
             this.txtRepEmpDesig.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDesig.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDesig.TabIndex = 29;
+            this.txtRepEmpDesig.Tag = "Designation";
             this.txtRepEmpDesig.WordWrap = false;
             // 
             // txtRepEmpName
@@ -620,6 +633,7 @@
             this.txtRepEmpName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpName.TabIndex = 28;
+            this.txtRepEmpName.Tag = "Name";
             this.txtRepEmpName.WordWrap = false;
             // 
             // txtRepEmpCode
@@ -637,6 +651,7 @@
             this.txtRepEmpCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpCode.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpCode.TabIndex = 27;
+            this.txtRepEmpCode.Tag = "Employee Code";
             this.txtRepEmpCode.WordWrap = false;
             // 
             // lblActionMode
@@ -831,16 +846,6 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(337, 30);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 93;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmPayrollConfiguration
             // 

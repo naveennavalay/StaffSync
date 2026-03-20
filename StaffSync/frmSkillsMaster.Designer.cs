@@ -40,6 +40,7 @@
             this.txtSkillTitle = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
             this.lblCountryID = new System.Windows.Forms.Label();
             this.lblActionMode = new System.Windows.Forms.Label();
@@ -56,7 +57,6 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -123,6 +123,7 @@
             this.cmbIsActive.Name = "cmbIsActive";
             this.cmbIsActive.Size = new System.Drawing.Size(427, 23);
             this.cmbIsActive.TabIndex = 34;
+            this.cmbIsActive.Tag = "Is Active";
             this.cmbIsActive.SelectedIndexChanged += new System.EventHandler(this.cmbRelationship_SelectedIndexChanged);
             // 
             // label17
@@ -146,6 +147,7 @@
             this.txtSkillInitial.Name = "txtSkillInitial";
             this.txtSkillInitial.Size = new System.Drawing.Size(427, 24);
             this.txtSkillInitial.TabIndex = 4;
+            this.txtSkillInitial.Tag = "Skills Initial";
             this.txtSkillInitial.WordWrap = false;
             // 
             // label18
@@ -169,6 +171,7 @@
             this.txtSkillTitle.Name = "txtSkillTitle";
             this.txtSkillTitle.Size = new System.Drawing.Size(427, 24);
             this.txtSkillTitle.TabIndex = 3;
+            this.txtSkillTitle.Tag = "Skills Title";
             this.txtSkillTitle.WordWrap = false;
             // 
             // label16
@@ -198,6 +201,16 @@
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Skills Info";
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(347, 27);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 100;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // btnSearch
             // 
@@ -246,6 +259,7 @@
             this.txtSkillsCode.ReadOnly = true;
             this.txtSkillsCode.Size = new System.Drawing.Size(168, 24);
             this.txtSkillsCode.TabIndex = 2;
+            this.txtSkillsCode.Tag = "Skills Code";
             this.txtSkillsCode.WordWrap = false;
             // 
             // label1
@@ -363,16 +377,6 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(347, 27);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 100;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmSkillsMaster
             // 

@@ -46,6 +46,7 @@
             this.txtWeeklyCode = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.txtEffectiveDate = new System.Windows.Forms.MaskedTextBox();
             this.label29 = new System.Windows.Forms.Label();
             this.cmbIsActive = new System.Windows.Forms.ComboBox();
@@ -56,7 +57,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
@@ -218,6 +218,7 @@
             this.txtWeeklyCode.ReadOnly = true;
             this.txtWeeklyCode.Size = new System.Drawing.Size(168, 28);
             this.txtWeeklyCode.TabIndex = 2;
+            this.txtWeeklyCode.Tag = "Weekly Off Code";
             this.txtWeeklyCode.WordWrap = false;
             // 
             // label1
@@ -248,16 +249,26 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Weekly Off Info";
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(381, 26);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 107;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // txtEffectiveDate
             // 
             this.txtEffectiveDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
             this.txtEffectiveDate.Location = new System.Drawing.Point(176, 64);
-            this.txtEffectiveDate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtEffectiveDate.Margin = new System.Windows.Forms.Padding(2);
             this.txtEffectiveDate.Mask = "##-##-####";
             this.txtEffectiveDate.Name = "txtEffectiveDate";
             this.txtEffectiveDate.Size = new System.Drawing.Size(164, 21);
             this.txtEffectiveDate.TabIndex = 35;
-            this.txtEffectiveDate.Tag = "Please enter Employeee Date Of Birth";
+            this.txtEffectiveDate.Tag = "Effective From";
             this.txtEffectiveDate.ValidatingType = typeof(System.DateTime);
             // 
             // label29
@@ -279,6 +290,7 @@
             this.cmbIsActive.Name = "cmbIsActive";
             this.cmbIsActive.Size = new System.Drawing.Size(423, 23);
             this.cmbIsActive.TabIndex = 34;
+            this.cmbIsActive.Tag = "Is Active";
             // 
             // label17
             // 
@@ -301,6 +313,7 @@
             this.txtWeeklyOffTitle.Name = "txtWeeklyOffTitle";
             this.txtWeeklyOffTitle.Size = new System.Drawing.Size(423, 28);
             this.txtWeeklyOffTitle.TabIndex = 3;
+            this.txtWeeklyOffTitle.Tag = "Weekly Off Title";
             this.txtWeeklyOffTitle.WordWrap = false;
             // 
             // label16
@@ -364,16 +377,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(982, 329);
             this.splitContainer1.SplitterDistance = 266;
             this.splitContainer1.TabIndex = 2;
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(381, 26);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 107;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmWeeklyProfileMas
             // 

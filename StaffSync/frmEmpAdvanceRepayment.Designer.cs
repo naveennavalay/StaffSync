@@ -66,6 +66,7 @@
             this.txtAdvanceRequestCode = new Krypton.Toolkit.KryptonTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.lblEmpAdvanceRequestID = new System.Windows.Forms.Label();
             this.lblEmpMailID = new System.Windows.Forms.Label();
             this.lblEmpID = new System.Windows.Forms.Label();
@@ -91,7 +92,6 @@
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.ttAdvanceType = new System.Windows.Forms.ToolTip(this.components);
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -193,6 +193,7 @@
             this.kryptonTextBox1.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kryptonTextBox1.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kryptonTextBox1.TabIndex = 2;
+            this.kryptonTextBox1.Tag = "Reference Number";
             this.kryptonTextBox1.Visible = false;
             this.kryptonTextBox1.WordWrap = false;
             // 
@@ -220,7 +221,7 @@
             this.cmbPaymentMode.Size = new System.Drawing.Size(103, 22);
             this.cmbPaymentMode.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbPaymentMode.TabIndex = 1;
-            this.cmbPaymentMode.Tag = "Please select Repayment Mode";
+            this.cmbPaymentMode.Tag = "Payment Mode";
             this.cmbPaymentMode.Visible = false;
             // 
             // label10
@@ -275,7 +276,7 @@
             this.txtComments.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtComments.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtComments.TabIndex = 5;
-            this.txtComments.Tag = "Please enter Repayment Comments";
+            this.txtComments.Tag = "Comments";
             this.txtComments.WordWrap = false;
             this.txtComments.Enter += new System.EventHandler(this.txtComments_Enter);
             // 
@@ -299,7 +300,7 @@
             this.txtAdvanceTRAmount.Name = "txtAdvanceTRAmount";
             this.txtAdvanceTRAmount.Size = new System.Drawing.Size(224, 21);
             this.txtAdvanceTRAmount.TabIndex = 3;
-            this.txtAdvanceTRAmount.Tag = "Please enter the Re-pay Advance Amount";
+            this.txtAdvanceTRAmount.Tag = "Amount";
             this.txtAdvanceTRAmount.Text = "0.00";
             this.txtAdvanceTRAmount.WordWrap = false;
             this.txtAdvanceTRAmount.TextChanged += new System.EventHandler(this.txtAdvanceTRAmount_TextChanged);
@@ -314,7 +315,7 @@
             this.txtAdvanceTRDate.Name = "txtAdvanceTRDate";
             this.txtAdvanceTRDate.Size = new System.Drawing.Size(103, 21);
             this.txtAdvanceTRDate.TabIndex = 4;
-            this.txtAdvanceTRDate.Tag = "Please enter Repayment Date";
+            this.txtAdvanceTRDate.Tag = "Payment Date";
             this.txtAdvanceTRDate.ValidatingType = typeof(System.DateTime);
             // 
             // label29
@@ -341,7 +342,7 @@
             this.cmbPaymentType.Size = new System.Drawing.Size(103, 22);
             this.cmbPaymentType.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbPaymentType.TabIndex = 0;
-            this.cmbPaymentType.Tag = "Please select Repayment Type";
+            this.cmbPaymentType.Tag = "Payment Type";
             // 
             // label42
             // 
@@ -439,6 +440,7 @@
             this.txtClosingBalance.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtClosingBalance.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtClosingBalance.TabIndex = 6;
+            this.txtClosingBalance.Tag = "Outstanding Balance";
             this.txtClosingBalance.WordWrap = false;
             // 
             // label9
@@ -468,6 +470,7 @@
             this.txtInstallmentAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtInstallmentAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtInstallmentAmount.TabIndex = 3;
+            this.txtInstallmentAmount.Tag = "Adv. Installment";
             this.txtInstallmentAmount.WordWrap = false;
             // 
             // label8
@@ -526,6 +529,7 @@
             this.txtAdvanceStartDate.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAdvanceStartDate.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAdvanceStartDate.TabIndex = 4;
+            this.txtAdvanceStartDate.Tag = "Adv. Start Date";
             this.txtAdvanceStartDate.WordWrap = false;
             // 
             // label6
@@ -555,6 +559,7 @@
             this.txtAdvanceAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAdvanceAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAdvanceAmount.TabIndex = 2;
+            this.txtAdvanceAmount.Tag = "Adv. Amount";
             this.txtAdvanceAmount.WordWrap = false;
             // 
             // label4
@@ -583,6 +588,7 @@
             this.txtAdvanceType.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAdvanceType.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAdvanceType.TabIndex = 1;
+            this.txtAdvanceType.Tag = "Adv. Type";
             this.txtAdvanceType.WordWrap = false;
             // 
             // label3
@@ -611,6 +617,7 @@
             this.txtAdvanceRequestCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAdvanceRequestCode.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAdvanceRequestCode.TabIndex = 0;
+            this.txtAdvanceRequestCode.Tag = "Adv. Request Code";
             this.txtAdvanceRequestCode.WordWrap = false;
             // 
             // label1
@@ -653,6 +660,16 @@
             this.groupBox8.TabIndex = 33;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Employee Information";
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(360, 28);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 49;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // lblEmpAdvanceRequestID
             // 
@@ -732,6 +749,7 @@
             this.txtDepartment.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDepartment.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDepartment.TabIndex = 4;
+            this.txtDepartment.Tag = "Department";
             // 
             // txtDesignation
             // 
@@ -746,6 +764,7 @@
             this.txtDesignation.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDesignation.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDesignation.TabIndex = 3;
+            this.txtDesignation.Tag = "Designation";
             this.txtDesignation.WordWrap = false;
             // 
             // txtEmpName
@@ -761,6 +780,7 @@
             this.txtEmpName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpName.TabIndex = 2;
+            this.txtEmpName.Tag = "Name";
             this.txtEmpName.WordWrap = false;
             // 
             // txtEmpCode
@@ -778,6 +798,7 @@
             this.txtEmpCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpCode.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpCode.TabIndex = 1;
+            this.txtEmpCode.Tag = "Employee Code";
             this.txtEmpCode.WordWrap = false;
             // 
             // lblActionMode
@@ -966,16 +987,6 @@
             // 
             this.ttAdvanceType.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.ttAdvanceType.ToolTipTitle = "This is sample tooltip text";
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(360, 28);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 49;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmEmpAdvanceRepayment
             // 

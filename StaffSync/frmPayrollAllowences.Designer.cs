@@ -48,6 +48,7 @@
             this.txtAllTitle = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
             this.lblAllowenceID = new System.Windows.Forms.Label();
             this.lblActionMode = new System.Windows.Forms.Label();
@@ -64,7 +65,6 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -153,6 +153,7 @@
             this.cmbProrataBased.Size = new System.Drawing.Size(114, 22);
             this.cmbProrataBased.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbProrataBased.TabIndex = 52;
+            this.cmbProrataBased.Tag = "Pro-rata Based";
             // 
             // label5
             // 
@@ -177,6 +178,7 @@
             this.cmbShowInPayslip.Size = new System.Drawing.Size(114, 22);
             this.cmbShowInPayslip.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbShowInPayslip.TabIndex = 50;
+            this.cmbShowInPayslip.Tag = "Show in Payslip";
             // 
             // label4
             // 
@@ -199,6 +201,7 @@
             this.txtMaxCap.Name = "txtMaxCap";
             this.txtMaxCap.Size = new System.Drawing.Size(114, 22);
             this.txtMaxCap.TabIndex = 48;
+            this.txtMaxCap.Tag = "Max. Cap";
             this.txtMaxCap.WordWrap = false;
             // 
             // label3
@@ -224,6 +227,7 @@
             this.cmbIsFixed.Size = new System.Drawing.Size(114, 22);
             this.cmbIsFixed.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbIsFixed.TabIndex = 46;
+            this.cmbIsFixed.Tag = "Is Fixed";
             // 
             // cmbIsActive
             // 
@@ -236,6 +240,7 @@
             this.cmbIsActive.Size = new System.Drawing.Size(114, 22);
             this.cmbIsActive.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbIsActive.TabIndex = 45;
+            this.cmbIsActive.Tag = "Is Active";
             // 
             // label2
             // 
@@ -270,6 +275,7 @@
             this.txtAllDescription.Name = "txtAllDescription";
             this.txtAllDescription.Size = new System.Drawing.Size(568, 96);
             this.txtAllDescription.TabIndex = 4;
+            this.txtAllDescription.Tag = "Allowance Description";
             this.txtAllDescription.WordWrap = false;
             // 
             // label18
@@ -293,6 +299,7 @@
             this.txtAllTitle.Name = "txtAllTitle";
             this.txtAllTitle.Size = new System.Drawing.Size(568, 28);
             this.txtAllTitle.TabIndex = 3;
+            this.txtAllTitle.Tag = "Allowance Title";
             this.txtAllTitle.WordWrap = false;
             // 
             // label16
@@ -325,6 +332,16 @@
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Allowance Info";
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(452, 34);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 92;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // btnSearch
             // 
@@ -374,6 +391,7 @@
             this.txtAllCode.ReadOnly = true;
             this.txtAllCode.Size = new System.Drawing.Size(223, 28);
             this.txtAllCode.TabIndex = 2;
+            this.txtAllCode.Tag = "Allowance Code";
             this.txtAllCode.WordWrap = false;
             // 
             // label1
@@ -498,16 +516,6 @@
             // empMasInfoTableAdapter
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(452, 34);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 92;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmPayrollAllowences
             // 

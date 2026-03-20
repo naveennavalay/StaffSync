@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.chkAllowBackDated = new Krypton.Toolkit.KryptonCheckBox();
             this.picViewLeaves = new Krypton.Toolkit.KryptonButton();
+            this.empAttCalender = new StaffSync.Calender();
             this.cmbMonthNameList = new Krypton.Toolkit.KryptonComboBox();
             this.label50 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -61,7 +62,6 @@
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.empAttCalender = new StaffSync.Calender();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -124,6 +124,7 @@
             this.cmbWeeklyOff.Size = new System.Drawing.Size(177, 22);
             this.cmbWeeklyOff.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbWeeklyOff.TabIndex = 63;
+            this.cmbWeeklyOff.Tag = "Weekly Off";
             // 
             // label1
             // 
@@ -144,6 +145,7 @@
             this.chkAllowBackDated.PaletteMode = Krypton.Toolkit.PaletteMode.Office2010BlueLightMode;
             this.chkAllowBackDated.Size = new System.Drawing.Size(116, 20);
             this.chkAllowBackDated.TabIndex = 61;
+            this.chkAllowBackDated.Tag = "Allow Back Dates";
             this.chkAllowBackDated.Values.Text = "Allow Back Dates";
             this.chkAllowBackDated.CheckedChanged += new System.EventHandler(this.chkAllowBackDated_CheckedChanged);
             // 
@@ -160,6 +162,54 @@
             this.picViewLeaves.Values.Text = "";
             this.picViewLeaves.Click += new System.EventHandler(this.picViewLeaves_Click);
             // 
+            // empAttCalender
+            // 
+            this.empAttCalender.AllowFutureDates = false;
+            this.empAttCalender.AllowMultiSelect = false;
+            this.empAttCalender.AllowPreviousDates = false;
+            this.empAttCalender.CustomTextColor = System.Drawing.Color.Black;
+            this.empAttCalender.CustomTextFontBold = true;
+            this.empAttCalender.CustomTextFontFamily = "Segoe UI";
+            this.empAttCalender.CustomTextFontItalic = false;
+            this.empAttCalender.CustomTextFontSize = 12F;
+            this.empAttCalender.DateFormat = "MMMM yyyy";
+            this.empAttCalender.DayHeaderBackColor = System.Drawing.SystemColors.ControlText;
+            this.empAttCalender.DayHeaderFontBold = true;
+            this.empAttCalender.DayHeaderFontItalic = false;
+            this.empAttCalender.DayHeaderFontSize = 12F;
+            this.empAttCalender.DayHeaderForeColor = System.Drawing.Color.LimeGreen;
+            this.empAttCalender.DayNameFormat = StaffSync.DayNameFormat.Short;
+            this.empAttCalender.DayNumberAlignment = StaffSync.DateAlignment.TopLeft;
+            this.empAttCalender.DayNumberColor = System.Drawing.Color.Black;
+            this.empAttCalender.DayNumberFontBold = true;
+            this.empAttCalender.DayNumberFontFamily = "Segoe UI";
+            this.empAttCalender.DayNumberFontItalic = false;
+            this.empAttCalender.DayNumberFontSize = 12F;
+            this.empAttCalender.DisplayMonth = new System.DateTime(2025, 11, 12, 0, 0, 0, 0);
+            this.empAttCalender.HeaderBackColor = System.Drawing.SystemColors.ControlText;
+            this.empAttCalender.HeaderFontBold = true;
+            this.empAttCalender.HeaderFontItalic = false;
+            this.empAttCalender.HeaderFontSize = 12F;
+            this.empAttCalender.HeaderForeColor = System.Drawing.Color.LimeGreen;
+            this.empAttCalender.LegendPosition = StaffSync.LegendAlignment.BottomRight;
+            this.empAttCalender.Location = new System.Drawing.Point(33, 227);
+            this.empAttCalender.Name = "empAttCalender";
+            this.empAttCalender.SaturdaySundayTogether = false;
+            this.empAttCalender.ShowGridLines = true;
+            this.empAttCalender.ShowHeader = true;
+            this.empAttCalender.ShowLegend = true;
+            this.empAttCalender.ShowToolTips = true;
+            this.empAttCalender.ShowWeekends = true;
+            this.empAttCalender.ShowWeeklyOff = true;
+            this.empAttCalender.Size = new System.Drawing.Size(1150, 325);
+            this.empAttCalender.TabIndex = 59;
+            this.empAttCalender.Text = "calender1";
+            this.empAttCalender.WeekendColor = System.Drawing.Color.LightGray;
+            this.empAttCalender.WeeklyOffColor = System.Drawing.Color.DarkGray;
+            this.empAttCalender.WeeklyOffDay = null;
+            this.empAttCalender.DayClicked += new System.EventHandler<StaffSync.DateClickedEventArgs>(this.empAttCalender_DayClicked);
+            this.empAttCalender.DetailedDayClicked += new System.EventHandler<StaffSync.DetailedDateClickedEventArgs>(this.empAttCalender_DetailedDayClicked);
+            // 
             // cmbMonthNameList
             // 
             this.cmbMonthNameList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -170,6 +220,7 @@
             this.cmbMonthNameList.Size = new System.Drawing.Size(148, 22);
             this.cmbMonthNameList.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbMonthNameList.TabIndex = 58;
+            this.cmbMonthNameList.Tag = "Month";
             this.cmbMonthNameList.SelectedIndexChanged += new System.EventHandler(this.cmbMonthNameList_SelectedIndexChanged);
             // 
             // label50
@@ -267,6 +318,7 @@
             this.txtRepEmpDepartment.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDepartment.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDepartment.TabIndex = 30;
+            this.txtRepEmpDepartment.Tag = "Department";
             // 
             // txtRepEmpDesig
             // 
@@ -281,6 +333,7 @@
             this.txtRepEmpDesig.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDesig.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDesig.TabIndex = 29;
+            this.txtRepEmpDesig.Tag = "Designation";
             this.txtRepEmpDesig.WordWrap = false;
             // 
             // txtRepEmpName
@@ -296,6 +349,7 @@
             this.txtRepEmpName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpName.TabIndex = 28;
+            this.txtRepEmpName.Tag = "Name";
             this.txtRepEmpName.WordWrap = false;
             // 
             // txtRepEmpCode
@@ -313,6 +367,7 @@
             this.txtRepEmpCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpCode.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpCode.TabIndex = 27;
+            this.txtRepEmpCode.Tag = "Employee Code";
             this.txtRepEmpCode.WordWrap = false;
             // 
             // lblActionMode
@@ -493,54 +548,6 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
-            // 
-            // empAttCalender
-            // 
-            this.empAttCalender.AllowFutureDates = false;
-            this.empAttCalender.AllowMultiSelect = false;
-            this.empAttCalender.AllowPreviousDates = false;
-            this.empAttCalender.CustomTextColor = System.Drawing.Color.Black;
-            this.empAttCalender.CustomTextFontBold = true;
-            this.empAttCalender.CustomTextFontFamily = "Segoe UI";
-            this.empAttCalender.CustomTextFontItalic = false;
-            this.empAttCalender.CustomTextFontSize = 12F;
-            this.empAttCalender.DateFormat = "MMMM yyyy";
-            this.empAttCalender.DayHeaderBackColor = System.Drawing.SystemColors.ControlText;
-            this.empAttCalender.DayHeaderFontBold = true;
-            this.empAttCalender.DayHeaderFontItalic = false;
-            this.empAttCalender.DayHeaderFontSize = 12F;
-            this.empAttCalender.DayHeaderForeColor = System.Drawing.Color.LimeGreen;
-            this.empAttCalender.DayNameFormat = StaffSync.DayNameFormat.Short;
-            this.empAttCalender.DayNumberAlignment = StaffSync.DateAlignment.TopLeft;
-            this.empAttCalender.DayNumberColor = System.Drawing.Color.Black;
-            this.empAttCalender.DayNumberFontBold = true;
-            this.empAttCalender.DayNumberFontFamily = "Segoe UI";
-            this.empAttCalender.DayNumberFontItalic = false;
-            this.empAttCalender.DayNumberFontSize = 12F;
-            this.empAttCalender.DisplayMonth = new System.DateTime(2025, 11, 12, 0, 0, 0, 0);
-            this.empAttCalender.HeaderBackColor = System.Drawing.SystemColors.ControlText;
-            this.empAttCalender.HeaderFontBold = true;
-            this.empAttCalender.HeaderFontItalic = false;
-            this.empAttCalender.HeaderFontSize = 12F;
-            this.empAttCalender.HeaderForeColor = System.Drawing.Color.LimeGreen;
-            this.empAttCalender.LegendPosition = StaffSync.LegendAlignment.BottomRight;
-            this.empAttCalender.Location = new System.Drawing.Point(33, 227);
-            this.empAttCalender.Name = "empAttCalender";
-            this.empAttCalender.SaturdaySundayTogether = false;
-            this.empAttCalender.ShowGridLines = true;
-            this.empAttCalender.ShowHeader = true;
-            this.empAttCalender.ShowLegend = true;
-            this.empAttCalender.ShowToolTips = true;
-            this.empAttCalender.ShowWeekends = true;
-            this.empAttCalender.ShowWeeklyOff = true;
-            this.empAttCalender.Size = new System.Drawing.Size(1150, 325);
-            this.empAttCalender.TabIndex = 59;
-            this.empAttCalender.Text = "calender1";
-            this.empAttCalender.WeekendColor = System.Drawing.Color.LightGray;
-            this.empAttCalender.WeeklyOffColor = System.Drawing.Color.DarkGray;
-            this.empAttCalender.WeeklyOffDay = null;
-            this.empAttCalender.DayClicked += new System.EventHandler<StaffSync.DateClickedEventArgs>(this.empAttCalender_DayClicked);
-            this.empAttCalender.DetailedDayClicked += new System.EventHandler<StaffSync.DetailedDateClickedEventArgs>(this.empAttCalender_DetailedDayClicked);
             // 
             // frmAttendanceMater
             // 

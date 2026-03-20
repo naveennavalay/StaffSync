@@ -132,6 +132,7 @@
             this.txtMoreDetails.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMoreDetails.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMoreDetails.TabIndex = 49;
+            this.txtMoreDetails.Tag = "More Details";
             // 
             // label19
             // 
@@ -153,7 +154,7 @@
             this.txtEndDate.Name = "txtEndDate";
             this.txtEndDate.Size = new System.Drawing.Size(100, 21);
             this.txtEndDate.TabIndex = 47;
-            this.txtEndDate.Tag = "Please enter Employeee Date Of Joining";
+            this.txtEndDate.Tag = "End Date";
             // 
             // txtStartDate
             // 
@@ -163,7 +164,7 @@
             this.txtStartDate.Name = "txtStartDate";
             this.txtStartDate.Size = new System.Drawing.Size(100, 21);
             this.txtStartDate.TabIndex = 46;
-            this.txtStartDate.Tag = "Please enter Employeee Date Of Birth";
+            this.txtStartDate.Tag = "Start Date";
             this.txtStartDate.ValidatingType = typeof(System.DateTime);
             this.txtStartDate.TextChanged += new System.EventHandler(this.txtStartDate_TextChanged);
             // 

@@ -43,6 +43,7 @@
             this.txtAallowences = new Krypton.Toolkit.KryptonTextBox();
             this.dtgSalaryProfileDetails = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.txtSalProfTitle = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
@@ -61,7 +62,6 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -142,6 +142,7 @@
             this.chkConsiderAsNew.Name = "chkConsiderAsNew";
             this.chkConsiderAsNew.Size = new System.Drawing.Size(145, 19);
             this.chkConsiderAsNew.TabIndex = 73;
+            this.chkConsiderAsNew.Tag = "";
             this.chkConsiderAsNew.Text = "Consider as Latest";
             this.chkConsiderAsNew.UseVisualStyleBackColor = true;
             // 
@@ -294,22 +295,33 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Salary Profile Info";
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(421, 34);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 104;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // txtSalProfTitle
             // 
-            this.txtSalProfTitle.Location = new System.Drawing.Point(154, 67);
+            this.txtSalProfTitle.Location = new System.Drawing.Point(154, 66);
             this.txtSalProfTitle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtSalProfTitle.MaxLength = 255;
             this.txtSalProfTitle.Multiline = true;
             this.txtSalProfTitle.Name = "txtSalProfTitle";
             this.txtSalProfTitle.Size = new System.Drawing.Size(568, 28);
             this.txtSalProfTitle.TabIndex = 15;
+            this.txtSalProfTitle.Tag = "Salary Profile Title";
             this.txtSalProfTitle.WordWrap = false;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(19, 70);
+            this.label16.Location = new System.Drawing.Point(19, 73);
             this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(125, 15);
@@ -365,6 +377,7 @@
             this.txtSalProfCode.ReadOnly = true;
             this.txtSalProfCode.Size = new System.Drawing.Size(223, 28);
             this.txtSalProfCode.TabIndex = 2;
+            this.txtSalProfCode.Tag = "Salary Profile Code";
             this.txtSalProfCode.WordWrap = false;
             // 
             // label1
@@ -491,16 +504,6 @@
             // empMasInfoTableAdapter
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(421, 34);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 104;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmUpdateSalaryProfile
             // 

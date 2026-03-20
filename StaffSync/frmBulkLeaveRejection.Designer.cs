@@ -163,7 +163,7 @@
             this.txtLeaveApprovalDate.Name = "txtLeaveApprovalDate";
             this.txtLeaveApprovalDate.Size = new System.Drawing.Size(105, 21);
             this.txtLeaveApprovalDate.TabIndex = 6;
-            this.txtLeaveApprovalDate.Tag = "Please enter Employeee Date Of Birth";
+            this.txtLeaveApprovalDate.Tag = "Leave Rejection Date";
             this.txtLeaveApprovalDate.ValidatingType = typeof(System.DateTime);
             this.txtLeaveApprovalDate.TextChanged += new System.EventHandler(this.txtLeaveApprovalDate_TextChanged);
             // 
@@ -201,6 +201,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(144, 15);
             this.label1.TabIndex = 3;
+            this.label1.Tag = "";
             this.label1.Text = "Leave Rejection Date";
             // 
             // panel2

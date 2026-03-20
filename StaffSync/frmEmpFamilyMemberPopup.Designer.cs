@@ -167,6 +167,7 @@
             this.txtRelationship.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRelationship.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRelationship.TabIndex = 55;
+            this.txtRelationship.Tag = "Relationship";
             this.txtRelationship.WordWrap = false;
             // 
             // label13
@@ -192,6 +193,7 @@
             this.chkInsuranceEnrolled.Name = "chkInsuranceEnrolled";
             this.chkInsuranceEnrolled.Size = new System.Drawing.Size(147, 19);
             this.chkInsuranceEnrolled.TabIndex = 53;
+            this.chkInsuranceEnrolled.Tag = "Insurance Enrolled";
             this.chkInsuranceEnrolled.Text = "Insurance Enrolled";
             this.chkInsuranceEnrolled.UseVisualStyleBackColor = true;
             // 
@@ -207,6 +209,7 @@
             this.txtBloodGroup.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBloodGroup.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBloodGroup.TabIndex = 52;
+            this.txtBloodGroup.Tag = "Blood Group";
             this.txtBloodGroup.WordWrap = false;
             // 
             // label12
@@ -233,6 +236,7 @@
             this.txtMailID.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMailID.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMailID.TabIndex = 50;
+            this.txtMailID.Tag = "Mail ID";
             this.txtMailID.WordWrap = false;
             // 
             // label11
@@ -259,6 +263,7 @@
             this.txtContactNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtContactNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtContactNumber.TabIndex = 48;
+            this.txtContactNumber.Tag = "Contact Number";
             this.txtContactNumber.WordWrap = false;
             // 
             // label10
@@ -285,6 +290,7 @@
             this.txtAddress01.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAddress01.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAddress01.TabIndex = 46;
+            this.txtAddress01.Tag = "Address 01";
             this.txtAddress01.WordWrap = false;
             // 
             // label9
@@ -312,6 +318,7 @@
             this.txtAge.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAge.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAge.TabIndex = 44;
+            this.txtAge.Tag = "Age";
             this.txtAge.WordWrap = false;
             // 
             // label1
@@ -334,7 +341,7 @@
             this.txtDOB.Name = "txtDOB";
             this.txtDOB.Size = new System.Drawing.Size(108, 21);
             this.txtDOB.TabIndex = 41;
-            this.txtDOB.Tag = "Please enter Employeee Date Of Birth";
+            this.txtDOB.Tag = "Date Of Birth";
             this.txtDOB.ValidatingType = typeof(System.DateTime);
             this.txtDOB.TextChanged += new System.EventHandler(this.txtDOB_TextChanged);
             // 
@@ -360,6 +367,7 @@
             this.cmbCountry.Size = new System.Drawing.Size(393, 22);
             this.cmbCountry.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbCountry.TabIndex = 40;
+            this.cmbCountry.Tag = "Country";
             // 
             // txtPIN
             // 
@@ -373,6 +381,7 @@
             this.txtPIN.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPIN.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPIN.TabIndex = 24;
+            this.txtPIN.Tag = "PIN";
             this.txtPIN.WordWrap = false;
             // 
             // txtState
@@ -387,6 +396,7 @@
             this.txtState.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtState.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtState.TabIndex = 23;
+            this.txtState.Tag = "State";
             this.txtState.WordWrap = false;
             // 
             // txtCity
@@ -401,6 +411,7 @@
             this.txtCity.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCity.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCity.TabIndex = 22;
+            this.txtCity.Tag = "City";
             this.txtCity.WordWrap = false;
             // 
             // txtArea
@@ -415,6 +426,7 @@
             this.txtArea.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtArea.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtArea.TabIndex = 21;
+            this.txtArea.Tag = "Area";
             // 
             // txtAddress02
             // 
@@ -428,6 +440,7 @@
             this.txtAddress02.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAddress02.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAddress02.TabIndex = 20;
+            this.txtAddress02.Tag = "Address 02";
             this.txtAddress02.WordWrap = false;
             // 
             // txtMemberName
@@ -442,6 +455,7 @@
             this.txtMemberName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMemberName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMemberName.TabIndex = 19;
+            this.txtMemberName.Tag = "Member Name";
             this.txtMemberName.WordWrap = false;
             // 
             // lblEmpPerFamInfoID

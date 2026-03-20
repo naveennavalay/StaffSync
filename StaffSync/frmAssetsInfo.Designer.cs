@@ -82,6 +82,7 @@
             this.txtSerialNumber = new Krypton.Toolkit.KryptonTextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
             this.lblAsssetID = new System.Windows.Forms.Label();
             this.lblActionMode = new System.Windows.Forms.Label();
@@ -99,7 +100,6 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -253,7 +253,7 @@
             this.cmbAssetCurrentStatus.Size = new System.Drawing.Size(156, 22);
             this.cmbAssetCurrentStatus.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbAssetCurrentStatus.TabIndex = 83;
-            this.cmbAssetCurrentStatus.Tag = "Asset Current Status should not be blank";
+            this.cmbAssetCurrentStatus.Tag = "Current Status";
             // 
             // label5
             // 
@@ -309,6 +309,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(116, 15);
             this.label4.TabIndex = 89;
+            this.label4.Tag = "Payroll Affects As";
             this.label4.Text = "Payroll Affects As";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -323,6 +324,7 @@
             this.chkAffectsPayroll.Name = "chkAffectsPayroll";
             this.chkAffectsPayroll.Size = new System.Drawing.Size(116, 19);
             this.chkAffectsPayroll.TabIndex = 87;
+            this.chkAffectsPayroll.Tag = "Affects Payroll";
             this.chkAffectsPayroll.Text = "Affects Payroll";
             this.chkAffectsPayroll.UseVisualStyleBackColor = true;
             // 
@@ -348,6 +350,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 15);
             this.label3.TabIndex = 86;
+            this.label3.Tag = "Recover Type";
             this.label3.Text = "Recover Type";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -362,6 +365,7 @@
             this.chkCriticalAsset.Name = "chkCriticalAsset";
             this.chkCriticalAsset.Size = new System.Drawing.Size(117, 19);
             this.chkCriticalAsset.TabIndex = 84;
+            this.chkCriticalAsset.Tag = "Is Critical Asset";
             this.chkCriticalAsset.Text = "Is Critial Asset";
             this.chkCriticalAsset.UseVisualStyleBackColor = true;
             // 
@@ -376,6 +380,7 @@
             this.chkReturnRequired.Name = "chkReturnRequired";
             this.chkReturnRequired.Size = new System.Drawing.Size(147, 19);
             this.chkReturnRequired.TabIndex = 83;
+            this.chkReturnRequired.Tag = "Is Return Required";
             this.chkReturnRequired.Text = "Is Required Return";
             this.chkReturnRequired.UseVisualStyleBackColor = true;
             // 
@@ -390,6 +395,7 @@
             this.chkRecoverable.Name = "chkRecoverable";
             this.chkRecoverable.Size = new System.Drawing.Size(121, 19);
             this.chkRecoverable.TabIndex = 82;
+            this.chkRecoverable.Tag = "Is Recoverable";
             this.chkRecoverable.Text = "Is Recoverable";
             this.chkRecoverable.UseVisualStyleBackColor = true;
             // 
@@ -403,7 +409,7 @@
             this.txtAssetDescription.Name = "txtAssetDescription";
             this.txtAssetDescription.Size = new System.Drawing.Size(427, 98);
             this.txtAssetDescription.TabIndex = 64;
-            this.txtAssetDescription.Tag = "Asset Description should not be blank";
+            this.txtAssetDescription.Tag = "Asset Description";
             this.txtAssetDescription.WordWrap = false;
             // 
             // label2
@@ -429,7 +435,7 @@
             this.cmbIsActive.Size = new System.Drawing.Size(156, 22);
             this.cmbIsActive.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbIsActive.TabIndex = 12;
-            this.cmbIsActive.Tag = "Asset Active Status should not be blank";
+            this.cmbIsActive.Tag = "Is Active";
             // 
             // txtAssetName
             // 
@@ -444,7 +450,7 @@
             this.txtAssetName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAssetName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAssetName.TabIndex = 0;
-            this.txtAssetName.Tag = "Asset Name should not be blank";
+            this.txtAssetName.Tag = "Asset Name";
             this.txtAssetName.WordWrap = false;
             // 
             // label9
@@ -470,7 +476,7 @@
             this.cmbAssetCategory.Size = new System.Drawing.Size(156, 22);
             this.cmbAssetCategory.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbAssetCategory.TabIndex = 11;
-            this.cmbAssetCategory.Tag = "Asset Category should not be blank";
+            this.cmbAssetCategory.Tag = "Asset Category";
             // 
             // label8
             // 
@@ -596,7 +602,7 @@
             this.dtNextServiceDate.Name = "dtNextServiceDate";
             this.dtNextServiceDate.Size = new System.Drawing.Size(126, 21);
             this.dtNextServiceDate.TabIndex = 100;
-            this.dtNextServiceDate.Tag = "Next Service Date should not be blank";
+            this.dtNextServiceDate.Tag = "Next Service Date";
             this.dtNextServiceDate.UpDownButtonStyle = Krypton.Toolkit.ButtonStyle.Standalone;
             this.dtNextServiceDate.ValueNullable = new System.DateTime(2026, 3, 18, 19, 32, 32, 0);
             // 
@@ -609,6 +615,7 @@
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(119, 15);
             this.label19.TabIndex = 99;
+            this.label19.Tag = "";
             this.label19.Text = "Last Service Date";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -624,7 +631,7 @@
             this.dtLastServiceDate.Name = "dtLastServiceDate";
             this.dtLastServiceDate.Size = new System.Drawing.Size(126, 21);
             this.dtLastServiceDate.TabIndex = 98;
-            this.dtLastServiceDate.Tag = "Last Service Date should not be blank";
+            this.dtLastServiceDate.Tag = "Last Service Date";
             this.dtLastServiceDate.UpDownButtonStyle = Krypton.Toolkit.ButtonStyle.Standalone;
             this.dtLastServiceDate.ValueNullable = new System.DateTime(2026, 3, 18, 19, 32, 32, 0);
             // 
@@ -639,6 +646,7 @@
             this.chkHasWarranty.Name = "chkHasWarranty";
             this.chkHasWarranty.Size = new System.Drawing.Size(111, 19);
             this.chkHasWarranty.TabIndex = 97;
+            this.chkHasWarranty.Tag = "Has Warranty";
             this.chkHasWarranty.Text = "Has Warranty";
             this.chkHasWarranty.UseVisualStyleBackColor = true;
             this.chkHasWarranty.CheckedChanged += new System.EventHandler(this.chkHasWarranty_CheckedChanged);
@@ -667,7 +675,7 @@
             this.dtWarrantyEndDate.Name = "dtWarrantyEndDate";
             this.dtWarrantyEndDate.Size = new System.Drawing.Size(126, 21);
             this.dtWarrantyEndDate.TabIndex = 95;
-            this.dtWarrantyEndDate.Tag = "Warranty End Date should not be blank";
+            this.dtWarrantyEndDate.Tag = "Warranty End Date";
             this.dtWarrantyEndDate.UpDownButtonStyle = Krypton.Toolkit.ButtonStyle.Standalone;
             this.dtWarrantyEndDate.ValueNullable = new System.DateTime(2026, 3, 18, 19, 32, 32, 0);
             // 
@@ -695,7 +703,7 @@
             this.dtWarrantyStartDate.Name = "dtWarrantyStartDate";
             this.dtWarrantyStartDate.Size = new System.Drawing.Size(126, 21);
             this.dtWarrantyStartDate.TabIndex = 93;
-            this.dtWarrantyStartDate.Tag = "Warranty Start Date should not be blank";
+            this.dtWarrantyStartDate.Tag = "Warranty Start Date";
             this.dtWarrantyStartDate.UpDownButtonStyle = Krypton.Toolkit.ButtonStyle.Standalone;
             this.dtWarrantyStartDate.ValueNullable = new System.DateTime(2026, 3, 18, 19, 32, 32, 0);
             // 
@@ -712,7 +720,7 @@
             this.txtInvoiceNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtInvoiceNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtInvoiceNumber.TabIndex = 91;
-            this.txtInvoiceNumber.Tag = "Invoice Number should not be blank";
+            this.txtInvoiceNumber.Tag = "Invoice Number";
             this.txtInvoiceNumber.WordWrap = false;
             // 
             // label14
@@ -737,7 +745,7 @@
             this.txtVenderName.Name = "txtVenderName";
             this.txtVenderName.Size = new System.Drawing.Size(274, 88);
             this.txtVenderName.TabIndex = 89;
-            this.txtVenderName.Tag = "Vendor Information should not be blank";
+            this.txtVenderName.Tag = "Vendor Info";
             this.txtVenderName.WordWrap = false;
             // 
             // label13
@@ -776,7 +784,7 @@
             this.dtPurchaseDate.Name = "dtPurchaseDate";
             this.dtPurchaseDate.Size = new System.Drawing.Size(126, 21);
             this.dtPurchaseDate.TabIndex = 87;
-            this.dtPurchaseDate.Tag = "Purchase Date should not be blank";
+            this.dtPurchaseDate.Tag = "Purchase Date";
             this.dtPurchaseDate.UpDownButtonStyle = Krypton.Toolkit.ButtonStyle.Standalone;
             this.dtPurchaseDate.ValueNullable = new System.DateTime(2026, 3, 18, 19, 32, 32, 0);
             // 
@@ -820,7 +828,7 @@
             this.txtManufacturerInfo.Name = "txtManufacturerInfo";
             this.txtManufacturerInfo.Size = new System.Drawing.Size(274, 88);
             this.txtManufacturerInfo.TabIndex = 83;
-            this.txtManufacturerInfo.Tag = "Manufacturer Information should not be blank";
+            this.txtManufacturerInfo.Tag = "Manufacturer Info";
             this.txtManufacturerInfo.WordWrap = false;
             // 
             // label7
@@ -848,7 +856,7 @@
             this.txtModelNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtModelNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtModelNumber.TabIndex = 81;
-            this.txtModelNumber.Tag = "Asset Model Number should not be blank";
+            this.txtModelNumber.Tag = "Model Number";
             this.txtModelNumber.WordWrap = false;
             // 
             // label6
@@ -876,7 +884,7 @@
             this.txtSerialNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSerialNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSerialNumber.TabIndex = 79;
-            this.txtSerialNumber.Tag = "Asset Serial Number should not be blank";
+            this.txtSerialNumber.Tag = "Serial Number";
             this.txtSerialNumber.WordWrap = false;
             // 
             // label12
@@ -908,6 +916,16 @@
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Asset Information";
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(428, 31);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 37;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // btnSearch
             // 
@@ -1087,16 +1105,6 @@
             // empMasInfoTableAdapter
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(428, 31);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 37;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmAssetsInfo
             // 

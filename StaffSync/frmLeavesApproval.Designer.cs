@@ -69,6 +69,7 @@
             this.cmbLeaveType = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
             this.label38 = new System.Windows.Forms.Label();
             this.picEmpPhoto = new System.Windows.Forms.PictureBox();
@@ -95,7 +96,6 @@
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonCommand1 = new Krypton.Toolkit.KryptonCommand();
             this.kryptonCommand2 = new Krypton.Toolkit.KryptonCommand();
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -380,7 +380,7 @@
             this.txtApprovalNote.Name = "txtApprovalNote";
             this.txtApprovalNote.Size = new System.Drawing.Size(297, 116);
             this.txtApprovalNote.TabIndex = 47;
-            this.txtApprovalNote.Tag = "Please enter Employeee Code";
+            this.txtApprovalNote.Tag = "Approval Note";
             this.txtApprovalNote.WordWrap = false;
             // 
             // label8
@@ -405,7 +405,7 @@
             this.txtActualLeaveDays.ReadOnly = true;
             this.txtActualLeaveDays.Size = new System.Drawing.Size(78, 21);
             this.txtActualLeaveDays.TabIndex = 46;
-            this.txtActualLeaveDays.Tag = "Please enter Employeee Code";
+            this.txtActualLeaveDays.Tag = "Actual Leave Days";
             this.txtActualLeaveDays.WordWrap = false;
             // 
             // txtBalanceLeave
@@ -418,7 +418,7 @@
             this.txtBalanceLeave.ReadOnly = true;
             this.txtBalanceLeave.Size = new System.Drawing.Size(154, 28);
             this.txtBalanceLeave.TabIndex = 44;
-            this.txtBalanceLeave.Tag = "Please enter Employeee Code";
+            this.txtBalanceLeave.Tag = "Balance Leaves";
             this.txtBalanceLeave.WordWrap = false;
             // 
             // label7
@@ -442,7 +442,7 @@
             this.txtAvailableLeave.ReadOnly = true;
             this.txtAvailableLeave.Size = new System.Drawing.Size(154, 28);
             this.txtAvailableLeave.TabIndex = 42;
-            this.txtAvailableLeave.Tag = "Please enter Employeee Code";
+            this.txtAvailableLeave.Tag = "Available Leave";
             this.txtAvailableLeave.WordWrap = false;
             // 
             // label6
@@ -464,7 +464,7 @@
             this.txtLeaveDateTo.Name = "txtLeaveDateTo";
             this.txtLeaveDateTo.Size = new System.Drawing.Size(125, 21);
             this.txtLeaveDateTo.TabIndex = 41;
-            this.txtLeaveDateTo.Tag = "Please enter Employeee Date Of Birth";
+            this.txtLeaveDateTo.Tag = "To";
             this.txtLeaveDateTo.ValidatingType = typeof(System.DateTime);
             this.txtLeaveDateTo.TextChanged += new System.EventHandler(this.txtLeaveDateTo_TextChanged);
             // 
@@ -489,7 +489,7 @@
             this.cmbDuration.Name = "cmbDuration";
             this.cmbDuration.Size = new System.Drawing.Size(440, 23);
             this.cmbDuration.TabIndex = 39;
-            this.cmbDuration.Tag = "Please enter Employee Designation";
+            this.cmbDuration.Tag = "Duration";
             this.cmbDuration.SelectedIndexChanged += new System.EventHandler(this.cmbDuration_SelectedIndexChanged);
             // 
             // label4
@@ -512,7 +512,7 @@
             this.txtLeaveDateFrom.Name = "txtLeaveDateFrom";
             this.txtLeaveDateFrom.Size = new System.Drawing.Size(125, 21);
             this.txtLeaveDateFrom.TabIndex = 37;
-            this.txtLeaveDateFrom.Tag = "Please enter Employeee Date Of Birth";
+            this.txtLeaveDateFrom.Tag = "From";
             this.txtLeaveDateFrom.ValidatingType = typeof(System.DateTime);
             this.txtLeaveDateFrom.TextChanged += new System.EventHandler(this.txtLeaveDateFrom_TextChanged);
             // 
@@ -537,7 +537,7 @@
             this.cmbLeaveType.Name = "cmbLeaveType";
             this.cmbLeaveType.Size = new System.Drawing.Size(440, 23);
             this.cmbLeaveType.TabIndex = 35;
-            this.cmbLeaveType.Tag = "Please enter Employee Designation";
+            this.cmbLeaveType.Tag = "Leave Type";
             this.cmbLeaveType.SelectedIndexChanged += new System.EventHandler(this.cmbLeaveType_SelectedIndexChanged);
             // 
             // label2
@@ -575,6 +575,16 @@
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Professional Info";
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(338, 27);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 85;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // btnSearch
             // 
@@ -617,7 +627,7 @@
             this.cmbDesignation.Name = "cmbDesignation";
             this.cmbDesignation.Size = new System.Drawing.Size(440, 23);
             this.cmbDesignation.TabIndex = 33;
-            this.cmbDesignation.Tag = "Please enter Employee Designation";
+            this.cmbDesignation.Tag = "Designation";
             // 
             // label26
             // 
@@ -639,7 +649,7 @@
             this.cmbDepartment.Name = "cmbDepartment";
             this.cmbDepartment.Size = new System.Drawing.Size(440, 23);
             this.cmbDepartment.TabIndex = 32;
-            this.cmbDepartment.Tag = "Please enter Employee Department";
+            this.cmbDepartment.Tag = "Department";
             // 
             // label25
             // 
@@ -662,7 +672,7 @@
             this.txtEmployeeName.Name = "txtEmployeeName";
             this.txtEmployeeName.Size = new System.Drawing.Size(440, 28);
             this.txtEmployeeName.TabIndex = 12;
-            this.txtEmployeeName.Tag = "Please enter Employeee Name";
+            this.txtEmployeeName.Tag = "Name";
             this.txtEmployeeName.WordWrap = false;
             // 
             // label19
@@ -712,7 +722,7 @@
             this.txtEmpCode.ReadOnly = true;
             this.txtEmpCode.Size = new System.Drawing.Size(168, 28);
             this.txtEmpCode.TabIndex = 2;
-            this.txtEmpCode.Tag = "Please enter Employeee Code";
+            this.txtEmpCode.Tag = "Employee Code";
             this.txtEmpCode.WordWrap = false;
             // 
             // label1
@@ -839,16 +849,6 @@
             // kryptonCommand2
             // 
             this.kryptonCommand2.Text = "kryptonCommand2";
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(338, 27);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 85;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmLeavesApproval
             // 

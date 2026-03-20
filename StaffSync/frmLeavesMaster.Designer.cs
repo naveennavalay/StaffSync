@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
             this.txtEmployeeName = new Krypton.Toolkit.KryptonTextBox();
             this.txtEmpCode = new Krypton.Toolkit.KryptonTextBox();
@@ -93,7 +94,6 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -172,6 +172,16 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Professional Info";
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(433, 36);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 86;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // btnSearch
             // 
             this.btnSearch.Location = new System.Drawing.Point(396, 32);
@@ -198,6 +208,7 @@
             this.txtEmployeeName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmployeeName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmployeeName.TabIndex = 43;
+            this.txtEmployeeName.Tag = "Name";
             this.txtEmployeeName.WordWrap = false;
             // 
             // txtEmpCode
@@ -215,6 +226,7 @@
             this.txtEmpCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpCode.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpCode.TabIndex = 42;
+            this.txtEmpCode.Tag = "Employee Code";
             this.txtEmpCode.WordWrap = false;
             // 
             // label38
@@ -248,7 +260,7 @@
             this.cmbDesignation.Name = "cmbDesignation";
             this.cmbDesignation.Size = new System.Drawing.Size(585, 23);
             this.cmbDesignation.TabIndex = 33;
-            this.cmbDesignation.Tag = "Please enter Employee Designation";
+            this.cmbDesignation.Tag = "Designation";
             // 
             // label26
             // 
@@ -271,7 +283,7 @@
             this.cmbDepartment.Name = "cmbDepartment";
             this.cmbDepartment.Size = new System.Drawing.Size(585, 23);
             this.cmbDepartment.TabIndex = 32;
-            this.cmbDepartment.Tag = "Please enter Employee Department";
+            this.cmbDepartment.Tag = "Department";
             // 
             // label25
             // 
@@ -603,6 +615,7 @@
             this.chkAllowBackDate.Name = "chkAllowBackDate";
             this.chkAllowBackDate.Size = new System.Drawing.Size(119, 20);
             this.chkAllowBackDate.TabIndex = 50;
+            this.chkAllowBackDate.Tag = "Allow Back Dated";
             this.chkAllowBackDate.Values.Text = "Allow Back Dated";
             // 
             // picViewLeaves
@@ -628,7 +641,7 @@
             this.txtLeaveNote.Name = "txtLeaveNote";
             this.txtLeaveNote.Size = new System.Drawing.Size(280, 125);
             this.txtLeaveNote.TabIndex = 47;
-            this.txtLeaveNote.Tag = "Please enter Employeee Code";
+            this.txtLeaveNote.Tag = "Leave Note";
             this.txtLeaveNote.WordWrap = false;
             // 
             // label8
@@ -652,7 +665,7 @@
             this.txtActualLeaveDays.ReadOnly = true;
             this.txtActualLeaveDays.Size = new System.Drawing.Size(103, 25);
             this.txtActualLeaveDays.TabIndex = 46;
-            this.txtActualLeaveDays.Tag = "Please enter Employeee Code";
+            this.txtActualLeaveDays.Tag = "Actual Leave Days";
             this.txtActualLeaveDays.WordWrap = false;
             // 
             // txtBalanceLeave
@@ -665,7 +678,7 @@
             this.txtBalanceLeave.ReadOnly = true;
             this.txtBalanceLeave.Size = new System.Drawing.Size(204, 28);
             this.txtBalanceLeave.TabIndex = 44;
-            this.txtBalanceLeave.Tag = "Please enter Employeee Code";
+            this.txtBalanceLeave.Tag = "Balance Leaves";
             this.txtBalanceLeave.WordWrap = false;
             // 
             // label7
@@ -689,7 +702,7 @@
             this.txtAvailableLeave.ReadOnly = true;
             this.txtAvailableLeave.Size = new System.Drawing.Size(204, 28);
             this.txtAvailableLeave.TabIndex = 42;
-            this.txtAvailableLeave.Tag = "Please enter Employeee Code";
+            this.txtAvailableLeave.Tag = "Available Leave";
             this.txtAvailableLeave.WordWrap = false;
             // 
             // label6
@@ -711,7 +724,7 @@
             this.txtLeaveDateTo.Name = "txtLeaveDateTo";
             this.txtLeaveDateTo.Size = new System.Drawing.Size(157, 21);
             this.txtLeaveDateTo.TabIndex = 41;
-            this.txtLeaveDateTo.Tag = "Please enter Employeee Date Of Birth";
+            this.txtLeaveDateTo.Tag = "To";
             this.txtLeaveDateTo.ValidatingType = typeof(System.DateTime);
             this.txtLeaveDateTo.TextChanged += new System.EventHandler(this.txtLeaveDateTo_TextChanged);
             // 
@@ -736,7 +749,7 @@
             this.cmbDuration.Name = "cmbDuration";
             this.cmbDuration.Size = new System.Drawing.Size(585, 23);
             this.cmbDuration.TabIndex = 39;
-            this.cmbDuration.Tag = "Please enter Employee Designation";
+            this.cmbDuration.Tag = "Duration";
             this.cmbDuration.SelectedIndexChanged += new System.EventHandler(this.cmbDuration_SelectedIndexChanged);
             // 
             // label4
@@ -759,7 +772,7 @@
             this.txtLeaveDateFrom.Name = "txtLeaveDateFrom";
             this.txtLeaveDateFrom.Size = new System.Drawing.Size(157, 21);
             this.txtLeaveDateFrom.TabIndex = 37;
-            this.txtLeaveDateFrom.Tag = "Please enter Employeee Date Of Birth";
+            this.txtLeaveDateFrom.Tag = "From";
             this.txtLeaveDateFrom.ValidatingType = typeof(System.DateTime);
             this.txtLeaveDateFrom.TextChanged += new System.EventHandler(this.txtLeaveDateFrom_TextChanged);
             // 
@@ -784,7 +797,7 @@
             this.cmbLeaveType.Name = "cmbLeaveType";
             this.cmbLeaveType.Size = new System.Drawing.Size(585, 23);
             this.cmbLeaveType.TabIndex = 35;
-            this.cmbLeaveType.Tag = "Please enter Employee Designation";
+            this.cmbLeaveType.Tag = "Leave Type";
             this.cmbLeaveType.SelectedIndexChanged += new System.EventHandler(this.cmbLeaveType_SelectedIndexChanged);
             // 
             // label2
@@ -897,16 +910,6 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(433, 36);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 86;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmLeavesMaster
             // 

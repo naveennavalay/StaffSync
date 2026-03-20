@@ -40,6 +40,7 @@
             this.WklyOffDayName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OrderID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.txtWeeklyOffTitle = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
@@ -58,7 +59,6 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -196,6 +196,16 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Weekly Off Profile Info";
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(533, 34);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 106;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // txtWeeklyOffTitle
             // 
             this.txtWeeklyOffTitle.Location = new System.Drawing.Point(253, 70);
@@ -205,6 +215,7 @@
             this.txtWeeklyOffTitle.Name = "txtWeeklyOffTitle";
             this.txtWeeklyOffTitle.Size = new System.Drawing.Size(568, 34);
             this.txtWeeklyOffTitle.TabIndex = 15;
+            this.txtWeeklyOffTitle.Tag = "Weekly Off Title";
             this.txtWeeklyOffTitle.WordWrap = false;
             // 
             // label16
@@ -267,6 +278,7 @@
             this.txtWeeklyCode.ReadOnly = true;
             this.txtWeeklyCode.Size = new System.Drawing.Size(223, 34);
             this.txtWeeklyCode.TabIndex = 2;
+            this.txtWeeklyCode.Tag = "Weekly Off Code";
             this.txtWeeklyCode.WordWrap = false;
             // 
             // label1
@@ -393,16 +405,6 @@
             // empMasInfoTableAdapter
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(533, 34);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 106;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmWeeklyProfileDetailsInfo
             // 

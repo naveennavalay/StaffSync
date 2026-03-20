@@ -48,6 +48,7 @@
             this.txtDedTitle = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
             this.lblDeductionID = new System.Windows.Forms.Label();
             this.lblActionMode = new System.Windows.Forms.Label();
@@ -64,7 +65,6 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -153,6 +153,7 @@
             this.cmbProrataBased.Size = new System.Drawing.Size(114, 22);
             this.cmbProrataBased.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbProrataBased.TabIndex = 62;
+            this.cmbProrataBased.Tag = "Pro-rata Based";
             // 
             // label5
             // 
@@ -177,6 +178,7 @@
             this.cmbShowInPayslip.Size = new System.Drawing.Size(114, 22);
             this.cmbShowInPayslip.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbShowInPayslip.TabIndex = 60;
+            this.cmbShowInPayslip.Tag = "Show in Payslip";
             // 
             // label4
             // 
@@ -199,6 +201,7 @@
             this.txtMaxCap.Name = "txtMaxCap";
             this.txtMaxCap.Size = new System.Drawing.Size(114, 22);
             this.txtMaxCap.TabIndex = 58;
+            this.txtMaxCap.Tag = "Max. Cap";
             this.txtMaxCap.WordWrap = false;
             // 
             // label3
@@ -224,6 +227,7 @@
             this.cmbIsFixed.Size = new System.Drawing.Size(114, 22);
             this.cmbIsFixed.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbIsFixed.TabIndex = 56;
+            this.cmbIsFixed.Tag = "Is Fixed";
             // 
             // cmbIsActive
             // 
@@ -236,6 +240,7 @@
             this.cmbIsActive.Size = new System.Drawing.Size(114, 22);
             this.cmbIsActive.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbIsActive.TabIndex = 55;
+            this.cmbIsActive.Tag = "Is Active";
             // 
             // label2
             // 
@@ -270,6 +275,7 @@
             this.txtDedDescription.Name = "txtDedDescription";
             this.txtDedDescription.Size = new System.Drawing.Size(568, 96);
             this.txtDedDescription.TabIndex = 4;
+            this.txtDedDescription.Tag = "Deduction Description";
             this.txtDedDescription.WordWrap = false;
             // 
             // label18
@@ -293,6 +299,7 @@
             this.txtDedTitle.Name = "txtDedTitle";
             this.txtDedTitle.Size = new System.Drawing.Size(568, 28);
             this.txtDedTitle.TabIndex = 3;
+            this.txtDedTitle.Tag = "Deduction Title";
             this.txtDedTitle.WordWrap = false;
             // 
             // label16
@@ -325,6 +332,16 @@
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Deduction Info";
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(457, 32);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 94;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // btnSearch
             // 
@@ -374,6 +391,7 @@
             this.txtDedCode.ReadOnly = true;
             this.txtDedCode.Size = new System.Drawing.Size(223, 28);
             this.txtDedCode.TabIndex = 2;
+            this.txtDedCode.Tag = "Deduction Code";
             this.txtDedCode.WordWrap = false;
             // 
             // label1
@@ -498,16 +516,6 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(457, 32);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 94;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmPayrollDeductions
             // 

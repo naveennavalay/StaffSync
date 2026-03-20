@@ -59,6 +59,7 @@
             this.txtAdvanceTitle = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
             this.lblAdvanceTypeID = new System.Windows.Forms.Label();
             this.lblActionMode = new System.Windows.Forms.Label();
@@ -75,7 +76,6 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -187,6 +187,7 @@
             this.txtMaxTenure.Name = "txtMaxTenure";
             this.txtMaxTenure.Size = new System.Drawing.Size(134, 28);
             this.txtMaxTenure.TabIndex = 54;
+            this.txtMaxTenure.Text = "Max. Tenure";
             this.txtMaxTenure.WordWrap = false;
             // 
             // label7
@@ -210,6 +211,7 @@
             this.chkAutoDeductFromSalary.Name = "chkAutoDeductFromSalary";
             this.chkAutoDeductFromSalary.Size = new System.Drawing.Size(184, 19);
             this.chkAutoDeductFromSalary.TabIndex = 53;
+            this.chkAutoDeductFromSalary.Tag = "Auto Deduct From Salary";
             this.chkAutoDeductFromSalary.Text = "Auto Deduct From Salary";
             this.chkAutoDeductFromSalary.UseVisualStyleBackColor = true;
             // 
@@ -223,6 +225,7 @@
             this.chkWaiverAllowed.Name = "chkWaiverAllowed";
             this.chkWaiverAllowed.Size = new System.Drawing.Size(123, 19);
             this.chkWaiverAllowed.TabIndex = 52;
+            this.chkWaiverAllowed.Tag = "Waiver Allowed";
             this.chkWaiverAllowed.Text = "Waiver Allowed";
             this.chkWaiverAllowed.UseVisualStyleBackColor = true;
             // 
@@ -236,6 +239,7 @@
             this.chkAllowPause.Name = "chkAllowPause";
             this.chkAllowPause.Size = new System.Drawing.Size(104, 19);
             this.chkAllowPause.TabIndex = 51;
+            this.chkAllowPause.Tag = "Allow Pause";
             this.chkAllowPause.Text = "Allow Pause";
             this.chkAllowPause.UseVisualStyleBackColor = true;
             // 
@@ -249,6 +253,7 @@
             this.chkApprovalNeeded.Name = "chkApprovalNeeded";
             this.chkApprovalNeeded.Size = new System.Drawing.Size(144, 19);
             this.chkApprovalNeeded.TabIndex = 50;
+            this.chkApprovalNeeded.Tag = "Approval Required";
             this.chkApprovalNeeded.Text = "Approval Required";
             this.chkApprovalNeeded.UseVisualStyleBackColor = true;
             // 
@@ -262,6 +267,7 @@
             this.chkInterestRequired.Name = "chkInterestRequired";
             this.chkInterestRequired.Size = new System.Drawing.Size(137, 19);
             this.chkInterestRequired.TabIndex = 49;
+            this.chkInterestRequired.Tag = "Interest Required";
             this.chkInterestRequired.Text = "Interest Required";
             this.chkInterestRequired.UseVisualStyleBackColor = true;
             // 
@@ -275,6 +281,7 @@
             this.chkRecoveryRequired.Name = "chkRecoveryRequired";
             this.chkRecoveryRequired.Size = new System.Drawing.Size(147, 19);
             this.chkRecoveryRequired.TabIndex = 47;
+            this.chkRecoveryRequired.Tag = "Recovery Required";
             this.chkRecoveryRequired.Text = "Recovery Required";
             this.chkRecoveryRequired.UseVisualStyleBackColor = true;
             this.chkRecoveryRequired.CheckedChanged += new System.EventHandler(this.chkRecoveryRequired_CheckedChanged);
@@ -289,6 +296,7 @@
             this.chkIncludeAsDeductionInSalary.Name = "chkIncludeAsDeductionInSalary";
             this.chkIncludeAsDeductionInSalary.Size = new System.Drawing.Size(221, 19);
             this.chkIncludeAsDeductionInSalary.TabIndex = 46;
+            this.chkIncludeAsDeductionInSalary.Tag = "Include in Salary as Deduction";
             this.chkIncludeAsDeductionInSalary.Text = "Include in Salary as Deduction";
             this.chkIncludeAsDeductionInSalary.UseVisualStyleBackColor = true;
             // 
@@ -312,6 +320,7 @@
             this.txtAdvanceAmountFixed.Name = "txtAdvanceAmountFixed";
             this.txtAdvanceAmountFixed.Size = new System.Drawing.Size(134, 28);
             this.txtAdvanceAmountFixed.TabIndex = 43;
+            this.txtAdvanceAmountFixed.Text = "Fixed";
             this.txtAdvanceAmountFixed.WordWrap = false;
             // 
             // label5
@@ -334,6 +343,7 @@
             this.cmbAdvanceAmountBased.Name = "cmbAdvanceAmountBased";
             this.cmbAdvanceAmountBased.Size = new System.Drawing.Size(393, 23);
             this.cmbAdvanceAmountBased.TabIndex = 42;
+            this.cmbAdvanceAmountBased.Tag = "Advance Type";
             this.cmbAdvanceAmountBased.SelectedIndexChanged += new System.EventHandler(this.cmbAdvanceAmountBased_SelectedIndexChanged);
             // 
             // label4
@@ -357,6 +367,7 @@
             this.txtAdvancePercentage.Name = "txtAdvancePercentage";
             this.txtAdvancePercentage.Size = new System.Drawing.Size(134, 28);
             this.txtAdvancePercentage.TabIndex = 39;
+            this.txtAdvancePercentage.Tag = "Percentage";
             this.txtAdvancePercentage.WordWrap = false;
             // 
             // label3
@@ -379,6 +390,7 @@
             this.cmbAdvanceBasedOn.Name = "cmbAdvanceBasedOn";
             this.cmbAdvanceBasedOn.Size = new System.Drawing.Size(393, 23);
             this.cmbAdvanceBasedOn.TabIndex = 38;
+            this.cmbAdvanceBasedOn.Tag = "Based On";
             // 
             // label2
             // 
@@ -402,6 +414,7 @@
             this.chkAutoDeductFromNextSaslary.Name = "chkAutoDeductFromNextSaslary";
             this.chkAutoDeductFromNextSaslary.Size = new System.Drawing.Size(217, 19);
             this.chkAutoDeductFromNextSaslary.TabIndex = 36;
+            this.chkAutoDeductFromNextSaslary.Tag = "Auto Deduct From Next Salary";
             this.chkAutoDeductFromNextSaslary.Text = "Auto Deduct From Next Salary";
             this.chkAutoDeductFromNextSaslary.UseVisualStyleBackColor = true;
             // 
@@ -413,6 +426,7 @@
             this.cmbIsActive.Name = "cmbIsActive";
             this.cmbIsActive.Size = new System.Drawing.Size(204, 23);
             this.cmbIsActive.TabIndex = 34;
+            this.cmbIsActive.Tag = "Is Active";
             this.cmbIsActive.SelectedIndexChanged += new System.EventHandler(this.cmbRelationship_SelectedIndexChanged);
             // 
             // label17
@@ -436,6 +450,7 @@
             this.txtAdvanceTitle.Name = "txtAdvanceTitle";
             this.txtAdvanceTitle.Size = new System.Drawing.Size(427, 28);
             this.txtAdvanceTitle.TabIndex = 3;
+            this.txtAdvanceTitle.Tag = "Advance Title";
             this.txtAdvanceTitle.WordWrap = false;
             // 
             // label16
@@ -465,6 +480,16 @@
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Advance Info";
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(347, 27);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 38;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // btnSearch
             // 
@@ -513,6 +538,7 @@
             this.txtAdvanceCode.ReadOnly = true;
             this.txtAdvanceCode.Size = new System.Drawing.Size(168, 28);
             this.txtAdvanceCode.TabIndex = 2;
+            this.txtAdvanceCode.Tag = "Advance Code";
             this.txtAdvanceCode.WordWrap = false;
             // 
             // label1
@@ -630,16 +656,6 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(347, 27);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 38;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmAdvanceTypeMas
             // 
