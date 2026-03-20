@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 
@@ -11,22 +12,14 @@ namespace DALStaffSync
     {
         dbStaffSync.clsDepartment objDeparment = new dbStaffSync.clsDepartment();
 
-        public DataTable GetDepartmentList()
+        public List<DepartmentModel> GetDepartmentList()
         {
-            DataTable dt = new DataTable();
-
-            dt = objDeparment.GetDepartmentList();
-
-            return dt;
+            return objDeparment.GetDepartmentList();
         }
 
-        public DataTable GetDepartmentList(string filterText)
+        public List<DepartmentModel> GetDepartmentList(string filterText)
         {
-            DataTable dt = new DataTable();
-
-            dt = objDeparment.GetDepartmentList(filterText);
-
-            return dt;
+            return objDeparment.GetDepartmentList(filterText);
         }
 
         public string GetDepartmentTitleByID(int DepartmentID)

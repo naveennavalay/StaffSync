@@ -35,6 +35,7 @@ namespace StaffSync
         private void frmEduQualList_Load(object sender, EventArgs e)
         {
             dtgDepartmentList.DataSource = objEduQalification.GetEduQualMasList();
+            FormatGrid();
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -54,6 +55,7 @@ namespace StaffSync
                 {
                     dtgDepartmentList.DataSource = objEduQalification.GetEduQualMasList(txtSearch.Text.ToString().Trim());
                 }
+                FormatGrid();
             }
             catch (Exception ex)
             {
@@ -61,13 +63,26 @@ namespace StaffSync
             }
         }
 
+        private void FormatGrid()
+        {
+            dtgDepartmentList.Columns["EduQualID"].Visible = false;
+            dtgDepartmentList.Columns["EduQualCode"].ReadOnly = true;
+            dtgDepartmentList.Columns["EduQualCode"].Width = 100;
+            dtgDepartmentList.Columns["EduQualTitle"].ReadOnly = true;
+            dtgDepartmentList.Columns["EduQualTitle"].Width = 350;
+            dtgDepartmentList.Columns["EduQualInitial"].ReadOnly = true;
+            dtgDepartmentList.Columns["EduQualInitial"].Width = 100;
+            dtgDepartmentList.Columns["IsActive"].Visible = false;
+            dtgDepartmentList.Columns["IsDeleted"].Visible = false;
+        }
+
         private void dtgDepartmentList_DoubleClick(object sender, EventArgs e)
         {
             CountriesModel objCountryModel = new CountriesModel();
-            objCountryModel.CountryID = Convert.ToInt16(dtgDepartmentList.SelectedRows[0].Cells["CountryID"].Value.ToString());
-            objCountryModel.CountryCode = dtgDepartmentList.SelectedRows[0].Cells["CountryCode"].Value.ToString();
-            objCountryModel.CountryTitle = dtgDepartmentList.SelectedRows[0].Cells["CountryTitle"].Value.ToString();
-            objCountryModel.CountryInitial = dtgDepartmentList.SelectedRows[0].Cells["CountryInitial"].Value.ToString();
+            objCountryModel.CountryID = Convert.ToInt16(dtgDepartmentList.SelectedRows[0].Cells["EduQualID"].Value.ToString());
+            objCountryModel.CountryCode = dtgDepartmentList.SelectedRows[0].Cells["EduQualCode"].Value.ToString();
+            objCountryModel.CountryTitle = dtgDepartmentList.SelectedRows[0].Cells["EduQualTitle"].Value.ToString();
+            objCountryModel.CountryInitial = dtgDepartmentList.SelectedRows[0].Cells["EduQualInitial"].Value.ToString();
             objCountryModel.IsActive = Convert.ToBoolean(dtgDepartmentList.SelectedRows[0].Cells["IsActive"].Value);
 
             if (this.frmEduQualMas.lblActionMode.Text == "remove")

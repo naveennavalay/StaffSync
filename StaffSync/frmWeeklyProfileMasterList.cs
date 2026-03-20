@@ -101,11 +101,11 @@ namespace StaffSync
                 //dtgWeeklyOffList.Columns["WklyOffEffectiveDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
                 dtgWeeklyOffList.Columns["WklyOffCode"].Width = 50;
                 dtgWeeklyOffList.Columns["WklyOffTitle"].Width = 300;
-                dtgWeeklyOffList.Columns["EffectDateFrom"].Width = 150;
+                dtgWeeklyOffList.Columns["WklyOffEffectiveDate"].Width = 150;
                 dtgWeeklyOffList.Columns["WklyOffMasID"].ReadOnly = true;
                 dtgWeeklyOffList.Columns["WklyOffCode"].ReadOnly = true;
                 dtgWeeklyOffList.Columns["WklyOffTitle"].ReadOnly = true;
-                dtgWeeklyOffList.Columns["EffectDateFrom"].ReadOnly = true;
+                dtgWeeklyOffList.Columns["WklyOffEffectiveDate"].ReadOnly = true;
                 dtgWeeklyOffList.Columns["WklyOffCode"].SortMode = DataGridViewColumnSortMode.NotSortable;
                 dtgWeeklyOffList.Columns["WklyOffTitle"].SortMode = DataGridViewColumnSortMode.NotSortable;
                 //dtgWeeklyOffList.Columns["WklyOffEffectiveDate"].SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -139,7 +139,7 @@ namespace StaffSync
                 objWklyOffProfileMasInfoModel.WklyOffMasID = 0;
                 objWklyOffProfileMasInfoModel.WklyOffCode = "";
                 objWklyOffProfileMasInfoModel.WklyOffTitle = "";
-                objWklyOffProfileMasInfoModel.EffectDateFrom = Convert.ToDateTime(DateTime.Today.Date.ToString("dd-MM-yyyy"));
+                objWklyOffProfileMasInfoModel.WklyOffEffectiveDate = Convert.ToDateTime(DateTime.Today.Date.ToString("dd-MM-yyyy"));
                 objWklyOffProfileMasInfoModel.IsActive = false;
 
                 this.frmWeeklyProfileMas1.displaySelectedValuesOnUI(objWklyOffProfileMasInfoModel);
@@ -159,7 +159,7 @@ namespace StaffSync
             objWklyOffProfileMasInfoModel.WklyOffMasID = Convert.ToInt16(dtgWeeklyOffList.SelectedRows[0].Cells["WklyOffMasID"].Value.ToString());
             objWklyOffProfileMasInfoModel.WklyOffCode = dtgWeeklyOffList.SelectedRows[0].Cells["WklyOffCode"].Value.ToString();
             objWklyOffProfileMasInfoModel.WklyOffTitle = dtgWeeklyOffList.SelectedRows[0].Cells["WklyOffTitle"].Value.ToString();
-            objWklyOffProfileMasInfoModel.EffectDateFrom = Convert.ToDateTime(dtgWeeklyOffList.SelectedRows[0].Cells["EffectDateFrom"].Value);
+            objWklyOffProfileMasInfoModel.WklyOffEffectiveDate = Convert.ToDateTime(dtgWeeklyOffList.SelectedRows[0].Cells["WklyOffEffectiveDate"].Value);
             objWklyOffProfileMasInfoModel.IsActive = true;
 
             if(ShowListFor == "weeklyOffProfileMaster")
@@ -187,19 +187,19 @@ namespace StaffSync
 
         private void dtgWeeklyOffList_Paint(object sender, PaintEventArgs e)
         {
-            KryptonDataGridView dgv = sender as KryptonDataGridView;
+            //KryptonDataGridView dgv = sender as KryptonDataGridView;
 
-            if (dgv.Rows.Count == 0)
-            {
-                string message = "No Data Available";
+            //if (dgv.Rows.Count == 0)
+            //{
+            //    string message = "No Data Available";
 
-                using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
-                {
-                    SizeF size = e.Graphics.MeasureString(message, font);
+            //    using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
+            //    {
+            //        SizeF size = e.Graphics.MeasureString(message, font);
 
-                    e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
-                }
-            }
+            //        e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
+            //    }
+            //}
         }
     }
 }

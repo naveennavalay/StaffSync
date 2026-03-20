@@ -31,8 +31,8 @@ namespace StaffSync
 
                 else if (ctrl is DateTimePicker || ctrl.GetType().Name.Contains("KryptonDateTimePicker"))
                 {
-                    var dt = (DateTimePicker)ctrl;
-                    values[fieldName] = dt.Format == DateTimePickerFormat.Custom ? (DateTime?)null : dt.Value;
+                    //var dt = (DateTimePicker)ctrl;
+                    //values[fieldName] = dt.Format == DateTimePickerFormat.Custom ? (DateTime?)null : dt.Value;
                 }
             }
 

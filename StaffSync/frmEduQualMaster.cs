@@ -152,7 +152,7 @@ namespace StaffSync
 
                 if (lblActionMode.Text == "add")
                 {
-                    strActionStatement = "AssetCategoryNewUpdates";
+                    strActionStatement = "QualificationMasterInfoNewUpdates";
                     onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
 
                     int newID = objEduQalification.InsertEduQual(txtEduQualCode.Text.Trim(), txtEduQualTitle.Text.Trim(), txtEduQualInitial.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
@@ -161,7 +161,7 @@ namespace StaffSync
                 }
                 else if (lblActionMode.Text == "modify")
                 {
-                    strActionStatement = "AssetCategoryExistingUpdates";
+                    strActionStatement = "QualificationMasterInfoExistingUpdates";
                     onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
 
                     int affectedRows = objEduQalification.UpdateEduQual(Convert.ToInt16(lblCountryID.Text.Trim()), txtEduQualCode.Text.Trim(), txtEduQualTitle.Text.Trim(), txtEduQualInitial.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
@@ -413,7 +413,7 @@ namespace StaffSync
 
         private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
         {
-            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblCountryID.Text.ToString()), "QualificationMaster", "Qualification Master", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblCountryID.Text.ToString()), "QualificationMasterInfo", "Qualification Master", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             objAuditLogStatements.ShowDialog(this);
         }
     }

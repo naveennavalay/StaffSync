@@ -205,6 +205,7 @@ namespace StaffSync
             {
                 var updatedValues = AuditLogger.getOriginalValues(this);
                 var onlyChangedValues = (dynamic)null;
+                onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
 
                 strActionStatement = "";
 

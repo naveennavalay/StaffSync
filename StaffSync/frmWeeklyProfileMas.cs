@@ -299,7 +299,7 @@ namespace StaffSync
             lblWeeklyOffID.Text = WklyOffProfileMasInfoModel.WklyOffMasID.ToString();
             txtWeeklyCode.Text = WklyOffProfileMasInfoModel.WklyOffCode;
             txtWeeklyOffTitle.Text = WklyOffProfileMasInfoModel.WklyOffTitle;
-            txtEffectiveDate.Text = Convert.ToDateTime(WklyOffProfileMasInfoModel.EffectDateFrom).ToString("dd-MM-yyyy");
+            txtEffectiveDate.Text = Convert.ToDateTime(WklyOffProfileMasInfoModel.WklyOffEffectiveDate).ToString("dd-MM-yyyy");
             cmbIsActive.Text = WklyOffProfileMasInfoModel.IsActive == true ? "Yes" : "No";
             _originalValues = AuditLogger.getOriginalValues(this);
         }
@@ -418,7 +418,7 @@ namespace StaffSync
 
         private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
         {
-            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblWeeklyOffID.Text.ToString()), "WeeklyProfileMasterInformation", "Weekly Profile Master Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblWeeklyOffID.Text.ToString()), "WeeklyOffProfile", "Weekly Profile Master Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             objAuditLogStatements.ShowDialog(this);
         }
     }

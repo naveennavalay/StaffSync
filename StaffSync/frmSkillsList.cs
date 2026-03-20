@@ -35,6 +35,7 @@ namespace StaffSync
         private void frmSkillsList_Load(object sender, EventArgs e)
         {
             dtgStateList.DataSource = clsSkills.GetSkillList();
+            FormatGrid();
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -54,11 +55,25 @@ namespace StaffSync
                 {
                     dtgStateList.DataSource = clsSkills.GetSkillList(txtSearch.Text.ToString().Trim());
                 }
+                FormatGrid();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void FormatGrid()
+        {
+            dtgStateList.Columns["SkillID"].Visible = false;
+            dtgStateList.Columns["SkillCode"].ReadOnly = true;
+            dtgStateList.Columns["SkillCode"].Width = 100;
+            dtgStateList.Columns["SkillTitle"].ReadOnly = true;
+            dtgStateList.Columns["SkillTitle"].Width = 250;
+            dtgStateList.Columns["SkillInitial"].ReadOnly = true;
+            dtgStateList.Columns["SkillInitial"].Width = 250;
+            dtgStateList.Columns["IsActive"].Visible = false;
+            //dtgStateList.Columns["IsDeleted"].Visible = false;
         }
 
         private void dtgDepartmentList_DoubleClick(object sender, EventArgs e)

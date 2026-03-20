@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 
@@ -14,8 +16,9 @@ namespace dbStaffSync
         DataSet dtDataset;
         clsGenFunc objGenFunc = new clsGenFunc();
 
-        public DataTable GetEduQualMasList()
+        public List<EduQualTitleModel> GetEduQualMasList()
         {
+            List<EduQualTitleModel> objQualificationList = new List<EduQualTitleModel>();
             DataTable dt = new DataTable();
 
             try
@@ -32,6 +35,9 @@ namespace dbStaffSync
                 OleDbDataAdapter da = new OleDbDataAdapter(cmd);
                 da.Fill(dt);
 
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objQualificationList = JsonConvert.DeserializeObject<List<EduQualTitleModel>>(DataTableToJSon);
             }
             catch (Exception ex)
             {
@@ -43,18 +49,19 @@ namespace dbStaffSync
                 conn = dbStaffSync.closeDBConnection();
             }
 
-            return dt;
+            return objQualificationList;
         }
 
-        public DataTable GetEduQualMasList(string filterText)
+        public List<EduQualTitleModel> GetEduQualMasList(string filterText)
         {
+            List<EduQualTitleModel> objQualificationList = new List<EduQualTitleModel>();
             DataTable dt = new DataTable();
 
             try
             {
                 conn = dbStaffSync.openDBConnection();
 
-                string strQuery = "SELECT * FROM EduQualMas WHERE IsDeleted = false AND EduQualTitle LIKE '" + filterText + "%'";
+                string strQuery = "SELECT * FROM EduQualMas WHERE IsDeleted = false AND EduQualTitle LIKE '%" + filterText + "%'";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -64,6 +71,9 @@ namespace dbStaffSync
                 OleDbDataAdapter da = new OleDbDataAdapter(cmd);
                 da.Fill(dt);
 
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objQualificationList = JsonConvert.DeserializeObject<List<EduQualTitleModel>>(DataTableToJSon);
             }
             catch (Exception ex)
             {
@@ -75,7 +85,7 @@ namespace dbStaffSync
                 conn = dbStaffSync.closeDBConnection();
             }
 
-            return dt;
+            return objQualificationList;
         }
 
         public int InsertEduQual(string txtEduQualCode, string txtEduQualTitle, string txtEduQualInitial, bool IsActive, bool IsDeleted)

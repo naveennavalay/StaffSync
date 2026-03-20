@@ -35,7 +35,9 @@ namespace StaffSync
         private void frmDepartmentList_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'dsDepartmentList.qryDepartmentList' table. You can move, or remove it, as needed.
-            this.qryDepartmentListTableAdapter.Fill(this.dsDepartmentList.qryDepartmentList);
+            //this.qryDepartmentListTableAdapter.Fill(this.dsDepartmentList.qryDepartmentList);
+            dtgDepartmentList.DataSource = objDepartment.GetDepartmentList();
+            FormatGrid();
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -50,11 +52,25 @@ namespace StaffSync
                 {
                     dtgDepartmentList.DataSource = objDepartment.GetDepartmentList(txtSearch.Text.ToString().Trim());
                 }
+                FormatGrid();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void FormatGrid()
+        {
+            dtgDepartmentList.Columns["DepartmentID"].Visible = false;
+            dtgDepartmentList.Columns["DepCode"].ReadOnly = true;
+            dtgDepartmentList.Columns["DepCode"].Width = 100;
+            dtgDepartmentList.Columns["DepartmentTitle"].ReadOnly = true;
+            dtgDepartmentList.Columns["DepartmentTitle"].Width = 250;
+            dtgDepartmentList.Columns["DepartmentInitial"].ReadOnly = true;
+            dtgDepartmentList.Columns["DepartmentInitial"].Width = 250;
+            dtgDepartmentList.Columns["IsActive"].Visible = false;
+            dtgDepartmentList.Columns["IsDeleted"].Visible = false;
         }
 
         private void dtgDepartmentList_DoubleClick(object sender, EventArgs e)

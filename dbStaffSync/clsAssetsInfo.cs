@@ -662,7 +662,7 @@ namespace dbStaffSync
                                             " ManufacturerInfo = '" + txtManufacturerInfo + "', " + 
                                             " AssetTag = '', " + 
                                             " PurchaseDate = #" + dtPurchaseDate.ToString("dd-MMM-yyyy") + "#, " + 
-                                            " PurchaseValue = '', " + 
+                                            " PurchaseValue = 0, " + 
                                             " VendorName = '" + txtVendorName + "', " +
                                             " InvoiceNumber = '" + txtInvoiceNumber + "', " +
                                             " Location = '', " +
@@ -670,7 +670,7 @@ namespace dbStaffSync
                                             " WarrantyEndDate  = #" + dtWarrantyEndDate.ToString("dd-MMM-yyyy") + "#, " +
                                             " HasWarranty = " + HasWarranty + ", " +
                                             " LastServiceDate = #" + dtLastServiceDate.ToString("dd-MMM-yyyy") + "#, " +
-                                            " NextServiceDate = #" + dtNextServiceDate.ToString("dd-MMM-yyyy") + "#, " +
+                                            " NextServiceDate = #" + dtNextServiceDate.ToString("dd-MMM-yyyy") + "# " +
                                         " WHERE " +
                                             " AssetID = " + AssetID;
 

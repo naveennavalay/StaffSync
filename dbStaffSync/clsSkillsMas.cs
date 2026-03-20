@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ModelStaffSync;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 
@@ -14,15 +16,16 @@ namespace dbStaffSync
         DataSet dtDataset;
         clsGenFunc objGenFunc = new clsGenFunc();
 
-        public DataTable GetSkillList()
+        public List<SkillModel> GetSkillList()
         {
+            List<SkillModel> objSkillsList = new List<SkillModel>();
             DataTable dt = new DataTable();
 
             try
             {
                 conn = dbStaffSync.openDBConnection();
 
-                string strQuery = "SELECT * FROM SkillsMas WHERE IsDeleted = false";
+                string strQuery = "SELECT * FROM SkillsMas WHERE IsActive = true AND IsDeleted = false";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -32,6 +35,9 @@ namespace dbStaffSync
                 OleDbDataAdapter da = new OleDbDataAdapter(cmd);
                 da.Fill(dt);
 
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objSkillsList = JsonConvert.DeserializeObject<List<SkillModel>>(DataTableToJSon);
             }
             catch (Exception ex)
             {
@@ -43,18 +49,19 @@ namespace dbStaffSync
                 conn = dbStaffSync.closeDBConnection();
             }
 
-            return dt;
+            return objSkillsList;
         }
 
-        public DataTable GetSkillList(string filterText)
+        public List<SkillModel> GetSkillList(string filterText)
         {
+            List<SkillModel> objSkillsList = new List<SkillModel>();
             DataTable dt = new DataTable();
 
             try
             {
                 conn = dbStaffSync.openDBConnection();
 
-                string strQuery = "SELECT * FROM SkillsMas WHERE IsDeleted = false AND SkillTitle LIKE '" + filterText + "%'";
+                string strQuery = "SELECT * FROM SkillsMas WHERE IsActive = true AND IsDeleted = false AND SkillTitle LIKE '%" + filterText + "%'";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -64,6 +71,9 @@ namespace dbStaffSync
                 OleDbDataAdapter da = new OleDbDataAdapter(cmd);
                 da.Fill(dt);
 
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objSkillsList = JsonConvert.DeserializeObject<List<SkillModel>>(DataTableToJSon);
             }
             catch (Exception ex)
             {
@@ -75,7 +85,7 @@ namespace dbStaffSync
                 conn = dbStaffSync.closeDBConnection();
             }
 
-            return dt;
+            return objSkillsList;
         }
 
         public int InsertSkill(string txtSkillCode, string txtSkillTitle, string txtSkillInitial, bool IsActive, bool IsDeleted)

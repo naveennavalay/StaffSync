@@ -33,21 +33,12 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dtgDepartmentList = new System.Windows.Forms.DataGridView();
-            this.DepartmentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DepCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DepartmentTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DepartmentInitial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.departmentIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.depCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.departmentTitleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.departmentInitialDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isActiveDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.qryDepartmentListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dsDepartmentList = new StaffSync.dsDepartmentList();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             this.qryCountryListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDataSet = new StaffSync.StaffsyncDBDataSet();
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -55,7 +46,6 @@
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.qryDepartmentListTableAdapter = new StaffSync.dsDepartmentListTableAdapters.qryDepartmentListTableAdapter();
             this.qryCountryListTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.qryCountryListTableAdapter();
-            this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -106,22 +96,9 @@
             this.dtgDepartmentList.AllowUserToAddRows = false;
             this.dtgDepartmentList.AllowUserToDeleteRows = false;
             this.dtgDepartmentList.AllowUserToOrderColumns = true;
-            this.dtgDepartmentList.AutoGenerateColumns = false;
             this.dtgDepartmentList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgDepartmentList.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dtgDepartmentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgDepartmentList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DepartmentID,
-            this.DepCode,
-            this.DepartmentTitle,
-            this.DepartmentInitial,
-            this.IsActive,
-            this.departmentIDDataGridViewTextBoxColumn,
-            this.depCodeDataGridViewTextBoxColumn,
-            this.departmentTitleDataGridViewTextBoxColumn,
-            this.departmentInitialDataGridViewTextBoxColumn,
-            this.isActiveDataGridViewCheckBoxColumn});
-            this.dtgDepartmentList.DataSource = this.qryDepartmentListBindingSource;
             this.dtgDepartmentList.Location = new System.Drawing.Point(18, 78);
             this.dtgDepartmentList.Name = "dtgDepartmentList";
             this.dtgDepartmentList.ReadOnly = true;
@@ -129,82 +106,6 @@
             this.dtgDepartmentList.Size = new System.Drawing.Size(1192, 423);
             this.dtgDepartmentList.TabIndex = 7;
             this.dtgDepartmentList.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
-            // 
-            // DepartmentID
-            // 
-            this.DepartmentID.DataPropertyName = "DepartmentID";
-            this.DepartmentID.HeaderText = "Department ID";
-            this.DepartmentID.Name = "DepartmentID";
-            this.DepartmentID.ReadOnly = true;
-            this.DepartmentID.Visible = false;
-            this.DepartmentID.Width = 150;
-            // 
-            // DepCode
-            // 
-            this.DepCode.DataPropertyName = "DepCode";
-            this.DepCode.HeaderText = "Department Code";
-            this.DepCode.Name = "DepCode";
-            this.DepCode.ReadOnly = true;
-            this.DepCode.Width = 150;
-            // 
-            // DepartmentTitle
-            // 
-            this.DepartmentTitle.DataPropertyName = "DepartmentTitle";
-            this.DepartmentTitle.HeaderText = "Department Title";
-            this.DepartmentTitle.Name = "DepartmentTitle";
-            this.DepartmentTitle.ReadOnly = true;
-            this.DepartmentTitle.Width = 150;
-            // 
-            // DepartmentInitial
-            // 
-            this.DepartmentInitial.DataPropertyName = "DepartmentInitial";
-            this.DepartmentInitial.HeaderText = "Department Initial";
-            this.DepartmentInitial.Name = "DepartmentInitial";
-            this.DepartmentInitial.ReadOnly = true;
-            this.DepartmentInitial.Width = 150;
-            // 
-            // IsActive
-            // 
-            this.IsActive.DataPropertyName = "IsActive";
-            this.IsActive.HeaderText = "IsActive";
-            this.IsActive.Name = "IsActive";
-            this.IsActive.ReadOnly = true;
-            this.IsActive.Width = 150;
-            // 
-            // departmentIDDataGridViewTextBoxColumn
-            // 
-            this.departmentIDDataGridViewTextBoxColumn.DataPropertyName = "DepartmentID";
-            this.departmentIDDataGridViewTextBoxColumn.HeaderText = "DepartmentID";
-            this.departmentIDDataGridViewTextBoxColumn.Name = "departmentIDDataGridViewTextBoxColumn";
-            this.departmentIDDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // depCodeDataGridViewTextBoxColumn
-            // 
-            this.depCodeDataGridViewTextBoxColumn.DataPropertyName = "DepCode";
-            this.depCodeDataGridViewTextBoxColumn.HeaderText = "DepCode";
-            this.depCodeDataGridViewTextBoxColumn.Name = "depCodeDataGridViewTextBoxColumn";
-            this.depCodeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // departmentTitleDataGridViewTextBoxColumn
-            // 
-            this.departmentTitleDataGridViewTextBoxColumn.DataPropertyName = "DepartmentTitle";
-            this.departmentTitleDataGridViewTextBoxColumn.HeaderText = "DepartmentTitle";
-            this.departmentTitleDataGridViewTextBoxColumn.Name = "departmentTitleDataGridViewTextBoxColumn";
-            this.departmentTitleDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // departmentInitialDataGridViewTextBoxColumn
-            // 
-            this.departmentInitialDataGridViewTextBoxColumn.DataPropertyName = "DepartmentInitial";
-            this.departmentInitialDataGridViewTextBoxColumn.HeaderText = "DepartmentInitial";
-            this.departmentInitialDataGridViewTextBoxColumn.Name = "departmentInitialDataGridViewTextBoxColumn";
-            this.departmentInitialDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // isActiveDataGridViewCheckBoxColumn
-            // 
-            this.isActiveDataGridViewCheckBoxColumn.DataPropertyName = "IsActive";
-            this.isActiveDataGridViewCheckBoxColumn.HeaderText = "IsActive";
-            this.isActiveDataGridViewCheckBoxColumn.Name = "isActiveDataGridViewCheckBoxColumn";
-            this.isActiveDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
             // qryDepartmentListBindingSource
             // 
@@ -248,6 +149,18 @@
             this.panel2.Size = new System.Drawing.Size(1227, 64);
             this.panel2.TabIndex = 1;
             // 
+            // btnCloseMe
+            // 
+            this.btnCloseMe.Location = new System.Drawing.Point(1040, 13);
+            this.btnCloseMe.Name = "btnCloseMe";
+            this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
+            this.btnCloseMe.TabIndex = 22;
+            this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
+            this.btnCloseMe.Values.Text = "Close Me";
+            this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click);
+            // 
             // qryCountryListBindingSource
             // 
             this.qryCountryListBindingSource.DataMember = "qryCountryList";
@@ -270,27 +183,15 @@
             // 
             // empMasInfoTableAdapter
             // 
-            //this.empMasInfoTableAdapter.ClearBeforeFill = true;
+            this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
             // qryDepartmentListTableAdapter
             // 
-            //this.qryDepartmentListTableAdapter.ClearBeforeFill = true;
+            this.qryDepartmentListTableAdapter.ClearBeforeFill = true;
             // 
             // qryCountryListTableAdapter
             // 
-            //this.qryCountryListTableAdapter.ClearBeforeFill = true;
-            // 
-            // btnCloseMe
-            // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1040, 13);
-            this.btnCloseMe.Name = "btnCloseMe";
-            this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
-            this.btnCloseMe.TabIndex = 22;
-            this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
-            this.btnCloseMe.Values.Text = "Close Me";
-            this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click);
+            this.qryCountryListTableAdapter.ClearBeforeFill = true;
             // 
             // frmDepartmentList
             // 
@@ -343,16 +244,6 @@
         private StaffsyncDBDataSet staffsyncDBDataSet;
         private System.Windows.Forms.BindingSource qryCountryListBindingSource;
         private StaffsyncDBDataSetTableAdapters.qryCountryListTableAdapter qryCountryListTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DepartmentID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DepCode;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DepartmentTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DepartmentInitial;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn IsActive;
-        private System.Windows.Forms.DataGridViewTextBoxColumn departmentIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn depCodeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn departmentTitleDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn departmentInitialDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn isActiveDataGridViewCheckBoxColumn;
         private Krypton.Toolkit.KryptonButton btnCloseMe;
     }
 }

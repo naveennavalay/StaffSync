@@ -140,6 +140,11 @@
             this.dtgWeeklyOffDetails.Name = "dtgWeeklyOffDetails";
             this.dtgWeeklyOffDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgWeeklyOffDetails.Size = new System.Drawing.Size(1169, 375);
+            this.dtgWeeklyOffDetails.StateCommon.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgWeeklyOffDetails.StateCommon.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgWeeklyOffDetails.StateCommon.BackStyle = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
+            this.dtgWeeklyOffDetails.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgWeeklyOffDetails.StateNormal.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgWeeklyOffDetails.TabIndex = 34;
             this.dtgWeeklyOffDetails.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dtgSalaryProfileDetails_CellBeginEdit);
             this.dtgWeeklyOffDetails.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgSalaryProfileDetails_CellEndEdit);

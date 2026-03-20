@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 
@@ -11,22 +12,14 @@ namespace DALStaffSync
     {
         dbStaffSync.clsEduQalification objEduQalification = new dbStaffSync.clsEduQalification();
 
-        public DataTable GetEduQualMasList()
+        public List<EduQualTitleModel> GetEduQualMasList()
         {
-            DataTable dt = new DataTable();
-
-            dt = objEduQalification.GetEduQualMasList();
-
-            return dt;
+            return objEduQalification.GetEduQualMasList();
         }
 
-        public DataTable GetEduQualMasList(string filterText)
+        public List<EduQualTitleModel> GetEduQualMasList(string filterText)
         {
-            DataTable dt = new DataTable();
-
-            dt = objEduQalification.GetEduQualMasList(filterText);
-
-            return dt;
+            return objEduQalification.GetEduQualMasList(filterText);
         }
 
         public int InsertEduQual(string txtEduQualCode, string txtEduQualTitle, string txtEduQualInitial, bool IsActive, bool IsDeleted)

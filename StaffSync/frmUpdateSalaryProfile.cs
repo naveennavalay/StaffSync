@@ -549,14 +549,14 @@ namespace StaffSync
 
                 if (row.Cells["HeaderType"].Value.ToString().ToLower() == headerType && headerType == "allowences")
                 {
-                    expr = formula.Replace(headerName, baseValue.ToString());
+                    //expr = formula.Replace(headerName, baseValue.ToString());
 
-                    var result = new System.Data.DataTable().Compute(expr, null);
-                    decimal finalValue = Convert.ToDecimal(result);
-                    finalValue = Math.Ceiling((decimal)finalValue);
+                    //var result = new System.Data.DataTable().Compute(expr, null);
+                    //decimal finalValue = Convert.ToDecimal(result);
+                    //finalValue = Math.Ceiling((decimal)finalValue);
 
-                    dgv.Rows[rowIndex].Cells["AllowanceAmount"].Value = finalValue;
-                    dgv.Rows[rowIndex].Cells["HeaderTitle"].ToolTipText = formula;
+                    //dgv.Rows[rowIndex].Cells["AllowanceAmount"].Value = finalValue;
+                    //dgv.Rows[rowIndex].Cells["HeaderTitle"].ToolTipText = formula;
                     break;
                 }
                 else if (row.Cells["HeaderType"].Value.ToString().ToLower() == headerType && headerType == "deductions")

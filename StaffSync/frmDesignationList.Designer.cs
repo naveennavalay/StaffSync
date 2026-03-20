@@ -37,17 +37,12 @@
             this.DesignationTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DesignationInitial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IsActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.designationIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.designationCodeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.designationTitleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.designationInitialDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isActiveDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.isDeletedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.qryDesignationListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDataSet = new StaffSync.StaffsyncDBDataSet();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             this.countryMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryDepartmentListBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -63,7 +58,6 @@
             this.qryCountryListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryCountryListTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.qryCountryListTableAdapter();
             this.qryDesignationListTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.qryDesignationListTableAdapter();
-            this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -119,7 +113,6 @@
             this.dtgDesignationList.AllowUserToAddRows = false;
             this.dtgDesignationList.AllowUserToDeleteRows = false;
             this.dtgDesignationList.AllowUserToOrderColumns = true;
-            this.dtgDesignationList.AutoGenerateColumns = false;
             this.dtgDesignationList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgDesignationList.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dtgDesignationList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -128,14 +121,7 @@
             this.DesignationCode,
             this.DesignationTitle,
             this.DesignationInitial,
-            this.IsActive,
-            this.designationIDDataGridViewTextBoxColumn,
-            this.designationCodeDataGridViewTextBoxColumn,
-            this.designationTitleDataGridViewTextBoxColumn,
-            this.designationInitialDataGridViewTextBoxColumn,
-            this.isActiveDataGridViewCheckBoxColumn,
-            this.isDeletedDataGridViewCheckBoxColumn});
-            this.dtgDesignationList.DataSource = this.qryDesignationListBindingSource;
+            this.IsActive});
             this.dtgDesignationList.Location = new System.Drawing.Point(18, 78);
             this.dtgDesignationList.Name = "dtgDesignationList";
             this.dtgDesignationList.ReadOnly = true;
@@ -184,48 +170,6 @@
             this.IsActive.ReadOnly = true;
             this.IsActive.Width = 150;
             // 
-            // designationIDDataGridViewTextBoxColumn
-            // 
-            this.designationIDDataGridViewTextBoxColumn.DataPropertyName = "DesignationID";
-            this.designationIDDataGridViewTextBoxColumn.HeaderText = "DesignationID";
-            this.designationIDDataGridViewTextBoxColumn.Name = "designationIDDataGridViewTextBoxColumn";
-            this.designationIDDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // designationCodeDataGridViewTextBoxColumn
-            // 
-            this.designationCodeDataGridViewTextBoxColumn.DataPropertyName = "DesignationCode";
-            this.designationCodeDataGridViewTextBoxColumn.HeaderText = "DesignationCode";
-            this.designationCodeDataGridViewTextBoxColumn.Name = "designationCodeDataGridViewTextBoxColumn";
-            this.designationCodeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // designationTitleDataGridViewTextBoxColumn
-            // 
-            this.designationTitleDataGridViewTextBoxColumn.DataPropertyName = "DesignationTitle";
-            this.designationTitleDataGridViewTextBoxColumn.HeaderText = "DesignationTitle";
-            this.designationTitleDataGridViewTextBoxColumn.Name = "designationTitleDataGridViewTextBoxColumn";
-            this.designationTitleDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // designationInitialDataGridViewTextBoxColumn
-            // 
-            this.designationInitialDataGridViewTextBoxColumn.DataPropertyName = "DesignationInitial";
-            this.designationInitialDataGridViewTextBoxColumn.HeaderText = "DesignationInitial";
-            this.designationInitialDataGridViewTextBoxColumn.Name = "designationInitialDataGridViewTextBoxColumn";
-            this.designationInitialDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // isActiveDataGridViewCheckBoxColumn
-            // 
-            this.isActiveDataGridViewCheckBoxColumn.DataPropertyName = "IsActive";
-            this.isActiveDataGridViewCheckBoxColumn.HeaderText = "IsActive";
-            this.isActiveDataGridViewCheckBoxColumn.Name = "isActiveDataGridViewCheckBoxColumn";
-            this.isActiveDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // isDeletedDataGridViewCheckBoxColumn
-            // 
-            this.isDeletedDataGridViewCheckBoxColumn.DataPropertyName = "IsDeleted";
-            this.isDeletedDataGridViewCheckBoxColumn.HeaderText = "IsDeleted";
-            this.isDeletedDataGridViewCheckBoxColumn.Name = "isDeletedDataGridViewCheckBoxColumn";
-            this.isDeletedDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
             // qryDesignationListBindingSource
             // 
             this.qryDesignationListBindingSource.DataMember = "qryDesignationList";
@@ -268,6 +212,18 @@
             this.panel2.Size = new System.Drawing.Size(1227, 64);
             this.panel2.TabIndex = 1;
             // 
+            // btnCloseMe
+            // 
+            this.btnCloseMe.Location = new System.Drawing.Point(1084, 13);
+            this.btnCloseMe.Name = "btnCloseMe";
+            this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
+            this.btnCloseMe.TabIndex = 21;
+            this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
+            this.btnCloseMe.Values.Text = "Close Me";
+            this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click);
+            // 
             // countryMasBindingSource
             // 
             this.countryMasBindingSource.DataMember = "CountryMas";
@@ -275,8 +231,8 @@
             // 
             // staffsyncDBDTSet
             // 
-            //this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
-            //this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
+            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // qryDepartmentListBindingSource
             // 
@@ -295,15 +251,15 @@
             // 
             // empMasInfoTableAdapter
             // 
-            //this.empMasInfoTableAdapter.ClearBeforeFill = true;
+            this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
             // qryDepartmentListTableAdapter
             // 
-            //this.qryDepartmentListTableAdapter.ClearBeforeFill = true;
+            this.qryDepartmentListTableAdapter.ClearBeforeFill = true;
             // 
             // countryMasTableAdapter
             // 
-            //this.countryMasTableAdapter.ClearBeforeFill = true;
+            this.countryMasTableAdapter.ClearBeforeFill = true;
             // 
             // countryMasAddressMasBindingSource
             // 
@@ -312,7 +268,7 @@
             // 
             // addressMasTableAdapter
             // 
-            //this.addressMasTableAdapter.ClearBeforeFill = true;
+            this.addressMasTableAdapter.ClearBeforeFill = true;
             // 
             // countryMasBindingSource1
             // 
@@ -331,23 +287,11 @@
             // 
             // qryCountryListTableAdapter
             // 
-            //this.qryCountryListTableAdapter.ClearBeforeFill = true;
+            this.qryCountryListTableAdapter.ClearBeforeFill = true;
             // 
             // qryDesignationListTableAdapter
             // 
-            //this.qryDesignationListTableAdapter.ClearBeforeFill = true;
-            // 
-            // btnCloseMe
-            // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1084, 13);
-            this.btnCloseMe.Name = "btnCloseMe";
-            this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
-            this.btnCloseMe.TabIndex = 21;
-            this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
-            this.btnCloseMe.Values.Text = "Close Me";
-            this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click);
+            this.qryDesignationListTableAdapter.ClearBeforeFill = true;
             // 
             // frmDesignationList
             // 
@@ -418,12 +362,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DesignationTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn DesignationInitial;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsActive;
-        private System.Windows.Forms.DataGridViewTextBoxColumn designationIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn designationCodeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn designationTitleDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn designationInitialDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn isActiveDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn isDeletedDataGridViewCheckBoxColumn;
         private Krypton.Toolkit.KryptonButton btnCloseMe;
     }
 }

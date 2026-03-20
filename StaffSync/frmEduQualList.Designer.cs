@@ -33,16 +33,12 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dtgDepartmentList = new System.Windows.Forms.DataGridView();
-            this.CountryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CountryCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CountryTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CountryInitial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.qryCountryListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDataSet = new StaffSync.StaffsyncDBDataSet();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             this.countryMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryDepartmentListBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -56,7 +52,6 @@
             this.countryMasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.countryMasBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.qryCountryListTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.qryCountryListTableAdapter();
-            this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -111,17 +106,9 @@
             this.dtgDepartmentList.AllowUserToAddRows = false;
             this.dtgDepartmentList.AllowUserToDeleteRows = false;
             this.dtgDepartmentList.AllowUserToOrderColumns = true;
-            this.dtgDepartmentList.AutoGenerateColumns = false;
             this.dtgDepartmentList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgDepartmentList.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dtgDepartmentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgDepartmentList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CountryID,
-            this.CountryCode,
-            this.CountryTitle,
-            this.CountryInitial,
-            this.IsActive});
-            this.dtgDepartmentList.DataSource = this.qryCountryListBindingSource;
             this.dtgDepartmentList.Location = new System.Drawing.Point(18, 78);
             this.dtgDepartmentList.Name = "dtgDepartmentList";
             this.dtgDepartmentList.ReadOnly = true;
@@ -129,46 +116,6 @@
             this.dtgDepartmentList.Size = new System.Drawing.Size(818, 423);
             this.dtgDepartmentList.TabIndex = 7;
             this.dtgDepartmentList.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
-            // 
-            // CountryID
-            // 
-            this.CountryID.DataPropertyName = "CountryID";
-            this.CountryID.HeaderText = "Country ID";
-            this.CountryID.Name = "CountryID";
-            this.CountryID.ReadOnly = true;
-            this.CountryID.Width = 150;
-            // 
-            // CountryCode
-            // 
-            this.CountryCode.DataPropertyName = "CountryCode";
-            this.CountryCode.HeaderText = "Country Code";
-            this.CountryCode.Name = "CountryCode";
-            this.CountryCode.ReadOnly = true;
-            this.CountryCode.Width = 150;
-            // 
-            // CountryTitle
-            // 
-            this.CountryTitle.DataPropertyName = "CountryTitle";
-            this.CountryTitle.HeaderText = "Country Title";
-            this.CountryTitle.Name = "CountryTitle";
-            this.CountryTitle.ReadOnly = true;
-            this.CountryTitle.Width = 150;
-            // 
-            // CountryInitial
-            // 
-            this.CountryInitial.DataPropertyName = "CountryInitial";
-            this.CountryInitial.HeaderText = "Country Initial";
-            this.CountryInitial.Name = "CountryInitial";
-            this.CountryInitial.ReadOnly = true;
-            this.CountryInitial.Width = 150;
-            // 
-            // IsActive
-            // 
-            this.IsActive.DataPropertyName = "IsActive";
-            this.IsActive.HeaderText = "Is Active";
-            this.IsActive.Name = "IsActive";
-            this.IsActive.ReadOnly = true;
-            this.IsActive.Width = 150;
             // 
             // qryCountryListBindingSource
             // 
@@ -212,6 +159,18 @@
             this.panel2.Size = new System.Drawing.Size(854, 64);
             this.panel2.TabIndex = 1;
             // 
+            // btnCloseMe
+            // 
+            this.btnCloseMe.Location = new System.Drawing.Point(686, 13);
+            this.btnCloseMe.Name = "btnCloseMe";
+            this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
+            this.btnCloseMe.TabIndex = 21;
+            this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
+            this.btnCloseMe.Values.Text = "Close Me";
+            this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click);
+            // 
             // countryMasBindingSource
             // 
             this.countryMasBindingSource.DataMember = "CountryMas";
@@ -219,8 +178,8 @@
             // 
             // staffsyncDBDTSet
             // 
-            //this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
-            //this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
+            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // qryDepartmentListBindingSource
             // 
@@ -239,15 +198,15 @@
             // 
             // empMasInfoTableAdapter
             // 
-            //this.empMasInfoTableAdapter.ClearBeforeFill = true;
+            this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
             // qryDepartmentListTableAdapter
             // 
-            //this.qryDepartmentListTableAdapter.ClearBeforeFill = true;
+            this.qryDepartmentListTableAdapter.ClearBeforeFill = true;
             // 
             // countryMasTableAdapter
             // 
-            //this.countryMasTableAdapter.ClearBeforeFill = true;
+            this.countryMasTableAdapter.ClearBeforeFill = true;
             // 
             // countryMasAddressMasBindingSource
             // 
@@ -270,19 +229,7 @@
             // 
             // qryCountryListTableAdapter
             // 
-            //this.qryCountryListTableAdapter.ClearBeforeFill = true;
-            // 
-            // btnCloseMe
-            // 
-            this.btnCloseMe.Location = new System.Drawing.Point(686, 13);
-            this.btnCloseMe.Name = "btnCloseMe";
-            this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
-            this.btnCloseMe.TabIndex = 21;
-            this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
-            this.btnCloseMe.Values.Text = "Close Me";
-            this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click);
+            this.qryCountryListTableAdapter.ClearBeforeFill = true;
             // 
             // frmEduQualList
             // 
@@ -346,11 +293,6 @@
         private StaffsyncDBDataSet staffsyncDBDataSet;
         private System.Windows.Forms.BindingSource qryCountryListBindingSource;
         private StaffsyncDBDataSetTableAdapters.qryCountryListTableAdapter qryCountryListTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CountryID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CountryCode;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CountryTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CountryInitial;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn IsActive;
         private Krypton.Toolkit.KryptonButton btnCloseMe;
     }
 }

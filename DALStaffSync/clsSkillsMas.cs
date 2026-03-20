@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 
@@ -11,22 +12,14 @@ namespace DALStaffSync
     {
         dbStaffSync.clsSkillsMas objSkillsMas = new dbStaffSync.clsSkillsMas();
 
-        public DataTable GetSkillList()
-        {
-            DataTable dt = new DataTable();
-            
-            dt = objSkillsMas.GetSkillList();
-
-            return dt;
+        public List<SkillModel> GetSkillList()
+        {            
+            return objSkillsMas.GetSkillList();
         }
 
-        public DataTable GetSkillList(string filterText)
+        public List<SkillModel> GetSkillList(string filterText)
         {
-            DataTable dt = new DataTable();
-
-            dt = objSkillsMas.GetSkillList(filterText);
-
-            return dt;
+            return objSkillsMas.GetSkillList(filterText);
         }
 
         public int InsertSkill(string txtSkillCode, string txtSkillTitle, string txtSkillInitial, bool IsActive, bool IsDeleted)

@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ModelStaffSync;
+using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 
@@ -12,22 +13,14 @@ namespace DALStaffSync
 
         dbStaffSync.clsDesignation objDesignation = new dbStaffSync.clsDesignation();
 
-        public DataTable GetDesignationList()
+        public List<DesignationModel> GetDesignationList()
         {
-            DataTable dt = new DataTable();
-
-            dt = objDesignation.GetDesignationList();
-
-            return dt;
+            return objDesignation.GetDesignationList();
         }
 
-        public DataTable GetDesignationList(string filterText)
+        public List<DesignationModel> GetDesignationList(string filterText)
         {
-            DataTable dt = new DataTable();
-
-            dt = objDesignation.GetDesignationList(filterText);
-
-            return dt;
+            return objDesignation.GetDesignationList(filterText);
         }
 
         public string GetDesignationByID(int DesignationID)

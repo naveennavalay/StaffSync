@@ -35,6 +35,7 @@ namespace StaffSync
         private void frmDesignationList_Load(object sender, EventArgs e)
         {
             dtgDesignationList.DataSource = clsDesignation.GetDesignationList();
+            FormatGrid();
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -54,11 +55,25 @@ namespace StaffSync
                 {
                     dtgDesignationList.DataSource = clsDesignation.GetDesignationList(txtSearch.Text.ToString().Trim());
                 }
+                FormatGrid();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void FormatGrid()
+        {
+            dtgDesignationList.Columns["DesignationID"].Visible = false;
+            dtgDesignationList.Columns["DesignationCode"].ReadOnly = true;
+            dtgDesignationList.Columns["DesignationCode"].Width = 100;
+            dtgDesignationList.Columns["DesignationTitle"].ReadOnly = true;
+            dtgDesignationList.Columns["DesignationTitle"].Width = 250;
+            dtgDesignationList.Columns["DesignationInitial"].ReadOnly = true;
+            dtgDesignationList.Columns["DesignationInitial"].Width = 250;
+            dtgDesignationList.Columns["IsActive"].Visible = false;
+            dtgDesignationList.Columns["IsDeleted"].Visible = false;
         }
 
         private void dtgDepartmentList_DoubleClick(object sender, EventArgs e)

@@ -19,7 +19,7 @@ namespace ModelStaffSync
         public string WklyOffTitle { get; set; }
 
         [DisplayName("Effective From")]
-        public DateTime EffectDateFrom { get; set; }
+        public DateTime WklyOffEffectiveDate { get; set; }
 
         public bool IsActive { get; set; }
 
