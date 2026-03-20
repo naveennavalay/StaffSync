@@ -23,6 +23,9 @@ namespace ModelStaffSync
         [DisplayName("Audit Statements")]
         public string AuditLogStatement { get; set; }
 
+        [DisplayName("Change Type")]
+        public string ActionType { get; set; }
+
         [DisplayName("Updated by")]
         public string UserName { get; set; }
 

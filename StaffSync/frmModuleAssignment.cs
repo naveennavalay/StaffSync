@@ -25,6 +25,12 @@ namespace StaffSync
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
 
+        DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
+
+        string strActionStatement = "";
+        private Dictionary<string, object> _originalValues;
+
+
         public frmModuleAssignment()
         {
             InitializeComponent();
@@ -181,6 +187,11 @@ namespace StaffSync
             int insertNewRecordCount = 0;
             if (validateValues())
             {
+                var updatedValues = AuditLogger.getOriginalValues(this);
+                var onlyChangedValues = (dynamic)null;
+
+                strActionStatement = "";
+
                 int deletedExistingRecordCount = objAppModule.RemoveUsersAppModuleInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()));
 
                 foreach (DataGridViewRow indRow in dtgModulesList.Rows)
@@ -197,6 +208,13 @@ namespace StaffSync
 
                 if (insertNewRecordCount > 0)
                 {
+                    foreach (var changedValues in onlyChangedValues)
+                    {
+                        if (lblActionMode.Text == "modify")
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                    }
+
+
                     //objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), Convert.ToDecimal(txtBalanceLeave.Text));
                     RefreshDefaultModulesList();
                     MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -251,6 +269,7 @@ namespace StaffSync
 
                 RefreshUserSpecificModulesList(Convert.ToInt16(lblReportingManagerID.Text.ToString()));
 
+                _originalValues = AuditLogger.getOriginalValues(this);
                 //cmbModule.DataSource = objAppModule.GetDefaultAppModuleInfo();
                 //cmbModule.DisplayMember = "ModuleTitle";
                 //cmbModule.ValueMember = "ModuleID";

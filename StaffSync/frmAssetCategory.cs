@@ -173,7 +173,10 @@ namespace StaffSync
                 {
                     foreach (var changedValues in onlyChangedValues)
                     {
-                        objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblCategoryID.Text.ToString()), changedValues.ToString().Trim(), ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        if (lblActionMode.Text == "add")
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblCategoryID.Text.ToString()), changedValues.ToString().Trim(), "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        else if (lblActionMode.Text == "modify")
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblCategoryID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                     }
                 }
 

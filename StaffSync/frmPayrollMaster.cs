@@ -58,6 +58,9 @@ namespace StaffSync
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
         frmEmpAdvanceRepayment frmEmpAdvanceRepayment = null;
 
+        string strActionStatement = "";
+        private Dictionary<string, object> _originalValues;
+
         public frmPayrollMaster()
         {
             InitializeComponent();
@@ -336,6 +339,11 @@ namespace StaffSync
             decimal ReimbursmentAmount = 0;
             int iRowCounter = 1;
 
+            var updatedValues = AuditLogger.getOriginalValues(this);
+            var onlyChangedValues = (dynamic)null;
+
+            strActionStatement = "";
+
             if (lblActionMode.Text == "add")
             {
 
@@ -344,6 +352,9 @@ namespace StaffSync
                     this.Cursor = Cursors.Default;
                     return;
                 }
+
+                strActionStatement = "PayrollMasterInfoNewUpdates";
+                onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
 
                 empSalaryID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblReportingManagerID.Text.Trim()), Convert.ToDateTime(txtSalaryDate.Text), cmbSalaryMonth.Text, Convert.ToDecimal(txtTotalWorkingDays.Text).RoundUp(), Convert.ToDecimal(txtTotalWorkedDays.Text), Convert.ToDecimal(txtLeaveDays.Text), Convert.ToDecimal(txtUnpaidLeaves.Text), Convert.ToDecimal(txtTotalPayableDays.Text), Convert.ToDecimal(lblBasicSalary.Text).RoundUp(), Convert.ToDecimal(lblBasicSalaryPerDay.Text).RoundUp(), Convert.ToDecimal(lblBasicSalaryPerHour.Text).RoundUp(), Convert.ToDecimal(txtAallowences.Text).RoundUp(), Convert.ToDecimal(txtDeductions.Text).RoundUp(), Convert.ToDecimal(txtReimbursement.Text).RoundUp(), Convert.ToDecimal(lblPFCalcAmount.Text.ToString()).RoundUp(), Convert.ToDecimal(txtNetPayable.Text).RoundUp(), false);
                 foreach (DataGridViewRow dc in dtgSalaryDetails.Rows)
@@ -412,11 +423,11 @@ namespace StaffSync
                         if(Convert.ToBoolean(dc.Cells["Select"].Value) == true)
                         {
                             int newTransactionID = objAdvanceTransaction.InsertAdvanceTransaction(dc.Cells["EmpAdvReqCode"].Value.ToString(), Convert.ToInt32(AdvanceRequestID), Convert.ToDateTime(DateTime.Today.Date), Convert.ToDecimal(dc.Cells["CBalance"].Value.ToString()).RoundUp(), 0, Convert.ToDecimal(dc.Cells["RePaymentBalance"].Value.ToString()).RoundUp(), Convert.ToDecimal(dc.Cells["CBalance"].Value.ToString()).RoundUp() - Convert.ToDecimal(dc.Cells["RePaymentBalance"].Value.ToString()).RoundUp(), "Dr", "Via Deduction in Salary [" + cmbSalaryMonth.SelectedText.ToString() + " Dated on " + Convert.ToDateTime(txtSalaryDate.Text.ToString()).ToString("dd-MMM-yyyy") + " ]", empSalaryID);
-                            objAuditLog.InsertAuditLog(Convert.ToInt32(lblReportingManagerID.Text.ToString()), Convert.ToInt32(empSalaryID), "To " + dc.Cells["AdvanceTypeTitle"].Value.ToString() + " Repayment via Salary Deduction", ModelStaffSync.CurrentUser.EmpName, "SalaryToAdvanceRepayment", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(lblReportingManagerID.Text.ToString()), Convert.ToInt32(empSalaryID), "To " + dc.Cells["AdvanceTypeTitle"].Value.ToString() + " Repayment via Salary Deduction", "Insert", ModelStaffSync.CurrentUser.EmpName, "SalaryToAdvanceRepayment", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                             if (Convert.ToDecimal(dc.Cells["CBalance"].Value.ToString()) - Convert.ToDecimal(dc.Cells["RePaymentBalance"].Value.ToString()) == 0)
                             {
                                 objAdvanceTransaction.CloseEmployeeSpecificAdvanceRequest(Convert.ToInt32(AdvanceRequestID.ToString()));
-                                objAuditLog.InsertAuditLog(Convert.ToInt32(lblReportingManagerID.Text.ToString()), Convert.ToInt32(empSalaryID), "\"" + dc.Cells["AdvanceTypeTitle"].Value.ToString() + "\" completely recovered from Employee : \"" + txtRepEmpName.Text + " [ EmpCode : " + txtRepEmpCode.Text.ToString() + " ] \" via Salary Deduction" , ModelStaffSync.CurrentUser.EmpName, "SalaryToAdvanceRepayment", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                                objAuditLog.InsertAuditLog(Convert.ToInt32(lblReportingManagerID.Text.ToString()), Convert.ToInt32(empSalaryID), "\"" + dc.Cells["AdvanceTypeTitle"].Value.ToString() + "\" completely recovered from Employee : \"" + txtRepEmpName.Text + " [ EmpCode : " + txtRepEmpCode.Text.ToString() + " ] \" via Salary Deduction" , "Insert", ModelStaffSync.CurrentUser.EmpName, "SalaryToAdvanceRepayment", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                             }
                         }
                     }
@@ -433,6 +444,9 @@ namespace StaffSync
                     this.Cursor = Cursors.Default;
                     return;
                 }
+
+                strActionStatement = "PayrollMasterInfoExistingUpdates";
+                onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
 
                 empSalaryID = objEmployeePayroll.UpdateEmployeeSalaryMasterInfo(Convert.ToInt16(lblSelectedMonthSalaryID.Text.Trim()), Convert.ToInt16(lblReportingManagerID.Text.Trim()), Convert.ToDateTime(txtSalaryDate.Text), cmbSalaryMonth.Text, Convert.ToDecimal(txtTotalWorkingDays.Text), Convert.ToDecimal(txtTotalWorkedDays.Text), Convert.ToDecimal(txtLeaveDays.Text), Convert.ToDecimal(txtUnpaidLeaves.Text), Convert.ToDecimal(txtTotalPayableDays.Text), Convert.ToDecimal(lblBasicSalary.Text).RoundUp(), Convert.ToDecimal(lblBasicSalaryPerDay.Text).RoundUp(), Convert.ToDecimal(lblBasicSalaryPerHour.Text).RoundUp(), Convert.ToDecimal(txtAallowences.Text).RoundUp(), Convert.ToDecimal(txtDeductions.Text).RoundUp(), Convert.ToDecimal(txtReimbursement.Text).RoundUp(), Convert.ToDecimal(lblPFCalcAmount.Text.ToString()).RoundUp(), Convert.ToDecimal(txtNetPayable.Text).RoundUp(), false);
                 foreach (DataGridViewRow dc in dtgSalaryDetails.Rows)
@@ -491,6 +505,14 @@ namespace StaffSync
                 }
                 if (empSalaryID > 0)
                     MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            foreach (var changedValues in onlyChangedValues)
+            {
+                if (lblActionMode.Text == "add")
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), changedValues.ToString().Trim(), "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                else if (lblActionMode.Text == "modify")
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             }
 
             objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
@@ -1056,6 +1078,8 @@ namespace StaffSync
                 dtgSalaryDetails.CurrentCell = cell;
                 dtgSalaryDetails.FirstDisplayedScrollingRowIndex = dtgSalaryDetails.Rows[0].Index;
                 dtgSalaryDetails.BeginEdit(true);
+
+                _originalValues = AuditLogger.getOriginalValues(this);
             }
             else if (SearchOptionSelectedForm == "listEmployeesPayslip")
             {
@@ -1176,6 +1200,8 @@ namespace StaffSync
                 dtgSalaryDetails.FirstDisplayedScrollingRowIndex = dtgSalaryDetails.Rows[0].Index;
                 dtgSalaryDetails.BeginEdit(true);
                 dtgSalaryDetails.Focus();
+
+                _originalValues = AuditLogger.getOriginalValues(this);
             }
         }
 

@@ -47,6 +47,9 @@ namespace StaffSync
         SpecificEmployeeSalaryInfo objSpecificEmployeeSalaryInfo = new SpecificEmployeeSalaryInfo();
         AdvanceTypeConfigModel objAdvanceTypeConfigModel = new AdvanceTypeConfigModel();
 
+        string strActionStatement = "";
+        private Dictionary<string, object> _originalValues;
+
         DateTime dos;
         string dateFormat = "dd-MM-yyyy";
         CultureInfo provider = CultureInfo.InvariantCulture;
@@ -217,8 +220,16 @@ namespace StaffSync
                 return;
             }
 
-            if(lblActionMode.Text == "add")
+            var updatedValues = AuditLogger.getOriginalValues(this);
+            var onlyChangedValues = (dynamic)null;
+
+            strActionStatement = "";
+
+            if (lblActionMode.Text == "add")
             {
+                strActionStatement = "AdvanceRepaymentNewUpdates";
+                onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
+
                 int newTransactionID = objAdvanceTransaction.InsertAdvanceTransaction(txtAdvanceRequestCode.Text, Convert.ToInt32(lblEmpAdvanceRequestID.Text.ToString()), Convert.ToDateTime(txtAdvanceTRDate.Text.Trim()), Convert.ToDecimal(txtClosingBalance.Text.Trim()), 0, Convert.ToDecimal(txtAdvanceTRAmount.Text), Convert.ToDecimal(txtClosingBalance.Text.Trim()) - Convert.ToDecimal(txtAdvanceTRAmount.Text), cmbPaymentType.SelectedItem.ToString(), txtComments.Text.Trim(), 0);
                 if (newTransactionID > 0)
                 {
@@ -227,9 +238,15 @@ namespace StaffSync
                         objAdvanceTransaction.CloseEmployeeSpecificAdvanceRequest(Convert.ToInt32(lblEmpAdvanceRequestID.Text.ToString()));
                     }
 
-                    objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), newTransactionID, txtComments.Text, ModelStaffSync.CurrentUser.EmpName, "AdvanceAmountRepayment", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), newTransactionID, txtComments.Text, "Insert", ModelStaffSync.CurrentUser.EmpName, "AdvanceAmountRepayment", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                     MessageBox.Show("Advance repayment details saved successfully.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+            }
+
+            foreach (var changedValues in onlyChangedValues)
+            {
+                if (lblActionMode.Text == "add")
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblEmpAdvanceRequestID.Text.ToString()), changedValues.ToString().Trim(), "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             }
 
             objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
@@ -578,6 +595,8 @@ namespace StaffSync
 
             txtAdvanceTRAmount.Text = Convert.ToDecimal(objEmployeeSpecificAdvanceInformation[0].AdvanceInstallment.ToString()).ToString("#,##0.00");
             txtAdvanceTRAmount.Text = Convert.ToDecimal(txtAdvanceTRAmount.Text.ToString()).ToString("###0.00");
+
+            _originalValues = AuditLogger.getOriginalValues(this);
 
             lnkViewAuditLog.Visible = true;
         }

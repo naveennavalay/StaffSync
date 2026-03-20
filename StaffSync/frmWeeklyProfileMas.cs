@@ -26,6 +26,10 @@ namespace StaffSync
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
+        DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
+
+        string strActionStatement = "";
+        private Dictionary<string, object> _originalValues;
 
         public frmWeeklyProfileMas()
         {
@@ -147,17 +151,36 @@ namespace StaffSync
             }
             else
             {
+                var updatedValues = AuditLogger.getOriginalValues(this);
+                var onlyChangedValues = (dynamic)null;
+
+                strActionStatement = "";
+
                 if (lblActionMode.Text == "add")
                 {
+                    strActionStatement = "WeeklyOffProfileNewUpdates";
+                    onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
+
                     int affectedRows = objWeeklyOffInfo.InsertWeeklyOffInfo(txtWeeklyCode.Text.Trim(), txtWeeklyOffTitle.Text.Trim(), Convert.ToDateTime(txtEffectiveDate.Text.Trim()), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                     if (affectedRows > 0)
                         MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (lblActionMode.Text == "modify")
                 {
+                    strActionStatement = "WeeklyOffProfileExistingUpdates";
+                    onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
+
                     int affectedRows = objWeeklyOffInfo.UpdateWeeklyOffInfo(Convert.ToInt16(lblWeeklyOffID.Text.Trim()), txtWeeklyCode.Text.Trim(), txtWeeklyOffTitle.Text.Trim(), Convert.ToDateTime(txtEffectiveDate.Text.Trim()), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                     if (affectedRows > 0)
                         MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                foreach (var changedValues in onlyChangedValues)
+                {
+                    if (lblActionMode.Text == "add")
+                        objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblWeeklyOffID.Text.ToString()), changedValues.ToString().Trim(), "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                    else if (lblActionMode.Text == "modify")
+                        objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblWeeklyOffID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                 }
 
                 objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
@@ -278,6 +301,7 @@ namespace StaffSync
             txtWeeklyOffTitle.Text = WklyOffProfileMasInfoModel.WklyOffTitle;
             txtEffectiveDate.Text = Convert.ToDateTime(WklyOffProfileMasInfoModel.EffectDateFrom).ToString("dd-MM-yyyy");
             cmbIsActive.Text = WklyOffProfileMasInfoModel.IsActive == true ? "Yes" : "No";
+            _originalValues = AuditLogger.getOriginalValues(this);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

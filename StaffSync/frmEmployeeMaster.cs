@@ -78,6 +78,11 @@ namespace StaffSync
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
         ClientStatutory tmpClientStatutory = new ClientStatutory();
 
+        DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
+
+        string strActionStatement = "";
+        private Dictionary<string, object> _originalValues;
+
         public frmEmployeeMaster()
         {
             InitializeComponent();
@@ -991,8 +996,16 @@ namespace StaffSync
                 return;
             }
 
+            var updatedValues = AuditLogger.getOriginalValues(this);
+            var onlyChangedValues = (dynamic)null;
+
+            strActionStatement = "";
+
             if (lblActionMode.Text == "add")
             {
+                strActionStatement = "EmployeeMasterInfoNewUpdates";
+                onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
+
                 int iRowCounter = 1;
 
                 if (lblReportingManagerID.Text.ToString().Trim() == "")
@@ -1001,6 +1014,7 @@ namespace StaffSync
                 int employeeID = objEmployeeMaster.InsertEmployeeMaster(Convert.ToInt16(lblEmpID.Text.Trim()), txtEmpCode.Text.Trim(), txtEmployeeName.Text.Trim(), cmbDesignation.SelectedIndex + 1, Convert.ToInt16(lblReportingManagerID.Text.Trim()), cmbDepartment.SelectedIndex + 1, cmbBloodGroup.SelectedIndex + 1, true, false, CurrentUser.ClientID);
                 if (employeeID > 0)
                 {
+                    lblEmpID.Text = employeeID.ToString();
                     int userID = objLogin.InsertUserInfo(employeeID, true, false, txtEmployeeMailID.Text, objEncryptDecrypt.encryptText(txtDateOfBirth.Text.ToString()));
 
                     if (tabPersonalPhoto.Visible == true)
@@ -1168,6 +1182,9 @@ namespace StaffSync
                     }
                 }
 
+                strActionStatement = "EmployeeMasterInfoExistingUpdates";
+                onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
+
                 int iRowCounter = 1;
 
                 int employeeID = objEmployeeMaster.UpdateEmployeeMaster(Convert.ToInt16(lblEmpID.Text.Trim()), txtEmpCode.Text.Trim(), txtEmployeeName.Text.Trim(), cmbDesignation.SelectedIndex + 1, Convert.ToInt16(lblReportingManagerID.Text.Trim()), cmbDepartment.SelectedIndex + 1, cmbBloodGroup.SelectedIndex + 1, true, false, CurrentUser.ClientID);
@@ -1313,6 +1330,14 @@ namespace StaffSync
                     MessageBox.Show("Details not inserted successfully.\nPlease verify once again.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+            }
+
+            foreach (var changedValues in onlyChangedValues)
+            {
+                if (lblActionMode.Text == "add")
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblEmpID.Text.ToString()), changedValues.ToString().Trim(), "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                else if (lblActionMode.Text == "modify")
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblEmpID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             }
 
             objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()));
@@ -2028,6 +2053,8 @@ namespace StaffSync
                 lnkViewAuditLog.Visible = true;
                 btnViewCalender.Visible = true;
                 UpdateUIWithSelectedEmployeeDetails(Convert.ToInt16(lblEmpID.Text));
+
+                _originalValues = AuditLogger.getOriginalValues(this);
             }
             else if (SearchOptionSelectedForm == "listRepManagers")
             {
@@ -2040,6 +2067,8 @@ namespace StaffSync
                 txtRepEmpDepartment.Text = objReportingManagerInfo.DepartmentTitle;
                 txtRepEmpContactNumber.Text = objReportingManagerInfo.ContactNumber1;
                 picRepEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblReportingManagerID.Text.ToString())).EmpPhoto);
+
+                _originalValues = AuditLogger.getOriginalValues(this);
             }
         }
 

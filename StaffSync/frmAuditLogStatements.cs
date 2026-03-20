@@ -57,14 +57,15 @@ namespace StaffSync
             dtgAuditLogStatements.Columns["EventDateTime"].DefaultCellStyle.Format = "dd-MMM-yyyy hh:mm:ss tt";
 
             dtgAuditLogStatements.Columns["AuditLogStatement"].ReadOnly = true;
-            dtgAuditLogStatements.Columns["AuditLogStatement"].Width = 350;
+            dtgAuditLogStatements.Columns["AuditLogStatement"].Width = 500;
+
+            dtgAuditLogStatements.Columns["ActionType"].ReadOnly = true;
+            dtgAuditLogStatements.Columns["ActionType"].Width = 100;
 
             dtgAuditLogStatements.Columns["UserName"].ReadOnly = true;
             dtgAuditLogStatements.Columns["UserName"].Width = 200;
 
-            dtgAuditLogStatements.Columns["EventGroup"].ReadOnly = true;
-            dtgAuditLogStatements.Columns["EventGroup"].Width = 200;
-
+            dtgAuditLogStatements.Columns["EventGroup"].Visible = false;
             dtgAuditLogStatements.Columns["ClientID"].Visible = false;
         }
 
@@ -95,7 +96,7 @@ namespace StaffSync
 
         private void dtgDepartmentList_DoubleClick(object sender, EventArgs e)
         {
-            this.Close();
+            //this.Close();
         }
 
         private void frmAuditLogStatements_KeyUp(object sender, KeyEventArgs e)

@@ -28,9 +28,13 @@ namespace StaffSync
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
+        DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
+
+        string strActionStatement = "";
+        private Dictionary<string, object> _originalValues;
 
         public frmBranchInfo()
         {
@@ -142,8 +146,16 @@ namespace StaffSync
             }
             else
             {
+                var updatedValues = AuditLogger.getOriginalValues(this);
+                var onlyChangedValues = (dynamic)null;
+
+                strActionStatement = "";
+
                 if (lblActionMode.Text == "add")
                 {
+                    strActionStatement = "BranchInfoNewUpdates";
+                    onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
+
                     int newID = clsClientBranchInfo.InsertClientBranchInfo(txtCompCode.Text, txtCompanyName.Text, txtAddress01.Text, txtAddress02.Text, txtArea.Text, txtCity.Text, txtState.Text, txtPIN.Text, cmbCountry.Text, txtContactNumber.Text, txtMailID.Text, txtContactPerson.Text, txtContactNumber.Text, txtMailID.Text, txtWebsite.Text, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, objTempClientFinYearInfo.ClientID);
                     if (txtCompLogo.Text == "overwrite")
                     {
@@ -159,6 +171,9 @@ namespace StaffSync
                 }
                 else if (lblActionMode.Text == "modify")
                 {
+                    strActionStatement = "BranchInfoExistingUpdates";
+                    onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
+
                     int affectedRows = clsClientBranchInfo.UpdateClientBranchInfo(Convert.ToInt16(lblCompID.Text), txtCompCode.Text, txtCompanyName.Text, txtAddress01.Text, txtAddress02.Text, txtArea.Text, txtCity.Text, txtState.Text, txtPIN.Text, cmbCountry.Text, txtContactNumber.Text, txtMailID.Text, txtContactPerson.Text, txtContactNumber.Text, txtMailID.Text, txtWebsite.Text, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, objTempClientFinYearInfo.ClientID);
                     if (txtCompLogo.Text == "overwrite")
                     {
@@ -171,6 +186,14 @@ namespace StaffSync
 
                     if (affectedRows > 0)
                         MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                foreach (var changedValues in onlyChangedValues)
+                {
+                    if (lblActionMode.Text == "add")
+                        objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblCompID.Text.ToString()), changedValues.ToString().Trim(), "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                    else if (lblActionMode.Text == "modify")
+                        objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblCompID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                 }
 
                 objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
@@ -339,6 +362,8 @@ namespace StaffSync
             picCompLogo.Image = objImpageOperation.BytesToImage(objPhotoMas.getCompanyBranchLogo(Convert.ToInt16(lblCompID.Text.ToString())).ClientBranchLogo);
 
             cmbIsActive.Text = ClientBranchInfoModel.IsActive == true ? "Yes" : "No";
+
+            _originalValues = AuditLogger.getOriginalValues(this);
 
             lnkViewAuditLog.Visible = true;
         }

@@ -40,6 +40,10 @@ namespace StaffSync
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
+        DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
+
+        string strActionStatement = "";
+        private Dictionary<string, object> _originalValues;
 
         public frmOrgMasterInfo()
         {
@@ -157,8 +161,16 @@ namespace StaffSync
 
             if (ValidateValuesOnUI())
             {
+                var updatedValues = AuditLogger.getOriginalValues(this);
+                var onlyChangedValues = (dynamic)null;
+
+                strActionStatement = "";
+
                 if (lblActionMode.Text == "add")
                 {
+                    strActionStatement = "CompanyMasterInfoNewUpdates";
+                    onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
+
                     int newID = objClientInfo.InsertClientInfo(txtCompCode.Text, txtCompanyName.Text, txtAddress01.Text, txtAddress02.Text, txtArea.Text, txtCity.Text, txtState.Text, txtPIN.Text, cmbCountry.Text, txtContactNumber.Text, txtMailID.Text, txtContactPerson.Text, txtContactNumber.Text, txtMailID.Text, txtWebsite.Text, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, objTempClientFinYearInfo.FinYearID);
                     if (picCompLogo.Image != null)
                     {
@@ -189,6 +201,9 @@ namespace StaffSync
                 }
                 else if (lblActionMode.Text == "modify")
                 {
+                    strActionStatement = "CompanyMasterInfoExistingUpdates";
+                    onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
+
                     int affectedRows = objClientInfo.UpdateClientInfo(Convert.ToInt16(lblCompID.Text), txtCompCode.Text, txtCompanyName.Text, txtAddress01.Text, txtAddress02.Text, txtArea.Text, txtCity.Text, txtState.Text, txtPIN.Text, cmbCountry.Text, txtContactNumber.Text, txtMailID.Text, txtContactPerson.Text, txtContactNumber.Text, txtMailID.Text, txtWebsite.Text, cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                     objClientStatutory.InsertClientStatutory(Convert.ToInt16(lblCompID.Text), DateTime.Now, chkEnablePayrollStatutory.Checked, chkEnableProvidentFund.Checked, txtProvidentFundRegNumber.Text, chkEnableProfessionalTax.Checked, txtProfTaxRegNumber.Text, chkEnableEmployeeStateInsurance.Checked, txtESIRegNumber.Text, chkNationalPensionScheme.Checked, "NSP Reg. Number" );
                     objClientStatutory.InsertClientProvidentFundSettings(1, optEmpPFPercentage.Checked == true ? "P" : "A", Convert.ToDecimal(txtEmpPFPercentage.Text == "" ? "0" : txtEmpPFPercentage.Text), Convert.ToDecimal(txtEmpPFFixedAmount.Text == "" ? "0" : txtEmpPFFixedAmount.Text), optEmprPFPercentage.Checked == true ? "P" : "A", Convert.ToDecimal(txtEmprPFPercentage.Text == "" ? "0" : txtEmprPFPercentage.Text), Convert.ToDecimal(txtEmprPFFixedAmount.Text == "" ? "0" : txtEmprPFFixedAmount.Text), optEmprEPSPercentage.Checked == true ? "P" : "A", Convert.ToDecimal(txtEmprEPSPercentage.Text == "" ? "0" : txtEmprEPSPercentage.Text), Convert.ToDecimal(txtEmprEPSFixedAmount.Text == "" ? "0" : txtEmprEPSFixedAmount.Text), DateTime.Now);
@@ -209,6 +224,14 @@ namespace StaffSync
 
                     if (affectedRows > 0)
                         MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                foreach (var changedValues in onlyChangedValues)
+                {
+                    if (lblActionMode.Text == "add")
+                        objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblCompID.Text.ToString()), changedValues.ToString().Trim(), "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                    else if (lblActionMode.Text == "modify")
+                        objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblCompID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                 }
 
                 objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
@@ -850,6 +873,7 @@ namespace StaffSync
                     flowLayoutPanel1.Controls.Add(tile);
                 }
             }
+            _originalValues = AuditLogger.getOriginalValues(this);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

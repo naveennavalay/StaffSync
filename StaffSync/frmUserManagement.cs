@@ -21,6 +21,10 @@ namespace StaffSync
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
+        DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
+
+        string strActionStatement = "";
+        private Dictionary<string, object> _originalValues;
 
         public frmUserManagement()
         {
@@ -199,11 +203,22 @@ namespace StaffSync
             
             if (validateValues())
             {
+                var updatedValues = AuditLogger.getOriginalValues(this);
+                var onlyChangedValues = (dynamic)null;
+
+                strActionStatement = "";
+
                 string strActiveStatus = cmbActiveStatus.Text.ToString().ToLower();
                 string strLockStatus = cmbLockStatus.Text.ToString().ToLower();
 
                 objUserManagementList.UpdateUserActiveStatus(Convert.ToInt16(lblReportingManagerID.Text), strActiveStatus == "active" ? true : false);
                 objUserManagementList.UpdateUserLockStatus(Convert.ToInt16(lblReportingManagerID.Text), strLockStatus == "lock" ? true : false);
+
+                foreach (var changedValues in onlyChangedValues)
+                {
+                    if (lblActionMode.Text == "modify")
+                        objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                }
 
             }
 
@@ -277,6 +292,7 @@ namespace StaffSync
                     else if (objLoggingInUserInfo.IsLocked == false)
                         cmbLockStatus.SelectedIndex = 1;
                 }
+                _originalValues = AuditLogger.getOriginalValues(this);
             }
         }
 

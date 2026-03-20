@@ -23,11 +23,11 @@ namespace DALStaffSync
             return objAuditLog.getAuditLogStatements(txtSourceID, txtEventGroup, txtClientiD);
         }
 
-        public int InsertAuditLog(int txtEmpID, int txtSourceID, string txtAuditLogStatement, string txtUserName, string txtEventGroup, int txtClientID)
+        public int InsertAuditLog(int txtEmpID, int txtSourceID, string txtAuditLogStatement, string txtActionType, string txtUserName, string txtEventGroup, int txtClientID)
         {
             int affectedRows = 0;
 
-            affectedRows = objAuditLog.InsertAuditLog(txtEmpID, txtSourceID, txtAuditLogStatement, txtUserName, txtEventGroup, txtClientID);
+            affectedRows = objAuditLog.InsertAuditLog(txtEmpID, txtSourceID, txtAuditLogStatement, txtActionType, txtUserName, txtEventGroup, txtClientID);
 
             return affectedRows;
         }

@@ -33,6 +33,10 @@ namespace StaffSync
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
+        DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
+
+        string strActionStatement = "";
+        private Dictionary<string, object> _originalValues;
 
         public frmLeavesMaster()
         {
@@ -240,8 +244,16 @@ namespace StaffSync
                 return;
             }
 
+            var updatedValues = AuditLogger.getOriginalValues(this);
+            var onlyChangedValues = (dynamic)null;
+
+            strActionStatement = "";
+
             if (lblActionMode.Text == "add")
             {
+                strActionStatement = "LeaveMasterNewUpdates";
+                onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
+
                 if (lblCancelStatus.Text == "")
                 {
                     if (cmbDuration.SelectedIndex == 0)
@@ -279,7 +291,10 @@ namespace StaffSync
             }
             else if (lblActionMode.Text == "modify")
             {
-                if(lblCancelStatus.Text == "")
+                strActionStatement = "LeaveMasterExistingUpdates";
+                onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
+
+                if (lblCancelStatus.Text == "")
                 {
                     if (cmbDuration.SelectedIndex == 0)
                     {
@@ -313,6 +328,14 @@ namespace StaffSync
                     MessageBox.Show("Details not inserted successfully.\nPlease verify once again.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+            }
+
+            foreach (var changedValues in onlyChangedValues)
+            {
+                if (lblActionMode.Text == "add")
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblEmpID.Text.ToString()), changedValues.ToString().Trim(), "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                else if (lblActionMode.Text == "modify")
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblEmpID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             }
 
             objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
@@ -482,6 +505,8 @@ namespace StaffSync
                     return;
 
                 lblSpecificLeaveBalance.Text = objLeaveTRList.getSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1)).ToString();
+
+                _originalValues = AuditLogger.getOriginalValues(this);
             }
         }
 

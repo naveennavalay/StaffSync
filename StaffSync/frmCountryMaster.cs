@@ -25,6 +25,10 @@ namespace StaffSync
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
+        DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
+
+        string strActionStatement = "";
+        private Dictionary<string, object> _originalValues;
 
         public frmCountryMaster()
         {
@@ -141,18 +145,38 @@ namespace StaffSync
             }
             else
             {
+                var updatedValues = AuditLogger.getOriginalValues(this);
+                var onlyChangedValues = (dynamic)null;
+
+                strActionStatement = "";
+
                 if (lblActionMode.Text == "add")
                 {
+                    strActionStatement = "CountryNewUpdates";
+                    onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
+
                     int newID = objCountries.InsertCountry(txtCountryCode.Text.Trim(), txtCountryTitle.Text.Trim(), txtCountryInitial.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                     if (newID > 0)
                         MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (lblActionMode.Text == "modify")
                 {
+                    strActionStatement = "CountryExistingUpdates";
+                    onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
+
                     int affectedRows = objCountries.UpdateCountry(Convert.ToInt16(lblCountryID.Text.Trim()), txtCountryCode.Text.Trim(), txtCountryTitle.Text.Trim(), txtCountryInitial.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                     if (affectedRows > 0)
                         MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+
+                foreach (var changedValues in onlyChangedValues)
+                {
+                    if (lblActionMode.Text == "add")
+                        objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblCountryID.Text.ToString()), changedValues.ToString().Trim(), "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                    else if (lblActionMode.Text == "modify")
+                        objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblCountryID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                }
+
 
                 objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
 
@@ -270,6 +294,9 @@ namespace StaffSync
             txtCountryTitle.Text = countryModel.CountryTitle;
             txtCountryInitial.Text = countryModel.CountryInitial;
             cmbIsActive.Text = countryModel.IsActive == true ? "Yes" : "No";
+
+            _originalValues = AuditLogger.getOriginalValues(this);
+
             lnkViewAuditLog.Visible = true;
         }
 

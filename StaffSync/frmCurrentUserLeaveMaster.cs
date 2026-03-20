@@ -30,6 +30,10 @@ namespace StaffSync
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
+        DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
+
+        string strActionStatement = "";
+        private Dictionary<string, object> _originalValues;
 
         public frmCurrentUserLeaveMaster()
         {
@@ -191,8 +195,16 @@ namespace StaffSync
             
             this.Cursor = Cursors.WaitCursor;
 
+            var updatedValues = AuditLogger.getOriginalValues(this);
+            var onlyChangedValues = (dynamic)null;
+
+            strActionStatement = "";
+
             if (lblActionMode.Text == "add")
             {
+                strActionStatement = "CurrentUserLeaveNewUpdates";
+                onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
+
                 int employeeLeaveTRID = 0;
                 if (lblCancelStatus.Text == "")
                 {
@@ -228,6 +240,9 @@ namespace StaffSync
             }
             else if (lblActionMode.Text == "modify")
             {
+                strActionStatement = "AssetCategoryExistingUpdates";
+                onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
+
                 int employeeLeaveTRID = 0;
 
                 if(lblCancelStatus.Text == "")
@@ -263,6 +278,15 @@ namespace StaffSync
                     return;
                 }
             }
+
+            foreach (var changedValues in onlyChangedValues)
+            {
+                if (lblActionMode.Text == "add")
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblEmpID.Text.ToString()), changedValues.ToString().Trim(), "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                else if (lblActionMode.Text == "modify")
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblEmpID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            }
+
             onSaveButtonClick();
             disableControls();
             clearControls();
@@ -403,6 +427,8 @@ namespace StaffSync
         {
             if (SearchOptionSelectedForm == "listApplyLeaveInfo")
             {
+                _originalValues = AuditLogger.getOriginalValues(this);
+
                 lblEmpID.Text = selectedEmployeeID.ToString();
                 EmployeeInfo objSelectedEmployeeInfo = objEmployeeMaster.GetSelectedEmployeeInfo(Convert.ToInt16(lblEmpID.Text));
                 txtEmpCode.Text = objSelectedEmployeeInfo.EmpCode;

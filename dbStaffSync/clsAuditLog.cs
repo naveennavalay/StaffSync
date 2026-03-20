@@ -27,14 +27,15 @@ namespace dbStaffSync
             {
                 conn = dbStaffSync.openDBConnection();
 
-                string strQuery = "SELECT " + 
-                                        " UserAuditLog.UserAuditLogID, " + 
-                                        " UserAuditLog.SourceID, " + 
-                                        " UserAuditLog.EventDateTime, " + 
-                                        " UserAuditLog.AuditLogStatement, " + 
-                                        " UserAuditLog.UserName, " + 
-                                        " UserAuditLog.EventGroup, " + 
-                                        " UserAuditLog.ClientID " + 
+                string strQuery = "SELECT " +
+                                        " UserAuditLog.UserAuditLogID, " +
+                                        " UserAuditLog.SourceID, " +
+                                        " UserAuditLog.UserName, " +
+                                        " UserAuditLog.ActionType, " +
+                                        " UserAuditLog.EventDateTime, " +
+                                        " UserAuditLog.AuditLogStatement, " +
+                                        " UserAuditLog.EventGroup, " +
+                                        " UserAuditLog.ClientID " +
                                     " FROM " + 
                                         " UserAuditLog " + 
                                     " WHERE " + 
@@ -83,10 +84,11 @@ namespace dbStaffSync
 
                 string strQuery = "SELECT " + 
                                         " UserAuditLog.UserAuditLogID, " + 
-                                        " UserAuditLog.SourceID, " + 
+                                        " UserAuditLog.SourceID, " +
+                                        " UserAuditLog.UserName, " +
+                                        " UserAuditLog.ActionType, " +
                                         " UserAuditLog.EventDateTime, " + 
-                                        " UserAuditLog.AuditLogStatement, " + 
-                                        " UserAuditLog.UserName, " + 
+                                        " UserAuditLog.AuditLogStatement, " +
                                         " UserAuditLog.EventGroup, " + 
                                         " UserAuditLog.ClientID " + 
                                     " FROM " + 
@@ -125,7 +127,7 @@ namespace dbStaffSync
             return objAuditStatementsList;
         }
 
-        public int InsertAuditLog(int txtEmpID, int txtSourceID, string txtAuditLogStatement, string txtUserName, string txtEventGroup, int txtClientID)
+        public int InsertAuditLog(int txtEmpID, int txtSourceID, string txtAuditLogStatement, string txtActionType, string txtUserName, string txtEventGroup, int txtClientID)
         {
             int affectedRows = 0;
             try
@@ -135,8 +137,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO UserAuditLog (UserAuditLogID, EmpID, SourceID, EventDateTime, AuditLogStatement, UserName, EventGroup, ClientID) VALUES " +
-                 "(" + maxRowCount.Data + "," + txtEmpID + ", " + txtSourceID + ", '" + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt") + "','" + txtAuditLogStatement + "','" + txtUserName + "', '" + txtEventGroup + "', " + txtClientID + ")";
+                string strQuery = "INSERT INTO UserAuditLog (UserAuditLogID, EmpID, SourceID, EventDateTime, AuditLogStatement, ActionType, UserName, EventGroup, ClientID) VALUES " +
+                 "(" + maxRowCount.Data + "," + txtEmpID + ", " + txtSourceID + ", '" + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt") + "','" + txtAuditLogStatement + "','" + txtActionType + "', '" + txtUserName + "', '" + txtEventGroup + "', " + txtClientID + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

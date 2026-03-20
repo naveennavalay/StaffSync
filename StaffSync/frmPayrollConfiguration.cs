@@ -50,6 +50,9 @@ namespace StaffSync
         frmEmpAdvanceRepayment frmEmpAdvanceRepayment = null;
         SpecificEmployeeSalaryInfo objSpecificEmployeeSalaryInfo = new SpecificEmployeeSalaryInfo();
 
+        string strActionStatement = "";
+        private Dictionary<string, object> _originalValues;
+
         public frmPayrollConfiguration()
         {
             InitializeComponent();
@@ -205,8 +208,16 @@ namespace StaffSync
             decimal ReimbursmentAmount = 0;
             int iRowCounter = 1;
 
+            var updatedValues = AuditLogger.getOriginalValues(this);
+            var onlyChangedValues = (dynamic)null;
+
+            strActionStatement = "";
+
             if (lblActionMode.Text == "add")
             {
+                strActionStatement = "PayrollConfigurationNewUpdates";
+                onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
+
                 empSalaryID = objEmployeePayroll.InsertEmployeeSalaryMasterInfo(Convert.ToInt16(lblReportingManagerID.Text.Trim()), Convert.ToDateTime(txtSalaryDate.Text), cmbSalaryMonth.Text, 0, 0, 0, 0, 0, 0, 0, 0,  Convert.ToDecimal(txtAallowences.Text).RoundUp(), Convert.ToDecimal(txtDeductions.Text).RoundUp(), Convert.ToDecimal(txtReimbursement.Text).RoundUp(), Convert.ToDecimal(lblPFCalcAmount.Text), Convert.ToDecimal(txtNetPayable.Text).RoundUp(), true);
                 foreach (DataGridViewRow dc in dtgSalaryDetails.Rows)
                 {
@@ -219,6 +230,9 @@ namespace StaffSync
             }
             else if (lblActionMode.Text == "modify")
             {
+                strActionStatement = "PayrollConfigurationExistingUpdates";
+                onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
+
                 empSalaryID = objEmployeePayroll.UpdateEmployeeSalaryMasterInfo(Convert.ToInt16(lblEmpSalID.Text.Trim()), Convert.ToInt16(lblReportingManagerID.Text.Trim()), Convert.ToDateTime(txtSalaryDate.Text), cmbSalaryMonth.Text, 0, 0, 0, 0, 0, 0, 0, 0, Convert.ToDecimal(txtAallowences.Text), Convert.ToDecimal(txtDeductions.Text), Convert.ToDecimal(txtReimbursement.Text), Convert.ToDecimal(lblPFCalcAmount.Text.ToString()).RoundUp(), Convert.ToDecimal(txtNetPayable.Text), true);
                 foreach (DataGridViewRow dc in dtgSalaryDetails.Rows)
                 {
@@ -227,6 +241,14 @@ namespace StaffSync
                 }
                 if (empSalaryID > 0)
                     MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            foreach (var changedValues in onlyChangedValues)
+            {
+                if (lblActionMode.Text == "add")
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), changedValues.ToString().Trim(), "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                else if (lblActionMode.Text == "modify")
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             }
 
             objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
@@ -583,6 +605,7 @@ namespace StaffSync
                 int daysInMonth = DateTime.DaysInMonth(parsedDate.Year, parsedDate.Month);
                 
                 getMonthlyWorkingDays(Convert.ToInt16(lblReportingManagerID.Text.ToString()), parsedDate, parsedDate.AddDays(daysInMonth).Date);
+                _originalValues = AuditLogger.getOriginalValues(this);
             }
         }
 

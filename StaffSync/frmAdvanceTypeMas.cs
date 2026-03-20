@@ -24,9 +24,12 @@ namespace StaffSync
         DALStaffSync.clsAdvanceTypeMas objAdvanceTypeMas = new DALStaffSync.clsAdvanceTypeMas();
         DALStaffSync.clsAdvanceTypeConfigInfo objAdvanceTypeConfigInfo = new DALStaffSync.clsAdvanceTypeConfigInfo();
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
+        DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
+        string strActionStatement = "";
+        private Dictionary<string, object> _originalValues;
 
         public frmAdvanceTypeMas()
         {
@@ -194,8 +197,12 @@ namespace StaffSync
                 return;
             }
 
+            var updatedValues = AuditLogger.getOriginalValues(this);
+            var onlyChangedValues = (dynamic)null;
+
             if (lblActionMode.Text == "add")
             {
+                strActionStatement = "AdvanceTypeNew";
                 int newID = objAdvanceTypeMas.InsertAdvanceType(txtAdvanceCode.Text.Trim(), txtAdvanceTitle.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false, CurrentUser.ClientID);
                 if (newID > 0)
                     objAdvanceTypeConfigInfo.InsertAdvanceTypeConfig(newID, chkAutoDeductFromSalary.Checked, cmbAdvanceBasedOn.Text.ToString(), cmbAdvanceAmountBased.Text.ToString(), Convert.ToDecimal(txtAdvancePercentage.Text.ToString()), Convert.ToDecimal(txtAdvanceAmountFixed.Text.ToString()), chkIncludeAsDeductionInSalary.Checked, chkRecoveryRequired.Checked, chkAutoDeductFromNextSaslary.Checked, chkInterestRequired.Checked, chkApprovalNeeded.Checked, chkAllowPause.Checked, chkWaiverAllowed.Checked, Convert.ToDecimal(txtMaxTenure.Text.ToString()));
@@ -204,6 +211,9 @@ namespace StaffSync
             }
             else if (lblActionMode.Text == "modify")
             {
+                strActionStatement = "AdvanceTypeUpdate";
+                onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
+
                 int affectedRows = objAdvanceTypeMas.UpdateAdvanceType(Convert.ToInt32(lblAdvanceTypeID.Text.ToString()), txtAdvanceCode.Text.Trim(), txtAdvanceTitle.Text.Trim(), cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
                 if (affectedRows > 0)
                     objAdvanceTypeConfigInfo.UpdateAdvanceTypeConfig(Convert.ToInt32(lblAdvanceTypeConfigID.Text.ToString()), Convert.ToInt32(lblAdvanceTypeID.Text.ToString()), chkAutoDeductFromSalary.Checked, cmbAdvanceBasedOn.Text.ToString(), cmbAdvanceAmountBased.Text.ToString(), Convert.ToDecimal(txtAdvancePercentage.Text.ToString()), Convert.ToDecimal(txtAdvanceAmountFixed.Text.ToString()), chkIncludeAsDeductionInSalary.Checked, chkRecoveryRequired.Checked, chkAutoDeductFromNextSaslary.Checked, chkInterestRequired.Checked, chkApprovalNeeded.Checked, chkAllowPause.Checked, chkWaiverAllowed.Checked, Convert.ToDecimal(txtMaxTenure.Text.ToString()));
@@ -212,13 +222,20 @@ namespace StaffSync
                     MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
+            foreach (var changedValues in onlyChangedValues)
+            {
+                if (lblActionMode.Text == "add")
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblAdvanceTypeID.Text.ToString()), changedValues.ToString().Trim(), "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                else if (lblActionMode.Text == "modify")
+                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblAdvanceTypeID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            }
+
             objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
 
             onSaveButtonClick();
             disableControls();
             clearControls();
             errValidator.Clear();
-
         }
 
         public void clearControls()
@@ -439,6 +456,9 @@ namespace StaffSync
             chkAllowPause.Checked = objAdvanceTypeConfigModel.AllowPause;
             chkWaiverAllowed.Checked = objAdvanceTypeConfigModel.WaiverAllowed;
             txtMaxTenure.Text = objAdvanceTypeConfigModel.MaxTenure.ToString();
+
+            _originalValues = AuditLogger.getOriginalValues(this);
+
             lnkViewAuditLog.Visible = true;
         }
 
