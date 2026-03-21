@@ -14,6 +14,8 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading;
@@ -22,7 +24,6 @@ using System.Windows.Forms;
 using static StaffSync.TextBoxHelper;
 using static System.Windows.Forms.MonthCalendar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
 //using static C1.Util.Win.Win32;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
@@ -3144,6 +3145,48 @@ namespace StaffSync
 
         private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
         {
+            //var emailService = new myMailService();
+            //picEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblEmpID.Text.ToString())).EmpPhoto);
+
+            //byte[] tempImage = null;
+
+            //if (picEmpPhoto.Image != null)
+            //{
+            //    using (MemoryStream ms = new MemoryStream())
+            //    {
+            //        using (Bitmap bmp = new Bitmap(picEmpPhoto.Image)) // ✅ CLONE
+            //        {
+            //            bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            //        }
+
+            //        tempImage = ms.ToArray();
+            //    }
+            //}
+
+            //// Sample data
+            //var data = new Dictionary<string, string>
+            //{
+            //    { "ApplicationName", "StaffSync" },
+            //    { "UserName", "Naveen" },
+            //    { "LoginID", "naveen@gmail.com" },
+            //    { "LoginURL", "https://app.staffsync.com" },
+            //    { "CompanyName", "My Company" },
+            //    { "Year", DateTime.Now.Year.ToString() }
+            //};
+
+            //// Load logo from DB (byte[])
+            ////byte[] logoBytes = GetLogoFromDatabase();
+
+            //emailService.SendMail(
+            //    toMailID: "naveendnavalay@gmail.com",
+            //    subject: "Welcome to StaffSync",
+            //    mailTemplate: "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>Welcome</title>\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n</head>\r\n\r\n<body style=\"margin:0; padding:0; font-family:Segoe UI, Arial, sans-serif; background-color:#f4f6f8;\">\r\n\r\n    <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background-color:#f4f6f8; padding:20px;\">\r\n        <tr>\r\n            <td align=\"center\">\r\n\r\n                <table width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.05);\">\r\n\r\n                    <!-- 🔷 Header -->\r\n                    <tr>\r\n                        <td style=\"background-color:#2c3e50; padding:20px; text-align:center; color:#ffffff;\">\r\n                            \r\n                            <!-- Logo (Optional) -->\r\n                            <div style=\"margin-bottom:10px;\">\r\n                                {{Logo}}\r\n                            </div>\r\n\r\n                            <h2 style=\"margin:0; font-weight:500;\">\r\n                                Welcome to {{ApplicationName}}\r\n                            </h2>\r\n                        </td>\r\n                    </tr>\r\n\r\n                    <!-- 🔷 Body -->\r\n                    <tr>\r\n                        <td style=\"padding:30px; color:#333333;\">\r\n\r\n                            <p style=\"font-size:16px;\">\r\n                                Hello <b>{{UserName}}</b>,\r\n                            </p>\r\n\r\n                            <p style=\"font-size:15px; line-height:1.6;\">\r\n                                We’re delighted to have you onboard! 🎉  \r\n                                You’re now part of a system designed to make your work simpler, faster, and more organized.\r\n                            </p>\r\n\r\n                            <p style=\"font-size:15px; line-height:1.6;\">\r\n                                Our goal is to give you complete control and clarity — whether it’s managing tasks, tracking activities, or accessing important information.\r\n                            </p>\r\n\r\n                            <p style=\"font-size:15px; line-height:1.6;\">\r\n                                Take a moment to explore the features. We’re confident you’ll find everything intuitive and exactly aligned with what you need.\r\n                            </p>\r\n\r\n                            <!-- 🔹 Info Box -->\r\n                            <div style=\"background:#f8f9fb; padding:15px; border-radius:6px; margin-top:20px;\">\r\n                                <p style=\"margin:5px 0;\"><b>Login ID:</b> {{LoginID}}</p>\r\n                                <p style=\"margin:5px 0;\"><b>Access URL:</b> {{LoginURL}}</p>\r\n                            </div>\r\n\r\n                            <!-- 🔹 CTA Button -->\r\n                            <div style=\"margin-top:25px; text-align:center;\">\r\n                                <a href=\"{{LoginURL}}\" \r\n                                   style=\"display:inline-block; padding:12px 24px; background:#2c3e50; color:#ffffff; text-decoration:none; border-radius:5px; font-size:14px;\">\r\n                                   Get Started\r\n                                </a>\r\n                            </div>\r\n\r\n                            <p style=\"font-size:15px; margin-top:25px;\">\r\n                                If you need any assistance, our team is always here to help you get started smoothly.\r\n                            </p>\r\n\r\n                            <p style=\"font-size:15px;\">\r\n                                Wishing you a productive and seamless experience ahead!\r\n                            </p>\r\n\r\n                            <p style=\"margin-top:25px;\">\r\n                                Warm regards,<br/>\r\n                                <b>{{CompanyName}}</b>\r\n                            </p>\r\n\r\n                        </td>\r\n                    </tr>\r\n\r\n                    <!-- 🔷 Footer -->\r\n                    <tr>\r\n                        <td style=\"background:#f1f3f5; padding:15px; text-align:center; font-size:12px; color:#777;\">\r\n                            © {{Year}} {{CompanyName}}. All rights reserved.\r\n                        </td>\r\n                    </tr>\r\n\r\n                </table>\r\n\r\n            </td>\r\n        </tr>\r\n    </table>\r\n\r\n</body>\r\n</html>",
+            //    dictData: data,
+            //    isReplaceRequired: true,
+            //    includeLogo: true,
+            //    logoBytes: tempImage
+            //);
+
             frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblEmpID.Text.ToString()), "EmployeeMasterInfo", "Employee Master Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             objAuditLogStatements.ShowDialog(this);
         }

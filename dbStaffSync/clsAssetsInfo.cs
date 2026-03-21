@@ -620,7 +620,7 @@ namespace dbStaffSync
             int affectedRows = 0;
             try
             {
-                Response<int> maxRowCount = objGenFunc.getMaxRowCount("AssetMas", "AssetID");
+                Response<int> maxRowCount = objGenFunc.getMaxRowCount("AssetMasMoreDetails", "AssetMasMoreDetID");
 
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();

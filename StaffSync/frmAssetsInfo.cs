@@ -38,6 +38,7 @@ namespace StaffSync
         DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
         DALStaffSync.clsAssetsCategory objAssetsCategory = new DALStaffSync.clsAssetsCategory();
         DALStaffSync.clsAssetsInfo objAssetsInfo = new DALStaffSync.clsAssetsInfo();
+        DALStaffSync.clsAssetRegister objAssetRegister = new DALStaffSync.clsAssetRegister();
         DALStaffSync.clsSexMas objGender = new DALStaffSync.clsSexMas();
         DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
         DALStaffSync.clsProfessionalTaxCalculation objProfessionalTaxSlab = new DALStaffSync.clsProfessionalTaxCalculation();
@@ -46,6 +47,10 @@ namespace StaffSync
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
         string strActionStatement = "";
         private Dictionary<string, object> _originalValues;
+
+        DateTime dos;
+        string dateFormat = "dd-MM-yyyy";
+        CultureInfo provider = CultureInfo.InvariantCulture;
 
         public frmAssetsInfo()
         {
@@ -149,6 +154,8 @@ namespace StaffSync
             cmbAssetCurrentStatus.DataSource = objAssetsCategory.getCurrentStatusNamesList();
             cmbAssetCurrentStatus.DisplayMember = "CurrentAssetStatusName";
             cmbAssetCurrentStatus.ValueMember = "CurrentAssetStatusID";
+
+            grpQuantity.Visible = true;
         }
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
@@ -168,6 +175,7 @@ namespace StaffSync
                 strActionStatement = "";
 
                 int AssetID = 0;
+                int AssetRegisterID = 0;
                 if (lblActionMode.Text == "add")
                 {
                     strActionStatement = "AssetsInfoNewUpdates";
@@ -176,6 +184,7 @@ namespace StaffSync
                     AssetID = objAssetsInfo.InsertAssetInfo(txtAssetCode.Text, txtAssetName.Text, txtAssetDescription.Text, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, cmbAssetCategory.SelectedIndex + 1, chkRecoverable.Checked, chkReturnRequired.Checked, chkRecoverable.Checked, cmbRecoveryType.SelectedIndex + 1, chkAffectsPayroll.Checked, cmbPayrollAffectType.Text, 0, cmbAssetCurrentStatus.SelectedIndex + 1);
                     if (AssetID > 0)
                     {
+                        AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(AssetID, DateTime.Today, 0, Convert.ToDecimal(txtTotalQuantity.Text), 0, Convert.ToDecimal(txtTotalQuantity.Text), "Cr", "By Opening", 0);
                         AssetID = objAssetsInfo.InsertAssetMoreInfo(AssetID, txtSerialNumber.Text.ToString(), txtModelNumber.Text.ToString(), txtManufacturerInfo.Text.ToString(), "", dtPurchaseDate.Value, 0, txtVenderName.Text.ToString(), txtInvoiceNumber.Text.ToString(), "", chkHasWarranty.Checked, dtWarrantyStartDate.Value, dtWarrantyEndDate.Value, dtLastServiceDate.Value, dtNextServiceDate.Value);
 
                         MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -218,15 +227,241 @@ namespace StaffSync
             errValidator.Clear();
 
            DateTime dob, doj;
-           string dateFormat = "dd-MM-yyyy";
+           string dateFormat = "dd-MMM-yyyy";
            CultureInfo provider = CultureInfo.InvariantCulture;
 
-            if (string.IsNullOrEmpty(txtAssetCode.Text))
+            if (string.IsNullOrEmpty(txtAssetCode.Text.ToString().Trim()))
             {
                 validationStatus = false;
-                errValidator.SetError(this.txtAssetCode, txtAssetCode.Tag?.ToString() ?? "Contact Person Name should not be blank.");
+                errValidator.SetError(this.txtAssetCode, txtAssetCode.Tag?.ToString() ?? "Asset Code should not be blank.");
+            }
+            if (string.IsNullOrEmpty(txtAssetName.Text.ToString().Trim()))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.txtAssetName, txtAssetName.Tag?.ToString() ?? "Asset Name should not be blank.");
+            }
+            if (string.IsNullOrEmpty(txtAssetDescription.Text.ToString().Trim()))
+            {
+                txtAssetDescription.Text = "N/A";
+            }
+            if (string.IsNullOrEmpty(cmbAssetCategory.Text.ToString().Trim()))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.cmbAssetCategory, cmbAssetCategory.Tag?.ToString() ?? "Asset Category should not be blank.");
+            }
+            if (string.IsNullOrEmpty(cmbIsActive.Text.ToString().Trim()))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.cmbIsActive, cmbIsActive.Tag?.ToString() ?? "Asset Status should not be blank.");
+            }
+            if (string.IsNullOrEmpty(cmbAssetCurrentStatus.Text.ToString().Trim()))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.cmbAssetCurrentStatus, cmbAssetCurrentStatus.Tag?.ToString() ?? "Asset Current Status should not be blank.");
             }
 
+            if (txtModelNumber.Text.ToString().Trim() == "")
+            {
+                validationStatus = false;
+                errValidator.SetError(this.txtModelNumber, txtModelNumber.Tag?.ToString() ?? "Model Number should not be Blank.");
+            }
+            if (txtSerialNumber.Text.ToString().Trim() == "")
+            {
+                validationStatus = false;
+                errValidator.SetError(this.txtSerialNumber, txtSerialNumber.Tag?.ToString() ?? "Serial Number should not be Blank.");
+            }
+            if (txtManufacturerInfo.Text.ToString().Trim() == "")
+            {
+                validationStatus = false;
+                errValidator.SetError(this.txtManufacturerInfo, txtManufacturerInfo.Tag?.ToString() ?? "Manufacturer Information should not be Blank.");
+            }
+            if (txtVenderName.Text.ToString().Trim() == "")
+            {
+                validationStatus = false;
+                errValidator.SetError(this.txtVenderName, txtVenderName.Tag?.ToString() ?? "Vendor Information should not be Blank.");
+            }
+
+            if (string.IsNullOrEmpty(dtPurchaseDate.Text))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtPurchaseDate, dtPurchaseDate.Tag?.ToString() ?? "Purchase Date is required.");
+            }
+            else if (dtPurchaseDate.Text.ToString().Trim() == "-  -")
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtPurchaseDate, dtPurchaseDate.Tag?.ToString() ?? "Purchase Date is required.");
+            }
+            else if (!DateTime.TryParseExact(dtPurchaseDate.Text, dateFormat, provider, DateTimeStyles.None, out dos))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtPurchaseDate, "Invalid Purchase Date format (dd-MM-yyyy).");
+            }
+            else if (dos > DateTime.Now.Date)
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtPurchaseDate, "Purchase Date cannot be in the future.");
+            }
+            else
+            {
+                errValidator.SetError(this.dtPurchaseDate, "");
+            }
+
+            if (string.IsNullOrEmpty(txtInvoiceNumber.Text.ToString().Trim()))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.txtInvoiceNumber, txtInvoiceNumber.Tag?.ToString() ?? "Asset Code should not be blank.");
+            }
+
+            if (chkHasWarranty.Checked) {
+                if (string.IsNullOrEmpty(dtWarrantyStartDate.Text))
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.dtWarrantyStartDate, dtWarrantyStartDate.Tag?.ToString() ?? "Warranty Start Date is required.");
+                }
+                else if (dtWarrantyStartDate.Text.ToString().Trim() == "-  -")
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.dtWarrantyStartDate, dtWarrantyStartDate.Tag?.ToString() ?? "Warranty Start Date is required.");
+                }
+                else if (!DateTime.TryParseExact(dtWarrantyStartDate.Text, dateFormat, provider, DateTimeStyles.None, out dos))
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.dtWarrantyStartDate, "Invalid Warranty Start Date format (dd-MM-yyyy).");
+                }
+                else if (dos < Convert.ToDateTime(dtPurchaseDate.Value))
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.dtWarrantyStartDate, "Warranty Start Date cannot be below Purchase Date.");
+                }
+                else
+                {
+                    errValidator.SetError(this.dtWarrantyStartDate, "");
+                }
+
+                if (string.IsNullOrEmpty(dtWarrantyEndDate.Text))
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.dtWarrantyEndDate, dtWarrantyEndDate.Tag?.ToString() ?? "Warranty End Date is required.");
+                }
+                else if (dtWarrantyEndDate.Text.ToString().Trim() == "-  -")
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.dtWarrantyEndDate, dtWarrantyEndDate.Tag?.ToString() ?? "Warranty End Date is required.");
+                }
+                else if (!DateTime.TryParseExact(dtWarrantyEndDate.Text, dateFormat, provider, DateTimeStyles.None, out dos))
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.dtWarrantyEndDate, "Invalid Warranty End Date format (dd-MM-yyyy).");
+                }
+                else if (dos < Convert.ToDateTime(dtPurchaseDate.Value))
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.dtWarrantyEndDate, "Warranty End Date cannot be below Purchase Date.");
+                }
+                else if (dos < Convert.ToDateTime(dtWarrantyStartDate.Value))
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.dtWarrantyEndDate, "Warranty End Date cannot be below Warranty Start Date.");
+                }
+                else
+                {
+                    errValidator.SetError(this.dtWarrantyEndDate, "");
+                }
+            }
+
+            if (string.IsNullOrEmpty(dtLastServiceDate.Text))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtLastServiceDate, dtLastServiceDate.Tag?.ToString() ?? "Last Service Date is required.");
+            }
+            else if (dtLastServiceDate.Text.ToString().Trim() == "-  -")
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtLastServiceDate, dtLastServiceDate.Tag?.ToString() ?? "Last Service Date is required.");
+            }
+            else if (!DateTime.TryParseExact(dtLastServiceDate.Text, dateFormat, provider, DateTimeStyles.None, out dos))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtLastServiceDate, "Invalid Last Service Date format (dd-MM-yyyy).");
+            }
+            else if (dos < Convert.ToDateTime(dtPurchaseDate.Value))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtLastServiceDate, "Last Service Date cannot be below Today's Date.");
+            }
+            //else if (dos < DateTime.Now.Date)
+            //{
+            //    validationStatus = false;
+            //    errValidator.SetError(this.dtLastServiceDate, "Last Service Date cannot be below Warranty Start Date.");
+            //}
+            else
+            {
+                errValidator.SetError(this.dtLastServiceDate, "");
+            }
+
+            if (string.IsNullOrEmpty(dtNextServiceDate.Text))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtNextServiceDate, dtNextServiceDate.Tag?.ToString() ?? "Next Service Date is required.");
+            }
+            else if (dtNextServiceDate.Text.ToString().Trim() == "-  -")
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtNextServiceDate, dtNextServiceDate.Tag?.ToString() ?? "Next Service Date is required.");
+            }
+            else if (!DateTime.TryParseExact(dtNextServiceDate.Text, dateFormat, provider, DateTimeStyles.None, out dos))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtNextServiceDate, "Invalid Last Service Date format (dd-MM-yyyy).");
+            }
+            else if (dos < Convert.ToDateTime(dtPurchaseDate.Value))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtNextServiceDate, "Next Service Date cannot be below Today's Date.");
+            }
+            else if (dos < Convert.ToDateTime(dtLastServiceDate.Value))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtNextServiceDate, "Next Service Date cannot be below Last Service Date.");
+            }
+            //else if (dos < DateTime.Now.Date)
+            //{
+            //    validationStatus = false;
+            //    errValidator.SetError(this.dtNextServiceDate, "Next Service Date cannot be below Warranty Start Date.");
+            //}
+            else
+            {
+                errValidator.SetError(this.dtNextServiceDate, "");
+            }
+
+            if (lblActionMode.Text == "add")
+            {
+                if (txtTotalQuantity.Text.ToString().Trim() == "")
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.txtTotalQuantity, txtTotalQuantity.Tag?.ToString() ?? "Total Quantity should not be Blank.");
+                }
+                if (Convert.ToDecimal(txtTotalQuantity.Text.ToString()) <= 0)
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.txtTotalQuantity, txtTotalQuantity.Tag?.ToString() ?? "Total Quantity should not be Zero.");
+                }
+                if (txtOutstandingQuantity.Text.ToString().Trim() == "")
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.txtOutstandingQuantity, txtOutstandingQuantity.Tag?.ToString() ?? "Total Outstanding Quantity should not be Blank.");
+                }
+                if (Convert.ToDecimal(txtOutstandingQuantity.Text.ToString()) < 0)
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.txtOutstandingQuantity, txtOutstandingQuantity.Tag?.ToString() ?? "Total Outstanding Quantity should not be Zero.");
+                }
+                //if (Convert.ToDecimal(txtOutstandingQuantity.Text.ToString()) < Convert.ToDecimal(txtTotalQuantity.Text.ToString()))
+                //{
+                //    validationStatus = false;
+                //    errValidator.SetError(this.txtOutstandingQuantity, txtOutstandingQuantity.Tag?.ToString() ?? "Total Outstanding Quantity should not be less than Total Quantity.");
+                //}
+            }
             return validationStatus;
         }
 
@@ -246,6 +481,7 @@ namespace StaffSync
             chkRecoverable.Checked = false;
             cmbRecoveryType.DataSource = null;
             chkAffectsPayroll.Checked = false;
+            txtAssetDescription.Text = "";
             cmbPayrollAffectType.DataSource = null;
 
             cmbIsActive.Items.Clear();
@@ -266,8 +502,12 @@ namespace StaffSync
             dtLastServiceDate.Value = DateTime.Today;
             dtNextServiceDate.Value = DateTime.Today;
 
+            txtTotalQuantity.Text = "0";
+            txtOutstandingQuantity.Text = "0";
+
             tabControl1.SelectedIndex = 0;
             tabControl1.Enabled = false;
+            grpQuantity.Visible = false;
             lnkViewAuditLog.Visible = false;
         }
 
@@ -552,6 +792,7 @@ namespace StaffSync
                     int affectedRows = objAssetsInfo.DeleteAssetMoreInfo(Convert.ToInt16(lblAsssetID.Text.Trim()));
                     if (affectedRows > 0)
                     {
+                        affectedRows = objAssetRegister.DeleteAssetRegisterInfo(Convert.ToInt16(lblAsssetID.Text.Trim()));
                         affectedRows = objAssetsInfo.DeleteAssetInfo(Convert.ToInt16(lblAsssetID.Text.Trim()));
                         MessageBox.Show("Details deleted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }

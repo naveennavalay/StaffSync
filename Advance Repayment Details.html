@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Advance Repayment Details</title>
+</head>
+
+<body style="margin:0; padding:20px; font-family:Segoe UI, Arial, sans-serif; background-color:#f4f6f8;">
+
+    <!-- 🔷 Main Container (Wider Layout) -->
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align="center">
+
+                <table width="1000" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.05); overflow:hidden;">
+
+                    <!-- 🔷 Header -->
+                    <tr>
+                        <td style="background:#2c3e50; color:#ffffff; padding:20px; text-align:center;">
+                            
+                            <!--<div style="margin-bottom:10px;">
+                                {{Logo}}
+                            </div>-->
+
+                            <h2 style="margin:0;">Advance Repayment Details</h2>
+                        </td>
+                    </tr>
+
+                    <!-- 🔷 Body -->
+                    <tr>
+                        <td style="padding:25px; color:#333333;">
+
+                            <!-- 🔹 Employee Info -->
+                            <div style="background:#f8f9fb; padding:15px; border-radius:6px;">
+                                <p><b>Employee Name:</b> {{EmployeeName}}</p>
+                                <p><b>Designation:</b> {{Designation}}</p>
+                                <p><b>Department:</b> {{Department}}</p>
+                            </div>
+
+                            <!-- 🔹 Advance Summary -->
+                            <div style="background:#f8f9fb; padding:15px; border-radius:6px; margin-top:15px;">
+                                <p><b>Advance Code:</b> {{AdvanceCode}}</p>
+                                <p><b>Advance Type:</b> {{AdvanceType}}</p>
+                                <p><b>Advance Amount:</b> {{AdvanceAmount}}</p>
+                                <p><b>Start Date:</b> {{StartDate}}</p>
+                                <p><b>End Date:</b> {{EndDate}}</p>
+                                <p><b>No. of Installments:</b> {{NoOfInstallments}}</p>
+                                <p><b>Last Payment Date:</b> {{LastPaymentDate}}</p>
+                                <p><b>Outstanding Balance:</b> {{OutstandingBalance}}</p>
+                            </div>
+
+                            <!-- 🔹 Transaction Table -->
+                            <div style="margin-top:20px;">
+
+                                <table width="100%" cellpadding="10" cellspacing="0" style="border-collapse:collapse; font-size:14px;">
+
+                                    <!-- Header -->
+                                    <tr style="background:#2c3e50; color:#ffffff;">
+                                        <th align="left">Repayment Date</th>
+                                        <th align="left">Opening Balance</th>
+                                        <th align="left">Credit</th>
+                                        <th align="left">Debit</th>
+                                        <th align="left">Closing Balance</th>
+                                        <th align="left">Transaction Type</th>
+                                        <th align="left">Comments</th>
+                                    </tr>
+
+                                    <!-- Dynamic Rows -->
+                                    {{TransactionRows}}
+
+                                </table>
+
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    <!-- 🔷 Footer -->
+                    <tr>
+                        <td style="background:#f1f3f5; padding:12px; text-align:center; font-size:12px; color:#777;">
+                            © {{Year}} {{CompanyName}}. All rights reserved.
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

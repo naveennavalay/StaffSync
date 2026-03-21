@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Advance Summary</title>
+
+<style>
+body {
+    font-family: Segoe UI, Arial;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+
+.card {
+    width: 900px;
+    margin: auto;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.header {
+    background: #2c3e50;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+.section {
+    padding: 20px;
+}
+
+.kpi-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.kpi {
+    flex: 1;
+    background: #f8f9fb;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.kpi-title {
+    font-size: 13px;
+    color: #777;
+}
+
+.kpi-value {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.distributed { background: #e3f2fd; }
+.recovered { background: #e8f5e9; }
+.balance { background: #fff3e0; }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="header">
+    <h2>Advance Summary Dashboard</h2>
+</div>
+
+<div class="section">
+
+<!-- 🔹 KPI Cards -->
+<div class="kpi-container">
+
+    <div class="kpi distributed">
+        <div class="kpi-title">Total Advance Distributed</div>
+        <div class="kpi-value">₹ 5,00,000</div>
+    </div>
+
+    <div class="kpi recovered">
+        <div class="kpi-title">Total Advance Recovered</div>
+        <div class="kpi-value">₹ 3,20,000</div>
+    </div>
+
+    <div class="kpi balance">
+        <div class="kpi-title">Total Advance Balance</div>
+        <div class="kpi-value">₹ 1,80,000</div>
+    </div>
+
+</div>
+
+<!-- 📊 Pie Chart -->
+<canvas id="advanceChart" height="150" style="margin-top:20px;"></canvas>
+
+</div>
+
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+new Chart(document.getElementById('advanceChart'), {
+    type: 'pie',
+    data: {
+        labels: ["Recovered", "Balance"],
+        datasets: [{
+            data: [320000, 180000],
+            backgroundColor: [
+                "#4caf50",
+                "#ff9800"
+            ]
+        }]
+    },
+    options: {
+        plugins: {
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

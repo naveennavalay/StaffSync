@@ -20,6 +20,8 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -101,6 +103,8 @@ namespace StaffSync
             objActiveClientInfo = objClientInfo.getClientInfoByEmpID(EmpID);
 
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(EmpID);
+
+            //Dashboard01.Navigate("C:\\Development\\StaffSync\\Dashboard.html");
         }
 
         private void employeeDetailsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7005,6 +7009,20 @@ namespace StaffSync
                 frmAssetsInfo.Dock = DockStyle.Fill;
                 frmAssetsInfo.Show();
                 frmAssetsInfo.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void assetAllocationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Assets Operations";
+                sptrDashboardContainer.Visible = false;
+                frmEmpAssetRequest frmEmpAssetRequest = new frmEmpAssetRequest(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmEmpAssetRequest.MdiParent = this;
+                frmEmpAssetRequest.Dock = DockStyle.Fill;
+                frmEmpAssetRequest.Show();
+                frmEmpAssetRequest.WindowState = FormWindowState.Maximized;
             }
         }
     }

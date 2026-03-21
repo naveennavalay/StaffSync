@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Leave Request Update</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="margin:0; padding:0; font-family:Segoe UI, Arial, sans-serif; background-color:#f4f6f8;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f6f8; padding:20px;">
+        <tr>
+            <td align="center">
+
+                <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+
+                    <!-- 🔷 Header -->
+                    <tr>
+                        <td style="background-color:#2c3e50; padding:20px; text-align:center; color:#ffffff;">
+                            
+                            <!--<div style="margin-bottom:10px;">
+                                {{Logo}}
+                            </div>-->
+
+                            <h2 style="margin:0; font-weight:500;">
+                                Leave Request Update
+                            </h2>
+                        </td>
+                    </tr>
+
+                    <!-- 🔷 Body -->
+                    <tr>
+                        <td style="padding:30px; color:#333333;">
+
+                            <p style="font-size:16px;">
+                                Hello <b>{{UserName}}</b>,
+                            </p>
+
+                            <p style="font-size:15px; line-height:1.6;">
+                                We regret to inform you that your leave request has not been approved. Please find the details below:
+                            </p>
+
+                            <!-- 🔴 Status Highlight -->
+                            <div style="margin-top:20px; padding:15px; border-radius:6px; background:#fdecea; border-left:4px solid #e74c3c;">
+                                <p style="margin:0; font-size:15px;">
+                                    <b>Status:</b> Rejected
+                                </p>
+                            </div>
+
+                            <!-- 🔹 Leave Details -->
+                            <div style="background:#f8f9fb; padding:15px; border-radius:6px; margin-top:20px;">
+                                <p style="margin:5px 0;"><b>Leave Type:</b> {{LeaveType}}</p>
+                                <p style="margin:5px 0;"><b>Number of Days:</b> {{NoOfDays}}</p>
+                                <p style="margin:5px 0;"><b>From:</b> {{StartDate}}</p>
+                                <p style="margin:5px 0;"><b>To:</b> {{EndDate}}</p>
+                            </div>
+
+                            <!-- 🔹 Reason -->
+                            <div style="margin-top:20px;">
+                                <p style="margin:0; font-size:15px; line-height:1.6;">
+                                    <b>Reason:</b> {{Remarks}}
+                                </p>
+                            </div>
+
+                            <p style="font-size:15px; margin-top:20px; line-height:1.6;">
+                                You may consider revising your request or reaching out for further clarification if required.
+                            </p>
+
+                            <p style="font-size:15px; margin-top:20px;">
+                                Thank you for your understanding.
+                            </p>
+
+                            <!-- 🔹 Signature -->
+                            <p style="margin-top:25px;">
+                                Regards,<br/>
+                                <b>{{ApproverName}}</b><br/>
+                                {{ApproverDesignation}}<br/>
+                                {{ApproverDepartment}}
+                            </p>
+
+                        </td>
+                    </tr>
+
+                    <!-- 🔷 Footer -->
+                    <tr>
+                        <td style="background:#f1f3f5; padding:15px; text-align:center; font-size:12px; color:#777;">
+                            © {{Year}} {{CompanyName}}. All rights reserved.
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

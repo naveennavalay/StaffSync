@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Attendance Dashboard</title>
+
+<!-- ApexCharts -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<style>
+body {
+    font-family: Segoe UI, Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+
+.card {
+    width: 950px;
+    margin: auto;
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.header {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+.section {
+    padding: 20px;
+}
+
+/* Employee Info */
+.info-box {
+    background: #f8f9fb;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* KPI Cards */
+.kpi-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.kpi {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+}
+
+.kpi-title {
+    font-size: 12px;
+}
+
+.kpi-value {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.present { background: linear-gradient(135deg, #4caf50, #81c784); }
+.absent { background: linear-gradient(135deg, #f44336, #e57373); }
+.half { background: linear-gradient(135deg, #9e9e9e, #bdbdbd); }
+.total { background: linear-gradient(135deg, #2196f3, #64b5f6); }
+
+/* Calendar */
+.calendar {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.calendar th {
+    background: #000;
+    color: #00ff88;
+    padding: 6px;
+}
+
+.calendar td {
+    border: 1px solid #eee;
+    height: 60px;
+}
+
+.c-present { background: #32cd32; }
+.c-absent { background: #ffeb3b; }
+.c-half { background: #d3d3d3; }
+
+.legend span {
+    padding: 5px 10px;
+    margin-right: 5px;
+    font-size: 12px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<!-- 🔷 Header -->
+<div class="header">
+    <h2>Attendance Register - {{MonthYear}}</h2>
+</div>
+
+<div class="section">
+
+<!-- 🔹 Employee Info -->
+<div class="info-box">
+    <b>{{EmployeeName}}</b><br/>
+    {{Designation}} | {{Department}}
+</div>
+
+<!-- 🔹 KPI Summary -->
+<div class="kpi-container">
+
+    <div class="kpi total">
+        <div class="kpi-title">Total Days</div>
+        <div class="kpi-value">{{TotalDays}}</div>
+    </div>
+
+    <div class="kpi present">
+        <div class="kpi-title">Present</div>
+        <div class="kpi-value">{{PresentDays}}</div>
+    </div>
+
+    <div class="kpi absent">
+        <div class="kpi-title">Absent</div>
+        <div class="kpi-value">{{AbsentDays}}</div>
+    </div>
+
+    <div class="kpi half">
+        <div class="kpi-title">Half Days</div>
+        <div class="kpi-value">{{HalfDays}}</div>
+    </div>
+
+</div>
+
+<!-- 🔹 Chart -->
+<div id="chart" style="margin-top:20px;"></div>
+
+<!-- 🔹 Calendar -->
+<table class="calendar">
+
+<tr>
+<th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
+</tr>
+
+{{AttendanceRows}}
+
+</table>
+
+<!-- 🔹 Legend -->
+<div class="legend" style="margin-top:15px;">
+    <span style="background:#32cd32;">Present</span>
+    <span style="background:#ffeb3b;">Absent</span>
+    <span style="background:#d3d3d3;">Half Day</span>
+</div>
+
+</div>
+
+</div>
+
+<script>
+var options = {
+    chart: {
+        type: 'donut',
+        height: 300
+    },
+
+    series: [{{PresentDays}}, {{AbsentDays}}, {{HalfDays}}],
+
+    labels: ['Present', 'Absent', 'Half Day'],
+
+    colors: ['#4caf50', '#f44336', '#9e9e9e'],
+
+    legend: {
+        position: 'bottom'
+    },
+
+    plotOptions: {
+        pie: {
+            donut: {
+                size: '60%',
+                labels: {
+                    show: true,
+                    total: {
+                        show: true,
+                        label: 'Worked',
+                        formatter: function () {
+                            return '{{WorkedDays}}';
+                        }
+                    }
+                }
+            }
+        }
+    }
+};
+
+var chart = new ApexCharts(document.querySelector("#chart"), options);
+chart.render();
+</script>
+
+</body>
+</html>

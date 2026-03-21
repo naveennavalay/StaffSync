@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Employee Advances</title>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<style>
+body {
+    font-family: Segoe UI, Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+
+.card {
+    width: 1150px;
+    margin: auto;
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.header {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+.section { padding: 20px; }
+
+.info-box {
+    background: #f8f9fb;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* KPI */
+.kpi-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.kpi {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+}
+
+.kpi-title { font-size: 12px; }
+.kpi-value { font-size: 18px; font-weight: bold; }
+
+.total { background: linear-gradient(135deg, #2196f3, #64b5f6); }
+.paid { background: linear-gradient(135deg, #4caf50, #81c784); }
+.balance { background: linear-gradient(135deg, #ff9800, #ffb74d); }
+.overdue-kpi { background: linear-gradient(135deg, #f44336, #e57373); }
+
+/* Table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+.table th {
+    background: #2c3e50;
+    color: #ffffff;
+    padding: 10px;
+}
+
+.table td {
+    border-bottom: 1px solid #eee;
+    padding: 8px;
+}
+
+/* Row Highlight */
+.overdue { background-color: #ffe5e5; }
+.active { background-color: #e3f2fd; }
+.closed { background-color: #e8f5e9; }
+
+/* Risk Badge */
+.badge {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.low { background: #c8e6c9; color: #2e7d32; }
+.medium { background: #fff3cd; color: #856404; }
+.high { background: #ffcdd2; color: #c62828; }
+
+/* Progress Bar */
+.progress {
+    height: 6px;
+    background: #eee;
+    border-radius: 5px;
+}
+
+.progress-bar {
+    height: 6px;
+    border-radius: 5px;
+    background: #4caf50;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="header">
+    <h2>Employee Advance Intelligence Dashboard</h2>
+</div>
+
+<div class="section">
+
+<!-- Employee -->
+<div class="info-box">
+    <b>{{EmployeeName}}</b><br/>
+    {{Designation}} | {{Department}}
+</div>
+
+<!-- KPI -->
+<div class="kpi-container">
+    <div class="kpi total">
+        <div class="kpi-title">Total Issued</div>
+        <div class="kpi-value">₹ {{TotalIssued}}</div>
+    </div>
+
+    <div class="kpi paid">
+        <div class="kpi-title">Total Paid</div>
+        <div class="kpi-value">₹ {{TotalPaid}}</div>
+    </div>
+
+    <div class="kpi balance">
+        <div class="kpi-title">Total Balance</div>
+        <div class="kpi-value">₹ {{TotalBalance}}</div>
+    </div>
+
+    <div class="kpi overdue-kpi">
+        <div class="kpi-title">High Risk Count</div>
+        <div class="kpi-value">{{HighRiskCount}}</div>
+    </div>
+</div>
+
+<!-- Chart -->
+<div id="chart" style="margin-top:20px;"></div>
+
+<!-- Table -->
+<table class="table">
+
+<tr>
+<th>Advance Type</th>
+<th>Issued</th>
+<th>Paid</th>
+<th>Balance</th>
+<th>Recovery %</th>
+<th>Risk</th>
+</tr>
+
+{{AdvanceRows}}
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+var options = {
+    chart: { type: 'bar', height: 320 },
+
+    series: [{
+        name: 'Recovery %',
+        data: [{{RecoverySeries}}]
+    }],
+
+    xaxis: {
+        categories: [{{AdvanceTypes}}]
+    },
+
+    colors: ['#4caf50'],
+
+    plotOptions: {
+        bar: {
+            borderRadius: 6,
+            columnWidth: '40%'
+        }
+    },
+
+    dataLabels: {
+        enabled: true,
+        formatter: val => val + "%"
+    }
+};
+
+new ApexCharts(document.querySelector("#chart"), options).render();
+</script>
+
+</body>
+</html>

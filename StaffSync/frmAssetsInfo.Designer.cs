@@ -100,6 +100,11 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
+            this.grpQuantity = new System.Windows.Forms.GroupBox();
+            this.txtTotalQuantity = new Krypton.Toolkit.KryptonTextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtOutstandingQuantity = new Krypton.Toolkit.KryptonTextBox();
+            this.label21 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -125,6 +130,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
+            this.grpQuantity.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -522,6 +528,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.grpQuantity);
             this.groupBox1.Controls.Add(this.grpPFGroup);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -561,7 +568,7 @@
             this.grpPFGroup.Controls.Add(this.label12);
             this.grpPFGroup.Location = new System.Drawing.Point(17, 20);
             this.grpPFGroup.Name = "grpPFGroup";
-            this.grpPFGroup.Size = new System.Drawing.Size(882, 394);
+            this.grpPFGroup.Size = new System.Drawing.Size(882, 416);
             this.grpPFGroup.TabIndex = 77;
             this.grpPFGroup.TabStop = false;
             // 
@@ -821,7 +828,7 @@
             // txtManufacturerInfo
             // 
             this.txtManufacturerInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.txtManufacturerInfo.Location = new System.Drawing.Point(132, 66);
+            this.txtManufacturerInfo.Location = new System.Drawing.Point(135, 66);
             this.txtManufacturerInfo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtManufacturerInfo.MaxLength = 255;
             this.txtManufacturerInfo.Multiline = true;
@@ -845,7 +852,7 @@
             // 
             // txtModelNumber
             // 
-            this.txtModelNumber.Location = new System.Drawing.Point(132, 23);
+            this.txtModelNumber.Location = new System.Drawing.Point(135, 23);
             this.txtModelNumber.Margin = new System.Windows.Forms.Padding(4);
             this.txtModelNumber.Multiline = true;
             this.txtModelNumber.Name = "txtModelNumber";
@@ -1106,6 +1113,75 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
+            // grpQuantity
+            // 
+            this.grpQuantity.Controls.Add(this.txtOutstandingQuantity);
+            this.grpQuantity.Controls.Add(this.label21);
+            this.grpQuantity.Controls.Add(this.txtTotalQuantity);
+            this.grpQuantity.Controls.Add(this.label20);
+            this.grpQuantity.Location = new System.Drawing.Point(17, 376);
+            this.grpQuantity.Name = "grpQuantity";
+            this.grpQuantity.Size = new System.Drawing.Size(882, 57);
+            this.grpQuantity.TabIndex = 78;
+            this.grpQuantity.TabStop = false;
+            this.grpQuantity.Visible = false;
+            // 
+            // txtTotalQuantity
+            // 
+            this.txtTotalQuantity.Location = new System.Drawing.Point(134, 16);
+            this.txtTotalQuantity.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTotalQuantity.Multiline = true;
+            this.txtTotalQuantity.Name = "txtTotalQuantity";
+            this.txtTotalQuantity.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtTotalQuantity.Size = new System.Drawing.Size(215, 28);
+            this.txtTotalQuantity.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalQuantity.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtTotalQuantity.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalQuantity.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalQuantity.TabIndex = 93;
+            this.txtTotalQuantity.Tag = "Invoice Number";
+            this.txtTotalQuantity.WordWrap = false;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(38, 23);
+            this.label20.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(95, 15);
+            this.label20.TabIndex = 94;
+            this.label20.Text = "Total Quantity";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtOutstandingQuantity
+            // 
+            this.txtOutstandingQuantity.Location = new System.Drawing.Point(569, 16);
+            this.txtOutstandingQuantity.Margin = new System.Windows.Forms.Padding(4);
+            this.txtOutstandingQuantity.Multiline = true;
+            this.txtOutstandingQuantity.Name = "txtOutstandingQuantity";
+            this.txtOutstandingQuantity.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtOutstandingQuantity.Size = new System.Drawing.Size(215, 28);
+            this.txtOutstandingQuantity.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOutstandingQuantity.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtOutstandingQuantity.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOutstandingQuantity.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOutstandingQuantity.TabIndex = 95;
+            this.txtOutstandingQuantity.Tag = "Invoice Number";
+            this.txtOutstandingQuantity.WordWrap = false;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(426, 23);
+            this.label21.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(140, 15);
+            this.label21.TabIndex = 96;
+            this.label21.Text = "Outstanding Quantity";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // frmAssetsInfo
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1154,6 +1230,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
+            this.grpQuantity.ResumeLayout(false);
+            this.grpQuantity.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1230,5 +1308,10 @@
         private Krypton.Toolkit.KryptonDateTimePicker dtLastServiceDate;
         private System.Windows.Forms.Label lblAssetMasMoreDetID;
         private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
+        private System.Windows.Forms.GroupBox grpQuantity;
+        private Krypton.Toolkit.KryptonTextBox txtTotalQuantity;
+        private System.Windows.Forms.Label label20;
+        private Krypton.Toolkit.KryptonTextBox txtOutstandingQuantity;
+        private System.Windows.Forms.Label label21;
     }
 }

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance Register</title>
+</head>
+
+<body style="margin:0; padding:20px; font-family:Segoe UI, Arial, sans-serif; background-color:#f4f6f8;">
+
+<table width="100%">
+<tr>
+<td align="center">
+
+<!-- 🔷 Wrapper (Rounded Corners) -->
+<div style="
+    width:900px;
+    border-radius:12px;
+    overflow:hidden;
+    background:#ffffff;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+">
+
+<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:separate;">
+
+<!-- 🔷 Header -->
+<tr>
+<td style="background:#2c3e50; color:#ffffff; padding:20px; text-align:center;">
+    
+    <!-- <div style="margin-bottom:10px;">
+        {{Logo}}
+    </div>-->
+
+    <h2 style="margin:0;">
+        Attendance Register - {{MonthYear}}
+    </h2>
+</td>
+</tr>
+
+<!-- 🔷 Body -->
+<tr>
+<td style="padding:20px; color:#333333;">
+
+<!-- 🔹 Employee Info -->
+<div style="background:#f8f9fb; padding:15px; border-radius:6px;">
+    <b>{{EmployeeName}}</b><br/>
+    {{Designation}} | {{Department}}
+</div>
+
+<!-- 🔹 Compact Summary -->
+<div style="margin-top:15px;">
+<table width="100%" cellpadding="8" style="font-size:13px; text-align:center; border-collapse:collapse;">
+
+<tr style="background:#2c3e50; color:#fff;">
+    <th>Total</th>
+    <th>Worked</th>
+    <th>Present</th>
+    <th>Absent</th>
+    <th>First Half</th>
+    <th>Second Half</th>
+</tr>
+
+<tr style="background:#f8f9fb;">
+    <td>{{TotalDays}}</td>
+    <td>{{WorkedDays}}</td>
+    <td>{{PresentDays}}</td>
+    <td>{{AbsentDays}}</td>
+    <td>{{FirstHalfDays}}</td>
+    <td>{{SecondHalfDays}}</td>
+</tr>
+
+</table>
+</div>
+
+<!-- 🔹 Calendar -->
+<div style="margin-top:20px;">
+
+<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; text-align:center; font-size:13px;">
+
+<tr style="background:#000; color:#00ff88;">
+    <th>Sun</th>
+    <th>Mon</th>
+    <th>Tue</th>
+    <th>Wed</th>
+    <th>Thu</th>
+    <th>Fri</th>
+    <th>Sat</th>
+</tr>
+
+{{AttendanceRows}}
+
+</table>
+
+</div>
+
+<!-- 🔹 Legend -->
+<div style="margin-top:15px; font-size:12px;">
+    <span style="background:#32cd32; padding:5px 10px;">Present</span>
+    <span style="background:#ffeb3b; padding:5px 10px;">Leave</span>
+    <span style="background:#d3d3d3; padding:5px 10px;">Half Day</span>
+</div>
+
+</td>
+</tr>
+
+<!-- 🔷 Footer -->
+<tr>
+<td style="background:#f1f3f5; padding:12px; text-align:center; font-size:12px; color:#777;">
+    © {{Year}} {{CompanyName}}
+</td>
+</tr>
+
+</table>
+
+</div>
+
+</td>
+</tr>
+</table>
+
+</body>
+</html>

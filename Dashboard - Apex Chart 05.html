@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Employee Master Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<style>
+body {
+    font-family: Segoe UI, Arial;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* MAIN CONTAINER */
+.dashboard-container {
+    width: 1200px;
+}
+
+/* PANEL */
+.panel {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.panel-header {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: #ffffff;
+    padding: 14px;
+    font-weight: bold;
+}
+
+.panel-body {
+    padding: 20px;
+}
+
+/* KPI GRID */
+.kpi-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.kpi-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.kpi-1 {
+    grid-template-columns: repeat(1, 1fr);
+}
+
+/* KPI CARD */
+.kpi {
+    padding: 12px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+}
+
+.kpi strong {
+    display: block;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+/* COLORS */
+.blue { background: linear-gradient(135deg,#2196f3,#64b5f6); }
+.green { background: linear-gradient(135deg,#4caf50,#81c784); }
+.orange { background: linear-gradient(135deg,#ff9800,#ffb74d); }
+.red { background: linear-gradient(135deg,#f44336,#e57373); }
+
+/* TABLE */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.table th {
+    background: #2c3e50;
+    color: #fff;
+    padding: 8px;
+}
+
+.table td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+/* STATUS */
+.overdue { background: #ffe5e5; }
+.active { background: #e3f2fd; }
+.closed { background: #e8f5e9; }
+
+/* CALENDAR */
+.calendar {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.calendar th {
+    background: black;
+    color: #00ff88;
+    padding: 6px;
+}
+
+.calendar td {
+    height: 55px;
+    border: 1px solid #eee;
+    text-align: center;
+    font-size: 12px;
+}
+
+.present { background:#32cd32; }
+.absent { background:#ffeb3b; }
+.half { background:#d3d3d3; }
+
+</style>
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+<!-- 🔷 EMPLOYEE -->
+<div class="panel">
+<div class="panel-header">Employee Details</div>
+<div class="panel-body">
+<b>{{EmployeeName}}</b><br/>
+{{Designation}} | {{Department}}
+</div>
+</div>
+
+<!-- 🔷 ATTENDANCE -->
+<div class="panel">
+<div class="panel-header">Attendance Summary - {{MonthYear}}</div>
+<div class="panel-body">
+
+<div class="kpi-container">
+<div class="kpi blue">Total<strong>{{TotalDays}}</strong></div>
+<div class="kpi green">Present<strong>{{PresentDays}}</strong></div>
+<div class="kpi orange">Absent<strong>{{AbsentDays}}</strong></div>
+<div class="kpi red">Half<strong>{{HalfDays}}</strong></div>
+</div>
+
+<div id="attendanceChart" style="margin-top:15px;"></div>
+
+<table class="calendar">
+<tr>
+<th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th>
+<th>Thu</th><th>Fri</th><th>Sat</th>
+</tr>
+{{AttendanceRows}}
+</table>
+
+</div>
+</div>
+
+<!-- 🔷 ADVANCE SUMMARY -->
+<div class="panel">
+<div class="panel-header">Advance Summary</div>
+<div class="panel-body">
+
+<div class="kpi-container kpi-3">
+<div class="kpi blue">Issued<strong>₹ {{TotalIssued}}</strong></div>
+<div class="kpi green">Paid<strong>₹ {{TotalPaid}}</strong></div>
+<div class="kpi orange">Balance<strong>₹ {{TotalBalance}}</strong></div>
+</div>
+
+<div id="advanceSummaryChart" style="margin-top:15px;"></div>
+
+</div>
+</div>
+
+<!-- 🔷 ADVANCE INTELLIGENCE -->
+<div class="panel">
+<div class="panel-header">Advance Intelligence</div>
+<div class="panel-body">
+
+<div class="kpi-container kpi-1">
+<div class="kpi red">High Risk<strong>{{HighRiskCount}}</strong></div>
+</div>
+
+<div id="advanceTypeChart" style="margin-top:15px;"></div>
+
+<table class="table">
+<tr>
+<th>Type</th>
+<th>Issued</th>
+<th>Paid</th>
+<th>Balance</th>
+<th>Recovery %</th>
+<th>Risk</th>
+</tr>
+
+{{AdvanceRows}}
+
+</table>
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+/* Attendance Chart */
+new ApexCharts(document.querySelector("#attendanceChart"), {
+    chart:{type:'donut'},
+    series:[{{PresentDays}},{{AbsentDays}},{{HalfDays}}],
+    labels:['Present','Absent','Half']
+}).render();
+
+/* Advance Summary Chart */
+new ApexCharts(document.querySelector("#advanceSummaryChart"), {
+    chart:{type:'donut'},
+    series:[{{TotalPaidRaw}},{{TotalBalanceRaw}}],
+    labels:['Recovered','Balance']
+}).render();
+
+/* Advance Performance */
+new ApexCharts(document.querySelector("#advanceTypeChart"), {
+    chart:{type:'bar'},
+    series:[{name:'Recovery %',data:[{{RecoverySeries}}]}],
+    xaxis:{categories:[{{AdvanceTypes}}]},
+    dataLabels:{enabled:true,formatter:val=>val+"%"}
+}).render();
+
+</script>
+
+</body>
+</html>

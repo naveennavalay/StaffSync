@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Advance Repayment Details</title>
+
+<!-- ApexCharts -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<style>
+body {
+    font-family: Segoe UI, Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+
+.card {
+    width: 1100px;
+    margin: auto;
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.header {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+.section {
+    padding: 20px;
+}
+
+/* Info boxes */
+.info-box {
+    background: #f8f9fb;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* KPI */
+.kpi-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.kpi {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+}
+
+.kpi-title { font-size: 12px; }
+.kpi-value { font-size: 18px; font-weight: bold; margin-top: 5px; }
+
+.distributed { background: linear-gradient(135deg, #2196f3, #64b5f6); }
+.recovered { background: linear-gradient(135deg, #4caf50, #81c784); }
+.balance { background: linear-gradient(135deg, #ff9800, #ffb74d); }
+
+/* Table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+.table th {
+    background: #2c3e50;
+    color: #ffffff;
+    padding: 10px;
+    text-align: left;
+}
+
+.table td {
+    border-bottom: 1px solid #eee;
+    padding: 8px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<!-- 🔷 Header -->
+<div class="header">
+    <h2>Advance Repayment Details</h2>
+</div>
+
+<div class="section">
+
+<!-- 🔹 Employee Info -->
+<div class="info-box">
+    <b>{{EmployeeName}}</b><br/>
+    {{Designation}} | {{Department}}
+</div>
+
+<!-- 🔹 Advance Info -->
+<div class="info-box">
+    <b>Advance Code:</b> {{AdvanceCode}} |
+    <b>Type:</b> {{AdvanceType}} |
+    <b>Amount:</b> ₹ {{AdvanceAmount}}<br/>
+    <b>Start Date:</b> {{StartDate}} |
+    <b>End Date:</b> {{EndDate}} |
+    <b>Installments:</b> {{Installments}} |
+    <b>Last Payment:</b> {{LastPaymentDate}}
+</div>
+
+<!-- 🔹 KPI -->
+<div class="kpi-container">
+
+    <div class="kpi distributed">
+        <div class="kpi-title">Total Advance</div>
+        <div class="kpi-value">₹ {{AdvanceAmount}}</div>
+    </div>
+
+    <div class="kpi recovered">
+        <div class="kpi-title">Recovered</div>
+        <div class="kpi-value">₹ {{RecoveredAmount}}</div>
+    </div>
+
+    <div class="kpi balance">
+        <div class="kpi-title">Outstanding</div>
+        <div class="kpi-value">₹ {{BalanceAmount}}</div>
+    </div>
+
+</div>
+
+<!-- 🔹 Chart -->
+<div id="chart" style="margin-top:20px;"></div>
+
+<!-- 🔹 Transactions Table -->
+<table class="table">
+
+<tr>
+<th>Repayment Date</th>
+<th>Opening</th>
+<th>Credit</th>
+<th>Debit</th>
+<th>Closing</th>
+<th>Type</th>
+<th>Comments</th>
+</tr>
+
+{{TransactionRows}}
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+var options = {
+    chart: {
+        type: 'donut',
+        height: 300
+    },
+
+    series: [{{RecoveredRaw}}, {{BalanceRaw}}],
+
+    labels: ['Recovered', 'Outstanding'],
+
+    colors: ['#4caf50', '#ff9800'],
+
+    legend: {
+        position: 'bottom'
+    },
+
+    plotOptions: {
+        pie: {
+            donut: {
+                size: '60%',
+                labels: {
+                    show: true,
+                    total: {
+                        show: true,
+                        label: 'Total',
+                        formatter: function () {
+                            return '₹ {{AdvanceAmount}}';
+                        }
+                    }
+                }
+            }
+        }
+    }
+};
+
+var chart = new ApexCharts(document.querySelector("#chart"), options);
+chart.render();
+</script>
+
+</body>
+</html>

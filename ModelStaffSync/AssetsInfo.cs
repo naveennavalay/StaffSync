@@ -125,4 +125,32 @@ namespace ModelStaffSync
         public int ClientID { get; set; }
     }
 
+    public class AssetRegister
+    {
+        public int AssetRegID { get; set; }
+        public int AssetID { get; set; }
+
+        [DisplayName("Date")]
+        public DateTime AssetTRDate { get; set; }
+        [DisplayName("Opening Balance")] 
+        public decimal OBalance { get; set; }
+
+        [DisplayName("Credit")] 
+        public decimal CrBalance { get; set; }
+        
+        [DisplayName("Debit")]
+        public decimal DrBalance { get; set; }
+        
+        [DisplayName("Closing Balance")] 
+        public decimal CBalance { get; set; }
+
+        [DisplayName("Operation Type")]
+        public string TRType { get; set; }
+        
+        [DisplayName("Comments")] 
+        public string Comments { get; set; }
+        public int OrderID { get; set; }
+        public int EmpAdvanceRequestID { get; set; }
+    }
+
 }

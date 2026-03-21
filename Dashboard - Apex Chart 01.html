@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Advance Dashboard</title>
+
+<!-- ApexCharts -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<style>
+body {
+    font-family: Segoe UI, Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+
+.card {
+    width: 900px;
+    margin: auto;
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.header {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+.section {
+    padding: 20px;
+}
+
+/* KPI Cards */
+.kpi-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.kpi {
+    flex: 1;
+    border-radius: 10px;
+    padding: 15px;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.kpi-title {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.kpi-value {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* Colors */
+.distributed {
+    background: linear-gradient(135deg, #2196f3, #64b5f6);
+}
+
+.recovered {
+    background: linear-gradient(135deg, #4caf50, #81c784);
+}
+
+.balance {
+    background: linear-gradient(135deg, #ff9800, #ffb74d);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+    <!-- 🔷 Header -->
+    <div class="header">
+        <h2>Advance Summary Dashboard</h2>
+    </div>
+
+    <!-- 🔷 Body -->
+    <div class="section">
+
+        <!-- 🔹 KPI Cards -->
+        <div class="kpi-container">
+
+            <div class="kpi distributed">
+                <div class="kpi-title">Total Advance Distributed</div>
+                <div class="kpi-value">₹ {{TotalDistributed}}</div>
+            </div>
+
+            <div class="kpi recovered">
+                <div class="kpi-title">Total Advance Recovered</div>
+                <div class="kpi-value">₹ {{TotalRecovered}}</div>
+            </div>
+
+            <div class="kpi balance">
+                <div class="kpi-title">Outstanding Balance</div>
+                <div class="kpi-value">₹ {{TotalBalance}}</div>
+            </div>
+
+        </div>
+
+        <!-- 🔹 Chart -->
+        <div id="chart"></div>
+
+    </div>
+
+</div>
+
+<script>
+var options = {
+    chart: {
+        type: 'donut',
+        height: 320
+    },
+
+    series: [{{Recovered}}, {{Balance}}],
+
+    labels: ['Recovered', 'Outstanding'],
+
+    colors: ['#4caf50', '#ff9800'],
+
+    dataLabels: {
+        enabled: true,
+        style: {
+            fontSize: '14px'
+        }
+    },
+
+    plotOptions: {
+        pie: {
+            donut: {
+                size: '60%',
+                labels: {
+                    show: true,
+                    total: {
+                        show: true,
+                        label: 'Total',
+                        formatter: function () {
+                            return '₹ {{TotalDistributed}}';
+                        }
+                    }
+                }
+            }
+        }
+    },
+
+    legend: {
+        position: 'bottom'
+    }
+};
+
+var chart = new ApexCharts(document.querySelector("#chart"), options);
+chart.render();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Advance Request</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="margin:0; padding:0; font-family:Segoe UI, Arial, sans-serif; background-color:#f4f6f8;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f6f8; padding:20px;">
+        <tr>
+            <td align="center">
+
+                <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+
+                    <!-- 🔷 Header -->
+                    <tr>
+                        <td style="background-color:#2c3e50; padding:20px; text-align:center; color:#ffffff;">
+                            
+                            <!--<div style="margin-bottom:10px;">
+                                {{Logo}}
+                            </div>-->
+
+                            <h2 style="margin:0; font-weight:500;">
+                                Advance Request
+                            </h2>
+                        </td>
+                    </tr>
+
+                    <!-- 🔷 Body -->
+                    <tr>
+                        <td style="padding:30px; color:#333333;">
+
+                            <p style="font-size:16px;">
+                                Dear <b>{{ApproverName}}</b>,
+                            </p>
+
+                            <p style="font-size:15px; line-height:1.6;">
+                                I would like to kindly request approval for a {{AdvanceType}}. The details of my request are provided below for your review.
+                            </p>
+
+                            <!-- 🔹 Employee Info -->
+                            <div style="background:#f8f9fb; padding:15px; border-radius:6px; margin-top:20px;">
+                                <p style="margin:5px 0;"><b>Employee Name:</b> {{EmployeeName}}</p>
+                                <p style="margin:5px 0;"><b>Designation:</b> {{Designation}}</p>
+                                <p style="margin:5px 0;"><b>Department:</b> {{Department}}</p>
+                            </div>
+
+                            <!-- 🔹 Advance Details -->
+                            <div style="background:#f8f9fb; padding:15px; border-radius:6px; margin-top:15px;">
+                                <p style="margin:5px 0;"><b>Advance Type:</b> {{AdvanceType}}</p>
+                                <p style="margin:5px 0;"><b>Advance Amount:</b> {{AdvanceAmount}}</p>
+                                <p style="margin:5px 0;"><b>Tenure:</b> {{Tenure}} Months</p>
+                                <p style="margin:5px 0;"><b>Installment Amount:</b> {{InstallmentAmount}}</p>
+                                <p style="margin:5px 0;"><b>Start Date:</b> {{StartDate}}</p>
+                                <p style="margin:5px 0;"><b>End Date:</b> {{EndDate}}</p>
+                            </div>
+
+                            <!-- 🔹 Reason -->
+                            <div style="margin-top:20px;">
+                                <p style="margin:0; font-size:15px; line-height:1.6;">
+                                    <b>Reason:</b> {{Reason}}
+                                </p>
+                            </div>
+
+                            <p style="font-size:15px; margin-top:20px; line-height:1.6;">
+                                I kindly request you to review and approve this request. I assure that the repayment will be made as per the defined schedule.
+                            </p>
+
+                            <p style="font-size:15px; margin-top:20px;">
+                                Thank you for your consideration.
+                            </p>
+
+                            <!-- 🔹 Closing -->
+                            <p style="margin-top:25px;">
+                                Warm regards,<br/>
+                                <b>{{EmployeeName}}</b><br>
+                                {{Designation}}<br>
+                                {{Department}}<br>
+                            </p>
+
+                        </td>
+                    </tr>
+
+                    <!-- 🔷 Footer -->
+                    <tr>
+                        <td style="background:#f1f3f5; padding:15px; text-align:center; font-size:12px; color:#777;">
+                            © {{Year}} {{CompanyName}}. All rights reserved.
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

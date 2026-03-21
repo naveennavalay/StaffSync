@@ -264,6 +264,7 @@
             this.kryptonGroupBox3 = new Krypton.Toolkit.KryptonGroupBox();
             this.dtgAdvanceRiskBase = new Krypton.Toolkit.KryptonDataGridView();
             this.kryptonSplitContainer3 = new Krypton.Toolkit.KryptonSplitContainer();
+            this.Dashboard01 = new Krypton.Toolkit.KryptonWebBrowser();
             this.kryptonSplitContainer6 = new Krypton.Toolkit.KryptonSplitContainer();
             this.qryRoleProfileBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
@@ -343,6 +344,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgAdvanceRiskBase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3.Panel1)).BeginInit();
+            this.kryptonSplitContainer3.Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3.Panel2)).BeginInit();
             this.kryptonSplitContainer3.Panel2.SuspendLayout();
             this.kryptonSplitContainer3.SuspendLayout();
@@ -839,6 +841,7 @@
             this.assetAllocationToolStripMenuItem.Name = "assetAllocationToolStripMenuItem";
             this.assetAllocationToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.assetAllocationToolStripMenuItem.Text = "Asset Operations";
+            this.assetAllocationToolStripMenuItem.Click += new System.EventHandler(this.assetAllocationToolStripMenuItem_Click);
             // 
             // kryptonRibbonGroupTriple8
             // 
@@ -1517,7 +1520,7 @@
             this.toolStripMenuItem14,
             this.cmbPublicHolidayConfig});
             this.cmbApplicationSettings.Name = "cmDatamartList01";
-            this.cmbApplicationSettings.Size = new System.Drawing.Size(229, 188);
+            this.cmbApplicationSettings.Size = new System.Drawing.Size(229, 166);
             this.cmbApplicationSettings.Tag = "DatamartMenu";
             this.cmbApplicationSettings.Text = "Datamart Menu";
             this.cmbApplicationSettings.Opening += new System.ComponentModel.CancelEventHandler(this.cmbApplicationSettings_Opening);
@@ -2546,6 +2549,10 @@
             this.kryptonSplitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonSplitContainer3.Location = new System.Drawing.Point(0, 0);
             // 
+            // kryptonSplitContainer3.Panel1
+            // 
+            this.kryptonSplitContainer3.Panel1.Controls.Add(this.Dashboard01);
+            // 
             // kryptonSplitContainer3.Panel2
             // 
             this.kryptonSplitContainer3.Panel2.Controls.Add(this.kryptonSplitContainer6);
@@ -2554,6 +2561,16 @@
             this.kryptonSplitContainer3.SplitterDistance = 290;
             this.kryptonSplitContainer3.TabIndex = 0;
             this.kryptonSplitContainer3.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.kryptonSplitContainer3_SplitterMoved);
+            // 
+            // Dashboard01
+            // 
+            this.Dashboard01.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Dashboard01.Location = new System.Drawing.Point(0, 0);
+            this.Dashboard01.Name = "Dashboard01";
+            this.Dashboard01.ScriptErrorsSuppressed = true;
+            this.Dashboard01.Size = new System.Drawing.Size(290, 395);
+            this.Dashboard01.TabIndex = 0;
+            this.Dashboard01.TabStop = false;
             // 
             // kryptonSplitContainer6
             // 
@@ -2684,6 +2701,7 @@
             this.kryptonGroupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgAdvanceRiskBase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3.Panel1)).EndInit();
+            this.kryptonSplitContainer3.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3.Panel2)).EndInit();
             this.kryptonSplitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer3)).EndInit();
@@ -2939,6 +2957,7 @@
         private System.Windows.Forms.ToolStripMenuItem assetAllocationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem assetsCategoryListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem assetsListToolStripMenuItem;
+        private Krypton.Toolkit.KryptonWebBrowser Dashboard01;
     }
 }
 
