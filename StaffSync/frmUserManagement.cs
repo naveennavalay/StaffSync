@@ -62,6 +62,11 @@ namespace StaffSync
 
         private void frmUserManagement_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnModifyDetails);
+
             //lstUserManagementList.Items.Clear();
             //List<UserManagementList> objUserManagmentList = objUserManagementList.GetUserManagementList();
             //foreach (UserManagementList indUserManagement in objUserManagmentList)

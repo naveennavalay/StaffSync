@@ -574,6 +574,11 @@ namespace StaffSync
 
         private void frmPayrollBatchProcess_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnGenerateDetails);
+
             clearControls();
             onCancelButtonClick();
             cmbSalaryMonth.Enabled = true;

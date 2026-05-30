@@ -507,6 +507,11 @@ namespace StaffSync
 
         private void frmEmpAdvanceRequest_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnGenerateDetails);
+
             clearControls();
             disableControls();
             onCancelButtonClick();

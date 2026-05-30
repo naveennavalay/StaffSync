@@ -57,7 +57,10 @@ namespace StaffSync
 
         private void frmUpdateAdvanceStatus_Load(object sender, EventArgs e)
         {
-
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(cmbStatus);
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)

@@ -34,6 +34,11 @@ namespace StaffSync
 
         private void frmDesignationList_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             dtgDesignationList.DataSource = clsDesignation.GetDesignationList();
             FormatGrid();
         }

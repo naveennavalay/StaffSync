@@ -34,6 +34,11 @@ namespace StaffSync
 
         private void frmAssetCategoryList_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             dtgCategoryList.DataSource = objAssetCategory.getAssetsCategoryList(Convert.ToInt32(lblClientID.Text.ToString()));
             FormatGrid();
         }

@@ -45,6 +45,11 @@ namespace StaffSync
 
         private void frmLeaveTypeList_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             dtgLeaveTypeList.DataSource = null;
             dtgLeaveTypeList.Columns.Clear();
             dtgLeaveTypeList.Refresh();

@@ -51,6 +51,11 @@ namespace StaffSync
 
         private void frmWeeklyProfileMasterList_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             dtgWeeklyOffList.DataSource = null;
             dtgWeeklyOffList.Columns.Clear();
             dtgWeeklyOffList.Refresh();

@@ -84,6 +84,10 @@ namespace StaffSync {
         
         private qryDailyLeaveRequestDataTable tableqryDailyLeaveRequest;
         
+        private EmpWebLoginInfoDataTable tableEmpWebLoginInfo;
+        
+        private EmpWebLoginStatementDataTable tableEmpWebLoginStatement;
+        
         private global::System.Data.DataRelation relationCountryMasAddressMas;
         
         private global::System.Data.DataRelation relationAddressMasPersonalInfoMas;
@@ -127,6 +131,8 @@ namespace StaffSync {
         private global::System.Data.DataRelation relationSexMasContactPersonMas;
         
         private global::System.Data.DataRelation relationSexMasPersonalInfoMas;
+        
+        private global::System.Data.DataRelation relationPersonalInfoMasEmpWebLoginInfo;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -245,6 +251,12 @@ namespace StaffSync {
                 }
                 if ((ds.Tables["qryDailyLeaveRequest"] != null)) {
                     base.Tables.Add(new qryDailyLeaveRequestDataTable(ds.Tables["qryDailyLeaveRequest"]));
+                }
+                if ((ds.Tables["EmpWebLoginInfo"] != null)) {
+                    base.Tables.Add(new EmpWebLoginInfoDataTable(ds.Tables["EmpWebLoginInfo"]));
+                }
+                if ((ds.Tables["EmpWebLoginStatement"] != null)) {
+                    base.Tables.Add(new EmpWebLoginStatementDataTable(ds.Tables["EmpWebLoginStatement"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -566,6 +578,26 @@ namespace StaffSync {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public EmpWebLoginInfoDataTable EmpWebLoginInfo {
+            get {
+                return this.tableEmpWebLoginInfo;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public EmpWebLoginStatementDataTable EmpWebLoginStatement {
+            get {
+                return this.tableEmpWebLoginStatement;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -720,6 +752,12 @@ namespace StaffSync {
                 }
                 if ((ds.Tables["qryDailyLeaveRequest"] != null)) {
                     base.Tables.Add(new qryDailyLeaveRequestDataTable(ds.Tables["qryDailyLeaveRequest"]));
+                }
+                if ((ds.Tables["EmpWebLoginInfo"] != null)) {
+                    base.Tables.Add(new EmpWebLoginInfoDataTable(ds.Tables["EmpWebLoginInfo"]));
+                }
+                if ((ds.Tables["EmpWebLoginStatement"] != null)) {
+                    base.Tables.Add(new EmpWebLoginStatementDataTable(ds.Tables["EmpWebLoginStatement"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -934,6 +972,18 @@ namespace StaffSync {
                     this.tableqryDailyLeaveRequest.InitVars();
                 }
             }
+            this.tableEmpWebLoginInfo = ((EmpWebLoginInfoDataTable)(base.Tables["EmpWebLoginInfo"]));
+            if ((initTable == true)) {
+                if ((this.tableEmpWebLoginInfo != null)) {
+                    this.tableEmpWebLoginInfo.InitVars();
+                }
+            }
+            this.tableEmpWebLoginStatement = ((EmpWebLoginStatementDataTable)(base.Tables["EmpWebLoginStatement"]));
+            if ((initTable == true)) {
+                if ((this.tableEmpWebLoginStatement != null)) {
+                    this.tableEmpWebLoginStatement.InitVars();
+                }
+            }
             this.relationCountryMasAddressMas = this.Relations["CountryMasAddressMas"];
             this.relationAddressMasPersonalInfoMas = this.Relations["AddressMasPersonalInfoMas"];
             this.relationAddressMasPersonalInfoMas1 = this.Relations["AddressMasPersonalInfoMas1"];
@@ -956,6 +1006,7 @@ namespace StaffSync {
             this.relationDesigMasEmpMas = this.Relations["DesigMasEmpMas"];
             this.relationSexMasContactPersonMas = this.Relations["SexMasContactPersonMas"];
             this.relationSexMasPersonalInfoMas = this.Relations["SexMasPersonalInfoMas"];
+            this.relationPersonalInfoMasEmpWebLoginInfo = this.Relations["PersonalInfoMasEmpWebLoginInfo"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1026,6 +1077,10 @@ namespace StaffSync {
             base.Tables.Add(this.tableSexMas);
             this.tableqryDailyLeaveRequest = new qryDailyLeaveRequestDataTable();
             base.Tables.Add(this.tableqryDailyLeaveRequest);
+            this.tableEmpWebLoginInfo = new EmpWebLoginInfoDataTable();
+            base.Tables.Add(this.tableEmpWebLoginInfo);
+            this.tableEmpWebLoginStatement = new EmpWebLoginStatementDataTable();
+            base.Tables.Add(this.tableEmpWebLoginStatement);
             this.relationCountryMasAddressMas = new global::System.Data.DataRelation("CountryMasAddressMas", new global::System.Data.DataColumn[] {
                         this.tableCountryMas.CountryIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableAddressMas.CountryIDColumn}, false);
@@ -1114,6 +1169,10 @@ namespace StaffSync {
                         this.tableSexMas.SexIDColumn}, new global::System.Data.DataColumn[] {
                         this.tablePersonalInfoMas.SexIDColumn}, false);
             this.Relations.Add(this.relationSexMasPersonalInfoMas);
+            this.relationPersonalInfoMasEmpWebLoginInfo = new global::System.Data.DataRelation("PersonalInfoMasEmpWebLoginInfo", new global::System.Data.DataColumn[] {
+                        this.tablePersonalInfoMas.PersonalInfoIDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableEmpWebLoginInfo.PersonalInfoIDColumn}, false);
+            this.Relations.Add(this.relationPersonalInfoMasEmpWebLoginInfo);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1298,6 +1357,18 @@ namespace StaffSync {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private bool ShouldSerializeEmpWebLoginInfo() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private bool ShouldSerializeEmpWebLoginStatement() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void SchemaChanged(object sender, global::System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == global::System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -1440,6 +1511,12 @@ namespace StaffSync {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public delegate void qryDailyLeaveRequestRowChangeEventHandler(object sender, qryDailyLeaveRequestRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public delegate void EmpWebLoginInfoRowChangeEventHandler(object sender, EmpWebLoginInfoRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public delegate void EmpWebLoginStatementRowChangeEventHandler(object sender, EmpWebLoginStatementRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -11814,6 +11891,786 @@ namespace StaffSync {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class EmpWebLoginInfoDataTable : global::System.Data.TypedTableBase<EmpWebLoginInfoRow> {
+            
+            private global::System.Data.DataColumn columnEmpWebLoginInfo;
+            
+            private global::System.Data.DataColumn columnPersonalInfoID;
+            
+            private global::System.Data.DataColumn columnEmpWebLoginDate;
+            
+            private global::System.Data.DataColumn columnEmpWebLogInTime;
+            
+            private global::System.Data.DataColumn columnEmpWebLogOutTime;
+            
+            private global::System.Data.DataColumn columnTotalDayTime;
+            
+            private global::System.Data.DataColumn columnEmpWebLogDesc;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public EmpWebLoginInfoDataTable() {
+                this.TableName = "EmpWebLoginInfo";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal EmpWebLoginInfoDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected EmpWebLoginInfoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpWebLoginInfoColumn {
+                get {
+                    return this.columnEmpWebLoginInfo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn PersonalInfoIDColumn {
+                get {
+                    return this.columnPersonalInfoID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpWebLoginDateColumn {
+                get {
+                    return this.columnEmpWebLoginDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpWebLogInTimeColumn {
+                get {
+                    return this.columnEmpWebLogInTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpWebLogOutTimeColumn {
+                get {
+                    return this.columnEmpWebLogOutTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn TotalDayTimeColumn {
+                get {
+                    return this.columnTotalDayTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpWebLogDescColumn {
+                get {
+                    return this.columnEmpWebLogDesc;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public EmpWebLoginInfoRow this[int index] {
+                get {
+                    return ((EmpWebLoginInfoRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event EmpWebLoginInfoRowChangeEventHandler EmpWebLoginInfoRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event EmpWebLoginInfoRowChangeEventHandler EmpWebLoginInfoRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event EmpWebLoginInfoRowChangeEventHandler EmpWebLoginInfoRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event EmpWebLoginInfoRowChangeEventHandler EmpWebLoginInfoRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void AddEmpWebLoginInfoRow(EmpWebLoginInfoRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public EmpWebLoginInfoRow AddEmpWebLoginInfoRow(long EmpWebLoginInfo, PersonalInfoMasRow parentPersonalInfoMasRowByPersonalInfoMasEmpWebLoginInfo, System.DateTime EmpWebLoginDate, System.DateTime EmpWebLogInTime, System.DateTime EmpWebLogOutTime, System.DateTime TotalDayTime, string EmpWebLogDesc) {
+                EmpWebLoginInfoRow rowEmpWebLoginInfoRow = ((EmpWebLoginInfoRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        EmpWebLoginInfo,
+                        null,
+                        EmpWebLoginDate,
+                        EmpWebLogInTime,
+                        EmpWebLogOutTime,
+                        TotalDayTime,
+                        EmpWebLogDesc};
+                if ((parentPersonalInfoMasRowByPersonalInfoMasEmpWebLoginInfo != null)) {
+                    columnValuesArray[1] = parentPersonalInfoMasRowByPersonalInfoMasEmpWebLoginInfo[0];
+                }
+                rowEmpWebLoginInfoRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowEmpWebLoginInfoRow);
+                return rowEmpWebLoginInfoRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public EmpWebLoginInfoRow FindByEmpWebLoginInfo(long EmpWebLoginInfo) {
+                return ((EmpWebLoginInfoRow)(this.Rows.Find(new object[] {
+                            EmpWebLoginInfo})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                EmpWebLoginInfoDataTable cln = ((EmpWebLoginInfoDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new EmpWebLoginInfoDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal void InitVars() {
+                this.columnEmpWebLoginInfo = base.Columns["EmpWebLoginInfo"];
+                this.columnPersonalInfoID = base.Columns["PersonalInfoID"];
+                this.columnEmpWebLoginDate = base.Columns["EmpWebLoginDate"];
+                this.columnEmpWebLogInTime = base.Columns["EmpWebLogInTime"];
+                this.columnEmpWebLogOutTime = base.Columns["EmpWebLogOutTime"];
+                this.columnTotalDayTime = base.Columns["TotalDayTime"];
+                this.columnEmpWebLogDesc = base.Columns["EmpWebLogDesc"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            private void InitClass() {
+                this.columnEmpWebLoginInfo = new global::System.Data.DataColumn("EmpWebLoginInfo", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpWebLoginInfo);
+                this.columnPersonalInfoID = new global::System.Data.DataColumn("PersonalInfoID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPersonalInfoID);
+                this.columnEmpWebLoginDate = new global::System.Data.DataColumn("EmpWebLoginDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpWebLoginDate);
+                this.columnEmpWebLogInTime = new global::System.Data.DataColumn("EmpWebLogInTime", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpWebLogInTime);
+                this.columnEmpWebLogOutTime = new global::System.Data.DataColumn("EmpWebLogOutTime", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpWebLogOutTime);
+                this.columnTotalDayTime = new global::System.Data.DataColumn("TotalDayTime", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotalDayTime);
+                this.columnEmpWebLogDesc = new global::System.Data.DataColumn("EmpWebLogDesc", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpWebLogDesc);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnEmpWebLoginInfo}, true));
+                this.columnEmpWebLoginInfo.AllowDBNull = false;
+                this.columnEmpWebLoginInfo.Unique = true;
+                this.columnEmpWebLogDesc.MaxLength = 536870910;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public EmpWebLoginInfoRow NewEmpWebLoginInfoRow() {
+                return ((EmpWebLoginInfoRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new EmpWebLoginInfoRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(EmpWebLoginInfoRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.EmpWebLoginInfoRowChanged != null)) {
+                    this.EmpWebLoginInfoRowChanged(this, new EmpWebLoginInfoRowChangeEvent(((EmpWebLoginInfoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.EmpWebLoginInfoRowChanging != null)) {
+                    this.EmpWebLoginInfoRowChanging(this, new EmpWebLoginInfoRowChangeEvent(((EmpWebLoginInfoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.EmpWebLoginInfoRowDeleted != null)) {
+                    this.EmpWebLoginInfoRowDeleted(this, new EmpWebLoginInfoRowChangeEvent(((EmpWebLoginInfoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.EmpWebLoginInfoRowDeleting != null)) {
+                    this.EmpWebLoginInfoRowDeleting(this, new EmpWebLoginInfoRowChangeEvent(((EmpWebLoginInfoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void RemoveEmpWebLoginInfoRow(EmpWebLoginInfoRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                StaffsyncDBDataSet ds = new StaffsyncDBDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "EmpWebLoginInfoDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class EmpWebLoginStatementDataTable : global::System.Data.TypedTableBase<EmpWebLoginStatementRow> {
+            
+            private global::System.Data.DataColumn columnEmpID;
+            
+            private global::System.Data.DataColumn columnEmpCode;
+            
+            private global::System.Data.DataColumn columnEmpName;
+            
+            private global::System.Data.DataColumn columnDesignationTitle;
+            
+            private global::System.Data.DataColumn columnDepartmentTitle;
+            
+            private global::System.Data.DataColumn columnEmpWebLoginInfo;
+            
+            private global::System.Data.DataColumn columnEmpWebLoginDate;
+            
+            private global::System.Data.DataColumn columnEmpWebLogInTime;
+            
+            private global::System.Data.DataColumn columnEmpWebLogOutTime;
+            
+            private global::System.Data.DataColumn columnTotalDayTime;
+            
+            private global::System.Data.DataColumn columnEmpWebLogDesc;
+            
+            private global::System.Data.DataColumn columnIsActive;
+            
+            private global::System.Data.DataColumn columnIsDeleted;
+            
+            private global::System.Data.DataColumn columnClientID;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public EmpWebLoginStatementDataTable() {
+                this.TableName = "EmpWebLoginStatement";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal EmpWebLoginStatementDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected EmpWebLoginStatementDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpIDColumn {
+                get {
+                    return this.columnEmpID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpCodeColumn {
+                get {
+                    return this.columnEmpCode;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpNameColumn {
+                get {
+                    return this.columnEmpName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn DesignationTitleColumn {
+                get {
+                    return this.columnDesignationTitle;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn DepartmentTitleColumn {
+                get {
+                    return this.columnDepartmentTitle;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpWebLoginInfoColumn {
+                get {
+                    return this.columnEmpWebLoginInfo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpWebLoginDateColumn {
+                get {
+                    return this.columnEmpWebLoginDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpWebLogInTimeColumn {
+                get {
+                    return this.columnEmpWebLogInTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpWebLogOutTimeColumn {
+                get {
+                    return this.columnEmpWebLogOutTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn TotalDayTimeColumn {
+                get {
+                    return this.columnTotalDayTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn EmpWebLogDescColumn {
+                get {
+                    return this.columnEmpWebLogDesc;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn IsActiveColumn {
+                get {
+                    return this.columnIsActive;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn IsDeletedColumn {
+                get {
+                    return this.columnIsDeleted;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ClientIDColumn {
+                get {
+                    return this.columnClientID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public EmpWebLoginStatementRow this[int index] {
+                get {
+                    return ((EmpWebLoginStatementRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event EmpWebLoginStatementRowChangeEventHandler EmpWebLoginStatementRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event EmpWebLoginStatementRowChangeEventHandler EmpWebLoginStatementRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event EmpWebLoginStatementRowChangeEventHandler EmpWebLoginStatementRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event EmpWebLoginStatementRowChangeEventHandler EmpWebLoginStatementRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void AddEmpWebLoginStatementRow(EmpWebLoginStatementRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public EmpWebLoginStatementRow AddEmpWebLoginStatementRow(int EmpID, string EmpCode, string EmpName, string DesignationTitle, string DepartmentTitle, long EmpWebLoginInfo, System.DateTime EmpWebLoginDate, System.DateTime EmpWebLogInTime, System.DateTime EmpWebLogOutTime, System.DateTime TotalDayTime, string EmpWebLogDesc, bool IsActive, bool IsDeleted, int ClientID) {
+                EmpWebLoginStatementRow rowEmpWebLoginStatementRow = ((EmpWebLoginStatementRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        EmpID,
+                        EmpCode,
+                        EmpName,
+                        DesignationTitle,
+                        DepartmentTitle,
+                        EmpWebLoginInfo,
+                        EmpWebLoginDate,
+                        EmpWebLogInTime,
+                        EmpWebLogOutTime,
+                        TotalDayTime,
+                        EmpWebLogDesc,
+                        IsActive,
+                        IsDeleted,
+                        ClientID};
+                rowEmpWebLoginStatementRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowEmpWebLoginStatementRow);
+                return rowEmpWebLoginStatementRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                EmpWebLoginStatementDataTable cln = ((EmpWebLoginStatementDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new EmpWebLoginStatementDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal void InitVars() {
+                this.columnEmpID = base.Columns["EmpID"];
+                this.columnEmpCode = base.Columns["EmpCode"];
+                this.columnEmpName = base.Columns["EmpName"];
+                this.columnDesignationTitle = base.Columns["DesignationTitle"];
+                this.columnDepartmentTitle = base.Columns["DepartmentTitle"];
+                this.columnEmpWebLoginInfo = base.Columns["EmpWebLoginInfo"];
+                this.columnEmpWebLoginDate = base.Columns["EmpWebLoginDate"];
+                this.columnEmpWebLogInTime = base.Columns["EmpWebLogInTime"];
+                this.columnEmpWebLogOutTime = base.Columns["EmpWebLogOutTime"];
+                this.columnTotalDayTime = base.Columns["TotalDayTime"];
+                this.columnEmpWebLogDesc = base.Columns["EmpWebLogDesc"];
+                this.columnIsActive = base.Columns["IsActive"];
+                this.columnIsDeleted = base.Columns["IsDeleted"];
+                this.columnClientID = base.Columns["ClientID"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            private void InitClass() {
+                this.columnEmpID = new global::System.Data.DataColumn("EmpID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpID);
+                this.columnEmpCode = new global::System.Data.DataColumn("EmpCode", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpCode);
+                this.columnEmpName = new global::System.Data.DataColumn("EmpName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpName);
+                this.columnDesignationTitle = new global::System.Data.DataColumn("DesignationTitle", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDesignationTitle);
+                this.columnDepartmentTitle = new global::System.Data.DataColumn("DepartmentTitle", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDepartmentTitle);
+                this.columnEmpWebLoginInfo = new global::System.Data.DataColumn("EmpWebLoginInfo", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpWebLoginInfo);
+                this.columnEmpWebLoginDate = new global::System.Data.DataColumn("EmpWebLoginDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpWebLoginDate);
+                this.columnEmpWebLogInTime = new global::System.Data.DataColumn("EmpWebLogInTime", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpWebLogInTime);
+                this.columnEmpWebLogOutTime = new global::System.Data.DataColumn("EmpWebLogOutTime", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpWebLogOutTime);
+                this.columnTotalDayTime = new global::System.Data.DataColumn("TotalDayTime", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTotalDayTime);
+                this.columnEmpWebLogDesc = new global::System.Data.DataColumn("EmpWebLogDesc", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpWebLogDesc);
+                this.columnIsActive = new global::System.Data.DataColumn("IsActive", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsActive);
+                this.columnIsDeleted = new global::System.Data.DataColumn("IsDeleted", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsDeleted);
+                this.columnClientID = new global::System.Data.DataColumn("ClientID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnClientID);
+                this.columnEmpCode.MaxLength = 255;
+                this.columnEmpName.MaxLength = 255;
+                this.columnDesignationTitle.MaxLength = 255;
+                this.columnDepartmentTitle.MaxLength = 255;
+                this.columnEmpWebLogDesc.MaxLength = 536870910;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public EmpWebLoginStatementRow NewEmpWebLoginStatementRow() {
+                return ((EmpWebLoginStatementRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new EmpWebLoginStatementRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(EmpWebLoginStatementRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.EmpWebLoginStatementRowChanged != null)) {
+                    this.EmpWebLoginStatementRowChanged(this, new EmpWebLoginStatementRowChangeEvent(((EmpWebLoginStatementRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.EmpWebLoginStatementRowChanging != null)) {
+                    this.EmpWebLoginStatementRowChanging(this, new EmpWebLoginStatementRowChangeEvent(((EmpWebLoginStatementRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.EmpWebLoginStatementRowDeleted != null)) {
+                    this.EmpWebLoginStatementRowDeleted(this, new EmpWebLoginStatementRowChangeEvent(((EmpWebLoginStatementRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.EmpWebLoginStatementRowDeleting != null)) {
+                    this.EmpWebLoginStatementRowDeleting(this, new EmpWebLoginStatementRowChangeEvent(((EmpWebLoginStatementRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void RemoveEmpWebLoginStatementRow(EmpWebLoginStatementRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                StaffsyncDBDataSet ds = new StaffsyncDBDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "EmpWebLoginStatementDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class AddressMasRow : global::System.Data.DataRow {
@@ -13769,6 +14626,17 @@ namespace StaffSync {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetLastCompanyInfoIDNull() {
                 this[this.tablePersonalInfoMas.LastCompanyInfoIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public EmpWebLoginInfoRow[] GetEmpWebLoginInfoRows() {
+                if ((this.Table.ChildRelations["PersonalInfoMasEmpWebLoginInfo"] == null)) {
+                    return new EmpWebLoginInfoRow[0];
+                }
+                else {
+                    return ((EmpWebLoginInfoRow[])(base.GetChildRows(this.Table.ChildRelations["PersonalInfoMasEmpWebLoginInfo"])));
+                }
             }
         }
         
@@ -18072,6 +18940,624 @@ namespace StaffSync {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class EmpWebLoginInfoRow : global::System.Data.DataRow {
+            
+            private EmpWebLoginInfoDataTable tableEmpWebLoginInfo;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal EmpWebLoginInfoRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableEmpWebLoginInfo = ((EmpWebLoginInfoDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public long EmpWebLoginInfo {
+                get {
+                    return ((long)(this[this.tableEmpWebLoginInfo.EmpWebLoginInfoColumn]));
+                }
+                set {
+                    this[this.tableEmpWebLoginInfo.EmpWebLoginInfoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int PersonalInfoID {
+                get {
+                    try {
+                        return ((int)(this[this.tableEmpWebLoginInfo.PersonalInfoIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PersonalInfoID\' in table \'EmpWebLoginInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginInfo.PersonalInfoIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime EmpWebLoginDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableEmpWebLoginInfo.EmpWebLoginDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpWebLoginDate\' in table \'EmpWebLoginInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginInfo.EmpWebLoginDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime EmpWebLogInTime {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableEmpWebLoginInfo.EmpWebLogInTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpWebLogInTime\' in table \'EmpWebLoginInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginInfo.EmpWebLogInTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime EmpWebLogOutTime {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableEmpWebLoginInfo.EmpWebLogOutTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpWebLogOutTime\' in table \'EmpWebLoginInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginInfo.EmpWebLogOutTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime TotalDayTime {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableEmpWebLoginInfo.TotalDayTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TotalDayTime\' in table \'EmpWebLoginInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginInfo.TotalDayTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string EmpWebLogDesc {
+                get {
+                    try {
+                        return ((string)(this[this.tableEmpWebLoginInfo.EmpWebLogDescColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpWebLogDesc\' in table \'EmpWebLoginInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginInfo.EmpWebLogDescColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public PersonalInfoMasRow PersonalInfoMasRow {
+                get {
+                    return ((PersonalInfoMasRow)(this.GetParentRow(this.Table.ParentRelations["PersonalInfoMasEmpWebLoginInfo"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["PersonalInfoMasEmpWebLoginInfo"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsPersonalInfoIDNull() {
+                return this.IsNull(this.tableEmpWebLoginInfo.PersonalInfoIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetPersonalInfoIDNull() {
+                this[this.tableEmpWebLoginInfo.PersonalInfoIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpWebLoginDateNull() {
+                return this.IsNull(this.tableEmpWebLoginInfo.EmpWebLoginDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpWebLoginDateNull() {
+                this[this.tableEmpWebLoginInfo.EmpWebLoginDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpWebLogInTimeNull() {
+                return this.IsNull(this.tableEmpWebLoginInfo.EmpWebLogInTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpWebLogInTimeNull() {
+                this[this.tableEmpWebLoginInfo.EmpWebLogInTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpWebLogOutTimeNull() {
+                return this.IsNull(this.tableEmpWebLoginInfo.EmpWebLogOutTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpWebLogOutTimeNull() {
+                this[this.tableEmpWebLoginInfo.EmpWebLogOutTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsTotalDayTimeNull() {
+                return this.IsNull(this.tableEmpWebLoginInfo.TotalDayTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetTotalDayTimeNull() {
+                this[this.tableEmpWebLoginInfo.TotalDayTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpWebLogDescNull() {
+                return this.IsNull(this.tableEmpWebLoginInfo.EmpWebLogDescColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpWebLogDescNull() {
+                this[this.tableEmpWebLoginInfo.EmpWebLogDescColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class EmpWebLoginStatementRow : global::System.Data.DataRow {
+            
+            private EmpWebLoginStatementDataTable tableEmpWebLoginStatement;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal EmpWebLoginStatementRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableEmpWebLoginStatement = ((EmpWebLoginStatementDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int EmpID {
+                get {
+                    try {
+                        return ((int)(this[this.tableEmpWebLoginStatement.EmpIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpID\' in table \'EmpWebLoginStatement\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginStatement.EmpIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string EmpCode {
+                get {
+                    try {
+                        return ((string)(this[this.tableEmpWebLoginStatement.EmpCodeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpCode\' in table \'EmpWebLoginStatement\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginStatement.EmpCodeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string EmpName {
+                get {
+                    try {
+                        return ((string)(this[this.tableEmpWebLoginStatement.EmpNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpName\' in table \'EmpWebLoginStatement\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginStatement.EmpNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string DesignationTitle {
+                get {
+                    try {
+                        return ((string)(this[this.tableEmpWebLoginStatement.DesignationTitleColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DesignationTitle\' in table \'EmpWebLoginStatement\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginStatement.DesignationTitleColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string DepartmentTitle {
+                get {
+                    try {
+                        return ((string)(this[this.tableEmpWebLoginStatement.DepartmentTitleColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DepartmentTitle\' in table \'EmpWebLoginStatement\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginStatement.DepartmentTitleColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public long EmpWebLoginInfo {
+                get {
+                    try {
+                        return ((long)(this[this.tableEmpWebLoginStatement.EmpWebLoginInfoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpWebLoginInfo\' in table \'EmpWebLoginStatement\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginStatement.EmpWebLoginInfoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime EmpWebLoginDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableEmpWebLoginStatement.EmpWebLoginDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpWebLoginDate\' in table \'EmpWebLoginStatement\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginStatement.EmpWebLoginDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime EmpWebLogInTime {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableEmpWebLoginStatement.EmpWebLogInTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpWebLogInTime\' in table \'EmpWebLoginStatement\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginStatement.EmpWebLogInTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime EmpWebLogOutTime {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableEmpWebLoginStatement.EmpWebLogOutTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpWebLogOutTime\' in table \'EmpWebLoginStatement\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginStatement.EmpWebLogOutTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime TotalDayTime {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableEmpWebLoginStatement.TotalDayTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TotalDayTime\' in table \'EmpWebLoginStatement\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginStatement.TotalDayTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string EmpWebLogDesc {
+                get {
+                    try {
+                        return ((string)(this[this.tableEmpWebLoginStatement.EmpWebLogDescColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'EmpWebLogDesc\' in table \'EmpWebLoginStatement\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginStatement.EmpWebLogDescColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsActive {
+                get {
+                    try {
+                        return ((bool)(this[this.tableEmpWebLoginStatement.IsActiveColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsActive\' in table \'EmpWebLoginStatement\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginStatement.IsActiveColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsDeleted {
+                get {
+                    try {
+                        return ((bool)(this[this.tableEmpWebLoginStatement.IsDeletedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsDeleted\' in table \'EmpWebLoginStatement\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginStatement.IsDeletedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int ClientID {
+                get {
+                    try {
+                        return ((int)(this[this.tableEmpWebLoginStatement.ClientIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ClientID\' in table \'EmpWebLoginStatement\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableEmpWebLoginStatement.ClientIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpIDNull() {
+                return this.IsNull(this.tableEmpWebLoginStatement.EmpIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpIDNull() {
+                this[this.tableEmpWebLoginStatement.EmpIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpCodeNull() {
+                return this.IsNull(this.tableEmpWebLoginStatement.EmpCodeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpCodeNull() {
+                this[this.tableEmpWebLoginStatement.EmpCodeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpNameNull() {
+                return this.IsNull(this.tableEmpWebLoginStatement.EmpNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpNameNull() {
+                this[this.tableEmpWebLoginStatement.EmpNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsDesignationTitleNull() {
+                return this.IsNull(this.tableEmpWebLoginStatement.DesignationTitleColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetDesignationTitleNull() {
+                this[this.tableEmpWebLoginStatement.DesignationTitleColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsDepartmentTitleNull() {
+                return this.IsNull(this.tableEmpWebLoginStatement.DepartmentTitleColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetDepartmentTitleNull() {
+                this[this.tableEmpWebLoginStatement.DepartmentTitleColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpWebLoginInfoNull() {
+                return this.IsNull(this.tableEmpWebLoginStatement.EmpWebLoginInfoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpWebLoginInfoNull() {
+                this[this.tableEmpWebLoginStatement.EmpWebLoginInfoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpWebLoginDateNull() {
+                return this.IsNull(this.tableEmpWebLoginStatement.EmpWebLoginDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpWebLoginDateNull() {
+                this[this.tableEmpWebLoginStatement.EmpWebLoginDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpWebLogInTimeNull() {
+                return this.IsNull(this.tableEmpWebLoginStatement.EmpWebLogInTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpWebLogInTimeNull() {
+                this[this.tableEmpWebLoginStatement.EmpWebLogInTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpWebLogOutTimeNull() {
+                return this.IsNull(this.tableEmpWebLoginStatement.EmpWebLogOutTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpWebLogOutTimeNull() {
+                this[this.tableEmpWebLoginStatement.EmpWebLogOutTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsTotalDayTimeNull() {
+                return this.IsNull(this.tableEmpWebLoginStatement.TotalDayTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetTotalDayTimeNull() {
+                this[this.tableEmpWebLoginStatement.TotalDayTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsEmpWebLogDescNull() {
+                return this.IsNull(this.tableEmpWebLoginStatement.EmpWebLogDescColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetEmpWebLogDescNull() {
+                this[this.tableEmpWebLoginStatement.EmpWebLogDescColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsIsActiveNull() {
+                return this.IsNull(this.tableEmpWebLoginStatement.IsActiveColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetIsActiveNull() {
+                this[this.tableEmpWebLoginStatement.IsActiveColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsIsDeletedNull() {
+                return this.IsNull(this.tableEmpWebLoginStatement.IsDeletedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetIsDeletedNull() {
+                this[this.tableEmpWebLoginStatement.IsDeletedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsClientIDNull() {
+                return this.IsNull(this.tableEmpWebLoginStatement.ClientIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetClientIDNull() {
+                this[this.tableEmpWebLoginStatement.ClientIDColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -19077,6 +20563,74 @@ namespace StaffSync {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public qryDailyLeaveRequestRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public class EmpWebLoginInfoRowChangeEvent : global::System.EventArgs {
+            
+            private EmpWebLoginInfoRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public EmpWebLoginInfoRowChangeEvent(EmpWebLoginInfoRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public EmpWebLoginInfoRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public class EmpWebLoginStatementRowChangeEvent : global::System.EventArgs {
+            
+            private EmpWebLoginStatementRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public EmpWebLoginStatementRowChangeEvent(EmpWebLoginStatementRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public EmpWebLoginStatementRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -29661,6 +31215,668 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
     }
     
     /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class EmpWebLoginInfoTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.OleDb.OleDbDataAdapter _adapter;
+        
+        private global::System.Data.OleDb.OleDbConnection _connection;
+        
+        private global::System.Data.OleDb.OleDbTransaction _transaction;
+        
+        private global::System.Data.OleDb.OleDbCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public EmpWebLoginInfoTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected internal global::System.Data.OleDb.OleDbDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        internal global::System.Data.OleDb.OleDbConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.OleDb.OleDbCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        internal global::System.Data.OleDb.OleDbTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected global::System.Data.OleDb.OleDbCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.OleDb.OleDbDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "EmpWebLoginInfo";
+            tableMapping.ColumnMappings.Add("EmpWebLoginInfo", "EmpWebLoginInfo");
+            tableMapping.ColumnMappings.Add("PersonalInfoID", "PersonalInfoID");
+            tableMapping.ColumnMappings.Add("EmpWebLoginDate", "EmpWebLoginDate");
+            tableMapping.ColumnMappings.Add("EmpWebLogInTime", "EmpWebLogInTime");
+            tableMapping.ColumnMappings.Add("EmpWebLogOutTime", "EmpWebLogOutTime");
+            tableMapping.ColumnMappings.Add("TotalDayTime", "TotalDayTime");
+            tableMapping.ColumnMappings.Add("EmpWebLogDesc", "EmpWebLogDesc");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `EmpWebLoginInfo` WHERE ((`EmpWebLoginInfo` = ?) AND ((? = 1 AND `PersonalInfoID` IS NULL) OR (`PersonalInfoID` = ?)) AND ((? = 1 AND `EmpWebLoginDate` IS NULL) OR (`EmpWebLoginDate` = ?)) AND ((? = 1 AND `EmpWebLogInTime` IS NULL) OR (`EmpWebLogInTime` = ?)) AND ((? = 1 AND `EmpWebLogOutTime` IS NULL) OR (`EmpWebLogOutTime` = ?)) AND ((? = 1 AND `TotalDayTime` IS NULL) OR (`TotalDayTime` = ?)))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EmpWebLoginInfo", global::System.Data.OleDb.OleDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLoginInfo", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_PersonalInfoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "PersonalInfoID", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_PersonalInfoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "PersonalInfoID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EmpWebLoginDate", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLoginDate", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EmpWebLoginDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLoginDate", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EmpWebLogInTime", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLogInTime", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EmpWebLogInTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLogInTime", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EmpWebLogOutTime", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLogOutTime", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EmpWebLogOutTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLogOutTime", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_TotalDayTime", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TotalDayTime", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_TotalDayTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TotalDayTime", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `EmpWebLoginInfo` (`EmpWebLoginInfo`, `PersonalInfoID`, `EmpWebLoginD" +
+                "ate`, `EmpWebLogInTime`, `EmpWebLogOutTime`, `TotalDayTime`, `EmpWebLogDesc`) VA" +
+                "LUES (?, ?, ?, ?, ?, ?, ?)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmpWebLoginInfo", global::System.Data.OleDb.OleDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLoginInfo", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("PersonalInfoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "PersonalInfoID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmpWebLoginDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLoginDate", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmpWebLogInTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLogInTime", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmpWebLogOutTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLogOutTime", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TotalDayTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TotalDayTime", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmpWebLogDesc", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLogDesc", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `EmpWebLoginInfo` SET `EmpWebLoginInfo` = ?, `PersonalInfoID` = ?, `EmpWebLoginDate` = ?, `EmpWebLogInTime` = ?, `EmpWebLogOutTime` = ?, `TotalDayTime` = ?, `EmpWebLogDesc` = ? WHERE ((`EmpWebLoginInfo` = ?) AND ((? = 1 AND `PersonalInfoID` IS NULL) OR (`PersonalInfoID` = ?)) AND ((? = 1 AND `EmpWebLoginDate` IS NULL) OR (`EmpWebLoginDate` = ?)) AND ((? = 1 AND `EmpWebLogInTime` IS NULL) OR (`EmpWebLogInTime` = ?)) AND ((? = 1 AND `EmpWebLogOutTime` IS NULL) OR (`EmpWebLogOutTime` = ?)) AND ((? = 1 AND `TotalDayTime` IS NULL) OR (`TotalDayTime` = ?)))";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmpWebLoginInfo", global::System.Data.OleDb.OleDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLoginInfo", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("PersonalInfoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "PersonalInfoID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmpWebLoginDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLoginDate", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmpWebLogInTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLogInTime", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmpWebLogOutTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLogOutTime", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TotalDayTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TotalDayTime", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("EmpWebLogDesc", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLogDesc", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EmpWebLoginInfo", global::System.Data.OleDb.OleDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLoginInfo", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_PersonalInfoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "PersonalInfoID", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_PersonalInfoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "PersonalInfoID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EmpWebLoginDate", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLoginDate", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EmpWebLoginDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLoginDate", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EmpWebLogInTime", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLogInTime", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EmpWebLogInTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLogInTime", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_EmpWebLogOutTime", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLogOutTime", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_EmpWebLogOutTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "EmpWebLogOutTime", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_TotalDayTime", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TotalDayTime", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_TotalDayTime", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TotalDayTime", global::System.Data.DataRowVersion.Original, false, null));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.OleDb.OleDbConnection();
+            this._connection.ConnectionString = global::StaffSync.Properties.Settings.Default.StaffsyncDBConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
+            this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT EmpWebLoginInfo, PersonalInfoID, EmpWebLoginDate, EmpWebLogInTime, EmpWebL" +
+                "ogOutTime, TotalDayTime, EmpWebLogDesc FROM EmpWebLoginInfo";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(StaffsyncDBDataSet.EmpWebLoginInfoDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual StaffsyncDBDataSet.EmpWebLoginInfoDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            StaffsyncDBDataSet.EmpWebLoginInfoDataTable dataTable = new StaffsyncDBDataSet.EmpWebLoginInfoDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(StaffsyncDBDataSet.EmpWebLoginInfoDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(StaffsyncDBDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "EmpWebLoginInfo");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(long Original_EmpWebLoginInfo, global::System.Nullable<int> Original_PersonalInfoID, global::System.Nullable<global::System.DateTime> Original_EmpWebLoginDate, global::System.Nullable<global::System.DateTime> Original_EmpWebLogInTime, global::System.Nullable<global::System.DateTime> Original_EmpWebLogOutTime, global::System.Nullable<global::System.DateTime> Original_TotalDayTime) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((long)(Original_EmpWebLoginInfo));
+            if ((Original_PersonalInfoID.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_PersonalInfoID.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((Original_EmpWebLoginDate.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((System.DateTime)(Original_EmpWebLoginDate.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((Original_EmpWebLogInTime.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((System.DateTime)(Original_EmpWebLogInTime.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((Original_EmpWebLogOutTime.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((System.DateTime)(Original_EmpWebLogOutTime.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            if ((Original_TotalDayTime.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((System.DateTime)(Original_TotalDayTime.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(long EmpWebLoginInfo, global::System.Nullable<int> PersonalInfoID, global::System.Nullable<global::System.DateTime> EmpWebLoginDate, global::System.Nullable<global::System.DateTime> EmpWebLogInTime, global::System.Nullable<global::System.DateTime> EmpWebLogOutTime, global::System.Nullable<global::System.DateTime> TotalDayTime, string EmpWebLogDesc) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((long)(EmpWebLoginInfo));
+            if ((PersonalInfoID.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(PersonalInfoID.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((EmpWebLoginDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(EmpWebLoginDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((EmpWebLogInTime.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(EmpWebLogInTime.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((EmpWebLogOutTime.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(EmpWebLogOutTime.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((TotalDayTime.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(TotalDayTime.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((EmpWebLogDesc == null)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(EmpWebLogDesc));
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(long EmpWebLoginInfo, global::System.Nullable<int> PersonalInfoID, global::System.Nullable<global::System.DateTime> EmpWebLoginDate, global::System.Nullable<global::System.DateTime> EmpWebLogInTime, global::System.Nullable<global::System.DateTime> EmpWebLogOutTime, global::System.Nullable<global::System.DateTime> TotalDayTime, string EmpWebLogDesc, long Original_EmpWebLoginInfo, global::System.Nullable<int> Original_PersonalInfoID, global::System.Nullable<global::System.DateTime> Original_EmpWebLoginDate, global::System.Nullable<global::System.DateTime> Original_EmpWebLogInTime, global::System.Nullable<global::System.DateTime> Original_EmpWebLogOutTime, global::System.Nullable<global::System.DateTime> Original_TotalDayTime) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((long)(EmpWebLoginInfo));
+            if ((PersonalInfoID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(PersonalInfoID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((EmpWebLoginDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(EmpWebLoginDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((EmpWebLogInTime.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(EmpWebLogInTime.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((EmpWebLogOutTime.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(EmpWebLogOutTime.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((TotalDayTime.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(TotalDayTime.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((EmpWebLogDesc == null)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(EmpWebLogDesc));
+            }
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((long)(Original_EmpWebLoginInfo));
+            if ((Original_PersonalInfoID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_PersonalInfoID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            if ((Original_EmpWebLoginDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((System.DateTime)(Original_EmpWebLoginDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            if ((Original_EmpWebLogInTime.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((System.DateTime)(Original_EmpWebLogInTime.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+            }
+            if ((Original_EmpWebLogOutTime.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((System.DateTime)(Original_EmpWebLogOutTime.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
+            }
+            if ((Original_TotalDayTime.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((System.DateTime)(Original_TotalDayTime.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(global::System.Nullable<int> PersonalInfoID, global::System.Nullable<global::System.DateTime> EmpWebLoginDate, global::System.Nullable<global::System.DateTime> EmpWebLogInTime, global::System.Nullable<global::System.DateTime> EmpWebLogOutTime, global::System.Nullable<global::System.DateTime> TotalDayTime, string EmpWebLogDesc, long Original_EmpWebLoginInfo, global::System.Nullable<int> Original_PersonalInfoID, global::System.Nullable<global::System.DateTime> Original_EmpWebLoginDate, global::System.Nullable<global::System.DateTime> Original_EmpWebLogInTime, global::System.Nullable<global::System.DateTime> Original_EmpWebLogOutTime, global::System.Nullable<global::System.DateTime> Original_TotalDayTime) {
+            return this.Update(Original_EmpWebLoginInfo, PersonalInfoID, EmpWebLoginDate, EmpWebLogInTime, EmpWebLogOutTime, TotalDayTime, EmpWebLogDesc, Original_EmpWebLoginInfo, Original_PersonalInfoID, Original_EmpWebLoginDate, Original_EmpWebLogInTime, Original_EmpWebLogOutTime, Original_TotalDayTime);
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class EmpWebLoginStatementTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.OleDb.OleDbDataAdapter _adapter;
+        
+        private global::System.Data.OleDb.OleDbConnection _connection;
+        
+        private global::System.Data.OleDb.OleDbTransaction _transaction;
+        
+        private global::System.Data.OleDb.OleDbCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public EmpWebLoginStatementTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected internal global::System.Data.OleDb.OleDbDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        internal global::System.Data.OleDb.OleDbConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.OleDb.OleDbCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        internal global::System.Data.OleDb.OleDbTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected global::System.Data.OleDb.OleDbCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.OleDb.OleDbDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "EmpWebLoginStatement";
+            tableMapping.ColumnMappings.Add("EmpID", "EmpID");
+            tableMapping.ColumnMappings.Add("EmpCode", "EmpCode");
+            tableMapping.ColumnMappings.Add("EmpName", "EmpName");
+            tableMapping.ColumnMappings.Add("DesignationTitle", "DesignationTitle");
+            tableMapping.ColumnMappings.Add("DepartmentTitle", "DepartmentTitle");
+            tableMapping.ColumnMappings.Add("EmpWebLoginInfo", "EmpWebLoginInfo");
+            tableMapping.ColumnMappings.Add("EmpWebLoginDate", "EmpWebLoginDate");
+            tableMapping.ColumnMappings.Add("EmpWebLogInTime", "EmpWebLogInTime");
+            tableMapping.ColumnMappings.Add("EmpWebLogOutTime", "EmpWebLogOutTime");
+            tableMapping.ColumnMappings.Add("TotalDayTime", "TotalDayTime");
+            tableMapping.ColumnMappings.Add("EmpWebLogDesc", "EmpWebLogDesc");
+            tableMapping.ColumnMappings.Add("IsActive", "IsActive");
+            tableMapping.ColumnMappings.Add("IsDeleted", "IsDeleted");
+            tableMapping.ColumnMappings.Add("ClientID", "ClientID");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.OleDb.OleDbConnection();
+            this._connection.ConnectionString = global::StaffSync.Properties.Settings.Default.StaffsyncDBConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
+            this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT EmpID, EmpCode, EmpName, DesignationTitle, DepartmentTitle, EmpWebLoginInf" +
+                "o, EmpWebLoginDate, EmpWebLogInTime, EmpWebLogOutTime, TotalDayTime, EmpWebLogDe" +
+                "sc, IsActive, IsDeleted, ClientID FROM EmpWebLoginStatement";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(StaffsyncDBDataSet.EmpWebLoginStatementDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual StaffsyncDBDataSet.EmpWebLoginStatementDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            StaffsyncDBDataSet.EmpWebLoginStatementDataTable dataTable = new StaffsyncDBDataSet.EmpWebLoginStatementDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
     ///TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
     ///</summary>
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -29711,6 +31927,8 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
         private EmpMasTableAdapter _empMasTableAdapter;
         
         private SexMasTableAdapter _sexMasTableAdapter;
+        
+        private EmpWebLoginInfoTableAdapter _empWebLoginInfoTableAdapter;
         
         private bool _backupDataSetBeforeUpdate;
         
@@ -30009,6 +32227,20 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public EmpWebLoginInfoTableAdapter EmpWebLoginInfoTableAdapter {
+            get {
+                return this._empWebLoginInfoTableAdapter;
+            }
+            set {
+                this._empWebLoginInfoTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public bool BackupDataSetBeforeUpdate {
             get {
                 return this._backupDataSetBeforeUpdate;
@@ -30106,6 +32338,10 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                             && (this._sexMasTableAdapter.Connection != null))) {
                     return this._sexMasTableAdapter.Connection;
                 }
+                if (((this._empWebLoginInfoTableAdapter != null) 
+                            && (this._empWebLoginInfoTableAdapter.Connection != null))) {
+                    return this._empWebLoginInfoTableAdapter.Connection;
+                }
                 return null;
             }
             set {
@@ -30179,6 +32415,9 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                 if ((this._sexMasTableAdapter != null)) {
                     count = (count + 1);
                 }
+                if ((this._empWebLoginInfoTableAdapter != null)) {
+                    count = (count + 1);
+                }
                 return count;
             }
         }
@@ -30196,33 +32435,6 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._countryMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._depMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.DepMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._depMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._desigMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.DesigMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._desigMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._bloodGroupMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._bloodGroupMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -30244,21 +32456,30 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._lastCompDetMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._contactPersonMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ContactPersonMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._lastCompDetMasTableAdapter.Update(updatedRows));
+                    result = (result + this._contactPersonMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._sexMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._depMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.DepMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._sexMasTableAdapter.Update(updatedRows));
+                    result = (result + this._depMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._desigMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.DesigMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._desigMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -30271,21 +32492,12 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._relationShipMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._sexMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._relationShipMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._skillsMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._skillsMasTableAdapter.Update(updatedRows));
+                    result = (result + this._sexMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -30299,21 +32511,48 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._contactPersonMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ContactPersonMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._bloodGroupMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._contactPersonMasTableAdapter.Update(updatedRows));
+                    result = (result + this._bloodGroupMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._userAuditLogTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.UserAuditLog.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._skillsMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._userAuditLogTableAdapter.Update(updatedRows));
+                    result = (result + this._skillsMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._personalInfoMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.PersonalInfoMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._personalInfoMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._lastCompDetMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._lastCompDetMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._relationShipMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._relationShipMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -30326,12 +32565,21 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._personalInfoMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.PersonalInfoMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._userAuditLogTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.UserAuditLog.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._personalInfoMasTableAdapter.Update(updatedRows));
+                    result = (result + this._userAuditLogTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._empWebLoginInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpWebLoginInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empWebLoginInfoTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -30389,30 +32637,6 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._depMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.DepMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._depMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._desigMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.DesigMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._desigMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._bloodGroupMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._bloodGroupMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._stateMasTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.StateMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -30429,19 +32653,27 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._lastCompDetMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._contactPersonMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ContactPersonMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._lastCompDetMasTableAdapter.Update(addedRows));
+                    result = (result + this._contactPersonMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._sexMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._depMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.DepMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._sexMasTableAdapter.Update(addedRows));
+                    result = (result + this._depMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._desigMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.DesigMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._desigMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -30453,19 +32685,11 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._relationShipMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._sexMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._relationShipMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._skillsMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._skillsMasTableAdapter.Update(addedRows));
+                    result = (result + this._sexMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -30478,19 +32702,43 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._contactPersonMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ContactPersonMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._bloodGroupMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._contactPersonMasTableAdapter.Update(addedRows));
+                    result = (result + this._bloodGroupMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._userAuditLogTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.UserAuditLog.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._skillsMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._userAuditLogTableAdapter.Update(addedRows));
+                    result = (result + this._skillsMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._personalInfoMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.PersonalInfoMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._personalInfoMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._lastCompDetMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._lastCompDetMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._relationShipMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._relationShipMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -30502,11 +32750,19 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._personalInfoMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.PersonalInfoMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._userAuditLogTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.UserAuditLog.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._personalInfoMasTableAdapter.Update(addedRows));
+                    result = (result + this._userAuditLogTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._empWebLoginInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpWebLoginInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empWebLoginInfoTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -30584,19 +32840,11 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._personalInfoMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.PersonalInfoMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empWebLoginInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpWebLoginInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._personalInfoMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._empSkillMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpSkillMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._empSkillMasTableAdapter.Update(deletedRows));
+                    result = (result + this._empWebLoginInfoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -30608,11 +32856,51 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._contactPersonMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ContactPersonMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empSkillMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpSkillMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._contactPersonMasTableAdapter.Update(deletedRows));
+                    result = (result + this._empSkillMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._relationShipMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._relationShipMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._lastCompDetMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._lastCompDetMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._personalInfoMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.PersonalInfoMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._personalInfoMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._skillsMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._skillsMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._bloodGroupMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._bloodGroupMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -30625,30 +32913,6 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._skillsMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._skillsMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._relationShipMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._relationShipMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._eduQualMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EduQualMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._eduQualMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._sexMasTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -30657,35 +32921,11 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._lastCompDetMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._eduQualMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EduQualMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._lastCompDetMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._addressMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.AddressMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._addressMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._stateMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.StateMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._stateMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._bloodGroupMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._bloodGroupMasTableAdapter.Update(deletedRows));
+                    result = (result + this._eduQualMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -30702,6 +32942,30 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._depMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._contactPersonMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ContactPersonMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._contactPersonMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._addressMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AddressMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._addressMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._stateMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.StateMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._stateMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -30849,6 +33113,11 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
             }
             if (((this._sexMasTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._sexMasTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
+            if (((this._empWebLoginInfoTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._empWebLoginInfoTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -31064,6 +33333,15 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                         adaptersWithAcceptChangesDuringUpdate.Add(this._sexMasTableAdapter.Adapter);
                     }
                 }
+                if ((this._empWebLoginInfoTableAdapter != null)) {
+                    revertConnections.Add(this._empWebLoginInfoTableAdapter, this._empWebLoginInfoTableAdapter.Connection);
+                    this._empWebLoginInfoTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(workConnection));
+                    this._empWebLoginInfoTableAdapter.Transaction = ((global::System.Data.OleDb.OleDbTransaction)(workTransaction));
+                    if (this._empWebLoginInfoTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._empWebLoginInfoTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._empWebLoginInfoTableAdapter.Adapter);
+                    }
+                }
                 // 
                 //---- Perform updates -----------
                 //
@@ -31201,6 +33479,10 @@ namespace StaffSync.StaffsyncDBDataSetTableAdapters {
                 if ((this._sexMasTableAdapter != null)) {
                     this._sexMasTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._sexMasTableAdapter]));
                     this._sexMasTableAdapter.Transaction = null;
+                }
+                if ((this._empWebLoginInfoTableAdapter != null)) {
+                    this._empWebLoginInfoTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._empWebLoginInfoTableAdapter]));
+                    this._empWebLoginInfoTableAdapter.Transaction = null;
                 }
                 if ((0 < adaptersWithAcceptChangesDuringUpdate.Count)) {
                     global::System.Data.Common.DataAdapter[] adapters = new System.Data.Common.DataAdapter[adaptersWithAcceptChangesDuringUpdate.Count];

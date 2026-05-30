@@ -36,6 +36,11 @@ namespace StaffSync
 
         private void frmAssetInfoList_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             dtgAssetInfoList.DataSource = objAssetsInfo.getAssetsInfoList(Convert.ToInt32(lblClientID.Text.ToString()));
             FormatGrid();
         }

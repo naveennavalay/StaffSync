@@ -89,7 +89,10 @@ namespace StaffSync
 
         private void frmEmpFamilyMemberPopup_Load(object sender, EventArgs e)
         {
-
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(txtMemberName);
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)

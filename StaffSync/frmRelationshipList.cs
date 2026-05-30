@@ -34,6 +34,11 @@ namespace StaffSync
 
         private void frmRelationshipList_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             dtgStateList.DataSource = clsRelationship.GetRelationshipList();
         }
 

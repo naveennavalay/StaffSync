@@ -60,6 +60,8 @@
             this.cmbAssetType = new Krypton.Toolkit.KryptonComboBox();
             this.label42 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.lblTaskID = new System.Windows.Forms.Label();
+            this.lblAssetRegID = new System.Windows.Forms.Label();
             this.lblClientID = new System.Windows.Forms.Label();
             this.lblAssetRequestID = new System.Windows.Forms.Label();
             this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
@@ -88,8 +90,6 @@
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.ttAdvanceType = new System.Windows.Forms.ToolTip(this.components);
-            this.lblAssetRegID = new System.Windows.Forms.Label();
-            this.lblTaskID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -263,7 +263,7 @@
             this.groupBox2.Size = new System.Drawing.Size(1035, 183);
             this.groupBox2.TabIndex = 70;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Request Raised To";
+            this.groupBox2.Text = "Reporting Manager Information";
             // 
             // lblRequestToMailID
             // 
@@ -552,6 +552,32 @@
             this.groupBox8.TabIndex = 33;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Employee Information";
+            // 
+            // lblTaskID
+            // 
+            this.lblTaskID.AutoSize = true;
+            this.lblTaskID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblTaskID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTaskID.Location = new System.Drawing.Point(763, 98);
+            this.lblTaskID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblTaskID.Name = "lblTaskID";
+            this.lblTaskID.Size = new System.Drawing.Size(11, 15);
+            this.lblTaskID.TabIndex = 84;
+            this.lblTaskID.Text = " ";
+            this.lblTaskID.Visible = false;
+            // 
+            // lblAssetRegID
+            // 
+            this.lblAssetRegID.AutoSize = true;
+            this.lblAssetRegID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblAssetRegID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAssetRegID.Location = new System.Drawing.Point(763, 68);
+            this.lblAssetRegID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblAssetRegID.Name = "lblAssetRegID";
+            this.lblAssetRegID.Size = new System.Drawing.Size(11, 15);
+            this.lblAssetRegID.TabIndex = 83;
+            this.lblAssetRegID.Text = " ";
+            this.lblAssetRegID.Visible = false;
             // 
             // lblClientID
             // 
@@ -904,32 +930,6 @@
             // 
             this.ttAdvanceType.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.ttAdvanceType.ToolTipTitle = "This is sample tooltip text";
-            // 
-            // lblAssetRegID
-            // 
-            this.lblAssetRegID.AutoSize = true;
-            this.lblAssetRegID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblAssetRegID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAssetRegID.Location = new System.Drawing.Point(763, 68);
-            this.lblAssetRegID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblAssetRegID.Name = "lblAssetRegID";
-            this.lblAssetRegID.Size = new System.Drawing.Size(11, 15);
-            this.lblAssetRegID.TabIndex = 83;
-            this.lblAssetRegID.Text = " ";
-            this.lblAssetRegID.Visible = false;
-            // 
-            // lblTaskID
-            // 
-            this.lblTaskID.AutoSize = true;
-            this.lblTaskID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblTaskID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTaskID.Location = new System.Drawing.Point(763, 98);
-            this.lblTaskID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblTaskID.Name = "lblTaskID";
-            this.lblTaskID.Size = new System.Drawing.Size(11, 15);
-            this.lblTaskID.TabIndex = 84;
-            this.lblTaskID.Text = " ";
-            this.lblTaskID.Visible = false;
             // 
             // frmEmpAssetRequest
             // 

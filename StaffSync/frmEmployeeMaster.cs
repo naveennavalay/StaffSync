@@ -306,6 +306,11 @@ namespace StaffSync
 
         private void frmEmployeeMaster_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnGenerateDetails);
+
             // TODO: This line of code loads data into the 'staffsyncDBDTSet.DocUploads' table. You can move, or remove it, as needed.
             //this.docUploadsTableAdapter.Fill(this.staffsyncDBDTSet.DocUploads);
             //// TODO: This line of code loads data into the 'staffsyncDBDTSet.EmpMasInfo' table. You can move, or remove it, as needed.
@@ -444,6 +449,7 @@ namespace StaffSync
 
             RefreshBankList();
             RefreshLeavesHistoryList();
+            txtEmpCode.Focus();
         }
 
         public void onGenerateButtonClick()
@@ -2060,6 +2066,7 @@ namespace StaffSync
                 UpdateUIWithSelectedEmployeeDetails(Convert.ToInt16(lblEmpID.Text));
 
                 _originalValues = AuditLogger.getOriginalValues(this);
+                txtEmpCode.Focus();
             }
             else if (SearchOptionSelectedForm == "listRepManagers")
             {
@@ -2074,6 +2081,7 @@ namespace StaffSync
                 picRepEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblReportingManagerID.Text.ToString())).EmpPhoto);
 
                 _originalValues = AuditLogger.getOriginalValues(this);
+                txtContactPersonName.Focus();
             }
         }
 
@@ -2889,13 +2897,13 @@ namespace StaffSync
                 boolSetDefaultDate = true;
             }
             objMemberInfo.FamMemRelationship = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemRelationship"].Value.ToString();
-            objMemberInfo.FamMemAddr1 = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemAddr1"].Value.ToString();
-            objMemberInfo.FamMemAddr2 = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemAddr2"].Value.ToString();
-            objMemberInfo.FamMemArea = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemArea"].Value.ToString();
-            objMemberInfo.FamMemCity = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemCity"].Value.ToString();
-            objMemberInfo.FamMemState = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemState"].Value.ToString();
-            objMemberInfo.FamMemPIN = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemPIN"].Value.ToString();
-            objMemberInfo.FamMemCountry = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemCountry"].Value.ToString();
+            objMemberInfo.FamMemAddr1 = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemAddr1"].Value.ToString() == "" ? txtCurrentAddress01.Text.ToString().Trim() : dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemAddr1"].Value.ToString();
+            objMemberInfo.FamMemAddr2 = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemAddr2"].Value.ToString() == "" ? txtCurrentAddress02.Text.ToString().Trim() : dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemAddr2"].Value.ToString();
+            objMemberInfo.FamMemArea = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemArea"].Value.ToString() == "" ? txtCurrentArea.Text.ToString().Trim() : dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemArea"].Value.ToString();
+            objMemberInfo.FamMemCity = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemCity"].Value.ToString() == "" ? txtCurrentCity.Text.ToString().Trim() : dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemCity"].Value.ToString();
+            objMemberInfo.FamMemState = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemState"].Value.ToString() == "" ? cmbCurrentState.SelectedText.ToString().Trim() : dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemState"].Value.ToString();
+            objMemberInfo.FamMemPIN = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemPIN"].Value.ToString() == "" ? txtCurrentPIN.Text.ToString().Trim() : dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemPIN"].Value.ToString();
+            objMemberInfo.FamMemCountry = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemCountry"].Value.ToString() == "" ? cmbCurrentCountry.SelectedText.ToString().Trim() : dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemCountry"].Value.ToString();
             objMemberInfo.FamMemContactNumber = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemContactNumber"].Value.ToString();
             objMemberInfo.FamMemMailID = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemMailID"].Value.ToString();
             objMemberInfo.FamMemBloodGroup = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemBloodGroup"].Value.ToString();

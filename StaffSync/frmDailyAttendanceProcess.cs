@@ -327,6 +327,11 @@ namespace StaffSync
 
         private void frmDailyAttendanceProcess_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(txtDailyAttendanceDate);
+
             //onCancelButtonClick();
             //disableControls();
             //clearControls();

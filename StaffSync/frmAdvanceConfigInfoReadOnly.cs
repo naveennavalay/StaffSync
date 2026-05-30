@@ -90,7 +90,10 @@ namespace StaffSync
 
         private void frmAdvanceConfigInfoReadOnly_Load(object sender, EventArgs e)
         {
-
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)

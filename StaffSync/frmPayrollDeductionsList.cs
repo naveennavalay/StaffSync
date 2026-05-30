@@ -35,6 +35,11 @@ namespace StaffSync
 
         private void frmPayrollDeductionsList_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             // TODO: This line of code loads data into the 'dsDepartmentList.qryDepartmentList' table. You can move, or remove it, as needed.
             //this.qryDepartmentListTableAdapter.Fill(this.dsDepartmentList.qryDepartmentList);
             dtgDeductionsList.DataSource = objDeductionsInfo.GetDeductionList();

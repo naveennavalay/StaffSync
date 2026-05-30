@@ -363,6 +363,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttendanceGridControl.cs" />
+    <Compile Include="FocusManager.cs" />
     <Compile Include="AuditLogger.cs" />
     <Compile Include="BranchTilesControl.cs" />
     <Compile Include="BranchTilesControl.Designer.cs">

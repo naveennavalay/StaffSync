@@ -38,6 +38,11 @@ namespace StaffSync
 
         private void frmAuditLogStatements_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             dtgAuditLogStatements.DataSource = objAuditLog.getAuditLogStatements(Convert.ToInt32(lblSourceID.Text.ToString()), lblEventGroup.Text.ToString(), Convert.ToInt32(lblClientID.Text.ToString()));
             FormatGrid();
         }

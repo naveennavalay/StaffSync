@@ -61,6 +61,11 @@ namespace StaffSync
 
         private void frmRolesProfileMaster_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnModifyDetails);
+
             RefreshDefaultRolesProfileList();
 
             onCancelButtonClick();

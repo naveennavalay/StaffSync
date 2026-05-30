@@ -44,6 +44,11 @@ namespace StaffSync
 
         private void frmStateList_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             dtgStateList.DataSource = clsStates.GetStateList();
             DataGridViewImageColumn colStatus = new DataGridViewImageColumn();
             colStatus.Name = "ConfigStatus";

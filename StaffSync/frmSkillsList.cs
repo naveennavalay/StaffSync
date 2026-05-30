@@ -34,6 +34,11 @@ namespace StaffSync
 
         private void frmSkillsList_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             dtgStateList.DataSource = clsSkills.GetSkillList();
             FormatGrid();
         }

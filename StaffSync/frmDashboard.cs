@@ -1671,6 +1671,11 @@ namespace StaffSync
 
         private void frmDashboard_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            //FocusManager.SetFocus(btnGenerateDetails);
+
             if (clsCurrentUser.UserName == null || clsCurrentUser.UserName == "")
             {
                 myStatusBar.Items[0].Text = "User Name : ";

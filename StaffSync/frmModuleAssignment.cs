@@ -66,6 +66,11 @@ namespace StaffSync
 
         private void frmModuleAssignment_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnModifyDetails);
+
             // TODO: This line of code loads data into the 'staffsyncDBDTSet.qryUserSpecificRoles' table. You can move, or remove it, as needed.
             //this.qryUserSpecificRolesTableAdapter.Fill(this.staffsyncDBDTSet.qryUserSpecificRoles);
             // TODO: This line of code loads data into the 'staffsyncDBDTSet.qryRolesDef' table. You can move, or remove it, as needed.

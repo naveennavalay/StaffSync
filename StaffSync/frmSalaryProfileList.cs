@@ -45,6 +45,11 @@ namespace StaffSync
 
         private void frmSalaryProfileList_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             dtgSalaryProfileList.DataSource = objSalaryProfile.GetSalProfileTitleList();
             FormatTheGrid();
         }

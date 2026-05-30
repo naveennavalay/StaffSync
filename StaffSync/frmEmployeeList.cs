@@ -200,6 +200,11 @@ namespace StaffSync
 
         private void frmEmployeeList_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             // TODO: This line of code loads data into the 'staffsyncDBDTSet.EmpMas' table. You can move, or remove it, as needed.
             //this.empMasTableAdapter.Fill(this.staffsyncDBDTSet.EmpMas);
             //// TODO: This line of code loads data into the 'staffsyncDBDTSet.EmpMasInfo' table. You can move, or remove it, as needed.

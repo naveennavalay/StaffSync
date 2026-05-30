@@ -413,6 +413,11 @@ namespace StaffSync
 
         private void frmLeaveStatement_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnGenerateDetails);
+
             lblActionMode.Text = "";
             onCancelButtonClick();
             disableControls();

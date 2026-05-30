@@ -34,6 +34,11 @@ namespace StaffSync
 
         private void frmEduQualList_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             dtgDepartmentList.DataSource = objEduQalification.GetEduQualMasList();
             FormatGrid();
         }

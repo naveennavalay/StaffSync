@@ -81,7 +81,10 @@ namespace StaffSync
 
         private void frmIndEmpAttendanceCalender_Load(object sender, EventArgs e)
         {
-
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
         }
 
         private void frmIndEmpAttendanceCalender_KeyUp(object sender, KeyEventArgs e)

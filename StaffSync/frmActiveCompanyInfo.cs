@@ -95,7 +95,10 @@ namespace StaffSync
 
         private void frmActiveCompanyInfo_Load(object sender, EventArgs e)
         {
-
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(cmbFinYear);
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)

@@ -39,6 +39,11 @@ namespace StaffSync
 
         private void frmBranchList_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             dtgCompanyList.DataSource = objClientBranchInfo.getAllCompanyList(txtClientID);
             dtgCompanyList.Columns["ClientBranchID"].Visible = false;
             dtgCompanyList.Columns["ClientID"].Visible = false;

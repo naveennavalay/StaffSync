@@ -151,6 +151,11 @@ namespace StaffSync
 
         private async void frmLogin_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(txtUserName);
+
             // Start the scheduler when form loads
             _scheduler = await new StdSchedulerFactory().GetScheduler();
             await _scheduler.Start();

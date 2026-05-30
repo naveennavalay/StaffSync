@@ -37,6 +37,11 @@ namespace StaffSync
 
         private void frmAdvanceTypeMasList_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnCloseMe);
+
             dtgEmployeeList.DataSource = objAdvanceTypeMas.GetAdvanceTypeList(1);
             FormatTheGrid();
         }

@@ -522,6 +522,11 @@ namespace StaffSync
 
         private void frmAttendanceMater_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnModifyDetails);
+
             LoadMonthNameList();
 
             //cmbMonthNameList.SelectedIndex = DateTime.Now.Month - 1; // Set to current month

@@ -73,6 +73,11 @@ namespace StaffSync
 
         private void frmSalaryProfile_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnGenerateDetails);
+
             //// TODO: This line of code loads data into the 'staffsyncDBDTSet.EmpMasInfo' table. You can move, or remove it, as needed.
             //this.empMasInfoTableAdapter.Fill(this.staffsyncDBDTSet.EmpMasInfo);
             onCancelButtonClick();

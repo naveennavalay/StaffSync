@@ -535,6 +535,11 @@ namespace StaffSync
 
         private void frmLeavesApproval_Load(object sender, EventArgs e)
         {
+            FocusManager.EnableHighlighting = false;
+            FocusManager.ShowNavigationError = true;
+            FocusManager.Register(this);
+            FocusManager.SetFocus(btnGenerateDetails);
+
             // TODO: This line of code loads data into the 'staffsyncDBDTSet.qryRoleProfile' table. You can move, or remove it, as needed.
             //this.qryRoleProfileTableAdapter.Fill(this.staffsyncDBDTSet.qryRoleProfile);
             lblActionMode.Text = "";

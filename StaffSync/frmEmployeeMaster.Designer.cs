@@ -90,6 +90,9 @@
             this.label39 = new System.Windows.Forms.Label();
             this.picEmpPhoto = new System.Windows.Forms.PictureBox();
             this.label24 = new System.Windows.Forms.Label();
+            this.tabFamilyMemberInfo = new Krypton.Navigator.KryptonPage();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.dtgFamilyMemberInforamtion = new Krypton.Toolkit.KryptonDataGridView();
             this.tabProfessionalInfo = new Krypton.Navigator.KryptonPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btnReportingManagerSearch = new Krypton.Toolkit.KryptonButton();
@@ -144,9 +147,6 @@
             this.dtgPreviousWorkExp = new Krypton.Toolkit.KryptonDataGridView();
             this.tabSkils = new Krypton.Navigator.KryptonPage();
             this.chkSkillsList = new System.Windows.Forms.CheckedListBox();
-            this.tabFamilyMemberInfo = new Krypton.Navigator.KryptonPage();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.dtgFamilyMemberInforamtion = new Krypton.Toolkit.KryptonDataGridView();
             this.tabEducationalInfo1 = new Krypton.Navigator.KryptonPage();
             this.chkEduQualList = new System.Windows.Forms.CheckedListBox();
             this.tabDocuments1 = new Krypton.Navigator.KryptonPage();
@@ -313,6 +313,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.tabPersonalPhoto)).BeginInit();
             this.tabPersonalPhoto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).BeginInit();
+            this.tabFamilyMemberInfo.SuspendLayout();
+            this.groupBox14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabProfessionalInfo)).BeginInit();
             this.tabProfessionalInfo.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -333,10 +337,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgPreviousWorkExp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabSkils)).BeginInit();
             this.tabSkils.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).BeginInit();
-            this.tabFamilyMemberInfo.SuspendLayout();
-            this.groupBox14.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabEducationalInfo1)).BeginInit();
             this.tabEducationalInfo1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabDocuments1)).BeginInit();
@@ -423,6 +423,8 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Bar.BarMapExtraText = Krypton.Navigator.MapKryptonPageText.None;
             this.tabControl1.Bar.BarMapImage = Krypton.Navigator.MapKryptonPageImage.Small;
             this.tabControl1.Bar.BarMapText = Krypton.Navigator.MapKryptonPageText.TextTitle;
@@ -463,10 +465,10 @@
             this.tabControl1.Pages.AddRange(new Krypton.Navigator.KryptonPage[] {
             this.tabPersonalInfo,
             this.tabPersonalPhoto,
+            this.tabFamilyMemberInfo,
             this.tabProfessionalInfo,
             this.tabPreviousExperience1,
             this.tabSkils,
-            this.tabFamilyMemberInfo,
             this.tabEducationalInfo1,
             this.tabDocuments1,
             this.tabLeaves,
@@ -1266,6 +1268,47 @@
             this.label24.TabIndex = 19;
             this.label24.Text = "Upload Photo";
             // 
+            // tabFamilyMemberInfo
+            // 
+            this.tabFamilyMemberInfo.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabFamilyMemberInfo.Controls.Add(this.groupBox14);
+            this.tabFamilyMemberInfo.Flags = 65534;
+            this.tabFamilyMemberInfo.LastVisibleSet = true;
+            this.tabFamilyMemberInfo.MinimumSize = new System.Drawing.Size(150, 50);
+            this.tabFamilyMemberInfo.Name = "tabFamilyMemberInfo";
+            this.tabFamilyMemberInfo.Size = new System.Drawing.Size(1248, 519);
+            this.tabFamilyMemberInfo.Text = "Family Members Information";
+            this.tabFamilyMemberInfo.ToolTipTitle = "Page ToolTip";
+            this.tabFamilyMemberInfo.UniqueName = "bd52fcdd6ed046318c19f604b9a96b6f";
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox14.Controls.Add(this.dtgFamilyMemberInforamtion);
+            this.groupBox14.Location = new System.Drawing.Point(16, 11);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(1197, 491);
+            this.groupBox14.TabIndex = 15;
+            this.groupBox14.TabStop = false;
+            // 
+            // dtgFamilyMemberInforamtion
+            // 
+            this.dtgFamilyMemberInforamtion.AllowUserToResizeRows = false;
+            this.dtgFamilyMemberInforamtion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgFamilyMemberInforamtion.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgFamilyMemberInforamtion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgFamilyMemberInforamtion.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgFamilyMemberInforamtion.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgFamilyMemberInforamtion.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgFamilyMemberInforamtion.Location = new System.Drawing.Point(16, 29);
+            this.dtgFamilyMemberInforamtion.MultiSelect = false;
+            this.dtgFamilyMemberInforamtion.Name = "dtgFamilyMemberInforamtion";
+            this.dtgFamilyMemberInforamtion.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgFamilyMemberInforamtion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgFamilyMemberInforamtion.Size = new System.Drawing.Size(1168, 275);
+            this.dtgFamilyMemberInforamtion.TabIndex = 47;
+            this.dtgFamilyMemberInforamtion.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgFamilyMemberInforamtion_CellDoubleClick);
+            // 
             // tabProfessionalInfo
             // 
             this.tabProfessionalInfo.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
@@ -1936,7 +1979,6 @@
             // 
             // picPrevExperience
             // 
-            this.picPrevExperience.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picPrevExperience.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picPrevExperience.Image = ((System.Drawing.Image)(resources.GetObject("picPrevExperience.Image")));
             this.picPrevExperience.Location = new System.Drawing.Point(48, 29);
@@ -1988,47 +2030,6 @@
             this.chkSkillsList.Name = "chkSkillsList";
             this.chkSkillsList.Size = new System.Drawing.Size(1195, 466);
             this.chkSkillsList.TabIndex = 1;
-            // 
-            // tabFamilyMemberInfo
-            // 
-            this.tabFamilyMemberInfo.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.tabFamilyMemberInfo.Controls.Add(this.groupBox14);
-            this.tabFamilyMemberInfo.Flags = 65534;
-            this.tabFamilyMemberInfo.LastVisibleSet = true;
-            this.tabFamilyMemberInfo.MinimumSize = new System.Drawing.Size(150, 50);
-            this.tabFamilyMemberInfo.Name = "tabFamilyMemberInfo";
-            this.tabFamilyMemberInfo.Size = new System.Drawing.Size(1248, 519);
-            this.tabFamilyMemberInfo.Text = "Family Members Information";
-            this.tabFamilyMemberInfo.ToolTipTitle = "Page ToolTip";
-            this.tabFamilyMemberInfo.UniqueName = "bd52fcdd6ed046318c19f604b9a96b6f";
-            // 
-            // groupBox14
-            // 
-            this.groupBox14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.groupBox14.Controls.Add(this.dtgFamilyMemberInforamtion);
-            this.groupBox14.Location = new System.Drawing.Point(16, 11);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(1197, 491);
-            this.groupBox14.TabIndex = 15;
-            this.groupBox14.TabStop = false;
-            // 
-            // dtgFamilyMemberInforamtion
-            // 
-            this.dtgFamilyMemberInforamtion.AllowUserToResizeRows = false;
-            this.dtgFamilyMemberInforamtion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dtgFamilyMemberInforamtion.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dtgFamilyMemberInforamtion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgFamilyMemberInforamtion.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dtgFamilyMemberInforamtion.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.dtgFamilyMemberInforamtion.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgFamilyMemberInforamtion.Location = new System.Drawing.Point(16, 29);
-            this.dtgFamilyMemberInforamtion.MultiSelect = false;
-            this.dtgFamilyMemberInforamtion.Name = "dtgFamilyMemberInforamtion";
-            this.dtgFamilyMemberInforamtion.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.dtgFamilyMemberInforamtion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgFamilyMemberInforamtion.Size = new System.Drawing.Size(1168, 275);
-            this.dtgFamilyMemberInforamtion.TabIndex = 47;
-            this.dtgFamilyMemberInforamtion.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgFamilyMemberInforamtion_CellDoubleClick);
             // 
             // tabEducationalInfo1
             // 
@@ -3394,6 +3395,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.txtEmpCode);
@@ -3641,8 +3644,8 @@
             // 
             // ofdImage
             // 
-            this.ofdImage.FileName = "openFileDialog1";
-            this.ofdImage.Filter = "JPG files (*.jpg)|*.jpg|PNG files (*.png)|*.png\"";
+            this.ofdImage.Filter = "JPG Files (*.jpg;*.jpeg)|*.jpg;*.jpeg|PNG Files (*.png)|*.png";
+            this.ofdImage.Title = "Upload Employee Photo";
             // 
             // ofdDocuments
             // 
@@ -3728,6 +3731,10 @@
             this.tabPersonalPhoto.ResumeLayout(false);
             this.tabPersonalPhoto.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).EndInit();
+            this.tabFamilyMemberInfo.ResumeLayout(false);
+            this.groupBox14.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabProfessionalInfo)).EndInit();
             this.tabProfessionalInfo.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
@@ -3752,10 +3759,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgPreviousWorkExp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabSkils)).EndInit();
             this.tabSkils.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).EndInit();
-            this.tabFamilyMemberInfo.ResumeLayout(false);
-            this.groupBox14.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabEducationalInfo1)).EndInit();
             this.tabEducationalInfo1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabDocuments1)).EndInit();
