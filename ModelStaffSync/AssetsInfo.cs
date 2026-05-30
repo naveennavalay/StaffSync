@@ -153,4 +153,101 @@ namespace ModelStaffSync
         public int EmpAdvanceRequestID { get; set; }
     }
 
+    public class AssetEditingList
+    {
+        public int AssetID { get; set; }
+        [DisplayName("Asset Code")]
+        public string AssetCode { get; set; }
+
+        [DisplayName("Asset Name")] 
+        public string AssetName { get; set; }
+        public int AssetRequestID { get; set; }
+        
+        [DisplayName("Request Code")] 
+        public string AssetRequestCode { get; set; }
+        
+        [DisplayName("Request Date")] 
+        public DateTime AssetRequestDate { get; set; }
+
+        [DisplayName("Request Comments")]
+        public string AssetRequestComments { get; set; }
+        
+        [DisplayName("Request Status")] 
+        public bool AssetRequestStatus { get; set; }
+
+        public int EmpID { get; set; }
+
+        [DisplayName("Employee Code")] 
+        public string EmpCode { get; set; }
+
+
+        [DisplayName("Employee Name")] 
+        public string EmpName { get; set; }
+
+        [DisplayName("Designation")]
+        public string DesignationTitle { get; set; }
+
+        [DisplayName("Department")] 
+        public string DepartmentTitle { get; set; }
+        
+        [DisplayName("Contact Number")] 
+        public string ContactNumber1 { get; set; }
+
+        [DisplayName("Mail ID")] 
+        public string ContactNumber2 { get; set; }
+    }
+
+    public class AssetRequestInfo
+    {
+        public int AssetRequestID { get; set; }
+        public int AssetID { get; set; }
+        public int AssetRequestByID { get; set; }
+        public int RequestedTo { get; set; }
+        public DateTime AssetRequestDate { get; set; }
+        public string AssetRequestComments { get; set; }
+    }
+
+    public class AssetApproverPendingList
+    {        
+        public bool Select {  get; set; }
+        public int EmpID { get; set; }
+
+        [DisplayName("Employee Code")]
+        public string EmpCode { get; set; }
+        
+        [DisplayName("Employee Name")] 
+        public string EmpName { get; set; }
+        
+        [DisplayName("Designation")] 
+        public string DesignationTitle { get; set; }
+        
+        [DisplayName("Department")] 
+        public string DepartmentTitle { get; set; }
+
+        public int AssetID { get; set; }
+        
+        [DisplayName("Asset Code")] 
+        public string AssetCode { get; set; }
+
+        [DisplayName("Asset Name")] 
+        public string AssetName { get; set; }
+        public int AssetRequestID {  set; get; }
+
+        [DisplayName("Asset Request Code")] 
+        public string AssetRequestCode { set; get; }
+
+        [DisplayName("Asset Request Date")]
+        public DateTime AssetRequestDate { set; get; }
+        
+        [DisplayName("Comments")] 
+        public string AssetRequestComments { set; get; }
+        
+        [DisplayName("Status")] 
+        public bool AssetRequestByStatus { get; set; }
+        public string RequestedTo { set; get; }
+        public string RequestedDate { set; get; }
+        public string RequestedToComments { set; get; }
+        public string AssetRequestStatus { set; get; }
+        public int ClientID { get; set; }
+    }
 }

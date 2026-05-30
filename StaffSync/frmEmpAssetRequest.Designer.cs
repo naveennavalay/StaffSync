@@ -33,13 +33,12 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblAssetID = new System.Windows.Forms.Label();
             this.picMoreInfo = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMaxLoanAmountAvail = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.txtTenure = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtInstallmentAmount = new System.Windows.Forms.TextBox();
+            this.txtQuantity = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblRequestToMailID = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -56,16 +55,13 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtComments = new Krypton.Toolkit.KryptonTextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtAdvanceEndDate = new System.Windows.Forms.MaskedTextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtAdvanceAmount = new System.Windows.Forms.TextBox();
-            this.txtAdvanceStartDate = new System.Windows.Forms.MaskedTextBox();
+            this.dtAssetRequestDate = new System.Windows.Forms.MaskedTextBox();
             this.label29 = new System.Windows.Forms.Label();
-            this.cmbAdvanceType = new Krypton.Toolkit.KryptonComboBox();
+            this.cmbAssetType = new Krypton.Toolkit.KryptonComboBox();
             this.label42 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.lblClientID = new System.Windows.Forms.Label();
+            this.lblAssetRequestID = new System.Windows.Forms.Label();
             this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.lblViewEmpSpecificAdvanceInfo = new System.Windows.Forms.Label();
             this.lblRequestFromMailID = new System.Windows.Forms.Label();
@@ -92,6 +88,8 @@
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.ttAdvanceType = new System.Windows.Forms.ToolTip(this.components);
+            this.lblAssetRegID = new System.Windows.Forms.Label();
+            this.lblTaskID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -101,7 +99,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picMoreInfo)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbAdvanceType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbAssetType)).BeginInit();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
             this.panel2.SuspendLayout();
@@ -144,24 +142,18 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox1.Controls.Add(this.lblAssetID);
             this.groupBox1.Controls.Add(this.picMoreInfo);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtMaxLoanAmountAvail);
             this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.txtTenure);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.txtInstallmentAmount);
+            this.groupBox1.Controls.Add(this.txtQuantity);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.txtComments);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.txtAdvanceEndDate);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.txtAdvanceAmount);
-            this.groupBox1.Controls.Add(this.txtAdvanceStartDate);
+            this.groupBox1.Controls.Add(this.dtAssetRequestDate);
             this.groupBox1.Controls.Add(this.label29);
-            this.groupBox1.Controls.Add(this.cmbAdvanceType);
+            this.groupBox1.Controls.Add(this.cmbAssetType);
             this.groupBox1.Controls.Add(this.label42);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.groupBox1.Location = new System.Drawing.Point(16, 178);
@@ -171,6 +163,19 @@
             this.groupBox1.Size = new System.Drawing.Size(1032, 443);
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
+            // 
+            // lblAssetID
+            // 
+            this.lblAssetID.AutoSize = true;
+            this.lblAssetID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblAssetID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAssetID.Location = new System.Drawing.Point(436, 214);
+            this.lblAssetID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblAssetID.Name = "lblAssetID";
+            this.lblAssetID.Size = new System.Drawing.Size(11, 15);
+            this.lblAssetID.TabIndex = 82;
+            this.lblAssetID.Text = " ";
+            this.lblAssetID.Visible = false;
             // 
             // picMoreInfo
             // 
@@ -195,6 +200,7 @@
             this.label1.TabIndex = 78;
             this.label1.Text = "Max. Allowed Advance";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Visible = false;
             // 
             // txtMaxLoanAmountAvail
             // 
@@ -208,59 +214,34 @@
             this.txtMaxLoanAmountAvail.Tag = "Max. Allowed Advance";
             this.txtMaxLoanAmountAvail.Text = "0";
             this.ttAdvanceType.SetToolTip(this.txtMaxLoanAmountAvail, "123");
+            this.txtMaxLoanAmountAvail.Visible = false;
             this.txtMaxLoanAmountAvail.WordWrap = false;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(93, 246);
+            this.label13.Location = new System.Drawing.Point(82, 246);
             this.label13.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(52, 15);
+            this.label13.Size = new System.Drawing.Size(59, 15);
             this.label13.TabIndex = 76;
-            this.label13.Text = "Tenure";
+            this.label13.Text = "Quantity";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // txtTenure
+            // txtQuantity
             // 
-            this.txtTenure.Location = new System.Drawing.Point(150, 243);
-            this.txtTenure.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.txtTenure.MaxLength = 255;
-            this.txtTenure.Name = "txtTenure";
-            this.txtTenure.Size = new System.Drawing.Size(103, 21);
-            this.txtTenure.TabIndex = 1;
-            this.txtTenure.Tag = "Please enter Employeee Code";
-            this.txtTenure.Text = "0";
-            this.txtTenure.WordWrap = false;
-            this.txtTenure.TextChanged += new System.EventHandler(this.txtTenure_TextChanged);
-            this.txtTenure.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTenure_KeyPress);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(499, 279);
-            this.label10.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(130, 15);
-            this.label10.TabIndex = 72;
-            this.label10.Text = "Installment Amount";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtInstallmentAmount
-            // 
-            this.txtInstallmentAmount.Location = new System.Drawing.Point(634, 276);
-            this.txtInstallmentAmount.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.txtInstallmentAmount.MaxLength = 255;
-            this.txtInstallmentAmount.Name = "txtInstallmentAmount";
-            this.txtInstallmentAmount.ReadOnly = true;
-            this.txtInstallmentAmount.Size = new System.Drawing.Size(103, 21);
-            this.txtInstallmentAmount.TabIndex = 71;
-            this.txtInstallmentAmount.Tag = "Installment Amount";
-            this.txtInstallmentAmount.Text = "0";
-            this.txtInstallmentAmount.WordWrap = false;
-            this.txtInstallmentAmount.Leave += new System.EventHandler(this.txtInstallmentAmount_Leave);
+            this.txtQuantity.Location = new System.Drawing.Point(150, 243);
+            this.txtQuantity.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.txtQuantity.MaxLength = 255;
+            this.txtQuantity.Name = "txtQuantity";
+            this.txtQuantity.Size = new System.Drawing.Size(103, 21);
+            this.txtQuantity.TabIndex = 1;
+            this.txtQuantity.Tag = "Asset Quantity";
+            this.txtQuantity.Text = "0";
+            this.txtQuantity.WordWrap = false;
+            this.txtQuantity.TextChanged += new System.EventHandler(this.txtTenure_TextChanged);
+            this.txtQuantity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTenure_KeyPress);
             // 
             // groupBox2
             // 
@@ -462,17 +443,17 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(89, 342);
+            this.label5.Location = new System.Drawing.Point(4, 309);
             this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 15);
+            this.label5.Size = new System.Drawing.Size(137, 15);
             this.label5.TabIndex = 69;
-            this.label5.Text = "Reason";
+            this.label5.Text = "Request Description";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtComments
             // 
-            this.txtComments.Location = new System.Drawing.Point(150, 342);
+            this.txtComments.Location = new System.Drawing.Point(150, 309);
             this.txtComments.Margin = new System.Windows.Forms.Padding(4);
             this.txtComments.Multiline = true;
             this.txtComments.Name = "txtComments";
@@ -483,112 +464,48 @@
             this.txtComments.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtComments.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtComments.TabIndex = 4;
-            this.txtComments.Tag = "Reason";
+            this.txtComments.Tag = "Asset Request Reason";
             this.txtComments.WordWrap = false;
             this.txtComments.Enter += new System.EventHandler(this.txtComments_Enter);
             // 
-            // label4
+            // dtAssetRequestDate
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(254, 246);
-            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(54, 15);
-            this.label4.TabIndex = 67;
-            this.label4.Text = "Months";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtAdvanceEndDate
-            // 
-            this.txtAdvanceEndDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.txtAdvanceEndDate.Location = new System.Drawing.Point(634, 310);
-            this.txtAdvanceEndDate.Margin = new System.Windows.Forms.Padding(4);
-            this.txtAdvanceEndDate.Mask = "##-##-####";
-            this.txtAdvanceEndDate.Name = "txtAdvanceEndDate";
-            this.txtAdvanceEndDate.ReadOnly = true;
-            this.txtAdvanceEndDate.Size = new System.Drawing.Size(103, 21);
-            this.txtAdvanceEndDate.TabIndex = 65;
-            this.txtAdvanceEndDate.Tag = "End Date";
-            this.txtAdvanceEndDate.ValidatingType = typeof(System.DateTime);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(563, 313);
-            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 15);
-            this.label3.TabIndex = 66;
-            this.label3.Text = "End Date";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(33, 279);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(112, 15);
-            this.label2.TabIndex = 64;
-            this.label2.Text = "Advance Amount";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtAdvanceAmount
-            // 
-            this.txtAdvanceAmount.Location = new System.Drawing.Point(150, 276);
-            this.txtAdvanceAmount.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.txtAdvanceAmount.MaxLength = 255;
-            this.txtAdvanceAmount.Name = "txtAdvanceAmount";
-            this.txtAdvanceAmount.Size = new System.Drawing.Size(224, 21);
-            this.txtAdvanceAmount.TabIndex = 2;
-            this.txtAdvanceAmount.Tag = "Advance Amount";
-            this.txtAdvanceAmount.Text = "0.00";
-            this.txtAdvanceAmount.WordWrap = false;
-            this.txtAdvanceAmount.TextChanged += new System.EventHandler(this.txtAdvanceAmount_TextChanged);
-            this.txtAdvanceAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAdvanceAmount_KeyPress);
-            this.txtAdvanceAmount.Leave += new System.EventHandler(this.txtAdvanceAmount_Leave);
-            // 
-            // txtAdvanceStartDate
-            // 
-            this.txtAdvanceStartDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.txtAdvanceStartDate.Location = new System.Drawing.Point(150, 310);
-            this.txtAdvanceStartDate.Margin = new System.Windows.Forms.Padding(4);
-            this.txtAdvanceStartDate.Mask = "##-##-####";
-            this.txtAdvanceStartDate.Name = "txtAdvanceStartDate";
-            this.txtAdvanceStartDate.Size = new System.Drawing.Size(103, 21);
-            this.txtAdvanceStartDate.TabIndex = 3;
-            this.txtAdvanceStartDate.Tag = "Start Date";
-            this.txtAdvanceStartDate.ValidatingType = typeof(System.DateTime);
-            this.txtAdvanceStartDate.TextChanged += new System.EventHandler(this.txtAdvanceStartDate_TextChanged);
+            this.dtAssetRequestDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.dtAssetRequestDate.Location = new System.Drawing.Point(150, 275);
+            this.dtAssetRequestDate.Margin = new System.Windows.Forms.Padding(4);
+            this.dtAssetRequestDate.Mask = "##-##-####";
+            this.dtAssetRequestDate.Name = "dtAssetRequestDate";
+            this.dtAssetRequestDate.Size = new System.Drawing.Size(103, 21);
+            this.dtAssetRequestDate.TabIndex = 3;
+            this.dtAssetRequestDate.Tag = "Asset Request Date";
+            this.dtAssetRequestDate.ValidatingType = typeof(System.DateTime);
+            this.dtAssetRequestDate.TextChanged += new System.EventHandler(this.txtAdvanceStartDate_TextChanged);
             // 
             // label29
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(74, 313);
+            this.label29.Location = new System.Drawing.Point(47, 278);
             this.label29.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(71, 15);
+            this.label29.Size = new System.Drawing.Size(94, 15);
             this.label29.TabIndex = 48;
-            this.label29.Text = "Start Date";
+            this.label29.Text = "Request Date";
             this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // cmbAdvanceType
+            // cmbAssetType
             // 
-            this.cmbAdvanceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAdvanceType.DropDownWidth = 440;
-            this.cmbAdvanceType.Location = new System.Drawing.Point(150, 210);
-            this.cmbAdvanceType.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbAdvanceType.Name = "cmbAdvanceType";
-            this.cmbAdvanceType.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbAdvanceType.Size = new System.Drawing.Size(224, 22);
-            this.cmbAdvanceType.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbAdvanceType.TabIndex = 0;
-            this.cmbAdvanceType.Tag = "Advance Type";
-            this.cmbAdvanceType.SelectedIndexChanged += new System.EventHandler(this.cmbAdvanceType_SelectedIndexChanged);
+            this.cmbAssetType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAssetType.DropDownWidth = 440;
+            this.cmbAssetType.Location = new System.Drawing.Point(150, 210);
+            this.cmbAssetType.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbAssetType.Name = "cmbAssetType";
+            this.cmbAssetType.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbAssetType.Size = new System.Drawing.Size(224, 22);
+            this.cmbAssetType.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbAssetType.TabIndex = 0;
+            this.cmbAssetType.Tag = "Asset Type";
+            this.cmbAssetType.SelectedIndexChanged += new System.EventHandler(this.cmbAdvanceType_SelectedIndexChanged);
             // 
             // label42
             // 
@@ -605,6 +522,10 @@
             // groupBox8
             // 
             this.groupBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox8.Controls.Add(this.lblTaskID);
+            this.groupBox8.Controls.Add(this.lblAssetRegID);
+            this.groupBox8.Controls.Add(this.lblClientID);
+            this.groupBox8.Controls.Add(this.lblAssetRequestID);
             this.groupBox8.Controls.Add(this.lnkViewAuditLog);
             this.groupBox8.Controls.Add(this.lblViewEmpSpecificAdvanceInfo);
             this.groupBox8.Controls.Add(this.lblRequestFromMailID);
@@ -631,6 +552,32 @@
             this.groupBox8.TabIndex = 33;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Employee Information";
+            // 
+            // lblClientID
+            // 
+            this.lblClientID.AutoSize = true;
+            this.lblClientID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblClientID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClientID.Location = new System.Drawing.Point(763, 38);
+            this.lblClientID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblClientID.Name = "lblClientID";
+            this.lblClientID.Size = new System.Drawing.Size(11, 15);
+            this.lblClientID.TabIndex = 82;
+            this.lblClientID.Text = " ";
+            this.lblClientID.Visible = false;
+            // 
+            // lblAssetRequestID
+            // 
+            this.lblAssetRequestID.AutoSize = true;
+            this.lblAssetRequestID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblAssetRequestID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAssetRequestID.Location = new System.Drawing.Point(442, 15);
+            this.lblAssetRequestID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblAssetRequestID.Name = "lblAssetRequestID";
+            this.lblAssetRequestID.Size = new System.Drawing.Size(11, 15);
+            this.lblAssetRequestID.TabIndex = 81;
+            this.lblAssetRequestID.Text = " ";
+            this.lblAssetRequestID.Visible = false;
             // 
             // lnkViewAuditLog
             // 
@@ -958,6 +905,32 @@
             this.ttAdvanceType.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.ttAdvanceType.ToolTipTitle = "This is sample tooltip text";
             // 
+            // lblAssetRegID
+            // 
+            this.lblAssetRegID.AutoSize = true;
+            this.lblAssetRegID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblAssetRegID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAssetRegID.Location = new System.Drawing.Point(763, 68);
+            this.lblAssetRegID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblAssetRegID.Name = "lblAssetRegID";
+            this.lblAssetRegID.Size = new System.Drawing.Size(11, 15);
+            this.lblAssetRegID.TabIndex = 83;
+            this.lblAssetRegID.Text = " ";
+            this.lblAssetRegID.Visible = false;
+            // 
+            // lblTaskID
+            // 
+            this.lblTaskID.AutoSize = true;
+            this.lblTaskID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblTaskID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTaskID.Location = new System.Drawing.Point(763, 98);
+            this.lblTaskID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblTaskID.Name = "lblTaskID";
+            this.lblTaskID.Size = new System.Drawing.Size(11, 15);
+            this.lblTaskID.TabIndex = 84;
+            this.lblTaskID.Text = " ";
+            this.lblTaskID.Visible = false;
+            // 
             // frmEmpAssetRequest
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -988,7 +961,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbAdvanceType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbAssetType)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).EndInit();
@@ -1023,17 +996,12 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.GroupBox groupBox1;
-        private Krypton.Toolkit.KryptonComboBox cmbAdvanceType;
+        private Krypton.Toolkit.KryptonComboBox cmbAssetType;
         private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.MaskedTextBox txtAdvanceStartDate;
+        private System.Windows.Forms.MaskedTextBox dtAssetRequestDate;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.ErrorProvider errValidator;
         private System.Windows.Forms.Label lblPersonalInfoID;
-        private System.Windows.Forms.MaskedTextBox txtAdvanceEndDate;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtAdvanceAmount;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private Krypton.Toolkit.KryptonTextBox txtComments;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -1049,11 +1017,9 @@
         private System.Windows.Forms.Label lblEmpID;
         private System.Windows.Forms.Label lblReportingManagerID;
         private Krypton.Toolkit.KryptonButton btnRepSearch;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txtInstallmentAmount;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox txtTenure;
+        private System.Windows.Forms.TextBox txtQuantity;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtMaxLoanAmountAvail;
         private System.Windows.Forms.Label lblRequestToMailID;
@@ -1062,5 +1028,10 @@
         private System.Windows.Forms.ToolTip ttAdvanceType;
         private System.Windows.Forms.Label lblViewEmpSpecificAdvanceInfo;
         private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
+        private System.Windows.Forms.Label lblAssetID;
+        private System.Windows.Forms.Label lblAssetRequestID;
+        private System.Windows.Forms.Label lblClientID;
+        private System.Windows.Forms.Label lblAssetRegID;
+        private System.Windows.Forms.Label lblTaskID;
     }
 }

@@ -135,6 +135,55 @@ namespace dbStaffSync
                 return new AssetMoreInfo();
         }
 
+        public AssetRequestInfo getSelectedSpecificAssetRequetInfo(int txtAssetRequestID)
+        {
+            List<AssetRequestInfo> objAssetRequestInfo = new List<AssetRequestInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        " EmpAssetRequest.AssetRequestID, " +
+                                        " EmpAssetRequest.AssetID, " +
+                                        " EmpAssetRequest.AssetRequestByID, " +
+                                        " EmpAssetRequest.RequestedTo, " +
+                                        " EmpAssetRequest.AssetRequestDate, " + 
+                                        " EmpAssetRequest.AssetRequestComments " +
+                                    " FROM " +
+                                        " EmpAssetRequest " +
+                                    " WHERE " +
+                                        " EmpAssetRequest.AssetRequestID = " + txtAssetRequestID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objAssetRequestInfo = JsonConvert.DeserializeObject<List<AssetRequestInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            if (objAssetRequestInfo.Count > 0)
+                return objAssetRequestInfo[0];
+            else
+                return new AssetRequestInfo();
+        }
+
         public List<AssetInfoListing> getAssetsInfoList(int txtClientID)
         {
             List<AssetInfoListing> objAssetInfoListingList = new List<AssetInfoListing>();
@@ -519,7 +568,99 @@ namespace dbStaffSync
             return objAssetInfoListingList;
         }
 
-        public int InsertAssetInfo(string txtAssetCode, string txtAssetName, string txtAssetDescription, bool IsActive, bool IsDeleted, int AssetCatMasID, bool IsRecoverable, bool IsRequireReturn, bool IsCriticalAsset, int RecoveryTypeID, bool AffectsPayroll, string PayrollImpact, int PayrollHeaderID, int CurrentAssetStatusID)
+        public List<AssetEditingList> getAssetsRequestList(int txtClientID)
+        {
+            List<AssetEditingList> objAssetEditingList = new List<AssetEditingList>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " +
+                                        " AssetMas.AssetID, " +
+                                        " AssetMas.AssetCode, " +
+                                        " AssetMas.AssetName, " +
+                                        " EmpAssetRequest.AssetRequestID, " +
+                                        " EmpAssetRequest.AssetRequestCode, " +
+                                        " EmpAssetRequest.AssetRequestDate, " +
+                                        " EmpAssetRequest.AssetRequestComments, " +
+                                        " EmpAssetRequest.AssetRequestStatus, " +
+                                        " EmpMas.EmpID, " +
+                                        " EmpMas.EmpCode, " +
+                                        " EmpMas.EmpName, " +
+                                        " DesigMas.DesignationTitle, " +
+                                        " DepMas.DepartmentTitle, " +
+                                        " PersonalInfoMas.ContactNumber1, " +
+                                        " PersonalInfoMas.ContactNumber2, " +
+                                        " EmpMas.IsActive AS EmpMasIsActive, " +
+                                        " EmpMas.IsDeleted AS EmpMasIsDeleted, " +
+                                        " AssetCategoryMas.IsActive AS AssetCatIsActive, " +
+                                        " AssetCategoryMas.IsDeleted AS AssetCatIsDeleted, " +
+                                        " AssetMas.IsActive AS AssetMasIsActive, " +
+                                        " AssetMas.IsDeleted AS AssetMasIsDeleted, " +
+                                        " ClientMas.ClientID " +
+                                    " FROM " +
+                                        " ( " +
+                                            " DesigMas " +
+                                            " INNER JOIN ( " +
+                                                " DepMas " +
+                                                " INNER JOIN ( " +
+                                                    " ( " +
+                                                        " ClientMas " +
+                                                        " INNER JOIN ( " +
+                                                            " ( " +
+                                                                " AssetCategoryMas " +
+                                                                " INNER JOIN AssetMas ON AssetCategoryMas.AssetCatMasID = AssetMas.AssetCatMasID " +
+                                                            " ) " +
+                                                            " INNER JOIN EmpAssetRequest ON AssetMas.AssetID = EmpAssetRequest.AssetID " +
+                                                        " ) ON ClientMas.ClientID = AssetCategoryMas.ClientID " +
+                                                    " ) " +
+                                                    " INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " +
+                                                " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " +
+                                            " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " +
+                                        " ) " +
+                                        " INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID " +
+                                    " WHERE " +
+                                        " (" +
+                                            " ((EmpMas.IsActive) = True) " +
+                                            " AND ((EmpAssetRequest.AssetRequestStatus) = False) " +
+                                            " AND ((EmpMas.IsDeleted) = False) " +
+                                            " AND ((AssetCategoryMas.IsActive) = True) " +
+                                            " AND ((AssetCategoryMas.IsDeleted) = False) " +
+                                            " AND ((AssetMas.IsActive) = True) " +
+                                            " AND ((AssetMas.IsDeleted) = False) " +
+                                            " AND ((ClientMas.ClientID) = " + txtClientID + ")" +
+                                        " ) " +
+                                    " ORDER BY " +
+                                        " EmpMas.EmpID;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objAssetEditingList = JsonConvert.DeserializeObject<List<AssetEditingList>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objAssetEditingList;
+        }
+
+        public int InsertAssetInfo(string txtAssetCode, string txtAssetName, string txtAssetDescription, bool IsActive, bool IsDeleted, int AssetCatMasID, bool IsRecoverable, bool IsRequireReturn, bool IsCriticalAsset, int RecoveryTypeID, bool AffectsPayroll, string PayrollImpact, int PayrollHeaderID, int CurrentAssetStatusID, decimal TotalQuantity, decimal OutstandingQuantity)
         {
             int affectedRows = 0;
             try
@@ -529,8 +670,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO AssetMas (AssetID, AssetCode, AssetName, AssetDescription, IsActive, IsDeleted, AssetCatMasID, IsRecoverable, IsRequireReturn, IsCriticalAsset, RecoveryTypeID, AffectsPayroll, PayrollImpact, PayrollHeaderID, CurrentAssetStatusID) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + txtAssetCode + "', '" + txtAssetName + "', '" + txtAssetDescription + "'," + IsActive + ", " + IsDeleted + ", " + AssetCatMasID + ", " + IsRecoverable + ", " + IsRequireReturn + ", " + IsCriticalAsset + ", " + RecoveryTypeID + ", " + AffectsPayroll + ", '" + PayrollImpact + "', " + PayrollHeaderID + ", " + CurrentAssetStatusID + ")";
+                string strQuery = "INSERT INTO AssetMas (AssetID, AssetCode, AssetName, AssetDescription, IsActive, IsDeleted, AssetCatMasID, IsRecoverable, IsRequireReturn, IsCriticalAsset, RecoveryTypeID, AffectsPayroll, PayrollImpact, PayrollHeaderID, CurrentAssetStatusID, TotalQuantity, OutstandingQuantity) VALUES " +
+                 "(" + maxRowCount.Data + ",'" + txtAssetCode + "', '" + txtAssetName + "', '" + txtAssetDescription + "'," + IsActive + ", " + IsDeleted + ", " + AssetCatMasID + ", " + IsRecoverable + ", " + IsRequireReturn + ", " + IsCriticalAsset + ", " + RecoveryTypeID + ", " + AffectsPayroll + ", '" + PayrollImpact + "', " + PayrollHeaderID + ", " + CurrentAssetStatusID + "," + TotalQuantity + "," + OutstandingQuantity + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -711,6 +852,111 @@ namespace dbStaffSync
                 affectedRows = cmd.ExecuteNonQuery();
                 if (affectedRows > 0)
                     affectedRows = AssetID;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int InsertAssetRequestInfo(string txtAssetRequestCode, int AssetID, bool IsActive, bool IsDeleted, int txtAssetRequestByID, DateTime dtAssetRequestDate, string txtAssetRequestComments, bool AssetRequestByStatus, DateTime dtRequestedDate, int txtRequestedTo, bool RequestedToStatus, string txtRequestedToComments, bool AssetRequestStatus)
+        {
+            int affectedRows = 0;
+            try
+            {
+                Response<int> maxRowCount = objGenFunc.getMaxRowCount("EmpAssetRequest", "AssetRequestID");
+
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "INSERT INTO EmpAssetRequest (AssetRequestID, AssetRequestCode, AssetID, IsActive, IsDeleted, AssetRequestByID, AssetRequestDate, AssetRequestComments, AssetRequestByStatus, RequestedDate, RequestedTo, RequestedToStatus, RequestedToComments, AssetRequestStatus, OrderID) VALUES " +
+                 "(" + maxRowCount.Data + ",'" + "ASR-REQ-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "', " + AssetID + ", " + IsActive + "," + IsDeleted + ", " + txtAssetRequestByID + ", '" + dtAssetRequestDate.ToString("dd-MMM-yyyy") + "', '" + txtAssetRequestComments + "', " + AssetRequestByStatus + ", '" + dtRequestedDate.ToString("dd-MMM-yyyy") + "', " + txtRequestedTo + ", " + RequestedToStatus + ", '" + txtRequestedToComments + "', " + AssetRequestStatus + ", " + maxRowCount.Data + ")";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = maxRowCount.Data;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int UpdateAssetRequestInfo(int AssetRequestID, int AssetID, bool IsActive, bool IsDeleted, int txtAssetRequestByID, DateTime dtAssetRequestDate, string txtAssetRequestComments, bool AssetRequestByStatus, DateTime dtRequestedDate, int txtRequestedTo, bool RequestedToStatus, string txtRequestedToComments, bool AssetRequestStatus)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpAssetRequest SET " +
+                                        "AssetID = " + AssetID + ", " +
+                                        "IsActive = " + IsActive + ", " +
+                                        "AssetRequestByID = " + txtAssetRequestByID + ", " +
+                                        "AssetRequestDate = #" + dtAssetRequestDate.ToString("dd-MMM-yyyy") + "#, " +
+                                        "AssetRequestComments = '" + txtAssetRequestComments + "', " +
+                                        "AssetRequestByStatus = " + AssetRequestByStatus + ", " +
+                                        "RequestedDate = #" + dtRequestedDate.ToString("dd-MMM-yyyy") + "#, " +
+                                        "RequestedTo = " + txtRequestedTo + ", " +
+                                        "RequestedToStatus = " + RequestedToStatus + ", " +
+                                        "RequestedToComments = '" + txtRequestedToComments + "', " +
+                                        "AssetRequestStatus = " + AssetRequestStatus +
+                                " WHERE " +
+                                    "AssetRequestID = " + AssetRequestID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = AssetRequestID;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int DeleteAssetRequestInfo(int AssetRequestID)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "DELETE * FROM EmpAssetRequest " +
+                                  "WHERE " +
+                                  "AssetRequestID = " + AssetRequestID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = AssetRequestID;
             }
             catch (Exception ex)
             {

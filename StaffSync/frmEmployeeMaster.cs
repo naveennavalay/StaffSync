@@ -1,14 +1,17 @@
-﻿using Krypton.Toolkit;
+﻿using iTextSharp.text.pdf.qrcode;
+using Krypton.Toolkit;
 using ModelStaffSync;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Asn1.Pkcs;
 using Org.BouncyCastle.Crypto.Encodings;
+using QRCoder;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
@@ -26,6 +29,7 @@ using static System.Windows.Forms.MonthCalendar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 //using static C1.Util.Win.Win32;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using QRCode = QRCoder.QRCode;
 
 namespace StaffSync
 {

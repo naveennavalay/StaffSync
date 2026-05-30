@@ -37,6 +37,8 @@ namespace StaffSync
         DALStaffSync.clsClientStatutory objClientStatutory = new DALStaffSync.clsClientStatutory();
         DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
         DALStaffSync.clsAdvanceTypeMas objAdvanceTypeMas = new DALStaffSync.clsAdvanceTypeMas();
+        DALStaffSync.clsAssetsInfo objAssetInfo = new DALStaffSync.clsAssetsInfo();
+        DALStaffSync.clsAssetRegister objAssetRegister = new DALStaffSync.clsAssetRegister(); 
         DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
         DALStaffSync.clsAppSettings objAppSettings = new DALStaffSync.clsAppSettings();
         DALStaffSync.clsProvidentFundCalculation objProvidentFundCalculation = new DALStaffSync.clsProvidentFundCalculation();
@@ -73,6 +75,7 @@ namespace StaffSync
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
             objTempClientFinYearInfo = objSelectedClientFinYearInfo;
             ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
+            lblClientID.Text = objTempClientFinYearInfo.ClientID.ToString();
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -140,31 +143,26 @@ namespace StaffSync
                 errValidator.SetError(txtEmpCode, "");
             }
 
-            if (cmbAdvanceType.Text.Trim() == "")
+            if (cmbAssetType.Text.Trim() == "")
             {
-                errValidator.SetError(cmbAdvanceType, "Please select the salary month");
+                errValidator.SetError(cmbAssetType, "Please select the Asset Type");
                 validationStatus = false;
             }
             else
             {
-                errValidator.SetError(cmbAdvanceType, "");
+                errValidator.SetError(cmbAssetType, "");
             }
 
             // Date of Birth
-            if (string.IsNullOrEmpty(txtAdvanceStartDate.Text))
+            if (string.IsNullOrEmpty(dtAssetRequestDate.Text))
             {
                 validationStatus = false;
-                errValidator.SetError(this.txtAdvanceStartDate, txtAdvanceStartDate.Tag?.ToString() ?? "Date of Salary is required.");
+                errValidator.SetError(this.dtAssetRequestDate, dtAssetRequestDate.Tag?.ToString() ?? "Date of Request is required.");
             }
-            else if (txtAdvanceEndDate.Text.ToString().Trim() == "-  -")
+            else if (!DateTime.TryParseExact(dtAssetRequestDate.Text, dateFormat, provider, DateTimeStyles.None, out dos))
             {
                 validationStatus = false;
-                errValidator.SetError(this.txtAdvanceStartDate, txtAdvanceStartDate.Tag?.ToString() ?? "Date of Salary is required.");
-            }
-            else if (!DateTime.TryParseExact(txtAdvanceStartDate.Text, dateFormat, provider, DateTimeStyles.None, out dos))
-            {
-                validationStatus = false;
-                errValidator.SetError(this.txtAdvanceStartDate, "Invalid Date of Salary format (dd-MM-yyyy).");
+                errValidator.SetError(this.dtAssetRequestDate, "Invalid Date of Date of Request format (dd-MM-yyyy).");
             }
             //else if (dos > DateTime.Now.Date)
             //{
@@ -173,67 +171,17 @@ namespace StaffSync
             //}
             else
             {
-                errValidator.SetError(this.txtAdvanceStartDate, "");
+                errValidator.SetError(this.dtAssetRequestDate, "");
             }
 
-            if (txtTenure.Text.Trim() == "" || Convert.ToDecimal(txtTenure.Text.Trim()) == 0)
+            if (txtQuantity.Text.Trim() == "" || Convert.ToDecimal(txtQuantity.Text.Trim()) == 0)
             {
-                errValidator.SetError(txtTenure, "Please enter the total working days");
-                validationStatus = false;
-            }
-            else if (Convert.ToDecimal(txtTenure.Text.Trim()) > Convert.ToDecimal(objAdvanceTypeConfigModel.MaxTenure))
-            {
-                errValidator.SetError(txtTenure, "Tenure cannot be greater than maximum allowed tenure");
+                errValidator.SetError(txtQuantity, "Please enter the Asset Quantity");
                 validationStatus = false;
             }
             else
             {
-                errValidator.SetError(txtTenure, "");
-            }
-
-            if (txtAdvanceAmount.Text.Trim() == "" || Convert.ToDecimal(txtAdvanceAmount.Text.Trim()) == 0)
-            {
-                errValidator.SetError(txtAdvanceAmount, "Please enter the Advance Amount");
-                validationStatus = false;
-            }
-            else if (Convert.ToDecimal(txtAdvanceAmount.Text.Trim()) > Convert.ToDecimal(txtMaxLoanAmountAvail.Text.ToString()))
-            {
-                errValidator.SetError(txtAdvanceAmount, "Advance Amount cannot be greater than maximum allowed amount");
-                validationStatus = false;
-            }
-            else
-            {
-                errValidator.SetError(txtAdvanceAmount, "");
-            }
-
-            if (txtInstallmentAmount.Text.Trim() == "" || Convert.ToDecimal(txtInstallmentAmount.Text.Trim()) == 0)
-            {
-                errValidator.SetError(txtInstallmentAmount, "Please enter the Installment Amount");
-                validationStatus = false;
-            }
-            else
-            {
-                errValidator.SetError(txtInstallmentAmount, "");
-            }
-
-            if(txtAdvanceStartDate.Text .Trim() != "" && txtAdvanceEndDate.Text.Trim() != "")
-            {
-                DateTime advanceStartDate = DateTime.ParseExact(txtAdvanceStartDate.Text.Trim(), dateFormat, provider);
-                DateTime advanceEndDate = DateTime.ParseExact(txtAdvanceEndDate.Text.Trim(), dateFormat, provider);
-                //if (advanceStartDate > DateTime.Today)
-                //{
-                //    errValidator.SetError(txtAdvanceEndDate, "Advance Start Date cannot be future date");
-                //    validationStatus = false;
-                //} else 
-                if (advanceEndDate < advanceStartDate)
-                {
-                    errValidator.SetError(txtAdvanceEndDate, "Advance End Date cannot be earlier than Advance Start Date");
-                    validationStatus = false;
-                }
-                else
-                {
-                    errValidator.SetError(txtAdvanceEndDate, "");
-                }
+                errValidator.SetError(txtQuantity, "");
             }
 
             return validationStatus;
@@ -265,59 +213,50 @@ namespace StaffSync
                 return;
             }
 
-            int EmpAdvanceRequestID = 0;
-            decimal AllowanceAmount = 0;
-            decimal DeductionAmount = 0;
-            decimal ReimbursmentAmount = 0;
-            int iRowCounter = 1;
             int iTaskID = 0;
+            int AssetRequestID = 0;
+            int AssetRequestRegisterID = 0;
 
             var updatedValues = AuditLogger.getOriginalValues(this);
             var onlyChangedValues = (dynamic)null;
 
             strActionStatement = "";
 
+            lblAssetID.Text = (cmbAssetType.SelectedIndex + 1).ToString();
+
             if (lblActionMode.Text == "add")
             {
-                strActionStatement = "AssetRequestNewUpdates";
-                onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
+                AssetRequestID = objAssetInfo.InsertAssetRequestInfo("", Convert.ToInt32(lblAssetID.Text.ToString()), true, false, Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), txtComments.Text, false, Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), false, "", false);
+                AssetRequestRegisterID = objAssetRegister.InsertAssetRegisterInfo(Convert.ToInt32(lblAssetID.Text.ToString()), Convert.ToDateTime(dtAssetRequestDate.Text), 0, Convert.ToDecimal(txtQuantity.Text.ToString()), 0, Convert.ToDecimal(txtQuantity.Text.ToString()), "Rq", "By " + cmbAssetType.Text + " - Request", Convert.ToInt32(AssetRequestID));
 
-                //EmpAdvanceRequestID = objAdvanceTransaction.InsertEmpAdvanceRequestMas(Convert.ToInt16(lblPersonalInfoID.Text.Trim()), Convert.ToInt16(cmbAdvanceType.SelectedValue.ToString()), true, false, 
-                //    DateTime.Now, "Requested", Convert.ToInt16(lblReportingManagerID.Text.Trim()), DateTime.Now, false, "Pending", Convert.ToInt16(lblReportingManagerID.Text.Trim()), DateTime.Now, false, "Pending", 
-                //    DateTime.Now, false, Convert.ToDecimal(txtAdvanceAmount.Text.Trim()), Convert.ToDecimal(txtTenure.Text.Trim()), Convert.ToDecimal(txtInstallmentAmount.Text.Trim()), 
-                //    DateTime.ParseExact(txtAdvanceStartDate.Text.Trim(), "dd-MM-yyyy", CultureInfo.InvariantCulture), DateTime.ParseExact(txtAdvanceEndDate.Text.Trim(), "dd-MM-yyyy", CultureInfo.InvariantCulture));
+                objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), AssetRequestID, "Asset Request - " + "\"ASR-REQ-" + (AssetRequestID).ToString().PadLeft(4, '0').Trim() + "\" Raised by Employee Code : \"" + txtEmpCode.Text.Trim() + "\" and Employee Name : \"" + txtEmpName.Text.Trim() + "\".", "Insert", ModelStaffSync.CurrentUser.EmpName, "AssetRequestNewUpdates", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
 
-                //objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), EmpAdvanceRequestID, "Advance Request - " + "\"ADV-REQ-" + (EmpAdvanceRequestID).ToString().PadLeft(4, '0').Trim() + "\" Raised by Employee Code : \"" + txtEmpCode.Text.Trim() + "\" and Employee Name : \"" + txtEmpName.Text.Trim() + "\".", "Insert", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestRaised", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
-
-                //if (EmpAdvanceRequestID > 0)
-                //{
-                //     iTaskID = objAppUserTasks.InsertUserTask(DateTime.Now, EmpAdvanceRequestID, Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToInt16(lblReportingManagerID.Text.Trim()), "New advance request raised from employee code : \"" + txtEmpCode.Text.Trim() + "\" and employee name: \"" + txtEmpName.Text.Trim() + "\".", "Initiated", DateTime.Now.AddDays(7), "Advance Request");
-                //    MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //}
+                if (AssetRequestID > 0)
+                {
+                    iTaskID = objAppUserTasks.InsertUserTask(DateTime.Now, AssetRequestID, Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToInt16(lblReportingManagerID.Text.Trim()), "New Asset request raised from employee code : \"" + txtEmpCode.Text.Trim() + "\" and employee name: \"" + txtEmpName.Text.Trim() + "\".", "Initiated", DateTime.Now.AddDays(7), "AssetNewRequest");
+                    MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             else if (lblActionMode.Text == "modify")
             {
-                strActionStatement = "AssetRequestExistingUpdates";
                 onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
 
-                //EmpAdvanceRequestID = objAdvanceTransaction.UpdateEmpAdvanceRequestMas(Convert.ToInt32(lblPersonalInfoID.Text.ToString()), Convert.ToInt16(lblPersonalInfoID.Text.Trim()),
-                //    true, false, Convert.ToInt16(cmbAdvanceType.SelectedValue.ToString()), DateTime.Now, "Requested", Convert.ToInt16(lblReportingManagerID.Text.Trim()), DateTime.Now, false, 
-                //    "Pending", Convert.ToInt16(lblReportingManagerID.Text.Trim()), DateTime.Now, false, "Pending", DateTime.Now, false, Convert.ToDecimal(txtAdvanceAmount.Text.Trim()), Convert.ToDecimal(txtTenure.Text.Trim()), 
-                //    Convert.ToDecimal(txtInstallmentAmount.Text.Trim()), DateTime.ParseExact(txtAdvanceStartDate.Text.Trim(), "dd-MM-yyyy", CultureInfo.InvariantCulture), 
-                //    DateTime.ParseExact(txtAdvanceEndDate.Text.Trim(), "dd-MM-yyyy", CultureInfo.InvariantCulture));
+                AssetRequestID = objAssetInfo.UpdateAssetRequestInfo(Convert.ToInt32(lblAssetRequestID.Text.ToString()), Convert.ToInt32(lblAssetID.Text.ToString()), true, false, Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), txtComments.Text, false, Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), false, "", false);
+                AssetRequestRegisterID = objAssetRegister.UpdateAssetRegisterInfo(Convert.ToInt32(lblAssetRegID.Text.ToString()), Convert.ToInt32(lblAssetID.Text.ToString()), Convert.ToDateTime(dtAssetRequestDate.Text), 0, Convert.ToDecimal(txtQuantity.Text.ToString()), 0, Convert.ToDecimal(txtQuantity.Text.ToString()), "Rq", "By " + cmbAssetType.Text + " - Request", Convert.ToInt32(AssetRequestID));
 
-                //objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), EmpAdvanceRequestID, "Advance Request - " + "\"ADV-REQ-" + (EmpAdvanceRequestID).ToString().PadLeft(4, '0').Trim() + "\" Raised by Employee Code : \"" + txtEmpCode.Text.Trim() + "\" and Employee Name : \"" + txtEmpName.Text.Trim() + "\".", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestRaised", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), AssetRequestID, "Asset Request - " + "\"ASR-REQ-" + (AssetRequestID).ToString().PadLeft(4, '0').Trim() + "\" Raised by Employee Code : \"" + txtEmpCode.Text.Trim() + "\" and Employee Name : \"" + txtEmpName.Text.Trim() + "\".", "Update", ModelStaffSync.CurrentUser.EmpName, "AssetRequestExistingUpdates", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
 
-                //if (EmpAdvanceRequestID > 0)
-                //    MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+                if (AssetRequestID > 0)
+                {
+                    iTaskID = objAppUserTasks.UpdateUserTask(Convert.ToInt32(lblTaskID.Text.ToString()), AssetRequestID, DateTime.Now, Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToInt16(lblReportingManagerID.Text.Trim()), "Asset Request - " + "\"ASR-REQ-" + (AssetRequestID).ToString().PadLeft(4, '0').Trim() + "\" Raised by Employee Code : \"" + txtEmpCode.Text.Trim() + "\" and Employee Name : \"" + txtEmpName.Text.Trim() + "\".", "Initiated", DateTime.Now.AddDays(7), "AssetNewRequest");
+                    MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
 
-            foreach (var changedValues in onlyChangedValues)
-            {
-                if (lblActionMode.Text == "add")
-                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblEmpID.Text.ToString()), changedValues.ToString().Trim(), "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
-                else if (lblActionMode.Text == "modify")
-                    objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblEmpID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                foreach (var changedValues in onlyChangedValues)
+                {
+                    if (lblActionMode.Text == "modify")
+                        objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblAssetRequestID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                }
             }
 
             objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
@@ -350,11 +289,10 @@ namespace StaffSync
             enableControls();
             errValidator.Clear();
 
-            txtAdvanceStartDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
-            txtAdvanceEndDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
-            cmbAdvanceType.DataSource = objAdvanceTypeMas.GetAdvanceTypeList(Convert.ToInt32(objTempClientFinYearInfo.ClientID));
-            cmbAdvanceType.DisplayMember = "AdvanceTypeTitle";
-            cmbAdvanceType.ValueMember = "AdvanceTypeID";
+            dtAssetRequestDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
+            cmbAssetType.DataSource = objAssetInfo.getAssetsInfoList(Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            cmbAssetType.DisplayMember = "AssetName";
+            cmbAssetType.ValueMember = "AssetID";
         }
 
         public void onGenerateButtonClick()
@@ -443,14 +381,15 @@ namespace StaffSync
             txtRepDepartment.Text = "";
             picRepEmpPhoto.Image = null;
 
-            txtTenure.Text = "0";
-            txtAdvanceStartDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
-            txtAdvanceEndDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
-            cmbAdvanceType.DataSource = null;
+            lblAssetRequestID.Text = "";
+            txtQuantity.Text = "0";
+            dtAssetRequestDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
+            cmbAssetType.DataSource = null;
+            lblAssetID.Text = "";
+            lblAssetRegID.Text = "";
+            lblTaskID.Text = "";
 
             txtMaxLoanAmountAvail.Text = "0";
-            txtAdvanceAmount.Text = "0";
-            txtInstallmentAmount.Text = "0";
             txtComments.Text = "";
 
             lblRequestFromMailID.Text = "";
@@ -466,7 +405,6 @@ namespace StaffSync
             txtEmpName.Enabled = false;
             txtDesignation.Enabled = false;
             txtDepartment.Enabled = false;
-            cmbAdvanceType.Enabled = false;
 
             txtRepCode.Enabled = false;
             txtRepName.Enabled = false;
@@ -474,13 +412,10 @@ namespace StaffSync
             txtRepDepartment.Enabled = false;
             btnRepSearch.Enabled = true;
 
-            cmbAdvanceType.Enabled = true;
-            txtAdvanceAmount.Enabled = true;
-            txtInstallmentAmount.Enabled = true;
-            txtAdvanceStartDate.Enabled = true;
-            txtAdvanceEndDate.Enabled = true;
+            cmbAssetType.Enabled = true;
+            dtAssetRequestDate.Enabled = true;
             txtMaxLoanAmountAvail.Enabled = false;
-            txtTenure.Enabled = true;
+            txtQuantity.Enabled = true;
             txtComments.Enabled = true;
         }
 
@@ -491,21 +426,16 @@ namespace StaffSync
             txtEmpName.Enabled = false;
             txtDesignation.Enabled = false;
             txtDepartment.Enabled = false;
-            cmbAdvanceType.Enabled = false;
-
+            
             txtRepCode.Enabled = false;
             txtRepName.Enabled = false;
             txtRepDesignation.Enabled = false;
             txtRepDepartment.Enabled = false;
             btnRepSearch.Enabled = false;
 
-            cmbAdvanceType.Enabled = false;
-            txtAdvanceAmount.Enabled = false;
-            txtInstallmentAmount.Enabled = false;
-            txtMaxLoanAmountAvail.Enabled = false;
-            txtTenure.Enabled = false;
-            txtAdvanceStartDate.Enabled = false;
-            txtAdvanceEndDate.Enabled = false;
+            cmbAssetType.Enabled = false;
+            txtQuantity.Enabled = false;
+            dtAssetRequestDate.Enabled = false;
         }
 
         private void frmEmpAssetRequest_Load(object sender, EventArgs e)
@@ -522,7 +452,7 @@ namespace StaffSync
 
         public void SelectedEmployeeID(string SearchOptionSelectedForm, int selectedEmployeeID)
         {
-            if (SearchOptionSelectedForm == "listAdvanceRequestingUsers")
+            if (SearchOptionSelectedForm == "listAssetRequestingUsers")
             {
                 lblEmpID.Text = selectedEmployeeID.ToString();
                 EmpPersonalPersonalInfo objSelectedPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblEmpID.Text));
@@ -547,26 +477,44 @@ namespace StaffSync
                 EmpPersonalPersonalInfo objSelectedReportingManagerPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblReportingManagerID.Text));
                 lblRequestToMailID.Text = objSelectedReportingManagerPersonalInfo.ContactNumber2.ToString();
 
-                cmbAdvanceType.SelectedIndex = 1;
-                cmbAdvanceType.SelectedIndex = 0;
+                cmbAssetType.SelectedIndex = 1;
+                cmbAssetType.SelectedIndex = 0;
 
                 _originalValues = AuditLogger.getOriginalValues(this);
 
                 lnkViewAuditLog.Visible = true;
             }
-            else if (SearchOptionSelectedForm == "listAdvanceRequestToUsers")
+            else if (SearchOptionSelectedForm == "listAssetRequestEditUsers")
             {
-                EmployeeInfo objSelectedEmployeeInfo = objEmployeeMaster.GetSelectedEmployeeInfo(Convert.ToInt16(selectedEmployeeID.ToString()));
-                lblReportingManagerID.Text = objSelectedEmployeeInfo.EmpRepManID.ToString();
-                ReportingManagerInfo objReportingManagerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(lblReportingManagerID.Text));
+                lblAssetRequestID.Text = selectedEmployeeID.ToString();
+
+                AssetRequestInfo objAssetRequestInfo = objAssetInfo.getSelectedSpecificAssetRequetInfo(selectedEmployeeID);
+
+                ReportingManagerInfo objSelectedEmployeeInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt32(objAssetRequestInfo.AssetRequestByID.ToString()));
+                lblEmpID.Text = objSelectedEmployeeInfo.EmpID.ToString();
+                txtEmpCode.Text = objSelectedEmployeeInfo.EmpCode;
+                txtEmpName.Text = objSelectedEmployeeInfo.EmpName;
+                txtDesignation.Text = objSelectedEmployeeInfo.DesignationTitle;
+                txtDepartment.Text = objSelectedEmployeeInfo.DepartmentTitle;
+
+                ReportingManagerInfo objReportingManagerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt32(objAssetRequestInfo.RequestedTo.ToString()));
+                lblReportingManagerID.Text = objSelectedEmployeeInfo.EmpID.ToString(); 
                 txtRepCode.Text = objReportingManagerInfo.EmpCode;
                 txtRepName.Text = objReportingManagerInfo.EmpName;
                 txtRepDesignation.Text = objReportingManagerInfo.DesignationTitle;
                 txtRepDepartment.Text = objReportingManagerInfo.DepartmentTitle;
                 picRepEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblReportingManagerID.Text)).EmpPhoto);
-                cmbAdvanceType.SelectedIndex = 0;
-                EmpPersonalPersonalInfo objSelectedReportingManagerPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblReportingManagerID.Text));
-                lblRequestToMailID.Text = objSelectedReportingManagerPersonalInfo.ContactNumber2.ToString();
+                
+                cmbAssetType.SelectedIndex = objAssetRequestInfo.AssetID - 1;
+
+                dtAssetRequestDate.Text = Convert.ToDateTime(objAssetRequestInfo.AssetRequestDate.ToString()).ToString("dd-MM-yyyy");
+                txtComments.Text = Convert.ToString(objAssetRequestInfo.AssetRequestComments);
+                AssetRegister objTempAssetRegister = objAssetRegister.getSpecificAssetRegisterInfo(Convert.ToInt32(objAssetRequestInfo.AssetID), Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), Convert.ToInt32(lblAssetRequestID.Text.ToString()));
+                lblAssetRegID.Text = objTempAssetRegister.AssetRegID.ToString();
+                txtQuantity.Text = Convert.ToDecimal(objTempAssetRegister.CrBalance.ToString()).ToString();
+
+                AppUserTasks objSpecificTask = objAppUserTasks.getSpecificTaskInfo(selectedEmployeeID, "Initiated", "AssetNewRequest");
+                lblTaskID.Text = objSpecificTask.TaskID.ToString();
 
                 _originalValues = AuditLogger.getOriginalValues(this);
 
@@ -588,13 +536,14 @@ namespace StaffSync
                 MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
+            clearControls();
             onModifyButtonClick();
             enableControls();
 
-            cmbAdvanceType.DataSource = objAdvanceTypeMas.GetAdvanceTypeList(Convert.ToInt32(objTempClientFinYearInfo.ClientID));
-            cmbAdvanceType.DisplayMember = "AdvanceTypeTitle";
-            cmbAdvanceType.ValueMember = "AdvanceTypeID";
+            cmbAssetType.DataSource = objAssetInfo.getAssetsInfoList(Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            cmbAssetType.DisplayMember = "AssetName";
+            cmbAssetType.ValueMember = "AssetID";
         }
 
         private void btnRemoveDetails_Click(object sender, EventArgs e)
@@ -642,7 +591,7 @@ namespace StaffSync
             //frmAttendanceMater frmAttendanceMater = new frmAttendanceMater("listAttendanceMasterList", Convert.ToInt16(lblReportingManagerID.Text));
             //frmAttendanceMater frmAttendanceMater = new frmAttendanceMater();
             //frmAttendanceMater.ShowDialog(this);
-            frmIndEmpAttendanceCalender frmIndEmpAttendanceCalender = new frmIndEmpAttendanceCalender(objTempCurrentlyLoggedInUserInfo, objTempClientFinYearInfo, Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime("01-" + cmbAdvanceType.Text.Substring(0, 3) + "-" + cmbAdvanceType.Text.Substring(cmbAdvanceType.Text.IndexOf("-") + 2)));
+            frmIndEmpAttendanceCalender frmIndEmpAttendanceCalender = new frmIndEmpAttendanceCalender(objTempCurrentlyLoggedInUserInfo, objTempClientFinYearInfo, Convert.ToInt16(lblReportingManagerID.Text.ToString()), Convert.ToDateTime("01-" + cmbAssetType.Text.Substring(0, 3) + "-" + cmbAssetType.Text.Substring(cmbAssetType.Text.IndexOf("-") + 2)));
             frmIndEmpAttendanceCalender.ShowDialog();
         }
 
@@ -667,13 +616,13 @@ namespace StaffSync
         {
             if (lblActionMode.Text == "add")
             {
-                //frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAdvanceRequestingUsers");
-                //frmEmployeeList.ShowDialog(this);
+                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAssetRequestingUsers", Convert.ToInt32(lblClientID.Text.ToString()));
+                frmEmployeeList.ShowDialog(this);
             }
             else if (lblActionMode.Text == "modify")
             {
-                //frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAdvanceRequestingUsers");
-                //frmEmployeeList.ShowDialog(this);
+                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAssetRequestEditUsers", Convert.ToInt32(lblClientID.Text.ToString()));
+                frmEmployeeList.ShowDialog(this);
             }
         }
 
@@ -696,197 +645,60 @@ namespace StaffSync
             if (lblEmpID.Text.Trim() == "")
                 return;
 
-            objSpecificEmployeeSalaryInfo = objSalaryProfile.getSpecificEmployeeSalaryInfo(Convert.ToInt32(lblEmpID.Text.Trim()));
-            if(objSpecificEmployeeSalaryInfo != null)
-            {
-                objAdvanceTypeConfigModel = objAdvanceTypeConfigInfo.GetAdvanceTypeConfigByID(Convert.ToInt32(cmbAdvanceType.SelectedIndex + 1));
-                if (objAdvanceTypeConfigModel != null)
-                {
-                    if (objAdvanceTypeConfigModel.BasedOnNetOrGross.ToString() == "Gross Salary")
-                    {
-                        if(objAdvanceTypeConfigModel.MaxPerOfNetOrGross.ToString() == "Percentage")
-                        {
-                            txtMaxLoanAmountAvail.Text = (((objSpecificEmployeeSalaryInfo.TotalAllowance + objSpecificEmployeeSalaryInfo.TotalReimbursement) * objAdvanceTypeConfigModel.MaxPercentage) / 100).ToString();
-                        }
-                        else if (objAdvanceTypeConfigModel.MaxPerOfNetOrGross.ToString() == "Fixed")
-                        {
-                            txtMaxLoanAmountAvail.Text = objAdvanceTypeConfigModel.MaxFixed.ToString();
-                        }
-                        txtAdvanceAmount.Text = Convert.ToDecimal(txtAdvanceAmount.Text.ToString()).ToString("###0.00");
-                        txtInstallmentAmount.Text = Convert.ToDecimal(txtInstallmentAmount.Text.ToString()).ToString("###0.00");
-                        txtMaxLoanAmountAvail.Text = Math.Round(Convert.ToDecimal(txtMaxLoanAmountAvail.Text.ToString()), 0).ToString();
-                        txtMaxLoanAmountAvail.Text = Convert.ToDecimal(txtMaxLoanAmountAvail.Text.ToString()).ToString("###0.00");
-                    }
-                    else if (objAdvanceTypeConfigModel.BasedOnNetOrGross.ToString() == "Net Salary")
-                    {
-                        if (objAdvanceTypeConfigModel.MaxPerOfNetOrGross.ToString() == "Percentage")
-                        {
-                            txtMaxLoanAmountAvail.Text = ((objSpecificEmployeeSalaryInfo.NetPayable * objAdvanceTypeConfigModel.MaxPercentage) / 100).ToString();
-                        }
-                        else if (objAdvanceTypeConfigModel.MaxPerOfNetOrGross.ToString() == "Fixed")
-                        {
-                            txtMaxLoanAmountAvail.Text = objAdvanceTypeConfigModel.MaxFixed.ToString();
-                        }
-                        txtAdvanceAmount.Text = Convert.ToDecimal(txtAdvanceAmount.Text.ToString()).ToString("###0.00");
-                        txtInstallmentAmount.Text = Convert.ToDecimal(txtInstallmentAmount.Text.ToString()).ToString("###0.00");
-                        txtMaxLoanAmountAvail.Text = Math.Round(Convert.ToDecimal(txtMaxLoanAmountAvail.Text.ToString()), 0).ToString();
-                        txtMaxLoanAmountAvail.Text = Convert.ToDecimal(txtMaxLoanAmountAvail.Text.ToString()).ToString("###0.00");
-                    }
-                }
-            }
+            //objSpecificEmployeeSalaryInfo = objSalaryProfile.getSpecificEmployeeSalaryInfo(Convert.ToInt32(lblEmpID.Text.Trim()));
+            //if(objSpecificEmployeeSalaryInfo != null)
+            //{
+            //    objAdvanceTypeConfigModel = objAdvanceTypeConfigInfo.GetAdvanceTypeConfigByID(Convert.ToInt32(cmbAssetType.SelectedIndex + 1));
+            //    if (objAdvanceTypeConfigModel != null)
+            //    {
+            //        if (objAdvanceTypeConfigModel.BasedOnNetOrGross.ToString() == "Gross Salary")
+            //        {
+            //            if(objAdvanceTypeConfigModel.MaxPerOfNetOrGross.ToString() == "Percentage")
+            //            {
+            //                txtMaxLoanAmountAvail.Text = (((objSpecificEmployeeSalaryInfo.TotalAllowance + objSpecificEmployeeSalaryInfo.TotalReimbursement) * objAdvanceTypeConfigModel.MaxPercentage) / 100).ToString();
+            //            }
+            //            else if (objAdvanceTypeConfigModel.MaxPerOfNetOrGross.ToString() == "Fixed")
+            //            {
+            //                txtMaxLoanAmountAvail.Text = objAdvanceTypeConfigModel.MaxFixed.ToString();
+            //            }
+            //            txtAdvanceAmount.Text = Convert.ToDecimal(txtAdvanceAmount.Text.ToString()).ToString("###0.00");
+            //            txtInstallmentAmount.Text = Convert.ToDecimal(txtInstallmentAmount.Text.ToString()).ToString("###0.00");
+            //            txtMaxLoanAmountAvail.Text = Math.Round(Convert.ToDecimal(txtMaxLoanAmountAvail.Text.ToString()), 0).ToString();
+            //            txtMaxLoanAmountAvail.Text = Convert.ToDecimal(txtMaxLoanAmountAvail.Text.ToString()).ToString("###0.00");
+            //        }
+            //        else if (objAdvanceTypeConfigModel.BasedOnNetOrGross.ToString() == "Net Salary")
+            //        {
+            //            if (objAdvanceTypeConfigModel.MaxPerOfNetOrGross.ToString() == "Percentage")
+            //            {
+            //                txtMaxLoanAmountAvail.Text = ((objSpecificEmployeeSalaryInfo.NetPayable * objAdvanceTypeConfigModel.MaxPercentage) / 100).ToString();
+            //            }
+            //            else if (objAdvanceTypeConfigModel.MaxPerOfNetOrGross.ToString() == "Fixed")
+            //            {
+            //                txtMaxLoanAmountAvail.Text = objAdvanceTypeConfigModel.MaxFixed.ToString();
+            //            }
+            //            txtAdvanceAmount.Text = Convert.ToDecimal(txtAdvanceAmount.Text.ToString()).ToString("###0.00");
+            //            txtInstallmentAmount.Text = Convert.ToDecimal(txtInstallmentAmount.Text.ToString()).ToString("###0.00");
+            //            txtMaxLoanAmountAvail.Text = Math.Round(Convert.ToDecimal(txtMaxLoanAmountAvail.Text.ToString()), 0).ToString();
+            //            txtMaxLoanAmountAvail.Text = Convert.ToDecimal(txtMaxLoanAmountAvail.Text.ToString()).ToString("###0.00");
+            //        }
+            //    }
+            //}
         }
 
         private void txtTenure_TextChanged(object sender, EventArgs e)
         {
-            if (txtTenure.Text.Trim() == "")
+            if (txtQuantity.Text.Trim() == "")
                 return;
-            if (txtAdvanceAmount.Text.Trim() == "")
-                return;
-            if (txtInstallmentAmount.Text.Trim() == "")
-                return;
-            if (string.IsNullOrEmpty(txtAdvanceStartDate.Text))
-                return;
-            if (txtAdvanceEndDate.Text.ToString().Trim() == "-  -")
-                return;
-            if (!DateTime.TryParseExact(txtAdvanceStartDate.Text, dateFormat, provider, DateTimeStyles.None, out dos))
-                return;
-
-            if (Convert.ToDecimal(txtTenure.Text.ToString()) >  Convert.ToDecimal(objAdvanceTypeConfigModel.MaxTenure.ToString()))
-            {
-                errValidator.SetError(txtTenure, "Tenure cannot be greater than maximum allowed tenure.");
-                return;
-            }
-            else
-            {
-                errValidator.SetError(txtTenure, "");
-
-            }
-
-            if (Convert.ToDecimal(txtAdvanceAmount.Text.ToString()) > Convert.ToDecimal(txtMaxLoanAmountAvail.Text.ToString()))
-            {
-                errValidator.SetError(txtAdvanceAmount, "Advance Amount cannot be greater than maximum allowed advance amount");
-                return;
-            }
-            else
-            {
-                errValidator.SetError(txtAdvanceAmount, "");
-
-            }
-
-            txtAdvanceEndDate.Text = Convert.ToDateTime(txtAdvanceStartDate.Text.ToString()).Date.AddMonths(Convert.ToInt32(txtTenure.Text.Trim())).ToString("dd-MM-yyyy");
-
-            if (txtTenure.Text.Trim() != "" && txtAdvanceAmount.Text.Trim() != "")
-            {
-                decimal advanceAmount = Convert.ToDecimal(txtAdvanceAmount.Text.Trim());
-                decimal tenure = Convert.ToDecimal(txtTenure.Text.Trim());
-                if (tenure > 0)
-                {
-                    decimal calculatedInstallmentAmount = advanceAmount / tenure;
-                    txtInstallmentAmount.Text = Math.Round(calculatedInstallmentAmount, 0).ToString();
-                }
-            }
-
-            if (txtAdvanceAmount.Text.Trim() != "" && txtInstallmentAmount.Text.Trim() != "" && txtTenure.Text.Trim() != "")
-            {
-                decimal advanceAmount = Convert.ToDecimal(txtAdvanceAmount.Text.Trim());
-                decimal installmentAmount = Convert.ToDecimal(txtInstallmentAmount.Text.Trim());
-                decimal maxTenure = Convert.ToDecimal(objAdvanceTypeConfigModel.MaxTenure);
-                if (installmentAmount > 0)
-                {
-                    decimal calculatedTenure = advanceAmount / installmentAmount;
-                    if (calculatedTenure > maxTenure)
-                    {
-                        errValidator.SetError(txtInstallmentAmount, "Calculated tenure exceeds maximum allowed tenure.");
-                    }
-                    else
-                    {
-                        errValidator.SetError(txtInstallmentAmount, "");
-                    }
-                }
-            }
         }
 
         private void txtAdvanceAmount_TextChanged(object sender, EventArgs e)
         {
-            if (txtTenure.Text.Trim() == "")
-                return;
-            if (txtAdvanceAmount.Text.Trim() == "")
-                return;
-            if (txtInstallmentAmount.Text.Trim() == "")
-                return;
-
-            if (Convert.ToDecimal(txtTenure.Text.ToString()) > Convert.ToDecimal(objAdvanceTypeConfigModel.MaxTenure.ToString()))
-            {
-                errValidator.SetError(txtTenure, "Tenure cannot be greater than maximum allowed tenure.");
-                return;
-            }
-            else
-            {
-                errValidator.SetError(txtTenure, "");
-
-            }
-
-            if (Convert.ToDecimal(txtAdvanceAmount.Text.ToString()) > Convert.ToDecimal(txtMaxLoanAmountAvail.Text.ToString()))
-            {
-                errValidator.SetError(txtAdvanceAmount, "Advance Amount cannot be greater than maximum allowed Advance Amount");
-                return;
-            }
-            else
-            {
-                errValidator.SetError(txtAdvanceAmount, "");
-
-            }
-
-            txtAdvanceStartDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
-            txtAdvanceEndDate.Text = Convert.ToDateTime(txtAdvanceStartDate.Text.ToString()).Date.AddMonths(Convert.ToInt32(txtTenure.Text.Trim())).ToString("dd-MM-yyyy");
-
-            if (txtTenure.Text.Trim() != "" && txtAdvanceAmount.Text.Trim() != "")
-            {
-                decimal advanceAmount = Convert.ToDecimal(txtAdvanceAmount.Text.Trim());
-                decimal tenure = Convert.ToDecimal(txtTenure.Text.Trim());
-                if (tenure > 0)
-                {
-                    decimal calculatedInstallmentAmount = advanceAmount / tenure;
-                    txtInstallmentAmount.Text = Math.Round(calculatedInstallmentAmount, 0).ToString();
-                }
-            }
-
-            if (txtAdvanceAmount.Text.Trim() != "" && txtInstallmentAmount.Text.Trim() != "" && txtTenure.Text.Trim() != "")
-            {
-                decimal advanceAmount = Convert.ToDecimal(txtAdvanceAmount.Text.Trim());
-                decimal installmentAmount = Convert.ToDecimal(txtInstallmentAmount.Text.Trim());
-                decimal maxTenure = Convert.ToDecimal(objAdvanceTypeConfigModel.MaxTenure);
-                if (installmentAmount > 0)
-                {
-                    decimal calculatedTenure = advanceAmount / installmentAmount;
-                    if (calculatedTenure > maxTenure)
-                    {
-                        errValidator.SetError(txtInstallmentAmount, "Calculated tenure exceeds maximum allowed tenure.");
-                    }
-                    else
-                    {
-                        errValidator.SetError(txtInstallmentAmount, "");
-                    }
-                }
-            }
+            
         }
 
         private void txtAdvanceStartDate_TextChanged(object sender, EventArgs e)
         {
-            if (txtTenure.Text.Trim() == "")
-                return;
-            if (txtAdvanceAmount.Text.Trim() == "")
-                return;
-            if (txtInstallmentAmount.Text.Trim() == "")
-                return;
-            if (string.IsNullOrEmpty(txtAdvanceStartDate.Text))
-                return;
-            if (txtAdvanceEndDate.Text.ToString().Trim() == "-  -")
-                return;
-            if (!DateTime.TryParseExact(txtAdvanceStartDate.Text, dateFormat, provider, DateTimeStyles.None, out dos))
-                return;
 
-            txtAdvanceEndDate.Text = Convert.ToDateTime(txtAdvanceStartDate.Text.ToString()).Date.AddMonths(Convert.ToInt32(txtTenure.Text.Trim())).ToString("dd-MM-yyyy");
         }
 
         private void txtTenure_KeyPress(object sender, KeyPressEventArgs e)
@@ -903,17 +715,15 @@ namespace StaffSync
 
         private void picMoreInfo_Click(object sender, EventArgs e)
         {
-            if (cmbAdvanceType.SelectedValue == null)
+            if (cmbAssetType.SelectedValue == null)
                 return;
 
-            frmAdvanceConfigInfoReadOnly frmViewAdvanceConfigInfoReadOnly = new frmAdvanceConfigInfoReadOnly(Convert.ToInt32(cmbAdvanceType.SelectedValue.ToString()));
+            frmAdvanceConfigInfoReadOnly frmViewAdvanceConfigInfoReadOnly = new frmAdvanceConfigInfoReadOnly(Convert.ToInt32(cmbAssetType.SelectedValue.ToString()));
             frmViewAdvanceConfigInfoReadOnly.ShowDialog(this);
         }
 
         private void txtComments_Enter(object sender, EventArgs e)
         {
-            if (txtComments.Text == "")
-                txtComments.Text = "Request to approve the \"" + cmbAdvanceType.Text + "\" of " + Convert.ToDecimal(txtAdvanceAmount.Text.ToString()).ToString("#0.00") + "/- which will be paid back in " + txtTenure.Text + " months starting from \"" + Convert.ToDateTime(txtAdvanceStartDate.Text.ToString()).Date.ToString("dd-MMM-yyyy") + " and ends on \"" + Convert.ToDateTime(txtAdvanceEndDate.Text.ToString()).Date.ToString("dd-MMM-yyyy") + "\".";
         }
 
         private void lblViewEmpSpecificAdvanceInfo_Click(object sender, EventArgs e)
@@ -927,19 +737,12 @@ namespace StaffSync
 
         private void txtAdvanceAmount_Leave(object sender, EventArgs e)
         {
-            if (txtAdvanceAmount.Text.ToString().Trim() == "")
-                return;
 
-            txtAdvanceAmount.Text = Convert.ToDecimal(txtAdvanceAmount.Text.ToString()).ToString("###0.00");
-            txtInstallmentAmount.Text = Convert.ToDecimal(txtInstallmentAmount.Text.ToString()).ToString("###0.00");
         }
 
         private void txtInstallmentAmount_Leave(object sender, EventArgs e)
         {
-            if (txtInstallmentAmount.Text.ToString().Trim() == "")
-                return;
 
-            txtInstallmentAmount.Text = Convert.ToDecimal(txtInstallmentAmount.Text.ToString()).ToString("###0.00");
         }
 
         private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)

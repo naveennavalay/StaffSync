@@ -35,6 +35,7 @@ namespace StaffSync
         DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
         DALStaffSync.clsAdvanceTypeMas objAdvanceTypeMas = new DALStaffSync.clsAdvanceTypeMas();
         DALStaffSync.clsAdvanceTransaction objAdvanceTransaction = new DALStaffSync.clsAdvanceTransaction();
+        DALStaffSync.clsAssetRegister objAssetRegister = new DALStaffSync.clsAssetRegister();
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
@@ -59,6 +60,7 @@ namespace StaffSync
             ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
             strApproverType = tmpApproverType;
             GetAdvancePendingList(strApproverType);
+            GetAssetRequesterPendingList(strApproverType);
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -189,6 +191,7 @@ namespace StaffSync
             }
 
             GetAdvancePendingList(strApproverType);
+            GetAssetRequesterPendingList(strApproverType);
 
             disableControls();
             clearControls();
@@ -342,6 +345,63 @@ namespace StaffSync
             //}
         }
 
+        private void GetAssetRequesterPendingList(string tmpApproverType)
+        {   
+            dtgAssetsRequestersList.DataSource = null;
+            dtgAssetsRequestersList.DataSource = objAssetRegister.PendingAssetApprovalList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID));
+
+            dtgAssetsRequestersList.Columns["Select"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["Select"].Visible = true;
+            dtgAssetsRequestersList.Columns["Select"].Width = 50;
+            dtgAssetsRequestersList.Columns["EmpID"].Visible = false;
+            dtgAssetsRequestersList.Columns["EmpCode"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["EmpCode"].Visible = true;
+            dtgAssetsRequestersList.Columns["EmpCode"].Width = 125;
+            dtgAssetsRequestersList.Columns["EmpName"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["EmpName"].Visible = true;
+            dtgAssetsRequestersList.Columns["EmpName"].Width = 350;
+            dtgAssetsRequestersList.Columns["DesignationTitle"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["DesignationTitle"].Visible = true;
+            dtgAssetsRequestersList.Columns["DesignationTitle"].Width = 250;
+            dtgAssetsRequestersList.Columns["DepartmentTitle"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["DepartmentTitle"].Visible = true;
+            dtgAssetsRequestersList.Columns["DepartmentTitle"].Width = 250;
+            dtgAssetsRequestersList.Columns["AssetID"].Visible = false;
+            dtgAssetsRequestersList.Columns["AssetCode"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["AssetCode"].Visible = true;
+            dtgAssetsRequestersList.Columns["AssetCode"].Width = 150;
+            dtgAssetsRequestersList.Columns["AssetName"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["AssetName"].Visible = true;
+            dtgAssetsRequestersList.Columns["AssetName"].Width = 250;
+            dtgAssetsRequestersList.Columns["AssetRequestID"].Visible = true;
+            dtgAssetsRequestersList.Columns["AssetRequestCode"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["AssetRequestCode"].Visible = true;
+            dtgAssetsRequestersList.Columns["AssetRequestCode"].Width = 150;
+            dtgAssetsRequestersList.Columns["AssetRequestDate"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["AssetRequestDate"].Visible = true;
+            dtgAssetsRequestersList.Columns["AssetRequestDate"].Width = 250;
+            dtgAssetsRequestersList.Columns["AssetRequestDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            dtgAssetsRequestersList.Columns["AssetRequestComments"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["AssetRequestComments"].Visible = true;
+            dtgAssetsRequestersList.Columns["AssetRequestComments"].Width = 350;
+            dtgAssetsRequestersList.Columns["AssetRequestByStatus"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["AssetRequestByStatus"].Visible = true;
+            dtgAssetsRequestersList.Columns["AssetRequestByStatus"].Width = 150;
+            dtgAssetsRequestersList.Columns["RequestedTo"].Visible = false;
+            dtgAssetsRequestersList.Columns["ApproverEmpCode"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["ApproverEmpCode"].Visible = true;
+            dtgAssetsRequestersList.Columns["ApproverEmpCode"].Width = 150;
+            dtgAssetsRequestersList.Columns["ApproverEmpDesignationTitle"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["ApproverEmpDesignationTitle"].Visible = true;
+            dtgAssetsRequestersList.Columns["ApproverEmpDesignationTitle"].Width = 150;
+            dtgAssetsRequestersList.Columns["ApproverEmpDepartmentTitle"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["ApproverEmpDepartmentTitle"].Visible = true;
+            dtgAssetsRequestersList.Columns["ApproverEmpDepartmentTitle"].Width = 150;
+            dtgAssetsRequestersList.Columns["AssetRequestStatus"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["AssetRequestStatus"].Visible = true;
+            dtgAssetsRequestersList.Columns["AssetRequestStatus"].Width = 150;
+        }
+
         private void frmAdvanceApprovalList_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
@@ -403,6 +463,7 @@ namespace StaffSync
         {
             btnSaveDetails.Enabled = false;
             GetAdvancePendingList(strApproverType);
+            GetAssetRequesterPendingList(strApproverType);
         }
 
         private void frmAdvanceApprovalList_Activated(object sender, EventArgs e)
@@ -425,6 +486,29 @@ namespace StaffSync
                     e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
                 }
             }
+        }
+
+        private void dtgAssetsRequestersList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            //if (dtgAssetsRequestersList.Columns[e.ColumnIndex].Name == "AssetRequestByStatus")
+            //{
+            //    int AdvanceRequestID = Convert.ToInt32(dtgAssetsRequestersList.Rows[e.RowIndex].Cells["EmpAdvanceRequestID"].Value);
+
+            //    string CurrentStatus = dtgAssetsRequestersList.Rows[e.RowIndex].Cells["ApproverRequestedToComments1"].Value?.ToString();
+
+            //    using (var frm = new frmUpdateAdvanceStatus(AdvanceRequestID, CurrentStatus))
+            //    {
+            //        if (frm.ShowDialog() == DialogResult.OK)
+            //        {
+            //            btnSaveDetails.Enabled = true;
+            //            dtgAssetsRequestersList.Rows[e.RowIndex].Cells["Select"].Value = true;
+            //            dtgAssetsRequestersList.Rows[e.RowIndex].Cells["ApproverRequestedToComments1"].Value = frm.SelectedStatus;
+            //        }
+            //    }
+            //}
         }
     }
 }

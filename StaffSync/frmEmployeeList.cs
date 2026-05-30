@@ -34,6 +34,7 @@ namespace StaffSync
         frmEmpLeaveEntitlement frmEmpLeaveEntitlement = null;
         frmLeaveStatements frmLeaveStatements = null;
         frmEmpAdvanceRequest frmEmpAdvancRequest = null;
+        frmEmpAssetRequest frmEmpAssetRequest = null;
         frmDashboard frmDashboard = null;
         frmPayrollConfiguration frmPayrollConfiguration = null;
         DALStaffSync.clsLeaveTRList objLeaveInfo = new DALStaffSync.clsLeaveTRList();
@@ -42,6 +43,7 @@ namespace StaffSync
         DALStaffSync.clsRolesAndResponsibilities objRolesAndResponsibilities = new DALStaffSync.clsRolesAndResponsibilities();
         DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
         DALStaffSync.clsEmpPayroll objEmpPayroll = new DALStaffSync.clsEmpPayroll();
+        DALStaffSync.clsAssetsInfo objAssetInfo = new DALStaffSync.clsAssetsInfo();
 
         public frmEmployeeList()
         {
@@ -171,6 +173,15 @@ namespace StaffSync
             this.frmPayrollConfiguration = frmPayrollConfig;
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
         }
+
+        public frmEmployeeList(frmEmpAssetRequest frmEmpAssetRequst, string SearchOptionClickedFor, int ClientID)
+        {
+            InitializeComponent();
+            this.frmEmpAssetRequest = frmEmpAssetRequst;
+            lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+            lblClientID.Text = ClientID.ToString();
+        }
+
 
         public frmEmployeeList(frmDashboard frmDashbard, string SearchOptionClickedFor, int txtClientID, int txtFinYearID, DateTime filterDate)
         {
@@ -689,6 +700,56 @@ namespace StaffSync
                 dtgEmployeeList.Columns["ClientID"].Visible = false;
                 dtgEmployeeList.Columns["FinYearID"].Visible = false;
             }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestingUsers")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+                dtgEmployeeList.Columns["StateID"].Visible = false;
+                dtgEmployeeList.Columns["SexID"].Visible = false;
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestEditUsers")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objAssetInfo.getAssetsRequestList(Convert.ToInt16(lblClientID.Text.ToString()));
+                dtgEmployeeList.Columns["AssetCode"].Width = 100;
+                dtgEmployeeList.Columns["AssetCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["AssetName"].Width = 300;
+                dtgEmployeeList.Columns["AssetName"].ReadOnly = true;
+                dtgEmployeeList.Columns["AssetRequestCode"].Width = 125;
+                dtgEmployeeList.Columns["AssetRequestCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["AssetRequestDate"].Width = 125;
+                dtgEmployeeList.Columns["AssetRequestDate"].ReadOnly = true;
+                dtgEmployeeList.Columns["AssetRequestComments"].Width = 350;
+                dtgEmployeeList.Columns["AssetRequestComments"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+                dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+                dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].ReadOnly = true;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber2"].ReadOnly = true;
+                dtgEmployeeList.Columns["AssetID"].Visible = false;
+                dtgEmployeeList.Columns["AssetRequestID"].Visible = false;
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpID"].Visible = false; 
+                //dtgEmployeeList.Columns["EmpMasIsActive"].Visible = false;
+                //dtgEmployeeList.Columns["EmpMasIsDeleted"].Visible = false;
+                //dtgEmployeeList.Columns["AssetCatIsActive"].Visible = false;
+                //dtgEmployeeList.Columns["AssetCatIsDeleted"].Visible = false;
+                //dtgEmployeeList.Columns["AssetMasIsActive"].Visible = false;
+                //dtgEmployeeList.Columns["AssetMasIsDeleted"].Visible = false;
+                //dtgEmployeeList.Columns["ClientID"].Visible = false;
+            }
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -801,6 +862,18 @@ namespace StaffSync
             else if (lblSearchOptionClickedFor.Text.Trim() == "DashboardEmployeesWorkAnniversaryList")
             {
                 //Just Close this form
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestingUsers")
+            {
+                this.frmEmpAssetRequest.SelectedEmployeeID("listAssetRequestingUsers", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestingUsers")
+            {
+                this.frmEmpAssetRequest.SelectedEmployeeID("listAssetRequestingUsers", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestEditUsers")
+            {
+                this.frmEmpAssetRequest.SelectedEmployeeID("listAssetRequestEditUsers", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["AssetRequestID"].Value.ToString()));
             }
 
             this.Close();

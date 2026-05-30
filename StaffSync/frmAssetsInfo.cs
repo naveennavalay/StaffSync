@@ -181,7 +181,7 @@ namespace StaffSync
                     strActionStatement = "AssetsInfoNewUpdates";
                     onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
 
-                    AssetID = objAssetsInfo.InsertAssetInfo(txtAssetCode.Text, txtAssetName.Text, txtAssetDescription.Text, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, cmbAssetCategory.SelectedIndex + 1, chkRecoverable.Checked, chkReturnRequired.Checked, chkRecoverable.Checked, cmbRecoveryType.SelectedIndex + 1, chkAffectsPayroll.Checked, cmbPayrollAffectType.Text, 0, cmbAssetCurrentStatus.SelectedIndex + 1);
+                    AssetID = objAssetsInfo.InsertAssetInfo(txtAssetCode.Text, txtAssetName.Text, txtAssetDescription.Text, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, cmbAssetCategory.SelectedIndex + 1, chkRecoverable.Checked, chkReturnRequired.Checked, chkRecoverable.Checked, cmbRecoveryType.SelectedIndex + 1, chkAffectsPayroll.Checked, cmbPayrollAffectType.Text, 0, cmbAssetCurrentStatus.SelectedIndex + 1, Convert.ToDecimal(txtTotalQuantity.Text.ToString()), Convert.ToDecimal(txtOutstandingQuantity.Text.ToString()));
                     if (AssetID > 0)
                     {
                         AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(AssetID, DateTime.Today, 0, Convert.ToDecimal(txtTotalQuantity.Text), 0, Convert.ToDecimal(txtTotalQuantity.Text), "Cr", "By Opening", 0);

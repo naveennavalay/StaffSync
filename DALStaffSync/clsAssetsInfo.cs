@@ -25,6 +25,11 @@ namespace DALStaffSync
             return objAssetsInfo.getAssetMoreInfo(txtAssetInfoID);
         }
 
+        public AssetRequestInfo getSelectedSpecificAssetRequetInfo(int txtAssetRequestID)
+        {
+            return objAssetsInfo.getSelectedSpecificAssetRequetInfo(txtAssetRequestID);
+        }
+
         public List<AssetInfoListing> getAssetsInfoList(int txtClientID)
         {
             return objAssetsInfo.getAssetsInfoList(txtClientID);
@@ -45,9 +50,14 @@ namespace DALStaffSync
             return objAssetsInfo.getAssetsInfoFilter(txtAssetName, txtClientID);
         }
 
-        public int InsertAssetInfo(string txtAssetCode, string txtAssetName, string txtAssetDescription, bool IsActive, bool IsDeleted, int AssetCatMasID, bool IsRecoverable, bool IsRequireReturn, bool IsCriticalAsset, int RecoveryTypeID, bool AffectsPayroll, string PayrollImpact, int PayrollHeaderID, int CurrentAssetStatusID)
+        public List<AssetEditingList> getAssetsRequestList(int txtClientID)
         {
-            return objAssetsInfo.InsertAssetInfo(txtAssetCode, txtAssetName, txtAssetDescription, IsActive, IsDeleted, AssetCatMasID, IsRecoverable, IsRequireReturn, IsCriticalAsset, RecoveryTypeID, AffectsPayroll, PayrollImpact, PayrollHeaderID, CurrentAssetStatusID);
+            return objAssetsInfo.getAssetsRequestList(txtClientID);
+        }
+
+        public int InsertAssetInfo(string txtAssetCode, string txtAssetName, string txtAssetDescription, bool IsActive, bool IsDeleted, int AssetCatMasID, bool IsRecoverable, bool IsRequireReturn, bool IsCriticalAsset, int RecoveryTypeID, bool AffectsPayroll, string PayrollImpact, int PayrollHeaderID, int CurrentAssetStatusID, decimal TotalQuantity, decimal OutstandingQuantity)
+        {
+            return objAssetsInfo.InsertAssetInfo(txtAssetCode, txtAssetName, txtAssetDescription, IsActive, IsDeleted, AssetCatMasID, IsRecoverable, IsRequireReturn, IsCriticalAsset, RecoveryTypeID, AffectsPayroll, PayrollImpact, PayrollHeaderID, CurrentAssetStatusID, TotalQuantity, OutstandingQuantity);
         }
 
         public int UpdateAssetInfo(int AssetID, string txtAssetCode, string txtAssetName, string txtAssetDescription, bool IsActive, bool IsDeleted, int txtAssetCatMasID, bool IsRecoverable, bool IsRequireReturn, bool IsCriticalAsset, int RecoveryTypeID, bool AffectsPayroll, string txtPayrollImpact, int PayrollHeaderID, int CurrentAssetStatusID)
@@ -73,6 +83,21 @@ namespace DALStaffSync
         public int DeleteAssetMoreInfo(int AssetID)
         {
             return objAssetsInfo.DeleteAssetMoreInfo(AssetID);
+        }
+
+        public int InsertAssetRequestInfo(string txtAssetRequestCode, int AssetID, bool IsActive, bool IsDeleted, int txtAssetRequestByID, DateTime dtAssetRequestDate, string txtAssetRequestComments, bool AssetRequestByStatus, DateTime dtRequestedDate, int txtRequestedTo, bool RequestedToStatus, string txtRequestedToComments, bool AssetRequestStatus)
+        {
+            return objAssetsInfo.InsertAssetRequestInfo(txtAssetRequestCode, AssetID, IsActive, IsDeleted, txtAssetRequestByID, dtAssetRequestDate, txtAssetRequestComments, AssetRequestByStatus, dtRequestedDate, txtRequestedTo, RequestedToStatus, txtRequestedToComments, AssetRequestStatus);
+        }
+
+        public int UpdateAssetRequestInfo(int AssetRequestID, int AssetID, bool IsActive, bool IsDeleted, int txtAssetRequestByID, DateTime dtAssetRequestDate, string txtAssetRequestComments, bool AssetRequestByStatus, DateTime dtRequestedDate, int txtRequestedTo, bool RequestedToStatus, string txtRequestedToComments, bool AssetRequestStatus)
+        {
+            return objAssetsInfo.UpdateAssetRequestInfo(AssetRequestID, AssetID, IsActive, IsDeleted, txtAssetRequestByID, dtAssetRequestDate, txtAssetRequestComments, AssetRequestByStatus, dtAssetRequestDate, txtRequestedTo, false, txtRequestedToComments, false);
+        }
+
+        public int DeleteAssetRequestInfo(int AssetRequestID)
+        {
+            return objAssetsInfo.DeleteAssetRequestInfo(AssetRequestID);
         }
     }
 }

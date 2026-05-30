@@ -14,6 +14,11 @@ namespace DALStaffSync
     {
         dbStaffSync.clsAssetRegister objAssetsRegisterInfo = new dbStaffSync.clsAssetRegister();
 
+        public AssetRegister getSpecificAssetRegisterInfo(int AssetID, DateTime AssetTRDate, int EmpAssetRequestID)
+        {
+            return objAssetsRegisterInfo.getSpecificAssetRegisterInfo(AssetID, AssetTRDate, EmpAssetRequestID);
+        }
+
         public int InsertAssetRegisterInfo(int txtAssetID, DateTime dtAssetTRDate, decimal txtOBalance, decimal txtCrBalance, decimal txtDrBalance, decimal txtCBalance, string txtTRType, string txtComments, int txtEmpAdvanceRequestID)
         {
             return objAssetsRegisterInfo.InsertAssetRegisterInfo(txtAssetID, dtAssetTRDate, txtOBalance, txtCrBalance, txtDrBalance, txtCBalance, txtTRType, txtComments, txtEmpAdvanceRequestID);
@@ -27,6 +32,11 @@ namespace DALStaffSync
         public int DeleteAssetRegisterInfo(int txtAssetRegID)
         {
             return objAssetsRegisterInfo.DeleteAssetRegisterInfo(txtAssetRegID);
+        }
+
+        public List<AssetApproverPendingList> PendingAssetApprovalList(int txtClientID)
+        {
+            return objAssetsRegisterInfo.PendingAssetApprovalList(txtClientID);
         }
     }
 }
