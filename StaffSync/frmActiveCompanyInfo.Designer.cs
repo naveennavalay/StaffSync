@@ -68,6 +68,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -78,8 +79,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(585, 184);
-            this.splitContainer1.SplitterDistance = 126;
+            this.splitContainer1.Size = new System.Drawing.Size(625, 167);
+            this.splitContainer1.SplitterDistance = 99;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -88,8 +90,9 @@
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(585, 126);
+            this.panel1.Size = new System.Drawing.Size(625, 99);
             this.panel1.TabIndex = 1;
             // 
             // groupBox2
@@ -100,9 +103,11 @@
             this.groupBox2.Controls.Add(this.lblPubHolDetID);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(15, 10);
+            this.groupBox2.Location = new System.Drawing.Point(13, 9);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(552, 103);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(592, 87);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             // 
@@ -110,10 +115,11 @@
             // 
             this.cmbCompanyList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCompanyList.DropDownWidth = 440;
-            this.cmbCompanyList.Location = new System.Drawing.Point(126, 53);
+            this.cmbCompanyList.Location = new System.Drawing.Point(119, 50);
+            this.cmbCompanyList.Margin = new System.Windows.Forms.Padding(4);
             this.cmbCompanyList.Name = "cmbCompanyList";
             this.cmbCompanyList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbCompanyList.Size = new System.Drawing.Size(411, 22);
+            this.cmbCompanyList.Size = new System.Drawing.Size(457, 22);
             this.cmbCompanyList.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbCompanyList.TabIndex = 65;
             // 
@@ -121,10 +127,11 @@
             // 
             this.cmbFinYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFinYear.DropDownWidth = 440;
-            this.cmbFinYear.Location = new System.Drawing.Point(126, 20);
+            this.cmbFinYear.Location = new System.Drawing.Point(119, 14);
+            this.cmbFinYear.Margin = new System.Windows.Forms.Padding(4);
             this.cmbFinYear.Name = "cmbFinYear";
             this.cmbFinYear.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbFinYear.Size = new System.Drawing.Size(144, 22);
+            this.cmbFinYear.Size = new System.Drawing.Size(192, 22);
             this.cmbFinYear.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbFinYear.TabIndex = 64;
             // 
@@ -132,8 +139,8 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(88, 24);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Location = new System.Drawing.Point(81, 18);
+            this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(36, 15);
             this.label8.TabIndex = 63;
@@ -145,8 +152,8 @@
             this.lblPubHolDetID.AutoSize = true;
             this.lblPubHolDetID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblPubHolDetID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPubHolDetID.Location = new System.Drawing.Point(538, 9);
-            this.lblPubHolDetID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPubHolDetID.Location = new System.Drawing.Point(320, 18);
+            this.lblPubHolDetID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblPubHolDetID.Name = "lblPubHolDetID";
             this.lblPubHolDetID.Size = new System.Drawing.Size(11, 15);
             this.lblPubHolDetID.TabIndex = 18;
@@ -157,8 +164,8 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(16, 57);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(9, 54);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(108, 15);
             this.label2.TabIndex = 5;
@@ -172,14 +179,16 @@
             this.panel2.Controls.Add(this.btnCloseMe);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(585, 54);
+            this.panel2.Size = new System.Drawing.Size(625, 63);
             this.panel2.TabIndex = 1;
             // 
             // btnContinue
             // 
             this.btnContinue.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnContinue.Location = new System.Drawing.Point(426, 9);
+            this.btnContinue.Location = new System.Drawing.Point(479, 11);
+            this.btnContinue.Margin = new System.Windows.Forms.Padding(4);
             this.btnContinue.Name = "btnContinue";
             this.btnContinue.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnContinue.Size = new System.Drawing.Size(126, 38);
@@ -191,7 +200,8 @@
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(28, 9);
+            this.btnCloseMe.Location = new System.Drawing.Point(13, 11);
+            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -235,12 +245,12 @@
             // 
             // frmActiveCompanyInfo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(585, 184);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(625, 167);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmActiveCompanyInfo";

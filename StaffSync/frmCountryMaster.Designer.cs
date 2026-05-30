@@ -74,6 +74,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -84,8 +85,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1227, 329);
-            this.splitContainer1.SplitterDistance = 256;
+            this.splitContainer1.Size = new System.Drawing.Size(1019, 405);
+            this.splitContainer1.SplitterDistance = 315;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -96,8 +98,9 @@
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1227, 256);
+            this.panel1.Size = new System.Drawing.Size(1019, 315);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
@@ -110,9 +113,11 @@
             this.groupBox5.Controls.Add(this.txtCountryTitle);
             this.groupBox5.Controls.Add(this.label16);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(14, 83);
+            this.groupBox5.Location = new System.Drawing.Point(19, 102);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(1199, 159);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Size = new System.Drawing.Size(979, 196);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Country Details";
@@ -120,10 +125,11 @@
             // cmbIsActive
             // 
             this.cmbIsActive.FormattingEnabled = true;
-            this.cmbIsActive.Location = new System.Drawing.Point(141, 120);
+            this.cmbIsActive.Location = new System.Drawing.Point(183, 111);
+            this.cmbIsActive.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cmbIsActive.MaxDropDownItems = 5;
             this.cmbIsActive.Name = "cmbIsActive";
-            this.cmbIsActive.Size = new System.Drawing.Size(427, 23);
+            this.cmbIsActive.Size = new System.Drawing.Size(568, 23);
             this.cmbIsActive.TabIndex = 34;
             this.cmbIsActive.Tag = "Is Active";
             this.cmbIsActive.SelectedIndexChanged += new System.EventHandler(this.cmbRelationship_SelectedIndexChanged);
@@ -132,8 +138,8 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(80, 124);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label17.Location = new System.Drawing.Point(121, 116);
+            this.label17.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(59, 15);
             this.label17.TabIndex = 33;
@@ -142,12 +148,12 @@
             // 
             // txtCountryInitial
             // 
-            this.txtCountryInitial.Location = new System.Drawing.Point(141, 59);
-            this.txtCountryInitial.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtCountryInitial.Location = new System.Drawing.Point(183, 71);
+            this.txtCountryInitial.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtCountryInitial.MaxLength = 255;
             this.txtCountryInitial.Multiline = true;
             this.txtCountryInitial.Name = "txtCountryInitial";
-            this.txtCountryInitial.Size = new System.Drawing.Size(427, 28);
+            this.txtCountryInitial.Size = new System.Drawing.Size(568, 25);
             this.txtCountryInitial.TabIndex = 4;
             this.txtCountryInitial.Tag = "Country Initial";
             this.txtCountryInitial.WordWrap = false;
@@ -156,8 +162,8 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(40, 66);
-            this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label18.Location = new System.Drawing.Point(85, 76);
+            this.label18.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(95, 15);
             this.label18.TabIndex = 21;
@@ -166,12 +172,12 @@
             // 
             // txtCountryTitle
             // 
-            this.txtCountryTitle.Location = new System.Drawing.Point(141, 25);
-            this.txtCountryTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtCountryTitle.Location = new System.Drawing.Point(183, 34);
+            this.txtCountryTitle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtCountryTitle.MaxLength = 255;
             this.txtCountryTitle.Multiline = true;
             this.txtCountryTitle.Name = "txtCountryTitle";
-            this.txtCountryTitle.Size = new System.Drawing.Size(427, 28);
+            this.txtCountryTitle.Size = new System.Drawing.Size(568, 25);
             this.txtCountryTitle.TabIndex = 3;
             this.txtCountryTitle.Tag = "Country Title";
             this.txtCountryTitle.WordWrap = false;
@@ -180,8 +186,8 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(48, 32);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Location = new System.Drawing.Point(93, 39);
+            this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(87, 15);
             this.label16.TabIndex = 7;
@@ -198,16 +204,19 @@
             this.groupBox4.Controls.Add(this.txtCountryCode);
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(18, 12);
+            this.groupBox4.Location = new System.Drawing.Point(24, 15);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1192, 65);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Size = new System.Drawing.Size(974, 80);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Country Info";
             // 
             // lnkViewAuditLog
             // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(347, 27);
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(463, 34);
+            this.lnkViewAuditLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lnkViewAuditLog.Name = "lnkViewAuditLog";
             this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
             this.lnkViewAuditLog.TabIndex = 41;
@@ -217,10 +226,11 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(312, 23);
+            this.btnSearch.Location = new System.Drawing.Point(416, 27);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnSearch.Size = new System.Drawing.Size(29, 28);
+            this.btnSearch.Size = new System.Drawing.Size(39, 34);
             this.btnSearch.TabIndex = 14;
             this.btnSearch.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSearch.Values.Image = global::StaffSync.Properties.Resources.search;
@@ -232,8 +242,8 @@
             this.lblCountryID.AutoSize = true;
             this.lblCountryID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblCountryID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCountryID.Location = new System.Drawing.Point(582, 30);
-            this.lblCountryID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCountryID.Location = new System.Drawing.Point(776, 37);
+            this.lblCountryID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblCountryID.Name = "lblCountryID";
             this.lblCountryID.Size = new System.Drawing.Size(11, 15);
             this.lblCountryID.TabIndex = 5;
@@ -244,8 +254,8 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(601, 30);
-            this.lblActionMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblActionMode.Location = new System.Drawing.Point(801, 37);
+            this.lblActionMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
             this.lblActionMode.TabIndex = 4;
@@ -254,13 +264,13 @@
             // 
             // txtCountryCode
             // 
-            this.txtCountryCode.Location = new System.Drawing.Point(137, 23);
-            this.txtCountryCode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtCountryCode.Location = new System.Drawing.Point(183, 32);
+            this.txtCountryCode.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtCountryCode.MaxLength = 255;
             this.txtCountryCode.Multiline = true;
             this.txtCountryCode.Name = "txtCountryCode";
             this.txtCountryCode.ReadOnly = true;
-            this.txtCountryCode.Size = new System.Drawing.Size(168, 28);
+            this.txtCountryCode.Size = new System.Drawing.Size(223, 25);
             this.txtCountryCode.TabIndex = 2;
             this.txtCountryCode.Tag = "Country Code";
             this.txtCountryCode.WordWrap = false;
@@ -269,8 +279,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(43, 30);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(88, 37);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 15);
             this.label1.TabIndex = 3;
@@ -287,13 +297,15 @@
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1227, 69);
+            this.panel2.Size = new System.Drawing.Size(1019, 85);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1073, 15);
+            this.btnCloseMe.Location = new System.Drawing.Point(872, 18);
+            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -305,7 +317,8 @@
             // 
             // btnRemoveDetails
             // 
-            this.btnRemoveDetails.Location = new System.Drawing.Point(435, 15);
+            this.btnRemoveDetails.Location = new System.Drawing.Point(440, 18);
+            this.btnRemoveDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnRemoveDetails.Name = "btnRemoveDetails";
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
@@ -317,7 +330,8 @@
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(299, 15);
+            this.btnSaveDetails.Location = new System.Drawing.Point(304, 18);
+            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
@@ -329,7 +343,8 @@
             // 
             // btnModifyDetails
             // 
-            this.btnModifyDetails.Location = new System.Drawing.Point(163, 15);
+            this.btnModifyDetails.Location = new System.Drawing.Point(170, 18);
+            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
@@ -341,7 +356,8 @@
             // 
             // btnGenerateDetails
             // 
-            this.btnGenerateDetails.Location = new System.Drawing.Point(27, 15);
+            this.btnGenerateDetails.Location = new System.Drawing.Point(36, 18);
+            this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnGenerateDetails.Name = "btnGenerateDetails";
             this.btnGenerateDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnGenerateDetails.Size = new System.Drawing.Size(126, 38);
@@ -353,7 +369,8 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(571, 15);
+            this.btnCancel.Location = new System.Drawing.Point(574, 18);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
@@ -383,14 +400,14 @@
             // 
             // frmCountryMaster
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1227, 329);
+            this.ClientSize = new System.Drawing.Size(1019, 405);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmCountryMaster";

@@ -125,7 +125,7 @@
             // cmbIsActive
             // 
             this.cmbIsActive.FormattingEnabled = true;
-            this.cmbIsActive.Location = new System.Drawing.Point(188, 148);
+            this.cmbIsActive.Location = new System.Drawing.Point(183, 148);
             this.cmbIsActive.Margin = new System.Windows.Forms.Padding(4);
             this.cmbIsActive.MaxDropDownItems = 5;
             this.cmbIsActive.Name = "cmbIsActive";
@@ -138,7 +138,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(107, 153);
+            this.label17.Location = new System.Drawing.Point(120, 153);
             this.label17.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(59, 15);
@@ -148,12 +148,12 @@
             // 
             // txtDepInitial
             // 
-            this.txtDepInitial.Location = new System.Drawing.Point(188, 73);
+            this.txtDepInitial.Location = new System.Drawing.Point(183, 73);
             this.txtDepInitial.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtDepInitial.MaxLength = 255;
             this.txtDepInitial.Multiline = true;
             this.txtDepInitial.Name = "txtDepInitial";
-            this.txtDepInitial.Size = new System.Drawing.Size(568, 34);
+            this.txtDepInitial.Size = new System.Drawing.Size(568, 25);
             this.txtDepInitial.TabIndex = 4;
             this.txtDepInitial.Tag = "Department Initials";
             this.txtDepInitial.WordWrap = false;
@@ -162,7 +162,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(13, 81);
+            this.label18.Location = new System.Drawing.Point(50, 81);
             this.label18.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(129, 15);
@@ -172,12 +172,12 @@
             // 
             // txtDepTitle
             // 
-            this.txtDepTitle.Location = new System.Drawing.Point(188, 31);
+            this.txtDepTitle.Location = new System.Drawing.Point(183, 31);
             this.txtDepTitle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtDepTitle.MaxLength = 255;
             this.txtDepTitle.Multiline = true;
             this.txtDepTitle.Name = "txtDepTitle";
-            this.txtDepTitle.Size = new System.Drawing.Size(568, 34);
+            this.txtDepTitle.Size = new System.Drawing.Size(568, 25);
             this.txtDepTitle.TabIndex = 3;
             this.txtDepTitle.Tag = "Department Title";
             this.txtDepTitle.WordWrap = false;
@@ -186,7 +186,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(33, 39);
+            this.label16.Location = new System.Drawing.Point(65, 39);
             this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(114, 15);
@@ -225,7 +225,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(416, 28);
+            this.btnSearch.Location = new System.Drawing.Point(416, 27);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -263,13 +263,13 @@
             // 
             // txtDepCode
             // 
-            this.txtDepCode.Location = new System.Drawing.Point(183, 28);
+            this.txtDepCode.Location = new System.Drawing.Point(183, 32);
             this.txtDepCode.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtDepCode.MaxLength = 255;
             this.txtDepCode.Multiline = true;
             this.txtDepCode.Name = "txtDepCode";
             this.txtDepCode.ReadOnly = true;
-            this.txtDepCode.Size = new System.Drawing.Size(223, 34);
+            this.txtDepCode.Size = new System.Drawing.Size(223, 25);
             this.txtDepCode.TabIndex = 2;
             this.txtDepCode.Tag = "Department Code";
             this.txtDepCode.WordWrap = false;
@@ -278,7 +278,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(21, 37);
+            this.label1.Location = new System.Drawing.Point(60, 37);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 15);

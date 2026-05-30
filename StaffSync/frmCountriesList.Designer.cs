@@ -43,6 +43,7 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             this.countryMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryDepartmentListBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -56,7 +57,6 @@
             this.countryMasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.countryMasBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.qryCountryListTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.qryCountryListTableAdapter();
-            this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -80,6 +80,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -90,8 +91,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(898, 583);
-            this.splitContainer1.SplitterDistance = 515;
+            this.splitContainer1.Size = new System.Drawing.Size(1197, 664);
+            this.splitContainer1.SplitterDistance = 590;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -102,8 +104,9 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(898, 515);
+            this.panel1.Size = new System.Drawing.Size(1197, 590);
             this.panel1.TabIndex = 1;
             // 
             // dtgDepartmentList
@@ -122,11 +125,12 @@
             this.CountryInitial,
             this.IsActive});
             this.dtgDepartmentList.DataSource = this.qryCountryListBindingSource;
-            this.dtgDepartmentList.Location = new System.Drawing.Point(18, 78);
+            this.dtgDepartmentList.Location = new System.Drawing.Point(24, 66);
+            this.dtgDepartmentList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtgDepartmentList.Name = "dtgDepartmentList";
             this.dtgDepartmentList.ReadOnly = true;
             this.dtgDepartmentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgDepartmentList.Size = new System.Drawing.Size(865, 423);
+            this.dtgDepartmentList.Size = new System.Drawing.Size(1153, 509);
             this.dtgDepartmentList.TabIndex = 7;
             this.dtgDepartmentList.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
             // 
@@ -182,11 +186,11 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(197, 24);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtSearch.Location = new System.Drawing.Point(178, 33);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(615, 28);
+            this.txtSearch.Size = new System.Drawing.Size(819, 25);
             this.txtSearch.TabIndex = 4;
             this.txtSearch.WordWrap = false;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
@@ -195,8 +199,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 31);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(20, 38);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(154, 15);
             this.label1.TabIndex = 5;
@@ -208,9 +212,23 @@
             this.panel2.Controls.Add(this.btnCloseMe);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(898, 64);
+            this.panel2.Size = new System.Drawing.Size(1197, 69);
             this.panel2.TabIndex = 1;
+            // 
+            // btnCloseMe
+            // 
+            this.btnCloseMe.Location = new System.Drawing.Point(1051, 17);
+            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCloseMe.Name = "btnCloseMe";
+            this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
+            this.btnCloseMe.TabIndex = 21;
+            this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
+            this.btnCloseMe.Values.Text = "Close Me";
+            this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click);
             // 
             // countryMasBindingSource
             // 
@@ -219,8 +237,8 @@
             // 
             // staffsyncDBDTSet
             // 
-            //this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
-            //this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
+            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // qryDepartmentListBindingSource
             // 
@@ -239,15 +257,15 @@
             // 
             // empMasInfoTableAdapter
             // 
-            //this.empMasInfoTableAdapter.ClearBeforeFill = true;
+            this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
             // qryDepartmentListTableAdapter
             // 
-            //this.qryDepartmentListTableAdapter.ClearBeforeFill = true;
+            this.qryDepartmentListTableAdapter.ClearBeforeFill = true;
             // 
             // countryMasTableAdapter
             // 
-            //this.countryMasTableAdapter.ClearBeforeFill = true;
+            this.countryMasTableAdapter.ClearBeforeFill = true;
             // 
             // countryMasAddressMasBindingSource
             // 
@@ -256,7 +274,7 @@
             // 
             // addressMasTableAdapter
             // 
-            //this.addressMasTableAdapter.ClearBeforeFill = true;
+            this.addressMasTableAdapter.ClearBeforeFill = true;
             // 
             // countryMasBindingSource1
             // 
@@ -270,30 +288,19 @@
             // 
             // qryCountryListTableAdapter
             // 
-            //this.qryCountryListTableAdapter.ClearBeforeFill = true;
-            // 
-            // btnCloseMe
-            // 
-            this.btnCloseMe.Location = new System.Drawing.Point(686, 14);
-            this.btnCloseMe.Name = "btnCloseMe";
-            this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
-            this.btnCloseMe.TabIndex = 21;
-            this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
-            this.btnCloseMe.Values.Text = "Close Me";
-            this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click);
+            this.qryCountryListTableAdapter.ClearBeforeFill = true;
             // 
             // frmCountriesList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(898, 583);
+            this.ClientSize = new System.Drawing.Size(1197, 664);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmCountriesList";
