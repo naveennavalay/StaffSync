@@ -203,7 +203,7 @@
             // 
             // lnkViewAuditLog
             // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(533, 34);
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(466, 34);
             this.lnkViewAuditLog.Name = "lnkViewAuditLog";
             this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
             this.lnkViewAuditLog.TabIndex = 106;
@@ -213,12 +213,12 @@
             // 
             // txtWeeklyOffTitle
             // 
-            this.txtWeeklyOffTitle.Location = new System.Drawing.Point(253, 70);
+            this.txtWeeklyOffTitle.Location = new System.Drawing.Point(188, 69);
             this.txtWeeklyOffTitle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtWeeklyOffTitle.MaxLength = 255;
             this.txtWeeklyOffTitle.Multiline = true;
             this.txtWeeklyOffTitle.Name = "txtWeeklyOffTitle";
-            this.txtWeeklyOffTitle.Size = new System.Drawing.Size(568, 34);
+            this.txtWeeklyOffTitle.Size = new System.Drawing.Size(568, 25);
             this.txtWeeklyOffTitle.TabIndex = 15;
             this.txtWeeklyOffTitle.Tag = "Weekly Off Title";
             this.txtWeeklyOffTitle.WordWrap = false;
@@ -227,7 +227,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(80, 79);
+            this.label16.Location = new System.Drawing.Point(78, 74);
             this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(106, 15);
@@ -237,7 +237,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(487, 28);
+            this.btnSearch.Location = new System.Drawing.Point(420, 27);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -275,13 +275,13 @@
             // 
             // txtWeeklyCode
             // 
-            this.txtWeeklyCode.Location = new System.Drawing.Point(253, 28);
+            this.txtWeeklyCode.Location = new System.Drawing.Point(188, 32);
             this.txtWeeklyCode.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtWeeklyCode.MaxLength = 255;
             this.txtWeeklyCode.Multiline = true;
             this.txtWeeklyCode.Name = "txtWeeklyCode";
             this.txtWeeklyCode.ReadOnly = true;
-            this.txtWeeklyCode.Size = new System.Drawing.Size(223, 34);
+            this.txtWeeklyCode.Size = new System.Drawing.Size(223, 25);
             this.txtWeeklyCode.TabIndex = 2;
             this.txtWeeklyCode.Tag = "Weekly Off Code";
             this.txtWeeklyCode.WordWrap = false;

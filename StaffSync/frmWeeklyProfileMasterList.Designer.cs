@@ -90,8 +90,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1227, 583);
-            this.splitContainer1.SplitterDistance = 514;
+            this.splitContainer1.Size = new System.Drawing.Size(1227, 562);
+            this.splitContainer1.SplitterDistance = 495;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -104,7 +104,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1227, 514);
+            this.panel1.Size = new System.Drawing.Size(1227, 495);
             this.panel1.TabIndex = 1;
             // 
             // lblSearchOptionClickedFor
@@ -112,7 +112,7 @@
             this.lblSearchOptionClickedFor.AutoSize = true;
             this.lblSearchOptionClickedFor.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblSearchOptionClickedFor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSearchOptionClickedFor.Location = new System.Drawing.Point(780, 31);
+            this.lblSearchOptionClickedFor.Location = new System.Drawing.Point(819, 31);
             this.lblSearchOptionClickedFor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSearchOptionClickedFor.Name = "lblSearchOptionClickedFor";
             this.lblSearchOptionClickedFor.Size = new System.Drawing.Size(11, 15);
@@ -128,7 +128,7 @@
             this.dtgWeeklyOffList.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgWeeklyOffList.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dtgWeeklyOffList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgWeeklyOffList.Location = new System.Drawing.Point(18, 78);
+            this.dtgWeeklyOffList.Location = new System.Drawing.Point(18, 63);
             this.dtgWeeklyOffList.Name = "dtgWeeklyOffList";
             this.dtgWeeklyOffList.ReadOnly = true;
             this.dtgWeeklyOffList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -139,11 +139,11 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(157, 24);
+            this.txtSearch.Location = new System.Drawing.Point(191, 26);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(615, 28);
+            this.txtSearch.Size = new System.Drawing.Size(615, 25);
             this.txtSearch.TabIndex = 4;
             this.txtSearch.WordWrap = false;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
@@ -166,7 +166,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1227, 65);
+            this.panel2.Size = new System.Drawing.Size(1227, 63);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
@@ -238,10 +238,9 @@
             // 
             // frmWeeklyProfileMasterList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1227, 583);
+            this.ClientSize = new System.Drawing.Size(1227, 562);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

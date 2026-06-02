@@ -85,7 +85,6 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -96,9 +95,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1419, 559);
-            this.splitContainer1.SplitterDistance = 494;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(1064, 468);
+            this.splitContainer1.SplitterDistance = 409;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -116,9 +114,8 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1419, 494);
+            this.panel1.Size = new System.Drawing.Size(1064, 409);
             this.panel1.TabIndex = 1;
             // 
             // lblFileName
@@ -126,8 +123,8 @@
             this.lblFileName.AutoSize = true;
             this.lblFileName.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblFileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFileName.Location = new System.Drawing.Point(1092, 38);
-            this.lblFileName.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblFileName.Location = new System.Drawing.Point(819, 31);
+            this.lblFileName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFileName.Name = "lblFileName";
             this.lblFileName.Size = new System.Drawing.Size(11, 15);
             this.lblFileName.TabIndex = 31;
@@ -139,10 +136,9 @@
             this.picDownloadDocumentsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picDownloadDocumentsList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picDownloadDocumentsList.Image = ((System.Drawing.Image)(resources.GetObject("picDownloadDocumentsList.Image")));
-            this.picDownloadDocumentsList.Location = new System.Drawing.Point(1291, 34);
-            this.picDownloadDocumentsList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.picDownloadDocumentsList.Location = new System.Drawing.Point(968, 28);
             this.picDownloadDocumentsList.Name = "picDownloadDocumentsList";
-            this.picDownloadDocumentsList.Size = new System.Drawing.Size(28, 25);
+            this.picDownloadDocumentsList.Size = new System.Drawing.Size(21, 20);
             this.picDownloadDocumentsList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picDownloadDocumentsList.TabIndex = 30;
             this.picDownloadDocumentsList.TabStop = false;
@@ -153,10 +149,9 @@
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(1321, 33);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox2.Location = new System.Drawing.Point(991, 27);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(31, 27);
+            this.pictureBox2.Size = new System.Drawing.Size(23, 22);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 29;
             this.pictureBox2.TabStop = false;
@@ -166,10 +161,9 @@
             this.picRefreshDocumentsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picRefreshDocumentsList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picRefreshDocumentsList.Image = ((System.Drawing.Image)(resources.GetObject("picRefreshDocumentsList.Image")));
-            this.picRefreshDocumentsList.Location = new System.Drawing.Point(1355, 33);
-            this.picRefreshDocumentsList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.picRefreshDocumentsList.Location = new System.Drawing.Point(1016, 27);
             this.picRefreshDocumentsList.Name = "picRefreshDocumentsList";
-            this.picRefreshDocumentsList.Size = new System.Drawing.Size(31, 27);
+            this.picRefreshDocumentsList.Size = new System.Drawing.Size(23, 22);
             this.picRefreshDocumentsList.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picRefreshDocumentsList.TabIndex = 28;
             this.picRefreshDocumentsList.TabStop = false;
@@ -179,8 +173,8 @@
             this.lblEventGroup.AutoSize = true;
             this.lblEventGroup.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblEventGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEventGroup.Location = new System.Drawing.Point(839, 7);
-            this.lblEventGroup.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblEventGroup.Location = new System.Drawing.Point(629, 6);
+            this.lblEventGroup.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblEventGroup.Name = "lblEventGroup";
             this.lblEventGroup.Size = new System.Drawing.Size(11, 15);
             this.lblEventGroup.TabIndex = 10;
@@ -192,8 +186,8 @@
             this.lblSourceID.AutoSize = true;
             this.lblSourceID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblSourceID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSourceID.Location = new System.Drawing.Point(1113, 11);
-            this.lblSourceID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblSourceID.Location = new System.Drawing.Point(835, 9);
+            this.lblSourceID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSourceID.Name = "lblSourceID";
             this.lblSourceID.Size = new System.Drawing.Size(11, 15);
             this.lblSourceID.TabIndex = 9;
@@ -205,8 +199,8 @@
             this.lblClientID.AutoSize = true;
             this.lblClientID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblClientID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClientID.Location = new System.Drawing.Point(1031, 11);
-            this.lblClientID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblClientID.Location = new System.Drawing.Point(773, 9);
+            this.lblClientID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblClientID.Name = "lblClientID";
             this.lblClientID.Size = new System.Drawing.Size(11, 15);
             this.lblClientID.TabIndex = 8;
@@ -221,22 +215,21 @@
             this.dtgAuditLogStatements.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgAuditLogStatements.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dtgAuditLogStatements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgAuditLogStatements.Location = new System.Drawing.Point(24, 78);
-            this.dtgAuditLogStatements.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtgAuditLogStatements.Location = new System.Drawing.Point(18, 63);
             this.dtgAuditLogStatements.Name = "dtgAuditLogStatements";
             this.dtgAuditLogStatements.ReadOnly = true;
             this.dtgAuditLogStatements.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgAuditLogStatements.Size = new System.Drawing.Size(1361, 401);
+            this.dtgAuditLogStatements.Size = new System.Drawing.Size(1021, 326);
             this.dtgAuditLogStatements.TabIndex = 7;
             this.dtgAuditLogStatements.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(203, 33);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.txtSearch.Location = new System.Drawing.Point(152, 27);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(819, 25);
+            this.txtSearch.Size = new System.Drawing.Size(615, 21);
             this.txtSearch.TabIndex = 4;
             this.txtSearch.WordWrap = false;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
@@ -245,8 +238,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(24, 38);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.Location = new System.Drawing.Point(18, 31);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(175, 15);
             this.label1.TabIndex = 5;
@@ -258,15 +251,13 @@
             this.panel2.Controls.Add(this.btnCloseMe);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1419, 60);
+            this.panel2.Size = new System.Drawing.Size(1064, 55);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1217, 11);
-            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCloseMe.Location = new System.Drawing.Point(913, 9);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -348,14 +339,13 @@
             // 
             // frmAuditLogStatements
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1419, 559);
+            this.ClientSize = new System.Drawing.Size(1064, 468);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAuditLogStatements";

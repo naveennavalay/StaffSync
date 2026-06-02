@@ -38,12 +38,12 @@
             this.LastCompanyTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IsActive = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.lastCompDetMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.staffsyncDBDataSet = new StaffSync.StaffsyncDBDataSet();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
+            this.lastCompDetMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.staffsyncDBDataSet = new StaffSync.StaffsyncDBDataSet();
             this.qryCountryListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.countryMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
@@ -65,9 +65,9 @@
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgDepartmentList)).BeginInit();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lastCompDetMasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet)).BeginInit();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qryCountryListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
@@ -170,23 +170,13 @@
             this.IsActive.ReadOnly = true;
             this.IsActive.Width = 150;
             // 
-            // lastCompDetMasBindingSource
-            // 
-            this.lastCompDetMasBindingSource.DataMember = "LastCompDetMas";
-            this.lastCompDetMasBindingSource.DataSource = this.staffsyncDBDataSet;
-            // 
-            // staffsyncDBDataSet
-            // 
-            this.staffsyncDBDataSet.DataSetName = "StaffsyncDBDataSet";
-            this.staffsyncDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // txtSearch
             // 
             this.txtSearch.Location = new System.Drawing.Point(197, 24);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(615, 28);
+            this.txtSearch.Size = new System.Drawing.Size(615, 25);
             this.txtSearch.TabIndex = 4;
             this.txtSearch.WordWrap = false;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
@@ -223,6 +213,16 @@
             this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
             this.btnCloseMe.Values.Text = "Close Me";
             this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click);
+            // 
+            // lastCompDetMasBindingSource
+            // 
+            this.lastCompDetMasBindingSource.DataMember = "LastCompDetMas";
+            this.lastCompDetMasBindingSource.DataSource = this.staffsyncDBDataSet;
+            // 
+            // staffsyncDBDataSet
+            // 
+            this.staffsyncDBDataSet.DataSetName = "StaffsyncDBDataSet";
+            this.staffsyncDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // qryCountryListBindingSource
             // 
@@ -295,8 +295,7 @@
             // 
             // frmLastCompanyList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.ClientSize = new System.Drawing.Size(1227, 583);
             this.Controls.Add(this.splitContainer1);
@@ -318,9 +317,9 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgDepartmentList)).EndInit();
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.lastCompDetMasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet)).EndInit();
-            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.qryCountryListBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();

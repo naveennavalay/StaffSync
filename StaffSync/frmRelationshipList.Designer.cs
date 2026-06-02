@@ -51,15 +51,11 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             this.countryMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            //this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryDepartmentListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dsDepartmentList = new StaffSync.dsDepartmentList();
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            //this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.qryDepartmentListTableAdapter = new StaffSync.dsDepartmentListTableAdapters.qryDepartmentListTableAdapter();
-            //this.countryMasTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.CountryMasTableAdapter();
             this.countryMasAddressMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            //this.addressMasTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.AddressMasTableAdapter();
             this.countryMasBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.countryMasBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.qryStateListBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -79,7 +75,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource)).BeginInit();
-            //((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryDepartmentListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dsDepartmentList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
@@ -105,8 +100,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1227, 583);
-            this.splitContainer1.SplitterDistance = 515;
+            this.splitContainer1.Size = new System.Drawing.Size(1227, 562);
+            this.splitContainer1.SplitterDistance = 496;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -118,7 +113,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1227, 515);
+            this.panel1.Size = new System.Drawing.Size(1227, 496);
             this.panel1.TabIndex = 1;
             // 
             // dtgStateList
@@ -143,7 +138,7 @@
             this.isActiveDataGridViewCheckBoxColumn,
             this.isDeletedDataGridViewCheckBoxColumn});
             this.dtgStateList.DataSource = this.qryRelationshipListBindingSource;
-            this.dtgStateList.Location = new System.Drawing.Point(18, 78);
+            this.dtgStateList.Location = new System.Drawing.Point(18, 61);
             this.dtgStateList.Name = "dtgStateList";
             this.dtgStateList.ReadOnly = true;
             this.dtgStateList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -250,7 +245,7 @@
             this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(615, 28);
+            this.txtSearch.Size = new System.Drawing.Size(615, 25);
             this.txtSearch.TabIndex = 4;
             this.txtSearch.WordWrap = false;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
@@ -273,7 +268,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1227, 64);
+            this.panel2.Size = new System.Drawing.Size(1227, 62);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
@@ -288,16 +283,6 @@
             this.btnCloseMe.Values.Text = "Close Me";
             this.btnCloseMe.Click += new System.EventHandler(this.btnCloseMe_Click_2);
             // 
-            // countryMasBindingSource
-            // 
-            //this.countryMasBindingSource.DataMember = "CountryMas";
-            //this.countryMasBindingSource.DataSource = this.staffsyncDBDTSet;
-            // 
-            // staffsyncDBDTSet
-            // 
-            //this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
-            //this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // qryDepartmentListBindingSource
             // 
             this.qryDepartmentListBindingSource.DataMember = "qryDepartmentList";
@@ -308,41 +293,9 @@
             this.dsDepartmentList.DataSetName = "dsDepartmentList";
             this.dsDepartmentList.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // empMasInfoBindingSource
-            // 
-            //this.empMasInfoBindingSource.DataMember = "EmpMasInfo";
-            //this.empMasInfoBindingSource.DataSource = this.staffsyncDBDTSet;
-            // 
-            // empMasInfoTableAdapter
-            // 
-            //this.empMasInfoTableAdapter.ClearBeforeFill = true;
-            // 
             // qryDepartmentListTableAdapter
             // 
-            //this.qryDepartmentListTableAdapter.ClearBeforeFill = true;
-            // 
-            // countryMasTableAdapter
-            // 
-            //this.countryMasTableAdapter.ClearBeforeFill = true;
-            // 
-            // countryMasAddressMasBindingSource
-            // 
-            //this.countryMasAddressMasBindingSource.DataMember = "CountryMasAddressMas";
-            //this.countryMasAddressMasBindingSource.DataSource = this.countryMasBindingSource;
-            // 
-            // addressMasTableAdapter
-            // 
-            //this.addressMasTableAdapter.ClearBeforeFill = true;
-            // 
-            // countryMasBindingSource1
-            // 
-            //this.countryMasBindingSource1.DataMember = "CountryMas";
-            //this.countryMasBindingSource1.DataSource = this.staffsyncDBDTSet;
-            // 
-            // countryMasBindingSource2
-            // 
-            //this.countryMasBindingSource2.DataMember = "CountryMas";
-            //this.countryMasBindingSource2.DataSource = this.staffsyncDBDTSet;
+            this.qryDepartmentListTableAdapter.ClearBeforeFill = true;
             // 
             // qryStateListBindingSource
             // 
@@ -380,7 +333,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1227, 583);
+            this.ClientSize = new System.Drawing.Size(1227, 562);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -404,7 +357,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.countryMasBindingSource)).EndInit();
-            //((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryDepartmentListBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dsDepartmentList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();

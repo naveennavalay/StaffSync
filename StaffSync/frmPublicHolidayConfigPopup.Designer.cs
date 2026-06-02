@@ -113,7 +113,7 @@
             // 
             this.cmbHolidayType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbHolidayType.DropDownWidth = 440;
-            this.cmbHolidayType.Location = new System.Drawing.Point(144, 101);
+            this.cmbHolidayType.Location = new System.Drawing.Point(144, 100);
             this.cmbHolidayType.Name = "cmbHolidayType";
             this.cmbHolidayType.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbHolidayType.Size = new System.Drawing.Size(177, 22);
@@ -124,7 +124,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(45, 104);
+            this.label1.Location = new System.Drawing.Point(53, 104);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 15);
@@ -147,21 +147,21 @@
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(45, 68);
+            this.label29.Location = new System.Drawing.Point(105, 68);
             this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(89, 15);
+            this.label29.Size = new System.Drawing.Size(37, 15);
             this.label29.TabIndex = 42;
-            this.label29.Text = "Date Of Birth";
+            this.label29.Text = "Date";
             this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtHolidayName
             // 
-            this.txtHolidayName.Location = new System.Drawing.Point(144, 26);
+            this.txtHolidayName.Location = new System.Drawing.Point(144, 28);
             this.txtHolidayName.Multiline = true;
             this.txtHolidayName.Name = "txtHolidayName";
             this.txtHolidayName.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtHolidayName.Size = new System.Drawing.Size(393, 28);
+            this.txtHolidayName.Size = new System.Drawing.Size(393, 25);
             this.txtHolidayName.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHolidayName.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtHolidayName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -186,7 +186,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(37, 33);
+            this.label2.Location = new System.Drawing.Point(45, 33);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 15);

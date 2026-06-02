@@ -86,8 +86,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1127, 433);
-            this.splitContainer1.SplitterDistance = 348;
+            this.splitContainer1.Size = new System.Drawing.Size(1127, 369);
+            this.splitContainer1.SplitterDistance = 301;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -100,7 +100,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1127, 348);
+            this.panel1.Size = new System.Drawing.Size(1127, 301);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
@@ -139,7 +139,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(184, 174);
+            this.label17.Location = new System.Drawing.Point(191, 174);
             this.label17.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(59, 15);
@@ -163,7 +163,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(73, 66);
+            this.label18.Location = new System.Drawing.Point(80, 66);
             this.label18.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(170, 15);
@@ -173,12 +173,12 @@
             // 
             // txtSalProfTitle
             // 
-            this.txtSalProfTitle.Location = new System.Drawing.Point(253, 24);
+            this.txtSalProfTitle.Location = new System.Drawing.Point(253, 26);
             this.txtSalProfTitle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtSalProfTitle.MaxLength = 255;
             this.txtSalProfTitle.Multiline = true;
             this.txtSalProfTitle.Name = "txtSalProfTitle";
-            this.txtSalProfTitle.Size = new System.Drawing.Size(568, 28);
+            this.txtSalProfTitle.Size = new System.Drawing.Size(568, 25);
             this.txtSalProfTitle.TabIndex = 3;
             this.txtSalProfTitle.Tag = "Salary Profile Title";
             this.txtSalProfTitle.WordWrap = false;
@@ -187,7 +187,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(118, 31);
+            this.label16.Location = new System.Drawing.Point(125, 31);
             this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(125, 15);
@@ -264,13 +264,13 @@
             // 
             // txtSalProfCode
             // 
-            this.txtSalProfCode.Location = new System.Drawing.Point(253, 28);
+            this.txtSalProfCode.Location = new System.Drawing.Point(248, 30);
             this.txtSalProfCode.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtSalProfCode.MaxLength = 255;
             this.txtSalProfCode.Multiline = true;
             this.txtSalProfCode.Name = "txtSalProfCode";
             this.txtSalProfCode.ReadOnly = true;
-            this.txtSalProfCode.Size = new System.Drawing.Size(223, 28);
+            this.txtSalProfCode.Size = new System.Drawing.Size(228, 25);
             this.txtSalProfCode.TabIndex = 2;
             this.txtSalProfCode.Tag = "Salary Profile Code";
             this.txtSalProfCode.WordWrap = false;
@@ -279,7 +279,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(113, 35);
+            this.label1.Location = new System.Drawing.Point(114, 35);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 15);
@@ -299,7 +299,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1127, 80);
+            this.panel2.Size = new System.Drawing.Size(1127, 63);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
@@ -402,7 +402,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1127, 433);
+            this.ClientSize = new System.Drawing.Size(1127, 369);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

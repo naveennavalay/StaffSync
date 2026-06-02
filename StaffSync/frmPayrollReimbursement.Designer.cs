@@ -292,7 +292,7 @@
             this.txtReimbTitle.MaxLength = 255;
             this.txtReimbTitle.Multiline = true;
             this.txtReimbTitle.Name = "txtReimbTitle";
-            this.txtReimbTitle.Size = new System.Drawing.Size(568, 28);
+            this.txtReimbTitle.Size = new System.Drawing.Size(568, 25);
             this.txtReimbTitle.TabIndex = 3;
             this.txtReimbTitle.Tag = "Reimbursement Title";
             this.txtReimbTitle.WordWrap = false;
@@ -381,7 +381,7 @@
             this.txtReimbCode.Multiline = true;
             this.txtReimbCode.Name = "txtReimbCode";
             this.txtReimbCode.ReadOnly = true;
-            this.txtReimbCode.Size = new System.Drawing.Size(223, 28);
+            this.txtReimbCode.Size = new System.Drawing.Size(223, 25);
             this.txtReimbCode.TabIndex = 2;
             this.txtReimbCode.Tag = "Reimbursement Code";
             this.txtReimbCode.WordWrap = false;

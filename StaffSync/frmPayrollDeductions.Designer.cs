@@ -292,12 +292,12 @@
             // 
             // txtDedTitle
             // 
-            this.txtDedTitle.Location = new System.Drawing.Point(190, 32);
+            this.txtDedTitle.Location = new System.Drawing.Point(190, 34);
             this.txtDedTitle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtDedTitle.MaxLength = 255;
             this.txtDedTitle.Multiline = true;
             this.txtDedTitle.Name = "txtDedTitle";
-            this.txtDedTitle.Size = new System.Drawing.Size(568, 28);
+            this.txtDedTitle.Size = new System.Drawing.Size(568, 25);
             this.txtDedTitle.TabIndex = 3;
             this.txtDedTitle.Tag = "Deduction Title";
             this.txtDedTitle.WordWrap = false;
@@ -383,13 +383,13 @@
             // 
             // txtDedCode
             // 
-            this.txtDedCode.Location = new System.Drawing.Point(190, 28);
+            this.txtDedCode.Location = new System.Drawing.Point(190, 30);
             this.txtDedCode.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtDedCode.MaxLength = 255;
             this.txtDedCode.Multiline = true;
             this.txtDedCode.Name = "txtDedCode";
             this.txtDedCode.ReadOnly = true;
-            this.txtDedCode.Size = new System.Drawing.Size(223, 28);
+            this.txtDedCode.Size = new System.Drawing.Size(223, 25);
             this.txtDedCode.TabIndex = 2;
             this.txtDedCode.Tag = "Deduction Code";
             this.txtDedCode.WordWrap = false;

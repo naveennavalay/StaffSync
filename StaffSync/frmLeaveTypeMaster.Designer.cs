@@ -87,7 +87,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1636, 405);
+            this.splitContainer1.Size = new System.Drawing.Size(944, 405);
             this.splitContainer1.SplitterDistance = 316;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
@@ -101,7 +101,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1636, 316);
+            this.panel1.Size = new System.Drawing.Size(944, 316);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
@@ -117,7 +117,7 @@
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(1599, 196);
+            this.groupBox5.Size = new System.Drawing.Size(910, 196);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Leave Details";
@@ -126,7 +126,7 @@
             // 
             this.cmbIsActive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbIsActive.DropDownWidth = 440;
-            this.cmbIsActive.Location = new System.Drawing.Point(188, 148);
+            this.cmbIsActive.Location = new System.Drawing.Point(188, 149);
             this.cmbIsActive.Margin = new System.Windows.Forms.Padding(4);
             this.cmbIsActive.Name = "cmbIsActive";
             this.cmbIsActive.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -139,7 +139,7 @@
             // 
             this.cmbLeavePaid.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLeavePaid.DropDownWidth = 440;
-            this.cmbLeavePaid.Location = new System.Drawing.Point(188, 73);
+            this.cmbLeavePaid.Location = new System.Drawing.Point(188, 74);
             this.cmbLeavePaid.Margin = new System.Windows.Forms.Padding(4);
             this.cmbLeavePaid.Name = "cmbLeavePaid";
             this.cmbLeavePaid.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -152,7 +152,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(112, 78);
+            this.label2.Location = new System.Drawing.Point(134, 78);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 15);
@@ -164,7 +164,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(101, 153);
+            this.label17.Location = new System.Drawing.Point(126, 153);
             this.label17.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(59, 15);
@@ -174,12 +174,12 @@
             // 
             // txtLeaveTitle
             // 
-            this.txtLeaveTitle.Location = new System.Drawing.Point(188, 31);
+            this.txtLeaveTitle.Location = new System.Drawing.Point(188, 34);
             this.txtLeaveTitle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtLeaveTitle.MaxLength = 255;
             this.txtLeaveTitle.Multiline = true;
             this.txtLeaveTitle.Name = "txtLeaveTitle";
-            this.txtLeaveTitle.Size = new System.Drawing.Size(568, 34);
+            this.txtLeaveTitle.Size = new System.Drawing.Size(567, 25);
             this.txtLeaveTitle.TabIndex = 3;
             this.txtLeaveTitle.Tag = "Leave Title";
             this.txtLeaveTitle.WordWrap = false;
@@ -188,7 +188,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(77, 39);
+            this.label16.Location = new System.Drawing.Point(108, 39);
             this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(77, 15);
@@ -209,7 +209,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(1589, 80);
+            this.groupBox4.Size = new System.Drawing.Size(905, 80);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Leave Info";
@@ -226,7 +226,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(416, 28);
+            this.btnSearch.Location = new System.Drawing.Point(416, 27);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -264,13 +264,13 @@
             // 
             // txtLeaveCode
             // 
-            this.txtLeaveCode.Location = new System.Drawing.Point(183, 28);
+            this.txtLeaveCode.Location = new System.Drawing.Point(183, 32);
             this.txtLeaveCode.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtLeaveCode.MaxLength = 255;
             this.txtLeaveCode.Multiline = true;
             this.txtLeaveCode.Name = "txtLeaveCode";
             this.txtLeaveCode.ReadOnly = true;
-            this.txtLeaveCode.Size = new System.Drawing.Size(223, 34);
+            this.txtLeaveCode.Size = new System.Drawing.Size(223, 25);
             this.txtLeaveCode.TabIndex = 2;
             this.txtLeaveCode.Tag = "Leave Code";
             this.txtLeaveCode.WordWrap = false;
@@ -279,7 +279,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(71, 37);
+            this.label1.Location = new System.Drawing.Point(99, 37);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 15);
@@ -299,16 +299,16 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1636, 84);
+            this.panel2.Size = new System.Drawing.Size(944, 84);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1431, 18);
+            this.btnCloseMe.Location = new System.Drawing.Point(803, 18);
             this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCloseMe.Size = new System.Drawing.Size(168, 47);
+            this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
             this.btnCloseMe.TabIndex = 20;
             this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
@@ -317,11 +317,11 @@
             // 
             // btnRemoveDetails
             // 
-            this.btnRemoveDetails.Location = new System.Drawing.Point(580, 18);
+            this.btnRemoveDetails.Location = new System.Drawing.Point(440, 18);
             this.btnRemoveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveDetails.Name = "btnRemoveDetails";
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnRemoveDetails.Size = new System.Drawing.Size(168, 47);
+            this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnRemoveDetails.TabIndex = 19;
             this.btnRemoveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnRemoveDetails.Values.Image = global::StaffSync.Properties.Resources.delete;
@@ -330,11 +330,11 @@
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(399, 18);
+            this.btnSaveDetails.Location = new System.Drawing.Point(304, 18);
             this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnSaveDetails.Size = new System.Drawing.Size(168, 47);
+            this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnSaveDetails.TabIndex = 18;
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSaveDetails.Values.Image = global::StaffSync.Properties.Resources.save;
@@ -343,11 +343,11 @@
             // 
             // btnModifyDetails
             // 
-            this.btnModifyDetails.Location = new System.Drawing.Point(217, 18);
+            this.btnModifyDetails.Location = new System.Drawing.Point(170, 18);
             this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnModifyDetails.Size = new System.Drawing.Size(168, 47);
+            this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
             this.btnModifyDetails.TabIndex = 17;
             this.btnModifyDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnModifyDetails.Values.Image = global::StaffSync.Properties.Resources.update;
@@ -360,7 +360,7 @@
             this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerateDetails.Name = "btnGenerateDetails";
             this.btnGenerateDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnGenerateDetails.Size = new System.Drawing.Size(168, 47);
+            this.btnGenerateDetails.Size = new System.Drawing.Size(126, 38);
             this.btnGenerateDetails.TabIndex = 16;
             this.btnGenerateDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnGenerateDetails.Values.Image = global::StaffSync.Properties.Resources._new;
@@ -369,11 +369,11 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(761, 18);
+            this.btnCancel.Location = new System.Drawing.Point(574, 18);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnCancel.Size = new System.Drawing.Size(168, 47);
+            this.btnCancel.Size = new System.Drawing.Size(126, 38);
             this.btnCancel.TabIndex = 15;
             this.btnCancel.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCancel.Values.Image = global::StaffSync.Properties.Resources.cancel;
@@ -402,7 +402,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1636, 405);
+            this.ClientSize = new System.Drawing.Size(944, 405);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

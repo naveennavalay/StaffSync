@@ -292,12 +292,12 @@
             // 
             // txtAllTitle
             // 
-            this.txtAllTitle.Location = new System.Drawing.Point(187, 31);
+            this.txtAllTitle.Location = new System.Drawing.Point(187, 34);
             this.txtAllTitle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtAllTitle.MaxLength = 255;
             this.txtAllTitle.Multiline = true;
             this.txtAllTitle.Name = "txtAllTitle";
-            this.txtAllTitle.Size = new System.Drawing.Size(568, 28);
+            this.txtAllTitle.Size = new System.Drawing.Size(568, 25);
             this.txtAllTitle.TabIndex = 3;
             this.txtAllTitle.Tag = "Allowance Title";
             this.txtAllTitle.WordWrap = false;
@@ -383,13 +383,13 @@
             // 
             // txtAllCode
             // 
-            this.txtAllCode.Location = new System.Drawing.Point(187, 30);
+            this.txtAllCode.Location = new System.Drawing.Point(187, 32);
             this.txtAllCode.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtAllCode.MaxLength = 255;
             this.txtAllCode.Multiline = true;
             this.txtAllCode.Name = "txtAllCode";
             this.txtAllCode.ReadOnly = true;
-            this.txtAllCode.Size = new System.Drawing.Size(223, 28);
+            this.txtAllCode.Size = new System.Drawing.Size(223, 25);
             this.txtAllCode.TabIndex = 2;
             this.txtAllCode.Tag = "Allowance Code";
             this.txtAllCode.WordWrap = false;

@@ -173,7 +173,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(346, 23);
+            this.btnSearch.Location = new System.Drawing.Point(346, 22);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSearch.Size = new System.Drawing.Size(29, 28);
@@ -210,13 +210,13 @@
             // 
             // txtWeeklyCode
             // 
-            this.txtWeeklyCode.Location = new System.Drawing.Point(173, 23);
+            this.txtWeeklyCode.Location = new System.Drawing.Point(173, 24);
             this.txtWeeklyCode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtWeeklyCode.MaxLength = 255;
             this.txtWeeklyCode.Multiline = true;
             this.txtWeeklyCode.Name = "txtWeeklyCode";
             this.txtWeeklyCode.ReadOnly = true;
-            this.txtWeeklyCode.Size = new System.Drawing.Size(168, 28);
+            this.txtWeeklyCode.Size = new System.Drawing.Size(168, 25);
             this.txtWeeklyCode.TabIndex = 2;
             this.txtWeeklyCode.Tag = "Weekly Off Code";
             this.txtWeeklyCode.WordWrap = false;
@@ -225,7 +225,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(62, 29);
+            this.label1.Location = new System.Drawing.Point(60, 29);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(111, 15);
@@ -262,7 +262,7 @@
             // txtEffectiveDate
             // 
             this.txtEffectiveDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.txtEffectiveDate.Location = new System.Drawing.Point(176, 64);
+            this.txtEffectiveDate.Location = new System.Drawing.Point(173, 63);
             this.txtEffectiveDate.Margin = new System.Windows.Forms.Padding(2);
             this.txtEffectiveDate.Mask = "##-##-####";
             this.txtEffectiveDate.Name = "txtEffectiveDate";
@@ -275,7 +275,7 @@
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(75, 66);
+            this.label29.Location = new System.Drawing.Point(73, 66);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(98, 15);
             this.label29.TabIndex = 36;
@@ -285,7 +285,7 @@
             // cmbIsActive
             // 
             this.cmbIsActive.FormattingEnabled = true;
-            this.cmbIsActive.Location = new System.Drawing.Point(176, 96);
+            this.cmbIsActive.Location = new System.Drawing.Point(173, 94);
             this.cmbIsActive.MaxDropDownItems = 5;
             this.cmbIsActive.Name = "cmbIsActive";
             this.cmbIsActive.Size = new System.Drawing.Size(423, 23);
@@ -296,7 +296,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(114, 98);
+            this.label17.Location = new System.Drawing.Point(112, 98);
             this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(59, 15);
@@ -306,12 +306,12 @@
             // 
             // txtWeeklyOffTitle
             // 
-            this.txtWeeklyOffTitle.Location = new System.Drawing.Point(176, 25);
+            this.txtWeeklyOffTitle.Location = new System.Drawing.Point(173, 26);
             this.txtWeeklyOffTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtWeeklyOffTitle.MaxLength = 255;
             this.txtWeeklyOffTitle.Multiline = true;
             this.txtWeeklyOffTitle.Name = "txtWeeklyOffTitle";
-            this.txtWeeklyOffTitle.Size = new System.Drawing.Size(423, 28);
+            this.txtWeeklyOffTitle.Size = new System.Drawing.Size(423, 25);
             this.txtWeeklyOffTitle.TabIndex = 3;
             this.txtWeeklyOffTitle.Tag = "Weekly Off Title";
             this.txtWeeklyOffTitle.WordWrap = false;
@@ -320,7 +320,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(67, 31);
+            this.label16.Location = new System.Drawing.Point(65, 31);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(106, 15);
@@ -380,8 +380,7 @@
             // 
             // frmWeeklyProfileMas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.ClientSize = new System.Drawing.Size(982, 329);
             this.Controls.Add(this.splitContainer1);

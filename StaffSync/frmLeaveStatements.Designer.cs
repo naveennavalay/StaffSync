@@ -214,7 +214,7 @@
             // 
             this.cmbLeaveStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLeaveStatus.FormattingEnabled = true;
-            this.cmbLeaveStatus.Location = new System.Drawing.Point(124, 79);
+            this.cmbLeaveStatus.Location = new System.Drawing.Point(125, 79);
             this.cmbLeaveStatus.Name = "cmbLeaveStatus";
             this.cmbLeaveStatus.Size = new System.Drawing.Size(259, 23);
             this.cmbLeaveStatus.TabIndex = 41;
@@ -337,7 +337,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(300, 26);
+            this.btnSearch.Location = new System.Drawing.Point(300, 23);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSearch.Size = new System.Drawing.Size(29, 28);
@@ -349,11 +349,11 @@
             // 
             // txtEmployeeName
             // 
-            this.txtEmployeeName.Location = new System.Drawing.Point(125, 60);
+            this.txtEmployeeName.Location = new System.Drawing.Point(125, 59);
             this.txtEmployeeName.Multiline = true;
             this.txtEmployeeName.Name = "txtEmployeeName";
             this.txtEmployeeName.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtEmployeeName.Size = new System.Drawing.Size(440, 28);
+            this.txtEmployeeName.Size = new System.Drawing.Size(440, 25);
             this.txtEmployeeName.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmployeeName.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtEmployeeName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -365,12 +365,12 @@
             // txtEmpCode
             // 
             this.txtEmpCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtEmpCode.Location = new System.Drawing.Point(125, 26);
+            this.txtEmpCode.Location = new System.Drawing.Point(125, 25);
             this.txtEmpCode.Multiline = true;
             this.txtEmpCode.Name = "txtEmpCode";
             this.txtEmpCode.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtEmpCode.ReadOnly = true;
-            this.txtEmpCode.Size = new System.Drawing.Size(168, 28);
+            this.txtEmpCode.Size = new System.Drawing.Size(168, 25);
             this.txtEmpCode.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpCode.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtEmpCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -606,8 +606,7 @@
             // 
             // frmLeaveStatements
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.ClientSize = new System.Drawing.Size(930, 624);
             this.Controls.Add(this.splitContainer1);

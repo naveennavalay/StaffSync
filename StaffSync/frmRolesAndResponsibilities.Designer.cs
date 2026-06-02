@@ -151,7 +151,7 @@
             // 
             // btnReportingManagerSearch
             // 
-            this.btnReportingManagerSearch.Location = new System.Drawing.Point(315, 19);
+            this.btnReportingManagerSearch.Location = new System.Drawing.Point(315, 20);
             this.btnReportingManagerSearch.Name = "btnReportingManagerSearch";
             this.btnReportingManagerSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnReportingManagerSearch.Size = new System.Drawing.Size(29, 28);
@@ -163,11 +163,11 @@
             // 
             // txtRepEmpDepartment
             // 
-            this.txtRepEmpDepartment.Location = new System.Drawing.Point(141, 123);
+            this.txtRepEmpDepartment.Location = new System.Drawing.Point(141, 124);
             this.txtRepEmpDepartment.Multiline = true;
             this.txtRepEmpDepartment.Name = "txtRepEmpDepartment";
             this.txtRepEmpDepartment.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtRepEmpDepartment.Size = new System.Drawing.Size(440, 28);
+            this.txtRepEmpDepartment.Size = new System.Drawing.Size(440, 25);
             this.txtRepEmpDepartment.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDepartment.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtRepEmpDepartment.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -177,11 +177,11 @@
             // 
             // txtRepEmpDesig
             // 
-            this.txtRepEmpDesig.Location = new System.Drawing.Point(141, 88);
+            this.txtRepEmpDesig.Location = new System.Drawing.Point(141, 90);
             this.txtRepEmpDesig.Multiline = true;
             this.txtRepEmpDesig.Name = "txtRepEmpDesig";
             this.txtRepEmpDesig.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtRepEmpDesig.Size = new System.Drawing.Size(440, 28);
+            this.txtRepEmpDesig.Size = new System.Drawing.Size(440, 25);
             this.txtRepEmpDesig.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpDesig.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtRepEmpDesig.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -192,11 +192,11 @@
             // 
             // txtRepEmpName
             // 
-            this.txtRepEmpName.Location = new System.Drawing.Point(141, 53);
+            this.txtRepEmpName.Location = new System.Drawing.Point(141, 56);
             this.txtRepEmpName.Multiline = true;
             this.txtRepEmpName.Name = "txtRepEmpName";
             this.txtRepEmpName.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtRepEmpName.Size = new System.Drawing.Size(440, 28);
+            this.txtRepEmpName.Size = new System.Drawing.Size(440, 25);
             this.txtRepEmpName.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpName.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtRepEmpName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -208,12 +208,12 @@
             // txtRepEmpCode
             // 
             this.txtRepEmpCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtRepEmpCode.Location = new System.Drawing.Point(141, 19);
+            this.txtRepEmpCode.Location = new System.Drawing.Point(141, 22);
             this.txtRepEmpCode.Multiline = true;
             this.txtRepEmpCode.Name = "txtRepEmpCode";
             this.txtRepEmpCode.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtRepEmpCode.ReadOnly = true;
-            this.txtRepEmpCode.Size = new System.Drawing.Size(168, 28);
+            this.txtRepEmpCode.Size = new System.Drawing.Size(168, 25);
             this.txtRepEmpCode.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepEmpCode.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtRepEmpCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -272,7 +272,7 @@
             // 
             this.label37.AutoSize = true;
             this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.Location = new System.Drawing.Point(55, 129);
+            this.label37.Location = new System.Drawing.Point(57, 129);
             this.label37.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(82, 15);
@@ -329,11 +329,11 @@
             // txtAssignedRole
             // 
             this.txtAssignedRole.Enabled = false;
-            this.txtAssignedRole.Location = new System.Drawing.Point(141, 16);
+            this.txtAssignedRole.Location = new System.Drawing.Point(141, 18);
             this.txtAssignedRole.Multiline = true;
             this.txtAssignedRole.Name = "txtAssignedRole";
             this.txtAssignedRole.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtAssignedRole.Size = new System.Drawing.Size(440, 28);
+            this.txtAssignedRole.Size = new System.Drawing.Size(440, 25);
             this.txtAssignedRole.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAssignedRole.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtAssignedRole.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -367,7 +367,7 @@
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(38, 23);
+            this.label28.Location = new System.Drawing.Point(39, 23);
             this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(99, 15);

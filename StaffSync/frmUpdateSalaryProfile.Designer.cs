@@ -160,13 +160,13 @@
             // 
             // txtNetSalary
             // 
-            this.txtNetSalary.Location = new System.Drawing.Point(95, 313);
+            this.txtNetSalary.Location = new System.Drawing.Point(95, 315);
             this.txtNetSalary.Margin = new System.Windows.Forms.Padding(4);
             this.txtNetSalary.Multiline = true;
             this.txtNetSalary.Name = "txtNetSalary";
             this.txtNetSalary.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtNetSalary.ReadOnly = true;
-            this.txtNetSalary.Size = new System.Drawing.Size(150, 28);
+            this.txtNetSalary.Size = new System.Drawing.Size(150, 25);
             this.txtNetSalary.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNetSalary.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtNetSalary.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -205,13 +205,13 @@
             // 
             // txtReimbursement
             // 
-            this.txtReimbursement.Location = new System.Drawing.Point(705, 313);
+            this.txtReimbursement.Location = new System.Drawing.Point(705, 315);
             this.txtReimbursement.Margin = new System.Windows.Forms.Padding(4);
             this.txtReimbursement.Multiline = true;
             this.txtReimbursement.Name = "txtReimbursement";
             this.txtReimbursement.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtReimbursement.ReadOnly = true;
-            this.txtReimbursement.Size = new System.Drawing.Size(150, 28);
+            this.txtReimbursement.Size = new System.Drawing.Size(150, 25);
             this.txtReimbursement.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtReimbursement.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtReimbursement.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -223,13 +223,13 @@
             // 
             // txtDeductions
             // 
-            this.txtDeductions.Location = new System.Drawing.Point(555, 313);
+            this.txtDeductions.Location = new System.Drawing.Point(555, 315);
             this.txtDeductions.Margin = new System.Windows.Forms.Padding(4);
             this.txtDeductions.Multiline = true;
             this.txtDeductions.Name = "txtDeductions";
             this.txtDeductions.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtDeductions.ReadOnly = true;
-            this.txtDeductions.Size = new System.Drawing.Size(150, 28);
+            this.txtDeductions.Size = new System.Drawing.Size(150, 25);
             this.txtDeductions.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDeductions.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtDeductions.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -241,13 +241,13 @@
             // 
             // txtAallowences
             // 
-            this.txtAallowences.Location = new System.Drawing.Point(405, 313);
+            this.txtAallowences.Location = new System.Drawing.Point(405, 315);
             this.txtAallowences.Margin = new System.Windows.Forms.Padding(4);
             this.txtAallowences.Multiline = true;
             this.txtAallowences.Name = "txtAallowences";
             this.txtAallowences.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtAallowences.ReadOnly = true;
-            this.txtAallowences.Size = new System.Drawing.Size(150, 28);
+            this.txtAallowences.Size = new System.Drawing.Size(150, 25);
             this.txtAallowences.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAallowences.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtAallowences.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -307,12 +307,12 @@
             // 
             // txtSalProfTitle
             // 
-            this.txtSalProfTitle.Location = new System.Drawing.Point(154, 66);
+            this.txtSalProfTitle.Location = new System.Drawing.Point(154, 68);
             this.txtSalProfTitle.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtSalProfTitle.MaxLength = 255;
             this.txtSalProfTitle.Multiline = true;
             this.txtSalProfTitle.Name = "txtSalProfTitle";
-            this.txtSalProfTitle.Size = new System.Drawing.Size(568, 28);
+            this.txtSalProfTitle.Size = new System.Drawing.Size(568, 25);
             this.txtSalProfTitle.TabIndex = 15;
             this.txtSalProfTitle.Tag = "Salary Profile Title";
             this.txtSalProfTitle.WordWrap = false;
@@ -321,7 +321,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(19, 73);
+            this.label16.Location = new System.Drawing.Point(26, 73);
             this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(125, 15);
@@ -369,13 +369,13 @@
             // 
             // txtSalProfCode
             // 
-            this.txtSalProfCode.Location = new System.Drawing.Point(154, 30);
+            this.txtSalProfCode.Location = new System.Drawing.Point(154, 32);
             this.txtSalProfCode.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtSalProfCode.MaxLength = 255;
             this.txtSalProfCode.Multiline = true;
             this.txtSalProfCode.Name = "txtSalProfCode";
             this.txtSalProfCode.ReadOnly = true;
-            this.txtSalProfCode.Size = new System.Drawing.Size(223, 28);
+            this.txtSalProfCode.Size = new System.Drawing.Size(223, 25);
             this.txtSalProfCode.TabIndex = 2;
             this.txtSalProfCode.Tag = "Salary Profile Code";
             this.txtSalProfCode.WordWrap = false;
@@ -384,7 +384,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(14, 37);
+            this.label1.Location = new System.Drawing.Point(21, 37);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 15);

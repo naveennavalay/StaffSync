@@ -166,12 +166,12 @@
             // 
             // txtCompanyTitle
             // 
-            this.txtCompanyTitle.Location = new System.Drawing.Point(141, 25);
+            this.txtCompanyTitle.Location = new System.Drawing.Point(141, 27);
             this.txtCompanyTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtCompanyTitle.MaxLength = 255;
             this.txtCompanyTitle.Multiline = true;
             this.txtCompanyTitle.Name = "txtCompanyTitle";
-            this.txtCompanyTitle.Size = new System.Drawing.Size(427, 28);
+            this.txtCompanyTitle.Size = new System.Drawing.Size(427, 25);
             this.txtCompanyTitle.TabIndex = 3;
             this.txtCompanyTitle.Tag = "Company Title";
             this.txtCompanyTitle.WordWrap = false;
@@ -254,13 +254,13 @@
             // 
             // txtCompanyCode
             // 
-            this.txtCompanyCode.Location = new System.Drawing.Point(137, 23);
+            this.txtCompanyCode.Location = new System.Drawing.Point(137, 25);
             this.txtCompanyCode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtCompanyCode.MaxLength = 255;
             this.txtCompanyCode.Multiline = true;
             this.txtCompanyCode.Name = "txtCompanyCode";
             this.txtCompanyCode.ReadOnly = true;
-            this.txtCompanyCode.Size = new System.Drawing.Size(168, 28);
+            this.txtCompanyCode.Size = new System.Drawing.Size(168, 25);
             this.txtCompanyCode.TabIndex = 2;
             this.txtCompanyCode.Tag = "Company Code";
             this.txtCompanyCode.WordWrap = false;
@@ -383,8 +383,7 @@
             // 
             // frmLastCompanyMaster
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.ClientSize = new System.Drawing.Size(1227, 329);
             this.Controls.Add(this.splitContainer1);

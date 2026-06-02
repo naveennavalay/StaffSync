@@ -346,7 +346,7 @@
             this.txtBalanceLeave.Multiline = true;
             this.txtBalanceLeave.Name = "txtBalanceLeave";
             this.txtBalanceLeave.ReadOnly = true;
-            this.txtBalanceLeave.Size = new System.Drawing.Size(204, 28);
+            this.txtBalanceLeave.Size = new System.Drawing.Size(204, 25);
             this.txtBalanceLeave.TabIndex = 44;
             this.txtBalanceLeave.Tag = "Balance Leaves";
             this.txtBalanceLeave.WordWrap = false;
@@ -370,7 +370,7 @@
             this.txtAvailableLeave.Multiline = true;
             this.txtAvailableLeave.Name = "txtAvailableLeave";
             this.txtAvailableLeave.ReadOnly = true;
-            this.txtAvailableLeave.Size = new System.Drawing.Size(204, 28);
+            this.txtAvailableLeave.Size = new System.Drawing.Size(204, 25);
             this.txtAvailableLeave.TabIndex = 42;
             this.txtAvailableLeave.Tag = "Available Leave";
             this.txtAvailableLeave.WordWrap = false;
@@ -379,7 +379,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(19, 39);
+            this.label6.Location = new System.Drawing.Point(58, 39);
             this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(107, 15);
@@ -402,7 +402,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(60, 117);
+            this.label3.Location = new System.Drawing.Point(89, 117);
             this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 15);
@@ -425,7 +425,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(56, 78);
+            this.label2.Location = new System.Drawing.Point(86, 78);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 15);
@@ -484,12 +484,12 @@
             // 
             // txtEmployeeName
             // 
-            this.txtEmployeeName.Location = new System.Drawing.Point(167, 74);
+            this.txtEmployeeName.Location = new System.Drawing.Point(167, 65);
             this.txtEmployeeName.Margin = new System.Windows.Forms.Padding(4);
             this.txtEmployeeName.Multiline = true;
             this.txtEmployeeName.Name = "txtEmployeeName";
             this.txtEmployeeName.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtEmployeeName.Size = new System.Drawing.Size(587, 28);
+            this.txtEmployeeName.Size = new System.Drawing.Size(587, 25);
             this.txtEmployeeName.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmployeeName.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtEmployeeName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -507,7 +507,7 @@
             this.txtEmpCode.Name = "txtEmpCode";
             this.txtEmpCode.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.txtEmpCode.ReadOnly = true;
-            this.txtEmpCode.Size = new System.Drawing.Size(224, 28);
+            this.txtEmpCode.Size = new System.Drawing.Size(224, 25);
             this.txtEmpCode.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpCode.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
             this.txtEmpCode.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -542,7 +542,7 @@
             // 
             this.cmbDesignation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDesignation.FormattingEnabled = true;
-            this.cmbDesignation.Location = new System.Drawing.Point(167, 150);
+            this.cmbDesignation.Location = new System.Drawing.Point(167, 133);
             this.cmbDesignation.Margin = new System.Windows.Forms.Padding(4);
             this.cmbDesignation.Name = "cmbDesignation";
             this.cmbDesignation.Size = new System.Drawing.Size(585, 23);
@@ -553,7 +553,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(57, 155);
+            this.label26.Location = new System.Drawing.Point(81, 137);
             this.label26.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(84, 15);
@@ -565,7 +565,7 @@
             // 
             this.cmbDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDepartment.FormattingEnabled = true;
-            this.cmbDepartment.Location = new System.Drawing.Point(167, 114);
+            this.cmbDepartment.Location = new System.Drawing.Point(167, 99);
             this.cmbDepartment.Margin = new System.Windows.Forms.Padding(4);
             this.cmbDepartment.Name = "cmbDepartment";
             this.cmbDepartment.Size = new System.Drawing.Size(585, 23);
@@ -576,7 +576,7 @@
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(57, 119);
+            this.label25.Location = new System.Drawing.Point(83, 104);
             this.label25.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(82, 15);
@@ -588,7 +588,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(107, 79);
+            this.label19.Location = new System.Drawing.Point(120, 70);
             this.label19.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(45, 15);
@@ -625,7 +625,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(21, 37);
+            this.label1.Location = new System.Drawing.Point(58, 37);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 15);

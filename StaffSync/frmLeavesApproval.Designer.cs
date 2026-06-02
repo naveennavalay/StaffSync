@@ -410,13 +410,13 @@
             // 
             // txtBalanceLeave
             // 
-            this.txtBalanceLeave.Location = new System.Drawing.Point(413, 25);
+            this.txtBalanceLeave.Location = new System.Drawing.Point(413, 27);
             this.txtBalanceLeave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtBalanceLeave.MaxLength = 255;
             this.txtBalanceLeave.Multiline = true;
             this.txtBalanceLeave.Name = "txtBalanceLeave";
             this.txtBalanceLeave.ReadOnly = true;
-            this.txtBalanceLeave.Size = new System.Drawing.Size(154, 28);
+            this.txtBalanceLeave.Size = new System.Drawing.Size(154, 25);
             this.txtBalanceLeave.TabIndex = 44;
             this.txtBalanceLeave.Tag = "Balance Leaves";
             this.txtBalanceLeave.WordWrap = false;
@@ -434,13 +434,13 @@
             // 
             // txtAvailableLeave
             // 
-            this.txtAvailableLeave.Location = new System.Drawing.Point(126, 25);
+            this.txtAvailableLeave.Location = new System.Drawing.Point(126, 27);
             this.txtAvailableLeave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtAvailableLeave.MaxLength = 255;
             this.txtAvailableLeave.Multiline = true;
             this.txtAvailableLeave.Name = "txtAvailableLeave";
             this.txtAvailableLeave.ReadOnly = true;
-            this.txtAvailableLeave.Size = new System.Drawing.Size(154, 28);
+            this.txtAvailableLeave.Size = new System.Drawing.Size(154, 25);
             this.txtAvailableLeave.TabIndex = 42;
             this.txtAvailableLeave.Tag = "Available Leave";
             this.txtAvailableLeave.WordWrap = false;
@@ -449,7 +449,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(14, 32);
+            this.label6.Location = new System.Drawing.Point(15, 32);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(107, 15);
@@ -496,7 +496,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(59, 92);
+            this.label4.Location = new System.Drawing.Point(60, 92);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 15);
@@ -520,7 +520,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(80, 123);
+            this.label3.Location = new System.Drawing.Point(82, 123);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 15);
@@ -544,7 +544,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(42, 63);
+            this.label2.Location = new System.Drawing.Point(43, 63);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 15);
@@ -633,7 +633,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(43, 126);
+            this.label26.Location = new System.Drawing.Point(41, 126);
             this.label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(84, 15);
@@ -665,12 +665,12 @@
             // 
             // txtEmployeeName
             // 
-            this.txtEmployeeName.Location = new System.Drawing.Point(128, 57);
+            this.txtEmployeeName.Location = new System.Drawing.Point(128, 59);
             this.txtEmployeeName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtEmployeeName.MaxLength = 255;
             this.txtEmployeeName.Multiline = true;
             this.txtEmployeeName.Name = "txtEmployeeName";
-            this.txtEmployeeName.Size = new System.Drawing.Size(440, 28);
+            this.txtEmployeeName.Size = new System.Drawing.Size(440, 25);
             this.txtEmployeeName.TabIndex = 12;
             this.txtEmployeeName.Tag = "Name";
             this.txtEmployeeName.WordWrap = false;
@@ -714,13 +714,13 @@
             // 
             // txtEmpCode
             // 
-            this.txtEmpCode.Location = new System.Drawing.Point(128, 23);
+            this.txtEmpCode.Location = new System.Drawing.Point(128, 25);
             this.txtEmpCode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtEmpCode.MaxLength = 255;
             this.txtEmpCode.Multiline = true;
             this.txtEmpCode.Name = "txtEmpCode";
             this.txtEmpCode.ReadOnly = true;
-            this.txtEmpCode.Size = new System.Drawing.Size(168, 28);
+            this.txtEmpCode.Size = new System.Drawing.Size(168, 25);
             this.txtEmpCode.TabIndex = 2;
             this.txtEmpCode.Tag = "Employee Code";
             this.txtEmpCode.WordWrap = false;
@@ -729,7 +729,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(16, 30);
+            this.label1.Location = new System.Drawing.Point(18, 30);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 15);

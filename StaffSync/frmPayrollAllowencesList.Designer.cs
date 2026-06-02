@@ -76,8 +76,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1331, 578);
-            this.splitContainer1.SplitterDistance = 501;
+            this.splitContainer1.Size = new System.Drawing.Size(1331, 476);
+            this.splitContainer1.SplitterDistance = 418;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -91,7 +91,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1331, 501);
+            this.panel1.Size = new System.Drawing.Size(1331, 418);
             this.panel1.TabIndex = 1;
             // 
             // dtgAllowancesList
@@ -103,23 +103,23 @@
             this.dtgAllowancesList.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dtgAllowancesList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgAllowancesList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dtgAllowancesList.Location = new System.Drawing.Point(24, 96);
+            this.dtgAllowancesList.Location = new System.Drawing.Point(24, 70);
             this.dtgAllowancesList.Margin = new System.Windows.Forms.Padding(4);
             this.dtgAllowancesList.Name = "dtgAllowancesList";
             this.dtgAllowancesList.ReadOnly = true;
             this.dtgAllowancesList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgAllowancesList.Size = new System.Drawing.Size(1283, 390);
+            this.dtgAllowancesList.Size = new System.Drawing.Size(1283, 333);
             this.dtgAllowancesList.TabIndex = 7;
             this.dtgAllowancesList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAllowancesList_Paint);
             this.dtgAllowancesList.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(263, 30);
+            this.txtSearch.Location = new System.Drawing.Point(195, 33);
             this.txtSearch.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(819, 34);
+            this.txtSearch.Size = new System.Drawing.Size(819, 25);
             this.txtSearch.TabIndex = 4;
             this.txtSearch.WordWrap = false;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
@@ -128,7 +128,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(31, 38);
+            this.label1.Location = new System.Drawing.Point(21, 38);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(171, 15);
@@ -143,7 +143,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1331, 72);
+            this.panel2.Size = new System.Drawing.Size(1331, 53);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
@@ -204,7 +204,7 @@
             // frmPayrollAllowencesList
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1331, 578);
+            this.ClientSize = new System.Drawing.Size(1331, 476);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

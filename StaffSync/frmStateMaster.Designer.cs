@@ -88,7 +88,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1227, 329);
+            this.splitContainer1.Size = new System.Drawing.Size(961, 329);
             this.splitContainer1.SplitterDistance = 256;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -100,7 +100,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1227, 256);
+            this.panel1.Size = new System.Drawing.Size(961, 256);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
@@ -116,7 +116,7 @@
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.Location = new System.Drawing.Point(14, 83);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(1199, 159);
+            this.groupBox5.Size = new System.Drawing.Size(930, 159);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "State Details";
@@ -165,12 +165,12 @@
             // 
             // txtStateInitial
             // 
-            this.txtStateInitial.Location = new System.Drawing.Point(141, 59);
+            this.txtStateInitial.Location = new System.Drawing.Point(141, 61);
             this.txtStateInitial.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtStateInitial.MaxLength = 255;
             this.txtStateInitial.Multiline = true;
             this.txtStateInitial.Name = "txtStateInitial";
-            this.txtStateInitial.Size = new System.Drawing.Size(427, 28);
+            this.txtStateInitial.Size = new System.Drawing.Size(427, 25);
             this.txtStateInitial.TabIndex = 4;
             this.txtStateInitial.Tag = "State Initial";
             this.txtStateInitial.WordWrap = false;
@@ -189,12 +189,12 @@
             // 
             // txtStateTitle
             // 
-            this.txtStateTitle.Location = new System.Drawing.Point(141, 25);
+            this.txtStateTitle.Location = new System.Drawing.Point(141, 27);
             this.txtStateTitle.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtStateTitle.MaxLength = 255;
             this.txtStateTitle.Multiline = true;
             this.txtStateTitle.Name = "txtStateTitle";
-            this.txtStateTitle.Size = new System.Drawing.Size(427, 28);
+            this.txtStateTitle.Size = new System.Drawing.Size(427, 25);
             this.txtStateTitle.TabIndex = 3;
             this.txtStateTitle.Tag = "State Title";
             this.txtStateTitle.WordWrap = false;
@@ -222,7 +222,7 @@
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(18, 12);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1192, 65);
+            this.groupBox4.Size = new System.Drawing.Size(926, 65);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "State Info";
@@ -277,13 +277,13 @@
             // txtStateCode
             // 
             this.txtStateCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtStateCode.Location = new System.Drawing.Point(137, 23);
+            this.txtStateCode.Location = new System.Drawing.Point(137, 25);
             this.txtStateCode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtStateCode.MaxLength = 255;
             this.txtStateCode.Multiline = true;
             this.txtStateCode.Name = "txtStateCode";
             this.txtStateCode.ReadOnly = true;
-            this.txtStateCode.Size = new System.Drawing.Size(168, 28);
+            this.txtStateCode.Size = new System.Drawing.Size(168, 25);
             this.txtStateCode.TabIndex = 2;
             this.txtStateCode.Tag = "State Code";
             this.txtStateCode.WordWrap = false;
@@ -292,7 +292,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(62, 30);
+            this.label1.Location = new System.Drawing.Point(59, 30);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 15);
@@ -311,12 +311,12 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1227, 69);
+            this.panel2.Size = new System.Drawing.Size(961, 69);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1073, 15);
+            this.btnCloseMe.Location = new System.Drawing.Point(818, 15);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -406,10 +406,9 @@
             // 
             // frmStateMaster
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1227, 329);
+            this.ClientSize = new System.Drawing.Size(961, 329);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
