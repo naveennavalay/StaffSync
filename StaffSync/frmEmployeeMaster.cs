@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
@@ -1018,6 +1019,7 @@ namespace StaffSync
                 onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
 
                 int iRowCounter = 1;
+                int personalInfoID = 0;
 
                 if (lblReportingManagerID.Text.ToString().Trim() == "")
                     lblReportingManagerID.Text = "1";
@@ -1057,8 +1059,13 @@ namespace StaffSync
                     {
                         int curAddressID = objAddressInfo.InsertAddressInfo(txtCurrentAddress01.Text.Trim(), txtCurrentAddress02.Text.Trim(), txtCurrentArea.Text.Trim(), txtCurrentCity.Text.Trim(), txtCurrentPIN.Text.Trim(), cmbCurrentState.Text.Trim(), cmbCurrentCountry.Text);
                         int perAddressID = objAddressInfo.InsertAddressInfo(txtPermanentAddress01.Text.Trim(), txtPermanentAddress02.Text.Trim(), txtPermanentArea.Text.Trim(), txtPermanentCity.Text.Trim(), txtPermanentPIN.Text.Trim(), cmbPermanentState.Text.Trim(), cmbPermanentCountry.Text);
-                        int personalInfoID = objEmployeePersonalInfo.InsertEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
-                        int personalIDInfoID = objEmployeePersonalIDInfo.InsertEmployeePersonalIDInfo(personalInfoID, txtAadhaarCardNumber.Text.Trim(), txtVoterCardNumber.Text.Trim(), txtPANCardNumber.Text.Trim(), txtPassportNumber.Text.Trim(), Convert.ToDateTime(txtPassportIssueDate.Text), Convert.ToDateTime(txtPassportRenewalDate.Text), txtAdditonalCardNumber.Text.Trim(), "", "", "", "", chkProvidentFundEnabled.Checked, txtPFNumber.Text, Convert.ToDateTime(txtDateOfJoining.Text), Convert.ToDateTime(txtPFRelievingDate.Text), chkProfessionalTaxEnabled.Checked, txtPTNumber.Text, chkESIEnabled.Checked, txtESINumber.Text, txtESIDispName.Text, chkNationalPensionScheme.Checked, txtNPSNumber.Text);
+                        personalInfoID = objEmployeePersonalInfo.InsertEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
+
+                        DateTime? dtPFRelievingDate = null;
+                        if (txtPFRelievingDate.Text.Replace(" ", "").Replace("--", "") != "")
+                            dtPFRelievingDate = Convert.ToDateTime(txtPFRelievingDate.Text);
+
+                        int personalIDInfoID = objEmployeePersonalIDInfo.InsertEmployeePersonalIDInfo(personalInfoID, txtAadhaarCardNumber.Text.Trim(), txtVoterCardNumber.Text.Trim(), txtPANCardNumber.Text.Trim(), txtPassportNumber.Text.Trim(), Convert.ToDateTime(txtPassportIssueDate.Text), Convert.ToDateTime(txtPassportRenewalDate.Text), txtAdditonalCardNumber.Text.Trim(), "", "", "", "", chkProvidentFundEnabled.Checked, txtPFNumber.Text, Convert.ToDateTime(txtDateOfJoining.Text), dtPFRelievingDate, chkProfessionalTaxEnabled.Checked, txtPTNumber.Text, chkESIEnabled.Checked, txtESINumber.Text, txtESIDispName.Text, chkNationalPensionScheme.Checked, txtNPSNumber.Text);
                     }
 
                     if (tabLeaves.Visible == true)
@@ -1090,29 +1097,163 @@ namespace StaffSync
                         int employeeBankAccountID = objBankInfo.InsertEmployeeBankReference(Convert.ToInt16(lblEmpID.Text.ToString()), txtBankAccountNumber.Text.Trim(), lstBankList.SelectedItems[0].Index + 1, true);
                     }
 
+                    //foreach (DataGridViewRow dc in dtgFamilyMemberInforamtion.Rows)
+                    //{
+                    //    if (!string.IsNullOrEmpty(dc.Cells["EmpPerFamInfoID"].Value.ToString()))
+                    //    {
+                    //        int EmpWorkExpID = 0;
+                    //        if (Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()) == 0)
+                    //            EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value.ToString()), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString(), Convert.ToBoolean(dc.Cells["FamMemInsuranceEnrolled"].Value.ToString()));
+                    //        else
+                    //            EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value.ToString()), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString(), Convert.ToBoolean(dc.Cells["FamMemInsuranceEnrolled"].Value.ToString()));
+                    //    }
+                    //}
+
                     foreach (DataGridViewRow dc in dtgFamilyMemberInforamtion.Rows)
                     {
-                        if (!string.IsNullOrEmpty(dc.Cells["EmpPerFamInfoID"].Value.ToString()))
+                        // Skip placeholder/new row
+                        if (dc.IsNewRow)
+                            continue;
+
+                        // Helper to read cell text safely
+                        Func<string, string> cellText = col =>
                         {
-                            int EmpWorkExpID = 0;
-                            if (Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()) == 0)
-                                EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value.ToString()), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString(), Convert.ToBoolean(dc.Cells["FamMemInsuranceEnrolled"].Value.ToString()));
-                            else
-                                EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(Convert.ToInt16(dc.Cells["EmpPerFamInfoID"].Value.ToString()), Convert.ToInt16(dc.Cells["PersonalInfoID"].Value.ToString()), dc.Cells["FamMemName"].Value.ToString(), Convert.ToDateTime(dc.Cells["FamMemDOB"].Value.ToString()), Convert.ToInt16(dc.Cells["FamMemAge"].Value.ToString()), dc.Cells["FamMemRelationship"].Value.ToString(), dc.Cells["FamMemAddr1"].Value.ToString(), dc.Cells["FamMemAddr2"].Value.ToString(), dc.Cells["FamMemArea"].Value.ToString(), dc.Cells["FamMemCity"].Value.ToString(), dc.Cells["FamMemState"].Value.ToString(), dc.Cells["FamMemPIN"].Value.ToString(), dc.Cells["FamMemCountry"].Value.ToString(), dc.Cells["FamMemContactNumber"].Value.ToString(), dc.Cells["FamMemMailID"].Value.ToString(), dc.Cells["FamMemBloodGroup"].Value.ToString(), Convert.ToBoolean(dc.Cells["FamMemInsuranceEnrolled"].Value.ToString()));
+                            var cell = dc.Cells[col]?.Value;
+                            return cell == null ? string.Empty : cell.ToString().Trim();
+                        };
+
+                        // Columns that must have values for the row to be processed
+                        string[] requiredCols = new[] 
+                        {
+                            "FamMemName", "FamMemDOB", "FamMemAge", "FamMemRelationship", "FamMemAddr1", "FamMemAddr2", "FamMemArea", "FamMemCity", "FamMemState", "FamMemPIN", "FamMemCountry", "FamMemContactNumber", "FamMemMailID", "FamMemBloodGroup" 
+                        };
+
+                        bool allPresent = true;
+                        foreach (var col in requiredCols)
+                        {
+                            if (string.IsNullOrWhiteSpace(cellText(col)))
+                            {
+                                allPresent = false;
+                                break;
+                            }
+                        }
+
+                        // If not all required cells have values, ignore this row and continue
+                        if (!allPresent)
+                            continue;
+
+                        // At this point all required cells contain values -> parse and persist
+                        int empPerFamInfoId = 0;
+                        int personalInfoId = 0;
+                        int.TryParse(cellText("EmpPerFamInfoID"), out empPerFamInfoId);
+                        int.TryParse(cellText("PersonalInfoID"), out personalInfoId);
+
+                        DateTime famDob;
+                        DateTime.TryParse(cellText("FamMemDOB"), out famDob);
+
+                        short famAge = 0;
+                        short.TryParse(cellText("FamMemAge"), out famAge);
+
+                        bool insuranceEnrolled = false;
+                        bool.TryParse(cellText("FamMemInsuranceEnrolled"), out insuranceEnrolled);
+
+                        string famName = cellText("FamMemName");
+                        string famRelationship = cellText("FamMemRelationship");
+                        string famAddr1 = cellText("FamMemAddr1");
+                        string famAddr2 = cellText("FamMemAddr2");
+                        string famArea = cellText("FamMemArea");
+                        string famCity = cellText("FamMemCity");
+                        string famState = cellText("FamMemState");
+                        string famPIN = cellText("FamMemPIN");
+                        string famCountry = cellText("FamMemCountry");
+                        string famContactNumber = cellText("FamMemContactNumber");
+                        string famMailID = cellText("FamMemMailID");
+                        string famBloodGroup = cellText("FamMemBloodGroup");
+
+                        int EmpWorkExpID = 0;
+                        if (empPerFamInfoId == 0)
+                        {
+                            // New record -> insert
+                            EmpWorkExpID = objEmpPersonalFamilyMemberInfo.InsertEmployeePersonalFamilyMemberInfo(empPerFamInfoId, personalInfoID, famName, famDob, famAge, famRelationship, famAddr1, famAddr2, famArea, famCity, famState, famPIN, famCountry, famContactNumber, famMailID, famBloodGroup, insuranceEnrolled);
+                        }
+                        else
+                        {
+                            // Existing record -> update
+                            EmpWorkExpID = objEmpPersonalFamilyMemberInfo.UpdateEmployeePersonalFamilyMemberInfo(empPerFamInfoId, personalInfoID, famName, famDob, famAge, famRelationship, famAddr1, famAddr2, famArea, famCity, famState, famPIN, famCountry, famContactNumber, famMailID,famBloodGroup, insuranceEnrolled);
                         }
                     }
 
+
+
                     if (tabPreviousExperience1.Visible == true)
                     {
+                        //foreach (DataGridViewRow dc in dtgPreviousWorkExp.Rows)
+                        //{
+                        //    if(!string.IsNullOrEmpty(dc.Cells["StartDate"].Value.ToString()) && !string.IsNullOrEmpty(dc.Cells["EndDate"].Value.ToString()))
+                        //    {
+                        //        int EmpWorkExpID = 0;
+                        //        if (Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()) > 0)
+                        //            EmpWorkExpID = objEmpWorkExperienceInfo.InsertEmpWorkExpInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()), Convert.ToDateTime(dc.Cells["StartDate"].Value.ToString()), Convert.ToDateTime(dc.Cells["EndDate"].Value.ToString()), dc.Cells["Comments"].Value.ToString());
+                        //        else
+                        //            EmpWorkExpID = objEmpWorkExperienceInfo.UpdatetEmpWorkExpInfo(Convert.ToInt16(dc.Cells["LastCompID"].Value.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()), Convert.ToDateTime(dc.Cells["StartDate"].Value.ToString()), Convert.ToDateTime(dc.Cells["EndDate"].Value.ToString()), dc.Cells["Comments"].Value.ToString());
+                        //    }
+                        //}
                         foreach (DataGridViewRow dc in dtgPreviousWorkExp.Rows)
                         {
-                            if(!string.IsNullOrEmpty(dc.Cells["StartDate"].Value.ToString()) && !string.IsNullOrEmpty(dc.Cells["EndDate"].Value.ToString()))
+                            // skip placeholder/new row
+                            if (dc.IsNewRow)
+                                continue;
+
+                            // safe cell reader
+                            Func<string, string> cellText = col =>
                             {
-                                int EmpWorkExpID = 0;
-                                if (Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()) > 0)
-                                    EmpWorkExpID = objEmpWorkExperienceInfo.InsertEmpWorkExpInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()), Convert.ToDateTime(dc.Cells["StartDate"].Value.ToString()), Convert.ToDateTime(dc.Cells["EndDate"].Value.ToString()), dc.Cells["Comments"].Value.ToString());
-                                else
-                                    EmpWorkExpID = objEmpWorkExperienceInfo.UpdatetEmpWorkExpInfo(Convert.ToInt16(dc.Cells["LastCompID"].Value.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(dc.Cells["LastCompanyInfoID"].Value.ToString()), Convert.ToDateTime(dc.Cells["StartDate"].Value.ToString()), Convert.ToDateTime(dc.Cells["EndDate"].Value.ToString()), dc.Cells["Comments"].Value.ToString());
+                                var v = dc.Cells[col]?.Value;
+                                return v == null ? string.Empty : v.ToString().Trim();
+                            };
+
+                            // require all these columns to have a value for the row to be processed
+                            string[] requiredCols = new[] { "LastCompID", "LastCompanyInfoID", "LastCompanyTitle", "Address", "StartDate", "EndDate", "Comments" };
+
+                            bool allPresent = true;
+                            foreach (var col in requiredCols)
+                            {
+                                if (string.IsNullOrWhiteSpace(cellText(col)))
+                                {
+                                    allPresent = false;
+                                    break;
+                                }
+                            }
+
+                            // if any required column is missing/empty, ignore this row and continue
+                            if (!allPresent)
+                                continue;
+
+                            // parse values safely
+                            int lastCompanyInfoId = 0;
+                            int.TryParse(cellText("LastCompanyInfoID"), out lastCompanyInfoId);
+
+                            int lastCompId = 0;
+                            int.TryParse(cellText("LastCompID"), out lastCompId);
+
+                            DateTime startDate;
+                            DateTime endDate;
+                            if (!DateTime.TryParse(cellText("StartDate"), out startDate) || !DateTime.TryParse(cellText("EndDate"), out endDate))
+                            {
+                                // invalid dates -> ignore this row
+                                continue;
+                            }
+
+                            string comments = cellText("Comments");
+
+                            int EmpWorkExpID = 0;
+                            int empId = Convert.ToInt16(lblEmpID.Text.ToString());
+                            if (lastCompanyInfoId > 0)
+                            {
+                                EmpWorkExpID = objEmpWorkExperienceInfo.InsertEmpWorkExpInfo(empId, lastCompanyInfoId, startDate, endDate, comments);
+                            }
+                            else
+                            {
+                                EmpWorkExpID = objEmpWorkExperienceInfo.UpdatetEmpWorkExpInfo(lastCompId, empId, lastCompanyInfoId, startDate, endDate, comments);
                             }
                         }
                     }
@@ -1663,35 +1804,35 @@ namespace StaffSync
                 txtDateOfJoining.Focus();
                 errValidator.SetError(this.txtPassportRenewalDate, txtDateOfJoining.Tag?.ToString() ?? "Passport Renewal Date is required.");
             }
-            else if (!DateTime.TryParseExact(txtPassportIssueDate.Text, dateFormat, provider, DateTimeStyles.None, out doj))
+            else if (!DateTime.TryParseExact(txtPassportRenewalDate.Text, dateFormat, provider, DateTimeStyles.None, out doj))
             {
                 validationStatus = false;
                 txtDateOfJoining.Focus();
-                errValidator.SetError(this.txtPassportIssueDate, "Invalid Passport Issue Date (dd-MM-yyyy).");
+                errValidator.SetError(this.txtPassportRenewalDate, "Invalid Passport Issue Date (dd-MM-yyyy).");
             }
-            else if (doj > DateTime.Now.Date)
-            {
-                validationStatus = false;
-                txtDateOfJoining.Focus();
-                errValidator.SetError(this.txtPassportIssueDate, "Passport Issue Date cannot be in the future.");
-            }
+            //else if (doj > DateTime.Now.Date)
+            //{
+            //    validationStatus = false;
+            //    txtDateOfJoining.Focus();
+            //    errValidator.SetError(this.txtPassportRenewalDate, "Passport Issue Date cannot be in the future.");
+            //}
             else if (!DateTime.TryParseExact(txtPassportRenewalDate.Text, dateFormat, provider, DateTimeStyles.None, out doj))
             {
                 validationStatus = false;
                 txtDateOfJoining.Focus();
                 errValidator.SetError(this.txtPassportRenewalDate, "Invalid Passport Renewal Date (dd-MM-yyyy).");
             }
-            else if (doj < DateTime.Now.Date)
-            {
-                validationStatus = false;
-                txtDateOfJoining.Focus();
-                errValidator.SetError(this.txtPassportRenewalDate, "Passport Renewal Date cannot be in the past.");
-            }
+            //else if (doj < DateTime.Now.Date)
+            //{
+            //    validationStatus = false;
+            //    txtDateOfJoining.Focus();
+            //    errValidator.SetError(this.txtPassportRenewalDate, "Passport Renewal Date cannot be in the past.");
+            //}
             else if (!string.IsNullOrEmpty(txtPassportIssueDate.Text) && DateTime.TryParseExact(txtPassportIssueDate.Text, dateFormat, provider, DateTimeStyles.None, out dob) && doj < dob)
             {
                 validationStatus = false;
                 txtDateOfJoining.Focus();
-                errValidator.SetError(this.txtDateOfJoining, "Passport Renewal Date cannot be before Passport Issue Date.");
+                errValidator.SetError(this.txtPassportRenewalDate, "Passport Renewal Date cannot be before Passport Issue Date.");
             }
 
             if (string.IsNullOrEmpty(txtPermanentAddress02.Text))
@@ -1848,23 +1989,54 @@ namespace StaffSync
                     errValidator.SetError(this.txtPFJoiningDate, "PF Joining cannot be in the future.");
                 }
 
-                if (string.IsNullOrEmpty(txtPFRelievingDate.Text))
+                //if (string.IsNullOrEmpty(txtPFRelievingDate.Text))
+                //{
+                //    validationStatus = false;
+                //    txtPFRelievingDate.Focus();
+                //    errValidator.SetError(this.txtPFRelievingDate, txtPFRelievingDate.Tag?.ToString() ?? "PF Relieveing Date is required.");
+                //}
+
+                // Validate PF Relieving Date only if provided
+                if (txtPFRelievingDate.Text.Replace(" ", "").Replace("--", "") != "")
                 {
-                    validationStatus = false;
-                    txtPFRelievingDate.Focus();
-                    errValidator.SetError(this.txtPFRelievingDate, txtPFRelievingDate.Tag?.ToString() ?? "PF Relieveing Date is required.");
-                }
-                else if (!DateTime.TryParseExact(txtPFRelievingDate.Text, dateFormat, provider, DateTimeStyles.None, out dob))
-                {
-                    validationStatus = false;
-                    txtPFRelievingDate.Focus();
-                    errValidator.SetError(this.txtPFRelievingDate, "Invalid PF Relieving Date format (dd-MM-yyyy).");
-                }
-                else if (dob < DateTime.ParseExact(txtPFJoiningDate.Text, dateFormat, provider))
-                {
-                    validationStatus = false;
-                    txtPFRelievingDate.Focus();
-                    errValidator.SetError(this.txtPFRelievingDate, "PF relieving date should be above PF joining date.");
+                    if (!DateTime.TryParseExact(txtPFRelievingDate.Text, dateFormat, provider, DateTimeStyles.None, out DateTime pfRelievingDate))
+                    {
+                        validationStatus = false;
+                        txtPFRelievingDate.Focus();
+                        errValidator.SetError(this.txtPFRelievingDate, "Invalid PF Relieving Date format (dd-MM-yyyy).");
+                    }
+                    else
+                    {
+                        // Must not be in the future
+                        if (pfRelievingDate > DateTime.Now.Date)
+                        {
+                            validationStatus = false;
+                            txtPFRelievingDate.Focus();
+                            errValidator.SetError(this.txtPFRelievingDate, "PF Relieving Date cannot be in the future.");
+                        }
+
+                        // Must be greater than Date of Birth
+                        if (DateTime.TryParseExact(txtDateOfBirth.Text, dateFormat, provider, DateTimeStyles.None, out DateTime dobForPf))
+                        {
+                            if (pfRelievingDate <= dobForPf)
+                            {
+                                validationStatus = false;
+                                txtPFRelievingDate.Focus();
+                                errValidator.SetError(this.txtPFRelievingDate, "PF Relieving Date must be after Date of Birth.");
+                            }
+                        }
+
+                        // Must be greater than PF Joining Date
+                        if (DateTime.TryParseExact(txtPFJoiningDate.Text, dateFormat, provider, DateTimeStyles.None, out DateTime pfJoiningForRelief))
+                        {
+                            if (pfRelievingDate <= pfJoiningForRelief)
+                            {
+                                validationStatus = false;
+                                txtPFRelievingDate.Focus();
+                                errValidator.SetError(this.txtPFRelievingDate, "PF Relieving Date should be after PF Joining Date.");
+                            }
+                        }
+                    }
                 }
             }
             else
@@ -1941,6 +2113,53 @@ namespace StaffSync
             //}
 
             // Validate Previous Work Experience Grid
+            //foreach (DataGridViewRow row in dtgPreviousWorkExp.Rows)
+            //{
+            //    // Skip new row placeholder
+            //    if (row.IsNewRow) continue;
+
+            //    object startObj = row.Cells["StartDate"].Value;
+            //    object endObj = row.Cells["EndDate"].Value;
+            //    DateTime startDate, endDate;
+
+            //    // Check for empty or invalid Start Date
+            //    if (startObj == null || !DateTime.TryParse(startObj.ToString(), out startDate))
+            //    {
+            //        validationStatus = false;
+            //        dtgPreviousWorkExp.CurrentCell = row.Cells["StartDate"];
+            //        errValidator.SetError(dtgPreviousWorkExp, "Please enter a valid Start Date for all work experience rows.");
+            //        break;
+            //    }
+
+            //    // Check for empty or invalid End Date
+            //    if (endObj == null || !DateTime.TryParse(endObj.ToString(), out endDate))
+            //    {
+            //        validationStatus = false;
+            //        dtgPreviousWorkExp.CurrentCell = row.Cells["EndDate"];
+            //        errValidator.SetError(dtgPreviousWorkExp, "Please enter a valid End Date for all work experience rows.");
+            //        break;
+            //    }
+
+            //    // Start Date should not be after End Date
+            //    if (startDate > endDate)
+            //    {
+            //        validationStatus = false;
+            //        dtgPreviousWorkExp.CurrentCell = row.Cells["StartDate"];
+            //        errValidator.SetError(dtgPreviousWorkExp, "Start Date cannot be after End Date in work experience.");
+            //        break;
+            //    }
+
+            //    // End Date should not be in the future
+            //    if (endDate > DateTime.Now.Date)
+            //    {
+            //        validationStatus = false;
+            //        dtgPreviousWorkExp.CurrentCell = row.Cells["EndDate"];
+            //        errValidator.SetError(dtgPreviousWorkExp, "End Date cannot be in the future in work experience.");
+            //        break;
+            //    }
+            //}
+
+            // Validate Previous Work Experience Grid
             foreach (DataGridViewRow row in dtgPreviousWorkExp.Rows)
             {
                 // Skip new row placeholder
@@ -1950,21 +2169,45 @@ namespace StaffSync
                 object endObj = row.Cells["EndDate"].Value;
                 DateTime startDate, endDate;
 
-                // Check for empty or invalid Start Date
-                if (startObj == null || !DateTime.TryParse(startObj.ToString(), out startDate))
-                {
-                    validationStatus = false;
-                    dtgPreviousWorkExp.CurrentCell = row.Cells["StartDate"];
-                    errValidator.SetError(dtgPreviousWorkExp, "Please enter a valid Start Date for all work experience rows.");
-                    break;
-                }
+                bool hasStart = startObj != null && !string.IsNullOrWhiteSpace(startObj.ToString());
+                bool hasEnd = endObj != null && !string.IsNullOrWhiteSpace(endObj.ToString());
 
-                // Check for empty or invalid End Date
-                if (endObj == null || !DateTime.TryParse(endObj.ToString(), out endDate))
+                // If both blank -> ok, continue to next row
+                if (!hasStart && !hasEnd)
+                    continue;
+
+                // If start provided but end missing -> error
+                if (hasStart && !hasEnd)
                 {
                     validationStatus = false;
                     dtgPreviousWorkExp.CurrentCell = row.Cells["EndDate"];
-                    errValidator.SetError(dtgPreviousWorkExp, "Please enter a valid End Date for all work experience rows.");
+                    errValidator.SetError(dtgPreviousWorkExp, "End Date is required when Start Date is provided for work experience.");
+                    break;
+                }
+
+                // If end provided but start missing -> error
+                if (!hasStart && hasEnd)
+                {
+                    validationStatus = false;
+                    dtgPreviousWorkExp.CurrentCell = row.Cells["StartDate"];
+                    errValidator.SetError(dtgPreviousWorkExp, "Start Date is required when End Date is provided for work experience.");
+                    break;
+                }
+
+                // Both present -> validate parsing and logical checks
+                if (!DateTime.TryParse(startObj.ToString(), out startDate))
+                {
+                    validationStatus = false;
+                    dtgPreviousWorkExp.CurrentCell = row.Cells["StartDate"];
+                    errValidator.SetError(dtgPreviousWorkExp, "Please enter a valid Start Date for work experience (e.g. dd-MM-yyyy).");
+                    break;
+                }
+
+                if (!DateTime.TryParse(endObj.ToString(), out endDate))
+                {
+                    validationStatus = false;
+                    dtgPreviousWorkExp.CurrentCell = row.Cells["EndDate"];
+                    errValidator.SetError(dtgPreviousWorkExp, "Please enter a valid End Date for work experience (e.g. dd-MM-yyyy).");
                     break;
                 }
 
@@ -2385,6 +2628,14 @@ namespace StaffSync
             dtgFamilyMemberInforamtion.Columns["FamMemInsuranceEnrolled"].HeaderText = "Insurance Enrolled";
             dtgFamilyMemberInforamtion.Columns["FamMemInsuranceEnrolled"].Width = 150;
             dtgFamilyMemberInforamtion.Columns["FamMemInsuranceEnrolled"].ReadOnly = true;
+            dtgFamilyMemberInforamtion.Columns["FamMemIsContactPerson"].HeaderText = "Is Contact Person?";
+            dtgFamilyMemberInforamtion.Columns["FamMemIsContactPerson"].Width = 150;
+            dtgFamilyMemberInforamtion.Columns["FamMemIsContactPerson"].Visible = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemIsContactPerson"].ReadOnly = true;
+            dtgFamilyMemberInforamtion.Columns["FamMemIsNomineePerson"].HeaderText = "Is Nominee?";
+            dtgFamilyMemberInforamtion.Columns["FamMemIsNomineePerson"].Width = 150;
+            dtgFamilyMemberInforamtion.Columns["FamMemIsNomineePerson"].Visible = false;
+            dtgFamilyMemberInforamtion.Columns["FamMemIsNomineePerson"].ReadOnly = true;
         }
 
         private void RefreshLeavesHistoryList()
@@ -2908,6 +3159,25 @@ namespace StaffSync
             objMemberInfo.FamMemMailID = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemMailID"].Value.ToString();
             objMemberInfo.FamMemBloodGroup = dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemBloodGroup"].Value.ToString();
             objMemberInfo.FamMemInsuranceEnrolled = Convert.ToBoolean(dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemInsuranceEnrolled"].Value.ToString());
+            if (objMemberInfo.FamMemName.ToString().Trim() != "")
+            {
+                if (txtContactPersonName.Text.ToString().Trim().ToLower() == objMemberInfo.FamMemName.ToString().Trim().ToLower())
+                    objMemberInfo.FamMemIsContactPerson = true;
+                else
+                    objMemberInfo.FamMemIsContactPerson = false;
+            }
+            else
+                objMemberInfo.FamMemIsContactPerson = false;
+
+            if (objMemberInfo.FamMemName.ToString().Trim() != "")
+            {
+                if (txtNomineeName.Text.ToString().Trim().ToLower() == objMemberInfo.FamMemName.ToString().Trim().ToLower())
+                    objMemberInfo.FamMemIsNomineePerson = true;
+                else
+                    objMemberInfo.FamMemIsNomineePerson = false;
+            }
+            else
+                objMemberInfo.FamMemIsNomineePerson = false;
 
             frmEmpFamilyMemberPopup frmEmpFamilyMemberPopup = new frmEmpFamilyMemberPopup(objMemberInfo);
             frmEmpFamilyMemberPopup.ShowDialog(this);
@@ -2936,6 +3206,20 @@ namespace StaffSync
             dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemMailID"].Value = objMemberInfo.FamMemMailID;
             dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemBloodGroup"].Value = objMemberInfo.FamMemBloodGroup;
             dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemInsuranceEnrolled"].Value = Convert.ToBoolean(objMemberInfo.FamMemInsuranceEnrolled);
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemIsContactPerson"].Value = Convert.ToBoolean(objMemberInfo.FamMemIsContactPerson);
+            dtgFamilyMemberInforamtion.Rows[e.RowIndex].Cells["FamMemIsNomineePerson"].Value = Convert.ToBoolean(objMemberInfo.FamMemIsNomineePerson);
+            if (Convert.ToBoolean(objMemberInfo.FamMemIsContactPerson) == true)
+            {
+                txtContactPersonName.Text = objMemberInfo.FamMemName;
+                txtContactPersonNumber.Text = objMemberInfo.FamMemContactNumber;
+                cmbContactPersonRelationship.Text = objMemberInfo.FamMemRelationship;
+            }
+            if (Convert.ToBoolean(objMemberInfo.FamMemIsNomineePerson) == true)
+            {
+                txtNomineeName.Text = objMemberInfo.FamMemName;
+                txtNomineeContactNumber.Text = objMemberInfo.FamMemContactNumber;
+                cmbNomineeRelationship.Text = objMemberInfo.FamMemRelationship;
+            }
         }
 
         private void chkProvidentFundEnabled_CheckedChanged(object sender, EventArgs e)

@@ -26,5 +26,7 @@ namespace ModelStaffSync
         public string FamMemMailID { get; set; }
         public string FamMemBloodGroup { get; set; }
         public bool FamMemInsuranceEnrolled { get; set; }
+        public bool FamMemIsContactPerson { get; set; }
+        public bool FamMemIsNomineePerson { get; set; }        
     }
 }

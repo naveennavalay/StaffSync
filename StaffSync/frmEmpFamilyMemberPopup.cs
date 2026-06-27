@@ -80,6 +80,8 @@ namespace StaffSync
             txtMailID.Text = objEmpPersonalFamilyMemberInfo.FamMemMailID;
             txtBloodGroup.Text = objEmpPersonalFamilyMemberInfo.FamMemBloodGroup;
             chkInsuranceEnrolled.Checked = objEmpPersonalFamilyMemberInfo.FamMemInsuranceEnrolled;
+            chkIsContactPerson.Checked = objEmpPersonalFamilyMemberInfo.FamMemIsContactPerson;
+            chkIsNominee.Checked = objEmpPersonalFamilyMemberInfo.FamMemIsNomineePerson;
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -155,6 +157,8 @@ namespace StaffSync
             objSaveTheseValues.FamMemMailID = txtMailID.Text.ToString();
             objSaveTheseValues.FamMemBloodGroup = txtBloodGroup.Text.ToString();
             objSaveTheseValues.FamMemInsuranceEnrolled = chkInsuranceEnrolled.Checked;
+            objSaveTheseValues.FamMemIsContactPerson = chkIsContactPerson.Checked;
+            objSaveTheseValues.FamMemIsNomineePerson = chkIsNominee.Checked;
             this.Close();
         }
 

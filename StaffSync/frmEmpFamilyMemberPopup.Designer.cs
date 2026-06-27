@@ -73,6 +73,8 @@
             this.empMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.empMasTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.chkIsContactPerson = new System.Windows.Forms.CheckBox();
+            this.chkIsNominee = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -121,6 +123,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkIsNominee);
+            this.groupBox2.Controls.Add(this.chkIsContactPerson);
             this.groupBox2.Controls.Add(this.txtRelationship);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.chkInsuranceEnrolled);
@@ -645,6 +649,34 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
+            // chkIsContactPerson
+            // 
+            this.chkIsContactPerson.AutoSize = true;
+            this.chkIsContactPerson.CheckAlign = System.Drawing.ContentAlignment.TopRight;
+            this.chkIsContactPerson.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkIsContactPerson.Location = new System.Drawing.Point(239, 532);
+            this.chkIsContactPerson.Margin = new System.Windows.Forms.Padding(4);
+            this.chkIsContactPerson.Name = "chkIsContactPerson";
+            this.chkIsContactPerson.Size = new System.Drawing.Size(123, 19);
+            this.chkIsContactPerson.TabIndex = 56;
+            this.chkIsContactPerson.Tag = "Insurance Enrolled";
+            this.chkIsContactPerson.Text = "Contact Person";
+            this.chkIsContactPerson.UseVisualStyleBackColor = true;
+            // 
+            // chkIsNominee
+            // 
+            this.chkIsNominee.AutoSize = true;
+            this.chkIsNominee.CheckAlign = System.Drawing.ContentAlignment.TopRight;
+            this.chkIsNominee.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkIsNominee.Location = new System.Drawing.Point(450, 532);
+            this.chkIsNominee.Margin = new System.Windows.Forms.Padding(4);
+            this.chkIsNominee.Name = "chkIsNominee";
+            this.chkIsNominee.Size = new System.Drawing.Size(84, 19);
+            this.chkIsNominee.TabIndex = 57;
+            this.chkIsNominee.Tag = "Nominee";
+            this.chkIsNominee.Text = "Nominee";
+            this.chkIsNominee.UseVisualStyleBackColor = true;
+            // 
             // frmEmpFamilyMemberPopup
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -724,5 +756,7 @@
         private Krypton.Toolkit.KryptonTextBox txtRelationship;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ErrorProvider errValidator;
+        private System.Windows.Forms.CheckBox chkIsContactPerson;
+        private System.Windows.Forms.CheckBox chkIsNominee;
     }
 }
