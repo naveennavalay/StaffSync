@@ -122,6 +122,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SchedulerRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

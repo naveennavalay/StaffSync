@@ -664,7 +664,11 @@ namespace StaffSync
             dtgSalaryDetails.Columns["HeaderType"].ReadOnly = true;
             dtgSalaryDetails.Columns["HeaderType"].Width = 125;
             dtgSalaryDetails.Columns["CalcFormula"].Visible = false;
+            dtgSalaryDetails.Columns["CalcFormula"].ReadOnly = true;
+            dtgSalaryDetails.Columns["CalcFormula1"].ReadOnly = true;
+            dtgSalaryDetails.Columns["CalcFormula1"].Visible = false;
             dtgSalaryDetails.Columns["IsFixed"].Visible = false;
+            dtgSalaryDetails.Columns["ActualAmount"].Visible = false;
             dtgSalaryDetails.Columns["ActualAmount"].Width = 135;
             dtgSalaryDetails.Columns["ActualAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgSalaryDetails.Columns["ActualAmount"].DefaultCellStyle.Format = "c2";
@@ -831,7 +835,10 @@ namespace StaffSync
                 dtgSalaryDetails.Columns["HeaderType"].Width = 125;
                 dtgSalaryDetails.Columns["CalcFormula"].Visible = false;
                 dtgSalaryDetails.Columns["CalcFormula"].ReadOnly = true;
+                dtgSalaryDetails.Columns["CalcFormula1"].Visible = false;
+                dtgSalaryDetails.Columns["CalcFormula1"].ReadOnly = true;
                 dtgSalaryDetails.Columns["IsFixed"].Visible = false;
+                dtgSalaryDetails.Columns["ActualAmount"].Visible = false;
                 dtgSalaryDetails.Columns["ActualAmount"].ReadOnly = true; 
                 dtgSalaryDetails.Columns["ActualAmount"].Width = 135;
                 dtgSalaryDetails.Columns["ActualAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
@@ -1136,6 +1143,9 @@ namespace StaffSync
                 dtgSalaryDetails.Columns["HeaderType"].ReadOnly = true;
                 dtgSalaryDetails.Columns["HeaderType"].Width = 125;
                 dtgSalaryDetails.Columns["CalcFormula"].Visible = false;
+                dtgSalaryDetails.Columns["CalcFormula"].ReadOnly = true;
+                dtgSalaryDetails.Columns["CalcFormula1"].Visible = false;
+                dtgSalaryDetails.Columns["CalcFormula1"].ReadOnly = true;
                 dtgSalaryDetails.Columns["ActualAmount"].ReadOnly = true;
                 dtgSalaryDetails.Columns["ActualAmount"].Width = 135;
                 dtgSalaryDetails.Columns["ActualAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences

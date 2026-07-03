@@ -25,7 +25,7 @@ namespace ModelStaffSync
         public bool PFApplicable { get; set; }
         public string PFAccNumber { get; set; }
         public DateTime PFJoiningDate { get; set; }
-        public DateTime PFRelievingDate { get; set; }
+        public DateTime? PFRelievingDate { get; set; }
         public bool PTApplicable { get; set; }
         public string PTAccNumber { get; set; }
         public bool ESIApplicable { get; set; }

@@ -26,7 +26,7 @@ namespace DALStaffSync
             return affectedRows;
         }
 
-        public int UpdateEmployeePersonalIDInfo(int txtPersonalIDInfoID, int txtPersonalInfoID, string txtAadhaarCardNumber, string txtVoterCardNumber, string txtPANNumber, string txtPassportNumber, DateTime txtPassportIssueDate, DateTime txtPassportRenewalDate, string txtID1, string txtID2, string txtID3, string txtID4, string txtID5, bool PFApplicable, string PFAccNumber, DateTime PFJoiningDate, DateTime PFRelievingDate, bool PTApplicable, string PTAccNumber, bool ESIApplicable, string ESIAccNumber, string ESIDispensary, bool NPSApplicable, string NPSAccNumber)
+        public int UpdateEmployeePersonalIDInfo(int txtPersonalIDInfoID, int txtPersonalInfoID, string txtAadhaarCardNumber, string txtVoterCardNumber, string txtPANNumber, string txtPassportNumber, DateTime txtPassportIssueDate, DateTime txtPassportRenewalDate, string txtID1, string txtID2, string txtID3, string txtID4, string txtID5, bool PFApplicable, string PFAccNumber, DateTime PFJoiningDate, DateTime? PFRelievingDate, bool PTApplicable, string PTAccNumber, bool ESIApplicable, string ESIAccNumber, string ESIDispensary, bool NPSApplicable, string NPSAccNumber)
         {
             int affectedRows = 0;
 

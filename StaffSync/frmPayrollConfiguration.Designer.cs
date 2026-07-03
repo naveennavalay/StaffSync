@@ -80,6 +80,7 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.lblYearlySalarySummaryStatement = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -134,6 +135,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox1.Controls.Add(this.lblYearlySalarySummaryStatement);
             this.groupBox1.Controls.Add(this.lblPFCalcAmount);
             this.groupBox1.Controls.Add(this.chkAutoCalculate);
             this.groupBox1.Controls.Add(this.lblBasicSalaryPerHour);
@@ -847,6 +849,18 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
+            // lblYearlySalarySummaryStatement
+            // 
+            this.lblYearlySalarySummaryStatement.AutoSize = true;
+            this.lblYearlySalarySummaryStatement.Enabled = false;
+            this.lblYearlySalarySummaryStatement.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblYearlySalarySummaryStatement.Location = new System.Drawing.Point(851, 78);
+            this.lblYearlySalarySummaryStatement.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblYearlySalarySummaryStatement.Name = "lblYearlySalarySummaryStatement";
+            this.lblYearlySalarySummaryStatement.Size = new System.Drawing.Size(154, 15);
+            this.lblYearlySalarySummaryStatement.TabIndex = 108;
+            this.lblYearlySalarySummaryStatement.Text = "Yearly Salary Summary";
+            // 
             // frmPayrollConfiguration
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -941,5 +955,6 @@
         private System.Windows.Forms.CheckBox chkAutoCalculate;
         private System.Windows.Forms.Label lblPFCalcAmount;
         private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
+        private System.Windows.Forms.Label lblYearlySalarySummaryStatement;
     }
 }

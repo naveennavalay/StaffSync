@@ -33,6 +33,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkIsNominee = new System.Windows.Forms.CheckBox();
+            this.chkIsContactPerson = new System.Windows.Forms.CheckBox();
             this.txtRelationship = new Krypton.Toolkit.KryptonTextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.chkInsuranceEnrolled = new System.Windows.Forms.CheckBox();
@@ -73,8 +75,6 @@
             this.empMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.empMasTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.chkIsContactPerson = new System.Windows.Forms.CheckBox();
-            this.chkIsNominee = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -163,6 +163,34 @@
             this.groupBox2.Size = new System.Drawing.Size(679, 568);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
+            // 
+            // chkIsNominee
+            // 
+            this.chkIsNominee.AutoSize = true;
+            this.chkIsNominee.CheckAlign = System.Drawing.ContentAlignment.TopRight;
+            this.chkIsNominee.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkIsNominee.Location = new System.Drawing.Point(450, 532);
+            this.chkIsNominee.Margin = new System.Windows.Forms.Padding(4);
+            this.chkIsNominee.Name = "chkIsNominee";
+            this.chkIsNominee.Size = new System.Drawing.Size(84, 19);
+            this.chkIsNominee.TabIndex = 57;
+            this.chkIsNominee.Tag = "Nominee";
+            this.chkIsNominee.Text = "Nominee";
+            this.chkIsNominee.UseVisualStyleBackColor = true;
+            // 
+            // chkIsContactPerson
+            // 
+            this.chkIsContactPerson.AutoSize = true;
+            this.chkIsContactPerson.CheckAlign = System.Drawing.ContentAlignment.TopRight;
+            this.chkIsContactPerson.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkIsContactPerson.Location = new System.Drawing.Point(239, 532);
+            this.chkIsContactPerson.Margin = new System.Windows.Forms.Padding(4);
+            this.chkIsContactPerson.Name = "chkIsContactPerson";
+            this.chkIsContactPerson.Size = new System.Drawing.Size(123, 19);
+            this.chkIsContactPerson.TabIndex = 56;
+            this.chkIsContactPerson.Tag = "Insurance Enrolled";
+            this.chkIsContactPerson.Text = "Contact Person";
+            this.chkIsContactPerson.UseVisualStyleBackColor = true;
             // 
             // txtRelationship
             // 
@@ -468,6 +496,7 @@
             // 
             // txtMemberName
             // 
+            this.txtMemberName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMemberName.Location = new System.Drawing.Point(136, 21);
             this.txtMemberName.Margin = new System.Windows.Forms.Padding(4);
             this.txtMemberName.Multiline = true;
@@ -648,34 +677,6 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
-            // 
-            // chkIsContactPerson
-            // 
-            this.chkIsContactPerson.AutoSize = true;
-            this.chkIsContactPerson.CheckAlign = System.Drawing.ContentAlignment.TopRight;
-            this.chkIsContactPerson.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkIsContactPerson.Location = new System.Drawing.Point(239, 532);
-            this.chkIsContactPerson.Margin = new System.Windows.Forms.Padding(4);
-            this.chkIsContactPerson.Name = "chkIsContactPerson";
-            this.chkIsContactPerson.Size = new System.Drawing.Size(123, 19);
-            this.chkIsContactPerson.TabIndex = 56;
-            this.chkIsContactPerson.Tag = "Insurance Enrolled";
-            this.chkIsContactPerson.Text = "Contact Person";
-            this.chkIsContactPerson.UseVisualStyleBackColor = true;
-            // 
-            // chkIsNominee
-            // 
-            this.chkIsNominee.AutoSize = true;
-            this.chkIsNominee.CheckAlign = System.Drawing.ContentAlignment.TopRight;
-            this.chkIsNominee.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkIsNominee.Location = new System.Drawing.Point(450, 532);
-            this.chkIsNominee.Margin = new System.Windows.Forms.Padding(4);
-            this.chkIsNominee.Name = "chkIsNominee";
-            this.chkIsNominee.Size = new System.Drawing.Size(84, 19);
-            this.chkIsNominee.TabIndex = 57;
-            this.chkIsNominee.Tag = "Nominee";
-            this.chkIsNominee.Text = "Nominee";
-            this.chkIsNominee.UseVisualStyleBackColor = true;
             // 
             // frmEmpFamilyMemberPopup
             // 

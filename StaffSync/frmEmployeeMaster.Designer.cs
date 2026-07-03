@@ -84,15 +84,15 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.txtEmployeeName = new Krypton.Toolkit.KryptonTextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.tabFamilyMemberInfo = new Krypton.Navigator.KryptonPage();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.dtgFamilyMemberInforamtion = new Krypton.Toolkit.KryptonDataGridView();
             this.tabPersonalPhoto = new Krypton.Navigator.KryptonPage();
             this.btnEmpPhotoUpload = new Krypton.Toolkit.KryptonButton();
             this.txtEmpPhoto = new Krypton.Toolkit.KryptonTextBox();
             this.label39 = new System.Windows.Forms.Label();
             this.picEmpPhoto = new System.Windows.Forms.PictureBox();
             this.label24 = new System.Windows.Forms.Label();
+            this.tabFamilyMemberInfo = new Krypton.Navigator.KryptonPage();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.dtgFamilyMemberInforamtion = new Krypton.Toolkit.KryptonDataGridView();
             this.tabProfessionalInfo = new Krypton.Navigator.KryptonPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btnReportingManagerSearch = new Krypton.Toolkit.KryptonButton();
@@ -288,6 +288,7 @@
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnSalaryConfig = new Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -310,13 +311,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.cmbBloodGroup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbGender)).BeginInit();
             this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tabPersonalPhoto)).BeginInit();
+            this.tabPersonalPhoto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).BeginInit();
             this.tabFamilyMemberInfo.SuspendLayout();
             this.groupBox14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tabPersonalPhoto)).BeginInit();
-            this.tabPersonalPhoto.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabProfessionalInfo)).BeginInit();
             this.tabProfessionalInfo.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -1191,47 +1192,6 @@
             this.label19.Text = "Name";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tabFamilyMemberInfo
-            // 
-            this.tabFamilyMemberInfo.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.tabFamilyMemberInfo.Controls.Add(this.groupBox14);
-            this.tabFamilyMemberInfo.Flags = 65534;
-            this.tabFamilyMemberInfo.LastVisibleSet = true;
-            this.tabFamilyMemberInfo.MinimumSize = new System.Drawing.Size(150, 50);
-            this.tabFamilyMemberInfo.Name = "tabFamilyMemberInfo";
-            this.tabFamilyMemberInfo.Size = new System.Drawing.Size(1248, 519);
-            this.tabFamilyMemberInfo.Text = "Family Members Info";
-            this.tabFamilyMemberInfo.ToolTipTitle = "Page ToolTip";
-            this.tabFamilyMemberInfo.UniqueName = "bd52fcdd6ed046318c19f604b9a96b6f";
-            // 
-            // groupBox14
-            // 
-            this.groupBox14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.groupBox14.Controls.Add(this.dtgFamilyMemberInforamtion);
-            this.groupBox14.Location = new System.Drawing.Point(16, 11);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(1197, 491);
-            this.groupBox14.TabIndex = 15;
-            this.groupBox14.TabStop = false;
-            // 
-            // dtgFamilyMemberInforamtion
-            // 
-            this.dtgFamilyMemberInforamtion.AllowUserToResizeRows = false;
-            this.dtgFamilyMemberInforamtion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dtgFamilyMemberInforamtion.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dtgFamilyMemberInforamtion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgFamilyMemberInforamtion.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dtgFamilyMemberInforamtion.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.dtgFamilyMemberInforamtion.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgFamilyMemberInforamtion.Location = new System.Drawing.Point(16, 29);
-            this.dtgFamilyMemberInforamtion.MultiSelect = false;
-            this.dtgFamilyMemberInforamtion.Name = "dtgFamilyMemberInforamtion";
-            this.dtgFamilyMemberInforamtion.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.dtgFamilyMemberInforamtion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgFamilyMemberInforamtion.Size = new System.Drawing.Size(1168, 275);
-            this.dtgFamilyMemberInforamtion.TabIndex = 47;
-            this.dtgFamilyMemberInforamtion.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgFamilyMemberInforamtion_CellDoubleClick);
-            // 
             // tabPersonalPhoto
             // 
             this.tabPersonalPhoto.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
@@ -1309,6 +1269,47 @@
             this.label24.Size = new System.Drawing.Size(94, 15);
             this.label24.TabIndex = 19;
             this.label24.Text = "Upload Photo";
+            // 
+            // tabFamilyMemberInfo
+            // 
+            this.tabFamilyMemberInfo.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabFamilyMemberInfo.Controls.Add(this.groupBox14);
+            this.tabFamilyMemberInfo.Flags = 65534;
+            this.tabFamilyMemberInfo.LastVisibleSet = true;
+            this.tabFamilyMemberInfo.MinimumSize = new System.Drawing.Size(150, 50);
+            this.tabFamilyMemberInfo.Name = "tabFamilyMemberInfo";
+            this.tabFamilyMemberInfo.Size = new System.Drawing.Size(1248, 519);
+            this.tabFamilyMemberInfo.Text = "Family Members Info";
+            this.tabFamilyMemberInfo.ToolTipTitle = "Page ToolTip";
+            this.tabFamilyMemberInfo.UniqueName = "bd52fcdd6ed046318c19f604b9a96b6f";
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox14.Controls.Add(this.dtgFamilyMemberInforamtion);
+            this.groupBox14.Location = new System.Drawing.Point(16, 11);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(1197, 491);
+            this.groupBox14.TabIndex = 15;
+            this.groupBox14.TabStop = false;
+            // 
+            // dtgFamilyMemberInforamtion
+            // 
+            this.dtgFamilyMemberInforamtion.AllowUserToResizeRows = false;
+            this.dtgFamilyMemberInforamtion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgFamilyMemberInforamtion.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgFamilyMemberInforamtion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgFamilyMemberInforamtion.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgFamilyMemberInforamtion.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgFamilyMemberInforamtion.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgFamilyMemberInforamtion.Location = new System.Drawing.Point(16, 29);
+            this.dtgFamilyMemberInforamtion.MultiSelect = false;
+            this.dtgFamilyMemberInforamtion.Name = "dtgFamilyMemberInforamtion";
+            this.dtgFamilyMemberInforamtion.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgFamilyMemberInforamtion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgFamilyMemberInforamtion.Size = new System.Drawing.Size(1168, 275);
+            this.dtgFamilyMemberInforamtion.TabIndex = 47;
+            this.dtgFamilyMemberInforamtion.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgFamilyMemberInforamtion_CellDoubleClick);
             // 
             // tabProfessionalInfo
             // 
@@ -3178,6 +3179,7 @@
             // tabSalaryProfile
             // 
             this.tabSalaryProfile.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabSalaryProfile.Controls.Add(this.btnSalaryConfig);
             this.tabSalaryProfile.Controls.Add(this.txtTaxSchemeEffectiveFrom);
             this.tabSalaryProfile.Controls.Add(this.label52);
             this.tabSalaryProfile.Controls.Add(this.cmbEmpTaxScheme);
@@ -3204,7 +3206,7 @@
             // txtTaxSchemeEffectiveFrom
             // 
             this.txtTaxSchemeEffectiveFrom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.txtTaxSchemeEffectiveFrom.Location = new System.Drawing.Point(932, 25);
+            this.txtTaxSchemeEffectiveFrom.Location = new System.Drawing.Point(450, 26);
             this.txtTaxSchemeEffectiveFrom.Mask = "##-##-####";
             this.txtTaxSchemeEffectiveFrom.Name = "txtTaxSchemeEffectiveFrom";
             this.txtTaxSchemeEffectiveFrom.Size = new System.Drawing.Size(92, 21);
@@ -3216,7 +3218,7 @@
             // 
             this.label52.AutoSize = true;
             this.label52.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label52.Location = new System.Drawing.Point(834, 28);
+            this.label52.Location = new System.Drawing.Point(349, 29);
             this.label52.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(98, 15);
@@ -3228,7 +3230,7 @@
             // 
             this.cmbEmpTaxScheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEmpTaxScheme.DropDownWidth = 440;
-            this.cmbEmpTaxScheme.Location = new System.Drawing.Point(695, 24);
+            this.cmbEmpTaxScheme.Location = new System.Drawing.Point(118, 25);
             this.cmbEmpTaxScheme.Name = "cmbEmpTaxScheme";
             this.cmbEmpTaxScheme.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbEmpTaxScheme.Size = new System.Drawing.Size(130, 22);
@@ -3240,7 +3242,7 @@
             // 
             this.label51.AutoSize = true;
             this.label51.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label51.Location = new System.Drawing.Point(606, 28);
+            this.label51.Location = new System.Drawing.Point(29, 29);
             this.label51.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(86, 15);
@@ -3374,26 +3376,28 @@
             // 
             this.cmbSalProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSalProfile.DropDownWidth = 440;
-            this.cmbSalProfile.Location = new System.Drawing.Point(128, 24);
+            this.cmbSalProfile.Location = new System.Drawing.Point(450, 55);
             this.cmbSalProfile.Name = "cmbSalProfile";
             this.cmbSalProfile.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbSalProfile.Size = new System.Drawing.Size(440, 22);
+            this.cmbSalProfile.Size = new System.Drawing.Size(361, 22);
             this.cmbSalProfile.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbSalProfile.TabIndex = 42;
             this.cmbSalProfile.Tag = "Salary Profile";
+            this.cmbSalProfile.Visible = false;
             this.cmbSalProfile.SelectedIndexChanged += new System.EventHandler(this.cmbSalProfile_SelectedIndexChanged);
             // 
             // label42
             // 
             this.label42.AutoSize = true;
             this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(32, 28);
+            this.label42.Location = new System.Drawing.Point(354, 59);
             this.label42.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(93, 15);
             this.label42.TabIndex = 41;
             this.label42.Text = "Salary Profile";
             this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label42.Visible = false;
             // 
             // groupBox4
             // 
@@ -3680,6 +3684,20 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
+            // btnSalaryConfig
+            // 
+            this.btnSalaryConfig.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalaryConfig.Location = new System.Drawing.Point(818, 52);
+            this.btnSalaryConfig.Name = "btnSalaryConfig";
+            this.btnSalaryConfig.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnSalaryConfig.Size = new System.Drawing.Size(29, 28);
+            this.btnSalaryConfig.TabIndex = 72;
+            this.btnSalaryConfig.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnSalaryConfig.Values.Image = ((System.Drawing.Image)(resources.GetObject("kryptonButton1.Values.Image")));
+            this.btnSalaryConfig.Values.Text = "";
+            this.btnSalaryConfig.Visible = false;
+            this.btnSalaryConfig.Click += new System.EventHandler(this.btnSalaryConfig_Click);
+            // 
             // frmEmployeeMaster
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -3729,14 +3747,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.cmbGender)).EndInit();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).EndInit();
-            this.tabFamilyMemberInfo.ResumeLayout(false);
-            this.groupBox14.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPersonalPhoto)).EndInit();
             this.tabPersonalPhoto.ResumeLayout(false);
             this.tabPersonalPhoto.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).EndInit();
+            this.tabFamilyMemberInfo.ResumeLayout(false);
+            this.groupBox14.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabProfessionalInfo)).EndInit();
             this.tabProfessionalInfo.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
@@ -4085,5 +4103,6 @@
         private Krypton.Toolkit.KryptonComboBox cmbCurrentState;
         private Krypton.Toolkit.KryptonComboBox cmbPermanentState;
         private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
+        private Krypton.Toolkit.KryptonButton btnSalaryConfig;
     }
 }

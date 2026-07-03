@@ -1356,7 +1356,12 @@ namespace StaffSync
                     int perAddressID = objAddressInfo.UpdateAddressInfo(Convert.ToInt16(lblPermanentAddressID.Text.Trim()), txtPermanentAddress01.Text.Trim(), txtPermanentAddress02.Text.Trim(), txtPermanentArea.Text.Trim(), txtPermanentCity.Text.Trim(), txtPermanentPIN.Text.Trim(), cmbPermanentState.Text.Trim(), cmbPermanentCountry.Text);
                     int contactInfoID01 = objContactPerson.UdpateContactInfo(Convert.ToInt16(lblContactInfoID.Text.Trim()), txtContactPersonName.Text.Trim(), txtContactPersonNumber.Text.ToString(), cmbContactPersonRelationship.SelectedIndex + 1, 1);
                     int personalInfoID = objEmployeePersonalInfo.UpdateEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
-                    int personalIDInfoID = objEmployeePersonalIDInfo.UpdateEmployeePersonalIDInfo(Convert.ToInt16(lblEmpGovtID.Text.Trim()), personalInfoID, txtAadhaarCardNumber.Text.Trim(), txtVoterCardNumber.Text.Trim(), txtPANCardNumber.Text.Trim(), txtPassportNumber.Text.Trim(), Convert.ToDateTime(txtPassportIssueDate.Text), Convert.ToDateTime(txtPassportRenewalDate.Text), txtAdditonalCardNumber.Text.Trim(), "", "", "", "", chkProvidentFundEnabled.Checked, txtPFNumber.Text, Convert.ToDateTime(txtDateOfJoining.Text), Convert.ToDateTime(txtPFRelievingDate.Text), chkProfessionalTaxEnabled.Checked, txtPTNumber.Text, chkESIEnabled.Checked, txtESINumber.Text, txtESIDispName.Text, chkNationalPensionScheme.Checked, txtNPSNumber.Text);
+
+                    DateTime? dtPFRelievingDate = null;
+                    if (txtPFRelievingDate.Text.Replace(" ", "").Replace("--", "") != "")
+                        dtPFRelievingDate = Convert.ToDateTime(txtPFRelievingDate.Text);
+
+                    int personalIDInfoID = objEmployeePersonalIDInfo.UpdateEmployeePersonalIDInfo(Convert.ToInt16(lblEmpGovtID.Text.Trim()), personalInfoID, txtAadhaarCardNumber.Text.Trim(), txtVoterCardNumber.Text.Trim(), txtPANCardNumber.Text.Trim(), txtPassportNumber.Text.Trim(), Convert.ToDateTime(txtPassportIssueDate.Text), Convert.ToDateTime(txtPassportRenewalDate.Text), txtAdditonalCardNumber.Text.Trim(), "", "", "", "", chkProvidentFundEnabled.Checked, txtPFNumber.Text, Convert.ToDateTime(txtDateOfJoining.Text), dtPFRelievingDate, chkProfessionalTaxEnabled.Checked, txtPTNumber.Text, chkESIEnabled.Checked, txtESINumber.Text, txtESIDispName.Text, chkNationalPensionScheme.Checked, txtNPSNumber.Text);
 
                     int nomineeID = objNomineeInfo.UdpateNomineeInfo(Convert.ToInt16(lblNomineeID.Text.Trim()), txtNomineeName.Text.Trim(), employeeID, cmbNomineeRelationship.SelectedIndex + 1, txtNomineeContactNumber.Text.Trim());
                     if (nomineeID == 0)
@@ -1492,7 +1497,8 @@ namespace StaffSync
                     objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblEmpID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             }
 
-            objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()));
+            //objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(lblReportingManagerID.Text.ToString()));
+            objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID));
 
             onSaveButtonClick();
             disableControls();
@@ -2422,7 +2428,8 @@ namespace StaffSync
             chkProvidentFundEnabled.Checked = objEmpPersonalIDInfo.PFApplicable;
             txtPFNumber.Text = objEmpPersonalIDInfo.PFAccNumber.ToString();
             txtPFJoiningDate.Text = Convert.ToDateTime(objEmpPersonalIDInfo.PFJoiningDate.ToString()).Date.ToString("dd-MM-yyyy"); 
-            txtPFRelievingDate.Text = Convert.ToDateTime(objEmpPersonalIDInfo.PFRelievingDate.ToString()).Date.ToString("dd-MM-yyyy");
+            if(objEmpPersonalIDInfo.PFRelievingDate != null)
+                txtPFRelievingDate.Text = Convert.ToDateTime(objEmpPersonalIDInfo.PFRelievingDate.ToString()).Date.ToString("dd-MM-yyyy");
             chkProfessionalTaxEnabled.Checked = objEmpPersonalIDInfo.PTApplicable;
             txtPTNumber.Text = objEmpPersonalIDInfo.PTAccNumber;
             chkNationalPensionScheme.Checked = objEmpPersonalIDInfo.NPSApplicable;
@@ -3485,6 +3492,15 @@ namespace StaffSync
 
             frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblEmpID.Text.ToString()), "EmployeeMasterInfo", "Employee Master Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             objAuditLogStatements.ShowDialog(this);
+        }
+
+        private void btnSalaryConfig_Click(object sender, EventArgs e)
+        {
+            //frmPayrollConfiguration objPayrollConfig = new frmPayrollConfiguration(objTempCurrentlyLoggedInUserInfo, objTempClientFinYearInfo);
+            //objPayrollConfig.StartPosition = FormStartPosition.CenterParent;
+            //objPayrollConfig.FormBorderStyle = FormBorderStyle.Sizable;
+            //objPayrollConfig.ShowDialog(this);
+            //objPayrollConfig.WindowState = FormWindowState.Normal;
         }
     }
 }

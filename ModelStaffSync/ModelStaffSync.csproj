@@ -60,6 +60,9 @@
     <Compile Include="CompanyLogoInfo.cs" />
     <Compile Include="PublicHolidayInfo.cs" />
     <Compile Include="EmpPersonalIDInfo.cs" />
+    <Compile Include="SchedulerJobMaster.cs" />
+    <Compile Include="SchedulerJobModel.cs" />
+    <Compile Include="SchedulerJobSetting.cs" />
     <Compile Include="WklyOffProfileDetailsInfo.cs" />
     <Compile Include="WklyOffProfileMasInfo.cs" />
     <Compile Include="EmployeeWklyOffInfo.cs" />

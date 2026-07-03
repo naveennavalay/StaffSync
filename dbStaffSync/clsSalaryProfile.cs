@@ -247,6 +247,7 @@ namespace dbStaffSync
                                         " EmpSalDetails.SalHeaderTitle AS HeaderTitle, " + 
                                         " EmpSalDetails.SalHeaderType AS HeaderType, " + 
                                         " EmpSalDetails.CalcFormula, " +
+                                        " EmpSalDetails.CalcFormula AS CalcFormula1, " +
                                         " EmpSalDetails.AllowanceAmount AS ActualAmount, " +
                                         " EmpSalDetails.AllowanceAmount, " + 
                                         " EmpSalDetails.DeductionAmount, " + 
@@ -266,7 +267,8 @@ namespace dbStaffSync
                                 " EmpSalDetails.SalHeaderID AS HeaderID, " + 
                                 " EmpSalDetails.SalHeaderTitle AS HeaderTitle, " + 
                                 " EmpSalDetails.SalHeaderType AS HeaderType, " + 
-                                " EmpSalDetails.CalcFormula, " + 
+                                " EmpSalDetails.CalcFormula, " +
+                                " EmpSalDetails.CalcFormula AS CalcFormula1, " +
                                 " EmpSalDetails.AllowanceAmount AS ActualAmount, " + 
                                 " EmpSalDetails.AllowanceAmount, " + 
                                 " EmpSalDetails.DeductionAmount, " + 
@@ -277,7 +279,8 @@ namespace dbStaffSync
                             " WHERE " + 
                                 " ( " + 
                                     " ((EmpSalMas.StructureEntry) = True) " + 
-                                    " AND ((EmpSalMas.EmpID) = " + txtEmpID + " ) " + 
+                                    " AND ((EmpSalMas.EmpID) = " + txtEmpID + " ) " +
+                                    " AND ((EmpSalDetails.EmpSalID) = " + txtEmpSalID + " ) " +
                                 " ) " + 
                             " ORDER BY " + 
                                 " EmpSalDetails.EmpSalDetID,EmpSalDetails.OrderID;";
@@ -304,6 +307,7 @@ namespace dbStaffSync
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
                         HeaderType = indSalaryProfileInfo.HeaderType,
                         CalcFormula = indSalaryProfileInfo.CalcFormula,
+                        CalcFormula1 = indSalaryProfileInfo.CalcFormula1,
                         ActualAmount = getOriginalSalaryActualAmount(txtEmpID, indSalaryProfileInfo.HeaderID, indSalaryProfileInfo.HeaderType),
                         AllowanceAmount = indSalaryProfileInfo.AllowanceAmount,
                         DeductionAmount = indSalaryProfileInfo.DeductionAmount,
@@ -714,6 +718,7 @@ namespace dbStaffSync
                                     "AllowanceHeaderMas.AllID AS HeaderID, " +
                                     "AllowanceHeaderMas.AllTitle AS HeaderTitle, " +
                                     "AllowanceHeaderMas.CalcFormula, " +
+                                    "AllowanceHeaderMas.CalcFormula AS CalcFormula1, " +
                                     "AllowanceHeaderMas.IsFixed, " +
                                     "SalProfileDetails.SalProAmount " +
                                 "FROM " +
@@ -748,6 +753,7 @@ namespace dbStaffSync
                                 "AllowanceHeaderMas.AllID AS HeaderID," +
                                 "AllowanceHeaderMas.AllTitle AS HeaderTitle," +
                                 "AllowanceHeaderMas.CalcFormula," +
+                                "AllowanceHeaderMas.CalcFormula AS CalcFormula1, " +
                                 "AllowanceHeaderMas.IsFixed," +
                                 "0 AS SalProAmount " +
                             "FROM " +
@@ -782,6 +788,7 @@ namespace dbStaffSync
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
                         HeaderType = "Allowences",
                         CalcFormula = indSalaryProfileInfo.CalcFormula,
+                        CalcFormula1 = indSalaryProfileInfo.CalcFormula1,
                         IsFixed = indSalaryProfileInfo.IsFixed,
                         AllowanceAmount = indSalaryProfileInfo.SalProAmount,
                         DeductionAmount = 0,
@@ -795,6 +802,7 @@ namespace dbStaffSync
                                 "DeductionHeaderMas.DedID AS HeaderID, " +
                                 "DeductionHeaderMas.DedTitle AS HeaderTitle, " +
                                 "DeductionHeaderMas.CalcFormula, " +
+                                "DeductionHeaderMas.CalcFormula AS CalcFormula1, " +
                                 "DeductionHeaderMas.IsFixed, " +
                                 "SalProfileDetails.SalProAmount " +
                             "FROM " +
@@ -831,6 +839,7 @@ namespace dbStaffSync
                                     "DeductionHeaderMas.DedID AS HeaderID, " +
                                     "DeductionHeaderMas.DedTitle AS HeaderTitle, " +
                                     "DeductionHeaderMas.CalcFormula, " +
+                                    "DeductionHeaderMas.CalcFormula AS CalcFormula1, " +
                                     "DeductionHeaderMas.IsFixed, " +
                                     "0 AS SalProAmount " +
                                 "FROM " +
@@ -869,6 +878,7 @@ namespace dbStaffSync
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
                         HeaderType = "Deductions",
                         CalcFormula = indSalaryProfileInfo.CalcFormula,
+                        CalcFormula1 = indSalaryProfileInfo.CalcFormula1,
                         IsFixed = indSalaryProfileInfo.IsFixed,
                         AllowanceAmount = 0,
                         DeductionAmount = indSalaryProfileInfo.SalProAmount,
@@ -882,6 +892,7 @@ namespace dbStaffSync
                             "ReimbursementHeaderMas.ReimbID AS HeaderID, " +
                             "ReimbursementHeaderMas.ReimbTitle AS HeaderTitle, " +
                             "ReimbursementHeaderMas.CalcFormula, " +
+                            "ReimbursementHeaderMas.CalcFormula AS CalcFormula1, " +
                             "ReimbursementHeaderMas.IsFixed, " +
                             "SalProfileDetails.SalProAmount " +
                         "FROM " +
@@ -918,6 +929,7 @@ namespace dbStaffSync
                                     "ReimbursementHeaderMas.ReimbID AS HeaderID, " +
                                     "ReimbursementHeaderMas.ReimbTitle AS HeaderTitle, " +
                                     "ReimbursementHeaderMas.CalcFormula, " +
+                                    "ReimbursementHeaderMas.CalcFormula AS CalcFormula1, " +
                                     "ReimbursementHeaderMas.IsFixed, " +
                                     "0 AS SalProAmount " +
                                 "FROM " +
@@ -954,6 +966,7 @@ namespace dbStaffSync
                         HeaderID = indSalaryProfileInfo.HeaderID,
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
                         CalcFormula = indSalaryProfileInfo.CalcFormula,
+                        CalcFormula1 = indSalaryProfileInfo.CalcFormula1,
                         IsFixed = indSalaryProfileInfo.IsFixed,
                         HeaderType = "Reimbursement",
                         AllowanceAmount = 0,
@@ -993,6 +1006,7 @@ namespace dbStaffSync
                         "EmpSalDetails.SalHeaderTitle as HeaderTitle, " + 
                         "EmpSalDetails.SalHeaderType as HeaderType, " +
                         "EmpSalDetails.CalcFormula, " +
+                        "EmpSalDetails.CalcFormula AS CalcFormula1, " +
                         "EmpSalDetails.AllowanceAmount, " + 
                         "EmpSalDetails.DeductionAmount, " + 
                         "EmpSalDetails.ReimbursmentAmount, " + 
@@ -1039,6 +1053,7 @@ namespace dbStaffSync
                         HeaderTitle = indSalaryProfileInfo.HeaderTitle,
                         HeaderType = indSalaryProfileInfo.HeaderType,
                         CalcFormula = indSalaryProfileInfo.CalcFormula,
+                        CalcFormula1 = indSalaryProfileInfo.CalcFormula1,
                         AllowanceAmount = indSalaryProfileInfo.AllowanceAmount,
                         DeductionAmount = indSalaryProfileInfo.DeductionAmount,
                         ReimbursmentAmount = indSalaryProfileInfo.ReimbursmentAmount,

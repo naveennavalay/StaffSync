@@ -23,6 +23,9 @@ namespace ModelStaffSync
 
         [DisplayName("Calc. Formula")]
         public string CalcFormula { get; set; }
+
+        [DisplayName("Calc. Formula1")]
+        public string CalcFormula1 { get; set; }
         public bool IsFixed { get; set; }
 
         [DisplayName("Actual Amount")]
