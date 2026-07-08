@@ -240,25 +240,18 @@
             this.chrtCompanyAdvanceSummaryMatrix = new LiveCharts.WinForms.CartesianChart();
             this.kryptonGroupBox5 = new Krypton.Toolkit.KryptonGroupBox();
             this.kryptonPictureBox7 = new Krypton.Toolkit.KryptonPictureBox();
-            this.bdgWorkAnniversary = new StaffSync.BadgeControl();
             this.label6 = new System.Windows.Forms.Label();
             this.kryptonPictureBox6 = new Krypton.Toolkit.KryptonPictureBox();
-            this.bdgEmployeesBirthday = new StaffSync.BadgeControl();
             this.label5 = new System.Windows.Forms.Label();
             this.kryptonPictureBox5 = new Krypton.Toolkit.KryptonPictureBox();
-            this.bdgEmployeesWithWeeklyOff = new StaffSync.BadgeControl();
             this.label4 = new System.Windows.Forms.Label();
             this.kryptonPictureBox4 = new Krypton.Toolkit.KryptonPictureBox();
             this.kryptonPictureBox3 = new Krypton.Toolkit.KryptonPictureBox();
             this.kryptonPictureBox2 = new Krypton.Toolkit.KryptonPictureBox();
             this.kryptonPictureBox1 = new Krypton.Toolkit.KryptonPictureBox();
-            this.bdgTotalLeaveApprovals = new StaffSync.BadgeControl();
             this.label3 = new System.Windows.Forms.Label();
-            this.bdgTotalLeaveEmployees = new StaffSync.BadgeControl();
             this.label2 = new System.Windows.Forms.Label();
-            this.bdgTotalPresentEmployees = new StaffSync.BadgeControl();
             this.label1 = new System.Windows.Forms.Label();
-            this.bdgTotalActiveEmployees = new StaffSync.BadgeControl();
             this.label9 = new System.Windows.Forms.Label();
             this.kryptonSplitContainer1 = new Krypton.Toolkit.KryptonSplitContainer();
             this.kryptonGroupBox3 = new Krypton.Toolkit.KryptonGroupBox();
@@ -270,6 +263,15 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
+            this.toolStripMenuItem30 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmbSchedulerJobsSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.bdgWorkAnniversary = new StaffSync.BadgeControl();
+            this.bdgEmployeesBirthday = new StaffSync.BadgeControl();
+            this.bdgEmployeesWithWeeklyOff = new StaffSync.BadgeControl();
+            this.bdgTotalLeaveApprovals = new StaffSync.BadgeControl();
+            this.bdgTotalLeaveEmployees = new StaffSync.BadgeControl();
+            this.bdgTotalPresentEmployees = new StaffSync.BadgeControl();
+            this.bdgTotalActiveEmployees = new StaffSync.BadgeControl();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -396,11 +398,10 @@
             this.LoggedInUser,
             this.LogInTime,
             this.LastActionByLoggedInUser});
-            this.myStatusBar.Location = new System.Drawing.Point(0, 1039);
+            this.myStatusBar.Location = new System.Drawing.Point(0, 723);
             this.myStatusBar.Name = "myStatusBar";
-            this.myStatusBar.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
             this.myStatusBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.myStatusBar.Size = new System.Drawing.Size(2009, 22);
+            this.myStatusBar.Size = new System.Drawing.Size(1507, 22);
             this.myStatusBar.TabIndex = 2;
             this.myStatusBar.Text = "statusStrip1";
             this.myStatusBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.myStatusBar_ItemClicked);
@@ -415,7 +416,7 @@
             this.kryptonRibbonTab1});
             this.tblRibbon.SelectedTab = this.kryptonRibbonTab1;
             this.tblRibbon.ShowMinimizeButton = false;
-            this.tblRibbon.Size = new System.Drawing.Size(2009, 143);
+            this.tblRibbon.Size = new System.Drawing.Size(1507, 143);
             this.tblRibbon.TabIndex = 5;
             this.tblRibbon.SelectedTabChanged += new System.EventHandler(this.tblRibbon_SelectedTabChanged);
             // 
@@ -1519,9 +1520,11 @@
             this.toolStripMenuItem16,
             this.advanceConfigurationToolStripMenuItem,
             this.toolStripMenuItem14,
-            this.cmbPublicHolidayConfig});
+            this.cmbPublicHolidayConfig,
+            this.toolStripMenuItem30,
+            this.cmbSchedulerJobsSettings});
             this.cmbApplicationSettings.Name = "cmDatamartList01";
-            this.cmbApplicationSettings.Size = new System.Drawing.Size(229, 166);
+            this.cmbApplicationSettings.Size = new System.Drawing.Size(229, 216);
             this.cmbApplicationSettings.Tag = "DatamartMenu";
             this.cmbApplicationSettings.Text = "Datamart Menu";
             this.cmbApplicationSettings.Opening += new System.ComponentModel.CancelEventHandler(this.cmbApplicationSettings_Opening);
@@ -1968,9 +1971,9 @@
             this.lblDashboardTitle.Font = new System.Drawing.Font("Impact", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDashboardTitle.ForeColor = System.Drawing.Color.Black;
             this.lblDashboardTitle.Location = new System.Drawing.Point(0, 143);
-            this.lblDashboardTitle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.lblDashboardTitle.Margin = new System.Windows.Forms.Padding(2);
             this.lblDashboardTitle.Name = "lblDashboardTitle";
-            this.lblDashboardTitle.Size = new System.Drawing.Size(2009, 50);
+            this.lblDashboardTitle.Size = new System.Drawing.Size(1507, 41);
             this.lblDashboardTitle.TabIndex = 10;
             this.lblDashboardTitle.Text = "Dashboard";
             this.lblDashboardTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1980,8 +1983,7 @@
             // 
             this.sptrDashboardContainer.Cursor = System.Windows.Forms.Cursors.Default;
             this.sptrDashboardContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sptrDashboardContainer.Location = new System.Drawing.Point(0, 193);
-            this.sptrDashboardContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sptrDashboardContainer.Location = new System.Drawing.Point(0, 184);
             // 
             // sptrDashboardContainer.Panel1
             // 
@@ -1991,8 +1993,8 @@
             // 
             this.sptrDashboardContainer.Panel2.Controls.Add(this.kryptonSplitContainer2);
             this.sptrDashboardContainer.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.sptrDashboardContainer.Size = new System.Drawing.Size(2009, 846);
-            this.sptrDashboardContainer.SplitterDistance = 489;
+            this.sptrDashboardContainer.Size = new System.Drawing.Size(1507, 539);
+            this.sptrDashboardContainer.SplitterDistance = 366;
             this.sptrDashboardContainer.TabIndex = 12;
             this.sptrDashboardContainer.Visible = false;
             this.sptrDashboardContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.sptrDashboardContainer_SplitterMoved);
@@ -2002,7 +2004,6 @@
             this.kryptonSplitContainer4.Cursor = System.Windows.Forms.Cursors.Default;
             this.kryptonSplitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonSplitContainer4.Location = new System.Drawing.Point(0, 0);
-            this.kryptonSplitContainer4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.kryptonSplitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // kryptonSplitContainer4.Panel1
@@ -2013,8 +2014,8 @@
             // 
             this.kryptonSplitContainer4.Panel2.Controls.Add(this.kryptonGroupBox4);
             this.kryptonSplitContainer4.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer4.Size = new System.Drawing.Size(489, 846);
-            this.kryptonSplitContainer4.SplitterDistance = 416;
+            this.kryptonSplitContainer4.Size = new System.Drawing.Size(366, 539);
+            this.kryptonSplitContainer4.SplitterDistance = 264;
             this.kryptonSplitContainer4.TabIndex = 0;
             this.kryptonSplitContainer4.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.kryptonSplitContainer4_SplitterMoved);
             // 
@@ -2025,12 +2026,11 @@
             this.kryptonGroupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonGroupBox1.GroupBorderStyle = Krypton.Toolkit.PaletteBorderStyle.ButtonLowProfile;
             this.kryptonGroupBox1.Location = new System.Drawing.Point(0, 0);
-            this.kryptonGroupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             // 
             // kryptonGroupBox1.Panel
             // 
             this.kryptonGroupBox1.Panel.Controls.Add(this.chrtCompanySummaryMatrix);
-            this.kryptonGroupBox1.Size = new System.Drawing.Size(489, 416);
+            this.kryptonGroupBox1.Size = new System.Drawing.Size(366, 264);
             this.kryptonGroupBox1.TabIndex = 0;
             this.kryptonGroupBox1.Values.Heading = "Company Summary Metrics";
             // 
@@ -2039,9 +2039,8 @@
             this.chrtCompanySummaryMatrix.BackColorTransparent = true;
             this.chrtCompanySummaryMatrix.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chrtCompanySummaryMatrix.Location = new System.Drawing.Point(0, 0);
-            this.chrtCompanySummaryMatrix.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chrtCompanySummaryMatrix.Name = "chrtCompanySummaryMatrix";
-            this.chrtCompanySummaryMatrix.Size = new System.Drawing.Size(487, 386);
+            this.chrtCompanySummaryMatrix.Size = new System.Drawing.Size(364, 234);
             this.chrtCompanySummaryMatrix.TabIndex = 0;
             this.chrtCompanySummaryMatrix.Text = "cartesianChart1";
             this.chrtCompanySummaryMatrix.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.chrtCompanySummaryMatrix_ChildChanged);
@@ -2053,12 +2052,11 @@
             this.kryptonGroupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonGroupBox4.GroupBorderStyle = Krypton.Toolkit.PaletteBorderStyle.ButtonLowProfile;
             this.kryptonGroupBox4.Location = new System.Drawing.Point(0, 0);
-            this.kryptonGroupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             // 
             // kryptonGroupBox4.Panel
             // 
             this.kryptonGroupBox4.Panel.Controls.Add(this.dtgUpcomingHolidays);
-            this.kryptonGroupBox4.Size = new System.Drawing.Size(489, 425);
+            this.kryptonGroupBox4.Size = new System.Drawing.Size(366, 270);
             this.kryptonGroupBox4.TabIndex = 2;
             this.kryptonGroupBox4.Values.Heading = "Upcoming Holidays";
             this.kryptonGroupBox4.Paint += new System.Windows.Forms.PaintEventHandler(this.kryptonGroupBox4_Paint_1);
@@ -2077,12 +2075,11 @@
             this.dtgUpcomingHolidays.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
             this.dtgUpcomingHolidays.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
             this.dtgUpcomingHolidays.Location = new System.Drawing.Point(0, 0);
-            this.dtgUpcomingHolidays.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtgUpcomingHolidays.MultiSelect = false;
             this.dtgUpcomingHolidays.Name = "dtgUpcomingHolidays";
             this.dtgUpcomingHolidays.ReadOnly = true;
             this.dtgUpcomingHolidays.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgUpcomingHolidays.Size = new System.Drawing.Size(487, 395);
+            this.dtgUpcomingHolidays.Size = new System.Drawing.Size(364, 240);
             this.dtgUpcomingHolidays.TabIndex = 49;
             this.dtgUpcomingHolidays.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgUpcomingHolidays_CellContentClick);
             this.dtgUpcomingHolidays.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dtgUpcomingHolidays_CellFormatting);
@@ -2094,7 +2091,6 @@
             this.kryptonSplitContainer2.Cursor = System.Windows.Forms.Cursors.Default;
             this.kryptonSplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonSplitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.kryptonSplitContainer2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             // 
             // kryptonSplitContainer2.Panel1
             // 
@@ -2104,8 +2100,8 @@
             // 
             this.kryptonSplitContainer2.Panel2.Controls.Add(this.kryptonSplitContainer1);
             this.kryptonSplitContainer2.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer2.Size = new System.Drawing.Size(1515, 846);
-            this.kryptonSplitContainer2.SplitterDistance = 464;
+            this.kryptonSplitContainer2.Size = new System.Drawing.Size(1136, 539);
+            this.kryptonSplitContainer2.SplitterDistance = 347;
             this.kryptonSplitContainer2.TabIndex = 13;
             this.kryptonSplitContainer2.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.kryptonSplitContainer2_SplitterMoved);
             // 
@@ -2114,7 +2110,6 @@
             this.kryptonSplitContainer5.Cursor = System.Windows.Forms.Cursors.Default;
             this.kryptonSplitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonSplitContainer5.Location = new System.Drawing.Point(0, 0);
-            this.kryptonSplitContainer5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.kryptonSplitContainer5.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // kryptonSplitContainer5.Panel1
@@ -2126,8 +2121,8 @@
             this.kryptonSplitContainer5.Panel2.Controls.Add(this.kryptonGroupBox5);
             this.kryptonSplitContainer5.Panel2.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlackDarkMode;
             this.kryptonSplitContainer5.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer5.Size = new System.Drawing.Size(464, 846);
-            this.kryptonSplitContainer5.SplitterDistance = 416;
+            this.kryptonSplitContainer5.Size = new System.Drawing.Size(347, 539);
+            this.kryptonSplitContainer5.SplitterDistance = 264;
             this.kryptonSplitContainer5.TabIndex = 1;
             this.kryptonSplitContainer5.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.kryptonSplitContainer5_SplitterMoved);
             // 
@@ -2138,12 +2133,11 @@
             this.kryptonGroupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonGroupBox2.GroupBorderStyle = Krypton.Toolkit.PaletteBorderStyle.ButtonLowProfile;
             this.kryptonGroupBox2.Location = new System.Drawing.Point(0, 0);
-            this.kryptonGroupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             // 
             // kryptonGroupBox2.Panel
             // 
             this.kryptonGroupBox2.Panel.Controls.Add(this.chrtCompanyAdvanceSummaryMatrix);
-            this.kryptonGroupBox2.Size = new System.Drawing.Size(464, 416);
+            this.kryptonGroupBox2.Size = new System.Drawing.Size(347, 264);
             this.kryptonGroupBox2.TabIndex = 1;
             this.kryptonGroupBox2.Values.Heading = "Advance Summary Matrix";
             // 
@@ -2152,9 +2146,8 @@
             this.chrtCompanyAdvanceSummaryMatrix.BackColorTransparent = true;
             this.chrtCompanyAdvanceSummaryMatrix.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chrtCompanyAdvanceSummaryMatrix.Location = new System.Drawing.Point(0, 0);
-            this.chrtCompanyAdvanceSummaryMatrix.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chrtCompanyAdvanceSummaryMatrix.Name = "chrtCompanyAdvanceSummaryMatrix";
-            this.chrtCompanyAdvanceSummaryMatrix.Size = new System.Drawing.Size(462, 386);
+            this.chrtCompanyAdvanceSummaryMatrix.Size = new System.Drawing.Size(345, 234);
             this.chrtCompanyAdvanceSummaryMatrix.TabIndex = 0;
             this.chrtCompanyAdvanceSummaryMatrix.Text = "cartesianChart1";
             this.chrtCompanyAdvanceSummaryMatrix.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.chrtCompanyAdvanceSummaryMatrix_ChildChanged);
@@ -2166,7 +2159,6 @@
             this.kryptonGroupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonGroupBox5.GroupBorderStyle = Krypton.Toolkit.PaletteBorderStyle.ButtonLowProfile;
             this.kryptonGroupBox5.Location = new System.Drawing.Point(0, 0);
-            this.kryptonGroupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             // 
             // kryptonGroupBox5.Panel
             // 
@@ -2191,7 +2183,7 @@
             this.kryptonGroupBox5.Panel.Controls.Add(this.label1);
             this.kryptonGroupBox5.Panel.Controls.Add(this.bdgTotalActiveEmployees);
             this.kryptonGroupBox5.Panel.Controls.Add(this.label9);
-            this.kryptonGroupBox5.Size = new System.Drawing.Size(464, 425);
+            this.kryptonGroupBox5.Size = new System.Drawing.Size(347, 270);
             this.kryptonGroupBox5.TabIndex = 2;
             this.kryptonGroupBox5.Values.Heading = "Workforce Overview";
             this.kryptonGroupBox5.Paint += new System.Windows.Forms.PaintEventHandler(this.kryptonGroupBox5_Paint);
@@ -2199,32 +2191,12 @@
             // kryptonPictureBox7
             // 
             this.kryptonPictureBox7.Image = global::StaffSync.Properties.Resources.work_anniversary;
-            this.kryptonPictureBox7.Location = new System.Drawing.Point(329, 377);
-            this.kryptonPictureBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.kryptonPictureBox7.Location = new System.Drawing.Point(247, 306);
             this.kryptonPictureBox7.Name = "kryptonPictureBox7";
-            this.kryptonPictureBox7.Size = new System.Drawing.Size(33, 31);
+            this.kryptonPictureBox7.Size = new System.Drawing.Size(25, 25);
             this.kryptonPictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.kryptonPictureBox7.TabIndex = 90;
             this.kryptonPictureBox7.TabStop = false;
-            // 
-            // bdgWorkAnniversary
-            // 
-            this.bdgWorkAnniversary.BackColor = System.Drawing.Color.Transparent;
-            this.bdgWorkAnniversary.BorderColor = System.Drawing.Color.Transparent;
-            this.bdgWorkAnniversary.BorderThickness = 0;
-            this.bdgWorkAnniversary.CircleBackColor = System.Drawing.Color.DarkSlateGray;
-            this.bdgWorkAnniversary.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bdgWorkAnniversary.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.bdgWorkAnniversary.ForeColor = System.Drawing.Color.Orange;
-            this.bdgWorkAnniversary.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
-            this.bdgWorkAnniversary.Location = new System.Drawing.Point(261, 368);
-            this.bdgWorkAnniversary.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.bdgWorkAnniversary.Name = "bdgWorkAnniversary";
-            this.bdgWorkAnniversary.Size = new System.Drawing.Size(52, 52);
-            this.bdgWorkAnniversary.TabIndex = 89;
-            this.bdgWorkAnniversary.TextColor = System.Drawing.Color.PaleGoldenrod;
-            this.bdgWorkAnniversary.Value = 0;
-            this.bdgWorkAnniversary.DoubleClick += new System.EventHandler(this.bdgWorkAnniversary_DoubleClick);
             // 
             // label6
             // 
@@ -2232,8 +2204,8 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(36, 383);
-            this.label6.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.label6.Location = new System.Drawing.Point(27, 311);
+            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(158, 15);
             this.label6.TabIndex = 88;
@@ -2243,32 +2215,12 @@
             // kryptonPictureBox6
             // 
             this.kryptonPictureBox6.Image = global::StaffSync.Properties.Resources.birthday_cake1;
-            this.kryptonPictureBox6.Location = new System.Drawing.Point(329, 318);
-            this.kryptonPictureBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.kryptonPictureBox6.Location = new System.Drawing.Point(247, 258);
             this.kryptonPictureBox6.Name = "kryptonPictureBox6";
-            this.kryptonPictureBox6.Size = new System.Drawing.Size(33, 31);
+            this.kryptonPictureBox6.Size = new System.Drawing.Size(25, 25);
             this.kryptonPictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.kryptonPictureBox6.TabIndex = 87;
             this.kryptonPictureBox6.TabStop = false;
-            // 
-            // bdgEmployeesBirthday
-            // 
-            this.bdgEmployeesBirthday.BackColor = System.Drawing.Color.Transparent;
-            this.bdgEmployeesBirthday.BorderColor = System.Drawing.Color.Transparent;
-            this.bdgEmployeesBirthday.BorderThickness = 0;
-            this.bdgEmployeesBirthday.CircleBackColor = System.Drawing.Color.SteelBlue;
-            this.bdgEmployeesBirthday.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bdgEmployeesBirthday.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.bdgEmployeesBirthday.ForeColor = System.Drawing.Color.Orange;
-            this.bdgEmployeesBirthday.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
-            this.bdgEmployeesBirthday.Location = new System.Drawing.Point(261, 309);
-            this.bdgEmployeesBirthday.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.bdgEmployeesBirthday.Name = "bdgEmployeesBirthday";
-            this.bdgEmployeesBirthday.Size = new System.Drawing.Size(52, 52);
-            this.bdgEmployeesBirthday.TabIndex = 86;
-            this.bdgEmployeesBirthday.TextColor = System.Drawing.Color.Black;
-            this.bdgEmployeesBirthday.Value = 0;
-            this.bdgEmployeesBirthday.DoubleClick += new System.EventHandler(this.bdgEmployeesBirthday_DoubleClick);
             // 
             // label5
             // 
@@ -2276,8 +2228,8 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(103, 324);
-            this.label5.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.label5.Location = new System.Drawing.Point(77, 263);
+            this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(108, 15);
             this.label5.TabIndex = 85;
@@ -2287,32 +2239,12 @@
             // kryptonPictureBox5
             // 
             this.kryptonPictureBox5.Image = global::StaffSync.Properties.Resources.weekly_off;
-            this.kryptonPictureBox5.Location = new System.Drawing.Point(329, 258);
-            this.kryptonPictureBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.kryptonPictureBox5.Location = new System.Drawing.Point(247, 210);
             this.kryptonPictureBox5.Name = "kryptonPictureBox5";
-            this.kryptonPictureBox5.Size = new System.Drawing.Size(33, 31);
+            this.kryptonPictureBox5.Size = new System.Drawing.Size(25, 25);
             this.kryptonPictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.kryptonPictureBox5.TabIndex = 84;
             this.kryptonPictureBox5.TabStop = false;
-            // 
-            // bdgEmployeesWithWeeklyOff
-            // 
-            this.bdgEmployeesWithWeeklyOff.BackColor = System.Drawing.Color.Transparent;
-            this.bdgEmployeesWithWeeklyOff.BorderColor = System.Drawing.Color.Transparent;
-            this.bdgEmployeesWithWeeklyOff.BorderThickness = 0;
-            this.bdgEmployeesWithWeeklyOff.CircleBackColor = System.Drawing.Color.Gray;
-            this.bdgEmployeesWithWeeklyOff.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bdgEmployeesWithWeeklyOff.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.bdgEmployeesWithWeeklyOff.ForeColor = System.Drawing.Color.Orange;
-            this.bdgEmployeesWithWeeklyOff.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
-            this.bdgEmployeesWithWeeklyOff.Location = new System.Drawing.Point(261, 250);
-            this.bdgEmployeesWithWeeklyOff.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.bdgEmployeesWithWeeklyOff.Name = "bdgEmployeesWithWeeklyOff";
-            this.bdgEmployeesWithWeeklyOff.Size = new System.Drawing.Size(52, 52);
-            this.bdgEmployeesWithWeeklyOff.TabIndex = 83;
-            this.bdgEmployeesWithWeeklyOff.TextColor = System.Drawing.Color.PaleGoldenrod;
-            this.bdgEmployeesWithWeeklyOff.Value = 0;
-            this.bdgEmployeesWithWeeklyOff.DoubleClick += new System.EventHandler(this.bdgEmployeesWithWeeklyOff_DoubleClick);
             // 
             // label4
             // 
@@ -2320,8 +2252,8 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(23, 265);
-            this.label4.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.label4.Location = new System.Drawing.Point(17, 215);
+            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(168, 15);
             this.label4.TabIndex = 82;
@@ -2331,10 +2263,9 @@
             // kryptonPictureBox4
             // 
             this.kryptonPictureBox4.Image = global::StaffSync.Properties.Resources.pending;
-            this.kryptonPictureBox4.Location = new System.Drawing.Point(329, 199);
-            this.kryptonPictureBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.kryptonPictureBox4.Location = new System.Drawing.Point(247, 162);
             this.kryptonPictureBox4.Name = "kryptonPictureBox4";
-            this.kryptonPictureBox4.Size = new System.Drawing.Size(33, 31);
+            this.kryptonPictureBox4.Size = new System.Drawing.Size(25, 25);
             this.kryptonPictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.kryptonPictureBox4.TabIndex = 81;
             this.kryptonPictureBox4.TabStop = false;
@@ -2343,10 +2274,9 @@
             // kryptonPictureBox3
             // 
             this.kryptonPictureBox3.Image = global::StaffSync.Properties.Resources.total_emp_leave;
-            this.kryptonPictureBox3.Location = new System.Drawing.Point(325, 140);
-            this.kryptonPictureBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.kryptonPictureBox3.Location = new System.Drawing.Point(244, 114);
             this.kryptonPictureBox3.Name = "kryptonPictureBox3";
-            this.kryptonPictureBox3.Size = new System.Drawing.Size(41, 36);
+            this.kryptonPictureBox3.Size = new System.Drawing.Size(31, 29);
             this.kryptonPictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.kryptonPictureBox3.TabIndex = 80;
             this.kryptonPictureBox3.TabStop = false;
@@ -2355,10 +2285,9 @@
             // kryptonPictureBox2
             // 
             this.kryptonPictureBox2.Image = global::StaffSync.Properties.Resources.total_emp_present;
-            this.kryptonPictureBox2.Location = new System.Drawing.Point(319, 73);
-            this.kryptonPictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.kryptonPictureBox2.Location = new System.Drawing.Point(239, 59);
             this.kryptonPictureBox2.Name = "kryptonPictureBox2";
-            this.kryptonPictureBox2.Size = new System.Drawing.Size(59, 52);
+            this.kryptonPictureBox2.Size = new System.Drawing.Size(44, 42);
             this.kryptonPictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.kryptonPictureBox2.TabIndex = 79;
             this.kryptonPictureBox2.TabStop = false;
@@ -2367,33 +2296,13 @@
             // kryptonPictureBox1
             // 
             this.kryptonPictureBox1.Image = global::StaffSync.Properties.Resources.all_emps;
-            this.kryptonPictureBox1.Location = new System.Drawing.Point(325, 22);
-            this.kryptonPictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.kryptonPictureBox1.Location = new System.Drawing.Point(244, 18);
             this.kryptonPictureBox1.Name = "kryptonPictureBox1";
-            this.kryptonPictureBox1.Size = new System.Drawing.Size(41, 36);
+            this.kryptonPictureBox1.Size = new System.Drawing.Size(31, 29);
             this.kryptonPictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.kryptonPictureBox1.TabIndex = 78;
             this.kryptonPictureBox1.TabStop = false;
             this.kryptonPictureBox1.Click += new System.EventHandler(this.kryptonPictureBox1_Click);
-            // 
-            // bdgTotalLeaveApprovals
-            // 
-            this.bdgTotalLeaveApprovals.BackColor = System.Drawing.Color.Transparent;
-            this.bdgTotalLeaveApprovals.BorderColor = System.Drawing.Color.Transparent;
-            this.bdgTotalLeaveApprovals.BorderThickness = 0;
-            this.bdgTotalLeaveApprovals.CircleBackColor = System.Drawing.Color.Magenta;
-            this.bdgTotalLeaveApprovals.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bdgTotalLeaveApprovals.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.bdgTotalLeaveApprovals.ForeColor = System.Drawing.Color.Orange;
-            this.bdgTotalLeaveApprovals.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
-            this.bdgTotalLeaveApprovals.Location = new System.Drawing.Point(261, 191);
-            this.bdgTotalLeaveApprovals.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.bdgTotalLeaveApprovals.Name = "bdgTotalLeaveApprovals";
-            this.bdgTotalLeaveApprovals.Size = new System.Drawing.Size(52, 52);
-            this.bdgTotalLeaveApprovals.TabIndex = 77;
-            this.bdgTotalLeaveApprovals.TextColor = System.Drawing.Color.PaleGoldenrod;
-            this.bdgTotalLeaveApprovals.Value = 0;
-            this.bdgTotalLeaveApprovals.DoubleClick += new System.EventHandler(this.bdgTotalLeaveApprovals_DoubleClick);
             // 
             // label3
             // 
@@ -2401,8 +2310,8 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(32, 208);
-            this.label3.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.label3.Location = new System.Drawing.Point(24, 169);
+            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(161, 15);
             this.label3.TabIndex = 76;
@@ -2410,34 +2319,14 @@
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // bdgTotalLeaveEmployees
-            // 
-            this.bdgTotalLeaveEmployees.BackColor = System.Drawing.Color.Transparent;
-            this.bdgTotalLeaveEmployees.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.bdgTotalLeaveEmployees.BorderColor = System.Drawing.Color.Transparent;
-            this.bdgTotalLeaveEmployees.BorderThickness = 0;
-            this.bdgTotalLeaveEmployees.CircleBackColor = System.Drawing.Color.DarkOliveGreen;
-            this.bdgTotalLeaveEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bdgTotalLeaveEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.bdgTotalLeaveEmployees.ForeColor = System.Drawing.Color.SteelBlue;
-            this.bdgTotalLeaveEmployees.HoverBackColor = System.Drawing.Color.Blue;
-            this.bdgTotalLeaveEmployees.Location = new System.Drawing.Point(261, 132);
-            this.bdgTotalLeaveEmployees.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.bdgTotalLeaveEmployees.Name = "bdgTotalLeaveEmployees";
-            this.bdgTotalLeaveEmployees.Size = new System.Drawing.Size(52, 52);
-            this.bdgTotalLeaveEmployees.TabIndex = 75;
-            this.bdgTotalLeaveEmployees.TextColor = System.Drawing.Color.Gold;
-            this.bdgTotalLeaveEmployees.Value = 0;
-            this.bdgTotalLeaveEmployees.DoubleClick += new System.EventHandler(this.bdgTotalLeaveEmployees_DoubleClick);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(59, 149);
-            this.label2.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.label2.Location = new System.Drawing.Point(44, 121);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(141, 15);
             this.label2.TabIndex = 74;
@@ -2445,32 +2334,14 @@
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label2.Click += new System.EventHandler(this.label2_Click_1);
             // 
-            // bdgTotalPresentEmployees
-            // 
-            this.bdgTotalPresentEmployees.BackColor = System.Drawing.Color.Transparent;
-            this.bdgTotalPresentEmployees.BorderColor = System.Drawing.Color.Transparent;
-            this.bdgTotalPresentEmployees.BorderThickness = 0;
-            this.bdgTotalPresentEmployees.CircleBackColor = System.Drawing.Color.Green;
-            this.bdgTotalPresentEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bdgTotalPresentEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.bdgTotalPresentEmployees.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
-            this.bdgTotalPresentEmployees.Location = new System.Drawing.Point(261, 73);
-            this.bdgTotalPresentEmployees.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.bdgTotalPresentEmployees.Name = "bdgTotalPresentEmployees";
-            this.bdgTotalPresentEmployees.Size = new System.Drawing.Size(52, 52);
-            this.bdgTotalPresentEmployees.TabIndex = 73;
-            this.bdgTotalPresentEmployees.TextColor = System.Drawing.Color.Yellow;
-            this.bdgTotalPresentEmployees.Value = 0;
-            this.bdgTotalPresentEmployees.DoubleClick += new System.EventHandler(this.bdgTotalPresentEmployees_DoubleClick);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(73, 90);
-            this.label1.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.label1.Location = new System.Drawing.Point(55, 73);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 15);
             this.label1.TabIndex = 72;
@@ -2478,31 +2349,14 @@
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label1.Click += new System.EventHandler(this.label1_Click_1);
             // 
-            // bdgTotalActiveEmployees
-            // 
-            this.bdgTotalActiveEmployees.BackColor = System.Drawing.Color.Transparent;
-            this.bdgTotalActiveEmployees.BorderColor = System.Drawing.Color.Transparent;
-            this.bdgTotalActiveEmployees.BorderThickness = 0;
-            this.bdgTotalActiveEmployees.CircleBackColor = System.Drawing.Color.Blue;
-            this.bdgTotalActiveEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bdgTotalActiveEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.bdgTotalActiveEmployees.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
-            this.bdgTotalActiveEmployees.Location = new System.Drawing.Point(261, 14);
-            this.bdgTotalActiveEmployees.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.bdgTotalActiveEmployees.Name = "bdgTotalActiveEmployees";
-            this.bdgTotalActiveEmployees.Size = new System.Drawing.Size(52, 52);
-            this.bdgTotalActiveEmployees.TabIndex = 71;
-            this.bdgTotalActiveEmployees.TextColor = System.Drawing.Color.Yellow;
-            this.bdgTotalActiveEmployees.Value = 0;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(100, 31);
-            this.label9.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.label9.Location = new System.Drawing.Point(75, 25);
+            this.label9.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(110, 15);
             this.label9.TabIndex = 70;
@@ -2515,7 +2369,6 @@
             this.kryptonSplitContainer1.Cursor = System.Windows.Forms.Cursors.Default;
             this.kryptonSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonSplitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.kryptonSplitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.kryptonSplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // kryptonSplitContainer1.Panel1
@@ -2526,8 +2379,8 @@
             // 
             this.kryptonSplitContainer1.Panel2.Controls.Add(this.kryptonSplitContainer3);
             this.kryptonSplitContainer1.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer1.Size = new System.Drawing.Size(1046, 846);
-            this.kryptonSplitContainer1.SplitterDistance = 417;
+            this.kryptonSplitContainer1.Size = new System.Drawing.Size(784, 539);
+            this.kryptonSplitContainer1.SplitterDistance = 264;
             this.kryptonSplitContainer1.TabIndex = 0;
             this.kryptonSplitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.kryptonSplitContainer1_SplitterMoved);
             // 
@@ -2538,12 +2391,11 @@
             this.kryptonGroupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonGroupBox3.GroupBorderStyle = Krypton.Toolkit.PaletteBorderStyle.ButtonLowProfile;
             this.kryptonGroupBox3.Location = new System.Drawing.Point(0, 0);
-            this.kryptonGroupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             // 
             // kryptonGroupBox3.Panel
             // 
             this.kryptonGroupBox3.Panel.Controls.Add(this.dtgAdvanceRiskBase);
-            this.kryptonGroupBox3.Size = new System.Drawing.Size(1046, 417);
+            this.kryptonGroupBox3.Size = new System.Drawing.Size(784, 264);
             this.kryptonGroupBox3.TabIndex = 4;
             this.kryptonGroupBox3.Values.Heading = "Advance Risk Base Matrix";
             this.kryptonGroupBox3.Paint += new System.Windows.Forms.PaintEventHandler(this.kryptonGroupBox3_Paint);
@@ -2561,12 +2413,11 @@
             this.dtgAdvanceRiskBase.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
             this.dtgAdvanceRiskBase.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
             this.dtgAdvanceRiskBase.Location = new System.Drawing.Point(0, 0);
-            this.dtgAdvanceRiskBase.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtgAdvanceRiskBase.MultiSelect = false;
             this.dtgAdvanceRiskBase.Name = "dtgAdvanceRiskBase";
             this.dtgAdvanceRiskBase.ReadOnly = true;
             this.dtgAdvanceRiskBase.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgAdvanceRiskBase.Size = new System.Drawing.Size(1044, 387);
+            this.dtgAdvanceRiskBase.Size = new System.Drawing.Size(782, 234);
             this.dtgAdvanceRiskBase.TabIndex = 48;
             this.dtgAdvanceRiskBase.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAdvanceRiskBase_CellContentClick);
             this.dtgAdvanceRiskBase.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAdvanceRiskBase_CellDoubleClick);
@@ -2577,7 +2428,6 @@
             this.kryptonSplitContainer3.Cursor = System.Windows.Forms.Cursors.Default;
             this.kryptonSplitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonSplitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.kryptonSplitContainer3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             // 
             // kryptonSplitContainer3.Panel1
             // 
@@ -2587,8 +2437,8 @@
             // 
             this.kryptonSplitContainer3.Panel2.Controls.Add(this.kryptonSplitContainer6);
             this.kryptonSplitContainer3.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer3.Size = new System.Drawing.Size(1046, 424);
-            this.kryptonSplitContainer3.SplitterDistance = 387;
+            this.kryptonSplitContainer3.Size = new System.Drawing.Size(784, 270);
+            this.kryptonSplitContainer3.SplitterDistance = 290;
             this.kryptonSplitContainer3.TabIndex = 0;
             this.kryptonSplitContainer3.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.kryptonSplitContainer3_SplitterMoved);
             // 
@@ -2596,10 +2446,9 @@
             // 
             this.Dashboard01.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Dashboard01.Location = new System.Drawing.Point(0, 0);
-            this.Dashboard01.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Dashboard01.Name = "Dashboard01";
             this.Dashboard01.ScriptErrorsSuppressed = true;
-            this.Dashboard01.Size = new System.Drawing.Size(387, 424);
+            this.Dashboard01.Size = new System.Drawing.Size(290, 270);
             this.Dashboard01.TabIndex = 0;
             this.Dashboard01.TabStop = false;
             // 
@@ -2608,10 +2457,9 @@
             this.kryptonSplitContainer6.Cursor = System.Windows.Forms.Cursors.Default;
             this.kryptonSplitContainer6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonSplitContainer6.Location = new System.Drawing.Point(0, 0);
-            this.kryptonSplitContainer6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.kryptonSplitContainer6.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.kryptonSplitContainer6.Size = new System.Drawing.Size(654, 424);
-            this.kryptonSplitContainer6.SplitterDistance = 326;
+            this.kryptonSplitContainer6.Size = new System.Drawing.Size(489, 270);
+            this.kryptonSplitContainer6.SplitterDistance = 243;
             this.kryptonSplitContainer6.TabIndex = 0;
             this.kryptonSplitContainer6.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.kryptonSplitContainer6_SplitterMoved);
             // 
@@ -2635,13 +2483,149 @@
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             this.kryptonRibbonGroupButton5.Click += new System.EventHandler(this.kryptonRibbonGroupButton5_Click);
             // 
+            // toolStripMenuItem30
+            // 
+            this.toolStripMenuItem30.Name = "toolStripMenuItem30";
+            this.toolStripMenuItem30.Size = new System.Drawing.Size(225, 6);
+            // 
+            // cmbSchedulerJobsSettings
+            // 
+            this.cmbSchedulerJobsSettings.Name = "cmbSchedulerJobsSettings";
+            this.cmbSchedulerJobsSettings.Size = new System.Drawing.Size(228, 22);
+            this.cmbSchedulerJobsSettings.Text = "Scheduler Settings";
+            this.cmbSchedulerJobsSettings.Click += new System.EventHandler(this.cmbSchedulerJobsSettings_Click);
+            // 
+            // bdgWorkAnniversary
+            // 
+            this.bdgWorkAnniversary.BackColor = System.Drawing.Color.Transparent;
+            this.bdgWorkAnniversary.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgWorkAnniversary.BorderThickness = 0;
+            this.bdgWorkAnniversary.CircleBackColor = System.Drawing.Color.DarkSlateGray;
+            this.bdgWorkAnniversary.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgWorkAnniversary.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgWorkAnniversary.ForeColor = System.Drawing.Color.Orange;
+            this.bdgWorkAnniversary.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgWorkAnniversary.Location = new System.Drawing.Point(196, 299);
+            this.bdgWorkAnniversary.Name = "bdgWorkAnniversary";
+            this.bdgWorkAnniversary.Size = new System.Drawing.Size(42, 42);
+            this.bdgWorkAnniversary.TabIndex = 89;
+            this.bdgWorkAnniversary.TextColor = System.Drawing.Color.PaleGoldenrod;
+            this.bdgWorkAnniversary.Value = 0;
+            this.bdgWorkAnniversary.DoubleClick += new System.EventHandler(this.bdgWorkAnniversary_DoubleClick);
+            // 
+            // bdgEmployeesBirthday
+            // 
+            this.bdgEmployeesBirthday.BackColor = System.Drawing.Color.Transparent;
+            this.bdgEmployeesBirthday.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgEmployeesBirthday.BorderThickness = 0;
+            this.bdgEmployeesBirthday.CircleBackColor = System.Drawing.Color.SteelBlue;
+            this.bdgEmployeesBirthday.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgEmployeesBirthday.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgEmployeesBirthday.ForeColor = System.Drawing.Color.Orange;
+            this.bdgEmployeesBirthday.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgEmployeesBirthday.Location = new System.Drawing.Point(196, 251);
+            this.bdgEmployeesBirthday.Name = "bdgEmployeesBirthday";
+            this.bdgEmployeesBirthday.Size = new System.Drawing.Size(42, 42);
+            this.bdgEmployeesBirthday.TabIndex = 86;
+            this.bdgEmployeesBirthday.TextColor = System.Drawing.Color.Black;
+            this.bdgEmployeesBirthday.Value = 0;
+            this.bdgEmployeesBirthday.DoubleClick += new System.EventHandler(this.bdgEmployeesBirthday_DoubleClick);
+            // 
+            // bdgEmployeesWithWeeklyOff
+            // 
+            this.bdgEmployeesWithWeeklyOff.BackColor = System.Drawing.Color.Transparent;
+            this.bdgEmployeesWithWeeklyOff.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgEmployeesWithWeeklyOff.BorderThickness = 0;
+            this.bdgEmployeesWithWeeklyOff.CircleBackColor = System.Drawing.Color.Gray;
+            this.bdgEmployeesWithWeeklyOff.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgEmployeesWithWeeklyOff.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgEmployeesWithWeeklyOff.ForeColor = System.Drawing.Color.Orange;
+            this.bdgEmployeesWithWeeklyOff.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgEmployeesWithWeeklyOff.Location = new System.Drawing.Point(196, 203);
+            this.bdgEmployeesWithWeeklyOff.Name = "bdgEmployeesWithWeeklyOff";
+            this.bdgEmployeesWithWeeklyOff.Size = new System.Drawing.Size(42, 42);
+            this.bdgEmployeesWithWeeklyOff.TabIndex = 83;
+            this.bdgEmployeesWithWeeklyOff.TextColor = System.Drawing.Color.PaleGoldenrod;
+            this.bdgEmployeesWithWeeklyOff.Value = 0;
+            this.bdgEmployeesWithWeeklyOff.DoubleClick += new System.EventHandler(this.bdgEmployeesWithWeeklyOff_DoubleClick);
+            // 
+            // bdgTotalLeaveApprovals
+            // 
+            this.bdgTotalLeaveApprovals.BackColor = System.Drawing.Color.Transparent;
+            this.bdgTotalLeaveApprovals.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgTotalLeaveApprovals.BorderThickness = 0;
+            this.bdgTotalLeaveApprovals.CircleBackColor = System.Drawing.Color.Magenta;
+            this.bdgTotalLeaveApprovals.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgTotalLeaveApprovals.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgTotalLeaveApprovals.ForeColor = System.Drawing.Color.Orange;
+            this.bdgTotalLeaveApprovals.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgTotalLeaveApprovals.Location = new System.Drawing.Point(196, 155);
+            this.bdgTotalLeaveApprovals.Name = "bdgTotalLeaveApprovals";
+            this.bdgTotalLeaveApprovals.Size = new System.Drawing.Size(42, 42);
+            this.bdgTotalLeaveApprovals.TabIndex = 77;
+            this.bdgTotalLeaveApprovals.TextColor = System.Drawing.Color.PaleGoldenrod;
+            this.bdgTotalLeaveApprovals.Value = 0;
+            this.bdgTotalLeaveApprovals.DoubleClick += new System.EventHandler(this.bdgTotalLeaveApprovals_DoubleClick);
+            // 
+            // bdgTotalLeaveEmployees
+            // 
+            this.bdgTotalLeaveEmployees.BackColor = System.Drawing.Color.Transparent;
+            this.bdgTotalLeaveEmployees.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bdgTotalLeaveEmployees.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgTotalLeaveEmployees.BorderThickness = 0;
+            this.bdgTotalLeaveEmployees.CircleBackColor = System.Drawing.Color.DarkOliveGreen;
+            this.bdgTotalLeaveEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgTotalLeaveEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgTotalLeaveEmployees.ForeColor = System.Drawing.Color.SteelBlue;
+            this.bdgTotalLeaveEmployees.HoverBackColor = System.Drawing.Color.Blue;
+            this.bdgTotalLeaveEmployees.Location = new System.Drawing.Point(196, 107);
+            this.bdgTotalLeaveEmployees.Name = "bdgTotalLeaveEmployees";
+            this.bdgTotalLeaveEmployees.Size = new System.Drawing.Size(42, 42);
+            this.bdgTotalLeaveEmployees.TabIndex = 75;
+            this.bdgTotalLeaveEmployees.TextColor = System.Drawing.Color.Gold;
+            this.bdgTotalLeaveEmployees.Value = 0;
+            this.bdgTotalLeaveEmployees.DoubleClick += new System.EventHandler(this.bdgTotalLeaveEmployees_DoubleClick);
+            // 
+            // bdgTotalPresentEmployees
+            // 
+            this.bdgTotalPresentEmployees.BackColor = System.Drawing.Color.Transparent;
+            this.bdgTotalPresentEmployees.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgTotalPresentEmployees.BorderThickness = 0;
+            this.bdgTotalPresentEmployees.CircleBackColor = System.Drawing.Color.Green;
+            this.bdgTotalPresentEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgTotalPresentEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgTotalPresentEmployees.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgTotalPresentEmployees.Location = new System.Drawing.Point(196, 59);
+            this.bdgTotalPresentEmployees.Name = "bdgTotalPresentEmployees";
+            this.bdgTotalPresentEmployees.Size = new System.Drawing.Size(42, 42);
+            this.bdgTotalPresentEmployees.TabIndex = 73;
+            this.bdgTotalPresentEmployees.TextColor = System.Drawing.Color.Yellow;
+            this.bdgTotalPresentEmployees.Value = 0;
+            this.bdgTotalPresentEmployees.DoubleClick += new System.EventHandler(this.bdgTotalPresentEmployees_DoubleClick);
+            // 
+            // bdgTotalActiveEmployees
+            // 
+            this.bdgTotalActiveEmployees.BackColor = System.Drawing.Color.Transparent;
+            this.bdgTotalActiveEmployees.BorderColor = System.Drawing.Color.Transparent;
+            this.bdgTotalActiveEmployees.BorderThickness = 0;
+            this.bdgTotalActiveEmployees.CircleBackColor = System.Drawing.Color.Blue;
+            this.bdgTotalActiveEmployees.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bdgTotalActiveEmployees.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.bdgTotalActiveEmployees.HoverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(98)))), ((int)(((byte)(150)))));
+            this.bdgTotalActiveEmployees.Location = new System.Drawing.Point(196, 11);
+            this.bdgTotalActiveEmployees.Name = "bdgTotalActiveEmployees";
+            this.bdgTotalActiveEmployees.Size = new System.Drawing.Size(42, 42);
+            this.bdgTotalActiveEmployees.TabIndex = 71;
+            this.bdgTotalActiveEmployees.TextColor = System.Drawing.Color.Yellow;
+            this.bdgTotalActiveEmployees.Value = 0;
+            // 
             // frmDashboard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(2009, 1061);
+            this.ClientSize = new System.Drawing.Size(1507, 745);
             this.Controls.Add(this.sptrDashboardContainer);
             this.Controls.Add(this.lblDashboardTitle);
             this.Controls.Add(this.tblRibbon);
@@ -2649,7 +2633,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmDashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Staffsync Dashboard";
@@ -2991,6 +2974,8 @@
         private System.Windows.Forms.ToolStripMenuItem assetsCategoryListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem assetsListToolStripMenuItem;
         private Krypton.Toolkit.KryptonWebBrowser Dashboard01;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem30;
+        private System.Windows.Forms.ToolStripMenuItem cmbSchedulerJobsSettings;
     }
 }
 

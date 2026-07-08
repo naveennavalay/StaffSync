@@ -105,33 +105,109 @@ namespace StaffSyncJobs.Scheduler
 
         private static ITrigger CreateDailyTrigger(SchedulerJobModel job)
         {
-            throw new NotImplementedException();
+            DateTime startDate = job.StartDate ?? DateTime.Today;
+            DateTime runTime = job.RunTime ?? DateTime.Now;
+
+            DateTime firstRun = new DateTime(
+                startDate.Year,
+                startDate.Month,
+                startDate.Day,
+                runTime.Hour,
+                runTime.Minute,
+                runTime.Second);
+
+            string cron =
+                $"0 {runTime.Minute} {runTime.Hour} * * ?";
+
+            return TriggerBuilder.Create()
+                .WithIdentity(job.JobCode + "_Trigger")
+                .StartAt(firstRun)
+                .WithCronSchedule(cron)
+                .Build();
         }
 
-        
+
         private static ITrigger CreateWeeklyTrigger(SchedulerJobModel job)
         {
-            throw new NotImplementedException();
+            DateTime startDate = job.StartDate ?? DateTime.Today;
+            DateTime runTime = job.RunTime ?? DateTime.Now;
+
+            DateTime firstRun = new DateTime(
+                startDate.Year,
+                startDate.Month,
+                startDate.Day,
+                runTime.Hour,
+                runTime.Minute,
+                runTime.Second);
+
+            DayOfWeek day = (DayOfWeek)job.DayOfWeek;
+
+            string cron =
+                $"0 {runTime.Minute} {runTime.Hour} ? * {(int)day + 1}";
+
+            return TriggerBuilder.Create()
+                .WithIdentity(job.JobCode + "_Trigger")
+                .StartAt(firstRun)
+                .WithCronSchedule(cron)
+                .Build();
         }
 
-        
+
         private static ITrigger CreateMonthlyTrigger(SchedulerJobModel job)
         {
-            throw new NotImplementedException();
+            DateTime startDate = job.StartDate ?? DateTime.Today;
+            DateTime runTime = job.RunTime ?? DateTime.Now;
+
+            int day = job.DayOfMonth <= 0 ? 1 : job.DayOfMonth;
+
+            DateTime firstRun = new DateTime(
+                startDate.Year,
+                startDate.Month,
+                startDate.Day,
+                runTime.Hour,
+                runTime.Minute,
+                runTime.Second);
+
+            string cron =
+                $"0 {runTime.Minute} {runTime.Hour} {day} * ?";
+
+            return TriggerBuilder.Create()
+                .WithIdentity(job.JobCode + "_Trigger")
+                .StartAt(firstRun)
+                .WithCronSchedule(cron)
+                .Build();
         }
 
         private static ITrigger CreateYearlyTrigger(SchedulerJobModel job)
         {
-            throw new NotImplementedException();
+            DateTime startDate = job.StartDate ?? DateTime.Today;
+            DateTime runTime = job.RunTime ?? DateTime.Now;
+
+            DateTime firstRun = new DateTime(
+                startDate.Year,
+                startDate.Month,
+                startDate.Day,
+                runTime.Hour,
+                runTime.Minute,
+                runTime.Second);
+
+            string cron =
+                $"0 {runTime.Minute} {runTime.Hour} {startDate.Day} {startDate.Month} ?";
+
+            return TriggerBuilder.Create()
+                .WithIdentity(job.JobCode + "_Trigger")
+                .StartAt(firstRun)
+                .WithCronSchedule(cron)
+                .Build();
         }
 
         private static ITrigger CreateCronTrigger(SchedulerJobModel job)
         {
-            if (string.IsNullOrWhiteSpace(job.CronExpression))
-                throw new Exception("Cron Expression is empty.");
+            DateTime startDate = job.StartDate ?? DateTime.Now;
 
             return TriggerBuilder.Create()
                 .WithIdentity(job.JobCode + "_Trigger")
+                .StartAt(startDate)
                 .WithCronSchedule(job.CronExpression)
                 .Build();
         }

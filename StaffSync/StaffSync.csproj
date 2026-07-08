@@ -395,6 +395,12 @@
     <Compile Include="frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSchedulerJobDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSchedulerJobDetails.Designer.cs">
+      <DependentUpon>frmSchedulerJobDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAdvanceConfigInfoReadOnly.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -466,6 +472,12 @@
     </Compile>
     <Compile Include="frmIndPayrollMaster.Designer.cs">
       <DependentUpon>frmIndPayrollMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSchedulerDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSchedulerDashboard.Designer.cs">
+      <DependentUpon>frmSchedulerDashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="frmUpdateAdvanceStatus.cs">
       <SubType>Form</SubType>
@@ -981,6 +993,9 @@
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmSchedulerJobDetails.resx">
+      <DependentUpon>frmSchedulerJobDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAdvanceConfigInfoReadOnly.resx">
       <DependentUpon>frmAdvanceConfigInfoReadOnly.cs</DependentUpon>
     </EmbeddedResource>
@@ -1016,6 +1031,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPayrollConfiguration.resx">
       <DependentUpon>frmPayrollConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSchedulerDashboard.resx">
+      <DependentUpon>frmSchedulerDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUpdateAdvanceStatus.resx">
       <DependentUpon>frmUpdateAdvanceStatus.cs</DependentUpon>
@@ -1373,6 +1391,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hrm02.ico" />
+    <None Include="images\icons\runningjobs.ico" />
+    <None Include="images\icons\stop.ico" />
+    <None Include="images\icons\refresh.ico" />
+    <None Include="images\icons\disabled.ico" />
+    <None Include="images\icons\success.ico" />
     <Content Include="libwkhtmltox.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

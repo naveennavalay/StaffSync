@@ -7030,5 +7030,25 @@ namespace StaffSync
                 frmEmpAssetRequest.WindowState = FormWindowState.Maximized;
             }
         }
+
+        private void cmbSchedulerJobsSettings_Click(object sender, EventArgs e)
+        {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Scheduler Jobs Management Configuration";
+                sptrDashboardContainer.Visible = false;
+                frmSchedulerDashboard frmSchedulerDashboard = new frmSchedulerDashboard(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmSchedulerDashboard.MdiParent = this;
+                frmSchedulerDashboard.Dock = DockStyle.Fill;
+                frmSchedulerDashboard.Show();
+                frmSchedulerDashboard.WindowState = FormWindowState.Maximized;
+            }
+        }
     }
 }

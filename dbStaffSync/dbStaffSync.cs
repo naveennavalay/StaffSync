@@ -10,7 +10,7 @@ namespace dbStaffSync
     {
         //string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\StaffsyncDB.accdb";
         string connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Development\\StaffSync\\StaffSync\\bin\\Debug\\StaffsyncDB.accdb";
-        public OleDbConnection conn = null;
+        OleDbConnection conn = null;
 
         public OleDbConnection openDBConnection()
         {
@@ -23,8 +23,12 @@ namespace dbStaffSync
 
         public OleDbConnection closeDBConnection()
         {
+            //if (conn == null)
+            //    conn = new OleDbConnection(connString);
             if (conn.State == System.Data.ConnectionState.Open)
                 conn.Close();
+            //if (conn.State == System.Data.ConnectionState.Closed)
+            //    conn.Open();
 
             return conn;
         }

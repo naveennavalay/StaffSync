@@ -20,7 +20,7 @@ namespace dbStaffSync
 
         }
 
-        public int InsertEmployeePersonalInfo(int txtEmployeeID, DateTime txtEmployeeDOB, DateTime txtEmployeeDOJ, int txtEmployeeQualID, int txtPermanentAddressID, int txtCurrentAddressID, string ContactNumber1, string ContactNumber2, int txtContactID1, int txtContactID2, int txtEmployeeSexID, int txtEmployeeLastCompayID, int txtClientBranchID)
+        public int InsertEmployeePersonalInfo(int txtEmployeeID, DateTime txtEmployeeDOB, DateTime txtEmployeeDOJ, DateTime txtLastDateOfProbation, DateTime txtDateOfConfirmation, int txtEmployeeQualID, int txtPermanentAddressID, int txtCurrentAddressID, string ContactNumber1, string ContactNumber2, int txtContactID1, int txtContactID2, int txtEmployeeSexID, int txtEmployeeLastCompayID, int txtClientBranchID)
         {
             int affectedRows = 0;
             try
@@ -30,8 +30,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO PersonalInfoMas (PersonalInfoID, EmpID, DOB, DOJ, EduQualID, PerAddressID, CurAddressID, ContactNumber1, ContactNumber2, ContactID1, ContactID2, SexID, LastCompanyInfoID, ClientBranchID) VALUES " +
-                 "(" + maxRowCount.Data + "," + txtEmployeeID + ",'" + txtEmployeeDOB.ToString("dd-MMM-yyyy") + "','" + txtEmployeeDOJ.ToString("dd-MMM-yyyy") + "'," + txtEmployeeQualID + "," + txtPermanentAddressID + "," + txtCurrentAddressID + ",'" + ContactNumber1 + "','" + ContactNumber2 +"'," + txtContactID1 + "," + txtContactID2 + "," + txtEmployeeSexID + "," + txtEmployeeLastCompayID + "," + txtClientBranchID + ")";
+                string strQuery = "INSERT INTO PersonalInfoMas (PersonalInfoID, EmpID, DOB, DOJ, LastDateOfProbation, DateOfConfirmation, EduQualID, PerAddressID, CurAddressID, ContactNumber1, ContactNumber2, ContactID1, ContactID2, SexID, LastCompanyInfoID, ClientBranchID) VALUES " +
+                 "(" + maxRowCount.Data + "," + txtEmployeeID + ",'" + txtEmployeeDOB.ToString("dd-MMM-yyyy") + "','" + txtEmployeeDOJ.ToString("dd-MMM-yyyy") + "','" + txtLastDateOfProbation.ToString("dd-MMM-yyyy")  + "','" + txtDateOfConfirmation.ToString("dd-MMM-yyyy")  + "'," + txtEmployeeQualID + "," + txtPermanentAddressID + "," + txtCurrentAddressID + ",'" + ContactNumber1 + "','" + ContactNumber2 +"'," + txtContactID1 + "," + txtContactID2 + "," + txtEmployeeSexID + "," + txtEmployeeLastCompayID + "," + txtClientBranchID + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -53,7 +53,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpdateEmployeePersonalInfo(int txtEmployeeID, DateTime txtEmployeeDOB, DateTime txtEmployeeDOJ, int txtEmployeeQualID, int txtPermanentAddressID, int txtCurrentAddressID, string ContactNumber1, string ContactNumber2, int txtContactID1, int txtContactID2, int txtEmployeeSexID, int txtEmployeeLastCompayID, int txtClientBranchID)
+        public int UpdateEmployeePersonalInfo(int txtEmployeeID, DateTime txtEmployeeDOB, DateTime txtEmployeeDOJ, DateTime txtLastDateOfProbation, DateTime txtDateOfConfirmation, int txtEmployeeQualID, int txtPermanentAddressID, int txtCurrentAddressID, string ContactNumber1, string ContactNumber2, int txtContactID1, int txtContactID2, int txtEmployeeSexID, int txtEmployeeLastCompayID, int txtClientBranchID)
         {
             int affectedRows = 0;
             try
@@ -62,7 +62,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE PersonalInfoMas SET " +
-                "DOB = '" + txtEmployeeDOB.ToString("dd-MMM-yyyy") + "', DOJ = '" + txtEmployeeDOJ.ToString("dd-MMM-yyyy") + "', EduQualID = " + txtEmployeeQualID + ", PerAddressID = " + txtPermanentAddressID + ", CurAddressID = " + txtCurrentAddressID + ", ContactNumber1 = '" + ContactNumber1 + "', ContactNumber2 = '" + ContactNumber2 + "', ContactID1 = " + txtContactID1 + ", ContactID2 = " + txtContactID2 + ", SexID = " + txtEmployeeSexID + ", LastCompanyInfoID = " + txtEmployeeLastCompayID + ", ClientBranchID = " + txtClientBranchID +
+                "DOB = '" + txtEmployeeDOB.ToString("dd-MMM-yyyy") + "', DOJ = '" + txtEmployeeDOJ.ToString("dd-MMM-yyyy") + "', LastDateOfProbation = '" + txtLastDateOfProbation.ToString("dd-MMM-yyyy") + "', DateOfConfirmation = '" + txtDateOfConfirmation.ToString("dd-MMM-yyyy") + "', EduQualID = " + txtEmployeeQualID + ", PerAddressID = " + txtPermanentAddressID + ", CurAddressID = " + txtCurrentAddressID + ", ContactNumber1 = '" + ContactNumber1 + "', ContactNumber2 = '" + ContactNumber2 + "', ContactID1 = " + txtContactID1 + ", ContactID2 = " + txtContactID2 + ", SexID = " + txtEmployeeSexID + ", LastCompanyInfoID = " + txtEmployeeLastCompayID + ", ClientBranchID = " + txtClientBranchID +
                 " WHERE EmpID = " + txtEmployeeID;
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -112,6 +112,8 @@ namespace dbStaffSync
                     empPersonalPersonalInfo.EmpID = objEmpPersonalPersonalInfo[0].EmpID;
                     empPersonalPersonalInfo.DOB = objEmpPersonalPersonalInfo[0].DOB;
                     empPersonalPersonalInfo.DOJ = objEmpPersonalPersonalInfo[0].DOJ;
+                    empPersonalPersonalInfo.LastDateOfProbation = objEmpPersonalPersonalInfo[0].LastDateOfProbation;
+                    empPersonalPersonalInfo.DateOfConfirmation = objEmpPersonalPersonalInfo[0].DateOfConfirmation;
                     empPersonalPersonalInfo.EduQualID = objEmpPersonalPersonalInfo[0].EduQualID;
                     empPersonalPersonalInfo.PerAddressID = objEmpPersonalPersonalInfo[0].PerAddressID;
                     empPersonalPersonalInfo.CurAddressID = objEmpPersonalPersonalInfo[0].CurAddressID;

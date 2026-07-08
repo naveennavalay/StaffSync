@@ -84,31 +84,22 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.txtEmployeeName = new Krypton.Toolkit.KryptonTextBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.tabPersonalPhoto = new Krypton.Navigator.KryptonPage();
-            this.btnEmpPhotoUpload = new Krypton.Toolkit.KryptonButton();
-            this.txtEmpPhoto = new Krypton.Toolkit.KryptonTextBox();
-            this.label39 = new System.Windows.Forms.Label();
-            this.picEmpPhoto = new System.Windows.Forms.PictureBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.tabFamilyMemberInfo = new Krypton.Navigator.KryptonPage();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.dtgFamilyMemberInforamtion = new Krypton.Toolkit.KryptonDataGridView();
             this.tabProfessionalInfo = new Krypton.Navigator.KryptonPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btnReportingManagerSearch = new Krypton.Toolkit.KryptonButton();
-            this.txtRepEmpContactNumber = new Krypton.Toolkit.KryptonTextBox();
             this.txtRepEmpDepartment = new Krypton.Toolkit.KryptonTextBox();
             this.txtRepEmpDesig = new Krypton.Toolkit.KryptonTextBox();
             this.txtRepEmpName = new Krypton.Toolkit.KryptonTextBox();
             this.txtRepEmpCode = new Krypton.Toolkit.KryptonTextBox();
             this.lblReportingManagerID = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.picRepEmpPhoto = new System.Windows.Forms.PictureBox();
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
+            this.txtRepEmpContactNumber = new Krypton.Toolkit.KryptonTextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.cmbNomineeRelationship = new Krypton.Toolkit.KryptonComboBox();
             this.txtNomineeContactNumber = new Krypton.Toolkit.KryptonTextBox();
@@ -126,6 +117,10 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtConfirmationDate = new System.Windows.Forms.MaskedTextBox();
+            this.label72 = new System.Windows.Forms.Label();
+            this.txtLastDateOfProbation = new System.Windows.Forms.MaskedTextBox();
+            this.label71 = new System.Windows.Forms.Label();
             this.cmbEmpBranch = new Krypton.Toolkit.KryptonComboBox();
             this.label57 = new System.Windows.Forms.Label();
             this.txtDateOfJoining = new System.Windows.Forms.MaskedTextBox();
@@ -142,6 +137,15 @@
             this.cmbDepartment = new Krypton.Toolkit.KryptonComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
+            this.tabPersonalPhoto = new Krypton.Navigator.KryptonPage();
+            this.btnEmpPhotoUpload = new Krypton.Toolkit.KryptonButton();
+            this.txtEmpPhoto = new Krypton.Toolkit.KryptonTextBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.picEmpPhoto = new System.Windows.Forms.PictureBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.tabFamilyMemberInfo = new Krypton.Navigator.KryptonPage();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.dtgFamilyMemberInforamtion = new Krypton.Toolkit.KryptonDataGridView();
             this.tabPreviousExperience1 = new Krypton.Navigator.KryptonPage();
             this.picPrevExperience = new System.Windows.Forms.PictureBox();
             this.dtgPreviousWorkExp = new Krypton.Toolkit.KryptonDataGridView();
@@ -237,6 +241,7 @@
             this.label63 = new System.Windows.Forms.Label();
             this.label64 = new System.Windows.Forms.Label();
             this.tabSalaryProfile = new Krypton.Navigator.KryptonPage();
+            this.btnSalaryConfig = new Krypton.Toolkit.KryptonButton();
             this.txtTaxSchemeEffectiveFrom = new System.Windows.Forms.MaskedTextBox();
             this.label52 = new System.Windows.Forms.Label();
             this.cmbEmpTaxScheme = new Krypton.Toolkit.KryptonComboBox();
@@ -281,14 +286,13 @@
             this.skillsMasTableAdapter = new StaffSync.StaffsyncDBDataSetTableAdapters.SkillsMasTableAdapter();
             this.ofdImage = new System.Windows.Forms.OpenFileDialog();
             this.ofdDocuments = new System.Windows.Forms.OpenFileDialog();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.docUploadsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.docUploadsTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.DocUploadsTableAdapter();
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnSalaryConfig = new Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -311,13 +315,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.cmbBloodGroup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbGender)).BeginInit();
             this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tabPersonalPhoto)).BeginInit();
-            this.tabPersonalPhoto.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).BeginInit();
-            this.tabFamilyMemberInfo.SuspendLayout();
-            this.groupBox14.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabProfessionalInfo)).BeginInit();
             this.tabProfessionalInfo.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -332,6 +329,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.cmbShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDesignation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDepartment)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabPersonalPhoto)).BeginInit();
+            this.tabPersonalPhoto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).BeginInit();
+            this.tabFamilyMemberInfo.SuspendLayout();
+            this.groupBox14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPreviousExperience1)).BeginInit();
             this.tabPreviousExperience1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPrevExperience)).BeginInit();
@@ -466,9 +470,9 @@
             this.tabControl1.PageBackStyle = Krypton.Toolkit.PaletteBackStyle.ButtonNavigatorMini;
             this.tabControl1.Pages.AddRange(new Krypton.Navigator.KryptonPage[] {
             this.tabPersonalInfo,
+            this.tabProfessionalInfo,
             this.tabPersonalPhoto,
             this.tabFamilyMemberInfo,
-            this.tabProfessionalInfo,
             this.tabPreviousExperience1,
             this.tabSkils,
             this.tabEducationalInfo1,
@@ -1192,125 +1196,6 @@
             this.label19.Text = "Name";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tabPersonalPhoto
-            // 
-            this.tabPersonalPhoto.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.tabPersonalPhoto.Controls.Add(this.btnEmpPhotoUpload);
-            this.tabPersonalPhoto.Controls.Add(this.txtEmpPhoto);
-            this.tabPersonalPhoto.Controls.Add(this.label39);
-            this.tabPersonalPhoto.Controls.Add(this.picEmpPhoto);
-            this.tabPersonalPhoto.Controls.Add(this.label24);
-            this.tabPersonalPhoto.Flags = 65534;
-            this.tabPersonalPhoto.LastVisibleSet = true;
-            this.tabPersonalPhoto.MinimumSize = new System.Drawing.Size(150, 50);
-            this.tabPersonalPhoto.Name = "tabPersonalPhoto";
-            this.tabPersonalPhoto.Size = new System.Drawing.Size(1248, 519);
-            this.tabPersonalPhoto.Text = "Photo";
-            this.tabPersonalPhoto.ToolTipTitle = "Page ToolTip";
-            this.tabPersonalPhoto.UniqueName = "7b4809ade98340beb18a313b3e589dac";
-            // 
-            // btnEmpPhotoUpload
-            // 
-            this.btnEmpPhotoUpload.Location = new System.Drawing.Point(122, 21);
-            this.btnEmpPhotoUpload.Name = "btnEmpPhotoUpload";
-            this.btnEmpPhotoUpload.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnEmpPhotoUpload.Size = new System.Drawing.Size(302, 38);
-            this.btnEmpPhotoUpload.TabIndex = 25;
-            this.btnEmpPhotoUpload.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnEmpPhotoUpload.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnEmpPhotoUpload.Values.Image")));
-            this.btnEmpPhotoUpload.Values.Text = "Upload";
-            this.btnEmpPhotoUpload.Click += new System.EventHandler(this.btnEmpPhotoUpload_Click);
-            // 
-            // txtEmpPhoto
-            // 
-            this.txtEmpPhoto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtEmpPhoto.Location = new System.Drawing.Point(445, 31);
-            this.txtEmpPhoto.Multiline = true;
-            this.txtEmpPhoto.Name = "txtEmpPhoto";
-            this.txtEmpPhoto.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtEmpPhoto.Size = new System.Drawing.Size(302, 28);
-            this.txtEmpPhoto.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmpPhoto.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtEmpPhoto.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmpPhoto.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmpPhoto.TabIndex = 24;
-            this.txtEmpPhoto.Visible = false;
-            this.txtEmpPhoto.WordWrap = false;
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.Location = new System.Drawing.Point(65, 67);
-            this.label39.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(57, 15);
-            this.label39.TabIndex = 22;
-            this.label39.Text = "Preview";
-            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // picEmpPhoto
-            // 
-            this.picEmpPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picEmpPhoto.Location = new System.Drawing.Point(122, 64);
-            this.picEmpPhoto.Name = "picEmpPhoto";
-            this.picEmpPhoto.Size = new System.Drawing.Size(302, 328);
-            this.picEmpPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picEmpPhoto.TabIndex = 21;
-            this.picEmpPhoto.TabStop = false;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(28, 38);
-            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(94, 15);
-            this.label24.TabIndex = 19;
-            this.label24.Text = "Upload Photo";
-            // 
-            // tabFamilyMemberInfo
-            // 
-            this.tabFamilyMemberInfo.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.tabFamilyMemberInfo.Controls.Add(this.groupBox14);
-            this.tabFamilyMemberInfo.Flags = 65534;
-            this.tabFamilyMemberInfo.LastVisibleSet = true;
-            this.tabFamilyMemberInfo.MinimumSize = new System.Drawing.Size(150, 50);
-            this.tabFamilyMemberInfo.Name = "tabFamilyMemberInfo";
-            this.tabFamilyMemberInfo.Size = new System.Drawing.Size(1248, 519);
-            this.tabFamilyMemberInfo.Text = "Family Members Info";
-            this.tabFamilyMemberInfo.ToolTipTitle = "Page ToolTip";
-            this.tabFamilyMemberInfo.UniqueName = "bd52fcdd6ed046318c19f604b9a96b6f";
-            // 
-            // groupBox14
-            // 
-            this.groupBox14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.groupBox14.Controls.Add(this.dtgFamilyMemberInforamtion);
-            this.groupBox14.Location = new System.Drawing.Point(16, 11);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(1197, 491);
-            this.groupBox14.TabIndex = 15;
-            this.groupBox14.TabStop = false;
-            // 
-            // dtgFamilyMemberInforamtion
-            // 
-            this.dtgFamilyMemberInforamtion.AllowUserToResizeRows = false;
-            this.dtgFamilyMemberInforamtion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dtgFamilyMemberInforamtion.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dtgFamilyMemberInforamtion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgFamilyMemberInforamtion.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dtgFamilyMemberInforamtion.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.dtgFamilyMemberInforamtion.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgFamilyMemberInforamtion.Location = new System.Drawing.Point(16, 29);
-            this.dtgFamilyMemberInforamtion.MultiSelect = false;
-            this.dtgFamilyMemberInforamtion.Name = "dtgFamilyMemberInforamtion";
-            this.dtgFamilyMemberInforamtion.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.dtgFamilyMemberInforamtion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgFamilyMemberInforamtion.Size = new System.Drawing.Size(1168, 275);
-            this.dtgFamilyMemberInforamtion.TabIndex = 47;
-            this.dtgFamilyMemberInforamtion.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgFamilyMemberInforamtion_CellDoubleClick);
-            // 
             // tabProfessionalInfo
             // 
             this.tabProfessionalInfo.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
@@ -1330,23 +1215,23 @@
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.btnReportingManagerSearch);
-            this.groupBox8.Controls.Add(this.txtRepEmpContactNumber);
             this.groupBox8.Controls.Add(this.txtRepEmpDepartment);
             this.groupBox8.Controls.Add(this.txtRepEmpDesig);
             this.groupBox8.Controls.Add(this.txtRepEmpName);
             this.groupBox8.Controls.Add(this.txtRepEmpCode);
             this.groupBox8.Controls.Add(this.lblReportingManagerID);
-            this.groupBox8.Controls.Add(this.label20);
             this.groupBox8.Controls.Add(this.label38);
             this.groupBox8.Controls.Add(this.picRepEmpPhoto);
             this.groupBox8.Controls.Add(this.label37);
             this.groupBox8.Controls.Add(this.label36);
             this.groupBox8.Controls.Add(this.label35);
             this.groupBox8.Controls.Add(this.label34);
+            this.groupBox8.Controls.Add(this.txtRepEmpContactNumber);
+            this.groupBox8.Controls.Add(this.label20);
             this.groupBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox8.Location = new System.Drawing.Point(14, 126);
+            this.groupBox8.Location = new System.Drawing.Point(14, 151);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(1199, 195);
+            this.groupBox8.Size = new System.Drawing.Size(1199, 168);
             this.groupBox8.TabIndex = 14;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Reporting Manager";
@@ -1362,21 +1247,6 @@
             this.btnReportingManagerSearch.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnReportingManagerSearch.Values.Image")));
             this.btnReportingManagerSearch.Values.Text = "";
             this.btnReportingManagerSearch.Click += new System.EventHandler(this.btnReportingManagerSearch_Click);
-            // 
-            // txtRepEmpContactNumber
-            // 
-            this.txtRepEmpContactNumber.Location = new System.Drawing.Point(141, 159);
-            this.txtRepEmpContactNumber.Multiline = true;
-            this.txtRepEmpContactNumber.Name = "txtRepEmpContactNumber";
-            this.txtRepEmpContactNumber.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtRepEmpContactNumber.Size = new System.Drawing.Size(440, 28);
-            this.txtRepEmpContactNumber.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRepEmpContactNumber.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtRepEmpContactNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRepEmpContactNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRepEmpContactNumber.TabIndex = 26;
-            this.txtRepEmpContactNumber.Tag = "Contact Number";
-            this.txtRepEmpContactNumber.WordWrap = false;
             // 
             // txtRepEmpDepartment
             // 
@@ -1452,18 +1322,6 @@
             this.lblReportingManagerID.Text = " ";
             this.lblReportingManagerID.Visible = false;
             // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(27, 163);
-            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(110, 15);
-            this.label20.TabIndex = 17;
-            this.label20.Text = "Contact Number";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // label38
             // 
             this.label38.AutoSize = true;
@@ -1481,7 +1339,7 @@
             this.picRepEmpPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picRepEmpPhoto.Location = new System.Drawing.Point(733, 20);
             this.picRepEmpPhoto.Name = "picRepEmpPhoto";
-            this.picRepEmpPhoto.Size = new System.Drawing.Size(201, 164);
+            this.picRepEmpPhoto.Size = new System.Drawing.Size(201, 140);
             this.picRepEmpPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picRepEmpPhoto.TabIndex = 15;
             this.picRepEmpPhoto.TabStop = false;
@@ -1532,6 +1390,35 @@
             this.label34.Size = new System.Drawing.Size(107, 15);
             this.label34.TabIndex = 6;
             this.label34.Text = "Employee Code";
+            // 
+            // txtRepEmpContactNumber
+            // 
+            this.txtRepEmpContactNumber.Location = new System.Drawing.Point(737, 124);
+            this.txtRepEmpContactNumber.Multiline = true;
+            this.txtRepEmpContactNumber.Name = "txtRepEmpContactNumber";
+            this.txtRepEmpContactNumber.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtRepEmpContactNumber.Size = new System.Drawing.Size(440, 28);
+            this.txtRepEmpContactNumber.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRepEmpContactNumber.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtRepEmpContactNumber.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRepEmpContactNumber.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRepEmpContactNumber.TabIndex = 26;
+            this.txtRepEmpContactNumber.Tag = "Contact Number";
+            this.txtRepEmpContactNumber.Visible = false;
+            this.txtRepEmpContactNumber.WordWrap = false;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(623, 128);
+            this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(110, 15);
+            this.label20.TabIndex = 17;
+            this.label20.Text = "Contact Number";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label20.Visible = false;
             // 
             // groupBox7
             // 
@@ -1751,6 +1638,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtConfirmationDate);
+            this.groupBox1.Controls.Add(this.label72);
+            this.groupBox1.Controls.Add(this.txtLastDateOfProbation);
+            this.groupBox1.Controls.Add(this.label71);
             this.groupBox1.Controls.Add(this.cmbEmpBranch);
             this.groupBox1.Controls.Add(this.label57);
             this.groupBox1.Controls.Add(this.txtDateOfJoining);
@@ -1771,16 +1662,60 @@
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.groupBox1.Location = new System.Drawing.Point(14, 16);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1199, 110);
+            this.groupBox1.Size = new System.Drawing.Size(1199, 136);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Professional Info";
+            // 
+            // txtConfirmationDate
+            // 
+            this.txtConfirmationDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.txtConfirmationDate.Location = new System.Drawing.Point(733, 22);
+            this.txtConfirmationDate.Mask = "##-##-####";
+            this.txtConfirmationDate.Name = "txtConfirmationDate";
+            this.txtConfirmationDate.Size = new System.Drawing.Size(92, 21);
+            this.txtConfirmationDate.TabIndex = 84;
+            this.txtConfirmationDate.Tag = "Date Of Joining";
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label72.Location = new System.Drawing.Point(606, 25);
+            this.label72.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(123, 15);
+            this.label72.TabIndex = 85;
+            this.label72.Text = "Confirmation Date";
+            this.label72.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtLastDateOfProbation
+            // 
+            this.txtLastDateOfProbation.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.txtLastDateOfProbation.Location = new System.Drawing.Point(488, 22);
+            this.txtLastDateOfProbation.Mask = "##-##-####";
+            this.txtLastDateOfProbation.Name = "txtLastDateOfProbation";
+            this.txtLastDateOfProbation.Size = new System.Drawing.Size(92, 21);
+            this.txtLastDateOfProbation.TabIndex = 82;
+            this.txtLastDateOfProbation.Tag = "Last Date Of Probation";
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label71.Location = new System.Drawing.Point(353, 25);
+            this.label71.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(134, 15);
+            this.label71.TabIndex = 83;
+            this.label71.Text = "Last Probation Date";
+            this.label71.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cmbEmpBranch
             // 
             this.cmbEmpBranch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEmpBranch.DropDownWidth = 800;
-            this.cmbEmpBranch.Location = new System.Drawing.Point(734, 21);
+            this.cmbEmpBranch.Location = new System.Drawing.Point(141, 108);
             this.cmbEmpBranch.MaxDropDownItems = 10;
             this.cmbEmpBranch.Name = "cmbEmpBranch";
             this.cmbEmpBranch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -1793,7 +1728,7 @@
             // 
             this.label57.AutoSize = true;
             this.label57.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label57.Location = new System.Drawing.Point(678, 25);
+            this.label57.Location = new System.Drawing.Point(84, 112);
             this.label57.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(52, 15);
@@ -1965,6 +1900,125 @@
             this.label25.TabIndex = 21;
             this.label25.Text = "Department";
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tabPersonalPhoto
+            // 
+            this.tabPersonalPhoto.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabPersonalPhoto.Controls.Add(this.btnEmpPhotoUpload);
+            this.tabPersonalPhoto.Controls.Add(this.txtEmpPhoto);
+            this.tabPersonalPhoto.Controls.Add(this.label39);
+            this.tabPersonalPhoto.Controls.Add(this.picEmpPhoto);
+            this.tabPersonalPhoto.Controls.Add(this.label24);
+            this.tabPersonalPhoto.Flags = 65534;
+            this.tabPersonalPhoto.LastVisibleSet = true;
+            this.tabPersonalPhoto.MinimumSize = new System.Drawing.Size(150, 50);
+            this.tabPersonalPhoto.Name = "tabPersonalPhoto";
+            this.tabPersonalPhoto.Size = new System.Drawing.Size(1248, 519);
+            this.tabPersonalPhoto.Text = "Photo";
+            this.tabPersonalPhoto.ToolTipTitle = "Page ToolTip";
+            this.tabPersonalPhoto.UniqueName = "7b4809ade98340beb18a313b3e589dac";
+            // 
+            // btnEmpPhotoUpload
+            // 
+            this.btnEmpPhotoUpload.Location = new System.Drawing.Point(122, 21);
+            this.btnEmpPhotoUpload.Name = "btnEmpPhotoUpload";
+            this.btnEmpPhotoUpload.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnEmpPhotoUpload.Size = new System.Drawing.Size(302, 38);
+            this.btnEmpPhotoUpload.TabIndex = 25;
+            this.btnEmpPhotoUpload.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnEmpPhotoUpload.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnEmpPhotoUpload.Values.Image")));
+            this.btnEmpPhotoUpload.Values.Text = "Upload";
+            this.btnEmpPhotoUpload.Click += new System.EventHandler(this.btnEmpPhotoUpload_Click);
+            // 
+            // txtEmpPhoto
+            // 
+            this.txtEmpPhoto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtEmpPhoto.Location = new System.Drawing.Point(445, 31);
+            this.txtEmpPhoto.Multiline = true;
+            this.txtEmpPhoto.Name = "txtEmpPhoto";
+            this.txtEmpPhoto.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtEmpPhoto.Size = new System.Drawing.Size(302, 28);
+            this.txtEmpPhoto.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmpPhoto.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtEmpPhoto.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmpPhoto.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmpPhoto.TabIndex = 24;
+            this.txtEmpPhoto.Visible = false;
+            this.txtEmpPhoto.WordWrap = false;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label39.Location = new System.Drawing.Point(65, 67);
+            this.label39.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(57, 15);
+            this.label39.TabIndex = 22;
+            this.label39.Text = "Preview";
+            this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // picEmpPhoto
+            // 
+            this.picEmpPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picEmpPhoto.Location = new System.Drawing.Point(122, 64);
+            this.picEmpPhoto.Name = "picEmpPhoto";
+            this.picEmpPhoto.Size = new System.Drawing.Size(302, 328);
+            this.picEmpPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picEmpPhoto.TabIndex = 21;
+            this.picEmpPhoto.TabStop = false;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(28, 38);
+            this.label24.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(94, 15);
+            this.label24.TabIndex = 19;
+            this.label24.Text = "Upload Photo";
+            // 
+            // tabFamilyMemberInfo
+            // 
+            this.tabFamilyMemberInfo.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabFamilyMemberInfo.Controls.Add(this.groupBox14);
+            this.tabFamilyMemberInfo.Flags = 65534;
+            this.tabFamilyMemberInfo.LastVisibleSet = true;
+            this.tabFamilyMemberInfo.MinimumSize = new System.Drawing.Size(150, 50);
+            this.tabFamilyMemberInfo.Name = "tabFamilyMemberInfo";
+            this.tabFamilyMemberInfo.Size = new System.Drawing.Size(1248, 519);
+            this.tabFamilyMemberInfo.Text = "Family Members Info";
+            this.tabFamilyMemberInfo.ToolTipTitle = "Page ToolTip";
+            this.tabFamilyMemberInfo.UniqueName = "bd52fcdd6ed046318c19f604b9a96b6f";
+            // 
+            // groupBox14
+            // 
+            this.groupBox14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox14.Controls.Add(this.dtgFamilyMemberInforamtion);
+            this.groupBox14.Location = new System.Drawing.Point(16, 11);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(1197, 491);
+            this.groupBox14.TabIndex = 15;
+            this.groupBox14.TabStop = false;
+            // 
+            // dtgFamilyMemberInforamtion
+            // 
+            this.dtgFamilyMemberInforamtion.AllowUserToResizeRows = false;
+            this.dtgFamilyMemberInforamtion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgFamilyMemberInforamtion.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgFamilyMemberInforamtion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgFamilyMemberInforamtion.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgFamilyMemberInforamtion.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgFamilyMemberInforamtion.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgFamilyMemberInforamtion.Location = new System.Drawing.Point(16, 29);
+            this.dtgFamilyMemberInforamtion.MultiSelect = false;
+            this.dtgFamilyMemberInforamtion.Name = "dtgFamilyMemberInforamtion";
+            this.dtgFamilyMemberInforamtion.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgFamilyMemberInforamtion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgFamilyMemberInforamtion.Size = new System.Drawing.Size(1168, 275);
+            this.dtgFamilyMemberInforamtion.TabIndex = 47;
+            this.dtgFamilyMemberInforamtion.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgFamilyMemberInforamtion_CellDoubleClick);
             // 
             // tabPreviousExperience1
             // 
@@ -3203,6 +3257,20 @@
             this.tabSalaryProfile.ToolTipTitle = "Page ToolTip";
             this.tabSalaryProfile.UniqueName = "a3be17479cc34babb98856a79e112ae8";
             // 
+            // btnSalaryConfig
+            // 
+            this.btnSalaryConfig.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalaryConfig.Location = new System.Drawing.Point(818, 52);
+            this.btnSalaryConfig.Name = "btnSalaryConfig";
+            this.btnSalaryConfig.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnSalaryConfig.Size = new System.Drawing.Size(29, 28);
+            this.btnSalaryConfig.TabIndex = 72;
+            this.btnSalaryConfig.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnSalaryConfig.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnSalaryConfig.Values.Image")));
+            this.btnSalaryConfig.Values.Text = "";
+            this.btnSalaryConfig.Visible = false;
+            this.btnSalaryConfig.Click += new System.EventHandler(this.btnSalaryConfig_Click);
+            // 
             // txtTaxSchemeEffectiveFrom
             // 
             this.txtTaxSchemeEffectiveFrom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
@@ -3684,20 +3752,6 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
-            // btnSalaryConfig
-            // 
-            this.btnSalaryConfig.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSalaryConfig.Location = new System.Drawing.Point(818, 52);
-            this.btnSalaryConfig.Name = "btnSalaryConfig";
-            this.btnSalaryConfig.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnSalaryConfig.Size = new System.Drawing.Size(29, 28);
-            this.btnSalaryConfig.TabIndex = 72;
-            this.btnSalaryConfig.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnSalaryConfig.Values.Image = ((System.Drawing.Image)(resources.GetObject("kryptonButton1.Values.Image")));
-            this.btnSalaryConfig.Values.Text = "";
-            this.btnSalaryConfig.Visible = false;
-            this.btnSalaryConfig.Click += new System.EventHandler(this.btnSalaryConfig_Click);
-            // 
             // frmEmployeeMaster
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -3747,14 +3801,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.cmbGender)).EndInit();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tabPersonalPhoto)).EndInit();
-            this.tabPersonalPhoto.ResumeLayout(false);
-            this.tabPersonalPhoto.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).EndInit();
-            this.tabFamilyMemberInfo.ResumeLayout(false);
-            this.groupBox14.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabProfessionalInfo)).EndInit();
             this.tabProfessionalInfo.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
@@ -3773,6 +3819,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.cmbShift)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDesignation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDepartment)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabPersonalPhoto)).EndInit();
+            this.tabPersonalPhoto.ResumeLayout(false);
+            this.tabPersonalPhoto.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabFamilyMemberInfo)).EndInit();
+            this.tabFamilyMemberInfo.ResumeLayout(false);
+            this.groupBox14.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgFamilyMemberInforamtion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPreviousExperience1)).EndInit();
             this.tabPreviousExperience1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picPrevExperience)).EndInit();
@@ -4104,5 +4158,9 @@
         private Krypton.Toolkit.KryptonComboBox cmbPermanentState;
         private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
         private Krypton.Toolkit.KryptonButton btnSalaryConfig;
+        private System.Windows.Forms.MaskedTextBox txtConfirmationDate;
+        private System.Windows.Forms.Label label72;
+        private System.Windows.Forms.MaskedTextBox txtLastDateOfProbation;
+        private System.Windows.Forms.Label label71;
     }
 }

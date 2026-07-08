@@ -49,6 +49,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>hrm02.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\StaffSync\packages\Microsoft.Extensions.Logging.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
@@ -84,10 +87,20 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="ScheduledTasks\AttendanceLockJob.cs" />
+    <Compile Include="ScheduledTasks\ConfirmationOfEmploymentJob.cs" />
+    <Compile Include="ScheduledTasks\ProbationCompletionJob.cs" />
+    <Compile Include="ScheduledTasks\WorkAnniversaryJob.cs" />
     <Compile Include="ScheduledTasks\BirthdayWishJob.cs" />
     <Compile Include="ScheduledTasks\PayrollGenerationJob.cs" />
     <Compile Include="Scheduler\BaseScheduledJob.cs" />
+    <Compile Include="Scheduler\PayrollGenerationManager.cs" />
+    <Compile Include="Scheduler\ConfirmationOfEmploymentManager.cs" />
+    <Compile Include="Scheduler\ProbationCompletionManager.cs" />
+    <Compile Include="Scheduler\SchedulerHelper.cs" />
+    <Compile Include="Scheduler\WorkAnniversaryManager.cs" />
+    <Compile Include="Scheduler\BirthdayWishManager.cs" />
     <Compile Include="Scheduler\SchedulerExecutionManager.cs" />
+    <Compile Include="Scheduler\SchedulerLock.cs" />
     <Compile Include="Scheduler\SchedulerManager.cs" />
     <Compile Include="Scheduler\TriggerFactory.cs" />
     <Compile Include="StaffSyncLeaveJobs.cs" />
@@ -122,6 +135,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="hrm02.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

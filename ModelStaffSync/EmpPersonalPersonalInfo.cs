@@ -13,6 +13,8 @@ namespace ModelStaffSync
         public int EmpID { get; set; }
         public DateTime DOB { get; set; }
         public DateTime DOJ { get; set; }
+        public DateTime LastDateOfProbation { get; set; }
+        public DateTime DateOfConfirmation { get; set; }
         public int EduQualID { get; set; }
         public int PerAddressID { get; set; }
         public int CurAddressID { get; set; }

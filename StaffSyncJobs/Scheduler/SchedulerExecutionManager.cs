@@ -23,7 +23,10 @@ namespace StaffSyncJobs.Scheduler
             int schedulerSettingsID =
                 context.JobDetail.JobDataMap.GetInt("JobSchedulerSettingsID");
 
-            _repository.UpdateLastStatus(schedulerSettingsID, "RUNNING");
+            lock (SchedulerLock.DatabaseLock)
+            {
+                _repository.UpdateLastStatus(schedulerSettingsID, "RUNNING");
+            }
 
             Console.ForegroundColor = ConsoleColor.Cyan;
 
@@ -57,7 +60,12 @@ namespace StaffSyncJobs.Scheduler
             //    nextRun = context.Trigger.GetNextFireTimeUtc().Value.LocalDateTime;
             //}
 
-            _repository.UpdateLastRun(schedulerSettingsID, context.FireTimeUtc.LocalDateTime);
+            lock (SchedulerLock.DatabaseLock)
+            {
+                _repository.UpdateLastRun(schedulerSettingsID, context.FireTimeUtc.LocalDateTime);
+                _repository.UpdateNextRun(schedulerSettingsID, context.Trigger.GetNextFireTimeUtc()?.LocalDateTime);
+                _repository.UpdateLastStatus(schedulerSettingsID, "SUCCESS");
+            }
 
             Console.WriteLine("----------------------------------------");
             Console.WriteLine("Fire Time      : " + context.FireTimeUtc.LocalDateTime);
@@ -66,9 +74,15 @@ namespace StaffSyncJobs.Scheduler
             Console.WriteLine("Trigger Next   : " + context.Trigger.GetNextFireTimeUtc()?.LocalDateTime);
             Console.WriteLine("----------------------------------------");
 
-            _repository.UpdateNextRun(schedulerSettingsID, context.Trigger.GetNextFireTimeUtc()?.LocalDateTime);
+            //lock (SchedulerLock.DatabaseLock)
+            //{
+            //    _repository.UpdateNextRun(schedulerSettingsID, context.Trigger.GetNextFireTimeUtc()?.LocalDateTime);
+            //}
 
-            _repository.UpdateLastStatus(schedulerSettingsID, "SUCCESS");
+            //lock (SchedulerLock.DatabaseLock)
+            //{
+            //    _repository.UpdateLastStatus(schedulerSettingsID, "SUCCESS");
+            //}
 
             //_repository.InsertHistory(schedulerSettingsID, jobID, clientID, DateTime.Now - sw.Elapsed, DateTime.Now, "SUCCESS", "", sw.ElapsedMilliseconds);
 
@@ -84,7 +98,10 @@ namespace StaffSyncJobs.Scheduler
 
             //int clientID = context.JobDetail.JobDataMap.GetInt("ClientID");
 
-            _repository.UpdateLastStatus(schedulerSettingsID, "FAILED");
+            lock (SchedulerLock.DatabaseLock)
+            {
+                _repository.UpdateLastStatus(schedulerSettingsID, "FAILED");
+            }
 
             //_repository.InsertHistory(schedulerSettingsID, jobID, clientID, DateTime.Now - sw.Elapsed, DateTime.Now, "FAILED", ex.ToString(), sw.ElapsedMilliseconds);
         }
@@ -98,6 +115,11 @@ namespace StaffSyncJobs.Scheduler
 
             Console.WriteLine();
             Console.WriteLine("Job Failed");
+
+            lock (SchedulerLock.DatabaseLock)
+            {
+                _repository.UpdateLastStatus(schedulerSettingsID, "FAILED");
+            }
 
             Console.WriteLine(ex.Message);
 

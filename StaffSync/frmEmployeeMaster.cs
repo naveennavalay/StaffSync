@@ -1,4 +1,5 @@
-﻿using iTextSharp.text.pdf.qrcode;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using iTextSharp.text.pdf.qrcode;
 using Krypton.Toolkit;
 using ModelStaffSync;
 using Newtonsoft.Json;
@@ -6,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Asn1.Pkcs;
 using Org.BouncyCastle.Crypto.Encodings;
 using QRCoder;
+using Quartz.Impl.AdoJobStore.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -285,7 +287,7 @@ namespace StaffSync
 
         public void clearFormControls()
         {
-            foreach (Control indControl in this.Controls)
+            foreach (System.Windows.Forms.Control indControl in this.Controls)
             {
                 if (indControl is System.Windows.Forms.TextBox)
                 {
@@ -296,7 +298,7 @@ namespace StaffSync
 
         public void disableFormControls()
         {
-            foreach (Control indControl in this.Controls)
+            foreach (System.Windows.Forms.Control indControl in this.Controls)
             {
                 if (indControl is System.Windows.Forms.TextBox)
                 {
@@ -1059,7 +1061,7 @@ namespace StaffSync
                     {
                         int curAddressID = objAddressInfo.InsertAddressInfo(txtCurrentAddress01.Text.Trim(), txtCurrentAddress02.Text.Trim(), txtCurrentArea.Text.Trim(), txtCurrentCity.Text.Trim(), txtCurrentPIN.Text.Trim(), cmbCurrentState.Text.Trim(), cmbCurrentCountry.Text);
                         int perAddressID = objAddressInfo.InsertAddressInfo(txtPermanentAddress01.Text.Trim(), txtPermanentAddress02.Text.Trim(), txtPermanentArea.Text.Trim(), txtPermanentCity.Text.Trim(), txtPermanentPIN.Text.Trim(), cmbPermanentState.Text.Trim(), cmbPermanentCountry.Text);
-                        personalInfoID = objEmployeePersonalInfo.InsertEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
+                        personalInfoID = objEmployeePersonalInfo.InsertEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), Convert.ToDateTime(txtLastDateOfProbation.Text), Convert.ToDateTime(txtConfirmationDate.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
 
                         DateTime? dtPFRelievingDate = null;
                         if (txtPFRelievingDate.Text.Replace(" ", "").Replace("--", "") != "")
@@ -1355,7 +1357,7 @@ namespace StaffSync
                     int curAddressID = objAddressInfo.UpdateAddressInfo(Convert.ToInt16(lblCurrentAddressID.Text.Trim()), txtCurrentAddress01.Text.Trim(), txtCurrentAddress02.Text.Trim(), txtCurrentArea.Text.Trim(), txtCurrentCity.Text.Trim(), txtCurrentPIN.Text.Trim(), cmbCurrentState.Text.Trim(), cmbCurrentCountry.Text);
                     int perAddressID = objAddressInfo.UpdateAddressInfo(Convert.ToInt16(lblPermanentAddressID.Text.Trim()), txtPermanentAddress01.Text.Trim(), txtPermanentAddress02.Text.Trim(), txtPermanentArea.Text.Trim(), txtPermanentCity.Text.Trim(), txtPermanentPIN.Text.Trim(), cmbPermanentState.Text.Trim(), cmbPermanentCountry.Text);
                     int contactInfoID01 = objContactPerson.UdpateContactInfo(Convert.ToInt16(lblContactInfoID.Text.Trim()), txtContactPersonName.Text.Trim(), txtContactPersonNumber.Text.ToString(), cmbContactPersonRelationship.SelectedIndex + 1, 1);
-                    int personalInfoID = objEmployeePersonalInfo.UpdateEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
+                    int personalInfoID = objEmployeePersonalInfo.UpdateEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), Convert.ToDateTime(txtLastDateOfProbation.Text), Convert.ToDateTime(txtConfirmationDate.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
 
                     DateTime? dtPFRelievingDate = null;
                     if (txtPFRelievingDate.Text.Replace(" ", "").Replace("--", "") != "")
@@ -1724,6 +1726,69 @@ namespace StaffSync
                 txtDateOfJoining.Focus();
                 errValidator.SetError(this.txtDateOfJoining, "Date of Joining cannot be before Date of Birth.");
             }
+
+            DateTime.TryParseExact(txtDateOfJoining.Text, dateFormat, provider, DateTimeStyles.None, out doj);
+
+            DateTime probationEndDate;
+            DateTime confirmationDate;
+
+            DateTime.TryParseExact(txtLastDateOfProbation.Text, dateFormat, provider, DateTimeStyles.None, out probationEndDate);
+
+            if (string.IsNullOrWhiteSpace(txtLastDateOfProbation.Text))
+            {
+                validationStatus = false;
+                txtLastDateOfProbation.Focus();
+                errValidator.SetError(txtLastDateOfProbation, txtLastDateOfProbation.Tag?.ToString() ?? "Last Day Of Probation is required.");
+            }
+            else if (!DateTime.TryParseExact(txtLastDateOfProbation.Text, dateFormat, provider, DateTimeStyles.None, out probationEndDate))
+            {
+                validationStatus = false;
+                txtLastDateOfProbation.Focus();
+                errValidator.SetError(txtLastDateOfProbation, "Invalid Last Day Of Probation format (dd-MM-yyyy).");
+            }
+            else if (probationEndDate <= doj)
+            {
+                validationStatus = false;
+                txtLastDateOfProbation.Focus();
+                errValidator.SetError(txtLastDateOfProbation, "Last Day Of Probation should be greater than Date Of Joining.");
+            }
+            //else if (probationEndDate < DateTime.Today)
+            //{
+            //    validationStatus = false;
+            //    txtLastDateOfProbation.Focus();
+            //    errValidator.SetError(txtLastDateOfProbation, "Last Day Of Probation cannot be earlier than today's date.");
+            //}
+
+            if (string.IsNullOrWhiteSpace(txtConfirmationDate.Text))
+            {
+                validationStatus = false;
+                txtConfirmationDate.Focus();
+                errValidator.SetError(txtConfirmationDate, txtConfirmationDate.Tag?.ToString() ?? "Date Of Confirmation is required.");
+            }
+            else if (!DateTime.TryParseExact(txtConfirmationDate.Text, dateFormat, provider, DateTimeStyles.None, out confirmationDate))
+            {
+                validationStatus = false;
+                txtConfirmationDate.Focus();
+                errValidator.SetError(txtConfirmationDate, "Invalid Date Of Confirmation format (dd-MM-yyyy).");
+            }
+            else if (confirmationDate <= doj)
+            {
+                validationStatus = false;
+                txtConfirmationDate.Focus();
+                errValidator.SetError(txtConfirmationDate, "Date Of Confirmation should be greater than Date Of Joining.");
+            }
+            else if (confirmationDate <= probationEndDate)
+            {
+                validationStatus = false;
+                txtConfirmationDate.Focus();
+                errValidator.SetError(txtConfirmationDate, "Date Of Confirmation should be greater than Last Day Of Probation.");
+            }
+            //else if (confirmationDate < DateTime.Today)
+            //{
+            //    validationStatus = false;
+            //    txtConfirmationDate.Focus();
+            //    errValidator.SetError(txtConfirmationDate, "Date Of Confirmation cannot be earlier than today's date.");
+            //}
 
             // Current Address
             if (string.IsNullOrEmpty(txtCurrentAddress01.Text))
@@ -2363,6 +2428,8 @@ namespace StaffSync
             EmpPersonalPersonalInfo objSelectedPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblEmpID.Text));
             txtDateOfBirth.Text = objSelectedPersonalInfo.DOB.ToString("dd-MM-yyyy");
             txtDateOfJoining.Text = objSelectedPersonalInfo.DOJ.ToString("dd-MM-yyyy");
+            txtLastDateOfProbation.Text = objSelectedPersonalInfo.LastDateOfProbation.ToString("dd-MM-yyyy");
+            txtConfirmationDate.Text = objSelectedPersonalInfo.DateOfConfirmation.ToString("dd-MM-yyyy");
             txtEmployeeContactNumber.Text = objSelectedPersonalInfo.ContactNumber1;
             txtEmployeeMailID.Text = objSelectedPersonalInfo.ContactNumber2;
             cmbGender.SelectedIndex = objSelectedPersonalInfo.SexID - 1;
@@ -2696,7 +2763,7 @@ namespace StaffSync
 
                 if (Convert.ToDecimal(dc.Cells["BalanceLeaves"].Value.ToString()) < Convert.ToDecimal(dc.Cells["TotalLeaves"].Value.ToString()))
                 {
-                    dc.Cells["BalanceLeaves"].Style.BackColor = Color.LightPink;
+                    dc.Cells["BalanceLeaves"].Style.BackColor = System.Drawing.Color.LightPink;
                 }
             }
 
@@ -3119,9 +3186,18 @@ namespace StaffSync
         {
             if (lblActionMode.Text.ToString().Trim() == "add")
             {
-                txtEmploymentEffectiveFrom.Text = txtDateOfJoining.Text.ToString();
-                txtShiftEffectiveFrom.Text = txtDateOfJoining.Text.ToString();
-                txtTaxSchemeEffectiveFrom.Text = txtDateOfJoining.Text.ToString();
+                DateTime dob, doj;
+                string dateFormat = "dd-MM-yyyy";
+                CultureInfo provider = CultureInfo.InvariantCulture;
+
+                if (DateTime.TryParseExact(txtDateOfJoining.Text, dateFormat, provider, DateTimeStyles.None, out doj) == true)
+                {
+                    txtEmploymentEffectiveFrom.Text = txtDateOfJoining.Text.ToString();
+                    txtLastDateOfProbation.Text = Convert.ToDateTime(txtDateOfJoining.Text.ToString()).AddMonths(3).ToString("dd-MM-yyyy");
+                    txtConfirmationDate.Text = Convert.ToDateTime(txtLastDateOfProbation.Text.ToString()).AddDays(1).ToString("dd-MM-yyyy");
+                    txtShiftEffectiveFrom.Text = txtDateOfJoining.Text.ToString();
+                    txtTaxSchemeEffectiveFrom.Text = txtDateOfJoining.Text.ToString();
+                }
             }
         }
 

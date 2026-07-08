@@ -12,30 +12,164 @@ namespace StaffSyncJobs.Scheduler
 {
     public static class SchedulerManager
     {
-            private static IScheduler _scheduler;
+        private static IScheduler _scheduler;
+        
+        public static async Task Start()
+        {
+            StdSchedulerFactory factory = new StdSchedulerFactory();
 
-            public static async Task Start()
+            _scheduler = await factory.GetScheduler();
+
+            // Read Jobs from DB
+            DALStaffSync.SchedulerRepository objRepository = new DALStaffSync.SchedulerRepository();
+
+            List<SchedulerJobModel> jobs = objRepository.GetEnabledJobsList();
+
+            SynchronizeSchedulerJobs(jobs);
+
+            // Register all jobs
+            await RegisterJobs(jobs);
+
+            await _scheduler.Start();
+
+        }
+
+        private static void SynchronizeSchedulerJobs(List<SchedulerJobModel> jobs)
+        {
+            // Read Jobs from DB
+            DALStaffSync.SchedulerRepository objRepository = new DALStaffSync.SchedulerRepository();
+
+            foreach (var job in jobs)
             {
-                StdSchedulerFactory factory = new StdSchedulerFactory();
+                DateTime nextRun = SchedulerHelper.CalculateNextRun(job);
 
-                _scheduler = await factory.GetScheduler();
-
-                await _scheduler.Start();
-
-                // Read Jobs from DB
-                DALStaffSync.SchedulerRepository objRepository = new DALStaffSync.SchedulerRepository();
-
-                List<SchedulerJobModel> jobs = objRepository.GetEnabledJobsList();
-
-                // Register all jobs
-                await RegisterJobs(jobs);
+                objRepository.UpdateNextRun(job.JobSchedulerSettingsID, nextRun);
             }
+        }
 
-            public static async Task Stop()
+        public static async Task Stop(bool waitForJobsToComplete = false)
+        {
+            if (_scheduler == null)
+                return;
+
+            if (_scheduler.IsShutdown)
+                return;
+
+            await _scheduler.Shutdown(waitForJobsToComplete);
+        }
+
+        public static async Task Restart()
+        {
+            await Stop();
+
+            await Start();
+        }
+
+        public static async Task Reload()
+        {
+            if (_scheduler == null)
+                return;
+
+            await _scheduler.Clear();
+
+            SchedulerRepository repository = new SchedulerRepository();
+
+            DALStaffSync.SchedulerRepository objRepository = new DALStaffSync.SchedulerRepository();
+
+            List<SchedulerJobModel> jobs = objRepository.GetEnabledJobsList();
+
+            await RegisterJobs(jobs);
+        }
+
+        public static async Task StopJob(string jobCode)
+        {
+            if (_scheduler == null)
+                return;
+
+            JobKey key = new JobKey(jobCode);
+
+            if (await _scheduler.CheckExists(key))
             {
-                if (_scheduler != null)
-                    await _scheduler.Shutdown();
+                await _scheduler.DeleteJob(key);
             }
+        }
+
+        public static async Task PauseJob(string jobCode)
+        {
+            if (_scheduler == null)
+                return;
+
+            JobKey key = new JobKey(jobCode);
+
+            if (await _scheduler.CheckExists(key))
+            {
+                await _scheduler.PauseJob(key);
+            }
+        }
+
+        public static async Task RunJob(string jobCode)
+        {
+            if (_scheduler == null)
+                return;
+
+            JobKey key = new JobKey(jobCode);
+
+            if (await _scheduler.CheckExists(key))
+            {
+                await _scheduler.TriggerJob(key);
+            }
+        }
+
+        public static async Task PauseAllJobs()
+        {
+            if (_scheduler == null)
+                return;
+
+            await _scheduler.PauseAll();
+        }
+
+        public static async Task ResumeJob(string jobCode)
+        {
+            if (_scheduler == null)
+                return;
+
+            JobKey key = new JobKey(jobCode);
+
+            if (await _scheduler.CheckExists(key))
+            {
+                await _scheduler.ResumeJob(key);
+            }
+        }
+
+        public static async Task ResumeAllJobs()
+        {
+            if (_scheduler == null)
+                return;
+
+            await _scheduler.ResumeAll();
+        }
+
+        public static IScheduler GetScheduler()
+        {
+            return _scheduler;
+        }
+
+        public static bool IsRunning()
+        {
+            if (_scheduler == null)
+                return false;
+
+            return !_scheduler.IsShutdown;
+        }
+
+
+        public static async Task RemoveAllJobs()
+        {
+            if (_scheduler == null)
+                return;
+
+            await _scheduler.Clear();
+        }
 
         private static async Task RegisterJobs(List<SchedulerJobModel> jobs)
         {
@@ -59,6 +193,23 @@ namespace StaffSyncJobs.Scheduler
                 ITrigger trigger = TriggerFactory.CreateTrigger(job);
 
                 await _scheduler.ScheduleJob(jobDetail, trigger);
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
+                Console.WriteLine("--------------------------------------");
+                Console.WriteLine("Job : " + job.JobCode);
+                Console.WriteLine("Schedule Type : " + job.ScheduleType);
+
+                Console.WriteLine("Trigger : " + trigger.Key.Name);
+
+                Console.WriteLine("Start Time : " + trigger.StartTimeUtc.LocalDateTime);
+
+                Console.WriteLine("Next Fire : " +
+                    trigger.GetNextFireTimeUtc()?.LocalDateTime);
+
+                Console.WriteLine("--------------------------------------");
+                
+                Console.ResetColor();
 
                 Console.WriteLine(job.JobName + " Registered Successfully.");
             }

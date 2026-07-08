@@ -185,7 +185,6 @@ namespace dbStaffSync
             return dt;
         }
 
-
         public List<LoggedInUser> getMyEmployeeInformation(int txtEmpID)
         {
             List<LoggedInUser> objEmployeePaySlipList = new List<LoggedInUser>();
@@ -430,6 +429,299 @@ namespace dbStaffSync
             }
 
             return reportingManagerInfo;
+        }
+
+        public List<EmployeeBirthdayInfo> GetEmployeeBirthdayList()
+        {
+            List<EmployeeBirthdayInfo> objEmployeeBirthdayList = new List<EmployeeBirthdayInfo>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        " EmpMas.EmpID, " + 
+                                        " EmpMas.EmpCode, " + 
+                                        " EmpMas.EmpName, " + 
+                                        " DesigMas.DesignationTitle, " + 
+                                        " DepMas.DepartmentTitle, " + 
+                                        " EmpMas.IsActive, " + 
+                                        " EmpMas.IsDeleted, " + 
+                                        " PersonalInfoMas.PersonalInfoID, " + 
+                                        " PersonalInfoMas.DOB, " +
+                                        " PersonalInfoMas.ContactNumber2, " +
+                                        " ClientMas.ClientID, " + 
+                                        " ClientMas.IsActive, " + 
+                                        " ClientMas.IsDeleted " + 
+                                    " FROM " + 
+                                        " ( " +
+                                            " DesigMas " +
+                                            " INNER JOIN ( " +
+                                                " DepMas " +
+                                                " INNER JOIN ( " +
+                                                    " ClientMas " +
+                                                    " INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " +
+                                                " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " +
+                                            " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " +
+                                        " ) " +
+                                        " INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID " +
+                                    " WHERE " +
+                                        " ( " +
+                                            " ((EmpMas.IsActive) = True) " +
+                                            " AND ((EmpMas.IsDeleted) = False) " +
+                                            " AND ((PersonalInfoMas.DOB) = #" + DateTime.Today.ToString("dd-MMM-yyyy") + "#) " +
+                                            " AND ((ClientMas.IsActive) = True) " +
+                                            " AND ((ClientMas.IsDeleted) = False) " +
+                                        " ) " +
+                                    " ORDER BY " +
+                                        " EmpMas.EmpID, " +
+                                        " ClientMas.ClientID";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeBirthdayList = JsonConvert.DeserializeObject<List<EmployeeBirthdayInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objEmployeeBirthdayList;
+        }
+
+        public List<EmployeeWorkProbationCompletionInfo> GetEmployeeProbationCompletionList()
+        {
+            List<EmployeeWorkProbationCompletionInfo> objEmployeeWorkProbationCompletionList = new List<EmployeeWorkProbationCompletionInfo>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " +
+                                        " EmpMas.EmpID, " +
+                                        " EmpMas.EmpCode, " +
+                                        " EmpMas.EmpName, " +
+                                        " DesigMas.DesignationTitle, " +
+                                        " DepMas.DepartmentTitle, " +
+                                        " EmpMas.IsActive, " +
+                                        " EmpMas.IsDeleted, " +
+                                        " PersonalInfoMas.PersonalInfoID, " +
+                                        " PersonalInfoMas.DOJ, " +
+                                        " PersonalInfoMas.ContactNumber2, " +
+                                        " ClientMas.ClientID, " +
+                                        " ClientMas.IsActive, " +
+                                        " ClientMas.IsDeleted " +
+                                    " FROM " +
+                                        " ( " +
+                                            " DesigMas " +
+                                            " INNER JOIN ( " +
+                                                " DepMas " +
+                                                " INNER JOIN ( " +
+                                                    " ClientMas " +
+                                                    " INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " +
+                                                " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " +
+                                            " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " +
+                                        " ) " +
+                                        " INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID " +
+                                    " WHERE " +
+                                        " ( " +
+                                            " ((EmpMas.IsActive) = True) " +
+                                            " AND ((EmpMas.IsDeleted) = False) " +
+                                            " AND ((PersonalInfoMas.DOJ) = #" + DateTime.Today.ToString("dd-MMM-yyyy") + "#) " +
+                                            " AND ((ClientMas.IsActive) = True) " +
+                                            " AND ((ClientMas.IsDeleted) = False) " +
+                                        " ) " +
+                                    " ORDER BY " +
+                                        " EmpMas.EmpID, " +
+                                        " ClientMas.ClientID";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeWorkProbationCompletionList = JsonConvert.DeserializeObject<List<EmployeeWorkProbationCompletionInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objEmployeeWorkProbationCompletionList;
+        }
+
+        public List<ConfirmationOfEmploymentInfo> GetEmployeeConfirmationOfEmploymentList()
+        {
+            List<ConfirmationOfEmploymentInfo> objConfirmationOfEmploymentList = new List<ConfirmationOfEmploymentInfo>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " +
+                                        " EmpMas.EmpID, " +
+                                        " EmpMas.EmpCode, " +
+                                        " EmpMas.EmpName, " +
+                                        " DesigMas.DesignationTitle, " +
+                                        " DepMas.DepartmentTitle, " +
+                                        " EmpMas.IsActive, " +
+                                        " EmpMas.IsDeleted, " +
+                                        " PersonalInfoMas.PersonalInfoID, " +
+                                        " PersonalInfoMas.DOJ, " +
+                                        " PersonalInfoMas.ContactNumber2, " +
+                                        " ClientMas.ClientID, " +
+                                        " ClientMas.IsActive, " +
+                                        " ClientMas.IsDeleted " +
+                                    " FROM " +
+                                        " ( " +
+                                            " DesigMas " +
+                                            " INNER JOIN ( " +
+                                                " DepMas " +
+                                                " INNER JOIN ( " +
+                                                    " ClientMas " +
+                                                    " INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " +
+                                                " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " +
+                                            " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " +
+                                        " ) " +
+                                        " INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID " +
+                                    " WHERE " +
+                                        " ( " +
+                                            " ((EmpMas.IsActive) = True) " +
+                                            " AND ((EmpMas.IsDeleted) = False) " +
+                                            " AND ((PersonalInfoMas.DOJ) = #" + DateTime.Today.ToString("dd-MMM-yyyy") + "#) " +
+                                            " AND ((ClientMas.IsActive) = True) " +
+                                            " AND ((ClientMas.IsDeleted) = False) " +
+                                        " ) " +
+                                    " ORDER BY " +
+                                        " EmpMas.EmpID, " +
+                                        " ClientMas.ClientID";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objConfirmationOfEmploymentList = JsonConvert.DeserializeObject<List<ConfirmationOfEmploymentInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objConfirmationOfEmploymentList;
+        }
+
+
+        public List<EmployeeWorkAnniversaryInfo> GetEmployeeAnniversaryList()
+        {
+            List<EmployeeWorkAnniversaryInfo> objEmployeeWorkAnniversaryList = new List<EmployeeWorkAnniversaryInfo>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " +
+                                        " EmpMas.EmpID, " +
+                                        " EmpMas.EmpCode, " +
+                                        " EmpMas.EmpName, " +
+                                        " DesigMas.DesignationTitle, " +
+                                        " DepMas.DepartmentTitle, " +
+                                        " EmpMas.IsActive, " +
+                                        " EmpMas.IsDeleted, " +
+                                        " PersonalInfoMas.PersonalInfoID, " +
+                                        " PersonalInfoMas.DOJ, " +
+                                        " PersonalInfoMas.ContactNumber2, " +
+                                        " ClientMas.ClientID, " +
+                                        " ClientMas.IsActive, " +
+                                        " ClientMas.IsDeleted " +
+                                    " FROM " +
+                                        " ( " +
+                                            " DesigMas " +
+                                            " INNER JOIN ( " +
+                                                " DepMas " +
+                                                " INNER JOIN ( " +
+                                                    " ClientMas " +
+                                                    " INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " +
+                                                " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " +
+                                            " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " +
+                                        " ) " +
+                                        " INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID " +
+                                    " WHERE " +
+                                        " ( " +
+                                            " ((EmpMas.IsActive) = True) " +
+                                            " AND ((EmpMas.IsDeleted) = False) " +
+                                            " AND ((PersonalInfoMas.DOJ) = #" + DateTime.Today.ToString("dd-MMM-yyyy") + "#) " +
+                                            " AND ((ClientMas.IsActive) = True) " +
+                                            " AND ((ClientMas.IsDeleted) = False) " +
+                                        " ) " +
+                                    " ORDER BY " +
+                                        " EmpMas.EmpID, " +
+                                        " ClientMas.ClientID";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeWorkAnniversaryList = JsonConvert.DeserializeObject<List<EmployeeWorkAnniversaryInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objEmployeeWorkAnniversaryList;
         }
 
         public int InsertEmployeeMaster(int txtEmployeeID, string txtEmployeeCode, string txtEmployeeTitle, int txtEmployeeDesignationID, int txtReportingManagerID, int txtEmployeeDepartmentID, int txtEmployeeBloodGroupID, bool IsActive, bool IsDeleted, int txtClientID)

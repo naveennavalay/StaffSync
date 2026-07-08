@@ -95,6 +95,43 @@ namespace DALStaffSync
             return reportingManagerInfo;
         }
 
+        public List<EmployeeBirthdayInfo> GetEmployeeBirthdayList()
+        {
+            List<EmployeeBirthdayInfo> employeeBirthdayList = new List<EmployeeBirthdayInfo>();
+
+            employeeBirthdayList = objEmployeeMaster.GetEmployeeBirthdayList();
+
+            return employeeBirthdayList;
+        }
+
+        public List<EmployeeWorkProbationCompletionInfo> GetEmployeeProbationCompletionList()
+        {
+            List<EmployeeWorkProbationCompletionInfo> objEmployeeWorkProbationCompletionList = new List<EmployeeWorkProbationCompletionInfo>();
+
+            objEmployeeWorkProbationCompletionList = objEmployeeMaster.GetEmployeeProbationCompletionList();
+
+            return objEmployeeWorkProbationCompletionList;
+        }
+
+
+        public List<ConfirmationOfEmploymentInfo> GetEmployeeConfirmationOfEmploymentList()
+        {
+            List<ConfirmationOfEmploymentInfo> objEmployeeConfirmationOfEmploymentList = new List<ConfirmationOfEmploymentInfo>();
+
+            objEmployeeConfirmationOfEmploymentList = objEmployeeMaster.GetEmployeeConfirmationOfEmploymentList();
+
+            return objEmployeeConfirmationOfEmploymentList;
+        }
+
+        public List<EmployeeWorkAnniversaryInfo> GetEmployeeAnniversaryList()
+        {
+            List<EmployeeWorkAnniversaryInfo> objEmployeeWorkAnniversaryList = new List<EmployeeWorkAnniversaryInfo>();
+
+            objEmployeeWorkAnniversaryList = objEmployeeMaster.GetEmployeeAnniversaryList();
+
+            return objEmployeeWorkAnniversaryList;
+        }
+
         public int InsertEmployeeMaster(int txtEmployeeID, string txtEmployeeCode, string txtEmployeeTitle, int txtEmployeeDesignationID, int txtReportingManagerID, int txtEmployeeDepartmentID, int txtEmployeeBloodGroupID, bool IsActive, bool IsDeleted, int txtClientID)
         {
             int affectedRows = 0;
