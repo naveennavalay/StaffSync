@@ -1491,6 +1491,10 @@
       <Project>{79a01532-92d7-431f-aee6-fcc9cf4050d7}</Project>
       <Name>ModelStaffSync</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ReportingEngine\ReportingEngine.csproj">
+      <Project>{6dcf08fa-ea5f-4a52-a91d-4679df022747}</Project>
+      <Name>ReportingEngine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StaffSyncJobs\StaffSyncJobs.csproj">
       <Project>{ddbce129-fef0-4fc2-bcf2-126ee18b56e8}</Project>
       <Name>StaffSyncJobs</Name>

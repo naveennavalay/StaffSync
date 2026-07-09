@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ReportingEngine.Reports;
 
 namespace StaffSync
 {
@@ -14,6 +15,10 @@ namespace StaffSync
         [STAThread]
         static void Main()
         {
+            new ReportDesigner().Generate("ReportDesigner.pdf");
+
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new frmDashboard()); 

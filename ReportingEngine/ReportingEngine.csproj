@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6DCF08FA-EA5F-4A52-A91D-4679DF022747}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReportingEngine</RootNamespace>
+    <AssemblyName>ReportingEngine</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=8.0.0.2, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\Microsoft.Extensions.DependencyInjection.Abstractions.8.0.2\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=8.0.0.3, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\Microsoft.Extensions.Logging.Abstractions.8.0.3\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.DocumentObjectModel-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\MigraDoc.DocumentObjectModel-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.Rendering-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\MigraDoc.Rendering-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="MigraDoc.RtfRendering-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\MigraDoc.RtfRendering-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp, Version=6.2.4.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp.6.2.4\lib\netstandard2.0\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\PdfSharp-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.BarCodes, Version=6.2.4.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp.6.2.4\lib\netstandard2.0\PdfSharp.BarCodes.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.BarCodes-gdi, Version=6.2.4.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp-GDI.6.2.4\lib\net462\PdfSharp.BarCodes-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=6.2.4.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp.6.2.4\lib\netstandard2.0\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting-gdi, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp-MigraDoc-gdi.1.50.5147\lib\net20\PdfSharp.Charting-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Cryptography, Version=6.2.4.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp.6.2.4\lib\netstandard2.0\PdfSharp.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Quality, Version=6.2.4.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp.6.2.4\lib\netstandard2.0\PdfSharp.Quality.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Quality-gdi, Version=6.2.4.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp-GDI.6.2.4\lib\net462\PdfSharp.Quality-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Shared, Version=6.2.4.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp.6.2.4\lib\netstandard2.0\PdfSharp.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Snippets, Version=6.2.4.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp.6.2.4\lib\netstandard2.0\PdfSharp.Snippets.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Snippets-gdi, Version=6.2.4.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp-GDI.6.2.4\lib\net462\PdfSharp.Snippets-gdi.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.System, Version=6.2.4.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp.6.2.4\lib\netstandard2.0\PdfSharp.System.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.WPFonts, Version=6.2.4.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\PDFsharp.6.2.4\lib\netstandard2.0\PdfSharp.WPFonts.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Pkcs, Version=8.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\System.Security.Cryptography.Pkcs.8.0.1\lib\net462\System.Security.Cryptography.Pkcs.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\StaffSync\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\ReportBase.cs" />
+    <Compile Include="Base\ReportFooterBase.cs" />
+    <Compile Include="Base\ReportHeaderBase.cs" />
+    <Compile Include="Builders\CompanyHeaderBuilder.cs" />
+    <Compile Include="Builders\FooterBuilder.cs" />
+    <Compile Include="Builders\HeaderBuilder.cs" />
+    <Compile Include="Builders\HeaderConstants.cs" />
+    <Compile Include="Builders\HeaderTheme.cs" />
+    <Compile Include="Builders\InfoPanelBuilder.cs" />
+    <Compile Include="Builders\PageBuilder.cs" />
+    <Compile Include="Builders\PageNumberBuilder.cs" />
+    <Compile Include="Builders\ProfessionalTableBuilder.cs" />
+    <Compile Include="Builders\ReportHeaderBuilder.cs" />
+    <Compile Include="Builders\ReportingDocumentBuilder.cs" />
+    <Compile Include="Builders\SummaryBuilder.cs" />
+    <Compile Include="Builders\TableBuilder.cs" />
+    <Compile Include="Builders\WatermarkBuilder.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Core\DataTableReportBuilder.cs" />
+    <Compile Include="Core\ReportCache.cs" />
+    <Compile Include="Core\ReportDocument.cs" />
+    <Compile Include="Core\ReportFactory.cs" />
+    <Compile Include="Core\ReportDocumentBuilder.cs" />
+    <Compile Include="Core\ReportExporter.cs" />
+    <Compile Include="Core\ReportEngine.cs" />
+    <Compile Include="Core\ReportContext.cs" />
+    <Compile Include="Core\ReportSettings.cs" />
+    <Compile Include="Core\ReportManager.cs" />
+    <Compile Include="Core\ReportRenderer.cs" />
+    <Compile Include="Core\ReportValidator.cs" />
+    <Compile Include="Design\ThemeColors.cs" />
+    <Compile Include="Design\ThemeManager.cs" />
+    <Compile Include="Enums\PaperSize.cs" />
+    <Compile Include="Enums\ReportAlignment.cs" />
+    <Compile Include="Enums\ReportBorderStyle.cs" />
+    <Compile Include="Enums\ReportExportType.cs" />
+    <Compile Include="Enums\ReportFontStyle.cs" />
+    <Compile Include="Enums\ReportOrientation.cs" />
+    <Compile Include="Enums\ReportType.cs" />
+    <Compile Include="Helpers\BarcodeHelper.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Helpers\FormatHelper.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\QRCodeHelper.cs" />
+    <Compile Include="Interfaces\IReport.cs" />
+    <Compile Include="Interfaces\IReportExporter.cs" />
+    <Compile Include="Interfaces\ITableBuilder.cs" />
+    <Compile Include="Models\CompanyInfo.cs" />
+    <Compile Include="Models\DocumentContext.cs" />
+    <Compile Include="Models\EmployeeInfo.cs" />
+    <Compile Include="Models\ReportCell.cs" />
+    <Compile Include="Models\ReportColumn.cs" />
+    <Compile Include="Models\ReportFilter.cs" />
+    <Compile Include="Models\ReportInfo.cs" />
+    <Compile Include="Models\ReportParameter.cs" />
+    <Compile Include="Models\ReportRow.cs" />
+    <Compile Include="Models\ReportSection.cs" />
+    <Compile Include="Models\ReportSummary.cs" />
+    <Compile Include="Reports\EmployeeSampleData.cs" />
+    <Compile Include="Reports\SampleData.cs" />
+    <Compile Include="Reports\SampleEmployee.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\Attendance\AttendanceRegisterReport.cs" />
+    <Compile Include="Reports\Attendance\AttendanceSummaryReport.cs" />
+    <Compile Include="Reports\Company\CompanyProfileReport.cs" />
+    <Compile Include="Reports\Employee\EmployeeListReport.cs" />
+    <Compile Include="Reports\Employee\EmployeeMasterReport.cs" />
+    <Compile Include="Reports\Employee\EmployeeProfileReport.cs" />
+    <Compile Include="Reports\Leave\LeaveRegisterReport.cs" />
+    <Compile Include="Reports\Leave\LeaveSummaryReport.cs" />
+    <Compile Include="Reports\Payroll\BankTransferReport.cs" />
+    <Compile Include="Reports\Payroll\PayrollRegisterReport.cs" />
+    <Compile Include="Reports\Payroll\SalarySlipReport.cs" />
+    <Compile Include="Reports\Recruitment\CandidateReport.cs" />
+    <Compile Include="Reports\Recruitment\InterviewScheduleReport.cs" />
+    <Compile Include="Reports\ReportDesigner.cs" />
+    <Compile Include="Reports\Scheduler\SchedulerHistoryReport.cs" />
+    <Compile Include="Reports\Scheduler\SchedulerJobsReport.cs" />
+    <Compile Include="Styles\ColorPalette.cs" />
+    <Compile Include="Styles\Fonts.cs" />
+    <Compile Include="Styles\Layout.cs" />
+    <Compile Include="Styles\ReportStyleManager.cs" />
+    <Compile Include="Styles\ReportStyles.cs" />
+    <Compile Include="Templates\AttendanceTemplate.cs" />
+    <Compile Include="Templates\EmployeeTemplate.cs" />
+    <Compile Include="Templates\LetterTemplate.cs" />
+    <Compile Include="Templates\PayslipTemplate.cs" />
+    <Compile Include="Templates\SalaryTemplate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\approved.png" />
+    <Content Include="Resources\cancelled.png" />
+    <Content Include="Resources\draft.png" />
+    <Content Include="Resources\logo.png" />
+    <Content Include="Resources\watermark.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
