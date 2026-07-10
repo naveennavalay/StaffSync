@@ -1,8 +1,10 @@
 ﻿using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Shapes;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
 using ReportingEngine.Builders;
 using ReportingEngine.Core;
+using ReportingEngine.Helpers;
 using ReportingEngine.Interfaces;
 using ReportingEngine.Models;
 using System;
@@ -48,35 +50,17 @@ namespace ReportingEngine.Reports
         {
             Section section = document.AddSection();
 
+            PageLayoutManager layout = new PageLayoutManager();
+
+            layout.ApplyLayout(section, _context.Columns);
+
             section.PageSetup.PageFormat = PageFormat.A4;
             section.PageSetup.TopMargin = Unit.FromCentimeter(1);
             section.PageSetup.BottomMargin = Unit.FromCentimeter(1);
             section.PageSetup.LeftMargin = Unit.FromCentimeter(1);
             section.PageSetup.RightMargin = Unit.FromCentimeter(1);
 
-            //-------------------------------------------------------
-            // Header
-            //-------------------------------------------------------
-
-            //HeaderBuilder headerBuilder = new HeaderBuilder();
-
-            //headerBuilder.Build(section, _company, _report);
-
             BuildHeader(section);
-
-            //-------------------------------------------------------
-            // Report Title
-            //-------------------------------------------------------
-
-            //Paragraph title = section.AddParagraph();
-
-            //title.Format.Alignment = ParagraphAlignment.Center;
-            //title.Format.Font.Bold = true;
-            //title.Format.Font.Size = 18;
-            //title.Format.SpaceBefore = Unit.FromCentimeter(0.4);
-            //title.Format.SpaceAfter = Unit.FromCentimeter(0.4);
-
-            //title.AddText(_report.ReportTitle.ToUpper());
 
             Table titleTable = section.AddTable();
 
@@ -106,27 +90,9 @@ namespace ReportingEngine.Reports
 
             reportDate.AddText("Date : " + _context.ReportInfo.GeneratedOn.ToString("dd-MMM-yyyy"));
 
+            DynamicTableBuilder builder = new DynamicTableBuilder();
 
-            //-------------------------------------------------------
-            // Professional Divider
-            //-------------------------------------------------------
-
-            //Paragraph divider = section.AddParagraph();
-
-            //divider.Format.Borders.Bottom.Width = 1.2;
-            //divider.Format.SpaceAfter = Unit.FromCentimeter(0.4);
-
-            ////Paragraph line = section.AddParagraph();
-
-            ////line.Format.Borders.Bottom.Width = 1;
-
-            ////line.Format.SpaceAfter = Unit.FromPoint(8);
-
-            //-------------------------------------------------------
-            // Employee Table
-            //-------------------------------------------------------
-
-            BuildEmployeeTable(section);
+            builder.Build(section, _context.Columns, _context.Data);
 
             BuildFooter(section);
         }
@@ -152,67 +118,6 @@ namespace ReportingEngine.Reports
                 section,
                 _context.CompanyInfo,
                 _context.ReportInfo);
-        }
-
-        private void BuildEmployeeTable(Section section)
-        {
-            Table table = section.AddTable();
-
-            table.Style = "Table";
-            table.Borders.Width = 0.5;
-            table.Rows.LeftIndent = 0;
-
-            table.AddColumn(Unit.FromCentimeter(2.5));
-            table.AddColumn(Unit.FromCentimeter(5.5));
-            table.AddColumn(Unit.FromCentimeter(4.0));
-            table.AddColumn(Unit.FromCentimeter(4.5));
-            table.AddColumn(Unit.FromCentimeter(2.5));
-
-            //----------------------------------------------------
-            // Header
-            //----------------------------------------------------
-
-            Row header = table.AddRow();
-
-            header.Shading.Color = Colors.DarkBlue;
-            header.Format.Font.Color = Colors.White;
-            header.Format.Font.Bold = true;
-            header.Format.Alignment = ParagraphAlignment.Center;
-            header.VerticalAlignment = VerticalAlignment.Center;
-
-            header.Cells[0].AddParagraph("Code");
-            header.Cells[1].AddParagraph("Employee Name");
-            header.Cells[2].AddParagraph("Department");
-            header.Cells[3].AddParagraph("Designation");
-            header.Cells[4].AddParagraph("Status");
-
-            //----------------------------------------------------
-            // Data
-            //----------------------------------------------------
-
-            List<EmployeeInfo> employees = EmployeeSampleData.Get();
-
-            bool alternate = false;
-
-            foreach (EmployeeInfo employee in employees)
-            {
-                Row row = table.AddRow();
-
-                row.VerticalAlignment = VerticalAlignment.Center;
-
-                if (alternate)
-                    row.Shading.Color = Color.Parse("#F7F9FC");
-
-                alternate = !alternate;
-
-                row.Cells[0].AddParagraph(employee.EmployeeCode);
-                row.Cells[1].AddParagraph(employee.EmployeeName);
-                row.Cells[2].AddParagraph(employee.Department);
-                row.Cells[3].AddParagraph(employee.Designation);
-                row.Cells[4].AddParagraph(employee.Status);
-            }
-
-            //section.Add(table);
         }
 
         private void Export(Document document, string outputFile)

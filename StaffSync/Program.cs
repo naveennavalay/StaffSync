@@ -17,7 +17,7 @@ namespace StaffSync
         [STAThread]
         static void Main()
         {
-            GenerateEmployeeMasterReport();
+            //GenerateEmployeeMasterReport();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -114,7 +114,10 @@ namespace StaffSync
                 new ReportColumn("Designation","Designation"){ Width=4 },
 
                 new ReportColumn("Status","Status"){ Width=2 },
-                new ReportColumn("Date Of Birth","EmployeeDOB"){ Width=2 },
+
+                new ReportColumn("Date Of Birth","EmployeeDOB"){ Width=3, Format = "Date", Alignment = ReportingEngine.Enum.ReportAlignment.Left },
+
+                new ReportColumn("Annual CTC","EmployeeAnnualCTC"){ Width=3, Format = "Currency" ,  Alignment = ReportingEngine.Enum.ReportAlignment.Right},
             };
 
             //-------------------------------------------------------
@@ -131,6 +134,8 @@ namespace StaffSync
                     Designation = "Technical Specialist",
                     Status = "Active",
                     EmployeeDOB = new DateTime(1990, 5, 15),
+                    EmployeeAnnualCTC = Convert.ToDecimal("1200000.00")
+
                 },
 
                 new EmployeeInfo()
@@ -140,7 +145,8 @@ namespace StaffSync
                     Department = "Testing",
                     Designation = "QA Engineer",
                     Status = "Active",
-                    EmployeeDOB = new DateTime(1990, 5, 15)
+                    EmployeeDOB = new DateTime(1990, 5, 15),
+                    EmployeeAnnualCTC = Convert.ToDecimal("800000.00")
                 },
 
                 new EmployeeInfo()
@@ -150,7 +156,8 @@ namespace StaffSync
                     Department = "HR",
                     Designation = "HR Executive",
                     Status = "Active",
-                    EmployeeDOB = new DateTime(1990, 5, 15)
+                    EmployeeDOB = new DateTime(1990, 5, 15),
+                    EmployeeAnnualCTC = Convert.ToDecimal("600000.00")
                 }
             };
 

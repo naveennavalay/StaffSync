@@ -107,19 +107,66 @@ namespace ReportingEngine.Builders
                         object value =
                             GetPropertyValue(item, column.FieldName);
 
-                        Paragraph p =
-                            row.Cells[i].AddParagraph();
+                        // Convert value according to column format
+                        string text = FormatValue(value, column);
 
-                        p.Format.Alignment =
-                            ConvertAlignment(column.Alignment);
+                        Paragraph p = row.Cells[i].AddParagraph(text);
 
-                        if (value != null)
-                            p.AddText(value.ToString());
+                        ApplyAlignment(p, column);
+
+                        ApplyFont(p, column);
                     }
                 }
             }
+            //section.Add(table);
+        }
 
-            section.Add(table);
+        private void ApplyAlignment(Paragraph p, ReportColumn column)
+        {
+            p.Format.Alignment = ConvertAlignment(column.Alignment);
+        }
+
+        private void ApplyFont(Paragraph p, ReportColumn column)
+        {
+            if (column.Bold)
+                p.Format.Font.Bold = true;
+
+            if (column.FontSize > 0)
+                p.Format.Font.Size = column.FontSize;
+        }
+
+        private string FormatValue(object value, ReportColumn column)
+        {
+            if (value == null)
+                return "";
+
+            if (string.IsNullOrWhiteSpace(column.Format))
+                return value.ToString();
+
+            switch (column.Format)
+            {
+                case "Date":
+                    if (value is DateTime dt)
+                        return dt.ToString("dd-MMM-yyyy");
+                    break;
+
+                case "Currency":
+                    if (decimal.TryParse(value.ToString(), out decimal amount))
+                        return amount.ToString("#,##0.00");
+                    break;
+
+                case "Integer":
+                    if (int.TryParse(value.ToString(), out int i))
+                        return i.ToString("N0");
+                    break;
+
+                case "Decimal":
+                    if (decimal.TryParse(value.ToString(), out decimal d))
+                        return d.ToString("#,##0.00");
+                    break;
+            }
+
+            return value.ToString();
         }
 
         //-------------------------------------------------------

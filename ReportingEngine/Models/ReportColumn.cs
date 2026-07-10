@@ -18,11 +18,27 @@ namespace ReportingEngine.Models
 
         public double Width { get; set; }
 
+        public double MinimumWidth { get; set; } = 1.2;
+
         public ReportAlignment Alignment { get; set; }
 
         public bool Visible { get; set; }
 
         public bool AllowWrap { get; set; }
+
+        public string Format { get; set; }
+
+        public bool WordWrap { get; set; }
+
+        public bool AutoFit { get; set; }
+
+        public bool Bold { get; set; }
+
+        public bool AllowSort { get; set; }
+
+        public bool AllowFilter { get; set; }
+
+        public double FontSize { get; set; } = 9;
 
         public ReportColumn()
         {
