@@ -32,8 +32,7 @@ namespace ReportingEngine.Models
             AllowWrap = true;
         }
 
-        public ReportColumn(string header, string fieldName)
-            : this()
+        public ReportColumn(string header, string fieldName) : this()
         {
             Header = header;
             FieldName = fieldName;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,5 +28,15 @@ namespace ReportingEngine.Models
         public bool AlternateRows { get; set; } = true;
 
         public bool RepeatHeader { get; set; } = true;
+
+        public bool ShowWatermark { get; set; }
+
+        public string WatermarkText { get; set; }
+
+        public string WatermarkColorHex { get; set; } = "#D3D3D3";
+
+        public double WatermarkFontSize { get; set; }
+        public int WatermarkAngle { get; set; }
+        public double WatermarkOpacity { get; set; }
     }
 }

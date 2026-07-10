@@ -1,4 +1,5 @@
 ﻿using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Shapes;
 using MigraDoc.DocumentObjectModel.Tables;
 using ReportingEngine.Core;
 using ReportingEngine.Models;
@@ -29,29 +30,14 @@ namespace ReportingEngine.Builders
 
             Row row = table.AddRow();
 
-            row.Height = Unit.FromCentimeter(3.8);
+            row.Height = Unit.FromCentimeter(3.5);
 
             row.VerticalAlignment = VerticalAlignment.Top;
 
-            BuildLogo(row.Cells[0]);
+            //BuildLogo(row.Cells[0]);
+            AddCompanyLogo(row.Cells[0], company);
 
             BuildCompany(row.Cells[1], company);
-
-            ////-------------------------------------------------------
-            //// Divider
-            ////-------------------------------------------------------
-
-            //Row divider = table.AddRow();
-
-            //divider.Height = Unit.FromPoint(2);
-
-            //divider.Borders.Top.Width = 1.2;
-
-            //divider.Borders.Top.Color = Color.Parse("#1F4E79");
-
-            //divider.Cells[0].MergeRight = 1;
-
-            //section.AddParagraph().Format.SpaceAfter = Unit.FromPoint(3);
         }
 
         private void BuildLogo(Cell cell)
@@ -89,6 +75,35 @@ namespace ReportingEngine.Builders
             //      Image image = cell.AddImage(company.LogoPath);
             //      image.Width = Unit.FromCentimeter(2.2);
             // }
+        }
+
+        private void AddCompanyLogo(Cell cell, CompanyInfo company)
+        {
+            cell.VerticalAlignment = VerticalAlignment.Center;
+
+            Paragraph p = cell.AddParagraph();
+
+            p.Format.Alignment = ParagraphAlignment.Center;
+
+            p.Format.SpaceBefore = Unit.FromPoint(0);
+
+            if (string.IsNullOrWhiteSpace(company.LogoPath) ||
+                !System.IO.File.Exists(company.LogoPath))
+            {
+                BuildLogo(cell);
+                return;
+            }
+
+            Image image = p.AddImage(company.LogoPath);
+
+            image.LockAspectRatio = true;
+
+            //image.Width = Unit.FromCentimeter(2.6);
+            image.Width = Unit.FromCentimeter(company.LogoWidth);
+
+            image.RelativeHorizontal = RelativeHorizontal.Margin;
+
+            image.RelativeVertical = RelativeVertical.Line;
         }
 
         private void BuildCompany(Cell cell, CompanyInfo company)
@@ -167,127 +182,5 @@ namespace ReportingEngine.Builders
             if (!string.IsNullOrWhiteSpace(value))
                 p.AddText(value);
         }
-
-
-
-
-        //public class HeaderBuilder
-        //{
-        //    public void Build(Section section, CompanyInfo company, ReportInfo report)
-        //    {
-        //        Table table = section.AddTable();
-
-        //        table.Borders.Visible = false;
-
-        //        table.AddColumn(Unit.FromCentimeter(3.0));
-        //        table.AddColumn(Unit.FromCentimeter(16.0));
-        //        //table.AddColumn(Unit.FromCentimeter(5.0));
-
-        //        Row row = table.AddRow();
-
-        //        BuildLogo(row.Cells[0]);
-        //        BuildCompany(row.Cells[1], company);
-        //        //BuildReportInfo(row.Cells[2], report);
-
-        //        section.AddParagraph();
-        //    }
-
-        //    private void BuildLogo(Cell cell)
-        //    {
-        //        cell.VerticalAlignment = VerticalAlignment.Center;
-
-        //        cell.Format.Alignment = ParagraphAlignment.Center;
-
-        //        cell.Borders.Width = 0.75;
-
-        //        cell.Borders.Color = Colors.DarkGray;
-
-        //        cell.Shading.Color = Color.Parse("#F8F8F8");
-
-        //        Paragraph p = cell.AddParagraph();
-
-        //        p.Format.Alignment = ParagraphAlignment.Center;
-
-        //        p.Format.SpaceBefore = Unit.FromCentimeter(0.60);
-
-        //        p.Format.Font.Bold = true;
-
-        //        p.Format.Font.Size = 15;
-
-        //        //-------------------------------------------------------
-        //        // Future Enhancement
-        //        //-------------------------------------------------------
-        //        //
-        //        // if(File.Exists(company.LogoPath))
-        //        // {
-        //        //      cell.AddImage(company.LogoPath);
-        //        // }
-        //        //
-        //        //-------------------------------------------------------
-
-        //        p.AddText("LOGO");
-
-        //        Paragraph p2 = cell.AddParagraph();
-
-        //        p2.Format.Alignment = ParagraphAlignment.Center;
-
-        //        p2.Format.Font.Size = 8;
-
-        //        p2.Format.Font.Color = Colors.Gray;
-
-        //        p2.AddText("120 x 120");
-        //    }
-
-        //    private void BuildCompany(Cell cell, CompanyInfo company)
-        //    {
-        //        Paragraph p;
-
-        //        p = cell.AddParagraph(company.CompanyName);
-        //        p.Format.Font.Size = 16;
-        //        p.Format.Font.Bold = true;
-        //        p.Format.SpaceAfter = 2;
-
-        //        p = cell.AddParagraph(company.ProductName);
-        //        p.Format.Font.Size = 10;
-
-        //        if (!string.IsNullOrWhiteSpace(company.AddressLine1))
-        //            cell.AddParagraph(company.AddressLine1);
-
-        //        if (!string.IsNullOrWhiteSpace(company.AddressLine2))
-        //            cell.AddParagraph(company.AddressLine2);
-
-        //        cell.AddParagraph($"{company.City}, {company.State}");
-
-        //        cell.AddParagraph($"{company.Country} - {company.PinCode}");
-
-        //        //cell.AddParagraph($"Phone : {company.Phone}");
-
-        //        //cell.AddParagraph($"Email : {company.Email}");
-
-        //        //cell.AddParagraph(company.Website);
-        //    }
-
-        //    private void BuildReportInfo(Cell cell, ReportInfo report)
-        //    {
-        //        cell.Format.Alignment = ParagraphAlignment.Left;
-
-        //        AddRow(cell, "Generated By", report.GeneratedBy);
-
-        //        AddRow(cell, "Generated On", report.GeneratedOn.ToString("dd-MMM-yyyy hh:mm tt"));
-
-        //        AddRow(cell, "Version", report.Version);
-
-        //        AddRow(cell, "Financial Year", report.FinancialYear);
-        //    }
-
-        //    private void AddRow(Cell cell, string caption, string value)
-        //    {
-        //        Paragraph p = cell.AddParagraph();
-
-        //        p.AddFormattedText(caption + " : ", TextFormat.Bold);
-
-        //        p.AddText(value);
-        //    }
-        //}
     }
 }

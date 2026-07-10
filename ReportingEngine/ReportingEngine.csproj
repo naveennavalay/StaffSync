@@ -126,6 +126,7 @@
     <Compile Include="Base\ReportFooterBase.cs" />
     <Compile Include="Base\ReportHeaderBase.cs" />
     <Compile Include="Builders\CompanyHeaderBuilder.cs" />
+    <Compile Include="Builders\DynamicTableBuilder.cs" />
     <Compile Include="Builders\FooterBuilder.cs" />
     <Compile Include="Builders\HeaderBuilder.cs" />
     <Compile Include="Builders\HeaderConstants.cs" />

@@ -17,9 +17,6 @@ namespace StaffSync
         [STAThread]
         static void Main()
         {
-            //new ReportDesigner().Generate("ReportDesigner.pdf");
-
-
             GenerateEmployeeMasterReport();
 
             Application.EnableVisualStyles();
@@ -37,7 +34,7 @@ namespace StaffSync
 
             CompanyInfo company = new CompanyInfo()
             {
-                CompanyName = "StaffSync Technologies Pvt. Ltd.1",
+                CompanyName = "StaffSync Technologies Pvt. Ltd.",
                 ProductName = "Employee Management System",
 
                 AddressLine1 = "Baner Road",
@@ -57,7 +54,9 @@ namespace StaffSync
                 GSTNumber = "27ABCDE1234F1Z5",
                 CINNumber = "U12345PN2026PTC123456",
 
-                LogoPath = ""
+                LogoPath = @"C:\Development\StaffSync\StaffSync\logo.png",
+                LogoHeight = 3.5,
+                LogoWidth = 3.5
             };
 
             //-------------------------------------------------------
@@ -89,20 +88,33 @@ namespace StaffSync
 
                 ShowPageNumbers = true,
 
-                ShowSummary = false
+                ShowSummary = false,
+
+                ShowWatermark = true,
+
+                WatermarkText = "TRIAL VERSION",
+
+                WatermarkFontSize = 48,
+
+                WatermarkAngle = 45,
+
+                WatermarkOpacity = 0.15,
+
+                WatermarkColorHex = "#FF0000"
             };
 
-            //-------------------------------------------------------
-            // Report Columns
-            //-------------------------------------------------------
-
-            List<ReportColumn> columns = new List<ReportColumn>()
+            var columns = new List<ReportColumn>()
             {
-                new ReportColumn("Code","EmployeeCode"),
-                new ReportColumn("Employee Name","EmployeeName"),
-                new ReportColumn("Department","Department"),
-                new ReportColumn("Designation","Designation"),
-                new ReportColumn("Status","Status")
+                new ReportColumn("Code","EmployeeCode"){ Width=2 },
+
+                new ReportColumn("Employee Name","EmployeeName"){ Width=5 },
+
+                new ReportColumn("Department","Department"){ Width=4 },
+
+                new ReportColumn("Designation","Designation"){ Width=4 },
+
+                new ReportColumn("Status","Status"){ Width=2 },
+                new ReportColumn("Date Of Birth","EmployeeDOB"){ Width=2 },
             };
 
             //-------------------------------------------------------
@@ -117,7 +129,8 @@ namespace StaffSync
                     EmployeeName = "Naveen Navale",
                     Department = "Development",
                     Designation = "Technical Specialist",
-                    Status = "Active"
+                    Status = "Active",
+                    EmployeeDOB = new DateTime(1990, 5, 15),
                 },
 
                 new EmployeeInfo()
@@ -126,7 +139,8 @@ namespace StaffSync
                     EmployeeName = "John Smith",
                     Department = "Testing",
                     Designation = "QA Engineer",
-                    Status = "Active"
+                    Status = "Active",
+                    EmployeeDOB = new DateTime(1990, 5, 15)
                 },
 
                 new EmployeeInfo()
@@ -135,7 +149,8 @@ namespace StaffSync
                     EmployeeName = "David Wilson",
                     Department = "HR",
                     Designation = "HR Executive",
-                    Status = "Active"
+                    Status = "Active",
+                    EmployeeDOB = new DateTime(1990, 5, 15)
                 }
             };
 

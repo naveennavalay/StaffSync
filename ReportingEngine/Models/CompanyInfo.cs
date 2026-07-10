@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MigraDoc.DocumentObjectModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,9 @@ namespace ReportingEngine.Models
         public string CINNumber { get; set; }
 
         public string LogoPath { get; set; }
+        public double LogoWidth { get; set; } = 2.2;
+
+        public double LogoHeight { get; set; } = 2.2;
 
         public CompanyInfo()
         {
