@@ -141,6 +141,8 @@
     <Compile Include="Builders\WatermarkBuilder.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Core\DataTableReportBuilder.cs" />
+    <Compile Include="Core\DocumentContext.cs" />
+    <Compile Include="Core\ReportBuilder.cs" />
     <Compile Include="Core\ReportCache.cs" />
     <Compile Include="Core\ReportDocument.cs" />
     <Compile Include="Core\ReportFactory.cs" />
@@ -170,7 +172,6 @@
     <Compile Include="Interfaces\IReportExporter.cs" />
     <Compile Include="Interfaces\ITableBuilder.cs" />
     <Compile Include="Models\CompanyInfo.cs" />
-    <Compile Include="Models\DocumentContext.cs" />
     <Compile Include="Models\EmployeeInfo.cs" />
     <Compile Include="Models\ReportCell.cs" />
     <Compile Include="Models\ReportColumn.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="Models\ReportParameter.cs" />
     <Compile Include="Models\ReportRow.cs" />
     <Compile Include="Models\ReportSection.cs" />
+    <Compile Include="Models\ReportDisplayOptions.cs" />
     <Compile Include="Models\ReportSummary.cs" />
     <Compile Include="Reports\EmployeeSampleData.cs" />
     <Compile Include="Reports\SampleData.cs" />

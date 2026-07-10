@@ -2,6 +2,8 @@
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
 using ReportingEngine.Builders;
+using ReportingEngine.Core;
+using ReportingEngine.Interfaces;
 using ReportingEngine.Models;
 using System;
 using System.Collections.Generic;
@@ -12,17 +14,16 @@ namespace ReportingEngine.Reports
 {
     public class ReportDesigner
     {
-        private readonly CompanyInfo _company;
-        private readonly ReportInfo _report;
+        private DocumentContext _context;
 
         public ReportDesigner()
         {
-            _company = CreateCompanyInfo();
-            _report = CreateReportInfo();
         }
 
-        public void Generate(string outputFile)
+        public void Generate(DocumentContext context, string outputFile)
         {
+            _context = context;
+
             Document document = CreateDocument();
 
             BuildDocument(document);
@@ -34,9 +35,11 @@ namespace ReportingEngine.Reports
         {
             Document document = new Document();
 
-            document.Info.Title = _report.ReportTitle;
+            document.Info.Title = _context.ReportInfo.ReportTitle;
+
             document.Info.Author = "StaffSync Reporting Engine";
-            document.Info.Subject = _report.ReportTitle;
+
+            document.Info.Subject = _context.ReportInfo.ReportTitle;
 
             return document;
         }
@@ -55,9 +58,11 @@ namespace ReportingEngine.Reports
             // Header
             //-------------------------------------------------------
 
-            HeaderBuilder headerBuilder = new HeaderBuilder();
+            //HeaderBuilder headerBuilder = new HeaderBuilder();
 
-            headerBuilder.Build(section, _company, _report);
+            //headerBuilder.Build(section, _company, _report);
+
+            BuildHeader(section);
 
             //-------------------------------------------------------
             // Report Title
@@ -90,7 +95,7 @@ namespace ReportingEngine.Reports
             title.Format.SpaceBefore = Unit.FromPoint(5);
             title.Format.SpaceAfter = Unit.FromPoint(5);
 
-            title.AddText(_report.ReportTitle.ToUpper());
+            title.AddText(_context.ReportInfo.ReportTitle.ToUpper());
 
             Paragraph reportDate = titleRow.Cells[1].AddParagraph();
 
@@ -99,7 +104,8 @@ namespace ReportingEngine.Reports
             reportDate.Format.Font.Bold = true;
             reportDate.Format.SpaceBefore = Unit.FromPoint(10);
 
-            reportDate.AddText("Date : " + _report.GeneratedOn.ToString("dd-MMM-yyyy"));
+            reportDate.AddText("Date : " + _context.ReportInfo.GeneratedOn.ToString("dd-MMM-yyyy"));
+
 
             //-------------------------------------------------------
             // Professional Divider
@@ -121,6 +127,31 @@ namespace ReportingEngine.Reports
             //-------------------------------------------------------
 
             BuildEmployeeTable(section);
+
+            BuildFooter(section);
+        }
+
+        private void BuildFooter(Section section)
+        {
+            if (!_context.DisplayOptions.ShowFooter)
+                return;
+
+            FooterBuilder footerBuilder = new FooterBuilder();
+
+            footerBuilder.Build(section, _context.ReportInfo, _context.DisplayOptions);
+        }
+
+        private void BuildHeader(Section section)
+        {
+            if (!_context.DisplayOptions.ShowHeader)
+                return;
+
+            HeaderBuilder headerBuilder = new HeaderBuilder();
+
+            headerBuilder.Build(
+                section,
+                _context.CompanyInfo,
+                _context.ReportInfo);
         }
 
         private void BuildEmployeeTable(Section section)
