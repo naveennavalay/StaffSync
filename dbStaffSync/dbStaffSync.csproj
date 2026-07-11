@@ -105,6 +105,7 @@
     <Compile Include="clsAppMailTemplate.cs" />
     <Compile Include="clsStates.cs" />
     <Compile Include="clsEmployerContributionInfo.cs" />
+    <Compile Include="clsPrintSettings.cs" />
     <Compile Include="clsTaxMas.cs" />
     <Compile Include="clsUploadDocuments.cs" />
     <Compile Include="clsUserManagement.cs" />

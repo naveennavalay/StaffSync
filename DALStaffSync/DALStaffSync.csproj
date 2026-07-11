@@ -78,6 +78,7 @@
     <Compile Include="clsSexMas.cs" />
     <Compile Include="clsShiftMas.cs" />
     <Compile Include="clsSkillsMas.cs" />
+    <Compile Include="clsPrintSettings.cs" />
     <Compile Include="clsUploadDocuments.cs" />
     <Compile Include="clsUserManagement.cs" />
     <Compile Include="clsWeeklyOffInfo.cs" />

@@ -22,11 +22,11 @@ namespace ReportingEngine.Models
             Bold = true;
         }
 
-        public ReportSummary(string caption, string value)
-            : this()
+        public ReportSummary(string caption, string value) //: this()
         {
             Caption = caption;
             Value = value;
+            Bold = true;
         }
     }
 }

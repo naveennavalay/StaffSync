@@ -62,6 +62,8 @@ namespace ReportingEngine.Reports
 
             BuildHeader(section);
 
+            new WatermarkBuilder(_context).Build(section);
+
             Table titleTable = section.AddTable();
 
             titleTable.Borders.Visible = false;
@@ -93,6 +95,8 @@ namespace ReportingEngine.Reports
             DynamicTableBuilder builder = new DynamicTableBuilder();
 
             builder.Build(section, _context.Columns, _context.Data);
+
+            new SummaryBuilder(_context).Build(section);
 
             BuildFooter(section);
         }

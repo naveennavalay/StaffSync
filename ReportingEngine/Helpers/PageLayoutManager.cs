@@ -14,9 +14,7 @@ namespace ReportingEngine.Helpers
     /// </summary>
     public class PageLayoutManager
     {
-        public void ApplyLayout(
-            Section section,
-            IList<ReportColumn> columns)
+        public void ApplyLayout(Section section, IList<ReportColumn> columns)
         {
             if (section == null)
                 return;
@@ -74,8 +72,7 @@ namespace ReportingEngine.Helpers
             // Landscape + Scale
             //-------------------------------------------------------
 
-            section.PageSetup.Orientation =
-                Orientation.Landscape;
+            section.PageSetup.Orientation = Orientation.Landscape;
 
             double factor =
                 landscapeWidth / totalWidth;
@@ -88,6 +85,26 @@ namespace ReportingEngine.Helpers
                 column.Width =
                     column.Width * factor;
             }
+        }
+
+        /// <summary>
+        /// Returns printable page width (excluding left/right margins).
+        /// </summary>
+        public static double GetPrintableWidth(Section section)
+        {
+            return section.PageSetup.PageWidth.Centimeter
+                 - section.PageSetup.LeftMargin.Centimeter
+                 - section.PageSetup.RightMargin.Centimeter;
+        }
+
+        /// <summary>
+        /// Returns printable page height (excluding top/bottom margins).
+        /// </summary>
+        public static double GetPrintableHeight(Section section)
+        {
+            return section.PageSetup.PageHeight.Centimeter
+                 - section.PageSetup.TopMargin.Centimeter
+                 - section.PageSetup.BottomMargin.Centimeter;
         }
     }
 }

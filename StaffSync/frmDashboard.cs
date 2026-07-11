@@ -7050,5 +7050,25 @@ namespace StaffSync
                 frmSchedulerDashboard.WindowState = FormWindowState.Maximized;
             }
         }
+
+        private void cmbReportSettings_Click(object sender, EventArgs e)
+        {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Report Settings";
+                sptrDashboardContainer.Visible = false;
+                frmPrintSettings frmPrintSettings = new frmPrintSettings(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmPrintSettings.MdiParent = this;
+                //frmPrintSettings.Dock = DockStyle.Fill;
+                frmPrintSettings.Show();
+                //frmPrintSettings.WindowState = FormWindowState.Maximized;
+            }
+        }
     }
 }

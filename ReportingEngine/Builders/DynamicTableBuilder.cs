@@ -117,8 +117,109 @@ namespace ReportingEngine.Builders
                         ApplyFont(p, column);
                     }
                 }
+                BuildTotalsRow(table, visibleColumns, data);
             }
             //section.Add(table);
+        }
+
+        private void BuildTotalsRow(
+    Table table,
+    IList<ReportColumn> columns,
+    IEnumerable<object> data)
+        {
+            if (data == null)
+                return;
+
+            if (!columns.Any(c => c.ShowTotal))
+                return;
+
+            Row totalRow = table.AddRow();
+
+            totalRow.Format.Font.Bold = true;
+
+            totalRow.Shading.Color = Color.Parse("#E8E8E8");
+
+            bool captionPrinted = false;
+
+            for (int i = 0; i < columns.Count; i++)
+            {
+                ReportColumn column = columns[i];
+
+                Paragraph p = totalRow.Cells[i].AddParagraph();
+
+                //-------------------------------------------------
+                // Caption
+                //-------------------------------------------------
+
+                if (!captionPrinted)
+                {
+                    p.AddText("TOTAL");
+
+                    captionPrinted = true;
+
+                    continue;
+                }
+
+                //-------------------------------------------------
+                // Total
+                //-------------------------------------------------
+
+                if (!column.ShowTotal)
+                    continue;
+
+                decimal total =
+                    CalculateTotal(data, column.FieldName);
+
+                p.Format.Alignment =
+                    ConvertAlignment(column.Alignment);
+
+                string format =
+                    string.IsNullOrWhiteSpace(column.TotalFormat)
+                        ? column.Format
+                        : column.TotalFormat;
+
+                p.AddText(FormatTotal(total, format));
+            }
+        }
+
+        private decimal CalculateTotal(IEnumerable<object> data, string propertyName)
+        {
+            decimal total = 0;
+
+            foreach (object item in data)
+            {
+                object value =
+                    GetPropertyValue(item, propertyName);
+
+                if (value == null)
+                    continue;
+
+                decimal number;
+
+                if (decimal.TryParse(
+                    value.ToString(),
+                    out number))
+                {
+                    total += number;
+                }
+            }
+
+            return total;
+        }
+
+        private string FormatTotal(decimal total, string format)
+        {
+            switch (format)
+            {
+                case "Currency":
+                    return total.ToString("N2");
+
+                case "Number":
+                    return total.ToString("N0");
+
+                default:
+                    return total.ToString();
+            }
         }
 
         private void ApplyAlignment(Paragraph p, ReportColumn column)

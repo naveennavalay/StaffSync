@@ -17,7 +17,7 @@ namespace StaffSync
         [STAThread]
         static void Main()
         {
-            //GenerateEmployeeMasterReport();
+            GenerateEmployeeMasterReport();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -96,28 +96,23 @@ namespace StaffSync
 
                 WatermarkFontSize = 48,
 
+                WatermarkColorHex = "#D0D0D0",
+
                 WatermarkAngle = 45,
 
-                WatermarkOpacity = 0.15,
-
-                WatermarkColorHex = "#FF0000"
+                WatermarkOpacity = 0.15
             };
 
             var columns = new List<ReportColumn>()
             {
                 new ReportColumn("Code","EmployeeCode"){ Width=2 },
-
                 new ReportColumn("Employee Name","EmployeeName"){ Width=5 },
-
                 new ReportColumn("Department","Department"){ Width=4 },
-
                 new ReportColumn("Designation","Designation"){ Width=4 },
-
                 new ReportColumn("Status","Status"){ Width=2 },
-
                 new ReportColumn("Date Of Birth","EmployeeDOB"){ Width=3, Format = "Date", Alignment = ReportingEngine.Enum.ReportAlignment.Left },
-
-                new ReportColumn("Annual CTC","EmployeeAnnualCTC"){ Width=3, Format = "Currency" ,  Alignment = ReportingEngine.Enum.ReportAlignment.Right},
+                new ReportColumn("Date Of Joining","EmployeeDOJ"){ Width=3, Format = "Date", Alignment = ReportingEngine.Enum.ReportAlignment.Left },
+                new ReportColumn("Annual CTC","EmployeeAnnualCTC"){ Width=3, Format = "Currency" ,  Alignment = ReportingEngine.Enum.ReportAlignment.Right, ShowTotal = true, TotalBold = true, TotalCaption = "Total 01:", TotalFormat = "#,#0.00" }
             };
 
             //-------------------------------------------------------
@@ -134,6 +129,7 @@ namespace StaffSync
                     Designation = "Technical Specialist",
                     Status = "Active",
                     EmployeeDOB = new DateTime(1990, 5, 15),
+                    EmployeeDOJ = new DateTime(2020, 1, 1),
                     EmployeeAnnualCTC = Convert.ToDecimal("1200000.00")
 
                 },
@@ -146,6 +142,7 @@ namespace StaffSync
                     Designation = "QA Engineer",
                     Status = "Active",
                     EmployeeDOB = new DateTime(1990, 5, 15),
+                    EmployeeDOJ = new DateTime(2022, 2, 1),
                     EmployeeAnnualCTC = Convert.ToDecimal("800000.00")
                 },
 
@@ -157,6 +154,7 @@ namespace StaffSync
                     Designation = "HR Executive",
                     Status = "Active",
                     EmployeeDOB = new DateTime(1990, 5, 15),
+                    EmployeeDOJ = new DateTime(2023, 11, 1),
                     EmployeeAnnualCTC = Convert.ToDecimal("600000.00")
                 }
             };
@@ -170,6 +168,12 @@ namespace StaffSync
                 .Title(report)
                 .Columns(columns)
                 .Data(employees)
+                //.Summary(new List<ReportSummary>()
+                //{
+                //    new ReportSummary("Total Employees", employees.Count.ToString()),
+                //    new ReportSummary("Active Employees", employees.Count(e => e.Status == "Active").ToString()),
+                //    new ReportSummary("Inactive Employees", employees.Count(e => e.Status != "Active").ToString()),
+                //})
                 .Display(displayOptions)
                 .Generate(@"C:\Development\StaffSync\StaffSync\bin\Debug\ReportDesigner.pdf");
         }

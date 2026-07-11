@@ -19,6 +19,8 @@ namespace ReportingEngine.Core
 
         public ReportSettings Settings { get; set; }
 
+        public IList<ReportSummary> Summary { get; set; }
+
         public ReportDisplayOptions DisplayOptions { get; set; }
     }
 }

@@ -523,6 +523,16 @@ namespace StaffSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap print_setting {
+            get {
+                object obj = ResourceManager.GetObject("print-setting", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap profile_setting {
             get {
                 object obj = ResourceManager.GetObject("profile-setting", resourceCulture);

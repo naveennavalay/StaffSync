@@ -395,6 +395,12 @@
     <Compile Include="frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPrintSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPrintSettings.Designer.cs">
+      <DependentUpon>frmPrintSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSchedulerJobDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -993,6 +999,9 @@
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmPrintSettings.resx">
+      <DependentUpon>frmPrintSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmSchedulerJobDetails.resx">
       <DependentUpon>frmSchedulerJobDetails.cs</DependentUpon>
     </EmbeddedResource>
@@ -1396,6 +1405,7 @@
     <None Include="images\icons\refresh.ico" />
     <None Include="images\icons\disabled.ico" />
     <None Include="images\icons\success.ico" />
+    <None Include="images\icons\print-setting.ico" />
     <Content Include="libwkhtmltox.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

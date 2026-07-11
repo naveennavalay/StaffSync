@@ -26,6 +26,12 @@ namespace ReportingEngine.Core
             _context.DisplayOptions = new ReportDisplayOptions();
         }
 
+        public ReportBuilder Summary(IList<ReportSummary> summary)
+        {
+            _context.Summary = summary;
+            return this;
+        }
+
         public ReportBuilder Company(CompanyInfo company)
         {
             _context.CompanyInfo = company;

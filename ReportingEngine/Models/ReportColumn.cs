@@ -40,12 +40,25 @@ namespace ReportingEngine.Models
 
         public double FontSize { get; set; } = 9;
 
+        public bool ShowTotal { get; set; }
+
+        public string TotalCaption { get; set; }
+
+        public bool TotalBold { get; set; }
+
+        public string TotalFormat { get; set; }
+
         public ReportColumn()
         {
             Visible = true;
             Width = 3;
             Alignment = ReportAlignment.Left;
             AllowWrap = true;
+            
+            ShowTotal = false;
+            TotalCaption = "Total";
+            TotalBold = true;
+            TotalFormat = "";
         }
 
         public ReportColumn(string header, string fieldName) : this()

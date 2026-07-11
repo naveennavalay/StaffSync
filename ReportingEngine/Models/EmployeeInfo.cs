@@ -14,6 +14,7 @@ namespace ReportingEngine.Models
         public string Designation { get; set; }
         public string Status { get; set; }
         public DateTime EmployeeDOB { get; set; }
+        public DateTime EmployeeDOJ { get; set; }
         public decimal EmployeeAnnualCTC { get; set; }
     }
 }
