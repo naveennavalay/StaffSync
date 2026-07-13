@@ -28,22 +28,36 @@ namespace ReportingEngine.Core
         /// <summary>
         /// Top Margin
         /// </summary>
-        public Unit TopMargin { get; set; }
+        //public Unit TopMargin { get; set; }
 
         /// <summary>
         /// Bottom Margin
         /// </summary>
-        public Unit BottomMargin { get; set; }
+        //public Unit BottomMargin { get; set; }
 
         /// <summary>
         /// Left Margin
         /// </summary>
-        public Unit LeftMargin { get; set; }
+        //public Unit LeftMargin { get; set; }
 
         /// <summary>
         /// Right Margin
         /// </summary>
-        public Unit RightMargin { get; set; }
+        //public Unit RightMargin { get; set; }
+
+        public bool AutoPageWidth { get; set; } = false;
+
+        public double PageWidth { get; set; } = 29.7;
+
+        public double PageHeight { get; set; } = 21.0;
+
+        public double LeftMargin { get; set; } = 1;
+
+        public double RightMargin { get; set; } = 1;
+
+        public double TopMargin { get; set; } = 1;
+
+        public double BottomMargin { get; set; } = 1;
 
         #endregion
 

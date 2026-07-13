@@ -1,6 +1,6 @@
-﻿using ReportingEngine.Core;
-using ReportingEngine.Models;
-using ReportingEngine.Reports;
+﻿using ModelStaffSync;
+using ReportingEngine;
+using ReportingEngine.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace StaffSync
         [STAThread]
         static void Main()
         {
-            GenerateEmployeeMasterReport();
+            //GenerateEmployeeMasterReport();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -28,9 +28,9 @@ namespace StaffSync
 
         private static void GenerateEmployeeMasterReport()
         {
-            //-------------------------------------------------------
-            // Company Information
-            //-------------------------------------------------------
+            DALStaffSync.EmployeeRelatedReportQueries objEmployeeRelatedReportQueries = new DALStaffSync.EmployeeRelatedReportQueries();
+
+            List <ActiveEmployeeListReport> objActiveEmployeeListReport = objEmployeeRelatedReportQueries.getActiveEmployeeListReport(1);
 
             CompanyInfo company = new CompanyInfo()
             {
@@ -72,110 +72,64 @@ namespace StaffSync
                 FinancialYear = "2026-2027"
             };
 
-            //-------------------------------------------------------
-            // Report Display Options
-            //-------------------------------------------------------
-
             ReportDisplayOptions displayOptions = new ReportDisplayOptions()
             {
                 ShowCompanyLogo = true,
-
                 ShowHeader = true,
-
                 ShowFooter = true,
-
                 ShowGeneratedDate = true,
-
                 ShowPageNumbers = true,
-
                 ShowSummary = false,
-
                 ShowWatermark = true,
-
                 WatermarkText = "TRIAL VERSION",
-
                 WatermarkFontSize = 48,
-
                 WatermarkColorHex = "#D0D0D0",
-
                 WatermarkAngle = 45,
-
                 WatermarkOpacity = 0.15
             };
 
-            var columns = new List<ReportColumn>()
+            //var columns = new List<ReportColumn>()
+            //{
+            //    new ReportColumn("Code","EmployeeCode"){ Width=2 },
+            //    new ReportColumn("Employee Name","EmployeeName"){ Width=5 },
+            //    new ReportColumn("Department","Department"){ Width=4 },
+            //    new ReportColumn("Designation","Designation"){ Width=4 },
+            //    new ReportColumn("Status","Status"){ Width=2 },
+            //    new ReportColumn("Date Of Birth","EmployeeDOB"){ Width=3, Format = "Date", Alignment = ModelStaffSync.Enum.ReportAlignment.Left },
+            //    new ReportColumn("Date Of Joining","EmployeeDOJ"){ Width=3, Format = "Date", Alignment = ModelStaffSync.Enum.ReportAlignment.Left },
+            //    new ReportColumn("Annual CTC","EmployeeAnnualCTC"){ Width=3, Format = "Currency" ,  Alignment = ModelStaffSync.Enum.ReportAlignment.Right, ShowTotal = true, TotalBold = true, TotalCaption = "Total 01:", TotalFormat = "#,#0.00" }
+            //};
+
+            ReportSettings settings = new ReportSettings
             {
-                new ReportColumn("Code","EmployeeCode"){ Width=2 },
-                new ReportColumn("Employee Name","EmployeeName"){ Width=5 },
-                new ReportColumn("Department","Department"){ Width=4 },
-                new ReportColumn("Designation","Designation"){ Width=4 },
-                new ReportColumn("Status","Status"){ Width=2 },
-                new ReportColumn("Date Of Birth","EmployeeDOB"){ Width=3, Format = "Date", Alignment = ReportingEngine.Enum.ReportAlignment.Left },
-                new ReportColumn("Date Of Joining","EmployeeDOJ"){ Width=3, Format = "Date", Alignment = ReportingEngine.Enum.ReportAlignment.Left },
-                new ReportColumn("Annual CTC","EmployeeAnnualCTC"){ Width=3, Format = "Currency" ,  Alignment = ReportingEngine.Enum.ReportAlignment.Right, ShowTotal = true, TotalBold = true, TotalCaption = "Total 01:", TotalFormat = "#,#0.00" }
+                PageWidth = 60,
+                PageHeight = 29.7,
+                LeftMargin = 1,
+                RightMargin = 1,
+                TopMargin = 1,
+                BottomMargin = 1
             };
-
-            //-------------------------------------------------------
-            // Sample Employee Data
-            //-------------------------------------------------------
-
-            List<EmployeeInfo> employees = new List<EmployeeInfo>()
-            {
-                new EmployeeInfo()
-                {
-                    EmployeeCode = "EMP001",
-                    EmployeeName = "Naveen Navale",
-                    Department = "Development",
-                    Designation = "Technical Specialist",
-                    Status = "Active",
-                    EmployeeDOB = new DateTime(1990, 5, 15),
-                    EmployeeDOJ = new DateTime(2020, 1, 1),
-                    EmployeeAnnualCTC = Convert.ToDecimal("1200000.00")
-
-                },
-
-                new EmployeeInfo()
-                {
-                    EmployeeCode = "EMP002",
-                    EmployeeName = "John Smith",
-                    Department = "Testing",
-                    Designation = "QA Engineer",
-                    Status = "Active",
-                    EmployeeDOB = new DateTime(1990, 5, 15),
-                    EmployeeDOJ = new DateTime(2022, 2, 1),
-                    EmployeeAnnualCTC = Convert.ToDecimal("800000.00")
-                },
-
-                new EmployeeInfo()
-                {
-                    EmployeeCode = "EMP003",
-                    EmployeeName = "David Wilson",
-                    Department = "HR",
-                    Designation = "HR Executive",
-                    Status = "Active",
-                    EmployeeDOB = new DateTime(1990, 5, 15),
-                    EmployeeDOJ = new DateTime(2023, 11, 1),
-                    EmployeeAnnualCTC = Convert.ToDecimal("600000.00")
-                }
-            };
-
-            //-------------------------------------------------------
-            // Generate Report
-            //-------------------------------------------------------
 
             new ReportBuilder()
-                .Company(company)
-                .Title(report)
-                .Columns(columns)
-                .Data(employees)
-                //.Summary(new List<ReportSummary>()
-                //{
-                //    new ReportSummary("Total Employees", employees.Count.ToString()),
-                //    new ReportSummary("Active Employees", employees.Count(e => e.Status == "Active").ToString()),
-                //    new ReportSummary("Inactive Employees", employees.Count(e => e.Status != "Active").ToString()),
-                //})
-                .Display(displayOptions)
-                .Generate(@"C:\Development\StaffSync\StaffSync\bin\Debug\ReportDesigner.pdf");
+            .Company(company)
+            .Title(report)
+            .Data(objActiveEmployeeListReport)
+            .Settings(settings)
+            .Generate(@"C:\Development\StaffSync\StaffSync\bin\Debug\ReportDesigner.pdf");
+
+            //new ReportBuilder()
+            //    .Company(company)
+            //    .Title(report)
+            //    //.Columns(columns)
+            //    .Data(objActiveEmployeeListReport)
+            //    //.Summary(new List<ReportSummary>()
+            //    //{
+            //    //    new ReportSummary("Total Employees", employees.Count.ToString()),
+            //    //    new ReportSummary("Active Employees", employees.Count(e => e.Status == "Active").ToString()),
+            //    //    new ReportSummary("Inactive Employees", employees.Count(e => e.Status != "Active").ToString()),
+            //    //})
+            //    .Display(displayOptions)
+            //    .Generate(@"C:\Development\StaffSync\StaffSync\bin\Debug\ReportDesigner.pdf");
         }
     }
 }

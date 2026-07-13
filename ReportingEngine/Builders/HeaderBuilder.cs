@@ -1,8 +1,8 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Shapes;
 using MigraDoc.DocumentObjectModel.Tables;
+using ModelStaffSync;
 using ReportingEngine.Core;
-using ReportingEngine.Models;
 using ReportingEngine.Styles;
 using System;
 using System.Collections.Generic;

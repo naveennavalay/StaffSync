@@ -1,4 +1,5 @@
-﻿using ReportingEngine.Models;
+﻿using ModelStaffSync;
+using ReportingEngine.Core;
 using ReportingEngine.Reports;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReportingEngine.Core
+namespace ReportingEngine
 {
     public class ReportBuilder
     {
@@ -44,20 +45,11 @@ namespace ReportingEngine.Core
             return this;
         }
 
-        public ReportBuilder Columns(List<ReportColumn> columns)
-        {
-            _context.Columns = columns;
-            return this;
-        }
-
         public ReportBuilder Data<T>(IEnumerable<T> data)
         {
-            List<object> list = new List<object>();
+            _context.Data = data.Cast<object>().ToList();
 
-            foreach (var item in data)
-                list.Add(item);
-
-            _context.Data = list;
+            _context.Columns = Helpers.ReportMetadataReader.Create<T>();
 
             return this;
         }
@@ -71,6 +63,12 @@ namespace ReportingEngine.Core
         public ReportBuilder Display(ReportDisplayOptions options)
         {
             _context.DisplayOptions = options;
+            return this;
+        }
+
+        public ReportBuilder Settings(ReportSettings settings)
+        {
+            _context.Settings = settings;
             return this;
         }
 

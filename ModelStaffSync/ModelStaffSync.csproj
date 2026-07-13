@@ -43,6 +43,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppMailTemplateModel.cs" />
+    <Compile Include="Attributes\ReportColumnAttribute.cs" />
+    <Compile Include="CompanyInfo.cs" />
+    <Compile Include="Enums\PaperSize.cs" />
+    <Compile Include="Enums\ReportAlignment.cs" />
+    <Compile Include="Enums\ReportBorderStyle.cs" />
+    <Compile Include="Enums\ReportColumnSizeMode.cs" />
+    <Compile Include="Enums\ReportExportType.cs" />
+    <Compile Include="Enums\ReportFontStyle.cs" />
+    <Compile Include="Enums\ReportFormat.cs" />
+    <Compile Include="Enums\ReportOrientation.cs" />
+    <Compile Include="Enums\ReportType.cs" />
+    <Compile Include="Reports\ReportCell.cs" />
+    <Compile Include="Reports\ReportColumn.cs" />
+    <Compile Include="Reports\ReportDisplayOptions.cs" />
+    <Compile Include="Reports\ReportFilter.cs" />
+    <Compile Include="Reports\ReportInfo.cs" />
+    <Compile Include="Reports\ReportParameter.cs" />
+    <Compile Include="Reports\ReportRow.cs" />
+    <Compile Include="Reports\ReportSection.cs" />
+    <Compile Include="Reports\ReportSummary.cs" />
     <Compile Include="SchedulerJobAuditLogModel.cs" />
     <Compile Include="AuditLogs.cs" />
     <Compile Include="AssetsInfo.cs" />
@@ -135,9 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Reports\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,7 +1,8 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
-using ReportingEngine.Enum;
-using ReportingEngine.Models;
+using ModelStaffSync;
+using ModelStaffSync.Enum;
+using ReportingEngine.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,10 @@ namespace ReportingEngine.Builders
                 columns
                 .Where(c => c.Visible)
                 .ToList();
+
+            double printableWidth = 24.5;
+
+            //ColumnWidthCalculator.Calculate(visibleColumns, data, printableWidth);
 
             //---------------------------------------------------
             // Columns
@@ -104,8 +109,7 @@ namespace ReportingEngine.Builders
                     {
                         ReportColumn column = visibleColumns[i];
 
-                        object value =
-                            GetPropertyValue(item, column.FieldName);
+                        object value = GetPropertyValue(item, column.PropertyName);
 
                         // Convert value according to column format
                         string text = FormatValue(value, column);
@@ -122,10 +126,7 @@ namespace ReportingEngine.Builders
             //section.Add(table);
         }
 
-        private void BuildTotalsRow(
-    Table table,
-    IList<ReportColumn> columns,
-    IEnumerable<object> data)
+        private void BuildTotalsRow(Table table, IList<ReportColumn> columns, IEnumerable<object> data)
         {
             if (data == null)
                 return;
@@ -278,6 +279,11 @@ namespace ReportingEngine.Builders
         {
             if (instance == null)
                 return null;
+
+            if (string.IsNullOrWhiteSpace(propertyName))
+            {
+                throw new Exception("PropertyName is NULL");
+            }
 
             PropertyInfo property =
                 instance

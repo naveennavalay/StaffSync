@@ -110,6 +110,7 @@
     <Compile Include="clsUploadDocuments.cs" />
     <Compile Include="clsUserManagement.cs" />
     <Compile Include="clsWeeklyOffInfo.cs" />
+    <Compile Include="EmployeeRelatedReportQueries.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="clsLogin.cs" />
     <Compile Include="clsGenFunc.cs" />

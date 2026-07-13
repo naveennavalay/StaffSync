@@ -1,7 +1,7 @@
 ﻿using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
+using ModelStaffSync;
 using ReportingEngine.Core;
-using ReportingEngine.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

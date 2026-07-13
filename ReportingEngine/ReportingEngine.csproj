@@ -157,34 +157,18 @@
     <Compile Include="Core\ReportValidator.cs" />
     <Compile Include="Design\ThemeColors.cs" />
     <Compile Include="Design\ThemeManager.cs" />
-    <Compile Include="Enums\PaperSize.cs" />
-    <Compile Include="Enums\ReportAlignment.cs" />
-    <Compile Include="Enums\ReportBorderStyle.cs" />
-    <Compile Include="Enums\ReportExportType.cs" />
-    <Compile Include="Enums\ReportFontStyle.cs" />
-    <Compile Include="Enums\ReportFormat.cs" />
-    <Compile Include="Enums\ReportOrientation.cs" />
-    <Compile Include="Enums\ReportType.cs" />
     <Compile Include="Helpers\BarcodeHelper.cs" />
+    <Compile Include="Helpers\ColumnWidthCalculator.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\FormatHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\PageLayoutManager.cs" />
     <Compile Include="Helpers\QRCodeHelper.cs" />
+    <Compile Include="Helpers\ReportLayoutEngine.cs" />
+    <Compile Include="Helpers\ReportMetadataReader.cs" />
     <Compile Include="Interfaces\IReport.cs" />
     <Compile Include="Interfaces\IReportExporter.cs" />
     <Compile Include="Interfaces\ITableBuilder.cs" />
-    <Compile Include="Models\CompanyInfo.cs" />
-    <Compile Include="Models\EmployeeInfo.cs" />
-    <Compile Include="Models\ReportCell.cs" />
-    <Compile Include="Models\ReportColumn.cs" />
-    <Compile Include="Models\ReportFilter.cs" />
-    <Compile Include="Models\ReportInfo.cs" />
-    <Compile Include="Models\ReportParameter.cs" />
-    <Compile Include="Models\ReportRow.cs" />
-    <Compile Include="Models\ReportSection.cs" />
-    <Compile Include="Models\ReportDisplayOptions.cs" />
-    <Compile Include="Models\ReportSummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\Attendance\AttendanceRegisterReport.cs" />
     <Compile Include="Reports\Attendance\AttendanceSummaryReport.cs" />
@@ -217,13 +201,23 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Resources\approved.png" />
     <Content Include="Resources\cancelled.png" />
     <Content Include="Resources\draft.png" />
     <Content Include="Resources\logo.png" />
     <Content Include="Resources\watermark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Attributes\" />
+    <Folder Include="Enums\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelStaffSync\ModelStaffSync.csproj">
+      <Project>{79a01532-92d7-431f-aee6-fcc9cf4050d7}</Project>
+      <Name>ModelStaffSync</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,14 +2,15 @@
 using MigraDoc.DocumentObjectModel.Shapes;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
+using ModelStaffSync;
 using ReportingEngine.Builders;
 using ReportingEngine.Core;
 using ReportingEngine.Helpers;
 using ReportingEngine.Interfaces;
-using ReportingEngine.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 namespace ReportingEngine.Reports
@@ -52,9 +53,13 @@ namespace ReportingEngine.Reports
 
             PageLayoutManager layout = new PageLayoutManager();
 
-            layout.ApplyLayout(section, _context.Columns);
+            //layout.ApplyLayout(section, _context.Columns);
 
-            section.PageSetup.PageFormat = PageFormat.A4;
+            //section.PageSetup.PageFormat = PageFormat.A4;
+
+            section.PageSetup.PageWidth = Unit.FromCentimeter(_context.Settings.PageWidth);
+            section.PageSetup.PageHeight = Unit.FromCentimeter(_context.Settings.PageHeight);
+
             section.PageSetup.TopMargin = Unit.FromCentimeter(1);
             section.PageSetup.BottomMargin = Unit.FromCentimeter(1);
             section.PageSetup.LeftMargin = Unit.FromCentimeter(1);

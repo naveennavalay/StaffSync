@@ -1,5 +1,5 @@
 ﻿using MigraDoc.DocumentObjectModel;
-using ReportingEngine.Models;
+using ModelStaffSync;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,8 +82,7 @@ namespace ReportingEngine.Helpers
                 if (!column.Visible)
                     continue;
 
-                column.Width =
-                    column.Width * factor;
+                column.Width = column.Width * factor;
             }
         }
 
