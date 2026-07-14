@@ -103,6 +103,7 @@
     <Compile Include="clsShiftMas.cs" />
     <Compile Include="clsSkillsMas.cs" />
     <Compile Include="clsAppMailTemplate.cs" />
+    <Compile Include="clsAppReports.cs" />
     <Compile Include="clsStates.cs" />
     <Compile Include="clsEmployerContributionInfo.cs" />
     <Compile Include="clsPrintSettings.cs" />

@@ -47,6 +47,7 @@
     <Compile Include="clsAdvanceTypeConfigInfo.cs" />
     <Compile Include="clsAdvanceTypeMas.cs" />
     <Compile Include="clsAppMailTemplate.cs" />
+    <Compile Include="clsAppReports.cs" />
     <Compile Include="clsAppSettings.cs" />
     <Compile Include="clsAppUserTasks.cs" />
     <Compile Include="clsAssetRegister.cs" />

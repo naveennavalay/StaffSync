@@ -30,7 +30,9 @@ namespace StaffSync
         {
             DALStaffSync.EmployeeRelatedReportQueries objEmployeeRelatedReportQueries = new DALStaffSync.EmployeeRelatedReportQueries();
 
-            List <ActiveEmployeeListReport> objActiveEmployeeListReport = objEmployeeRelatedReportQueries.getActiveEmployeeListReport(1);
+            //List <ActiveEmployeeListReport> objActiveEmployeeListReport = objEmployeeRelatedReportQueries.getActiveEmployeeListReport(1);
+
+            List<MonthlyAttendanceReport> objActiveEmployeeListReport = objEmployeeRelatedReportQueries.getMonthlyAttendanceRegister(1, Convert.ToDateTime("01-06-2026"), Convert.ToDateTime("30-06-2026"));
 
             CompanyInfo company = new CompanyInfo()
             {
@@ -87,18 +89,6 @@ namespace StaffSync
                 WatermarkAngle = 45,
                 WatermarkOpacity = 0.15
             };
-
-            //var columns = new List<ReportColumn>()
-            //{
-            //    new ReportColumn("Code","EmployeeCode"){ Width=2 },
-            //    new ReportColumn("Employee Name","EmployeeName"){ Width=5 },
-            //    new ReportColumn("Department","Department"){ Width=4 },
-            //    new ReportColumn("Designation","Designation"){ Width=4 },
-            //    new ReportColumn("Status","Status"){ Width=2 },
-            //    new ReportColumn("Date Of Birth","EmployeeDOB"){ Width=3, Format = "Date", Alignment = ModelStaffSync.Enum.ReportAlignment.Left },
-            //    new ReportColumn("Date Of Joining","EmployeeDOJ"){ Width=3, Format = "Date", Alignment = ModelStaffSync.Enum.ReportAlignment.Left },
-            //    new ReportColumn("Annual CTC","EmployeeAnnualCTC"){ Width=3, Format = "Currency" ,  Alignment = ModelStaffSync.Enum.ReportAlignment.Right, ShowTotal = true, TotalBold = true, TotalCaption = "Total 01:", TotalFormat = "#,#0.00" }
-            //};
 
             ReportSettings settings = new ReportSettings
             {

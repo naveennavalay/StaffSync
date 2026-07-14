@@ -395,6 +395,12 @@
     <Compile Include="frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEmpSpecificReports.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmpSpecificReports.Designer.cs">
+      <DependentUpon>frmEmpSpecificReports.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPrintSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -989,6 +995,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StaffsyncDBDTSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="StaffSyncReports.cs" />
     <Compile Include="TextBoxAutoCompleteHelper.cs" />
     <EmbeddedResource Include="BadgeControl.resx">
       <DependentUpon>BadgeControl.cs</DependentUpon>
@@ -998,6 +1005,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmpSpecificReports.resx">
+      <DependentUpon>frmEmpSpecificReports.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPrintSettings.resx">
       <DependentUpon>frmPrintSettings.cs</DependentUpon>

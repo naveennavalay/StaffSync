@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppMailTemplateModel.cs" />
+    <Compile Include="AppReports.cs" />
     <Compile Include="Attributes\ReportColumnAttribute.cs" />
     <Compile Include="CompanyInfo.cs" />
     <Compile Include="Enums\PaperSize.cs" />
