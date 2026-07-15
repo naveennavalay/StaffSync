@@ -110,6 +110,45 @@ namespace ModelStaffSync
         public string RelationShipTitle { get; set; }
     }
 
+    public class PersonalInformationListReport
+    {
+        public string FinYearFromTo { get; set; }
+        public int EmpID { get; set; }
+
+        //[ReportColumnAttribute(Header = "Emp Code", Width = 6, Alignment = ReportAlignment.Left, Format = "Currency", ShowTotal = true, Visible = true)]
+        [ReportColumnAttribute(Header = "Emp Code", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        public string EmpCode { get; set; }
+
+        [ReportColumnAttribute(Header = "Emp Name", Width = 5, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string EmpName { get; set; }
+
+        [ReportColumnAttribute(Header = "Designation", Width = 5, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string DesignationTitle { get; set; }
+
+        [ReportColumnAttribute(Header = "Department", Width = 5, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string DepartmentTitle { get; set; }
+
+        [ReportColumnAttribute(Header = "Contact Number", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string ContactNumber1 { get; set; }
+
+        [ReportColumnAttribute(Header = "Mail ID", Width = 6, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string ContactNumber2 { get; set; }
+
+        [ReportColumnAttribute(Header = "Gender", Width = 2.5, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string SexTitle { get; set; }
+
+        [ReportColumnAttribute(Header = "Current Address", Width = 8, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string CurrentAddress { get; set; }
+
+        [ReportColumnAttribute(Header = "Permanent Address", Width = 8, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string PermanentAddress { get; set; }
+
+        [ReportColumnAttribute(Header = "Contact Person Info", Width = 6, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string ContactPersonInfo { get; set; }
+
+        [ReportColumnAttribute(Header = "Nominee Info", Width = 6, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string NomineeInfo { get; set; }
+    }
 
     public class MonthlyAttendanceReport
     {

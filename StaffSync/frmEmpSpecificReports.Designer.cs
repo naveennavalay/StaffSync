@@ -35,6 +35,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.dtgReportsList = new Krypton.Toolkit.KryptonDataGridView();
             this.grpCommon = new System.Windows.Forms.GroupBox();
+            this.cmbCriteriaOperator = new Krypton.Toolkit.KryptonComboBox();
             this.cmbBloodGroup = new Krypton.Toolkit.KryptonComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.chkBloodGroup = new System.Windows.Forms.CheckBox();
@@ -79,11 +80,11 @@
             this.lblSelectedReportName = new System.Windows.Forms.Label();
             this.lblFilter = new System.Windows.Forms.Label();
             this.btnReset = new Krypton.Toolkit.KryptonButton();
-            this.cmbCriteriaOperator = new Krypton.Toolkit.KryptonComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgReportsList)).BeginInit();
             this.grpCommon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbCriteriaOperator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbBloodGroup)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbFreeSearchAttributeName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbGender)).BeginInit();
@@ -96,7 +97,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgDataResult)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbCriteriaOperator)).BeginInit();
             this.SuspendLayout();
             // 
             // errValidator
@@ -190,6 +190,18 @@
             this.grpCommon.TabIndex = 11;
             this.grpCommon.TabStop = false;
             this.grpCommon.Text = "Filter Parameters";
+            // 
+            // cmbCriteriaOperator
+            // 
+            this.cmbCriteriaOperator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCriteriaOperator.DropDownWidth = 440;
+            this.cmbCriteriaOperator.Location = new System.Drawing.Point(228, 209);
+            this.cmbCriteriaOperator.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbCriteriaOperator.Name = "cmbCriteriaOperator";
+            this.cmbCriteriaOperator.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbCriteriaOperator.Size = new System.Drawing.Size(100, 22);
+            this.cmbCriteriaOperator.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbCriteriaOperator.TabIndex = 71;
             // 
             // cmbBloodGroup
             // 
@@ -482,6 +494,7 @@
             // 
             // cmbDesignation
             // 
+            this.cmbDesignation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDesignation.DropDownWidth = 440;
             this.cmbDesignation.Location = new System.Drawing.Point(97, 114);
             this.cmbDesignation.Margin = new System.Windows.Forms.Padding(4);
@@ -734,18 +747,6 @@
             this.btnReset.Values.Text = "";
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
-            // cmbCriteriaOperator
-            // 
-            this.cmbCriteriaOperator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCriteriaOperator.DropDownWidth = 440;
-            this.cmbCriteriaOperator.Location = new System.Drawing.Point(228, 209);
-            this.cmbCriteriaOperator.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbCriteriaOperator.Name = "cmbCriteriaOperator";
-            this.cmbCriteriaOperator.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbCriteriaOperator.Size = new System.Drawing.Size(100, 22);
-            this.cmbCriteriaOperator.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbCriteriaOperator.TabIndex = 71;
-            // 
             // frmEmpSpecificReports
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -779,6 +780,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgReportsList)).EndInit();
             this.grpCommon.ResumeLayout(false);
             this.grpCommon.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbCriteriaOperator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbBloodGroup)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbFreeSearchAttributeName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbGender)).EndInit();
@@ -792,7 +794,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgDataResult)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbCriteriaOperator)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

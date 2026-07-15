@@ -87,7 +87,6 @@ namespace dbStaffSync
                                             " ((ClientMas.ClientID) = " + ClientID + ") " +
                                             " AND ((EmpMas.IsActive) = True) " +
                                             " AND ((EmpMas.IsDeleted) = False) " +
-                                            " AND ((FinYearMas.FinYearID) = 1) " +
                                             Filter +
                                         " ) " +
                                     " ORDER BY " +
@@ -117,6 +116,96 @@ namespace dbStaffSync
 
             return objActiveEmployeeListReportList;
         }
+
+        public List<PersonalInformationListReport> getPersonalInformationListReport(int ClientID, string Filter)
+        {
+            List<PersonalInformationListReport> objPersonalInformationListReportList = new List<PersonalInformationListReport>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " + 
+                                        " FinYearMas.FinYearFromTo, " + 
+                                        " EmpMas.EmpID, " + 
+                                        " EmpMas.EmpCode, " + 
+                                        " EmpMas.EmpName, " + 
+                                        " DesigMas.DesignationTitle, " + 
+                                        " DepMas.DepartmentTitle, " + 
+                                        " PersonalInfoMas.ContactNumber1, " + 
+                                        " PersonalInfoMas.ContactNumber2, " + 
+                                        " SexMas.SexTitle, " + 
+                                        " vwCurrentAddress.CurrentAddress, " + 
+                                        " vwPermanentaddress.PermanentAddress, " + 
+                                        " vwContactPersonInfo.ContactPersonInfo, " + 
+                                        " vwNomineeInfo.NomineeInfo " + 
+                                    " FROM " + 
+                                        " SexMas " + 
+                                        " INNER JOIN ( " + 
+                                            " FinYearMas " + 
+                                            " INNER JOIN ( " + 
+                                                " ( " + 
+                                                    " DesigMas " + 
+                                                    " INNER JOIN ( " + 
+                                                        " DepMas " + 
+                                                        " INNER JOIN ( " + 
+                                                            " ClientMas " + 
+                                                            " INNER JOIN ( " + 
+                                                                " ( " + 
+                                                                    " ( " + 
+                                                                        " ( " + 
+                                                                            " EmpMas " + 
+                                                                            " INNER JOIN vwCurrentAddress ON EmpMas.EmpID = vwCurrentAddress.EmpID " + 
+                                                                        " ) " + 
+                                                                        " INNER JOIN vwPermanentaddress ON EmpMas.EmpID = vwPermanentaddress.EmpID " + 
+                                                                    " ) " + 
+                                                                    " INNER JOIN vwContactPersonInfo ON EmpMas.EmpID = vwContactPersonInfo.EmpID " + 
+                                                                " ) " + 
+                                                                " INNER JOIN vwNomineeInfo ON EmpMas.EmpID = vwNomineeInfo.EmpID " + 
+                                                            " ) ON ClientMas.ClientID = EmpMas.ClientID " + 
+                                                        " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " + 
+                                                    " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " + 
+                                                " ) " + 
+                                                " INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID " + 
+                                            " ) ON FinYearMas.FinYearID = ClientMas.FinYearID " + 
+                                        " ) ON SexMas.SexID = PersonalInfoMas.SexID " + 
+                                    " WHERE " + 
+                                        " ( " +
+                                            " ((ClientMas.ClientID) = " + ClientID + ") " +
+                                            " AND ((EmpMas.IsActive) = True) " +
+                                            " AND ((EmpMas.IsDeleted) = False) " +
+                                            Filter +
+                                        " ) " + 
+                                    " ORDER BY " + 
+                                        " EmpMas.EmpID,ClientMas.ClientID";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objPersonalInformationListReportList = JsonConvert.DeserializeObject<List<PersonalInformationListReport>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objPersonalInformationListReportList;
+        }
+
 
         public List<MonthlyAttendanceReport> getMonthlyAttendanceRegister(int ClientID, DateTime dtFrom, DateTime dtTo)
         {

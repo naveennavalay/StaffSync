@@ -48,6 +48,7 @@ namespace StaffSync
         DALStaffSync.clsAppReports objAppReports = new DALStaffSync.clsAppReports();
 
         List<ActiveEmployeeListReport> objActiveEmployeeListReport = new List<ActiveEmployeeListReport>();
+        List<PersonalInformationListReport> objPersonalInformationListReport = new List<PersonalInformationListReport>();
 
         string strActionStatement = "";
         private Dictionary<string, object> _originalValues;
@@ -437,6 +438,68 @@ namespace StaffSync
             dtgDataResult.Columns["ClientBranchName"].ReadOnly = true;
         }
 
+        private void EmployeePersonalInformation(string strFilter)
+        {
+            objPersonalInformationListReport = objEmployeeRelatedReportQueries.getPersonalInformationListReport(objTempClientFinYearInfo.ClientID, strFilter);
+            dtgDataResult.DataSource = objPersonalInformationListReport;
+
+            dtgDataResult.Columns["EmpID"].Width = 50;
+            dtgDataResult.Columns["EmpID"].Visible = false;
+            dtgDataResult.Columns["EmpID"].ReadOnly = true;
+
+            dtgDataResult.Columns["FinYearFromTo"].Width = 50;
+            dtgDataResult.Columns["FinYearFromTo"].Visible = false;
+            dtgDataResult.Columns["FinYearFromTo"].ReadOnly = true;
+
+            //dtgDataResult.Columns["Status"].Width = 50;
+            //dtgDataResult.Columns["Status"].Visible = false;
+            //dtgDataResult.Columns["Status"].ReadOnly = true;
+
+            dtgDataResult.Columns["EmpCode"].Width = 70;
+            dtgDataResult.Columns["EmpCode"].HeaderText = "Emp. Code";
+            dtgDataResult.Columns["EmpCode"].ReadOnly = true;
+
+            dtgDataResult.Columns["EmpName"].Width = 225;
+            dtgDataResult.Columns["EmpName"].HeaderText = "Report Name";
+            dtgDataResult.Columns["EmpName"].ReadOnly = true;
+
+            dtgDataResult.Columns["DesignationTitle"].Width = 200;
+            dtgDataResult.Columns["DesignationTitle"].HeaderText = "Designation Name";
+            dtgDataResult.Columns["DesignationTitle"].ReadOnly = true;
+
+            dtgDataResult.Columns["DepartmentTitle"].Width = 200;
+            dtgDataResult.Columns["DepartmentTitle"].HeaderText = "Department Name";
+            dtgDataResult.Columns["DepartmentTitle"].ReadOnly = true;
+
+            dtgDataResult.Columns["ContactNumber1"].Width = 125;
+            dtgDataResult.Columns["ContactNumber1"].HeaderText = "Contact Number";
+            dtgDataResult.Columns["ContactNumber1"].ReadOnly = true;
+
+            dtgDataResult.Columns["ContactNumber2"].Width = 240;
+            dtgDataResult.Columns["ContactNumber2"].HeaderText = "Mail ID";
+            dtgDataResult.Columns["ContactNumber2"].ReadOnly = true;
+
+            dtgDataResult.Columns["SexTitle"].Width = 125;
+            dtgDataResult.Columns["SexTitle"].HeaderText = "Blood Group";
+            dtgDataResult.Columns["SexTitle"].ReadOnly = true;
+
+            dtgDataResult.Columns["CurrentAddress"].Width = 350;
+            dtgDataResult.Columns["CurrentAddress"].HeaderText = "Current Address";
+            dtgDataResult.Columns["CurrentAddress"].ReadOnly = true;
+
+            dtgDataResult.Columns["PermanentAddress"].Width = 350;
+            dtgDataResult.Columns["PermanentAddress"].HeaderText = "Permanent Address";
+            dtgDataResult.Columns["PermanentAddress"].ReadOnly = true;
+
+            dtgDataResult.Columns["ContactPersonInfo"].Width = 350;
+            dtgDataResult.Columns["ContactPersonInfo"].HeaderText = "Contact Person Information";
+            dtgDataResult.Columns["ContactPersonInfo"].ReadOnly = true;
+
+            dtgDataResult.Columns["NomineeInfo"].Width = 350;
+            dtgDataResult.Columns["NomineeInfo"].HeaderText = "Nominee Information";
+            dtgDataResult.Columns["NomineeInfo"].ReadOnly = true;
+        }
+
         private void chkIncludeMonth_CheckedChanged(object sender, EventArgs e)
         {
             cmbMonth.Enabled = chkIncludeDesignation.Checked;
@@ -464,86 +527,98 @@ namespace StaffSync
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            if (lblSelectedReport.Text.ToString() == ReportCode.REP_0001.ToString() || lblSelectedReport.Text.ToString() == ReportCode.REP_0002.ToString())
+            ClientInfo objSelectedClientInfo = new ClientInfo();
+            objSelectedClientInfo = objClientInfo.getClientInfoByEmpID(objTempClientFinYearInfo.ClientID).FirstOrDefault();
+
+            CompanyInfo company = new CompanyInfo()
             {
-                ClientInfo objSelectedClientInfo = new ClientInfo();
-                objSelectedClientInfo = objClientInfo.getClientInfoByEmpID(objTempClientFinYearInfo.ClientID).FirstOrDefault();
+                CompanyName = objSelectedClientInfo.ClientName,
+                ProductName = "",
 
-                CompanyInfo company = new CompanyInfo()
-                {
-                    CompanyName = objSelectedClientInfo.ClientName,
-                    ProductName = "",
+                AddressLine1 = objSelectedClientInfo.ClientAddress1,
+                AddressLine2 = objSelectedClientInfo.ClientAddress2,
 
-                    AddressLine1 = objSelectedClientInfo.ClientAddress1,
-                    AddressLine2 = objSelectedClientInfo.ClientAddress2,
+                City = objSelectedClientInfo.ClientCity,
+                State = objSelectedClientInfo.ClientState,
+                Country = objSelectedClientInfo.ClientCountry,
+                PinCode = objSelectedClientInfo.ClientCountry,
 
-                    City = objSelectedClientInfo.ClientCity,
-                    State = objSelectedClientInfo.ClientState,
-                    Country = objSelectedClientInfo.ClientCountry,
-                    PinCode = objSelectedClientInfo.ClientCountry,
+                Phone = objSelectedClientInfo.ClientPhone,
+                Mobile = objSelectedClientInfo.ClientPhone,
 
-                    Phone = objSelectedClientInfo.ClientPhone,
-                    Mobile = objSelectedClientInfo.ClientPhone,
+                Email = objSelectedClientInfo.ClientContactMail,
+                Website = objSelectedClientInfo.ClientWebSite,
 
-                    Email = objSelectedClientInfo.ClientContactMail,
-                    Website = objSelectedClientInfo.ClientWebSite,
+                GSTNumber = "",
+                CINNumber = "",
 
-                    GSTNumber = "",
-                    CINNumber = "",
+                LogoPath = @Application.StartupPath + "\\" + objSelectedClientInfo.ClientCode + "-logo.png",
+                LogoHeight = 3.5,
+                LogoWidth = 3.5
+            };
 
-                    LogoPath = @Application.StartupPath + "\\" + objSelectedClientInfo.ClientCode + "-logo.png",
-                    LogoHeight = 3.5,
-                    LogoWidth = 3.5
-                };
+            ReportInfo report = new ReportInfo()
+            {
+                ReportTitle = lblSelectedReportName.Text,
+                GeneratedBy = objTempCurrentlyLoggedInUserInfo.EmpUserName,
+                GeneratedOn = DateTime.Now,
+                Version = "",
+                FinancialYear = ""
+            };
 
-                ReportInfo report = new ReportInfo()
-                {
-                    ReportTitle = lblSelectedReportName.Text,
-                    GeneratedBy = objTempCurrentlyLoggedInUserInfo.EmpUserName,
-                    GeneratedOn = DateTime.Now,
-                    Version = "",
-                    FinancialYear = ""
-                };
+            ReportDisplayOptions displayOptions = new ReportDisplayOptions()
+            {
+                ShowCompanyLogo = true,
+                ShowHeader = true,
+                ShowFooter = true,
+                ShowGeneratedDate = true,
+                ShowPageNumbers = true,
+                ShowSummary = false,
+                ShowWatermark = true,
+                WatermarkText = "TRIAL VERSION",
+                WatermarkFontSize = 48,
+                WatermarkColorHex = "#D0D0D0",
+                WatermarkAngle = 45,
+                WatermarkOpacity = 0.15
+            };
 
-                ReportDisplayOptions displayOptions = new ReportDisplayOptions()
-                {
-                    ShowCompanyLogo = true,
-                    ShowHeader = true,
-                    ShowFooter = true,
-                    ShowGeneratedDate = true,
-                    ShowPageNumbers = true,
-                    ShowSummary = false,
-                    ShowWatermark = true,
-                    WatermarkText = "TRIAL VERSION",
-                    WatermarkFontSize = 48,
-                    WatermarkColorHex = "#D0D0D0",
-                    WatermarkAngle = 45,
-                    WatermarkOpacity = 0.15
-                };
+            ReportSettings settings = new ReportSettings
+            {
+                PageWidth = 60,
+                PageHeight = 30,
+                LeftMargin = 1,
+                RightMargin = 1,
+                TopMargin = 1,
+                BottomMargin = 1
+            };
 
-                ReportSettings settings = new ReportSettings
-                {
-                    PageWidth = 60,
-                    PageHeight = 30,
-                    LeftMargin = 1,
-                    RightMargin = 1,
-                    TopMargin = 1,
-                    BottomMargin = 1
-                };
+            string filePath = "";
+            filePath = FileHelper.GetTempFolder() + objSelectedClientInfo.ClientCode + "_" + lblSelectedReportName.Text.ToString().Replace(" ", "_") + ".pdf"; // @"C:\Development\StaffSync\StaffSync\bin\Debug\ReportDesigner.pdf";
 
-                string filePath = "";
-                filePath = FileHelper.GetTempFolder() + objSelectedClientInfo.ClientCode + "_" + lblSelectedReportName.Text.ToString().Replace(" ", "_") + ".pdf"; // @"C:\Development\StaffSync\StaffSync\bin\Debug\ReportDesigner.pdf";
+
+            if (lblSelectedReport.Text.ToString() == ReportCode.REP_0001.ToString())
+            {
                 new ReportBuilder()
                 .Company(company)
                 .Title(report)
                 .Data(objActiveEmployeeListReport)
                 .Settings(settings)
                 .Generate(filePath);
-
-                MessageBox.Show("Data Exported Successfully !!!", "Info");
-
-                Download.DownloadPDF(filePath);
             }
+            else if (lblSelectedReport.Text.ToString() == ReportCode.REP_0002.ToString())
+            {
+                new ReportBuilder()
+                .Company(company)
+                .Title(report)
+                .Data(objPersonalInformationListReport)
+                .Settings(settings)
+                .Generate(filePath);
+            }
+
+            MessageBox.Show("Data Exported Successfully !!!", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            Download.DownloadPDF(filePath);
+            
         }
 
         private void btnExecute_Click(object sender, EventArgs e)
@@ -558,10 +633,15 @@ namespace StaffSync
 
             lblFilter.Text = filter;
 
-            if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0001.ToString() || dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0002.ToString())
+            if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0001.ToString())
             {
                 lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
                 EmployeeMasterDetails(lblFilter.Text);
+            }
+            else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0002.ToString())
+            {
+                lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
+                EmployeePersonalInformation(lblFilter.Text);
             }
         }
 
@@ -593,7 +673,7 @@ namespace StaffSync
 
             if (!hasCheckedFilter && !hasSearch && !hasDateFilter)
             {
-                MessageBox.Show("Please select at least one filter or a valid date filter.");
+                MessageBox.Show("Please select at least one filter or a valid date filter.", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 validationStatus = false;
             }
 
@@ -621,20 +701,20 @@ namespace StaffSync
             {
                 if (!DateTime.TryParseExact(txtDTFrom.Text, dateFormat, provider, DateTimeStyles.None, out DateTime dtFromDate))
                 {
-                    MessageBox.Show("Please select From Date.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Please select From Date.", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtDTFrom.Focus();
                     return false;
                 }
                 if (!DateTime.TryParseExact(txtDTTo.Text, dateFormat, provider, DateTimeStyles.None, out DateTime dtToDate))
                 {
-                    MessageBox.Show("Please select To Date.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Please select To Date.", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtDTTo.Focus();
                     return false;
                 }
 
                 if (dtToDate.Date < dtFromDate.Date)
                 {
-                    MessageBox.Show("'To Date' cannot be earlier than 'From Date'.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("'To Date' cannot be earlier than 'From Date'.", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtDTFrom.Focus();
                     return false;
                 }

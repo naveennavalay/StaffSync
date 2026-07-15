@@ -23,7 +23,10 @@ namespace StaffSync
                 if (ctrl is TextBox || ctrl.GetType().Name.Contains("KryptonTextBox"))
                     values[fieldName] = ctrl.Text?.Trim();
 
-                else if (ctrl is CheckBox || ctrl.GetType().Name.Contains("KryptonCheckBox"))
+                else if (ctrl is CheckBox)
+                    values[fieldName] = ((CheckBox)ctrl).Checked;
+                
+                else if (ctrl.GetType().Name.Contains("KryptonCheckBox"))
                     values[fieldName] = ((Krypton.Toolkit.KryptonCheckBox)ctrl).Checked;
 
                 else if (ctrl is ComboBox || ctrl.GetType().Name.Contains("KryptonComboBox"))
