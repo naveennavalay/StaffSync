@@ -30,9 +30,9 @@ namespace StaffSync
         {
             DALStaffSync.EmployeeRelatedReportQueries objEmployeeRelatedReportQueries = new DALStaffSync.EmployeeRelatedReportQueries();
 
-            //List <ActiveEmployeeListReport> objActiveEmployeeListReport = objEmployeeRelatedReportQueries.getActiveEmployeeListReport(1);
+            List <ActiveEmployeeListReport> objActiveEmployeeListReport = objEmployeeRelatedReportQueries.getActiveEmployeeListReport(1, "");
 
-            List<MonthlyAttendanceReport> objActiveEmployeeListReport = objEmployeeRelatedReportQueries.getMonthlyAttendanceRegister(1, Convert.ToDateTime("01-06-2026"), Convert.ToDateTime("30-06-2026"));
+            //List<MonthlyAttendanceReport> objActiveEmployeeListReport = objEmployeeRelatedReportQueries.getMonthlyAttendanceRegister(1, Convert.ToDateTime("01-06-2026"), Convert.ToDateTime("30-06-2026"));
 
             CompanyInfo company = new CompanyInfo()
             {

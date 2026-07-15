@@ -1,19 +1,24 @@
-﻿using StaffSync.StaffsyncDBDataSetTableAdapters;
+﻿using Krypton.Toolkit;
+using ModelStaffSync;
+using ReportingEngine;
+using ReportingEngine.Core;
+using ReportingEngine.Helpers;
+using StaffSync.StaffsyncDBDataSetTableAdapters;
+using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.OleDb;
-using StaffSync.StaffsyncDBDTSetTableAdapters;
-using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using ModelStaffSync;
 
 namespace StaffSync
 {
@@ -23,7 +28,10 @@ namespace StaffSync
         //clsDesignation objDesignation = new clsDesignation();
         //clsStates objState = new clsStates();
         //clsRelationship objRelationship = new clsRelationship();
-        
+
+        DALStaffSync.EmployeeRelatedReportQueries objEmployeeRelatedReportQueries = new DALStaffSync.EmployeeRelatedReportQueries();
+        DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
+
         DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
         DALStaffSync.clsLeaveTypeMas objLeaveTypeMas = new DALStaffSync.clsLeaveTypeMas();
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
@@ -38,6 +46,8 @@ namespace StaffSync
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
         DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
         DALStaffSync.clsAppReports objAppReports = new DALStaffSync.clsAppReports();
+
+        List<ActiveEmployeeListReport> objActiveEmployeeListReport = new List<ActiveEmployeeListReport>();
 
         string strActionStatement = "";
         private Dictionary<string, object> _originalValues;
@@ -59,8 +69,48 @@ namespace StaffSync
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
             objTempClientFinYearInfo = objSelectedClientFinYearInfo;
             ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
+
+            ResetScreen();
+            disableControls();
+        }
+
+
+        private void ResetScreen()
+        {
+            lblSelectedReport.Text = "";
+            lblSelectedReportName.Text = "";
+            lblFilter.Text = "";
+
             LoadSalaryMonthList();
             LoadReportsList();
+
+            List<tmpDropdownItem> list = new List<tmpDropdownItem>()
+            {
+                new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
+                new tmpDropdownItem { MemberValue = "EmpMas.EmpCode", MemberName = "Employee Code" },
+                new tmpDropdownItem { MemberValue = "EmpMas.EmpName", MemberName = "Employee Name" },
+                new tmpDropdownItem { MemberValue = "PersonalInfoMas.ContactNumber1", MemberName = "Contact Number" },
+                new tmpDropdownItem { MemberValue = "PersonalInfoMas.ContactNumber2", MemberName = "Mail ID" },
+                new tmpDropdownItem { MemberValue = "NomineeMas.NomineePerson", MemberName = "Nominee Name" },
+                new tmpDropdownItem { MemberValue = "NomineeMas.ContactNumber", MemberName = "Nominee Contact Number" },
+                new tmpDropdownItem { MemberValue = "RelationShipMas.RelationShipTitle", MemberName = "Nominee Relationship" },
+                new tmpDropdownItem { MemberValue = "ClientBranchMas.ClientBranchCode", MemberName = "Branch Code" },
+                new tmpDropdownItem { MemberValue = "ClientBranchMas.ClientBranchName", MemberName = "Branch Name" },
+            };
+            cmbFreeSearchAttributeName.DataSource = list;
+            cmbFreeSearchAttributeName.DisplayMember = "MemberName";
+            cmbFreeSearchAttributeName.ValueMember = "MemberValue";
+            cmbFreeSearchAttributeName.SelectedIndex = 0;
+
+
+            cmbCriteriaOperator.Items.Clear();
+            cmbCriteriaOperator.Items.Add("");
+            cmbCriteriaOperator.Items.Add("equal to");
+            cmbCriteriaOperator.Items.Add("not equal to");
+            cmbCriteriaOperator.Items.Add("starts with");
+            cmbCriteriaOperator.Items.Add("contains");
+            cmbCriteriaOperator.Items.Add("ends with");
+            cmbCriteriaOperator.SelectedIndex = 1;
 
             cmbDepartment.DataSource = objDepartment.GetDepartmentList();
             cmbDepartment.DisplayMember = "DepartmentTitle";
@@ -74,10 +124,15 @@ namespace StaffSync
             cmbGender.DisplayMember = "SexTitle";
             cmbGender.ValueMember = "SexID";
 
+            cmbBloodGroup.DataSource = objBloodGroup.GetBloodGroupList();
+            cmbBloodGroup.DisplayMember = "BloodGroupTitle";
+            cmbBloodGroup.ValueMember = "BloodGroupID";
+
             cmbDesignation.DataSource = objDesignation.GetDesignationList();
             cmbDesignation.DisplayMember = "DesignationTitle";
             cmbDesignation.ValueMember = "DesignationID";
         }
+
 
         private void LoadReportsList()
         {
@@ -155,7 +210,28 @@ namespace StaffSync
 
         public void disableControls()
         {
+            chkIncludeMonth.Checked = true;
+            cmbMonth.Enabled = true;
+            chkIncludeDesignation.Checked = false;
+            cmbDesignation.Enabled = false;
+            chkIncludeDepartment.Checked = false;
+            cmbDepartment.Enabled = false;
+            chkIncludeGender.Checked = false;
+            cmbGender.Enabled = false;
+            chkIncludeBranch.Checked = false;
+            cmbBranch.Enabled = false;
+            chkBloodGroup.Checked = false;
+            cmbBloodGroup.Enabled = false;
 
+            optDOB.Checked = false;
+            optDOJ.Checked = false;
+            optProbDate.Checked = false;
+            optConfirmDate.Checked = false;
+            optRelivingDate.Checked = false;
+            optResignationDate.Checked = false;
+
+            txtDTFrom.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            txtDTTo.Text = DateTime.Today.ToString("dd-MM-yyyy");
         }
 
         public void onGenerateButtonClick()
@@ -184,11 +260,6 @@ namespace StaffSync
         }
 
         public void displaySelectedValuesOnUI(LeaveTypeInfoModel LeaveTypeInfoModel)
-        {
-
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
         {
 
         }
@@ -241,7 +312,361 @@ namespace StaffSync
 
         private void dtgReportsList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show(dtgReportsList.SelectedRows[0].Cells["ReportsID"].Value.ToString(), "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            lblSelectedReport.Text = "";
+            lblSelectedReportName.Text = "";
+            lblFilter.Text = "";
+            if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0001.ToString() || dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0002.ToString())
+            {
+                chkIncludeMonth.Checked = true;
+                cmbMonth.Enabled = true;
+                chkIncludeDesignation.Checked = false;
+                cmbDesignation.Enabled = false;
+                chkIncludeDepartment.Checked = false;
+                cmbDepartment.Enabled = false;
+                chkIncludeGender.Checked = false;
+                cmbGender.Enabled = false;
+                chkIncludeBranch.Checked = false;
+                cmbBranch.Enabled = false;
+
+                optDOB.Checked = false;
+                optDOJ.Checked = false;
+                optProbDate.Checked = false;
+                optConfirmDate.Checked = false;
+                optRelivingDate.Checked = false;
+                optResignationDate.Checked = false;
+
+                txtDTFrom.Text = DateTime.Today.ToString("dd-MM-yyyy");
+                txtDTTo.Text = DateTime.Today.ToString("dd-MM-yyyy");
+
+                lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
+                lblSelectedReportName.Text = dtgReportsList.SelectedRows[0].Cells["ReportsName"].Value.ToString().Replace("-", "_").ToString();
+            }
+            else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0003.ToString())
+            {
+
+            }
+            else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0004.ToString())
+            {
+
+            }
+            else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0005.ToString())
+            {
+
+            }
+        }
+
+        private void EmployeeMasterDetails(string strFilter)
+        {
+            objActiveEmployeeListReport = objEmployeeRelatedReportQueries.getActiveEmployeeListReport(objTempClientFinYearInfo.ClientID, strFilter);
+            dtgDataResult.DataSource = objActiveEmployeeListReport;
+
+            dtgDataResult.Columns["EmpID"].Width = 50;
+            dtgDataResult.Columns["EmpID"].Visible = false;
+            dtgDataResult.Columns["EmpID"].ReadOnly = true;
+
+            dtgDataResult.Columns["FinYearFromTo"].Width = 50;
+            dtgDataResult.Columns["FinYearFromTo"].Visible = false;
+            dtgDataResult.Columns["FinYearFromTo"].ReadOnly = true;
+
+            dtgDataResult.Columns["Status"].Width = 50;
+            dtgDataResult.Columns["Status"].Visible = false;
+            dtgDataResult.Columns["Status"].ReadOnly = true;
+
+            dtgDataResult.Columns["EmpCode"].Width = 70;
+            dtgDataResult.Columns["EmpCode"].HeaderText = "Emp. Code";
+            dtgDataResult.Columns["EmpCode"].ReadOnly = true;
+
+            dtgDataResult.Columns["EmpName"].Width = 225;
+            dtgDataResult.Columns["EmpName"].HeaderText = "Report Name";
+            dtgDataResult.Columns["EmpName"].ReadOnly = true;
+
+            dtgDataResult.Columns["DesignationTitle"].Width = 200;
+            dtgDataResult.Columns["DesignationTitle"].HeaderText = "Designation Name";
+            dtgDataResult.Columns["DesignationTitle"].ReadOnly = true;
+
+            dtgDataResult.Columns["DepartmentTitle"].Width = 200;
+            dtgDataResult.Columns["DepartmentTitle"].HeaderText = "Department Name";
+            dtgDataResult.Columns["DepartmentTitle"].ReadOnly = true;
+
+            dtgDataResult.Columns["ContactNumber1"].Width = 125;
+            dtgDataResult.Columns["ContactNumber1"].HeaderText = "Contact Number";
+            dtgDataResult.Columns["ContactNumber1"].ReadOnly = true;
+
+            dtgDataResult.Columns["ContactNumber2"].Width = 240;
+            dtgDataResult.Columns["ContactNumber2"].HeaderText = "Mail ID";
+            dtgDataResult.Columns["ContactNumber2"].ReadOnly = true;
+
+            dtgDataResult.Columns["DOJ"].Width = 100;
+            dtgDataResult.Columns["DOJ"].HeaderText = "Joining Date";
+            dtgDataResult.Columns["DOJ"].ReadOnly = true;
+
+            dtgDataResult.Columns["LastDateOfProbation"].Width = 100;
+            dtgDataResult.Columns["LastDateOfProbation"].HeaderText = "Probation Date";
+            dtgDataResult.Columns["LastDateOfProbation"].ReadOnly = true;
+
+            dtgDataResult.Columns["DateOfConfirmation"].Width = 100;
+            dtgDataResult.Columns["DateOfConfirmation"].HeaderText = "Confirmat Date";
+            dtgDataResult.Columns["DateOfConfirmation"].ReadOnly = true;
+
+            dtgDataResult.Columns["SexTitle"].Width = 125;
+            dtgDataResult.Columns["SexTitle"].HeaderText = "Gender";
+            dtgDataResult.Columns["SexTitle"].ReadOnly = true;
+
+            dtgDataResult.Columns["BloodGroupTitle"].Width = 125;
+            dtgDataResult.Columns["BloodGroupTitle"].HeaderText = "Blood Group";
+            dtgDataResult.Columns["BloodGroupTitle"].ReadOnly = true;
+
+            dtgDataResult.Columns["NomineePerson"].Width = 225;
+            dtgDataResult.Columns["NomineePerson"].HeaderText = "Nominee Name";
+            dtgDataResult.Columns["NomineePerson"].ReadOnly = true;
+
+            dtgDataResult.Columns["ContactNumber"].Width = 125;
+            dtgDataResult.Columns["ContactNumber"].HeaderText = "Nominee Contact";
+            dtgDataResult.Columns["ContactNumber"].ReadOnly = true;
+
+            dtgDataResult.Columns["RelationShipTitle"].Width = 125;
+            dtgDataResult.Columns["RelationShipTitle"].HeaderText = "Relationship";
+            dtgDataResult.Columns["RelationShipTitle"].ReadOnly = true;
+
+            dtgDataResult.Columns["ClientBranchCode"].Width = 100;
+            dtgDataResult.Columns["ClientBranchCode"].HeaderText = "Branch Code";
+            dtgDataResult.Columns["ClientBranchCode"].ReadOnly = true;
+
+            dtgDataResult.Columns["ClientBranchName"].Width = 225;
+            dtgDataResult.Columns["ClientBranchName"].HeaderText = "Branch Name";
+            dtgDataResult.Columns["ClientBranchName"].ReadOnly = true;
+        }
+
+        private void chkIncludeMonth_CheckedChanged(object sender, EventArgs e)
+        {
+            cmbMonth.Enabled = chkIncludeDesignation.Checked;
+        }
+
+        private void chkIncludeDesignation_CheckedChanged(object sender, EventArgs e)
+        {
+            cmbDesignation.Enabled = chkIncludeDesignation.Checked;
+        }
+
+        private void chkIncludeDepartment_CheckedChanged(object sender, EventArgs e)
+        {
+            cmbDepartment.Enabled = chkIncludeDepartment.Checked;
+        }
+
+        private void chkIncludeGender_CheckedChanged(object sender, EventArgs e)
+        {
+            cmbGender.Enabled = chkIncludeGender.Checked;
+        }
+
+        private void chkIncludeBranch_CheckedChanged(object sender, EventArgs e)
+        {
+            cmbBranch.Enabled = chkIncludeBranch.Checked;
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            if (lblSelectedReport.Text.ToString() == ReportCode.REP_0001.ToString() || lblSelectedReport.Text.ToString() == ReportCode.REP_0002.ToString())
+            {
+                ClientInfo objSelectedClientInfo = new ClientInfo();
+                objSelectedClientInfo = objClientInfo.getClientInfoByEmpID(objTempClientFinYearInfo.ClientID).FirstOrDefault();
+
+                CompanyInfo company = new CompanyInfo()
+                {
+                    CompanyName = objSelectedClientInfo.ClientName,
+                    ProductName = "",
+
+                    AddressLine1 = objSelectedClientInfo.ClientAddress1,
+                    AddressLine2 = objSelectedClientInfo.ClientAddress2,
+
+                    City = objSelectedClientInfo.ClientCity,
+                    State = objSelectedClientInfo.ClientState,
+                    Country = objSelectedClientInfo.ClientCountry,
+                    PinCode = objSelectedClientInfo.ClientCountry,
+
+                    Phone = objSelectedClientInfo.ClientPhone,
+                    Mobile = objSelectedClientInfo.ClientPhone,
+
+                    Email = objSelectedClientInfo.ClientContactMail,
+                    Website = objSelectedClientInfo.ClientWebSite,
+
+                    GSTNumber = "",
+                    CINNumber = "",
+
+                    LogoPath = @Application.StartupPath + "\\" + objSelectedClientInfo.ClientCode + "-logo.png",
+                    LogoHeight = 3.5,
+                    LogoWidth = 3.5
+                };
+
+                ReportInfo report = new ReportInfo()
+                {
+                    ReportTitle = lblSelectedReportName.Text,
+                    GeneratedBy = objTempCurrentlyLoggedInUserInfo.EmpUserName,
+                    GeneratedOn = DateTime.Now,
+                    Version = "",
+                    FinancialYear = ""
+                };
+
+                ReportDisplayOptions displayOptions = new ReportDisplayOptions()
+                {
+                    ShowCompanyLogo = true,
+                    ShowHeader = true,
+                    ShowFooter = true,
+                    ShowGeneratedDate = true,
+                    ShowPageNumbers = true,
+                    ShowSummary = false,
+                    ShowWatermark = true,
+                    WatermarkText = "TRIAL VERSION",
+                    WatermarkFontSize = 48,
+                    WatermarkColorHex = "#D0D0D0",
+                    WatermarkAngle = 45,
+                    WatermarkOpacity = 0.15
+                };
+
+                ReportSettings settings = new ReportSettings
+                {
+                    PageWidth = 60,
+                    PageHeight = 30,
+                    LeftMargin = 1,
+                    RightMargin = 1,
+                    TopMargin = 1,
+                    BottomMargin = 1
+                };
+
+                string filePath = "";
+                filePath = FileHelper.GetTempFolder() + objSelectedClientInfo.ClientCode + "_" + lblSelectedReportName.Text.ToString().Replace(" ", "_") + ".pdf"; // @"C:\Development\StaffSync\StaffSync\bin\Debug\ReportDesigner.pdf";
+                new ReportBuilder()
+                .Company(company)
+                .Title(report)
+                .Data(objActiveEmployeeListReport)
+                .Settings(settings)
+                .Generate(filePath);
+
+                MessageBox.Show("Data Exported Successfully !!!", "Info");
+
+                Download.DownloadPDF(filePath);
+            }
+        }
+
+        private void btnExecute_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(lblSelectedReport.Text))
+            {
+                MessageBox.Show("Please select a report.", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (VerifyFilterValues(out string filter) == false)
+                return;
+
+            lblFilter.Text = filter;
+
+            if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0001.ToString() || dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0002.ToString())
+            {
+                lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
+                EmployeeMasterDetails(lblFilter.Text);
+            }
+        }
+
+        private bool VerifyFilterValues(out string filter) 
+        {
+            DateTime dob, doj;
+            string dateFormat = "dd-MM-yyyy";
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            bool validationStatus = true;
+            filter = "";
+
+            bool hasCheckedFilter =
+                       chkIncludeMonth.Checked
+                    || chkIncludeDesignation.Checked
+                    || chkIncludeDepartment.Checked
+                    || chkIncludeGender.Checked
+                    || chkBloodGroup.Checked
+                    || chkIncludeBranch.Checked;
+
+            bool hasSearch = cmbFreeSearchAttributeName.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtSearch.Text);
+
+            bool hasDateFilter =
+                       optDOB.Checked
+                    || optDOJ.Checked
+                    || optProbDate.Checked
+                    || optConfirmDate.Checked
+                    || optResignationDate.Checked
+                    || optRelivingDate.Checked;
+
+            if (!hasCheckedFilter && !hasSearch && !hasDateFilter)
+            {
+                MessageBox.Show("Please select at least one filter or a valid date filter.");
+                validationStatus = false;
+            }
+
+            if (hasCheckedFilter)
+            {
+                if(chkIncludeMonth.Checked)
+                    filter = filter + " AND ((DesigMas.DesignationTitle) = 'Sr. Software Engineer')";
+                if (chkIncludeDesignation.Checked)
+                    filter = filter + " AND ((DesigMas.DesignationTitle) = '" + cmbDesignation.Text + "')";
+                if (chkIncludeDepartment.Checked)
+                    filter = filter + " AND ((DepMas.DepartmentTitle) = '" + cmbDepartment.Text + "')";
+                if (chkIncludeGender.Checked)
+                    filter = filter + " AND ((SexMas.SexTitle) = '" + cmbGender.Text + "')";
+                if (chkBloodGroup.Checked)
+                    filter = filter + " AND ((BloodGroupMas.BloodGroupTitle) = '" + cmbBloodGroup.Text + "')";
+                if (chkIncludeBranch.Checked)
+                    filter = filter + " AND ((ClientBranchMas.ClientBranchCode) = '" + cmbBranch.Text.Substring(0, cmbBranch.Text.IndexOf(",")) + "')";
+            }
+            if (hasSearch)
+            {
+                tmpDropdownItem objtmpDropdownItem = (tmpDropdownItem)cmbFreeSearchAttributeName.SelectedItem;
+                filter = filter + " AND ((" + objtmpDropdownItem.MemberValue + ") = '" + txtSearch.Text.ToString().Trim()  + "')";
+            }
+            if (hasDateFilter)
+            {
+                if (!DateTime.TryParseExact(txtDTFrom.Text, dateFormat, provider, DateTimeStyles.None, out DateTime dtFromDate))
+                {
+                    MessageBox.Show("Please select From Date.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtDTFrom.Focus();
+                    return false;
+                }
+                if (!DateTime.TryParseExact(txtDTTo.Text, dateFormat, provider, DateTimeStyles.None, out DateTime dtToDate))
+                {
+                    MessageBox.Show("Please select To Date.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtDTTo.Focus();
+                    return false;
+                }
+
+                if (dtToDate.Date < dtFromDate.Date)
+                {
+                    MessageBox.Show("'To Date' cannot be earlier than 'From Date'.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtDTFrom.Focus();
+                    return false;
+                }
+                if(optDOB.Checked)
+                    filter = filter + " AND (((PersonalInfoMas.DOB) >= #" + Convert.ToDateTime(txtDTFrom.Text).ToString("dd-MMM-yyyy") + "#) AND ((PersonalInfoMas.DOB) <= #" + Convert.ToDateTime(txtDTTo.Text).ToString("dd-MMM-yyyy") + "#))";
+                else if(optDOJ.Checked)
+                    filter = filter + " AND (((PersonalInfoMas.DOJ) >= #" + Convert.ToDateTime(txtDTFrom.Text).ToString("dd-MMM-yyyy") + "#) AND ((PersonalInfoMas.DOJ) <= #" + Convert.ToDateTime(txtDTTo.Text).ToString("dd-MMM-yyyy") + "#))";
+                else if (optProbDate.Checked)
+                    filter = filter + " AND (((PersonalInfoMas.LastDateOfProbation) >= #" + Convert.ToDateTime(txtDTFrom.Text).ToString("dd-MMM-yyyy") + "#) AND ((PersonalInfoMas.LastDateOfProbation) <= #" + Convert.ToDateTime(txtDTTo.Text).ToString("dd-MMM-yyyy") + "#))";
+                else if (optConfirmDate.Checked)
+                    filter = filter + " AND (((PersonalInfoMas.DateOfConfirmation) >= #" + Convert.ToDateTime(txtDTFrom.Text).ToString("dd-MMM-yyyy") + "#) AND ((PersonalInfoMas.DateOfConfirmation) <= #" + Convert.ToDateTime(txtDTTo.Text).ToString("dd-MMM-yyyy") + "#))";
+            }
+
+            return validationStatus;
+        }
+
+        private void chkBloodGroup_CheckedChanged(object sender, EventArgs e)
+        {
+            cmbBloodGroup.Enabled = chkBloodGroup.Checked;
+        }
+
+        public class tmpDropdownItem
+        {
+            public string MemberValue { get; set; }
+
+            public string MemberName { get; set; }
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            ResetScreen();
+            disableControls();
         }
     }
 }

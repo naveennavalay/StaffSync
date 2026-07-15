@@ -16,7 +16,7 @@ namespace dbStaffSync
         OleDbConnection conn = null;
         DataSet dtDataset;
 
-        public List<ActiveEmployeeListReport> getActiveEmployeeListReport(int ClientID)
+        public List<ActiveEmployeeListReport> getActiveEmployeeListReport(int ClientID, string Filter)
         {
             List<ActiveEmployeeListReport> objActiveEmployeeListReportList = new List<ActiveEmployeeListReport>();
 
@@ -88,6 +88,7 @@ namespace dbStaffSync
                                             " AND ((EmpMas.IsActive) = True) " +
                                             " AND ((EmpMas.IsDeleted) = False) " +
                                             " AND ((FinYearMas.FinYearID) = 1) " +
+                                            Filter +
                                         " ) " +
                                     " ORDER BY " +
                                         " EmpMas.EmpID, " +

@@ -972,6 +972,7 @@
     <Compile Include="PDFTableGen.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportCode.cs" />
     <Compile Include="StaffsyncDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1416,6 +1417,7 @@
     <None Include="images\icons\disabled.ico" />
     <None Include="images\icons\success.ico" />
     <None Include="images\icons\print-setting.ico" />
+    <None Include="images\icons\export.ico" />
     <Content Include="libwkhtmltox.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

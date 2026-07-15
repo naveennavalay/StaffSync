@@ -10,10 +10,10 @@ namespace DALStaffSync
     {
         dbStaffSync.EmployeeRelatedReportQueries objEmployeeRelatedReportQueries = new dbStaffSync.EmployeeRelatedReportQueries();
 
-        public List<ActiveEmployeeListReport> getActiveEmployeeListReport(int ClientID)
+        public List<ActiveEmployeeListReport> getActiveEmployeeListReport(int ClientID, string Filter)
         {
             List<ActiveEmployeeListReport> objActiveEmployeeListReportList = new List<ActiveEmployeeListReport>();
-            objActiveEmployeeListReportList = objEmployeeRelatedReportQueries.getActiveEmployeeListReport(ClientID);
+            objActiveEmployeeListReportList = objEmployeeRelatedReportQueries.getActiveEmployeeListReport(ClientID, Filter);
             return objActiveEmployeeListReportList;
         }
 
