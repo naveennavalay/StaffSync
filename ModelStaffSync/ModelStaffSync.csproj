@@ -45,6 +45,7 @@
     <Compile Include="AppMailTemplateModel.cs" />
     <Compile Include="AppReports.cs" />
     <Compile Include="Attributes\ReportColumnAttribute.cs" />
+    <Compile Include="EmpActiveInactiveStatusInfoModel.cs" />
     <Compile Include="CompanyInfo.cs" />
     <Compile Include="Enums\PaperSize.cs" />
     <Compile Include="Enums\ReportAlignment.cs" />

@@ -293,6 +293,8 @@
             this.docUploadsTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.DocUploadsTableAdapter();
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
+            this.cmbEmpStatus = new Krypton.Toolkit.KryptonComboBox();
+            this.label74 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -391,6 +393,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.docUploadsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryEmpBirthdayListBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbEmpStatus)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -1160,6 +1163,8 @@
             // groupBox9
             // 
             this.groupBox9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox9.Controls.Add(this.cmbEmpStatus);
+            this.groupBox9.Controls.Add(this.label74);
             this.groupBox9.Controls.Add(this.txtEmployeeName);
             this.groupBox9.Controls.Add(this.label19);
             this.groupBox9.Location = new System.Drawing.Point(14, 7);
@@ -1171,7 +1176,7 @@
             // txtEmployeeName
             // 
             this.txtEmployeeName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtEmployeeName.Location = new System.Drawing.Point(125, 22);
+            this.txtEmployeeName.Location = new System.Drawing.Point(125, 20);
             this.txtEmployeeName.Multiline = true;
             this.txtEmployeeName.Name = "txtEmployeeName";
             this.txtEmployeeName.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -3752,6 +3757,30 @@
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
             // 
+            // cmbEmpStatus
+            // 
+            this.cmbEmpStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEmpStatus.DropDownWidth = 440;
+            this.cmbEmpStatus.Location = new System.Drawing.Point(733, 23);
+            this.cmbEmpStatus.Name = "cmbEmpStatus";
+            this.cmbEmpStatus.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbEmpStatus.Size = new System.Drawing.Size(211, 22);
+            this.cmbEmpStatus.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbEmpStatus.TabIndex = 44;
+            this.cmbEmpStatus.Tag = "Current State";
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label74.Location = new System.Drawing.Point(686, 27);
+            this.label74.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(47, 15);
+            this.label74.TabIndex = 43;
+            this.label74.Text = "Status";
+            this.label74.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // frmEmployeeMaster
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -3893,6 +3922,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.docUploadsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryEmpBirthdayListBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbEmpStatus)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4162,5 +4192,7 @@
         private System.Windows.Forms.Label label72;
         private System.Windows.Forms.MaskedTextBox txtLastDateOfProbation;
         private System.Windows.Forms.Label label71;
+        private Krypton.Toolkit.KryptonComboBox cmbEmpStatus;
+        private System.Windows.Forms.Label label74;
     }
 }

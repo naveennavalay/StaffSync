@@ -53,6 +53,7 @@
     <Compile Include="clsAssetRegister.cs" />
     <Compile Include="clsAssetsInfo.cs" />
     <Compile Include="clsAssetsCategory.cs" />
+    <Compile Include="clsEmpActiveInactiveStatusInfo.cs" />
     <Compile Include="clsJobAuditLog.cs" />
     <Compile Include="clsClientSignatoryInfo.cs" />
     <Compile Include="clsDashboardWidgetData.cs" />

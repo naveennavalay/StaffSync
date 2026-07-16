@@ -321,6 +321,7 @@ namespace dbStaffSync
                     employeeInfo.EmpRepManID = objEmployeeInfo[0].EmpRepManID;
                     employeeInfo.DepartmentID = objEmployeeInfo[0].DepartmentID;
                     employeeInfo.BloodGroupID = objEmployeeInfo[0].BloodGroupID;
+                    employeeInfo.IsActive = objEmployeeInfo[0].IsActive;
                 }
             }
             catch (Exception ex)

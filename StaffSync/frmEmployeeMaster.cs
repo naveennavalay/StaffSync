@@ -43,6 +43,7 @@ namespace StaffSync
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         DALStaffSync.clsEncryptDecrypt objEncryptDecrypt = new DALStaffSync.clsEncryptDecrypt();
         DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
+        DALStaffSync.clsEmpActiveInactiveStatusInfo objEmpActiveInactiveStatusInfo = new DALStaffSync.clsEmpActiveInactiveStatusInfo();
         DALStaffSync.clsAddressInfo objAddressInfo = new DALStaffSync.clsAddressInfo();
         DALStaffSync.clsEmpContactPersonMas objContactPerson = new DALStaffSync.clsEmpContactPersonMas();
         DALStaffSync.clsEmployeePersonalInfo objEmployeePersonalInfo = new DALStaffSync.clsEmployeePersonalInfo();
@@ -775,6 +776,11 @@ namespace StaffSync
 
             chkNationalPensionScheme.Enabled = true;
             //txtNPSNumber.Enabled = false;
+
+            cmbEmpStatus.Items.Clear();
+            cmbEmpStatus.Items.Add("Active");
+            cmbEmpStatus.Items.Add("Inactive");
+            cmbEmpStatus.SelectedIndex = 0;
         }
 
         public void disableControls()
@@ -1068,6 +1074,7 @@ namespace StaffSync
                             dtPFRelievingDate = Convert.ToDateTime(txtPFRelievingDate.Text);
 
                         int personalIDInfoID = objEmployeePersonalIDInfo.InsertEmployeePersonalIDInfo(personalInfoID, txtAadhaarCardNumber.Text.Trim(), txtVoterCardNumber.Text.Trim(), txtPANCardNumber.Text.Trim(), txtPassportNumber.Text.Trim(), Convert.ToDateTime(txtPassportIssueDate.Text), Convert.ToDateTime(txtPassportRenewalDate.Text), txtAdditonalCardNumber.Text.Trim(), "", "", "", "", chkProvidentFundEnabled.Checked, txtPFNumber.Text, Convert.ToDateTime(txtDateOfJoining.Text), dtPFRelievingDate, chkProfessionalTaxEnabled.Checked, txtPTNumber.Text, chkESIEnabled.Checked, txtESINumber.Text, txtESIDispName.Text, chkNationalPensionScheme.Checked, txtNPSNumber.Text);
+                        int empActiveInactiveStatusID = objEmpActiveInactiveStatusInfo.InsertEmpActiveInactiveStatus(personalIDInfoID, true, DateTime.Today, "By Employee Creation : " + txtEmployeeName.Text.ToString());
                     }
 
                     if (tabLeaves.Visible == true)
@@ -1358,6 +1365,8 @@ namespace StaffSync
                     int perAddressID = objAddressInfo.UpdateAddressInfo(Convert.ToInt16(lblPermanentAddressID.Text.Trim()), txtPermanentAddress01.Text.Trim(), txtPermanentAddress02.Text.Trim(), txtPermanentArea.Text.Trim(), txtPermanentCity.Text.Trim(), txtPermanentPIN.Text.Trim(), cmbPermanentState.Text.Trim(), cmbPermanentCountry.Text);
                     int contactInfoID01 = objContactPerson.UdpateContactInfo(Convert.ToInt16(lblContactInfoID.Text.Trim()), txtContactPersonName.Text.Trim(), txtContactPersonNumber.Text.ToString(), cmbContactPersonRelationship.SelectedIndex + 1, 1);
                     int personalInfoID = objEmployeePersonalInfo.UpdateEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), Convert.ToDateTime(txtLastDateOfProbation.Text), Convert.ToDateTime(txtConfirmationDate.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
+
+                    int empActiveInactiveStatusID = objEmpActiveInactiveStatusInfo.InsertEmpActiveInactiveStatus(personalInfoID, true, DateTime.Today, "By Employee Creation : " + txtEmployeeName.Text.ToString());
 
                     DateTime? dtPFRelievingDate = null;
                     if (txtPFRelievingDate.Text.Replace(" ", "").Replace("--", "") != "")
@@ -2410,6 +2419,10 @@ namespace StaffSync
             cmbDesignation.SelectedIndex = objSelectedEmployeeInfo.EmpDesignationID - 1;
             cmbDepartment.SelectedIndex = objSelectedEmployeeInfo.DepartmentID - 1;
             cmbBloodGroup.SelectedIndex = objSelectedEmployeeInfo.BloodGroupID - 1;
+            if (objSelectedEmployeeInfo.IsActive == true)
+                cmbEmpStatus.SelectedIndex = 0;
+            else if (objSelectedEmployeeInfo.IsActive == false)
+                cmbEmpStatus.SelectedIndex = 1;
 
             EmpTypeInfo objSelectedEmploymentTypeInfo = objEmploymentTypeInfo.getEmployeeSpecificEmploymentTypeInfo(EmployeeID);
             cmbEmploymentType.SelectedIndex = objSelectedEmploymentTypeInfo.EmpTypeMasID - 1;
