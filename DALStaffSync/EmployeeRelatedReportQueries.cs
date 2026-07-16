@@ -24,6 +24,13 @@ namespace DALStaffSync
             return objPersonalInformationListReportList;
         }
 
+        public List<EmployeeActiveInactiveReport> getEmployeeActiveInactiveReport(int ClientID, string Filter)
+        {
+            List<EmployeeActiveInactiveReport> objEmployeeActiveInactiveReportList = new List<EmployeeActiveInactiveReport>();
+            objEmployeeActiveInactiveReportList = objEmployeeRelatedReportQueries.getEmployeeActiveInactiveReport(ClientID, Filter);
+            return objEmployeeActiveInactiveReportList;
+        }
+
         public List<MonthlyAttendanceReport> getMonthlyAttendanceRegister(int ClientID, DateTime dtFrom, DateTime dtTo)
         {
             List<MonthlyAttendanceReport> objMonthlyAttendanceReport = new List<MonthlyAttendanceReport>();

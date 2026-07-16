@@ -206,6 +206,101 @@ namespace dbStaffSync
             return objPersonalInformationListReportList;
         }
 
+        public List<EmployeeActiveInactiveReport> getEmployeeActiveInactiveReport(int ClientID, string Filter)
+        {
+            List<EmployeeActiveInactiveReport> objEmployeeActiveInactiveReportList = new List<EmployeeActiveInactiveReport>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " +
+                                        " EmpMas.EmpID, " +
+                                        " EmpMas.EmpCode, " +
+                                        " EmpMas.EmpName, " +
+                                        " DesigMas.DesignationTitle, " +
+                                        " DepMas.DepartmentTitle, " +
+                                        " PersonalInfoMas.DOJ, " +
+                                        " PersonalInfoMas.LastDateOfProbation, " +
+                                        " PersonalInfoMas.DateOfConfirmation, " +
+                                        " vwEmployeeLatestStatus.EmpActiveInactiveStatusID, " +
+                                        " vwEmployeeLatestStatus.ActiveInactiveStatusDate, " +
+                                        " IIf(vwEmployeeLatestStatus.ActiveInactiveStatus = True, 'Active', 'In-Active') AS ActiveInactiveStatus, " +
+                                        " vwEmployeeLatestStatus.Comments " +
+                                    " FROM " +
+                                        " StateMas " +
+                                        " INNER JOIN ( " +
+                                            " SexMas " +
+                                            " INNER JOIN ( " +
+                                                " RelationShipMas " +
+                                                " INNER JOIN ( " +
+                                                    " FinYearMas " +
+                                                    " INNER JOIN ( " +
+                                                        " ( " +
+                                                            " ( " +
+                                                                " DesigMas " +
+                                                                " INNER JOIN ( " +
+                                                                    " DepMas " +
+                                                                    " INNER JOIN ( " +
+                                                                        " ClientMas " +
+                                                                        " INNER JOIN ( " +
+                                                                            " BloodGroupMas " +
+                                                                            " INNER JOIN EmpMas ON BloodGroupMas.BloodGroupID = EmpMas.BloodGroupID " +
+                                                                        " ) ON ClientMas.ClientID = EmpMas.ClientID " +
+                                                                    " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " +
+                                                                " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " + 
+                                                            " ) " + 
+                                                            " INNER JOIN NomineeMas ON EmpMas.EmpID = NomineeMas.EmpID " + 
+                                                        " ) " + 
+                                                        " INNER JOIN ( " + 
+                                                            " ClientBranchMas " + 
+                                                            " INNER JOIN ( " + 
+                                                                " AddressMas " + 
+                                                                " INNER JOIN ( " + 
+                                                                    " PersonalInfoMas " + 
+                                                                    " INNER JOIN vwEmployeeLatestStatus ON PersonalInfoMas.PersonalInfoID = vwEmployeeLatestStatus.PersonalInfoID " + 
+                                                                " ) ON AddressMas.AddressID = PersonalInfoMas.PerAddressID " + 
+                                                          "   ) ON ClientBranchMas.ClientBranchID = PersonalInfoMas.ClientBranchID " + 
+                                                        " ) ON EmpMas.EmpID = PersonalInfoMas.EmpID " + 
+                                                    " ) ON FinYearMas.FinYearID = ClientMas.FinYearID " + 
+                                                " ) ON RelationShipMas.RelationShipID = NomineeMas.RelationShipID " + 
+                                            " ) ON SexMas.SexID = PersonalInfoMas.SexID " + 
+                                        " ) ON StateMas.StateID = AddressMas.StateID " + 
+                                    " WHERE " +
+                                        " ( " + 
+                                            " ((ClientMas.ClientID) = " + ClientID + ") " +
+                                            "  AND ((EmpMas.IsDeleted) = False) " + 
+                                            Filter +
+                                        " ) " + 
+                                    " ORDER BY " + 
+                                        " EmpMas.EmpID,vwEmployeeLatestStatus.EmpActiveInactiveStatusID,ClientMas.ClientID";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeActiveInactiveReportList = JsonConvert.DeserializeObject<List<EmployeeActiveInactiveReport>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objEmployeeActiveInactiveReportList;
+        }
 
         public List<MonthlyAttendanceReport> getMonthlyAttendanceRegister(int ClientID, DateTime dtFrom, DateTime dtTo)
         {

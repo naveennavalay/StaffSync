@@ -1,4 +1,6 @@
-﻿using Krypton.Toolkit;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Krypton.Toolkit;
 using ModelStaffSync;
 using ReportingEngine;
 using ReportingEngine.Core;
@@ -49,6 +51,9 @@ namespace StaffSync
 
         List<ActiveEmployeeListReport> objActiveEmployeeListReport = new List<ActiveEmployeeListReport>();
         List<PersonalInformationListReport> objPersonalInformationListReport = new List<PersonalInformationListReport>();
+        List<EmployeeActiveInactiveReport> objEmployeeActiveInactiveReportListReport = new List<EmployeeActiveInactiveReport>();
+        List<MonthlyAttendanceReport> objMonthlyAttendanceReport = new List<MonthlyAttendanceReport>();
+
 
         string strActionStatement = "";
         private Dictionary<string, object> _originalValues;
@@ -78,14 +83,14 @@ namespace StaffSync
 
         private void ResetScreen()
         {
-            lblSelectedReport.Text = "";
-            lblSelectedReportName.Text = "";
-            lblFilter.Text = "";
+            //lblSelectedReport.Text = "";
+            //lblSelectedReportName.Text = "";
+            //lblFilter.Text = "";
 
             LoadSalaryMonthList();
             LoadReportsList();
 
-            List<tmpDropdownItem> list = new List<tmpDropdownItem>()
+            List<tmpDropdownItem> freeSearchDropdown = new List<tmpDropdownItem>()
             {
                 new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
                 new tmpDropdownItem { MemberValue = "EmpMas.EmpCode", MemberName = "Employee Code" },
@@ -98,11 +103,21 @@ namespace StaffSync
                 new tmpDropdownItem { MemberValue = "ClientBranchMas.ClientBranchCode", MemberName = "Branch Code" },
                 new tmpDropdownItem { MemberValue = "ClientBranchMas.ClientBranchName", MemberName = "Branch Name" },
             };
-            cmbFreeSearchAttributeName.DataSource = list;
+            cmbFreeSearchAttributeName.DataSource = freeSearchDropdown;
             cmbFreeSearchAttributeName.DisplayMember = "MemberName";
             cmbFreeSearchAttributeName.ValueMember = "MemberValue";
             cmbFreeSearchAttributeName.SelectedIndex = 0;
 
+            List<tmpDropdownItem> ActiveInactiveStatus = new List<tmpDropdownItem>()
+            {
+                new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
+                new tmpDropdownItem { MemberValue = "vwEmployeeLatestStatus.ActiveInactiveStatus = True", MemberName = "Active" },
+                new tmpDropdownItem { MemberValue = "(vwEmployeeLatestStatus.ActiveInactiveStatus) = False", MemberName = "In-active" },
+            };
+            cmbActiveInactiveStatus.DataSource = ActiveInactiveStatus;
+            cmbActiveInactiveStatus.DisplayMember = "MemberName";
+            cmbActiveInactiveStatus.ValueMember = "MemberValue";
+            cmbActiveInactiveStatus.SelectedIndex = 1;
 
             cmbCriteriaOperator.Items.Clear();
             cmbCriteriaOperator.Items.Add("");
@@ -166,7 +181,7 @@ namespace StaffSync
 
         private void frmEmpSpecificReports_Load(object sender, EventArgs e)
         {
-
+            EmployeeMasterDetails("");
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -211,8 +226,8 @@ namespace StaffSync
 
         public void disableControls()
         {
-            chkIncludeMonth.Checked = true;
-            cmbMonth.Enabled = true;
+            chkIncludeMonth.Checked = false;
+            cmbMonth.Enabled = false;
             chkIncludeDesignation.Checked = false;
             cmbDesignation.Enabled = false;
             chkIncludeDepartment.Checked = false;
@@ -223,6 +238,12 @@ namespace StaffSync
             cmbBranch.Enabled = false;
             chkBloodGroup.Checked = false;
             cmbBloodGroup.Enabled = false;
+            chkActiveInactiveStatus.Enabled = false;
+            chkActiveInactiveStatus.Checked = false;
+            cmbActiveInactiveStatus.Enabled = false;
+
+            optDailyAttendance.Enabled = false;
+            optMonthlyAttendanceRegister.Enabled = false;
 
             optDOB.Checked = false;
             optDOJ.Checked = false;
@@ -328,6 +349,11 @@ namespace StaffSync
                 cmbGender.Enabled = false;
                 chkIncludeBranch.Checked = false;
                 cmbBranch.Enabled = false;
+                chkActiveInactiveStatus.Enabled = false;
+                chkActiveInactiveStatus.Checked = false;
+                cmbActiveInactiveStatus.Enabled = false;
+                optDailyAttendance.Enabled = false;
+                optMonthlyAttendanceRegister.Enabled = false;
 
                 optDOB.Checked = false;
                 optDOJ.Checked = false;
@@ -344,11 +370,68 @@ namespace StaffSync
             }
             else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0003.ToString())
             {
+                chkIncludeMonth.Checked = false;
+                cmbMonth.Enabled = false;
+                chkIncludeDesignation.Checked = false;
+                cmbDesignation.Enabled = false;
+                chkIncludeDepartment.Checked = false;
+                cmbDepartment.Enabled = false;
+                chkIncludeGender.Checked = false;
+                cmbGender.Enabled = false;
+                chkIncludeBranch.Checked = false;
+                cmbBranch.Enabled = false;
 
+                chkActiveInactiveStatus.Enabled = true;
+                chkActiveInactiveStatus.Checked = false;
+                cmbActiveInactiveStatus.Enabled = false;
+
+                optDailyAttendance.Enabled = false;
+                optMonthlyAttendanceRegister.Enabled = false;
+
+                optDOB.Checked = false;
+                optDOJ.Checked = false;
+                optProbDate.Checked = false;
+                optConfirmDate.Checked = false;
+                optRelivingDate.Checked = false;
+                optResignationDate.Checked = false;
+
+                txtDTFrom.Text = DateTime.Today.ToString("dd-MM-yyyy");
+                txtDTTo.Text = DateTime.Today.ToString("dd-MM-yyyy");
+
+                lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
+                lblSelectedReportName.Text = dtgReportsList.SelectedRows[0].Cells["ReportsName"].Value.ToString().Replace("-", "_").ToString();
             }
             else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0004.ToString())
             {
+                chkIncludeMonth.Checked = true;
+                cmbMonth.Enabled = true;
+                chkIncludeDesignation.Checked = false;
+                cmbDesignation.Enabled = false;
+                chkIncludeDepartment.Checked = false;
+                cmbDepartment.Enabled = false;
+                chkIncludeGender.Checked = false;
+                cmbGender.Enabled = false;
+                chkIncludeBranch.Checked = false;
+                cmbBranch.Enabled = false;
+                chkActiveInactiveStatus.Enabled = false;
+                chkActiveInactiveStatus.Checked = false;
+                cmbActiveInactiveStatus.Enabled = false;
 
+                optDailyAttendance.Enabled = true;
+                optMonthlyAttendanceRegister.Enabled = true;
+
+                optDOB.Checked = false;
+                optDOJ.Checked = false;
+                optProbDate.Checked = false;
+                optConfirmDate.Checked = false;
+                optRelivingDate.Checked = false;
+                optResignationDate.Checked = false;
+
+                txtDTFrom.Text = DateTime.Today.ToString("dd-MM-yyyy");
+                txtDTTo.Text = DateTime.Today.ToString("dd-MM-yyyy");
+
+                lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
+                lblSelectedReportName.Text = dtgReportsList.SelectedRows[0].Cells["ReportsName"].Value.ToString().Replace("-", "_").ToString();
             }
             else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0005.ToString())
             {
@@ -500,9 +583,128 @@ namespace StaffSync
             dtgDataResult.Columns["NomineeInfo"].ReadOnly = true;
         }
 
+        private void EmployeeActiveInactiveReport(string strFilter)
+        {
+            objEmployeeActiveInactiveReportListReport = objEmployeeRelatedReportQueries.getEmployeeActiveInactiveReport(objTempClientFinYearInfo.ClientID, strFilter);
+            dtgDataResult.DataSource = objEmployeeActiveInactiveReportListReport;
+
+            dtgDataResult.Columns["EmpID"].Width = 50;
+            dtgDataResult.Columns["EmpID"].Visible = false;
+            dtgDataResult.Columns["EmpID"].ReadOnly = true;
+
+            dtgDataResult.Columns["FinYearFromTo"].Width = 50;
+            dtgDataResult.Columns["FinYearFromTo"].Visible = false;
+            dtgDataResult.Columns["FinYearFromTo"].ReadOnly = true;
+
+            //dtgDataResult.Columns["Status"].Width = 50;
+            //dtgDataResult.Columns["Status"].Visible = false;
+            //dtgDataResult.Columns["Status"].ReadOnly = true;
+
+            dtgDataResult.Columns["EmpCode"].Width = 70;
+            dtgDataResult.Columns["EmpCode"].HeaderText = "Emp. Code";
+            dtgDataResult.Columns["EmpCode"].ReadOnly = true;
+
+            dtgDataResult.Columns["EmpName"].Width = 225;
+            dtgDataResult.Columns["EmpName"].HeaderText = "Report Name";
+            dtgDataResult.Columns["EmpName"].ReadOnly = true;
+
+            dtgDataResult.Columns["DesignationTitle"].Width = 200;
+            dtgDataResult.Columns["DesignationTitle"].HeaderText = "Designation Name";
+            dtgDataResult.Columns["DesignationTitle"].ReadOnly = true;
+
+            dtgDataResult.Columns["DepartmentTitle"].Width = 200;
+            dtgDataResult.Columns["DepartmentTitle"].HeaderText = "Department Name";
+            dtgDataResult.Columns["DepartmentTitle"].ReadOnly = true;
+
+            dtgDataResult.Columns["DOJ"].Width = 120;
+            dtgDataResult.Columns["DOJ"].HeaderText = "Joining Date";
+            dtgDataResult.Columns["DOJ"].ReadOnly = true;
+
+            dtgDataResult.Columns["LastDateOfProbation"].Width = 120;
+            dtgDataResult.Columns["LastDateOfProbation"].HeaderText = "Probation Date";
+            dtgDataResult.Columns["LastDateOfProbation"].ReadOnly = true;
+
+            dtgDataResult.Columns["DateOfConfirmation"].Width = 120;
+            dtgDataResult.Columns["DateOfConfirmation"].HeaderText = "Confirmation Date";
+            dtgDataResult.Columns["DateOfConfirmation"].ReadOnly = true;
+
+            dtgDataResult.Columns["EmpActiveInactiveStatusID"].Width = 120;
+            dtgDataResult.Columns["EmpActiveInactiveStatusID"].Visible = false;
+            dtgDataResult.Columns["EmpActiveInactiveStatusID"].ReadOnly = true;
+
+            dtgDataResult.Columns["ActiveInactiveStatusDate"].Width = 120;
+            dtgDataResult.Columns["ActiveInactiveStatusDate"].HeaderText = "Status Date";
+            dtgDataResult.Columns["ActiveInactiveStatusDate"].ReadOnly = true;
+
+            dtgDataResult.Columns["ActiveInactiveStatus"].Width = 120;
+            dtgDataResult.Columns["ActiveInactiveStatus"].HeaderText = "Status";
+            dtgDataResult.Columns["ActiveInactiveStatus"].ReadOnly = true;
+
+            dtgDataResult.Columns["Comments"].Width = 350;
+            dtgDataResult.Columns["Comments"].HeaderText = "Comments";
+            dtgDataResult.Columns["Comments"].ReadOnly = true;
+        }
+
+        private void EmployeeMonthlyAttendanceRegister(string strFilter)
+        {
+            objMonthlyAttendanceReport = objEmployeeRelatedReportQueries.getMonthlyAttendanceRegister(objTempClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+            dtgDataResult.DataSource = objMonthlyAttendanceReport;
+
+            dtgDataResult.Columns["EmpID"].Width = 50;
+            dtgDataResult.Columns["EmpID"].Visible = false;
+            dtgDataResult.Columns["EmpID"].ReadOnly = true;
+
+            dtgDataResult.Columns["FinYearFromTo"].Width = 50;
+            dtgDataResult.Columns["FinYearFromTo"].Visible = false;
+            dtgDataResult.Columns["FinYearFromTo"].ReadOnly = true;
+
+            //dtgDataResult.Columns["Status"].Width = 50;
+            //dtgDataResult.Columns["Status"].Visible = false;
+            //dtgDataResult.Columns["Status"].ReadOnly = true;
+
+            dtgDataResult.Columns["EmpCode"].Width = 70;
+            dtgDataResult.Columns["EmpCode"].HeaderText = "Emp. Code";
+            dtgDataResult.Columns["EmpCode"].ReadOnly = true;
+
+            dtgDataResult.Columns["EmpName"].Width = 225;
+            dtgDataResult.Columns["EmpName"].HeaderText = "Report Name";
+            dtgDataResult.Columns["EmpName"].ReadOnly = true;
+
+            dtgDataResult.Columns["DesignationTitle"].Width = 200;
+            dtgDataResult.Columns["DesignationTitle"].HeaderText = "Designation Name";
+            dtgDataResult.Columns["DesignationTitle"].ReadOnly = true;
+
+            dtgDataResult.Columns["DepartmentTitle"].Width = 200;
+            dtgDataResult.Columns["DepartmentTitle"].HeaderText = "Department Name";
+            dtgDataResult.Columns["DepartmentTitle"].ReadOnly = true;
+
+            foreach (DataGridViewColumn col in dtgDataResult.Columns)
+            {
+                if (col.Name != "SelectRow")
+                    col.ReadOnly = true;
+
+                if (col.Index > 5)
+                {
+                    col.HeaderText = col.HeaderText.Replace("_", "");
+                    if (optDailyAttendance.Checked && !optMonthlyAttendanceRegister.Checked)
+                    {
+                        if (Convert.ToDateTime(txtDTFrom.Text).Day.ToString() != col.HeaderText.ToString())
+                        {
+                            col.Visible = false;
+                        }
+                    }
+                    else if (!optDailyAttendance.Checked && optMonthlyAttendanceRegister.Checked)
+                        col.Visible = true;
+
+                    col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; //Allowences
+                }
+            }
+        }
+
         private void chkIncludeMonth_CheckedChanged(object sender, EventArgs e)
         {
-            cmbMonth.Enabled = chkIncludeDesignation.Checked;
+            cmbMonth.Enabled = chkIncludeMonth.Checked;
         }
 
         private void chkIncludeDesignation_CheckedChanged(object sender, EventArgs e)
@@ -614,6 +816,24 @@ namespace StaffSync
                 .Settings(settings)
                 .Generate(filePath);
             }
+            else if (lblSelectedReport.Text.ToString() == ReportCode.REP_0003.ToString())
+            {
+                new ReportBuilder()
+                .Company(company)
+                .Title(report)
+                .Data(objEmployeeActiveInactiveReportListReport)
+                .Settings(settings)
+                .Generate(filePath);
+            }
+            else if (lblSelectedReport.Text.ToString() == ReportCode.REP_0004.ToString())
+            {
+                new ReportBuilder()
+                .Company(company)
+                .Title(report)
+                .Data(objMonthlyAttendanceReport)
+                .Settings(settings)
+                .Generate(filePath);
+            }
 
             MessageBox.Show("Data Exported Successfully !!!", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -643,6 +863,16 @@ namespace StaffSync
                 lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
                 EmployeePersonalInformation(lblFilter.Text);
             }
+            else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0003.ToString())
+            {
+                lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
+                EmployeeActiveInactiveReport(lblFilter.Text);
+            }
+            else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0004.ToString())
+            {
+                lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
+                EmployeeMonthlyAttendanceRegister(lblFilter.Text);
+            }
         }
 
         private bool VerifyFilterValues(out string filter) 
@@ -659,7 +889,8 @@ namespace StaffSync
                     || chkIncludeDepartment.Checked
                     || chkIncludeGender.Checked
                     || chkBloodGroup.Checked
-                    || chkIncludeBranch.Checked;
+                    || chkIncludeBranch.Checked
+                    || chkActiveInactiveStatus.Checked;
 
             bool hasSearch = cmbFreeSearchAttributeName.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtSearch.Text);
 
@@ -668,8 +899,8 @@ namespace StaffSync
                     || optDOJ.Checked
                     || optProbDate.Checked
                     || optConfirmDate.Checked
-                    || optResignationDate.Checked
-                    || optRelivingDate.Checked;
+                    || optDailyAttendance.Checked
+                    || optMonthlyAttendanceRegister.Checked;
 
             if (!hasCheckedFilter && !hasSearch && !hasDateFilter)
             {
@@ -691,6 +922,11 @@ namespace StaffSync
                     filter = filter + " AND ((BloodGroupMas.BloodGroupTitle) = '" + cmbBloodGroup.Text + "')";
                 if (chkIncludeBranch.Checked)
                     filter = filter + " AND ((ClientBranchMas.ClientBranchCode) = '" + cmbBranch.Text.Substring(0, cmbBranch.Text.IndexOf(",")) + "')";
+                if (chkActiveInactiveStatus.Checked)
+                {
+                    if(cmbActiveInactiveStatus.Text.ToString().ToLower() != "")
+                        filter = filter + cmbActiveInactiveStatus.Text.ToString().ToLower() == "active" ? " AND ((ActiveInactiveStatus) = True)" : " AND ((ActiveInactiveStatus) = False" + ")";
+                }
             }
             if (hasSearch)
             {
@@ -747,6 +983,11 @@ namespace StaffSync
         {
             ResetScreen();
             disableControls();
+        }
+
+        private void chkActiveInactiveStatus_CheckedChanged(object sender, EventArgs e)
+        {
+            cmbActiveInactiveStatus.Enabled = chkActiveInactiveStatus.Checked;
         }
     }
 }

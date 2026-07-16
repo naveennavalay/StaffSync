@@ -1074,7 +1074,7 @@ namespace StaffSync
                             dtPFRelievingDate = Convert.ToDateTime(txtPFRelievingDate.Text);
 
                         int personalIDInfoID = objEmployeePersonalIDInfo.InsertEmployeePersonalIDInfo(personalInfoID, txtAadhaarCardNumber.Text.Trim(), txtVoterCardNumber.Text.Trim(), txtPANCardNumber.Text.Trim(), txtPassportNumber.Text.Trim(), Convert.ToDateTime(txtPassportIssueDate.Text), Convert.ToDateTime(txtPassportRenewalDate.Text), txtAdditonalCardNumber.Text.Trim(), "", "", "", "", chkProvidentFundEnabled.Checked, txtPFNumber.Text, Convert.ToDateTime(txtDateOfJoining.Text), dtPFRelievingDate, chkProfessionalTaxEnabled.Checked, txtPTNumber.Text, chkESIEnabled.Checked, txtESINumber.Text, txtESIDispName.Text, chkNationalPensionScheme.Checked, txtNPSNumber.Text);
-                        int empActiveInactiveStatusID = objEmpActiveInactiveStatusInfo.InsertEmpActiveInactiveStatus(personalIDInfoID, true, DateTime.Today, "By Employee Creation : " + txtEmployeeName.Text.ToString());
+                        int empActiveInactiveStatusID = objEmpActiveInactiveStatusInfo.InsertEmpActiveInactiveStatus(personalIDInfoID, true, DateTime.Today, "Updated by : " + CurrentUser.EmpName + " - while creation");
                     }
 
                     if (tabLeaves.Visible == true)
@@ -1366,7 +1366,7 @@ namespace StaffSync
                     int contactInfoID01 = objContactPerson.UdpateContactInfo(Convert.ToInt16(lblContactInfoID.Text.Trim()), txtContactPersonName.Text.Trim(), txtContactPersonNumber.Text.ToString(), cmbContactPersonRelationship.SelectedIndex + 1, 1);
                     int personalInfoID = objEmployeePersonalInfo.UpdateEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), Convert.ToDateTime(txtLastDateOfProbation.Text), Convert.ToDateTime(txtConfirmationDate.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
 
-                    int empActiveInactiveStatusID = objEmpActiveInactiveStatusInfo.InsertEmpActiveInactiveStatus(personalInfoID, true, DateTime.Today, "By Employee Creation : " + txtEmployeeName.Text.ToString());
+                    int empActiveInactiveStatusID = objEmpActiveInactiveStatusInfo.InsertEmpActiveInactiveStatus(personalInfoID, true, DateTime.Today, "Updated by : " + CurrentUser.EmpName + " - while updation");
 
                     DateTime? dtPFRelievingDate = null;
                     if (txtPFRelievingDate.Text.Replace(" ", "").Replace("--", "") != "")

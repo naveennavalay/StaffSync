@@ -150,6 +150,46 @@ namespace ModelStaffSync
         public string NomineeInfo { get; set; }
     }
 
+    public class EmployeeActiveInactiveReport
+    {
+        public string FinYearFromTo { get; set; }
+        public int EmpID { get; set; }
+
+        //[ReportColumnAttribute(Header = "Emp Code", Width = 6, Alignment = ReportAlignment.Left, Format = "Currency", ShowTotal = true, Visible = true)]
+        [ReportColumnAttribute(Header = "Emp Code", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        public string EmpCode { get; set; }
+
+        [ReportColumnAttribute(Header = "Emp Name", Width = 5, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string EmpName { get; set; }
+
+        [ReportColumnAttribute(Header = "Designation", Width = 5, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string DesignationTitle { get; set; }
+
+        [ReportColumnAttribute(Header = "Department", Width = 4, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string DepartmentTitle { get; set; }
+
+        [ReportColumnAttribute(Header = "Joining Date", Width = 2.75, Alignment = ReportAlignment.Left, Format = "Date", ShowTotal = false, Visible = true, AutoFit = true)]
+        public DateTime DOJ { get; set; }
+
+        [ReportColumnAttribute(Header = "Probation Date", Width = 3, Alignment = ReportAlignment.Left, Format = "Date", ShowTotal = false, Visible = true, AutoFit = false)]
+        public DateTime LastDateOfProbation { get; set; }
+
+        [ReportColumnAttribute(Header = "Confirmation Date", Width = 4, Alignment = ReportAlignment.Left, Format = "Date", ShowTotal = false, Visible = true, AutoFit = true)]
+        public DateTime DateOfConfirmation { get; set; }
+
+        [ReportColumnAttribute(Header = "Status ID", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = false, AutoFit = true)] 
+        public int EmpActiveInactiveStatusID { get; set; }
+
+        [ReportColumnAttribute(Header = "Status Date", Width = 3, Alignment = ReportAlignment.Left, Format = "Date", ShowTotal = false, Visible = true, AutoFit = true)]
+        public DateTime ActiveInactiveStatusDate { get; set; }
+
+        [ReportColumnAttribute(Header = "Status", Width =2.75, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string ActiveInactiveStatus { get; set; }
+
+        [ReportColumnAttribute(Header = "Comments", Width = 10, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string Comments { get; set; }
+    }
+
     public class MonthlyAttendanceReport
     {
         public string FinYearFromTo { get; set; }
