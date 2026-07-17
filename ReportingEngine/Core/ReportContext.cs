@@ -13,6 +13,8 @@ namespace ReportingEngine.Core
     /// </summary>
     public class ReportContext
     {
+        public Dictionary<string, bool> ColumnVisibility { get; set; } = new Dictionary<string, bool>();
+
         #region Company Information
 
         public string CompanyName { get; set; }

@@ -51,6 +51,20 @@ namespace ReportingEngine
 
             _context.Columns = Helpers.ReportMetadataReader.Create<T>();
 
+            foreach (ReportColumn column in _context.Columns)
+            {
+                if (_context.ColumnVisibility.ContainsKey(column.PropertyName))
+                {
+                    column.Visible = _context.ColumnVisibility[column.PropertyName];
+                }
+            }
+
+            return this;
+        }
+
+        public ReportBuilder SetColumnVisibility(string propertyName, bool visible)
+        {
+            _context.ColumnVisibility[propertyName] = visible;
             return this;
         }
 

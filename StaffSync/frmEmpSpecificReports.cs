@@ -53,6 +53,7 @@ namespace StaffSync
         List<PersonalInformationListReport> objPersonalInformationListReport = new List<PersonalInformationListReport>();
         List<EmployeeActiveInactiveReport> objEmployeeActiveInactiveReportListReport = new List<EmployeeActiveInactiveReport>();
         List<MonthlyAttendanceReport> objMonthlyAttendanceReport = new List<MonthlyAttendanceReport>();
+        List<DailyAttendanceReport> objDailyAttendanceReport = new List<DailyAttendanceReport>();
 
 
         string strActionStatement = "";
@@ -87,6 +88,8 @@ namespace StaffSync
             //lblSelectedReportName.Text = "";
             //lblFilter.Text = "";
 
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
             LoadSalaryMonthList();
             LoadReportsList();
 
@@ -147,6 +150,19 @@ namespace StaffSync
             cmbDesignation.DataSource = objDesignation.GetDesignationList();
             cmbDesignation.DisplayMember = "DesignationTitle";
             cmbDesignation.ValueMember = "DesignationID";
+
+            optDOB.Enabled = true;
+            optDOB.Checked = false;
+            optDOJ.Enabled = true;
+            optDOJ.Checked = false;
+            optProbDate.Enabled = true;
+            optProbDate.Checked = false;
+            optConfirmDate.Enabled = true;
+            optConfirmDate.Checked = false;
+            optDailyAttendance.Enabled = true;
+            optDailyAttendance.Checked = false;
+            optMonthlyAttendanceRegister.Enabled = true;
+            optMonthlyAttendanceRegister.Checked = false;
         }
 
 
@@ -339,8 +355,8 @@ namespace StaffSync
             lblFilter.Text = "";
             if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0001.ToString() || dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0002.ToString())
             {
-                chkIncludeMonth.Checked = true;
-                cmbMonth.Enabled = true;
+                chkIncludeMonth.Checked = false;
+                cmbMonth.Enabled = false;
                 chkIncludeDesignation.Checked = false;
                 cmbDesignation.Enabled = false;
                 chkIncludeDepartment.Checked = false;
@@ -367,6 +383,18 @@ namespace StaffSync
 
                 lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
                 lblSelectedReportName.Text = dtgReportsList.SelectedRows[0].Cells["ReportsName"].Value.ToString().Replace("-", "_").ToString();
+
+                List<tmpDropdownItem> lstGroupByValues = new List<tmpDropdownItem>()
+                {
+                    new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
+                    new tmpDropdownItem { MemberValue = "DepMas.DepartmentTitle", MemberName = "Department" },
+                };
+                cmbGroupBy.DataSource = null;
+                cmbGroupBy.Items.Clear();
+                cmbGroupBy.DataSource = lstGroupByValues;
+                cmbGroupBy.DisplayMember = "MemberName";
+                cmbGroupBy.ValueMember = "MemberValue";
+                cmbGroupBy.SelectedIndex = 0;
             }
             else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0003.ToString())
             {
@@ -400,11 +428,23 @@ namespace StaffSync
 
                 lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
                 lblSelectedReportName.Text = dtgReportsList.SelectedRows[0].Cells["ReportsName"].Value.ToString().Replace("-", "_").ToString();
+
+                List<tmpDropdownItem> lstGroupByValues = new List<tmpDropdownItem>()
+                {
+                    new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
+                    new tmpDropdownItem { MemberValue = "DepMas.DepartmentTitle", MemberName = "Department" },
+                };
+                cmbGroupBy.DataSource = null;
+                cmbGroupBy.Items.Clear();
+                cmbGroupBy.DataSource = lstGroupByValues;
+                cmbGroupBy.DisplayMember = "MemberName";
+                cmbGroupBy.ValueMember = "MemberValue";
+                cmbGroupBy.SelectedIndex = 0;
             }
             else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0004.ToString())
             {
-                chkIncludeMonth.Checked = true;
-                cmbMonth.Enabled = true;
+                chkIncludeMonth.Checked = false;
+                cmbMonth.Enabled = false;
                 chkIncludeDesignation.Checked = false;
                 cmbDesignation.Enabled = false;
                 chkIncludeDepartment.Checked = false;
@@ -432,6 +472,18 @@ namespace StaffSync
 
                 lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
                 lblSelectedReportName.Text = dtgReportsList.SelectedRows[0].Cells["ReportsName"].Value.ToString().Replace("-", "_").ToString();
+
+                List<tmpDropdownItem> lstGroupByValues = new List<tmpDropdownItem>()
+                {
+                    new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
+                    new tmpDropdownItem { MemberValue = "DepMas.DepartmentTitle", MemberName = "Department" },
+                };
+                cmbGroupBy.DataSource = null;
+                cmbGroupBy.Items.Clear();
+                cmbGroupBy.DataSource = lstGroupByValues;
+                cmbGroupBy.DisplayMember = "MemberName";
+                cmbGroupBy.ValueMember = "MemberValue";
+                cmbGroupBy.SelectedIndex = 0;
             }
             else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0005.ToString())
             {
@@ -702,29 +754,78 @@ namespace StaffSync
             }
         }
 
+        private void EmployeeDailyAttendanceRegister(string strFilter)
+        {
+            objDailyAttendanceReport = objEmployeeRelatedReportQueries.getDailyAttendanceRegister(objTempClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text));
+            dtgDataResult.DataSource = objDailyAttendanceReport;
+
+            dtgDataResult.Columns["EmpID"].Width = 50;
+            dtgDataResult.Columns["EmpID"].Visible = false;
+            dtgDataResult.Columns["EmpID"].ReadOnly = true;
+
+            dtgDataResult.Columns["FinYearFromTo"].Width = 50;
+            dtgDataResult.Columns["FinYearFromTo"].Visible = false;
+            dtgDataResult.Columns["FinYearFromTo"].ReadOnly = true;
+
+            //dtgDataResult.Columns["Status"].Width = 50;
+            //dtgDataResult.Columns["Status"].Visible = false;
+            //dtgDataResult.Columns["Status"].ReadOnly = true;
+
+            dtgDataResult.Columns["EmpCode"].Width = 70;
+            dtgDataResult.Columns["EmpCode"].HeaderText = "Emp. Code";
+            dtgDataResult.Columns["EmpCode"].ReadOnly = true;
+
+            dtgDataResult.Columns["EmpName"].Width = 225;
+            dtgDataResult.Columns["EmpName"].HeaderText = "Report Name";
+            dtgDataResult.Columns["EmpName"].ReadOnly = true;
+
+            dtgDataResult.Columns["DesignationTitle"].Width = 200;
+            dtgDataResult.Columns["DesignationTitle"].HeaderText = "Designation Name";
+            dtgDataResult.Columns["DesignationTitle"].ReadOnly = true;
+
+            dtgDataResult.Columns["DepartmentTitle"].Width = 200;
+            dtgDataResult.Columns["DepartmentTitle"].HeaderText = "Department Name";
+            dtgDataResult.Columns["DepartmentTitle"].ReadOnly = true;
+
+            dtgDataResult.Columns["AttendanceStatus"].Width = 150;
+            dtgDataResult.Columns["AttendanceStatus"].HeaderText = "Attendance Status";
+            dtgDataResult.Columns["AttendanceStatus"].ReadOnly = true;
+
+        }
+
         private void chkIncludeMonth_CheckedChanged(object sender, EventArgs e)
         {
             cmbMonth.Enabled = chkIncludeMonth.Checked;
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
         }
 
         private void chkIncludeDesignation_CheckedChanged(object sender, EventArgs e)
         {
             cmbDesignation.Enabled = chkIncludeDesignation.Checked;
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
         }
 
         private void chkIncludeDepartment_CheckedChanged(object sender, EventArgs e)
         {
             cmbDepartment.Enabled = chkIncludeDepartment.Checked;
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
         }
 
         private void chkIncludeGender_CheckedChanged(object sender, EventArgs e)
         {
             cmbGender.Enabled = chkIncludeGender.Checked;
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
         }
 
         private void chkIncludeBranch_CheckedChanged(object sender, EventArgs e)
         {
             cmbBranch.Enabled = chkIncludeBranch.Checked;
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -827,12 +928,145 @@ namespace StaffSync
             }
             else if (lblSelectedReport.Text.ToString() == ReportCode.REP_0004.ToString())
             {
-                new ReportBuilder()
-                .Company(company)
-                .Title(report)
-                .Data(objMonthlyAttendanceReport)
-                .Settings(settings)
-                .Generate(filePath);
+                if (optDailyAttendance.Checked && !optMonthlyAttendanceRegister.Checked)
+                {
+                    int totalEmployees = objDailyAttendanceReport.Count;
+
+                    int totalPresent = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "P");
+
+                    int totalLeave = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "L");
+
+                    int totalHalfDay = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "P/L" || x.AttendanceStatus == "L/P");
+
+                    int totalWeekend = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "WE");
+
+                    double presentPercent = totalEmployees == 0 ? 0 : (double)totalPresent * 100 / totalEmployees;
+
+                    double leavePercent = totalEmployees == 0 ? 0 : (double)totalLeave * 100 / totalEmployees;
+
+                    double halfDayPercent = totalEmployees == 0 ? 0 : (double)totalHalfDay * 100 / totalEmployees;
+
+                    report.ReportTitle = "Daily " + report.ReportTitle + " : " + Convert.ToDateTime(txtDTFrom.Text).ToString("dd-MMM-yyyy");
+
+                    new ReportBuilder()
+                        .Company(company)
+                        .Title(report)
+                        .Data(objDailyAttendanceReport)
+                        .Settings(settings)
+                         .Summary(new List<ReportSummary>()
+                            {
+                                new ReportSummary
+                                {
+                                    Caption = "Total Employees",
+                                    Value = totalEmployees.ToString()
+                                },
+                                new ReportSummary
+                                {
+                                    Caption = "Present Employees",
+                                    Value = $"{totalPresent} ({presentPercent:0.00}%)"
+                                },
+                                new ReportSummary
+                                {
+                                    Caption = "Employees on Leave",
+                                    Value = $"{totalLeave} ({leavePercent:0.00}%)"
+                                },
+                                new ReportSummary
+                                {
+                                    Caption = "Half Day Leave",
+                                    Value = $"{totalHalfDay} ({halfDayPercent:0.00}%)"
+                                },
+                                new ReportSummary
+                                {
+                                    Caption = "Weekend / Holiday",
+                                    Value = totalWeekend.ToString()
+                                }
+                            })
+                        .Generate(filePath);
+                }
+                else if (!optDailyAttendance.Checked && optMonthlyAttendanceRegister.Checked)
+                {
+                    report.ReportTitle = report.ReportTitle + "\n(" + Convert.ToDateTime(txtDTFrom.Text).ToString("dd-MMM-yyyy") + " - " + Convert.ToDateTime(txtDTTo.Text).ToString("dd-MMM-yyyy") + ")";
+
+                    int totalEmployees = objMonthlyAttendanceReport.Count;
+                    int totalPresentDays = objMonthlyAttendanceReport.Sum(x => x.PresentCount);
+                    int totalLeaveDays = objMonthlyAttendanceReport.Sum(x => x.LeaveCount);
+                    int totalHalfLeaveDays = objMonthlyAttendanceReport.Sum(x => x.HalfLeaveCount);
+
+                    DateTime month = Convert.ToDateTime(txtDTFrom.Text);
+
+                    int totalDays = DateTime.DaysInMonth(month.Year, month.Month);
+
+                    int weekEndDays = Enumerable.Range(1, totalDays).Select(day => new DateTime(month.Year, month.Month, day)) .Count(d => d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday);
+                    int workingDays = totalDays - weekEndDays;
+
+                    double effectivePresentDays = totalPresentDays + (totalHalfLeaveDays * 0.5);
+                    double effectiveLeaveDays = totalLeaveDays + (totalHalfLeaveDays * 0.5);
+
+                    int totalPossibleAttendance = totalEmployees * workingDays;
+
+                    double attendancePercentage = totalPossibleAttendance == 0 ? 0 : (effectivePresentDays * 100.0) / totalPossibleAttendance;
+
+                    double absenteePercentage = totalPossibleAttendance == 0 ? 0 : (effectiveLeaveDays * 100.0) / totalPossibleAttendance;
+
+                    new ReportBuilder()
+                        .Company(company)
+                        .Title(report)
+                        .Data(objMonthlyAttendanceReport)
+                        .Settings(settings)
+                        .Summary(new List<ReportSummary>()
+                        {
+                            new ReportSummary("Total Days", totalDays.ToString()),
+                            new ReportSummary("Week End Days", weekEndDays.ToString()),
+                            new ReportSummary("Working Days", workingDays.ToString()),
+                            new ReportSummary("Total Employees", totalEmployees.ToString()),
+                            new ReportSummary("Present Days", totalPresentDays.ToString()),
+                            new ReportSummary("Leave Days", totalLeaveDays.ToString()),
+                            new ReportSummary("Half Leave Days", totalHalfLeaveDays.ToString()),
+                            new ReportSummary("Attendance %", attendancePercentage.ToString("0.00") + "%"),
+                            new ReportSummary("Absenteeism %", absenteePercentage.ToString("0.00") + "%")
+                        })
+                        .Generate(filePath);
+                }    
+
+                //ReportBuilder builder = new ReportBuilder();
+
+                    //builder
+                    //    .Company(company)
+                    //    .Title(report);
+
+                    //if (optDailyAttendance.Checked && !optMonthlyAttendanceRegister.Checked)
+                    //{
+                    //    var item = objMonthlyAttendanceReport.FirstOrDefault();
+
+                    //    var summary = new List<ReportSummary>
+                    //    {
+                    //        new ReportSummary("Present Days", item.PresentCount.ToString()),
+                    //        new ReportSummary("Leave Days", item.LeaveCount.ToString()),
+                    //        new ReportSummary("Half Leave Days", item.HalfLeaveCount.ToString())
+                    //    };
+
+                    //    for (int i = 1; i <= 31; i++)
+                    //    {
+                    //        if (Convert.ToDateTime(txtDTFrom.Text).Day.ToString() != i.ToString())
+                    //            builder.SetColumnVisibility("_" + i, false);
+                    //    }
+                    //    builder.SetColumnVisibility("PresentCount", false);
+                    //    builder.SetColumnVisibility("LeaveCount", false);
+                    //    builder.SetColumnVisibility("HalfLeaveCount", false);
+                    //    builder.Summary(summary);
+
+                    //}
+                    //else if (!optDailyAttendance.Checked && optMonthlyAttendanceRegister.Checked)
+                    //{
+                    //    for (int i = 1; i <= 31; i++)
+                    //    {
+                    //        builder.SetColumnVisibility("_" + i, true);
+                    //    }
+                    //}
+                    //builder
+                    //    .Data(objMonthlyAttendanceReport)
+                    //    .Settings(settings)
+                    //    .Generate(filePath);
             }
 
             MessageBox.Show("Data Exported Successfully !!!", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -851,6 +1085,8 @@ namespace StaffSync
             if (VerifyFilterValues(out string filter) == false)
                 return;
 
+            btnExport.Enabled = true;
+            cmbGroupBy.Enabled = true;
             lblFilter.Text = filter;
 
             if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0001.ToString())
@@ -871,7 +1107,14 @@ namespace StaffSync
             else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0004.ToString())
             {
                 lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
-                EmployeeMonthlyAttendanceRegister(lblFilter.Text);
+                if(optDailyAttendance.Checked && !optMonthlyAttendanceRegister.Checked)
+                {
+                    EmployeeDailyAttendanceRegister(lblFilter.Text);
+                }
+                else if (!optDailyAttendance.Checked && optMonthlyAttendanceRegister.Checked)
+                {
+                    EmployeeMonthlyAttendanceRegister(lblFilter.Text);
+                }
             }
         }
 
@@ -970,6 +1213,8 @@ namespace StaffSync
         private void chkBloodGroup_CheckedChanged(object sender, EventArgs e)
         {
             cmbBloodGroup.Enabled = chkBloodGroup.Checked;
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
         }
 
         public class tmpDropdownItem
@@ -988,6 +1233,170 @@ namespace StaffSync
         private void chkActiveInactiveStatus_CheckedChanged(object sender, EventArgs e)
         {
             cmbActiveInactiveStatus.Enabled = chkActiveInactiveStatus.Checked;
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+        }
+
+        private void txtDTFrom_TextChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+            if (optDailyAttendance.Checked && !optMonthlyAttendanceRegister.Checked)
+            {
+                txtDTTo.Text = txtDTFrom.Text;
+                txtDTTo.Enabled = false;
+            }
+            else if (!optDailyAttendance.Checked && optMonthlyAttendanceRegister.Checked)
+            {
+                DateTime dtToDate;
+                string dateFormat = "dd-MM-yyyy";
+                CultureInfo provider = CultureInfo.InvariantCulture;
+                if (DateTime.TryParseExact(txtDTFrom.Text, dateFormat, provider, DateTimeStyles.None, out dtToDate) == true)
+                {
+                    txtDTTo.Text = Convert.ToDateTime(dtToDate.AddMonths(1).AddDays(-dtToDate.AddMonths(1).Day)).ToString("dd-MM-yyyy");
+                    txtDTTo.Enabled = false;
+                }
+            }
+        }
+
+        private void optDailyAttendance_Click(object sender, EventArgs e)
+        {
+            if(optDailyAttendance.Checked)
+                lblSelectedReportName.Text = "Daily Attendance Report";
+        }
+
+        private void optMonthlyAttendanceRegister_Click(object sender, EventArgs e)
+        {
+            if (optMonthlyAttendanceRegister.Checked)
+                lblSelectedReportName.Text = "Monthly Attendance Report";
+        }
+
+        private void cmbDesignation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+        }
+
+        private void cmbDepartment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+        }
+
+        private void cmbGender_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+        }
+
+        private void cmbBloodGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+        }
+
+        private void cmbActiveInactiveStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+        }
+
+        private void cmbBranch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+        }
+
+        private void optDOB_CheckedChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+        }
+
+        private void optDOJ_CheckedChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+        }
+
+        private void optProbDate_CheckedChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+        }
+
+        private void optConfirmDate_CheckedChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+        }
+
+        private void optDailyAttendance_CheckedChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+            if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0004.ToString())
+            {
+                if (optDailyAttendance.Checked && !optMonthlyAttendanceRegister.Checked)
+                {
+                    txtDTTo.Text = txtDTFrom.Text;
+                    txtDTTo.Enabled = false;
+                }
+                else if (!optDailyAttendance.Checked && optMonthlyAttendanceRegister.Checked)
+                {
+                    DateTime dtToDate;
+                    string dateFormat = "dd-MM-yyyy";
+                    CultureInfo provider = CultureInfo.InvariantCulture;
+                    if (DateTime.TryParseExact(txtDTFrom.Text, dateFormat, provider, DateTimeStyles.None, out dtToDate) == true)
+                    {
+                        txtDTTo.Text = Convert.ToDateTime(dtToDate.AddMonths(1).AddDays(-dtToDate.AddMonths(1).Day)).ToString("dd-MM-yyyy");
+                        txtDTTo.Enabled = false;
+                    }
+                }
+            }
+        }
+
+        private void optMonthlyAttendanceRegister_CheckedChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+            if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0004.ToString())
+            {
+                if (optDailyAttendance.Checked && !optMonthlyAttendanceRegister.Checked)
+                {
+                    txtDTTo.Text = txtDTFrom.Text;
+                    txtDTTo.Enabled = false;
+                }
+                else if (!optDailyAttendance.Checked && optMonthlyAttendanceRegister.Checked)
+                {
+                    DateTime dtToDate;
+                    string dateFormat = "dd-MM-yyyy";
+                    CultureInfo provider = CultureInfo.InvariantCulture;
+                    if (DateTime.TryParseExact(txtDTFrom.Text, dateFormat, provider, DateTimeStyles.None, out dtToDate) == true)
+                    {
+                        txtDTTo.Text = Convert.ToDateTime(dtToDate.AddMonths(1).AddDays(-dtToDate.AddMonths(1).Day)).ToString("dd-MM-yyyy");
+                        txtDTTo.Enabled = false;
+                    }
+                }
+            }
+        }
+
+        private void txtDTTo_TextChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+        }
+
+        private void optRelivingDate_CheckedChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+        }
+
+        private void optResignationDate_CheckedChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
         }
     }
 }

@@ -426,5 +426,87 @@ namespace dbStaffSync
 
             return objMonthlyAttendanceReport;
         }
+
+        public List<DailyAttendanceReport> getDailyAttendanceRegister(int ClientID, DateTime dtDate)
+        {
+            List<DailyAttendanceReport> objDailyAttendanceReport = new List<DailyAttendanceReport>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " +
+                                        " EmpMas.EmpID, " + 
+                                        " EmpMas.EmpCode, " + 
+                                        " EmpMas.EmpName, " + 
+                                        " DesigMas.DesignationTitle, " + 
+                                        " DepMas.DepartmentTitle, " + 
+                                        " PersonalInfoMas.DOJ, " + 
+                                        " Switch ( " + 
+                                            " EmpDailyAttendanceInfo.AttStatus = 'Present', " + 
+                                            " 'P', " + 
+                                            " IsNull(EmpDailyAttendanceInfo.AttStatus) " + 
+                                            " OR EmpDailyAttendanceInfo.AttStatus = '', " + 
+                                            " 'WE', " + 
+                                            " EmpDailyAttendanceInfo.AttStatus = 'Leave : Full Day', " + 
+                                            " 'L', " + 
+                                            " EmpDailyAttendanceInfo.AttStatus = 'Leave : First Half', " + 
+                                            " 'L/P', " + 
+                                            " EmpDailyAttendanceInfo.AttStatus = 'Leave : Second Half', " + 
+                                            " 'P/L', " + 
+                                            " True, " + 
+                                            " EmpDailyAttendanceInfo.AttStatus " + 
+                                        " ) AS AttendanceStatus " + 
+                                    " FROM " + 
+                                        " ( " + 
+                                            " ( " + 
+                                                " DesigMas " + 
+                                                " INNER JOIN ( " + 
+                                                    " DepMas " + 
+                                                    " INNER JOIN ( " + 
+                                                        " ClientMas " + 
+                                                        " INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " + 
+                                                    " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " + 
+                                                " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " + 
+                                            " ) " + 
+                                            " INNER JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " + 
+                                        " ) " + 
+                                        " INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID " + 
+                                    " WHERE " + 
+                                        " ( " + 
+                                            " ClientMas.ClientID = " + ClientID +
+                                            " AND EmpDailyAttendanceInfo.AttDate = #" + dtDate.ToString("dd-MMM-yyyy") + "#" + 
+                                            " AND EmpMas.IsActive = True " + 
+                                            " AND EmpMas.IsDeleted = False " + 
+                                        " ) " + 
+                                    " ORDER BY " + 
+                                        " EmpMas.EmpName ASC";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objDailyAttendanceReport = JsonConvert.DeserializeObject<List<DailyAttendanceReport>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objDailyAttendanceReport;
+        }
     }
 }

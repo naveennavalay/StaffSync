@@ -37,5 +37,12 @@ namespace DALStaffSync
             objMonthlyAttendanceReport = objEmployeeRelatedReportQueries.getMonthlyAttendanceRegister(ClientID, dtFrom, dtTo);
             return objMonthlyAttendanceReport;
         }
+
+        public List<DailyAttendanceReport> getDailyAttendanceRegister(int ClientID, DateTime dtDate)
+        {
+            List<DailyAttendanceReport> objDailyAttendanceReport = new List<DailyAttendanceReport>();
+            objDailyAttendanceReport = objEmployeeRelatedReportQueries.getDailyAttendanceRegister(ClientID, dtDate);
+            return objDailyAttendanceReport;
+        }
     }
 }

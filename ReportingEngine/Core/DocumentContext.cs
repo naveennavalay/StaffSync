@@ -22,5 +22,7 @@ namespace ReportingEngine.Core
         public IList<ReportSummary> Summary { get; set; }
 
         public ReportDisplayOptions DisplayOptions { get; set; }
+
+        public Dictionary<string, bool> ColumnVisibility { get; set; } = new Dictionary<string, bool>();
     }
 }

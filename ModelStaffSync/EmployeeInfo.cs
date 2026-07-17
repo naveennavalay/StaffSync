@@ -377,4 +377,29 @@ namespace ModelStaffSync
             }
         }
     }
+
+    public class DailyAttendanceReport
+    {
+        public string FinYearFromTo { get; set; }
+        public int EmpID { get; set; }
+
+        //[ReportColumnAttribute(Header = "Emp Code", Width = 6, Alignment = ReportAlignment.Left, Format = "Currency", ShowTotal = true, Visible = true)]
+        [ReportColumnAttribute(Header = "Emp Code", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        public string EmpCode { get; set; }
+
+        [ReportColumnAttribute(Header = "Emp Name", Width = 5, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string EmpName { get; set; }
+
+        [ReportColumnAttribute(Header = "Designation", Width = 5, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string DesignationTitle { get; set; }
+
+        [ReportColumnAttribute(Header = "Department", Width = 5, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string DepartmentTitle { get; set; }
+
+        //[ReportColumnAttribute(Header = "Joining Date", Width = 2.5, Alignment = ReportAlignment.Left, Format = "Date", ShowTotal = false, Visible = true, AutoFit = true)]
+        //public DateTime DOJ { get; set; }
+
+        [ReportColumnAttribute(Header = "Attendance Status", Width = 4, Alignment = ReportAlignment.Center, ShowTotal = false, Visible = true, AutoFit = true)]
+        public string AttendanceStatus { get; set; }
+    }
 }
