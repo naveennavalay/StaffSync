@@ -695,6 +695,62 @@ namespace dbStaffSync
             return objMonthlyAttendanceReport;
         }
 
+        public List<MonthlyAttendanceSummaryInfo> getMonthlyAttendanceSummaryInfo(int ClientID, DateTime txtDTFrom, DateTime txtDTTo)
+        {
+            List<MonthlyAttendanceSummaryInfo> objMonthlyAttendanceSummaryInfo = new List<MonthlyAttendanceSummaryInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                //DateTime.Now.Month
+                string strQuery = "SELECT " + 
+                                        " Sum(IIf(StatusType = 'Present', 1, 0)) AS PresentEmployees, " +
+                                        " Sum(IIf(StatusType = 'Leave', 1, 0)) AS LeaveEmployees, " +
+                                        " Sum(IIf(StatusType = 'Half Leave', 1, 0)) AS HalfLeaveEmployees " +
+                                    " FROM " +
+                                        " ( " +
+                                            " SELECT " +
+                                                " EmpMas.EmpID, Max(EmpDailyAttendanceInfo.AttStatus) AS StatusType " +
+                                            " FROM " +
+                                                " ( " +
+                                                    " ClientMas INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " +
+                                                " ) " +
+                                                " INNER JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " +
+                                            " WHERE " +
+                                                " EmpDailyAttendanceInfo.AttDate BETWEEN #" + Convert.ToDateTime(txtDTFrom).ToString("dd-MMM-yyyy") + "# AND #" + Convert.ToDateTime(txtDTTo).ToString("dd-MMM-yyyy") + "# " +
+                                                " AND EmpMas.IsActive = True " +
+                                                " AND EmpMas.IsDeleted = False " +
+                                                " AND ClientMas.ClientID = " + ClientID + 
+                                            " GROUP BY " +
+                                                " EmpMas.EmpID " + 
+                                        " )";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objMonthlyAttendanceSummaryInfo = JsonConvert.DeserializeObject<List<MonthlyAttendanceSummaryInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objMonthlyAttendanceSummaryInfo;
+        }
+
         public int InsertDailyAttendance(int txtEmpID, DateTime AttendanceDate, string AttendanceStatus, int LeaveTRID)
         {
             int affectedRows = 0;

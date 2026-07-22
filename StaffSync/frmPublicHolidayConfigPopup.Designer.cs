@@ -50,6 +50,7 @@
             this.empMasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.empMasTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.chkFestival = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -95,6 +96,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkFestival);
             this.groupBox2.Controls.Add(this.cmbHolidayType);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.txtHolidayDate);
@@ -261,6 +263,21 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
+            // chkFestival
+            // 
+            this.chkFestival.AutoSize = true;
+            this.chkFestival.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkFestival.Checked = true;
+            this.chkFestival.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkFestival.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkFestival.Location = new System.Drawing.Point(386, 102);
+            this.chkFestival.Name = "chkFestival";
+            this.chkFestival.Size = new System.Drawing.Size(127, 19);
+            this.chkFestival.TabIndex = 66;
+            this.chkFestival.Tag = "Festival Holiday";
+            this.chkFestival.Text = "Festival Holiday";
+            this.chkFestival.UseVisualStyleBackColor = true;
+            // 
             // frmPublicHolidayConfigPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -317,5 +334,6 @@
         private System.Windows.Forms.ErrorProvider errValidator;
         private Krypton.Toolkit.KryptonComboBox cmbHolidayType;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox chkFestival;
     }
 }

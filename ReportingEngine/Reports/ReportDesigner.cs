@@ -97,9 +97,25 @@ namespace ReportingEngine.Reports
 
             reportDate.AddText("Date : " + _context.ReportInfo.GeneratedOn.ToString("dd-MMM-yyyy"));
 
-            DynamicTableBuilder builder = new DynamicTableBuilder();
+            //DynamicTableBuilder builder = new DynamicTableBuilder();
 
-            builder.Build(section, _context.Columns, _context.Data);
+            //builder.Build(section, _context.Columns, _context.Data);
+
+            if (string.IsNullOrWhiteSpace(_context.GroupByProperty))
+            {
+                DynamicTableBuilder builder = new DynamicTableBuilder();
+
+                builder.Build(
+                    section,
+                    _context.Columns,
+                    _context.Data);
+            }
+            else
+            {
+                GroupedTableBuilder builder = new GroupedTableBuilder(_context);
+
+                builder.Build(section);
+            }
 
             new SummaryBuilder(_context).Build(section);
 

@@ -22,6 +22,8 @@ namespace ModelStaffSync
         [DisplayName("Holiday Type")] 
         public string PubHolTypeTitle { get; set; }
         public string DayName { get; set; }
+
+        public bool IsFestival { get; set; }
     }
 
     public class PublicHolidayType

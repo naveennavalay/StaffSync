@@ -115,4 +115,10 @@ namespace ModelStaffSync
         public decimal LeaveDuration1 { get; set; }
     }
 
+    public class MonthlyAttendanceSummaryInfo
+    {
+        public decimal PresentEmployees { get; set; }
+        public decimal LeaveEmployees { get; set; }
+        public decimal HalfLeaveEmployees { get; set; }
+    }
 }

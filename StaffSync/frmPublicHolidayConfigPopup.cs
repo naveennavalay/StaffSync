@@ -45,6 +45,7 @@ namespace StaffSync
             txtHolidayName.Text = objPublicHolidayInfo.PubHolidayTitle;
             txtHolidayDate.Text = objPublicHolidayInfo.PubHolDate?.ToString("dd-MM-yyyy");
             cmbHolidayType.SelectedIndex = (int) objPublicHolidayInfo.PubHolTypeID - 1;
+            chkFestival.Checked = objPublicHolidayInfo.IsFestival;
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -92,12 +93,12 @@ namespace StaffSync
             objSaveTheseValues.PubHolTypeID = Convert.ToInt16(cmbHolidayType.SelectedIndex + 1);
 
             if (objSaveTheseValues.PubHolDetID == 0)
-                objSaveTheseValues.PubHolDetID = objPublicHolidayInfo1.InsertPublicHolidayDetailInfo(objSaveTheseValues.PubHolMasID, txtHolidayName.Text, Convert.ToDateTime(txtHolidayDate.Text), Convert.ToInt16(cmbHolidayType.SelectedIndex + 1),  Convert.ToInt16(objSaveTheseValues.OrderID));
+                objSaveTheseValues.PubHolDetID = objPublicHolidayInfo1.InsertPublicHolidayDetailInfo(objSaveTheseValues.PubHolMasID, txtHolidayName.Text, Convert.ToDateTime(txtHolidayDate.Text), Convert.ToInt16(cmbHolidayType.SelectedIndex + 1),  Convert.ToInt16(objSaveTheseValues.OrderID), chkFestival.Checked);
             else
             {
                 if(!string.IsNullOrEmpty(objSaveTheseValues.PubHolidayTitle.ToString().Trim()) && (txtHolidayDate.Text.ToString().Trim().Replace(" ", "") != "--"))
                 {
-                    objSaveTheseValues.PubHolDetID = objPublicHolidayInfo1.UpdatePublicHolidayDetailInfo(objSaveTheseValues.PubHolDetID, objSaveTheseValues.PubHolMasID, txtHolidayName.Text, Convert.ToDateTime(txtHolidayDate.Text), Convert.ToInt16(cmbHolidayType.SelectedIndex + 1), Convert.ToInt16(objSaveTheseValues.OrderID));
+                    objSaveTheseValues.PubHolDetID = objPublicHolidayInfo1.UpdatePublicHolidayDetailInfo(objSaveTheseValues.PubHolDetID, objSaveTheseValues.PubHolMasID, txtHolidayName.Text, Convert.ToDateTime(txtHolidayDate.Text), Convert.ToInt16(cmbHolidayType.SelectedIndex + 1), Convert.ToInt16(objSaveTheseValues.OrderID), chkFestival.Checked);
                 }
                 else
                 {

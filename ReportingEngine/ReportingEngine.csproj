@@ -128,6 +128,7 @@
     <Compile Include="Builders\CompanyHeaderBuilder.cs" />
     <Compile Include="Builders\DynamicTableBuilder.cs" />
     <Compile Include="Builders\FooterBuilder.cs" />
+    <Compile Include="Builders\GroupedTableBuilder.cs" />
     <Compile Include="Builders\HeaderBuilder.cs" />
     <Compile Include="Builders\HeaderConstants.cs" />
     <Compile Include="Builders\HeaderTheme.cs" />

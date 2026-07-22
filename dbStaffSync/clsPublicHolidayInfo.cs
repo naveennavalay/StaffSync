@@ -54,6 +54,155 @@ namespace dbStaffSync
             return lstPublicHolidayType;
         }
 
+        public List<PublicHolidayInfo> getHolidayList(int ClientID, DateTime dtFrom, DateTime dtTo)
+        {
+            List<PublicHolidayInfo> objPublicHolidayInfoList = new List<PublicHolidayInfo>();
+            DataTable dt = new DataTable();
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                string strQuery = "SELECT " + 
+                                        " PubHolidayDetails.PubHolDetID, " +
+                                        " PublicHolidayMas.PubHolMasID, " +
+                                        " PubHolType.PubHolTypeTitle, " +
+                                        " PubHolidayDetails.PubHolDate, " +
+                                        " PubHolType.PubHolTypeID, " +
+                                        " PubHolType.PubHolTypeTitle, " +
+                                        " PublicHolidayMas.OrderID, " +
+                                        " PubHolidayDetails.IsFestival, " +
+                                        " ClientMas.ClientID " +
+                                    " FROM " +
+                                        " (ClientMas INNER JOIN PublicHolidayMas ON ClientMas.ClientID = PublicHolidayMas.ClientID) " +
+                                        " INNER JOIN ( PubHolType INNER JOIN PubHolidayDetails ON PubHolType.PubHolTypeID = PubHolidayDetails.PubHolTypeID) " +
+                                        " ON PublicHolidayMas.PubHolMasID = PubHolidayDetails.PubHolMasID " +
+                                    " WHERE " +
+                                        " ( " +
+                                            "((PubHolidayDetails.PubHolDate) >= #" + dtFrom.ToString("dd-MMM-yyyy") + "# AND (PubHolidayDetails.PubHolDate) <= #" + dtTo.ToString("dd-MMM-yyyy") + "#) " + 
+                                            " AND ((ClientMas.ClientID) = " + ClientID + ") " +
+                                        " ) " +
+                                    " ORDER BY " + 
+                                        " PubHolidayDetails.PubHolDetID, PublicHolidayMas.PubHolMasID, PubHolidayDetails.PubHolDate, PublicHolidayMas.OrderID;";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objPublicHolidayInfoList = JsonConvert.DeserializeObject<List<PublicHolidayInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return objPublicHolidayInfoList;
+        }
+
+        public List<PublicHolidayInfo> getNonFestivalHolidayList(int ClientID, DateTime dtFrom, DateTime dtTo)
+        {
+            List<PublicHolidayInfo> objNonFestivalHolidayList = new List<PublicHolidayInfo>();
+            DataTable dt = new DataTable();
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                string strQuery = "SELECT " +
+                                        " PubHolidayDetails.PubHolDetID, " +
+                                        " PublicHolidayMas.PubHolMasID, " +
+                                        " PubHolidayDetails.PubHolDate, " +
+                                        " PubHolType.PubHolTypeID, " +
+                                        " PubHolType.PubHolTypeTitle, " +
+                                        " PublicHolidayMas.OrderID, " +
+                                        " PubHolidayDetails.IsFestival, " +
+                                        " ClientMas.ClientID " +
+                                    " FROM " +
+                                        " (ClientMas INNER JOIN PublicHolidayMas ON ClientMas.ClientID = PublicHolidayMas.ClientID) " +
+                                        " INNER JOIN ( PubHolType INNER JOIN PubHolidayDetails ON PubHolType.PubHolTypeID = PubHolidayDetails.PubHolTypeID) " +
+                                        " ON PublicHolidayMas.PubHolMasID = PubHolidayDetails.PubHolMasID " +
+                                    " WHERE " +
+                                        " ( " +
+                                            "((PubHolidayDetails.PubHolDate) >= #" + dtFrom.ToString("dd-MMM-yyyy") + "# AND (PubHolidayDetails.PubHolDate) <= #" + dtTo.ToString("dd-MMM-yyyy") + "#) " +
+                                            " AND ((ClientMas.ClientID) = " + ClientID + ") " +
+                                            " AND ((PubHolidayDetails.IsFestival) = false) " +
+                                        " ) " +
+                                    " ORDER BY " +
+                                        " PubHolidayDetails.PubHolDetID, PublicHolidayMas.PubHolMasID, PubHolidayDetails.PubHolDate, PublicHolidayMas.OrderID;";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objNonFestivalHolidayList = JsonConvert.DeserializeObject<List<PublicHolidayInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return objNonFestivalHolidayList;
+        }
+
+        public List<PublicHolidayInfo> getFestivalHolidayList(int ClientID, DateTime dtFrom, DateTime dtTo)
+        {
+            List<PublicHolidayInfo> objFestivalHolidayList = new List<PublicHolidayInfo>();
+            DataTable dt = new DataTable();
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                string strQuery = "SELECT " +
+                                        " PubHolidayDetails.PubHolDetID, " +
+                                        " PublicHolidayMas.PubHolMasID, " +
+                                        " PubHolidayDetails.PubHolDate, " +
+                                        " PubHolType.PubHolTypeID, " +
+                                        " PubHolType.PubHolTypeTitle, " +
+                                        " PublicHolidayMas.OrderID, " +
+                                        " PubHolidayDetails.IsFestival, " +
+                                        " ClientMas.ClientID " +
+                                    " FROM " +
+                                        " (ClientMas INNER JOIN PublicHolidayMas ON ClientMas.ClientID = PublicHolidayMas.ClientID) " +
+                                        " INNER JOIN ( PubHolType INNER JOIN PubHolidayDetails ON PubHolType.PubHolTypeID = PubHolidayDetails.PubHolTypeID) " +
+                                        " ON PublicHolidayMas.PubHolMasID = PubHolidayDetails.PubHolMasID " +
+                                    " WHERE " +
+                                        " ( " +
+                                            "((PubHolidayDetails.PubHolDate) >= #" + dtFrom.ToString("dd-MMM-yyyy") + "# AND (PubHolidayDetails.PubHolDate) <= #" + dtTo.ToString("dd-MMM-yyyy") + "#) " +
+                                            " AND ((ClientMas.ClientID) = " + ClientID + ") " +
+                                            " AND ((PubHolidayDetails.IsFestival) = true) " +
+                                        " ) " +
+                                    " ORDER BY " +
+                                        " PubHolidayDetails.PubHolDetID, PublicHolidayMas.PubHolMasID, PubHolidayDetails.PubHolDate, PublicHolidayMas.OrderID;";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objFestivalHolidayList = JsonConvert.DeserializeObject<List<PublicHolidayInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return objFestivalHolidayList;
+        }
 
         public List<PublicHolidayInfo> GetHolidayDetailsInfo(int txtYearID)
         {
@@ -70,7 +219,8 @@ namespace dbStaffSync
                                         "PubHolidayDetails.PubHolMasID, " + 
                                         "PubHolidayDetails.PubHolidayTitle, " + 
                                         "PubHolidayDetails.PubHolDate, " + 
-                                        "PubHolidayDetails.OrderID, " + 
+                                        "PubHolidayDetails.OrderID, " +
+                                        "PubHolidayDetails.IsFestival, " +
                                         "WeekdayName (Weekday ([PubHolDate], 0)) AS DayName " + 
                                     "FROM " + 
                                         "PubHolidayDetails " + 
@@ -83,6 +233,7 @@ namespace dbStaffSync
                                 "PubHolidayDetails.PubHolidayTitle, " +
                                 "PubHolidayDetails.PubHolDate, " +
                                 "PubHolidayDetails.OrderID, " +
+                                "PubHolidayDetails.IsFestival, " +
                                 "WeekdayName (Weekday ([PubHolDate], 0)) AS DayName, " +
                                 "ClientMas.ClientID " +
                             "FROM " +
@@ -105,6 +256,7 @@ namespace dbStaffSync
                                    " PubHolType.PubHolTypeID, " +
                                    " PubHolType.PubHolTypeTitle, " +
                                    " PubHolidayDetails.OrderID, " +
+                                   " PubHolidayDetails.IsFestival, " +
                                    " WeekdayName (Weekday ([PubHolDate], 0)) AS DayName, " +
                                    " ClientMas.ClientID " +
                                 " FROM " +
@@ -217,7 +369,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int InsertPublicHolidayDetailInfo(int txtPubHolMasID, string txtPublicHolidayTitle, DateTime txtPublicHolidayDate, int txtPubHolTypeID, int txtOrderID)
+        public int InsertPublicHolidayDetailInfo(int txtPubHolMasID, string txtPublicHolidayTitle, DateTime txtPublicHolidayDate, int txtPubHolTypeID, int txtOrderID, bool IsFestival)
         {
             int affectedRows = 0;
             try
@@ -229,8 +381,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO PubHolidayDetails (PubHolDetID, PubHolMasID, PubHolidayTitle, PubHolDate, PubHolTypeID, OrderID) VALUES " +
-                 "(" + maxRowCount.Data + "," + txtPubHolMasID + ",'" + txtPublicHolidayTitle + "','" + txtPublicHolidayDate.ToString("dd-MM-yyyy") + "'," + txtPubHolTypeID + "," + OrderID.Data + ")";
+                string strQuery = "INSERT INTO PubHolidayDetails (PubHolDetID, PubHolMasID, PubHolidayTitle, PubHolDate, PubHolTypeID, OrderID, IsFestival) VALUES " +
+                 "(" + maxRowCount.Data + "," + txtPubHolMasID + ",'" + txtPublicHolidayTitle + "','" + txtPublicHolidayDate.ToString("dd-MM-yyyy") + "'," + txtPubHolTypeID + "," + OrderID.Data + "," + IsFestival + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -252,7 +404,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpdatePublicHolidayDetailInfo(int txtPubHolDetID, int txtPubHolMasID, string txtPublicHolidayTitle, DateTime txtPublicHolidayDate, int txtPubHolTypeID, int txtOrderID)
+        public int UpdatePublicHolidayDetailInfo(int txtPubHolDetID, int txtPubHolMasID, string txtPublicHolidayTitle, DateTime txtPublicHolidayDate, int txtPubHolTypeID, int txtOrderID, bool IsFestival)
         {
             int affectedRows = 0;
             try
@@ -260,7 +412,7 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE PubHolidayDetails SET PubHolidayTitle = '" + txtPublicHolidayTitle + "', PubHolDate = '" + txtPublicHolidayDate.ToString("dd-MM-yyyy") + "', PubHolTypeID = " + txtPubHolTypeID +
+                string strQuery = "UPDATE PubHolidayDetails SET PubHolidayTitle = '" + txtPublicHolidayTitle + "', PubHolDate = '" + txtPublicHolidayDate.ToString("dd-MM-yyyy") + "', PubHolTypeID = " + txtPubHolTypeID + ", IsFestival = " + IsFestival + 
                  " WHERE PubHolDetID = " + txtPubHolDetID + "";
 
                 OleDbCommand cmd = conn.CreateCommand();

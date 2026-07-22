@@ -24,5 +24,9 @@ namespace ReportingEngine.Core
         public ReportDisplayOptions DisplayOptions { get; set; }
 
         public Dictionary<string, bool> ColumnVisibility { get; set; } = new Dictionary<string, bool>();
+
+        public string GroupByProperty { get; set; }
+
+        public string GroupCaption { get; set; }
     }
 }

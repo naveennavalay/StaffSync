@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using ReportingEngine.Enum;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -401,5 +402,16 @@ namespace ModelStaffSync
 
         [ReportColumnAttribute(Header = "Attendance Status", Width = 4, Alignment = ReportAlignment.Center, ShowTotal = false, Visible = true, AutoFit = true)]
         public string AttendanceStatus { get; set; }
+    }
+
+    public class MonthlyAttendanceSummary
+    {
+        [ReportColumnAttribute(Header = "Header", Width = 6, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        [DisplayName("Header")]
+        public string RowHeader { get; set; }
+
+        [ReportColumnAttribute(Header = "Value", Width = 6, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true)]
+        [DisplayName("Value")]
+        public string RowValue { get; set; }
     }
 }

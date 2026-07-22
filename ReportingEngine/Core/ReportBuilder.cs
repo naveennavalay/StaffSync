@@ -92,5 +92,14 @@ namespace ReportingEngine
 
             designer.Generate(_context, outputFile);
         }
+
+        public ReportBuilder GroupBy(string propertyName, string caption = null)
+        {
+            _context.GroupByProperty = propertyName;
+
+            _context.GroupCaption = caption ?? propertyName;
+
+            return this;
+        }
     }
 }

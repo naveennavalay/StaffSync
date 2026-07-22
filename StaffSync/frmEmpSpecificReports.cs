@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
+﻿using DocumentFormat.OpenXml.Drawing.Charts;
+using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Krypton.Toolkit;
 using ModelStaffSync;
@@ -17,6 +18,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -42,6 +44,8 @@ namespace StaffSync
         DALStaffSync.clsBloodGroup objBloodGroup = new DALStaffSync.clsBloodGroup();
         DALStaffSync.clsSexMas objSexMaster = new DALStaffSync.clsSexMas();
         DALStaffSync.clsClientBranchInfo objClientBranchInfo = new DALStaffSync.clsClientBranchInfo();
+        DALStaffSync.clsPublicHolidayInfo objPublicHolidayInfo = new DALStaffSync.clsPublicHolidayInfo();
+        DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
 
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
@@ -54,6 +58,10 @@ namespace StaffSync
         List<EmployeeActiveInactiveReport> objEmployeeActiveInactiveReportListReport = new List<EmployeeActiveInactiveReport>();
         List<MonthlyAttendanceReport> objMonthlyAttendanceReport = new List<MonthlyAttendanceReport>();
         List<DailyAttendanceReport> objDailyAttendanceReport = new List<DailyAttendanceReport>();
+        List<MonthlyAttendanceSummaryInfo> objMonthlyAttendanceSummaryInfo = new List<MonthlyAttendanceSummaryInfo>();
+        List<PublicHolidayInfo> objNonFestivalHolidayList = new List<PublicHolidayInfo>();
+        List<PublicHolidayInfo> objFestivalHolidayList = new List<PublicHolidayInfo>();
+        List<MonthlyAttendanceSummary> objMonthlyAttendanceSummaryReport = new List<MonthlyAttendanceSummary>();
 
 
         string strActionStatement = "";
@@ -163,6 +171,7 @@ namespace StaffSync
             optDailyAttendance.Checked = false;
             optMonthlyAttendanceRegister.Enabled = true;
             optMonthlyAttendanceRegister.Checked = false;
+            chkIncludeBranch.Enabled = false;
         }
 
 
@@ -387,14 +396,17 @@ namespace StaffSync
                 List<tmpDropdownItem> lstGroupByValues = new List<tmpDropdownItem>()
                 {
                     new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
-                    new tmpDropdownItem { MemberValue = "DepMas.DepartmentTitle", MemberName = "Department" },
+                    new tmpDropdownItem { MemberValue = "DesignationTitle", MemberName = "Designation" },
+                    new tmpDropdownItem { MemberValue = "DepartmentTitle", MemberName = "Department" },
+                    new tmpDropdownItem { MemberValue = "ClientBranchName", MemberName = "Branch Name" },
+                    new tmpDropdownItem { MemberValue = "BloodGroupTitle", MemberName = "Blood Group" },
                 };
                 cmbGroupBy.DataSource = null;
                 cmbGroupBy.Items.Clear();
                 cmbGroupBy.DataSource = lstGroupByValues;
                 cmbGroupBy.DisplayMember = "MemberName";
                 cmbGroupBy.ValueMember = "MemberValue";
-                cmbGroupBy.SelectedIndex = 0;
+                cmbGroupBy.SelectedIndex = 2;
             }
             else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0003.ToString())
             {
@@ -432,14 +444,17 @@ namespace StaffSync
                 List<tmpDropdownItem> lstGroupByValues = new List<tmpDropdownItem>()
                 {
                     new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
-                    new tmpDropdownItem { MemberValue = "DepMas.DepartmentTitle", MemberName = "Department" },
+                    new tmpDropdownItem { MemberValue = "DesignationTitle", MemberName = "Designation" },
+                    new tmpDropdownItem { MemberValue = "DepartmentTitle", MemberName = "Department" },
+                    new tmpDropdownItem { MemberValue = "ClientBranchName", MemberName = "Branch Name" },
+                    new tmpDropdownItem { MemberValue = "BloodGroupTitle", MemberName = "Blood Group" },
                 };
                 cmbGroupBy.DataSource = null;
                 cmbGroupBy.Items.Clear();
                 cmbGroupBy.DataSource = lstGroupByValues;
                 cmbGroupBy.DisplayMember = "MemberName";
                 cmbGroupBy.ValueMember = "MemberValue";
-                cmbGroupBy.SelectedIndex = 0;
+                cmbGroupBy.SelectedIndex = 2;
             }
             else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0004.ToString())
             {
@@ -476,18 +491,70 @@ namespace StaffSync
                 List<tmpDropdownItem> lstGroupByValues = new List<tmpDropdownItem>()
                 {
                     new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
-                    new tmpDropdownItem { MemberValue = "DepMas.DepartmentTitle", MemberName = "Department" },
+                    new tmpDropdownItem { MemberValue = "DesignationTitle", MemberName = "Designation" },
+                    new tmpDropdownItem { MemberValue = "DepartmentTitle", MemberName = "Department" },
+                    new tmpDropdownItem { MemberValue = "ClientBranchName", MemberName = "Branch Name" },
+                    new tmpDropdownItem { MemberValue = "BloodGroupTitle", MemberName = "Blood Group" },
                 };
                 cmbGroupBy.DataSource = null;
                 cmbGroupBy.Items.Clear();
                 cmbGroupBy.DataSource = lstGroupByValues;
                 cmbGroupBy.DisplayMember = "MemberName";
                 cmbGroupBy.ValueMember = "MemberValue";
-                cmbGroupBy.SelectedIndex = 0;
+                cmbGroupBy.SelectedIndex = 2;
             }
             else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0005.ToString())
             {
+                chkIncludeMonth.Checked = false;
+                cmbMonth.Enabled = false;
+                chkIncludeDesignation.Checked = false;
+                cmbDesignation.Enabled = false;
+                chkIncludeDepartment.Checked = false;
+                cmbDepartment.Enabled = false;
+                chkIncludeGender.Checked = false;
+                cmbGender.Enabled = false;
+                chkIncludeBranch.Checked = false;
+                cmbBranch.Enabled = false;
+                chkActiveInactiveStatus.Enabled = false;
+                chkActiveInactiveStatus.Checked = false;
+                cmbActiveInactiveStatus.Enabled = false;
+                chkIncludeGroupSummary.Checked = false;
+                chkIncludeGroupSummary.Enabled = false;
 
+                optDOB.Checked = false;
+                optDOB.Enabled = false;
+                optDOJ.Checked = false;
+                optDOJ.Enabled = false;
+                optProbDate.Checked = false;
+                optProbDate.Enabled = false;
+                optConfirmDate.Checked = false;
+                optConfirmDate.Enabled = false;
+                optRelivingDate.Checked = false;
+                optRelivingDate.Enabled = false;
+                optResignationDate.Checked = false;
+                optResignationDate.Enabled = false;
+                optDailyAttendance.Checked = false;
+                optDailyAttendance.Enabled = false;
+                optMonthlyAttendanceRegister.Enabled = true;
+                optMonthlyAttendanceRegister.Checked = true;
+
+
+                txtDTFrom.Text = DateTime.Today.ToString("dd-MM-yyyy");
+                txtDTTo.Text = DateTime.Today.ToString("dd-MM-yyyy");
+
+                lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
+                lblSelectedReportName.Text = dtgReportsList.SelectedRows[0].Cells["ReportsName"].Value.ToString().Replace("-", "_").ToString();
+
+                List<tmpDropdownItem> lstGroupByValues = new List<tmpDropdownItem>()
+                {
+                    new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
+                };
+                cmbGroupBy.DataSource = null;
+                cmbGroupBy.Items.Clear();
+                cmbGroupBy.DataSource = lstGroupByValues;
+                cmbGroupBy.DisplayMember = "MemberName";
+                cmbGroupBy.ValueMember = "MemberValue";
+                cmbGroupBy.SelectedIndex = 0;                
             }
         }
 
@@ -790,8 +857,74 @@ namespace StaffSync
             dtgDataResult.Columns["AttendanceStatus"].Width = 150;
             dtgDataResult.Columns["AttendanceStatus"].HeaderText = "Attendance Status";
             dtgDataResult.Columns["AttendanceStatus"].ReadOnly = true;
-
         }
+
+        private void AttendanceSummaryReport(string strFilter)
+        {
+            objActiveEmployeeListReport = objEmployeeRelatedReportQueries.getActiveEmployeeListReport(objTempClientFinYearInfo.ClientID, strFilter);
+            objDailyAttendanceReport = objEmployeeRelatedReportQueries.getDailyAttendanceRegister(objTempClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text));
+            objNonFestivalHolidayList = objPublicHolidayInfo.getNonFestivalHolidayList(objTempClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text)); 
+            objFestivalHolidayList = objPublicHolidayInfo.getFestivalHolidayList(objTempClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+            
+            int totalEmployees = objDailyAttendanceReport.Count;
+
+            decimal totalPresent = 0;
+            decimal totalLeave = 0;
+            decimal totalHalfDay = 0;
+
+            int totalWeekend = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "WE");
+            double presentPercent = totalEmployees == 0 ? 0 : (double)totalPresent * 100 / totalEmployees;
+            double leavePercent = totalEmployees == 0 ? 0 : (double)totalLeave * 100 / totalEmployees;
+            double halfDayPercent = totalEmployees == 0 ? 0 : (double)totalHalfDay * 100 / totalEmployees;
+
+            DateTime month = Convert.ToDateTime(txtDTFrom.Text);
+
+            int totalDays = DateTime.DaysInMonth(month.Year, month.Month);
+
+            int weekEndDays = Enumerable.Range(1, totalDays).Select(day => new DateTime(month.Year, month.Month, day)).Count(d => d.DayOfWeek == DayOfWeek.Saturday || d.DayOfWeek == DayOfWeek.Sunday);
+            int workingDays = totalDays - weekEndDays;
+
+            List<PublicHolidayInfo> objPublicHolidayList = objPublicHolidayInfo.getHolidayList(objTempClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+            objMonthlyAttendanceSummaryInfo = objAttendanceMas.getMonthlyAttendanceSummaryInfo(objTempClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+            if (objMonthlyAttendanceSummaryInfo.Count > 0)
+            {
+                totalPresent = objMonthlyAttendanceSummaryInfo[0].PresentEmployees;
+                totalLeave = objMonthlyAttendanceSummaryInfo[0].LeaveEmployees;
+                totalHalfDay = objMonthlyAttendanceSummaryInfo[0].HalfLeaveEmployees;
+            }
+
+            objMonthlyAttendanceSummaryReport = new List<MonthlyAttendanceSummary>();
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary { RowHeader = "Calender Summary", RowValue = "" });
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary{ RowHeader = "Month", RowValue = month.ToString("MMM") + " " + month.Year });
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary { RowHeader = "Period", RowValue = Convert.ToDateTime(txtDTFrom.Text).ToString("dd-MMM-yyyy") + " - " + Convert.ToDateTime(txtDTTo.Text).ToString("dd-MMM-yyyy")  });
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary { RowHeader = "Total Days", RowValue = totalDays.ToString() });
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary { RowHeader = "Working Days", RowValue = workingDays.ToString() });
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary { RowHeader = "Weekend Days", RowValue = weekEndDays.ToString() });
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary { RowHeader = "Holidays", RowValue = objNonFestivalHolidayList.Count.ToString() });
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary { RowHeader = "Festival Holidays", RowValue = objFestivalHolidayList.Count.ToString() });
+
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary { RowHeader = "", RowValue = "" });
+
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary { RowHeader = "Employee Summary", RowValue = "" });
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary { RowHeader = "Total Employees", RowValue = totalEmployees.ToString() });
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary { RowHeader = "Present Employees", RowValue = totalPresent.ToString() });
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary { RowHeader = "Leave Employees", RowValue = totalLeave.ToString() });
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary { RowHeader = "Half-Day Employees", RowValue = totalHalfDay.ToString() });
+            objMonthlyAttendanceSummaryReport.Add(new MonthlyAttendanceSummary { RowHeader = "Absent Employees", RowValue = "0" });
+
+            dtgDataResult.DataSource = null;
+            dtgDataResult.DataSource = objMonthlyAttendanceSummaryReport;
+
+            dtgDataResult.Columns["RowHeader"].Width = 250;
+            dtgDataResult.Columns["RowHeader"].HeaderText = "Header";
+            dtgDataResult.Columns["RowHeader"].Visible = true;
+            dtgDataResult.Columns["RowHeader"].ReadOnly = true;
+
+            dtgDataResult.Columns["RowValue"].Width = 200;
+            dtgDataResult.Columns["RowValue"].HeaderText = "Value";
+            dtgDataResult.Columns["RowValue"].ReadOnly = true;
+        }
+
 
         private void chkIncludeMonth_CheckedChanged(object sender, EventArgs e)
         {
@@ -901,35 +1034,18 @@ namespace StaffSync
 
             if (lblSelectedReport.Text.ToString() == ReportCode.REP_0001.ToString())
             {
-                new ReportBuilder()
-                .Company(company)
-                .Title(report)
-                .Data(objActiveEmployeeListReport)
-                .Settings(settings)
-                .Generate(filePath);
-            }
-            else if (lblSelectedReport.Text.ToString() == ReportCode.REP_0002.ToString())
-            {
-                new ReportBuilder()
-                .Company(company)
-                .Title(report)
-                .Data(objPersonalInformationListReport)
-                .Settings(settings)
-                .Generate(filePath);
-            }
-            else if (lblSelectedReport.Text.ToString() == ReportCode.REP_0003.ToString())
-            {
-                new ReportBuilder()
-                .Company(company)
-                .Title(report)
-                .Data(objEmployeeActiveInactiveReportListReport)
-                .Settings(settings)
-                .Generate(filePath);
-            }
-            else if (lblSelectedReport.Text.ToString() == ReportCode.REP_0004.ToString())
-            {
-                if (optDailyAttendance.Checked && !optMonthlyAttendanceRegister.Checked)
+                if(cmbGroupBy.SelectedIndex == 0)
                 {
+                    new ReportBuilder()
+                    .Company(company)
+                    .Title(report)
+                    .Data(objActiveEmployeeListReport)
+                    .Settings(settings)
+                    .Generate(filePath);
+                }
+                else if(cmbGroupBy.SelectedIndex > 0)
+                {
+                    tmpDropdownItem objtmpDropdownItem = (tmpDropdownItem)cmbGroupBy.SelectedItem;
                     int totalEmployees = objDailyAttendanceReport.Count;
 
                     int totalPresent = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "P");
@@ -946,15 +1062,15 @@ namespace StaffSync
 
                     double halfDayPercent = totalEmployees == 0 ? 0 : (double)totalHalfDay * 100 / totalEmployees;
 
-                    report.ReportTitle = "Daily " + report.ReportTitle + " : " + Convert.ToDateTime(txtDTFrom.Text).ToString("dd-MMM-yyyy");
-
-                    new ReportBuilder()
+                    if (chkIncludeGroupSummary.Checked)
+                    {
+                        new ReportBuilder()
                         .Company(company)
                         .Title(report)
-                        .Data(objDailyAttendanceReport)
+                        .Data(objActiveEmployeeListReport)
                         .Settings(settings)
-                         .Summary(new List<ReportSummary>()
-                            {
+                        .Summary(new List<ReportSummary>()
+                                {
                                 new ReportSummary
                                 {
                                     Caption = "Total Employees",
@@ -980,8 +1096,263 @@ namespace StaffSync
                                     Caption = "Weekend / Holiday",
                                     Value = totalWeekend.ToString()
                                 }
-                            })
+                                })
+                        .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
                         .Generate(filePath);
+                    }
+                    else if (chkIncludeGroupSummary.Checked == false)
+                    {
+                        new ReportBuilder()
+                        .Company(company)
+                        .Title(report)
+                        .Data(objActiveEmployeeListReport)
+                        .Settings(settings)
+                        .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                        .Generate(filePath);
+                    }
+                }
+            }
+            else if (lblSelectedReport.Text.ToString() == ReportCode.REP_0002.ToString())
+            {
+                if (cmbGroupBy.SelectedIndex == 0)
+                {
+                    new ReportBuilder()
+                    .Company(company)
+                    .Title(report)
+                    .Data(objPersonalInformationListReport)
+                    .Settings(settings)
+                    .Generate(filePath);
+                }
+                else if (cmbGroupBy.SelectedIndex > 0)
+                {
+                    tmpDropdownItem objtmpDropdownItem = (tmpDropdownItem)cmbGroupBy.SelectedItem;
+                    int totalEmployees = objDailyAttendanceReport.Count;
+
+                    int totalPresent = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "P");
+
+                    int totalLeave = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "L");
+
+                    int totalHalfDay = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "P/L" || x.AttendanceStatus == "L/P");
+
+                    int totalWeekend = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "WE");
+
+                    double presentPercent = totalEmployees == 0 ? 0 : (double)totalPresent * 100 / totalEmployees;
+
+                    double leavePercent = totalEmployees == 0 ? 0 : (double)totalLeave * 100 / totalEmployees;
+
+                    double halfDayPercent = totalEmployees == 0 ? 0 : (double)totalHalfDay * 100 / totalEmployees;
+
+                    if (chkIncludeGroupSummary.Checked)
+                    {
+                        new ReportBuilder()
+                        .Company(company)
+                        .Title(report)
+                        .Data(objPersonalInformationListReport)
+                        .Settings(settings)
+                        .Summary(new List<ReportSummary>()
+                                {
+                                new ReportSummary
+                                {
+                                    Caption = "Total Employees",
+                                    Value = totalEmployees.ToString()
+                                },
+                                new ReportSummary
+                                {
+                                    Caption = "Present Employees",
+                                    Value = $"{totalPresent} ({presentPercent:0.00}%)"
+                                },
+                                new ReportSummary
+                                {
+                                    Caption = "Employees on Leave",
+                                    Value = $"{totalLeave} ({leavePercent:0.00}%)"
+                                },
+                                new ReportSummary
+                                {
+                                    Caption = "Half Day Leave",
+                                    Value = $"{totalHalfDay} ({halfDayPercent:0.00}%)"
+                                },
+                                new ReportSummary
+                                {
+                                    Caption = "Weekend / Holiday",
+                                    Value = totalWeekend.ToString()
+                                }
+                                })
+                        .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                        .Generate(filePath);
+                    }
+                    else if (chkIncludeGroupSummary.Checked == false)
+                    {
+                        new ReportBuilder()
+                        .Company(company)
+                        .Title(report)
+                        .Data(objPersonalInformationListReport)
+                        .Settings(settings)
+                        .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                        .Generate(filePath);
+                    }
+                }
+            }
+            else if (lblSelectedReport.Text.ToString() == ReportCode.REP_0003.ToString())
+            {
+                if (cmbGroupBy.SelectedIndex == 0)
+                {
+                    new ReportBuilder()
+                    .Company(company)
+                    .Title(report)
+                    .Data(objEmployeeActiveInactiveReportListReport)
+                    .Settings(settings)
+                    .Generate(filePath);
+                }
+                else if (cmbGroupBy.SelectedIndex > 0)
+                {
+                    tmpDropdownItem objtmpDropdownItem = (tmpDropdownItem)cmbGroupBy.SelectedItem;
+                    int totalEmployees = objDailyAttendanceReport.Count;
+
+                    int totalPresent = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "P");
+
+                    int totalLeave = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "L");
+
+                    int totalHalfDay = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "P/L" || x.AttendanceStatus == "L/P");
+
+                    int totalWeekend = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "WE");
+
+                    double presentPercent = totalEmployees == 0 ? 0 : (double)totalPresent * 100 / totalEmployees;
+
+                    double leavePercent = totalEmployees == 0 ? 0 : (double)totalLeave * 100 / totalEmployees;
+
+                    double halfDayPercent = totalEmployees == 0 ? 0 : (double)totalHalfDay * 100 / totalEmployees;
+
+                    if (chkIncludeGroupSummary.Checked)
+                    {
+                        new ReportBuilder()
+                            .Company(company)
+                            .Title(report)
+                            .Data(objEmployeeActiveInactiveReportListReport)
+                            .Settings(settings)
+                            .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                            .Summary(new List<ReportSummary>()
+                            {
+                            new ReportSummary
+                            {
+                                Caption = "Total Employees",
+                                Value = totalEmployees.ToString()
+                            },
+                            new ReportSummary
+                            {
+                                Caption = "Present Employees",
+                                Value = $"{totalPresent} ({presentPercent:0.00}%)"
+                            },
+                            new ReportSummary
+                            {
+                                Caption = "Employees on Leave",
+                                Value = $"{totalLeave} ({leavePercent:0.00}%)"
+                            },
+                            new ReportSummary
+                            {
+                                Caption = "Half Day Leave",
+                                Value = $"{totalHalfDay} ({halfDayPercent:0.00}%)"
+                            },
+                            new ReportSummary
+                            {
+                                Caption = "Weekend / Holiday",
+                                Value = totalWeekend.ToString()
+                            }
+                            })
+                            .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                            .Generate(filePath);
+                    }
+                    else if (chkIncludeGroupSummary.Checked == false)
+                    {
+                        new ReportBuilder()
+                        .Company(company)
+                        .Title(report)
+                        .Data(objEmployeeActiveInactiveReportListReport)
+                        .Settings(settings)
+                        .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                        .Generate(filePath);
+                    }
+                }
+            }
+            else if (lblSelectedReport.Text.ToString() == ReportCode.REP_0004.ToString())
+            {
+                if (optDailyAttendance.Checked && !optMonthlyAttendanceRegister.Checked)
+                {
+                    if(cmbGroupBy.SelectedIndex == 0)
+                    {
+                        new ReportBuilder()
+                            .Company(company)
+                            .Title(report)
+                            .Data(objDailyAttendanceReport)
+                            .Settings(settings)
+                            .Generate(filePath);
+                    }
+                    else if(cmbGroupBy.SelectedIndex > 0)
+                    {
+                        if(chkIncludeGroupSummary.Checked)
+                        {
+                            int totalEmployees = objDailyAttendanceReport.Count;
+
+                            int totalPresent = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "P");
+
+                            int totalLeave = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "L");
+
+                            int totalHalfDay = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "P/L" || x.AttendanceStatus == "L/P");
+
+                            int totalWeekend = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "WE");
+
+                            double presentPercent = totalEmployees == 0 ? 0 : (double)totalPresent * 100 / totalEmployees;
+
+                            double leavePercent = totalEmployees == 0 ? 0 : (double)totalLeave * 100 / totalEmployees;
+
+                            double halfDayPercent = totalEmployees == 0 ? 0 : (double)totalHalfDay * 100 / totalEmployees;
+
+                            report.ReportTitle = "Daily " + report.ReportTitle + " : " + Convert.ToDateTime(txtDTFrom.Text).ToString("dd-MMM-yyyy");
+
+                            new ReportBuilder()
+                                .Company(company)
+                                .Title(report)
+                                .Data(objDailyAttendanceReport)
+                                .Settings(settings)
+                                .Summary(new List<ReportSummary>()
+                                {
+                                    new ReportSummary
+                                    {
+                                        Caption = "Total Employees",
+                                        Value = totalEmployees.ToString()
+                                    },
+                                    new ReportSummary
+                                    {
+                                        Caption = "Present Employees",
+                                        Value = $"{totalPresent} ({presentPercent:0.00}%)"
+                                    },
+                                    new ReportSummary
+                                    {
+                                        Caption = "Employees on Leave",
+                                        Value = $"{totalLeave} ({leavePercent:0.00}%)"
+                                    },
+                                    new ReportSummary
+                                    {
+                                        Caption = "Half Day Leave",
+                                        Value = $"{totalHalfDay} ({halfDayPercent:0.00}%)"
+                                    },
+                                    new ReportSummary
+                                    {
+                                        Caption = "Weekend / Holiday",
+                                        Value = totalWeekend.ToString()
+                                    }
+                                })
+                                .Generate(filePath);
+                        }
+                        else
+                        {
+                            new ReportBuilder()
+                            .Company(company)
+                            .Title(report)
+                            .Data(objDailyAttendanceReport)
+                            .Settings(settings)
+                            .Generate(filePath);
+                        }
+                    }
                 }
                 else if (!optDailyAttendance.Checked && optMonthlyAttendanceRegister.Checked)
                 {
@@ -1013,6 +1384,7 @@ namespace StaffSync
                         .Title(report)
                         .Data(objMonthlyAttendanceReport)
                         .Settings(settings)
+                        .GroupBy("DepartmentTitle")
                         .Summary(new List<ReportSummary>()
                         {
                             new ReportSummary("Total Days", totalDays.ToString()),
@@ -1029,7 +1401,6 @@ namespace StaffSync
                 }    
 
                 //ReportBuilder builder = new ReportBuilder();
-
                     //builder
                     //    .Company(company)
                     //    .Title(report);
@@ -1067,6 +1438,44 @@ namespace StaffSync
                     //    .Data(objMonthlyAttendanceReport)
                     //    .Settings(settings)
                     //    .Generate(filePath);
+            }
+            else if (lblSelectedReport.Text.ToString() == ReportCode.REP_0005.ToString())
+            {
+                if (optMonthlyAttendanceRegister.Checked)
+                {
+                    report.ReportTitle = "Monthly " + report.ReportTitle;
+
+                    if (cmbGroupBy.SelectedIndex == 0)
+                    {
+                        new ReportBuilder()
+                            .Company(company)
+                            .Title(report)
+                            .Data(objMonthlyAttendanceSummaryReport)
+                            .Settings(settings)
+                            .Generate(filePath);
+                    }
+                    else if (cmbGroupBy.SelectedIndex > 0)
+                    {
+                        if (chkIncludeGroupSummary.Checked)
+                        {
+                            new ReportBuilder()
+                                .Company(company)
+                                .Title(report)
+                                .Data(objMonthlyAttendanceSummaryReport)
+                                .Settings(settings)
+                                .Generate(filePath);
+                        }
+                        else
+                        {
+                            new ReportBuilder()
+                                .Company(company)
+                                .Title(report)
+                                .Data(objMonthlyAttendanceSummaryReport)
+                                .Settings(settings)
+                                .Generate(filePath);
+                        }
+                    }
+                }
             }
 
             MessageBox.Show("Data Exported Successfully !!!", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1114,6 +1523,14 @@ namespace StaffSync
                 else if (!optDailyAttendance.Checked && optMonthlyAttendanceRegister.Checked)
                 {
                     EmployeeMonthlyAttendanceRegister(lblFilter.Text);
+                }
+            }
+            else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0005.ToString())
+            {
+                lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
+                if (optMonthlyAttendanceRegister.Checked)
+                {
+                    AttendanceSummaryReport(lblFilter.Text);
                 }
             }
         }
@@ -1379,6 +1796,20 @@ namespace StaffSync
                     }
                 }
             }
+            else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0005.ToString())
+            {
+                if (optMonthlyAttendanceRegister.Checked)
+                {
+                    DateTime dtToDate;
+                    string dateFormat = "dd-MM-yyyy";
+                    CultureInfo provider = CultureInfo.InvariantCulture;
+                    if (DateTime.TryParseExact(txtDTFrom.Text, dateFormat, provider, DateTimeStyles.None, out dtToDate) == true)
+                    {
+                        txtDTTo.Text = Convert.ToDateTime(dtToDate.AddMonths(1).AddDays(-dtToDate.AddMonths(1).Day)).ToString("dd-MM-yyyy");
+                        txtDTTo.Enabled = false;
+                    }
+                }
+            }
         }
 
         private void txtDTTo_TextChanged(object sender, EventArgs e)
@@ -1397,6 +1828,19 @@ namespace StaffSync
         {
             btnExport.Enabled = false;
             cmbGroupBy.Enabled = false;
+        }
+
+        private void cmbGroupBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbGroupBy.SelectedIndex > 0)
+            {
+                chkIncludeGroupSummary.Enabled = true;
+            }
+            else
+            {
+                chkIncludeGroupSummary.Enabled = false;
+                chkIncludeGroupSummary.Enabled = false;
+            }
         }
     }
 }

@@ -313,6 +313,7 @@ namespace StaffSync
 
             objPublicHolidayInfo.PubHolTypeID = Convert.ToInt16(dtgConsolidatedAttendanceReport.Rows[e.RowIndex].Cells["PubHolTypeID"].Value.ToString());
             objPublicHolidayInfo.PubHolTypeTitle = dtgConsolidatedAttendanceReport.Rows[e.RowIndex].Cells["PubHolTypeTitle"].Value.ToString();
+            objPublicHolidayInfo.IsFestival = Convert.ToBoolean(dtgConsolidatedAttendanceReport.Rows[e.RowIndex].Cells["IsFestival"].Value);
 
             frmPublicHolidayConfigPopup frmPublicHolidayConfigPopup = new frmPublicHolidayConfigPopup(objPublicHolidayInfo);
             frmPublicHolidayConfigPopup.ShowDialog(this);

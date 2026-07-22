@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace DALStaffSync
@@ -105,6 +106,16 @@ namespace DALStaffSync
             objDailyBatchAttendance = objAttendanceMas.DailyBatchAttendance(txtCompanyID, ReportForTheMonth, DayNumber);
             
             return objDailyBatchAttendance;
+        }
+
+        public List<MonthlyAttendanceSummaryInfo> getMonthlyAttendanceSummaryInfo(int ClientID, DateTime txtDTFrom, DateTime txtDTTo)
+        {
+            List<MonthlyAttendanceSummaryInfo> objMonthlyAttendanceSummaryInfo = new List<MonthlyAttendanceSummaryInfo>();
+
+            objMonthlyAttendanceSummaryInfo = objAttendanceMas.getMonthlyAttendanceSummaryInfo(ClientID, txtDTFrom, txtDTTo);
+
+            return objMonthlyAttendanceSummaryInfo;
+
         }
 
         public int InsertDailyAttendance(int txtEmpID, DateTime AttendanceDate, string AttendanceStatus, int LeaveTRID)
