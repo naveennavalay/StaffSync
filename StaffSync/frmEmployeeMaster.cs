@@ -2865,6 +2865,7 @@ namespace StaffSync
             dtgSalaryProfileDetails.Columns["HeaderTitle"].Width = 350;
             dtgSalaryProfileDetails.Columns["HeaderType"].Width = 150;
             dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = false;
+            dtgSalaryProfileDetails.Columns["CalcFormula1"].Visible = false;
             dtgSalaryProfileDetails.Columns["IsFixed"].Visible = false;
             dtgSalaryProfileDetails.Columns["ActualAmount"].Visible = false;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].Width = 150;
@@ -2982,6 +2983,7 @@ namespace StaffSync
             dtgSalaryProfileDetails.Columns["HeaderTitle"].Width = 350;
             dtgSalaryProfileDetails.Columns["HeaderType"].Width = 150;
             dtgSalaryProfileDetails.Columns["CalcFormula"].Visible = false;
+            dtgSalaryProfileDetails.Columns["CalcFormula1"].Visible = false;
             dtgSalaryProfileDetails.Columns["IsFixed"].Visible = false;
             dtgSalaryProfileDetails.Columns["ActualAmount"].Visible = false;
             dtgSalaryProfileDetails.Columns["AllowanceAmount"].Width = 150;
