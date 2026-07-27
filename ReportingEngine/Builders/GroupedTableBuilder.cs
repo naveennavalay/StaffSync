@@ -31,6 +31,44 @@ namespace ReportingEngine.Builders
                              .GetType()
                              .GetProperty(_context.GroupByProperty);
 
+            //=========================================================
+            // Apply Dynamic Sorting
+            //=========================================================
+
+            IEnumerable<object> sortedData = _context.Data;
+
+            if (_context.SortColumns != null && _context.SortColumns.Count > 0)
+            {
+                IOrderedEnumerable<object> orderedData = null;
+
+                foreach (ReportSort sort in _context.SortColumns)
+                {
+                    PropertyInfo propertyInfo =
+                        _context.Data.First().GetType().GetProperty(sort.PropertyName);
+
+                    if (propertyInfo == null)
+                        continue;
+
+                    if (orderedData == null)
+                    {
+                        orderedData =
+                            sort.Descending
+                            ? sortedData.OrderByDescending(x => propertyInfo.GetValue(x, null), Comparer<object>.Default)
+                            : sortedData.OrderBy(x => propertyInfo.GetValue(x, null), Comparer<object>.Default);
+                    }
+                    else
+                    {
+                        orderedData =
+                            sort.Descending
+                            ? orderedData.ThenByDescending(x => propertyInfo.GetValue(x, null), Comparer<object>.Default)
+                            : orderedData.ThenBy(x => propertyInfo.GetValue(x, null), Comparer<object>.Default);
+                    }
+                }
+
+                if (orderedData != null)
+                    sortedData = orderedData;
+            }
+
             //------------------------------------------------------
             // Group Data
             //------------------------------------------------------

@@ -43,6 +43,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.chkBloodGroup = new System.Windows.Forms.CheckBox();
             this.cmbFreeSearchAttributeName = new Krypton.Toolkit.KryptonComboBox();
+            this.optResignationDate = new Krypton.Toolkit.KryptonRadioButton();
+            this.optRelivingDate = new Krypton.Toolkit.KryptonRadioButton();
             this.chkIncludeMonth = new System.Windows.Forms.CheckBox();
             this.cmbGender = new Krypton.Toolkit.KryptonComboBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -51,6 +53,7 @@
             this.cmbDepartment = new Krypton.Toolkit.KryptonComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkLSTLeaveTypeList = new Krypton.Toolkit.KryptonCheckedListBox();
             this.optMonthlyAttendanceRegister = new Krypton.Toolkit.KryptonRadioButton();
             this.optDailyAttendance = new Krypton.Toolkit.KryptonRadioButton();
             this.txtDTTo = new System.Windows.Forms.MaskedTextBox();
@@ -58,11 +61,11 @@
             this.txtDTFrom = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.optDOB = new Krypton.Toolkit.KryptonRadioButton();
-            this.optResignationDate = new Krypton.Toolkit.KryptonRadioButton();
-            this.optRelivingDate = new Krypton.Toolkit.KryptonRadioButton();
             this.optConfirmDate = new Krypton.Toolkit.KryptonRadioButton();
             this.optProbDate = new Krypton.Toolkit.KryptonRadioButton();
             this.optDOJ = new Krypton.Toolkit.KryptonRadioButton();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.cmbBranch = new Krypton.Toolkit.KryptonComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cmbDesignation = new Krypton.Toolkit.KryptonComboBox();
@@ -88,6 +91,11 @@
             this.cmbGroupBy = new Krypton.Toolkit.KryptonComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.chkIncludeGroupSummary = new System.Windows.Forms.CheckBox();
+            this.cmbFilterLeaveType = new Krypton.Toolkit.KryptonComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.cmbFilterLeaveMode = new Krypton.Toolkit.KryptonComboBox();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgReportsList)).BeginInit();
@@ -107,6 +115,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbGroupBy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbFilterLeaveType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbFilterLeaveMode)).BeginInit();
             this.SuspendLayout();
             // 
             // errValidator
@@ -176,6 +186,8 @@
             this.grpCommon.Controls.Add(this.label9);
             this.grpCommon.Controls.Add(this.chkBloodGroup);
             this.grpCommon.Controls.Add(this.cmbFreeSearchAttributeName);
+            this.grpCommon.Controls.Add(this.optResignationDate);
+            this.grpCommon.Controls.Add(this.optRelivingDate);
             this.grpCommon.Controls.Add(this.chkIncludeMonth);
             this.grpCommon.Controls.Add(this.cmbGender);
             this.grpCommon.Controls.Add(this.label7);
@@ -199,7 +211,7 @@
             this.grpCommon.Margin = new System.Windows.Forms.Padding(4);
             this.grpCommon.Name = "grpCommon";
             this.grpCommon.Padding = new System.Windows.Forms.Padding(4);
-            this.grpCommon.Size = new System.Drawing.Size(1152, 310);
+            this.grpCommon.Size = new System.Drawing.Size(1152, 317);
             this.grpCommon.TabIndex = 11;
             this.grpCommon.TabStop = false;
             this.grpCommon.Text = "Filter Parameters";
@@ -310,6 +322,28 @@
             this.cmbFreeSearchAttributeName.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbFreeSearchAttributeName.TabIndex = 11;
             // 
+            // optResignationDate
+            // 
+            this.optResignationDate.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
+            this.optResignationDate.Location = new System.Drawing.Point(815, 98);
+            this.optResignationDate.Name = "optResignationDate";
+            this.optResignationDate.Size = new System.Drawing.Size(116, 20);
+            this.optResignationDate.TabIndex = 18;
+            this.optResignationDate.Values.Text = "Resignation Date";
+            this.optResignationDate.Visible = false;
+            this.optResignationDate.CheckedChanged += new System.EventHandler(this.optResignationDate_CheckedChanged);
+            // 
+            // optRelivingDate
+            // 
+            this.optRelivingDate.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
+            this.optRelivingDate.Location = new System.Drawing.Point(688, 98);
+            this.optRelivingDate.Name = "optRelivingDate";
+            this.optRelivingDate.Size = new System.Drawing.Size(95, 20);
+            this.optRelivingDate.TabIndex = 17;
+            this.optRelivingDate.Values.Text = "Reliving Date";
+            this.optRelivingDate.Visible = false;
+            this.optRelivingDate.CheckedChanged += new System.EventHandler(this.optRelivingDate_CheckedChanged);
+            // 
             // chkIncludeMonth
             // 
             this.chkIncludeMonth.AutoSize = true;
@@ -408,6 +442,11 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.chkLSTLeaveTypeList);
+            this.groupBox2.Controls.Add(this.cmbFilterLeaveMode);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.Controls.Add(this.cmbFilterLeaveType);
+            this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.optMonthlyAttendanceRegister);
             this.groupBox2.Controls.Add(this.optDailyAttendance);
             this.groupBox2.Controls.Add(this.txtDTTo);
@@ -415,24 +454,53 @@
             this.groupBox2.Controls.Add(this.txtDTFrom);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.optDOB);
-            this.groupBox2.Controls.Add(this.optResignationDate);
-            this.groupBox2.Controls.Add(this.optRelivingDate);
             this.groupBox2.Controls.Add(this.optConfirmDate);
             this.groupBox2.Controls.Add(this.optProbDate);
             this.groupBox2.Controls.Add(this.optDOJ);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(0, 164);
+            this.groupBox2.Location = new System.Drawing.Point(0, 162);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(1152, 88);
+            this.groupBox2.Size = new System.Drawing.Size(1152, 155);
             this.groupBox2.TabIndex = 60;
             this.groupBox2.TabStop = false;
+            // 
+            // chkLSTLeaveTypeList
+            // 
+            this.chkLSTLeaveTypeList.CheckOnClick = true;
+            this.chkLSTLeaveTypeList.Enabled = false;
+            this.chkLSTLeaveTypeList.Location = new System.Drawing.Point(410, 12);
+            this.chkLSTLeaveTypeList.Name = "chkLSTLeaveTypeList";
+            this.chkLSTLeaveTypeList.Size = new System.Drawing.Size(257, 83);
+            this.chkLSTLeaveTypeList.StateActive.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateActive.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateCheckedNormal.Item.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateCheckedNormal.Item.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateCheckedPressed.Item.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateCheckedPressed.Item.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateCheckedTracking.Item.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateCheckedTracking.Item.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateDisabled.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateDisabled.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StatePressed.Item.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StatePressed.Item.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateTracking.Item.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.StateTracking.Item.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.chkLSTLeaveTypeList.TabIndex = 75;
+            this.chkLSTLeaveTypeList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkLSTLeaveTypeList_ItemCheck);
             // 
             // optMonthlyAttendanceRegister
             // 
             this.optMonthlyAttendanceRegister.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
-            this.optMonthlyAttendanceRegister.Location = new System.Drawing.Point(990, 14);
+            this.optMonthlyAttendanceRegister.Location = new System.Drawing.Point(215, 43);
             this.optMonthlyAttendanceRegister.Name = "optMonthlyAttendanceRegister";
             this.optMonthlyAttendanceRegister.Size = new System.Drawing.Size(182, 20);
             this.optMonthlyAttendanceRegister.TabIndex = 72;
@@ -443,7 +511,7 @@
             // optDailyAttendance
             // 
             this.optDailyAttendance.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
-            this.optDailyAttendance.Location = new System.Drawing.Point(750, 14);
+            this.optDailyAttendance.Location = new System.Drawing.Point(234, 18);
             this.optDailyAttendance.Name = "optDailyAttendance";
             this.optDailyAttendance.Size = new System.Drawing.Size(163, 20);
             this.optDailyAttendance.TabIndex = 71;
@@ -453,10 +521,10 @@
             // 
             // txtDTTo
             // 
-            this.txtDTTo.Location = new System.Drawing.Point(401, 48);
+            this.txtDTTo.Location = new System.Drawing.Point(207, 124);
             this.txtDTTo.Mask = "##-##-####";
             this.txtDTTo.Name = "txtDTTo";
-            this.txtDTTo.Size = new System.Drawing.Size(125, 21);
+            this.txtDTTo.Size = new System.Drawing.Size(102, 21);
             this.txtDTTo.TabIndex = 20;
             this.txtDTTo.Tag = "To";
             this.txtDTTo.ValidatingType = typeof(System.DateTime);
@@ -466,7 +534,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(375, 51);
+            this.label5.Location = new System.Drawing.Point(181, 127);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(23, 15);
@@ -476,10 +544,10 @@
             // 
             // txtDTFrom
             // 
-            this.txtDTFrom.Location = new System.Drawing.Point(97, 48);
+            this.txtDTFrom.Location = new System.Drawing.Point(68, 124);
             this.txtDTFrom.Mask = "##-##-####";
             this.txtDTFrom.Name = "txtDTFrom";
-            this.txtDTFrom.Size = new System.Drawing.Size(125, 21);
+            this.txtDTFrom.Size = new System.Drawing.Size(102, 21);
             this.txtDTFrom.TabIndex = 19;
             this.txtDTFrom.Tag = "From";
             this.txtDTFrom.ValidatingType = typeof(System.DateTime);
@@ -489,7 +557,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(54, 51);
+            this.label3.Location = new System.Drawing.Point(25, 127);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 15);
@@ -500,39 +568,17 @@
             // optDOB
             // 
             this.optDOB.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
-            this.optDOB.Location = new System.Drawing.Point(13, 14);
+            this.optDOB.Location = new System.Drawing.Point(57, 18);
             this.optDOB.Name = "optDOB";
             this.optDOB.Size = new System.Drawing.Size(94, 20);
             this.optDOB.TabIndex = 13;
             this.optDOB.Values.Text = "Date Of Birth";
             this.optDOB.CheckedChanged += new System.EventHandler(this.optDOB_CheckedChanged);
             // 
-            // optResignationDate
-            // 
-            this.optResignationDate.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
-            this.optResignationDate.Location = new System.Drawing.Point(662, 53);
-            this.optResignationDate.Name = "optResignationDate";
-            this.optResignationDate.Size = new System.Drawing.Size(116, 20);
-            this.optResignationDate.TabIndex = 18;
-            this.optResignationDate.Values.Text = "Resignation Date";
-            this.optResignationDate.Visible = false;
-            this.optResignationDate.CheckedChanged += new System.EventHandler(this.optResignationDate_CheckedChanged);
-            // 
-            // optRelivingDate
-            // 
-            this.optRelivingDate.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
-            this.optRelivingDate.Location = new System.Drawing.Point(542, 53);
-            this.optRelivingDate.Name = "optRelivingDate";
-            this.optRelivingDate.Size = new System.Drawing.Size(95, 20);
-            this.optRelivingDate.TabIndex = 17;
-            this.optRelivingDate.Values.Text = "Reliving Date";
-            this.optRelivingDate.Visible = false;
-            this.optRelivingDate.CheckedChanged += new System.EventHandler(this.optRelivingDate_CheckedChanged);
-            // 
             // optConfirmDate
             // 
             this.optConfirmDate.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
-            this.optConfirmDate.Location = new System.Drawing.Point(550, 14);
+            this.optConfirmDate.Location = new System.Drawing.Point(28, 93);
             this.optConfirmDate.Name = "optConfirmDate";
             this.optConfirmDate.Size = new System.Drawing.Size(123, 20);
             this.optConfirmDate.TabIndex = 16;
@@ -542,7 +588,7 @@
             // optProbDate
             // 
             this.optProbDate.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
-            this.optProbDate.Location = new System.Drawing.Point(368, 14);
+            this.optProbDate.Location = new System.Drawing.Point(46, 68);
             this.optProbDate.Name = "optProbDate";
             this.optProbDate.Size = new System.Drawing.Size(105, 20);
             this.optProbDate.TabIndex = 15;
@@ -552,12 +598,30 @@
             // optDOJ
             // 
             this.optDOJ.CheckPosition = Krypton.Toolkit.VisualOrientation.Right;
-            this.optDOJ.Location = new System.Drawing.Point(184, 14);
+            this.optDOJ.Location = new System.Drawing.Point(44, 43);
             this.optDOJ.Name = "optDOJ";
             this.optDOJ.Size = new System.Drawing.Size(107, 20);
             this.optDOJ.TabIndex = 14;
             this.optDOJ.Values.Text = "Date Of Joining";
             this.optDOJ.CheckedChanged += new System.EventHandler(this.optDOJ_CheckedChanged);
+            // 
+            // label12
+            // 
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label12.Location = new System.Drawing.Point(0, 12);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(199, 107);
+            this.label12.TabIndex = 73;
+            // 
+            // label13
+            // 
+            this.label13.BackColor = System.Drawing.Color.Transparent;
+            this.label13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label13.Location = new System.Drawing.Point(205, 12);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(199, 107);
+            this.label13.TabIndex = 74;
             // 
             // cmbBranch
             // 
@@ -885,6 +949,65 @@
             this.chkIncludeGroupSummary.Text = "Include Group Summary";
             this.chkIncludeGroupSummary.UseVisualStyleBackColor = true;
             // 
+            // cmbFilterLeaveType
+            // 
+            this.cmbFilterLeaveType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFilterLeaveType.DropDownWidth = 440;
+            this.cmbFilterLeaveType.Location = new System.Drawing.Point(476, 125);
+            this.cmbFilterLeaveType.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbFilterLeaveType.Name = "cmbFilterLeaveType";
+            this.cmbFilterLeaveType.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbFilterLeaveType.Size = new System.Drawing.Size(180, 22);
+            this.cmbFilterLeaveType.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbFilterLeaveType.TabIndex = 76;
+            this.cmbFilterLeaveType.SelectedIndexChanged += new System.EventHandler(this.cmbFilterLeaveType_SelectedIndexChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(413, 129);
+            this.label14.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(59, 15);
+            this.label14.TabIndex = 77;
+            this.label14.Text = "Filter By";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label15
+            // 
+            this.label15.BackColor = System.Drawing.Color.Transparent;
+            this.label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label15.Location = new System.Drawing.Point(410, 12);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(257, 139);
+            this.label15.TabIndex = 78;
+            // 
+            // cmbFilterLeaveMode
+            // 
+            this.cmbFilterLeaveMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFilterLeaveMode.DropDownWidth = 440;
+            this.cmbFilterLeaveMode.Location = new System.Drawing.Point(476, 99);
+            this.cmbFilterLeaveMode.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbFilterLeaveMode.Name = "cmbFilterLeaveMode";
+            this.cmbFilterLeaveMode.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbFilterLeaveMode.Size = new System.Drawing.Size(180, 22);
+            this.cmbFilterLeaveMode.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbFilterLeaveMode.TabIndex = 79;
+            this.cmbFilterLeaveMode.SelectedIndexChanged += new System.EventHandler(this.cmbFilterLeaveMode_SelectedIndexChanged);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(413, 103);
+            this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(59, 15);
+            this.label16.TabIndex = 80;
+            this.label16.Text = "Filter By";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // frmEmpSpecificReports
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -937,6 +1060,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbGroupBy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbFilterLeaveType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbFilterLeaveMode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1001,5 +1126,13 @@
         private Krypton.Toolkit.KryptonComboBox cmbGroupBy;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox chkIncludeGroupSummary;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private Krypton.Toolkit.KryptonCheckedListBox chkLSTLeaveTypeList;
+        private Krypton.Toolkit.KryptonComboBox cmbFilterLeaveType;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private Krypton.Toolkit.KryptonComboBox cmbFilterLeaveMode;
+        private System.Windows.Forms.Label label16;
     }
 }

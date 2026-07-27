@@ -46,6 +46,8 @@ namespace StaffSync
         DALStaffSync.clsClientBranchInfo objClientBranchInfo = new DALStaffSync.clsClientBranchInfo();
         DALStaffSync.clsPublicHolidayInfo objPublicHolidayInfo = new DALStaffSync.clsPublicHolidayInfo();
         DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
+        DALStaffSync.clsLeaveTypeMas objLeaveTypeInfo = new DALStaffSync.clsLeaveTypeMas();
+        DALStaffSync.clsLeaveTRList objLeaveTRReportsList = new DALStaffSync.clsLeaveTRList();
 
         frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
@@ -62,7 +64,9 @@ namespace StaffSync
         List<PublicHolidayInfo> objNonFestivalHolidayList = new List<PublicHolidayInfo>();
         List<PublicHolidayInfo> objFestivalHolidayList = new List<PublicHolidayInfo>();
         List<MonthlyAttendanceSummary> objMonthlyAttendanceSummaryReport = new List<MonthlyAttendanceSummary>();
-
+        List<LeaveTypeInfoModel> objLeaveTypeInfoList = new List<LeaveTypeInfoModel>();
+        List<LeaveRegister> objLeaveRegisterReports = new List<LeaveRegister>();
+        List<PivotLeaveTrendSummary> objPivotLeaveTrendSummary = new List<PivotLeaveTrendSummary>();
 
         string strActionStatement = "";
         private Dictionary<string, object> _originalValues;
@@ -158,6 +162,13 @@ namespace StaffSync
             cmbDesignation.DataSource = objDesignation.GetDesignationList();
             cmbDesignation.DisplayMember = "DesignationTitle";
             cmbDesignation.ValueMember = "DesignationID";
+
+            objLeaveTypeInfoList = objLeaveTypeInfo.GetLeaveTypeInfoList();
+            chkLSTLeaveTypeList.Items.Clear();
+            foreach (LeaveTypeInfoModel indLeaveTypeInfo in objLeaveTypeInfoList)
+            {
+                chkLSTLeaveTypeList.Items.Add(indLeaveTypeInfo.LeaveTypeTitle);
+            }
 
             optDOB.Enabled = true;
             optDOB.Checked = false;
@@ -379,6 +390,9 @@ namespace StaffSync
                 cmbActiveInactiveStatus.Enabled = false;
                 optDailyAttendance.Enabled = false;
                 optMonthlyAttendanceRegister.Enabled = false;
+                chkLSTLeaveTypeList.Enabled = false;
+                cmbFilterLeaveType.Enabled = false;
+                cmbFilterLeaveType.DataSource = null;
 
                 optDOB.Checked = false;
                 optDOJ.Checked = false;
@@ -420,10 +434,13 @@ namespace StaffSync
                 cmbGender.Enabled = false;
                 chkIncludeBranch.Checked = false;
                 cmbBranch.Enabled = false;
+                cmbFilterLeaveType.Enabled = false;
+                cmbFilterLeaveType.DataSource = null;
 
                 chkActiveInactiveStatus.Enabled = true;
                 chkActiveInactiveStatus.Checked = false;
                 cmbActiveInactiveStatus.Enabled = false;
+                chkLSTLeaveTypeList.Enabled = false;
 
                 optDailyAttendance.Enabled = false;
                 optMonthlyAttendanceRegister.Enabled = false;
@@ -471,6 +488,9 @@ namespace StaffSync
                 chkActiveInactiveStatus.Enabled = false;
                 chkActiveInactiveStatus.Checked = false;
                 cmbActiveInactiveStatus.Enabled = false;
+                chkLSTLeaveTypeList.Enabled = false;
+                cmbFilterLeaveType.Enabled = false;
+                cmbFilterLeaveType.DataSource = null;
 
                 optDailyAttendance.Enabled = true;
                 optMonthlyAttendanceRegister.Enabled = true;
@@ -517,9 +537,12 @@ namespace StaffSync
                 cmbBranch.Enabled = false;
                 chkActiveInactiveStatus.Enabled = false;
                 chkActiveInactiveStatus.Checked = false;
+                chkLSTLeaveTypeList.Enabled = false;
                 cmbActiveInactiveStatus.Enabled = false;
                 chkIncludeGroupSummary.Checked = false;
                 chkIncludeGroupSummary.Enabled = false;
+                cmbFilterLeaveType.Enabled = false;
+                cmbFilterLeaveType.DataSource = null;
 
                 optDOB.Checked = false;
                 optDOB.Enabled = false;
@@ -538,7 +561,6 @@ namespace StaffSync
                 optMonthlyAttendanceRegister.Enabled = true;
                 optMonthlyAttendanceRegister.Checked = true;
 
-
                 txtDTFrom.Text = DateTime.Today.ToString("dd-MM-yyyy");
                 txtDTTo.Text = DateTime.Today.ToString("dd-MM-yyyy");
 
@@ -555,6 +577,97 @@ namespace StaffSync
                 cmbGroupBy.DisplayMember = "MemberName";
                 cmbGroupBy.ValueMember = "MemberValue";
                 cmbGroupBy.SelectedIndex = 0;                
+            }
+            else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0006.ToString())
+            {
+                chkIncludeMonth.Checked = false;
+                cmbMonth.Enabled = false;
+                chkIncludeDesignation.Checked = false;
+                cmbDesignation.Enabled = false;
+                chkIncludeDepartment.Checked = false;
+                cmbDepartment.Enabled = false;
+                chkIncludeGender.Checked = false;
+                cmbGender.Enabled = false;
+                chkIncludeBranch.Checked = false;
+                cmbBranch.Enabled = false;
+                chkActiveInactiveStatus.Enabled = false;
+                chkActiveInactiveStatus.Checked = false;
+                cmbActiveInactiveStatus.Enabled = false;
+                chkIncludeGroupSummary.Checked = false;
+                chkIncludeGroupSummary.Enabled = false;
+                chkLSTLeaveTypeList.Enabled = true;
+
+                optDOB.Checked = false;
+                optDOB.Enabled = false;
+                optDOJ.Checked = false;
+                optDOJ.Enabled = false;
+                optProbDate.Checked = false;
+                optProbDate.Enabled = false;
+                optConfirmDate.Checked = false;
+                optConfirmDate.Enabled = false;
+                optRelivingDate.Checked = false;
+                optRelivingDate.Enabled = false;
+                optResignationDate.Checked = false;
+                optResignationDate.Enabled = false;
+                optDailyAttendance.Checked = false;
+                optDailyAttendance.Enabled = false;
+                optMonthlyAttendanceRegister.Enabled = true;
+                optMonthlyAttendanceRegister.Checked = true;
+
+                List<tmpDropdownItem> lstLeaveMode = new List<tmpDropdownItem>()
+                {
+                    new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
+                    new tmpDropdownItem { MemberValue = "FullDay", MemberName = "Full Day" },
+                    new tmpDropdownItem { MemberValue = "FirstHalf", MemberName = "First Half" },
+                    new tmpDropdownItem { MemberValue = "SecondHalf", MemberName = "Second Half" },
+                };
+                cmbFilterLeaveMode.DataSource = null;
+                cmbFilterLeaveMode.Items.Clear();
+                cmbFilterLeaveMode.DataSource = lstLeaveMode;
+                cmbFilterLeaveMode.DisplayMember = "MemberName";
+                cmbFilterLeaveMode.ValueMember = "MemberValue";
+                cmbFilterLeaveMode.SelectedIndex = 0;
+                cmbFilterLeaveMode.Enabled = true;
+
+                List<tmpDropdownItem> lstLeaveStatus = new List<tmpDropdownItem>()
+                {
+                    new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
+                    new tmpDropdownItem { MemberValue = "LeaveStatus", MemberName = "Approved" },
+                    new tmpDropdownItem { MemberValue = "LeaveStatus", MemberName = "Pending" },
+                    new tmpDropdownItem { MemberValue = "LeaveStatus", MemberName = "Rejected" },
+                    new tmpDropdownItem { MemberValue = "LeaveStatus", MemberName = "Cancelled" },
+                };
+                cmbFilterLeaveType.DataSource = null;
+                cmbFilterLeaveType.Items.Clear();
+                cmbFilterLeaveType.DataSource = lstLeaveStatus;
+                cmbFilterLeaveType.DisplayMember = "MemberName";
+                cmbFilterLeaveType.ValueMember = "MemberValue";
+                cmbFilterLeaveType.SelectedIndex = 0;
+                cmbFilterLeaveType.Enabled = true;
+
+                List<tmpDropdownItem> lstFilterLeaveType = new List<tmpDropdownItem>()
+                {
+                    new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
+                    new tmpDropdownItem { MemberValue = "LeaveTypeTitle", MemberName = "Leave Type" },
+                    new tmpDropdownItem { MemberValue = "LeaveStatus", MemberName = "Leave Status" },
+                    new tmpDropdownItem { MemberValue = "LeaveMode", MemberName = "Leave Mode" },
+                    new tmpDropdownItem { MemberValue = "DesignationTitle", MemberName = "Designation" },
+                    new tmpDropdownItem { MemberValue = "DepartmentTitle", MemberName = "Department" },
+                };
+                cmbGroupBy.DataSource = null;
+                cmbGroupBy.Items.Clear();
+                cmbGroupBy.DataSource = lstFilterLeaveType;
+                cmbGroupBy.DisplayMember = "MemberName";
+                cmbGroupBy.ValueMember = "MemberValue";
+                cmbGroupBy.SelectedIndex = 1;
+                cmbGroupBy.Enabled = true;
+                chkIncludeGroupSummary.Enabled = true;
+
+                txtDTFrom.Text = DateTime.Today.ToString("dd-MM-yyyy");
+                txtDTTo.Text = DateTime.Today.ToString("dd-MM-yyyy");
+
+                lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
+                lblSelectedReportName.Text = dtgReportsList.SelectedRows[0].Cells["ReportsName"].Value.ToString().Replace("-", "_").ToString();
             }
         }
 
@@ -925,6 +1038,49 @@ namespace StaffSync
             dtgDataResult.Columns["RowValue"].ReadOnly = true;
         }
 
+        private void LeaveRegisterInformation(string strFilter)
+        {
+            objLeaveRegisterReports = objLeaveTRReportsList.getLeaveRegisterInformation(objTempClientFinYearInfo.ClientID, strFilter);
+            objPivotLeaveTrendSummary = objLeaveTRReportsList.getPivotLeaveTrendSummary(objTempClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+
+            dtgDataResult.DataSource = null;
+            dtgDataResult.DataSource = objLeaveRegisterReports;
+
+            dtgDataResult.Columns["EmpID"].Width = 1;
+            dtgDataResult.Columns["EmpID"].ReadOnly = true;
+            dtgDataResult.Columns["EmpID"].Visible = false;
+
+            dtgDataResult.Columns["EmpCode"].Width = 100;
+            dtgDataResult.Columns["EmpCode"].ReadOnly = true;
+            dtgDataResult.Columns["EmpName"].Width = 250;
+            dtgDataResult.Columns["EmpName"].ReadOnly = true;
+            dtgDataResult.Columns["DesignationTitle"].Width = 200;
+            dtgDataResult.Columns["DesignationTitle"].ReadOnly = true;
+            dtgDataResult.Columns["DepartmentTitle"].Width = 200;
+            dtgDataResult.Columns["DepartmentTitle"].ReadOnly = true;
+            dtgDataResult.Columns["LeaveTypeTitle"].Width = 200;
+            dtgDataResult.Columns["LeaveTypeTitle"].ReadOnly = true;
+            dtgDataResult.Columns["ActualLeaveDateFrom"].Width = 100;
+            dtgDataResult.Columns["ActualLeaveDateFrom"].ReadOnly = true;
+            dtgDataResult.Columns["ActualLeaveDateFrom"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            dtgDataResult.Columns["ActualLeaveDateTo"].Width = 100;
+            dtgDataResult.Columns["ActualLeaveDateTo"].ReadOnly = true;
+            dtgDataResult.Columns["ActualLeaveDateTo"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            dtgDataResult.Columns["LeaveDuration"].Width = 300;
+            dtgDataResult.Columns["LeaveDuration"].ReadOnly = true;
+            dtgDataResult.Columns["LeaveDuration"].Visible = false;
+            dtgDataResult.Columns["LeaveMode"].Width = 100;
+            dtgDataResult.Columns["LeaveMode"].ReadOnly = true;
+            dtgDataResult.Columns["LeaveStatus"].Width = 100;
+            dtgDataResult.Columns["LeaveStatus"].ReadOnly = true;
+            dtgDataResult.Columns["OrderID"].Width = 100;
+            dtgDataResult.Columns["OrderID"].ReadOnly = true;
+            dtgDataResult.Columns["OrderID"].Visible = false;
+
+            cmbGroupBy.Enabled = true;
+            chkIncludeGroupSummary.Enabled = true;
+        }
+
 
         private void chkIncludeMonth_CheckedChanged(object sender, EventArgs e)
         {
@@ -1030,7 +1186,6 @@ namespace StaffSync
 
             string filePath = "";
             filePath = FileHelper.GetTempFolder() + objSelectedClientInfo.ClientCode + "_" + lblSelectedReportName.Text.ToString().Replace(" ", "_") + ".pdf"; // @"C:\Development\StaffSync\StaffSync\bin\Debug\ReportDesigner.pdf";
-
 
             if (lblSelectedReport.Text.ToString() == ReportCode.REP_0001.ToString())
             {
@@ -1477,6 +1632,120 @@ namespace StaffSync
                     }
                 }
             }
+            else if (lblSelectedReport.Text.ToString() == ReportCode.REP_0006.ToString())
+            {
+                if (optMonthlyAttendanceRegister.Checked)
+                {
+                    report.ReportTitle = report.ReportTitle + "\n(" + Convert.ToDateTime(txtDTFrom.Text).ToString("dd-MMM-yyyy") + " - " + Convert.ToDateTime(txtDTTo.Text).ToString("dd-MMM-yyyy") + ")";
+
+                    if (cmbGroupBy.SelectedIndex == 0)
+                    {
+                        new ReportBuilder()
+                            .Company(company)
+                            .Title(report)
+                            .Data(objLeaveRegisterReports)
+                            .Settings(settings)
+                            .Generate(filePath);
+                    }
+                    else if (cmbGroupBy.SelectedIndex > 0)
+                    {
+                        tmpDropdownItem objtmpDropdownItem = (tmpDropdownItem)cmbGroupBy.SelectedItem;
+
+                        if (chkIncludeGroupSummary.Checked)
+                        {
+                            List<ReportSummary> summaries = new List<ReportSummary>();
+                            string groupField = objtmpDropdownItem.MemberValue;
+                            //if (groupField == "LeaveStatus")
+                            {
+                                string[] values =
+                                {
+                                    "Approved",
+                                    "Rejected",
+                                    "Pending",
+                                    "Cancelled"
+                                };
+
+                                foreach (string value in values)
+                                {
+                                    summaries.Add(new ReportSummary(value, objLeaveRegisterReports.Count(x => x.LeaveStatus == value).ToString()));
+                                }
+                            }
+                            //else if (groupField == "LeaveTypeTitle")
+                            {
+                                summaries.Add(new ReportSummary("", ""));
+
+                                var values = objLeaveRegisterReports .GroupBy(x => x.LeaveTypeTitle).OrderBy(x => x.Key);
+
+                                foreach (var item in values)
+                                {
+                                    summaries.Add(new ReportSummary(item.Key, item.Count().ToString()));
+                                }
+                            }
+                            //else if (groupField == "LeaveMode")
+                            {
+                                summaries.Add(new ReportSummary("", ""));
+
+                                var values = objLeaveRegisterReports.GroupBy(x => x.LeaveMode).OrderBy(x => x.Key);
+
+                                foreach (var item in values)
+                                {
+                                    summaries.Add(new ReportSummary(item.Key, item.Count().ToString()));
+                                }
+                            }
+                            //else if (groupField == "DepartmentTitle")
+                            {
+                                summaries.Add(new ReportSummary("", ""));
+
+                                var values = objLeaveRegisterReports.GroupBy(x => x.DepartmentTitle).OrderBy(x => x.Key);
+
+                                foreach (var item in values)
+                                {
+                                    summaries.Add(new ReportSummary(item.Key, item.Count().ToString()));
+                                }
+                            }
+                            //else if (groupField == "DesignationTitle")
+                            {
+                                summaries.Add(new ReportSummary("", ""));
+
+                                var values = objLeaveRegisterReports.GroupBy(x => x.DesignationTitle).OrderBy(x => x.Key);
+
+                                foreach (var item in values)
+                                {
+                                    summaries.Add(new ReportSummary(item.Key, item.Count().ToString()));
+                                }
+                            }
+
+                            //summaries.Add(new ReportSummary("", ""));
+
+                            //foreach (var month in objPivotLeaveTrendSummary.OrderBy(x => x.LeaveYear).ThenBy(x => x.LeaveMonth))
+                            //{
+                            //    summaries.Add(new ReportSummary(month.MonthName, string.Format("Applications : {0} \n Approved : {1} \n Rejected : {2} \n Pending : {3} \n Cancelled : {4} \n Leave Days : {5:0.00}",
+                            //            month.TotalApplication, month.Approved, month.Rejected, month.Pending, month.Cancelled, month.TotalLeaveDays)));
+                            //}
+
+                            new ReportBuilder()
+                                .Company(company)
+                                .Title(report)
+                                .Data(objLeaveRegisterReports)
+                                .Settings(settings)
+                                .Summary(summaries)
+                                .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                                .Generate(filePath);
+                        }
+                        else
+                        {
+                            new ReportBuilder()
+                                .Company(company)
+                                .Title(report)
+                                .Data(objLeaveRegisterReports)
+                                .Settings(settings)
+                                .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                                .OrderBy(objtmpDropdownItem.MemberName)
+                                .Generate(filePath);
+                        }
+                    }
+                }
+            }
 
             MessageBox.Show("Data Exported Successfully !!!", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -1531,6 +1800,14 @@ namespace StaffSync
                 if (optMonthlyAttendanceRegister.Checked)
                 {
                     AttendanceSummaryReport(lblFilter.Text);
+                }
+            }
+            else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0006.ToString())
+            {
+                lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
+                if (optMonthlyAttendanceRegister.Checked)
+                {
+                    LeaveRegisterInformation(lblFilter.Text);
                 }
             }
         }
@@ -1622,6 +1899,54 @@ namespace StaffSync
                     filter = filter + " AND (((PersonalInfoMas.LastDateOfProbation) >= #" + Convert.ToDateTime(txtDTFrom.Text).ToString("dd-MMM-yyyy") + "#) AND ((PersonalInfoMas.LastDateOfProbation) <= #" + Convert.ToDateTime(txtDTTo.Text).ToString("dd-MMM-yyyy") + "#))";
                 else if (optConfirmDate.Checked)
                     filter = filter + " AND (((PersonalInfoMas.DateOfConfirmation) >= #" + Convert.ToDateTime(txtDTFrom.Text).ToString("dd-MMM-yyyy") + "#) AND ((PersonalInfoMas.DateOfConfirmation) <= #" + Convert.ToDateTime(txtDTTo.Text).ToString("dd-MMM-yyyy") + "#))";
+            }
+            if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0006.ToString())
+            {
+                filter = filter.Replace(" AND ", "");
+                if (filter != "")
+                    filter = filter + " AND (((Q.ActualLeaveDateFrom) >= #" + Convert.ToDateTime(txtDTFrom.Text).ToString("dd-MMM-yyyy") + "#) AND ((Q.ActualLeaveDateTo) <= #" + Convert.ToDateTime(txtDTTo.Text).ToString("dd-MMM-yyyy") + "#))";
+                else
+                    filter = filter + " (((Q.ActualLeaveDateFrom) >= #" + Convert.ToDateTime(txtDTFrom.Text).ToString("dd-MMM-yyyy") + "#) AND ((Q.ActualLeaveDateTo) <= #" + Convert.ToDateTime(txtDTTo.Text).ToString("dd-MMM-yyyy") + "#))";
+
+                if (cmbFilterLeaveMode.SelectedIndex > 0)
+                {
+                    filter = filter + " AND ((Q.LeaveMode) = '" + cmbFilterLeaveMode.Text.ToString() + "')";
+                }
+
+                if (cmbFilterLeaveType.SelectedIndex > 0)
+                {
+                    filter = filter + " AND ((Q.LeaveStatus) = '" + cmbFilterLeaveType.Text.ToString() + "')";
+                }
+
+                if (chkLSTLeaveTypeList.CheckedItems.Count == 0)
+                {
+
+                }
+                else if (chkLSTLeaveTypeList.CheckedItems.Count == 1)
+                {
+                    foreach (var indCheckedItem in chkLSTLeaveTypeList.CheckedItems)
+                    {
+                        filter = filter + " AND ((Q.LeaveTypeTitle) = '" + indCheckedItem.ToString() + "')";
+                    }
+                }
+                else if (chkLSTLeaveTypeList.CheckedItems.Count > 1)
+                {
+                    int selectedLeaveTypeCounter = 0;
+                    filter = filter + " AND ((LeaveTypeMas.LeaveTypeTitle) IN ('";
+                    foreach (var indCheckedItem in chkLSTLeaveTypeList.CheckedItems)
+                    {
+                        if (indCheckedItem.ToString() != "")
+                        {
+                            filter = filter + indCheckedItem.ToString() + "'";
+                        }
+                        if (selectedLeaveTypeCounter < chkLSTLeaveTypeList.CheckedItems.Count - 1)
+                        {
+                            filter = filter + ", '";
+                        }
+                        selectedLeaveTypeCounter = selectedLeaveTypeCounter + 1;
+                    }
+                    filter = filter + "))";
+                }
             }
 
             return validationStatus;
@@ -1841,6 +2166,26 @@ namespace StaffSync
                 chkIncludeGroupSummary.Enabled = false;
                 chkIncludeGroupSummary.Enabled = false;
             }
+        }
+
+        private void cmbFilterLeaveType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+            chkIncludeGroupSummary.Enabled = false;
+        }
+
+        private void chkLSTLeaveTypeList_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+        }
+
+        private void cmbFilterLeaveMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnExport.Enabled = false;
+            cmbGroupBy.Enabled = false;
+            chkIncludeGroupSummary.Enabled = false;
         }
     }
 }

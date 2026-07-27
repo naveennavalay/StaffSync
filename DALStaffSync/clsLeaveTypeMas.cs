@@ -36,6 +36,15 @@ namespace DALStaffSync
             return dt;
         }
 
+        public List<LeaveTypeInfoModel> GetLeaveTypeInfoList()
+        {
+            List<LeaveTypeInfoModel> LeaveTypeInfoList = new List<LeaveTypeInfoModel>();
+
+            LeaveTypeInfoList = objLeaveTypeMas.GetLeaveTypeInfoList();
+
+            return LeaveTypeInfoList;
+        }
+
         public List<LeaveTypeInfoModel> GetLeaveTypeInfo(int LeaveTypeID)
         {
             List<LeaveTypeInfoModel> LeaveTypeInfoList = new List<LeaveTypeInfoModel>(); 

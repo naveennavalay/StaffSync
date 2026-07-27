@@ -85,6 +85,42 @@ namespace dbStaffSync
             return dt;
         }
 
+        public List<LeaveTypeInfoModel> GetLeaveTypeInfoList()
+        {
+            List<LeaveTypeInfoModel> LeaveTypeInfoList = new List<LeaveTypeInfoModel>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT * FROM LeaveTypeMas WHERE IsActive = true and IsDelete = false Order By OrderID";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                LeaveTypeInfoList = JsonConvert.DeserializeObject<List<LeaveTypeInfoModel>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return LeaveTypeInfoList;
+        }
+
         public List<LeaveTypeInfoModel> GetLeaveTypeInfo(int LeaveTypeID)
         {
             List<LeaveTypeInfoModel> LeaveTypeInfoList = new List<LeaveTypeInfoModel>(); 

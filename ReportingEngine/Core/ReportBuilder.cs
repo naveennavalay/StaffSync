@@ -101,5 +101,53 @@ namespace ReportingEngine
 
             return this;
         }
+
+        public ReportBuilder OrderBy(string propertyName)
+        {
+            _context.SortColumns.Clear();
+
+            _context.SortColumns.Add(new ReportSort
+            {
+                PropertyName = propertyName,
+                Descending = false
+            });
+
+            return this;
+        }
+
+        public ReportBuilder OrderByDescending(string propertyName)
+        {
+            _context.SortColumns.Clear();
+
+            _context.SortColumns.Add(new ReportSort
+            {
+                PropertyName = propertyName,
+                Descending = true
+            });
+
+            return this;
+        }
+
+        public ReportBuilder ThenBy(string propertyName)
+        {
+            _context.SortColumns.Add(new ReportSort
+            {
+                PropertyName = propertyName,
+                Descending = false
+            });
+
+            return this;
+        }
+
+        public ReportBuilder ThenByDescending(string propertyName)
+        {
+            _context.SortColumns.Add(new ReportSort
+            {
+                PropertyName = propertyName,
+                Descending = true
+            });
+
+            return this;
+        }
     }
 }

@@ -155,6 +155,24 @@ namespace DALStaffSync
             return attendanceExists;
         }
 
+        public List<LeaveRegister> getLeaveRegisterInformation(int CompanyID, string FilterString)
+        {
+            List<LeaveRegister> empLeaveRegister = new List<LeaveRegister>();
+
+            empLeaveRegister = objLeaveTRList.getLeaveRegisterInformation(CompanyID, FilterString);
+
+            return empLeaveRegister;
+        }
+
+        public List<PivotLeaveTrendSummary> getPivotLeaveTrendSummary(int CompanyID, DateTime dtFrom, DateTime dtTo)
+        {
+            List<PivotLeaveTrendSummary> objPivotLeaveTrendSummaryList = new List<PivotLeaveTrendSummary>();
+
+            objPivotLeaveTrendSummaryList = objLeaveTRList.getPivotLeaveTrendSummary(CompanyID, dtFrom, dtTo);
+
+            return objPivotLeaveTrendSummaryList;
+        }
+
         public int InsertDefaultLeaveAllotment(int txtEmpID, decimal TotalLeaves, decimal TotalBalanceLeave, DateTime txtEffectiveDate)
         {
             int affectedRows = 0;

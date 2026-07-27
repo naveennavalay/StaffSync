@@ -901,6 +901,278 @@ namespace dbStaffSync
             return attendanceExists;
         }
 
+        public List<LeaveRegister> getLeaveRegisterInformation(int CompanyID, string FilterString)
+        {
+            List<LeaveRegister> empLeaveRegister = new List<LeaveRegister>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " + 
+                                        " EmpMas.EmpID, " + 
+                                        " EmpMas.EmpCode, " + 
+                                        " EmpMas.EmpName, " + 
+                                        " DesigMas.DesignationTitle, " + 
+                                        " DepMas.DepartmentTitle, " + 
+                                        " LeaveTypeMas.LeaveTypeTitle, " + 
+                                        " EmpLeaveTransMas.ActualLeaveDateFrom, " + 
+                                        " EmpLeaveTransMas.ActualLeaveDateTo, " + 
+                                        " EmpLeaveTransMas.LeaveDuration, " + 
+                                        " EmpLeaveTransMas.LeaveMode, " + 
+                                        " IIf(" +
+                                            " [Canceled] = True, " +
+                                            " 'Cancelled', " +
+                                            " IIf(" +
+                                                " [LeaveApprovalComments] = 'Approved : Approved' " +
+                                                " AND [LeaveRejectionComments] = 'Not Rejected', " +
+                                                " 'Approved', " +
+                                                " IIf(" +
+                                                    " [LeaveApprovalComments] = 'Not Approved' " +
+                                                    " AND [LeaveRejectionComments] = 'Rejected : Approved', " + 
+                                                    " 'Rejected', " + 
+                                                    " IIf(" + 
+                                                        " [LeaveApprovalComments] = 'Not yet Approved' " + 
+                                                        " AND [LeaveRejectionComments] = 'Not yet Rejected', " + 
+                                                        " 'Pending', " + 
+                                                        " 'Unknown' " + 
+                                                    " ) " + 
+                                                " ) " + 
+                                            " ) " + 
+                                        " ) AS LeaveStatus " + 
+                                    " FROM " + 
+                                        " LeaveTypeMas " + 
+                                        " INNER JOIN ( " + 
+                                            " ( " + 
+                                                " DesigMas " + 
+                                                " INNER JOIN ( " + 
+                                                    " DepMas " + 
+                                                    " INNER JOIN ( " + 
+                                                        " ClientMas " + 
+                                                        " INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " + 
+                                                    " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " + 
+                                                " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " + 
+                                            " ) " + 
+                                            " INNER JOIN EmpLeaveTransMas ON EmpMas.EmpID = EmpLeaveTransMas.EmpID " + 
+                                        " ) ON LeaveTypeMas.LeaveTypeID = EmpLeaveTransMas.LeaveTypeID " + 
+                                    " WHERE " + 
+                                        " ( " + 
+                                            " ((EmpMas.EmpID) > 1) " + 
+                                            " AND ((EmpLeaveTransMas.OrderID) > 0) " + 
+                                            " AND ((ClientMas.ClientID) = " + CompanyID + " ) " + 
+                                            " AND ((EmpMas.IsActive) = True) " + 
+                                            " AND ((EmpMas.IsDeleted) = False) " +
+                                            FilterString + 
+                                        " ) " + 
+                                    " ORDER BY " + 
+                                        " EmpMas.EmpID,EmpLeaveTransMas.OrderID";
+
+                strQuery = "SELECT " +
+                                    " Q.EmpID, " +
+                                    " Q.EmpCode, " +
+                                    " Q.EmpName, " +
+                                    " Q.DesignationTitle, " +
+                                    " Q.DepartmentTitle, " +
+                                    " Q.LeaveTypeTitle, " +
+                                    " Q.ActualLeaveDateFrom, " +
+                                    " Q.ActualLeaveDateTo, " +
+                                    " Q.LeaveDuration, " +
+                                    " Q.LeaveMode, " +
+                                    " Q.LeaveStatus, " +
+                                    " Q.OrderID " +
+                                " FROM " +
+                                    " ( " +
+                                        " SELECT " +
+                                            " EmpMas.EmpID, " +
+                                            " EmpMas.EmpCode, " +
+                                            " EmpMas.EmpName, " +
+                                            " DesigMas.DesignationTitle, " +
+                                            " DepMas.DepartmentTitle, " +
+                                            " LeaveTypeMas.LeaveTypeTitle, " +
+                                            " EmpLeaveTransMas.ActualLeaveDateFrom, " +
+                                            " EmpLeaveTransMas.ActualLeaveDateTo, " +
+                                            " EmpLeaveTransMas.LeaveDuration, " +
+                                            " EmpLeaveTransMas.LeaveMode, " +
+                                            " IIf( " +
+                                                " [Canceled] = True, " +
+                                                " 'Cancelled', " +
+                                                " IIf( " +
+                                                    " [LeaveApprovalComments] = 'Approved : Approved' " +
+                                                    " AND [LeaveRejectionComments] = 'Not Rejected', " +
+                                                    " 'Approved', " +
+                                                    " IIf(" +
+                                                        " [LeaveApprovalComments] = 'Not yet Approved' " +
+                                                        " AND [LeaveRejectionComments] = 'Rejected : Approved', " +
+                                                        " 'Rejected', " +
+                                                        " IIf(" +
+                                                            " [LeaveApprovalComments] = 'Not yet Approved' " +
+                                                            " AND [LeaveRejectionComments] = 'Not yet Rejected', " +
+                                                            " 'Pending', " +
+                                                            " 'Unknown' " +
+                                                        " ) " +
+                                                    " ) " +
+                                                " ) " +
+                                            " ) AS LeaveStatus, " +
+                                            " EmpLeaveTransMas.OrderID " +
+                                        " FROM " +
+                                            " LeaveTypeMas " +
+                                            " INNER JOIN ( " +
+                                                " ( " +
+                                                    " DesigMas " +
+                                                    " INNER JOIN ( " +
+                                                        " DepMas " +
+                                                        " INNER JOIN ( " +
+                                                            " ClientMas " +
+                                                            " INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " +
+                                                        " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " +
+                                                    " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " +
+                                                " ) " +
+                                                " INNER JOIN EmpLeaveTransMas ON EmpMas.EmpID = EmpLeaveTransMas.EmpID " +
+                                            " ) ON LeaveTypeMas.LeaveTypeID = EmpLeaveTransMas.LeaveTypeID " +
+                                        " WHERE " +
+                                            " EmpMas.EmpID > 1 " +
+                                            " AND EmpLeaveTransMas.OrderID > 0 " +
+                                            " AND ClientMas.ClientID = " + CompanyID +
+                                            " AND EmpMas.IsActive = True " +
+                                            " AND EmpMas.IsDeleted = False " +
+                                    " ) AS Q " +
+                                " WHERE " +
+                                    FilterString +
+                                " ORDER BY " +
+                                    " Q.EmpID, Q.OrderID Asc";
+                                    //" ( " +
+                                    //    " ((Q.ActualLeaveDateFrom) >= #3 / 1 / 2026 #) " +
+                                    //    " AND ((Q.ActualLeaveDateTo) <= #3 / 31 / 2026 #) " +
+                                    //    " AND ((Q.LeaveStatus) <> '') " + 
+                                    //")";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                empLeaveRegister = JsonConvert.DeserializeObject<List<LeaveRegister>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return empLeaveRegister;
+        }
+
+        public List<PivotLeaveTrendSummary> getPivotLeaveTrendSummary(int CompanyID, DateTime dtFrom, DateTime dtTo)
+        {
+            List<PivotLeaveTrendSummary> objPivotLeaveTrendSummaryList = new List<PivotLeaveTrendSummary>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " + 
+                                        " Format([EmpLeaveTransMas].[ActualLeaveDateFrom], \"MMM-yyyy\") AS MonthName, " + 
+                                        " Year([EmpLeaveTransMas].[ActualLeaveDateFrom]) AS LeaveYear, " + 
+                                        " Month([EmpLeaveTransMas].[ActualLeaveDateFrom]) AS LeaveMonth, " + 
+                                        " Count(EmpLeaveTransMas.OrderID) AS TotalApplications, " +
+                                        " Sum( " +
+                                            " IIf( " +
+                                                " EmpLeaveTransMas.LeaveApprovalComments = 'Approved : Approved' " +
+                                                " AND EmpLeaveTransMas.LeaveRejectionComments = 'Not Rejected' " +
+                                                " AND EmpLeaveTransMas.Canceled = False, " +
+                                                " 1, " +
+                                                " 0 " +
+                                            " ) " + 
+                                        " ) AS Approved, " +
+                                        " Sum( " +
+                                            " IIf( " +
+                                                " EmpLeaveTransMas.LeaveApprovalComments = 'Not Approved' " +
+                                                " AND EmpLeaveTransMas.LeaveRejectionComments = 'Rejected : Approved' " +
+                                                " AND EmpLeaveTransMas.Canceled = False, " +
+                                                " 1, " +
+                                                " 0 " +
+                                            " ) " +
+                                        " ) AS Rejected, " + 
+                                        " Sum( " + 
+                                            " IIf( " + 
+                                                " EmpLeaveTransMas.LeaveApprovalComments = 'Not yet Approved' " + 
+                                                " AND EmpLeaveTransMas.LeaveRejectionComments = 'Not yet Rejected' " + 
+                                                " AND EmpLeaveTransMas.Canceled = False, " + 
+                                                " 1, " + 
+                                                " 0 " + 
+                                            " ) " + 
+                                        " ) AS Pending, " + 
+                                        " Sum(IIf(EmpLeaveTransMas.Canceled = True, 1, 0)) AS Cancelled, " + 
+                                        " Sum(EmpLeaveTransMas.LeaveDuration) AS TotalLeaveDays " + 
+                                    " FROM " + 
+                                        " LeaveTypeMas " + 
+                                        " INNER JOIN ( " + 
+                                            " ( " + 
+                                                " DesigMas " + 
+                                                " INNER JOIN ( " + 
+                                                    " DepMas " + 
+                                                    " INNER JOIN ( " + 
+                                                        " ClientMas " + 
+                                                        " INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " + 
+                                                    " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " + 
+                                                " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " + 
+                                            " ) " + 
+                                            " INNER JOIN EmpLeaveTransMas ON EmpMas.EmpID = EmpLeaveTransMas.EmpID " + 
+                                        " ) ON LeaveTypeMas.LeaveTypeID = EmpLeaveTransMas.LeaveTypeID " + 
+                                    " WHERE " + 
+                                        " EmpMas.IsActive = True " + 
+                                        " AND EmpMas.IsDeleted = False " + 
+                                        " AND ClientMas.ClientID = " + CompanyID +  
+                                        " AND EmpLeaveTransMas.OrderID > 0 " + 
+                                        " AND EmpLeaveTransMas.ActualLeaveDateFrom BETWEEN #" + Convert.ToDateTime(dtFrom).ToString("dd-MMM-yyyy") + "# AND #" + Convert.ToDateTime(dtTo).ToString("dd-MMM-yyyy") + "# " + 
+                                    " GROUP BY " + 
+                                        " Format([EmpLeaveTransMas].[ActualLeaveDateFrom], \"MMM-yyyy\"), " + 
+                                        " Year([EmpLeaveTransMas].[ActualLeaveDateFrom]), " + 
+                                        " Month([EmpLeaveTransMas].[ActualLeaveDateFrom]) " + 
+                                    " ORDER BY " + 
+                                        " Year([EmpLeaveTransMas].[ActualLeaveDateFrom]), " + 
+                                        " Month([EmpLeaveTransMas].[ActualLeaveDateFrom])";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objPivotLeaveTrendSummaryList = JsonConvert.DeserializeObject<List<PivotLeaveTrendSummary>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objPivotLeaveTrendSummaryList;
+        }
+
         public int InsertDefaultLeaveAllotment(int txtEmpID, decimal TotalLeaves, decimal TotalBalanceLeave, DateTime txtEffectiveDate)
         {
             int affectedRows = 0;

@@ -9,6 +9,8 @@ namespace ReportingEngine.Core
 {
     public class DocumentContext
     {
+        public List<ReportSort> SortColumns { get; } = new List<ReportSort>();
+
         public CompanyInfo CompanyInfo { get; set; }
 
         public ReportInfo ReportInfo { get; set; }
@@ -28,5 +30,12 @@ namespace ReportingEngine.Core
         public string GroupByProperty { get; set; }
 
         public string GroupCaption { get; set; }
+    }
+
+    public class ReportSort
+    {
+        public string PropertyName { get; set; }
+
+        public bool Descending { get; set; }
     }
 }
