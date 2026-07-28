@@ -20,9 +20,7 @@ namespace ReportingEngine.Builders
         public ReportContext Context { get; }
         public ReportSettings Settings { get; }
 
-        public ReportingDocumentBuilder(
-            ReportContext context,
-            ReportSettings settings)
+        public ReportingDocumentBuilder(ReportContext context, ReportSettings settings)
         {
             Context = context ?? throw new ArgumentNullException(nameof(context));
             Settings = settings ?? throw new ArgumentNullException(nameof(settings));

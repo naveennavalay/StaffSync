@@ -1,8 +1,11 @@
 ﻿using ModelStaffSync;
 using ReportingEngine.Core;
+using ReportingEngine.Models;
 using ReportingEngine.Reports;
+using ReportingEngine.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -146,6 +149,37 @@ namespace ReportingEngine
                 PropertyName = propertyName,
                 Descending = true
             });
+
+            return this;
+        }
+
+        public ReportBuilder AddTable(ReportDynamicTable table)
+        {
+            _context.AdditionalTables.Add(table);
+
+            return this;
+        }
+
+        public ReportBuilder AddTable(DataTable table, string title)
+        {
+            if (table == null)
+                return this;
+
+            ReportDynamicTable dynamicTable = ReportTableFactory.FromDataTable(table, title);
+
+            _context.AdditionalTables.Add(dynamicTable);
+
+            return this;
+        }
+
+        public ReportBuilder AddTable<T>(IList<T> list, string title)
+        {
+            if (list == null)
+                return this;
+
+            ReportDynamicTable dynamicTable = ReportTableFactory.FromList(list, title);
+
+            _context.AdditionalTables.Add(dynamicTable);
 
             return this;
         }

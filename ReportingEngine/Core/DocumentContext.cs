@@ -1,4 +1,5 @@
 ﻿using ModelStaffSync;
+using ReportingEngine.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,12 @@ namespace ReportingEngine.Core
         public string GroupByProperty { get; set; }
 
         public string GroupCaption { get; set; }
+
+        public List<ReportDynamicTable> AdditionalTables
+        {
+            get;
+            set;
+        } = new List<ReportDynamicTable>();
     }
 
     public class ReportSort

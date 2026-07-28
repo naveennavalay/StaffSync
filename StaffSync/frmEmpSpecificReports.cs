@@ -6,6 +6,7 @@ using ModelStaffSync;
 using ReportingEngine;
 using ReportingEngine.Core;
 using ReportingEngine.Helpers;
+using ReportingEngine.Models;
 using StaffSync.StaffsyncDBDataSetTableAdapters;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
 using System;
@@ -67,6 +68,7 @@ namespace StaffSync
         List<LeaveTypeInfoModel> objLeaveTypeInfoList = new List<LeaveTypeInfoModel>();
         List<LeaveRegister> objLeaveRegisterReports = new List<LeaveRegister>();
         List<PivotLeaveTrendSummary> objPivotLeaveTrendSummary = new List<PivotLeaveTrendSummary>();
+        System.Data.DataTable dtLeaveTrendSummaryDatasource = new System.Data.DataTable();
 
         string strActionStatement = "";
         private Dictionary<string, object> _originalValues;
@@ -1715,13 +1717,7 @@ namespace StaffSync
                                 }
                             }
 
-                            //summaries.Add(new ReportSummary("", ""));
-
-                            //foreach (var month in objPivotLeaveTrendSummary.OrderBy(x => x.LeaveYear).ThenBy(x => x.LeaveMonth))
-                            //{
-                            //    summaries.Add(new ReportSummary(month.MonthName, string.Format("Applications : {0} \n Approved : {1} \n Rejected : {2} \n Pending : {3} \n Cancelled : {4} \n Leave Days : {5:0.00}",
-                            //            month.TotalApplication, month.Approved, month.Rejected, month.Pending, month.Cancelled, month.TotalLeaveDays)));
-                            //}
+                            ReportDynamicTable summaryTable = ReportTableFactory.FromList(objPivotLeaveTrendSummary, "Leave Trend");
 
                             new ReportBuilder()
                                 .Company(company)
@@ -1729,6 +1725,7 @@ namespace StaffSync
                                 .Data(objLeaveRegisterReports)
                                 .Settings(settings)
                                 .Summary(summaries)
+                                .AddTable(summaryTable)
                                 .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
                                 .Generate(filePath);
                         }

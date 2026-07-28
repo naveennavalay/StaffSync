@@ -1173,6 +1173,105 @@ namespace dbStaffSync
             return objPivotLeaveTrendSummaryList;
         }
 
+        public DataTable getLeaveTrendSummaryDatasource(int CompanyID, DateTime dtFrom, DateTime dtTo)
+        {
+            List<PivotLeaveTrendSummary> objPivotLeaveTrendSummaryList = new List<PivotLeaveTrendSummary>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT " +
+                                        " Format([EmpLeaveTransMas].[ActualLeaveDateFrom], \"MMM-yyyy\") AS MonthName, " +
+                                        " Year([EmpLeaveTransMas].[ActualLeaveDateFrom]) AS LeaveYear, " +
+                                        " Month([EmpLeaveTransMas].[ActualLeaveDateFrom]) AS LeaveMonth, " +
+                                        " Count(EmpLeaveTransMas.OrderID) AS TotalApplications, " +
+                                        " Sum( " +
+                                            " IIf( " +
+                                                " EmpLeaveTransMas.LeaveApprovalComments = 'Approved : Approved' " +
+                                                " AND EmpLeaveTransMas.LeaveRejectionComments = 'Not Rejected' " +
+                                                " AND EmpLeaveTransMas.Canceled = False, " +
+                                                " 1, " +
+                                                " 0 " +
+                                            " ) " +
+                                        " ) AS Approved, " +
+                                        " Sum( " +
+                                            " IIf( " +
+                                                " EmpLeaveTransMas.LeaveApprovalComments = 'Not Approved' " +
+                                                " AND EmpLeaveTransMas.LeaveRejectionComments = 'Rejected : Approved' " +
+                                                " AND EmpLeaveTransMas.Canceled = False, " +
+                                                " 1, " +
+                                                " 0 " +
+                                            " ) " +
+                                        " ) AS Rejected, " +
+                                        " Sum( " +
+                                            " IIf( " +
+                                                " EmpLeaveTransMas.LeaveApprovalComments = 'Not yet Approved' " +
+                                                " AND EmpLeaveTransMas.LeaveRejectionComments = 'Not yet Rejected' " +
+                                                " AND EmpLeaveTransMas.Canceled = False, " +
+                                                " 1, " +
+                                                " 0 " +
+                                            " ) " +
+                                        " ) AS Pending, " +
+                                        " Sum(IIf(EmpLeaveTransMas.Canceled = True, 1, 0)) AS Cancelled, " +
+                                        " Sum(EmpLeaveTransMas.LeaveDuration) AS TotalLeaveDays " +
+                                    " FROM " +
+                                        " LeaveTypeMas " +
+                                        " INNER JOIN ( " +
+                                            " ( " +
+                                                " DesigMas " +
+                                                " INNER JOIN ( " +
+                                                    " DepMas " +
+                                                    " INNER JOIN ( " +
+                                                        " ClientMas " +
+                                                        " INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " +
+                                                    " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " +
+                                                " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " +
+                                            " ) " +
+                                            " INNER JOIN EmpLeaveTransMas ON EmpMas.EmpID = EmpLeaveTransMas.EmpID " +
+                                        " ) ON LeaveTypeMas.LeaveTypeID = EmpLeaveTransMas.LeaveTypeID " +
+                                    " WHERE " +
+                                        " EmpMas.IsActive = True " +
+                                        " AND EmpMas.IsDeleted = False " +
+                                        " AND ClientMas.ClientID = " + CompanyID +
+                                        " AND EmpLeaveTransMas.OrderID > 0 " +
+                                        " AND EmpLeaveTransMas.ActualLeaveDateFrom BETWEEN #" + Convert.ToDateTime(dtFrom).ToString("dd-MMM-yyyy") + "# AND #" + Convert.ToDateTime(dtTo).ToString("dd-MMM-yyyy") + "# " +
+                                    " GROUP BY " +
+                                        " Format([EmpLeaveTransMas].[ActualLeaveDateFrom], \"MMM-yyyy\"), " +
+                                        " Year([EmpLeaveTransMas].[ActualLeaveDateFrom]), " +
+                                        " Month([EmpLeaveTransMas].[ActualLeaveDateFrom]) " +
+                                    " ORDER BY " +
+                                        " Year([EmpLeaveTransMas].[ActualLeaveDateFrom]), " +
+                                        " Month([EmpLeaveTransMas].[ActualLeaveDateFrom])";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                //string DataTableToJSon = "";
+                //DataTableToJSon = JsonConvert.SerializeObject(dt);
+                //objPivotLeaveTrendSummaryList = JsonConvert.DeserializeObject<List<PivotLeaveTrendSummary>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return dt;
+        }
+
         public int InsertDefaultLeaveAllotment(int txtEmpID, decimal TotalLeaves, decimal TotalBalanceLeave, DateTime txtEffectiveDate)
         {
             int affectedRows = 0;

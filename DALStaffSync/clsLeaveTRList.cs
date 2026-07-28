@@ -173,6 +173,15 @@ namespace DALStaffSync
             return objPivotLeaveTrendSummaryList;
         }
 
+        public DataTable getLeaveTrendSummaryDatasource(int CompanyID, DateTime dtFrom, DateTime dtTo)
+        {
+            DataTable dt = new DataTable();
+
+            dt = objLeaveTRList.getLeaveTrendSummaryDatasource(CompanyID, dtFrom, dtTo);
+
+            return dt;
+        }
+
         public int InsertDefaultLeaveAllotment(int txtEmpID, decimal TotalLeaves, decimal TotalBalanceLeave, DateTime txtEffectiveDate)
         {
             int affectedRows = 0;
