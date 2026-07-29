@@ -2,10 +2,12 @@
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Krypton.Toolkit;
+using Microsoft.Office.Interop.Excel;
 using ModelStaffSync;
 using ReportingEngine;
 using ReportingEngine.Core;
 using ReportingEngine.Helpers;
+using ReportingEngine.Layout;
 using ReportingEngine.Models;
 using StaffSync.StaffsyncDBDataSetTableAdapters;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
@@ -1146,7 +1148,7 @@ namespace StaffSync
                 GSTNumber = "",
                 CINNumber = "",
 
-                LogoPath = @Application.StartupPath + "\\" + objSelectedClientInfo.ClientCode + "-logo.png",
+                LogoPath = System.Windows.Forms.Application.StartupPath + "\\" + objSelectedClientInfo.ClientCode + "-logo.png",
                 LogoHeight = 3.5,
                 LogoWidth = 3.5
             };
@@ -1188,6 +1190,59 @@ namespace StaffSync
 
             string filePath = "";
             filePath = FileHelper.GetTempFolder() + objSelectedClientInfo.ClientCode + "_" + lblSelectedReportName.Text.ToString().Replace(" ", "_") + ".pdf"; // @"C:\Development\StaffSync\StaffSync\bin\Debug\ReportDesigner.pdf";
+
+
+            ReportBuilder builder = new ReportBuilder();
+
+            builder
+                .Company(company)
+                .Title(report)
+                .Data(objLeaveRegisterReports)
+                .Settings(settings);
+
+            ReportDynamicTable table =
+                new ReportDynamicTable()
+                    .AddColumn("Employee", 6)
+                    .AddColumn("Salary", 3, ReportColumnAlignment.Right)
+                    .AddColumn("Joining Date", 4, ReportColumnAlignment.Center)
+                    .AddRow("Naveen", 85000, "01-Jan-2025");
+
+            ReportDynamicTable deptSummary =
+                new ReportDynamicTable()
+                    .AddColumn("Department", 5)
+                    .AddColumn("Count", 2)
+                    .AddRow("Testing", 45)
+                    .AddRow("HR", 15);
+
+            ReportDynamicTable dsgSummary = new ReportDynamicTable()
+                .AddColumn("Designation", 5)
+                .AddColumn("Count", 2)
+                .AddRow("Software Engineer", 45)
+                .AddRow("Team Lead", 15);
+
+            ReportTableRow summaryRow = new ReportTableRow();
+            summaryRow.MaxTablesPerRow = 4;
+            summaryRow.AddTable(table);
+            summaryRow.AddTable(dsgSummary);
+            summaryRow.AddTable(deptSummary);
+            summaryRow.AddTable(table);
+            summaryRow.AddTable(dsgSummary);
+            summaryRow.AddTable(objActiveEmployeeListReport);
+
+            builder.AddTableRow(summaryRow);
+
+            builder.AddTableRow(table, deptSummary, dsgSummary, table, deptSummary, dsgSummary, table, deptSummary, dsgSummary);
+            builder.AddTableRow(table, deptSummary, dsgSummary, table, deptSummary, dsgSummary, table, deptSummary, dsgSummary);
+
+            tmpDropdownItem objtmpDropdownItem1 = (tmpDropdownItem)cmbGroupBy.SelectedItem;
+
+            builder.GroupBy(objtmpDropdownItem1.MemberValue, objtmpDropdownItem1.MemberName);
+
+            builder.Generate(filePath);
+
+            Download.DownloadPDF(filePath);
+
+            return;
 
             if (lblSelectedReport.Text.ToString() == ReportCode.REP_0001.ToString())
             {

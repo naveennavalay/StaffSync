@@ -141,6 +141,7 @@
     <Compile Include="Builders\ReportingDocumentBuilder.cs" />
     <Compile Include="Builders\SummaryBuilder.cs" />
     <Compile Include="Builders\TableBuilder.cs" />
+    <Compile Include="Builders\TableRowBuilder.cs" />
     <Compile Include="Builders\WatermarkBuilder.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Core\DataTableReportBuilder.cs" />
@@ -172,6 +173,8 @@
     <Compile Include="Interfaces\IReport.cs" />
     <Compile Include="Interfaces\IReportExporter.cs" />
     <Compile Include="Interfaces\ITableBuilder.cs" />
+    <Compile Include="Layout\ReportTableRow.cs" />
+    <Compile Include="Models\ReportColumnAlignment.cs" />
     <Compile Include="Models\ReportDynamicColumn.cs" />
     <Compile Include="Models\ReportDynamicRow.cs" />
     <Compile Include="Models\ReportDynamicTable.cs" />

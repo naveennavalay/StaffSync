@@ -10,13 +10,31 @@ using System.Threading.Tasks;
 
 namespace ReportingEngine.Builders
 {
-    /// <summary>
-    /// Builds a completely dynamic table.
-    /// </summary>
     public class DynamicCustomTableBuilder
     {
         public void Build(
             Section section,
+            ReportDynamicTable model)
+        {
+            if (section == null)
+                throw new ArgumentNullException(nameof(section));
+
+            BuildInternal(section, null, model);
+        }
+
+        public void Build(
+            Cell cell,
+            ReportDynamicTable model)
+        {
+            if (cell == null)
+                throw new ArgumentNullException(nameof(cell));
+
+            BuildInternal(null, cell, model);
+        }
+
+        private void BuildInternal(
+            Section section,
+            Cell parentCell,
             ReportDynamicTable model)
         {
             if (model == null)
@@ -28,17 +46,26 @@ namespace ReportingEngine.Builders
 
             if (model.SpaceBefore > 0)
             {
-                Paragraph space = section.AddParagraph();
-                space.Format.SpaceBefore = Unit.FromCentimeter(model.SpaceBefore);
+                Paragraph space =
+                    section != null
+                    ? section.AddParagraph()
+                    : parentCell.AddParagraph();
+
+                space.Format.SpaceBefore =
+                    Unit.FromCentimeter(model.SpaceBefore);
             }
 
             //----------------------------------------------------------
             // Title
             //----------------------------------------------------------
 
-            if (model.ShowTitle && !string.IsNullOrWhiteSpace(model.Title))
+            if (model.ShowTitle &&
+                !string.IsNullOrWhiteSpace(model.Title))
             {
-                Paragraph title = section.AddParagraph();
+                Paragraph title =
+                    section != null
+                    ? section.AddParagraph()
+                    : parentCell.AddParagraph();
 
                 title.Format.Font.Size = 11;
                 title.Format.Font.Bold = true;
@@ -54,7 +81,10 @@ namespace ReportingEngine.Builders
             if (model.ShowSubTitle &&
                 !string.IsNullOrWhiteSpace(model.SubTitle))
             {
-                Paragraph subtitle = section.AddParagraph();
+                Paragraph subtitle =
+                    section != null
+                    ? section.AddParagraph()
+                    : parentCell.AddParagraph();
 
                 subtitle.Format.Font.Size = 9;
                 subtitle.Format.Font.Italic = true;
@@ -67,7 +97,10 @@ namespace ReportingEngine.Builders
             // Table
             //----------------------------------------------------------
 
-            Table table = section.AddTable();
+            Table table =
+                section != null
+                ? section.AddTable()
+                : parentCell.Elements.AddTable();
 
             table.Rows.LeftIndent = 0;
 
@@ -81,7 +114,7 @@ namespace ReportingEngine.Builders
             // Visible Columns
             //----------------------------------------------------------
 
-            var visibleColumns =
+            List<ReportDynamicColumn> visibleColumns =
                 model.Columns
                      .Where(x => x.Visible)
                      .OrderBy(x => x.DisplayOrder)
@@ -90,7 +123,8 @@ namespace ReportingEngine.Builders
             foreach (ReportDynamicColumn column in visibleColumns)
             {
                 Column pdfColumn =
-                    table.AddColumn(Unit.FromCentimeter(column.Width));
+                    table.AddColumn(
+                        Unit.FromCentimeter(column.Width));
 
                 pdfColumn.Format.Alignment =
                     column.Alignment;
@@ -104,11 +138,14 @@ namespace ReportingEngine.Builders
             {
                 Row header = table.AddRow();
 
-                header.HeadingFormat = model.RepeatHeader;
+                header.HeadingFormat =
+                    model.RepeatHeader;
 
-                header.Shading.Color = model.HeaderBackColor;
+                header.Shading.Color =
+                    model.HeaderBackColor;
 
-                header.Format.Font.Color = model.HeaderForeColor;
+                header.Format.Font.Color =
+                    model.HeaderForeColor;
 
                 header.Format.Font.Bold = true;
 
@@ -118,9 +155,13 @@ namespace ReportingEngine.Builders
                 {
                     Cell cell = header.Cells[i];
 
-                    cell.AddParagraph(visibleColumns[i].Header);
+                    Paragraph p =
+                        cell.AddParagraph();
 
-                    cell.Format.Alignment =
+                    p.AddText(
+                        visibleColumns[i].Header);
+
+                    p.Format.Alignment =
                         visibleColumns[i].Alignment;
 
                     cell.VerticalAlignment =
@@ -131,7 +172,6 @@ namespace ReportingEngine.Builders
             //----------------------------------------------------------
             // Data Rows
             //----------------------------------------------------------
-
             bool alternate = false;
 
             foreach (ReportDynamicRow dynamicRow in model.Rows)
@@ -142,16 +182,17 @@ namespace ReportingEngine.Builders
                 Row row = table.AddRow();
 
                 if (dynamicRow.Height > 0)
+                {
                     row.Height =
                         Unit.FromCentimeter(dynamicRow.Height);
+                }
 
                 if (dynamicRow.BackColor != null)
                 {
                     row.Shading.Color =
                         dynamicRow.BackColor;
                 }
-                else if (alternate &&
-                         model.AlternateRows)
+                else if (alternate && model.AlternateRows)
                 {
                     row.Shading.Color =
                         model.AlternateRowColor;
@@ -180,15 +221,21 @@ namespace ReportingEngine.Builders
                     object value = null;
 
                     if (sourceIndex < dynamicRow.Cells.Count)
-                        value = dynamicRow.Cells[sourceIndex];
+                    {
+                        value =
+                            dynamicRow.Cells[sourceIndex];
+                    }
 
-                    Cell cell = row.Cells[pdfColumnIndex];
+                    Cell cell =
+                        row.Cells[pdfColumnIndex];
 
-                    Paragraph p = cell.AddParagraph();
+                    Paragraph paragraph =
+                        cell.AddParagraph();
 
-                    p.Format.Alignment = column.Alignment;
+                    paragraph.Format.Alignment =
+                        column.Alignment;
 
-                    p.AddText(
+                    paragraph.AddText(
                         FormatValue(
                             value,
                             column.Format));
@@ -203,22 +250,26 @@ namespace ReportingEngine.Builders
 
             if (model.SpaceAfter > 0)
             {
-                Paragraph space = section.AddParagraph();
-                space.Format.SpaceAfter =
-                    Unit.FromCentimeter(model.SpaceAfter);
+                Paragraph space =
+                    section != null
+                    ? section.AddParagraph()
+                    : parentCell.AddParagraph();
+
+                space.Format.SpaceAfter = Unit.FromCentimeter(model.SpaceAfter);
             }
         }
-
-        private string FormatValue(
-            object value,
-            string format)
+        private string FormatValue(object value, string format)
         {
             if (value == null ||
                 value == DBNull.Value)
-                return "";
+            {
+                return string.Empty;
+            }
 
             if (string.IsNullOrWhiteSpace(format))
+            {
                 return value.ToString();
+            }
 
             try
             {
@@ -234,6 +285,8 @@ namespace ReportingEngine.Builders
             }
             catch
             {
+                // Ignore formatting errors and
+                // return the default string value.
             }
 
             return value.ToString();

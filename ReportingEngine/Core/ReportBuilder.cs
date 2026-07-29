@@ -1,12 +1,14 @@
 ﻿using ModelStaffSync;
 using ReportingEngine.Core;
+using ReportingEngine.Helpers;
+using ReportingEngine.Layout;
 using ReportingEngine.Models;
 using ReportingEngine.Reports;
-using ReportingEngine.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -180,6 +182,40 @@ namespace ReportingEngine
             ReportDynamicTable dynamicTable = ReportTableFactory.FromList(list, title);
 
             _context.AdditionalTables.Add(dynamicTable);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds one horizontal row containing one or more tables.
+        /// </summary>
+        /// <param name="tables">Tables to render in the same row.</param>
+        /// <returns>Current ReportBuilder instance.</returns>
+        public ReportBuilder AddTableRow(params ReportDynamicTable[] tables)
+        {
+            if (tables == null || tables.Length == 0)
+                return this;
+
+            ReportTableRow row = new ReportTableRow();
+
+            row.AddTables(tables);
+
+            _context.AdditionalTableRows.Add(row);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Adds an existing table row.
+        /// </summary>
+        /// <param name="row">Table row.</param>
+        /// <returns>Current ReportBuilder instance.</returns>
+        public ReportBuilder AddTableRow(ReportTableRow row)
+        {
+            if (row == null)
+                return this;
+
+            _context.AdditionalTableRows.Add(row);
 
             return this;
         }

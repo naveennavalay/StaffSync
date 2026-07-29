@@ -179,6 +179,78 @@ namespace ReportingEngine.Models
             Rows.Add(row);
         }
 
+        public ReportDynamicTable AddColumn(string header, double width)
+        {
+            return AddColumn(header, width, ReportColumnAlignment.Left, true, "");
+        }
+
+        public ReportDynamicTable AddColumn(string header, double width, ReportColumnAlignment alignment)
+        {
+            return AddColumn(header, width, alignment, true, "");
+        }
+
+        public ReportDynamicTable AddColumn(string header, double width, ReportColumnAlignment alignment, bool visible)
+        {
+            return AddColumn(header, width, alignment, visible, "");
+        }
+
+        public ReportDynamicTable AddColumn(string header, double width, ReportColumnAlignment alignment, bool visible, string format)
+        {
+            ReportDynamicColumn column = new ReportDynamicColumn();
+
+            column.Header = header;
+            column.Width = width;
+            column.Visible = visible;
+            column.Format = format;
+            column.DisplayOrder = Columns.Count;
+
+            switch (alignment)
+            {
+                case ReportColumnAlignment.Center:
+                    column.Alignment = ParagraphAlignment.Center;
+                    break;
+
+                case ReportColumnAlignment.Right:
+                    column.Alignment = ParagraphAlignment.Right;
+                    break;
+
+                case ReportColumnAlignment.Justify:
+                    column.Alignment = ParagraphAlignment.Justify;
+                    break;
+
+                default:
+                    column.Alignment = ParagraphAlignment.Left;
+                    break;
+            }
+
+            Columns.Add(column);
+
+            return this;
+        }
+
+
+        public ReportDynamicTable AddRow(params object[] values)
+        {
+            ReportDynamicRow row = new ReportDynamicRow();
+
+            if (values != null)
+            {
+                foreach (object value in values)
+                    row.Cells.Add(value);
+            }
+
+            Rows.Add(row);
+
+            return this;
+        }
+
+        public double GetTableWidth()
+        {
+            return Columns
+                .Where(c => c.Visible)
+                .Sum(c => c.Width);
+        }
+
         #endregion
     }
 }

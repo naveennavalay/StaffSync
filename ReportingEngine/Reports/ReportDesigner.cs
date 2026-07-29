@@ -7,6 +7,7 @@ using ReportingEngine.Builders;
 using ReportingEngine.Core;
 using ReportingEngine.Helpers;
 using ReportingEngine.Interfaces;
+using ReportingEngine.Layout;
 using ReportingEngine.Models;
 using System;
 using System.Collections.Generic;
@@ -134,6 +135,23 @@ namespace ReportingEngine.Reports
                     section.AddParagraph();
 
                     tableBuilder.Build(section, table);
+                }
+            }
+
+            //-----------------------------------------------------
+            // Dynamic Table Rows
+            //-----------------------------------------------------
+
+            if (_context.AdditionalTableRows != null &&
+                _context.AdditionalTableRows.Count > 0)
+            {
+                TableRowBuilder tableRowBuilder = new TableRowBuilder();
+
+                foreach (ReportTableRow row in _context.AdditionalTableRows)
+                {
+                    section.AddParagraph();
+
+                    tableRowBuilder.Build(section, row);
                 }
             }
 
