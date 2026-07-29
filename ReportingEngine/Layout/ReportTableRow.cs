@@ -1,7 +1,9 @@
 ﻿using MigraDoc.DocumentObjectModel.Tables;
+using ReportingEngine.Factories;
 using ReportingEngine.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -79,8 +81,7 @@ namespace ReportingEngine.Layout
             KeepTogether = true;
         }
 
-        public ReportTableRow AddTable(
-            ReportDynamicTable table)
+        public ReportTableRow AddTable(ReportDynamicTable table)
         {
             if (table == null)
                 throw new ArgumentNullException(nameof(table));
@@ -90,8 +91,7 @@ namespace ReportingEngine.Layout
             return this;
         }
 
-        public ReportTableRow AddTables(
-            params ReportDynamicTable[] tables)
+        public ReportTableRow AddTables(params ReportDynamicTable[] tables)
         {
             if (tables == null)
                 return this;
@@ -103,6 +103,23 @@ namespace ReportingEngine.Layout
             }
 
             return this;
+        }
+
+        public void AddTable<T>(IEnumerable<T> collection)
+        {
+            if (collection == null)
+                return;
+
+            AddTable(DynamicTableFactory.Create(collection));
+        }
+
+        public void AddTable(
+            DataTable table)
+        {
+            if (table == null)
+                return;
+
+            AddTable(DynamicTableFactory.Create(table));
         }
 
         public int TableCount

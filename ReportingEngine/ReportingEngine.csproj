@@ -146,6 +146,8 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Core\DataTableReportBuilder.cs" />
     <Compile Include="Core\DocumentContext.cs" />
+    <Compile Include="Factories\Class1.cs" />
+    <Compile Include="Factories\DynamicTableFactory.cs" />
     <Compile Include="Core\ReportBuilder.cs" />
     <Compile Include="Core\ReportCache.cs" />
     <Compile Include="Core\ReportDocument.cs" />
@@ -179,6 +181,7 @@
     <Compile Include="Models\ReportDynamicRow.cs" />
     <Compile Include="Models\ReportDynamicTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Attributes\ReportIgnoreAttribute.cs" />
     <Compile Include="Reports\Attendance\AttendanceRegisterReport.cs" />
     <Compile Include="Reports\Attendance\AttendanceSummaryReport.cs" />
     <Compile Include="Reports\Company\CompanyProfileReport.cs" />
@@ -218,8 +221,8 @@
     <Content Include="Resources\watermark.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Attributes\" />
     <Folder Include="Enums\" />
+    <Folder Include="ReportIgnoreAttribute\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModelStaffSync\ModelStaffSync.csproj">

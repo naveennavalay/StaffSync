@@ -1,4 +1,5 @@
-﻿using ModelStaffSync.Enum;
+﻿using Common.Attibutes;
+using ModelStaffSync.Enum;
 using ModelStaffSync.Enums;
 using ModelStaffSync.Reports.Attributes;
 using Newtonsoft.Json;
@@ -55,7 +56,11 @@ namespace ModelStaffSync
 
     public class ActiveEmployeeListReport
     {
+        [ReportColumnAttribute(Header = "Fin Year", Width = 0, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = false, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
         public string FinYearFromTo { get; set; }
+
+        [ReportColumnAttribute(Header = "Emp ID", Width = 0, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = false, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)] 
+        //[ReportIgnore] 
         public int EmpID { get; set; }
 
         //[ReportColumnAttribute(Header = "Emp Code", Width = 6, Alignment = ReportAlignment.Left, Format = "Currency", ShowTotal = true, Visible = true)]

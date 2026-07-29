@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attibutes\ReportIgnoreAttribute.cs" />
     <Compile Include="Database\DBCommon.cs" />
     <Compile Include="Extensions\DecimalExtensions.cs" />
     <Compile Include="Models\AppMailTemplate.cs" />
