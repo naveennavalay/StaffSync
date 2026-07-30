@@ -1,4 +1,7 @@
-﻿using MigraDoc.DocumentObjectModel;
+﻿using Common.Attibutes;
+using MigraDoc.DocumentObjectModel;
+using ModelStaffSync.Reports.Attributes;
+using ReportingEngine.Attributes;
 using ReportingEngine.Models;
 using System;
 using System.Collections.Generic;
@@ -83,13 +86,18 @@ namespace ReportingEngine.Core
 
             foreach (PropertyInfo property in properties)
             {
+                if (Attribute.IsDefined(property, typeof(Common.Attibutes.ReportIgnoreAttribute)))
+                    continue;
+
+                ReportColumnAttribute attr = property.GetCustomAttribute<ModelStaffSync.Reports.Attributes.ReportColumnAttribute>();
+
                 ReportDynamicColumn column = new ReportDynamicColumn();
 
-                column.Header = property.Name;
+                column.Header = attr.Header; // property.Name;
 
                 column.PropertyName = property.Name;
 
-                column.Width = 3.0;
+                column.Width = attr.Width; // 3.0;
 
                 column.Visible = true;
 

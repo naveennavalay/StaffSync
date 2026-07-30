@@ -214,7 +214,7 @@ namespace StaffSync
 
         private void FormatTheGrid()
         {
-            List<OutstandingLeaveStatement> objBulkPendingLeaveApprovalList = objLeaveTRList.getOutStandingLeaveStaetment();
+            List<OutstandingLeaveStatement> objBulkPendingLeaveApprovalList = objLeaveTRList.getOutStandingLeaveStaetment(objTempClientFinYearInfo.ClientID);
             dtgOutstandingLeaveStatement.DataSource = objBulkPendingLeaveApprovalList;
 
             dtgOutstandingLeaveStatement.Columns["Select"].ReadOnly = false;

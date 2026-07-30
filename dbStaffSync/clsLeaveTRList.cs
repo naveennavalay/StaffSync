@@ -387,7 +387,7 @@ namespace dbStaffSync
             return empPendingLeaveApprovalList;
         }
 
-        public List<OutstandingLeaveStatement> getOutStandingLeaveStaetment()
+        public List<OutstandingLeaveStatement> getOutStandingLeaveStaetment(int ClientID)
         {
             List<OutstandingLeaveStatement> empOutStandingLeaveStatement = new List<OutstandingLeaveStatement>();
 
@@ -398,7 +398,7 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "SELECT * FROM qryOutStandingLeaves ORDER BY EmpID ASC;";
+                string strQuery = "SELECT * FROM qryOutStandingLeaves WHERE ClientID = " + ClientID + " ORDER BY EmpID ASC;";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

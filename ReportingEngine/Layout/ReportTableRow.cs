@@ -68,7 +68,37 @@ namespace ReportingEngine.Layout
         { 
             get; 
             set; 
-        } = 3;
+        } = 5;
+
+        public string Caption 
+        { 
+            get; 
+            set; 
+        }
+
+        public bool ShowCaption 
+        { 
+            get; 
+            set; 
+        } = true;
+
+        public double CaptionFontSize 
+        { 
+            get; 
+            set; 
+        } = 10;
+
+        public bool CaptionBold 
+        { 
+            get; 
+            set; 
+        } = true;
+
+        public bool CompactLayout 
+        { 
+            get; 
+            set; 
+        } = true;
 
         public ReportTableRow()
         {

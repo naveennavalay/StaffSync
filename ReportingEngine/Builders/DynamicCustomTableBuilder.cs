@@ -46,13 +46,13 @@ namespace ReportingEngine.Builders
 
             if (model.SpaceBefore > 0)
             {
-                Paragraph space =
-                    section != null
-                    ? section.AddParagraph()
-                    : parentCell.AddParagraph();
+                //Paragraph space =
+                //    section != null
+                //    ? section.AddParagraph()
+                //    : parentCell.AddParagraph();
 
-                space.Format.SpaceBefore =
-                    Unit.FromCentimeter(model.SpaceBefore);
+                //space.Format.SpaceBefore =
+                //    Unit.FromCentimeter(model.SpaceBefore);
             }
 
             //----------------------------------------------------------
@@ -69,7 +69,7 @@ namespace ReportingEngine.Builders
 
                 title.Format.Font.Size = 11;
                 title.Format.Font.Bold = true;
-                title.Format.SpaceAfter = Unit.FromPoint(5);
+                title.Format.SpaceAfter = Unit.FromPoint(0.05);
 
                 title.AddText(model.Title);
             }
@@ -250,12 +250,12 @@ namespace ReportingEngine.Builders
 
             if (model.SpaceAfter > 0)
             {
-                Paragraph space =
-                    section != null
-                    ? section.AddParagraph()
-                    : parentCell.AddParagraph();
+                //Paragraph space =
+                //    section != null
+                //    ? section.AddParagraph()
+                //    : parentCell.AddParagraph();
 
-                space.Format.SpaceAfter = Unit.FromCentimeter(model.SpaceAfter);
+                //space.Format.SpaceAfter = Unit.FromCentimeter(model.SpaceAfter);
             }
         }
         private string FormatValue(object value, string format)

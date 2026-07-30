@@ -179,7 +179,6 @@ namespace ReportingEngine.Styles
             paragraph.Format.Font.Bold = true;
 
             paragraph.Format.SpaceBefore = Unit.FromPoint(10);
-
             paragraph.Format.SpaceAfter = Unit.FromPoint(10);
         }
 

@@ -198,6 +198,8 @@ namespace ReportingEngine
 
             ReportTableRow row = new ReportTableRow();
 
+            row.CompactLayout = true;
+
             row.AddTables(tables);
 
             _context.AdditionalTableRows.Add(row);

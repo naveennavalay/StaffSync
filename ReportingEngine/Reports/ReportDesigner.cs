@@ -85,8 +85,8 @@ namespace ReportingEngine.Reports
             title.Format.Alignment = ParagraphAlignment.Center;
             title.Format.Font.Size = 18;
             title.Format.Font.Bold = true;
-            title.Format.SpaceBefore = Unit.FromPoint(5);
-            title.Format.SpaceAfter = Unit.FromPoint(5);
+            title.Format.SpaceBefore = Unit.FromPoint(1);
+            title.Format.SpaceAfter = Unit.FromPoint(0.5);
 
             title.AddText(_context.ReportInfo.ReportTitle.ToUpper());
 
@@ -95,7 +95,7 @@ namespace ReportingEngine.Reports
             reportDate.Format.Alignment = ParagraphAlignment.Right;
             reportDate.Format.Font.Size = 9;
             reportDate.Format.Font.Bold = true;
-            reportDate.Format.SpaceBefore = Unit.FromPoint(10);
+            reportDate.Format.SpaceBefore = Unit.FromPoint(0.5);
 
             reportDate.AddText("Date : " + _context.ReportInfo.GeneratedOn.ToString("dd-MMM-yyyy"));
 
@@ -132,7 +132,7 @@ namespace ReportingEngine.Reports
 
                 foreach (ReportDynamicTable table in _context.AdditionalTables)
                 {
-                    section.AddParagraph();
+                    //section.AddParagraph();
 
                     tableBuilder.Build(section, table);
                 }
@@ -149,7 +149,19 @@ namespace ReportingEngine.Reports
 
                 foreach (ReportTableRow row in _context.AdditionalTableRows)
                 {
-                    section.AddParagraph();
+                    //section.AddParagraph();
+
+                    if (row.ShowCaption && !string.IsNullOrWhiteSpace(row.Caption))
+                    {
+                        Paragraph p = section.AddParagraph();
+
+                        p.AddFormattedText(row.Caption, TextFormat.Bold);
+
+                        p.Format.Font.Size = row.CaptionFontSize;
+                        p.Format.LeftIndent = 0;
+                        p.Format.SpaceBefore = Unit.FromMillimeter(1);
+                        p.Format.SpaceAfter = Unit.FromMillimeter(0.5);
+                    }
 
                     tableRowBuilder.Build(section, row);
                 }

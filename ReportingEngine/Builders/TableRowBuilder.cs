@@ -29,8 +29,8 @@ namespace ReportingEngine.Builders
 
             if (reportRow.SpaceBefore > 0)
             {
-                Paragraph p = section.AddParagraph();
-                p.Format.SpaceBefore = Unit.FromCentimeter(reportRow.SpaceBefore);
+                //Paragraph p = section.AddParagraph();
+                //p.Format.SpaceBefore = Unit.FromCentimeter(reportRow.SpaceBefore);
             }
 
             int maxTablesPerRow = reportRow.MaxTablesPerRow <= 0 ? 3 : reportRow.MaxTablesPerRow;
@@ -47,22 +47,22 @@ namespace ReportingEngine.Builders
 
                     currentRow.Clear();
 
-                    section.AddParagraph();
+                    if (!reportRow.CompactLayout)
+                    {
+                        section.AddParagraph();
+                    }
                 }
             }
 
             if (currentRow.Count > 0)
             {
-                RenderLayoutRow(
-                    section,
-                    currentRow,
-                    reportRow.TableSpacing);
+                RenderLayoutRow(section, currentRow, reportRow.TableSpacing);
             }
 
             if (reportRow.SpaceAfter > 0)
             {
-                Paragraph p = section.AddParagraph();
-                p.Format.SpaceAfter = Unit.FromCentimeter(reportRow.SpaceAfter);
+                //Paragraph p = section.AddParagraph();
+                //p.Format.SpaceAfter = Unit.FromCentimeter(reportRow.SpaceAfter);
             }
         }
 
@@ -74,7 +74,10 @@ namespace ReportingEngine.Builders
             layoutTable.Rows.LeftIndent = 0;
             layoutTable.LeftPadding = 0;
             layoutTable.RightPadding = 0;
-
+            layoutTable.TopPadding = 0;
+            layoutTable.BottomPadding = 0;
+            
+            layoutTable.Borders.Visible = false;
             for (int i = 0; i < tables.Count; i++)
             {
                 double width = tables[i].GetTableWidth();

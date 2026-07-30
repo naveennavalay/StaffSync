@@ -225,6 +225,10 @@
     <Folder Include="ReportIgnoreAttribute\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{bf74c7dc-c97c-4510-9a19-f6f3dd8aaa71}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ModelStaffSync\ModelStaffSync.csproj">
       <Project>{79a01532-92d7-431f-aee6-fcc9cf4050d7}</Project>
       <Name>ModelStaffSync</Name>

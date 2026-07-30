@@ -101,11 +101,11 @@ namespace DALStaffSync
             return empPendingLeaveApprovalList;
         }
 
-        public List<OutstandingLeaveStatement> getOutStandingLeaveStaetment()
+        public List<OutstandingLeaveStatement> getOutStandingLeaveStaetment(int ClientID)
         {
             List<OutstandingLeaveStatement> empOutStandingLeaveStatement = new List<OutstandingLeaveStatement>();
 
-            empOutStandingLeaveStatement = objLeaveTRList.getOutStandingLeaveStaetment();
+            empOutStandingLeaveStatement = objLeaveTRList.getOutStandingLeaveStaetment(ClientID);
 
             return empOutStandingLeaveStatement;
         }

@@ -53,7 +53,17 @@
             this.cmbDepartment = new Krypton.Toolkit.KryptonComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpLeaveInfo = new System.Windows.Forms.GroupBox();
+            this.chkIndividualOrGroupedReport = new System.Windows.Forms.CheckBox();
+            this.chkLeaveHistory = new System.Windows.Forms.CheckBox();
+            this.chkLeaveLedger = new System.Windows.Forms.CheckBox();
+            this.chkLeaveBalance = new System.Windows.Forms.CheckBox();
             this.chkLSTLeaveTypeList = new Krypton.Toolkit.KryptonCheckedListBox();
+            this.cmbFilterLeaveMode = new Krypton.Toolkit.KryptonComboBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.cmbFilterLeaveType = new Krypton.Toolkit.KryptonComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.chkLeaveSummary = new System.Windows.Forms.CheckBox();
             this.optMonthlyAttendanceRegister = new Krypton.Toolkit.KryptonRadioButton();
             this.optDailyAttendance = new Krypton.Toolkit.KryptonRadioButton();
             this.txtDTTo = new System.Windows.Forms.MaskedTextBox();
@@ -79,9 +89,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dtgDataResult = new Krypton.Toolkit.KryptonDataGridView();
-            this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
-            this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.btnExecute = new Krypton.Toolkit.KryptonButton();
             this.btnExport = new Krypton.Toolkit.KryptonButton();
             this.lblSelectedReport = new System.Windows.Forms.Label();
@@ -91,11 +98,10 @@
             this.cmbGroupBy = new Krypton.Toolkit.KryptonComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.chkIncludeGroupSummary = new System.Windows.Forms.CheckBox();
-            this.cmbFilterLeaveType = new Krypton.Toolkit.KryptonComboBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.cmbFilterLeaveMode = new Krypton.Toolkit.KryptonComboBox();
-            this.label16 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
+            this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgReportsList)).BeginInit();
@@ -107,16 +113,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.cmbGender)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDepartment)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.grpLeaveInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbFilterLeaveMode)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbFilterLeaveType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbBranch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDesignation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbMonth)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgDataResult)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbGroupBy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbGroupBy)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbFilterLeaveType)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbFilterLeaveMode)).BeginInit();
             this.SuspendLayout();
             // 
             // errValidator
@@ -442,11 +449,7 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.chkLSTLeaveTypeList);
-            this.groupBox2.Controls.Add(this.cmbFilterLeaveMode);
-            this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.cmbFilterLeaveType);
-            this.groupBox2.Controls.Add(this.label14);
+            this.groupBox2.Controls.Add(this.grpLeaveInfo);
             this.groupBox2.Controls.Add(this.optMonthlyAttendanceRegister);
             this.groupBox2.Controls.Add(this.optDailyAttendance);
             this.groupBox2.Controls.Add(this.txtDTTo);
@@ -459,7 +462,6 @@
             this.groupBox2.Controls.Add(this.optDOJ);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(0, 162);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
@@ -469,13 +471,94 @@
             this.groupBox2.TabIndex = 60;
             this.groupBox2.TabStop = false;
             // 
+            // grpLeaveInfo
+            // 
+            this.grpLeaveInfo.Controls.Add(this.chkIndividualOrGroupedReport);
+            this.grpLeaveInfo.Controls.Add(this.chkLeaveHistory);
+            this.grpLeaveInfo.Controls.Add(this.chkLeaveLedger);
+            this.grpLeaveInfo.Controls.Add(this.chkLeaveBalance);
+            this.grpLeaveInfo.Controls.Add(this.chkLSTLeaveTypeList);
+            this.grpLeaveInfo.Controls.Add(this.cmbFilterLeaveMode);
+            this.grpLeaveInfo.Controls.Add(this.label16);
+            this.grpLeaveInfo.Controls.Add(this.cmbFilterLeaveType);
+            this.grpLeaveInfo.Controls.Add(this.label14);
+            this.grpLeaveInfo.Controls.Add(this.chkLeaveSummary);
+            this.grpLeaveInfo.Enabled = false;
+            this.grpLeaveInfo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.grpLeaveInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpLeaveInfo.Location = new System.Drawing.Point(410, 5);
+            this.grpLeaveInfo.Name = "grpLeaveInfo";
+            this.grpLeaveInfo.Size = new System.Drawing.Size(394, 146);
+            this.grpLeaveInfo.TabIndex = 106;
+            this.grpLeaveInfo.TabStop = false;
+            // 
+            // chkIndividualOrGroupedReport
+            // 
+            this.chkIndividualOrGroupedReport.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.chkIndividualOrGroupedReport.AutoSize = true;
+            this.chkIndividualOrGroupedReport.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkIndividualOrGroupedReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkIndividualOrGroupedReport.Location = new System.Drawing.Point(257, -1);
+            this.chkIndividualOrGroupedReport.Name = "chkIndividualOrGroupedReport";
+            this.chkIndividualOrGroupedReport.Size = new System.Drawing.Size(135, 19);
+            this.chkIndividualOrGroupedReport.TabIndex = 107;
+            this.chkIndividualOrGroupedReport.Tag = "Individual Report";
+            this.chkIndividualOrGroupedReport.Text = "Individual Report";
+            this.chkIndividualOrGroupedReport.UseVisualStyleBackColor = true;
+            this.chkIndividualOrGroupedReport.CheckedChanged += new System.EventHandler(this.chkIndividualOrGroupedReport_CheckedChanged);
+            // 
+            // chkLeaveHistory
+            // 
+            this.chkLeaveHistory.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.chkLeaveHistory.AutoSize = true;
+            this.chkLeaveHistory.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkLeaveHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkLeaveHistory.Location = new System.Drawing.Point(273, 113);
+            this.chkLeaveHistory.Name = "chkLeaveHistory";
+            this.chkLeaveHistory.Size = new System.Drawing.Size(112, 19);
+            this.chkLeaveHistory.TabIndex = 88;
+            this.chkLeaveHistory.Tag = "Leave History";
+            this.chkLeaveHistory.Text = "Leave History";
+            this.chkLeaveHistory.UseVisualStyleBackColor = true;
+            this.chkLeaveHistory.CheckedChanged += new System.EventHandler(this.chkLeaveHistory_CheckedChanged);
+            // 
+            // chkLeaveLedger
+            // 
+            this.chkLeaveLedger.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.chkLeaveLedger.AutoSize = true;
+            this.chkLeaveLedger.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkLeaveLedger.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkLeaveLedger.Location = new System.Drawing.Point(272, 88);
+            this.chkLeaveLedger.Name = "chkLeaveLedger";
+            this.chkLeaveLedger.Size = new System.Drawing.Size(113, 19);
+            this.chkLeaveLedger.TabIndex = 87;
+            this.chkLeaveLedger.Tag = "Leave Ledger";
+            this.chkLeaveLedger.Text = "Leave Ledger";
+            this.chkLeaveLedger.UseVisualStyleBackColor = true;
+            this.chkLeaveLedger.CheckedChanged += new System.EventHandler(this.chkLeaveLedger_CheckedChanged);
+            // 
+            // chkLeaveBalance
+            // 
+            this.chkLeaveBalance.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.chkLeaveBalance.AutoSize = true;
+            this.chkLeaveBalance.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkLeaveBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkLeaveBalance.Location = new System.Drawing.Point(265, 63);
+            this.chkLeaveBalance.Name = "chkLeaveBalance";
+            this.chkLeaveBalance.Size = new System.Drawing.Size(120, 19);
+            this.chkLeaveBalance.TabIndex = 86;
+            this.chkLeaveBalance.Tag = "Leave Balance";
+            this.chkLeaveBalance.Text = "Leave Balance";
+            this.chkLeaveBalance.UseVisualStyleBackColor = true;
+            this.chkLeaveBalance.CheckedChanged += new System.EventHandler(this.chkLeaveBalance_CheckedChanged);
+            // 
             // chkLSTLeaveTypeList
             // 
             this.chkLSTLeaveTypeList.CheckOnClick = true;
             this.chkLSTLeaveTypeList.Enabled = false;
-            this.chkLSTLeaveTypeList.Location = new System.Drawing.Point(410, 12);
+            this.chkLSTLeaveTypeList.Location = new System.Drawing.Point(6, 6);
             this.chkLSTLeaveTypeList.Name = "chkLSTLeaveTypeList";
-            this.chkLSTLeaveTypeList.Size = new System.Drawing.Size(257, 83);
+            this.chkLSTLeaveTypeList.Size = new System.Drawing.Size(246, 83);
             this.chkLSTLeaveTypeList.StateActive.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.chkLSTLeaveTypeList.StateActive.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.chkLSTLeaveTypeList.StateCheckedNormal.Item.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
@@ -494,8 +577,70 @@
             this.chkLSTLeaveTypeList.StatePressed.Item.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.chkLSTLeaveTypeList.StateTracking.Item.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.chkLSTLeaveTypeList.StateTracking.Item.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.chkLSTLeaveTypeList.TabIndex = 75;
-            this.chkLSTLeaveTypeList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.chkLSTLeaveTypeList_ItemCheck);
+            this.chkLSTLeaveTypeList.TabIndex = 81;
+            // 
+            // cmbFilterLeaveMode
+            // 
+            this.cmbFilterLeaveMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFilterLeaveMode.DropDownWidth = 440;
+            this.cmbFilterLeaveMode.Location = new System.Drawing.Point(72, 93);
+            this.cmbFilterLeaveMode.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbFilterLeaveMode.Name = "cmbFilterLeaveMode";
+            this.cmbFilterLeaveMode.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbFilterLeaveMode.Size = new System.Drawing.Size(180, 22);
+            this.cmbFilterLeaveMode.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbFilterLeaveMode.TabIndex = 84;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(9, 97);
+            this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(59, 15);
+            this.label16.TabIndex = 85;
+            this.label16.Text = "Filter By";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbFilterLeaveType
+            // 
+            this.cmbFilterLeaveType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFilterLeaveType.DropDownWidth = 440;
+            this.cmbFilterLeaveType.Location = new System.Drawing.Point(72, 119);
+            this.cmbFilterLeaveType.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbFilterLeaveType.Name = "cmbFilterLeaveType";
+            this.cmbFilterLeaveType.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbFilterLeaveType.Size = new System.Drawing.Size(180, 22);
+            this.cmbFilterLeaveType.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbFilterLeaveType.TabIndex = 82;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(9, 123);
+            this.label14.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(59, 15);
+            this.label14.TabIndex = 83;
+            this.label14.Text = "Filter By";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // chkLeaveSummary
+            // 
+            this.chkLeaveSummary.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.chkLeaveSummary.AutoSize = true;
+            this.chkLeaveSummary.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkLeaveSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkLeaveSummary.Location = new System.Drawing.Point(257, 38);
+            this.chkLeaveSummary.Name = "chkLeaveSummary";
+            this.chkLeaveSummary.Size = new System.Drawing.Size(128, 19);
+            this.chkLeaveSummary.TabIndex = 70;
+            this.chkLeaveSummary.Tag = "Leave Summary";
+            this.chkLeaveSummary.Text = "Leave Summary";
+            this.chkLeaveSummary.UseVisualStyleBackColor = true;
+            this.chkLeaveSummary.CheckedChanged += new System.EventHandler(this.chkLeaveSummary_CheckedChanged);
             // 
             // optMonthlyAttendanceRegister
             // 
@@ -807,27 +952,13 @@
             this.dtgDataResult.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dtgDataResult.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
             this.dtgDataResult.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgDataResult.Location = new System.Drawing.Point(0, 6);
+            this.dtgDataResult.Location = new System.Drawing.Point(0, 5);
             this.dtgDataResult.MultiSelect = false;
             this.dtgDataResult.Name = "dtgDataResult";
             this.dtgDataResult.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgDataResult.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgDataResult.Size = new System.Drawing.Size(1152, 311);
+            this.dtgDataResult.Size = new System.Drawing.Size(1152, 312);
             this.dtgDataResult.TabIndex = 48;
-            // 
-            // empMasInfoBindingSource
-            // 
-            this.empMasInfoBindingSource.DataMember = "EmpMasInfo";
-            this.empMasInfoBindingSource.DataSource = this.staffsyncDBDTSet;
-            // 
-            // staffsyncDBDTSet
-            // 
-            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
-            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // empMasInfoTableAdapter
-            // 
-            this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
             // btnExecute
             // 
@@ -949,70 +1080,38 @@
             this.chkIncludeGroupSummary.Text = "Include Group Summary";
             this.chkIncludeGroupSummary.UseVisualStyleBackColor = true;
             // 
-            // cmbFilterLeaveType
+            // groupBox4
             // 
-            this.cmbFilterLeaveType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFilterLeaveType.DropDownWidth = 440;
-            this.cmbFilterLeaveType.Location = new System.Drawing.Point(476, 125);
-            this.cmbFilterLeaveType.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbFilterLeaveType.Name = "cmbFilterLeaveType";
-            this.cmbFilterLeaveType.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbFilterLeaveType.Size = new System.Drawing.Size(180, 22);
-            this.cmbFilterLeaveType.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbFilterLeaveType.TabIndex = 76;
-            this.cmbFilterLeaveType.SelectedIndexChanged += new System.EventHandler(this.cmbFilterLeaveType_SelectedIndexChanged);
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(598, 365);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(101, 38);
+            this.groupBox4.TabIndex = 105;
+            this.groupBox4.TabStop = false;
             // 
-            // label14
+            // empMasInfoBindingSource
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(413, 129);
-            this.label14.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(59, 15);
-            this.label14.TabIndex = 77;
-            this.label14.Text = "Filter By";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.empMasInfoBindingSource.DataMember = "EmpMasInfo";
+            this.empMasInfoBindingSource.DataSource = this.staffsyncDBDTSet;
             // 
-            // label15
+            // staffsyncDBDTSet
             // 
-            this.label15.BackColor = System.Drawing.Color.Transparent;
-            this.label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label15.Location = new System.Drawing.Point(410, 12);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(257, 139);
-            this.label15.TabIndex = 78;
+            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
+            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // cmbFilterLeaveMode
+            // empMasInfoTableAdapter
             // 
-            this.cmbFilterLeaveMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFilterLeaveMode.DropDownWidth = 440;
-            this.cmbFilterLeaveMode.Location = new System.Drawing.Point(476, 99);
-            this.cmbFilterLeaveMode.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbFilterLeaveMode.Name = "cmbFilterLeaveMode";
-            this.cmbFilterLeaveMode.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbFilterLeaveMode.Size = new System.Drawing.Size(180, 22);
-            this.cmbFilterLeaveMode.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbFilterLeaveMode.TabIndex = 79;
-            this.cmbFilterLeaveMode.SelectedIndexChanged += new System.EventHandler(this.cmbFilterLeaveMode_SelectedIndexChanged);
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(413, 103);
-            this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(59, 15);
-            this.label16.TabIndex = 80;
-            this.label16.Text = "Filter By";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
             // frmEmpSpecificReports
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.ClientSize = new System.Drawing.Size(1579, 771);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.chkIncludeGroupSummary);
             this.Controls.Add(this.cmbGroupBy);
             this.Controls.Add(this.label11);
@@ -1052,16 +1151,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.cmbDepartment)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.grpLeaveInfo.ResumeLayout(false);
+            this.grpLeaveInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbFilterLeaveMode)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbFilterLeaveType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbBranch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbDesignation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbMonth)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgDataResult)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbGroupBy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbGroupBy)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbFilterLeaveType)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbFilterLeaveMode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1128,11 +1229,17 @@
         private System.Windows.Forms.CheckBox chkIncludeGroupSummary;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox grpLeaveInfo;
+        private System.Windows.Forms.CheckBox chkLeaveSummary;
+        private System.Windows.Forms.CheckBox chkLeaveBalance;
         private Krypton.Toolkit.KryptonCheckedListBox chkLSTLeaveTypeList;
-        private Krypton.Toolkit.KryptonComboBox cmbFilterLeaveType;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
         private Krypton.Toolkit.KryptonComboBox cmbFilterLeaveMode;
         private System.Windows.Forms.Label label16;
+        private Krypton.Toolkit.KryptonComboBox cmbFilterLeaveType;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.CheckBox chkLeaveLedger;
+        private System.Windows.Forms.CheckBox chkLeaveHistory;
+        private System.Windows.Forms.CheckBox chkIndividualOrGroupedReport;
     }
 }
