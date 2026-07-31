@@ -1879,7 +1879,7 @@ namespace StaffSync
                                 builder.AddTableRow(tbl1);
                                 builder.Generate(filePath);
                             }
-                            if (chkLeaveSummary.Checked == false && chkLeaveBalance.Checked == false && chkLeaveLedger.Checked == false && chkLeaveMatrix.Checked == false)
+                            if (chkLeaveSummary.Checked == false && chkLeaveBalance.Checked == false && chkLeaveLedger.Checked == false && chkLeaveMatrix.Checked == false && chkMonthlyLeaveTrend.Checked == false)
                             {
                                 builder
                                     .Company(company)
@@ -1928,7 +1928,7 @@ namespace StaffSync
 
                                 builder.AddTableRow(tbl1);
                             }
-                            if (chkLeaveSummary.Checked == false && chkLeaveBalance.Checked == false && chkLeaveLedger.Checked == false && chkLeaveMatrix.Checked == false)
+                            if (chkLeaveSummary.Checked == false && chkLeaveBalance.Checked == false && chkLeaveLedger.Checked == false && chkLeaveMatrix.Checked == false && chkMonthlyLeaveTrend.Checked == false)
                             {
                                 builder
                                     .Company(company)
@@ -2113,7 +2113,7 @@ namespace StaffSync
 
                                 builder.AddTableRow(tbl1);
                             }
-                            if (chkLeaveSummary.Checked == false && chkLeaveBalance.Checked == false && chkLeaveLedger.Checked == false && chkLeaveMatrix.Checked == false)
+                            if (chkLeaveSummary.Checked == false && chkLeaveBalance.Checked == false && chkLeaveLedger.Checked == false && chkLeaveMatrix.Checked == false && chkMonthlyLeaveTrend.Checked == false)
                             {
                                 builder
                                     .Company(company)
@@ -2591,6 +2591,8 @@ namespace StaffSync
                 chkLeaveLedger.Checked = false;
                 chkLeaveMatrix.Enabled = true;
                 chkLeaveMatrix.Checked = false;
+                chkMonthlyLeaveTrend.Enabled = true;
+                chkMonthlyLeaveTrend.Checked = false;
             }
             else
             {
@@ -2605,6 +2607,7 @@ namespace StaffSync
                 chkLeaveBalance.Checked = false;
                 chkLeaveLedger.Checked = false;
                 chkLeaveMatrix.Checked = false;
+                chkMonthlyLeaveTrend.Checked = false;
             }
         }
 
@@ -2615,6 +2618,7 @@ namespace StaffSync
                 chkLeaveSummary.Checked = false;
                 chkLeaveLedger.Checked = false;
                 chkLeaveMatrix.Checked = false;
+                chkMonthlyLeaveTrend.Checked = false;
             }
         }
 
@@ -2625,16 +2629,40 @@ namespace StaffSync
                 chkLeaveBalance.Checked = false;
                 chkLeaveSummary.Checked = false;
                 chkLeaveMatrix.Checked = false;
+                chkMonthlyLeaveTrend.Checked = false;
             }
         }
 
         private void chkLeaveHistory_CheckedChanged(object sender, EventArgs e)
+        {
+            //if (chkIndividualOrGroupedReport.Checked && chkLeaveHistory.Checked)
+            //{
+            //    chkLeaveBalance.Checked = false;
+            //    chkLeaveSummary.Checked = false;
+            //    chkLeaveLedger.Checked = false;
+            //    chkMonthlyLeaveTrend.Checked = false;
+            //}
+        }
+
+        private void chkMonthlyLeaveTrend_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkIndividualOrGroupedReport.Checked && chkMonthlyLeaveTrend.Checked)
+            {
+                chkLeaveBalance.Checked = false;
+                chkLeaveSummary.Checked = false;
+                chkLeaveLedger.Checked = false;
+                chkLeaveMatrix.Checked = false;
+            }
+        }
+
+        private void chkLeaveMatrix_CheckedChanged(object sender, EventArgs e)
         {
             if (chkIndividualOrGroupedReport.Checked && chkLeaveMatrix.Checked)
             {
                 chkLeaveBalance.Checked = false;
                 chkLeaveSummary.Checked = false;
                 chkLeaveLedger.Checked = false;
+                chkMonthlyLeaveTrend.Checked = false;
             }
         }
     }

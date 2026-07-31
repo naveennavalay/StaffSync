@@ -102,6 +102,7 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
+            this.chkMonthlyLeaveTrend = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgReportsList)).BeginInit();
@@ -473,6 +474,7 @@
             // 
             // grpLeaveInfo
             // 
+            this.grpLeaveInfo.Controls.Add(this.chkMonthlyLeaveTrend);
             this.grpLeaveInfo.Controls.Add(this.chkIndividualOrGroupedReport);
             this.grpLeaveInfo.Controls.Add(this.chkLeaveMatrix);
             this.grpLeaveInfo.Controls.Add(this.chkLeaveLedger);
@@ -513,14 +515,14 @@
             this.chkLeaveMatrix.AutoSize = true;
             this.chkLeaveMatrix.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkLeaveMatrix.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkLeaveMatrix.Location = new System.Drawing.Point(277, 113);
+            this.chkLeaveMatrix.Location = new System.Drawing.Point(277, 93);
             this.chkLeaveMatrix.Name = "chkLeaveMatrix";
             this.chkLeaveMatrix.Size = new System.Drawing.Size(108, 19);
             this.chkLeaveMatrix.TabIndex = 88;
             this.chkLeaveMatrix.Tag = "Leave Matrix";
             this.chkLeaveMatrix.Text = "Leave Matrix";
             this.chkLeaveMatrix.UseVisualStyleBackColor = true;
-            this.chkLeaveMatrix.CheckedChanged += new System.EventHandler(this.chkLeaveHistory_CheckedChanged);
+            this.chkLeaveMatrix.CheckedChanged += new System.EventHandler(this.chkLeaveMatrix_CheckedChanged);
             // 
             // chkLeaveLedger
             // 
@@ -528,7 +530,7 @@
             this.chkLeaveLedger.AutoSize = true;
             this.chkLeaveLedger.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkLeaveLedger.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkLeaveLedger.Location = new System.Drawing.Point(272, 88);
+            this.chkLeaveLedger.Location = new System.Drawing.Point(272, 70);
             this.chkLeaveLedger.Name = "chkLeaveLedger";
             this.chkLeaveLedger.Size = new System.Drawing.Size(113, 19);
             this.chkLeaveLedger.TabIndex = 87;
@@ -543,7 +545,7 @@
             this.chkLeaveBalance.AutoSize = true;
             this.chkLeaveBalance.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkLeaveBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkLeaveBalance.Location = new System.Drawing.Point(265, 63);
+            this.chkLeaveBalance.Location = new System.Drawing.Point(265, 47);
             this.chkLeaveBalance.Name = "chkLeaveBalance";
             this.chkLeaveBalance.Size = new System.Drawing.Size(120, 19);
             this.chkLeaveBalance.TabIndex = 86;
@@ -633,7 +635,7 @@
             this.chkLeaveSummary.AutoSize = true;
             this.chkLeaveSummary.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkLeaveSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkLeaveSummary.Location = new System.Drawing.Point(257, 38);
+            this.chkLeaveSummary.Location = new System.Drawing.Point(257, 24);
             this.chkLeaveSummary.Name = "chkLeaveSummary";
             this.chkLeaveSummary.Size = new System.Drawing.Size(128, 19);
             this.chkLeaveSummary.TabIndex = 70;
@@ -1106,6 +1108,21 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
+            // chkMonthlyLeaveTrend
+            // 
+            this.chkMonthlyLeaveTrend.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.chkMonthlyLeaveTrend.AutoSize = true;
+            this.chkMonthlyLeaveTrend.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkMonthlyLeaveTrend.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkMonthlyLeaveTrend.Location = new System.Drawing.Point(280, 116);
+            this.chkMonthlyLeaveTrend.Name = "chkMonthlyLeaveTrend";
+            this.chkMonthlyLeaveTrend.Size = new System.Drawing.Size(105, 19);
+            this.chkMonthlyLeaveTrend.TabIndex = 108;
+            this.chkMonthlyLeaveTrend.Tag = "Leave Trend";
+            this.chkMonthlyLeaveTrend.Text = "Leave Trend";
+            this.chkMonthlyLeaveTrend.UseVisualStyleBackColor = true;
+            this.chkMonthlyLeaveTrend.CheckedChanged += new System.EventHandler(this.chkMonthlyLeaveTrend_CheckedChanged);
+            // 
             // frmEmpSpecificReports
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1241,5 +1258,6 @@
         private System.Windows.Forms.CheckBox chkLeaveLedger;
         private System.Windows.Forms.CheckBox chkLeaveMatrix;
         private System.Windows.Forms.CheckBox chkIndividualOrGroupedReport;
+        private System.Windows.Forms.CheckBox chkMonthlyLeaveTrend;
     }
 }
