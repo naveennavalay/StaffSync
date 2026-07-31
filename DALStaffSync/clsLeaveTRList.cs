@@ -173,6 +173,15 @@ namespace DALStaffSync
             return objPivotLeaveTrendSummaryList;
         }
 
+        public DataTable getLeaveMatrixInformation(int ClientID, DateTime dtFrom, DateTime dtTo)
+        {
+            DataTable dt = new DataTable();
+
+            dt = objLeaveTRList.getLeaveMatrixInformation(ClientID, dtFrom, dtTo);
+
+            return dt;
+        }
+
         public DataTable getLeaveTrendSummaryDatasource(int CompanyID, DateTime dtFrom, DateTime dtTo)
         {
             DataTable dt = new DataTable();

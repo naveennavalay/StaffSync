@@ -14,10 +14,10 @@ namespace ModelStaffSync
     /// </summary>
     public class ReportSummary
     {
-        [ReportColumnAttribute(Header = "Attribute", Width = 5, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        [ReportColumnAttribute(Header = "Attribute", Width = 6, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
         public string Caption { get; set; }
 
-        [ReportColumnAttribute(Header = "Value", Width = 5, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        [ReportColumnAttribute(Header = "Value", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
         public string Value { get; set; }
 
         [ReportIgnore]

@@ -103,16 +103,13 @@ namespace ReportingEngine.Reports
 
             //builder.Build(section, _context.Columns, _context.Data);
 
-            if (string.IsNullOrWhiteSpace(_context.GroupByProperty))
+            if (_context.Columns != null && _context.Columns.Count > 0 && _context.Data != null && _context.Data.Any())
             {
                 DynamicTableBuilder builder = new DynamicTableBuilder();
 
-                builder.Build(
-                    section,
-                    _context.Columns,
-                    _context.Data);
+                builder.Build(section, _context.Columns, _context.Data);
             }
-            else
+            else if (!String.IsNullOrWhiteSpace(_context.GroupByProperty))
             {
                 GroupedTableBuilder builder = new GroupedTableBuilder(_context);
 

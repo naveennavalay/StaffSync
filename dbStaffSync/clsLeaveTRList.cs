@@ -1173,6 +1173,43 @@ namespace dbStaffSync
             return objPivotLeaveTrendSummaryList;
         }
 
+        public DataTable getLeaveMatrixInformation(int ClientID, DateTime dtFrom, DateTime dtTo)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT * FROM qryEmpLeaveMatrix WHERE ClientID = " + ClientID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                //string DataTableToJSon = "";
+                //DataTableToJSon = JsonConvert.SerializeObject(dt);
+                //objPivotLeaveTrendSummaryList = JsonConvert.DeserializeObject<List<PivotLeaveTrendSummary>>(DataTableToJSon);
+                //dt = (DataTable)JsonConvert.DeserializeObject(DataTableToJSon, (typeof(DataTable)));
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return dt;
+        }
+
         public DataTable getLeaveTrendSummaryDatasource(int CompanyID, DateTime dtFrom, DateTime dtTo)
         {
             List<PivotLeaveTrendSummary> objPivotLeaveTrendSummaryList = new List<PivotLeaveTrendSummary>();

@@ -55,7 +55,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.grpLeaveInfo = new System.Windows.Forms.GroupBox();
             this.chkIndividualOrGroupedReport = new System.Windows.Forms.CheckBox();
-            this.chkLeaveHistory = new System.Windows.Forms.CheckBox();
+            this.chkLeaveMatrix = new System.Windows.Forms.CheckBox();
             this.chkLeaveLedger = new System.Windows.Forms.CheckBox();
             this.chkLeaveBalance = new System.Windows.Forms.CheckBox();
             this.chkLSTLeaveTypeList = new Krypton.Toolkit.KryptonCheckedListBox();
@@ -474,7 +474,7 @@
             // grpLeaveInfo
             // 
             this.grpLeaveInfo.Controls.Add(this.chkIndividualOrGroupedReport);
-            this.grpLeaveInfo.Controls.Add(this.chkLeaveHistory);
+            this.grpLeaveInfo.Controls.Add(this.chkLeaveMatrix);
             this.grpLeaveInfo.Controls.Add(this.chkLeaveLedger);
             this.grpLeaveInfo.Controls.Add(this.chkLeaveBalance);
             this.grpLeaveInfo.Controls.Add(this.chkLSTLeaveTypeList);
@@ -507,20 +507,20 @@
             this.chkIndividualOrGroupedReport.UseVisualStyleBackColor = true;
             this.chkIndividualOrGroupedReport.CheckedChanged += new System.EventHandler(this.chkIndividualOrGroupedReport_CheckedChanged);
             // 
-            // chkLeaveHistory
+            // chkLeaveMatrix
             // 
-            this.chkLeaveHistory.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.chkLeaveHistory.AutoSize = true;
-            this.chkLeaveHistory.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkLeaveHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkLeaveHistory.Location = new System.Drawing.Point(273, 113);
-            this.chkLeaveHistory.Name = "chkLeaveHistory";
-            this.chkLeaveHistory.Size = new System.Drawing.Size(112, 19);
-            this.chkLeaveHistory.TabIndex = 88;
-            this.chkLeaveHistory.Tag = "Leave History";
-            this.chkLeaveHistory.Text = "Leave History";
-            this.chkLeaveHistory.UseVisualStyleBackColor = true;
-            this.chkLeaveHistory.CheckedChanged += new System.EventHandler(this.chkLeaveHistory_CheckedChanged);
+            this.chkLeaveMatrix.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.chkLeaveMatrix.AutoSize = true;
+            this.chkLeaveMatrix.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkLeaveMatrix.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkLeaveMatrix.Location = new System.Drawing.Point(277, 113);
+            this.chkLeaveMatrix.Name = "chkLeaveMatrix";
+            this.chkLeaveMatrix.Size = new System.Drawing.Size(108, 19);
+            this.chkLeaveMatrix.TabIndex = 88;
+            this.chkLeaveMatrix.Tag = "Leave Matrix";
+            this.chkLeaveMatrix.Text = "Leave Matrix";
+            this.chkLeaveMatrix.UseVisualStyleBackColor = true;
+            this.chkLeaveMatrix.CheckedChanged += new System.EventHandler(this.chkLeaveHistory_CheckedChanged);
             // 
             // chkLeaveLedger
             // 
@@ -1239,7 +1239,7 @@
         private Krypton.Toolkit.KryptonComboBox cmbFilterLeaveType;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.CheckBox chkLeaveLedger;
-        private System.Windows.Forms.CheckBox chkLeaveHistory;
+        private System.Windows.Forms.CheckBox chkLeaveMatrix;
         private System.Windows.Forms.CheckBox chkIndividualOrGroupedReport;
     }
 }
