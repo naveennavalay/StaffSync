@@ -1573,7 +1573,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 //LeaveDuration = 0,
-                string strQuery = "UPDATE EmpLeaveTransMas SET LeaveApprovedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveApprovalComments = 'Rejected : Request Approved', LeaveRejectedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveRejectionComments = 'Rejected : " + txtLeaveRejectionComments + "', ApprovedOrRejectedByEmpID = " + txtApproverID +
+                string strQuery = "UPDATE EmpLeaveTransMas SET LeaveApprovedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveApprovalComments = 'Rejected : ' " + txtLeaveRejectionComments + ", LeaveRejectedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveRejectionComments = 'Rejected : " + txtLeaveRejectionComments + "', ApprovedOrRejectedByEmpID = " + txtApproverID +
                  " WHERE LeaveTRID = " + txtLeaveTRID + " AND EmpID = " + txtEmpID + "";
 
                 OleDbCommand cmd = conn.CreateCommand();

@@ -2612,11 +2612,11 @@ namespace StaffSync
                 try
                 {
                     string selectedFilePath = (@ofdDocuments.FileName).ToLower();
-                    string startupFilePath = (Application.StartupPath + @"\uploadedfiles\" + txtEmpCode.Text + "-" + Path.GetFileName(selectedFilePath)).ToLower();
-                    string shortPath = (Application.StartupPath.Substring(Application.StartupPath.IndexOf(@"\bin")) + @"\uploadedfiles\" + txtEmpCode.Text + "-" + Path.GetFileName(selectedFilePath)).ToLower();
+                    string startupFilePath = (Application.StartupPath + @"\uploadedfiles\" + objTempClientFinYearInfo.ClientID + "-" + txtEmpCode.Text + "-" + Path.GetFileName(selectedFilePath)).ToLower();
+                    string shortPath = (Application.StartupPath.Substring(Application.StartupPath.IndexOf(@"\bin")) + @"\uploadedfiles\" + objTempClientFinYearInfo.ClientID + "-" + txtEmpCode.Text + "-" + Path.GetFileName(selectedFilePath)).ToLower();
                     File.Copy(selectedFilePath, startupFilePath, true);
 
-                    int uploadDocumentID = objUploadDocument.InsertDocumentUpload((txtEmpCode.Text + "-" + Path.GetFileName(selectedFilePath)).ToLower(), (Path.GetExtension(selectedFilePath)).ToLower(), DateTime.Now, shortPath, false);
+                    int uploadDocumentID = objUploadDocument.InsertDocumentUpload((objTempClientFinYearInfo.ClientID + "-" + txtEmpCode.Text + "-" + Path.GetFileName(selectedFilePath)).ToLower(), (Path.GetExtension(selectedFilePath)).ToLower(), DateTime.Now, shortPath, false);
                     EmployeeDocumentInfo employeeDocumentInfo = objUploadDocument.getSpecificDocumentInfo(uploadDocumentID);
                     System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
                         employeeDocumentInfo.DocID.ToString(),

@@ -731,13 +731,14 @@ namespace dbStaffSync
             try
             {
 
-                Response<int> maxRowCount = objGenFunc.getMaxRowCount("EmpMas", "EmpID");
-                
+                Response<int> empID = objGenFunc.getMaxRowCount("EmpMas", "EmpID");
+                Response<int> maxRowCount = objGenFunc.getMaxRowCount("EmpMas", "EmpCode", txtClientID);
+
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO EmpMas (EmpID, EmpCode, EmpName, EmpDesignationID, EmpRepManID, DepartmentID, BloodGroupID, IsActive, IsDeleted, ClientID) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + "EMP-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtEmployeeTitle.Trim() + "'," + txtEmployeeDesignationID + "," + txtReportingManagerID + 
+                 "(" + empID.Data + ",'" + "EMP-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtEmployeeTitle.Trim() + "'," + txtEmployeeDesignationID + "," + txtReportingManagerID + 
                  "," + txtEmployeeDepartmentID + "," + txtEmployeeBloodGroupID + "," + IsActive + "," + IsDeleted + "," + txtClientID + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -745,7 +746,7 @@ namespace dbStaffSync
                 cmd.CommandText = strQuery;
                 affectedRows = cmd.ExecuteNonQuery();
                 if (affectedRows > 0)
-                    affectedRows = maxRowCount.Data;
+                    affectedRows = empID.Data;
             }
             catch (Exception ex)
             {

@@ -520,7 +520,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO EmpLeaveEntitlement (LeaveEntmtID, EmpID, LeaveMasID, LeaveTypeID, TotalLeaves, BalanceLeaves, OrderID) VALUES " +
-                 "(" + maxRowCount.Data + "," + txtLeaveMasID + ", " + txtEmpID  + ", " + txtLeaveTypeID + "," + txtTotalLeaves + ", " + txtBalanceLeaves + ", " + txtTempOrderID.Data + ")";
+                 "(" + maxRowCount.Data + ", " + txtEmpID + ", " + txtLeaveMasID + ", " + txtLeaveTypeID + ", " + txtTotalLeaves + ", " + txtBalanceLeaves + ", " + txtTempOrderID.Data + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
