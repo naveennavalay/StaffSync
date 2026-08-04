@@ -398,7 +398,7 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "SELECT * FROM qryOutStandingLeaves WHERE ClientID = " + ClientID + " ORDER BY EmpID ASC;";
+                string strQuery = "SELECT * FROM qryOutStandingLeaves WHERE EmpID > 1 and ClientID = " + ClientID + " ORDER BY EmpID ASC;";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -1049,6 +1049,69 @@ namespace dbStaffSync
                                     //    " AND ((Q.LeaveStatus) <> '') " + 
                                     //")";
 
+                strQuery = "SELECT " + 
+                                " Q.EmpID, " + 
+                                " Q.EmpCode, " + 
+                                " Q.EmpName, " + 
+                                " Q.DesignationTitle, " + 
+                                " Q.DepartmentTitle, " + 
+                                " Q.LeaveTypeTitle, " + 
+                                " Q.ActualLeaveDateFrom, " + 
+                                " Q.ActualLeaveDateTo, " + 
+                                " Q.LeaveDuration, " + 
+                                " Q.LeaveMode, " + 
+                                " Q.LeaveStatus, " + 
+                                " Q.OrderID " + 
+                            " FROM " + 
+                                " ( " + 
+                                    " SELECT " + 
+                                        " EmpMas.EmpID, " + 
+                                        " EmpMas.EmpCode, " + 
+                                        " EmpMas.EmpName, " + 
+                                        " DesigMas.DesignationTitle, " + 
+                                        " DepMas.DepartmentTitle, " + 
+                                        " LeaveTypeMas.LeaveTypeTitle, " + 
+                                        " EmpLeaveTransMas.ActualLeaveDateFrom, " + 
+                                        " EmpLeaveTransMas.ActualLeaveDateTo, " + 
+                                        " EmpLeaveTransMas.LeaveDuration, " +
+                                        " EmpLeaveTransMas.LeaveMode, " +
+                                        " IIf ( " +
+                                            " [Canceled] = True, 'Cancelled', " + 
+                                            " IIf(InStr([LeaveApprovalComments], 'Approved :') = 1, 'Approved', " +
+                                            " IIf(InStr([LeaveRejectionComments], 'Rejected :') = 1, 'Rejected', " + 
+                                            " IIf([LeaveApprovalComments] = 'Not yet Approved' AND [LeaveRejectionComments] = 'Not yet Rejected','Pending','Unknown') " +
+                                            " ) "+
+                                            " ) " +
+                                        " ) AS LeaveStatus," +
+                                        " EmpLeaveTransMas.OrderID " + 
+                                    " FROM " + 
+                                        " LeaveTypeMas " + 
+                                        " INNER JOIN ( " + 
+                                            " ( " + 
+                                                " DesigMas " + 
+                                                " INNER JOIN ( " + 
+                                                    " DepMas " + 
+                                                    " INNER JOIN ( " + 
+                                                        " ClientMas " + 
+                                                        " INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " + 
+                                                    " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " + 
+                                                " ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID " + 
+                                            " ) " + 
+                                            " INNER JOIN EmpLeaveTransMas ON EmpMas.EmpID = EmpLeaveTransMas.EmpID " + 
+                                        " ) ON LeaveTypeMas.LeaveTypeID = EmpLeaveTransMas.LeaveTypeID " + 
+                                    " WHERE " + 
+                                        " EmpMas.EmpID > 1 " + 
+                                        " AND EmpLeaveTransMas.OrderID > 0 " + 
+                                        " AND ClientMas.ClientID = " + CompanyID + " " +
+                                        " AND EmpMas.IsActive = True " + 
+                                        " AND EmpMas.IsDeleted = False " + 
+                                " ) AS Q " + 
+                            " WHERE " +
+                                 FilterString +
+                            " ORDER BY " + 
+                                " Q.EmpID, " + 
+                                " Q.OrderID ASC";
+
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
@@ -1187,10 +1250,24 @@ namespace dbStaffSync
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
-                cmd.ExecuteNonQuery();
+                //cmd.ExecuteNonQuery();
 
                 OleDbDataAdapter da = new OleDbDataAdapter(cmd);
                 da.Fill(dt);
+
+                int colCounter = 0;
+
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    for (int i = 6; i < dt.Columns.Count; i++)
+                    {
+                        if (dr[i].ToString() != "")
+                            dr[i] = Convert.ToDouble(dr[i].ToString()).ToString("0.00");
+                        else
+                            dr[i] = "0.00";
+                    }
+                }
 
                 //string DataTableToJSon = "";
                 //DataTableToJSon = JsonConvert.SerializeObject(dt);
@@ -1206,7 +1283,7 @@ namespace dbStaffSync
             {
                 conn = dbStaffSync.closeDBConnection();
             }
-
+            
             return dt;
         }
 

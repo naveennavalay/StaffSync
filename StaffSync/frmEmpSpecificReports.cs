@@ -372,7 +372,7 @@ namespace StaffSync
             lblSelectedReport.Text = "";
             lblSelectedReportName.Text = "";
             lblFilter.Text = "";
-            if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0001.ToString() || dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0002.ToString())
+            if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0001.ToString())
             {
                 chkIncludeMonth.Checked = false;
                 cmbMonth.Enabled = false;
@@ -413,6 +413,56 @@ namespace StaffSync
                     new tmpDropdownItem { MemberValue = "DepartmentTitle", MemberName = "Department" },
                     new tmpDropdownItem { MemberValue = "ClientBranchName", MemberName = "Branch Name" },
                     new tmpDropdownItem { MemberValue = "BloodGroupTitle", MemberName = "Blood Group" },
+                };
+                cmbGroupBy.DataSource = null;
+                cmbGroupBy.Items.Clear();
+                cmbGroupBy.DataSource = lstGroupByValues;
+                cmbGroupBy.DisplayMember = "MemberName";
+                cmbGroupBy.ValueMember = "MemberValue";
+                cmbGroupBy.SelectedIndex = 2;
+
+                grpLeaveInfo.Enabled = false;
+            }
+            else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0002.ToString())
+            {
+                chkIncludeMonth.Checked = false;
+                cmbMonth.Enabled = false;
+                chkIncludeDesignation.Checked = false;
+                cmbDesignation.Enabled = false;
+                chkIncludeDepartment.Checked = false;
+                cmbDepartment.Enabled = false;
+                chkIncludeGender.Checked = false;
+                cmbGender.Enabled = false;
+                chkIncludeBranch.Checked = false;
+                cmbBranch.Enabled = false;
+                chkActiveInactiveStatus.Enabled = false;
+                chkActiveInactiveStatus.Checked = false;
+                cmbActiveInactiveStatus.Enabled = false;
+                optDailyAttendance.Enabled = false;
+                optMonthlyAttendanceRegister.Enabled = false;
+                chkLSTLeaveTypeList.Enabled = false;
+                cmbFilterLeaveType.Enabled = false;
+                cmbFilterLeaveType.DataSource = null;
+
+                optDOB.Checked = false;
+                optDOJ.Checked = false;
+                optProbDate.Checked = false;
+                optConfirmDate.Checked = false;
+                optRelivingDate.Checked = false;
+                optResignationDate.Checked = false;
+
+                txtDTFrom.Text = DateTime.Today.ToString("dd-MM-yyyy");
+                txtDTTo.Text = DateTime.Today.ToString("dd-MM-yyyy");
+
+                lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
+                lblSelectedReportName.Text = dtgReportsList.SelectedRows[0].Cells["ReportsName"].Value.ToString().Replace("-", "_").ToString();
+
+                List<tmpDropdownItem> lstGroupByValues = new List<tmpDropdownItem>()
+                {
+                    new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
+                    new tmpDropdownItem { MemberValue = "DesignationTitle", MemberName = "Designation" },
+                    new tmpDropdownItem { MemberValue = "DepartmentTitle", MemberName = "Department" },
+                    new tmpDropdownItem { MemberValue = "SexTitle", MemberName = "Gender" },
                 };
                 cmbGroupBy.DataSource = null;
                 cmbGroupBy.Items.Clear();
@@ -464,8 +514,7 @@ namespace StaffSync
                     new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
                     new tmpDropdownItem { MemberValue = "DesignationTitle", MemberName = "Designation" },
                     new tmpDropdownItem { MemberValue = "DepartmentTitle", MemberName = "Department" },
-                    new tmpDropdownItem { MemberValue = "ClientBranchName", MemberName = "Branch Name" },
-                    new tmpDropdownItem { MemberValue = "BloodGroupTitle", MemberName = "Blood Group" },
+                    new tmpDropdownItem { MemberValue = "ActiveInactiveStatus", MemberName = "Status" },
                 };
                 cmbGroupBy.DataSource = null;
                 cmbGroupBy.Items.Clear();
@@ -497,6 +546,7 @@ namespace StaffSync
 
                 optDailyAttendance.Enabled = true;
                 optMonthlyAttendanceRegister.Enabled = true;
+                optMonthlyAttendanceRegister.Checked = true;
 
                 optDOB.Checked = false;
                 optDOJ.Checked = false;
@@ -515,9 +565,7 @@ namespace StaffSync
                 {
                     new tmpDropdownItem { MemberValue = "Blank", MemberName = "" },
                     new tmpDropdownItem { MemberValue = "DesignationTitle", MemberName = "Designation" },
-                    new tmpDropdownItem { MemberValue = "DepartmentTitle", MemberName = "Department" },
-                    new tmpDropdownItem { MemberValue = "ClientBranchName", MemberName = "Branch Name" },
-                    new tmpDropdownItem { MemberValue = "BloodGroupTitle", MemberName = "Blood Group" },
+                    new tmpDropdownItem { MemberValue = "DepartmentTitle", MemberName = "Department" }
                 };
                 cmbGroupBy.DataSource = null;
                 cmbGroupBy.Items.Clear();
@@ -1188,6 +1236,12 @@ namespace StaffSync
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            if(dtgDataResult.Rows.Count == 0)
+            {
+                MessageBox.Show("No data available to export.", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             ClientInfo objSelectedClientInfo = new ClientInfo();
             objSelectedClientInfo = objClientInfo.getClientInfoByEmpID(objTempClientFinYearInfo.ClientID).FirstOrDefault();
 
@@ -1324,6 +1378,8 @@ namespace StaffSync
 
             //return;
 
+            tmpDropdownItem objtmpDropdownItem = (tmpDropdownItem)cmbGroupBy.SelectedItem;
+
             if (lblSelectedReport.Text.ToString() == ReportCode.REP_0001.ToString())
             {
                 if(cmbGroupBy.SelectedIndex == 0)
@@ -1337,7 +1393,6 @@ namespace StaffSync
                 }
                 else if(cmbGroupBy.SelectedIndex > 0)
                 {
-                    tmpDropdownItem objtmpDropdownItem = (tmpDropdownItem)cmbGroupBy.SelectedItem;
                     int totalEmployees = objDailyAttendanceReport.Count;
 
                     int totalPresent = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "P");
@@ -1400,6 +1455,7 @@ namespace StaffSync
                         .Data(objActiveEmployeeListReport)
                         .Settings(settings)
                         .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                        .OrderBy(objtmpDropdownItem.MemberName)
                         .Generate(filePath);
                     }
                 }
@@ -1417,7 +1473,7 @@ namespace StaffSync
                 }
                 else if (cmbGroupBy.SelectedIndex > 0)
                 {
-                    tmpDropdownItem objtmpDropdownItem = (tmpDropdownItem)cmbGroupBy.SelectedItem;
+                    objtmpDropdownItem = (tmpDropdownItem)cmbGroupBy.SelectedItem;
                     int totalEmployees = objDailyAttendanceReport.Count;
 
                     int totalPresent = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "P");
@@ -1497,7 +1553,7 @@ namespace StaffSync
                 }
                 else if (cmbGroupBy.SelectedIndex > 0)
                 {
-                    tmpDropdownItem objtmpDropdownItem = (tmpDropdownItem)cmbGroupBy.SelectedItem;
+                    objtmpDropdownItem = (tmpDropdownItem)cmbGroupBy.SelectedItem;
                     int totalEmployees = objDailyAttendanceReport.Count;
 
                     int totalPresent = objDailyAttendanceReport.Count(x => x.AttendanceStatus == "P");
@@ -1561,6 +1617,7 @@ namespace StaffSync
                         .Data(objEmployeeActiveInactiveReportListReport)
                         .Settings(settings)
                         .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                        .OrderBy(objtmpDropdownItem.MemberName)
                         .Generate(filePath);
                     }
                 }
@@ -1605,6 +1662,8 @@ namespace StaffSync
                                 .Title(report)
                                 .Data(objDailyAttendanceReport)
                                 .Settings(settings)
+                                .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                                .OrderBy(objtmpDropdownItem.MemberName)
                                 .Summary(new List<ReportSummary>()
                                 {
                                     new ReportSummary
@@ -1642,6 +1701,8 @@ namespace StaffSync
                             .Title(report)
                             .Data(objDailyAttendanceReport)
                             .Settings(settings)
+                            .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                            .OrderBy(objtmpDropdownItem.MemberName)
                             .Generate(filePath);
                         }
                     }
@@ -1676,7 +1737,8 @@ namespace StaffSync
                         .Title(report)
                         .Data(objMonthlyAttendanceReport)
                         .Settings(settings)
-                        .GroupBy("DepartmentTitle")
+                        .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                        .OrderBy(objtmpDropdownItem.MemberName)
                         .Summary(new List<ReportSummary>()
                         {
                             new ReportSummary("Total Days", totalDays.ToString()),
@@ -1755,6 +1817,8 @@ namespace StaffSync
                                 .Title(report)
                                 .Data(objMonthlyAttendanceSummaryReport)
                                 .Settings(settings)
+                                .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                                .OrderBy(objtmpDropdownItem.MemberName)
                                 .Generate(filePath);
                         }
                         else
@@ -1764,6 +1828,8 @@ namespace StaffSync
                                 .Title(report)
                                 .Data(objMonthlyAttendanceSummaryReport)
                                 .Settings(settings)
+                                .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                                .OrderBy(objtmpDropdownItem.MemberName)
                                 .Generate(filePath);
                         }
                     }
@@ -1867,6 +1933,33 @@ namespace StaffSync
                                 tbl1.Columns[2].Width = 5;
                                 tbl1.Columns[3].Width = 5;
                                 tbl1.Columns[5].Visible = false;
+                                tbl1.Columns[6].Format = "0.00";
+                                tbl1.Columns[7].Format = "0.00";
+                                tbl1.Columns[8].Format = "0.00";
+                                tbl1.Columns[9].Format = "0.00";
+                                tbl1.Columns[10].Format = "0.00";
+                                tbl1.Columns[11].Format = "0.00";
+                                tbl1.Columns[12].Format = "0.00";
+                                tbl1.Columns[13].Format = "0.00";
+                                tbl1.Columns[14].Format = "0.00";
+                                tbl1.Columns[15].Format = "0.00";
+                                tbl1.Columns[16].Format = "0.00";
+                                tbl1.Columns[17].Format = "0.00";
+                                tbl1.Columns[18].Format = "0.00";
+                                tbl1.Columns[19].Format = "0.00";
+                                tbl1.Columns[20].Format = "0.00";
+                                tbl1.Columns[21].Format = "0.00";
+                                tbl1.Columns[22].Format = "0.00";
+                                tbl1.Columns[23].Format = "0.00";
+                                tbl1.Columns[24].Format = "0.00";
+                                tbl1.Columns[25].Format = "0.00";
+                                tbl1.Columns[26].Format = "0.00";
+                                tbl1.Columns[27].Format = "0.00";
+                                tbl1.Columns[28].Format = "0.00";
+                                tbl1.Columns[29].Format = "0.00";
+                                tbl1.Columns[30].Format = "0.00";
+                                tbl1.Columns[31].Format = "0.00";
+                                tbl1.Columns[32].Format = "0.00";
                                 //tbl1.Title = "Leave Matrix";
                                 tbl1.SpaceBefore = 1;
                                 tbl1.SpaceAfter = 1;
@@ -1945,7 +2038,7 @@ namespace StaffSync
                     }
                     else if (cmbGroupBy.SelectedIndex > 0)
                     {
-                        tmpDropdownItem objtmpDropdownItem = (tmpDropdownItem)cmbGroupBy.SelectedItem;
+                        objtmpDropdownItem = (tmpDropdownItem)cmbGroupBy.SelectedItem;
                         List<ReportSummary> objLeaveStatus = new List<ReportSummary>();
                         List<ReportSummary> objLeaveType = new List<ReportSummary>();
                         List<ReportSummary> objLeaveMode = new List<ReportSummary>();
@@ -2011,6 +2104,8 @@ namespace StaffSync
                                 .Company(company)
                                 .Title(report)
                                 .Data(objLeaveRegisterReports)
+                                .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                                .OrderBy(objtmpDropdownItem.MemberName)
                                 .Settings(settings);
 
                             if (chkLeaveSummary.Checked)
@@ -2052,7 +2147,6 @@ namespace StaffSync
                                 ReportTableFactory.FromList(objDesignation, "Designation"),
                                 ReportTableFactory.FromList(objDepartment, "Department")
                             )
-                            .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
                             .Generate(filePath);
 
                             //new ReportBuilder()

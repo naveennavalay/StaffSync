@@ -103,18 +103,44 @@ namespace ReportingEngine.Reports
 
             //builder.Build(section, _context.Columns, _context.Data);
 
-            if (_context.Columns != null && _context.Columns.Count > 0 && _context.Data != null && _context.Data.Any())
+            //if (_context.Columns != null && _context.Columns.Count > 0 && _context.Data != null && _context.Data.Any())
+            //{
+            //    DynamicTableBuilder builder = new DynamicTableBuilder();
+
+            //    builder.Build(section, _context.Columns, _context.Data);
+            //}
+            //else if (!String.IsNullOrWhiteSpace(_context.GroupByProperty))
+            //{
+            //    GroupedTableBuilder builder = new GroupedTableBuilder(_context);
+
+            //    builder.Build(section);
+            //}
+
+            if (!string.IsNullOrWhiteSpace(_context.GroupByProperty))
+            {
+                GroupedTableBuilder builder = new GroupedTableBuilder(_context);
+                builder.Build(section);
+            }
+            else if (_context.Data != null && _context.Data.Any() && _context.Columns != null && _context.Columns.Count > 0)
             {
                 DynamicTableBuilder builder = new DynamicTableBuilder();
 
                 builder.Build(section, _context.Columns, _context.Data);
             }
-            else if (!String.IsNullOrWhiteSpace(_context.GroupByProperty))
-            {
-                GroupedTableBuilder builder = new GroupedTableBuilder(_context);
 
-                builder.Build(section);
-            }
+
+            //if (string.IsNullOrWhiteSpace(_context.GroupByProperty))
+            //{
+            //    DynamicTableBuilder builder = new DynamicTableBuilder();
+
+            //    builder.Build(section, _context.Columns, _context.Data);
+            //}
+            //else
+            //{
+            //    GroupedTableBuilder builder = new GroupedTableBuilder(_context);
+
+            //    builder.Build(section);
+            //}
 
             new SummaryBuilder(_context).Build(section);
 

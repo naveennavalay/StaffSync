@@ -2110,6 +2110,7 @@
             // 
             this.chkSkillsList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.chkSkillsList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.chkSkillsList.CheckOnClick = true;
             this.chkSkillsList.FormattingEnabled = true;
             this.chkSkillsList.Location = new System.Drawing.Point(16, 19);
             this.chkSkillsList.MultiColumn = true;
@@ -2134,6 +2135,7 @@
             // 
             this.chkEduQualList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.chkEduQualList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.chkEduQualList.CheckOnClick = true;
             this.chkEduQualList.FormattingEnabled = true;
             this.chkEduQualList.Location = new System.Drawing.Point(16, 19);
             this.chkEduQualList.MultiColumn = true;

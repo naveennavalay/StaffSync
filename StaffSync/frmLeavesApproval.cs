@@ -254,7 +254,7 @@ namespace StaffSync
                         if (objMonthlyAttInfoList.Count == 0)
                             MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.InsertMonthlyAttendanceInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime("01" + Convert.ToDateTime(txtLeaveDateFrom.Text.ToString()).Date.ToString("-MMM-yyyy")));
 
-                        MonthlyAttendanceSlNumber = objMonthlyAttInfoList[0].SlNo;
+                        MonthlyAttendanceSlNumber = objMonthlyAttInfoList.Count == 0 ? MonthlyAttendanceSlNumber : objMonthlyAttInfoList[0].SlNo;
                         MonthlyAttendanceSlNumber = objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, Convert.ToInt16(lblEmpID.Text.ToString()), dtSelectedMonth, "Day" + Convert.ToDateTime(txtLeaveDateFrom.Text).Date.Day, strAttendanceStatus);
                     }
                 }

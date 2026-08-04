@@ -123,7 +123,7 @@ namespace ModelStaffSync
         public string LeaveMode { get; set; }
 
         [DisplayName("Leave Status")]
-        [ReportColumnAttribute(Header = "Leave Statys", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        [ReportColumnAttribute(Header = "Leave Status", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
         public string LeaveStatus { get; set; }
 
         [DisplayName("Order ID")]

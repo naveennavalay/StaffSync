@@ -85,6 +85,7 @@ namespace dbStaffSync
                                     " WHERE " +
                                         " ( " +
                                             " ((ClientMas.ClientID) = " + ClientID + ") " +
+                                            " AND ((EmpMas.EmpId) > 1) " +
                                             " AND ((EmpMas.IsActive) = True) " +
                                             " AND ((EmpMas.IsDeleted) = False) " +
                                             Filter +
@@ -175,6 +176,7 @@ namespace dbStaffSync
                                     " WHERE " + 
                                         " ( " +
                                             " ((ClientMas.ClientID) = " + ClientID + ") " +
+                                            " AND ((EmpMas.EmpID) > 1) " +
                                             " AND ((EmpMas.IsActive) = True) " +
                                             " AND ((EmpMas.IsDeleted) = False) " +
                                             Filter +
@@ -272,6 +274,7 @@ namespace dbStaffSync
                                     " WHERE " +
                                         " ( " + 
                                             " ((ClientMas.ClientID) = " + ClientID + ") " +
+                                            "  AND ((EmpMas.EmpID) > 1) " +
                                             "  AND ((EmpMas.IsDeleted) = False) " + 
                                             Filter +
                                         " ) " + 
@@ -355,6 +358,7 @@ namespace dbStaffSync
                                                 " (EmpDailyAttendanceInfo.AttDate) >= #" + dtFrom.ToString("dd-MMM-yyyy") + "# " +
                                                 " AND (EmpDailyAttendanceInfo.AttDate) <= #" + dtTo.ToString("dd-MMM-yyyy") + "# " +
                                             " ) " +
+                                            "  AND ((EmpMas.EmpID) > 1) " +
                                             " AND ((EmpMas.IsActive) = True) " +
                                             " AND ((EmpMas.IsDeleted) = False) " +
                                         " ) " +
@@ -478,7 +482,8 @@ namespace dbStaffSync
                                     " WHERE " + 
                                         " ( " + 
                                             " ClientMas.ClientID = " + ClientID +
-                                            " AND EmpDailyAttendanceInfo.AttDate = #" + dtDate.ToString("dd-MMM-yyyy") + "#" + 
+                                            " AND EmpDailyAttendanceInfo.AttDate = #" + dtDate.ToString("dd-MMM-yyyy") + "#" +
+                                            "  AND ((EmpMas.EmpID) > 1) " + 
                                             " AND EmpMas.IsActive = True " + 
                                             " AND EmpMas.IsDeleted = False " + 
                                         " ) " + 

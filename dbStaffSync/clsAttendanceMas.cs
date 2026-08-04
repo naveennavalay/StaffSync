@@ -719,6 +719,7 @@ namespace dbStaffSync
                                                 " INNER JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " +
                                             " WHERE " +
                                                 " EmpDailyAttendanceInfo.AttDate BETWEEN #" + Convert.ToDateTime(txtDTFrom).ToString("dd-MMM-yyyy") + "# AND #" + Convert.ToDateTime(txtDTTo).ToString("dd-MMM-yyyy") + "# " +
+                                                " AND EmpMas.EmpID > 1 " + 
                                                 " AND EmpMas.IsActive = True " +
                                                 " AND EmpMas.IsDeleted = False " +
                                                 " AND ClientMas.ClientID = " + ClientID + 

@@ -54,6 +54,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.grpLeaveInfo = new System.Windows.Forms.GroupBox();
+            this.chkMonthlyLeaveTrend = new System.Windows.Forms.CheckBox();
             this.chkIndividualOrGroupedReport = new System.Windows.Forms.CheckBox();
             this.chkLeaveMatrix = new System.Windows.Forms.CheckBox();
             this.chkLeaveLedger = new System.Windows.Forms.CheckBox();
@@ -102,7 +103,6 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.chkMonthlyLeaveTrend = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgReportsList)).BeginInit();
@@ -493,6 +493,21 @@
             this.grpLeaveInfo.Size = new System.Drawing.Size(394, 146);
             this.grpLeaveInfo.TabIndex = 106;
             this.grpLeaveInfo.TabStop = false;
+            // 
+            // chkMonthlyLeaveTrend
+            // 
+            this.chkMonthlyLeaveTrend.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.chkMonthlyLeaveTrend.AutoSize = true;
+            this.chkMonthlyLeaveTrend.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkMonthlyLeaveTrend.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkMonthlyLeaveTrend.Location = new System.Drawing.Point(280, 116);
+            this.chkMonthlyLeaveTrend.Name = "chkMonthlyLeaveTrend";
+            this.chkMonthlyLeaveTrend.Size = new System.Drawing.Size(105, 19);
+            this.chkMonthlyLeaveTrend.TabIndex = 108;
+            this.chkMonthlyLeaveTrend.Tag = "Leave Trend";
+            this.chkMonthlyLeaveTrend.Text = "Leave Trend";
+            this.chkMonthlyLeaveTrend.UseVisualStyleBackColor = true;
+            this.chkMonthlyLeaveTrend.CheckedChanged += new System.EventHandler(this.chkMonthlyLeaveTrend_CheckedChanged);
             // 
             // chkIndividualOrGroupedReport
             // 
@@ -1108,21 +1123,6 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
-            // chkMonthlyLeaveTrend
-            // 
-            this.chkMonthlyLeaveTrend.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.chkMonthlyLeaveTrend.AutoSize = true;
-            this.chkMonthlyLeaveTrend.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkMonthlyLeaveTrend.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkMonthlyLeaveTrend.Location = new System.Drawing.Point(280, 116);
-            this.chkMonthlyLeaveTrend.Name = "chkMonthlyLeaveTrend";
-            this.chkMonthlyLeaveTrend.Size = new System.Drawing.Size(105, 19);
-            this.chkMonthlyLeaveTrend.TabIndex = 108;
-            this.chkMonthlyLeaveTrend.Tag = "Leave Trend";
-            this.chkMonthlyLeaveTrend.Text = "Leave Trend";
-            this.chkMonthlyLeaveTrend.UseVisualStyleBackColor = true;
-            this.chkMonthlyLeaveTrend.CheckedChanged += new System.EventHandler(this.chkMonthlyLeaveTrend_CheckedChanged);
-            // 
             // frmEmpSpecificReports
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1150,7 +1150,6 @@
             this.Name = "frmEmpSpecificReports";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Leave Type List";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.frmEmpSpecificReports_Activated);
             this.Load += new System.EventHandler(this.frmEmpSpecificReports_Load);
