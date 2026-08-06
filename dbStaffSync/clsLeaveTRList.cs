@@ -15,6 +15,7 @@ using System.Data;
 using System.Data.OleDb;
 //using System.Drawing.Imaging;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace dbStaffSync
@@ -1211,6 +1212,74 @@ namespace dbStaffSync
                                         " Year([EmpLeaveTransMas].[ActualLeaveDateFrom]), " + 
                                         " Month([EmpLeaveTransMas].[ActualLeaveDateFrom])";
 
+                strQuery = "SELECT " +
+                                " Format(EmpLeaveTransMas.ActualLeaveDateFrom, 'mmm-yyyy') AS MonthName, " +
+                                " Year(EmpLeaveTransMas.ActualLeaveDateFrom) AS LeaveYear, " +
+                                " Month(EmpLeaveTransMas.ActualLeaveDateFrom) AS LeaveMonth, " +
+                                " Count(EmpLeaveTransMas.OrderID) AS TotalApplication, " +
+                                " Sum(" +
+                                    " IIf(" +
+                                        " EmpLeaveTransMas.LeaveApprovalComments LIKE 'Approved%' " +
+                                        " AND EmpLeaveTransMas.LeaveRejectionComments = 'Not Rejected' " +
+                                        " AND EmpLeaveTransMas.Canceled = False, " +
+                                        " 1, " +
+                                        " 0 " +
+                                    " ) " +
+                                " ) AS TotalApproved, " +
+                                " Sum(" +
+                                    " IIf(" +
+                                        " EmpLeaveTransMas.LeaveApprovalComments LIKE 'Rejected%' " +
+                                        " AND EmpLeaveTransMas.LeaveRejectionComments LIKE 'Rejected%' " +
+                                        " AND EmpLeaveTransMas.Canceled = False, " + 
+                                        " 1, " + 
+                                        " 0 " + 
+                                    " ) " + 
+                                " ) AS TotalRejected, " + 
+                                " Sum(" + 
+                                    " IIf(" + 
+                                        " EmpLeaveTransMas.LeaveApprovalComments = 'Not yet Approved' " + 
+                                        " AND EmpLeaveTransMas.LeaveRejectionComments = 'Not yet Rejected' " + 
+                                        " AND EmpLeaveTransMas.Canceled = False, " + 
+                                        " 1, " + 
+                                        " 0 " + 
+                                    " ) " + 
+                                " ) AS TotalPending, " + 
+                                " Sum(" + 
+                                    " IIf(" + 
+                                        " EmpLeaveTransMas.LeaveApprovalComments = 'Not yet Approved' " + 
+                                        " AND EmpLeaveTransMas.LeaveRejectionComments = 'Not yet Rejected' " + 
+                                        " AND EmpLeaveTransMas.Canceled = True, " + 
+                                        " 1, " + 
+                                        " 0 " + 
+                                    " ) " + 
+                                " ) AS TotalCancelled, " + 
+                                " Sum(" + 
+                                    " IIf(" +
+                                        " EmpLeaveTransMas.LeaveApprovalComments LIKE 'Approved%' " + 
+                                        " AND EmpLeaveTransMas.LeaveRejectionComments = 'Not Rejected' " + 
+                                        " AND EmpLeaveTransMas.Canceled = False, " + 
+                                        " EmpLeaveTransMas.LeaveDuration, " + 
+                                        " 0 " + 
+                                    " ) " + 
+                                " ) AS TotalLeaveDays " + 
+                            " FROM " + 
+                                " ClientMas " + 
+                                " INNER JOIN ( " + 
+                                    " EmpMas " + 
+                                    " INNER JOIN EmpLeaveTransMas ON EmpMas.EmpID = EmpLeaveTransMas.EmpID " + 
+                                " ) ON ClientMas.ClientID = EmpMas.ClientID " + 
+                            " WHERE " + 
+                                " ClientMas.ClientID = " + CompanyID + 
+                                " AND EmpMas.IsActive = True " + 
+                                " AND EmpMas.IsDeleted = False " +
+                                " AND EmpLeaveTransMas.ActualLeaveDateFrom BETWEEN #" + Convert.ToDateTime(dtFrom).ToString("dd-MMM-yyyy") + "# AND #" + Convert.ToDateTime(dtTo).ToString("dd-MMM-yyyy") + "# " +
+                            " GROUP BY " + 
+                                " Format(EmpLeaveTransMas.ActualLeaveDateFrom, 'mmm-yyyy'), " + 
+                                " Year(EmpLeaveTransMas.ActualLeaveDateFrom), " +
+                                " Month(EmpLeaveTransMas.ActualLeaveDateFrom) " + 
+                            " ORDER BY " + 
+                                " Year(EmpLeaveTransMas.ActualLeaveDateFrom), Month(EmpLeaveTransMas.ActualLeaveDateFrom);";
+
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
@@ -1284,6 +1353,91 @@ namespace dbStaffSync
                 conn = dbStaffSync.closeDBConnection();
             }
             
+            return dt;
+        }
+
+        public DataTable getLeaveMonthlyTrend(int ClientID, DateTime dtFrom, DateTime dtTo)
+        {            
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "SELECT * FROM qryEmpLeaveTrend WHERE ClientID = " + ClientID;
+                strQuery = "SELECT " +
+                                " ClientID, " +
+                                " LeaveTypeID, " +
+                                " [Leave Type], " +
+                                " [LeaveApprovalComments], " +
+                                " Jan, " +
+                                " Feb, " +
+                                " Mar, " +
+                                " Apr, " +
+                                " May, " +
+                                " Jun, " +
+                                " Jul, " +
+                                " Aug, " +
+                                " Sep, " +
+                                " Oct, " +
+                                " Nov, " +
+                                " Dec " +
+                            " FROM " +
+                                " qryEmpLeaveTrend " +
+                            " WHERE " +
+                                " ClientID = " + ClientID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                //cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                for (int i = dt.Rows.Count - 1; i >= 0; i--)
+                {
+                    string comments = Convert.ToString(dt.Rows[i]["LeaveApprovalComments"]);
+
+                    if (!comments.StartsWith("Approved :", StringComparison.OrdinalIgnoreCase))
+                    {
+                        dt.Rows.RemoveAt(i);
+                    }
+                }
+
+                dt.AcceptChanges();
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    if (dr["LeaveApprovalComments"].ToString() == "")
+                        continue;
+
+                    for (int i = 3; i < dt.Columns.Count; i++)
+                    {
+                        decimal value = 0;
+
+                        decimal.TryParse(Convert.ToString(dr[i]), out value);
+
+                        dr[i] = value.ToString("0.00");
+                    }
+                }
+
+                //string DataTableToJSon = "";
+                //DataTableToJSon = JsonConvert.SerializeObject(dt);
+                //objPivotLeaveTrendSummaryList = JsonConvert.DeserializeObject<List<PivotLeaveTrendSummary>>(DataTableToJSon);
+                //dt = (DataTable)JsonConvert.DeserializeObject(DataTableToJSon, (typeof(DataTable)));
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
             return dt;
         }
 
@@ -1650,7 +1804,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 //LeaveDuration = 0,
-                string strQuery = "UPDATE EmpLeaveTransMas SET LeaveApprovedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveApprovalComments = 'Rejected : ' " + txtLeaveRejectionComments + ", LeaveRejectedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveRejectionComments = 'Rejected : " + txtLeaveRejectionComments + "', ApprovedOrRejectedByEmpID = " + txtApproverID +
+                string strQuery = "UPDATE EmpLeaveTransMas SET LeaveApprovedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveApprovalComments = 'Rejected : " + txtLeaveRejectionComments + "', LeaveRejectedDate = '" + DateTime.Now.ToString("dd-MMM-yyyy") + "', LeaveRejectionComments = 'Rejected : Rejected', ApprovedOrRejectedByEmpID = " + txtApproverID +
                  " WHERE LeaveTRID = " + txtLeaveTRID + " AND EmpID = " + txtEmpID + "";
 
                 OleDbCommand cmd = conn.CreateCommand();

@@ -134,39 +134,39 @@ namespace ModelStaffSync
     public class PivotLeaveTrendSummary
     {
         [DisplayName("Month Name")]
-        [ReportColumnAttribute(Header = "Month Name", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        [ReportColumnAttribute(Header = "Month Name", Width = 4, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
         public string MonthName { get; set; }
 
         [DisplayName("Leave Year")]
-        [ReportColumnAttribute(Header = "Leave Year", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        [ReportColumnAttribute(Header = "Leave Year", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = false, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
         public int LeaveYear { get; set; }
 
         [DisplayName("Leave Month")]
-        [ReportColumnAttribute(Header = "Leave Month", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        [ReportColumnAttribute(Header = "Leave Month", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = false, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
         public int LeaveMonth { get; set; }
 
         [DisplayName("Total Application")]
-        [ReportColumnAttribute(Header = "Total Application", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
-        public double TotalApplication { get; set; }
+        [ReportColumnAttribute(Header = "Total Application", Width = 4, Alignment = ReportAlignment.Right, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        public decimal TotalApplication { get; set; }
 
         [DisplayName("Total Approved")]
-        [ReportColumnAttribute(Header = "Total Approved", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
-        public double Approved { get; set; }
+        [ReportColumnAttribute(Header = "Total Approved", Width = 4, Alignment = ReportAlignment.Right, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        public decimal TotalApproved { get; set; }
 
         [DisplayName("Total Rejected")]
-        [ReportColumnAttribute(Header = "Total Rejected", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
-        public double Rejected { get; set; }
+        [ReportColumnAttribute(Header = "Total Rejected", Width = 4, Alignment = ReportAlignment.Right, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        public decimal TotalRejected { get; set; }
 
         [DisplayName("Total Pending")]
-        [ReportColumnAttribute(Header = "Total Pending", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
-        public double Pending { get; set; }
+        [ReportColumnAttribute(Header = "Total Pending", Width = 4, Alignment = ReportAlignment.Right, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        public decimal TotalPending { get; set; }
 
         [DisplayName("Total Cancelled")]
-        [ReportColumnAttribute(Header = "Total Cancelled", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
-        public double Cancelled { get; set; }
+        [ReportColumnAttribute(Header = "Total Cancelled", Width = 4, Alignment = ReportAlignment.Right, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        public decimal TotalCancelled { get; set; }
 
         [DisplayName("Total Leave Days")]
-        [ReportColumnAttribute(Header = "Total Leave Days", Width = 3, Alignment = ReportAlignment.Left, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
-        public double TotalLeaveDays { get; set; }
+        [ReportColumnAttribute(Header = "Total Leave Days", Width = 4, Alignment = ReportAlignment.Right, ShowTotal = false, Visible = true, AutoFit = true, SizeMode = ReportColumnSizeMode.Auto)]
+        public decimal TotalLeaveDays { get; set; }
     }
 }

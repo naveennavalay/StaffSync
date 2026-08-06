@@ -1732,26 +1732,19 @@ namespace StaffSync
 
                     double absenteePercentage = totalPossibleAttendance == 0 ? 0 : (effectiveLeaveDays * 100.0) / totalPossibleAttendance;
 
-                    new ReportBuilder()
+                    builder
                         .Company(company)
                         .Title(report)
                         .Data(objMonthlyAttendanceReport)
-                        .Settings(settings)
-                        .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
-                        .OrderBy(objtmpDropdownItem.MemberName)
-                        .Summary(new List<ReportSummary>()
-                        {
-                            new ReportSummary("Total Days", totalDays.ToString()),
-                            new ReportSummary("Week End Days", weekEndDays.ToString()),
-                            new ReportSummary("Working Days", workingDays.ToString()),
-                            new ReportSummary("Total Employees", totalEmployees.ToString()),
-                            new ReportSummary("Present Days", totalPresentDays.ToString()),
-                            new ReportSummary("Leave Days", totalLeaveDays.ToString()),
-                            new ReportSummary("Half Leave Days", totalHalfLeaveDays.ToString()),
-                            new ReportSummary("Attendance %", attendancePercentage.ToString("0.00") + "%"),
-                            new ReportSummary("Absenteeism %", absenteePercentage.ToString("0.00") + "%")
-                        })
-                        .Generate(filePath);
+                        .Settings(settings);
+
+                    if (cmbGroupBy.SelectedIndex > 0)
+                    {
+                        builder
+                            .GroupBy(objtmpDropdownItem.MemberValue, objtmpDropdownItem.MemberName)
+                            .OrderBy(objtmpDropdownItem.MemberName);
+                    }
+                    builder.Generate(filePath);
                 }
 
                 //ReportBuilder builder = new ReportBuilder();
@@ -1927,40 +1920,33 @@ namespace StaffSync
                             {
                                 report.ReportTitle = "Leave Matrix";
                                 System.Data.DataTable dt = objLeaveTRReportsList.getLeaveMatrixInformation(objTempClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
-                                ReportDynamicTable tbl1 = ReportTableFactory.FromDataTable(dt, "Leave Matrix");
+                                ReportDynamicTable tbl1 = ReportTableFactory.FromDataTable(dt, "");
                                 tbl1.Columns[0].Visible = false;
                                 tbl1.Columns[1].Width = 5;
                                 tbl1.Columns[2].Width = 5;
                                 tbl1.Columns[3].Width = 5;
                                 tbl1.Columns[5].Visible = false;
-                                tbl1.Columns[6].Format = "0.00";
-                                tbl1.Columns[7].Format = "0.00";
-                                tbl1.Columns[8].Format = "0.00";
-                                tbl1.Columns[9].Format = "0.00";
-                                tbl1.Columns[10].Format = "0.00";
-                                tbl1.Columns[11].Format = "0.00";
-                                tbl1.Columns[12].Format = "0.00";
-                                tbl1.Columns[13].Format = "0.00";
-                                tbl1.Columns[14].Format = "0.00";
-                                tbl1.Columns[15].Format = "0.00";
-                                tbl1.Columns[16].Format = "0.00";
-                                tbl1.Columns[17].Format = "0.00";
-                                tbl1.Columns[18].Format = "0.00";
-                                tbl1.Columns[19].Format = "0.00";
-                                tbl1.Columns[20].Format = "0.00";
-                                tbl1.Columns[21].Format = "0.00";
-                                tbl1.Columns[22].Format = "0.00";
-                                tbl1.Columns[23].Format = "0.00";
-                                tbl1.Columns[24].Format = "0.00";
-                                tbl1.Columns[25].Format = "0.00";
-                                tbl1.Columns[26].Format = "0.00";
-                                tbl1.Columns[27].Format = "0.00";
-                                tbl1.Columns[28].Format = "0.00";
-                                tbl1.Columns[29].Format = "0.00";
-                                tbl1.Columns[30].Format = "0.00";
-                                tbl1.Columns[31].Format = "0.00";
-                                tbl1.Columns[32].Format = "0.00";
                                 //tbl1.Title = "Leave Matrix";
+                                tbl1.SpaceBefore = 1;
+                                tbl1.SpaceAfter = 1;
+
+                                builder
+                                    .Company(company)
+                                    .Title(report)
+                                    //.Data(objLeaveRegisterReports)
+                                    .Settings(settings);
+                                builder.AddTableRow(tbl1);
+                                builder.Generate(filePath);
+                            }
+                            if (chkMonthlyLeaveTrend.Checked)
+                            {
+                                report.ReportTitle = "Monthly Leave Trend";
+                                System.Data.DataTable dt = objLeaveTRReportsList.getLeaveMonthlyTrend(objTempClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+                                ReportDynamicTable tbl1 = ReportTableFactory.FromDataTable(dt, "");
+                                tbl1.Columns[0].Visible = false;
+                                tbl1.Columns[1].Visible = false;
+                                tbl1.Columns[2].Width = 8;
+                                tbl1.Columns[3].Visible = false;
                                 tbl1.SpaceBefore = 1;
                                 tbl1.SpaceAfter = 1;
 
@@ -2016,6 +2002,19 @@ namespace StaffSync
                                 tbl1.Columns[3].Width = 5;
                                 tbl1.Columns[5].Visible = false;
                                 tbl1.Title = "Leave Matrix";
+                                tbl1.SpaceBefore = 1;
+                                tbl1.SpaceAfter = 1;
+
+                                builder.AddTableRow(tbl1);
+                            }
+                            if (chkMonthlyLeaveTrend.Checked)
+                            {
+                                System.Data.DataTable dt = objLeaveTRReportsList.getLeaveMonthlyTrend(objTempClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+                                ReportDynamicTable tbl1 = ReportTableFactory.FromDataTable(dt, "Monthly Leave Trend");
+                                tbl1.Columns[0].Visible = false;
+                                tbl1.Columns[1].Visible = false;
+                                tbl1.Columns[2].Width = 8;
+                                tbl1.Columns[3].Visible = false;
                                 tbl1.SpaceBefore = 1;
                                 tbl1.SpaceAfter = 1;
 
@@ -2207,6 +2206,19 @@ namespace StaffSync
 
                                 builder.AddTableRow(tbl1);
                             }
+                            if (chkMonthlyLeaveTrend.Checked)
+                            {
+                                System.Data.DataTable dt = objLeaveTRReportsList.getLeaveMonthlyTrend(objTempClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+                                ReportDynamicTable tbl1 = ReportTableFactory.FromDataTable(dt, "Monthly Leave Trend");
+                                tbl1.Columns[0].Visible = false;
+                                tbl1.Columns[1].Visible = false;
+                                tbl1.Columns[2].Width = 8;
+                                tbl1.Columns[3].Visible = false;
+                                tbl1.SpaceBefore = 1;
+                                tbl1.SpaceAfter = 1;
+
+                                builder.AddTableRow(tbl1);
+                            }
                             if (chkLeaveSummary.Checked == false && chkLeaveBalance.Checked == false && chkLeaveLedger.Checked == false && chkLeaveMatrix.Checked == false && chkMonthlyLeaveTrend.Checked == false)
                             {
                                 builder
@@ -2293,6 +2305,14 @@ namespace StaffSync
                 if (optMonthlyAttendanceRegister.Checked)
                 {
                     LeaveRegisterInformation(lblFilter.Text);
+                }
+            }
+            else if (dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString() == ReportCode.REP_0007.ToString())
+            {
+                lblSelectedReport.Text = dtgReportsList.SelectedRows[0].Cells["ReportsCode"].Value.ToString().Replace("-", "_").ToString();
+                if (optMonthlyAttendanceRegister.Checked)
+                {
+                    //LeaveRegisterInformation(lblFilter.Text);
                 }
             }
         }

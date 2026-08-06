@@ -497,6 +497,15 @@ namespace StaffSync
                 txtAvailableLeave.Text = objLeaveTRList.getBalanceLeave(Convert.ToInt16(lblEmpID.Text)).ToString();
                 lblLeaveMasID.Text = objLeaveTRList.getMaxLeaveMasID(Convert.ToInt16(lblEmpID.Text)).ToString();
 
+                lblSpecificLeaveBalance.Text = objLeaveTRList.getSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1)).ToString();
+
+                lblLeaveIsPaid.Text = "";
+                if (objLeaveTRList.IsLeavePaidOrNot(Convert.ToInt16(cmbLeaveType.SelectedIndex + 1)) == true)
+                    lblLeaveIsPaid.Text = "paid";
+                else
+                    lblLeaveIsPaid.Text = "lop";
+
+
                 LeaveCalculation();
 
                 RefreshLeavesHistoryList();
@@ -751,6 +760,12 @@ namespace StaffSync
             {
                 errValidator.SetError(txtActualLeaveDays, "Enter a valid number of leave days.");
                 isValid = false;
+            }
+
+            if(lblCancelStatus.Text != "")
+            {
+                errValidator.Clear();
+                isValid = true;
             }
 
             return isValid;

@@ -182,6 +182,16 @@ namespace DALStaffSync
             return dt;
         }
 
+        public DataTable getLeaveMonthlyTrend(int ClientID, DateTime dtFrom, DateTime dtTo)
+        {
+            DataTable dt = new DataTable();
+
+            dt = objLeaveTRList.getLeaveMonthlyTrend(ClientID, dtFrom, dtTo);
+
+            return dt;
+
+        }
+
         public DataTable getLeaveTrendSummaryDatasource(int CompanyID, DateTime dtFrom, DateTime dtTo)
         {
             DataTable dt = new DataTable();
