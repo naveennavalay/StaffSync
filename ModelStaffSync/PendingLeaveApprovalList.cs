@@ -51,5 +51,8 @@ namespace ModelStaffSync
 
         [DisplayName("Leave Mode")]
         public string LeaveMode { get; set; }
+
+        public int OrderID { get; set; }
+        public int ClientID { get; set; }
     }
 }

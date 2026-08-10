@@ -109,6 +109,7 @@ namespace StaffSync
             InitializeComponent();
             this.frmLeavesApproval = frmLeavesApprval;
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+            lblClientID.Text = frmLeavesApprval.lblClientID.Text.ToString();
         }
 
         public frmEmployeeList(frmLeavesReject frmLeaveReject, string SearchOptionClickedFor)
@@ -116,6 +117,7 @@ namespace StaffSync
             InitializeComponent();
             this.frmLeaveReject = frmLeaveReject;
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+            lblClientID.Text = frmLeaveReject.lblClientID.Text.ToString();
         }
 
         public frmEmployeeList(frmPayrollMaster frmPayrollMaster, string SearchOptionClickedFor)
@@ -130,6 +132,7 @@ namespace StaffSync
             InitializeComponent();
             this.frmLeaveStatement = frmLeaveStment;
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+            lblClientID.Text = frmLeavesApproval.lblClientID.Text.ToString();
         }
 
         public frmEmployeeList(frmUpdateCurrentUserInfo frmUpdateCurrntUserInfo, string SearchOptionClickedFor)
@@ -151,6 +154,7 @@ namespace StaffSync
             InitializeComponent();
             this.frmEmpLeaveEntitlement = frmEmpLeaveEntitlment;
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+            lblClientID.Text = frmLeavesApproval.lblClientID.Text.ToString();
         }
 
         public frmEmployeeList(frmLeaveStatements frmLeaveStatments, string SearchOptionClickedFor)
@@ -158,6 +162,7 @@ namespace StaffSync
             InitializeComponent();
             this.frmLeaveStatements = frmLeaveStatments;
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+            lblClientID.Text = frmLeavesApproval.lblClientID.Text.ToString();
         }
 
         public frmEmployeeList(frmEmpAdvanceRequest frmEmpAdvanceRequest, string SearchOptionClickedFor)
@@ -250,7 +255,7 @@ namespace StaffSync
             {
                 this.Text = "Leave Request List";
                 dtgEmployeeList.DataSource = null;
-                dtgEmployeeList.DataSource = objLeaveInfo.getPendingLeaveApprovalList();
+                dtgEmployeeList.DataSource = objLeaveInfo.getPendingLeaveApprovalList(Convert.ToInt32(lblClientID.Text));
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
                 dtgEmployeeList.Columns["LeaveTRID"].Visible = false;
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
@@ -269,12 +274,14 @@ namespace StaffSync
                 dtgEmployeeList.Columns["ActualLeaveDateTo"].Width = 100;
                 dtgEmployeeList.Columns["ActualLeaveDateTo"].DefaultCellStyle.Format = "dd-MMM-yyyy";
                 dtgEmployeeList.Columns["LeaveComments"].Width = 250;
+                dtgEmployeeList.Columns["OrderID"].Visible = false;
+                dtgEmployeeList.Columns["ClientID"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listEmployeeLeaveRejectRequestList")
             {
                 this.Text = "Leave Request List";
                 dtgEmployeeList.DataSource = null;
-                dtgEmployeeList.DataSource = objLeaveInfo.getPendingLeaveApprovalList();
+                dtgEmployeeList.DataSource = objLeaveInfo.getPendingLeaveApprovalList(Convert.ToInt32(lblClientID.Text.ToString().Trim()));
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
                 dtgEmployeeList.Columns["LeaveTRID"].Visible = false;
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
@@ -293,6 +300,8 @@ namespace StaffSync
                 dtgEmployeeList.Columns["ActualLeaveDateTo"].DefaultCellStyle.Format = "dd-MMM-yyyy";
                 dtgEmployeeList.Columns["LeaveDuration"].Width = 100;
                 dtgEmployeeList.Columns["LeaveComments"].Width = 250;
+                dtgEmployeeList.Columns["OrderID"].Visible = false;
+                dtgEmployeeList.Columns["ClientID"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listUserModuleAssignment")
             {
@@ -547,7 +556,7 @@ namespace StaffSync
             {
                 this.Text = "Leave Request List";
                 dtgEmployeeList.DataSource = null;
-                dtgEmployeeList.DataSource = objLeaveInfo.getPendingLeaveApprovalList();
+                dtgEmployeeList.DataSource = objLeaveInfo.getPendingLeaveApprovalList(Convert.ToInt32(lblClientID.Text));
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
                 dtgEmployeeList.Columns["LeaveTRID"].Visible = false;
                 dtgEmployeeList.Columns["EmpID"].Visible = false;

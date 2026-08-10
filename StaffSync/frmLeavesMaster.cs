@@ -22,6 +22,7 @@ namespace StaffSync
         DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
         DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
         DALStaffSync.clsLeaveTypeMas objLeaveTypeInfo = new DALStaffSync.clsLeaveTypeMas();
+        DALStaffSync.clsEmpMnthlyAttdInfo objEmpMnthlyAttdInfo = new DALStaffSync.clsEmpMnthlyAttdInfo();
         DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
         DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
@@ -206,12 +207,27 @@ namespace StaffSync
 
             int employeeLeaveTRID = 0;
 
-            bool AttendanceEntryAlreadyExist = objLeaveTRList.AttendanceExistsForToday(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text), cmbLeaveType.SelectedIndex + 1, cmbDuration.Text.ToString());
-            if(AttendanceEntryAlreadyExist)
+            bool AttendanceEntryAlreadyExist = false;
+
+            if (lblCancelStatus.Text == "")
             {
-                MessageBox.Show(cmbLeaveType.Text + " - Leave already applied for the selected date.\nPlease verify once again to continue.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Cursor = Cursors.Default;
-                return;
+                AttendanceEntryAlreadyExist = objLeaveTRList.AttendanceExistsForToday(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text), cmbLeaveType.SelectedIndex + 1, cmbDuration.Text.ToString());
+                if (AttendanceEntryAlreadyExist)
+                {
+                    MessageBox.Show(cmbLeaveType.Text + " - Leave already applied for the selected date.\nPlease verify once again to continue.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Cursor = Cursors.Default;
+                    return;
+                }
+
+                string attendanceStatus = objEmpMnthlyAttdInfo.getMonthlyAttendanceInfo(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDateTime(txtLeaveDateFrom.Text), "");
+                if (attendanceStatus != "")
+                {
+                    if (MessageBox.Show("Attendance is already marked as \"" + attendanceStatus + "\" for the selected date. \nAre you sure to continue with applying leave.?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    {
+                        this.Cursor = Cursors.Default;
+                        return;
+                    }
+                }
             }
 
             if(lblLeaveIsPaid.Text == "lop")
@@ -275,7 +291,7 @@ namespace StaffSync
                 else
                 {
                     employeeLeaveTRID = objLeaveTRList.CancelLeaveTransaction(Convert.ToInt16(lblCancelStatus.Text.ToString()), Convert.ToInt16(lblEmpID.Text.ToString()), "");
-                    objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) + Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
+                    //objLeaveTRList.UpdateSpecificLeaveTypeBalance(Convert.ToInt16(lblLeaveMasID.Text.ToString()), Convert.ToInt16(cmbLeaveType.SelectedIndex + 1), (Convert.ToDecimal(lblSpecificLeaveBalance.Text.ToString()) + Convert.ToDecimal(txtActualLeaveDays.Text.ToString())));
                 }
                 if (employeeLeaveTRID > 0)
                 {
@@ -609,9 +625,13 @@ namespace StaffSync
             foreach (EmployeeLeaveTRList indEmployeeLeaveTRList in objEmployeeLeaveTRList)
             {
                 string strLeaveStatus = "";
-                if (indEmployeeLeaveTRList.LeaveApprovalComments == "Not yet Approved" || indEmployeeLeaveTRList.LeaveApprovalComments == "Not yet Rejected")
+                if ((indEmployeeLeaveTRList.LeaveApprovalComments == "Not yet Approved" || indEmployeeLeaveTRList.LeaveApprovalComments == "Not yet Rejected") && indEmployeeLeaveTRList.Canceled == false)
                 {
                     strLeaveStatus = "Pending";
+                }
+                else if ((indEmployeeLeaveTRList.LeaveApprovalComments == "Not yet Approved" || indEmployeeLeaveTRList.LeaveApprovalComments == "Not yet Rejected") && indEmployeeLeaveTRList.Canceled == true)
+                {
+                    strLeaveStatus = "Cancelled";
                 }
                 else if (indEmployeeLeaveTRList.LeaveApprovalComments.StartsWith("Approved"))
                 {
@@ -658,17 +678,35 @@ namespace StaffSync
 
         private void lstLeaveTRList_MouseUp(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Right)
+                return;
+
             if (lblActionMode.Text == "add")
             {
-                if (lstLeaveTRList.SelectedItems[0].SubItems[4].Text.ToString() != "0" && (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString() != "Cancelled") && (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString() == "Pending"))
+                ListViewItem item = lstLeaveTRList.GetItemAt(e.X, e.Y);
+
+                if (item == null)
                 {
-                    if (e.Button == MouseButtons.Right)
-                    {
-                        tlbCancelLeave.Visible = true;
-                    }
-                }
-                else
                     tlbCancelLeave.Visible = false;
+                    return;
+                }
+
+                item.Selected = true;
+
+                bool canCancel =
+                    item.SubItems[4].Text != "0" &&
+                    item.SubItems[7].Text == "Pending";
+
+                tlbCancelLeave.Visible = canCancel;
+                //if (lstLeaveTRList.SelectedItems[0].SubItems[4].Text.ToString() != "0" && (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString() != "Cancelled") && (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString() == "Pending"))
+                //{
+                //    if (e.Button == MouseButtons.Right)
+                //    {
+                //        tlbCancelLeave.Visible = true;
+                //    }
+                //}
+                //else
+                //    tlbCancelLeave.Visible = false;
             }
         }
 

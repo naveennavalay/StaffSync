@@ -65,11 +65,11 @@ namespace DALStaffSync
             return objLeaveTRList.IsLeavePaidOrNot(txtLeaveMasID);
         }
 
-        public List<PendingLeaveApprovalList> getPendingLeaveApprovalList()
+        public List<PendingLeaveApprovalList> getPendingLeaveApprovalList(int ClientID)
         {
             List<PendingLeaveApprovalList> empPendingLeaveApprovalList = new List<PendingLeaveApprovalList>();
 
-            empPendingLeaveApprovalList = objLeaveTRList.getPendingLeaveApprovalList();
+            empPendingLeaveApprovalList = objLeaveTRList.getPendingLeaveApprovalList(ClientID);
 
             return empPendingLeaveApprovalList;
         }

@@ -56,6 +56,7 @@ namespace StaffSync
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
             objTempClientFinYearInfo = objSelectedClientFinYearInfo;
             ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
+            lblClientID.Text = objTempClientFinYearInfo.ClientID.ToString();
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)

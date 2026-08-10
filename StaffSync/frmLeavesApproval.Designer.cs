@@ -96,6 +96,7 @@
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonCommand1 = new Krypton.Toolkit.KryptonCommand();
             this.kryptonCommand2 = new Krypton.Toolkit.KryptonCommand();
+            this.lblClientID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -554,6 +555,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.lblClientID);
             this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Controls.Add(this.btnSearch);
             this.groupBox4.Controls.Add(this.label38);
@@ -850,6 +852,19 @@
             // 
             this.kryptonCommand2.Text = "kryptonCommand2";
             // 
+            // lblClientID
+            // 
+            this.lblClientID.AutoSize = true;
+            this.lblClientID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblClientID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClientID.Location = new System.Drawing.Point(639, 30);
+            this.lblClientID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblClientID.Name = "lblClientID";
+            this.lblClientID.Size = new System.Drawing.Size(11, 15);
+            this.lblClientID.TabIndex = 86;
+            this.lblClientID.Text = " ";
+            this.lblClientID.Visible = false;
+            // 
             // frmLeavesApproval
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -961,5 +976,6 @@
         private System.Windows.Forms.PictureBox picViewLeaves;
         private Krypton.Toolkit.KryptonButton btnAttCalender;
         private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
+        public System.Windows.Forms.Label lblClientID;
     }
 }

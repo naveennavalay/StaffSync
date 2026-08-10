@@ -3931,40 +3931,6 @@
             </Mappings>
             <Sources />
           </TableAdapter>
-          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="qryDailyLeaveRequestTableAdapter" GeneratorDataComponentClassName="qryDailyLeaveRequestTableAdapter" Name="qryDailyLeaveRequest" UserDataComponentName="qryDailyLeaveRequestTableAdapter">
-            <MainSource>
-              <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="qryDailyLeaveRequest" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
-                <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT EmpID, EmpCode, EmpName, DesignationTitle, DepartmentTitle, LeaveTRID, LeaveTypeID, LeaveTypeTitle, LeaveAppliedDate, LeaveComments, ActualLeaveDateFrom, ActualLeaveDateTo, LeaveDuration, LeaveMode, LeaveApprovedDate, LeaveApprovalComments, LeaveRejectedDate, LeaveRejectionComments, OrderID FROM qryDailyLeaveRequest</CommandText>
-                    <Parameters />
-                  </DbCommand>
-                </SelectCommand>
-              </DbSource>
-            </MainSource>
-            <Mappings>
-              <Mapping SourceColumn="EmpID" DataSetColumn="EmpID" />
-              <Mapping SourceColumn="EmpCode" DataSetColumn="EmpCode" />
-              <Mapping SourceColumn="EmpName" DataSetColumn="EmpName" />
-              <Mapping SourceColumn="DesignationTitle" DataSetColumn="DesignationTitle" />
-              <Mapping SourceColumn="DepartmentTitle" DataSetColumn="DepartmentTitle" />
-              <Mapping SourceColumn="LeaveTRID" DataSetColumn="LeaveTRID" />
-              <Mapping SourceColumn="LeaveTypeID" DataSetColumn="LeaveTypeID" />
-              <Mapping SourceColumn="LeaveTypeTitle" DataSetColumn="LeaveTypeTitle" />
-              <Mapping SourceColumn="LeaveAppliedDate" DataSetColumn="LeaveAppliedDate" />
-              <Mapping SourceColumn="LeaveComments" DataSetColumn="LeaveComments" />
-              <Mapping SourceColumn="ActualLeaveDateFrom" DataSetColumn="ActualLeaveDateFrom" />
-              <Mapping SourceColumn="ActualLeaveDateTo" DataSetColumn="ActualLeaveDateTo" />
-              <Mapping SourceColumn="LeaveDuration" DataSetColumn="LeaveDuration" />
-              <Mapping SourceColumn="LeaveMode" DataSetColumn="LeaveMode" />
-              <Mapping SourceColumn="LeaveApprovedDate" DataSetColumn="LeaveApprovedDate" />
-              <Mapping SourceColumn="LeaveApprovalComments" DataSetColumn="LeaveApprovalComments" />
-              <Mapping SourceColumn="LeaveRejectedDate" DataSetColumn="LeaveRejectedDate" />
-              <Mapping SourceColumn="LeaveRejectionComments" DataSetColumn="LeaveRejectionComments" />
-              <Mapping SourceColumn="OrderID" DataSetColumn="OrderID" />
-            </Mappings>
-            <Sources />
-          </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="qryDepartmentListTableAdapter" GeneratorDataComponentClassName="qryDepartmentListTableAdapter" Name="qryDepartmentList" UserDataComponentName="qryDepartmentListTableAdapter">
             <MainSource>
               <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="qryDepartmentList" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
@@ -10127,6 +10093,36 @@
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="qryDailyLeaveRequestTableAdapter" GeneratorDataComponentClassName="qryDailyLeaveRequestTableAdapter" Name="qryDailyLeaveRequest" UserDataComponentName="qryDailyLeaveRequestTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="qryDailyLeaveRequest" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT EmpID, EmpCode, EmpName, DesignationTitle, DepartmentTitle, LeaveTypeTitle, Reason, ActualLeaveDateFrom, ActualLeaveDateTo, LeaveDuration, LeaveComments, LeaveMode, LeaveTRID, OrderID, ClientID FROM qryDailyLeaveRequest</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="EmpID" DataSetColumn="EmpID" />
+              <Mapping SourceColumn="EmpCode" DataSetColumn="EmpCode" />
+              <Mapping SourceColumn="EmpName" DataSetColumn="EmpName" />
+              <Mapping SourceColumn="DesignationTitle" DataSetColumn="DesignationTitle" />
+              <Mapping SourceColumn="DepartmentTitle" DataSetColumn="DepartmentTitle" />
+              <Mapping SourceColumn="LeaveTypeTitle" DataSetColumn="LeaveTypeTitle" />
+              <Mapping SourceColumn="Reason" DataSetColumn="Reason" />
+              <Mapping SourceColumn="ActualLeaveDateFrom" DataSetColumn="ActualLeaveDateFrom" />
+              <Mapping SourceColumn="ActualLeaveDateTo" DataSetColumn="ActualLeaveDateTo" />
+              <Mapping SourceColumn="LeaveDuration" DataSetColumn="LeaveDuration" />
+              <Mapping SourceColumn="LeaveComments" DataSetColumn="LeaveComments" />
+              <Mapping SourceColumn="LeaveMode" DataSetColumn="LeaveMode" />
+              <Mapping SourceColumn="LeaveTRID" DataSetColumn="LeaveTRID" />
+              <Mapping SourceColumn="OrderID" DataSetColumn="OrderID" />
+              <Mapping SourceColumn="ClientID" DataSetColumn="ClientID" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources>
           <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="tmpQrySalPivotTable" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="tmpQrySalPivotTable" MethodsParameterType="CLR" Modifier="Public" Name="tmpQrySalPivotTable" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="tmpQrySalPivotTable">
@@ -11852,85 +11848,6 @@
               </xs:element>
               <xs:element name="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_UserColumnName="IsActive" msprop:Generator_ColumnVarNameInTable="columnIsActive" type="xs:boolean" minOccurs="0" />
               <xs:element name="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_UserColumnName="IsDeleted" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" type="xs:boolean" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="qryDailyLeaveRequest" msprop:Generator_RowEvHandlerName="qryDailyLeaveRequestRowChangeEventHandler" msprop:Generator_RowDeletedName="qryDailyLeaveRequestRowDeleted" msprop:Generator_RowDeletingName="qryDailyLeaveRequestRowDeleting" msprop:Generator_RowEvArgName="qryDailyLeaveRequestRowChangeEvent" msprop:Generator_TablePropName="qryDailyLeaveRequest" msprop:Generator_RowChangedName="qryDailyLeaveRequestRowChanged" msprop:Generator_UserTableName="qryDailyLeaveRequest" msprop:Generator_RowChangingName="qryDailyLeaveRequestRowChanging" msprop:Generator_RowClassName="qryDailyLeaveRequestRow" msprop:Generator_TableClassName="qryDailyLeaveRequestDataTable" msprop:Generator_TableVarName="tableqryDailyLeaveRequest">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="EmpID" msprop:Generator_ColumnPropNameInTable="EmpIDColumn" msprop:Generator_ColumnPropNameInRow="EmpID" msprop:Generator_UserColumnName="EmpID" msprop:Generator_ColumnVarNameInTable="columnEmpID" type="xs:int" minOccurs="0" />
-              <xs:element name="EmpCode" msprop:Generator_ColumnPropNameInTable="EmpCodeColumn" msprop:Generator_ColumnPropNameInRow="EmpCode" msprop:Generator_UserColumnName="EmpCode" msprop:Generator_ColumnVarNameInTable="columnEmpCode" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="EmpName" msprop:Generator_ColumnPropNameInTable="EmpNameColumn" msprop:Generator_ColumnPropNameInRow="EmpName" msprop:Generator_UserColumnName="EmpName" msprop:Generator_ColumnVarNameInTable="columnEmpName" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="DesignationTitle" msprop:Generator_ColumnPropNameInTable="DesignationTitleColumn" msprop:Generator_ColumnPropNameInRow="DesignationTitle" msprop:Generator_UserColumnName="DesignationTitle" msprop:Generator_ColumnVarNameInTable="columnDesignationTitle" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="DepartmentTitle" msprop:Generator_ColumnPropNameInTable="DepartmentTitleColumn" msprop:Generator_ColumnPropNameInRow="DepartmentTitle" msprop:Generator_UserColumnName="DepartmentTitle" msprop:Generator_ColumnVarNameInTable="columnDepartmentTitle" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="LeaveTRID" msprop:Generator_ColumnPropNameInTable="LeaveTRIDColumn" msprop:Generator_ColumnPropNameInRow="LeaveTRID" msprop:Generator_UserColumnName="LeaveTRID" msprop:Generator_ColumnVarNameInTable="columnLeaveTRID" type="xs:int" minOccurs="0" />
-              <xs:element name="LeaveTypeID" msprop:Generator_ColumnPropNameInTable="LeaveTypeIDColumn" msprop:Generator_ColumnPropNameInRow="LeaveTypeID" msprop:Generator_UserColumnName="LeaveTypeID" msprop:Generator_ColumnVarNameInTable="columnLeaveTypeID" type="xs:int" minOccurs="0" />
-              <xs:element name="LeaveTypeTitle" msprop:Generator_ColumnPropNameInTable="LeaveTypeTitleColumn" msprop:Generator_ColumnPropNameInRow="LeaveTypeTitle" msprop:Generator_UserColumnName="LeaveTypeTitle" msprop:Generator_ColumnVarNameInTable="columnLeaveTypeTitle" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="LeaveAppliedDate" msprop:Generator_ColumnPropNameInTable="LeaveAppliedDateColumn" msprop:Generator_ColumnPropNameInRow="LeaveAppliedDate" msprop:Generator_UserColumnName="LeaveAppliedDate" msprop:Generator_ColumnVarNameInTable="columnLeaveAppliedDate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="LeaveComments" msprop:Generator_ColumnPropNameInTable="LeaveCommentsColumn" msprop:Generator_ColumnPropNameInRow="LeaveComments" msprop:Generator_UserColumnName="LeaveComments" msprop:Generator_ColumnVarNameInTable="columnLeaveComments" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="ActualLeaveDateFrom" msprop:Generator_ColumnPropNameInTable="ActualLeaveDateFromColumn" msprop:Generator_ColumnPropNameInRow="ActualLeaveDateFrom" msprop:Generator_UserColumnName="ActualLeaveDateFrom" msprop:Generator_ColumnVarNameInTable="columnActualLeaveDateFrom" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="ActualLeaveDateTo" msprop:Generator_ColumnPropNameInTable="ActualLeaveDateToColumn" msprop:Generator_ColumnPropNameInRow="ActualLeaveDateTo" msprop:Generator_UserColumnName="ActualLeaveDateTo" msprop:Generator_ColumnVarNameInTable="columnActualLeaveDateTo" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="LeaveDuration" msprop:Generator_ColumnPropNameInTable="LeaveDurationColumn" msprop:Generator_ColumnPropNameInRow="LeaveDuration" msprop:Generator_UserColumnName="LeaveDuration" msprop:Generator_ColumnVarNameInTable="columnLeaveDuration" type="xs:decimal" minOccurs="0" />
-              <xs:element name="LeaveMode" msprop:Generator_ColumnPropNameInTable="LeaveModeColumn" msprop:Generator_ColumnPropNameInRow="LeaveMode" msprop:Generator_UserColumnName="LeaveMode" msprop:Generator_ColumnVarNameInTable="columnLeaveMode" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="LeaveApprovedDate" msprop:Generator_ColumnPropNameInTable="LeaveApprovedDateColumn" msprop:Generator_ColumnPropNameInRow="LeaveApprovedDate" msprop:Generator_UserColumnName="LeaveApprovedDate" msprop:Generator_ColumnVarNameInTable="columnLeaveApprovedDate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="LeaveApprovalComments" msprop:Generator_ColumnPropNameInTable="LeaveApprovalCommentsColumn" msprop:Generator_ColumnPropNameInRow="LeaveApprovalComments" msprop:Generator_UserColumnName="LeaveApprovalComments" msprop:Generator_ColumnVarNameInTable="columnLeaveApprovalComments" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="LeaveRejectedDate" msprop:Generator_ColumnPropNameInTable="LeaveRejectedDateColumn" msprop:Generator_ColumnPropNameInRow="LeaveRejectedDate" msprop:Generator_UserColumnName="LeaveRejectedDate" msprop:Generator_ColumnVarNameInTable="columnLeaveRejectedDate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="LeaveRejectionComments" msprop:Generator_ColumnPropNameInTable="LeaveRejectionCommentsColumn" msprop:Generator_ColumnPropNameInRow="LeaveRejectionComments" msprop:Generator_UserColumnName="LeaveRejectionComments" msprop:Generator_ColumnVarNameInTable="columnLeaveRejectionComments" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="OrderID" msprop:Generator_ColumnPropNameInTable="OrderIDColumn" msprop:Generator_ColumnPropNameInRow="OrderID" msprop:Generator_UserColumnName="OrderID" msprop:Generator_ColumnVarNameInTable="columnOrderID" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -15459,44 +15376,113 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="qryOutStandingLeaves" msprop:Generator_RowClassName="qryOutStandingLeavesRow" msprop:Generator_RowEvHandlerName="qryOutStandingLeavesRowChangeEventHandler" msprop:Generator_RowDeletedName="qryOutStandingLeavesRowDeleted" msprop:Generator_RowDeletingName="qryOutStandingLeavesRowDeleting" msprop:Generator_RowEvArgName="qryOutStandingLeavesRowChangeEvent" msprop:Generator_TablePropName="qryOutStandingLeaves" msprop:Generator_RowChangedName="qryOutStandingLeavesRowChanged" msprop:Generator_UserTableName="qryOutStandingLeaves" msprop:Generator_RowChangingName="qryOutStandingLeavesRowChanging" msprop:Generator_TableClassName="qryOutStandingLeavesDataTable" msprop:Generator_TableVarName="tableqryOutStandingLeaves">
+        <xs:element name="qryOutStandingLeaves" msprop:Generator_RowEvHandlerName="qryOutStandingLeavesRowChangeEventHandler" msprop:Generator_RowDeletedName="qryOutStandingLeavesRowDeleted" msprop:Generator_RowDeletingName="qryOutStandingLeavesRowDeleting" msprop:Generator_RowEvArgName="qryOutStandingLeavesRowChangeEvent" msprop:Generator_TablePropName="qryOutStandingLeaves" msprop:Generator_RowChangedName="qryOutStandingLeavesRowChanged" msprop:Generator_UserTableName="qryOutStandingLeaves" msprop:Generator_RowChangingName="qryOutStandingLeavesRowChanging" msprop:Generator_RowClassName="qryOutStandingLeavesRow" msprop:Generator_TableClassName="qryOutStandingLeavesDataTable" msprop:Generator_TableVarName="tableqryOutStandingLeaves">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="EmpID" msprop:Generator_UserColumnName="EmpID" msprop:Generator_ColumnPropNameInTable="EmpIDColumn" msprop:Generator_ColumnPropNameInRow="EmpID" msprop:Generator_ColumnVarNameInTable="columnEmpID" type="xs:int" minOccurs="0" />
-              <xs:element name="EmpCode" msprop:Generator_UserColumnName="EmpCode" msprop:Generator_ColumnPropNameInTable="EmpCodeColumn" msprop:Generator_ColumnPropNameInRow="EmpCode" msprop:Generator_ColumnVarNameInTable="columnEmpCode" minOccurs="0">
+              <xs:element name="EmpID" msprop:Generator_ColumnPropNameInTable="EmpIDColumn" msprop:Generator_ColumnPropNameInRow="EmpID" msprop:Generator_UserColumnName="EmpID" msprop:Generator_ColumnVarNameInTable="columnEmpID" type="xs:int" minOccurs="0" />
+              <xs:element name="EmpCode" msprop:Generator_ColumnPropNameInTable="EmpCodeColumn" msprop:Generator_ColumnPropNameInRow="EmpCode" msprop:Generator_UserColumnName="EmpCode" msprop:Generator_ColumnVarNameInTable="columnEmpCode" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="EmpName" msprop:Generator_UserColumnName="EmpName" msprop:Generator_ColumnPropNameInTable="EmpNameColumn" msprop:Generator_ColumnPropNameInRow="EmpName" msprop:Generator_ColumnVarNameInTable="columnEmpName" minOccurs="0">
+              <xs:element name="EmpName" msprop:Generator_ColumnPropNameInTable="EmpNameColumn" msprop:Generator_ColumnPropNameInRow="EmpName" msprop:Generator_UserColumnName="EmpName" msprop:Generator_ColumnVarNameInTable="columnEmpName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="DesignationTitle" msprop:Generator_UserColumnName="DesignationTitle" msprop:Generator_ColumnPropNameInTable="DesignationTitleColumn" msprop:Generator_ColumnPropNameInRow="DesignationTitle" msprop:Generator_ColumnVarNameInTable="columnDesignationTitle" minOccurs="0">
+              <xs:element name="DesignationTitle" msprop:Generator_ColumnPropNameInTable="DesignationTitleColumn" msprop:Generator_ColumnPropNameInRow="DesignationTitle" msprop:Generator_UserColumnName="DesignationTitle" msprop:Generator_ColumnVarNameInTable="columnDesignationTitle" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="DepartmentTitle" msprop:Generator_UserColumnName="DepartmentTitle" msprop:Generator_ColumnPropNameInTable="DepartmentTitleColumn" msprop:Generator_ColumnPropNameInRow="DepartmentTitle" msprop:Generator_ColumnVarNameInTable="columnDepartmentTitle" minOccurs="0">
+              <xs:element name="DepartmentTitle" msprop:Generator_ColumnPropNameInTable="DepartmentTitleColumn" msprop:Generator_ColumnPropNameInRow="DepartmentTitle" msprop:Generator_UserColumnName="DepartmentTitle" msprop:Generator_ColumnVarNameInTable="columnDepartmentTitle" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="TotalLeaves" msprop:Generator_UserColumnName="TotalLeaves" msprop:Generator_ColumnPropNameInTable="TotalLeavesColumn" msprop:Generator_ColumnPropNameInRow="TotalLeaves" msprop:Generator_ColumnVarNameInTable="columnTotalLeaves" type="xs:decimal" minOccurs="0" />
-              <xs:element name="UtilisedLeaves" msdata:ReadOnly="true" msprop:Generator_UserColumnName="UtilisedLeaves" msprop:Generator_ColumnPropNameInTable="UtilisedLeavesColumn" msprop:Generator_ColumnPropNameInRow="UtilisedLeaves" msprop:Generator_ColumnVarNameInTable="columnUtilisedLeaves" type="xs:decimal" minOccurs="0" />
-              <xs:element name="BalanceLeaves" msprop:Generator_UserColumnName="BalanceLeaves" msprop:Generator_ColumnPropNameInTable="BalanceLeavesColumn" msprop:Generator_ColumnPropNameInRow="BalanceLeaves" msprop:Generator_ColumnVarNameInTable="columnBalanceLeaves" type="xs:decimal" minOccurs="0" />
-              <xs:element name="IsActive" msprop:Generator_UserColumnName="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_ColumnVarNameInTable="columnIsActive" type="xs:boolean" minOccurs="0" />
-              <xs:element name="IsDeleted" msprop:Generator_UserColumnName="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" type="xs:boolean" minOccurs="0" />
-              <xs:element name="ClientID" msprop:Generator_UserColumnName="ClientID" msprop:Generator_ColumnPropNameInTable="ClientIDColumn" msprop:Generator_ColumnPropNameInRow="ClientID" msprop:Generator_ColumnVarNameInTable="columnClientID" type="xs:int" minOccurs="0" />
+              <xs:element name="TotalLeaves" msprop:Generator_ColumnPropNameInTable="TotalLeavesColumn" msprop:Generator_ColumnPropNameInRow="TotalLeaves" msprop:Generator_UserColumnName="TotalLeaves" msprop:Generator_ColumnVarNameInTable="columnTotalLeaves" type="xs:decimal" minOccurs="0" />
+              <xs:element name="UtilisedLeaves" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInTable="UtilisedLeavesColumn" msprop:Generator_ColumnPropNameInRow="UtilisedLeaves" msprop:Generator_UserColumnName="UtilisedLeaves" msprop:Generator_ColumnVarNameInTable="columnUtilisedLeaves" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BalanceLeaves" msprop:Generator_ColumnPropNameInTable="BalanceLeavesColumn" msprop:Generator_ColumnPropNameInRow="BalanceLeaves" msprop:Generator_UserColumnName="BalanceLeaves" msprop:Generator_ColumnVarNameInTable="columnBalanceLeaves" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_UserColumnName="IsActive" msprop:Generator_ColumnVarNameInTable="columnIsActive" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_UserColumnName="IsDeleted" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ClientID" msprop:Generator_ColumnPropNameInTable="ClientIDColumn" msprop:Generator_ColumnPropNameInRow="ClientID" msprop:Generator_UserColumnName="ClientID" msprop:Generator_ColumnVarNameInTable="columnClientID" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="qryDailyLeaveRequest" msprop:Generator_RowEvHandlerName="qryDailyLeaveRequestRowChangeEventHandler" msprop:Generator_RowDeletedName="qryDailyLeaveRequestRowDeleted" msprop:Generator_RowDeletingName="qryDailyLeaveRequestRowDeleting" msprop:Generator_RowEvArgName="qryDailyLeaveRequestRowChangeEvent" msprop:Generator_TablePropName="qryDailyLeaveRequest" msprop:Generator_RowChangedName="qryDailyLeaveRequestRowChanged" msprop:Generator_RowChangingName="qryDailyLeaveRequestRowChanging" msprop:Generator_TableClassName="qryDailyLeaveRequestDataTable" msprop:Generator_RowClassName="qryDailyLeaveRequestRow" msprop:Generator_TableVarName="tableqryDailyLeaveRequest" msprop:Generator_UserTableName="qryDailyLeaveRequest">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EmpID" msprop:Generator_ColumnPropNameInRow="EmpID" msprop:Generator_ColumnPropNameInTable="EmpIDColumn" msprop:Generator_ColumnVarNameInTable="columnEmpID" msprop:Generator_UserColumnName="EmpID" type="xs:int" minOccurs="0" />
+              <xs:element name="EmpCode" msprop:Generator_ColumnPropNameInRow="EmpCode" msprop:Generator_ColumnPropNameInTable="EmpCodeColumn" msprop:Generator_ColumnVarNameInTable="columnEmpCode" msprop:Generator_UserColumnName="EmpCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EmpName" msprop:Generator_ColumnPropNameInRow="EmpName" msprop:Generator_ColumnPropNameInTable="EmpNameColumn" msprop:Generator_ColumnVarNameInTable="columnEmpName" msprop:Generator_UserColumnName="EmpName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DesignationTitle" msprop:Generator_ColumnPropNameInRow="DesignationTitle" msprop:Generator_ColumnPropNameInTable="DesignationTitleColumn" msprop:Generator_ColumnVarNameInTable="columnDesignationTitle" msprop:Generator_UserColumnName="DesignationTitle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DepartmentTitle" msprop:Generator_ColumnPropNameInRow="DepartmentTitle" msprop:Generator_ColumnPropNameInTable="DepartmentTitleColumn" msprop:Generator_ColumnVarNameInTable="columnDepartmentTitle" msprop:Generator_UserColumnName="DepartmentTitle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LeaveTypeTitle" msprop:Generator_ColumnPropNameInRow="LeaveTypeTitle" msprop:Generator_ColumnPropNameInTable="LeaveTypeTitleColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveTypeTitle" msprop:Generator_UserColumnName="LeaveTypeTitle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Reason" msprop:Generator_ColumnPropNameInRow="Reason" msprop:Generator_ColumnPropNameInTable="ReasonColumn" msprop:Generator_ColumnVarNameInTable="columnReason" msprop:Generator_UserColumnName="Reason" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ActualLeaveDateFrom" msprop:Generator_ColumnPropNameInRow="ActualLeaveDateFrom" msprop:Generator_ColumnPropNameInTable="ActualLeaveDateFromColumn" msprop:Generator_ColumnVarNameInTable="columnActualLeaveDateFrom" msprop:Generator_UserColumnName="ActualLeaveDateFrom" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ActualLeaveDateTo" msprop:Generator_ColumnPropNameInRow="ActualLeaveDateTo" msprop:Generator_ColumnPropNameInTable="ActualLeaveDateToColumn" msprop:Generator_ColumnVarNameInTable="columnActualLeaveDateTo" msprop:Generator_UserColumnName="ActualLeaveDateTo" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LeaveDuration" msprop:Generator_ColumnPropNameInRow="LeaveDuration" msprop:Generator_ColumnPropNameInTable="LeaveDurationColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveDuration" msprop:Generator_UserColumnName="LeaveDuration" type="xs:decimal" minOccurs="0" />
+              <xs:element name="LeaveComments" msprop:Generator_ColumnPropNameInRow="LeaveComments" msprop:Generator_ColumnPropNameInTable="LeaveCommentsColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveComments" msprop:Generator_UserColumnName="LeaveComments" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LeaveMode" msprop:Generator_ColumnPropNameInRow="LeaveMode" msprop:Generator_ColumnPropNameInTable="LeaveModeColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveMode" msprop:Generator_UserColumnName="LeaveMode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="LeaveTRID" msprop:Generator_ColumnPropNameInRow="LeaveTRID" msprop:Generator_ColumnPropNameInTable="LeaveTRIDColumn" msprop:Generator_ColumnVarNameInTable="columnLeaveTRID" msprop:Generator_UserColumnName="LeaveTRID" type="xs:int" minOccurs="0" />
+              <xs:element name="OrderID" msprop:Generator_ColumnPropNameInRow="OrderID" msprop:Generator_ColumnPropNameInTable="OrderIDColumn" msprop:Generator_ColumnVarNameInTable="columnOrderID" msprop:Generator_UserColumnName="OrderID" type="xs:int" minOccurs="0" />
+              <xs:element name="ClientID" msprop:Generator_ColumnPropNameInRow="ClientID" msprop:Generator_ColumnPropNameInTable="ClientIDColumn" msprop:Generator_ColumnVarNameInTable="columnClientID" msprop:Generator_UserColumnName="ClientID" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

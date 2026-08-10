@@ -93,7 +93,7 @@ namespace StaffSync
 
             dtgBulkLeaveList.Columns.Clear();
             dtgBulkLeaveList.DataSource = null;
-            dtgBulkLeaveList.DataSource = objLeaveTRList.getPendingLeaveApprovalList();
+            dtgBulkLeaveList.DataSource = objLeaveTRList.getPendingLeaveApprovalList(objTempClientFinYearInfo.ClientID);
             FormatTable();
 
             btnModifyDetails.Enabled = true;

@@ -236,7 +236,7 @@ namespace dbStaffSync
                 return false;
         }
 
-        public List<PendingLeaveApprovalList> getPendingLeaveApprovalList()
+        public List<PendingLeaveApprovalList> getPendingLeaveApprovalList(int ClientID)
         {
             List<PendingLeaveApprovalList> empPendingLeaveApprovalList = new List<PendingLeaveApprovalList>();
 
@@ -247,7 +247,7 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "SELECT * FROM qryDailyLeaveRequest ORDER BY EmpID, LeaveTRID ASC;";
+                string strQuery = "SELECT * FROM qryDailyLeaveRequest WHERE ClientID = " + ClientID + " ORDER BY EmpID, OrderID ASC;";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

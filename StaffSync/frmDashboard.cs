@@ -1709,8 +1709,8 @@ namespace StaffSync
                 myStatusBar.Items[1].Text = "Log In : " + clsCurrentUser.LoginDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt");
             }
 
-            cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
-            cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
+            cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList(objSelectedClientFinYearInfo.ClientID).Count + ")";
+            cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList(objSelectedClientFinYearInfo.ClientID).Count + ")";
 
             this.Text = "Staffsync Dashboard - " + objActiveClientInfo.FirstOrDefault().ClientName + " [ FY - " + objActiveFinYear.FirstOrDefault().FinYearFromTo + " ]";
             CurrentUser.ClientID = objActiveClientInfo.FirstOrDefault().ClientID;
@@ -2720,8 +2720,8 @@ namespace StaffSync
                             frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;
                         }
                     }
-                    cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
-                    cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
+                    cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList(objSelectedClientFinYearInfo.ClientID).Count + ")";
+                    cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList(objSelectedClientFinYearInfo.ClientID).Count + ")";
                     break;
                 case "cmbLeaveApproval":
                     AppModuleID = 5;
@@ -2788,8 +2788,8 @@ namespace StaffSync
 
                         }
                     }
-                    cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
-                    cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList().Count + ")";
+                    cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList(objSelectedClientFinYearInfo.ClientID).Count + ")";
+                    cmbLeaveReject.Text = "Leave Reject (" + objLeaveInfo.getPendingLeaveApprovalList(objSelectedClientFinYearInfo.ClientID).Count + ")";
                     break;
                 case "cmbLeaveReject":
                     AppModuleID = 5;
