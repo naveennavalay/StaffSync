@@ -693,9 +693,11 @@ namespace StaffSync
 
                 item.Selected = true;
 
-                bool canCancel =
-                    item.SubItems[4].Text != "0" &&
-                    item.SubItems[7].Text == "Pending";
+                bool canCancel = item.SubItems[4].Text != "0" && item.SubItems[7].Text == "Pending";
+
+                if (objTempCurrentlyLoggedInUserInfo.RoleTitle == "Global Administrator")
+                    canCancel = true;
+
 
                 tlbCancelLeave.Visible = canCancel;
                 //if (lstLeaveTRList.SelectedItems[0].SubItems[4].Text.ToString() != "0" && (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString() != "Cancelled") && (lstLeaveTRList.SelectedItems[0].SubItems[7].Text.ToString() == "Pending"))
@@ -726,7 +728,7 @@ namespace StaffSync
             else
                 cmbDuration.SelectedIndex = 0;
             cmbDuration.Enabled = false;
-            txtLeaveNote.Text = lstLeaveTRList.SelectedItems[0].SubItems[5].Text.ToString();
+            txtLeaveNote.Text = lstLeaveTRList.SelectedItems[0].SubItems[5].Text.ToString() + " (Cancelling the Leave)";
         }
 
 

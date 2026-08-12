@@ -17,9 +17,13 @@ namespace ModelStaffSync
         public string AttStatus { get; set; }
 
         //[JsonProperty("EmpDailyAttendanceInfo.LeaveTRID")]
-        public int? LeaveTRID { get; set; }
+        public int? LeaveTRID { get; set; } = 0;
 
-        public string LeaveComments { get; set; }
+        public string LeaveComments { get; set; } = "";
+        public int? OrderID { get; set; } = 0;
+        public int QMonth { get; set; }
+        public int ClientID { get; set; }
+        public int FinYearID { get; set; }
     }
 
     public class MonthlyAttendanceInfo
