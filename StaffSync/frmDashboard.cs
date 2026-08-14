@@ -7,6 +7,7 @@ using LiveCharts.Definitions.Charts;
 using LiveCharts.WinForms;
 using LiveCharts.Wpf;
 using ModelStaffSync;
+using Newtonsoft.Json;
 using Org.BouncyCastle.Ocsp;
 using Quartz;
 using Quartz.Impl;
@@ -48,6 +49,8 @@ namespace StaffSync
         DALStaffSync.clsDashboardWidgetData objDashboardWidgetData = new DALStaffSync.clsDashboardWidgetData();
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         DALStaffSync.clsAppSettings objAppSettings = new DALStaffSync.clsAppSettings();
+        DALStaffSync.clsDashboardChartWidgets objDashboardChartWidgets = new DALStaffSync.clsDashboardChartWidgets();
+
         List<ClientInfo> objActiveClientInfo = new List<ClientInfo>();
         List<FinYearMas> objActiveFinYear = new List<FinYearMas>();
         ClientFinYearInfo objSelectedClientFinYearInfo = new ClientFinYearInfo();
@@ -130,6 +133,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Employee Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmployeeMasterDetails.MdiParent = this;
                     frmEmployeeMasterDetails.Dock = DockStyle.Fill;
@@ -145,6 +149,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Employee Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmEmployeeMasterDetails.MdiParent = this;
                         frmEmployeeMasterDetails.Dock = DockStyle.Fill;
@@ -178,6 +183,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Employee Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmployeeMasterDetails.MdiParent = this;
                     frmEmployeeMasterDetails.Dock = DockStyle.Fill;
@@ -200,6 +206,7 @@ namespace StaffSync
             AppModuleID = 4;
             
             sptrDashboardContainer.Visible = false;
+            grpDashboardDateRange.Visible = false;
             frmDailyAttendanceProcess frmDailyAttendanceProcessDetails = new frmDailyAttendanceProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
             frmDailyAttendanceProcessDetails.MdiParent = this;
             frmDailyAttendanceProcessDetails.Dock = DockStyle.Fill;
@@ -213,6 +220,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Attendance Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmAttendanceMaterDetails.MdiParent = this;
                     frmAttendanceMaterDetails.Dock = DockStyle.Fill;
@@ -228,6 +236,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Attendance Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmAttendanceMaterDetails.MdiParent = this;
                         frmAttendanceMaterDetails.Dock = DockStyle.Fill;
@@ -261,6 +270,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Attendance Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmAttendanceMaterDetails.MdiParent = this;
                     frmAttendanceMaterDetails.Dock = DockStyle.Fill;
@@ -294,6 +304,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Employee Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmEmployeeMasterDetails.MdiParent = this;
                         frmEmployeeMasterDetails.Dock = DockStyle.Fill;
@@ -340,6 +351,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Leave Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLeavesMasterDetails.MdiParent = this;
                     frmLeavesMasterDetails.Dock = DockStyle.Fill;
@@ -355,6 +367,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Leave Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmLeavesMasterDetails.MdiParent = this;
                         frmLeavesMasterDetails.Dock = DockStyle.Fill;
@@ -388,6 +401,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Leave Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLeavesMasterDetails.MdiParent = this;
                     frmLeavesMasterDetails.Dock = DockStyle.Fill;
@@ -409,6 +423,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Employee Wise Reports";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmEmployeeWiseReports frmEmployeeWiseReportsDetails = new frmEmployeeWiseReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEmployeeWiseReportsDetails.MdiParent = this;
                 frmEmployeeWiseReportsDetails.Dock = DockStyle.Fill;
@@ -429,6 +444,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Employee Attendance Reports";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmEmployeeAttendanceReports frmEmployeeAttendanceReportsDetails = new frmEmployeeAttendanceReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEmployeeAttendanceReportsDetails.MdiParent = this;
                 frmEmployeeAttendanceReportsDetails.Dock = DockStyle.Fill;
@@ -450,6 +466,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Employee Payroll Reports";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmEmployeePayrollReports frmEmployeePayrollReportsDetails = new frmEmployeePayrollReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEmployeePayrollReportsDetails.MdiParent = this;
                 frmEmployeePayrollReportsDetails.Dock = DockStyle.Fill;
@@ -470,6 +487,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Employee Leave Reports";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmEmployeeLeavesReports frmEmployeeLeavesReportsDetails = new frmEmployeeLeavesReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEmployeeLeavesReportsDetails.MdiParent = this;
                 frmEmployeeLeavesReportsDetails.Dock = DockStyle.Fill;
@@ -490,6 +508,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "StaffSync - About";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmAbout frmAboutDetails = new frmAbout();
                 frmAboutDetails.MdiParent = this;
                 frmAboutDetails.Dock = DockStyle.Fill;
@@ -510,6 +529,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Department Master Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmDepartmentMaster.MdiParent = this;
                 frmDepartmentMaster.Dock = DockStyle.Fill;
@@ -530,6 +550,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Country Master Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmCountryMaster.MdiParent = this;
                 frmCountryMaster.Dock = DockStyle.Fill;
@@ -550,6 +571,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Designation Master Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmDesignationMaster.MdiParent = this;
                 frmDesignationMaster.Dock = DockStyle.Fill;
@@ -570,6 +592,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "State Master Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmStateMaster.MdiParent = this;
                 frmStateMaster.Dock = DockStyle.Fill;
@@ -590,6 +613,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Relationship Master Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmRelationshipMaster.MdiParent = this;
                 frmRelationshipMaster.Dock = DockStyle.Fill;
@@ -610,6 +634,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Last Company Master Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmLastCompanyMaster.MdiParent = this;
                 frmLastCompanyMaster.Dock = DockStyle.Fill;
@@ -630,6 +655,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Qualification Master Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEduQualMaster.MdiParent = this;
                 frmEduQualMaster.Dock = DockStyle.Fill;
@@ -656,6 +682,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Department Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDepartmentMaster.MdiParent = this;
                     frmDepartmentMaster.Dock = DockStyle.Fill;
@@ -671,6 +698,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Department Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmDepartmentMaster.MdiParent = this;
                         frmDepartmentMaster.Dock = DockStyle.Fill;
@@ -697,6 +725,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Department Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDepartmentMaster.MdiParent = this;
                     frmDepartmentMaster.Dock = DockStyle.Fill;
@@ -729,6 +758,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Designation Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDesignationMaster.MdiParent = this;
                     frmDesignationMaster.Dock = DockStyle.Fill;
@@ -744,6 +774,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Designation Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmDesignationMaster.MdiParent = this;
                         frmDesignationMaster.Dock = DockStyle.Fill;
@@ -777,6 +808,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Designation Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDesignationMaster.MdiParent = this;
                     frmDesignationMaster.Dock = DockStyle.Fill;
@@ -804,6 +836,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Qualification Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEduQualMaster.MdiParent = this;
                     frmEduQualMaster.Dock = DockStyle.Fill;
@@ -819,6 +852,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Qualification Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmEduQualMaster.MdiParent = this;
                         frmEduQualMaster.Dock = DockStyle.Fill;
@@ -852,6 +886,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Qualification Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEduQualMaster.MdiParent = this;
                     frmEduQualMaster.Dock = DockStyle.Fill;
@@ -879,6 +914,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Relationship Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRelationshipMaster.MdiParent = this;
                     frmRelationshipMaster.Dock = DockStyle.Fill;
@@ -894,6 +930,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Relationship Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmRelationshipMaster.MdiParent = this;
                         frmRelationshipMaster.Dock = DockStyle.Fill;
@@ -927,6 +964,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Relationship Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRelationshipMaster.MdiParent = this;
                     frmRelationshipMaster.Dock = DockStyle.Fill;
@@ -954,6 +992,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "State Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmStateMaster.MdiParent = this;
                     frmStateMaster.Dock = DockStyle.Fill;
@@ -969,6 +1008,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "State Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmStateMaster.MdiParent = this;
                         frmStateMaster.Dock = DockStyle.Fill;
@@ -1002,6 +1042,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "State Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmStateMaster.MdiParent = this;
                     frmStateMaster.Dock = DockStyle.Fill;
@@ -1030,6 +1071,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Country Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmCountryMaster.MdiParent = this;
                     frmCountryMaster.Dock = DockStyle.Fill;
@@ -1045,6 +1087,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Country Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmCountryMaster.MdiParent = this;
                         frmCountryMaster.Dock = DockStyle.Fill;
@@ -1078,6 +1121,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Country Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmCountryMaster.MdiParent = this;
                     frmCountryMaster.Dock = DockStyle.Fill;
@@ -1105,6 +1149,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Last Company Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLastCompanyMaster.MdiParent = this;
                     frmLastCompanyMaster.Dock = DockStyle.Fill;
@@ -1120,6 +1165,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Last Company Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmLastCompanyMaster.MdiParent = this;
                         frmLastCompanyMaster.Dock = DockStyle.Fill;
@@ -1153,6 +1199,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Last Company Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLastCompanyMaster.MdiParent = this;
                     frmLastCompanyMaster.Dock = DockStyle.Fill;
@@ -1179,6 +1226,7 @@ namespace StaffSync
                 if (this.MdiChildren.Length == 0)
                 {
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmSkillsMaster.MdiParent = this;
                     frmSkillsMaster.Dock = DockStyle.Fill;
@@ -1193,6 +1241,7 @@ namespace StaffSync
                     if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID == AppModuleID)
                     {
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmSkillsMaster.MdiParent = this;
                         frmSkillsMaster.Dock = DockStyle.Fill;
@@ -1223,6 +1272,7 @@ namespace StaffSync
                     }
                 }
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmSkillsMaster.MdiParent = this;
                 frmSkillsMaster.Dock = DockStyle.Fill;
@@ -1231,296 +1281,296 @@ namespace StaffSync
             }
         }
 
-        private void LoadDepartmentColumnChart(int txtClientID, int txtFinYearID)
-        {
-            DataTable dt = objDashboardWidgetData.GetDepartmentExposure(txtClientID, txtFinYearID);
+        //private void LoadDepartmentColumnChart(int txtClientID, int txtFinYearID)
+        //{
+        //    DataTable dt = objDashboardWidgetData.GetDepartmentExposure(txtClientID, txtFinYearID);
 
-            if (dt == null || dt.Rows.Count == 0)
-                return;
+        //    if (dt == null || dt.Rows.Count == 0)
+        //        return;
 
-            ChartValues<double> values = new ChartValues<double>();
-            List<string> labels = new List<string>();
+        //    ChartValues<double> values = new ChartValues<double>();
+        //    List<string> labels = new List<string>();
 
-            foreach (DataRow row in dt.Rows)
-            {
-                double amount = row["TotalOutstanding"] != DBNull.Value ? Convert.ToDouble(row["TotalOutstanding"]) : 0;
+        //    foreach (DataRow row in dt.Rows)
+        //    {
+        //        double amount = row["TotalOutstanding"] != DBNull.Value ? Convert.ToDouble(row["TotalOutstanding"]) : 0;
 
-                values.Add(amount);
-                labels.Add(row["DepartmentTitle"].ToString());
-            }
+        //        values.Add(amount);
+        //        labels.Add(row["DepartmentTitle"].ToString());
+        //    }
 
-            chrtCompanySummaryMatrix.Series = new SeriesCollection
-            {
-                new ColumnSeries
-                {
-                    Title = "Outstanding",
-                    Values = values,
-                    DataLabels = true,
-                    LabelPoint = point => "₹ " + point.Y.ToString("N0")
-                }
-            };
+        //    chrtCompanySummaryMatrix.Series = new SeriesCollection
+        //    {
+        //        new ColumnSeries
+        //        {
+        //            Title = "Outstanding",
+        //            Values = values,
+        //            DataLabels = true,
+        //            LabelPoint = point => "₹ " + point.Y.ToString("N0")
+        //        }
+        //    };
 
-            // X Axis → Categories
-            chrtCompanySummaryMatrix.AxisX.Clear();
-            chrtCompanySummaryMatrix.AxisX.Add(new Axis
-            {
-                Title = "Department",
-                Labels = labels,
-                LabelsRotation = 45
-            });
+        //    // X Axis → Categories
+        //    chrtCompanySummaryMatrix.AxisX.Clear();
+        //    chrtCompanySummaryMatrix.AxisX.Add(new Axis
+        //    {
+        //        Title = "Department",
+        //        Labels = labels,
+        //        LabelsRotation = 45
+        //    });
 
-            // Y Axis → Amount
-            chrtCompanySummaryMatrix.AxisY.Clear();
-            chrtCompanySummaryMatrix.AxisY.Add(new Axis
-            {
-                Title = "Outstanding Amount",
-                LabelFormatter = value => "₹ " + value.ToString("N0")
-            });
+        //    // Y Axis → Amount
+        //    chrtCompanySummaryMatrix.AxisY.Clear();
+        //    chrtCompanySummaryMatrix.AxisY.Add(new Axis
+        //    {
+        //        Title = "Outstanding Amount",
+        //        LabelFormatter = value => "₹ " + value.ToString("N0")
+        //    });
 
-            chrtCompanySummaryMatrix.LegendLocation = LegendLocation.Right;
-            chrtCompanySummaryMatrix.DisableAnimations = true;
-            chrtCompanySummaryMatrix.AxisX[0].Separator.StrokeThickness = 0;
-            chrtCompanySummaryMatrix.AxisY[0].Separator.StrokeThickness = 0;
+        //    chrtCompanySummaryMatrix.LegendLocation = LegendLocation.Right;
+        //    chrtCompanySummaryMatrix.DisableAnimations = true;
+        //    chrtCompanySummaryMatrix.AxisX[0].Separator.StrokeThickness = 0;
+        //    chrtCompanySummaryMatrix.AxisY[0].Separator.StrokeThickness = 0;
 
-            //foreach (DataRow row in dt.Rows)
-            //{
-            //    double amount = row["TotalOutstanding"] != DBNull.Value ? Convert.ToDouble(row["TotalOutstanding"]): 0;
+        //    //foreach (DataRow row in dt.Rows)
+        //    //{
+        //    //    double amount = row["TotalOutstanding"] != DBNull.Value ? Convert.ToDouble(row["TotalOutstanding"]): 0;
 
-            //    values.Add(amount);
-            //    labels.Add(row["DepartmentTitle"].ToString());
-            //}
+        //    //    values.Add(amount);
+        //    //    labels.Add(row["DepartmentTitle"].ToString());
+        //    //}
 
-            //chrtCompanySummaryMatrix.Series = new SeriesCollection
-            //{
-            //    new RowSeries
-            //    {
-            //        Title = "Outstanding",
-            //        Values = values,
-            //        DataLabels = true,
-            //        LabelPoint = point => "₹ " + point.X.ToString("N0")
-            //    }
-            //};
+        //    //chrtCompanySummaryMatrix.Series = new SeriesCollection
+        //    //{
+        //    //    new RowSeries
+        //    //    {
+        //    //        Title = "Outstanding",
+        //    //        Values = values,
+        //    //        DataLabels = true,
+        //    //        LabelPoint = point => "₹ " + point.X.ToString("N0")
+        //    //    }
+        //    //};
 
-            //chrtCompanySummaryMatrix.AxisY.Clear();
-            //chrtCompanySummaryMatrix.AxisY.Add(new Axis
-            //{
-            //    Labels = labels
-            //});
+        //    //chrtCompanySummaryMatrix.AxisY.Clear();
+        //    //chrtCompanySummaryMatrix.AxisY.Add(new Axis
+        //    //{
+        //    //    Labels = labels
+        //    //});
 
-            //chrtCompanySummaryMatrix.AxisX.Clear();
-            //chrtCompanySummaryMatrix.AxisX.Add(new Axis
-            //{
-            //    LabelFormatter = value => "₹ " + value.ToString("N0")
-            //});
+        //    //chrtCompanySummaryMatrix.AxisX.Clear();
+        //    //chrtCompanySummaryMatrix.AxisX.Add(new Axis
+        //    //{
+        //    //    LabelFormatter = value => "₹ " + value.ToString("N0")
+        //    //});
 
-            //chrtCompanySummaryMatrix.DisableAnimations = true;
-            //if (dt == null || dt.Rows.Count == 0)
-            //{
-            //    chrtCompanySummaryMatrix.Series = null;
-            //    return;
-            //}
+        //    //chrtCompanySummaryMatrix.DisableAnimations = true;
+        //    //if (dt == null || dt.Rows.Count == 0)
+        //    //{
+        //    //    chrtCompanySummaryMatrix.Series = null;
+        //    //    return;
+        //    //}
 
-            //SeriesCollection pieSeries = new SeriesCollection();
+        //    //SeriesCollection pieSeries = new SeriesCollection();
 
-            //foreach (DataRow row in dt.Rows)
-            //{
-            //    double value = Convert.ToDouble(row["TotalOutstanding"]);
+        //    //foreach (DataRow row in dt.Rows)
+        //    //{
+        //    //    double value = Convert.ToDouble(row["TotalOutstanding"]);
 
-            //    if (value > 0) // avoid zero slices
-            //    {
-            //        pieSeries.Add(new PieSeries
-            //        {
-            //            Title = row["DepartmentTitle"].ToString(),
-            //            Values = new ChartValues<double> { value },
-            //            DataLabels = true,
-            //            LabelPoint = chartPoint =>
-            //                string.Format("{0} ({1:P})",
-            //                    chartPoint.Y.ToString("N0"),
-            //                    chartPoint.Participation)
-            //        });
-            //    }
-            //}
+        //    //    if (value > 0) // avoid zero slices
+        //    //    {
+        //    //        pieSeries.Add(new PieSeries
+        //    //        {
+        //    //            Title = row["DepartmentTitle"].ToString(),
+        //    //            Values = new ChartValues<double> { value },
+        //    //            DataLabels = true,
+        //    //            LabelPoint = chartPoint =>
+        //    //                string.Format("{0} ({1:P})",
+        //    //                    chartPoint.Y.ToString("N0"),
+        //    //                    chartPoint.Participation)
+        //    //        });
+        //    //    }
+        //    //}
 
-            //chrtCompanySummaryMatrix.Series = pieSeries;
-            //chrtCompanySummaryMatrix.LegendLocation = LegendLocation.Right;
-            //chrtCompanySummaryMatrix.DisableAnimations = true;
-        }
+        //    //chrtCompanySummaryMatrix.Series = pieSeries;
+        //    //chrtCompanySummaryMatrix.LegendLocation = LegendLocation.Right;
+        //    //chrtCompanySummaryMatrix.DisableAnimations = true;
+        //}
 
-        private void GetAdvanceSummary(int txtClientID, int txtFinYearID)
-        {
-            DataTable dt = objDashboardWidgetData.GetAdvanceSummary(txtClientID, txtFinYearID);
+        //private void GetAdvanceSummary(int txtClientID, int txtFinYearID)
+        //{
+        //    DataTable dt = objDashboardWidgetData.GetAdvanceSummary(txtClientID, txtFinYearID);
 
-            if (dt.Rows.Count == 0)
-                return;
+        //    if (dt.Rows.Count == 0)
+        //        return;
 
-            DataRow row = dt.Rows[0];
+        //    DataRow row = dt.Rows[0];
 
-            double totalAdvances = Convert.ToDouble(row["TotalAdvances"]);
-            double totalSanctioned = Convert.ToDouble(row["TotalSanctioned"]);
-            double totalRecovered = Convert.ToDouble(row["TotalRecovered"]);
-            double totalOutstanding = Convert.ToDouble(row["TotalOutstanding"]);
+        //    double totalAdvances = Convert.ToDouble(row["TotalAdvances"]);
+        //    double totalSanctioned = Convert.ToDouble(row["TotalSanctioned"]);
+        //    double totalRecovered = Convert.ToDouble(row["TotalRecovered"]);
+        //    double totalOutstanding = Convert.ToDouble(row["TotalOutstanding"]);
 
-            var values = new ChartValues<double>
-            {
-                totalSanctioned,
-                totalRecovered,
-                totalOutstanding
-            };
+        //    var values = new ChartValues<double>
+        //    {
+        //        totalSanctioned,
+        //        totalRecovered,
+        //        totalOutstanding
+        //    };
 
-            chrtCompanyAdvanceSummaryMatrix.Series = new SeriesCollection
-            {
-                new ColumnSeries
-                {
-                    Title = "Sanctioned",
-                    Values = new ChartValues<double> { totalSanctioned },
-                    DataLabels = true,
-                    Fill = System.Windows.Media.Brushes.SteelBlue
-                },
-                new ColumnSeries
-                {
-                    Title = "Recovered",
-                    Values = new ChartValues<double> { totalRecovered },
-                    DataLabels = true,
-                    Fill = System.Windows.Media.Brushes.SeaGreen
-                },
-                new ColumnSeries
-                {
-                    Title = "Outstanding",
-                    Values = new ChartValues<double> { totalOutstanding },
-                    DataLabels = true,
-                    Fill = System.Windows.Media.Brushes.IndianRed
-                }
-            };
+        //    chrtCompanyAdvanceSummaryMatrix.Series = new SeriesCollection
+        //    {
+        //        new ColumnSeries
+        //        {
+        //            Title = "Sanctioned",
+        //            Values = new ChartValues<double> { totalSanctioned },
+        //            DataLabels = true,
+        //            Fill = System.Windows.Media.Brushes.SteelBlue
+        //        },
+        //        new ColumnSeries
+        //        {
+        //            Title = "Recovered",
+        //            Values = new ChartValues<double> { totalRecovered },
+        //            DataLabels = true,
+        //            Fill = System.Windows.Media.Brushes.SeaGreen
+        //        },
+        //        new ColumnSeries
+        //        {
+        //            Title = "Outstanding",
+        //            Values = new ChartValues<double> { totalOutstanding },
+        //            DataLabels = true,
+        //            Fill = System.Windows.Media.Brushes.IndianRed
+        //        }
+        //    };
 
-            chrtCompanyAdvanceSummaryMatrix.AxisX.Clear();
-            chrtCompanyAdvanceSummaryMatrix.AxisX.Add(new Axis
-            {
-                Labels = new[]
-                {
-                    "Sanctioned",
-                    "Recovered",
-                    "Outstanding"
-                },
-                LabelsRotation = 0
-            });
+        //    chrtCompanyAdvanceSummaryMatrix.AxisX.Clear();
+        //    chrtCompanyAdvanceSummaryMatrix.AxisX.Add(new Axis
+        //    {
+        //        Labels = new[]
+        //        {
+        //            "Sanctioned",
+        //            "Recovered",
+        //            "Outstanding"
+        //        },
+        //        LabelsRotation = 0
+        //    });
 
-            chrtCompanyAdvanceSummaryMatrix.AxisY.Clear();
-            chrtCompanyAdvanceSummaryMatrix.AxisY.Add(new Axis
-            {
-                Title = "Amount",
-                LabelFormatter = value => value.ToString("N0")
-            });
+        //    chrtCompanyAdvanceSummaryMatrix.AxisY.Clear();
+        //    chrtCompanyAdvanceSummaryMatrix.AxisY.Add(new Axis
+        //    {
+        //        Title = "Amount",
+        //        LabelFormatter = value => value.ToString("N0")
+        //    });
 
-            chrtCompanyAdvanceSummaryMatrix.LegendLocation = LegendLocation.None;
-            chrtCompanyAdvanceSummaryMatrix.DisableAnimations = true;
-            chrtCompanyAdvanceSummaryMatrix.AxisX[0].Separator.StrokeThickness = 0;
-            chrtCompanyAdvanceSummaryMatrix.AxisY[0].Separator.StrokeThickness = 0;
+        //    chrtCompanyAdvanceSummaryMatrix.LegendLocation = LegendLocation.None;
+        //    chrtCompanyAdvanceSummaryMatrix.DisableAnimations = true;
+        //    chrtCompanyAdvanceSummaryMatrix.AxisX[0].Separator.StrokeThickness = 0;
+        //    chrtCompanyAdvanceSummaryMatrix.AxisY[0].Separator.StrokeThickness = 0;
 
-            //foreach (DataRow row in dt.Rows)
-            //{
-            //    double amount = row["TotalOutstanding"] != DBNull.Value ? Convert.ToDouble(row["TotalOutstanding"]): 0;
+        //    //foreach (DataRow row in dt.Rows)
+        //    //{
+        //    //    double amount = row["TotalOutstanding"] != DBNull.Value ? Convert.ToDouble(row["TotalOutstanding"]): 0;
 
-            //    values.Add(amount);
-            //    labels.Add(row["DepartmentTitle"].ToString());
-            //}
+        //    //    values.Add(amount);
+        //    //    labels.Add(row["DepartmentTitle"].ToString());
+        //    //}
 
-            //chrtCompanySummaryMatrix.Series = new SeriesCollection
-            //{
-            //    new RowSeries
-            //    {
-            //        Title = "Outstanding",
-            //        Values = values,
-            //        DataLabels = true,
-            //        LabelPoint = point => "₹ " + point.X.ToString("N0")
-            //    }
-            //};
+        //    //chrtCompanySummaryMatrix.Series = new SeriesCollection
+        //    //{
+        //    //    new RowSeries
+        //    //    {
+        //    //        Title = "Outstanding",
+        //    //        Values = values,
+        //    //        DataLabels = true,
+        //    //        LabelPoint = point => "₹ " + point.X.ToString("N0")
+        //    //    }
+        //    //};
 
-            //chrtCompanySummaryMatrix.AxisY.Clear();
-            //chrtCompanySummaryMatrix.AxisY.Add(new Axis
-            //{
-            //    Labels = labels
-            //});
+        //    //chrtCompanySummaryMatrix.AxisY.Clear();
+        //    //chrtCompanySummaryMatrix.AxisY.Add(new Axis
+        //    //{
+        //    //    Labels = labels
+        //    //});
 
-            //chrtCompanySummaryMatrix.AxisX.Clear();
-            //chrtCompanySummaryMatrix.AxisX.Add(new Axis
-            //{
-            //    LabelFormatter = value => "₹ " + value.ToString("N0")
-            //});
+        //    //chrtCompanySummaryMatrix.AxisX.Clear();
+        //    //chrtCompanySummaryMatrix.AxisX.Add(new Axis
+        //    //{
+        //    //    LabelFormatter = value => "₹ " + value.ToString("N0")
+        //    //});
 
-            //chrtCompanySummaryMatrix.DisableAnimations = true;
-            //if (dt == null || dt.Rows.Count == 0)
-            //{
-            //    chrtCompanySummaryMatrix.Series = null;
-            //    return;
-            //}
+        //    //chrtCompanySummaryMatrix.DisableAnimations = true;
+        //    //if (dt == null || dt.Rows.Count == 0)
+        //    //{
+        //    //    chrtCompanySummaryMatrix.Series = null;
+        //    //    return;
+        //    //}
 
-            //SeriesCollection pieSeries = new SeriesCollection();
+        //    //SeriesCollection pieSeries = new SeriesCollection();
 
-            //foreach (DataRow row in dt.Rows)
-            //{
-            //    double value = Convert.ToDouble(row["TotalOutstanding"]);
+        //    //foreach (DataRow row in dt.Rows)
+        //    //{
+        //    //    double value = Convert.ToDouble(row["TotalOutstanding"]);
 
-            //    if (value > 0) // avoid zero slices
-            //    {
-            //        pieSeries.Add(new PieSeries
-            //        {
-            //            Title = row["DepartmentTitle"].ToString(),
-            //            Values = new ChartValues<double> { value },
-            //            DataLabels = true,
-            //            LabelPoint = chartPoint =>
-            //                string.Format("{0} ({1:P})",
-            //                    chartPoint.Y.ToString("N0"),
-            //                    chartPoint.Participation)
-            //        });
-            //    }
-            //}
+        //    //    if (value > 0) // avoid zero slices
+        //    //    {
+        //    //        pieSeries.Add(new PieSeries
+        //    //        {
+        //    //            Title = row["DepartmentTitle"].ToString(),
+        //    //            Values = new ChartValues<double> { value },
+        //    //            DataLabels = true,
+        //    //            LabelPoint = chartPoint =>
+        //    //                string.Format("{0} ({1:P})",
+        //    //                    chartPoint.Y.ToString("N0"),
+        //    //                    chartPoint.Participation)
+        //    //        });
+        //    //    }
+        //    //}
 
-            //chrtCompanySummaryMatrix.Series = pieSeries;
-            //chrtCompanySummaryMatrix.LegendLocation = LegendLocation.Right;
-            //chrtCompanySummaryMatrix.DisableAnimations = true;
-        }
+        //    //chrtCompanySummaryMatrix.Series = pieSeries;
+        //    //chrtCompanySummaryMatrix.LegendLocation = LegendLocation.Right;
+        //    //chrtCompanySummaryMatrix.DisableAnimations = true;
+        //}
 
-        private void GetAdvanceRiskBaseInfo(int txtClientID, int txtFinYearID)
-        {
-            dtgAdvanceRiskBase.DataSource = null;
-            dtgAdvanceRiskBase.DataSource = objDashboardWidgetData.GetAdvanceRiskBaseInfo(txtClientID, txtFinYearID);
-            dtgAdvanceRiskBase.Columns["EmpID"].Visible = false;
-            dtgAdvanceRiskBase.Columns["EmpCode"].ReadOnly = true;
-            dtgAdvanceRiskBase.Columns["EmpName"].ReadOnly = true;
-            dtgAdvanceRiskBase.Columns["EmpName"].Width = 200;
-            dtgAdvanceRiskBase.Columns["DesignationTitle"].Width = 200;
-            dtgAdvanceRiskBase.Columns["DesignationTitle"].ReadOnly = true;
-            dtgAdvanceRiskBase.Columns["DepartmentTitle"].ReadOnly = true;
-            dtgAdvanceRiskBase.Columns["DepartmentTitle"].Width = 150;
-            dtgAdvanceRiskBase.Columns["AdvanceTypeID"].Visible = false;
-            dtgAdvanceRiskBase.Columns["AdvanceTypeTitle"].ReadOnly = true;
-            dtgAdvanceRiskBase.Columns["AdvanceTypeTitle"].Width = 150;
-            dtgAdvanceRiskBase.Columns["EmpAdvanceRequestID"].Visible = false;
-            dtgAdvanceRiskBase.Columns["EmpAdvReqCode"].ReadOnly = true;
-            dtgAdvanceRiskBase.Columns["EmpAdvReqCode"].Width = 150;
-            dtgAdvanceRiskBase.Columns["AdvanceAmount"].Width = 125;
-            dtgAdvanceRiskBase.Columns["AdvanceAmount"].ReadOnly = true;
-            dtgAdvanceRiskBase.Columns["AdvanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgAdvanceRiskBase.Columns["AdvanceAmount"].DefaultCellStyle.Format = "c2";
-            dtgAdvanceRiskBase.Columns["AdvanceStartDate"].Width = 100;
-            dtgAdvanceRiskBase.Columns["AdvanceStartDate"].ReadOnly = true;
-            dtgAdvanceRiskBase.Columns["AdvanceStartDate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgAdvanceRiskBase.Columns["AdvanceStartDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
-            dtgAdvanceRiskBase.Columns["AdvanceEndDate"].Width = 100;
-            dtgAdvanceRiskBase.Columns["AdvanceEndDate"].ReadOnly = true;
-            dtgAdvanceRiskBase.Columns["AdvanceEndDate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgAdvanceRiskBase.Columns["AdvanceEndDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
-            dtgAdvanceRiskBase.Columns["RemainingBalance"].Width = 125;
-            dtgAdvanceRiskBase.Columns["RemainingBalance"].ReadOnly = true;
-            dtgAdvanceRiskBase.Columns["RemainingBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgAdvanceRiskBase.Columns["RemainingBalance"].DefaultCellStyle.Format = "c2";
-            dtgAdvanceRiskBase.Columns["TotalRecovered"].Width = 125;
-            dtgAdvanceRiskBase.Columns["TotalRecovered"].ReadOnly = true;
-            dtgAdvanceRiskBase.Columns["TotalRecovered"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgAdvanceRiskBase.Columns["TotalRecovered"].DefaultCellStyle.Format = "c2";
-            dtgAdvanceRiskBase.Columns["AdvanceAgeDays"].ReadOnly = true;
-            dtgAdvanceRiskBase.Columns["AdvanceAgeDays"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-        }
+        //private void GetAdvanceRiskBaseInfo(int txtClientID, int txtFinYearID)
+        //{
+        //    dtgAdvanceRiskBase.DataSource = null;
+        //    dtgAdvanceRiskBase.DataSource = objDashboardWidgetData.GetAdvanceRiskBaseInfo(txtClientID, txtFinYearID);
+        //    dtgAdvanceRiskBase.Columns["EmpID"].Visible = false;
+        //    dtgAdvanceRiskBase.Columns["EmpCode"].ReadOnly = true;
+        //    dtgAdvanceRiskBase.Columns["EmpName"].ReadOnly = true;
+        //    dtgAdvanceRiskBase.Columns["EmpName"].Width = 200;
+        //    dtgAdvanceRiskBase.Columns["DesignationTitle"].Width = 200;
+        //    dtgAdvanceRiskBase.Columns["DesignationTitle"].ReadOnly = true;
+        //    dtgAdvanceRiskBase.Columns["DepartmentTitle"].ReadOnly = true;
+        //    dtgAdvanceRiskBase.Columns["DepartmentTitle"].Width = 150;
+        //    dtgAdvanceRiskBase.Columns["AdvanceTypeID"].Visible = false;
+        //    dtgAdvanceRiskBase.Columns["AdvanceTypeTitle"].ReadOnly = true;
+        //    dtgAdvanceRiskBase.Columns["AdvanceTypeTitle"].Width = 150;
+        //    dtgAdvanceRiskBase.Columns["EmpAdvanceRequestID"].Visible = false;
+        //    dtgAdvanceRiskBase.Columns["EmpAdvReqCode"].ReadOnly = true;
+        //    dtgAdvanceRiskBase.Columns["EmpAdvReqCode"].Width = 150;
+        //    dtgAdvanceRiskBase.Columns["AdvanceAmount"].Width = 125;
+        //    dtgAdvanceRiskBase.Columns["AdvanceAmount"].ReadOnly = true;
+        //    dtgAdvanceRiskBase.Columns["AdvanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+        //    dtgAdvanceRiskBase.Columns["AdvanceAmount"].DefaultCellStyle.Format = "c2";
+        //    dtgAdvanceRiskBase.Columns["AdvanceStartDate"].Width = 100;
+        //    dtgAdvanceRiskBase.Columns["AdvanceStartDate"].ReadOnly = true;
+        //    dtgAdvanceRiskBase.Columns["AdvanceStartDate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+        //    dtgAdvanceRiskBase.Columns["AdvanceStartDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+        //    dtgAdvanceRiskBase.Columns["AdvanceEndDate"].Width = 100;
+        //    dtgAdvanceRiskBase.Columns["AdvanceEndDate"].ReadOnly = true;
+        //    dtgAdvanceRiskBase.Columns["AdvanceEndDate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+        //    dtgAdvanceRiskBase.Columns["AdvanceEndDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+        //    dtgAdvanceRiskBase.Columns["RemainingBalance"].Width = 125;
+        //    dtgAdvanceRiskBase.Columns["RemainingBalance"].ReadOnly = true;
+        //    dtgAdvanceRiskBase.Columns["RemainingBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+        //    dtgAdvanceRiskBase.Columns["RemainingBalance"].DefaultCellStyle.Format = "c2";
+        //    dtgAdvanceRiskBase.Columns["TotalRecovered"].Width = 125;
+        //    dtgAdvanceRiskBase.Columns["TotalRecovered"].ReadOnly = true;
+        //    dtgAdvanceRiskBase.Columns["TotalRecovered"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+        //    dtgAdvanceRiskBase.Columns["TotalRecovered"].DefaultCellStyle.Format = "c2";
+        //    dtgAdvanceRiskBase.Columns["AdvanceAgeDays"].ReadOnly = true;
+        //    dtgAdvanceRiskBase.Columns["AdvanceAgeDays"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+        //}
 
         //private void GetAgingDistributionInfo(int txtClientID, int txtFinYearID)
         //{
@@ -1637,40 +1687,51 @@ namespace StaffSync
             return System.Windows.Media.Brushes.SteelBlue;
         }
 
-        private void LoadWorkforceInfo(int txtClientID, int txtFinYearID)
-        {
-            bdgTotalActiveEmployees.Value = objDashboardWidgetData.GetActiveEmployeesCount(txtClientID, txtFinYearID);
-            bdgTotalPresentEmployees.Value = objDashboardWidgetData.GetTotalEmployeesPresent(txtClientID, txtFinYearID);
-            bdgTotalLeaveEmployees.Value = objDashboardWidgetData.GetTotalEmployeesOnLeave(txtClientID, txtFinYearID);
-            bdgTotalLeaveApprovals.Value = objDashboardWidgetData.GetPendingLeaveApprovalCount(txtClientID, txtFinYearID);
-            bdgTotalLeaveApprovals.Value = objDashboardWidgetData.GetPendingLeaveApprovalCount(txtClientID, txtFinYearID);
-            bdgEmployeesWithWeeklyOff.Value = objDashboardWidgetData.GetEmployeesWeeklyOffCount(txtClientID, txtFinYearID);
-            bdgEmployeesBirthday.Value = objDashboardWidgetData.GetCountOfAllEmployeesBirthdayCountToday(txtClientID, txtFinYearID);
-            bdgWorkAnniversary.Value = objDashboardWidgetData.GetCountOfAllEmployeesWorkAnniversaryCountToday(txtClientID, txtFinYearID);
-        }
+        //private void LoadWorkforceInfo(int txtClientID, int txtFinYearID)
+        //{
+        //    bdgTotalActiveEmployees.Value = objDashboardWidgetData.GetActiveEmployeesCount(txtClientID, txtFinYearID);
+        //    bdgTotalPresentEmployees.Value = objDashboardWidgetData.GetTotalEmployeesPresent(txtClientID, txtFinYearID);
+        //    bdgTotalLeaveEmployees.Value = objDashboardWidgetData.GetTotalEmployeesOnLeave(txtClientID, txtFinYearID);
+        //    bdgTotalLeaveApprovals.Value = objDashboardWidgetData.GetPendingLeaveApprovalCount(txtClientID, txtFinYearID);
+        //    bdgTotalLeaveApprovals.Value = objDashboardWidgetData.GetPendingLeaveApprovalCount(txtClientID, txtFinYearID);
+        //    bdgEmployeesWithWeeklyOff.Value = objDashboardWidgetData.GetEmployeesWeeklyOffCount(txtClientID, txtFinYearID);
+        //    bdgEmployeesBirthday.Value = objDashboardWidgetData.GetCountOfAllEmployeesBirthdayCountToday(txtClientID, txtFinYearID);
+        //    bdgWorkAnniversary.Value = objDashboardWidgetData.GetCountOfAllEmployeesWorkAnniversaryCountToday(txtClientID, txtFinYearID);
+        //}
 
-        private void GetUpcomingHolidays(int txtClientID, int txtFinYearID)
-        {
-            dtgUpcomingHolidays.DataSource = null;
-            dtgUpcomingHolidays.DataSource = objDashboardWidgetData.GetUpcomingHolidays(txtClientID, txtFinYearID);
-            dtgUpcomingHolidays.Columns["PubHolTypeTitle"].HeaderText = "Holiday Type";
-            dtgUpcomingHolidays.Columns["PubHolTypeTitle"].ReadOnly = true;
-            dtgUpcomingHolidays.Columns["PubHolTypeTitle"].Width = 150;
-            dtgUpcomingHolidays.Columns["PubHolidayTitle"].HeaderText = "Holiday Title";
-            dtgUpcomingHolidays.Columns["PubHolidayTitle"].ReadOnly = true;
-            dtgUpcomingHolidays.Columns["PubHolTypeTitle"].Width = 150;
-            dtgUpcomingHolidays.Columns["PubHolDate"].HeaderText = "Holiday Date";
-            dtgUpcomingHolidays.Columns["PubHolDate"].Width = 100;
-            dtgUpcomingHolidays.Columns["PubHolDate"].ReadOnly = true;
-            dtgUpcomingHolidays.Columns["PubHolDate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
-            dtgUpcomingHolidays.Columns["PubHolDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
-            dtgUpcomingHolidays.Columns["DaysRemaining"].HeaderText = "Due Day(s)";
-            dtgUpcomingHolidays.Columns["DaysRemaining"].Width = 75;
-            dtgUpcomingHolidays.Columns["DaysRemaining"].ReadOnly = true;
-        }
+        //private void GetUpcomingHolidays(int txtClientID, int txtFinYearID)
+        //{
+        //    dtgUpcomingHolidays.DataSource = null;
+        //    dtgUpcomingHolidays.DataSource = objDashboardWidgetData.GetUpcomingHolidays(txtClientID, txtFinYearID);
+        //    dtgUpcomingHolidays.Columns["PubHolTypeTitle"].HeaderText = "Holiday Type";
+        //    dtgUpcomingHolidays.Columns["PubHolTypeTitle"].ReadOnly = true;
+        //    dtgUpcomingHolidays.Columns["PubHolTypeTitle"].Width = 150;
+        //    dtgUpcomingHolidays.Columns["PubHolidayTitle"].HeaderText = "Holiday Title";
+        //    dtgUpcomingHolidays.Columns["PubHolidayTitle"].ReadOnly = true;
+        //    dtgUpcomingHolidays.Columns["PubHolTypeTitle"].Width = 150;
+        //    dtgUpcomingHolidays.Columns["PubHolDate"].HeaderText = "Holiday Date";
+        //    dtgUpcomingHolidays.Columns["PubHolDate"].Width = 100;
+        //    dtgUpcomingHolidays.Columns["PubHolDate"].ReadOnly = true;
+        //    dtgUpcomingHolidays.Columns["PubHolDate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+        //    dtgUpcomingHolidays.Columns["PubHolDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+        //    dtgUpcomingHolidays.Columns["DaysRemaining"].HeaderText = "Due Day(s)";
+        //    dtgUpcomingHolidays.Columns["DaysRemaining"].Width = 75;
+        //    dtgUpcomingHolidays.Columns["DaysRemaining"].ReadOnly = true;
+        //}
 
-        private void frmDashboard_Load(object sender, EventArgs e)
+        private async void frmDashboard_Load(object sender, EventArgs e)
         {
+            await myWebView.EnsureCoreWebView2Async();
+
+            //myWebView.NavigationCompleted += myWebView_NavigationCompleted;
+
+            txtDTFrom.Text = "01-" + DateTime.Today.ToString("MM-yyyy"); // DateTime.Today.ToString("dd-MM-yyyy");
+            txtDTTo.Text = DateTime.Today.ToString("dd-MM-yyyy");
+
+            string htmlPath = Path.Combine(Application.StartupPath,"Dashboard","StaffSyncDashboard.html");
+
+            myWebView.Source = new Uri(htmlPath);
+
             FocusManager.EnableHighlighting = false;
             FocusManager.ShowNavigationError = true;
             FocusManager.Register(this);
@@ -1691,12 +1752,12 @@ namespace StaffSync
                 if(Convert.ToBoolean(objAppSettings.GetSpecificAppSettingsInfo("Show Dashboard KPIs").AppSettingValue.ToString()) == true)
                 {
                     sptrDashboardContainer.Visible = true;
-                    LoadDepartmentColumnChart(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
-                    GetAdvanceSummary(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
-                    GetAdvanceRiskBaseInfo(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
+                    //LoadDepartmentColumnChart(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
+                    //GetAdvanceSummary(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
+                    //GetAdvanceRiskBaseInfo(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
                     //GetAgingDistributionInfo(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
-                    LoadWorkforceInfo(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
-                    GetUpcomingHolidays(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
+                    //LoadWorkforceInfo(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
+                    //GetUpcomingHolidays(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
                 }
                 else
                 {
@@ -1836,6 +1897,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Leave Approval Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLeavesApproval.MdiParent = this;
                     frmLeavesApproval.Dock = DockStyle.Fill;
@@ -1851,6 +1913,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Leave Approval Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmLeavesApproval.MdiParent = this;
                         frmLeavesApproval.Dock = DockStyle.Fill;
@@ -1884,6 +1947,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Leave Approval Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLeavesApproval.MdiParent = this;
                     frmLeavesApproval.Dock = DockStyle.Fill;
@@ -1911,6 +1975,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "User Management Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmUserManagement.MdiParent = this;
                     frmUserManagement.Dock = DockStyle.Fill;
@@ -1926,6 +1991,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "User Management Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmUserManagement.MdiParent = this;
                         frmUserManagement.Dock = DockStyle.Fill;
@@ -1959,6 +2025,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "User Management Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmUserManagement.MdiParent = this;
                     frmUserManagement.Dock = DockStyle.Fill;
@@ -1986,6 +2053,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Roles and Responsibilities Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRolesAndResponsibilities.MdiParent = this;
                     frmRolesAndResponsibilities.Dock = DockStyle.Fill;
@@ -2001,6 +2069,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Roles and Responsibilities Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmRolesAndResponsibilities.MdiParent = this;
                         frmRolesAndResponsibilities.Dock = DockStyle.Fill;
@@ -2034,6 +2103,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Roles and Responsibilities Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRolesAndResponsibilities.MdiParent = this;
                     frmRolesAndResponsibilities.Dock = DockStyle.Fill;
@@ -2061,6 +2131,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Modules Assignment Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmModuleAssignment.MdiParent = this;
                     frmModuleAssignment.Dock = DockStyle.Fill;
@@ -2076,6 +2147,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Modules Assignment Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmModuleAssignment.MdiParent = this;
                         frmModuleAssignment.Dock = DockStyle.Fill;
@@ -2109,6 +2181,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Modules Assignment Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmModuleAssignment.MdiParent = this;
                     frmModuleAssignment.Dock = DockStyle.Fill;
@@ -2168,6 +2241,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Roles Profile Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRolesProfileMaster.MdiParent = this;
                     frmRolesProfileMaster.Dock = DockStyle.Fill;
@@ -2183,6 +2257,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Roles Profile Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmRolesProfileMaster.MdiParent = this;
                         frmRolesProfileMaster.Dock = DockStyle.Fill;
@@ -2216,6 +2291,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Roles Profile Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRolesProfileMaster.MdiParent = this;
                     frmRolesProfileMaster.Dock = DockStyle.Fill;
@@ -2293,6 +2369,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "User Management Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmUserManagement.MdiParent = this;
                             frmUserManagement.Dock = DockStyle.Fill;
@@ -2308,6 +2385,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "User Management Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmUserManagement.MdiParent = this;
                                 frmUserManagement.Dock = DockStyle.Fill;
@@ -2341,6 +2419,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "User Management Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmUserManagement frmUserManagement = new frmUserManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmUserManagement.MdiParent = this;
                             frmUserManagement.Dock = DockStyle.Fill;
@@ -2359,6 +2438,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Roles and Responsibilities Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmRolesAndResponsibilities.MdiParent = this;
                             frmRolesAndResponsibilities.Dock = DockStyle.Fill;
@@ -2374,6 +2454,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Roles and Responsibilities Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmRolesAndResponsibilities.MdiParent = this;
                                 frmRolesAndResponsibilities.Dock = DockStyle.Fill;
@@ -2407,6 +2488,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Roles and Responsibilities Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmRolesAndResponsibilities frmRolesAndResponsibilities = new frmRolesAndResponsibilities(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmRolesAndResponsibilities.MdiParent = this;
                             frmRolesAndResponsibilities.Dock = DockStyle.Fill;
@@ -2425,6 +2507,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Module Assignment Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmModuleAssignment.MdiParent = this;
                             frmModuleAssignment.Dock = DockStyle.Fill;
@@ -2440,6 +2523,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Module Assignment Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmModuleAssignment.MdiParent = this;
                                 frmModuleAssignment.Dock = DockStyle.Fill;
@@ -2473,6 +2557,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Module Assignment Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmModuleAssignment frmModuleAssignment = new frmModuleAssignment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmModuleAssignment.MdiParent = this;
                             frmModuleAssignment.Dock = DockStyle.Fill;
@@ -2491,6 +2576,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Roles Profile Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmRolesProfileMaster.MdiParent = this;
                             frmRolesProfileMaster.Dock = DockStyle.Fill;
@@ -2506,6 +2592,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Roles Profile Master Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmRolesProfileMaster.MdiParent = this;
                                 frmRolesProfileMaster.Dock = DockStyle.Fill;
@@ -2539,6 +2626,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Roles Profile Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmRolesProfileMaster frmRolesProfileMaster = new frmRolesProfileMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmRolesProfileMaster.MdiParent = this;
                             frmRolesProfileMaster.Dock = DockStyle.Fill;
@@ -2582,6 +2670,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Attendance Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmAttendanceMaterDetails.MdiParent = this;
                             frmAttendanceMaterDetails.Dock = DockStyle.Fill;
@@ -2597,6 +2686,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Attendance Master Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmAttendanceMaterDetails.MdiParent = this;
                                 frmAttendanceMaterDetails.Dock = DockStyle.Fill;
@@ -2630,6 +2720,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Attendance Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmAttendanceMater frmAttendanceMaterDetails = new frmAttendanceMater(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmAttendanceMaterDetails.MdiParent = this;
                             frmAttendanceMaterDetails.Dock = DockStyle.Fill;
@@ -2665,6 +2756,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Leaves Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeavesMasterDetails.MdiParent = this;
                             frmLeavesMasterDetails.Dock = DockStyle.Fill;
@@ -2680,6 +2772,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Leaves Master Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmLeavesMasterDetails.MdiParent = this;
                                 frmLeavesMasterDetails.Dock = DockStyle.Fill;
@@ -2713,6 +2806,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Leaves Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmLeavesMaster frmLeavesMasterDetails = new frmLeavesMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeavesMasterDetails.MdiParent = this;
                             frmLeavesMasterDetails.Dock = DockStyle.Fill;
@@ -2732,6 +2826,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Leaves Approval Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeavesApproval.MdiParent = this;
                             frmLeavesApproval.Dock = DockStyle.Fill;
@@ -2747,6 +2842,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Leaves Approval Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmLeavesApproval.MdiParent = this;
                                 frmLeavesApproval.Dock = DockStyle.Fill;
@@ -2780,6 +2876,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Leaves Approval Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmLeavesApproval frmLeavesApproval = new frmLeavesApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeavesApproval.MdiParent = this;
                             frmLeavesApproval.Dock = DockStyle.Fill;
@@ -2800,6 +2897,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Leaves Rejection Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmLeavesReject frmLeavesReject = new frmLeavesReject(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeavesReject.MdiParent = this;
                             frmLeavesReject.Dock = DockStyle.Fill;
@@ -2815,6 +2913,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Leaves Rejection Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmLeavesReject frmLeavesReject = new frmLeavesReject(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmLeavesReject.MdiParent = this;
                                 frmLeavesReject.Dock = DockStyle.Fill;
@@ -2848,6 +2947,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Leaves Rejection Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmLeavesReject frmLeavesReject = new frmLeavesReject(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeavesReject.MdiParent = this;
                             frmLeavesReject.Dock = DockStyle.Fill;
@@ -2893,6 +2993,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Last Company Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLastCompanyMaster.MdiParent = this;
                             frmLastCompanyMaster.Dock = DockStyle.Fill;
@@ -2908,6 +3009,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Last Company Master Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmLastCompanyMaster.MdiParent = this;
                                 frmLastCompanyMaster.Dock = DockStyle.Fill;
@@ -2941,6 +3043,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Last Company Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLastCompanyMaster.MdiParent = this;
                             frmLastCompanyMaster.Dock = DockStyle.Fill;
@@ -2958,6 +3061,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Qualification Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmEduQualMaster.MdiParent = this;
                             frmEduQualMaster.Dock = DockStyle.Fill;
@@ -2973,6 +3077,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Qualification Master Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmEduQualMaster.MdiParent = this;
                                 frmEduQualMaster.Dock = DockStyle.Fill;
@@ -3006,6 +3111,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Qualification Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmEduQualMaster.MdiParent = this;
                             frmEduQualMaster.Dock = DockStyle.Fill;
@@ -3023,6 +3129,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Skills Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmSkillsMaster.MdiParent = this;
                             frmSkillsMaster.Dock = DockStyle.Fill;
@@ -3038,6 +3145,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Skills Master Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmSkillsMaster.MdiParent = this;
                                 frmSkillsMaster.Dock = DockStyle.Fill;
@@ -3069,6 +3177,7 @@ namespace StaffSync
                         }
 
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmSkillsMaster.MdiParent = this;
                         frmSkillsMaster.Dock = DockStyle.Fill;
@@ -3085,6 +3194,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Department Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmDepartmentMaster.MdiParent = this;
                             frmDepartmentMaster.Dock = DockStyle.Fill;
@@ -3100,6 +3210,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Department Master Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmDepartmentMaster.MdiParent = this;
                                 frmDepartmentMaster.Dock = DockStyle.Fill;
@@ -3134,6 +3245,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Department Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmDepartmentMaster.MdiParent = this;
                             frmDepartmentMaster.Dock = DockStyle.Fill;
@@ -3151,6 +3263,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Designation Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmDesignationMaster.MdiParent = this;
                             frmDesignationMaster.Dock = DockStyle.Fill;
@@ -3166,6 +3279,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Designation Master Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmDesignationMaster.MdiParent = this;
                                 frmDesignationMaster.Dock = DockStyle.Fill;
@@ -3199,6 +3313,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Designation Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmDesignationMaster.MdiParent = this;
                             frmDesignationMaster.Dock = DockStyle.Fill;
@@ -3216,6 +3331,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Country Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmCountryMaster.MdiParent = this;
                             frmCountryMaster.Dock = DockStyle.Fill;
@@ -3231,6 +3347,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Country Master Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmCountryMaster.MdiParent = this;
                                 frmCountryMaster.Dock = DockStyle.Fill;
@@ -3264,6 +3381,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Country Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmCountryMaster.MdiParent = this;
                             frmCountryMaster.Dock = DockStyle.Fill;
@@ -3281,6 +3399,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "State Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmStateMaster.MdiParent = this;
                             frmStateMaster.Dock = DockStyle.Fill;
@@ -3296,6 +3415,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "State Master Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmStateMaster.MdiParent = this;
                                 frmStateMaster.Dock = DockStyle.Fill;
@@ -3329,6 +3449,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "State Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmStateMaster.MdiParent = this;
                             frmStateMaster.Dock = DockStyle.Fill;
@@ -3346,6 +3467,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Relationship Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmRelationshipMaster.MdiParent = this;
                             frmRelationshipMaster.Dock = DockStyle.Fill;
@@ -3361,6 +3483,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Relationship Master Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmRelationshipMaster.MdiParent = this;
                                 frmRelationshipMaster.Dock = DockStyle.Fill;
@@ -3394,6 +3517,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Relationship Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmRelationshipMaster.MdiParent = this;
                             frmRelationshipMaster.Dock = DockStyle.Fill;
@@ -3411,6 +3535,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Leave Type Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeaveTypeMaster.MdiParent = this;
                             frmLeaveTypeMaster.Dock = DockStyle.Fill;
@@ -3426,6 +3551,7 @@ namespace StaffSync
                             {
                                 lblDashboardTitle.Text = "Leave Type Master Details";
                                 sptrDashboardContainer.Visible = false;
+                                grpDashboardDateRange.Visible = false;
                                 frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                                 frmLeaveTypeMaster.MdiParent = this;
                                 frmLeaveTypeMaster.Dock = DockStyle.Fill;
@@ -3459,6 +3585,7 @@ namespace StaffSync
                         {
                             lblDashboardTitle.Text = "Leave Type Master Details";
                             sptrDashboardContainer.Visible = false;
+                            grpDashboardDateRange.Visible = false;
                             frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                             frmLeaveTypeMaster.MdiParent = this;
                             frmLeaveTypeMaster.Dock = DockStyle.Fill;
@@ -3488,6 +3615,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Last Company Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLastCompanyMaster.MdiParent = this;
                     frmLastCompanyMaster.Dock = DockStyle.Fill;
@@ -3503,6 +3631,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Last Company Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmLastCompanyMaster.MdiParent = this;
                         frmLastCompanyMaster.Dock = DockStyle.Fill;
@@ -3537,6 +3666,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Last Company Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmLastCompanyMaster frmLastCompanyMaster = new frmLastCompanyMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLastCompanyMaster.MdiParent = this;
                     frmLastCompanyMaster.Dock = DockStyle.Fill;
@@ -3564,6 +3694,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Qualification Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEduQualMaster.MdiParent = this;
                     frmEduQualMaster.Dock = DockStyle.Fill;
@@ -3579,6 +3710,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Qualification Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmEduQualMaster.MdiParent = this;
                         frmEduQualMaster.Dock = DockStyle.Fill;
@@ -3613,6 +3745,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Qualification Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmEduQualMaster frmEduQualMaster = new frmEduQualMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEduQualMaster.MdiParent = this;
                     frmEduQualMaster.Dock = DockStyle.Fill;
@@ -3640,6 +3773,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Skills Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmSkillsMaster.MdiParent = this;
                     frmSkillsMaster.Dock = DockStyle.Fill;
@@ -3655,6 +3789,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Skills Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmSkillsMaster frmSkillsMaster = new frmSkillsMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmSkillsMaster.MdiParent = this;
                         frmSkillsMaster.Dock = DockStyle.Fill;
@@ -3685,6 +3820,7 @@ namespace StaffSync
                     }
                 }
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmSkillsMaster frmSkillsMaster = new frmSkillsMaster();
                 frmSkillsMaster.MdiParent = this;
                 frmSkillsMaster.Dock = DockStyle.Fill;
@@ -3712,6 +3848,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Department Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDepartmentMaster.MdiParent = this;
                     frmDepartmentMaster.Dock = DockStyle.Fill;
@@ -3727,6 +3864,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Department Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmDepartmentMaster.MdiParent = this;
                         frmDepartmentMaster.Dock = DockStyle.Fill;
@@ -3760,6 +3898,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Department Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmDepartmentMaster frmDepartmentMaster = new frmDepartmentMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDepartmentMaster.MdiParent = this;
                     frmDepartmentMaster.Dock = DockStyle.Fill;
@@ -3787,6 +3926,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Designation Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDesignationMaster.MdiParent = this;
                     frmDesignationMaster.Dock = DockStyle.Fill;
@@ -3802,6 +3942,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Designation Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmDesignationMaster.MdiParent = this;
                         frmDesignationMaster.Dock = DockStyle.Fill;
@@ -3835,6 +3976,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Designation Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmDesignationMaster frmDesignationMaster = new frmDesignationMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmDesignationMaster.MdiParent = this;
                     frmDesignationMaster.Dock = DockStyle.Fill;
@@ -3862,6 +4004,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "State Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmStateMaster.MdiParent = this;
                     frmStateMaster.Dock = DockStyle.Fill;
@@ -3877,6 +4020,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "State Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmStateMaster.MdiParent = this;
                         frmStateMaster.Dock = DockStyle.Fill;
@@ -3911,6 +4055,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "State Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmStateMaster frmStateMaster = new frmStateMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmStateMaster.MdiParent = this;
                     frmStateMaster.Dock = DockStyle.Fill;
@@ -3938,6 +4083,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Relationship Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRelationshipMaster.MdiParent = this;
                     frmRelationshipMaster.Dock = DockStyle.Fill;
@@ -3953,6 +4099,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Relationship Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmRelationshipMaster.MdiParent = this;
                         frmRelationshipMaster.Dock = DockStyle.Fill;
@@ -3986,6 +4133,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Relationship Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmRelationshipMaster frmRelationshipMaster = new frmRelationshipMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmRelationshipMaster.MdiParent = this;
                     frmRelationshipMaster.Dock = DockStyle.Fill;
@@ -4013,6 +4161,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Payroll Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmPayrollMaster payrollMaster = new frmPayrollMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     payrollMaster.MdiParent = this;
                     payrollMaster.Dock = DockStyle.Fill;
@@ -4028,6 +4177,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Payroll Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmPayrollMaster payrollMaster = new frmPayrollMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         payrollMaster.MdiParent = this;
                         payrollMaster.Dock = DockStyle.Fill;
@@ -4061,6 +4211,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Payroll Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmPayrollMaster payrollMaster = new frmPayrollMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     payrollMaster.MdiParent = this;
                     payrollMaster.Dock = DockStyle.Fill;
@@ -4088,6 +4239,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Allowence Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollAllowences.MdiParent = this;
                     frmPayrollAllowences.Dock = DockStyle.Fill;
@@ -4103,6 +4255,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Allowence Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmPayrollAllowences.MdiParent = this;
                         frmPayrollAllowences.Dock = DockStyle.Fill;
@@ -4136,6 +4289,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Allowence Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollAllowences.MdiParent = this;
                     frmPayrollAllowences.Dock = DockStyle.Fill;
@@ -4163,6 +4317,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Deduction Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollDeductions.MdiParent = this;
                     frmPayrollDeductions.Dock = DockStyle.Fill;
@@ -4178,6 +4333,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Deduction Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmPayrollDeductions.MdiParent = this;
                         frmPayrollDeductions.Dock = DockStyle.Fill;
@@ -4211,6 +4367,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Deduction Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollDeductions.MdiParent = this;
                     frmPayrollDeductions.Dock = DockStyle.Fill;
@@ -4238,6 +4395,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Reimbursement Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmReimbursement.MdiParent = this;
                     frmReimbursement.Dock = DockStyle.Fill;
@@ -4253,6 +4411,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Reimbursement Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmReimbursement.MdiParent = this;
                         frmReimbursement.Dock = DockStyle.Fill;
@@ -4286,6 +4445,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Reimbursement Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmReimbursement.MdiParent = this;
                     frmReimbursement.Dock = DockStyle.Fill;
@@ -4307,6 +4467,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Leave Statement Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmLeaveStatement frmLeaveStatement = new frmLeaveStatement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmLeaveStatement.MdiParent = this;
                 frmLeaveStatement.Dock = DockStyle.Fill;
@@ -4393,6 +4554,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Current User Leave Master Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmCurrentUserLeaveMaster frmCurrentUserLeaveMaster = new frmCurrentUserLeaveMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmCurrentUserLeaveMaster.MdiParent = this;
                 frmCurrentUserLeaveMaster.Dock = DockStyle.Fill;
@@ -4432,6 +4594,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Leave Entitlement Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmpLeaveEntitlement.MdiParent = this;
                     frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
@@ -4447,6 +4610,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Leave Entitlement Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmEmpLeaveEntitlement.MdiParent = this;
                         frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
@@ -4480,6 +4644,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Leave Entitlement Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmpLeaveEntitlement.MdiParent = this;
                     frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
@@ -4513,6 +4678,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Salary Profile Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmSalaryProfile frmSalaryProfile = new frmSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmSalaryProfile.MdiParent = this;
                     frmSalaryProfile.Dock = DockStyle.Fill;
@@ -4528,6 +4694,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Salary Profile Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmSalaryProfile frmSalaryProfile = new frmSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmSalaryProfile.MdiParent = this;
                         frmSalaryProfile.Dock = DockStyle.Fill;
@@ -4561,6 +4728,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Salary Profile Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmSalaryProfile frmSalaryProfile = new frmSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmSalaryProfile.MdiParent = this;
                     frmSalaryProfile.Dock = DockStyle.Fill;
@@ -4588,6 +4756,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Salary Profile Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmUpdateSalaryProfile.MdiParent = this;
                     frmUpdateSalaryProfile.Dock = DockStyle.Fill;
@@ -4603,6 +4772,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Salary Profile Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmUpdateSalaryProfile.MdiParent = this;
                         frmUpdateSalaryProfile.Dock = DockStyle.Fill;
@@ -4636,6 +4806,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Salary Profile Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmUpdateSalaryProfile frmUpdateSalaryProfile = new frmUpdateSalaryProfile(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmUpdateSalaryProfile.MdiParent = this;
                     frmUpdateSalaryProfile.Dock = DockStyle.Fill;
@@ -4657,6 +4828,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Bulk Leave Approval Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmEmpBulkLeaveApproval frmEmpBulkLeaveApproval = new frmEmpBulkLeaveApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEmpBulkLeaveApproval.MdiParent = this;
                 frmEmpBulkLeaveApproval.Dock = DockStyle.Fill;
@@ -4683,6 +4855,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Leave Type Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLeaveTypeMaster.MdiParent = this;
                     frmLeaveTypeMaster.Dock = DockStyle.Fill;
@@ -4698,6 +4871,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Leave Type Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmLeaveTypeMaster.MdiParent = this;
                         frmLeaveTypeMaster.Dock = DockStyle.Fill;
@@ -4731,6 +4905,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Leave Type Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmLeaveTypeMaster frmLeaveTypeMaster = new frmLeaveTypeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmLeaveTypeMaster.MdiParent = this;
                     frmLeaveTypeMaster.Dock = DockStyle.Fill;
@@ -4763,6 +4938,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Employee Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmployeeMasterDetails.MdiParent = this;
                     frmEmployeeMasterDetails.Dock = DockStyle.Fill;
@@ -4778,6 +4954,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Employee Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmEmployeeMasterDetails.MdiParent = this;
                         frmEmployeeMasterDetails.Dock = DockStyle.Fill;
@@ -4811,6 +4988,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Employee Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmEmployeeMaster frmEmployeeMasterDetails = new frmEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmployeeMasterDetails.MdiParent = this;
                     frmEmployeeMasterDetails.Dock = DockStyle.Fill;
@@ -4838,6 +5016,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Employee Leave Entitlement Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmpLeaveEntitlement.MdiParent = this;
                     frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
@@ -4853,6 +5032,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Employee Leave Entitlement Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmEmpLeaveEntitlement.MdiParent = this;
                         frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
@@ -4886,6 +5066,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Employee Leave Entitlement Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmEmpLeaveEntitlement frmEmpLeaveEntitlement = new frmEmpLeaveEntitlement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmEmpLeaveEntitlement.MdiParent = this;
                     frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
@@ -4907,6 +5088,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Leave Statement Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmLeaveStatements frmLeaveStatements = new frmLeaveStatements(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmLeaveStatements.MdiParent = this;
                 frmLeaveStatements.Dock = DockStyle.Fill;
@@ -4933,6 +5115,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Weekly Profile Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmWeeklyProfileMas frmWeeklyProfileMas = new frmWeeklyProfileMas(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmWeeklyProfileMas.MdiParent = this;
                     frmWeeklyProfileMas.Dock = DockStyle.Fill;
@@ -4948,6 +5131,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Weekly Profile Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmWeeklyProfileMas frmWeeklyProfileMas = new frmWeeklyProfileMas(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmWeeklyProfileMas.MdiParent = this;
                         frmWeeklyProfileMas.Dock = DockStyle.Fill;
@@ -4981,6 +5165,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Weekly Profile Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmWeeklyProfileMas frmWeeklyProfileMas = new frmWeeklyProfileMas(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmWeeklyProfileMas.MdiParent = this;
                     frmWeeklyProfileMas.Dock = DockStyle.Fill;
@@ -5010,6 +5195,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Weekly Profile Details Information";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmWeeklyProfileDetailsInfo frmWeeklyProfileDetailsInfo = new frmWeeklyProfileDetailsInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmWeeklyProfileDetailsInfo.MdiParent = this;
                     frmWeeklyProfileDetailsInfo.Dock = DockStyle.Fill;
@@ -5025,6 +5211,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Weekly Profile Details Information";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmWeeklyProfileDetailsInfo frmWeeklyProfileDetailsInfo = new frmWeeklyProfileDetailsInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmWeeklyProfileDetailsInfo.MdiParent = this;
                         frmWeeklyProfileDetailsInfo.Dock = DockStyle.Fill;
@@ -5058,6 +5245,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Weekly Profile Details Information";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmWeeklyProfileDetailsInfo frmWeeklyProfileDetailsInfo = new frmWeeklyProfileDetailsInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmWeeklyProfileDetailsInfo.MdiParent = this;
                     frmWeeklyProfileDetailsInfo.Dock = DockStyle.Fill;
@@ -5073,6 +5261,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Bulk Leave Approval Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmBulkLeaveApproval frmBulkLeaveApproval = new frmBulkLeaveApproval(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmBulkLeaveApproval.MdiParent = this;
                 frmBulkLeaveApproval.Dock = DockStyle.Fill;
@@ -5099,6 +5288,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Payroll Allowance Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollAllowences.MdiParent = this;
                     frmPayrollAllowences.Dock = DockStyle.Fill;
@@ -5114,6 +5304,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Payroll Allowance Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmPayrollAllowences.MdiParent = this;
                         frmPayrollAllowences.Dock = DockStyle.Fill;
@@ -5147,6 +5338,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Payroll Allowance Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmPayrollAllowences frmPayrollAllowences = new frmPayrollAllowences(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollAllowences.MdiParent = this;
                     frmPayrollAllowences.Dock = DockStyle.Fill;
@@ -5174,6 +5366,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Reimbursement Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmReimbursement.MdiParent = this;
                     frmReimbursement.Dock = DockStyle.Fill;
@@ -5189,6 +5382,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Reimbursement Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmReimbursement.MdiParent = this;
                         frmReimbursement.Dock = DockStyle.Fill;
@@ -5222,6 +5416,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Reimbursement Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmReimbursement frmReimbursement = new frmReimbursement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmReimbursement.MdiParent = this;
                     frmReimbursement.Dock = DockStyle.Fill;
@@ -5249,6 +5444,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Deduction Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollDeductions.MdiParent = this;
                     frmPayrollDeductions.Dock = DockStyle.Fill;
@@ -5264,6 +5460,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Deduction Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmPayrollDeductions.MdiParent = this;
                         frmPayrollDeductions.Dock = DockStyle.Fill;
@@ -5297,6 +5494,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Deduction Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmPayrollDeductions frmPayrollDeductions = new frmPayrollDeductions(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmPayrollDeductions.MdiParent = this;
                     frmPayrollDeductions.Dock = DockStyle.Fill;
@@ -5318,6 +5516,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Pending Approval Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmPendingApprovalList frmPendingApprovalList = new frmPendingApprovalList(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmPendingApprovalList.MdiParent = this;
                 frmPendingApprovalList.Dock = DockStyle.Fill;
@@ -5338,6 +5537,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Leave Rejection Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmLeaveRejectionList frmLeaveRejectionList = new frmLeaveRejectionList();
                 frmLeaveRejectionList.MdiParent = this;
                 frmLeaveRejectionList.Dock = DockStyle.Fill;
@@ -5358,6 +5558,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Consolidated Leave Statement";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmConsolidatedLeaveStatement frmConsolidatedLeaveStatement = new frmConsolidatedLeaveStatement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmConsolidatedLeaveStatement.MdiParent = this;
                 frmConsolidatedLeaveStatement.Dock = DockStyle.Fill;
@@ -5378,6 +5579,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Outstanding Leave Statement";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmOutstandingLeaveStatement frmOutstandingLeaveStatement = new frmOutstandingLeaveStatement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmOutstandingLeaveStatement.MdiParent = this;
                 frmOutstandingLeaveStatement.Dock = DockStyle.Fill;
@@ -5398,6 +5600,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Daily Attendance Sheet";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmDailyAttendanceProcess frmDailyAttendanceProcess = new frmDailyAttendanceProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmDailyAttendanceProcess.MdiParent = this;
                 frmDailyAttendanceProcess.Dock = DockStyle.Fill;
@@ -5444,12 +5647,12 @@ namespace StaffSync
                 if (Convert.ToBoolean(objAppSettings.GetSpecificAppSettingsInfo("Show Dashboard KPIs").AppSettingValue.ToString()) == true)
                 {
                     sptrDashboardContainer.Visible = true;
-                    LoadDepartmentColumnChart(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
-                    GetAdvanceSummary(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
-                    GetAdvanceRiskBaseInfo(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
+                    //LoadDepartmentColumnChart(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
+                    //GetAdvanceSummary(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
+                    //GetAdvanceRiskBaseInfo(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
                     //GetAgingDistributionInfo(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
-                    LoadWorkforceInfo(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
-                    GetUpcomingHolidays(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
+                    //LoadWorkforceInfo(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
+                    //GetUpcomingHolidays(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
                 }
                 else
                 {
@@ -5478,6 +5681,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Daily Attendance Sheet";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmDailyAttendanceProcess frmDailyAttendanceProcess = new frmDailyAttendanceProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmDailyAttendanceProcess.MdiParent = this;
                 frmDailyAttendanceProcess.Dock = DockStyle.Fill;
@@ -5498,6 +5702,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Payroll Batch Process";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmPayrollBatchProcess frmPayrollBatchProcess = new frmPayrollBatchProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmPayrollBatchProcess.MdiParent = this;
                 frmPayrollBatchProcess.Dock = DockStyle.Fill;
@@ -5518,6 +5723,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Public Holiday Configuration";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmPublicHolidayConfig frmPublicHolidayConfig = new frmPublicHolidayConfig(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmPublicHolidayConfig.MdiParent = this;
                 frmPublicHolidayConfig.Dock = DockStyle.Fill;
@@ -5536,6 +5742,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Country Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmCountryMaster.MdiParent = this;
                     frmCountryMaster.Dock = DockStyle.Fill;
@@ -5551,6 +5758,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Country Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmCountryMaster.MdiParent = this;
                         frmCountryMaster.Dock = DockStyle.Fill;
@@ -5584,6 +5792,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Country Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmCountryMaster frmCountryMaster = new frmCountryMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmCountryMaster.MdiParent = this;
                     frmCountryMaster.Dock = DockStyle.Fill;
@@ -5611,6 +5820,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Employee Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmSSEmployeeMaster frmSSEmployeeMaster = new frmSSEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmSSEmployeeMaster.MdiParent = this;
                     frmSSEmployeeMaster.Dock = DockStyle.Fill;
@@ -5626,6 +5836,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Employee Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmSSEmployeeMaster frmSSEmployeeMaster = new frmSSEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmSSEmployeeMaster.MdiParent = this;
                         frmSSEmployeeMaster.Dock = DockStyle.Fill;
@@ -5659,6 +5870,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Employee Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmSSEmployeeMaster frmSSEmployeeMaster = new frmSSEmployeeMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmSSEmployeeMaster.MdiParent = this;
                     frmSSEmployeeMaster.Dock = DockStyle.Fill;
@@ -5686,6 +5898,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Company Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     //frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmOrgMasterInfo frmCompanyInfo = new frmOrgMasterInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmCompanyInfo.MdiParent = this;
@@ -5702,6 +5915,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Company Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         //frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmOrgMasterInfo frmCompanyInfo = new frmOrgMasterInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmCompanyInfo.MdiParent = this;
@@ -5736,6 +5950,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Company Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     //frmCompanyInfo frmCompanyInfo = new frmCompanyInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmOrgMasterInfo frmCompanyInfo = new frmOrgMasterInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmCompanyInfo.MdiParent = this;
@@ -5765,6 +5980,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Branch Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmBranchInfo frmBranchInfo = new frmBranchInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmBranchInfo.MdiParent = this;
                     frmBranchInfo.Dock = DockStyle.Fill;
@@ -5780,6 +5996,7 @@ namespace StaffSync
                     {
                         lblDashboardTitle.Text = "Branch Master Details";
                         sptrDashboardContainer.Visible = false;
+                        grpDashboardDateRange.Visible = false;
                         frmBranchInfo frmBranchInfo = new frmBranchInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                         frmBranchInfo.MdiParent = this;
                         frmBranchInfo.Dock = DockStyle.Fill;
@@ -5813,6 +6030,7 @@ namespace StaffSync
                 {
                     lblDashboardTitle.Text = "Branch Master Details";
                     sptrDashboardContainer.Visible = false;
+                    grpDashboardDateRange.Visible = false;
                     frmBranchInfo frmBranchInfo = new frmBranchInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                     frmBranchInfo.MdiParent = this;
                     frmBranchInfo.Dock = DockStyle.Fill;
@@ -5828,6 +6046,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Bulk Leave Rejection Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmBulkLeaveRejection frmBulkLeaveRejection = new frmBulkLeaveRejection(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmBulkLeaveRejection.MdiParent = this;
                 frmBulkLeaveRejection.Dock = DockStyle.Fill;
@@ -5847,6 +6066,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Advance Configuration Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmAdvanceTypeMas frmAdvanceTypeMas = new frmAdvanceTypeMas(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmAdvanceTypeMas.MdiParent = this;
                 frmAdvanceTypeMas.Dock = DockStyle.Fill;
@@ -5861,6 +6081,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Advance Request Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmEmpAdvanceRequest frmEmpAdvanceRequest = new frmEmpAdvanceRequest(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEmpAdvanceRequest.MdiParent = this;
                 frmEmpAdvanceRequest.Dock = DockStyle.Fill;
@@ -5880,6 +6101,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "My Tasks List";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmAdvanceApprovalList frmAdvanceApprovalList = new frmAdvanceApprovalList(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo, "FirstApprover");
                 frmAdvanceApprovalList.MdiParent = this;
                 frmAdvanceApprovalList.Dock = DockStyle.Fill;
@@ -5894,6 +6116,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "My Tasks List";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmAdvanceApprovalList frmAdvanceApprovalList = new frmAdvanceApprovalList(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo, "SecondApprover");
                 frmAdvanceApprovalList.MdiParent = this;
                 frmAdvanceApprovalList.Dock = DockStyle.Fill;
@@ -5908,6 +6131,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Advance Repayment Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmEmpAdvanceRepayment frmEmpAdvanceRepayment = new frmEmpAdvanceRepayment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEmpAdvanceRepayment.MdiParent = this;
                 frmEmpAdvanceRepayment.Dock = DockStyle.Fill;
@@ -5922,6 +6146,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Payroll Configuration Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmPayrollConfiguration frmPayrollConfiguration = new frmPayrollConfiguration(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmPayrollConfiguration.MdiParent = this;
                 frmPayrollConfiguration.Dock = DockStyle.Fill;
@@ -5932,8 +6157,8 @@ namespace StaffSync
 
         private void frmDashboard_Activated(object sender, EventArgs e)
         {
-            dtgAdvanceRiskBase.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
-            dtgUpcomingHolidays.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+            //dtgAdvanceRiskBase.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+            //dtgUpcomingHolidays.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
         }
 
         private void circularKpiControl1_Click(object sender, EventArgs e)
@@ -5948,17 +6173,17 @@ namespace StaffSync
 
         private void dtgAdvanceRiskBase_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0)
-                return;
+            //if (e.RowIndex < 0)
+            //    return;
 
-            if (dtgAdvanceRiskBase.Columns[e.ColumnIndex].Name == "EmpAdvReqCode")
-            {
-                int SelectedEmpID = Convert.ToInt32(dtgAdvanceRiskBase.Rows[e.RowIndex].Cells["EmpID"].Value);
-                int AdvanceRequestID = Convert.ToInt32(dtgAdvanceRiskBase.Rows[e.RowIndex].Cells["EmpAdvanceRequestID"].Value);
+            //if (dtgAdvanceRiskBase.Columns[e.ColumnIndex].Name == "EmpAdvReqCode")
+            //{
+            //    int SelectedEmpID = Convert.ToInt32(dtgAdvanceRiskBase.Rows[e.RowIndex].Cells["EmpID"].Value);
+            //    int AdvanceRequestID = Convert.ToInt32(dtgAdvanceRiskBase.Rows[e.RowIndex].Cells["EmpAdvanceRequestID"].Value);
 
-                frmEmpAdvanceTRList frmEmpAdvanceTRList = new frmEmpAdvanceTRList(this, "dashboardempadvancestatement", Convert.ToInt32(SelectedEmpID.ToString()), Convert.ToInt32(AdvanceRequestID.ToString()));
-                frmEmpAdvanceTRList.ShowDialog(this);
-            }
+            //    frmEmpAdvanceTRList frmEmpAdvanceTRList = new frmEmpAdvanceTRList(this, "dashboardempadvancestatement", Convert.ToInt32(SelectedEmpID.ToString()), Convert.ToInt32(AdvanceRequestID.ToString()));
+            //    frmEmpAdvanceTRList.ShowDialog(this);
+            //}
         }
 
         public void SelectedEmployeeID(string SearchOptionSelectedForm, int selectedEmployeeID, int selectedMonthSalaryID)
@@ -6691,28 +6916,28 @@ namespace StaffSync
 
         private void bdgTotalLeaveApprovals_DoubleClick(object sender, EventArgs e)
         {
-            if (bdgTotalLeaveApprovals.Value > 0)
-            {
-                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "DashboardEmployeeLeaveApprovalPendingRequestList", objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID, DateTime.Now.Date);
-                frmEmployeeList.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("There are no pending requests for leave approval.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            //if (bdgTotalLeaveApprovals.Value > 0)
+            //{
+            //    frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "DashboardEmployeeLeaveApprovalPendingRequestList", objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID, DateTime.Now.Date);
+            //    frmEmployeeList.ShowDialog();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("There are no pending requests for leave approval.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
         }
 
         private void bdgTotalLeaveEmployees_DoubleClick(object sender, EventArgs e)
         {
-            if (bdgTotalLeaveEmployees.Value > 0)
-            {
-                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "DashboardEmployeeLeaveApprovedList", objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID, DateTime.Now.Date);
-                frmEmployeeList.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Today, there are no employees on leave.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            //if (bdgTotalLeaveEmployees.Value > 0)
+            //{
+            //    frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "DashboardEmployeeLeaveApprovedList", objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID, DateTime.Now.Date);
+            //    frmEmployeeList.ShowDialog();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Today, there are no employees on leave.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
         }
 
         private void kryptonGroupBox4_Paint_1(object sender, PaintEventArgs e)
@@ -6787,28 +7012,28 @@ namespace StaffSync
 
         private void dtgUpcomingHolidays_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dtgUpcomingHolidays.Columns[e.ColumnIndex].Name == "DaysRemaining" && e.Value != null)
-            {
-                int days = Convert.ToInt32(e.Value);
+            //if (dtgUpcomingHolidays.Columns[e.ColumnIndex].Name == "DaysRemaining" && e.Value != null)
+            //{
+            //    int days = Convert.ToInt32(e.Value);
 
-                if (days == 0)
-                {
-                    e.Value = "Today";
-                    //dtgUpcomingHolidays.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
-                    //dtgUpcomingHolidays.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Yellow;
-                }
-                else if (days <= 3)
-                {
-                    //dtgUpcomingHolidays.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.OrangeRed;
-                }
-                else if (days <= 7)
-                {
-                    //dtgUpcomingHolidays.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.DarkOrange;
-                }
-                e.Value = $"{days} Days";
+            //    if (days == 0)
+            //    {
+            //        e.Value = "Today";
+            //        //dtgUpcomingHolidays.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+            //        //dtgUpcomingHolidays.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Yellow;
+            //    }
+            //    else if (days <= 3)
+            //    {
+            //        //dtgUpcomingHolidays.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.OrangeRed;
+            //    }
+            //    else if (days <= 7)
+            //    {
+            //        //dtgUpcomingHolidays.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.DarkOrange;
+            //    }
+            //    e.Value = $"{days} Days";
 
-                e.FormattingApplied = true;
-            }
+            //    e.FormattingApplied = true;
+            //}
         }
 
         private void dtgUpcomingHolidays_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -6900,54 +7125,54 @@ namespace StaffSync
 
         private void bdgTotalPresentEmployees_DoubleClick(object sender, EventArgs e)
         {
-            if (bdgTotalLeaveEmployees.Value > 0)
-            {
-                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "DashboardEmployeeLeaveApprovedList", objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID, DateTime.Now.Date);
-                frmEmployeeList.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Today, there are no employees on leave.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            //if (bdgTotalLeaveEmployees.Value > 0)
+            //{
+            //    frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "DashboardEmployeeLeaveApprovedList", objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID, DateTime.Now.Date);
+            //    frmEmployeeList.ShowDialog();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Today, there are no employees on leave.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
         }
 
         private void bdgEmployeesWithWeeklyOff_DoubleClick(object sender, EventArgs e)
         {
-            if (bdgEmployeesWithWeeklyOff.Value > 0)
-            {
-                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "DashboardEmployeesWeeklyOffList", objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID, DateTime.Now.Date);
-                frmEmployeeList.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Today, there are no employees on leave.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            //if (bdgEmployeesWithWeeklyOff.Value > 0)
+            //{
+            //    frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "DashboardEmployeesWeeklyOffList", objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID, DateTime.Now.Date);
+            //    frmEmployeeList.ShowDialog();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Today, there are no employees on leave.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
         }
 
         private void bdgEmployeesBirthday_DoubleClick(object sender, EventArgs e)
         {
-            if (bdgEmployeesBirthday.Value > 0)
-            {
-                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "DashboardEmployeesBirthdayList", objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID, DateTime.Now.Date);
-                frmEmployeeList.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Today, there are no employees on leave.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            //if (bdgEmployeesBirthday.Value > 0)
+            //{
+            //    frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "DashboardEmployeesBirthdayList", objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID, DateTime.Now.Date);
+            //    frmEmployeeList.ShowDialog();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Today, there are no employees on leave.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
         }
 
         private void bdgWorkAnniversary_DoubleClick(object sender, EventArgs e)
         {
-            if (bdgWorkAnniversary.Value > 0)
-            {
-                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "DashboardEmployeesWorkAnniversaryList", objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID, DateTime.Now.Date);
-                frmEmployeeList.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Today, there are no employees on leave.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            //if (bdgWorkAnniversary.Value > 0)
+            //{
+            //    frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "DashboardEmployeesWorkAnniversaryList", objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID, DateTime.Now.Date);
+            //    frmEmployeeList.ShowDialog();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Today, there are no employees on leave.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
         }
 
         private void bdgEmployeesBirthday_Load(object sender, EventArgs e)
@@ -6995,6 +7220,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Asset Category Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmAssetCategory frmAssetCategory = new frmAssetCategory(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmAssetCategory.MdiParent = this;
                 frmAssetCategory.Dock = DockStyle.Fill;
@@ -7009,6 +7235,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Assets Details";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmAssetsInfo frmAssetsInfo = new frmAssetsInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmAssetsInfo.MdiParent = this;
                 frmAssetsInfo.Dock = DockStyle.Fill;
@@ -7023,6 +7250,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Assets Operations";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmEmpAssetRequest frmEmpAssetRequest = new frmEmpAssetRequest(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEmpAssetRequest.MdiParent = this;
                 frmEmpAssetRequest.Dock = DockStyle.Fill;
@@ -7043,6 +7271,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Scheduler Jobs Management Configuration";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmSchedulerDashboard frmSchedulerDashboard = new frmSchedulerDashboard(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmSchedulerDashboard.MdiParent = this;
                 frmSchedulerDashboard.Dock = DockStyle.Fill;
@@ -7063,6 +7292,7 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Report Settings";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmPrintSettings frmPrintSettings = new frmPrintSettings(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmPrintSettings.MdiParent = this;
                 //frmPrintSettings.Dock = DockStyle.Fill;
@@ -7088,12 +7318,51 @@ namespace StaffSync
             {
                 lblDashboardTitle.Text = "Report Settings";
                 sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
                 frmEmpSpecificReports frmEmpSpecificReports = new frmEmpSpecificReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
                 frmEmpSpecificReports.MdiParent = this;
                 frmEmpSpecificReports.Dock = DockStyle.Fill;
                 frmEmpSpecificReports.Show();
                 frmEmpSpecificReports.WindowState = FormWindowState.Maximized;
             }
+        }
+
+        private async void myWebView_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
+        {
+            if (!e.IsSuccess)
+                return;
+
+            await displayLeaveStatusSummaryChartData();
+        }
+
+        private async Task displayLeaveStatusSummaryChartData()
+        {
+
+            List<LeaveStatusSummary> data = new List<LeaveStatusSummary>();
+            data = objDashboardChartWidgets.getLeaveStatusSummaryChartData(CurrentUser.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+
+            string json = JsonConvert.SerializeObject(data);
+
+            string script = $"displayLeaveStatusSummaryChartData({json});";
+
+            await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+        }
+
+        private void txtDTFrom_TextChanged(object sender, EventArgs e)
+        {
+            DateTime dtToDate;
+            string dateFormat = "dd-MM-yyyy";
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            if (DateTime.TryParseExact(txtDTFrom.Text, dateFormat, provider, DateTimeStyles.None, out dtToDate) == true)
+            {
+                txtDTTo.Text = Convert.ToDateTime(dtToDate.AddMonths(1).AddDays(-dtToDate.AddMonths(1).Day)).ToString("dd-MM-yyyy");
+                txtDTTo.Enabled = false;
+            }
+        }
+
+        private async void btnRefresh_Click(object sender, EventArgs e)
+        {
+            await displayLeaveStatusSummaryChartData();
         }
     }
 }
