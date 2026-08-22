@@ -96,5 +96,249 @@ namespace dbStaffSync
 
             return objLeaveStatusSummaryList;
         }
+
+        public List<LeaveMatrixChartData> GetLeaveMatrixChartData(int txtClientID, DateTime dtFrom, DateTime dtTo)
+        {
+            List<LeaveMatrixChartData> objLeaveMatrixList = new List<LeaveMatrixChartData>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        " DepMas.DepartmentTitle AS Department, " + 
+                                        " Sum(IIf(EmpLeaveTransMas.LeaveApprovalComments LIKE 'Approved :%' AND EmpLeaveTransMas.Canceled = False, 1, 0)) AS TotalApproved, " + 
+                                        " Sum(IIf(EmpLeaveTransMas.LeaveApprovalComments = 'Not yet Approved' AND EmpLeaveTransMas.LeaveRejectionComments = 'Not yet Rejected' AND EmpLeaveTransMas.Canceled = False, 1, 0)) AS TotalPending, " + 
+                                        " Sum(IIf(EmpLeaveTransMas.LeaveApprovalComments LIKE 'Rejected :%' AND EmpLeaveTransMas.LeaveRejectionComments LIKE 'Rejected :%' AND EmpLeaveTransMas.Canceled = False, 1, 0)) AS TotalRejected, " + 
+                                        " Sum(IIf(EmpLeaveTransMas.Canceled = True, 1, 0)) AS TotalCancelled " + 
+                                    " FROM " + 
+                                        " ClientMas " + 
+                                        " INNER JOIN ( " + 
+                                            " DepMas " + 
+                                            " INNER JOIN ( " + 
+                                                " EmpMas " + 
+                                                " INNER JOIN EmpLeaveTransMas ON EmpMas.EmpID = EmpLeaveTransMas.EmpID " + 
+                                            " ) ON DepMas.DepartmentID = EmpMas.DepartmentID " + 
+                                        " ) ON ClientMas.ClientID = EmpMas.ClientID " + 
+                                    " WHERE " + 
+                                        " ClientMas.ClientID = " + txtClientID +
+                                        " AND EmpMas.IsActive = True  " +
+                                        " AND EmpMas.IsDeleted = False " + 
+                                        " AND EmpLeaveTransMas.ActualLeaveDateFrom >= #" + dtFrom.ToString("dd-MMM-yyyy") + "# " +
+                                        " AND EmpLeaveTransMas.ActualLeaveDateFrom< #" + dtTo.ToString("dd-MMM-yyyy") + "# " +
+                                    " GROUP BY " + 
+                                        " DepMas.DepartmentTitle " + 
+                                    " ORDER BY " + 
+                                        " DepMas.DepartmentTitle";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objLeaveMatrixList = JsonConvert.DeserializeObject<List<LeaveMatrixChartData>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                // Log if required
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objLeaveMatrixList;
+        }
+
+        public List<UpcomingHolidayChartData> GetUpcomingHolidayChartData(int txtClientID, int txtFinYearID)
+        {
+            List<UpcomingHolidayChartData> objUpcomingHolidayList = new List<UpcomingHolidayChartData>();
+
+            DataTable dt = new DataTable();
+
+            OleDbConnection conn = null;
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT TOP 3 " + 
+                    "PubHolidayDetails.PubHolidayTitle AS HolidayName, " + 
+                    "PubHolidayDetails.PubHolDate AS HolidayDate, " +
+                    "DateDiff(" + "\"d\", " + "Date(), " + "PubHolidayDetails.PubHolDate" + ") AS DaysRemaining " +
+                    "FROM " +
+                    "PublicHolidayMas " +
+                    "INNER JOIN PubHolidayDetails ON PublicHolidayMas.PubHolMasID = " +
+                    "PubHolidayDetails.PubHolMasID " +
+                    "WHERE " +
+                    "PublicHolidayMas.ClientID = " + txtClientID +
+                    " AND PublicHolidayMas.FinYearID = " + txtFinYearID +
+                    " AND PubHolidayDetails.PubHolDate > Date() " +
+                    "ORDER BY " +
+                    "PubHolidayDetails.PubHolDate ASC";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objUpcomingHolidayList = JsonConvert.DeserializeObject<List<UpcomingHolidayChartData>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                // Log if required
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    dbStaffSync.closeDBConnection();
+                }
+            }
+
+
+            return objUpcomingHolidayList;
+        }
+
+        public List<AttendanceSummaryChartData> getAttendanceDepartmentChartData(int txtClientID, DateTime dtFrom, DateTime dtTo)
+        {
+            List<AttendanceSummaryChartData> objAttendanceSummaryChartData = new List<AttendanceSummaryChartData>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+
+                string strQuery =
+                    "SELECT " +
+
+                    "DepMas.DepartmentTitle AS Department, " +
+
+                    "Sum(" +
+                        "IIf(" +
+                            "EmpDailyAttendanceInfo.AttStatus = 'Present', " +
+                            "1, " +
+                            "0" +
+                        ")" +
+                    ") AS TotalPresent, " +
+
+                    "Sum(" +
+                        "IIf(" +
+                            "EmpDailyAttendanceInfo.AttStatus = 'Leave : Full Day', " +
+                            "1, " +
+                            "IIf(" +
+                                "EmpDailyAttendanceInfo.AttStatus = 'Leave : First Half' " +
+                                "OR " +
+                                "EmpDailyAttendanceInfo.AttStatus = 'Leave : Second Half', " +
+                                "0.5, " +
+                                "0" +
+                            ")" +
+                        ")" +
+                    ") AS TotalLeave, " +
+
+                    "Sum(" +
+                        "IIf(" +
+                            "EmpDailyAttendanceInfo.AttStatus = 'Loss Of Pay', " +
+                            "1, " +
+                            "IIf(" +
+                                "EmpDailyAttendanceInfo.AttStatus = 'Loss Of Pay : First Half' " +
+                                "OR " +
+                                "EmpDailyAttendanceInfo.AttStatus = 'Loss Of Pay : Second Half', " +
+                                "0.5, " +
+                                "0" +
+                            ")" +
+                        ")" +
+                    ") AS TotalLOP " +
+
+                    "FROM " +
+
+                    "ClientMas " +
+
+                    "INNER JOIN " +
+                    "( " +
+
+                        "DepMas " +
+
+                        "INNER JOIN " +
+                        "( " +
+
+                            "EmpMas " +
+
+                            "INNER JOIN EmpDailyAttendanceInfo " +
+                            "ON EmpMas.EmpID = " +
+                            "EmpDailyAttendanceInfo.EmpID " +
+
+                        ") " +
+
+                        "ON DepMas.DepartmentID = " +
+                        "EmpMas.DepartmentID " +
+
+                    ") " +
+
+                    "ON ClientMas.ClientID = " +
+                    "EmpMas.ClientID " +
+
+                    "WHERE " +
+
+                    "ClientMas.ClientID = " +
+                    txtClientID + " " +
+
+                    "AND EmpMas.IsActive = True " +
+
+                    "AND EmpMas.IsDeleted = False " +
+
+                    "AND EmpDailyAttendanceInfo.AttDate >= #" +
+                    dtFrom.ToString("dd-MMM-yyyy") +
+                    "# " +
+
+                    "AND EmpDailyAttendanceInfo.AttDate < #" +
+                    dtTo.ToString("dd-MMM-yyyy") +
+                    "# " +
+
+                    "GROUP BY " +
+                    "DepMas.DepartmentTitle " +
+
+                    "ORDER BY " +
+                    "DepMas.DepartmentTitle;";
+
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objAttendanceSummaryChartData = JsonConvert.DeserializeObject<List<AttendanceSummaryChartData>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                // Log if required
+            }
+            finally
+            {
+                conn =
+                    dbStaffSync.closeDBConnection();
+            }
+
+
+            return objAttendanceSummaryChartData;
+        }
     }
 }

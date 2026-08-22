@@ -45,7 +45,10 @@
     <Compile Include="AppMailTemplateModel.cs" />
     <Compile Include="AppReports.cs" />
     <Compile Include="Attributes\ReportColumnAttribute.cs" />
+    <Compile Include="clsAttendanceSummaryChartData.cs" />
+    <Compile Include="clsLeaveMatrixChartData.cs" />
     <Compile Include="clsMonthlyLeaveChartData.cs" />
+    <Compile Include="clsUpcomingHolidayChartData.cs" />
     <Compile Include="EmpActiveInactiveStatusInfoModel.cs" />
     <Compile Include="CompanyInfo.cs" />
     <Compile Include="Enums\PaperSize.cs" />
