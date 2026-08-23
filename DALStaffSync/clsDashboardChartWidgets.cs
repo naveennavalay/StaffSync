@@ -50,5 +50,32 @@ namespace DALStaffSync
 
             return objUpcomingHolidayList;
         }
+
+        public AttendanceCalendarChartResponse getAttendanceCalendarChartData(int txtClientID, DateTime dtFrom, DateTime dtTo)
+        {
+            AttendanceCalendarChartResponse objAttendanceCalendarChartResponse = new AttendanceCalendarChartResponse();
+            
+            objAttendanceCalendarChartResponse = objDashboardChartWidgets.getAttendanceCalendarChartData(txtClientID, dtFrom, dtTo);
+
+            return objAttendanceCalendarChartResponse;
+        }
+
+        public List<LeaveInfoDepartmentInfoChartData> GetLeaveUtilisationDepartmentInfo(int txtClientID, DateTime dtTillDate)
+        {
+            List<LeaveInfoDepartmentInfoChartData> objLeaveUtilisationDepartmentInfoList = new List<LeaveInfoDepartmentInfoChartData>();
+
+            objLeaveUtilisationDepartmentInfoList = objDashboardChartWidgets.GetLeaveUtilisationDepartmentInfo(txtClientID, dtTillDate);
+
+            return objLeaveUtilisationDepartmentInfoList;
+        }
+
+        public List<LeaveInfoEmpWiseChartData> GetEmpWiseLeaveUtilisationInfo(int txtClientID, int txtDepartmentID, DateTime dtTillDate)
+        {
+            List<LeaveInfoEmpWiseChartData> objEmpWiseLeaveUtilisationInfoList = new List<LeaveInfoEmpWiseChartData>();
+
+            objEmpWiseLeaveUtilisationInfoList = objDashboardChartWidgets.GetEmpWiseLeaveUtilisationInfo(txtClientID, txtDepartmentID, dtTillDate);
+
+            return objEmpWiseLeaveUtilisationInfoList;
+        }
     }
 }

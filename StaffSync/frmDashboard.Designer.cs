@@ -1979,6 +1979,7 @@
             this.myWebView.UseWaitCursor = true;
             this.myWebView.ZoomFactor = 1D;
             this.myWebView.NavigationCompleted += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs>(this.myWebView_NavigationCompleted);
+            this.myWebView.WebMessageReceived += new System.EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs>(this.myWebView_WebMessageReceived);
             // 
             // qryRoleProfileBindingSource
             // 

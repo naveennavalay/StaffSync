@@ -7336,6 +7336,8 @@ namespace StaffSync
             await displayLeaveMatrixChartData();
             await displayUpcomingHolidayChartData();
             await displayAttendanceSummaryChartData();
+            await displayAttendanceCalendarChartData();
+            await displayLeaveOutstandingSummary();
         }
 
         private async Task displayLeaveStatusSummaryChartData()
@@ -7432,6 +7434,72 @@ namespace StaffSync
             }
         }
 
+        private async Task displayAttendanceCalendarChartData()
+        {
+            try
+            {
+                AttendanceCalendarChartResponse data = objDashboardChartWidgets.getAttendanceCalendarChartData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+                string json = JsonConvert.SerializeObject(data);
+
+                string script = $"displayAttendanceCalendarChartData({json});";
+
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "StaffSync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private async Task displayLeaveOutstandingSummary()
+        {
+            try
+            {
+                List<LeaveInfoDepartmentInfoChartData> data = objDashboardChartWidgets.GetLeaveUtilisationDepartmentInfo(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTTo.Text));
+                string json = JsonConvert.SerializeObject(data);
+
+                string script = $"displayLeaveOutstandingSummary({json});";
+
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "StaffSync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private async Task displayEmployeeWiseLeaveOutstandingSummary()
+        {
+            try
+            {
+                List<LeaveInfoEmpWiseChartData> data = objDashboardChartWidgets.GetEmpWiseLeaveUtilisationInfo(objSelectedClientFinYearInfo.ClientID, 1, Convert.ToDateTime(txtDTTo.Text));
+                string json = JsonConvert.SerializeObject(data);
+
+                string script = $"displayEmployeeWiseLeaveOutstandingSummary({json});";
+
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "StaffSync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
         private void txtDTFrom_TextChanged(object sender, EventArgs e)
         {
             DateTime dtToDate;
@@ -7450,6 +7518,64 @@ namespace StaffSync
             await displayLeaveMatrixChartData();
             await displayUpcomingHolidayChartData();
             await displayAttendanceSummaryChartData();
+            await displayAttendanceCalendarChartData();
+            await displayLeaveOutstandingSummary();
+        }
+
+        private async void myWebView_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
+        {
+            //MessageBox.Show($"Message from WebView: {e.WebMessageAsJson}", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            dynamic message = JsonConvert.DeserializeObject<dynamic>(e.WebMessageAsJson);
+
+            if (message.Action == "LeaveUtilisationEmployeeDrilldown")
+            {
+                try
+                {
+                    int departmentID =
+                        Convert.ToInt32(
+                            message.DepartmentID
+                        );
+
+                    string departmentTitle =
+                        Convert.ToString(
+                            message.DepartmentTitle
+                        );
+
+                    // --------------------------------------------------
+                    // Execute Query 2
+                    // --------------------------------------------------
+
+                    List<LeaveInfoEmpWiseChartData>
+                        employeeData = objDashboardChartWidgets.GetEmpWiseLeaveUtilisationInfo(objSelectedClientFinYearInfo.ClientID, departmentID, Convert.ToDateTime(txtDTTo.Text));
+
+                    // --------------------------------------------------
+                    // Serialize employee data
+                    // --------------------------------------------------
+
+                    string json =
+                        JsonConvert.SerializeObject(
+                            employeeData
+                        );
+
+                    // --------------------------------------------------
+                    // Call JavaScript employee drilldown
+                    // --------------------------------------------------
+
+                    string script = "displayEmployeeWiseLeaveOutstandingSummary(" + json + ", " + JsonConvert.SerializeObject(departmentTitle) + ");";
+
+                    await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        ex.Message,
+                        "StaffSync",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+            }
         }
     }
 }

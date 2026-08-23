@@ -44,8 +44,13 @@
   <ItemGroup>
     <Compile Include="AppMailTemplateModel.cs" />
     <Compile Include="AppReports.cs" />
+    <Compile Include="clsAttendanceCalendarChartData.cs" />
     <Compile Include="Attributes\ReportColumnAttribute.cs" />
+    <Compile Include="clsAttendanceCalendarChartResponse.cs" />
     <Compile Include="clsAttendanceSummaryChartData.cs" />
+    <Compile Include="clsLeaveInfoDepartmentInfoChartData.cs" />
+    <Compile Include="clsLeaveInfoEmpSpecificDetailsChartData.cs" />
+    <Compile Include="clsLeaveInfoEmpWiseChartData.cs" />
     <Compile Include="clsLeaveMatrixChartData.cs" />
     <Compile Include="clsMonthlyLeaveChartData.cs" />
     <Compile Include="clsUpcomingHolidayChartData.cs" />

@@ -207,7 +207,6 @@ namespace dbStaffSync
                 }
             }
 
-
             return objUpcomingHolidayList;
         }
 
@@ -300,9 +299,7 @@ namespace dbStaffSync
 
                     "AND EmpMas.IsDeleted = False " +
 
-                    "AND EmpDailyAttendanceInfo.AttDate >= #" +
-                    dtFrom.ToString("dd-MMM-yyyy") +
-                    "# " +
+                    "AND EmpDailyAttendanceInfo.AttDate >= #" + dtFrom.ToString("dd-MMM-yyyy") + "# " +
 
                     "AND EmpDailyAttendanceInfo.AttDate < #" +
                     dtTo.ToString("dd-MMM-yyyy") +
@@ -339,6 +336,429 @@ namespace dbStaffSync
 
 
             return objAttendanceSummaryChartData;
+        }
+
+        public AttendanceCalendarChartResponse getAttendanceCalendarChartData(int txtClientID, DateTime dtFrom, DateTime dtTo)
+        {
+            AttendanceCalendarChartResponse response = new AttendanceCalendarChartResponse();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                // ============================================================
+                // LEVEL 1
+                // MONTH-WISE
+                // ============================================================
+
+                string strMonthQuery = "SELECT " + 
+                                                "Q.AttendanceMonth, " +
+                                                "Sum(IIf(Q.StatusType = 'Present', 1, 0)) AS TotalPresent, " +
+                                                "Sum(IIf(Q.StatusType = 'Leave', 1, 0)) AS TotalLeave, " +
+                                                "Sum(IIf(Q.StatusType = 'Loss Of Pay', 1, 0)) AS TotalLOP " +
+                                            "FROM " +
+                                                " ( " + 
+                                                    "SELECT DISTINCT " + 
+                                                        "Format(EmpDailyAttendanceInfo.AttDate,'mmm-yyyy') AS AttendanceMonth, " + 
+                                                        "EmpDailyAttendanceInfo.EmpID, " + 
+                                                        "IIf(EmpDailyAttendanceInfo.AttStatus = 'Present', 'Present', " + 
+                                                            "IIf(EmpDailyAttendanceInfo.AttStatus = 'Leave : Full Day' OR EmpDailyAttendanceInfo.AttStatus = 'Leave : First Half' OR EmpDailyAttendanceInfo.AttStatus = 'Leave : Second Half', 'Leave', " + 
+                                                                "IIf(EmpDailyAttendanceInfo.AttStatus = 'Loss Of Pay' " + 
+                                                                    "OR EmpDailyAttendanceInfo.AttStatus = 'Loss Of Pay : First Half' " + 
+                                                                    "OR EmpDailyAttendanceInfo.AttStatus = 'Loss Of Pay : Second Half', " + 
+                                                                    "'Loss Of Pay', " + 
+                                                                    "'Other' " + 
+                                                                ") " + 
+                                                            ") " + 
+                                                        ") AS StatusType " + 
+                                                    "FROM " + 
+                                                        "(" + 
+                                                            "ClientMas " + 
+                                                            "INNER JOIN EmpMas " + 
+                                                                "ON ClientMas.ClientID = EmpMas.ClientID " + 
+                                                        ") " + 
+                                                        "INNER JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " + 
+                                                    "WHERE " + 
+                                                        "ClientMas.ClientID = " + txtClientID +
+                                                        "AND EmpMas.IsActive = True " + 
+                                                        "AND EmpMas.IsDeleted = False " + 
+                                                        "AND EmpDailyAttendanceInfo.AttDate >= #" + dtFrom.ToString("dd-MMM-yyyy") + "# " + 
+                                                        "AND EmpDailyAttendanceInfo.AttDate < #" + dtTo.ToString("dd-MMM-yyyy") + "# " + 
+                                                ") AS Q " + 
+                                            " WHERE " + 
+                                                " Q.StatusType <> 'Other' " + 
+                                            " GROUP BY " + 
+                                                " Q.AttendanceMonth " + 
+                                            " ORDER BY " + 
+                                                "Q.AttendanceMonth;";
+
+                OleDbCommand cmdMonth = conn.CreateCommand();
+
+                cmdMonth.CommandType = CommandType.Text;
+                cmdMonth.CommandText = strMonthQuery;
+
+                OleDbDataAdapter daMonth =
+                    new OleDbDataAdapter(cmdMonth);
+
+                DataTable dtMonth = new DataTable();
+
+                daMonth.Fill(dtMonth);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dtMonth);
+                response.MonthData = JsonConvert.DeserializeObject<List<AttendanceCalendarMonthData>>(DataTableToJSon);
+
+                //foreach (DataRow row in dtMonth.Rows)
+                //{
+                //    AttendanceCalendarChartData obj =
+                //        new AttendanceCalendarChartData();
+
+                //    obj.AttendanceMonth =
+                //        Convert.ToString(row["AttendanceMonth"]);
+
+                //    obj.TotalPresent =
+                //        Convert.ToDouble(row["TotalPresent"]);
+
+                //    obj.TotalLeave =
+                //        Convert.ToDouble(row["TotalLeave"]);
+
+                //    obj.TotalLOP =
+                //        Convert.ToDouble(row["TotalLOP"]);
+
+                //    CalculateAttendancePercentage(obj);
+
+                //    response.MonthData.Add(obj);
+                //}
+
+                // ============================================================
+                // LEVEL 2
+                // DATE-WISE
+                // ============================================================
+
+                string strDateQuery ="SELECT " + 
+                                            " Q.AttendanceDate, " +
+                                            " Sum(IIf(Q.StatusType = 'Present', 1, 0)) AS TotalPresent, " +
+                                            " Sum(IIf(Q.StatusType = 'Leave', 1, 0)) AS TotalLeave, " +
+                                            " Sum(IIf(Q.StatusType = 'Loss Of Pay', 1, 0)) AS TotalLOP " +
+                                        " FROM " +
+                                            " (" +
+                                                " SELECT DISTINCT " +
+                                                    " EmpDailyAttendanceInfo.AttDate AS AttendanceDate, " +
+                                                    " EmpDailyAttendanceInfo.EmpID, " +
+                                                    " IIf(" +
+                                                        " EmpDailyAttendanceInfo.AttStatus = 'Present', " +
+                                                        " 'Present', " +
+                                                        " IIf(" + 
+                                                            " EmpDailyAttendanceInfo.AttStatus = 'Leave : Full Day' " + 
+                                                            " OR EmpDailyAttendanceInfo.AttStatus = 'Leave : First Half' " + 
+                                                            " OR EmpDailyAttendanceInfo.AttStatus = 'Leave : Second Half', " + 
+                                                            " 'Leave', " + 
+                                                            " IIf(" + 
+                                                                " EmpDailyAttendanceInfo.AttStatus = 'Loss Of Pay' " + 
+                                                                " OR EmpDailyAttendanceInfo.AttStatus = 'Loss Of Pay : First Half' " + 
+                                                                " OR EmpDailyAttendanceInfo.AttStatus = 'Loss Of Pay : Second Half', " + 
+                                                                " 'Loss Of Pay', " + 
+                                                                " 'Other' " + 
+                                                            ") " + 
+                                                        ") " + 
+                                                    ") AS StatusType " +
+                                                " FROM " +
+                                                    " (" +
+                                                        " ClientMas INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " +
+                                                    " ) " +
+                                                    " INNER JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " +
+                                                " WHERE " +
+                                                        "ClientMas.ClientID = " + txtClientID +
+                                                        "AND EmpMas.IsActive = True " +
+                                                        "AND EmpMas.IsDeleted = False " +
+                                                        "AND EmpDailyAttendanceInfo.AttDate >= #" + dtFrom.ToString("dd-MMM-yyyy") + "# " +
+                                                        "AND EmpDailyAttendanceInfo.AttDate < #" + dtTo.ToString("dd-MMM-yyyy") + "# " +
+                                            " ) AS Q " +
+                                        " WHERE " +
+                                            " Q.StatusType <> 'Other' " +
+                                        " GROUP BY " +
+                                            " Q.AttendanceDate " +
+                                        " ORDER BY " +
+                                            " Q.AttendanceDate;";
+
+                OleDbCommand cmdDate = conn.CreateCommand();
+
+                cmdDate.CommandType = CommandType.Text;
+                cmdDate.CommandText = strDateQuery;
+
+                OleDbDataAdapter daDate = new OleDbDataAdapter(cmdDate);
+
+                DataTable dtDate = new DataTable();
+                daDate.Fill(dtDate);
+
+                DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dtDate);
+                response.DateData = JsonConvert.DeserializeObject<List<AttendanceCalendarDateData>>(DataTableToJSon);
+
+                //foreach (DataRow row in dtDate.Rows)
+                //{
+                //    AttendanceCalendarChartData obj = new AttendanceCalendarChartData();
+
+                //    DateTime attendanceDate = Convert.ToDateTime(row["AttendanceDate"]);
+
+                //    //obj.AttendanceDate = attendanceDate.ToString("yyyy-MM-dd");
+
+                //    obj.TotalPresent = Convert.ToDouble(row["TotalPresent"]);
+
+                //    obj.TotalLeave = Convert.ToDouble(row["TotalLeave"]);
+
+                //    obj.TotalLOP = Convert.ToDouble(row["TotalLOP"]);
+
+                //    CalculateAttendancePercentage(obj);
+
+                //    response.DateData.Add(obj);
+                //}
+
+
+                // ============================================================
+                // LEVEL 3
+                // DATE + DEPARTMENT
+                // ============================================================
+
+                string strDepartmentQuery =
+                    "SELECT " + 
+                            " Q.AttendanceDate, " + 
+                            " Q.Department, " + 
+                            " Sum(IIf(Q.StatusType = 'Present', 1, 0)) AS TotalPresent, " + 
+                            " Sum(IIf(Q.StatusType = 'Leave', 1, 0)) AS TotalLeave, " + 
+                            " Sum(IIf(Q.StatusType = 'Loss Of Pay', 1, 0)) AS TotalLOP " + 
+                        " FROM " + 
+                            "(" + 
+                                "SELECT DISTINCT " + 
+                                    " EmpDailyAttendanceInfo.AttDate AS AttendanceDate, " + 
+                                    " DepMas.DepartmentTitle AS Department, " + 
+                                    " EmpDailyAttendanceInfo.EmpID, " + 
+                                    " IIf(EmpDailyAttendanceInfo.AttStatus = 'Present', 'Present', " + 
+                                        " IIf(" + 
+                                            " EmpDailyAttendanceInfo.AttStatus = 'Leave : Full Day' " + 
+                                            " OR EmpDailyAttendanceInfo.AttStatus = 'Leave : First Half' " + 
+                                            " OR EmpDailyAttendanceInfo.AttStatus = 'Leave : Second Half', " + 
+                                            " 'Leave', " + 
+                                            " IIf(" + 
+                                                " EmpDailyAttendanceInfo.AttStatus = 'Loss Of Pay' " + 
+                                                " OR EmpDailyAttendanceInfo.AttStatus = 'Loss Of Pay : First Half' " + 
+                                                " OR EmpDailyAttendanceInfo.AttStatus = 'Loss Of Pay : Second Half', " + 
+                                                " 'Loss Of Pay', " + 
+                                                "'Other' " + 
+                                            " ) " +
+                                        " ) " +
+                                    " ) AS StatusType " +
+                                " FROM " +
+                                    " (" + 
+                                      " (" + 
+                                            "ClientMas INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID " + 
+                                        ") " + 
+                                        " INNER JOIN DepMas ON EmpMas.DepartmentID = DepMas.DepartmentID " + 
+                                    ") " + 
+                                    " INNER JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " + 
+                                " WHERE " +
+                                        "ClientMas.ClientID = " + txtClientID +
+                                        "AND EmpMas.IsActive = True " +
+                                        "AND EmpMas.IsDeleted = False " +
+                                        "AND EmpDailyAttendanceInfo.AttDate >= #" + dtFrom.ToString("dd-MMM-yyyy") + "# " +
+                                        "AND EmpDailyAttendanceInfo.AttDate < #" + dtTo.ToString("dd-MMM-yyyy") + "# " + ") AS Q " + 
+                        " WHERE " + 
+                            " Q.StatusType <> 'Other' " + 
+                        " GROUP BY " + 
+                            " Q.AttendanceDate, " + 
+                            " Q.Department " + 
+                        " ORDER BY " + 
+                            " Q.AttendanceDate, " + 
+                            " Q.Department;";
+
+                OleDbCommand cmdDepartment = conn.CreateCommand();
+
+                cmdDepartment.CommandType = CommandType.Text;
+                cmdDepartment.CommandText = strDepartmentQuery;
+
+                OleDbDataAdapter daDepartment = new OleDbDataAdapter(cmdDepartment);
+
+                DataTable dtDepartment = new DataTable();
+
+                daDepartment.Fill(dtDepartment);
+
+                DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dtDepartment);
+                response.DepartmentData = JsonConvert.DeserializeObject<List<AttendanceCalendarDepartmentData>>(DataTableToJSon);
+
+                //foreach (DataRow row in dtDepartment.Rows)
+                //{
+                //    AttendanceCalendarChartData obj =
+                //        new AttendanceCalendarChartData();
+
+                //    DateTime attendanceDate =
+                //        Convert.ToDateTime(row["AttendanceDate"]);
+
+                //    obj.AttendanceDate =
+                //        attendanceDate.ToString("yyyy-MM-dd");
+
+                //    obj.Department =
+                //        Convert.ToString(row["Department"]);
+
+                //    obj.TotalPresent =
+                //        Convert.ToDouble(row["TotalPresent"]);
+
+                //    obj.TotalLeave =
+                //        Convert.ToDouble(row["TotalLeave"]);
+
+                //    obj.TotalLOP =
+                //        Convert.ToDouble(row["TotalLOP"]);
+
+                //    CalculateAttendancePercentage(obj);
+
+                //    response.DepartmentData.Add(obj);
+                //}
+            }
+            catch (Exception ex)
+            {
+                // Log if required
+                // MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                dbStaffSync.closeDBConnection();
+            }
+
+            return response;
+        }
+
+        private void CalculateAttendancePercentage(AttendanceCalendarChartData obj)
+        {
+            double total = obj.TotalPresent + obj.TotalLeave + obj.TotalLOP;
+
+            if (total <= 0)
+            {
+                obj.PresentPercentage = 0;
+                obj.LeavePercentage = 0;
+                obj.LOPPercentage = 0;
+                return;
+            }
+
+            obj.PresentPercentage = Math.Round((obj.TotalPresent / total) * 100, 2);
+
+            obj.LeavePercentage = Math.Round((obj.TotalLeave / total) * 100, 2);
+
+            obj.LOPPercentage = Math.Round((obj.TotalLOP / total) * 100, 2);
+        }
+
+        public List<LeaveInfoDepartmentInfoChartData> GetLeaveUtilisationDepartmentInfo(int txtClientID, DateTime dtTillDate)
+        {
+            List<LeaveInfoDepartmentInfoChartData> objLeaveInfoDepartmentInfoChartData = new List<LeaveInfoDepartmentInfoChartData>();
+
+            DataTable dt = new DataTable();
+
+            OleDbConnection conn = null;
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT * FROM qryDepWiseDBChart WHERE ClientID = " + txtClientID + " AND EffectiveDate <= #" + dtTillDate.ToString("yyyy-MM-dd") + "#;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objLeaveInfoDepartmentInfoChartData = JsonConvert.DeserializeObject<List<LeaveInfoDepartmentInfoChartData>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                // Log if required
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    dbStaffSync.closeDBConnection();
+                }
+            }
+
+            return objLeaveInfoDepartmentInfoChartData;
+        }
+
+        public List<LeaveInfoEmpWiseChartData> GetEmpWiseLeaveUtilisationInfo(int txtClientID, int txtDepartmentID, DateTime dtTillDate)
+        {
+            List<LeaveInfoEmpWiseChartData> objLeaveInfoEmpWiseChartData = new List<LeaveInfoEmpWiseChartData>();
+
+            DataTable dt = new DataTable();
+
+            OleDbConnection conn = null;
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT TOP 3 * FROM qryEmpWiseDBChart WHERE ClientID = " + txtClientID + " AND DepartmentID = " + txtDepartmentID + " AND EffectiveDate <= #" + dtTillDate.ToString("yyyy-MM-dd") + "# ORDER BY TotalLeaveBalance DESC;";
+                strQuery = "SELECT TOP 3 " + 
+                                    " EmpID, EmpName, DepartmentID, TotalLeaveAllotted, TotalLeaveAvailed, TotalLeaveBalance, 'Highest Balance' AS BalanceCategory " +
+                                " FROM " +
+                                    " qryEmpWiseDBChart " +
+                                " WHERE " +
+                                    " ClientID = " + txtClientID +
+                                    " AND DepartmentID = " + txtDepartmentID +
+                                    " AND EffectiveDate <= #" + dtTillDate.ToString("yyyy-MM-dd") + "# " +
+                                " ORDER BY " +
+                                    " TotalLeaveBalance DESC, EmpID Asc " +
+                                " UNION ALL " +
+                                " SELECT TOP 3 " +
+                                    " EmpID, EmpName, DepartmentID, TotalLeaveAllotted, TotalLeaveAvailed, TotalLeaveBalance, 'Lowest Balance' AS BalanceCategory " +
+                                " FROM " +
+                                    " qryEmpWiseDBChart " +
+                                " WHERE " +
+                                    " ClientID = " + txtClientID +
+                                    " AND DepartmentID = " + txtDepartmentID +
+                                    " AND EffectiveDate <= #" + dtTillDate.ToString("yyyy-MM-dd") + "# " +
+                                    " AND TotalLeaveBalance > 0 " +
+                                " ORDER BY " +
+                                    " TotalLeaveBalance ASC, EmpID Asc " +
+                                " UNION ALL " +
+                                " SELECT TOP 3 " +
+                                    " EmpID, EmpName, DepartmentID, TotalLeaveAllotted, TotalLeaveAvailed, TotalLeaveBalance, 'Zero Balance' AS BalanceCategory " +
+                                " FROM " +
+                                    " qryEmpWiseDBChart " +
+                                " WHERE " +
+                                    " ClientID = " + txtClientID +
+                                    " AND DepartmentID = " + txtDepartmentID +
+                                    " AND EffectiveDate <= #" + dtTillDate.ToString("yyyy-MM-dd") + "# " +
+                                    " AND TotalLeaveBalance = 0 " +
+                                " ORDER BY " +
+                                    " EmpID ASC;";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objLeaveInfoEmpWiseChartData = JsonConvert.DeserializeObject<List<LeaveInfoEmpWiseChartData>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                // Log if required
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    dbStaffSync.closeDBConnection();
+                }
+            }
+
+            return objLeaveInfoEmpWiseChartData;
         }
     }
 }
