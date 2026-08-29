@@ -77,5 +77,32 @@ namespace DALStaffSync
 
             return objEmpWiseLeaveUtilisationInfoList;
         }
+
+        public List<AttendanceCalendarChartData01> displayAttendanceCalendarChartData(int txtClientID, DateTime dtFromDate, DateTime dtToDate)
+        {
+            List<AttendanceCalendarChartData01> objAttendanceCalendarList = new List<AttendanceCalendarChartData01>();
+
+            objAttendanceCalendarList = objDashboardChartWidgets.displayAttendanceCalendarChartData(txtClientID, dtFromDate, dtToDate);
+
+            return objAttendanceCalendarList;
+        }
+
+        public List<EmployeeAttendanceSummaryChartData> displayAttendanceSummaryChartData(int clientID, DateTime fromDate, DateTime toDate)
+        {
+            List<EmployeeAttendanceSummaryChartData> objEmployeeAttendanceSummaryList = new List<EmployeeAttendanceSummaryChartData>();
+
+            objEmployeeAttendanceSummaryList = objDashboardChartWidgets.displayAttendanceSummaryChartData(clientID, fromDate, toDate);
+
+            return objEmployeeAttendanceSummaryList;
+        }
+
+        public List<UpcomingPlannedLeaveChartData> displayUpcomingPlannedLeavesChartData(int clientID, DateTime fromDate, DateTime toDate)
+        {
+            List<UpcomingPlannedLeaveChartData> objUpcomingPlannedLeaveList = new List<UpcomingPlannedLeaveChartData>();
+
+            objUpcomingPlannedLeaveList = objDashboardChartWidgets.displayUpcomingPlannedLeavesChartData(clientID, fromDate, toDate);
+
+            return objUpcomingPlannedLeaveList;
+        }
     }
 }

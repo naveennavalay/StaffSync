@@ -57,6 +57,7 @@ namespace StaffSync
             }
             objDashboard.lblDashboardTitle.Text = "Dashboard";
             objDashboard.sptrDashboardContainer.Visible = true;
+            objDashboard.refreshDashboardCharts();
             this.Close();
         }
 
@@ -331,6 +332,7 @@ namespace StaffSync
                 }
                 objDashboard.lblDashboardTitle.Text = "Dashboard";
                 objDashboard.sptrDashboardContainer.Visible = true;
+                objDashboard.refreshDashboardCharts();
                 this.Close();
             }
         }

@@ -734,6 +734,39 @@ namespace dbStaffSync
                                     " AND TotalLeaveBalance = 0 " +
                                 " ORDER BY " +
                                     " EmpID ASC;";
+
+                strQuery = "SELECT " + 
+                                " EmpID, " + 
+                                " EmpName, " + 
+                                " DepartmentID, " + 
+                                " TotalLeaveAllotted, " + 
+                                " TotalLeaveAvailed, " + 
+                                " TotalLeaveBalance, " + 
+                                " 'Highest Balance' AS BalanceCategory " + 
+                            " FROM " +
+                                " qryEmpLeaveBalanceHighest " +
+                            " UNION ALL " +
+                            " SELECT " + 
+                                " EmpID, " + 
+                                " EmpName, " + 
+                                " DepartmentID, " + 
+                                " TotalLeaveAllotted, " + 
+                                " TotalLeaveAvailed, " + 
+                                " TotalLeaveBalance, " + 
+                                " 'Lowest Balance' AS BalanceCategory " + 
+                            " FROM " + 
+                                " qryEmpLeaveBalanceLowest " + 
+                            " UNION ALL " + 
+                            " SELECT " + 
+                                " EmpID, " + 
+                                " EmpName, " + 
+                                " DepartmentID, " + 
+                                " TotalLeaveAllotted, " + 
+                                " TotalLeaveAvailed, " + 
+                                " TotalLeaveBalance, " + 
+                                " 'Zero Balance' AS BalanceCategory " + 
+                            " FROM " + 
+                                " qryEmpLeaveBalanceZero;";
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
@@ -759,6 +792,276 @@ namespace dbStaffSync
             }
 
             return objLeaveInfoEmpWiseChartData;
+        }
+
+        public List<AttendanceCalendarChartData01> displayAttendanceCalendarChartData(int txtClientID, DateTime dtFromDate, DateTime dtToDate)
+        {
+            List<AttendanceCalendarChartData01> objAttendanceCalendarChartDataList = new List<AttendanceCalendarChartData01>();
+
+            DataTable dt = new DataTable();
+
+            OleDbConnection conn = null;
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT " + 
+                                        " DateValue (A.AttDate) AS AttendanceDate, " +
+                                        " Sum(IIf(A.AttStatus = \"Present\", 1, 0)) AS PresentCount, " +
+                                        " Sum(IIf(A.AttStatus = \"Leave : Full Day\", 1, 0)) AS LeaveCount, " +
+                                        " Sum(IIf(InStr (1, A.AttStatus, \"Cancelled\", 1) > 0, 1, 0) ) AS CancelledCount, " +
+                                        " Sum(IIf(InStr (1, A.AttStatus, \"Rejected\", 1) > 0, 1, 0)) AS RejectedCount " +
+                                    " FROM " +
+                                        " (" +
+                                            " ClientMas AS C INNER JOIN EmpMas AS E ON C.ClientID = E.ClientID " +
+                                        " ) " +
+                                        " INNER JOIN EmpDailyAttendanceInfo AS A ON E.EmpID = A.EmpID " +
+                                    " WHERE " +
+                                        " E.ClientID = " + txtClientID + 
+                                        " AND E.IsActive = True " +
+                                        " AND E.IsDeleted = False " +
+                                        " AND A.AttDate >= #" + dtFromDate.ToString("yyyy-MM-dd") + "# " +
+                                        " AND A.AttDate<  #" + dtToDate.ToString("yyyy-MM-dd") + "# " +
+                                        " AND A.AttID = (" +
+                                            " SELECT " +
+                                                " Max(A2.AttID) " +
+                                            " FROM " +
+                                                " EmpDailyAttendanceInfo AS A2 " +
+                                            " WHERE " +
+                                                " A2.EmpID = A.EmpID " +
+                                                " AND A2.AttDate = A.AttDate " +
+                                        " ) " +
+                                    " GROUP BY " +
+                                        " DateValue (A.AttDate) " +
+                                    " ORDER BY " +
+                                        " DateValue (A.AttDate);";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objAttendanceCalendarChartDataList = JsonConvert.DeserializeObject<List<AttendanceCalendarChartData01>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                // Log if required
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    dbStaffSync.closeDBConnection();
+                }
+            }
+
+            return objAttendanceCalendarChartDataList;
+        }
+
+        public List<EmployeeAttendanceSummaryChartData> displayAttendanceSummaryChartData(int clientID, DateTime fromDate, DateTime toDate)
+        {
+            List<EmployeeAttendanceSummaryChartData> objEmployeeAttendanceSummaryChartDataList = new List<EmployeeAttendanceSummaryChartData>();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"
+                                        SELECT
+                                            DepMas.DepartmentTitle,
+                                            A.AttDate AS AttendanceDate,
+
+                                            Sum(
+                                                IIf(
+                                                    A.AttStatus = ""Present"",
+                                                    1,
+                                                    0
+                                                )
+                                            ) AS PresentCount,
+
+                                            Sum(
+                                                IIf(
+                                                    Left(
+                                                        IIf(
+                                                            IsNull(A.AttStatus),
+                                                            """",
+                                                            A.AttStatus
+                                                        ),
+                                                        5
+                                                    ) = ""Leave"",
+                                                    1,
+                                                    0
+                                                )
+                                            ) AS LeaveCount,
+
+                                            Sum(
+                                                IIf(
+                                                    A.AttStatus = ""Cancelled"",
+                                                    1,
+                                                    0
+                                                )
+                                            ) AS CancelledCount,
+
+                                            Sum(
+                                                IIf(
+                                                    A.AttStatus = ""Rejected"",
+                                                    1,
+                                                    0
+                                                )
+                                            ) AS RejectedCount
+
+                                        FROM
+                                            (
+                                                DepMas
+                                                INNER JOIN EmpMas AS E
+                                                    ON DepMas.DepartmentID = E.DepartmentID
+                                            )
+                                            INNER JOIN EmpDailyAttendanceInfo AS A
+                                                ON E.EmpID = A.EmpID
+
+                                        WHERE
+                                            E.ClientID = " + clientID + @" 
+                                            AND E.IsActive = True
+                                            AND E.IsDeleted = False
+
+                                            AND A.AttID =
+                                            (
+                                                SELECT
+                                                    Max(A2.AttID)
+                                                FROM
+                                                    EmpDailyAttendanceInfo AS A2
+                                                WHERE
+                                                    A2.EmpID = A.EmpID
+                                                    AND A2.AttDate = A.AttDate
+                                            )
+
+                                            AND A.AttDate >= #" + fromDate.ToString("yyyy-MM-dd") + "# " + @" 
+                                            AND A.AttDate < #" + toDate.ToString("yyyy-MM-dd") + "# " + @" 
+
+                                        GROUP BY
+                                            DepMas.DepartmentTitle,
+                                            A.AttDate
+
+                                        ORDER BY
+                                            DepMas.DepartmentTitle,
+                                            A.AttDate";
+
+                DataTable dt = new DataTable();
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeAttendanceSummaryChartDataList = JsonConvert.DeserializeObject<List<EmployeeAttendanceSummaryChartData>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                // Log if required
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    dbStaffSync.closeDBConnection();
+                }
+            }
+
+            return objEmployeeAttendanceSummaryChartDataList;
+        }
+
+
+        public List<UpcomingPlannedLeaveChartData> displayUpcomingPlannedLeavesChartData(int clientID, DateTime fromDate, DateTime toDate)
+        {
+            List<UpcomingPlannedLeaveChartData> objUpcomingPlannedLeaveChartDataList = new List<UpcomingPlannedLeaveChartData>();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                        E.EmpID AS EmpID,
+                                        E.EmpName AS EmpName,
+                                        DesigMas.DesignationTitle,
+                                        DepMas.DepartmentTitle,
+                                        L.ActualLeaveDateFrom AS LeaveDate,
+                                        LT.LeaveTypeTitle AS LeaveType,
+                                        DateDiff(""d"", Date(), L.ActualLeaveDateFrom) AS DaysToGo
+                                    FROM
+                                        DesigMas
+                                        INNER JOIN (
+                                            (
+                                                LeaveTypeMas AS LT
+                                                INNER JOIN (
+                                                    EmpMas AS E
+                                                    INNER JOIN EmpLeaveTransMas AS L ON E.EmpID = L.EmpID
+                                                ) ON LT.LeaveTypeID = L.LeaveTypeID
+                                            )
+                                            INNER JOIN DepMas ON E.DepartmentID = DepMas.DepartmentID
+                                        ) ON DesigMas.DesignationID = E.EmpDesignationID
+                                    WHERE
+                                        (
+                                            ((E.EmpID) > 1)
+                                            AND ((L.ActualLeaveDateFrom) >= Date())
+                                            AND ((E.ClientID) = " + clientID + ") " + @"
+                                            AND ((E.IsActive) = True)
+                                            AND ((E.IsDeleted) = False)
+                                            AND (
+                                                (
+                                                    Left(
+                                                        IIf(
+                                                            IsNull([L].[LeaveApprovalComments]),
+                                                            """",
+                                                            [L].[LeaveApprovalComments]
+                                                        ),
+                                                        10
+                                                    )
+                                                ) = ""Approved :""
+                                            )
+                                        )
+                                    ORDER BY
+                                        E.EmpID,
+                                        L.ActualLeaveDateFrom,
+                                        E.EmpName";
+
+                DataTable dt = new DataTable();
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objUpcomingPlannedLeaveChartDataList = JsonConvert.DeserializeObject<List<UpcomingPlannedLeaveChartData>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                // Log if required
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    dbStaffSync.closeDBConnection();
+                }
+            }
+
+            return objUpcomingPlannedLeaveChartDataList;
         }
     }
 }

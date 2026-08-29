@@ -47,11 +47,15 @@
     <Compile Include="clsAttendanceCalendarChartData.cs" />
     <Compile Include="Attributes\ReportColumnAttribute.cs" />
     <Compile Include="clsAttendanceCalendarChartResponse.cs" />
+    <Compile Include="clsUpcomingPlannedLeaveChartData.cs" />
+    <Compile Include="clsEmployeeAttendanceSummaryChartData.cs" />
     <Compile Include="clsAttendanceSummaryChartData.cs" />
     <Compile Include="clsLeaveInfoDepartmentInfoChartData.cs" />
     <Compile Include="clsLeaveInfoEmpSpecificDetailsChartData.cs" />
+    <Compile Include="clsAttendanceCalendarChartData01.cs" />
     <Compile Include="clsLeaveInfoEmpWiseChartData.cs" />
     <Compile Include="clsLeaveMatrixChartData.cs" />
+    <Compile Include="clsLeaveTrendChartData.cs" />
     <Compile Include="clsMonthlyLeaveChartData.cs" />
     <Compile Include="clsUpcomingHolidayChartData.cs" />
     <Compile Include="EmpActiveInactiveStatusInfoModel.cs" />

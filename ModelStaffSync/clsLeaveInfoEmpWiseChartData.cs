@@ -18,5 +18,7 @@ namespace ModelStaffSync
         public double TotalLeaveAvailed { get; set; }
 
         public double TotalLeaveBalance { get; set; }
+
+        public string BalanceCategory { get; set; }
     }
 }
