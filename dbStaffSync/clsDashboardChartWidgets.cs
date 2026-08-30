@@ -1063,5 +1063,86 @@ namespace dbStaffSync
 
             return objUpcomingPlannedLeaveChartDataList;
         }
+
+        public List<EmployeeBirthdayChartData> displayBirthdayEmployeesChartData(int clientID, DateTime dtBirthdayDate)
+        {
+            List<EmployeeBirthdayChartData> objEmployeeBirthdayChartDataList  = new List<EmployeeBirthdayChartData>();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                    EmpMas.EmpID,
+                                    EmpMas.EmpCode,
+                                    EmpMas.EmpName,
+                                    DesigMas.DesignationTitle,
+                                    DepMas.DepartmentTitle,
+                                    PersonalInfoMas.DOB,
+                                    Photos.PhotoID,
+                                    Photos.EmpPhoto,
+                                    EmpMas.IsActive,
+                                    EmpMas.IsDeleted,
+                                    ClientMas.ClientID
+                                FROM
+                                    (
+                                        (
+                                            DesigMas
+                                            INNER JOIN (
+                                                DepMas
+                                                INNER JOIN (
+                                                    ClientMas
+                                                    INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                            ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                        )
+                                        INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                    )
+                                    LEFT JOIN Photos ON EmpMas.EmpID = Photos.EmpID
+                                WHERE
+                                    (
+                                        ((EmpMas.EmpID) > 1)
+                                        AND ((PersonalInfoMas.DOB) = #" + dtBirthdayDate.ToString("dd-MM-yyyyy") + "#) " + @"
+                                        AND ((EmpMas.IsActive) = True)
+                                        AND ((EmpMas.IsDeleted) = False)
+                                        AND ((ClientMas.ClientID) = " + clientID + ") " + @"
+                                    )
+                                ORDER BY
+                                    EmpMas.EmpID,
+                                    EmpMas.EmpName;";
+
+                DataTable dt = new DataTable();
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeBirthdayChartDataList = JsonConvert.DeserializeObject<List<EmployeeBirthdayChartData>>(DataTableToJSon);
+                //foreach (EmployeeBirthdayChartData indEmployeeBirthdayChartData in objEmployeeBirthdayChartDataList)
+                //{
+                //    indEmployeeBirthdayChartData.EmpPhotoBase64 = indEmployeeBirthdayChartData.EmpPhoto;
+
+                //}
+            }
+            catch (Exception ex)
+            {
+                // Log if required
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    dbStaffSync.closeDBConnection();
+                }
+            }
+
+            return objEmployeeBirthdayChartDataList;
+        }
     }
 }

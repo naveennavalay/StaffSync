@@ -104,5 +104,14 @@ namespace DALStaffSync
 
             return objUpcomingPlannedLeaveList;
         }
+
+        public List<EmployeeBirthdayChartData> displayBirthdayEmployeesChartData(int clientID, DateTime dtBirthdayDate)
+        {
+            List<EmployeeBirthdayChartData> objEmployeeBirthdayList = new List<EmployeeBirthdayChartData>();
+
+            objEmployeeBirthdayList = objDashboardChartWidgets.displayBirthdayEmployeesChartData(clientID, dtBirthdayDate);
+
+            return objEmployeeBirthdayList;
+        }
     }
 }
