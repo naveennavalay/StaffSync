@@ -249,6 +249,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtDTFrom = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.dtgUserDashboardPreferences = new Krypton.Toolkit.KryptonDataGridView();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -266,12 +268,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.sptrDashboardContainer.Panel1)).BeginInit();
             this.sptrDashboardContainer.Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sptrDashboardContainer.Panel2)).BeginInit();
+            this.sptrDashboardContainer.Panel2.SuspendLayout();
             this.sptrDashboardContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myWebView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.grpDashboardDateRange.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgUserDashboardPreferences)).BeginInit();
             this.SuspendLayout();
             // 
             // imgEmpPhotos
@@ -1958,9 +1963,13 @@
             // sptrDashboardContainer.Panel1
             // 
             this.sptrDashboardContainer.Panel1.Controls.Add(this.myWebView);
+            // 
+            // sptrDashboardContainer.Panel2
+            // 
+            this.sptrDashboardContainer.Panel2.Controls.Add(this.panel1);
             this.sptrDashboardContainer.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
             this.sptrDashboardContainer.Size = new System.Drawing.Size(1507, 542);
-            this.sptrDashboardContainer.SplitterDistance = 1477;
+            this.sptrDashboardContainer.SplitterDistance = 1214;
             this.sptrDashboardContainer.TabIndex = 12;
             this.sptrDashboardContainer.Visible = false;
             this.sptrDashboardContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.sptrDashboardContainer_SplitterMoved);
@@ -1970,11 +1979,11 @@
             this.myWebView.AllowExternalDrop = false;
             this.myWebView.CreationProperties = null;
             this.myWebView.Cursor = System.Windows.Forms.Cursors.WaitCursor;
-            this.myWebView.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.myWebView.DefaultBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.myWebView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myWebView.Location = new System.Drawing.Point(0, 0);
             this.myWebView.Name = "myWebView";
-            this.myWebView.Size = new System.Drawing.Size(1477, 542);
+            this.myWebView.Size = new System.Drawing.Size(1214, 542);
             this.myWebView.TabIndex = 0;
             this.myWebView.UseWaitCursor = true;
             this.myWebView.ZoomFactor = 1D;
@@ -2107,6 +2116,33 @@
             this.label3.Text = "From";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.dtgUserDashboardPreferences);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(288, 542);
+            this.panel1.TabIndex = 0;
+            // 
+            // dtgUserDashboardPreferences
+            // 
+            this.dtgUserDashboardPreferences.AllowUserToResizeRows = false;
+            this.dtgUserDashboardPreferences.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgUserDashboardPreferences.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgUserDashboardPreferences.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgUserDashboardPreferences.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtgUserDashboardPreferences.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgUserDashboardPreferences.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgUserDashboardPreferences.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgUserDashboardPreferences.Location = new System.Drawing.Point(0, 0);
+            this.dtgUserDashboardPreferences.MultiSelect = false;
+            this.dtgUserDashboardPreferences.Name = "dtgUserDashboardPreferences";
+            this.dtgUserDashboardPreferences.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgUserDashboardPreferences.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgUserDashboardPreferences.Size = new System.Drawing.Size(288, 542);
+            this.dtgUserDashboardPreferences.TabIndex = 48;
+            // 
             // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2147,6 +2183,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.sptrDashboardContainer.Panel1)).EndInit();
             this.sptrDashboardContainer.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.sptrDashboardContainer.Panel2)).EndInit();
+            this.sptrDashboardContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.sptrDashboardContainer)).EndInit();
             this.sptrDashboardContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.myWebView)).EndInit();
@@ -2155,6 +2192,8 @@
             this.groupBox4.ResumeLayout(false);
             this.grpDashboardDateRange.ResumeLayout(false);
             this.grpDashboardDateRange.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgUserDashboardPreferences)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2380,6 +2419,8 @@
         private System.Windows.Forms.Label label3;
         private Krypton.Toolkit.KryptonButton btnRefresh;
         public System.Windows.Forms.GroupBox grpDashboardDateRange;
+        private System.Windows.Forms.Panel panel1;
+        private Krypton.Toolkit.KryptonDataGridView dtgUserDashboardPreferences;
     }
 }
 
