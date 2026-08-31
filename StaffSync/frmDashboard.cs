@@ -42,6 +42,8 @@ namespace StaffSync
         DALStaffSync.clsCurrentUserInfo objCurrentUserInfo = new DALStaffSync.clsCurrentUserInfo();
         DALStaffSync.clsBirthdayList objBirthdayList = new DALStaffSync.clsBirthdayList();
         //Download objDownload = new Download();
+
+        DALStaffSync.clsEmployeeDashboardConfig objEmployeeDashboardConfig = new DALStaffSync.clsEmployeeDashboardConfig();
         DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsLeaveTRList objLeaveInfo = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
@@ -55,6 +57,10 @@ namespace StaffSync
         List<FinYearMas> objActiveFinYear = new List<FinYearMas>();
         ClientFinYearInfo objSelectedClientFinYearInfo = new ClientFinYearInfo();
         UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = new UserRolesAndResponsibilitiesInfo();
+
+        private bool _rightPanelCollapsed = false;
+        private int _rightPanelExpandedDistance = 0;
+        private const int RightPanelCollapsedWidth = 28;
 
         private async void InitializeScheduler()
         {
@@ -108,6 +114,15 @@ namespace StaffSync
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(EmpID);
 
             //Dashboard01.Navigate("C:\\Development\\StaffSync\\Dashboard.html");
+        }
+
+        private void InitializeRightPanelToggle()
+        {
+            _rightPanelExpandedDistance = sptrDashboardContainer.Panel2.Width;
+
+            sptrDashboardContainer.Panel2Collapsed  = false;
+
+            //sptrDashboardContainer.Panel2.Width = RightPanelCollapsedWidth;
         }
 
         private void employeeDetailsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1720,6 +1735,8 @@ namespace StaffSync
         private async void frmDashboard_Load(object sender, EventArgs e)
         {
             await myWebView.EnsureCoreWebView2Async();
+            
+            InitializeRightPanelToggle();
 
             //myWebView.NavigationCompleted += myWebView_NavigationCompleted;
 
@@ -1806,6 +1823,17 @@ namespace StaffSync
             //    });
             //    lstOOOList.Items.AddRange(new System.Windows.Forms.ListViewItem[] { listViewItem1 });
             //}
+
+            dtgUserDashboardPreferences.DataSource = objEmployeeDashboardConfig.getEmployeeDashboardConfigInfoList(objSelectedClientFinYearInfo.ClientID, objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID);
+            FormatDashboardPreferencesGrid();
+
+            foreach (DataGridViewRow row in dtgUserDashboardPreferences.Rows)
+            {
+                string dashboardChartKey = Convert.ToString(row.Cells["UIChartID"].Value);
+                bool isVisible = Convert.ToBoolean(row.Cells["DBChartEnabled"].Value);
+                UpdateDashboardChartVisibilityInHtml(dashboardChartKey, isVisible);
+            }
+            refreshDashboardCharts();
         }
 
         private Bitmap BytesToImage(byte[] bytes)
@@ -7653,6 +7681,151 @@ namespace StaffSync
                         MessageBoxIcon.Error
                     );
                 }
+            }
+        }
+
+        private void sptrDashboardContainer_DoubleClick(object sender, EventArgs e)
+        {
+            ToggleRightPanel();
+        }
+
+        private void ToggleRightPanel()
+        {
+            if (!_rightPanelCollapsed)
+            {
+                // ---------------------------------------------------------
+                // COLLAPSE RIGHT PANEL
+                // ---------------------------------------------------------
+
+                // Save the current splitter position.
+                _rightPanelExpandedDistance =
+                    sptrDashboardContainer.SplitterDistance;
+
+                // Keep a small visible strip on the right.
+                int collapsedDistance =
+                    sptrDashboardContainer.Width
+                    - RightPanelCollapsedWidth
+                    - sptrDashboardContainer.SplitterWidth;
+
+                // Respect Panel1 minimum size.
+                if (collapsedDistance <
+                    sptrDashboardContainer.Panel1MinSize)
+                {
+                    collapsedDistance =
+                        sptrDashboardContainer.Panel1MinSize;
+                }
+
+                // IMPORTANT:
+                // Do NOT set Panel1.Width.
+                // KryptonSplitContainer must be controlled using
+                // SplitterDistance.
+                sptrDashboardContainer.SplitterDistance =
+                    collapsedDistance;
+
+                _rightPanelCollapsed = true;
+            }
+            else
+            {
+                // ---------------------------------------------------------
+                // EXPAND RIGHT PANEL
+                // ---------------------------------------------------------
+
+                int maxDistance = sptrDashboardContainer.Width - sptrDashboardContainer.Panel2MinSize - sptrDashboardContainer.SplitterWidth;
+
+                // Make sure the saved distance is valid.
+                int restoreDistance = _rightPanelExpandedDistance;
+
+                if (restoreDistance > maxDistance)
+                    restoreDistance = maxDistance;
+
+                if (restoreDistance < sptrDashboardContainer.Panel1MinSize)
+                    restoreDistance = sptrDashboardContainer.Panel1MinSize;
+
+                // Restore the splitter position.
+                sptrDashboardContainer.SplitterDistance = 1100;
+
+                _rightPanelCollapsed = false;
+            }
+
+            sptrDashboardContainer.Refresh();
+        }
+
+        private void FormatDashboardPreferencesGrid()
+        {
+            dtgUserDashboardPreferences.Columns["DBChartID"].ReadOnly = true;
+            dtgUserDashboardPreferences.Columns["DBChartID"].Width = 50;
+            dtgUserDashboardPreferences.Columns["DBChartID"].Visible = false;
+
+            dtgUserDashboardPreferences.Columns["DBChartTitle"].ReadOnly = true;
+            dtgUserDashboardPreferences.Columns["DBChartTitle"].Width = 300;
+            dtgUserDashboardPreferences.Columns["DBChartTitle"].Visible = true;
+
+            dtgUserDashboardPreferences.Columns["DBChartShortTitle"].ReadOnly = true;
+            dtgUserDashboardPreferences.Columns["DBChartShortTitle"].Width = 300;
+            dtgUserDashboardPreferences.Columns["DBChartShortTitle"].Visible = true;
+
+            dtgUserDashboardPreferences.Columns["EmpDBChartID"].ReadOnly = true;
+            dtgUserDashboardPreferences.Columns["EmpDBChartID"].Width = 50;
+            dtgUserDashboardPreferences.Columns["EmpDBChartID"].Visible = false;
+
+            dtgUserDashboardPreferences.Columns["PersonalInfoID"].ReadOnly = true;
+            dtgUserDashboardPreferences.Columns["PersonalInfoID"].Width = 50;
+            dtgUserDashboardPreferences.Columns["PersonalInfoID"].Visible = false;
+
+            dtgUserDashboardPreferences.Columns["DBChartEnabled"].ReadOnly = false;
+            dtgUserDashboardPreferences.Columns["DBChartEnabled"].Width = 75;
+            dtgUserDashboardPreferences.Columns["DBChartEnabled"].Visible = true;
+
+            dtgUserDashboardPreferences.Columns["UIChartID"].ReadOnly = true;
+            dtgUserDashboardPreferences.Columns["UIChartID"].Width = 75;
+            dtgUserDashboardPreferences.Columns["UIChartID"].Visible = false;
+
+            dtgUserDashboardPreferences.Columns["OrderID"].ReadOnly = true;
+            dtgUserDashboardPreferences.Columns["OrderID"].Width = 50;
+            dtgUserDashboardPreferences.Columns["OrderID"].Visible = false;
+        }
+
+        private void dtgUserDashboardPreferences_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            bool isVisible = Convert.ToBoolean(dtgUserDashboardPreferences.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+
+            string dashboardChartKey = Convert.ToString(dtgUserDashboardPreferences.Rows[e.RowIndex].Cells["UIChartID"].Value);
+            UpdateDashboardChartVisibilityInHtml(dashboardChartKey, isVisible);
+
+            foreach (DataGridViewRow row in dtgUserDashboardPreferences.Rows)
+            {
+                if (row.Index != e.RowIndex)
+                {
+                    isVisible = Convert.ToBoolean(dtgUserDashboardPreferences.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                    objEmployeeDashboardConfig.UpdateEmployeeDashboardConfigInfo(Convert.ToInt32(row.Cells["EmpDBChartID"].Value), 1, Convert.ToInt32(row.Cells["DBChartID"].Value), isVisible, Convert.ToInt32(row.Cells["OrderID"].Value));
+                }
+            }
+        }
+
+        private async void UpdateDashboardChartVisibilityInHtml(string chartKey, bool isVisible)
+        {
+            try
+            {
+                string json = JsonConvert.SerializeObject(chartKey);
+
+                string script = $"setDashboardChartVisibilityItem({json},{isVisible.ToString().ToLowerInvariant()});";
+
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dtgUserDashboardPreferences_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dtgUserDashboardPreferences.IsCurrentCellDirty)
+            {
+                dtgUserDashboardPreferences.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
         }
     }

@@ -47,6 +47,7 @@
     <Compile Include="clsAttendanceCalendarChartData.cs" />
     <Compile Include="Attributes\ReportColumnAttribute.cs" />
     <Compile Include="clsAttendanceCalendarChartResponse.cs" />
+    <Compile Include="clsEmployeeDashboardConfigModel.cs" />
     <Compile Include="clsEmployeeBirthdayChartData.cs" />
     <Compile Include="clsUpcomingPlannedLeaveChartData.cs" />
     <Compile Include="clsEmployeeAttendanceSummaryChartData.cs" />

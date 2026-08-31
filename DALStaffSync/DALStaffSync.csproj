@@ -55,6 +55,7 @@
     <Compile Include="clsAssetsCategory.cs" />
     <Compile Include="clsDashboardChartWidgets.cs" />
     <Compile Include="clsEmpActiveInactiveStatusInfo.cs" />
+    <Compile Include="clsEmployeeDashboardConfig.cs" />
     <Compile Include="clsJobAuditLog.cs" />
     <Compile Include="clsClientSignatoryInfo.cs" />
     <Compile Include="clsDashboardWidgetData.cs" />
