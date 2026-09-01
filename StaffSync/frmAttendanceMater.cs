@@ -323,6 +323,8 @@ namespace StaffSync
             cmbMonthNameList.DisplayMember = "Value";
             cmbMonthNameList.ValueMember = "Key";
             cmbMonthNameList.SelectedIndex = DateTime.Now.Month - 1; // Set to current month
+
+            cmbMonthNameList.Text = Convert.ToDateTime(objAttendanceMas.getLastAttendanceDate()).ToString("MMMM");
         }
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
@@ -494,6 +496,8 @@ namespace StaffSync
                 cmbWeeklyOff.SelectedIndex = objWeeklyOff.OrderByDescending(x => x.EffectDateFrom).FirstOrDefault().WklyOffMasID - 1;
                 if (cmbWeeklyOff.SelectedIndex < 0)
                     cmbWeeklyOff.SelectedIndex = 0;
+
+                cmbMonthNameList.Text = Convert.ToDateTime(objAttendanceMas.getLastAttendanceDate()).ToString("MMMM");
 
                 lstWeeklyOffDetailsInfo = objWeeklyOffInfo.getWeeklyOffDetailsInfo(Convert.ToInt16(cmbWeeklyOff.SelectedIndex) + 1).ToList();
                 int[] arr = new int[lstWeeklyOffDetailsInfo.Count];

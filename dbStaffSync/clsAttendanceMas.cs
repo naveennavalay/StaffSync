@@ -22,6 +22,38 @@ namespace dbStaffSync
 
         }
 
+        public DateTime getLastAttendanceDate()
+        {
+            DateTime dtLastAttendanceDate = new DateTime();
+            try
+            {
+                DataTable dt = new DataTable();
+                conn = dbStaffSync.openDBConnection();
+                string strQuery = "SELECT MAX(AttDate) AS LastAttendanceDate FROM EmpDailyAttendanceInfo";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+                if (dt.Rows.Count > 0 && dt.Rows[0]["LastAttendanceDate"] != DBNull.Value)
+                {
+                    dtLastAttendanceDate = Convert.ToDateTime(dt.Rows[0]["LastAttendanceDate"]);
+                    dtLastAttendanceDate = dtLastAttendanceDate.AddDays(1);
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return dtLastAttendanceDate;
+        }
+
         public List<EmployeeAttendanceInfo> GetDefaultEmployeeAttendanceInfo(int txtEmpID, DateTime dtSelectedMonth)
         {
             List<EmployeeAttendanceInfo> objEmployeeAttendanceInfo = new List<EmployeeAttendanceInfo>();

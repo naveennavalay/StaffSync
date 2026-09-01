@@ -39,6 +39,9 @@ namespace StaffSync
         {
             InitializeComponent();
             lblBatchProcessID.Text = "";
+
+            txtDailyAttendanceDate.Value = objAttendanceMas.getLastAttendanceDate();
+            lblDayName.Text = "Day Name: " + txtDailyAttendanceDate.Value.ToString("dddd");
         }
 
         public frmDailyAttendanceProcess(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
@@ -46,6 +49,8 @@ namespace StaffSync
             InitializeComponent();
             lblBatchProcessID.Text = "";
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+            txtDailyAttendanceDate.Value = objAttendanceMas.getLastAttendanceDate();
+            lblDayName.Text = "Day Name: " + txtDailyAttendanceDate.Value.ToString("dddd");
         }
 
         public frmDailyAttendanceProcess(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
@@ -59,6 +64,8 @@ namespace StaffSync
             lblNote.Text = "Note:\n* The system will automatically mark attendance as \"Present\".\n* No updates will be made if attendance is already marked as \"Present\".\n* Attendance will not be updated for weekly off days.\n* Attendance will not be updated for leave days.";
 
             txtDailyAttendanceDate.Value = DateTime.Today;
+            txtDailyAttendanceDate.Value = objAttendanceMas.getLastAttendanceDate();
+            lblDayName.Text = "Day Name: " + txtDailyAttendanceDate.Value.ToString("dddd");
 
             RefreshEmpAttendanceInfo("Compact View");
         }
@@ -99,6 +106,8 @@ namespace StaffSync
             chkCompactDetailedView.Checked = false;
             chkCompactDetailedView.Text = "Detailed View";
             RefreshEmpAttendanceInfo("Compact View");
+            txtDailyAttendanceDate.Value = objAttendanceMas.getLastAttendanceDate();
+            lblDayName.Text = "Day Name: " + txtDailyAttendanceDate.Value.ToString("dddd");
         }
 
         public void onModifyButtonClick()
@@ -134,7 +143,7 @@ namespace StaffSync
 
         public void clearControls()
         {
-
+            lblDayName.Text = "";
         }
 
         public void enableControls()
@@ -293,6 +302,9 @@ namespace StaffSync
                 chkCompactDetailedView.Checked = false;
                 chkCompactDetailedView.Text = "Detailed View";
                 RefreshEmpAttendanceInfo("Compact View");
+
+                txtDailyAttendanceDate.Value = objAttendanceMas.getLastAttendanceDate();
+                lblDayName.Text = "Day Name: " + txtDailyAttendanceDate.Value.ToString("dddd");
             }
         }
 
@@ -389,6 +401,7 @@ namespace StaffSync
             chkCompactDetailedView.Text = "Detailed View";
             RefreshEmpAttendanceInfo("Compact View");
             btnSaveDetails.Enabled = true;
+            lblDayName.Text = "Day Name: " + txtDailyAttendanceDate.Value.ToString("dddd");
         }
 
         private void RefreshEmpAttendanceInfo(string ViewMode)
@@ -506,6 +519,11 @@ namespace StaffSync
                     e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
                 }
             }
+        }
+
+        private void label29_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

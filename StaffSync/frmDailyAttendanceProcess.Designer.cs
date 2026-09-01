@@ -52,6 +52,7 @@
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.qryMnthlyAttdInfoTableAdapter = new StaffSync.StaffsyncDBDataSet2TableAdapters.qryMnthlyAttdInfoTableAdapter();
             this.qryDepartmentListTableAdapter1 = new StaffSync.dsDepartmentListTableAdapters.qryDepartmentListTableAdapter();
+            this.lblDayName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -149,6 +150,7 @@
             // groupBox8
             // 
             this.groupBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox8.Controls.Add(this.lblDayName);
             this.groupBox8.Controls.Add(this.lblBatchProcessID);
             this.groupBox8.Controls.Add(this.chkCompactDetailedView);
             this.groupBox8.Controls.Add(this.lblLeaveMasID);
@@ -169,7 +171,7 @@
             this.lblBatchProcessID.AutoSize = true;
             this.lblBatchProcessID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblBatchProcessID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBatchProcessID.Location = new System.Drawing.Point(381, 37);
+            this.lblBatchProcessID.Location = new System.Drawing.Point(859, 37);
             this.lblBatchProcessID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblBatchProcessID.Name = "lblBatchProcessID";
             this.lblBatchProcessID.Size = new System.Drawing.Size(11, 15);
@@ -193,7 +195,7 @@
             this.lblLeaveMasID.AutoSize = true;
             this.lblLeaveMasID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblLeaveMasID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLeaveMasID.Location = new System.Drawing.Point(566, 37);
+            this.lblLeaveMasID.Location = new System.Drawing.Point(951, 37);
             this.lblLeaveMasID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblLeaveMasID.Name = "lblLeaveMasID";
             this.lblLeaveMasID.Size = new System.Drawing.Size(11, 15);
@@ -228,6 +230,7 @@
             this.label29.TabIndex = 9;
             this.label29.Text = "Attendence Process Date";
             this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label29.Click += new System.EventHandler(this.label29_Click);
             // 
             // dtgDailyAttendanceUnprocessed
             // 
@@ -337,6 +340,17 @@
             // 
             this.qryDepartmentListTableAdapter1.ClearBeforeFill = true;
             // 
+            // lblDayName
+            // 
+            this.lblDayName.AutoSize = true;
+            this.lblDayName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDayName.Location = new System.Drawing.Point(345, 37);
+            this.lblDayName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDayName.Name = "lblDayName";
+            this.lblDayName.Size = new System.Drawing.Size(0, 15);
+            this.lblDayName.TabIndex = 68;
+            this.lblDayName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // frmDailyAttendanceProcess
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -399,6 +413,7 @@
         public System.Windows.Forms.Label lblBatchProcessID;
         private Krypton.Toolkit.KryptonDataGridView dtgDailyAttendanceUnprocessed;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblDayName;
         //private Calender empAttCalender;
     }
 }

@@ -1102,7 +1102,7 @@ namespace dbStaffSync
                                 WHERE
                                     (
                                         ((EmpMas.EmpID) > 1)
-                                        AND ((PersonalInfoMas.DOB) = #" + dtBirthdayDate.ToString("dd-MM-yyyyy") + "#) " + @"
+                                        AND ((PersonalInfoMas.DOB) = #" + dtBirthdayDate.ToString("dd-MMM-yyyyy") + "#) " + @"
                                         AND ((EmpMas.IsActive) = True)
                                         AND ((EmpMas.IsDeleted) = False)
                                         AND ((ClientMas.ClientID) = " + clientID + ") " + @"

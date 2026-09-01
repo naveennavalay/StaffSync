@@ -17,7 +17,7 @@ namespace ModelStaffSync
         [DisplayName("Dashboard Chart Title")]
         public string DBChartTitle { get; set; }
 
-        [DisplayName("Dashboard Chart Title")] 
+        [DisplayName("Dashboard Short Title")] 
         public string DBChartShortTitle { get; set; }
 
         [DisplayName("UIChartID")] 

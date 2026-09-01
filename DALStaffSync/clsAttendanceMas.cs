@@ -18,6 +18,15 @@ namespace DALStaffSync
 
         }
 
+        public DateTime getLastAttendanceDate()
+        {
+            DateTime dtLastAttendanceDate = new DateTime();
+
+            dtLastAttendanceDate = objAttendanceMas.getLastAttendanceDate();
+
+            return dtLastAttendanceDate;
+        }
+
         public List<EmployeeAttendanceInfo> GetDefaultEmployeeAttendanceInfo(int txtEmpID, DateTime dtSelectedMonth)
         {
             List<EmployeeAttendanceInfo> objReturnEmployeeAttendanceInfoList = new List<EmployeeAttendanceInfo>();

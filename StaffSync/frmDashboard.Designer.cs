@@ -1966,6 +1966,7 @@
             // 
             // sptrDashboardContainer.Panel2
             // 
+            this.sptrDashboardContainer.Panel2.AutoScroll = true;
             this.sptrDashboardContainer.Panel2.Controls.Add(this.panel1);
             this.sptrDashboardContainer.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
             this.sptrDashboardContainer.Size = new System.Drawing.Size(1444, 542);

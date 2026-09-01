@@ -1735,7 +1735,9 @@ namespace StaffSync
         private async void frmDashboard_Load(object sender, EventArgs e)
         {
             await myWebView.EnsureCoreWebView2Async();
-            
+
+            _rightPanelCollapsed = true;
+
             InitializeRightPanelToggle();
 
             //myWebView.NavigationCompleted += myWebView_NavigationCompleted;
@@ -1826,14 +1828,6 @@ namespace StaffSync
 
             dtgUserDashboardPreferences.DataSource = objEmployeeDashboardConfig.getEmployeeDashboardConfigInfoList(objSelectedClientFinYearInfo.ClientID, objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID);
             FormatDashboardPreferencesGrid();
-
-            foreach (DataGridViewRow row in dtgUserDashboardPreferences.Rows)
-            {
-                string dashboardChartKey = Convert.ToString(row.Cells["UIChartID"].Value);
-                bool isVisible = Convert.ToBoolean(row.Cells["DBChartEnabled"].Value);
-                UpdateDashboardChartVisibilityInHtml(dashboardChartKey, isVisible);
-            }
-            refreshDashboardCharts();
         }
 
         private Bitmap BytesToImage(byte[] bytes)
@@ -6183,6 +6177,14 @@ namespace StaffSync
         {
             //dtgAdvanceRiskBase.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
             //dtgUpcomingHolidays.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
+
+            //refreshDashboardCharts();
+            foreach (DataGridViewRow row in dtgUserDashboardPreferences.Rows)
+            {
+                string dashboardChartKey = Convert.ToString(row.Cells["UIChartID"].Value);
+                bool isVisible = Convert.ToBoolean(row.Cells["DBChartEnabled"].Value);
+                UpdateDashboardChartVisibilityInHtml(dashboardChartKey, isVisible);
+            }
         }
 
         private void circularKpiControl1_Click(object sender, EventArgs e)
@@ -7742,7 +7744,7 @@ namespace StaffSync
                     restoreDistance = sptrDashboardContainer.Panel1MinSize;
 
                 // Restore the splitter position.
-                sptrDashboardContainer.SplitterDistance = 1100;
+                sptrDashboardContainer.SplitterDistance = 1475;
 
                 _rightPanelCollapsed = false;
             }
@@ -7762,7 +7764,7 @@ namespace StaffSync
 
             dtgUserDashboardPreferences.Columns["DBChartShortTitle"].ReadOnly = true;
             dtgUserDashboardPreferences.Columns["DBChartShortTitle"].Width = 300;
-            dtgUserDashboardPreferences.Columns["DBChartShortTitle"].Visible = true;
+            dtgUserDashboardPreferences.Columns["DBChartShortTitle"].Visible = false;
 
             dtgUserDashboardPreferences.Columns["EmpDBChartID"].ReadOnly = true;
             dtgUserDashboardPreferences.Columns["EmpDBChartID"].Width = 50;
