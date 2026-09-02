@@ -113,5 +113,14 @@ namespace DALStaffSync
 
             return objEmployeeBirthdayList;
         }
+
+        public List<EmployeeDateOfJoiningChartData> displayDateOfJoiningEmployeesChartData(int clientID, DateTime dtDateOfJoining)
+        {
+            List<EmployeeDateOfJoiningChartData> objEmployeeDateOfJoiningList = new List<EmployeeDateOfJoiningChartData>();
+
+            objEmployeeDateOfJoiningList = objDashboardChartWidgets.displayDateOfJoiningEmployeesChartData(clientID, dtDateOfJoining);
+
+            return objEmployeeDateOfJoiningList;
+        }
     }
 }

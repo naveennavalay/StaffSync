@@ -1743,7 +1743,8 @@ namespace StaffSync
             //myWebView.NavigationCompleted += myWebView_NavigationCompleted;
 
             txtDTFrom.Text = "01-" + DateTime.Today.ToString("MM-yyyy"); // DateTime.Today.ToString("dd-MM-yyyy");
-            txtDTTo.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            //txtDTTo.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            txtDTTo.Text = Convert.ToDateTime("01-" + DateTime.Today.ToString("MM-yyyy")).AddMonths(1).AddDays(-(Convert.ToDateTime("01-" + DateTime.Today.ToString("MM-yyyy")).AddMonths(1).Day)).ToString("dd-MM-yyyy");
 
             string htmlPath = Path.Combine(Application.StartupPath,"Dashboard","StaffSyncDashboard.html");
 
@@ -7483,23 +7484,32 @@ namespace StaffSync
             {
                 List<EmployeeBirthdayChartData> data = objDashboardChartWidgets.displayBirthdayEmployeesChartData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(DateTime.Today));
 
-                //foreach (var employee in data)
-                //{
-                //    if (!string.IsNullOrEmpty(employee.EmpPhoto))
-                //    {
-                //        byte[] imageBytes = Convert.FromBase64String(employee.EmpPhoto);
-                //        using (MemoryStream ms = new MemoryStream(imageBytes))
-                //        {
-                //            Image image = Image.FromStream(ms);
-                //            employee.EmpPhotoBase64 = Convert.ToBase64String(imageBytes);
-                //        }
-                //    }
-                //}
-
                 string json = JsonConvert.SerializeObject(data);
 
                 string script = $"displayBirthdayEmployeesChartData({json});";
 
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "StaffSync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private async Task displayWorkAnniversaryEmployeesChartData()
+        {
+            try
+            {
+                List<EmployeeDateOfJoiningChartData> data = objDashboardChartWidgets.displayDateOfJoiningEmployeesChartData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(DateTime.Today));
+
+                string json = JsonConvert.SerializeObject(data);
+
+                string script = $"displayWorkAnniversaryEmployeesChartData({json});";
                 await myWebView.CoreWebView2.ExecuteScriptAsync(script);
             }
             catch (Exception ex)
@@ -7628,6 +7638,7 @@ namespace StaffSync
             await displayLeaveOutstandingSummary();
             await displayUpcomingPlannedLeavesChartData();
             await displayBirthdayEmployeesChartData();
+            await displayWorkAnniversaryEmployeesChartData();
         }
 
         private async void myWebView_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)

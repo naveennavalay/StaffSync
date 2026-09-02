@@ -29,7 +29,7 @@ namespace dbStaffSync
             {
                 DataTable dt = new DataTable();
                 conn = dbStaffSync.openDBConnection();
-                string strQuery = "SELECT MAX(AttDate) AS LastAttendanceDate FROM EmpDailyAttendanceInfo";
+                string strQuery = "SELECT MAX(AttDate) AS LastAttendanceDate FROM EmpDailyAttendanceInfo WHERE AttStatus = 'Present'";
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
@@ -684,7 +684,67 @@ namespace dbStaffSync
             {
                 conn = dbStaffSync.openDBConnection();
                 //DateTime.Now.Month
-                string strQuery = "SELECT ClientID, EmpID, EmpCode, EmpName, DesignationTitle, DepartmentTitle, qryMnthlyAttdInfo.SlNo, 'Present' AS " + DayNumber + " FROM qryMnthlyAttdInfo WHERE ClientID = " + txtCompanyID + " AND AttdMonth = #" + ReportForTheMonth.Date.ToString("dd-MMM-yyyy") + "#";
+                //string strQuery = "SELECT ClientID, EmpID, EmpCode, EmpName, DesignationTitle, DepartmentTitle, qryMnthlyAttdInfo.SlNo, 'Present' AS " + DayNumber + " FROM qryMnthlyAttdInfo WHERE ClientID = " + txtCompanyID + " AND AttdMonth = #" + ReportForTheMonth.Date.ToString("dd-MMM-yyyy") + "#";
+
+                string strQuery =
+                    "SELECT " +
+                    "    ClientMas.ClientID, " +
+                    "    EmpMas.EmpID, " +
+                    "    EmpMas.EmpCode, " +
+                    "    EmpMas.EmpName, " +
+                    "    DesigMas.DesignationTitle, " +
+                    "    DepMas.DepartmentTitle, " +
+
+                    "    CLng(" +
+                    "        IIf(" +
+                    "            IsNull(" +
+                    "                DMax(" +
+                    "                    'SlNo', " +
+                    "                    'qryMnthlyAttdInfo', " +
+                    "                    'EmpID=' & EmpMas.EmpID & " +
+                    "                    ' AND ClientID=" + txtCompanyID + "'" +
+                    "                    & ' AND AttdMonth=#" +
+                                         ReportForTheMonth.Date.ToString("dd-MMM-yyyy") +
+                                         "#'" +
+                    "                )" +
+                    "            ), " +
+                    "            0, " +
+                    "            DMax(" +
+                    "                'SlNo', " +
+                    "                'qryMnthlyAttdInfo', " +
+                    "                'EmpID=' & EmpMas.EmpID & " +
+                    "                ' AND ClientID=" + txtCompanyID + "'" +
+                    "                & ' AND AttdMonth=#" +
+                                     ReportForTheMonth.Date.ToString("dd-MMM-yyyy") +
+                                     "#'" +
+                    "            )" +
+                    "        )" +
+                    "    ) AS SlNo, " +
+
+                    "    'Present' AS " + DayNumber + " " +
+
+                    "FROM " +
+                    "    ( " +
+                    "        ( " +
+                    "            ClientMas " +
+                    "            INNER JOIN EmpMas " +
+                    "                ON ClientMas.ClientID = EmpMas.ClientID " +
+                    "        ) " +
+                    "        INNER JOIN DepMas " +
+                    "            ON EmpMas.DepartmentID = DepMas.DepartmentID " +
+                    "    ) " +
+                    "    INNER JOIN DesigMas " +
+                    "        ON EmpMas.EmpDesignationID = DesigMas.DesignationID " +
+
+                    "WHERE " +
+                    "    ClientMas.ClientID = " + txtCompanyID + " " +
+                    "    AND EmpMas.EmpID > 1 " +
+                    "    AND EmpMas.IsActive = True " +
+                    "    AND EmpMas.IsDeleted = False " +
+
+                    "ORDER BY " +
+                    "    EmpMas.EmpID, " +
+                    "    EmpMas.EmpName;";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
