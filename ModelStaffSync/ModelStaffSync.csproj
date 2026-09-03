@@ -50,6 +50,7 @@
     <Compile Include="clsEmployeeDateOfJoiningChartData.cs" />
     <Compile Include="clsEmployeeDashboardConfigModel.cs" />
     <Compile Include="clsEmployeeBirthdayChartData.cs" />
+    <Compile Include="clsEmployeesLeaveTodayChartData.cs" />
     <Compile Include="clsUpcomingPlannedLeaveChartData.cs" />
     <Compile Include="clsEmployeeAttendanceSummaryChartData.cs" />
     <Compile Include="clsAttendanceSummaryChartData.cs" />

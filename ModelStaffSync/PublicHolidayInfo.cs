@@ -17,12 +17,10 @@ namespace ModelStaffSync
         public string PubHolidayTitle { get; set; }
         public DateTime? PubHolDate { get; set; }
         public int? OrderID { get; set; }
-        public int PubHolTypeID { get; set; }
-        
+        public int PubHolTypeID { get; set; }        
         [DisplayName("Holiday Type")] 
         public string PubHolTypeTitle { get; set; }
         public string DayName { get; set; }
-
         public bool IsFestival { get; set; }
     }
 

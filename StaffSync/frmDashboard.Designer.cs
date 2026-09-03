@@ -246,6 +246,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lblDashboardTitle = new System.Windows.Forms.Label();
             this.grpDashboardDateRange = new System.Windows.Forms.GroupBox();
+            this.btnToDateEdit = new Krypton.Toolkit.KryptonButton();
             this.btnRefresh = new Krypton.Toolkit.KryptonButton();
             this.txtDTTo = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -2063,7 +2064,7 @@
             this.lblDashboardTitle.Location = new System.Drawing.Point(0, -1);
             this.lblDashboardTitle.Margin = new System.Windows.Forms.Padding(2);
             this.lblDashboardTitle.Name = "lblDashboardTitle";
-            this.lblDashboardTitle.Size = new System.Drawing.Size(1148, 41);
+            this.lblDashboardTitle.Size = new System.Drawing.Size(1054, 41);
             this.lblDashboardTitle.TabIndex = 11;
             this.lblDashboardTitle.Text = "Dashboard";
             this.lblDashboardTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2072,6 +2073,7 @@
             // 
             this.grpDashboardDateRange.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpDashboardDateRange.Controls.Add(this.btnToDateEdit);
             this.grpDashboardDateRange.Controls.Add(this.btnRefresh);
             this.grpDashboardDateRange.Controls.Add(this.txtDTTo);
             this.grpDashboardDateRange.Controls.Add(this.label5);
@@ -2079,19 +2081,32 @@
             this.grpDashboardDateRange.Controls.Add(this.label3);
             this.grpDashboardDateRange.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.grpDashboardDateRange.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpDashboardDateRange.Location = new System.Drawing.Point(1153, 0);
+            this.grpDashboardDateRange.Location = new System.Drawing.Point(1059, 0);
             this.grpDashboardDateRange.Name = "grpDashboardDateRange";
-            this.grpDashboardDateRange.Size = new System.Drawing.Size(291, 38);
+            this.grpDashboardDateRange.Size = new System.Drawing.Size(385, 38);
             this.grpDashboardDateRange.TabIndex = 106;
             this.grpDashboardDateRange.TabStop = false;
+            // 
+            // btnToDateEdit
+            // 
+            this.btnToDateEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnToDateEdit.Location = new System.Drawing.Point(306, 6);
+            this.btnToDateEdit.Name = "btnToDateEdit";
+            this.btnToDateEdit.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnToDateEdit.Size = new System.Drawing.Size(23, 26);
+            this.btnToDateEdit.TabIndex = 76;
+            this.btnToDateEdit.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnToDateEdit.Values.Image = global::StaffSync.Properties.Resources.attendance;
+            this.btnToDateEdit.Values.Text = "";
+            this.btnToDateEdit.Click += new System.EventHandler(this.btnToDateEdit_Click);
             // 
             // btnRefresh
             // 
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefresh.Location = new System.Drawing.Point(238, 9);
+            this.btnRefresh.Location = new System.Drawing.Point(332, 6);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnRefresh.Size = new System.Drawing.Size(23, 21);
+            this.btnRefresh.Size = new System.Drawing.Size(23, 26);
             this.btnRefresh.TabIndex = 75;
             this.btnRefresh.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnRefresh.Values.Image = global::StaffSync.Properties.Resources.refresh;
@@ -2101,7 +2116,7 @@
             // txtDTTo
             // 
             this.txtDTTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDTTo.Location = new System.Drawing.Point(130, 9);
+            this.txtDTTo.Location = new System.Drawing.Point(201, 9);
             this.txtDTTo.Mask = "##-##-####";
             this.txtDTTo.Name = "txtDTTo";
             this.txtDTTo.Size = new System.Drawing.Size(102, 21);
@@ -2114,7 +2129,7 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(104, 12);
+            this.label5.Location = new System.Drawing.Point(175, 12);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(23, 15);
@@ -2125,7 +2140,7 @@
             // txtDTFrom
             // 
             this.txtDTFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDTFrom.Location = new System.Drawing.Point(-9, 9);
+            this.txtDTFrom.Location = new System.Drawing.Point(62, 9);
             this.txtDTFrom.Mask = "##-##-####";
             this.txtDTFrom.Name = "txtDTFrom";
             this.txtDTFrom.Size = new System.Drawing.Size(102, 21);
@@ -2139,7 +2154,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(-52, 12);
+            this.label3.Location = new System.Drawing.Point(19, 12);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 15);
@@ -2425,6 +2440,7 @@
         public System.Windows.Forms.GroupBox grpDashboardDateRange;
         private System.Windows.Forms.Panel panel1;
         private Krypton.Toolkit.KryptonDataGridView dtgUserDashboardPreferences;
+        private Krypton.Toolkit.KryptonButton btnToDateEdit;
     }
 }
 

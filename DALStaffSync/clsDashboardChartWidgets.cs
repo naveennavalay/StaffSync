@@ -24,6 +24,15 @@ namespace DALStaffSync
             return objLeaveStatusSummaryList;
         }
 
+        public List<EmployeesLeaveTodayChartData> GetEmployeesWhoAreOnLeaveToday(int txtClientID, DateTime dtFrom, DateTime dtTo)
+        {
+            List<EmployeesLeaveTodayChartData> objEmployeesLeaveTodayList = new List<EmployeesLeaveTodayChartData>();
+
+            objEmployeesLeaveTodayList = objDashboardChartWidgets.GetEmployeesWhoAreOnLeaveToday(txtClientID, dtFrom, dtTo);
+
+            return objEmployeesLeaveTodayList;
+        }
+
         public List<LeaveMatrixChartData> GetLeaveMatrixChartData(int txtClientID, DateTime dtFrom, DateTime dtTo)
         {
             List<LeaveMatrixChartData> objLeaveMatrixList = new List<LeaveMatrixChartData>();

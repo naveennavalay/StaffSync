@@ -56,11 +56,17 @@ namespace StaffSync
         List<ClientInfo> objActiveClientInfo = new List<ClientInfo>();
         List<FinYearMas> objActiveFinYear = new List<FinYearMas>();
         ClientFinYearInfo objSelectedClientFinYearInfo = new ClientFinYearInfo();
+        DALStaffSync.clsPublicHolidayInfo objPublicHolidayInfo = new DALStaffSync.clsPublicHolidayInfo();
         UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = new UserRolesAndResponsibilitiesInfo();
 
         private bool _rightPanelCollapsed = false;
         private int _rightPanelExpandedDistance = 0;
         private const int RightPanelCollapsedWidth = 28;
+
+        private Timer _toDateEditTimer;
+        private int _toDateEditSeconds = 25;
+
+        private Image _toDateOriginalImage;
 
         private async void InitializeScheduler()
         {
@@ -1734,6 +1740,17 @@ namespace StaffSync
 
         private async void frmDashboard_Load(object sender, EventArgs e)
         {
+
+            _toDateEditTimer = new Timer();
+            _toDateEditTimer.Interval = 1000; // 1 second
+            _toDateEditTimer.Tick += ToDateEditTimer_Tick;
+
+            // Store the original button icon
+            //_toDateOriginalImage = btnToDateEdit.Image;
+
+            // To Date should initially be disabled
+            txtDTTo.Enabled = false;
+
             await myWebView.EnsureCoreWebView2Async();
 
             _rightPanelCollapsed = true;
@@ -7375,6 +7392,18 @@ namespace StaffSync
             await myWebView.CoreWebView2.ExecuteScriptAsync(script);
         }
 
+        private async Task displayEmployeesOnLeaveTodayChartData()
+        {
+            List<EmployeesLeaveTodayChartData> data = new List<EmployeesLeaveTodayChartData>();
+            data = objDashboardChartWidgets.GetEmployeesWhoAreOnLeaveToday(CurrentUser.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+
+            string json = JsonConvert.SerializeObject(data);
+
+            string script = $"displayEmployeesOnLeaveTodayChartData({json});";
+
+            await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+        }
+
         private async Task displayLeaveMatrixChartData()
         {
             try
@@ -7523,6 +7552,28 @@ namespace StaffSync
             }
         }
 
+        private async Task displayYearlyHolidaySummaryData()
+        {
+            try
+            {
+                List<PublicHolidayInfo> data = objPublicHolidayInfo.getHolidayList(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+
+                string json = JsonConvert.SerializeObject(data);
+
+                string script = $"displayYearlyHolidaySummaryData({json});";
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "StaffSync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
         //private async Task displayAttendanceCalendarChartData()
         //{
         //    try
@@ -7630,6 +7681,7 @@ namespace StaffSync
 
         public async void refreshDashboardCharts()
         {
+            await displayEmployeesOnLeaveTodayChartData();
             await displayLeaveStatusSummaryChartData();
             await displayLeaveMatrixChartData();
             await displayUpcomingHolidayChartData();
@@ -7639,6 +7691,7 @@ namespace StaffSync
             await displayUpcomingPlannedLeavesChartData();
             await displayBirthdayEmployeesChartData();
             await displayWorkAnniversaryEmployeesChartData();
+            await displayYearlyHolidaySummaryData();
         }
 
         private async void myWebView_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
@@ -7840,6 +7893,78 @@ namespace StaffSync
             {
                 dtgUserDashboardPreferences.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
+        }
+
+        private void btnToDateEdit_Click(object sender, EventArgs e)
+        {
+            // --------------------------------------------------------
+            // Validate current To Date before allowing editing
+            // --------------------------------------------------------
+
+            DateTime toDate;
+
+            if (!DateTime.TryParse(txtDTTo.Text, out toDate))
+            {
+                MessageBox.Show("Please enter a valid To Date.", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDTTo.Focus();
+                return;
+            }
+
+            // --------------------------------------------------------
+            // Enable To Date editing
+            // --------------------------------------------------------
+
+            txtDTTo.Enabled = true;
+
+            // Select the complete date so it can be changed easily
+            txtDTTo.Focus();
+            txtDTTo.SelectAll();
+
+            // --------------------------------------------------------
+            // Start / restart 25 second countdown
+            // --------------------------------------------------------
+
+            _toDateEditSeconds = 25;
+
+            btnToDateEdit.Text = _toDateEditSeconds.ToString();
+
+            // Hide the icon while countdown is active
+            //btnToDateEdit.Image = null;
+
+            // Start timer
+            _toDateEditTimer.Stop();
+            _toDateEditTimer.Start();
+        }
+
+        private void ToDateEditTimer_Tick(object sender, EventArgs e)
+        {
+            _toDateEditSeconds--;
+
+            if (_toDateEditSeconds <= 0)
+            {
+                // ----------------------------------------------------
+                // Time expired
+                // ----------------------------------------------------
+
+                _toDateEditTimer.Stop();
+
+                // Disable To Date
+                txtDTTo.Enabled = false;
+
+                // Clear countdown text
+                btnToDateEdit.Text = string.Empty;
+
+                // Restore original icon
+                //btnToDateEdit.Image = _toDateOriginalImage;
+
+                return;
+            }
+
+            // --------------------------------------------------------
+            // Update countdown
+            // --------------------------------------------------------
+
+            btnToDateEdit.Text = _toDateEditSeconds.ToString();
         }
     }
 }

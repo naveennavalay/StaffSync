@@ -190,6 +190,9 @@ namespace StaffSync
 
             if (validateValues())
             {
+                this.Cursor = Cursors.WaitCursor;
+                btnSaveDetails.Enabled = false;
+
                 lblBatchProcessID.Text = objGenFunc.getMaxRowCount("EmpBatchAttndEntrNotProc", "OrderID").Data.ToString();
 
                 foreach (DataGridViewRow indRow in dtgDailyAttendanceProcess.Rows)
@@ -306,6 +309,9 @@ namespace StaffSync
                 txtDailyAttendanceDate.Value = objAttendanceMas.getLastAttendanceDate();
                 lblDayName.Text = "Day Name: " + txtDailyAttendanceDate.Value.ToString("dddd");
             }
+
+            this.Cursor = Cursors.Default;
+            btnSaveDetails.Enabled = true;
         }
 
         private bool validateValues()

@@ -64,8 +64,10 @@ namespace dbStaffSync
                 string strQuery = "SELECT " + 
                                         " PubHolidayDetails.PubHolDetID, " +
                                         " PublicHolidayMas.PubHolMasID, " +
+                                        " PubHolidayDetails.PubHolidayTitle, " +
                                         " PubHolType.PubHolTypeTitle, " +
                                         " PubHolidayDetails.PubHolDate, " +
+                                        " Format(PubHolDate, \"dddd\") AS DayName, " +
                                         " PubHolType.PubHolTypeID, " +
                                         " PubHolType.PubHolTypeTitle, " +
                                         " PublicHolidayMas.OrderID, " +

@@ -61,25 +61,6 @@ namespace dbStaffSync
                 OleDbDataAdapter da = new OleDbDataAdapter(cmd);
                 da.Fill(dt);
 
-                //foreach (DataRow row in dt.Rows)
-                //{
-                //    LeaveStatusSummary obj = new LeaveStatusSummary();
-
-                //    obj.MonthName = Convert.ToString(row["MonthName"]);
-                //    //obj.LeaveApprovalComments = Convert.ToString(row["LeaveApprovalComments"]);
-                //    //obj.Canceled = Convert.ToBoolean(row["Canceled"]);
-                //    obj.LeaveYear = Convert.ToInt32(row["LeaveYear"]);
-                //    obj.LeaveMonth = Convert.ToInt32(row["LeaveMonth"]);
-                //    obj.TotalApplication = Convert.ToDouble(row["TotalApplication"]);
-                //    obj.TotalApproved = Convert.ToDouble(row["TotalApproved"]);
-                //    obj.TotalRejected = Convert.ToDouble(row["TotalRejected"]);
-                //    obj.TotalPending = Convert.ToDouble(row["TotalPending"]);
-                //    obj.TotalCancelled = Convert.ToDouble(row["TotalCancelled"]);
-                //    obj.TotalLeaveDays = Convert.ToDouble(row["TotalLeaveDays"]);
-
-                //    objLeaveStatusSummaryList.Add(obj);
-                //}
-
                 string DataTableToJSon = "";
                 DataTableToJSon = JsonConvert.SerializeObject(dt);
                 objLeaveStatusSummaryList = JsonConvert.DeserializeObject<List<LeaveStatusSummary>>(DataTableToJSon);
@@ -95,6 +76,86 @@ namespace dbStaffSync
             }
 
             return objLeaveStatusSummaryList;
+        }
+
+        public List<EmployeesLeaveTodayChartData> GetEmployeesWhoAreOnLeaveToday(int txtClientID, DateTime dtFrom, DateTime dtTo)
+        {
+            List<EmployeesLeaveTodayChartData> objEmployeesLeaveTodayChartDataList = new List<EmployeesLeaveTodayChartData>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                        EmpMas.EmpID,
+                                        EmpMas.EmpCode,
+                                        EmpMas.EmpName,
+                                        DesigMas.DesignationTitle,
+                                        DepMas.DepartmentTitle,
+                                        LeaveTypeMas.LeaveTypeTitle,
+                                        EmpLeaveTransMas.ActualLeaveDateFrom AS LeaveDate,
+                                        EmpLeaveTransMas.LeaveApprovalComments,
+                                        ClientMas.ClientID,
+                                        EmpDailyAttendanceInfo.LeaveTRID
+                                    FROM
+                                        (
+                                            LeaveTypeMas
+                                            INNER JOIN (
+                                                (
+                                                    DesigMas
+                                                    INNER JOIN (
+                                                        DepMas
+                                                        INNER JOIN (
+                                                            ClientMas
+                                                            INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                        ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                                    ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                                )
+                                                INNER JOIN EmpLeaveTransMas ON EmpMas.EmpID = EmpLeaveTransMas.EmpID
+                                            ) ON LeaveTypeMas.LeaveTypeID = EmpLeaveTransMas.LeaveTypeID
+                                        )
+                                        INNER JOIN EmpDailyAttendanceInfo ON (
+                                            EmpLeaveTransMas.LeaveTRID = EmpDailyAttendanceInfo.LeaveTRID
+                                        )
+                                        AND (EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID)
+                                    WHERE
+                                        (
+                                            ((EmpMas.EmpID) > 1)
+                                            AND ((EmpLeaveTransMas.ActualLeaveDateFrom) = Date())
+                                            AND ((ClientMas.ClientID) = " + txtClientID + ") " + @"
+                                            AND ((EmpMas.IsActive) = True)
+                                            AND ((EmpMas.IsDeleted) = False)
+                                            AND ((EmpLeaveTransMas.Canceled) = False)
+                                            AND ((EmpDailyAttendanceInfo.LeaveTRID) > 0)
+                                        )
+                                    ORDER BY
+                                        EmpMas.EmpID,
+                                        EmpMas.EmpName;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeesLeaveTodayChartDataList = JsonConvert.DeserializeObject<List<EmployeesLeaveTodayChartData>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                // Log if required
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objEmployeesLeaveTodayChartDataList;
         }
 
         public List<LeaveMatrixChartData> GetLeaveMatrixChartData(int txtClientID, DateTime dtFrom, DateTime dtTo)
@@ -1013,6 +1074,7 @@ namespace dbStaffSync
                                     WHERE
                                         (
                                             ((E.EmpID) > 1)
+                                            AND ((DateDiff(""d"", Date(), L.ActualLeaveDateFrom)) > 0)
                                             AND ((L.ActualLeaveDateFrom) >= #" + fromDate.ToString("dd-MMM-yyyy") + "# " + @")
                                             AND ((E.ClientID) = " + clientID + ") " + @"
                                             AND ((E.IsActive) = True)
