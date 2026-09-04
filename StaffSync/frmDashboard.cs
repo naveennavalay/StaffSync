@@ -7444,7 +7444,7 @@ namespace StaffSync
         {
             try
             {
-                List<UpcomingHolidayChartData> data = objDashboardChartWidgets.GetUpcomingHolidayChartData(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
+                List<UpcomingHolidayChartData> data = objDashboardChartWidgets.GetUpcomingHolidayChartData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
 
                 string json = JsonConvert.SerializeObject(data);
 
@@ -7493,6 +7493,28 @@ namespace StaffSync
                 string json = JsonConvert.SerializeObject(data);
 
                 string script = $"displayUpcomingPlannedLeavesChartData({json});";
+
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "StaffSync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private async Task displayPendingApprovalLeaveChartData()
+        {
+            try
+            {
+                List<ApprovalPendindingLeavesChartData> data = objDashboardChartWidgets.displayPendingApprovalLeaveChartData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+                string json = JsonConvert.SerializeObject(data);
+
+                string script = $"displayPendingApprovalLeaveChartData({json});";
 
                 await myWebView.CoreWebView2.ExecuteScriptAsync(script);
             }
@@ -7662,6 +7684,28 @@ namespace StaffSync
             }
         }
 
+        private async Task displayMonthlyAttendanceRegisterData()
+        {
+            try
+            {
+                List<MonthlyAttendanceRegisterRow> data = objDashboardChartWidgets.displayMonthlyAttendanceRegisterData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text).Year);
+                string json = JsonConvert.SerializeObject(data);
+
+                string script = $"displayMonthlyAttendanceRegisterData({json});";
+
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "StaffSync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
         private void txtDTFrom_TextChanged(object sender, EventArgs e)
         {
             DateTime dtToDate;
@@ -7692,6 +7736,8 @@ namespace StaffSync
             await displayBirthdayEmployeesChartData();
             await displayWorkAnniversaryEmployeesChartData();
             await displayYearlyHolidaySummaryData();
+            await displayPendingApprovalLeaveChartData();
+            await displayMonthlyAttendanceRegisterData();
         }
 
         private async void myWebView_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)

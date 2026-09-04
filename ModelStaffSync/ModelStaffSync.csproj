@@ -51,6 +51,7 @@
     <Compile Include="clsEmployeeDashboardConfigModel.cs" />
     <Compile Include="clsEmployeeBirthdayChartData.cs" />
     <Compile Include="clsEmployeesLeaveTodayChartData.cs" />
+    <Compile Include="clsApprovalPendindingLeavesChartData.cs" />
     <Compile Include="clsUpcomingPlannedLeaveChartData.cs" />
     <Compile Include="clsEmployeeAttendanceSummaryChartData.cs" />
     <Compile Include="clsAttendanceSummaryChartData.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Enums\ReportFormat.cs" />
     <Compile Include="Enums\ReportOrientation.cs" />
     <Compile Include="Enums\ReportType.cs" />
+    <Compile Include="MonthlyAttendanceRegisterRow.cs" />
     <Compile Include="Reports\ReportCell.cs" />
     <Compile Include="Reports\ReportColumn.cs" />
     <Compile Include="Reports\ReportDisplayOptions.cs" />

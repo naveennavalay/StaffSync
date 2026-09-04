@@ -51,11 +51,11 @@ namespace DALStaffSync
             return objAttendanceSummaryList;
         }
 
-        public List<UpcomingHolidayChartData> GetUpcomingHolidayChartData(int txtClientID, int txtFinYearID)
+        public List<UpcomingHolidayChartData> GetUpcomingHolidayChartData(int txtClientID, DateTime dtFrom, DateTime dtTo)
         {
             List<UpcomingHolidayChartData> objUpcomingHolidayList = new List<UpcomingHolidayChartData>();
 
-            objUpcomingHolidayList = objDashboardChartWidgets.GetUpcomingHolidayChartData(txtClientID, txtFinYearID);
+            objUpcomingHolidayList = objDashboardChartWidgets.GetUpcomingHolidayChartData(txtClientID, dtFrom, dtTo);
 
             return objUpcomingHolidayList;
         }
@@ -114,6 +114,15 @@ namespace DALStaffSync
             return objUpcomingPlannedLeaveList;
         }
 
+        public List<ApprovalPendindingLeavesChartData> displayPendingApprovalLeaveChartData(int clientID, DateTime fromDate, DateTime toDate)
+        {
+            List<ApprovalPendindingLeavesChartData> objApprovalPendindingLeavesList = new List<ApprovalPendindingLeavesChartData>();
+
+            objApprovalPendindingLeavesList = objDashboardChartWidgets.displayPendingApprovalLeaveChartData(clientID, fromDate, toDate);
+
+            return objApprovalPendindingLeavesList;
+        }
+
         public List<EmployeeBirthdayChartData> displayBirthdayEmployeesChartData(int clientID, DateTime dtBirthdayDate)
         {
             List<EmployeeBirthdayChartData> objEmployeeBirthdayList = new List<EmployeeBirthdayChartData>();
@@ -130,6 +139,15 @@ namespace DALStaffSync
             objEmployeeDateOfJoiningList = objDashboardChartWidgets.displayDateOfJoiningEmployeesChartData(clientID, dtDateOfJoining);
 
             return objEmployeeDateOfJoiningList;
+        }
+
+        public List<MonthlyAttendanceRegisterRow> displayMonthlyAttendanceRegisterData(int clientId, int year) //, CancellationToken cancellationToken = default)
+        {
+            List<MonthlyAttendanceRegisterRow> objMonthlyAttendanceRegisterList = new List<MonthlyAttendanceRegisterRow>();
+
+            objMonthlyAttendanceRegisterList = objDashboardChartWidgets.displayMonthlyAttendanceRegisterData(clientId, year);
+
+            return objMonthlyAttendanceRegisterList;
         }
     }
 }
