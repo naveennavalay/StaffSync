@@ -1,10 +1,7 @@
 ﻿using ClosedXML.Excel;
-
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
-
 using Newtonsoft.Json;
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -12,6 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Tables;
+using MigraDoc.Rendering;
 
 using Word = DocumentFormat.OpenXml.Wordprocessing;
 
@@ -36,14 +36,11 @@ namespace StaffSync.ReportingEngine.Reports.Attendance
     {
         #region Public Entry Point
 
-        public string Export(
-            clsDashboardExportRequest request,
-            string outputFilePath)
+        public string Export(clsDashboardExportRequest request, string outputFilePath)
         {
             if (request == null)
             {
-                throw new ArgumentNullException(
-                    nameof(request));
+                throw new ArgumentNullException(nameof(request));
             }
 
             if (string.IsNullOrWhiteSpace(
@@ -159,41 +156,90 @@ namespace StaffSync.ReportingEngine.Reports.Attendance
             clsDashboardExportRequest request,
             string outputFilePath)
         {
-            List<string> columns =
-                GetColumns(
-                    request.Rows);
-
-            List<string> lines =
-                new List<string>();
+            Document document =
+                new Document();
 
 
-            /*
-             * --------------------------------------------------------
-             * Title
-             * --------------------------------------------------------
-             */
-
-            string title =
+            document.Info.Title =
                 string.IsNullOrWhiteSpace(
                     request.CardTitle)
                     ? "StaffSync Dashboard Export"
                     : request.CardTitle;
 
-            lines.Add(
-                title);
+            document.Info.Subject =
+                "StaffSync Dashboard Export";
+
+            document.Info.Author =
+                "StaffSync";
+
+
+            Section section =
+                document.AddSection();
+
+
+            section.PageSetup.TopMargin =
+                Unit.FromCentimeter(1.5);
+
+            section.PageSetup.BottomMargin =
+                Unit.FromCentimeter(1.5);
+
+            section.PageSetup.LeftMargin =
+                Unit.FromCentimeter(1.5);
+
+            section.PageSetup.RightMargin =
+                Unit.FromCentimeter(1.5);
 
 
             /*
-             * --------------------------------------------------------
-             * Generated date
-             * --------------------------------------------------------
+             * ---------------------------------------------------------
+             * Title
+             * ---------------------------------------------------------
              */
+
+            Paragraph title =
+                section.AddParagraph();
+
+
+            title.Format.SpaceAfter =
+                Unit.FromPoint(8);
+
+
+            title.AddFormattedText(
+                string.IsNullOrWhiteSpace(
+                    request.CardTitle)
+                    ? "StaffSync Dashboard Export"
+                    : request.CardTitle,
+                TextFormat.Bold);
+
+
+            title.Format.Font.Size =
+                Unit.FromPoint(16);
+
+
+            /*
+             * ---------------------------------------------------------
+             * Generated information
+             * ---------------------------------------------------------
+             */
+
+            Paragraph generated =
+                section.AddParagraph();
+
+
+            generated.Format.SpaceAfter =
+                Unit.FromPoint(10);
+
+
+            generated.Format.Font.Size =
+                Unit.FromPoint(8);
+
 
             DateTime generatedAt =
                 request.GeneratedAt ??
                 DateTime.Now;
 
-            lines.Add(
+
+            generated.AddText(
                 "Generated: " +
                 generatedAt.ToString(
                     "dd-MMM-yyyy HH:mm:ss",
@@ -201,98 +247,383 @@ namespace StaffSync.ReportingEngine.Reports.Attendance
 
 
             /*
-             * --------------------------------------------------------
-             * Separator
-             * --------------------------------------------------------
+             * ---------------------------------------------------------
+             * CHART IMAGE
+             *
+             * This is the important part.
+             * ---------------------------------------------------------
              */
 
-            lines.Add(
-                "------------------------------------------------------------");
+            string temporaryImagePath =
+                null;
+
+
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(
+                        request.ChartImage))
+                {
+                    temporaryImagePath =
+                        CreateTemporaryChartImage(
+                            request.ChartImage);
+
+
+                    if (!string.IsNullOrWhiteSpace(
+                            temporaryImagePath) &&
+                        File.Exists(
+                            temporaryImagePath))
+                    {
+                        Paragraph chartParagraph =
+                            section.AddParagraph();
+
+
+                        chartParagraph.Format.SpaceAfter =
+                            Unit.FromPoint(10);
+
+
+                        MigraDoc.DocumentObjectModel.Shapes.Image
+                            chartImage =
+                            chartParagraph.AddImage(
+                                temporaryImagePath);
+
+
+                        chartImage.LockAspectRatio =
+                            true;
+
+
+                        /*
+                         * Keep the chart within the PDF page.
+                         */
+
+                        chartImage.Width =
+                            Unit.FromCentimeter(16);
+                    }
+                }
+
+
+                /*
+                 * ---------------------------------------------------------
+                 * Data table
+                 * ---------------------------------------------------------
+                 */
+
+                AddPdfDataTable(section, request.Rows);
+
+                /*
+                 * ---------------------------------------------------------
+                 * Render PDF
+                 * ---------------------------------------------------------
+                 */
+
+                PdfDocumentRenderer renderer =
+                    new PdfDocumentRenderer(true);
+
+
+                renderer.Document =
+                    document;
+
+
+                renderer.RenderDocument();
+
+
+                renderer.PdfDocument.Save(
+                    outputFilePath);
+            }
+            finally
+            {
+                /*
+                 * Delete temporary PNG after PDF is generated.
+                 */
+
+                DeleteTemporaryFile(
+                    temporaryImagePath);
+            }
+        }
+
+        private void AddPdfDataTable(
+    Section section,
+    List<Dictionary<string, object>> rows)
+        {
+            /*
+             * ------------------------------------------------------------
+             * Get all columns from the supplied dashboard data.
+             * ------------------------------------------------------------
+             */
+
+            List<string> columns =
+                GetColumns(rows);
 
 
             /*
-             * --------------------------------------------------------
-             * Data
-             * --------------------------------------------------------
+             * ------------------------------------------------------------
+             * No data.
+             * ------------------------------------------------------------
              */
 
-            if (columns.Count == 0)
+            if (columns == null ||
+                columns.Count == 0)
             {
-                lines.Add(
+                Paragraph noDataParagraph =
+                    section.AddParagraph();
+
+                noDataParagraph.Format.SpaceBefore =
+                    Unit.FromPoint(5);
+
+                noDataParagraph.Format.Font.Size =
+                    Unit.FromPoint(9);
+
+                noDataParagraph.AddText(
                     "No data available.");
+
+                return;
             }
-            else
+
+
+            /*
+             * ------------------------------------------------------------
+             * Create table.
+             * ------------------------------------------------------------
+             */
+
+            Table table =
+                section.AddTable();
+
+
+            table.Borders.Width =
+                Unit.FromPoint(0.5);
+
+
+            table.Rows.LeftIndent =
+                Unit.FromPoint(0);
+
+
+            /*
+             * ------------------------------------------------------------
+             * Add columns.
+             *
+             * Give every column a reasonable width.
+             * MigraDoc will handle the page layout.
+             * ------------------------------------------------------------
+             */
+
+            foreach (
+                string column
+                in columns)
             {
-                /*
-                 * Header
-                 */
+                Column pdfColumn =
+                    table.AddColumn(
+                        Unit.FromCentimeter(3.0));
 
-                lines.Add(
-                    string.Join(
-                        " | ",
-                        columns.Select(
-                            FormatColumnName)));
+                pdfColumn.Format.Alignment =
+                    ParagraphAlignment.Left;
+            }
 
 
-                lines.Add(
-                    "------------------------------------------------------------");
+            /*
+             * ------------------------------------------------------------
+             * Header row.
+             * ------------------------------------------------------------
+             */
+
+            Row headerRow =
+                table.AddRow();
 
 
-                /*
-                 * Rows
-                 */
+            headerRow.HeadingFormat =
+                true;
 
-                foreach (
-                    Dictionary<string, object> row
-                    in request.Rows ??
-                    new List<Dictionary<string, object>>())
+
+            headerRow.Format.Font.Bold =
+                true;
+
+
+            headerRow.Format.Font.Size =
+                Unit.FromPoint(8);
+
+
+            headerRow.VerticalAlignment =
+                VerticalAlignment.Center;
+
+
+            for (
+                int columnIndex = 0;
+                columnIndex < columns.Count;
+                columnIndex++)
+            {
+                Cell cell =
+                    headerRow.Cells[
+                        columnIndex];
+
+
+                cell.AddParagraph(
+                    FormatColumnName(
+                        columns[columnIndex]));
+
+
+                cell.Format.Alignment =
+                    ParagraphAlignment.Left;
+            }
+
+
+            /*
+             * ------------------------------------------------------------
+             * Data rows.
+             * ------------------------------------------------------------
+             */
+
+            foreach (
+                Dictionary<string, object> row
+                in rows ??
+                new List<Dictionary<string, object>>())
+            {
+                Row dataRow =
+                    table.AddRow();
+
+
+                dataRow.Format.Font.Size =
+                    Unit.FromPoint(7);
+
+
+                dataRow.VerticalAlignment =
+                    VerticalAlignment.Center;
+
+
+                for (
+                    int columnIndex = 0;
+                    columnIndex < columns.Count;
+                    columnIndex++)
                 {
-                    List<string> values =
-                        new List<string>();
+                    string columnName =
+                        columns[columnIndex];
 
-                    foreach (
-                        string column
-                        in columns)
+
+                    object value =
+                        null;
+
+
+                    if (row != null)
                     {
-                        object value =
-                            null;
-
-                        if (row != null)
-                        {
-                            row.TryGetValue(
-                                column,
-                                out value);
-                        }
-
-                        values.Add(
-                            FormatPdfText(
-                                FormatValue(
-                                    value)));
+                        row.TryGetValue(
+                            columnName,
+                            out value);
                     }
 
-                    lines.Add(
-                        string.Join(
-                            " | ",
-                            values));
+
+                    Cell cell =
+                        dataRow.Cells[
+                            columnIndex];
+
+
+                    cell.AddParagraph(
+                        FormatValue(value));
+
+
+                    cell.Format.Alignment =
+                        ParagraphAlignment.Left;
                 }
             }
 
 
             /*
-             * --------------------------------------------------------
-             * Create PDF.
-             * --------------------------------------------------------
+             * ------------------------------------------------------------
+             * Repeat the header when the table continues onto
+             * another PDF page.
+             * ------------------------------------------------------------
              */
 
-            byte[] pdfBytes =
-                BuildSimplePdf(
-                    lines);
-
-            File.WriteAllBytes(
-                outputFilePath,
-                pdfBytes);
+            if (table.Rows.Count > 0)
+            {
+                table.Rows[0].HeadingFormat =
+                    true;
+            }
         }
 
+        private string CreateTemporaryChartImage(string chartImage)
+        {
+            if (string.IsNullOrWhiteSpace(
+                    chartImage))
+            {
+                return null;
+            }
+
+
+            try
+            {
+                string base64Data =
+                    chartImage;
+
+
+                /*
+                 * Remove:
+                 *
+                 * data:image/png;base64,
+                 *
+                 * if present.
+                 */
+
+                int commaIndex =
+                    base64Data.IndexOf(',');
+
+
+                if (commaIndex >= 0)
+                {
+                    base64Data =
+                        base64Data.Substring(
+                            commaIndex + 1);
+                }
+
+
+                byte[] imageBytes =
+                    Convert.FromBase64String(
+                        base64Data);
+
+
+                string tempFile =
+                    Path.Combine(
+                        Path.GetTempPath(),
+                        "StaffSyncChart_" +
+                        Guid.NewGuid().ToString(
+                            "N") +
+                        ".png");
+
+
+                File.WriteAllBytes(
+                    tempFile,
+                    imageBytes);
+
+
+                return tempFile;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
+        private void DeleteTemporaryFile(string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                return;
+            }
+
+
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+            }
+            catch
+            {
+                /*
+                 * Temporary-file cleanup must never
+                 * break the export.
+                 */
+            }
+        }
 
         /// <summary>
         /// Builds a minimal PDF using standard PDF syntax.

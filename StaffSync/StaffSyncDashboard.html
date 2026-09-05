@@ -8,325 +8,325 @@
     <script src="./js/echarts.min.js"></script>
 
     <style>
-             body {
-                 margin: 0;
-                 font-family: Arial, sans-serif;
-                 background: #f2f6fa;
-             }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f6fa;
+        }
 
-             .dashboard-header {
-                 padding: 18px 25px;
-                 background: linear-gradient(135deg, #15558a, #3ba6d0);
-                 color: white;
-             }
+        .dashboard-header {
+            padding: 18px 25px;
+            background: linear-gradient(135deg, #15558a, #3ba6d0);
+            color: white;
+        }
 
-                 .dashboard-header h1 {
-                     margin: 0;
-                     font-size: 24px;
-                 }
+            .dashboard-header h1 {
+                margin: 0;
+                font-size: 24px;
+            }
 
-                 .dashboard-header p {
-                     margin: 5px 0 0;
-                     font-size: 13px;
-                 }
+            .dashboard-header p {
+                margin: 5px 0 0;
+                font-size: 13px;
+            }
 
-             .chart-card {
-                 background: linear-gradient( 180deg, #ffffff 0%, #f7fbfd 100% );
-                 border: 1px solid #d3e1ea;
-                 border-radius: 14px;
-                 padding: 12px;
-                 box-sizing: border-box;
-                 min-width: 0;
-                 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-                 overflow: hidden;
-             }
+        .chart-card {
+            background: linear-gradient( 180deg, #ffffff 0%, #f7fbfd 100% );
+            border: 1px solid #d3e1ea;
+            border-radius: 14px;
+            padding: 12px;
+            box-sizing: border-box;
+            min-width: 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
 
-             .chart-container {
-                 width: 100%;
-                 height: 250px;
-                 min-width: 0;
-             }
+        .chart-container {
+            width: 100%;
+            height: 250px;
+            min-width: 0;
+        }
 
-             .chart-title {
-                 font-size: 18px;
-                 font-weight: bold;
-                 color: #1d4f7a;
-                 margin-bottom: 10px;
-             }
+        .chart-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1d4f7a;
+            margin-bottom: 10px;
+        }
 
-             .dashboard-grid {
-                 display: grid;
-                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                 gap: 14px;
-                 width: 100%;
-                 margin: 0;
-                 padding: 10px 10px 10px 10px;
-                 box-sizing: border-box;
-             }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            width: 100%;
+            margin: 0;
+            padding: 10px 10px 10px 10px;
+            box-sizing: border-box;
+        }
 
-             .chart-card-header {
-                 display: flex;
-                 justify-content: space-between;
-                 align-items: flex-start;
-                 margin-bottom: 4px;
-             }
+        .chart-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 4px;
+        }
 
-             .chart-title {
-                 font-size: 15px;
-                 font-weight: 700;
-                 color: #174b76;
-             }
+        .chart-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #174b76;
+        }
 
-             .chart-subtitle {
-                 font-size: 10px;
-                 color: #8093a3;
-                 margin-top: 6px;
-             }
+        .chart-subtitle {
+            font-size: 10px;
+            color: #8093a3;
+            margin-top: 6px;
+        }
 
-             .chart-type {
-                 font-size: 10px;
-                 color: #6c8799;
-                 background: #edf5f9;
-                 border-radius: 12px;
-                 padding: 5px 9px;
-             }
+        .chart-type {
+            font-size: 10px;
+            color: #6c8799;
+            background: #edf5f9;
+            border-radius: 12px;
+            padding: 5px 9px;
+        }
 
-             #leaveApplicationsChart {
-                 width: 100%;
-                 height: 300px;
-             }
+        #leaveApplicationsChart {
+            width: 100%;
+            height: 300px;
+        }
 
 
-             /* ============================================================
+        /* ============================================================
                      09. UPCOMING PLANNED LEAVES
                      ============================================================ */
 
-             #upcomingPlannedLeavesChart {
-                 width: 100%;
-                 height: 245px;
-                 min-width: 0;
-                 box-sizing: border-box;
-             }
+        #upcomingPlannedLeavesChart {
+            width: 100%;
+            height: 245px;
+            min-width: 0;
+            box-sizing: border-box;
+        }
 
-             .upcoming-planned-leaves-empty {
-                 width: 100%;
-                 height: 245px;
-                 display: flex;
-                 align-items: center;
-                 justify-content: center;
-                 text-align: center;
-                 color: #7b8b98;
-                 font-size: 13px;
-                 box-sizing: border-box;
-             }
+        .upcoming-planned-leaves-empty {
+            width: 100%;
+            height: 245px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #7b8b98;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
 
-             /* ============================================================
+        /* ============================================================
                      10. LEAVE APPROVAL PENDING
                      ============================================================ */
 
-             #pendingApprovalLeaveChart {
-                 width: 100%;
-                 height: 245px;
-                 min-width: 0;
-                 box-sizing: border-box;
-             }
+        #pendingApprovalLeaveChart {
+            width: 100%;
+            height: 245px;
+            min-width: 0;
+            box-sizing: border-box;
+        }
 
-             .pending-approval-leave-empty {
-                 width: 100%;
-                 height: 245px;
-                 display: flex;
-                 align-items: center;
-                 justify-content: center;
-                 text-align: center;
-                 color: #7b8b98;
-                 font-size: 13px;
-                 box-sizing: border-box;
-             }
+        .pending-approval-leave-empty {
+            width: 100%;
+            height: 245px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #7b8b98;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
 
-             /* ============================================================
+        /* ============================================================
              08. ATTENDANCE CALENDAR
              STAFFSYNC - COMPLETE CSS
              ============================================================ */
 
 
-             /* ============================================================
+        /* ============================================================
              MAIN CONTAINER
              ============================================================ */
 
-             #attendanceCalendarChart {
-                 width: 100%;
-                 height: 100%;
-                 min-height: 0;
-                 box-sizing: border-box;
-                 font-family: Arial, Helvetica, sans-serif;
-                 overflow: hidden;
-             }
+        #attendanceCalendarChart {
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow: hidden;
+        }
 
 
-                 /* ============================================================
+            /* ============================================================
              CALENDAR WRAPPER
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-calendar-wrapper {
-                     width: 100%;
-                     height: 100%;
-                     min-height: 0;
-                     display: flex;
-                     flex-direction: column;
-                     box-sizing: border-box;
-                     padding: 0 6px 6px 6px;
-                     border-radius: 8px;
-                     overflow: hidden;
-                     background: linear-gradient( 180deg, #ffffff 0%, #f7fbfe 50%, #eaf4fa 100% );
-                     box-shadow: inset 0 1px 0 rgba(255,255,255,0.95);
-                 }
+            #attendanceCalendarChart
+            .attendance-calendar-wrapper {
+                width: 100%;
+                height: 100%;
+                min-height: 0;
+                display: flex;
+                flex-direction: column;
+                box-sizing: border-box;
+                padding: 0 6px 6px 6px;
+                border-radius: 8px;
+                overflow: hidden;
+                background: linear-gradient( 180deg, #ffffff 0%, #f7fbfe 50%, #eaf4fa 100% );
+                box-shadow: inset 0 1px 0 rgba(255,255,255,0.95);
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              MONTH HEADER
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-calendar-month {
-                     flex: 0 0 36px;
-                     display: flex;
-                     align-items: center;
-                     justify-content: center;
-                     background: linear-gradient( 180deg, #222222 0%, #080808 45%, #000000 100% );
-                     color: #00ff00;
-                     font-size: 14px;
-                     font-weight: bold;
-                     letter-spacing: 0.2px;
-                     text-shadow: 0 0 5px rgba(0,255,0,0.50);
-                     border-radius: 3px 3px 0 0;
-                     box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
-                 }
+            #attendanceCalendarChart
+            .attendance-calendar-month {
+                flex: 0 0 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient( 180deg, #222222 0%, #080808 45%, #000000 100% );
+                color: #00ff00;
+                font-size: 14px;
+                font-weight: bold;
+                letter-spacing: 0.2px;
+                text-shadow: 0 0 5px rgba(0,255,0,0.50);
+                border-radius: 3px 3px 0 0;
+                box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              WEEKDAY HEADER
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-calendar-weekdays {
-                     flex: 0 0 30px;
-                     display: grid;
-                     grid-template-columns: repeat(7, minmax(0, 1fr));
-                     background: linear-gradient( 180deg, #191919 0%, #000000 100% );
-                     box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
-                 }
+            #attendanceCalendarChart
+            .attendance-calendar-weekdays {
+                flex: 0 0 30px;
+                display: grid;
+                grid-template-columns: repeat(7, minmax(0, 1fr));
+                background: linear-gradient( 180deg, #191919 0%, #000000 100% );
+                box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              WEEKDAY TEXT
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-calendar-weekday {
-                     display: flex;
-                     align-items: center;
-                     justify-content: center;
-                     color: #00ff00;
-                     font-size: 11px;
-                     font-weight: bold;
-                     text-shadow: 0 0 4px rgba(0,255,0,0.45);
-                 }
+            #attendanceCalendarChart
+            .attendance-calendar-weekday {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #00ff00;
+                font-size: 11px;
+                font-weight: bold;
+                text-shadow: 0 0 4px rgba(0,255,0,0.45);
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              CALENDAR GRID
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-calendar-grid {
-                     flex: 1 1 auto;
-                     min-height: 0;
-                     width: 100%;
-                     display: grid;
-                     grid-template-columns: repeat(7, minmax(0, 1fr));
-                     /*
+            #attendanceCalendarChart
+            .attendance-calendar-grid {
+                flex: 1 1 auto;
+                min-height: 0;
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(7, minmax(0, 1fr));
+                /*
                        * Number of rows is calculated automatically from:
                        * first weekday position + number of days in the month.
                        */
-                     grid-template-rows: repeat( var(--attendance-calendar-weeks), minmax(0, 1fr) );
-                     border-left: 1px solid #b8cdd9;
-                     border-top: 1px solid #b8cdd9;
-                     /* Same background as the calendar card. */
-                     background: transparent;
-                     box-sizing: border-box;
-                 }
+                grid-template-rows: repeat( var(--attendance-calendar-weeks), minmax(0, 1fr) );
+                border-left: 1px solid #b8cdd9;
+                border-top: 1px solid #b8cdd9;
+                /* Same background as the calendar card. */
+                background: transparent;
+                box-sizing: border-box;
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              DAY CELL
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-day-cell {
-                     position: relative;
-                     min-width: 0;
-                     min-height: 0;
-                     box-sizing: border-box;
-                     /* Same background as the calendar/card. */
-                     background: transparent;
-                     border-right: 1px solid #bfd2de;
-                     border-bottom: 1px solid #bfd2de;
-                     overflow: hidden;
-                     transition: background 0.18s ease, box-shadow 0.18s ease;
-                 }
+            #attendanceCalendarChart
+            .attendance-day-cell {
+                position: relative;
+                min-width: 0;
+                min-height: 0;
+                box-sizing: border-box;
+                /* Same background as the calendar/card. */
+                background: transparent;
+                border-right: 1px solid #bfd2de;
+                border-bottom: 1px solid #bfd2de;
+                overflow: hidden;
+                transition: background 0.18s ease, box-shadow 0.18s ease;
+            }
 
 
-                     /* ============================================================
+                /* ============================================================
              WEEKEND CELL
              ============================================================ */
 
-                     #attendanceCalendarChart
-                     .attendance-day-cell.weekend {
-                         background: linear-gradient( 135deg, #e2e2e2 0%, #d5d5d5 50%, #cccccc 100% );
-                     }
+                #attendanceCalendarChart
+                .attendance-day-cell.weekend {
+                    background: linear-gradient( 135deg, #e2e2e2 0%, #d5d5d5 50%, #cccccc 100% );
+                }
 
 
-                     /* ============================================================
+                /* ============================================================
              EMPTY CELL
              ============================================================ */
 
-                     #attendanceCalendarChart
-                     .attendance-day-cell.empty {
-                         background: linear-gradient( 135deg, #edf5f9 0%, #e5eef3 100% );
-                     }
+                #attendanceCalendarChart
+                .attendance-day-cell.empty {
+                    background: linear-gradient( 135deg, #edf5f9 0%, #e5eef3 100% );
+                }
 
 
-                     /* ============================================================
+                /* ============================================================
              DAY CELL HOVER
              ============================================================ */
 
-                     #attendanceCalendarChart
-                     .attendance-day-cell:not(.empty):hover {
-                         background: linear-gradient( 135deg, #ffffff 0%, #edf8fd 50%, #dceef8 100% );
-                         box-shadow: inset 0 0 0 1px rgba(40,135,195,0.40), inset 0 7px 14px rgba(255,255,255,0.50);
-                         z-index: 2;
-                     }
+                #attendanceCalendarChart
+                .attendance-day-cell:not(.empty):hover {
+                    background: linear-gradient( 135deg, #ffffff 0%, #edf8fd 50%, #dceef8 100% );
+                    box-shadow: inset 0 0 0 1px rgba(40,135,195,0.40), inset 0 7px 14px rgba(255,255,255,0.50);
+                    z-index: 2;
+                }
 
 
-                 /* ============================================================
+            /* ============================================================
              DAY NUMBER
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-day-number {
-                     position: absolute;
-                     top: 5px;
-                     left: 7px;
-                     font-size: 11px;
-                     font-weight: bold;
-                     line-height: 14px;
-                     color: #111111;
-                     z-index: 20;
-                 }
+            #attendanceCalendarChart
+            .attendance-day-number {
+                position: absolute;
+                top: 5px;
+                left: 7px;
+                font-size: 11px;
+                font-weight: bold;
+                line-height: 14px;
+                color: #111111;
+                z-index: 20;
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              ATTENDANCE STATISTICS CONTAINER
              ------------------------------------------------------------
              FINAL DISPLAY:
@@ -336,28 +336,28 @@
              The four items stay on ONE horizontal line.
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-statistics {
-                     position: absolute;
-                     top: 29px;
-                     left: 50%;
-                     right: auto;
-                     bottom: auto;
-                     transform: translateX(-50%);
-                     display: flex;
-                     flex-direction: row;
-                     align-items: center;
-                     justify-content: center;
-                     gap: 3px;
-                     width: max-content;
-                     max-width: calc(100% - 6px);
-                     overflow: visible;
-                     z-index: 10;
-                     white-space: nowrap;
-                 }
+            #attendanceCalendarChart
+            .attendance-statistics {
+                position: absolute;
+                top: 29px;
+                left: 50%;
+                right: auto;
+                bottom: auto;
+                transform: translateX(-50%);
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                gap: 3px;
+                width: max-content;
+                max-width: calc(100% - 6px);
+                overflow: visible;
+                z-index: 10;
+                white-space: nowrap;
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              INDIVIDUAL STATUS
              ------------------------------------------------------------
              IMPORTANT:
@@ -371,1406 +371,1406 @@
              Each block gets enough room for 3-digit values.
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-stat {
-                     flex: 0 0 27px;
-                     width: 27px;
-                     min-width: 27px;
-                     height: 17px;
-                     min-height: 17px;
-                     padding: 0 2px;
-                     margin: 0;
-                     box-sizing: border-box;
-                     display: flex;
-                     flex-direction: row;
-                     align-items: center;
-                     justify-content: flex-start;
-                     border-radius: 3px;
-                     font-size: 8px;
-                     font-weight: bold;
-                     line-height: 17px;
-                     white-space: nowrap;
-                     overflow: visible;
-                     cursor: default;
-                     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-                 }
+            #attendanceCalendarChart
+            .attendance-stat {
+                flex: 0 0 27px;
+                width: 27px;
+                min-width: 27px;
+                height: 17px;
+                min-height: 17px;
+                padding: 0 2px;
+                margin: 0;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                border-radius: 3px;
+                font-size: 8px;
+                font-weight: bold;
+                line-height: 17px;
+                white-space: nowrap;
+                overflow: visible;
+                cursor: default;
+                transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              STATUS LABEL
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-stat-label {
-                     width: 8px;
-                     min-width: 8px;
-                     margin-right: 2px;
-                     padding: 0;
-                     flex-shrink: 0;
-                     font-weight: 900;
-                     text-align: left;
-                 }
+            #attendanceCalendarChart
+            .attendance-stat-label {
+                width: 8px;
+                min-width: 8px;
+                margin-right: 2px;
+                padding: 0;
+                flex-shrink: 0;
+                font-weight: 900;
+                text-align: left;
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              STATUS VALUE
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-stat-value {
-                     display: inline-block;
-                     min-width: 15px;
-                     font-weight: 900;
-                     white-space: nowrap;
-                     overflow: visible;
-                     flex-shrink: 0;
-                     text-align: left;
-                 }
+            #attendanceCalendarChart
+            .attendance-stat-value {
+                display: inline-block;
+                min-width: 15px;
+                font-weight: 900;
+                white-space: nowrap;
+                overflow: visible;
+                flex-shrink: 0;
+                text-align: left;
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              PRESENT - GREEN
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-present {
-                     color: #087d08;
-                     background: linear-gradient( 180deg, rgba(70,240,70,0.32) 0%, rgba(20,190,20,0.10) 100% );
-                     border-left: 3px solid #10b510;
-                 }
+            #attendanceCalendarChart
+            .attendance-present {
+                color: #087d08;
+                background: linear-gradient( 180deg, rgba(70,240,70,0.32) 0%, rgba(20,190,20,0.10) 100% );
+                border-left: 3px solid #10b510;
+            }
 
 
-                     /* PRESENT HOVER */
+                /* PRESENT HOVER */
 
-                     #attendanceCalendarChart
-                     .attendance-present:hover {
-                         color: #005700;
-                         background: linear-gradient( 180deg, #c4ffc4 0%, #78ee78 100% );
-                         box-shadow: 0 2px 7px rgba(0,150,0,0.35);
-                         transform: translateY(-1px) scale(1.08);
-                         z-index: 30;
-                     }
+                #attendanceCalendarChart
+                .attendance-present:hover {
+                    color: #005700;
+                    background: linear-gradient( 180deg, #c4ffc4 0%, #78ee78 100% );
+                    box-shadow: 0 2px 7px rgba(0,150,0,0.35);
+                    transform: translateY(-1px) scale(1.08);
+                    z-index: 30;
+                }
 
 
-                 /* ============================================================
+            /* ============================================================
              LEAVE - BLUE
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-leave {
-                     color: #005fc4;
-                     background: linear-gradient( 180deg, rgba(70,160,255,0.30) 0%, rgba(30,110,210,0.10) 100% );
-                     border-left: 3px solid #1677d2;
-                 }
+            #attendanceCalendarChart
+            .attendance-leave {
+                color: #005fc4;
+                background: linear-gradient( 180deg, rgba(70,160,255,0.30) 0%, rgba(30,110,210,0.10) 100% );
+                border-left: 3px solid #1677d2;
+            }
 
 
-                     /* LEAVE HOVER */
+                /* LEAVE HOVER */
 
-                     #attendanceCalendarChart
-                     .attendance-leave:hover {
-                         color: #003e83;
-                         background: linear-gradient( 180deg, #c8e5ff 0%, #8bc6ff 100% );
-                         box-shadow: 0 2px 7px rgba(0,100,200,0.35);
-                         transform: translateY(-1px) scale(1.08);
-                         z-index: 30;
-                     }
+                #attendanceCalendarChart
+                .attendance-leave:hover {
+                    color: #003e83;
+                    background: linear-gradient( 180deg, #c8e5ff 0%, #8bc6ff 100% );
+                    box-shadow: 0 2px 7px rgba(0,100,200,0.35);
+                    transform: translateY(-1px) scale(1.08);
+                    z-index: 30;
+                }
 
 
-                 /* ============================================================
+            /* ============================================================
              CANCELLED - ORANGE
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-cancelled {
-                     color: #c45d00;
-                     background: linear-gradient( 180deg, rgba(255,170,40,0.32) 0%, rgba(255,120,0,0.10) 100% );
-                     border-left: 3px solid #ff8a00;
-                 }
+            #attendanceCalendarChart
+            .attendance-cancelled {
+                color: #c45d00;
+                background: linear-gradient( 180deg, rgba(255,170,40,0.32) 0%, rgba(255,120,0,0.10) 100% );
+                border-left: 3px solid #ff8a00;
+            }
 
 
-                     /* CANCELLED HOVER */
+                /* CANCELLED HOVER */
 
-                     #attendanceCalendarChart
-                     .attendance-cancelled:hover {
-                         color: #873b00;
-                         background: linear-gradient( 180deg, #ffe1a8 0%, #ffc15c 100% );
-                         box-shadow: 0 2px 7px rgba(220,100,0,0.35);
-                         transform: translateY(-1px) scale(1.08);
-                         z-index: 30;
-                     }
+                #attendanceCalendarChart
+                .attendance-cancelled:hover {
+                    color: #873b00;
+                    background: linear-gradient( 180deg, #ffe1a8 0%, #ffc15c 100% );
+                    box-shadow: 0 2px 7px rgba(220,100,0,0.35);
+                    transform: translateY(-1px) scale(1.08);
+                    z-index: 30;
+                }
 
 
-                 /* ============================================================
+            /* ============================================================
              REJECTED - RED
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-rejected {
-                     color: #d00000;
-                     background: linear-gradient( 180deg, rgba(255,80,80,0.30) 0%, rgba(220,0,0,0.08) 100% );
-                     border-left: 3px solid #e00000;
-                 }
+            #attendanceCalendarChart
+            .attendance-rejected {
+                color: #d00000;
+                background: linear-gradient( 180deg, rgba(255,80,80,0.30) 0%, rgba(220,0,0,0.08) 100% );
+                border-left: 3px solid #e00000;
+            }
 
 
-                     /* REJECTED HOVER */
+                /* REJECTED HOVER */
 
-                     #attendanceCalendarChart
-                     .attendance-rejected:hover {
-                         color: #8b0000;
-                         background: linear-gradient( 180deg, #ffc5c5 0%, #ff8888 100% );
-                         box-shadow: 0 2px 7px rgba(200,0,0,0.35);
-                         transform: translateY(-1px) scale(1.08);
-                         z-index: 30;
-                     }
+                #attendanceCalendarChart
+                .attendance-rejected:hover {
+                    color: #8b0000;
+                    background: linear-gradient( 180deg, #ffc5c5 0%, #ff8888 100% );
+                    box-shadow: 0 2px 7px rgba(200,0,0,0.35);
+                    transform: translateY(-1px) scale(1.08);
+                    z-index: 30;
+                }
 
 
-                 /* ============================================================
+            /* ============================================================
              LEGEND
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-calendar-legend {
-                     flex: 0 0 46px;
-                     min-height: 46px;
-                     display: flex;
-                     align-items: center;
-                     justify-content: center;
-                     gap: 30px;
-                     box-sizing: border-box;
-                     padding: 7px 12px;
-                     background: linear-gradient( 180deg, #f4faff 0%, #dfedf6 55%, #d5e7f1 100% );
-                     border-top: 1px solid #b7cedb;
-                     box-shadow: inset 0 1px 0 rgba(255,255,255,0.95);
-                 }
+            #attendanceCalendarChart
+            .attendance-calendar-legend {
+                flex: 0 0 46px;
+                min-height: 46px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                box-sizing: border-box;
+                padding: 7px 12px;
+                background: linear-gradient( 180deg, #f4faff 0%, #dfedf6 55%, #d5e7f1 100% );
+                border-top: 1px solid #b7cedb;
+                box-shadow: inset 0 1px 0 rgba(255,255,255,0.95);
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              LEGEND ITEM
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-legend-item {
-                     display: flex;
-                     align-items: center;
-                     justify-content: center;
-                     gap: 7px;
-                     font-size: 11px;
-                     font-weight: bold;
-                     color: #3e3e3e;
-                     white-space: nowrap;
-                     text-shadow: 0 1px 0 rgba(255,255,255,0.80);
-                 }
+            #attendanceCalendarChart
+            .attendance-legend-item {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 7px;
+                font-size: 11px;
+                font-weight: bold;
+                color: #3e3e3e;
+                white-space: nowrap;
+                text-shadow: 0 1px 0 rgba(255,255,255,0.80);
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              LEGEND BOX
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .attendance-legend-box {
-                     width: 15px;
-                     height: 15px;
-                     min-width: 15px;
-                     border-radius: 4px;
-                     border: 1px solid rgba(0,0,0,0.35);
-                     box-shadow: inset 0 1px 2px rgba(255,255,255,0.90), 0 1px 3px rgba(0,0,0,0.22);
-                 }
+            #attendanceCalendarChart
+            .attendance-legend-box {
+                width: 15px;
+                height: 15px;
+                min-width: 15px;
+                border-radius: 4px;
+                border: 1px solid rgba(0,0,0,0.35);
+                box-shadow: inset 0 1px 2px rgba(255,255,255,0.90), 0 1px 3px rgba(0,0,0,0.22);
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              LEGEND - PRESENT
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .legend-present {
-                     background: linear-gradient( 180deg, #59ff59 0%, #00b900 100% );
-                 }
+            #attendanceCalendarChart
+            .legend-present {
+                background: linear-gradient( 180deg, #59ff59 0%, #00b900 100% );
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              LEGEND - LEAVE
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .legend-leave {
-                     background: linear-gradient( 180deg, #70bcff 0%, #1677d2 100% );
-                 }
+            #attendanceCalendarChart
+            .legend-leave {
+                background: linear-gradient( 180deg, #70bcff 0%, #1677d2 100% );
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              LEGEND - CANCELLED
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .legend-cancelled {
-                     background: linear-gradient( 180deg, #ffd071 0%, #ff8700 100% );
-                 }
+            #attendanceCalendarChart
+            .legend-cancelled {
+                background: linear-gradient( 180deg, #ffd071 0%, #ff8700 100% );
+            }
 
 
-                 /* ============================================================
+            /* ============================================================
              LEGEND - REJECTED
              ============================================================ */
 
-                 #attendanceCalendarChart
-                 .legend-rejected {
-                     background: linear-gradient( 180deg, #ff7777 0%, #df0000 100% );
-                 }
+            #attendanceCalendarChart
+            .legend-rejected {
+                background: linear-gradient( 180deg, #ff7777 0%, #df0000 100% );
+            }
 
 
-             /* ============================================================
+        /* ============================================================
              RESPONSIVE - MEDIUM
              ============================================================ */
 
-             @media (max-width: 1000px) {
+        @media (max-width: 1000px) {
 
-                 #attendanceCalendarChart {
-                     min-height: 420px;
-                 }
-
-
-                     #attendanceCalendarChart
-                     .attendance-calendar-wrapper {
-                         min-height: 420px;
-                     }
+            #attendanceCalendarChart {
+                min-height: 420px;
+            }
 
 
-                     #attendanceCalendarChart
-                     .attendance-statistics {
-                         gap: 2px;
-                         max-width: calc(100% - 4px);
-                     }
+                #attendanceCalendarChart
+                .attendance-calendar-wrapper {
+                    min-height: 420px;
+                }
 
 
-                     #attendanceCalendarChart
-                     .attendance-stat {
-                         flex-basis: 26px;
-                         width: 26px;
-                         min-width: 26px;
-                         font-size: 7.5px;
-                     }
+                #attendanceCalendarChart
+                .attendance-statistics {
+                    gap: 2px;
+                    max-width: calc(100% - 4px);
+                }
 
 
-                     #attendanceCalendarChart
-                     .attendance-stat-label {
-                         width: 7px;
-                         min-width: 7px;
-                         margin-right: 1px;
-                     }
+                #attendanceCalendarChart
+                .attendance-stat {
+                    flex-basis: 26px;
+                    width: 26px;
+                    min-width: 26px;
+                    font-size: 7.5px;
+                }
 
 
-                     #attendanceCalendarChart
-                     .attendance-stat-value {
-                         min-width: 14px;
-                     }
+                #attendanceCalendarChart
+                .attendance-stat-label {
+                    width: 7px;
+                    min-width: 7px;
+                    margin-right: 1px;
+                }
 
 
-                     #attendanceCalendarChart
-                     .attendance-calendar-legend {
-                         gap: 20px;
-                     }
-             }
+                #attendanceCalendarChart
+                .attendance-stat-value {
+                    min-width: 14px;
+                }
 
 
-             /* ============================================================
+                #attendanceCalendarChart
+                .attendance-calendar-legend {
+                    gap: 20px;
+                }
+        }
+
+
+        /* ============================================================
              RESPONSIVE - SMALL
              ============================================================ */
 
-             @media (max-width: 700px) {
+        @media (max-width: 700px) {
 
-                 #attendanceCalendarChart {
-                     min-height: 400px;
-                 }
-
-
-                     #attendanceCalendarChart
-                     .attendance-calendar-wrapper {
-                         min-height: 400px;
-                     }
+            #attendanceCalendarChart {
+                min-height: 400px;
+            }
 
 
-                     #attendanceCalendarChart
-                     .attendance-calendar-month {
-                         flex-basis: 32px;
-                         font-size: 12px;
-                     }
+                #attendanceCalendarChart
+                .attendance-calendar-wrapper {
+                    min-height: 400px;
+                }
 
 
-                     #attendanceCalendarChart
-                     .attendance-calendar-weekdays {
-                         flex-basis: 27px;
-                     }
+                #attendanceCalendarChart
+                .attendance-calendar-month {
+                    flex-basis: 32px;
+                    font-size: 12px;
+                }
 
 
-                     #attendanceCalendarChart
-                     .attendance-calendar-weekday {
-                         font-size: 9px;
-                     }
+                #attendanceCalendarChart
+                .attendance-calendar-weekdays {
+                    flex-basis: 27px;
+                }
 
 
-                     #attendanceCalendarChart
-                     .attendance-day-number {
-                         top: 4px;
-                         left: 5px;
-                         font-size: 10px;
-                     }
+                #attendanceCalendarChart
+                .attendance-calendar-weekday {
+                    font-size: 9px;
+                }
 
 
-                     #attendanceCalendarChart
-                     .attendance-statistics {
-                         top: 25px;
-                         gap: 1px;
-                         max-width: calc(100% - 2px);
-                     }
+                #attendanceCalendarChart
+                .attendance-day-number {
+                    top: 4px;
+                    left: 5px;
+                    font-size: 10px;
+                }
 
 
-                     #attendanceCalendarChart
-                     .attendance-stat {
-                         flex-basis: 24px;
-                         width: 24px;
-                         min-width: 24px;
-                         height: 15px;
-                         min-height: 15px;
-                         line-height: 15px;
-                         font-size: 7px;
-                         padding: 0 1px;
-                     }
+                #attendanceCalendarChart
+                .attendance-statistics {
+                    top: 25px;
+                    gap: 1px;
+                    max-width: calc(100% - 2px);
+                }
 
 
-                     #attendanceCalendarChart
-                     .attendance-stat-label {
-                         width: 6px;
-                         min-width: 6px;
-                         margin-right: 1px;
-                     }
+                #attendanceCalendarChart
+                .attendance-stat {
+                    flex-basis: 24px;
+                    width: 24px;
+                    min-width: 24px;
+                    height: 15px;
+                    min-height: 15px;
+                    line-height: 15px;
+                    font-size: 7px;
+                    padding: 0 1px;
+                }
 
 
-                     #attendanceCalendarChart
-                     .attendance-stat-value {
-                         min-width: 13px;
-                     }
+                #attendanceCalendarChart
+                .attendance-stat-label {
+                    width: 6px;
+                    min-width: 6px;
+                    margin-right: 1px;
+                }
 
 
-                     #attendanceCalendarChart
-                     .attendance-calendar-legend {
-                         flex-basis: 42px;
-                         min-height: 42px;
-                         gap: 12px;
-                         padding: 5px 8px;
-                     }
+                #attendanceCalendarChart
+                .attendance-stat-value {
+                    min-width: 13px;
+                }
 
 
-                     #attendanceCalendarChart
-                     .attendance-legend-item {
-                         font-size: 9px;
-                     }
+                #attendanceCalendarChart
+                .attendance-calendar-legend {
+                    flex-basis: 42px;
+                    min-height: 42px;
+                    gap: 12px;
+                    padding: 5px 8px;
+                }
 
 
-                     #attendanceCalendarChart
-                     .attendance-legend-box {
-                         width: 12px;
-                         height: 12px;
-                         min-width: 12px;
-                     }
-             }
+                #attendanceCalendarChart
+                .attendance-legend-item {
+                    font-size: 9px;
+                }
 
 
-             /* ============================================================
+                #attendanceCalendarChart
+                .attendance-legend-box {
+                    width: 12px;
+                    height: 12px;
+                    min-width: 12px;
+                }
+        }
+
+
+        /* ============================================================
              VERY SMALL SCREEN
              ============================================================ */
 
-             @media (max-width: 500px) {
+        @media (max-width: 500px) {
 
-                 #attendanceCalendarChart
-                 .attendance-calendar-legend {
-                     gap: 7px;
-                 }
-
-
-                 #attendanceCalendarChart
-                 .attendance-legend-item {
-                     font-size: 8px;
-                     gap: 4px;
-                 }
+            #attendanceCalendarChart
+            .attendance-calendar-legend {
+                gap: 7px;
+            }
 
 
-                 #attendanceCalendarChart
-                 .attendance-legend-box {
-                     width: 10px;
-                     height: 10px;
-                     min-width: 10px;
-                 }
-             }
+            #attendanceCalendarChart
+            .attendance-legend-item {
+                font-size: 8px;
+                gap: 4px;
+            }
 
-             /* ============================================================
+
+            #attendanceCalendarChart
+            .attendance-legend-box {
+                width: 10px;
+                height: 10px;
+                min-width: 10px;
+            }
+        }
+
+        /* ============================================================
                      06 / 07 - STANDARD HEIGHT
                      08 - DYNAMIC HEIGHT
                      ============================================================ */
 
-             .dashboard-standard-height-card {
-                 height: 300px;
-                 min-height: 300px;
-                 max-height: 300px;
-                 box-sizing: border-box;
-             }
+        .dashboard-standard-height-card {
+            height: 300px;
+            min-height: 300px;
+            max-height: 300px;
+            box-sizing: border-box;
+        }
 
-             /*
+        /*
                    * IMPORTANT:
                    * Do not force the Attendance Calendar into the 300px height.
                    * Its card height is calculated naturally from the number of
                    * calendar weeks required for the selected month.
                    */
-             .attendance-calendar-card {
-                 height: auto;
-                 min-height: 0;
-                 max-height: none;
-                 box-sizing: border-box;
-             }
+        .attendance-calendar-card {
+            height: auto;
+            min-height: 0;
+            max-height: none;
+            box-sizing: border-box;
+        }
 
-                 .attendance-calendar-card
-                 #attendanceCalendarChart {
-                     width: 100%;
-                     height: auto;
-                     min-height: 0;
-                     box-sizing: border-box;
-                 }
+            .attendance-calendar-card
+            #attendanceCalendarChart {
+                width: 100%;
+                height: auto;
+                min-height: 0;
+                box-sizing: border-box;
+            }
 
-                     .attendance-calendar-card
-                     #attendanceCalendarChart
-                     .attendance-calendar-wrapper {
-                         width: 100%;
-                         height: auto;
-                         min-height: 0;
-                         box-sizing: border-box;
-                     }
+                .attendance-calendar-card
+                #attendanceCalendarChart
+                .attendance-calendar-wrapper {
+                    width: 100%;
+                    height: auto;
+                    min-height: 0;
+                    box-sizing: border-box;
+                }
 
-                     /*
+                /*
                    * Every actual calendar week gets a comfortable fixed row
                    * height. Since JavaScript creates only the required number
                    * of rows, the whole calendar card grows/shrinks naturally.
                    */
-                     .attendance-calendar-card
-                     #attendanceCalendarChart
-                     .attendance-calendar-grid {
-                         flex: 0 0 auto;
-                         height: calc( var(--attendance-calendar-weeks) * 58px );
-                         min-height: 0;
-                     }
+                .attendance-calendar-card
+                #attendanceCalendarChart
+                .attendance-calendar-grid {
+                    flex: 0 0 auto;
+                    height: calc( var(--attendance-calendar-weeks) * 58px );
+                    min-height: 0;
+                }
 
-                     .attendance-calendar-card
-                     #attendanceCalendarChart
-                     .attendance-day-cell {
-                         min-height: 58px;
-                     }
+                .attendance-calendar-card
+                #attendanceCalendarChart
+                .attendance-day-cell {
+                    min-height: 58px;
+                }
 
-             /* ============================================================
+        /* ============================================================
                      ATTENDANCE DATE DRILLDOWN
                      Fits inside the same fixed-height card.
                      ============================================================ */
 
-             #attendanceCalendarChart
-             .attendance-drilldown-header {
-                 position: relative;
-                 width: 100%;
-                 height: 50px;
-                 min-height: 50px;
-                 padding: 5px 12px;
-                 box-sizing: border-box;
-             }
+        #attendanceCalendarChart
+        .attendance-drilldown-header {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            min-height: 50px;
+            padding: 5px 12px;
+            box-sizing: border-box;
+        }
 
-             #attendanceCalendarChart
-             .attendance-drilldown-title {
-                 text-align: center;
-                 font-size: 15px;
-                 font-weight: 700;
-                 color: #174a7e;
-                 margin-top: 1px;
-             }
+        #attendanceCalendarChart
+        .attendance-drilldown-title {
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: #174a7e;
+            margin-top: 1px;
+        }
 
-             #attendanceCalendarChart
-             .attendance-drilldown-date {
-                 text-align: center;
-                 font-size: 11px;
-                 color: #666;
-                 margin-top: 2px;
-             }
+        #attendanceCalendarChart
+        .attendance-drilldown-date {
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+            margin-top: 2px;
+        }
 
-             #attendanceCalendarChart
-             .attendance-drilldown-back {
-                 position: absolute;
-                 right: 10px;
-                 top: 5px;
-                 padding: 4px 12px;
-                 border: 1px solid #999;
-                 border-radius: 5px;
-                 background: linear-gradient(#ffffff, #e6e6e6);
-                 color: #222;
-                 font-size: 11px;
-                 cursor: pointer;
-                 z-index: 20;
-             }
+        #attendanceCalendarChart
+        .attendance-drilldown-back {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            padding: 4px 12px;
+            border: 1px solid #999;
+            border-radius: 5px;
+            background: linear-gradient(#ffffff, #e6e6e6);
+            color: #222;
+            font-size: 11px;
+            cursor: pointer;
+            z-index: 20;
+        }
 
-                 #attendanceCalendarChart
-                 .attendance-drilldown-back:hover {
-                     background: linear-gradient(#f7fbff, #cfe5f7);
-                 }
+            #attendanceCalendarChart
+            .attendance-drilldown-back:hover {
+                background: linear-gradient(#f7fbff, #cfe5f7);
+            }
 
-             #attendanceCalendarChart
-             .attendance-drilldown-body {
-                 display: flex;
-                 width: 100%;
-                 height: 238px;
-                 min-height: 0;
-                 box-sizing: border-box;
-                 align-items: center;
-             }
+        #attendanceCalendarChart
+        .attendance-drilldown-body {
+            display: flex;
+            width: 100%;
+            height: 238px;
+            min-height: 0;
+            box-sizing: border-box;
+            align-items: center;
+        }
 
-             #attendanceCalendarChart
-             .attendance-date-pie-chart {
-                 flex: 1;
-                 min-width: 0;
-                 height: 220px;
-                 box-sizing: border-box;
-             }
+        #attendanceCalendarChart
+        .attendance-date-pie-chart {
+            flex: 1;
+            min-width: 0;
+            height: 220px;
+            box-sizing: border-box;
+        }
 
-             #attendanceCalendarChart
-             .attendance-drilldown-summary {
-                 width: 190px;
-                 margin-right: 18px;
-                 padding: 9px;
-                 box-sizing: border-box;
-                 border-radius: 10px;
-                 background: linear-gradient(#ffffff, #edf5fa);
-                 border: 1px solid #c8dce9;
-                 box-shadow: 0 3px 8px rgba(0,0,0,0.12);
-             }
+        #attendanceCalendarChart
+        .attendance-drilldown-summary {
+            width: 190px;
+            margin-right: 18px;
+            padding: 9px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            background: linear-gradient(#ffffff, #edf5fa);
+            border: 1px solid #c8dce9;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+        }
 
-             #attendanceCalendarChart
-             .attendance-summary-heading {
-                 font-size: 13px;
-                 font-weight: 700;
-                 color: #174a7e;
-                 margin-bottom: 6px;
-                 text-align: center;
-             }
+        #attendanceCalendarChart
+        .attendance-summary-heading {
+            font-size: 13px;
+            font-weight: 700;
+            color: #174a7e;
+            margin-bottom: 6px;
+            text-align: center;
+        }
 
-             #attendanceCalendarChart
-             .attendance-summary-row {
-                 display: flex;
-                 align-items: center;
-                 padding: 4px 3px;
-                 border-bottom: 1px solid #e1e8ed;
-             }
+        #attendanceCalendarChart
+        .attendance-summary-row {
+            display: flex;
+            align-items: center;
+            padding: 4px 3px;
+            border-bottom: 1px solid #e1e8ed;
+        }
 
-             #attendanceCalendarChart
-             .attendance-summary-label {
-                 width: 70px;
-                 font-size: 11px;
-                 font-weight: 700;
-             }
+        #attendanceCalendarChart
+        .attendance-summary-label {
+            width: 70px;
+            font-size: 11px;
+            font-weight: 700;
+        }
 
-             #attendanceCalendarChart
-             .attendance-summary-value {
-                 width: 38px;
-                 text-align: right;
-                 font-size: 12px;
-                 font-weight: 700;
-             }
+        #attendanceCalendarChart
+        .attendance-summary-value {
+            width: 38px;
+            text-align: right;
+            font-size: 12px;
+            font-weight: 700;
+        }
 
-             #attendanceCalendarChart
-             .attendance-summary-percent {
-                 flex: 1;
-                 text-align: right;
-                 font-size: 10px;
-                 color: #666;
-             }
+        #attendanceCalendarChart
+        .attendance-summary-percent {
+            flex: 1;
+            text-align: right;
+            font-size: 10px;
+            color: #666;
+        }
 
-             #attendanceCalendarChart
-             .attendance-summary-label.present {
-                 color: #00a52b;
-             }
+        #attendanceCalendarChart
+        .attendance-summary-label.present {
+            color: #00a52b;
+        }
 
-             #attendanceCalendarChart
-             .attendance-summary-label.leave {
-                 color: #0878d1;
-             }
+        #attendanceCalendarChart
+        .attendance-summary-label.leave {
+            color: #0878d1;
+        }
 
-             #attendanceCalendarChart
-             .attendance-summary-label.cancelled {
-                 color: #e87500;
-             }
+        #attendanceCalendarChart
+        .attendance-summary-label.cancelled {
+            color: #e87500;
+        }
 
-             #attendanceCalendarChart
-             .attendance-summary-label.rejected {
-                 color: #d60000;
-             }
+        #attendanceCalendarChart
+        .attendance-summary-label.rejected {
+            color: #d60000;
+        }
 
-             #attendanceCalendarChart
-             .attendance-summary-total {
-                 display: flex;
-                 justify-content: space-between;
-                 margin-top: 6px;
-                 padding-top: 5px;
-                 font-size: 12px;
-                 font-weight: 700;
-                 color: #333;
-             }
+        #attendanceCalendarChart
+        .attendance-summary-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            padding-top: 5px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #333;
+        }
 
-                 #attendanceCalendarChart
-                 .attendance-summary-total strong {
-                     color: #174a7e;
-                 }
+            #attendanceCalendarChart
+            .attendance-summary-total strong {
+                color: #174a7e;
+            }
 
-             #attendanceCalendarChart
-             .attendance-no-data {
-                 height: 100%;
-                 display: flex;
-                 align-items: center;
-                 justify-content: center;
-                 color: #777;
-                 font-size: 13px;
-             }
+        #attendanceCalendarChart
+        .attendance-no-data {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-size: 13px;
+        }
 
 
 
-             /* ============================================================
+        /* ============================================================
                      07. ATTENDANCE SUMMARY - DEPARTMENT / DATE HEATMAP
                      ============================================================ */
 
-             #attendanceSummaryChart .attendance-department-heatmap-chart {
-                 width: 100%;
-                 height: 235px;
-                 min-height: 0;
-                 box-sizing: border-box;
-             }
+        #attendanceSummaryChart .attendance-department-heatmap-chart {
+            width: 100%;
+            height: 235px;
+            min-height: 0;
+            box-sizing: border-box;
+        }
 
-             #attendanceSummaryChart .attendance-summary-heatmap-no-data {
-                 width: 100%;
-                 height: 235px;
-                 display: flex;
-                 align-items: center;
-                 justify-content: center;
-                 color: #777;
-                 font-size: 13px;
-             }
+        #attendanceSummaryChart .attendance-summary-heatmap-no-data {
+            width: 100%;
+            height: 235px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+            font-size: 13px;
+        }
 
-             #attendanceSummaryChart .attendance-summary-heatmap-scroll {
-                 width: 100%;
-                 height: 235px;
-                 overflow-x: auto;
-                 overflow-y: hidden;
-                 box-sizing: border-box;
-             }
+        #attendanceSummaryChart .attendance-summary-heatmap-scroll {
+            width: 100%;
+            height: 235px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            box-sizing: border-box;
+        }
 
-             @media (max-width: 700px) {
-                 #attendanceSummaryChart .attendance-department-heatmap-chart {
-                     height: 235px;
-                 }
+        @media (max-width: 700px) {
+            #attendanceSummaryChart .attendance-department-heatmap-chart {
+                height: 235px;
+            }
 
-                 #attendanceSummaryChart .attendance-summary-heatmap-no-data {
-                     height: 235px;
-                 }
-             }
+            #attendanceSummaryChart .attendance-summary-heatmap-no-data {
+                height: 235px;
+            }
+        }
 
-             /* ============================================================
+        /* ============================================================
                      07. ATTENDANCE SUMMARY - EMPLOYEE DRILLDOWN
                      ============================================================ */
 
-             #attendanceSummaryChart {
-                 position: relative;
-                 width: 100%;
-                 min-width: 0;
-                 box-sizing: border-box;
-             }
+        #attendanceSummaryChart {
+            position: relative;
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
 
-                 #attendanceSummaryChart .attendance-summary-drilldown-header {
-                     position: relative;
-                     width: 100%;
-                     height: 40px;
-                     box-sizing: border-box;
-                     text-align: center;
-                     padding-top: 1px;
-                 }
+            #attendanceSummaryChart .attendance-summary-drilldown-header {
+                position: relative;
+                width: 100%;
+                height: 40px;
+                box-sizing: border-box;
+                text-align: center;
+                padding-top: 1px;
+            }
 
-                 #attendanceSummaryChart .attendance-summary-drilldown-title {
-                     font-size: 15px;
-                     font-weight: 700;
-                     color: #174a7e;
-                     line-height: 20px;
-                 }
+            #attendanceSummaryChart .attendance-summary-drilldown-title {
+                font-size: 15px;
+                font-weight: 700;
+                color: #174a7e;
+                line-height: 20px;
+            }
 
-                 #attendanceSummaryChart .attendance-summary-drilldown-subtitle {
-                     font-size: 10px;
-                     color: #777;
-                     line-height: 15px;
-                 }
+            #attendanceSummaryChart .attendance-summary-drilldown-subtitle {
+                font-size: 10px;
+                color: #777;
+                line-height: 15px;
+            }
 
-                 #attendanceSummaryChart .attendance-summary-drilldown-back {
-                     position: absolute;
-                     right: 8px;
-                     top: 0;
-                     padding: 4px 12px;
-                     border: 1px solid #999;
-                     border-radius: 5px;
-                     background: linear-gradient(#ffffff, #e6e6e6);
-                     color: #222;
-                     font-size: 11px;
-                     cursor: pointer;
-                     z-index: 100;
-                 }
+            #attendanceSummaryChart .attendance-summary-drilldown-back {
+                position: absolute;
+                right: 8px;
+                top: 0;
+                padding: 4px 12px;
+                border: 1px solid #999;
+                border-radius: 5px;
+                background: linear-gradient(#ffffff, #e6e6e6);
+                color: #222;
+                font-size: 11px;
+                cursor: pointer;
+                z-index: 100;
+            }
 
-                     #attendanceSummaryChart .attendance-summary-drilldown-back:hover {
-                         background: linear-gradient(#f7fbff, #cfe5f7);
-                     }
+                #attendanceSummaryChart .attendance-summary-drilldown-back:hover {
+                    background: linear-gradient(#f7fbff, #cfe5f7);
+                }
 
-                 #attendanceSummaryChart .attendance-department-date-detail-chart {
-                     width: 100%;
-                     height: 225px;
-                     min-height: 0;
-                     box-sizing: border-box;
-                 }
+            #attendanceSummaryChart .attendance-department-date-detail-chart {
+                width: 100%;
+                height: 225px;
+                min-height: 0;
+                box-sizing: border-box;
+            }
 
-                 #attendanceSummaryChart .attendance-employee-drilldown-chart {
-                     width: 100%;
-                     height: 205px;
-                     min-height: 0;
-                     box-sizing: border-box;
-                 }
+            #attendanceSummaryChart .attendance-employee-drilldown-chart {
+                width: 100%;
+                height: 205px;
+                min-height: 0;
+                box-sizing: border-box;
+            }
 
-                 #attendanceSummaryChart .attendance-summary-no-data {
-                     height: 100%;
-                     display: flex;
-                     align-items: center;
-                     justify-content: center;
-                     color: #777;
-                     font-size: 13px;
-                 }
+            #attendanceSummaryChart .attendance-summary-no-data {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #777;
+                font-size: 13px;
+            }
 
-             @media (max-width: 700px) {
-                 #attendanceSummaryChart .attendance-department-date-detail-chart {
-                     height: 225px;
-                 }
+        @media (max-width: 700px) {
+            #attendanceSummaryChart .attendance-department-date-detail-chart {
+                height: 225px;
+            }
 
-                 #attendanceSummaryChart .attendance-employee-drilldown-chart {
-                     height: 205px;
-                 }
+            #attendanceSummaryChart .attendance-employee-drilldown-chart {
+                height: 205px;
+            }
 
-                 #attendanceSummaryChart .attendance-summary-drilldown-back {
-                     right: 3px;
-                     padding: 3px 9px;
-                     font-size: 10px;
-                 }
-             }
+            #attendanceSummaryChart .attendance-summary-drilldown-back {
+                right: 3px;
+                padding: 3px 9px;
+                font-size: 10px;
+            }
+        }
 
 
-             /* ============================================================
+        /* ============================================================
                      EMPLOYEES ON LEAVE TODAY
                      ============================================================ */
 
-             .employees-on-leave-today-card {
-                 min-height: 125px;
-                 box-sizing: border-box;
-             }
+        .employees-on-leave-today-card {
+            min-height: 125px;
+            box-sizing: border-box;
+        }
 
-             .employees-on-leave-today-chart {
-                 width: 100%;
-                 box-sizing: border-box;
-                 padding: 4px 6px 8px 6px;
-             }
+        .employees-on-leave-today-chart {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 4px 6px 8px 6px;
+        }
 
-             .employees-on-leave-today-summary {
-                 display: flex;
-                 align-items: center;
-                 justify-content: space-between;
-                 gap: 10px;
-                 margin: 0 0 8px 0;
-                 padding: 7px 10px;
-                 box-sizing: border-box;
-                 border: 1px solid #dce5ec;
-                 border-radius: 8px;
-                 background: linear-gradient(90deg, #f7fafc 0%, #eef5fa 100%);
-             }
+        .employees-on-leave-today-summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 0 0 8px 0;
+            padding: 7px 10px;
+            box-sizing: border-box;
+            border: 1px solid #dce5ec;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #f7fafc 0%, #eef5fa 100%);
+        }
 
-             .employees-on-leave-today-summary-label {
-                 font-size: 10px;
-                 color: #66727d;
-                 font-weight: 600;
-                 text-transform: uppercase;
-                 letter-spacing: 0.35px;
-             }
+        .employees-on-leave-today-summary-label {
+            font-size: 10px;
+            color: #66727d;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.35px;
+        }
 
-             .employees-on-leave-today-summary-count {
-                 min-width: 28px;
-                 height: 28px;
-                 padding: 0 8px;
-                 display: inline-flex;
-                 align-items: center;
-                 justify-content: center;
-                 box-sizing: border-box;
-                 border-radius: 14px;
-                 background: #28648a;
-                 color: #ffffff;
-                 font-size: 13px;
-                 font-weight: 700;
-             }
+        .employees-on-leave-today-summary-count {
+            min-width: 28px;
+            height: 28px;
+            padding: 0 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            border-radius: 14px;
+            background: #28648a;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+        }
 
-             .employees-on-leave-today-list {
-                 display: flex;
-                 flex-direction: column;
-                 gap: 6px;
-                 width: 100%;
-                 max-height: 300px;
-                 overflow-y: auto;
-                 overflow-x: hidden;
-                 padding-right: 3px;
-                 box-sizing: border-box;
-                 scrollbar-width: thin;
-             }
+        .employees-on-leave-today-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 3px;
+            box-sizing: border-box;
+            scrollbar-width: thin;
+        }
 
-             .employees-on-leave-today-item {
-                 position: relative;
-                 display: grid;
-                 grid-template-columns: minmax(145px, 1.15fr) minmax(125px, 1fr) minmax(125px, 1fr);
-                 gap: 0;
-                 width: 100%;
-                 min-height: 64px;
-                 box-sizing: border-box;
-                 border: 1px solid #dfe7ed;
-                 border-radius: 8px;
-                 background: #ffffff;
-                 box-shadow: 0 2px 6px rgba(0, 70, 110, 0.07);
-                 overflow: hidden;
-                 transition: transform 0.16s ease, box-shadow 0.16s ease;
-             }
+        .employees-on-leave-today-item {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(145px, 1.15fr) minmax(125px, 1fr) minmax(125px, 1fr);
+            gap: 0;
+            width: 100%;
+            min-height: 64px;
+            box-sizing: border-box;
+            border: 1px solid #dfe7ed;
+            border-radius: 8px;
+            background: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 70, 110, 0.07);
+            overflow: hidden;
+            transition: transform 0.16s ease, box-shadow 0.16s ease;
+        }
 
-                 .employees-on-leave-today-item:hover {
-                     transform: translateY(-1px);
-                     box-shadow: 0 4px 10px rgba(0, 70, 110, 0.13);
-                 }
+            .employees-on-leave-today-item:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 4px 10px rgba(0, 70, 110, 0.13);
+            }
 
-             .employees-on-leave-today-identity {
-                 min-width: 0;
-                 padding: 8px 10px 7px 13px;
-                 box-sizing: border-box;
-                 border-left: 4px solid #4d9de0;
-             }
+        .employees-on-leave-today-identity {
+            min-width: 0;
+            padding: 8px 10px 7px 13px;
+            box-sizing: border-box;
+            border-left: 4px solid #4d9de0;
+        }
 
-             .employees-on-leave-today-name {
-                 font-size: 13px;
-                 font-weight: 700;
-                 color: #1d2d38;
-                 white-space: nowrap;
-                 overflow: hidden;
-                 text-overflow: ellipsis;
-                 margin-bottom: 3px;
-             }
+        .employees-on-leave-today-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1d2d38;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 3px;
+        }
 
-             .employees-on-leave-today-code {
-                 font-size: 9px;
-                 color: #7a8791;
-                 white-space: nowrap;
-                 overflow: hidden;
-                 text-overflow: ellipsis;
-             }
+        .employees-on-leave-today-code {
+            font-size: 9px;
+            color: #7a8791;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-             .employees-on-leave-today-field {
-                 min-width: 0;
-                 padding: 8px 9px 7px 9px;
-                 box-sizing: border-box;
-                 border-left: 1px solid #edf1f4;
-             }
+        .employees-on-leave-today-field {
+            min-width: 0;
+            padding: 8px 9px 7px 9px;
+            box-sizing: border-box;
+            border-left: 1px solid #edf1f4;
+        }
 
-             .employees-on-leave-today-field-label {
-                 display: inline;
-                 font-size: 8px;
-                 line-height: 14px;
-                 color: #8a969f;
-                 text-transform: uppercase;
-                 letter-spacing: 0.3px;
-                 margin: 0 4px 0 0;
-                 white-space: nowrap;
-             }
+        .employees-on-leave-today-field-label {
+            display: inline;
+            font-size: 8px;
+            line-height: 14px;
+            color: #8a969f;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin: 0 4px 0 0;
+            white-space: nowrap;
+        }
 
-             .employees-on-leave-today-field-value {
-                 display: inline;
-                 font-size: 10px;
-                 line-height: 14px;
-                 color: #34434e;
-                 font-weight: 600;
-                 white-space: nowrap;
-                 overflow: hidden;
-                 text-overflow: ellipsis;
-             }
+        .employees-on-leave-today-field-value {
+            display: inline;
+            font-size: 10px;
+            line-height: 14px;
+            color: #34434e;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-             .employees-on-leave-today-field-row {
-                 display: flex;
-                 align-items: center;
-                 width: 100%;
-                 min-width: 0;
-                 height: 17px;
-                 line-height: 17px;
-                 white-space: nowrap;
-                 overflow: hidden;
-             }
+        .employees-on-leave-today-field-row {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            min-width: 0;
+            height: 17px;
+            line-height: 17px;
+            white-space: nowrap;
+            overflow: hidden;
+        }
 
-                 .employees-on-leave-today-field-row .employees-on-leave-today-field-label {
-                     flex: 0 0 auto;
-                     display: inline-block;
-                     margin-right: 4px;
-                 }
+            .employees-on-leave-today-field-row .employees-on-leave-today-field-label {
+                flex: 0 0 auto;
+                display: inline-block;
+                margin-right: 4px;
+            }
 
-                 .employees-on-leave-today-field-row .employees-on-leave-today-field-value {
-                     flex: 1 1 auto;
-                     min-width: 0;
-                     display: block;
-                     overflow: hidden;
-                     text-overflow: ellipsis;
-                 }
+            .employees-on-leave-today-field-row .employees-on-leave-today-field-value {
+                flex: 1 1 auto;
+                min-width: 0;
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
 
-             .employees-on-leave-today-leave {
-                 min-width: 0;
-                 padding: 8px 10px 7px 9px;
-                 box-sizing: border-box;
-                 border-left: 1px solid #edf1f4;
-             }
+        .employees-on-leave-today-leave {
+            min-width: 0;
+            padding: 8px 10px 7px 9px;
+            box-sizing: border-box;
+            border-left: 1px solid #edf1f4;
+        }
 
-             .employees-on-leave-today-leave-badge {
-                 display: inline-flex;
-                 align-items: center;
-                 flex: 1 1 auto;
-                 min-width: 0;
-                 max-width: 100%;
-                 padding: 3px 7px;
-                 box-sizing: border-box;
-                 border-radius: 10px;
-                 background: #eaf4fb;
-                 color: #28648a;
-                 border: 1px solid #cfe3f0;
-                 font-size: 9px;
-                 font-weight: 700;
-                 white-space: nowrap;
-                 overflow: hidden;
-                 text-overflow: ellipsis;
-             }
+        .employees-on-leave-today-leave-badge {
+            display: inline-flex;
+            align-items: center;
+            flex: 1 1 auto;
+            min-width: 0;
+            max-width: 100%;
+            padding: 3px 7px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            background: #eaf4fb;
+            color: #28648a;
+            border: 1px solid #cfe3f0;
+            font-size: 9px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-             .employees-on-leave-today-approval {
-                 margin-top: 0;
-                 font-size: 8px;
-                 line-height: 14px;
-                 color: #7b8790;
-                 white-space: nowrap;
-                 overflow: hidden;
-                 text-overflow: ellipsis;
-             }
+        .employees-on-leave-today-approval {
+            margin-top: 0;
+            font-size: 8px;
+            line-height: 14px;
+            color: #7b8790;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-             .employees-on-leave-today-empty {
-                 min-height: 82px;
-                 display: flex;
-                 align-items: center;
-                 justify-content: center;
-                 text-align: center;
-                 padding: 15px;
-                 box-sizing: border-box;
-                 border: 1px dashed #ccd8e0;
-                 border-radius: 8px;
-                 background: #fafcfd;
-                 color: #7a8791;
-                 font-size: 12px;
-             }
+        .employees-on-leave-today-empty {
+            min-height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 15px;
+            box-sizing: border-box;
+            border: 1px dashed #ccd8e0;
+            border-radius: 8px;
+            background: #fafcfd;
+            color: #7a8791;
+            font-size: 12px;
+        }
 
-             .employees-on-leave-today-date {
-                 display: inline-flex;
-                 align-items: center;
-                 gap: 4px;
-                 margin-left: auto;
-                 font-size: 9px;
-                 color: #28648a;
-                 font-weight: 600;
-                 white-space: nowrap;
-             }
+        .employees-on-leave-today-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: auto;
+            font-size: 9px;
+            color: #28648a;
+            font-weight: 600;
+            white-space: nowrap;
+        }
 
-             @media (max-width: 900px) {
-                 .employees-on-leave-today-item {
-                     grid-template-columns: minmax(130px, 1fr) minmax(115px, 1fr);
-                 }
+        @media (max-width: 900px) {
+            .employees-on-leave-today-item {
+                grid-template-columns: minmax(130px, 1fr) minmax(115px, 1fr);
+            }
 
-                 .employees-on-leave-today-leave {
-                     grid-column: 2;
-                     border-top: 1px solid #edf1f4;
-                 }
+            .employees-on-leave-today-leave {
+                grid-column: 2;
+                border-top: 1px solid #edf1f4;
+            }
 
-                 .employees-on-leave-today-field:nth-child(2) {
-                     border-top: 1px solid #edf1f4;
-                 }
-             }
+            .employees-on-leave-today-field:nth-child(2) {
+                border-top: 1px solid #edf1f4;
+            }
+        }
 
-             @media (max-width: 700px) {
-                 .employees-on-leave-today-list {
-                     max-height: 360px;
-                 }
+        @media (max-width: 700px) {
+            .employees-on-leave-today-list {
+                max-height: 360px;
+            }
 
-                 .employees-on-leave-today-item {
-                     grid-template-columns: 1fr 1fr;
-                 }
-             }
+            .employees-on-leave-today-item {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
 
 
-             /* ============================================================
+        /* ============================================================
                      TODAY CARD COUNT BADGE
                      ------------------------------------------------------------
                      Total employee count for Birthday Today and
                      Work Anniversary Today.
                      ============================================================ */
 
-             .today-card-count {
-                 min-width: 28px;
-                 height: 28px;
-                 padding: 0 8px;
-                 display: inline-flex;
-                 align-items: center;
-                 justify-content: center;
-                 box-sizing: border-box;
-                 border-radius: 14px;
-                 background: #28648a;
-                 color: #ffffff;
-                 font-size: 13px;
-                 font-weight: 700;
-                 line-height: 1;
-                 flex-shrink: 0;
-             }
+        .today-card-count {
+            min-width: 28px;
+            height: 28px;
+            padding: 0 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            border-radius: 14px;
+            background: #28648a;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1;
+            flex-shrink: 0;
+        }
 
 
-             /* ============================================================
+        /* ============================================================
                      10. BIRTHDAY EMPLOYEES
                      ============================================================ */
 
-             .birthday-card {
-                 min-height: 125px;
-                 box-sizing: border-box;
-             }
+        .birthday-card {
+            min-height: 125px;
+            box-sizing: border-box;
+        }
 
-             .birthday-employees-container {
-                 display: flex;
-                 align-items: center;
-                 gap: 14px;
-                 width: 100%;
-                 padding: 4px 4px 8px 4px;
-                 box-sizing: border-box;
-                 overflow-x: auto;
-                 overflow-y: hidden;
-                 scrollbar-width: thin;
-             }
+        .birthday-employees-container {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+            padding: 4px 4px 8px 4px;
+            box-sizing: border-box;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: thin;
+        }
 
-             .birthday-employee-item {
-                 flex: 0 0 330px;
-                 height: 78px;
-                 display: flex;
-                 align-items: center;
-                 padding: 5px 12px 5px 5px;
-                 box-sizing: border-box;
-                 border-radius: 42px;
-                 background: linear-gradient( 90deg, #eaf7fb 0%, #f8fbfd 100% );
-                 border: 1px solid #d9e6ed;
-                 box-shadow: 0 2px 6px rgba(0, 70, 110, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-                 transition: transform 0.18s ease, box-shadow 0.18s ease;
-             }
+        .birthday-employee-item {
+            flex: 0 0 330px;
+            height: 78px;
+            display: flex;
+            align-items: center;
+            padding: 5px 12px 5px 5px;
+            box-sizing: border-box;
+            border-radius: 42px;
+            background: linear-gradient( 90deg, #eaf7fb 0%, #f8fbfd 100% );
+            border: 1px solid #d9e6ed;
+            box-shadow: 0 2px 6px rgba(0, 70, 110, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
 
-                 .birthday-employee-item:hover {
-                     transform: translateY(-2px);
-                     box-shadow: 0 5px 12px rgba(0, 70, 110, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.95);
-                 }
+            .birthday-employee-item:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 12px rgba(0, 70, 110, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+            }
 
-             .birthday-employee-photo {
-                 width: 66px;
-                 height: 66px;
-                 flex: 0 0 66px;
-                 border-radius: 50%;
-                 object-fit: cover;
-                 border: 2px solid #ffffff;
-                 box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
-             }
+        .birthday-employee-photo {
+            width: 66px;
+            height: 66px;
+            flex: 0 0 66px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffffff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+        }
 
-             .birthday-employee-photo-placeholder {
-                 width: 66px;
-                 height: 66px;
-                 flex: 0 0 66px;
-                 display: flex;
-                 align-items: center;
-                 justify-content: center;
-                 border-radius: 50%;
-                 background: linear-gradient( 135deg, #d8e6ef, #eef4f7 );
-                 border: 2px solid #ffffff;
-                 color: #527083;
-                 font-size: 22px;
-                 font-weight: 700;
-             }
+        .birthday-employee-photo-placeholder {
+            width: 66px;
+            height: 66px;
+            flex: 0 0 66px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient( 135deg, #d8e6ef, #eef4f7 );
+            border: 2px solid #ffffff;
+            color: #527083;
+            font-size: 22px;
+            font-weight: 700;
+        }
 
-             .birthday-employee-info {
-                 min-width: 0;
-                 padding-left: 10px;
-                 flex: 1;
-             }
+        .birthday-employee-info {
+            min-width: 0;
+            padding-left: 10px;
+            flex: 1;
+        }
 
-             .birthday-employee-name {
-                 font-size: 17px;
-                 font-weight: 600;
-                 color: #1b1b1b;
-                 white-space: nowrap;
-                 overflow: hidden;
-                 text-overflow: ellipsis;
-                 margin-bottom: 4px;
-             }
+        .birthday-employee-name {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1b1b1b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
 
-             .birthday-employee-department {
-                 font-size: 13px;
-                 color: #777777;
-                 white-space: nowrap;
-                 overflow: hidden;
-                 text-overflow: ellipsis;
-             }
+        .birthday-employee-department {
+            font-size: 13px;
+            color: #777777;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-             .birthday-employee-date {
-                 display: flex;
-                 align-items: center;
-                 gap: 5px;
-                 margin-left: auto;
-                 padding-left: 8px;
-                 white-space: nowrap;
-                 font-size: 13px;
-                 color: #777777;
-             }
+        .birthday-employee-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: auto;
+            padding-left: 8px;
+            white-space: nowrap;
+            font-size: 13px;
+            color: #777777;
+        }
 
-             .birthday-calendar-icon {
-                 font-size: 15px;
-                 color: #53aeb3;
-             }
+        .birthday-calendar-icon {
+            font-size: 15px;
+            color: #53aeb3;
+        }
 
-             .birthday-date-text {
-                 font-weight: 500;
-             }
+        .birthday-date-text {
+            font-weight: 500;
+        }
 
-             .birthday-no-data {
-                 width: 100%;
-                 min-height: 70px;
-                 display: flex;
-                 align-items: center;
-                 justify-content: center;
-                 color: #777777;
-                 font-size: 14px;
-             }
+        .birthday-no-data {
+            width: 100%;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777777;
+            font-size: 14px;
+        }
 
-             /* ============================================================
+        /* ============================================================
                      DASHBOARD SPACE FIX - v1
                      ============================================================ */
 
-             /*
+        /*
                    * Keep the first four cards as the existing two-column grid.
                    */
-             .dashboard-top-grid {
-                 display: grid;
-                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                 gap: 14px;
-                 width: 100%;
-                 margin: 0;
-                 padding: 10px 10px 0 10px;
-                 box-sizing: border-box;
-                 align-items: start;
-             }
+        .dashboard-top-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            width: 100%;
+            margin: 0;
+            padding: 10px 10px 0 10px;
+            box-sizing: border-box;
+            align-items: start;
+        }
 
-             /*
+        /*
                    * The lower section is independent of the calendar height.
                    */
-             .dashboard-lower-grid {
-                 display: grid;
-                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                 gap: 14px;
-                 width: 100%;
-                 margin: 0;
-                 padding: 14px 10px 10px 10px;
-                 box-sizing: border-box;
-                 align-items: start;
-             }
+        .dashboard-lower-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            width: 100%;
+            margin: 0;
+            padding: 14px 10px 10px 10px;
+            box-sizing: border-box;
+            align-items: start;
+        }
 
-             .dashboard-lower-left,
-             .dashboard-lower-right {
-                 min-width: 0;
-                 align-self: start;
-             }
+        .dashboard-lower-left,
+        .dashboard-lower-right {
+            min-width: 0;
+            align-self: start;
+        }
 
-             .dashboard-lower-left {
-                 display: flex;
-                 flex-direction: column;
-                 gap: 14px;
-                 min-height: 0;
-             }
+        .dashboard-lower-left {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-height: 0;
+        }
 
-             .dashboard-lower-right {
-                 display: block;
-                 min-height: 0;
-             }
+        .dashboard-lower-right {
+            display: block;
+            min-height: 0;
+        }
 
-             /*
+        /*
                    * Attendance Summary keeps the existing standard card height.
                    * Birthday has only the height required by its own content.
                    */
-             .dashboard-lower-left
-             .dashboard-standard-height-card {
-                 width: 100%;
-                 box-sizing: border-box;
-             }
+        .dashboard-lower-left
+        .dashboard-standard-height-card {
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-             .dashboard-lower-left
-             .birthday-card {
-                 width: 100%;
-                 height: auto;
-                 min-height: 125px;
-                 max-height: none;
-                 box-sizing: border-box;
-             }
+        .dashboard-lower-left
+        .birthday-card {
+            width: 100%;
+            height: auto;
+            min-height: 125px;
+            max-height: none;
+            box-sizing: border-box;
+        }
 
-             /*
+        /*
                    * The calendar is allowed to keep its dynamic height.
                    */
-             .dashboard-lower-right
-             .attendance-calendar-card {
-                 width: 100%;
-                 height: auto;
-                 min-height: 0;
-                 max-height: none;
-                 box-sizing: border-box;
-                 align-self: start;
-             }
+        .dashboard-lower-right
+        .attendance-calendar-card {
+            width: 100%;
+            height: auto;
+            min-height: 0;
+            max-height: none;
+            box-sizing: border-box;
+            align-self: start;
+        }
 
-             /*
+        /*
                    * Birthday content must not create a larger-than-needed card.
                    */
-             .dashboard-lower-left
-             .birthday-employees-container {
-                 min-height: 0;
-             }
+        .dashboard-lower-left
+        .birthday-employees-container {
+            min-height: 0;
+        }
 
-             /*
+        /*
                    * Responsive layout.
                    */
-             @media (max-width: 700px) {
+        @media (max-width: 700px) {
 
-                 .dashboard-top-grid,
-                 .dashboard-lower-grid {
-                     grid-template-columns: 1fr;
-                 }
+            .dashboard-top-grid,
+            .dashboard-lower-grid {
+                grid-template-columns: 1fr;
+            }
 
-                 .dashboard-top-grid {
-                     padding-bottom: 0;
-                 }
+            .dashboard-top-grid {
+                padding-bottom: 0;
+            }
 
-                 .dashboard-lower-grid {
-                     padding-top: 14px;
-                 }
+            .dashboard-lower-grid {
+                padding-top: 14px;
+            }
 
-                 .dashboard-lower-left,
-                 .dashboard-lower-right {
-                     width: 100%;
-                 }
-             }
+            .dashboard-lower-left,
+            .dashboard-lower-right {
+                width: 100%;
+            }
+        }
 
-             /* ============================================================
+        /* ============================================================
                      DYNAMIC MASONRY DASHBOARD LAYOUT
                      ============================================================ */
 
-             /*
+        /*
                    * Remove the old fixed 300px card height.
                    *
                    * Cards now determine their own height from their content.
                    * This is intentionally scoped to dashboard standard cards.
                    */
-             .dashboard-masonry-layout
-             .dashboard-standard-height-card {
-                 height: auto !important;
-                 min-height: 0 !important;
-                 max-height: none !important;
-             }
+        .dashboard-masonry-layout
+        .dashboard-standard-height-card {
+            height: auto !important;
+            min-height: 0 !important;
+            max-height: none !important;
+        }
 
 
-             /*
+        /*
                    * Main masonry surface.
                    *
                    * JavaScript calculates the exact card positions so that
                    * empty vertical space is automatically filled.
                    */
-             .dashboard-masonry-layout {
-                 position: relative;
-                 width: 100%;
-                 min-width: 0;
-                 height: 0;
-                 margin: 0;
-                 padding: 10px 10px 10px 10px;
-                 box-sizing: border-box;
-             }
+        .dashboard-masonry-layout {
+            position: relative;
+            width: 100%;
+            min-width: 0;
+            height: 0;
+            margin: 0;
+            padding: 10px 10px 10px 10px;
+            box-sizing: border-box;
+        }
 
 
-                 /*
+            /*
                    * Every dashboard card becomes an independently positioned
                    * masonry item.
                    */
-                 .dashboard-masonry-layout > .chart-card {
-                     position: absolute;
-                     top: 0;
-                     left: 0;
-                     width: calc((100% - 14px) / 2);
-                     box-sizing: border-box;
-                     margin: 0;
-                 }
+            .dashboard-masonry-layout > .chart-card {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: calc((100% - 14px) / 2);
+                box-sizing: border-box;
+                margin: 0;
+            }
 
 
-                 /*
+            /*
                    * Keep the existing dynamic calendar behavior.
                    */
-                 .dashboard-masonry-layout
-                 .attendance-calendar-card {
-                     height: auto !important;
-                     min-height: 0 !important;
-                     max-height: none !important;
-                 }
+            .dashboard-masonry-layout
+            .attendance-calendar-card {
+                height: auto !important;
+                min-height: 0 !important;
+                max-height: none !important;
+            }
 
 
-                 /*
+            /*
                    * Birthday card remains content-sized.
                    */
-                 .dashboard-masonry-layout
-                 .birthday-card {
-                     height: auto !important;
-                     min-height: 125px;
-                     max-height: none !important;
-                 }
+            .dashboard-masonry-layout
+            .birthday-card {
+                height: auto !important;
+                min-height: 125px;
+                max-height: none !important;
+            }
 
 
-                 /*
+            /*
                    * All chart containers remain width-responsive.
                    */
-                 .dashboard-masonry-layout
-                 .chart-container {
-                     width: 100%;
-                     box-sizing: border-box;
-                 }
+            .dashboard-masonry-layout
+            .chart-container {
+                width: 100%;
+                box-sizing: border-box;
+            }
 
 
-             /*
+        /*
                    * Small screens:
                    * one column, normal document flow generated by the same
                    * masonry routine.
                    */
-             @media (max-width: 700px) {
+        @media (max-width: 700px) {
 
-                 .dashboard-masonry-layout {
-                     padding: 10px 10px 10px 10px;
-                 }
+            .dashboard-masonry-layout {
+                padding: 10px 10px 10px 10px;
+            }
 
-                     .dashboard-masonry-layout > .chart-card {
-                         width: 100%;
-                     }
-             }
+                .dashboard-masonry-layout > .chart-card {
+                    width: 100%;
+                }
+        }
 
 
-             /* ============================================================
+        /* ============================================================
                      DASHBOARD CHART VISIBILITY
                      ============================================================
 
@@ -1778,11 +1778,11 @@
                      Hidden cards are removed from the masonry layout as well.
                      ============================================================ */
 
-             .dashboard-masonry-layout > .chart-card.dashboard-hidden {
-                 display: none !important;
-             }
+        .dashboard-masonry-layout > .chart-card.dashboard-hidden {
+            display: none !important;
+        }
 
-             /* ============================================================
+        /* ============================================================
                      HOLIDAY SUMMARY
                      ------------------------------------------------------------
                      Styled like "Employees On Leave Today":
@@ -1793,216 +1793,216 @@
                      stylesheet.
                      ============================================================ */
 
-             .holiday-summary-card {
-                 min-height: 210px;
-             }
+        .holiday-summary-card {
+            min-height: 210px;
+        }
 
-             .holiday-summary-header-action {
-                 display: inline-flex;
-                 align-items: center;
-                 gap: 5px;
-                 flex-shrink: 0;
-             }
+        .holiday-summary-header-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            flex-shrink: 0;
+        }
 
-             .holiday-summary-count {
-                 min-width: 28px;
-                 height: 28px;
-                 padding: 0 8px;
-                 display: inline-flex;
-                 align-items: center;
-                 justify-content: center;
-                 box-sizing: border-box;
-                 border-radius: 14px;
-                 background: #28648a;
-                 color: #ffffff;
-                 font-size: 13px;
-                 font-weight: 700;
-                 line-height: 1;
-                 flex-shrink: 0;
-                 margin-left: 5px;
-             }
+        .holiday-summary-count {
+            min-width: 28px;
+            height: 28px;
+            padding: 0 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            border-radius: 14px;
+            background: #28648a;
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-left: 5px;
+        }
 
-             .yearly-holiday-card-year-button {
-                 width: 22px;
-                 height: 26px;
-                 border: 0;
-                 background: transparent;
-                 color: #6f818d;
-                 border-radius: 50%;
-                 cursor: pointer;
-                 font-size: 18px;
-                 line-height: 24px;
-                 padding: 0;
-             }
+        .yearly-holiday-card-year-button {
+            width: 22px;
+            height: 26px;
+            border: 0;
+            background: transparent;
+            color: #6f818d;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 24px;
+            padding: 0;
+        }
 
-                 .yearly-holiday-card-year-button:hover {
-                     background: #eef4f7;
-                     color: #245f83;
-                 }
+            .yearly-holiday-card-year-button:hover {
+                background: #eef4f7;
+                color: #245f83;
+            }
 
-             .yearly-holiday-card-year {
-                 min-width: 40px;
-                 text-align: center;
-                 font-size: 12px;
-                 font-weight: 700;
-                 color: #526775;
-             }
+        .yearly-holiday-card-year {
+            min-width: 40px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: #526775;
+        }
 
-             .holiday-summary-direct-list {
-                 padding: 6px 12px 12px 12px;
-                 box-sizing: border-box;
-                 max-height: 290px;
-                 overflow-y: auto;
-             }
+        .holiday-summary-direct-list {
+            padding: 6px 12px 12px 12px;
+            box-sizing: border-box;
+            max-height: 290px;
+            overflow-y: auto;
+        }
 
-             .holiday-summary-direct-columns {
-                 display: grid;
-                 grid-template-columns: 1fr 1fr;
-                 column-gap: 12px;
-                 align-items: start;
-             }
+        .holiday-summary-direct-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 12px;
+            align-items: start;
+        }
 
-             .holiday-summary-direct-column {
-                 min-width: 0;
-             }
+        .holiday-summary-direct-column {
+            min-width: 0;
+        }
 
-             /*
+        /*
               * Same overall visual language as Employees On Leave Today.
               */
-             .holiday-summary-direct-item {
-                 display: block;
-                 width: 100%;
-                 min-width: 0;
-                 min-height: 54px;
-                 margin: 0 0 7px 0;
-                 padding: 8px 12px 8px 14px;
-                 box-sizing: border-box;
-                 background: #ffffff;
-                 border: 1px solid #dce6ec;
-                 border-left: 4px solid #4d94b3;
-                 border-radius: 0 8px 8px 0;
-                 box-shadow: 0 2px 6px rgba(42, 82, 105, 0.08);
-                 transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-             }
+        .holiday-summary-direct-item {
+            display: block;
+            width: 100%;
+            min-width: 0;
+            min-height: 54px;
+            margin: 0 0 7px 0;
+            padding: 8px 12px 8px 14px;
+            box-sizing: border-box;
+            background: #ffffff;
+            border: 1px solid #dce6ec;
+            border-left: 4px solid #4d94b3;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 6px rgba(42, 82, 105, 0.08);
+            transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+        }
 
-                 .holiday-summary-direct-item:hover {
-                     background: #fafdff;
-                     transform: translateY(-1px);
-                     box-shadow: 0 3px 9px rgba(42, 82, 105, 0.12);
-                 }
+            .holiday-summary-direct-item:hover {
+                background: #fafdff;
+                transform: translateY(-1px);
+                box-shadow: 0 3px 9px rgba(42, 82, 105, 0.12);
+            }
 
-             .holiday-summary-direct-name {
-                 width: 100%;
-                 font-size: 11px;
-                 font-weight: 700;
-                 color: #1e4f70;
-                 line-height: 17px;
-                 white-space: nowrap;
-                 overflow: hidden;
-                 text-overflow: ellipsis;
-             }
+        .holiday-summary-direct-name {
+            width: 100%;
+            font-size: 11px;
+            font-weight: 700;
+            color: #1e4f70;
+            line-height: 17px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-             .holiday-summary-direct-date-day {
-                 width: 100%;
-                 margin-top: 2px;
-                 font-size: 9px;
-                 line-height: 15px;
-                 color: #6d7f8c;
-                 white-space: nowrap;
-             }
+        .holiday-summary-direct-date-day {
+            width: 100%;
+            margin-top: 2px;
+            font-size: 9px;
+            line-height: 15px;
+            color: #6d7f8c;
+            white-space: nowrap;
+        }
 
-             .holiday-summary-direct-date {
-                 color: #506b7a;
-                 font-weight: 600;
-             }
+        .holiday-summary-direct-date {
+            color: #506b7a;
+            font-weight: 600;
+        }
 
-             .holiday-summary-direct-separator {
-                 margin: 0 5px;
-                 color: #a4b1b9;
-             }
+        .holiday-summary-direct-separator {
+            margin: 0 5px;
+            color: #a4b1b9;
+        }
 
-             .holiday-summary-direct-day-name {
-                 color: #617988;
-                 font-weight: 600;
-             }
+        .holiday-summary-direct-day-name {
+            color: #617988;
+            font-weight: 600;
+        }
 
-             .holiday-summary-direct-status {
-                 margin-left: 6px;
-                 font-weight: 700;
-             }
+        .holiday-summary-direct-status {
+            margin-left: 6px;
+            font-weight: 700;
+        }
 
-                 .holiday-summary-direct-status.passed {
-                     color: #8a6d3b;
-                 }
+            .holiday-summary-direct-status.passed {
+                color: #8a6d3b;
+            }
 
-                 .holiday-summary-direct-status.upcoming {
-                     color: #2f7fa3;
-                 }
+            .holiday-summary-direct-status.upcoming {
+                color: #2f7fa3;
+            }
 
 
-             /* ============================================================
+        /* ============================================================
                      HOLIDAY SUMMARY - OFFLINE FESTIVAL ICONS
                      ------------------------------------------------------------
                      Icons are local SVG files under: icons/festivals/
                      No internet connection is required.
                      ============================================================ */
 
-             .holiday-summary-direct-item-main {
-                 display: flex;
-                 align-items: center;
-                 min-width: 0;
-             }
+        .holiday-summary-direct-item-main {
+            display: flex;
+            align-items: center;
+            min-width: 0;
+        }
 
-             .holiday-summary-direct-icon {
-                 width: 32px;
-                 height: 32px;
-                 min-width: 32px;
-                 margin-right: 9px;
-                 object-fit: contain;
-                 display: block;
-             }
+        .holiday-summary-direct-icon {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            margin-right: 9px;
+            object-fit: contain;
+            display: block;
+        }
 
-             .holiday-summary-direct-text {
-                 min-width: 0;
-                 flex: 1;
-             }
+        .holiday-summary-direct-text {
+            min-width: 0;
+            flex: 1;
+        }
 
-             .holiday-summary-direct-name {
-                 margin-top: 0;
-             }
+        .holiday-summary-direct-name {
+            margin-top: 0;
+        }
 
-             @media (max-width: 700px) {
-                 .holiday-summary-direct-icon {
-                     width: 30px;
-                     height: 30px;
-                     min-width: 30px;
-                     margin-right: 8px;
-                 }
-             }
+        @media (max-width: 700px) {
+            .holiday-summary-direct-icon {
+                width: 30px;
+                height: 30px;
+                min-width: 30px;
+                margin-right: 8px;
+            }
+        }
 
-             .holiday-summary-empty {
-                 color: #7c8c97;
-                 font-size: 10px;
-                 text-align: center;
-                 padding: 22px 10px;
-             }
+        .holiday-summary-empty {
+            color: #7c8c97;
+            font-size: 10px;
+            text-align: center;
+            padding: 22px 10px;
+        }
 
-             @media (max-width: 700px) {
-                 .holiday-summary-direct-columns {
-                     grid-template-columns: 1fr;
-                 }
+        @media (max-width: 700px) {
+            .holiday-summary-direct-columns {
+                grid-template-columns: 1fr;
+            }
 
-                 .holiday-summary-card {
-                     min-height: 200px;
-                 }
-             }
+            .holiday-summary-card {
+                min-height: 200px;
+            }
+        }
 
 
-             /* ============================================================
+        /* ============================================================
                 MONTHLY ATTENDANCE REGISTER - INTEGRATED MODULE
                 ============================================================ */
 
-             /*section.
+        /*section.
              2. Add the card HTML inside #dashboardMasonryLayout.
              3. Add the JavaScript block before the existing </script >
              / </body > closing area.
@@ -2011,829 +2011,830 @@
              1. CSS - ADD TO EXISTING <style > SECTION
              ============================================================ -->
              <style >*/
-             /* ============================================================
+        /* ============================================================
         MONTHLY ATTENDANCE REGISTER
         ============================================================ */
-             .monthly-attendance-register-card {
-                 min-height: 0;
-                 height: auto;
-             }
+        .monthly-attendance-register-card {
+            min-height: 0;
+            height: auto;
+        }
 
-             .monthly-attendance-register-container {
-                 width: 100%;
-                 height: auto !important;
-                 min-height: 0;
-                 box-sizing: border-box;
-             }
+        .monthly-attendance-register-container {
+            width: 100%;
+            height: auto !important;
+            min-height: 0;
+            box-sizing: border-box;
+        }
 
-             /* ============================================================
+        /* ============================================================
         MONTHLY ATTENDANCE REGISTER - NATIVE STACKED BAR CHART
         Isolated from the existing ECharts dashboard widgets.
         ============================================================ */
 
-             .monthly-attendance-register-chart {
-                 width: 100%;
-                 height: 285px;
-                 min-height: 285px;
-                 box-sizing: border-box;
-                 padding: 8px 12px 28px 12px;
-                 display: flex;
-                 flex-direction: column;
-             }
+        .monthly-attendance-register-chart {
+            width: 100%;
+            height: 285px;
+            min-height: 285px;
+            box-sizing: border-box;
+            padding: 8px 12px 28px 12px;
+            display: flex;
+            flex-direction: column;
+        }
 
-             .monthly-attendance-register-legend {
-                 display: flex;
-                 justify-content: center;
-                 align-items: center;
-                 gap: 16px;
-                 flex-wrap: wrap;
-                 margin-bottom: 8px;
-                 font-size: 9px;
-                 color: #5d6872;
-             }
+        .monthly-attendance-register-legend {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+            font-size: 9px;
+            color: #5d6872;
+        }
 
-             .monthly-attendance-register-legend-item {
-                 display: inline-flex;
-                 align-items: center;
-                 gap: 4px;
-                 white-space: nowrap;
-             }
+        .monthly-attendance-register-legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
 
-             .monthly-attendance-register-legend-box {
-                 width: 14px;
-                 height: 8px;
-                 border-radius: 2px;
-                 display: inline-block;
-             }
+        .monthly-attendance-register-legend-box {
+            width: 14px;
+            height: 8px;
+            border-radius: 2px;
+            display: inline-block;
+        }
 
-                 .monthly-attendance-register-legend-box.present {
-                     background: #55b779;
-                 }
+            .monthly-attendance-register-legend-box.present {
+                background: #55b779;
+            }
 
-                 .monthly-attendance-register-legend-box.leave {
-                     background: #5b9bd5;
-                 }
+            .monthly-attendance-register-legend-box.leave {
+                background: #5b9bd5;
+            }
 
-                 .monthly-attendance-register-legend-box.cancelled {
-                     background: #e0a02f;
-                 }
+            .monthly-attendance-register-legend-box.cancelled {
+                background: #e0a02f;
+            }
 
-                 .monthly-attendance-register-legend-box.rejected {
-                     background: #d9534f;
-                 }
+            .monthly-attendance-register-legend-box.rejected {
+                background: #d9534f;
+            }
 
-             .monthly-attendance-register-plot-wrap {
-                 position: relative;
-                 flex: 1 1 auto;
-                 min-height: 190px;
-                 box-sizing: border-box;
-             }
+        .monthly-attendance-register-plot-wrap {
+            position: relative;
+            flex: 1 1 auto;
+            min-height: 190px;
+            box-sizing: border-box;
+        }
 
-             .monthly-attendance-register-plot {
-                 position: absolute;
-                 left: 42px;
-                 right: 8px;
-                 top: 0;
-                 bottom: 0;
-                 display: grid;
-                 grid-template-columns: repeat(12, minmax(24px, 1fr));
-                 gap: 8px;
-                 align-items: end;
-                 border-bottom: 1px solid #b9c9d6;
-                 padding: 8px 8px 0 8px;
-                 box-sizing: border-box;
-             }
+        .monthly-attendance-register-plot {
+            position: absolute;
+            left: 42px;
+            right: 8px;
+            top: 0;
+            bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(12, minmax(24px, 1fr));
+            gap: 8px;
+            align-items: end;
+            border-bottom: 1px solid #b9c9d6;
+            padding: 8px 8px 0 8px;
+            box-sizing: border-box;
+        }
 
-             .monthly-attendance-register-month-column {
-                 height: 100%;
-                 min-width: 0;
-                 display: flex;
-                 flex-direction: column;
-                 justify-content: flex-end;
-                 align-items: center;
-                 cursor: pointer;
-                 position: relative;
-             }
+        .monthly-attendance-register-month-column {
+            height: 100%;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
 
-                 .monthly-attendance-register-month-column:hover
-                 .monthly-attendance-register-bar {
-                     filter: brightness(.94);
-                     transform: scaleX(1.04);
-                 }
+            .monthly-attendance-register-month-column:hover
+            .monthly-attendance-register-bar {
+                filter: brightness(.94);
+                transform: scaleX(1.04);
+            }
 
-             .monthly-attendance-register-bar-area {
-                 width: 100%;
-                 max-width: 38px;
-                 height: calc(100% - 24px);
-                 min-height: 1px;
-                 display: flex;
-                 align-items: flex-end;
-                 justify-content: center;
-                 position: relative;
-             }
+        .monthly-attendance-register-bar-area {
+            width: 100%;
+            max-width: 38px;
+            height: calc(100% - 24px);
+            min-height: 1px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            position: relative;
+        }
 
-             .monthly-attendance-register-bar {
-                 width: 100%;
-                 max-width: 34px;
-                 min-height: 0;
-                 display: flex;
-                 flex-direction: column-reverse;
-                 border-radius: 4px 4px 0 0;
-                 overflow: visible;
-                 transition: transform .12s ease, filter .12s ease;
-             }
+        .monthly-attendance-register-bar {
+            width: 100%;
+            max-width: 34px;
+            min-height: 0;
+            display: flex;
+            flex-direction: column-reverse;
+            border-radius: 4px 4px 0 0;
+            overflow: visible;
+            transition: transform .12s ease, filter .12s ease;
+        }
 
-             .monthly-attendance-register-segment {
-                 width: 100%;
-                 min-height: 0;
-             }
+        .monthly-attendance-register-segment {
+            width: 100%;
+            min-height: 0;
+        }
 
-                 .monthly-attendance-register-segment.present {
-                     background: #55b779;
-                 }
+            .monthly-attendance-register-segment.present {
+                background: #55b779;
+            }
 
-                 .monthly-attendance-register-segment.leave {
-                     background: #5b9bd5;
-                 }
+            .monthly-attendance-register-segment.leave {
+                background: #5b9bd5;
+            }
 
-                 .monthly-attendance-register-segment.cancelled {
-                     background: #e0a02f;
-                 }
+            .monthly-attendance-register-segment.cancelled {
+                background: #e0a02f;
+            }
 
-                 .monthly-attendance-register-segment.rejected {
-                     background: #d9534f;
-                 }
+            .monthly-attendance-register-segment.rejected {
+                background: #d9534f;
+            }
 
-             .monthly-attendance-register-month-label {
-                 height: 22px;
-                 line-height: 22px;
-                 font-size: 9px;
-                 color: #4f5c66;
-                 font-weight: 600;
-                 text-align: center;
-             }
+        .monthly-attendance-register-month-label {
+            height: 22px;
+            line-height: 22px;
+            font-size: 9px;
+            color: #4f5c66;
+            font-weight: 600;
+            text-align: center;
+        }
 
-             .monthly-attendance-register-y-label {
-                 position: absolute;
-                 left: 0;
-                 width: 36px;
-                 transform: translateY(50%);
-                 text-align: right;
-                 padding-right: 4px;
-                 box-sizing: border-box;
-                 font-size: 8px;
-                 color: #8a969f;
-             }
+        .monthly-attendance-register-y-label {
+            position: absolute;
+            left: 0;
+            width: 36px;
+            transform: translateY(50%);
+            text-align: right;
+            padding-right: 4px;
+            box-sizing: border-box;
+            font-size: 8px;
+            color: #8a969f;
+        }
 
-             .monthly-attendance-register-gridline {
-                 position: absolute;
-                 left: 42px;
-                 right: 8px;
-                 height: 1px;
-                 background: #e7edf2;
-                 pointer-events: none;
-             }
+        .monthly-attendance-register-gridline {
+            position: absolute;
+            left: 42px;
+            right: 8px;
+            height: 1px;
+            background: #e7edf2;
+            pointer-events: none;
+        }
 
-             .monthly-attendance-register-bar-value {
-                 position: absolute;
-                 left: 50%;
-                 transform: translateX(-50%);
-                 font-size: 8px;
-                 color: #66727b;
-                 white-space: nowrap;
-                 margin-bottom: 2px;
-             }
+        .monthly-attendance-register-bar-value {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            color: #66727b;
+            white-space: nowrap;
+            margin-bottom: 2px;
+        }
 
-             .monthly-attendance-register-tooltip {
-                 position: fixed;
-                 z-index: 99999;
-                 display: none;
-                 max-width: 190px;
-                 padding: 7px 9px;
-                 border: 1px solid #cbd9e3;
-                 border-radius: 5px;
-                 background: #ffffff;
-                 box-shadow: 0 3px 12px rgba(0,0,0,.16);
-                 font-size: 9px;
-                 line-height: 14px;
-                 color: #34414b;
-                 pointer-events: none;
-             }
+        .monthly-attendance-register-tooltip {
+            position: fixed;
+            z-index: 99999;
+            display: none;
+            max-width: 190px;
+            padding: 7px 9px;
+            border: 1px solid #cbd9e3;
+            border-radius: 5px;
+            background: #ffffff;
+            box-shadow: 0 3px 12px rgba(0,0,0,.16);
+            font-size: 9px;
+            line-height: 14px;
+            color: #34414b;
+            pointer-events: none;
+        }
 
-             @media (max-width: 850px) {
-                 .monthly-attendance-register-plot {
-                     gap: 4px;
-                 }
+        @media (max-width: 850px) {
+            .monthly-attendance-register-plot {
+                gap: 4px;
+            }
 
-                 .monthly-attendance-register-legend {
-                     gap: 9px;
-                 }
-             }
+            .monthly-attendance-register-legend {
+                gap: 9px;
+            }
+        }
 
 
-             .monthly-attendance-register-header {
-                 display: flex;
-                 align-items: center;
-                 gap: 8px;
-                 min-height: 34px;
-                 padding: 0 4px 5px 4px;
-                 box-sizing: border-box;
-             }
+        .monthly-attendance-register-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 34px;
+            padding: 0 4px 5px 4px;
+            box-sizing: border-box;
+        }
 
-             .monthly-attendance-register-title {
-                 font-size: 12px;
-                 font-weight: 700;
-                 color: #174a7e;
-             }
+        .monthly-attendance-register-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #174a7e;
+        }
 
-             .monthly-attendance-register-subtitle {
-                 font-size: 10px;
-                 color: #7c8c97;
-             }
+        .monthly-attendance-register-subtitle {
+            font-size: 10px;
+            color: #7c8c97;
+        }
 
-             .monthly-attendance-register-back {
-                 margin-left: auto;
-                 border: 1px solid #c8dce9;
-                 background: #ffffff;
-                 color: #174a7e;
-                 border-radius: 5px;
-                 padding: 4px 10px;
-                 font-size: 10px;
-                 cursor: pointer;
-             }
+        .monthly-attendance-register-back {
+            margin-left: auto;
+            border: 1px solid #c8dce9;
+            background: #ffffff;
+            color: #174a7e;
+            border-radius: 5px;
+            padding: 4px 10px;
+            font-size: 10px;
+            cursor: pointer;
+        }
 
-                 .monthly-attendance-register-back:hover {
-                     background: #eef6fb;
-                 }
+            .monthly-attendance-register-back:hover {
+                background: #eef6fb;
+            }
 
-             .monthly-attendance-register-calendar {
-                 width: 100%;
-                 overflow: visible;
-                 box-sizing: border-box;
-                 border: 1px solid #e1e7ef;
-                 border-radius: 6px;
-                 background: #ffffff;
-             }
+        .monthly-attendance-register-calendar {
+            width: 100%;
+            overflow: visible;
+            box-sizing: border-box;
+            border: 1px solid #e1e7ef;
+            border-radius: 6px;
+            background: #ffffff;
+        }
 
-             .monthly-attendance-register-grid {
-                 display: grid;
-                 width: 100%;
-                 min-width: 0;
-             }
+        .monthly-attendance-register-grid {
+            display: grid;
+            width: 100%;
+            min-width: 0;
+        }
 
-             .monthly-attendance-register-cell {
-                 box-sizing: border-box;
-                 min-width: 0;
-                 width: 100%;
-                 height: 34px;
-                 border-right: 1px solid #e8edf2;
-                 border-bottom: 1px solid #e8edf2;
-                 display: flex;
-                 align-items: center;
-                 justify-content: center;
-                 font-size: 8px;
-                 overflow: hidden;
-             }
+        .monthly-attendance-register-cell {
+            box-sizing: border-box;
+            min-width: 0;
+            width: 100%;
+            height: 34px;
+            border-right: 1px solid #e8edf2;
+            border-bottom: 1px solid #e8edf2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            overflow: hidden;
+        }
 
-             .monthly-attendance-register-employee {
-                 min-width: 0;
-                 width: 100%;
-                 justify-content: flex-start;
-                 padding: 0 6px;
-                 position: sticky;
-                 left: 0;
-                 z-index: 4;
-                 background: #ffffff;
-                 font-size: 9px;
-                 font-weight: 600;
-                 color: #333;
-                 white-space: nowrap;
-                 text-overflow: ellipsis;
-             }
+        .monthly-attendance-register-employee {
+            min-width: 0;
+            width: 100%;
+            justify-content: flex-start;
+            padding: 0 6px;
+            position: sticky;
+            left: 0;
+            z-index: 4;
+            background: #ffffff;
+            font-size: 9px;
+            font-weight: 600;
+            color: #333;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
 
-             .monthly-attendance-register-header-cell {
-                 height: 40px;
-                 background: #f4f8fb;
-                 color: #174a7e;
-                 font-weight: 700;
-                 position: sticky;
-                 top: 0;
-                 z-index: 3;
-             }
+        .monthly-attendance-register-header-cell {
+            height: 40px;
+            background: #f4f8fb;
+            color: #174a7e;
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+            z-index: 3;
+        }
 
-             .monthly-attendance-register-header-employee {
-                 z-index: 6;
-                 background: #f4f8fb;
-             }
+        .monthly-attendance-register-header-employee {
+            z-index: 6;
+            background: #f4f8fb;
+        }
 
-             .monthly-attendance-register-day {
-                 flex-direction: column;
-                 line-height: 12px;
-             }
+        .monthly-attendance-register-day {
+            flex-direction: column;
+            line-height: 12px;
+        }
 
-             .monthly-attendance-register-day-number {
-                 font-size: 8px;
-                 font-weight: 700;
-             }
+        .monthly-attendance-register-day-number {
+            font-size: 8px;
+            font-weight: 700;
+        }
 
-             .monthly-attendance-register-day-name {
-                 font-size: 8px;
-                 color: #7c8c97;
-             }
+        .monthly-attendance-register-day-name {
+            font-size: 8px;
+            color: #7c8c97;
+        }
 
-             .monthly-attendance-register-status {
-                 cursor: pointer;
-                 font-weight: 700;
-                 transition: transform .12s ease;
-             }
+        .monthly-attendance-register-status {
+            cursor: pointer;
+            font-weight: 700;
+            transition: transform .12s ease;
+        }
 
-                 .monthly-attendance-register-status:hover {
-                     transform: scale(1.05);
-                 }
+            .monthly-attendance-register-status:hover {
+                transform: scale(1.05);
+            }
 
-                 .monthly-attendance-register-status.present {
-                     background: #eaf8ee;
-                     color: #218838;
-                 }
+            .monthly-attendance-register-status.present {
+                background: #eaf8ee;
+                color: #218838;
+            }
 
-                 .monthly-attendance-register-status.leave {
-                     background: #edf5fd;
-                     color: #2672b8;
-                 }
+            .monthly-attendance-register-status.leave {
+                background: #edf5fd;
+                color: #2672b8;
+            }
 
-                 .monthly-attendance-register-status.cancelled {
-                     background: #fff5df;
-                     color: #c78300;
-                 }
+            .monthly-attendance-register-status.cancelled {
+                background: #fff5df;
+                color: #c78300;
+            }
 
-                 .monthly-attendance-register-status.rejected {
-                     background: #fdecec;
-                     color: #d52f2f;
-                 }
+            .monthly-attendance-register-status.rejected {
+                background: #fdecec;
+                color: #d52f2f;
+            }
 
-                 .monthly-attendance-register-status.none {
-                     background: #ffffff;
-                     color: #b3bdc5;
-                 }
+            .monthly-attendance-register-status.none {
+                background: #ffffff;
+                color: #b3bdc5;
+            }
 
-             /* ------------------------------------------------------------
+        /* ------------------------------------------------------------
         Monthly Attendance Register - employee totals
         ------------------------------------------------------------ */
 
-             .monthly-attendance-register-summary-header {
-                 background: #eef5fa !important;
-                 color: #174a7e !important;
-                 font-size: 8px !important;
-                 line-height: 10px !important;
-                 text-align: center !important;
-                 white-space: normal !important;
-                 position: sticky;
-                 top: 0;
-                 z-index: 5;
-             }
+        .monthly-attendance-register-summary-header {
+            background: #eef5fa !important;
+            color: #174a7e !important;
+            font-size: 8px !important;
+            line-height: 10px !important;
+            text-align: center !important;
+            white-space: normal !important;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
 
-             .monthly-attendance-register-summary-cell {
-                 background: #fbfcfd;
-                 color: #34414b;
-                 font-weight: 700;
-                 font-size: 8px !important;
-                 text-align: center;
-                 white-space: nowrap;
-             }
+        .monthly-attendance-register-summary-cell {
+            background: #fbfcfd;
+            color: #34414b;
+            font-weight: 700;
+            font-size: 8px !important;
+            text-align: center;
+            white-space: nowrap;
+        }
 
-                 .monthly-attendance-register-summary-cell.percent {
-                     color: #174a7e;
-                 }
+            .monthly-attendance-register-summary-cell.percent {
+                color: #174a7e;
+            }
 
-             .monthly-attendance-register-summary-total {
-                 background: #f2f7fb !important;
-                 color: #174a7e !important;
-                 font-weight: 700 !important;
-             }
+        .monthly-attendance-register-summary-total {
+            background: #f2f7fb !important;
+            color: #174a7e !important;
+            font-weight: 700 !important;
+        }
 
-                 .monthly-attendance-register-summary-total.percent {
-                     background: #eaf3fa !important;
-                 }
+            .monthly-attendance-register-summary-total.percent {
+                background: #eaf3fa !important;
+            }
 
 
 
-             .monthly-attendance-register-status.weekend {
-                 background: #f8f9fa;
-                 color: #a4adb4;
-             }
+        .monthly-attendance-register-status.weekend {
+            background: #f8f9fa;
+            color: #a4adb4;
+        }
 
-             .monthly-attendance-register-employee-click {
-                 cursor: pointer;
-             }
+        .monthly-attendance-register-employee-click {
+            cursor: pointer;
+        }
 
-                 .monthly-attendance-register-employee-click:hover {
-                     background: #eef6fb;
-                     color: #174a7e;
-                 }
+            .monthly-attendance-register-employee-click:hover {
+                background: #eef6fb;
+                color: #174a7e;
+            }
 
-             .monthly-attendance-register-empty {
-                 padding: 60px 10px;
-                 text-align: center;
-                 color: #7c8c97;
-                 font-size: 11px;
-             }
+        .monthly-attendance-register-empty {
+            padding: 60px 10px;
+            text-align: center;
+            color: #7c8c97;
+            font-size: 11px;
+        }
 
-             .monthly-attendance-register-employee-calendar {
-                 width: 100%;
-                 box-sizing: border-box;
-             }
+        .monthly-attendance-register-employee-calendar {
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-             .monthly-attendance-register-employee-summary {
-                 display: flex;
-                 gap: 6px;
-                 flex-wrap: wrap;
-                 padding: 0 4px 8px 4px;
-             }
+        .monthly-attendance-register-employee-summary {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            padding: 0 4px 8px 4px;
+        }
 
-             .monthly-attendance-register-summary-pill {
-                 border: 1px solid #e1e7ef;
-                 border-radius: 5px;
-                 padding: 4px 8px;
-                 background: #ffffff;
-                 font-size: 9px;
-                 color: #555;
-             }
+        .monthly-attendance-register-summary-pill {
+            border: 1px solid #e1e7ef;
+            border-radius: 5px;
+            padding: 4px 8px;
+            background: #ffffff;
+            font-size: 9px;
+            color: #555;
+        }
 
-                 .monthly-attendance-register-summary-pill b {
-                     color: #174a7e;
-                 }
+            .monthly-attendance-register-summary-pill b {
+                color: #174a7e;
+            }
 
-             .monthly-attendance-register-detail-list {
-                 border: 1px solid #e1e7ef;
-                 border-radius: 6px;
-                 overflow: hidden;
-             }
+        .monthly-attendance-register-detail-list {
+            border: 1px solid #e1e7ef;
+            border-radius: 6px;
+            overflow: hidden;
+        }
 
-             .monthly-attendance-register-detail-row {
-                 display: grid;
-                 grid-template-columns: 90px 100px 1fr;
-                 min-height: 34px;
-                 border-bottom: 1px solid #edf1f4;
-                 align-items: center;
-                 font-size: 9px;
-             }
+        .monthly-attendance-register-detail-row {
+            display: grid;
+            grid-template-columns: 90px 100px 1fr;
+            min-height: 34px;
+            border-bottom: 1px solid #edf1f4;
+            align-items: center;
+            font-size: 9px;
+        }
 
-                 .monthly-attendance-register-detail-row:last-child {
-                     border-bottom: 0;
-                 }
+            .monthly-attendance-register-detail-row:last-child {
+                border-bottom: 0;
+            }
 
-             .monthly-attendance-register-detail-header {
-                 background: #f4f8fb;
-                 color: #174a7e;
-                 font-weight: 700;
-             }
+        .monthly-attendance-register-detail-header {
+            background: #f4f8fb;
+            color: #174a7e;
+            font-weight: 700;
+        }
 
-             .monthly-attendance-register-detail-row > div {
-                 padding: 5px 8px;
-             }
+        .monthly-attendance-register-detail-row > div {
+            padding: 5px 8px;
+        }
 
-             .monthly-attendance-register-status-badge {
-                 display: inline-block;
-                 border-radius: 4px;
-                 padding: 2px 6px;
-                 font-weight: 700;
-             }
+        .monthly-attendance-register-status-badge {
+            display: inline-block;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-weight: 700;
+        }
 
-                 .monthly-attendance-register-status-badge.present {
-                     background: #eaf8ee;
-                     color: #218838;
-                 }
+            .monthly-attendance-register-status-badge.present {
+                background: #eaf8ee;
+                color: #218838;
+            }
 
-                 .monthly-attendance-register-status-badge.leave {
-                     background: #edf5fd;
-                     color: #2672b8;
-                 }
+            .monthly-attendance-register-status-badge.leave {
+                background: #edf5fd;
+                color: #2672b8;
+            }
 
-                 .monthly-attendance-register-status-badge.cancelled {
-                     background: #fff5df;
-                     color: #c78300;
-                 }
+            .monthly-attendance-register-status-badge.cancelled {
+                background: #fff5df;
+                color: #c78300;
+            }
 
-                 .monthly-attendance-register-status-badge.rejected {
-                     background: #fdecec;
-                     color: #d52f2f;
-                 }
+            .monthly-attendance-register-status-badge.rejected {
+                background: #fdecec;
+                color: #d52f2f;
+            }
 
-             @media (max-width: 700px) {
-                 /*
+        @media (max-width: 700px) {
+            /*
           * On small screens the complete calendar remains horizontally
           * scrollable only when the physical viewport cannot accommodate
           * 31 day columns. The desktop dashboard remains scrollbar-free.
           */
-                 .monthly-attendance-register-grid {
-                     min-width: 0;
-                 }
+            .monthly-attendance-register-grid {
+                min-width: 0;
+            }
 
-                 .monthly-attendance-register-employee {
-                     min-width: 0;
-                     width: 100%;
-                 }
+            .monthly-attendance-register-employee {
+                min-width: 0;
+                width: 100%;
+            }
 
-                 .monthly-attendance-register-cell {
-                     min-width: 0;
-                 }
+            .monthly-attendance-register-cell {
+                min-width: 0;
+            }
 
-                 .monthly-attendance-register-summary-cell,
-                 .monthly-attendance-register-summary-header {
-                     font-size: 7px !important;
-                 }
-             }
+            .monthly-attendance-register-summary-cell,
+            .monthly-attendance-register-summary-header {
+                font-size: 7px !important;
+            }
+        }
 
 
-             /* ============================================================
+        /* ============================================================
         MONTHLY ATTENDANCE REGISTER - EMPLOYEE DETAIL CALENDAR
         Matches the existing StaffSync Attendance Calendar visual style.
         ============================================================ */
 
-             .monthly-attendance-register-employee-detail-calendar {
-                 width: 100%;
-                 height: 100%;
-                 min-height: 0;
-                 display: flex;
-                 flex-direction: column;
-                 box-sizing: border-box;
-                 padding: 0 6px 6px 6px;
-                 border-radius: 8px;
-                 overflow: hidden;
-                 background: linear-gradient( 180deg, #ffffff 0%, #f7fbfe 50%, #eaf4fa 100% );
-             }
+        .monthly-attendance-register-employee-detail-calendar {
+            width: 100%;
+            height: auto;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            padding: 0 6px 6px 6px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: linear-gradient( 180deg, #ffffff 0%, #f7fbfe 50%, #eaf4fa 100% );
+        }
 
-             .monthly-attendance-register-employee-detail-month {
-                 flex: 0 0 36px;
-                 display: flex;
-                 align-items: center;
-                 justify-content: center;
-                 background: linear-gradient( 180deg, #222222 0%, #080808 45%, #000000 100% );
-                 color: #00ff00;
-                 font-size: 14px;
-                 font-weight: bold;
-                 letter-spacing: .2px;
-                 text-shadow: 0 0 5px rgba(0,255,0,.50);
-                 border-radius: 3px 3px 0 0;
-             }
+        .monthly-attendance-register-employee-detail-month {
+            flex: 0 0 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient( 180deg, #222222 0%, #080808 45%, #000000 100% );
+            color: #00ff00;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: .2px;
+            text-shadow: 0 0 5px rgba(0,255,0,.50);
+            border-radius: 3px 3px 0 0;
+        }
 
-             .monthly-attendance-register-employee-detail-weekdays {
-                 flex: 0 0 30px;
-                 display: grid;
-                 grid-template-columns: repeat(7, minmax(0, 1fr));
-                 background: linear-gradient( 180deg, #191919 0%, #000000 100% );
-             }
+        .monthly-attendance-register-employee-detail-weekdays {
+            flex: 0 0 30px;
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            background: linear-gradient( 180deg, #191919 0%, #000000 100% );
+        }
 
-             .monthly-attendance-register-employee-detail-weekday {
-                 display: flex;
-                 align-items: center;
-                 justify-content: center;
-                 color: #00ff00;
-                 font-size: 11px;
-                 font-weight: bold;
-                 text-shadow: 0 0 4px rgba(0,255,0,.45);
-             }
+        .monthly-attendance-register-employee-detail-weekday {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff00;
+            font-size: 11px;
+            font-weight: bold;
+            text-shadow: 0 0 4px rgba(0,255,0,.45);
+        }
 
-             .monthly-attendance-register-employee-detail-grid {
-                 flex: 1 1 auto;
-                 min-height: 0;
-                 width: 100%;
-                 display: grid;
-                 grid-template-columns: repeat(7, minmax(0, 1fr));
-                 grid-template-rows: repeat( var(--monthly-attendance-detail-weeks), minmax(0, 1fr) );
-                 border-left: 1px solid #b8cdd9;
-                 border-top: 1px solid #b8cdd9;
-                 background: transparent;
-                 box-sizing: border-box;
-             }
+        .monthly-attendance-register-employee-detail-grid {
+            flex: 0 0 auto;
+            min-height: 0;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            grid-template-rows: repeat( var(--monthly-attendance-detail-weeks), 58px );
+            height: calc( var(--monthly-attendance-detail-weeks) * 58px );
+            border-left: 1px solid #b8cdd9;
+            border-top: 1px solid #b8cdd9;
+            background: transparent;
+            box-sizing: border-box;
+        }
 
-             .monthly-attendance-register-employee-detail-day {
-                 position: relative;
-                 min-width: 0;
-                 min-height: 0;
-                 box-sizing: border-box;
-                 background: transparent;
-                 border-right: 1px solid #bfd2de;
-                 border-bottom: 1px solid #bfd2de;
-                 overflow: hidden;
-                 transition: background .18s ease, box-shadow .18s ease;
-             }
+        .monthly-attendance-register-employee-detail-day {
+            position: relative;
+            min-width: 0;
+            min-height: 58px;
+            box-sizing: border-box;
+            background: transparent;
+            border-right: 1px solid #bfd2de;
+            border-bottom: 1px solid #bfd2de;
+            overflow: hidden;
+            transition: background .18s ease, box-shadow .18s ease;
+        }
 
-                 .monthly-attendance-register-employee-detail-day.weekend {
-                     background: linear-gradient( 135deg, #e2e2e2 0%, #d5d5d5 50%, #cccccc 100% );
-                 }
+            .monthly-attendance-register-employee-detail-day.weekend {
+                background: linear-gradient( 135deg, #e2e2e2 0%, #d5d5d5 50%, #cccccc 100% );
+            }
 
-                 .monthly-attendance-register-employee-detail-day.empty {
-                     background: linear-gradient( 135deg, #edf5f9 0%, #e5eef3 100% );
-                 }
+            .monthly-attendance-register-employee-detail-day.empty {
+                background: linear-gradient( 135deg, #edf5f9 0%, #e5eef3 100% );
+            }
 
-                 .monthly-attendance-register-employee-detail-day:not(.empty):hover {
-                     background: #eef8ed;
-                 }
+            .monthly-attendance-register-employee-detail-day:not(.empty):hover {
+                background: #eef8ed;
+            }
 
-             .monthly-attendance-register-employee-detail-day-number {
-                 position: absolute;
-                 top: 5px;
-                 left: 7px;
-                 font-size: 10px;
-                 font-weight: 700;
-                 color: #17313f;
-             }
+        .monthly-attendance-register-employee-detail-day-number {
+            position: absolute;
+            top: 5px;
+            left: 7px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #17313f;
+        }
 
-             .monthly-attendance-register-employee-detail-statuses {
-                 position: absolute;
-                 left: 4px;
-                 right: 4px;
-                 bottom: 6px;
-                 display: flex;
-                 align-items: center;
-                 justify-content: flex-start;
-                 gap: 3px;
-                 flex-wrap: wrap;
-             }
+        .monthly-attendance-register-employee-detail-statuses {
+            position: absolute;
+            left: 4px;
+            right: 4px;
+            bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 3px;
+            flex-wrap: wrap;
+        }
 
-             .monthly-attendance-register-employee-detail-status {
-                 display: inline-flex;
-                 align-items: center;
-                 justify-content: center;
-                 min-width: 30px;
-                 height: 20px;
-                 padding: 0 4px;
-                 box-sizing: border-box;
-                 border-radius: 3px;
-                 font-size: 9px;
-                 font-weight: 700;
-                 line-height: 20px;
-             }
+        .monthly-attendance-register-employee-detail-status {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 30px;
+            height: 20px;
+            padding: 0 4px;
+            box-sizing: border-box;
+            border-radius: 3px;
+            font-size: 9px;
+            font-weight: 700;
+            line-height: 20px;
+        }
 
-                 .monthly-attendance-register-employee-detail-status.present {
-                     background: #dff5e5;
-                     color: #008f35;
-                     border-left: 3px solid #1db954;
-                 }
+            .monthly-attendance-register-employee-detail-status.present {
+                background: #dff5e5;
+                color: #008f35;
+                border-left: 3px solid #1db954;
+            }
 
-                 .monthly-attendance-register-employee-detail-status.leave {
-                     background: #dceeff;
-                     color: #0876c9;
-                     border-left: 3px solid #1689e5;
-                 }
+            .monthly-attendance-register-employee-detail-status.leave {
+                background: #dceeff;
+                color: #0876c9;
+                border-left: 3px solid #1689e5;
+            }
 
-                 .monthly-attendance-register-employee-detail-status.cancelled {
-                     background: #fff0d9;
-                     color: #c77700;
-                     border-left: 3px solid #f0a000;
-                 }
+            .monthly-attendance-register-employee-detail-status.cancelled {
+                background: #fff0d9;
+                color: #c77700;
+                border-left: 3px solid #f0a000;
+            }
 
-                 .monthly-attendance-register-employee-detail-status.rejected {
-                     background: #ffe0e0;
-                     color: #d00000;
-                     border-left: 3px solid #ef3030;
-                 }
+            .monthly-attendance-register-employee-detail-status.rejected {
+                background: #ffe0e0;
+                color: #d00000;
+                border-left: 3px solid #ef3030;
+            }
 
-             .monthly-attendance-register-employee-detail-weekend-text {
-                 position: absolute;
-                 left: 7px;
-                 bottom: 7px;
-                 color: #8e999f;
-                 font-size: 8px;
-             }
+        .monthly-attendance-register-employee-detail-weekend-text {
+            position: absolute;
+            left: 7px;
+            bottom: 7px;
+            color: #8e999f;
+            font-size: 8px;
+        }
 
-             .monthly-attendance-register-employee-detail-no-record {
-                 position: absolute;
-                 left: 7px;
-                 right: 7px;
-                 bottom: 7px;
-                 color: #9aa5ad;
-                 font-size: 8px;
-             }
+        .monthly-attendance-register-employee-detail-no-record {
+            position: absolute;
+            left: 7px;
+            right: 7px;
+            bottom: 7px;
+            color: #9aa5ad;
+            font-size: 8px;
+        }
 
-             .monthly-attendance-register-employee-detail-footer {
-                 flex: 0 0 42px;
-                 display: flex;
-                 align-items: center;
-                 justify-content: center;
-                 gap: 18px;
-                 background: linear-gradient( 180deg, #eaf4fa 0%, #dcecf5 100% );
-             }
+        .monthly-attendance-register-employee-detail-footer {
+            flex: 0 0 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            background: linear-gradient( 180deg, #eaf4fa 0%, #dcecf5 100% );
+        }
 
-             .monthly-attendance-register-employee-detail-legend {
-                 display: inline-flex;
-                 align-items: center;
-                 gap: 7px;
-                 font-size: 9px;
-                 color: #35434d;
-             }
+        .monthly-attendance-register-employee-detail-legend {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 9px;
+            color: #35434d;
+        }
 
-             .monthly-attendance-register-employee-detail-legend-box {
-                 width: 16px;
-                 height: 16px;
-                 border-radius: 4px;
-                 border: 1px solid rgba(0,0,0,.15);
-                 box-sizing: border-box;
-             }
+        .monthly-attendance-register-employee-detail-legend-box {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            border: 1px solid rgba(0,0,0,.15);
+            box-sizing: border-box;
+        }
 
-                 .monthly-attendance-register-employee-detail-legend-box.present {
-                     background: #1ed760;
-                 }
+            .monthly-attendance-register-employee-detail-legend-box.present {
+                background: #1ed760;
+            }
 
-                 .monthly-attendance-register-employee-detail-legend-box.leave {
-                     background: #1689e5;
-                 }
+            .monthly-attendance-register-employee-detail-legend-box.leave {
+                background: #1689e5;
+            }
 
-                 .monthly-attendance-register-employee-detail-legend-box.cancelled {
-                     background: #f0a000;
-                 }
+            .monthly-attendance-register-employee-detail-legend-box.cancelled {
+                background: #f0a000;
+            }
 
-                 .monthly-attendance-register-employee-detail-legend-box.rejected {
-                     background: #ef3030;
-                 }
+            .monthly-attendance-register-employee-detail-legend-box.rejected {
+                background: #ef3030;
+            }
 
-             .monthly-attendance-register-employee-summary-pill.percent {
-                 background: #eaf3fa;
-                 font-weight: 700;
-             }
+        .monthly-attendance-register-employee-summary-pill.percent {
+            background: #eaf3fa;
+            font-weight: 700;
+        }
 
-                 .monthly-attendance-register-employee-summary-pill.percent b {
-                     color: #174a7e;
-                 }
+            .monthly-attendance-register-employee-summary-pill.percent b {
+                color: #174a7e;
+            }
 
-             .monthly-attendance-register-employee-detail-selected {
-                 box-shadow: inset 0 0 0 2px #174a7e;
-             }
+        .monthly-attendance-register-employee-detail-selected {
+            box-shadow: inset 0 0 0 2px #174a7e;
+        }
 
-             @media (max-width: 700px) {
-                 .monthly-attendance-register-employee-detail-status {
-                     min-width: 24px;
-                     height: 17px;
-                     font-size: 7px;
-                     line-height: 17px;
-                 }
+        @media (max-width: 700px) {
+            .monthly-attendance-register-employee-detail-status {
+                min-width: 24px;
+                height: 17px;
+                font-size: 7px;
+                line-height: 17px;
+            }
 
-                 .monthly-attendance-register-employee-detail-footer {
-                     gap: 8px;
-                 }
+            .monthly-attendance-register-employee-detail-footer {
+                gap: 8px;
+            }
 
-                 .monthly-attendance-register-employee-detail-legend {
-                     gap: 4px;
-                     font-size: 8px;
-                 }
-             }
+            .monthly-attendance-register-employee-detail-legend {
+                gap: 4px;
+                font-size: 8px;
+            }
+        }
 
-             /* ============================================================
+        /* ============================================================
         STAFFSYNC COMMON CARD DATA EXPORT
         ------------------------------------------------------------
         Export selector is intentionally positioned inside the existing
         chart-card header and does not modify masonry positioning.
         ============================================================ */
-             .dashboard-card-export {
-                 margin-left: auto;
-                 display: inline-flex;
-                 align-items: center;
-                 gap: 4px;
-                 flex: 0 0 auto;
-                 white-space: nowrap;
-             }
+        .dashboard-card-export {
+            margin-left: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            flex: 0 0 auto;
+            white-space: nowrap;
+        }
 
-             .dashboard-card-export-label {
-                 font-size: 8px;
-                 color: #667985;
-                 font-weight: 600;
-             }
+        .dashboard-card-export-label {
+            font-size: 8px;
+            color: #667985;
+            font-weight: 600;
+        }
 
-             .dashboard-card-export-select {
-                 height: 24px;
-                 padding: 2px 22px 2px 7px;
-                 border: 1px solid #c8dce9;
-                 border-radius: 5px;
-                 background: #ffffff;
-                 color: #174a7e;
-                 font-size: 8px;
-                 font-family: inherit;
-                 cursor: pointer;
-                 outline: none;
-                 box-sizing: border-box;
-             }
+        .dashboard-card-export-select {
+            height: 24px;
+            padding: 2px 22px 2px 7px;
+            border: 1px solid #c8dce9;
+            border-radius: 5px;
+            background: #ffffff;
+            color: #174a7e;
+            font-size: 8px;
+            font-family: inherit;
+            cursor: pointer;
+            outline: none;
+            box-sizing: border-box;
+        }
 
-                 .dashboard-card-export-select:hover,
-                 .dashboard-card-export-select:focus {
-                     border-color: #8fb8d2;
-                     background: #f8fbfd;
-                 }
+            .dashboard-card-export-select:hover,
+            .dashboard-card-export-select:focus {
+                border-color: #8fb8d2;
+                background: #f8fbfd;
+            }
 
-                 .dashboard-card-export-select option {
-                     font-size: 9px;
-                 }
+            .dashboard-card-export-select option {
+                font-size: 9px;
+            }
 
-             @media (max-width: 700px) {
-                 .dashboard-card-export-label {
-                     display: none;
-                 }
+        @media (max-width: 700px) {
+            .dashboard-card-export-label {
+                display: none;
+            }
 
-                 .dashboard-card-export-select {
-                     max-width: 78px;
-                     font-size: 7px;
-                 }
-             }
+            .dashboard-card-export-select {
+                max-width: 78px;
+                font-size: 7px;
+            }
+        }
     </style>
 
     <!--
@@ -3144,24 +3145,24 @@
             </div>
         </div>-->
 
-        <div id="attendanceCalendarCard" data-dashboard-key="AttendanceCalendar" class="chart-card attendance-calendar-card">
+        <!--<div id="attendanceCalendarCard" data-dashboard-key="AttendanceCalendar" class="chart-card attendance-calendar-card">
 
             <div class="chart-card-header">
                 <div>
                     <div class="chart-title">
                         Attendance Calender
-                    </div>
+                    </div>-->
                     <!--<div class="chart-subtitle">
                         Month → Applications
                     </div>-->
-                </div>
+                <!--</div>-->
                 <!--<div class="chart-type">
                     Column
                 </div>-->
-            </div>
+            <!--</div>
             <div id="attendanceCalendarChart" class="chart-container">
             </div>
-        </div>
+        </div>-->
 
 
         <div id="monthlyAttendanceRegisterCard"
@@ -4450,7 +4451,6 @@
        ============================================================ */
     function displayPendingApprovalLeaveChartData(data) {
 
-        debugger;
         console.log(
             "Pending Approval Leave Data received from C#:",
             data
@@ -11019,6 +11019,8 @@
          */
         window.attendanceCalendarOriginalData = data || [];
 
+        debugger;
+
         var chartElement =
             document.getElementById("attendanceCalendarChart");
 
@@ -12331,7 +12333,6 @@
 
                 '</div>';
 
-            debugger;
             list.appendChild(item);
 
         });
@@ -18294,7 +18295,7 @@
 
             return [];
         }
-        
+
         function getChartImageData(card) {
 
             if (
@@ -18634,12 +18635,12 @@
             );
 
             [
-                ["pdf", ".pdf"],
-                ["docx", ".docx"],
-                ["xlsx", ".xlsx"],
-                ["csv", ".csv"],
-                ["xml", ".xml"],
-                ["json", ".json"]
+                ["pdf", ".pdf"]
+                //["docx", ".docx"],
+                //["xlsx", ".xlsx"],
+                //["csv", ".csv"],
+                //["xml", ".xml"],
+                //["json", ".json"]
             ].forEach(
                 function (item) {
 

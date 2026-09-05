@@ -8036,21 +8036,55 @@ namespace StaffSync
         {
             try
             {
+                /*
+                 * ------------------------------------------------------------
+                 * Deserialize export request.
+                 * ------------------------------------------------------------
+                 */
+
                 StaffSync.ReportingEngine.Reports.Attendance.clsDashboardExportRequest request = JsonConvert.DeserializeObject<StaffSync.ReportingEngine.Reports.Attendance.clsDashboardExportRequest>(webMessageJson);
 
                 if (request == null)
                 {
+                    MessageBox.Show("Unable to read export request.", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                string format = Convert.ToString(request.Format);
 
-                if (string.IsNullOrWhiteSpace(format))
+                /*
+                 * ------------------------------------------------------------
+                 * Normalize format.
+                 * ------------------------------------------------------------
+                 */
+
+                string format =
+                    Convert.ToString(
+                        request.Format);
+
+                if (string.IsNullOrWhiteSpace(
+                        format))
                 {
+                    MessageBox.Show(
+                        "Export format is missing.",
+                        "StaffSync",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
                     return;
                 }
 
-                format = format.Trim().TrimStart('.').ToLowerInvariant();
+                format =
+                    format
+                        .Trim()
+                        .TrimStart('.')
+                        .ToLowerInvariant();
+
+
+                /*
+                 * ------------------------------------------------------------
+                 * Save dialog settings.
+                 * ------------------------------------------------------------
+                 */
 
                 string filter;
                 string extension;
@@ -8125,13 +8159,20 @@ namespace StaffSync
 
                     default:
 
+                        MessageBox.Show(
+                            "Unsupported export format: " +
+                            request.Format,
+                            "StaffSync",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
                         return;
                 }
 
 
                 /*
                  * ------------------------------------------------------------
-                 * Default filename.
+                 * Create safe default filename.
                  * ------------------------------------------------------------
                  */
 
@@ -8166,48 +8207,36 @@ namespace StaffSync
                 /*
                  * ------------------------------------------------------------
                  * Save As dialog.
+                 *
+                 * IMPORTANT:
+                 * We do NOT create a separate outputFilePath variable.
+                 *
+                 * We use the SaveFileDialog filename directly.
                  * ------------------------------------------------------------
                  */
-                string selectedFilePath = null;
+
+                string selectedFilePath = "";
+
 
                 using (SaveFileDialog saveFileDialog = new SaveFileDialog())
                 {
-                    saveFileDialog.Title =
-                        "Export Dashboard Data";
+                    saveFileDialog.Title = "Export Dashboard Data";
+                    saveFileDialog.Filter = filter;
+                    saveFileDialog.DefaultExt = extension;
+                    saveFileDialog.AddExtension = true;
+                    saveFileDialog.FileName = fileName;
+                    saveFileDialog.OverwritePrompt = true;
+                    saveFileDialog.RestoreDirectory = true;
 
-                    saveFileDialog.Filter =
-                        filter;
+                    //DialogResult result = saveFileDialog.ShowDialog(this);
 
-                    saveFileDialog.DefaultExt =
-                        extension;
+                    //if (result != DialogResult.OK)
+                    //{
+                    //    return;
+                    //}
 
-                    saveFileDialog.AddExtension =
-                        true;
-
-                    saveFileDialog.FileName =
-                        fileName;
-
-                    saveFileDialog.OverwritePrompt =
-                        true;
-
-                    saveFileDialog.RestoreDirectory =
-                        true;
-
-
-                    DialogResult result =
-                        saveFileDialog.ShowDialog(
-                            this);
-
-
-                    if (result !=
-                        DialogResult.OK)
-                    {
-                        return;
-                    }
-
-
-                    selectedFilePath =
-                        saveFileDialog.FileName;
+                    //selectedFilePath = saveFileDialog.FileName;
+                    selectedFilePath = @"C:\Users\navee\Downloads\" + fileName;
                 }
 
 
@@ -8217,9 +8246,9 @@ namespace StaffSync
                  * ------------------------------------------------------------
                  */
 
-                if (string.IsNullOrWhiteSpace(
-                        selectedFilePath))
+                if (string.IsNullOrWhiteSpace(selectedFilePath))
                 {
+                    MessageBox.Show("No file was selected.", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -8227,31 +8256,33 @@ namespace StaffSync
                 /*
                  * ------------------------------------------------------------
                  * Export.
-                 * ------------------------------------------------------------
                  *
                  * No Task.Run().
-                 * No MessageBox.
+                 *
                  * No PDFsharp/MigraDoc for PDF.
+                 * ------------------------------------------------------------
                  */
 
-                StaffSync.ReportingEngine.Reports.Attendance
-                    .clsDashboardExportService exportService =
-                    new StaffSync.ReportingEngine.Reports.Attendance
-                        .clsDashboardExportService();
+                StaffSync.ReportingEngine.Reports.Attendance.clsDashboardExportService exportService = new StaffSync.ReportingEngine.Reports.Attendance.clsDashboardExportService();
+                exportService.Export(request, selectedFilePath);
 
+                /*
+                 * ------------------------------------------------------------
+                 * Success message.
+                 *
+                 * IMPORTANT:
+                 * Do NOT concatenate selectedFilePath here.
+                 *
+                 * We already know the file was created successfully.
+                 * ------------------------------------------------------------
+                 */
 
-                exportService.Export(
-                    request,
-                    selectedFilePath);
+                //MessageBox.Show("Export completed successfully.", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
                 /*
                  * ------------------------------------------------------------
-                 * IMPORTANT
-                 *
-                 * Do NOT show MessageBox here.
-                 *
-                 * Return normally to the WebView2 event handler.
+                 * Prevent any further processing.
                  * ------------------------------------------------------------
                  */
 
@@ -8259,26 +8290,28 @@ namespace StaffSync
                 {
                     System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
                     {
-                            FileName = selectedFilePath,
-                            UseShellExecute = true
+                            FileName = selectedFilePath, UseShellExecute = true
                     });
                 }
-                return;
-            }
-            catch
-            {
-                /*
-                 * Do not show a modal MessageBox from the WebView2
-                 * message-processing path.
-                 *
-                 * The export operation should fail silently here.
-                 * We can add non-modal error reporting later.
-                 */
 
                 return;
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to export dashboard data.\n\n" +
+                    ex.Message,
+                    "StaffSync - Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
+
         }
-        private void SaveMinimalPdfFile(string outputFilePath)
+
+        private void SaveMinimalPdfFile(
+            string outputFilePath)
         {
             /*
              * ------------------------------------------------------------
