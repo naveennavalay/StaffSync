@@ -2002,7 +2002,7 @@
                 MONTHLY ATTENDANCE REGISTER - INTEGRATED MODULE
                 ============================================================ */
 
-             section.
+             /*section.
              2. Add the card HTML inside #dashboardMasonryLayout.
              3. Add the JavaScript block before the existing </script >
              / </body > closing area.
@@ -2010,7 +2010,7 @@
              <!-- ============================================================
              1. CSS - ADD TO EXISTING <style > SECTION
              ============================================================ -->
-             <style >
+             <style >*/
              /* ============================================================
         MONTHLY ATTENDANCE REGISTER
         ============================================================ */
@@ -2541,6 +2541,297 @@
                  .monthly-attendance-register-summary-cell,
                  .monthly-attendance-register-summary-header {
                      font-size: 7px !important;
+                 }
+             }
+
+
+             /* ============================================================
+        MONTHLY ATTENDANCE REGISTER - EMPLOYEE DETAIL CALENDAR
+        Matches the existing StaffSync Attendance Calendar visual style.
+        ============================================================ */
+
+             .monthly-attendance-register-employee-detail-calendar {
+                 width: 100%;
+                 height: 100%;
+                 min-height: 0;
+                 display: flex;
+                 flex-direction: column;
+                 box-sizing: border-box;
+                 padding: 0 6px 6px 6px;
+                 border-radius: 8px;
+                 overflow: hidden;
+                 background: linear-gradient( 180deg, #ffffff 0%, #f7fbfe 50%, #eaf4fa 100% );
+             }
+
+             .monthly-attendance-register-employee-detail-month {
+                 flex: 0 0 36px;
+                 display: flex;
+                 align-items: center;
+                 justify-content: center;
+                 background: linear-gradient( 180deg, #222222 0%, #080808 45%, #000000 100% );
+                 color: #00ff00;
+                 font-size: 14px;
+                 font-weight: bold;
+                 letter-spacing: .2px;
+                 text-shadow: 0 0 5px rgba(0,255,0,.50);
+                 border-radius: 3px 3px 0 0;
+             }
+
+             .monthly-attendance-register-employee-detail-weekdays {
+                 flex: 0 0 30px;
+                 display: grid;
+                 grid-template-columns: repeat(7, minmax(0, 1fr));
+                 background: linear-gradient( 180deg, #191919 0%, #000000 100% );
+             }
+
+             .monthly-attendance-register-employee-detail-weekday {
+                 display: flex;
+                 align-items: center;
+                 justify-content: center;
+                 color: #00ff00;
+                 font-size: 11px;
+                 font-weight: bold;
+                 text-shadow: 0 0 4px rgba(0,255,0,.45);
+             }
+
+             .monthly-attendance-register-employee-detail-grid {
+                 flex: 1 1 auto;
+                 min-height: 0;
+                 width: 100%;
+                 display: grid;
+                 grid-template-columns: repeat(7, minmax(0, 1fr));
+                 grid-template-rows: repeat( var(--monthly-attendance-detail-weeks), minmax(0, 1fr) );
+                 border-left: 1px solid #b8cdd9;
+                 border-top: 1px solid #b8cdd9;
+                 background: transparent;
+                 box-sizing: border-box;
+             }
+
+             .monthly-attendance-register-employee-detail-day {
+                 position: relative;
+                 min-width: 0;
+                 min-height: 0;
+                 box-sizing: border-box;
+                 background: transparent;
+                 border-right: 1px solid #bfd2de;
+                 border-bottom: 1px solid #bfd2de;
+                 overflow: hidden;
+                 transition: background .18s ease, box-shadow .18s ease;
+             }
+
+                 .monthly-attendance-register-employee-detail-day.weekend {
+                     background: linear-gradient( 135deg, #e2e2e2 0%, #d5d5d5 50%, #cccccc 100% );
+                 }
+
+                 .monthly-attendance-register-employee-detail-day.empty {
+                     background: linear-gradient( 135deg, #edf5f9 0%, #e5eef3 100% );
+                 }
+
+                 .monthly-attendance-register-employee-detail-day:not(.empty):hover {
+                     background: #eef8ed;
+                 }
+
+             .monthly-attendance-register-employee-detail-day-number {
+                 position: absolute;
+                 top: 5px;
+                 left: 7px;
+                 font-size: 10px;
+                 font-weight: 700;
+                 color: #17313f;
+             }
+
+             .monthly-attendance-register-employee-detail-statuses {
+                 position: absolute;
+                 left: 4px;
+                 right: 4px;
+                 bottom: 6px;
+                 display: flex;
+                 align-items: center;
+                 justify-content: flex-start;
+                 gap: 3px;
+                 flex-wrap: wrap;
+             }
+
+             .monthly-attendance-register-employee-detail-status {
+                 display: inline-flex;
+                 align-items: center;
+                 justify-content: center;
+                 min-width: 30px;
+                 height: 20px;
+                 padding: 0 4px;
+                 box-sizing: border-box;
+                 border-radius: 3px;
+                 font-size: 9px;
+                 font-weight: 700;
+                 line-height: 20px;
+             }
+
+                 .monthly-attendance-register-employee-detail-status.present {
+                     background: #dff5e5;
+                     color: #008f35;
+                     border-left: 3px solid #1db954;
+                 }
+
+                 .monthly-attendance-register-employee-detail-status.leave {
+                     background: #dceeff;
+                     color: #0876c9;
+                     border-left: 3px solid #1689e5;
+                 }
+
+                 .monthly-attendance-register-employee-detail-status.cancelled {
+                     background: #fff0d9;
+                     color: #c77700;
+                     border-left: 3px solid #f0a000;
+                 }
+
+                 .monthly-attendance-register-employee-detail-status.rejected {
+                     background: #ffe0e0;
+                     color: #d00000;
+                     border-left: 3px solid #ef3030;
+                 }
+
+             .monthly-attendance-register-employee-detail-weekend-text {
+                 position: absolute;
+                 left: 7px;
+                 bottom: 7px;
+                 color: #8e999f;
+                 font-size: 8px;
+             }
+
+             .monthly-attendance-register-employee-detail-no-record {
+                 position: absolute;
+                 left: 7px;
+                 right: 7px;
+                 bottom: 7px;
+                 color: #9aa5ad;
+                 font-size: 8px;
+             }
+
+             .monthly-attendance-register-employee-detail-footer {
+                 flex: 0 0 42px;
+                 display: flex;
+                 align-items: center;
+                 justify-content: center;
+                 gap: 18px;
+                 background: linear-gradient( 180deg, #eaf4fa 0%, #dcecf5 100% );
+             }
+
+             .monthly-attendance-register-employee-detail-legend {
+                 display: inline-flex;
+                 align-items: center;
+                 gap: 7px;
+                 font-size: 9px;
+                 color: #35434d;
+             }
+
+             .monthly-attendance-register-employee-detail-legend-box {
+                 width: 16px;
+                 height: 16px;
+                 border-radius: 4px;
+                 border: 1px solid rgba(0,0,0,.15);
+                 box-sizing: border-box;
+             }
+
+                 .monthly-attendance-register-employee-detail-legend-box.present {
+                     background: #1ed760;
+                 }
+
+                 .monthly-attendance-register-employee-detail-legend-box.leave {
+                     background: #1689e5;
+                 }
+
+                 .monthly-attendance-register-employee-detail-legend-box.cancelled {
+                     background: #f0a000;
+                 }
+
+                 .monthly-attendance-register-employee-detail-legend-box.rejected {
+                     background: #ef3030;
+                 }
+
+             .monthly-attendance-register-employee-summary-pill.percent {
+                 background: #eaf3fa;
+                 font-weight: 700;
+             }
+
+                 .monthly-attendance-register-employee-summary-pill.percent b {
+                     color: #174a7e;
+                 }
+
+             .monthly-attendance-register-employee-detail-selected {
+                 box-shadow: inset 0 0 0 2px #174a7e;
+             }
+
+             @media (max-width: 700px) {
+                 .monthly-attendance-register-employee-detail-status {
+                     min-width: 24px;
+                     height: 17px;
+                     font-size: 7px;
+                     line-height: 17px;
+                 }
+
+                 .monthly-attendance-register-employee-detail-footer {
+                     gap: 8px;
+                 }
+
+                 .monthly-attendance-register-employee-detail-legend {
+                     gap: 4px;
+                     font-size: 8px;
+                 }
+             }
+
+             /* ============================================================
+        STAFFSYNC COMMON CARD DATA EXPORT
+        ------------------------------------------------------------
+        Export selector is intentionally positioned inside the existing
+        chart-card header and does not modify masonry positioning.
+        ============================================================ */
+             .dashboard-card-export {
+                 margin-left: auto;
+                 display: inline-flex;
+                 align-items: center;
+                 gap: 4px;
+                 flex: 0 0 auto;
+                 white-space: nowrap;
+             }
+
+             .dashboard-card-export-label {
+                 font-size: 8px;
+                 color: #667985;
+                 font-weight: 600;
+             }
+
+             .dashboard-card-export-select {
+                 height: 24px;
+                 padding: 2px 22px 2px 7px;
+                 border: 1px solid #c8dce9;
+                 border-radius: 5px;
+                 background: #ffffff;
+                 color: #174a7e;
+                 font-size: 8px;
+                 font-family: inherit;
+                 cursor: pointer;
+                 outline: none;
+                 box-sizing: border-box;
+             }
+
+                 .dashboard-card-export-select:hover,
+                 .dashboard-card-export-select:focus {
+                     border-color: #8fb8d2;
+                     background: #f8fbfd;
+                 }
+
+                 .dashboard-card-export-select option {
+                     font-size: 9px;
+                 }
+
+             @media (max-width: 700px) {
+                 .dashboard-card-export-label {
+                     display: none;
+                 }
+
+                 .dashboard-card-export-select {
+                     max-width: 78px;
+                     font-size: 7px;
                  }
              }
     </style>
@@ -15032,6 +15323,45 @@
            MAIN MONTHLY CHART
            ------------------------------------------------------------ */
 
+        /*
+         * Close every Monthly Attendance Register tooltip currently
+         * attached to document.body.
+         *
+         * Important:
+         * The month tooltip is intentionally appended to <body> so it
+         * is not clipped by the dashboard card. Because the dashboard
+         * chart DOM is replaced during drilldown, mouseleave is not
+         * guaranteed to fire. Therefore drilldown explicitly calls
+         * this cleanup before changing the view.
+         */
+        function closeMonthlyAttendanceRegisterTooltips() {
+
+            var tooltips =
+                document.querySelectorAll(
+                    ".monthly-attendance-register-tooltip"
+                );
+
+            for (
+                var i = 0;
+                i < tooltips.length;
+                i++
+            ) {
+
+                if (
+                    tooltips[i].parentNode
+                ) {
+
+                    tooltips[i].parentNode.removeChild(
+                        tooltips[i]
+                    );
+
+                }
+
+            }
+
+        }
+
+
         function renderMonthlyAttendanceRegister() {
 
             var chartElement =
@@ -15313,6 +15643,16 @@
 
                 column.onclick =
                     function () {
+
+                        /*
+                         * The tooltip is attached to <body>, not the
+                         * chart container. Explicitly remove it before
+                         * changing from Month -> Employee Calendar.
+                         *
+                         * This prevents the tooltip from remaining
+                         * visible after drilldown.
+                         */
+                        closeMonthlyAttendanceRegisterTooltips();
 
                         renderMonthlyAttendanceEmployeeCalendar(
                             month.MonthNo
@@ -15726,6 +16066,8 @@
 
             backButton.onclick =
                 function () {
+
+                    closeMonthlyAttendanceRegisterTooltips();
 
                     renderMonthlyAttendanceRegister();
 
@@ -16321,6 +16663,17 @@
             window.monthlyAttendanceRegisterSelectedEmpID =
                 empID;
 
+            /*
+             * Make sure an old month tooltip can never remain visible
+             * while the employee detail calendar is displayed.
+             */
+            if (
+                typeof closeMonthlyAttendanceRegisterTooltips ===
+                "function"
+            ) {
+                closeMonthlyAttendanceRegisterTooltips();
+            }
+
             var year =
                 Number(
                     window.monthlyAttendanceRegisterYear
@@ -16372,9 +16725,86 @@
                     0
                 ).getDate();
 
+            /*
+             * --------------------------------------------------------
+             * Employee attendance totals and percentage.
+             *
+             * Same calculation used by the employee row:
+             *
+             * Present %
+             * = Present /
+             *   (Present + Leave + Cancelled + Rejected) * 100
+             *
+             * Weekend/no-record days are excluded.
+             * --------------------------------------------------------
+             */
+            var counts = {
+                present: 0,
+                leave: 0,
+                cancelled: 0,
+                rejected: 0
+            };
 
+            Object.keys(records).forEach(function (key) {
+
+                var status =
+                    records[key].AttendanceStatus ||
+                    records[key].AttStatus ||
+                    "";
+
+                if (!status) {
+                    return;
+                }
+
+                var normalized =
+                    String(status).toLowerCase();
+
+                if (normalized === "present") {
+                    counts.present++;
+                }
+                else if (
+                    normalized.indexOf("leave") >= 0
+                ) {
+                    counts.leave++;
+                }
+                else if (
+                    normalized.indexOf("cancelled") >= 0
+                ) {
+                    counts.cancelled++;
+                }
+                else if (
+                    normalized.indexOf("rejected") >= 0
+                ) {
+                    counts.rejected++;
+                }
+
+            });
+
+            var totalAttendance =
+                counts.present +
+                counts.leave +
+                counts.cancelled +
+                counts.rejected;
+
+            var attendancePercentage =
+                totalAttendance > 0
+                    ? (
+                        counts.present /
+                        totalAttendance
+                    ) * 100
+                    : 0;
+
+            /*
+             * Clear only the Monthly Attendance Register content.
+             * No other dashboard card is touched.
+             */
             chartElement.innerHTML = "";
 
+            /*
+             * --------------------------------------------------------
+             * Header
+             * --------------------------------------------------------
+             */
             var header =
                 document.createElement("div");
 
@@ -16409,6 +16839,13 @@
             backButton.onclick =
                 function () {
 
+                    if (
+                        typeof closeMonthlyAttendanceRegisterTooltips ===
+                        "function"
+                    ) {
+                        closeMonthlyAttendanceRegisterTooltips();
+                    }
+
                     renderMonthlyAttendanceEmployeeCalendar(
                         monthNo
                     );
@@ -16422,44 +16859,12 @@
 
 
             /*
-             * Summary.
+             * --------------------------------------------------------
+             * Employee information / totals.
+             *
+             * Includes the requested Attendance %.
+             * --------------------------------------------------------
              */
-            var counts = {
-
-                present: 0,
-                leave: 0,
-                cancelled: 0,
-                rejected: 0
-
-            };
-
-            Object.keys(records)
-                .forEach(function (key) {
-
-                    var status =
-                        records[key].AttendanceStatus ||
-                        records[key].AttStatus ||
-                        "";
-
-                    var cls =
-                        marStatusClass(status);
-
-                    if (cls === "present") {
-                        counts.present++;
-                    }
-                    else if (cls === "leave") {
-                        counts.leave++;
-                    }
-                    else if (cls === "cancelled") {
-                        counts.cancelled++;
-                    }
-                    else if (cls === "rejected") {
-                        counts.rejected++;
-                    }
-
-                });
-
-
             var summary =
                 document.createElement("div");
 
@@ -16470,8 +16875,12 @@
                 ["Present", counts.present],
                 ["Leave", counts.leave],
                 ["Cancelled", counts.cancelled],
-                ["Rejected", counts.rejected]
-            ].forEach(function (entry) {
+                ["Rejected", counts.rejected],
+                [
+                    "Attendance %",
+                    attendancePercentage.toFixed(2) + "%"
+                ]
+            ].forEach(function (entry, index) {
 
                 var pill =
                     document.createElement("div");
@@ -16479,10 +16888,15 @@
                 pill.className =
                     "monthly-attendance-register-summary-pill";
 
+                if (index === 4) {
+                    pill.className +=
+                        " percent";
+                }
+
                 pill.innerHTML =
                     marEscapeHtml(entry[0]) +
                     ": <b>" +
-                    entry[1] +
+                    marEscapeHtml(entry[1]) +
                     "</b>";
 
                 summary.appendChild(pill);
@@ -16493,43 +16907,148 @@
 
 
             /*
-             * Daily list.
+             * --------------------------------------------------------
+             * Calendar wrapper.
+             * This follows the same visual structure as the existing
+             * Attendance Calendar:
+             *
+             * Month header
+             * Weekday header
+             * 7-column calendar
+             * Legend
+             * --------------------------------------------------------
              */
-            var list =
+            var calendar =
                 document.createElement("div");
 
-            list.className =
-                "monthly-attendance-register-detail-list";
+            calendar.className =
+                "monthly-attendance-register-employee-detail-calendar";
 
 
-            var detailHeader =
+            /*
+             * Month header.
+             */
+            var monthHeader =
                 document.createElement("div");
 
-            detailHeader.className =
-                "monthly-attendance-register-detail-row " +
-                "monthly-attendance-register-detail-header";
+            monthHeader.className =
+                "monthly-attendance-register-employee-detail-month";
 
-            detailHeader.innerHTML =
-                "<div>Date</div>" +
-                "<div>Day</div>" +
-                "<div>Attendance Status</div>";
+            monthHeader.textContent =
+                marMonthName(monthNo) +
+                " " +
+                year;
 
-            list.appendChild(detailHeader);
+            calendar.appendChild(monthHeader);
 
 
-            for (var day = 1;
-                day <= daysInMonth;
-                day++) {
+            /*
+             * Weekday header.
+             */
+            var weekdays =
+                document.createElement("div");
+
+            weekdays.className =
+                "monthly-attendance-register-employee-detail-weekdays";
+
+            [
+                "Sun",
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat"
+            ].forEach(function (dayName) {
+
+                var weekday =
+                    document.createElement("div");
+
+                weekday.className =
+                    "monthly-attendance-register-employee-detail-weekday";
+
+                weekday.textContent =
+                    dayName;
+
+                weekdays.appendChild(weekday);
+
+            });
+
+            calendar.appendChild(weekdays);
+
+
+            /*
+             * First day position.
+             * JavaScript Sunday = 0 ... Saturday = 6.
+             */
+            var firstDayPosition =
+                new Date(
+                    year,
+                    monthNo - 1,
+                    1
+                ).getDay();
+
+            var totalCalendarCells =
+                firstDayPosition +
+                daysInMonth;
+
+            var calendarWeeks =
+                Math.ceil(
+                    totalCalendarCells / 7
+                );
+
+            calendar.style.setProperty(
+                "--monthly-attendance-detail-weeks",
+                calendarWeeks
+            );
+
+
+            var grid =
+                document.createElement("div");
+
+            grid.className =
+                "monthly-attendance-register-employee-detail-grid";
+
+
+            /*
+             * Empty cells before day 1.
+             */
+            for (
+                var emptyIndex = 0;
+                emptyIndex < firstDayPosition;
+                emptyIndex++
+            ) {
+
+                var emptyCell =
+                    document.createElement("div");
+
+                emptyCell.className =
+                    "monthly-attendance-register-employee-detail-day " +
+                    "empty";
+
+                grid.appendChild(emptyCell);
+
+            }
+
+
+            /*
+             * Day cells.
+             */
+            for (
+                var calendarDay = 1;
+                calendarDay <= daysInMonth;
+                calendarDay++
+            ) {
 
                 var date =
                     new Date(
                         year,
                         monthNo - 1,
-                        day
+                        calendarDay
                     );
 
                 var item =
-                    records[day];
+                    records[calendarDay];
 
                 var status =
                     item
@@ -16540,107 +17059,239 @@
                         )
                         : "";
 
-                var cls =
-                    marStatusClass(status);
+                var weekend =
+                    date.getDay() === 0 ||
+                    date.getDay() === 6;
 
-                var row =
+                var dayCell =
                     document.createElement("div");
 
-                row.className =
-                    "monthly-attendance-register-detail-row";
+                dayCell.className =
+                    "monthly-attendance-register-employee-detail-day";
 
-                var dateText =
-                    String(day).padStart(2, "0") +
-                    " " +
-                    marMonthName(monthNo)
-                        .substring(0, 3) +
-                    " " +
-                    year;
+                if (
+                    weekend &&
+                    !status
+                ) {
+                    dayCell.className +=
+                        " weekend";
+                }
 
-                var dayText =
-                    date.toLocaleString(
-                        "en-US",
-                        {
-                            weekday: "long"
-                        }
+                if (
+                    selectedDay &&
+                    Number(selectedDay) ===
+                    calendarDay
+                ) {
+                    dayCell.className +=
+                        " monthly-attendance-register-employee-detail-selected";
+                }
+
+                var dayNumber =
+                    document.createElement("div");
+
+                dayNumber.className =
+                    "monthly-attendance-register-employee-detail-day-number";
+
+                dayNumber.textContent =
+                    calendarDay;
+
+                dayCell.appendChild(dayNumber);
+
+
+                if (status) {
+
+                    var statusContainer =
+                        document.createElement("div");
+
+                    statusContainer.className =
+                        "monthly-attendance-register-employee-detail-statuses";
+
+                    var statusClass =
+                        marStatusClass(status);
+
+                    var statusBadge =
+                        document.createElement("span");
+
+                    statusBadge.className =
+                        "monthly-attendance-register-employee-detail-status " +
+                        statusClass;
+
+                    statusBadge.textContent =
+                        marStatusShort(status);
+
+                    statusBadge.title =
+                        status;
+
+                    statusContainer.appendChild(
+                        statusBadge
                     );
 
-                var statusHtml =
-                    status
-                        ? (
-                            '<span class="' +
-                            'monthly-attendance-register-status-badge ' +
-                            cls +
-                            '">' +
-                            marEscapeHtml(status) +
-                            "</span>"
-                        )
-                        : (
-                            '<span style="color:#9aa5ad;">' +
-                            (
-                                date.getDay() === 0 ||
-                                    date.getDay() === 6
-                                    ? "Weekend"
-                                    : "No Record"
-                            ) +
-                            "</span>"
-                        );
+                    dayCell.appendChild(
+                        statusContainer
+                    );
 
-                row.innerHTML =
-                    "<div>" +
-                    marEscapeHtml(dateText) +
-                    "</div>" +
-                    "<div>" +
-                    marEscapeHtml(dayText) +
-                    "</div>" +
-                    "<div>" +
-                    statusHtml +
-                    "</div>";
+                    dayCell.title =
+                        String(calendarDay) +
+                        " " +
+                        marMonthName(monthNo) +
+                        " " +
+                        year +
+                        " - " +
+                        status;
 
-                list.appendChild(row);
+                }
+                else if (weekend) {
+
+                    var weekendText =
+                        document.createElement("div");
+
+                    weekendText.className =
+                        "monthly-attendance-register-employee-detail-weekend-text";
+
+                    weekendText.textContent =
+                        "Weekend";
+
+                    dayCell.appendChild(
+                        weekendText
+                    );
+
+                    dayCell.title =
+                        String(calendarDay) +
+                        " " +
+                        marMonthName(monthNo) +
+                        " " +
+                        year +
+                        " - Weekend";
+
+                }
+                else {
+
+                    var noRecord =
+                        document.createElement("div");
+
+                    noRecord.className =
+                        "monthly-attendance-register-employee-detail-no-record";
+
+                    noRecord.textContent =
+                        "No Record";
+
+                    dayCell.appendChild(
+                        noRecord
+                    );
+
+                    dayCell.title =
+                        String(calendarDay) +
+                        " " +
+                        marMonthName(monthNo) +
+                        " " +
+                        year +
+                        " - No attendance record";
+
+                }
+
+                grid.appendChild(dayCell);
 
             }
 
-            chartElement.appendChild(list);
 
+            /*
+             * Complete remaining cells in the final week.
+             */
+            var finalCellCount =
+                calendarWeeks * 7;
 
-            if (selectedDay) {
+            var cellsAlreadyCreated =
+                firstDayPosition +
+                daysInMonth;
 
-                setTimeout(function () {
+            for (
+                var trailingIndex =
+                    cellsAlreadyCreated;
+                trailingIndex < finalCellCount;
+                trailingIndex++
+            ) {
 
-                    var rows =
-                        list.querySelectorAll(
-                            ".monthly-attendance-register-detail-row"
-                        );
+                var trailingCell =
+                    document.createElement("div");
 
-                    /*
-                     * Header is row 0, therefore day N is N.
-                     */
-                    if (rows[selectedDay]) {
+                trailingCell.className =
+                    "monthly-attendance-register-employee-detail-day " +
+                    "empty";
 
-                        rows[selectedDay]
-                            .scrollIntoView({
-                                block: "center"
-                            });
+                grid.appendChild(
+                    trailingCell
+                );
 
-                    }
-
-                }, 30);
             }
 
+            calendar.appendChild(grid);
 
+
+            /*
+             * Legend — same four attendance statuses as the existing
+             * Attendance Calendar.
+             */
+            var footer =
+                document.createElement("div");
+
+            footer.className =
+                "monthly-attendance-register-employee-detail-footer";
+
+            [
+                ["present", "Present"],
+                ["leave", "Leave"],
+                ["cancelled", "Cancelled"],
+                ["rejected", "Rejected"]
+            ].forEach(function (entry) {
+
+                var legend =
+                    document.createElement("div");
+
+                legend.className =
+                    "monthly-attendance-register-employee-detail-legend";
+
+                var box =
+                    document.createElement("span");
+
+                box.className =
+                    "monthly-attendance-register-employee-detail-legend-box " +
+                    entry[0];
+
+                var label =
+                    document.createElement("span");
+
+                label.textContent =
+                    entry[1];
+
+                legend.appendChild(box);
+                legend.appendChild(label);
+
+                footer.appendChild(legend);
+
+            });
+
+            calendar.appendChild(footer);
+
+            chartElement.appendChild(calendar);
+
+
+            /*
+             * Keep the existing masonry layout calculation.
+             */
             setTimeout(function () {
 
                 if (
                     typeof window.refreshDashboardMasonry ===
                     "function"
                 ) {
+
                     window.refreshDashboardMasonry();
+
                 }
 
             }, 50);
-        }
 
+        }
 
         /* ------------------------------------------------------------
            PUBLIC C# ENTRY POINT
@@ -16648,6 +17299,12 @@
 
         window.displayMonthlyAttendanceRegisterData =
             function (data, year) {
+                /*
+                 * New data means the previous tooltip is no longer valid.
+                 */
+                closeMonthlyAttendanceRegisterTooltips();
+
+
 
                 console.log(
                     "Monthly Attendance Register data received:",
@@ -16737,6 +17394,1431 @@
 
 
     })();
+
+
+    /* ============================================================
+       STAFFSYNC COMMON DASHBOARD CARD DATA EXPORT
+       ------------------------------------------------------------
+       Supported formats:
+           .pdf   -> C# WebView2 export handler
+           .docx  -> C# WebView2 export handler
+           .xlsx  -> C# WebView2 export handler
+           .csv   -> browser/WebView2 direct download
+           .xml   -> browser/WebView2 direct download
+           .json  -> browser/WebView2 direct download
+       The C# message contract is:
+           Action = "ExportDashboardCard"
+       ============================================================ */
+    (function () {
+
+        "use strict";
+
+        var EXPORT_ACTION = "ExportDashboardCard";
+
+        function escapeHtml(value) {
+            if (value === null || value === undefined) {
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function sanitizeFileName(value) {
+            var text = String(value || "DashboardExport");
+
+            text = text
+                .replace(/[\\\/:*?"<>|]+/g, "_")
+                .replace(/\s+/g, "_")
+                .replace(/_+/g, "_")
+                .replace(/^_+|_+$/g, "");
+
+            return text || "DashboardExport";
+        }
+
+        function downloadTextFile(fileName, content, mimeType) {
+
+            var blob =
+                new Blob(
+                    [content],
+                    { type: mimeType + ";charset=utf-8" }
+                );
+
+            var url =
+                URL.createObjectURL(blob);
+
+            var anchor =
+                document.createElement("a");
+
+            anchor.href = url;
+            anchor.download = fileName;
+
+            document.body.appendChild(anchor);
+
+            anchor.click();
+
+            document.body.removeChild(anchor);
+
+            setTimeout(
+                function () {
+                    URL.revokeObjectURL(url);
+                },
+                1000
+            );
+        }
+
+        function csvEscape(value) {
+
+            if (value === null || value === undefined) {
+                return "";
+            }
+
+            var text = String(value);
+
+            if (
+                text.indexOf('"') >= 0 ||
+                text.indexOf(",") >= 0 ||
+                text.indexOf("\r") >= 0 ||
+                text.indexOf("\n") >= 0
+            ) {
+                return '"' +
+                    text.replace(/"/g, '""') +
+                    '"';
+            }
+
+            return text;
+        }
+
+        function rowsToCsv(rows) {
+
+            if (!Array.isArray(rows) || rows.length === 0) {
+                return "";
+            }
+
+            var columns = [];
+
+            rows.forEach(function (row) {
+
+                if (!row || typeof row !== "object") {
+                    return;
+                }
+
+                Object.keys(row).forEach(function (key) {
+
+                    if (
+                        columns.indexOf(key) < 0
+                    ) {
+                        columns.push(key);
+                    }
+
+                });
+
+            });
+
+            var lines = [];
+
+            lines.push(
+                columns.map(csvEscape).join(",")
+            );
+
+            rows.forEach(function (row) {
+
+                lines.push(
+                    columns.map(
+                        function (key) {
+                            return csvEscape(
+                                row &&
+                                    row[key] !== undefined
+                                    ? row[key]
+                                    : ""
+                            );
+                        }
+                    ).join(",")
+                );
+
+            });
+
+            return "\uFEFF" + lines.join("\r\n");
+        }
+
+        function rowsToXml(title, rows) {
+
+            var safeTitle =
+                String(title || "DashboardData")
+                    .replace(/[^A-Za-z0-9_]/g, "_");
+
+            var xml =
+                '<?xml version="1.0" encoding="UTF-8"?>' +
+                '<DashboardExport>' +
+                '<Title>' +
+                escapeHtml(title || "Dashboard Data") +
+                '</Title>' +
+                '<Rows>';
+
+            if (Array.isArray(rows)) {
+
+                rows.forEach(function (row) {
+
+                    xml += "<Row>";
+
+                    if (
+                        row &&
+                        typeof row === "object"
+                    ) {
+
+                        Object.keys(row).forEach(
+                            function (key) {
+
+                                var tag =
+                                    String(key)
+                                        .replace(
+                                            /[^A-Za-z0-9_]/g,
+                                            "_"
+                                        );
+
+                                if (!tag) {
+                                    tag = "Value";
+                                }
+
+                                xml +=
+                                    "<" + tag + ">" +
+                                    escapeHtml(
+                                        row[key]
+                                    ) +
+                                    "</" + tag + ">";
+
+                            }
+                        );
+
+                    }
+                    else {
+
+                        xml +=
+                            "<Value>" +
+                            escapeHtml(row) +
+                            "</Value>";
+
+                    }
+
+                    xml += "</Row>";
+
+                });
+
+            }
+
+            xml +=
+                '</Rows>' +
+                '</DashboardExport>';
+
+            return xml;
+        }
+
+        function normalizeValue(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            if (
+                typeof value === "string" ||
+                typeof value === "number" ||
+                typeof value === "boolean"
+            ) {
+                return value;
+            }
+
+            if (value instanceof Date) {
+                return value.toISOString();
+            }
+
+            return JSON.stringify(value);
+        }
+
+        function getEChartsRows(chart) {
+
+            if (!chart || typeof chart.getOption !== "function") {
+                return [];
+            }
+
+            var option;
+
+            try {
+                option = chart.getOption();
+            }
+            catch (e) {
+                return [];
+            }
+
+            if (!option) {
+                return [];
+            }
+
+            var series =
+                Array.isArray(option.series)
+                    ? option.series
+                    : [];
+
+            var rows = [];
+
+            /*
+             * Pie / single-series object data.
+             */
+            if (
+                series.length === 1 &&
+                Array.isArray(series[0].data) &&
+                series[0].data.length > 0 &&
+                typeof series[0].data[0] === "object"
+            ) {
+
+                series[0].data.forEach(
+                    function (item) {
+
+                        if (!item) {
+                            return;
+                        }
+
+                        rows.push({
+                            Category:
+                                item.name !== undefined
+                                    ? item.name
+                                    : "",
+                            Value:
+                                item.value !== undefined
+                                    ? normalizeValue(
+                                        item.value
+                                    )
+                                    : ""
+                        });
+
+                    }
+                );
+
+                if (rows.length > 0) {
+                    return rows;
+                }
+            }
+
+            var categories = [];
+
+            if (
+                option.xAxis &&
+                option.xAxis[0] &&
+                Array.isArray(
+                    option.xAxis[0].data
+                )
+            ) {
+
+                categories =
+                    option.xAxis[0].data.map(
+                        function (value) {
+                            return normalizeValue(value);
+                        }
+                    );
+
+            }
+
+            /*
+             * If this is a horizontal chart, use yAxis categories.
+             */
+            if (
+                categories.length === 0 &&
+                option.yAxis &&
+                option.yAxis[0] &&
+                Array.isArray(
+                    option.yAxis[0].data
+                )
+            ) {
+
+                categories =
+                    option.yAxis[0].data.map(
+                        function (value) {
+                            return normalizeValue(value);
+                        }
+                    );
+
+            }
+
+            var maxLength =
+                categories.length;
+
+            series.forEach(function (item) {
+
+                if (
+                    item &&
+                    Array.isArray(item.data)
+                ) {
+                    maxLength =
+                        Math.max(
+                            maxLength,
+                            item.data.length
+                        );
+                }
+
+            });
+
+            for (
+                var index = 0;
+                index < maxLength;
+                index++
+            ) {
+
+                var row = {};
+
+                row.Category =
+                    categories[index] !== undefined
+                        ? categories[index]
+                        : index + 1;
+
+                series.forEach(
+                    function (item) {
+
+                        if (!item) {
+                            return;
+                        }
+
+                        var name =
+                            item.name ||
+                            "Series";
+
+                        var key =
+                            String(name)
+                                .replace(
+                                    /[^A-Za-z0-9_]+/g,
+                                    "_"
+                                );
+
+                        if (!key) {
+                            key = "Series";
+                        }
+
+                        var value =
+                            Array.isArray(item.data)
+                                ? item.data[index]
+                                : "";
+
+                        if (
+                            value &&
+                            typeof value === "object" &&
+                            value.value !== undefined
+                        ) {
+                            value = value.value;
+                        }
+
+                        row[key] =
+                            normalizeValue(value);
+
+                    }
+                );
+
+                rows.push(row);
+            }
+
+            return rows;
+        }
+
+        function getVisibleTableRows(card) {
+
+            var table =
+                card.querySelector("table");
+
+            if (!table) {
+                return [];
+            }
+
+            var rows = [];
+
+            var headerCells =
+                table.querySelectorAll(
+                    "thead tr:first-child th"
+                );
+
+            var headers = [];
+
+            for (
+                var i = 0;
+                i < headerCells.length;
+                i++
+            ) {
+                headers.push(
+                    headerCells[i].innerText.trim()
+                );
+            }
+
+            var bodyRows =
+                table.querySelectorAll(
+                    "tbody tr"
+                );
+
+            for (
+                var r = 0;
+                r < bodyRows.length;
+                r++
+            ) {
+
+                var cells =
+                    bodyRows[r].querySelectorAll(
+                        "th,td"
+                    );
+
+                var row = {};
+
+                for (
+                    var c = 0;
+                    c < cells.length;
+                    c++
+                ) {
+
+                    var key =
+                        headers[c] ||
+                        ("Column" + (c + 1));
+
+                    row[key] =
+                        cells[c].innerText.trim();
+
+                }
+
+                rows.push(row);
+            }
+
+            return rows;
+        }
+
+        function getMonthlyRegisterVisibleRows(card) {
+
+            var grid =
+                card.querySelector(
+                    ".monthly-attendance-register-grid"
+                );
+
+            if (!grid) {
+                return [];
+            }
+
+            var children =
+                Array.prototype.slice.call(
+                    grid.children
+                );
+
+            if (children.length === 0) {
+                return [];
+            }
+
+            var style =
+                window.getComputedStyle(grid);
+
+            var columns =
+                style.gridTemplateColumns
+                    .split(/\s+/)
+                    .filter(Boolean)
+                    .length;
+
+            if (!columns) {
+                return [];
+            }
+
+            var rows = [];
+
+            for (
+                var i = 0;
+                i < children.length;
+                i += columns
+            ) {
+
+                var row = {};
+
+                for (
+                    var j = 0;
+                    j < columns &&
+                    i + j < children.length;
+                    j++
+                ) {
+
+                    var cell =
+                        children[i + j];
+
+                    var text =
+                        cell.innerText
+                            ? cell.innerText.trim()
+                            : "";
+
+                    var key;
+
+                    if (i === 0) {
+
+                        key =
+                            text ||
+                            ("Column" + (j + 1));
+
+                    }
+                    else {
+
+                        /*
+                         * The first row is the header. Rebuild headers
+                         * once and use them for every employee row.
+                         */
+                        key =
+                            "Column" + (j + 1);
+
+                    }
+
+                    row[key] = text;
+                }
+
+                rows.push(row);
+            }
+
+            /*
+             * Rebuild the grid with the actual first row as headers.
+             */
+            if (rows.length > 1) {
+
+                var headerRow = rows[0];
+                var headerKeys = Object.keys(headerRow);
+                var normalized = [];
+
+                for (
+                    var r = 1;
+                    r < rows.length;
+                    r++
+                ) {
+
+                    var out = {};
+
+                    for (
+                        var h = 0;
+                        h < headerKeys.length;
+                        h++
+                    ) {
+
+                        var sourceKey =
+                            headerKeys[h];
+
+                        var label =
+                            headerRow[sourceKey] ||
+                            ("Column" + (h + 1));
+
+                        /*
+                         * Ensure unique and useful field names.
+                         */
+                        var field =
+                            String(label)
+                                .replace(
+                                    /[^A-Za-z0-9_%]+/g,
+                                    "_"
+                                )
+                                .replace(
+                                    /^_+|_+$/g,
+                                    ""
+                                );
+
+                        if (!field) {
+                            field =
+                                "Column" + (h + 1);
+                        }
+
+                        if (
+                            out[field] !== undefined
+                        ) {
+                            field =
+                                field +
+                                "_" +
+                                (h + 1);
+                        }
+
+                        out[field] =
+                            rows[r][sourceKey] || "";
+
+                    }
+
+                    normalized.push(out);
+                }
+
+                return normalized;
+            }
+
+            return [];
+        }
+
+        function getCardRows(card) {
+
+            /*
+             * ------------------------------------------------------------
+             * Monthly Attendance Register
+             * ------------------------------------------------------------
+             * Export the currently visible drilldown/register.
+             */
+            if (
+                card.id ===
+                "monthlyAttendanceRegisterCard"
+            ) {
+
+                var monthlyRows =
+                    getMonthlyRegisterVisibleRows(
+                        card
+                    );
+
+                if (monthlyRows.length > 0) {
+                    return monthlyRows;
+                }
+            }
+
+
+            /*
+             * ------------------------------------------------------------
+             * Yearly Holiday
+             * ------------------------------------------------------------
+             * This card uses custom HTML instead of ECharts/table.
+             *
+             * Read the actual holiday items displayed on the card.
+             */
+            if (
+                card.id ===
+                "holidaySummaryCard"
+            ) {
+
+                var holidayList =
+                    card.querySelector(
+                        ".holiday-summary-direct-list"
+                    );
+
+                if (holidayList) {
+
+                    var holidayItems =
+                        holidayList.querySelectorAll(
+                            ".holiday-summary-direct-item"
+                        );
+
+                    var holidayRows = [];
+
+                    for (
+                        var h = 0;
+                        h < holidayItems.length;
+                        h++
+                    ) {
+
+                        var holidayItem =
+                            holidayItems[h];
+
+                        /*
+                         * ------------------------------------------------
+                         * Extract individual visible fields.
+                         * ------------------------------------------------
+                         */
+
+                        var holidayNameElement =
+                            holidayItem.querySelector(
+                                ".holiday-summary-direct-name"
+                            );
+
+                        var holidayDateElement =
+                            holidayItem.querySelector(
+                                ".holiday-summary-direct-date"
+                            );
+
+                        var holidayDayElement =
+                            holidayItem.querySelector(
+                                ".holiday-summary-direct-day-name"
+                            );
+
+                        var holidayStatusElement =
+                            holidayItem.querySelector(
+                                ".holiday-summary-direct-status"
+                            );
+
+
+                        var holidayName =
+                            holidayNameElement
+                                ? holidayNameElement.innerText.trim()
+                                : "";
+
+                        var holidayDate =
+                            holidayDateElement
+                                ? holidayDateElement.innerText.trim()
+                                : "";
+
+                        var holidayDay =
+                            holidayDayElement
+                                ? holidayDayElement.innerText.trim()
+                                : "";
+
+                        var holidayStatus =
+                            holidayStatusElement
+                                ? holidayStatusElement.innerText.trim()
+                                : "";
+
+
+                        /*
+                         * ------------------------------------------------
+                         * Only add actual holiday records.
+                         * ------------------------------------------------
+                         */
+                        if (
+                            holidayName ||
+                            holidayDate ||
+                            holidayDay ||
+                            holidayStatus
+                        ) {
+
+                            holidayRows.push({
+
+                                Holiday:
+                                    holidayName,
+
+                                Date:
+                                    holidayDate,
+
+                                Day:
+                                    holidayDay,
+
+                                Status:
+                                    holidayStatus
+
+                            });
+                        }
+                    }
+
+
+                    /*
+                     * ------------------------------------------------
+                     * If we successfully found holiday rows,
+                     * return them.
+                     *
+                     * This prevents the generic fallback from being used.
+                     * ------------------------------------------------
+                     */
+                    if (
+                        holidayRows.length > 0
+                    ) {
+
+                        return holidayRows;
+                    }
+                }
+            }
+
+
+            /*
+             * ------------------------------------------------------------
+             * ECharts-based cards.
+             * ------------------------------------------------------------
+             */
+            var chartElements =
+                card.querySelectorAll(
+                    ".chart-container"
+                );
+
+            for (
+                var i = 0;
+                i < chartElements.length;
+                i++
+            ) {
+
+                if (
+                    typeof echarts !==
+                    "undefined"
+                ) {
+
+                    var instance =
+                        echarts.getInstanceByDom(
+                            chartElements[i]
+                        );
+
+                    if (instance) {
+
+                        var chartRows =
+                            getEChartsRows(
+                                instance
+                            );
+
+                        if (
+                            chartRows.length > 0
+                        ) {
+
+                            return chartRows;
+                        }
+                    }
+                }
+            }
+
+
+            /*
+             * ------------------------------------------------------------
+             * Standard HTML table.
+             * ------------------------------------------------------------
+             */
+            var tableRows =
+                getVisibleTableRows(card);
+
+            if (tableRows.length > 0) {
+
+                return tableRows;
+            }
+
+
+            /*
+             * ------------------------------------------------------------
+             * Generic fallback.
+             *
+             * This ensures every card still has something meaningful
+             * to export even if its renderer is a custom HTML widget.
+             * ------------------------------------------------------------
+             */
+            var content =
+                card.querySelector(
+                    ".chart-container"
+                );
+
+            if (content) {
+
+                var text =
+                    content.innerText
+                        ? content.innerText.trim()
+                        : "";
+
+                if (text) {
+
+                    return [
+                        {
+                            Content: text
+                        }
+                    ];
+                }
+            }
+
+
+            return [];
+        }
+        
+        function getChartImageData(card) {
+
+            if (
+                typeof echarts ===
+                "undefined"
+            ) {
+                return "";
+            }
+
+            var chartElements =
+                card.querySelectorAll(
+                    ".chart-container"
+                );
+
+            for (
+                var i = 0;
+                i < chartElements.length;
+                i++
+            ) {
+
+                var instance =
+                    echarts.getInstanceByDom(
+                        chartElements[i]
+                    );
+
+                if (
+                    instance &&
+                    typeof instance.getDataURL ===
+                    "function"
+                ) {
+
+                    try {
+
+                        return instance.getDataURL({
+                            type: "png",
+                            pixelRatio: 2,
+                            backgroundColor: "#ffffff",
+                            excludeComponents: [
+                                "toolbox"
+                            ]
+                        });
+
+                    }
+                    catch (e) {
+                        /*
+                         * Keep exporting data even when a chart image
+                         * cannot be generated.
+                         */
+                    }
+                }
+            }
+
+            return "";
+        }
+
+        function getCardTitle(card) {
+
+            var title =
+                card.querySelector(
+                    ".chart-title"
+                );
+
+            if (title) {
+                return title.innerText.trim();
+            }
+
+            return card.id ||
+                "Dashboard Card";
+        }
+
+        function getCardExportPayload(card, format) {
+
+            var title =
+                getCardTitle(card);
+
+            var rows =
+                getCardRows(card);
+
+            return {
+                Action:
+                    EXPORT_ACTION,
+
+                CardId:
+                    card.id || "",
+
+                CardTitle:
+                    title,
+
+                Format:
+                    format,
+
+                Rows:
+                    rows,
+
+                ChartImage:
+                    getChartImageData(card),
+
+                GeneratedAt:
+                    new Date().toISOString()
+            };
+        }
+
+        function exportDirect(card, format) {
+
+            var title =
+                getCardTitle(card);
+
+            var rows =
+                getCardRows(card);
+
+            var baseName =
+                sanitizeFileName(title);
+
+            if (format === "json") {
+
+                var json =
+                    JSON.stringify(
+                        {
+                            CardId:
+                                card.id || "",
+                            CardTitle:
+                                title,
+                            GeneratedAt:
+                                new Date().toISOString(),
+                            Data:
+                                rows
+                        },
+                        null,
+                        2
+                    );
+
+                downloadTextFile(
+                    baseName + ".json",
+                    json,
+                    "application/json"
+                );
+
+                return;
+            }
+
+            if (format === "csv") {
+
+                downloadTextFile(
+                    baseName + ".csv",
+                    rowsToCsv(rows),
+                    "text/csv"
+                );
+
+                return;
+            }
+
+            if (format === "xml") {
+
+                downloadTextFile(
+                    baseName + ".xml",
+                    rowsToXml(title, rows),
+                    "application/xml"
+                );
+
+                return;
+            }
+
+        }
+
+        function sendToCSharp(card, format) {
+
+            if (
+                !(
+                    window.chrome &&
+                    window.chrome.webview &&
+                    typeof window.chrome.webview.postMessage ===
+                    "function"
+                )
+            ) {
+
+                console.error(
+                    "StaffSync WebView2 bridge is not available. " +
+                    "Cannot export " + format + "."
+                );
+
+                alert(
+                    "Export to ." +
+                    format +
+                    " requires the StaffSync C# export handler."
+                );
+
+                return;
+            }
+
+            var payload =
+                getCardExportPayload(
+                    card,
+                    format
+                );
+
+            try {
+
+                window.chrome.webview.postMessage(
+                    payload
+                );
+
+            }
+            catch (error) {
+
+                console.error(
+                    "StaffSync export request failed:",
+                    error
+                );
+
+                alert(
+                    "Unable to start ." +
+                    format +
+                    " export."
+                );
+
+            }
+
+        }
+
+        function handleExportChange(select) {
+
+            var format =
+                String(
+                    select.value || ""
+                ).toLowerCase();
+
+            if (!format) {
+                return;
+            }
+
+            var card =
+                select.closest
+                    ? select.closest(
+                        ".chart-card"
+                    )
+                    : null;
+
+            /*
+             * Reset the selector so the same format can be selected
+             * again later.
+             */
+            select.value = "";
+
+            if (!card) {
+                return;
+            }
+
+            if (
+                format === "json" ||
+                format === "csv" ||
+                format === "xml"
+            ) {
+
+                exportDirect(
+                    card,
+                    format
+                );
+
+                return;
+            }
+
+            if (
+                format === "pdf" ||
+                format === "docx" ||
+                format === "xlsx"
+            ) {
+
+                sendToCSharp(
+                    card,
+                    format
+                );
+
+                return;
+            }
+
+        }
+
+        function addExportSelector(card) {
+
+            if (!card) {
+                return;
+            }
+
+            var header =
+                card.querySelector(
+                    ".chart-card-header"
+                );
+
+            if (!header) {
+                return;
+            }
+
+            if (
+                header.querySelector(
+                    ".dashboard-card-export"
+                )
+            ) {
+                return;
+            }
+
+            var wrapper =
+                document.createElement("div");
+
+            wrapper.className =
+                "dashboard-card-export";
+
+            var label =
+                document.createElement("span");
+
+            label.className =
+                "dashboard-card-export-label";
+
+            label.textContent =
+                "Export Data to :";
+
+            var select =
+                document.createElement("select");
+
+            select.className =
+                "dashboard-card-export-select";
+
+            select.title =
+                "Export card data";
+
+            var placeholder =
+                document.createElement("option");
+
+            placeholder.value = "";
+
+            placeholder.textContent =
+                "Export";
+
+            placeholder.selected = true;
+
+            select.appendChild(
+                placeholder
+            );
+
+            [
+                ["pdf", ".pdf"],
+                ["docx", ".docx"],
+                ["xlsx", ".xlsx"],
+                ["csv", ".csv"],
+                ["xml", ".xml"],
+                ["json", ".json"]
+            ].forEach(
+                function (item) {
+
+                    var option =
+                        document.createElement("option");
+
+                    option.value =
+                        item[0];
+
+                    option.textContent =
+                        item[1];
+
+                    select.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+            select.addEventListener(
+                "change",
+                function () {
+                    handleExportChange(this);
+                }
+            );
+
+            wrapper.appendChild(label);
+            wrapper.appendChild(select);
+
+            /*
+             * Header uses its existing layout. The export control is
+             * simply appended as the last header item.
+             */
+            header.appendChild(wrapper);
+        }
+
+        function initializeExportSelectors() {
+
+            var cards =
+                document.querySelectorAll(
+                    ".chart-card"
+                );
+
+            for (
+                var i = 0;
+                i < cards.length;
+                i++
+            ) {
+                addExportSelector(cards[i]);
+            }
+        }
+
+        /*
+         * Cards are already present in the master HTML. Use DOM ready,
+         * and also observe future dynamically-created cards without
+         * touching their layout or masonry positioning.
+         */
+        if (
+            document.readyState ===
+            "loading"
+        ) {
+
+            document.addEventListener(
+                "DOMContentLoaded",
+                initializeExportSelectors
+            );
+
+        }
+        else {
+
+            initializeExportSelectors();
+
+        }
+
+        if (
+            typeof MutationObserver !==
+            "undefined"
+        ) {
+
+            var observer =
+                new MutationObserver(
+                    function (mutations) {
+
+                        var shouldScan = false;
+
+                        for (
+                            var i = 0;
+                            i < mutations.length;
+                            i++
+                        ) {
+
+                            if (
+                                mutations[i].addedNodes &&
+                                mutations[i].addedNodes.length
+                            ) {
+
+                                shouldScan = true;
+                                break;
+
+                            }
+
+                        }
+
+                        if (shouldScan) {
+                            initializeExportSelectors();
+                        }
+
+                    }
+                );
+
+            observer.observe(
+                document.body,
+                {
+                    childList: true,
+                    subtree: true
+                }
+            );
+
+        }
+
+        /*
+         * Public API for a future card or C#-triggered export.
+         */
+        window.staffSyncExportDashboardCard =
+            function (
+                cardOrId,
+                format
+            ) {
+
+                var card =
+                    typeof cardOrId ===
+                        "string"
+                        ? document.getElementById(
+                            cardOrId
+                        )
+                        : cardOrId;
+
+                if (!card) {
+                    return false;
+                }
+
+                format =
+                    String(
+                        format || ""
+                    ).toLowerCase();
+
+                if (
+                    format === "json" ||
+                    format === "csv" ||
+                    format === "xml"
+                ) {
+
+                    exportDirect(
+                        card,
+                        format
+                    );
+
+                    return true;
+                }
+
+                if (
+                    format === "pdf" ||
+                    format === "docx" ||
+                    format === "xlsx"
+                ) {
+
+                    sendToCSharp(
+                        card,
+                        format
+                    );
+
+                    return true;
+                }
+
+                return false;
+            };
+
+    })();
+
 
 </script>
 

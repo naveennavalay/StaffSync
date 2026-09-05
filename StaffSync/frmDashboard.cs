@@ -8,6 +8,7 @@ using LiveCharts.WinForms;
 using LiveCharts.Wpf;
 using ModelStaffSync;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Ocsp;
 using Quartz;
 using Quartz.Impl;
@@ -7720,6 +7721,8 @@ namespace StaffSync
 
         private async void btnRefresh_Click(object sender, EventArgs e)
         {
+            dtgUserDashboardPreferences.DataSource = objEmployeeDashboardConfig.getEmployeeDashboardConfigInfoList(objSelectedClientFinYearInfo.ClientID, objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID);
+            FormatDashboardPreferencesGrid(); 
             refreshDashboardCharts();
         }
 
@@ -7783,6 +7786,22 @@ namespace StaffSync
                     string script = "displayEmployeeWiseLeaveOutstandingSummary(" + json + ", " + JsonConvert.SerializeObject(departmentTitle) + ");";
 
                     await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        ex.Message,
+                        "StaffSync",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+            }
+            else if (message.Action == "ExportDashboardCard")
+            {
+                try
+                {
+                    await HandleDashboardCardExportAsync(e.WebMessageAsJson);
                 }
                 catch (Exception ex)
                 {
@@ -8011,6 +8030,419 @@ namespace StaffSync
             // --------------------------------------------------------
 
             btnToDateEdit.Text = _toDateEditSeconds.ToString();
+        }
+
+        private async Task HandleDashboardCardExportAsync(string webMessageJson)
+        {
+            try
+            {
+                StaffSync.ReportingEngine.Reports.Attendance.clsDashboardExportRequest request = JsonConvert.DeserializeObject<StaffSync.ReportingEngine.Reports.Attendance.clsDashboardExportRequest>(webMessageJson);
+
+                if (request == null)
+                {
+                    return;
+                }
+
+                string format = Convert.ToString(request.Format);
+
+                if (string.IsNullOrWhiteSpace(format))
+                {
+                    return;
+                }
+
+                format = format.Trim().TrimStart('.').ToLowerInvariant();
+
+                string filter;
+                string extension;
+
+                switch (format)
+                {
+                    case "pdf":
+
+                        filter =
+                            "PDF Files (*.pdf)|*.pdf";
+
+                        extension =
+                            "pdf";
+
+                        break;
+
+
+                    case "docx":
+
+                        filter =
+                            "Word Documents (*.docx)|*.docx";
+
+                        extension =
+                            "docx";
+
+                        break;
+
+
+                    case "xlsx":
+
+                        filter =
+                            "Excel Files (*.xlsx)|*.xlsx";
+
+                        extension =
+                            "xlsx";
+
+                        break;
+
+
+                    case "csv":
+
+                        filter =
+                            "CSV Files (*.csv)|*.csv";
+
+                        extension =
+                            "csv";
+
+                        break;
+
+
+                    case "xml":
+
+                        filter =
+                            "XML Files (*.xml)|*.xml";
+
+                        extension =
+                            "xml";
+
+                        break;
+
+
+                    case "json":
+
+                        filter =
+                            "JSON Files (*.json)|*.json";
+
+                        extension =
+                            "json";
+
+                        break;
+
+
+                    default:
+
+                        return;
+                }
+
+
+                /*
+                 * ------------------------------------------------------------
+                 * Default filename.
+                 * ------------------------------------------------------------
+                 */
+
+                string fileName =
+                    string.IsNullOrWhiteSpace(
+                        request.CardTitle)
+                        ? "DashboardExport"
+                        : request.CardTitle;
+
+
+                foreach (
+                    char invalidCharacter
+                    in System.IO.Path
+                        .GetInvalidFileNameChars())
+                {
+                    fileName =
+                        fileName.Replace(
+                            invalidCharacter,
+                            '_');
+                }
+
+
+                fileName =
+                    fileName +
+                    "_" +
+                    DateTime.Now.ToString(
+                        "yyyyMMdd_HHmmss") +
+                    "." +
+                    extension;
+
+
+                /*
+                 * ------------------------------------------------------------
+                 * Save As dialog.
+                 * ------------------------------------------------------------
+                 */
+                string selectedFilePath = null;
+
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Title =
+                        "Export Dashboard Data";
+
+                    saveFileDialog.Filter =
+                        filter;
+
+                    saveFileDialog.DefaultExt =
+                        extension;
+
+                    saveFileDialog.AddExtension =
+                        true;
+
+                    saveFileDialog.FileName =
+                        fileName;
+
+                    saveFileDialog.OverwritePrompt =
+                        true;
+
+                    saveFileDialog.RestoreDirectory =
+                        true;
+
+
+                    DialogResult result =
+                        saveFileDialog.ShowDialog(
+                            this);
+
+
+                    if (result !=
+                        DialogResult.OK)
+                    {
+                        return;
+                    }
+
+
+                    selectedFilePath =
+                        saveFileDialog.FileName;
+                }
+
+
+                /*
+                 * ------------------------------------------------------------
+                 * Validate selected path.
+                 * ------------------------------------------------------------
+                 */
+
+                if (string.IsNullOrWhiteSpace(
+                        selectedFilePath))
+                {
+                    return;
+                }
+
+
+                /*
+                 * ------------------------------------------------------------
+                 * Export.
+                 * ------------------------------------------------------------
+                 *
+                 * No Task.Run().
+                 * No MessageBox.
+                 * No PDFsharp/MigraDoc for PDF.
+                 */
+
+                StaffSync.ReportingEngine.Reports.Attendance
+                    .clsDashboardExportService exportService =
+                    new StaffSync.ReportingEngine.Reports.Attendance
+                        .clsDashboardExportService();
+
+
+                exportService.Export(
+                    request,
+                    selectedFilePath);
+
+
+                /*
+                 * ------------------------------------------------------------
+                 * IMPORTANT
+                 *
+                 * Do NOT show MessageBox here.
+                 *
+                 * Return normally to the WebView2 event handler.
+                 * ------------------------------------------------------------
+                 */
+
+                if (System.IO.File.Exists(selectedFilePath))
+                {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                            FileName = selectedFilePath,
+                            UseShellExecute = true
+                    });
+                }
+                return;
+            }
+            catch
+            {
+                /*
+                 * Do not show a modal MessageBox from the WebView2
+                 * message-processing path.
+                 *
+                 * The export operation should fail silently here.
+                 * We can add non-modal error reporting later.
+                 */
+
+                return;
+            }
+        }
+        private void SaveMinimalPdfFile(string outputFilePath)
+        {
+            /*
+             * ------------------------------------------------------------
+             * This creates a very small, valid PDF directly.
+             *
+             * No PDFsharp.
+             * No MigraDoc.
+             * No ReportingEngine.
+             * No chart/image processing.
+             * ------------------------------------------------------------
+             */
+
+            if (string.IsNullOrWhiteSpace(outputFilePath))
+            {
+                throw new ArgumentException("PDF output file path is required.", nameof(outputFilePath));
+            }
+
+            string[] objects =
+            {
+                "1 0 obj\n" +
+                "<< /Type /Catalog /Pages 2 0 R >>\n" +
+                "endobj\n",
+
+                "2 0 obj\n" +
+                "<< /Type /Pages /Kids [3 0 R] /Count 1 >>\n" +
+                "endobj\n",
+
+                "3 0 obj\n" +
+                "<< /Type /Page " +
+                "/Parent 2 0 R " +
+                "/MediaBox [0 0 595 842] " +
+                "/Resources << /Font << /F1 4 0 R >> >> " +
+                "/Contents 5 0 R >>\n" +
+                "endobj\n",
+
+                "4 0 obj\n" +
+                "<< /Type /Font " +
+                "/Subtype /Type1 " +
+                "/BaseFont /Helvetica >>\n" +
+                "endobj\n",
+
+                "5 0 obj\n" +
+                "<< /Length 57 >>\n" +
+                "stream\n" +
+                "BT\n" +
+                "/F1 14 Tf\n" +
+                "72 770 Td\n" +
+                "(StaffSync PDF Export Test) Tj\n" +
+                "ET\n" +
+                "endstream\n" +
+                "endobj\n"
+            };
+
+
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                List<long> offsets = new List<long>();
+
+                /*
+                 * PDF header.
+                 */
+
+                byte[] header =
+                    Encoding.ASCII.GetBytes(
+                        "%PDF-1.4\n");
+
+                memoryStream.Write(
+                    header,
+                    0,
+                    header.Length);
+
+
+                /*
+                 * PDF objects.
+                 */
+
+                for (int i = 0;
+                     i < objects.Length;
+                     i++)
+                {
+                    offsets.Add(
+                        memoryStream.Position);
+
+                    byte[] objectBytes =
+                        Encoding.ASCII.GetBytes(
+                            objects[i]);
+
+                    memoryStream.Write(
+                        objectBytes,
+                        0,
+                        objectBytes.Length);
+                }
+
+
+                /*
+                 * Cross-reference table.
+                 */
+
+                long xrefPosition =
+                    memoryStream.Position;
+
+                string xref =
+                    "xref\n" +
+                    "0 " +
+                    (objects.Length + 1) +
+                    "\n" +
+                    "0000000000 65535 f \n";
+
+                for (int i = 0;
+                     i < offsets.Count;
+                     i++)
+                {
+                    xref +=
+                        offsets[i]
+                            .ToString(
+                                "D10",
+                                CultureInfo.InvariantCulture) +
+                        " 00000 n \n";
+                }
+
+                byte[] xrefBytes =
+                    Encoding.ASCII.GetBytes(
+                        xref);
+
+                memoryStream.Write(
+                    xrefBytes,
+                    0,
+                    xrefBytes.Length);
+
+
+                /*
+                 * Trailer.
+                 */
+
+                string trailer =
+                    "trailer\n" +
+                    "<< /Size " +
+                    (objects.Length + 1) +
+                    " /Root 1 0 R >>\n" +
+                    "startxref\n" +
+                    xrefPosition.ToString(
+                        CultureInfo.InvariantCulture) +
+                    "\n" +
+                    "%%EOF";
+
+                byte[] trailerBytes =
+                    Encoding.ASCII.GetBytes(
+                        trailer);
+
+                memoryStream.Write(
+                    trailerBytes,
+                    0,
+                    trailerBytes.Length);
+
+
+                /*
+                 * Finally write the complete byte array
+                 * directly to the selected file.
+                 */
+
+                File.WriteAllBytes(
+                    outputFilePath,
+                    memoryStream.ToArray());
+            }
         }
     }
 }

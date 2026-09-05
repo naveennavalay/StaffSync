@@ -52,6 +52,8 @@ namespace dbStaffSync
                                             ((EmpMas.EmpID) = " + EmpID + ") " + @"
                                             AND ((EmpMas.IsActive) = True)
                                             AND ((EmpMas.IsDeleted) = False)
+                                            AND ((DBChartInfo.IsActive) = True)
+                                            AND ((DBChartInfo.IsDeleted) = False)
                                             AND ((ClientMas.ClientID) = " + ClientID + ") " + @"
                                         )
                                     ORDER BY
