@@ -149,5 +149,14 @@ namespace DALStaffSync
 
             return objMonthlyAttendanceRegisterList;
         }
+
+        public List<EmployeeAdvanceInformationChartData> displayEmployeeAdvanceInformationChartData(int clientId, DateTime dtFrom, DateTime dtTo) //, CancellationToken cancellationToken = default)
+        {
+            List<EmployeeAdvanceInformationChartData> objEmployeeAdvanceInformationList = new List<EmployeeAdvanceInformationChartData>();
+
+            objEmployeeAdvanceInformationList = objDashboardChartWidgets.displayEmployeeAdvanceInformationChartData(clientId, dtFrom, dtTo);
+
+            return objEmployeeAdvanceInformationList;
+        }
     }
 }

@@ -498,22 +498,22 @@ namespace StaffSync
             if (e.RowIndex < 0)
                 return;
 
-            //if (dtgAssetsRequestersList.Columns[e.ColumnIndex].Name == "AssetRequestByStatus")
-            //{
-            //    int AdvanceRequestID = Convert.ToInt32(dtgAssetsRequestersList.Rows[e.RowIndex].Cells["EmpAdvanceRequestID"].Value);
+            if (dtgAssetsRequestersList.Columns[e.ColumnIndex].Name == "AssetRequestComments")
+            {
+                int AdvanceRequestID = Convert.ToInt32(dtgAssetsRequestersList.Rows[e.RowIndex].Cells["assetRequestID"].Value);
 
-            //    string CurrentStatus = dtgAssetsRequestersList.Rows[e.RowIndex].Cells["ApproverRequestedToComments1"].Value?.ToString();
+                string CurrentStatus = dtgAssetsRequestersList.Rows[e.RowIndex].Cells["AssetRequestComments"].Value?.ToString();
 
-            //    using (var frm = new frmUpdateAdvanceStatus(AdvanceRequestID, CurrentStatus))
-            //    {
-            //        if (frm.ShowDialog() == DialogResult.OK)
-            //        {
-            //            btnSaveDetails.Enabled = true;
-            //            dtgAssetsRequestersList.Rows[e.RowIndex].Cells["Select"].Value = true;
-            //            dtgAssetsRequestersList.Rows[e.RowIndex].Cells["ApproverRequestedToComments1"].Value = frm.SelectedStatus;
-            //        }
-            //    }
-            //}
+                using (var frm = new frmUpdateAdvanceStatus(AdvanceRequestID, CurrentStatus))
+                {
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        btnSaveDetails.Enabled = true;
+                        dtgAssetsRequestersList.Rows[e.RowIndex].Cells["Select"].Value = true;
+                        dtgAssetsRequestersList.Rows[e.RowIndex].Cells["AssetRequestComments"].Value = frm.SelectedStatus;
+                    }
+                }
+            }
         }
     }
 }

@@ -65,6 +65,7 @@
     <Compile Include="clsUpcomingHolidayChartData.cs" />
     <Compile Include="EmpActiveInactiveStatusInfoModel.cs" />
     <Compile Include="CompanyInfo.cs" />
+    <Compile Include="clsEmployeeAdvanceInformationChartData.cs" />
     <Compile Include="Enums\PaperSize.cs" />
     <Compile Include="Enums\ReportAlignment.cs" />
     <Compile Include="Enums\ReportBorderStyle.cs" />

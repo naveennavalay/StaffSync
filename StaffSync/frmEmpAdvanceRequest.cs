@@ -789,6 +789,7 @@ namespace StaffSync
                 {
                     decimal calculatedInstallmentAmount = advanceAmount / tenure;
                     txtInstallmentAmount.Text = Math.Round(calculatedInstallmentAmount, 0).ToString();
+                    txtInstallmentAmount.Text = (Convert.ToDecimal(calculatedInstallmentAmount.ToString())).ToString("#0.00");
                 }
             }
 
@@ -854,6 +855,7 @@ namespace StaffSync
                 {
                     decimal calculatedInstallmentAmount = advanceAmount / tenure;
                     txtInstallmentAmount.Text = Math.Round(calculatedInstallmentAmount, 0).ToString();
+                    txtInstallmentAmount.Text = (Convert.ToDecimal(calculatedInstallmentAmount.ToString())).ToString("#0.00");
                 }
             }
 
@@ -918,8 +920,9 @@ namespace StaffSync
 
         private void txtComments_Enter(object sender, EventArgs e)
         {
-            if (txtComments.Text == "")
-                txtComments.Text = "Request to approve the \"" + cmbAdvanceType.Text + "\" of " + Convert.ToDecimal(txtAdvanceAmount.Text.ToString()).ToString("#0.00") + "/- which will be paid back in " + txtTenure.Text + " months starting from \"" + Convert.ToDateTime(txtAdvanceStartDate.Text.ToString()).Date.ToString("dd-MMM-yyyy") + " and ends on \"" + Convert.ToDateTime(txtAdvanceEndDate.Text.ToString()).Date.ToString("dd-MMM-yyyy") + "\".";
+            //if (txtComments.Text == "")
+            if(lblActionMode.Text == "add")
+                txtComments.Text = "Request to approve the \"" + cmbAdvanceType.Text + "\" of " + Convert.ToDecimal(txtAdvanceAmount.Text.ToString()).ToString("#0.00") + "/- \nwhich will be paid back in " + txtTenure.Text + " months starting from \"" + Convert.ToDateTime(txtAdvanceStartDate.Text.ToString()).Date.ToString("dd-MMM-yyyy") + " and \nends on \"" + Convert.ToDateTime(txtAdvanceEndDate.Text.ToString()).Date.ToString("dd-MMM-yyyy") + "\" and \nagree to deduct " + (Convert.ToDecimal(txtAdvanceAmount.Text.ToString()) / Convert.ToDecimal(txtTenure.Text.ToString())).ToString("#0.00") + "/-.";
         }
 
         private void lblViewEmpSpecificAdvanceInfo_Click(object sender, EventArgs e)
@@ -937,7 +940,8 @@ namespace StaffSync
                 return;
 
             txtAdvanceAmount.Text = Convert.ToDecimal(txtAdvanceAmount.Text.ToString()).ToString("###0.00");
-            txtInstallmentAmount.Text = Convert.ToDecimal(txtInstallmentAmount.Text.ToString()).ToString("###0.00");
+            //txtInstallmentAmount.Text = Convert.ToDecimal(txtInstallmentAmount.Text.ToString()).ToString("###0.00");
+            txtInstallmentAmount.Text = (Convert.ToDecimal(txtAdvanceAmount.Text.ToString()) / Convert.ToDecimal(txtTenure.Text.ToString())).ToString("#0.00");
         }
 
         private void txtInstallmentAmount_Leave(object sender, EventArgs e)
@@ -946,6 +950,7 @@ namespace StaffSync
                 return;
 
             txtInstallmentAmount.Text = Convert.ToDecimal(txtInstallmentAmount.Text.ToString()).ToString("###0.00");
+            txtInstallmentAmount.Text = (Convert.ToDecimal(txtAdvanceAmount.Text.ToString()) / Convert.ToDecimal(txtTenure.Text.ToString())).ToString("#0.00");
         }
 
         private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)

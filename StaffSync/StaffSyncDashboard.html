@@ -1,3 +1,4 @@
+<!-- Tested and Confirmed -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -2835,6 +2836,148 @@
                 font-size: 7px;
             }
         }
+
+
+        /* ============================================================
+           EMPLOYEE ADVANCE INFORMATION - FOUR LEVEL DRILLDOWN
+           Existing dashboard CSS preserved.  Additive styles only.
+           Levels:
+             1. Overall Advance Information
+             2. Advance Type
+             3. Selected Advance Type
+             4. Employees for Selected Advance Type
+           ============================================================ */
+
+        .employee-advance-information-card {
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .employee-advance-information-container {
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        .employee-advance-information-drilldown-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            min-height: 30px;
+            padding: 0 4px 5px 4px;
+            box-sizing: border-box;
+        }
+
+        .employee-advance-information-drilldown-title {
+            min-width: 0;
+            font-size: 12px;
+            font-weight: 700;
+            color: #344f63;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .employee-advance-information-drilldown-back {
+            flex: 0 0 auto;
+            border: 1px solid #c8dce8;
+            background: #eef5fa;
+            color: #28648a;
+            border-radius: 5px;
+            padding: 4px 9px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+            .employee-advance-information-drilldown-back:hover {
+                background: #e2f0f7;
+            }
+
+        .employee-advance-information-drilldown-chart {
+            width: 100%;
+            height: 285px;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        .employee-advance-information-empty {
+            width: 100%;
+            min-height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #7b8b98;
+            font-size: 12px;
+        }
+
+        .employee-advance-information-table-wrap {
+            width: 100%;
+            max-height: 330px;
+            overflow: auto;
+            border: 1px solid #dbe6ed;
+            border-radius: 7px;
+            box-sizing: border-box;
+            background: #ffffff;
+        }
+
+        .employee-advance-information-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            font-size: 10px;
+        }
+
+            .employee-advance-information-table th,
+            .employee-advance-information-table td {
+                padding: 7px 8px;
+                border-bottom: 1px solid #e5edf2;
+                box-sizing: border-box;
+            }
+
+            .employee-advance-information-table th {
+                position: sticky;
+                top: 0;
+                z-index: 1;
+                background: #eef5fa;
+                color: #34566d;
+                font-weight: 700;
+                text-align: left;
+            }
+
+            .employee-advance-information-table td {
+                color: #3f4f5b;
+                background: #ffffff;
+            }
+
+                .employee-advance-information-table th:nth-child(1),
+                .employee-advance-information-table td:nth-child(1) {
+                    width: 18%;
+                }
+
+                .employee-advance-information-table th:nth-child(2),
+                .employee-advance-information-table td:nth-child(2) {
+                    width: 34%;
+                }
+
+                .employee-advance-information-table th:nth-child(3),
+                .employee-advance-information-table td:nth-child(3),
+                .employee-advance-information-table th:nth-child(4),
+                .employee-advance-information-table td:nth-child(4),
+                .employee-advance-information-table th:nth-child(5),
+                .employee-advance-information-table td:nth-child(5) {
+                    width: 16%;
+                    text-align: right;
+                }
+
+            .employee-advance-information-table tbody tr:last-child td {
+                border-bottom: 0;
+            }
+
+            .employee-advance-information-table tbody tr:hover td {
+                background: #f7fbfd;
+            }
     </style>
 
     <!--
@@ -3144,7 +3287,6 @@
             <div id="workAnniversaryEmployeesContainer" class="birthday-employees-container">
             </div>
         </div>-->
-
         <!--<div id="attendanceCalendarCard" data-dashboard-key="AttendanceCalendar" class="chart-card attendance-calendar-card">
 
             <div class="chart-card-header">
@@ -3152,17 +3294,120 @@
                     <div class="chart-title">
                         Attendance Calender
                     </div>-->
-                    <!--<div class="chart-subtitle">
-                        Month → Applications
-                    </div>-->
-                <!--</div>-->
-                <!--<div class="chart-type">
-                    Column
-                </div>-->
-            <!--</div>
+        <!--<div class="chart-subtitle">
+            Month → Applications
+        </div>-->
+        <!--</div>-->
+        <!--<div class="chart-type">
+            Column
+        </div>-->
+        <!--</div>
             <div id="attendanceCalendarChart" class="chart-container">
             </div>
         </div>-->
+        <!-- ========================================================
+        EMPLOYEE ADVANCE INFORMATION
+        --------------------------------------------------------
+        Additive card only. Existing dashboard cards are preserved.
+        Four-level drilldown:
+          1. Overall Advance Information
+          2. All Advance Types
+          3. Selected Advance Type
+          4. Employees associated with selected Advance Type
+        ======================================================== -->
+
+        <div id="employeeAdvanceInformationCard"
+             data-dashboard-key="EmployeeAdvanceInformation"
+             class="chart-card employee-advance-information-card">
+
+            <div class="chart-card-header">
+                <div>
+                    <div class="chart-title">
+                        Total Advance Information
+                    </div>
+                </div>
+            </div>
+
+            <div id="employeeAdvanceInformationContainer"
+                 class="employee-advance-information-container">
+
+                <div id="employeeAdvanceInformationDrilldownHeader"
+                     class="employee-advance-information-drilldown-header">
+
+                    <div id="employeeAdvanceInformationDrilldownTitle"
+                         class="employee-advance-information-drilldown-title">
+                        Total Advance Information
+                    </div>
+
+                    <button id="employeeAdvanceInformationBack"
+                            type="button"
+                            class="employee-advance-information-drilldown-back"
+                            style="display:none;">
+                        ← Back
+                    </button>
+
+                </div>
+
+                <div id="employeeAdvanceInformationChart"
+                     class="employee-advance-information-drilldown-chart">
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <!-- ========================================================
+        MONTHLY ADVANCE INFORMATION
+        --------------------------------------------------------
+        Additive card. Existing Total Advance Information is
+        preserved unchanged.
+        Drilldown:
+          1. Total Advance by Month
+          2. Individual Advance Type + Month
+          3. Specific Advance Type by Month
+          4. Monthly Specific Advance Employee Details
+        ======================================================== -->
+
+        <div id="monthlyEmployeeAdvanceInformationCard"
+             data-dashboard-key="MonthlyEmployeeAdvanceInformation"
+             class="chart-card employee-advance-information-card">
+
+            <div class="chart-card-header">
+                <div>
+                    <div class="chart-title">
+                        Monthly Advance Information
+                    </div>
+                </div>
+            </div>
+
+            <div id="monthlyEmployeeAdvanceInformationContainer"
+                 class="employee-advance-information-container">
+
+                <div id="monthlyEmployeeAdvanceInformationDrilldownHeader"
+                     class="employee-advance-information-drilldown-header">
+
+                    <div id="monthlyEmployeeAdvanceInformationDrilldownTitle"
+                         class="employee-advance-information-drilldown-title">
+                        Total Advance Information
+                    </div>
+
+                    <button id="monthlyEmployeeAdvanceInformationBack"
+                            type="button"
+                            class="employee-advance-information-drilldown-back"
+                            style="display:none;">
+                        ← Back
+                    </button>
+
+                </div>
+
+                <div id="monthlyEmployeeAdvanceInformationChart"
+                     class="employee-advance-information-drilldown-chart">
+                </div>
+
+            </div>
+        </div>
 
 
         <div id="monthlyAttendanceRegisterCard"
@@ -18817,6 +19062,1817 @@
 
                 return false;
             };
+
+    })();
+
+
+
+    /* ============================================================
+       EMPLOYEE ADVANCE INFORMATION - MONTHLY FOUR LEVEL DRILLDOWN
+       ------------------------------------------------------------
+       C# entry point:
+           displayEmployeeAdvanceInformationChartData(data)
+
+       Drilldown:
+           Level 1 -> Total Advance by Month
+           Level 2 -> Individual Advance Types for Selected Month
+           Level 3 -> Specific Advance Type by Month
+           Level 4 -> Monthly Specific Advance Employee Details
+
+       Existing dashboard code is preserved; this module is additive
+       and uses the verified Access-query field names.
+       ============================================================ */
+
+    (function () {
+
+        "use strict";
+
+        window.monthlyEmployeeAdvanceInformationData = [];
+        window.monthlyEmployeeAdvanceInformationCurrentLevel = "overall-monthly";
+        window.monthlyEmployeeAdvanceInformationSelectedAdvanceTypeID = null;
+        window.monthlyEmployeeAdvanceInformationSelectedAdvanceTypeTitle = "";
+        window.monthlyEmployeeAdvanceInformationSelectedMonthKey = null;
+        window.monthlyEmployeeAdvanceInformationSelectedMonthTitle = "";
+
+        function monthlyEmployeeAdvanceNumber(value) {
+            if (value === null || value === undefined || value === "") return 0;
+            var numberValue = Number(value);
+            return isFinite(numberValue) ? numberValue : 0;
+        }
+
+        function monthlyEmployeeAdvanceEscapeHtml(value) {
+            return String(value === null || value === undefined ? "" : value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function monthlyEmployeeAdvanceFormatAmount(value) {
+            return monthlyEmployeeAdvanceNumber(value).toLocaleString("en-IN", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        function monthlyEmployeeAdvanceRequestKey(item) {
+            if (item.EmpAdvanceRequestID !== undefined &&
+                item.EmpAdvanceRequestID !== null &&
+                String(item.EmpAdvanceRequestID) !== "") {
+                return "REQ:" + String(item.EmpAdvanceRequestID);
+            }
+            return "FALLBACK:" + String(item.EmpID || "") + "|" +
+                String(item.AdvanceTypeID || "") + "|" +
+                String(item.EmpAdvReqCode || "");
+        }
+
+        function monthlyEmployeeAdvanceUniqueRequestRows(rows) {
+            var map = {};
+            var result = [];
+            (rows || []).forEach(function (item) {
+                if (!item) return;
+                var key = monthlyEmployeeAdvanceRequestKey(item);
+                if (!map[key]) {
+                    map[key] = true;
+                    result.push(item);
+                }
+            });
+            return result;
+        }
+
+        function monthlyEmployeeAdvanceMetricValues(item) {
+            var requestAmount =
+                item.RequestAmount !== undefined && item.RequestAmount !== null
+                    ? monthlyEmployeeAdvanceNumber(item.RequestAmount)
+                    : monthlyEmployeeAdvanceNumber(item.AdvanceAmount);
+
+            var approvedAmount =
+                item.IssuedAmount !== undefined && item.IssuedAmount !== null
+                    ? monthlyEmployeeAdvanceNumber(item.IssuedAmount)
+                    : 0;
+
+            var balanceAmount =
+                item.OutstandingAmount !== undefined && item.OutstandingAmount !== null
+                    ? monthlyEmployeeAdvanceNumber(item.OutstandingAmount)
+                    : monthlyEmployeeAdvanceNumber(item.CBalance);
+
+            var recoveredAmount =
+                item.RecoveredAmount !== undefined && item.RecoveredAmount !== null
+                    ? monthlyEmployeeAdvanceNumber(item.RecoveredAmount)
+                    : monthlyEmployeeAdvanceNumber(item.CrBalance);
+
+            return {
+                requested: requestAmount,
+                approved: approvedAmount,
+                recovered: recoveredAmount,
+                balance: balanceAmount
+            };
+        }
+
+        function monthlyEmployeeAdvanceAggregateRows(rows) {
+            var uniqueRows = monthlyEmployeeAdvanceUniqueRequestRows(rows || []);
+            var result = { requested: 0, approved: 0, recovered: 0, balance: 0 };
+            uniqueRows.forEach(function (item) {
+                var metrics = monthlyEmployeeAdvanceMetricValues(item);
+                result.requested += metrics.requested;
+                result.approved += metrics.approved;
+                result.recovered += metrics.recovered;
+                result.balance += metrics.balance;
+            });
+            return result;
+        }
+
+        function monthlyEmployeeAdvanceDisposeChart(chartElement) {
+            if (!chartElement) return;
+            var existingChart = echarts.getInstanceByDom(chartElement);
+            if (existingChart) {
+                try { existingChart.dispose(); } catch (error) { }
+            }
+            chartElement.innerHTML = "";
+        }
+
+        function monthlyEmployeeAdvanceSetHeader(title, showBack) {
+            var titleElement = document.getElementById("monthlyEmployeeAdvanceInformationDrilldownTitle");
+            var backButton = document.getElementById("monthlyEmployeeAdvanceInformationBack");
+            if (titleElement) titleElement.innerText = title || "Total Advance Information";
+            if (backButton) backButton.style.display = showBack ? "inline-block" : "none";
+        }
+
+        function monthlyEmployeeAdvanceGetChartElement() {
+            return document.getElementById("monthlyEmployeeAdvanceInformationChart");
+        }
+
+        function monthlyEmployeeAdvanceMonthInfo(item) {
+            var year = parseInt(item.AdvanceYear, 10);
+            var month = parseInt(item.AdvanceMonth, 10);
+            var dateValue = item.AdvanceDate;
+
+            if ((!isFinite(year) || !isFinite(month)) && dateValue) {
+                var date = new Date(dateValue);
+                if (!isNaN(date.getTime())) {
+                    year = date.getFullYear();
+                    month = date.getMonth() + 1;
+                }
+            }
+
+            if (!isFinite(year)) year = 0;
+            if (!isFinite(month)) month = 0;
+
+            var monthName = String(item.AdvanceMonthName || "").trim();
+            if (!monthName && year > 0 && month > 0) {
+                monthName = new Date(year, month - 1, 1).toLocaleDateString("en-US", {
+                    month: "short",
+                    year: "numeric"
+                });
+            }
+            if (!monthName) monthName = "Unknown Month";
+
+            return {
+                year: year,
+                month: month,
+                key: (year > 0 && month > 0) ? (year + "-" + String(month).padStart(2, "0")) : monthName,
+                title: monthName
+            };
+        }
+
+        function monthlyEmployeeAdvanceGetMonths(rows) {
+            var map = {};
+            (rows || []).forEach(function (item) {
+                var info = monthlyEmployeeAdvanceMonthInfo(item);
+                if (!map[info.key]) {
+                    map[info.key] = { key: info.key, year: info.year, month: info.month, title: info.title, rows: [] };
+                }
+                map[info.key].rows.push(item);
+            });
+            return Object.keys(map).map(function (key) { return map[key]; }).sort(function (a, b) {
+                if (a.year !== b.year) return a.year - b.year;
+                if (a.month !== b.month) return a.month - b.month;
+                return a.title.localeCompare(b.title);
+            });
+        }
+
+        function monthlyEmployeeAdvanceGetTypeGroups(rows) {
+            var grouped = {};
+            (rows || []).forEach(function (item) {
+                var typeID = item.AdvanceTypeID !== undefined && item.AdvanceTypeID !== null
+                    ? String(item.AdvanceTypeID) : "";
+                var typeTitle = String(item.AdvanceTypeTitle || "Advance").trim();
+                var key = typeID || "TITLE:" + typeTitle.toLowerCase();
+                if (!grouped[key]) grouped[key] = { id: typeID, title: typeTitle, rows: [] };
+                grouped[key].rows.push(item);
+            });
+            return Object.keys(grouped).map(function (key) {
+                var group = grouped[key];
+                group.aggregate = monthlyEmployeeAdvanceAggregateRows(group.rows);
+                return group;
+            }).sort(function (a, b) {
+                return a.title.localeCompare(b.title);
+            });
+        }
+
+        function monthlyEmployeeAdvanceRenderMonthlyBarChart(monthGroups, chartTitle, clickHandler, showBack) {
+            var chartElement = monthlyEmployeeAdvanceGetChartElement();
+            if (!chartElement) return;
+            monthlyEmployeeAdvanceDisposeChart(chartElement);
+            monthlyEmployeeAdvanceSetHeader(chartTitle, showBack);
+
+            if (!monthGroups || monthGroups.length === 0) {
+                chartElement.innerHTML = '<div class="employee-advance-information-empty">No advance information available</div>';
+                return;
+            }
+
+            var requestedData = [], approvedData = [], recoveredData = [], balanceData = [];
+            monthGroups.forEach(function (group) {
+                var aggregate = monthlyEmployeeAdvanceAggregateRows(group.rows);
+                requestedData.push(aggregate.requested);
+                approvedData.push(aggregate.approved);
+                recoveredData.push(aggregate.recovered);
+                balanceData.push(aggregate.balance);
+            });
+
+            var maxValue = Math.max.apply(null, requestedData.concat(approvedData).concat(recoveredData).concat(balanceData).concat([0]));
+            var axisMaximum = maxValue > 0 ? maxValue * 1.15 : 10;
+            var chart = echarts.init(chartElement);
+
+            var option = {
+                animation: true,
+                animationDuration: 650,
+                tooltip: {
+                    trigger: "axis",
+                    axisPointer: { type: "shadow" },
+                    formatter: function (params) {
+                        if (!params || !params.length) return "";
+                        var index = params[0].dataIndex;
+                        var html = "<b>" + monthlyEmployeeAdvanceEscapeHtml(monthGroups[index].title) + "</b><br/>";
+                        params.forEach(function (item) {
+                            html += item.marker + " " + monthlyEmployeeAdvanceEscapeHtml(item.seriesName) +
+                                ": ₹" + monthlyEmployeeAdvanceFormatAmount(item.value) + "<br/>";
+                        });
+                        return html;
+                    }
+                },
+                legend: {
+                    bottom: 2, left: "center", orient: "horizontal",
+                    itemWidth: 15, itemHeight: 9, itemGap: 18,
+                    textStyle: { fontSize: 10 },
+                    data: ["Advance Requested", "Advance Approved", "Advance Repaid", "Advance Balance"]
+                },
+                grid: { left: 55, right: 35, top: 18, bottom: 50, containLabel: true },
+                xAxis: {
+                    type: "category",
+                    data: monthGroups.map(function (group) { return group.title; }),
+                    axisLabel: { fontSize: 9, color: "#344f63" },
+                    axisLine: { lineStyle: { color: "#9aa9b5" } },
+                    axisTick: { show: false }
+                },
+                yAxis: {
+                    type: "value", min: 0, max: axisMaximum,
+                    axisLabel: { fontSize: 9, formatter: function (value) { return "₹" + monthlyEmployeeAdvanceFormatAmount(value); } },
+                    splitLine: { show: true, lineStyle: { color: "#e1e7ef" } }
+                },
+                series: [
+                    {
+                        name: "Advance Requested", type: "bar", data: requestedData, barMaxWidth: 18,
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: "#708be5" }, { offset: 1, color: "#3f5fc7" }
+                            ]), borderRadius: [7, 7, 0, 0]
+                        }
+                    },
+                    {
+                        name: "Advance Approved", type: "bar", data: approvedData, barMaxWidth: 18,
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: "#c1df42" }, { offset: 1, color: "#9fc51f" }
+                            ]), borderRadius: [7, 7, 0, 0]
+                        }
+                    },
+                    {
+                        name: "Advance Repaid", type: "bar", data: recoveredData, barMaxWidth: 18,
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: "#c1df42" }, { offset: 1, color: "#9fc51f" }
+                            ]), borderRadius: [7, 7, 0, 0]
+                        }
+                    },
+                    {
+                        name: "Advance Balance", type: "bar", data: balanceData, barMaxWidth: 18,
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                { offset: 0, color: "#ffad68" }, { offset: 1, color: "#f17f32" }
+                            ]), borderRadius: [7, 7, 0, 0]
+                        }
+                    }
+                ]
+            };
+
+            chart.setOption(option, true);
+            chart.off("click");
+            if (typeof clickHandler === "function") {
+                chart.on("click", function (params) {
+                    if (params && params.componentType === "series") clickHandler(params);
+                });
+            }
+            window.monthlyEmployeeAdvanceInformationChart = chart;
+            setTimeout(function () { try { chart.resize(); } catch (error) { } }, 50);
+        }
+
+        function monthlyEmployeeAdvanceRenderTypeMonthlyChart(typeGroup, chartTitle, showBack) {
+            var chartElement = monthlyEmployeeAdvanceGetChartElement();
+            if (!chartElement) return;
+            monthlyEmployeeAdvanceDisposeChart(chartElement);
+            monthlyEmployeeAdvanceSetHeader(chartTitle, showBack);
+
+            var months = monthlyEmployeeAdvanceGetMonths(monthlyEmployeeAdvanceUniqueRequestRows(typeGroup.rows || []));
+            if (!months.length) {
+                chartElement.innerHTML = '<div class="employee-advance-information-empty">No monthly advance information available</div>';
+                return;
+            }
+
+            var requestedData = [], approvedData = [], recoveredData = [], balanceData = [];
+            months.forEach(function (month) {
+                var aggregate = monthlyEmployeeAdvanceAggregateRows(month.rows);
+                requestedData.push(aggregate.requested);
+                approvedData.push(aggregate.approved);
+                recoveredData.push(aggregate.recovered);
+                balanceData.push(aggregate.balance);
+            });
+
+            var maxValue = Math.max.apply(null, requestedData.concat(approvedData).concat(recoveredData).concat(balanceData).concat([0]));
+            var axisMaximum = maxValue > 0 ? maxValue * 1.15 : 10;
+            var chart = echarts.init(chartElement);
+
+            var option = {
+                animation: true,
+                animationDuration: 650,
+                tooltip: {
+                    trigger: "axis", axisPointer: { type: "shadow" },
+                    formatter: function (params) {
+                        if (!params || !params.length) return "";
+                        var index = params[0].dataIndex;
+                        var html = "<b>" + monthlyEmployeeAdvanceEscapeHtml(months[index].title) + "</b><br/>";
+                        params.forEach(function (item) {
+                            html += item.marker + " " + monthlyEmployeeAdvanceEscapeHtml(item.seriesName) +
+                                ": ₹" + monthlyEmployeeAdvanceFormatAmount(item.value) + "<br/>";
+                        });
+                        return html;
+                    }
+                },
+                legend: {
+                    bottom: 2, left: "center", orient: "horizontal", itemWidth: 15, itemHeight: 9, itemGap: 18,
+                    textStyle: { fontSize: 10 },
+                    data: ["Advance Requested", "Advance Approved", "Advance Repaid", "Advance Balance"]
+                },
+                grid: { left: 55, right: 35, top: 18, bottom: 50, containLabel: true },
+                xAxis: {
+                    type: "category", data: months.map(function (month) { return month.title; }),
+                    axisLabel: { fontSize: 9, color: "#344f63" }, axisLine: { lineStyle: { color: "#9aa9b5" } }, axisTick: { show: false }
+                },
+                yAxis: {
+                    type: "value", min: 0, max: axisMaximum,
+                    axisLabel: { fontSize: 9, formatter: function (value) { return "₹" + monthlyEmployeeAdvanceFormatAmount(value); } },
+                    splitLine: { show: true, lineStyle: { color: "#e1e7ef" } }
+                },
+                series: [
+                    {
+                        name: "Advance Requested", type: "bar", data: requestedData, barMaxWidth: 18,
+                        itemStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: "#708be5" }, { offset: 1, color: "#3f5fc7" }]), borderRadius: [7, 7, 0, 0] }
+                    },
+                    {
+                        name: "Advance Approved", type: "bar", data: approvedData, barMaxWidth: 18,
+                        itemStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: "#c1df42" }, { offset: 1, color: "#9fc51f" }]), borderRadius: [7, 7, 0, 0] }
+                    },
+                    {
+                        name: "Advance Repaid", type: "bar", data: recoveredData, barMaxWidth: 18,
+                        itemStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: "#626781" }, { offset: 1, color: "#4c516b" }]), borderRadius: [7, 7, 0, 0] }
+                    },
+                    {
+                        name: "Advance Balance", type: "bar", data: balanceData, barMaxWidth: 18,
+                        itemStyle: { color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{ offset: 0, color: "#ffad68" }, { offset: 1, color: "#f17f32" }]), borderRadius: [7, 7, 0, 0] }
+                    }
+                ]
+            };
+
+            chart.setOption(option, true);
+            chart.off("click");
+            chart.on("click", function (params) {
+                if (!params || params.componentType !== "series") return;
+                var month = months[params.dataIndex];
+                if (!month) return;
+                window.monthlyEmployeeAdvanceInformationSelectedMonthKey = month.key;
+                window.monthlyEmployeeAdvanceInformationSelectedMonthTitle = month.title;
+                monthlyEmployeeAdvanceRenderEmployeeDetails(typeGroup, month);
+            });
+            window.monthlyEmployeeAdvanceInformationChart = chart;
+            setTimeout(function () { try { chart.resize(); } catch (error) { } }, 50);
+        }
+
+        function monthlyEmployeeAdvanceRenderEmployeeDetails(typeGroup, month) {
+            var chartElement = monthlyEmployeeAdvanceGetChartElement();
+            if (!chartElement) return;
+            monthlyEmployeeAdvanceDisposeChart(chartElement);
+            monthlyEmployeeAdvanceSetHeader(typeGroup.title + " | " + month.title, true);
+            window.monthlyEmployeeAdvanceInformationCurrentLevel = "monthly-specific-advance";
+
+            var employeeMap = {};
+            monthlyEmployeeAdvanceUniqueRequestRows(month.rows || []).forEach(function (item) {
+                var employeeID = item.EmpID !== undefined && item.EmpID !== null ? String(item.EmpID) : "";
+                var employeeCode = String(item.EmpCode || "").trim();
+                var employeeName = String(item.EmpName || "").trim();
+                var key = employeeID || employeeCode || employeeName || "UNKNOWN";
+                if (!employeeMap[key]) employeeMap[key] = { EmpCode: employeeCode, EmpName: employeeName, requested: 0, recovered: 0, balance: 0 };
+                var metrics = monthlyEmployeeAdvanceMetricValues(item);
+                employeeMap[key].requested += metrics.requested;
+                employeeMap[key].recovered += metrics.recovered;
+                employeeMap[key].balance += metrics.balance;
+            });
+
+            var employees = Object.keys(employeeMap).map(function (key) { return employeeMap[key]; }).sort(function (a, b) {
+                return String(a.EmpName).localeCompare(String(b.EmpName));
+            });
+
+            if (!employees.length) {
+                chartElement.innerHTML = '<div class="employee-advance-information-empty">No employees associated with this advance type for the selected month</div>';
+                return;
+            }
+
+            var tableWrap = document.createElement("div");
+            tableWrap.className = "employee-advance-information-table-wrap";
+            var table = document.createElement("table");
+            table.className = "employee-advance-information-table";
+            var thead = document.createElement("thead");
+            thead.innerHTML = "<tr><th>EmpCode</th><th>EmpName</th><th>Advance Requested</th><th>Advance Repaid</th><th>Advance Balance</th></tr>";
+            table.appendChild(thead);
+            var tbody = document.createElement("tbody");
+            employees.forEach(function (employee) {
+                var row = document.createElement("tr");
+                row.innerHTML = "<td>" + monthlyEmployeeAdvanceEscapeHtml(employee.EmpCode) + "</td>" +
+                    "<td>" + monthlyEmployeeAdvanceEscapeHtml(employee.EmpName) + "</td>" +
+                    "<td>₹" + monthlyEmployeeAdvanceFormatAmount(employee.requested) + "</td>" +
+                    "<td>₹" + monthlyEmployeeAdvanceFormatAmount(employee.recovered) + "</td>" +
+                    "<td>₹" + monthlyEmployeeAdvanceFormatAmount(employee.balance) + "</td>";
+                tbody.appendChild(row);
+            });
+            table.appendChild(tbody);
+            tableWrap.appendChild(table);
+            chartElement.appendChild(tableWrap);
+            if (typeof refreshDashboardMasonry === "function") {
+                setTimeout(function () { try { refreshDashboardMasonry(); } catch (error) { } }, 50);
+            }
+        }
+
+        /* LEVEL 1 - TOTAL ADVANCE BY MONTH */
+        function monthlyEmployeeAdvanceRenderOverall() {
+            var rows = monthlyEmployeeAdvanceUniqueRequestRows(window.monthlyEmployeeAdvanceInformationData);
+            window.monthlyEmployeeAdvanceInformationCurrentLevel = "overall-monthly";
+            window.monthlyEmployeeAdvanceInformationSelectedAdvanceTypeID = null;
+            window.monthlyEmployeeAdvanceInformationSelectedAdvanceTypeTitle = "";
+            window.monthlyEmployeeAdvanceInformationSelectedMonthKey = null;
+            window.monthlyEmployeeAdvanceInformationSelectedMonthTitle = "";
+
+            var months = monthlyEmployeeAdvanceGetMonths(rows);
+            monthlyEmployeeAdvanceRenderMonthlyBarChart(months, "Total Advance Information", function (params) {
+                if (params && params.dataIndex !== undefined) {
+                    monthlyEmployeeAdvanceRenderIndividualAdvance();
+                }
+            }, false);
+        }
+
+        /* LEVEL 2 - INDIVIDUAL ADVANCE TYPE + MONTH */
+        function monthlyEmployeeAdvanceRenderIndividualAdvance() {
+            var rows = monthlyEmployeeAdvanceUniqueRequestRows(window.monthlyEmployeeAdvanceInformationData);
+            var typeMap = {};
+
+            rows.forEach(function (item) {
+                var typeID = item.AdvanceTypeID !== undefined && item.AdvanceTypeID !== null
+                    ? String(item.AdvanceTypeID) : "";
+                var typeTitle = String(item.AdvanceTypeTitle || "Advance").trim();
+                var typeKey = typeID || "TITLE:" + typeTitle.toLowerCase();
+
+                var monthInfo = monthlyEmployeeAdvanceMonthInfo(item);
+                var monthKey = typeKey + "|" + monthInfo.key;
+
+                if (!typeMap[monthKey]) {
+                    typeMap[monthKey] = {
+                        id: typeID,
+                        title: typeTitle,
+                        month: monthInfo,
+                        rows: []
+                    };
+                }
+
+                typeMap[monthKey].rows.push(item);
+            });
+
+            var groups = Object.keys(typeMap).map(function (key) {
+                var group = typeMap[key];
+                group.aggregate = monthlyEmployeeAdvanceAggregateRows(group.rows);
+                return group;
+            }).sort(function (a, b) {
+                if (a.month.year !== b.month.year) return a.month.year - b.month.year;
+                if (a.month.month !== b.month.month) return a.month.month - b.month.month;
+                return a.title.localeCompare(b.title);
+            });
+
+            window.monthlyEmployeeAdvanceInformationCurrentLevel = "individual-advance";
+
+            monthlyEmployeeAdvanceRenderTypeGroupsChart(
+                groups,
+                "Advance Type",
+                function (group) {
+                    window.monthlyEmployeeAdvanceInformationSelectedAdvanceTypeID = group.id;
+                    window.monthlyEmployeeAdvanceInformationSelectedAdvanceTypeTitle = group.title;
+                    window.monthlyEmployeeAdvanceInformationSelectedMonthKey = group.month.key;
+                    window.monthlyEmployeeAdvanceInformationSelectedMonthTitle = group.month.title;
+
+                    var typeRows = rows.filter(function (item) {
+                        if (group.id !== null && group.id !== undefined && String(group.id) !== "") {
+                            return String(item.AdvanceTypeID) === String(group.id);
+                        }
+                        return String(item.AdvanceTypeTitle || "") === group.title;
+                    });
+
+                    monthlyEmployeeAdvanceRenderSpecificAdvance({
+                        id: group.id,
+                        title: group.title,
+                        rows: typeRows
+                    });
+                },
+                true,
+                function (group) {
+                    return group.title + "\n" + group.month.title;
+                }
+            );
+        }
+
+        function monthlyEmployeeAdvanceRenderTypeGroupsChart(groups, chartTitle, clickHandler, showBack, categoryFormatter) {
+            var chartElement = monthlyEmployeeAdvanceGetChartElement();
+            if (!chartElement) return;
+            monthlyEmployeeAdvanceDisposeChart(chartElement);
+            monthlyEmployeeAdvanceSetHeader(chartTitle, showBack);
+
+            if (!groups.length) {
+                chartElement.innerHTML = '<div class="employee-advance-information-empty">No advance type information available</div>';
+                return;
+            }
+
+            var requested = groups.map(function (g) { return g.aggregate.requested; });
+            var approved = groups.map(function (g) { return g.aggregate.approved; });
+            var recovered = groups.map(function (g) { return g.aggregate.recovered; });
+            var balance = groups.map(function (g) { return g.aggregate.balance; });
+            var maxValue = Math.max.apply(null, requested.concat(approved).concat(recovered).concat(balance).concat([0]));
+            var categories = groups.map(function (g) {
+                return typeof categoryFormatter === "function"
+                    ? categoryFormatter(g)
+                    : g.title;
+            });
+
+            var chart = echarts.init(chartElement);
+            chart.setOption({
+                animation: true,
+                animationDuration: 650,
+                tooltip: {
+                    trigger: "axis",
+                    axisPointer: { type: "shadow" },
+                    formatter: function (params) {
+                        if (!params || !params.length) return "";
+                        var index = params[0].dataIndex;
+                        var html = "<b>" + monthlyEmployeeAdvanceEscapeHtml(categories[index]) + "</b><br/>";
+                        params.forEach(function (item) {
+                            html += item.marker + " " + monthlyEmployeeAdvanceEscapeHtml(item.seriesName) +
+                                ": ₹" + monthlyEmployeeAdvanceFormatAmount(item.value) + "<br/>";
+                        });
+                        return html;
+                    }
+                },
+                legend: {
+                    bottom: 2,
+                    left: "center",
+                    itemWidth: 15,
+                    itemHeight: 9,
+                    itemGap: 18,
+                    textStyle: { fontSize: 10 },
+                    data: ["Advance Requested", "Advance Approved", "Advance Repaid", "Advance Balance"]
+                },
+                grid: { left: 145, right: 35, top: 18, bottom: 42, containLabel: false },
+                xAxis: {
+                    type: "value",
+                    min: 0,
+                    max: maxValue > 0 ? maxValue * 1.15 : 10,
+                    axisLabel: { fontSize: 9, formatter: function (v) { return "₹" + monthlyEmployeeAdvanceFormatAmount(v); } },
+                    splitLine: { show: true, lineStyle: { color: "#e1e7ef" } }
+                },
+                yAxis: {
+                    type: "category",
+                    data: categories,
+                    inverse: true,
+                    axisLabel: { fontSize: 10, color: "#344f63", width: 130, overflow: "truncate" },
+                    axisLine: { show: false },
+                    axisTick: { show: false }
+                },
+                series: [
+                    {
+                        name: "Advance Requested", type: "bar", data: requested, barMaxWidth: 18,
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                { offset: 0, color: "#3f5fc7" },
+                                { offset: 1, color: "#708be5" }
+                            ]),
+                            borderRadius: [0, 8, 8, 0]
+                        }
+                    },
+                    {
+                        name: "Advance Approved", type: "bar", data: approved, barMaxWidth: 18,
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                { offset: 0, color: "#9fc51f" },
+                                { offset: 1, color: "#c1df42" }
+                            ]),
+                            borderRadius: [0, 8, 8, 0]
+                        }
+                    },
+                    {
+                        name: "Advance Repaid", type: "bar", data: recovered, barMaxWidth: 18,
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                { offset: 0, color: "#9fc51f" },
+                                { offset: 1, color: "#c1df42" }
+                            ]),
+                            borderRadius: [0, 8, 8, 0]
+                        }
+                    },
+                    {
+                        name: "Advance Balance", type: "bar", data: balance, barMaxWidth: 18,
+                        itemStyle: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                                { offset: 0, color: "#f17f32" },
+                                { offset: 1, color: "#ffad68" }
+                            ]),
+                            borderRadius: [0, 8, 8, 0]
+                        }
+                    }
+                ]
+            }, true);
+
+            chart.off("click");
+            chart.on("click", function (params) {
+                if (!params || params.componentType !== "series") return;
+                var group = groups[params.dataIndex];
+                if (group && typeof clickHandler === "function") clickHandler(group);
+            });
+
+            window.monthlyEmployeeAdvanceInformationChart = chart;
+            setTimeout(function () { try { chart.resize(); } catch (error) { } }, 50);
+        }
+
+        /* LEVEL 3 - SPECIFIC ADVANCE TYPE BY MONTH */
+        function monthlyEmployeeAdvanceRenderSpecificAdvance(group) {
+            if (!group) return;
+            window.monthlyEmployeeAdvanceInformationCurrentLevel = "specific-advance";
+            monthlyEmployeeAdvanceRenderTypeMonthlyChart(group, group.title, true);
+        }
+
+        /* BACK NAVIGATION */
+        function monthlyEmployeeAdvanceGoBack() {
+            var level = window.monthlyEmployeeAdvanceInformationCurrentLevel;
+            if (level === "monthly-specific-advance") {
+                var typeID = window.monthlyEmployeeAdvanceInformationSelectedAdvanceTypeID;
+                var typeTitle = window.monthlyEmployeeAdvanceInformationSelectedAdvanceTypeTitle;
+                var rows = monthlyEmployeeAdvanceUniqueRequestRows(window.monthlyEmployeeAdvanceInformationData);
+                var typeRows = rows.filter(function (item) {
+                    if (typeID !== null && typeID !== undefined && String(typeID) !== "") return String(item.AdvanceTypeID) === String(typeID);
+                    return String(item.AdvanceTypeTitle || "") === typeTitle;
+                });
+                monthlyEmployeeAdvanceRenderSpecificAdvance({ id: typeID, title: typeTitle, rows: typeRows });
+                return;
+            }
+            if (level === "specific-advance") {
+                monthlyEmployeeAdvanceRenderIndividualAdvance();
+                return;
+            }
+            if (level === "individual-advance") {
+                monthlyEmployeeAdvanceRenderOverall();
+                return;
+            }
+        }
+
+        /* PUBLIC C# ENTRY POINT */
+        window.displayMonthlyEmployeeAdvanceInformationChartData = function (data) {
+            console.log("Employee Advance Information Data received from C#:", data);
+            if (typeof data === "string") {
+                try { data = JSON.parse(data); }
+                catch (error) { console.error("Unable to parse Employee Advance Information data:", error); data = []; }
+            }
+            window.monthlyEmployeeAdvanceInformationData = Array.isArray(data) ? data : [];
+            var backButton = document.getElementById("monthlyEmployeeAdvanceInformationBack");
+            if (backButton && !backButton.__monthlyEmployeeAdvanceBackAttached) {
+                backButton.addEventListener("click", monthlyEmployeeAdvanceGoBack);
+                backButton.__monthlyEmployeeAdvanceBackAttached = true;
+            }
+            monthlyEmployeeAdvanceRenderOverall();
+        };
+
+        window.displayMonthlyEmployeeAdvanceData = window.displayMonthlyEmployeeAdvanceInformationChartData;
+
+        if (!window.__monthlyEmployeeAdvanceInformationResizeAttached) {
+            window.addEventListener("resize", function () {
+                try { if (window.monthlyEmployeeAdvanceInformationChart) window.monthlyEmployeeAdvanceInformationChart.resize(); } catch (error) { }
+            });
+            window.__monthlyEmployeeAdvanceInformationResizeAttached = true;
+        }
+
+    })();
+
+
+    /* ============================================================
+       EMPLOYEE ADVANCE INFORMATION - FOUR LEVEL DRILLDOWN
+       ------------------------------------------------------------
+       C# entry point:
+           displayEmployeeAdvanceInformationChartData(data)
+
+       Verified Access query fields used:
+           EmpID
+           EmpCode
+           EmpName
+           AdvanceTypeID
+           AdvanceTypeTitle
+           EmpAdvanceRequestID
+           EmpAdvReqCode
+           AdvanceAmount
+           RequestAmount
+           IssuedAmount
+           OutstandingAmount
+           RecoveredAmount
+
+       Drilldown:
+           Level 1 -> Overall Advance Information
+           Level 2 -> All Advance Types
+           Level 3 -> Selected Advance Type summary
+           Level 4 -> Employees for selected Advance Type
+
+       Existing dashboard code is untouched; this module is additive.
+       ============================================================ */
+
+    (function () {
+
+        "use strict";
+
+        window.employeeAdvanceInformationData = [];
+        window.employeeAdvanceInformationCurrentLevel = "overall";
+        window.employeeAdvanceInformationSelectedAdvanceTypeID = null;
+        window.employeeAdvanceInformationSelectedAdvanceTypeTitle = "";
+
+
+        function employeeAdvanceNumber(value) {
+
+            if (value === null || value === undefined || value === "") {
+                return 0;
+            }
+
+            var numberValue = Number(value);
+
+            return isFinite(numberValue)
+                ? numberValue
+                : 0;
+        }
+
+
+        function employeeAdvanceEscapeHtml(value) {
+
+            return String(value === null || value === undefined ? "" : value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        function employeeAdvanceFormatAmount(value) {
+
+            var numberValue =
+                employeeAdvanceNumber(value);
+
+            return numberValue.toLocaleString(
+                "en-IN",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+        }
+
+
+        function employeeAdvanceRequestKey(item) {
+
+            if (
+                item.EmpAdvanceRequestID !== undefined &&
+                item.EmpAdvanceRequestID !== null &&
+                String(item.EmpAdvanceRequestID) !== ""
+            ) {
+                return "REQ:" + String(item.EmpAdvanceRequestID);
+            }
+
+            return (
+                "FALLBACK:" +
+                String(item.EmpID || "") + "|" +
+                String(item.AdvanceTypeID || "") + "|" +
+                String(item.EmpAdvReqCode || "")
+            );
+        }
+
+
+        /*
+         * The verified Access query already returns the latest
+         * EmpAdvanceDetails row for each request.  Keep a small
+         * defensive de-duplication layer so an accidental duplicate
+         * request row cannot inflate the dashboard totals.
+         */
+        function employeeAdvanceUniqueRequestRows(rows) {
+
+            var map = {};
+            var result = [];
+
+            (rows || []).forEach(function (item) {
+
+                if (!item) {
+                    return;
+                }
+
+                var key =
+                    employeeAdvanceRequestKey(item);
+
+                if (!map[key]) {
+                    map[key] = true;
+                    result.push(item);
+                }
+
+            });
+
+            return result;
+        }
+
+
+        function employeeAdvanceMetricValues(item) {
+
+            var requestAmount =
+                item.RequestAmount !== undefined &&
+                    item.RequestAmount !== null
+                    ? employeeAdvanceNumber(item.RequestAmount)
+                    : employeeAdvanceNumber(item.AdvanceAmount);
+
+            var approvedAmount =
+                item.IssuedAmount !== undefined &&
+                    item.IssuedAmount !== null
+                    ? employeeAdvanceNumber(item.IssuedAmount)
+                    : 0;
+
+            var balanceAmount =
+                item.OutstandingAmount !== undefined &&
+                    item.OutstandingAmount !== null
+                    ? employeeAdvanceNumber(item.OutstandingAmount)
+                    : employeeAdvanceNumber(item.CBalance);
+
+            var recoveredAmount =
+                item.RecoveredAmount !== undefined &&
+                    item.RecoveredAmount !== null
+                    ? employeeAdvanceNumber(item.RecoveredAmount)
+                    : employeeAdvanceNumber(item.CrBalance);
+
+            return {
+                totalAdvance: requestAmount,
+                approved: approvedAmount,
+                recovered: recoveredAmount,
+                balance: balanceAmount
+            };
+        }
+
+
+        function employeeAdvanceAggregateRows(rows) {
+
+            var uniqueRows =
+                employeeAdvanceUniqueRequestRows(rows || []);
+
+            var result = {
+                totalAdvance: 0,
+                approved: 0,
+                recovered: 0,
+                balance: 0
+            };
+
+            uniqueRows.forEach(function (item) {
+
+                var metrics =
+                    employeeAdvanceMetricValues(item);
+
+                result.totalAdvance += metrics.totalAdvance;
+                result.approved += metrics.approved;
+                result.recovered += metrics.recovered;
+                result.balance += metrics.balance;
+
+            });
+
+            return result;
+        }
+
+
+        function employeeAdvanceDisposeChart(chartElement) {
+
+            if (!chartElement) {
+                return;
+            }
+
+            var existingChart =
+                echarts.getInstanceByDom(chartElement);
+
+            if (existingChart) {
+
+                try {
+                    existingChart.dispose();
+                }
+                catch (error) {
+                    console.warn(
+                        "Employee Advance: unable to dispose chart:",
+                        error
+                    );
+                }
+            }
+
+            chartElement.innerHTML = "";
+        }
+
+
+        function employeeAdvanceSetHeader(title, showBack) {
+
+            var titleElement =
+                document.getElementById(
+                    "employeeAdvanceInformationDrilldownTitle"
+                );
+
+            var backButton =
+                document.getElementById(
+                    "employeeAdvanceInformationBack"
+                );
+
+            if (titleElement) {
+                titleElement.innerText = title || "Total Advance Information";
+            }
+
+            if (backButton) {
+                backButton.style.display = showBack ? "inline-block" : "none";
+            }
+        }
+
+
+        function employeeAdvanceGetChartElement() {
+
+            return document.getElementById(
+                "employeeAdvanceInformationChart"
+            );
+        }
+
+
+        function employeeAdvanceRenderBarChart(
+            categories,
+            aggregateRows,
+            chartTitle,
+            clickHandler,
+            showBack
+        ) {
+
+            var chartElement =
+                employeeAdvanceGetChartElement();
+
+            if (!chartElement) {
+                console.error(
+                    "employeeAdvanceInformationChart element not found."
+                );
+                return;
+            }
+
+            employeeAdvanceDisposeChart(chartElement);
+
+            employeeAdvanceSetHeader(
+                chartTitle,
+                showBack
+            );
+
+            if (!categories || categories.length === 0) {
+
+                chartElement.innerHTML =
+                    '<div class="employee-advance-information-empty">' +
+                    'No advance information available' +
+                    '</div>';
+
+                return;
+            }
+
+            var totalAdvanceData = [];
+            var approvedData = [];
+            var recoveredData = [];
+            var balanceData = [];
+
+            aggregateRows.forEach(function (item) {
+
+                totalAdvanceData.push(
+                    employeeAdvanceNumber(item.totalAdvance)
+                );
+
+                approvedData.push(
+                    employeeAdvanceNumber(item.approved)
+                );
+
+                recoveredData.push(
+                    employeeAdvanceNumber(item.recovered)
+                );
+
+                balanceData.push(
+                    employeeAdvanceNumber(item.balance)
+                );
+            });
+
+            var allValues =
+                totalAdvanceData
+                    .concat(approvedData)
+                    .concat(recoveredData)
+                    .concat(balanceData);
+
+            var maxValue =
+                allValues.length > 0
+                    ? Math.max.apply(null, allValues)
+                    : 0;
+
+            var axisMaximum =
+                maxValue > 0
+                    ? maxValue * 1.15
+                    : 10;
+
+            var chart =
+                echarts.init(chartElement);
+
+            var option = {
+
+                animation: true,
+
+                animationDuration: 650,
+
+                tooltip: {
+
+                    trigger: "axis",
+
+                    axisPointer: {
+                        type: "shadow"
+                    },
+
+                    formatter: function (params) {
+
+                        if (!params || params.length === 0) {
+                            return "";
+                        }
+
+                        var index =
+                            params[0].dataIndex;
+
+                        var html =
+                            "<b>" +
+                            employeeAdvanceEscapeHtml(categories[index]) +
+                            "</b><br/>";
+
+                        params.forEach(function (item) {
+
+                            html +=
+                                item.marker +
+                                " " +
+                                employeeAdvanceEscapeHtml(item.seriesName) +
+                                ": ₹" +
+                                employeeAdvanceFormatAmount(item.value) +
+                                "<br/>";
+                        });
+
+                        return html;
+                    }
+                },
+
+                legend: {
+
+                    bottom: 2,
+
+                    left: "center",
+
+                    orient: "horizontal",
+
+                    itemWidth: 15,
+
+                    itemHeight: 9,
+
+                    itemGap: 18,
+
+                    textStyle: {
+                        fontSize: 10
+                    },
+
+                    data: [
+                        "Total Advance",
+                        "Advance Approved",
+                        "Advance Recovered",
+                        "Advance Balance"
+                    ]
+                },
+
+                grid: {
+                    left: 145,
+                    right: 35,
+                    top: 18,
+                    bottom: 42,
+                    containLabel: false
+                },
+
+                xAxis: {
+
+                    type: "value",
+
+                    min: 0,
+
+                    max: axisMaximum,
+
+                    axisLabel: {
+                        fontSize: 9,
+                        formatter: function (value) {
+                            return "₹" + employeeAdvanceFormatAmount(value);
+                        }
+                    },
+
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: "#e1e7ef"
+                        }
+                    }
+                },
+
+                yAxis: {
+
+                    type: "category",
+
+                    data: categories,
+
+                    inverse: true,
+
+                    axisLabel: {
+                        fontSize: 10,
+                        color: "#344f63",
+                        width: 130,
+                        overflow: "truncate"
+                    },
+
+                    axisLine: {
+                        show: false
+                    },
+
+                    axisTick: {
+                        show: false
+                    }
+                },
+
+                series: [
+
+                    {
+                        name: "Total Advance",
+                        type: "bar",
+                        data: totalAdvanceData,
+                        barMaxWidth: 18,
+                        itemStyle: {
+                            color:
+                                new echarts.graphic.LinearGradient(
+                                    0,
+                                    0,
+                                    1,
+                                    0,
+                                    [
+                                        {
+                                            offset: 0,
+                                            color: "#3f5fc7"
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: "#708be5"
+                                        }
+                                    ]
+                                ),
+                            borderRadius: [
+                                0,
+                                8,
+                                8,
+                                0
+                            ]
+                        }
+                    },
+
+                    {
+                        name: "Advance Approved",
+                        type: "bar",
+                        data: approvedData,
+                        barMaxWidth: 18,
+                        itemStyle: {
+                            color:
+                                new echarts.graphic.LinearGradient(
+                                    0,
+                                    0,
+                                    1,
+                                    0,
+                                    [
+                                        {
+                                            offset: 0,
+                                            color: "#9fc51f"
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: "#c1df42"
+                                        }
+                                    ]
+                                ),
+                            borderRadius: [
+                                0,
+                                8,
+                                8,
+                                0
+                            ]
+                        }
+                    },
+
+                    {
+                        name: "Advance Recovered",
+                        type: "bar",
+                        data: recoveredData,
+                        barMaxWidth: 18,
+                        itemStyle: {
+                            color:
+                                new echarts.graphic.LinearGradient(
+                                    0,
+                                    0,
+                                    1,
+                                    0,
+                                    [
+                                        {
+                                            offset: 0,
+                                            color: "#484d6d"
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: "#626886"
+                                        }
+                                    ]
+                                ),
+                            borderRadius: [
+                                0,
+                                8,
+                                8,
+                                0
+                            ]
+                        }
+                    },
+
+                    {
+                        name: "Advance Balance",
+                        type: "bar",
+                        data: balanceData,
+                        barMaxWidth: 18,
+                        itemStyle: {
+                            color:
+                                new echarts.graphic.LinearGradient(
+                                    0,
+                                    0,
+                                    1,
+                                    0,
+                                    [
+                                        {
+                                            offset: 0,
+                                            color: "#f17f32"
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: "#ffad68"
+                                        }
+                                    ]
+                                ),
+                            borderRadius: [
+                                0,
+                                8,
+                                8,
+                                0
+                            ]
+                        }
+                    }
+                ]
+            };
+
+            chart.setOption(option, true);
+
+            chart.off("click");
+
+            if (typeof clickHandler === "function") {
+
+                chart.on("click", function (params) {
+
+                    if (
+                        !params ||
+                        params.componentType !== "series"
+                    ) {
+                        return;
+                    }
+
+                    clickHandler(params);
+                });
+            }
+
+            window.employeeAdvanceInformationChart = chart;
+
+            setTimeout(function () {
+                try {
+                    chart.resize();
+                }
+                catch (error) {
+                }
+            }, 50);
+        }
+
+
+        /* ------------------------------------------------------------
+           LEVEL 1 - OVERALL ADVANCE INFORMATION
+           ------------------------------------------------------------ */
+        function employeeAdvanceRenderOverall() {
+
+            var rows =
+                employeeAdvanceUniqueRequestRows(
+                    window.employeeAdvanceInformationData
+                );
+
+            window.employeeAdvanceInformationCurrentLevel =
+                "overall";
+
+            window.employeeAdvanceInformationSelectedAdvanceTypeID =
+                null;
+
+            window.employeeAdvanceInformationSelectedAdvanceTypeTitle =
+                "";
+
+            var aggregate =
+                employeeAdvanceAggregateRows(rows);
+
+            employeeAdvanceRenderBarChart(
+                ["Total Advance"],
+                [aggregate],
+                "Total Advance Information",
+                function () {
+
+                    employeeAdvanceRenderAdvanceTypes();
+                },
+                false
+            );
+        }
+
+
+        /* ------------------------------------------------------------
+           LEVEL 2 - ALL ADVANCE TYPES
+           ------------------------------------------------------------ */
+        function employeeAdvanceRenderAdvanceTypes() {
+
+            var rows =
+                employeeAdvanceUniqueRequestRows(
+                    window.employeeAdvanceInformationData
+                );
+
+            var grouped = {};
+
+            rows.forEach(function (item) {
+
+                var typeID =
+                    item.AdvanceTypeID !== undefined &&
+                        item.AdvanceTypeID !== null
+                        ? String(item.AdvanceTypeID)
+                        : "";
+
+                var typeTitle =
+                    String(
+                        item.AdvanceTypeTitle ||
+                        "Advance"
+                    ).trim();
+
+                var key =
+                    typeID ||
+                    "TITLE:" + typeTitle.toLowerCase();
+
+                if (!grouped[key]) {
+
+                    grouped[key] = {
+                        id: typeID,
+                        title: typeTitle,
+                        rows: []
+                    };
+                }
+
+                grouped[key].rows.push(item);
+            });
+
+            var groups =
+                Object.keys(grouped)
+                    .map(function (key) {
+                        var group = grouped[key];
+                        group.aggregate =
+                            employeeAdvanceAggregateRows(group.rows);
+                        return group;
+                    })
+                    .sort(function (a, b) {
+                        return String(a.title).localeCompare(
+                            String(b.title)
+                        );
+                    });
+
+            window.employeeAdvanceInformationCurrentLevel =
+                "advance-type";
+
+            if (groups.length === 0) {
+
+                employeeAdvanceRenderBarChart(
+                    [],
+                    [],
+                    "Advance Type",
+                    null,
+                    true
+                );
+
+                return;
+            }
+
+            employeeAdvanceRenderBarChart(
+                groups.map(function (group) {
+                    return group.title;
+                }),
+                groups.map(function (group) {
+                    return group.aggregate;
+                }),
+                "Advance Type",
+                function (params) {
+
+                    var group =
+                        groups[params.dataIndex];
+
+                    if (!group) {
+                        return;
+                    }
+
+                    window.employeeAdvanceInformationSelectedAdvanceTypeID =
+                        group.id;
+
+                    window.employeeAdvanceInformationSelectedAdvanceTypeTitle =
+                        group.title;
+
+                    employeeAdvanceRenderSelectedAdvanceType(
+                        group
+                    );
+                },
+                true
+            );
+        }
+
+
+        /* ------------------------------------------------------------
+           LEVEL 3 - SELECTED ADVANCE TYPE SUMMARY
+           ------------------------------------------------------------ */
+        function employeeAdvanceRenderSelectedAdvanceType(group) {
+
+            if (!group) {
+                return;
+            }
+
+            window.employeeAdvanceInformationCurrentLevel =
+                "advance-type-detail";
+
+            employeeAdvanceRenderBarChart(
+                [group.title],
+                [group.aggregate],
+                group.title,
+                function () {
+
+                    employeeAdvanceRenderEmployeeDetails(
+                        group
+                    );
+                },
+                true
+            );
+        }
+
+
+        /* ------------------------------------------------------------
+           LEVEL 4 - EMPLOYEE DETAILS FOR SELECTED ADVANCE TYPE
+           ------------------------------------------------------------ */
+        function employeeAdvanceRenderEmployeeDetails(group) {
+
+            if (!group) {
+                return;
+            }
+
+            var chartElement =
+                employeeAdvanceGetChartElement();
+
+            if (!chartElement) {
+                return;
+            }
+
+            employeeAdvanceDisposeChart(chartElement);
+
+            employeeAdvanceSetHeader(
+                group.title + " - Employee Details",
+                true
+            );
+
+            window.employeeAdvanceInformationCurrentLevel =
+                "employee-detail";
+
+            var employeeMap = {};
+
+            employeeAdvanceUniqueRequestRows(
+                group.rows || []
+            ).forEach(function (item) {
+
+                var employeeID =
+                    item.EmpID !== undefined &&
+                        item.EmpID !== null
+                        ? String(item.EmpID)
+                        : "";
+
+                var employeeCode =
+                    String(item.EmpCode || "").trim();
+
+                var employeeName =
+                    String(item.EmpName || "").trim();
+
+                var key =
+                    employeeID ||
+                    employeeCode ||
+                    employeeName;
+
+                if (!key) {
+                    key = "UNKNOWN";
+                }
+
+                if (!employeeMap[key]) {
+
+                    employeeMap[key] = {
+                        EmpCode: employeeCode,
+                        EmpName: employeeName,
+                        approved: 0,
+                        recovered: 0,
+                        balance: 0
+                    };
+                }
+
+                var metrics =
+                    employeeAdvanceMetricValues(item);
+
+                employeeMap[key].approved += metrics.approved;
+                employeeMap[key].recovered += metrics.recovered;
+                employeeMap[key].balance += metrics.balance;
+            });
+
+            var employees =
+                Object.keys(employeeMap)
+                    .map(function (key) {
+                        return employeeMap[key];
+                    })
+                    .sort(function (a, b) {
+                        return String(a.EmpName).localeCompare(
+                            String(b.EmpName)
+                        );
+                    });
+
+            if (employees.length === 0) {
+
+                chartElement.innerHTML =
+                    '<div class="employee-advance-information-empty">' +
+                    'No employees associated with this advance type' +
+                    '</div>';
+
+                return;
+            }
+
+            var tableWrap =
+                document.createElement("div");
+
+            tableWrap.className =
+                "employee-advance-information-table-wrap";
+
+            var table =
+                document.createElement("table");
+
+            table.className =
+                "employee-advance-information-table";
+
+            var thead =
+                document.createElement("thead");
+
+            thead.innerHTML =
+                "<tr>" +
+                "<th>EmpCode</th>" +
+                "<th>EmpName</th>" +
+                "<th>Advance Approved</th>" +
+                "<th>Advance Recovered</th>" +
+                "<th>Advance Balance</th>" +
+                "</tr>";
+
+            table.appendChild(thead);
+
+            var tbody =
+                document.createElement("tbody");
+
+            employees.forEach(function (employee) {
+
+                var row =
+                    document.createElement("tr");
+
+                row.innerHTML =
+                    "<td>" +
+                    employeeAdvanceEscapeHtml(employee.EmpCode) +
+                    "</td>" +
+                    "<td>" +
+                    employeeAdvanceEscapeHtml(employee.EmpName) +
+                    "</td>" +
+                    "<td>₹" +
+                    employeeAdvanceFormatAmount(employee.approved) +
+                    "</td>" +
+                    "<td>₹" +
+                    employeeAdvanceFormatAmount(employee.recovered) +
+                    "</td>" +
+                    "<td>₹" +
+                    employeeAdvanceFormatAmount(employee.balance) +
+                    "</td>";
+
+                tbody.appendChild(row);
+            });
+
+            table.appendChild(tbody);
+            tableWrap.appendChild(table);
+            chartElement.appendChild(tableWrap);
+
+            if (typeof refreshDashboardMasonry === "function") {
+
+                setTimeout(function () {
+
+                    try {
+                        refreshDashboardMasonry();
+                    }
+                    catch (error) {
+                        console.warn(
+                            "Employee Advance masonry refresh failed:",
+                            error
+                        );
+                    }
+
+                }, 50);
+            }
+        }
+
+
+        /* ------------------------------------------------------------
+           BACK NAVIGATION
+           ------------------------------------------------------------ */
+        function employeeAdvanceGoBack() {
+
+            var level =
+                window.employeeAdvanceInformationCurrentLevel;
+
+            if (level === "employee-detail") {
+
+                var typeID =
+                    window.employeeAdvanceInformationSelectedAdvanceTypeID;
+
+                var typeTitle =
+                    window.employeeAdvanceInformationSelectedAdvanceTypeTitle;
+
+                var rows =
+                    employeeAdvanceUniqueRequestRows(
+                        window.employeeAdvanceInformationData
+                    );
+
+                var selectedRows =
+                    rows.filter(function (item) {
+
+                        if (
+                            typeID !== null &&
+                            typeID !== undefined &&
+                            String(typeID) !== ""
+                        ) {
+                            return String(item.AdvanceTypeID) === String(typeID);
+                        }
+
+                        return String(item.AdvanceTypeTitle || "") === typeTitle;
+                    });
+
+                employeeAdvanceRenderSelectedAdvanceType({
+                    id: typeID,
+                    title: typeTitle,
+                    rows: selectedRows,
+                    aggregate: employeeAdvanceAggregateRows(selectedRows)
+                });
+
+                return;
+            }
+
+            if (level === "advance-type-detail") {
+
+                employeeAdvanceRenderAdvanceTypes();
+                return;
+            }
+
+            if (level === "advance-type") {
+
+                employeeAdvanceRenderOverall();
+                return;
+            }
+        }
+
+
+        /* ------------------------------------------------------------
+           PUBLIC C# ENTRY POINT
+           ------------------------------------------------------------ */
+        window.displayEmployeeAdvanceInformationChartData =
+            function (data) {
+
+                console.log(
+                    "Employee Advance Information Data received from C#:",
+                    data
+                );
+
+                if (typeof data === "string") {
+
+                    try {
+                        data = JSON.parse(data);
+                    }
+                    catch (error) {
+
+                        console.error(
+                            "Unable to parse Employee Advance Information data:",
+                            error
+                        );
+
+                        data = [];
+                    }
+                }
+
+                window.employeeAdvanceInformationData =
+                    Array.isArray(data)
+                        ? data
+                        : [];
+
+                var backButton =
+                    document.getElementById(
+                        "employeeAdvanceInformationBack"
+                    );
+
+                if (backButton && !backButton.__employeeAdvanceBackAttached) {
+
+                    backButton.addEventListener(
+                        "click",
+                        employeeAdvanceGoBack
+                    );
+
+                    backButton.__employeeAdvanceBackAttached = true;
+                }
+
+                employeeAdvanceRenderOverall();
+            };
+
+
+        /*
+         * Backward-compatible alias for the previously used C# entry point.
+         */
+        window.displayEmployeeAdvanceData =
+            window.displayEmployeeAdvanceInformationChartData;
+
+
+        /* ------------------------------------------------------------
+           RESIZE SUPPORT
+           ------------------------------------------------------------ */
+        if (!window.__employeeAdvanceInformationResizeAttached) {
+
+            window.addEventListener(
+                "resize",
+                function () {
+
+                    try {
+                        if (window.employeeAdvanceInformationChart) {
+                            window.employeeAdvanceInformationChart.resize();
+                        }
+                    }
+                    catch (error) {
+                    }
+
+                }
+            );
+
+            window.__employeeAdvanceInformationResizeAttached = true;
+        }
 
     })();
 

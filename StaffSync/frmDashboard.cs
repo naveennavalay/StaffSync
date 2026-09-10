@@ -7741,6 +7741,8 @@ namespace StaffSync
             await displayYearlyHolidaySummaryData();
             await displayPendingApprovalLeaveChartData();
             await displayMonthlyAttendanceRegisterData();
+            await displayEmployeeAdvanceInformationChartData();
+            await displayMonthlyEmployeeAdvanceInformationChartData();
         }
 
         private async void myWebView_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
@@ -8310,8 +8312,51 @@ namespace StaffSync
 
         }
 
-        private void SaveMinimalPdfFile(
-            string outputFilePath)
+        private async Task displayEmployeeAdvanceInformationChartData()
+        {
+            try
+            {
+                List<EmployeeAdvanceInformationChartData> data = objDashboardChartWidgets.displayEmployeeAdvanceInformationChartData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+                string json = JsonConvert.SerializeObject(data);
+
+                string script = $"displayEmployeeAdvanceInformationChartData({json});";
+
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "StaffSync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private async Task displayMonthlyEmployeeAdvanceInformationChartData()
+        {
+            try
+            {
+                List<EmployeeAdvanceInformationChartData> data = objDashboardChartWidgets.displayEmployeeAdvanceInformationChartData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+                string json = JsonConvert.SerializeObject(data);
+
+                string script = $"displayMonthlyEmployeeAdvanceInformationChartData({json});";
+
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "StaffSync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void SaveMinimalPdfFile(string outputFilePath)
         {
             /*
              * ------------------------------------------------------------

@@ -1489,5 +1489,143 @@ namespace dbStaffSync
 
             return objMonthlyAttendanceRegisterRowList;
         }
+
+        public List<EmployeeAdvanceInformationChartData> displayEmployeeAdvanceInformationChartData(int clientId, DateTime dtFrom, DateTime dtTo) //, CancellationToken cancellationToken = default)
+        {
+            List<EmployeeAdvanceInformationChartData> objEmployeeAdvanceInformationRowList = new List<EmployeeAdvanceInformationChartData>();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                        EmpMas.EmpID,
+                                        EmpMas.EmpCode,
+                                        EmpMas.EmpName,
+                                        DesigMas.DesignationTitle,
+                                        DepMas.DepartmentTitle,
+                                        PersonalInfoMas.DOB,
+                                        PersonalInfoMas.DOJ,
+                                        AdvanceTypeMas.AdvanceTypeID,
+                                        AdvanceTypeMas.AdvanceTypeTitle,
+                                        EmpAdvanceRequestMas.EmpAdvanceRequestID,
+                                        EmpAdvanceRequestMas.EmpAdvReqCode,
+                                        EmpAdvanceRequestMas.RequestMovedToComments,
+                                        EmpAdvanceRequestMas.AdvanceAmount,
+                                        EmpAdvanceRequestMas.AdvanceTenure,
+                                        EmpAdvanceRequestMas.AdvanceInstallment,
+                                        EmpAdvanceRequestMas.AdvanceStartDate,
+                                        EmpAdvanceRequestMas.AdvanceEndDate,
+                                        EmpAdvanceDetails.EmpAdvanceRecoveryID,
+                                        EmpAdvanceDetails.AdvanceDate,
+                                        Year(EmpAdvanceDetails.AdvanceDate) AS AdvanceYear,
+                                        Month(EmpAdvanceDetails.AdvanceDate) AS AdvanceMonth,
+                                        Format(EmpAdvanceDetails.AdvanceDate, ""mmm-yyyy"") AS AdvanceMonthName,
+                                        Day(EmpAdvanceDetails.AdvanceDate) AS AdvanceDay,
+                                        EmpAdvanceDetails.OBalance,
+                                        EmpAdvanceDetails.CrBalance,
+                                        EmpAdvanceDetails.DrBalance,
+                                        EmpAdvanceDetails.CBalance,
+                                        EmpAdvanceDetails.TRType,
+                                        EmpAdvanceDetails.Comments,
+                                        IIf(
+                                            EmpAdvanceRequestMas.RequestMovedToComments = ""Pending""
+                                            OR EmpAdvanceRequestMas.RequestMovedToComments = ""Approved"",
+                                            EmpAdvanceRequestMas.AdvanceAmount,
+                                            0
+                                        ) AS RequestAmount,
+                                        IIf(
+                                            EmpAdvanceRequestMas.RequestMovedToComments = ""Approved"",
+                                            EmpAdvanceRequestMas.AdvanceAmount,
+                                            0
+                                        ) AS IssuedAmount,
+                                        IIf(
+                                            EmpAdvanceDetails.CBalance > 0,
+                                            EmpAdvanceDetails.CBalance,
+                                            0
+                                        ) AS OutstandingAmount,
+                                        (
+                                            IIf(
+                                                EmpAdvanceRequestMas.RequestMovedToComments = ""Pending""
+                                                OR EmpAdvanceRequestMas.RequestMovedToComments = ""Approved"",
+                                                EmpAdvanceRequestMas.AdvanceAmount,
+                                                0
+                                            ) - IIf(
+                                                EmpAdvanceDetails.CBalance > 0,
+                                                EmpAdvanceDetails.CBalance,
+                                                0
+                                            )
+                                        ) AS RecoveredAmount,
+                                        ClientMas.ClientID
+                                    FROM
+                                        (
+                                            (
+                                                DesigMas
+                                                INNER JOIN (
+                                                    DepMas
+                                                    INNER JOIN (
+                                                        ClientMas
+                                                        INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                    ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                                ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                            )
+                                            INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                        )
+                                        INNER JOIN (
+                                            (
+                                                AdvanceTypeMas
+                                                INNER JOIN EmpAdvanceRequestMas ON AdvanceTypeMas.AdvanceTypeID = EmpAdvanceRequestMas.AdvanceTypeID
+                                            )
+                                            INNER JOIN EmpAdvanceDetails ON EmpAdvanceRequestMas.EmpAdvanceRequestID = EmpAdvanceDetails.EmpAdvanceRequestID
+                                        ) ON PersonalInfoMas.PersonalInfoID = EmpAdvanceRequestMas.PersonalInfoID
+                                    WHERE
+                                        (
+                                            EmpMas.EmpID > 0
+                                            AND EmpAdvanceDetails.EmpAdvanceRecoveryID = (
+                                                SELECT
+                                                    Max(D2.EmpAdvanceRecoveryID)
+                                                FROM
+                                                    EmpAdvanceDetails AS D2
+                                                WHERE
+                                                    D2.EmpAdvanceRequestID = EmpAdvanceDetails.EmpAdvanceRequestID
+                                            )
+                                            AND EmpAdvanceDetails.AdvanceDate >= #" + dtFrom.ToString("dd-MMM-yyyy") + @"#
+                                            AND EmpAdvanceDetails.AdvanceDate < #" + dtTo.ToString("dd-MMM-yyyy") + @"#
+                                            AND ClientMas.ClientID = " + clientId + @"
+                                        )
+                                    ORDER BY
+                                        AdvanceTypeMas.AdvanceTypeTitle,
+                                        EmpAdvanceDetails.AdvanceDate,
+                                        EmpMas.EmpName,
+                                        EmpAdvanceRequestMas.EmpAdvanceRequestID;";
+
+                DataTable dt = new DataTable();
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeAdvanceInformationRowList = JsonConvert.DeserializeObject<List<EmployeeAdvanceInformationChartData>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                // Log if required
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    dbStaffSync.closeDBConnection();
+                }
+            }
+
+            return objEmployeeAdvanceInformationRowList;
+        }
     }
 }
