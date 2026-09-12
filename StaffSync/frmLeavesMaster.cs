@@ -230,6 +230,12 @@ namespace StaffSync
                         return;
                     }
                 }
+
+                if(MessageBox.Show("You are about to apply : \nLeave Type : " + cmbLeaveType.Text + "\nDated on : " + Convert.ToDateTime(txtLeaveDateFrom.Text).ToString("dd-MMM-yyyy") + ".\nPlease confirm once again before you continue.", "Staffsync", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    this.Cursor = Cursors.Default;
+                    return;
+                }
             }
 
             if(lblLeaveIsPaid.Text == "lop")

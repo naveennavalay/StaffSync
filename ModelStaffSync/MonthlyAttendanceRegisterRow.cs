@@ -13,6 +13,7 @@ namespace ModelStaffSync
         public string MonthName { get; set; }
 
         public int? EmpID { get; set; }
+        public string EmpCode { get; set; }
         public string EmployeeName { get; set; }
 
         public DateTime? AttendanceDate { get; set; }

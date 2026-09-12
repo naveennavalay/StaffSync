@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -1074,8 +1075,8 @@ namespace dbStaffSync
                                     WHERE
                                         (
                                             ((E.EmpID) > 1)
-                                            AND ((DateDiff(""d"", Date(), L.ActualLeaveDateFrom)) > 0)
-                                            AND ((L.ActualLeaveDateFrom) >= #" + fromDate.ToString("dd-MMM-yyyy") + "# " + @")
+                                            AND ((DateDiff(""d"", Date(), L.ActualLeaveDateFrom)) > 0)                                            
+                                            AND ((L.ActualLeaveDateFrom) >= DateSerial(" + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Year + ", " + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Month + ", " + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Day + @") 
                                             AND ((E.ClientID) = " + clientID + ") " + @"
                                             AND ((E.IsActive) = True)
                                             AND ((E.IsDeleted) = False)
@@ -1096,6 +1097,42 @@ namespace dbStaffSync
                                         E.EmpID,
                                         L.ActualLeaveDateFrom,
                                         E.EmpName";
+
+                strQuery = @"SELECT
+                                    TOP 5 E.EmpID AS EmpID,
+                                    E.EmpName AS EmpName,
+                                    DesigMas.DesignationTitle,
+                                    DepMas.DepartmentTitle,
+                                    L.ActualLeaveDateFrom AS LeaveDate,
+                                    LT.LeaveTypeTitle AS LeaveType,
+                                    DateDiff(""d"", Date(), L.ActualLeaveDateFrom) AS DaysToGo
+                                FROM
+                                    LeaveTypeMas AS LT
+                                    INNER JOIN (
+                                        (
+                                            DesigMas
+                                            INNER JOIN (
+                                                DepMas
+                                                INNER JOIN EmpMas AS E ON DepMas.DepartmentID = E.DepartmentID
+                                            ) ON DesigMas.DesignationID = E.EmpDesignationID
+                                        )
+                                        INNER JOIN EmpLeaveTransMas AS L ON E.EmpID = L.EmpID
+                                    ) ON LT.LeaveTypeID = L.LeaveTypeID
+                                WHERE
+                                    E.EmpID > 1
+                                    AND L.ActualLeaveDateFrom >= DateSerial(" + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Year + ", " + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Month + ", " + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Day + @") 
+                                    AND L.ActualLeaveDateFrom < DateSerial(" + Convert.ToDateTime(toDate.ToString("dd-MMM-yyyy")).Year + ", " + Convert.ToDateTime(toDate.ToString("dd-MMM-yyyy")).Month + ", " + Convert.ToDateTime(toDate.ToString("dd-MMM-yyyy")).Day + @") 
+                                    AND DateDiff(""d"", Date(), L.ActualLeaveDateFrom) > 0
+                                    AND E.ClientID = " + clientID + @"
+                                    AND E.IsActive = True
+                                    AND E.IsDeleted = False
+                                    AND L.Canceled = False
+                                    AND L.LeaveApprovalComments = ""Not yet Approved""
+                                    AND L.LeaveRejectionComments = ""Not yet Rejected""
+                                ORDER BY
+                                    E.EmpID,
+                                    L.ActualLeaveDateFrom,
+                                    E.EmpName;";
 
                 DataTable dt = new DataTable();
 
@@ -1176,6 +1213,50 @@ namespace dbStaffSync
                                         L.ActualLeaveDateFrom,
                                         E.EmpName;";
 
+                strQuery = @"SELECT TOP 5 
+                                    E.EmpID AS EmpID,
+                                    E.EmpName AS EmpName,
+                                    DesigMas.DesignationTitle,
+                                    DepMas.DepartmentTitle,
+                                    L.ActualLeaveDateFrom AS LeaveDate,
+                                    LT.LeaveTypeTitle AS LeaveType,
+                                    DateDiff(""d"", Date(), L.ActualLeaveDateFrom) AS DaysToGo
+
+                                FROM
+                                    LeaveTypeMas AS LT
+                                    INNER JOIN
+                                    (
+                                        (
+                                            DesigMas
+                                            INNER JOIN
+                                            (
+                                                DepMas
+                                                INNER JOIN EmpMas AS E
+                                                    ON DepMas.DepartmentID = E.DepartmentID
+                                            )
+                                            ON DesigMas.DesignationID = E.EmpDesignationID
+                                        )
+                                        INNER JOIN EmpLeaveTransMas AS L
+                                            ON E.EmpID = L.EmpID
+                                    )
+                                    ON LT.LeaveTypeID = L.LeaveTypeID
+
+                                WHERE
+                                    E.EmpID > 1
+                                    AND L.ActualLeaveDateFrom >= DateSerial(" + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Year + ", " + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Month + ", " + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Day + @") 
+                                    AND L.ActualLeaveDateFrom < DateSerial(" + (Convert.ToDateTime(toDate.ToString("dd-MMM-yyyy")).Year + 1) + ", " + Convert.ToDateTime(toDate.ToString("dd-MMM-yyyy")).Month + ", " + Convert.ToDateTime(toDate.ToString("dd-MMM-yyyy")).Day + @") 
+                                    AND E.ClientID = " + clientID + @"
+                                    AND E.IsActive = True
+                                    AND E.IsDeleted = False
+                                    AND L.Canceled = False
+
+                                    AND L.LeaveApprovalComments = ""Not yet Approved""
+                                    AND L.LeaveRejectionComments = ""Not yet Rejected""
+
+                                ORDER BY
+                                    E.EmpID,
+                                    L.ActualLeaveDateFrom,
+                                    E.EmpName;";
                 DataTable dt = new DataTable();
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -1379,6 +1460,7 @@ namespace dbStaffSync
                                         Month(Q.AttendanceDate) AS MonthNo,
                                         Format(Q.AttendanceDate, ""mmm"") AS MonthName,
                                         Null AS EmpID,
+                                        Null AS EmpCode,
                                         Null AS EmployeeName,
                                         Null AS AttendanceDate,
                                         Null AS AttendanceStatus,
@@ -1390,6 +1472,7 @@ namespace dbStaffSync
                                         (
                                             SELECT
                                                 E.EmpID,
+                                                E.EmpCode AS EmpCode,
                                                 E.EmpName AS EmployeeName,
                                                 DateValue(A.AttDate) AS AttendanceDate,
                                                 A.AttStatus
@@ -1426,6 +1509,7 @@ namespace dbStaffSync
                                         Month(DateValue(A.AttDate)) AS MonthNo,
                                         Format(DateValue(A.AttDate), ""mmm"") AS MonthName,
                                         E.EmpID,
+                                        E.EmpCode AS EmpCode,
                                         E.EmpName AS EmployeeName,
                                         DateValue(A.AttDate) AS AttendanceDate,
                                         A.AttStatus AS AttendanceStatus,
@@ -1458,6 +1542,7 @@ namespace dbStaffSync
                                     ORDER BY
                                         RecordType,
                                         MonthNo,
+                                        EmpCode,
                                         EmployeeName,
                                         AttendanceDate;";
 

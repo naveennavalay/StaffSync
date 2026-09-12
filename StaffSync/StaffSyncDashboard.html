@@ -1,4 +1,3 @@
-<!-- Tested and Confirmed -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -2312,6 +2311,58 @@
             text-overflow: ellipsis;
         }
 
+        /* ------------------------------------------------------------
+        Monthly Attendance Register - employee code column
+        ------------------------------------------------------------ */
+
+        .monthly-attendance-register-employee-code {
+            min-width: 0;
+            width: 100%;
+            justify-content: flex-start;
+            padding: 0 5px;
+            position: sticky;
+            left: 0;
+            z-index: 5;
+            background: #ffffff;
+            font-size: 8px;
+            font-weight: 600;
+            color: #555;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .monthly-attendance-register-header-employee-code {
+            z-index: 7;
+            background: #f4f8fb;
+            color: #174a7e;
+            font-weight: 700;
+        }
+
+        .monthly-attendance-register-employee-name {
+            min-width: 0;
+            width: 100%;
+            justify-content: flex-start;
+            padding: 0 6px;
+            position: sticky;
+            left: 65px;
+            z-index: 4;
+            background: #ffffff;
+            font-size: 9px;
+            font-weight: 600;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .monthly-attendance-register-header-employee-name {
+            z-index: 6;
+            background: #f4f8fb;
+            color: #174a7e;
+            font-weight: 700;
+        }
+
         .monthly-attendance-register-header-cell {
             height: 40px;
             background: #f4f8fb;
@@ -2978,6 +3029,91 @@
             .employee-advance-information-table tbody tr:hover td {
                 background: #f7fbfd;
             }
+
+
+
+        /* ============================================================
+           STAFFSYNC DASHBOARD CARD REFRESH BUTTON
+           ------------------------------------------------------------
+           Additive only. The button is injected into every existing
+           dashboard card header without changing the card markup.
+           Clicking refresh sends a card-specific request to C#.
+           C# must re-query only the selected card using the current
+           dashboard From/To date range and call that card's existing
+           display*Data() method.
+           ============================================================ */
+        .dashboard-card-refresh {
+            margin-left: 8px;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            border: 1px solid #c8dce9;
+            border-radius: 5px;
+            background: #ffffff;
+            color: #28648a;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 24px;
+            box-sizing: border-box;
+            cursor: pointer;
+            outline: none;
+            vertical-align: middle;
+        }
+
+            .dashboard-card-refresh:hover {
+                border-color: #8fb8d2;
+                background: #f3f8fb;
+                color: #174a7e;
+            }
+
+            .dashboard-card-refresh:active {
+                background: #e8f2f8;
+            }
+
+            .dashboard-card-refresh:focus-visible {
+                box-shadow: 0 0 0 2px rgba(143, 184, 210, 0.35);
+            }
+
+        .dashboard-card-refresh-icon {
+            width: 14px;
+            height: 14px;
+            display: block;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            pointer-events: none;
+        }
+
+        .dashboard-card-refresh.is-refreshing .dashboard-card-refresh-icon {
+            animation: dashboardCardRefreshSpin 0.75s linear infinite;
+        }
+
+        @keyframes dashboardCardRefreshSpin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .dashboard-card-refresh {
+                width: 22px;
+                height: 22px;
+                flex-basis: 22px;
+                margin-left: 4px;
+            }
+
+            .dashboard-card-refresh-icon {
+                width: 13px;
+                height: 13px;
+            }
+        }
     </style>
 
     <!--
@@ -16229,6 +16365,9 @@
                         EmpID:
                             item.EmpID,
 
+                        EmpCode:
+                            item.EmpCode || "",
+
                         EmployeeName:
                             item.EmployeeName || "",
 
@@ -16261,9 +16400,14 @@
                     .sort(function (a, b) {
 
                         return String(
-                            a.EmployeeName
+                            a.EmpCode || ""
                         ).localeCompare(
-                            String(b.EmployeeName)
+                            String(b.EmpCode || ""),
+                            undefined,
+                            {
+                                numeric: true,
+                                sensitivity: "base"
+                            }
                         );
                     });
 
@@ -16372,32 +16516,55 @@
              * Keep the complete month plus five summary columns
              * inside the dashboard card.
              *
-             * Employee = 145px
-             * Day      = 18-19px
+             * Employee Code = 65px
+             * Employee      = 125px
+             * Day           = 17px
              * Summary  = 34px each
              *
              * Summary columns:
              *     P | L | C | R | %
              */
             grid.style.gridTemplateColumns =
-                "145px repeat(" +
+                "65px 125px repeat(" +
                 daysInMonth +
-                ", minmax(18px, 19px)) " +
+                ", minmax(17px, 17px)) " +
                 "repeat(5, 34px)";
 
 
-            /* Employee header */
+            /* Employee Code header */
+            var employeeCodeHeader =
+                document.createElement("div");
+
+            employeeCodeHeader.className =
+                "monthly-attendance-register-cell " +
+                "monthly-attendance-register-header-cell " +
+                "monthly-attendance-register-employee-code " +
+                "monthly-attendance-register-header-employee-code";
+
+            employeeCodeHeader.textContent =
+                "Code";
+
+            employeeCodeHeader.title =
+                "Employee Code";
+
+            grid.appendChild(employeeCodeHeader);
+
+
+            /* Employee Name header */
             var employeeHeader =
                 document.createElement("div");
 
             employeeHeader.className =
                 "monthly-attendance-register-cell " +
                 "monthly-attendance-register-header-cell " +
-                "monthly-attendance-register-employee " +
-                "monthly-attendance-register-header-employee";
+                "monthly-attendance-register-employee-name " +
+                "monthly-attendance-register-header-employee-name";
 
             employeeHeader.textContent =
                 "Employee";
+
+            employeeHeader.title =
+                "Employee Name";
 
             grid.appendChild(employeeHeader);
 
@@ -16495,12 +16662,30 @@
             /* Employee rows */
             employees.forEach(function (employee) {
 
+                var employeeCodeCell =
+                    document.createElement("div");
+
+                employeeCodeCell.className =
+                    "monthly-attendance-register-cell " +
+                    "monthly-attendance-register-employee-code";
+
+                employeeCodeCell.textContent =
+                    employee.EmpCode || "-";
+
+                employeeCodeCell.title =
+                    employee.EmpCode
+                        ? "Employee Code: " + employee.EmpCode
+                        : "Employee Code not available";
+
+                grid.appendChild(employeeCodeCell);
+
+
                 var employeeCell =
                     document.createElement("div");
 
                 employeeCell.className =
                     "monthly-attendance-register-cell " +
-                    "monthly-attendance-register-employee " +
+                    "monthly-attendance-register-employee-name " +
                     "monthly-attendance-register-employee-click";
 
                 employeeCell.textContent =
@@ -16805,7 +16990,7 @@
 
             totalLabel.style.gridColumn =
                 "1 / span " +
-                (daysInMonth + 1);
+                (daysInMonth + 2);
 
             grid.appendChild(totalLabel);
 
@@ -16857,9 +17042,9 @@
                     employees: employees.length,
                     daysInMonth: daysInMonth,
                     gridColumns:
-                        "150px + " +
+                        "65px + 125px + " +
                         daysInMonth +
-                        " x 23px",
+                        " x 17px",
                     internalVerticalScroll: false
                 }
             );
@@ -19579,7 +19764,7 @@
 
             monthlyEmployeeAdvanceRenderTypeGroupsChart(
                 groups,
-                "Advance Type",
+                "Individual Advance",
                 function (group) {
                     window.monthlyEmployeeAdvanceInformationSelectedAdvanceTypeID = group.id;
                     window.monthlyEmployeeAdvanceInformationSelectedAdvanceTypeTitle = group.title;
@@ -19601,7 +19786,7 @@
                 },
                 true,
                 function (group) {
-                    return group.title + "\n" + group.month.title;
+                    return group.title + " | " + group.month.title;
                 }
             );
         }
@@ -19730,7 +19915,7 @@
         function monthlyEmployeeAdvanceRenderSpecificAdvance(group) {
             if (!group) return;
             window.monthlyEmployeeAdvanceInformationCurrentLevel = "specific-advance";
-            monthlyEmployeeAdvanceRenderTypeMonthlyChart(group, group.title, true);
+            monthlyEmployeeAdvanceRenderTypeMonthlyChart(group, "Specific Advance - " + group.title, true);
         }
 
         /* BACK NAVIGATION */
@@ -20876,6 +21061,296 @@
 
     })();
 
+
+
+
+    /* ============================================================
+       STAFFSYNC DASHBOARD CARD REFRESH
+       ------------------------------------------------------------
+       Every .chart-card receives a small refresh icon in its
+       existing header. No existing card HTML is removed.
+
+       Refresh flow:
+           Refresh button
+                -> WebView page reload
+                -> existing C# NavigationCompleted
+                -> existing refreshDashboardCharts()
+                -> existing data queries
+                -> existing display*Data() methods
+                -> charts redraw
+
+       This intentionally uses the existing dashboard refresh
+       lifecycle instead of creating duplicate query logic in HTML.
+       ============================================================ */
+    (function () {
+
+        "use strict";
+
+        function staffSyncRefreshDashboard() {
+
+            try {
+
+                window.location.reload();
+
+            }
+            catch (error) {
+
+                console.error(
+                    "StaffSync dashboard refresh failed:",
+                    error
+                );
+
+            }
+        }
+
+        function createRefreshButton(card) {
+
+            if (!card) {
+                return;
+            }
+
+            var header =
+                card.querySelector(
+                    ".chart-card-header"
+                );
+
+            if (!header) {
+                return;
+            }
+
+            if (
+                header.querySelector(
+                    ".dashboard-card-refresh"
+                )
+            ) {
+                return;
+            }
+
+            var button =
+                document.createElement("button");
+
+            button.type = "button";
+            button.className = "dashboard-card-refresh";
+            button.title = "Refresh data";
+            button.setAttribute(
+                "aria-label",
+                "Refresh " +
+                (
+                    card.querySelector(".chart-title")
+                        ? card.querySelector(".chart-title").textContent.trim()
+                        : "dashboard card"
+                )
+            );
+
+            button.innerHTML =
+                '<svg class="dashboard-card-refresh-icon" ' +
+                'viewBox="0 0 24 24" aria-hidden="true">' +
+                '<path d="M20 11a8.1 8.1 0 0 0-14.8-4L3 10"></path>' +
+                '<path d="M3 4v6h6"></path>' +
+                '<path d="M4 13a8.1 8.1 0 0 0 14.8 4L21 14"></path>' +
+                '<path d="M21 20v-6h-6"></path>' +
+                '</svg>';
+
+            button.addEventListener(
+                "click",
+                function (event) {
+
+                    if (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    if (button.__refreshInProgress) {
+                        return;
+                    }
+
+                    button.__refreshInProgress = true;
+                    button.classList.add("is-refreshing");
+                    button.disabled = true;
+
+                    /*
+                     * Request a refresh for this card only.
+                     *
+                     * The C# WebView2 handler must execute the
+                     * corresponding card data method using the
+                     * CURRENT dashboard From/To date range
+                     * (txtDTFrom / txtDTTo) and then call the
+                     * existing JavaScript display*Data method
+                     * for this card only.
+                     */
+                    var dashboardKey =
+                        card.getAttribute("data-dashboard-key") || "";
+
+                    if (
+                        window.chrome &&
+                        window.chrome.webview &&
+                        typeof window.chrome.webview.postMessage ===
+                        "function"
+                    ) {
+
+                        try {
+
+                            window.chrome.webview.postMessage({
+                                Action: "RefreshDashboardCard",
+                                DashboardKey: dashboardKey
+                            });
+
+                            /*
+                             * C# owns the data refresh lifecycle.
+                             * Re-enable the button after a short
+                             * interval so it remains usable even if
+                             * the host response is asynchronous.
+                             */
+                            setTimeout(
+                                function () {
+                                    button.__refreshInProgress = false;
+                                    button.classList.remove("is-refreshing");
+                                    button.disabled = false;
+                                },
+                                1000
+                            );
+
+                        }
+                        catch (error) {
+
+                            console.error(
+                                "StaffSync card refresh request failed:",
+                                error
+                            );
+
+                            button.__refreshInProgress = false;
+                            button.classList.remove("is-refreshing");
+                            button.disabled = false;
+                        }
+
+                    }
+                    else {
+
+                        console.error(
+                            "StaffSync WebView2 bridge is not available."
+                        );
+
+                        button.__refreshInProgress = false;
+                        button.classList.remove("is-refreshing");
+                        button.disabled = false;
+                    }
+                }
+            );
+
+            /*
+             * Keep the refresh icon with the Export control.
+             *
+             * The Export control is right-aligned in the header.
+             * Putting the refresh button inside that same wrapper,
+             * immediately before the "Export Data to :" label,
+             * keeps the button beside the export controls instead
+             * of leaving it near the card count.
+             */
+            var exportControl =
+                header.querySelector(
+                    ".dashboard-card-export"
+                );
+
+            if (exportControl) {
+                exportControl.insertBefore(
+                    button,
+                    exportControl.firstChild
+                );
+            }
+            else {
+                header.appendChild(button);
+            }
+        }
+
+        function initializeRefreshButtons() {
+
+            var cards =
+                document.querySelectorAll(
+                    ".chart-card"
+                );
+
+            for (
+                var i = 0;
+                i < cards.length;
+                i++
+            ) {
+                createRefreshButton(cards[i]);
+            }
+        }
+
+        /* Public API in case C# or another dashboard component
+           needs to trigger the same complete refresh lifecycle. */
+        window.staffSyncRefreshDashboard =
+            staffSyncRefreshDashboard;
+
+        if (
+            document.readyState ===
+            "loading"
+        ) {
+
+            document.addEventListener(
+                "DOMContentLoaded",
+                initializeRefreshButtons
+            );
+
+        }
+        else {
+
+            initializeRefreshButtons();
+
+        }
+
+        /*
+         * The existing dashboard already uses dynamic card handling.
+         * Keep refresh buttons available if a card is added later.
+         */
+        if (
+            typeof MutationObserver !==
+            "undefined"
+        ) {
+
+            var refreshObserver =
+                new MutationObserver(
+                    function (mutations) {
+
+                        var shouldScan = false;
+
+                        for (
+                            var i = 0;
+                            i < mutations.length;
+                            i++
+                        ) {
+
+                            if (
+                                mutations[i].addedNodes &&
+                                mutations[i].addedNodes.length
+                            ) {
+
+                                shouldScan = true;
+                                break;
+
+                            }
+
+                        }
+
+                        if (shouldScan) {
+                            initializeRefreshButtons();
+                        }
+
+                    }
+                );
+
+            refreshObserver.observe(
+                document.body,
+                {
+                    childList: true,
+                    subtree: true
+                }
+            );
+
+        }
+
+    })();
 
 </script>
 

@@ -176,7 +176,7 @@ namespace StaffSync
                         frmEmployeeMasterDetails.MdiParent = this;
                         frmEmployeeMasterDetails.Dock = DockStyle.Fill;
                         frmEmployeeMasterDetails.Show();
-                        frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;                        
+                        frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -210,7 +210,7 @@ namespace StaffSync
                     frmEmployeeMasterDetails.MdiParent = this;
                     frmEmployeeMasterDetails.Dock = DockStyle.Fill;
                     frmEmployeeMasterDetails.Show();
-                    frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;                    
+                    frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -226,14 +226,14 @@ namespace StaffSync
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
 
             AppModuleID = 4;
-            
+
             sptrDashboardContainer.Visible = false;
             grpDashboardDateRange.Visible = false;
             frmDailyAttendanceProcess frmDailyAttendanceProcessDetails = new frmDailyAttendanceProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
             frmDailyAttendanceProcessDetails.MdiParent = this;
             frmDailyAttendanceProcessDetails.Dock = DockStyle.Fill;
             frmDailyAttendanceProcessDetails.Show();
-            frmDailyAttendanceProcessDetails.WindowState = FormWindowState.Maximized;            
+            frmDailyAttendanceProcessDetails.WindowState = FormWindowState.Maximized;
             return;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -247,7 +247,7 @@ namespace StaffSync
                     frmAttendanceMaterDetails.MdiParent = this;
                     frmAttendanceMaterDetails.Dock = DockStyle.Fill;
                     frmAttendanceMaterDetails.Show();
-                    frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;                    
+                    frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -263,7 +263,7 @@ namespace StaffSync
                         frmAttendanceMaterDetails.MdiParent = this;
                         frmAttendanceMaterDetails.Dock = DockStyle.Fill;
                         frmAttendanceMaterDetails.Show();
-                        frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;                        
+                        frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -297,7 +297,7 @@ namespace StaffSync
                     frmAttendanceMaterDetails.MdiParent = this;
                     frmAttendanceMaterDetails.Dock = DockStyle.Fill;
                     frmAttendanceMaterDetails.Show();
-                    frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;                    
+                    frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -331,7 +331,7 @@ namespace StaffSync
                         frmEmployeeMasterDetails.MdiParent = this;
                         frmEmployeeMasterDetails.Dock = DockStyle.Fill;
                         frmEmployeeMasterDetails.Show();
-                        frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;                        
+                        frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -363,8 +363,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 5;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -378,7 +378,7 @@ namespace StaffSync
                     frmLeavesMasterDetails.MdiParent = this;
                     frmLeavesMasterDetails.Dock = DockStyle.Fill;
                     frmLeavesMasterDetails.Show();
-                    frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;                    
+                    frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -394,7 +394,7 @@ namespace StaffSync
                         frmLeavesMasterDetails.MdiParent = this;
                         frmLeavesMasterDetails.Dock = DockStyle.Fill;
                         frmLeavesMasterDetails.Show();
-                        frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;                        
+                        frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -428,7 +428,7 @@ namespace StaffSync
                     frmLeavesMasterDetails.MdiParent = this;
                     frmLeavesMasterDetails.Dock = DockStyle.Fill;
                     frmLeavesMasterDetails.Show();
-                    frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;                    
+                    frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -450,7 +450,7 @@ namespace StaffSync
                 frmEmployeeWiseReportsDetails.MdiParent = this;
                 frmEmployeeWiseReportsDetails.Dock = DockStyle.Fill;
                 frmEmployeeWiseReportsDetails.Show();
-                frmEmployeeWiseReportsDetails.WindowState = FormWindowState.Maximized;                
+                frmEmployeeWiseReportsDetails.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -471,7 +471,7 @@ namespace StaffSync
                 frmEmployeeAttendanceReportsDetails.MdiParent = this;
                 frmEmployeeAttendanceReportsDetails.Dock = DockStyle.Fill;
                 frmEmployeeAttendanceReportsDetails.Show();
-                frmEmployeeAttendanceReportsDetails.WindowState = FormWindowState.Maximized;                
+                frmEmployeeAttendanceReportsDetails.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -492,7 +492,7 @@ namespace StaffSync
                 frmEmployeePayrollReportsDetails.MdiParent = this;
                 frmEmployeePayrollReportsDetails.Dock = DockStyle.Fill;
                 frmEmployeePayrollReportsDetails.Show();
-                frmEmployeePayrollReportsDetails.WindowState = FormWindowState.Maximized;                
+                frmEmployeePayrollReportsDetails.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -513,7 +513,7 @@ namespace StaffSync
                 frmEmployeeLeavesReportsDetails.MdiParent = this;
                 frmEmployeeLeavesReportsDetails.Dock = DockStyle.Fill;
                 frmEmployeeLeavesReportsDetails.Show();
-                frmEmployeeLeavesReportsDetails.WindowState = FormWindowState.Maximized;                
+                frmEmployeeLeavesReportsDetails.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -534,7 +534,7 @@ namespace StaffSync
                 frmAboutDetails.MdiParent = this;
                 frmAboutDetails.Dock = DockStyle.Fill;
                 frmAboutDetails.Show();
-                frmAboutDetails.WindowState = FormWindowState.Maximized;                
+                frmAboutDetails.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -555,7 +555,7 @@ namespace StaffSync
                 frmDepartmentMaster.MdiParent = this;
                 frmDepartmentMaster.Dock = DockStyle.Fill;
                 frmDepartmentMaster.Show();
-                frmDepartmentMaster.WindowState = FormWindowState.Maximized;                
+                frmDepartmentMaster.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -576,7 +576,7 @@ namespace StaffSync
                 frmCountryMaster.MdiParent = this;
                 frmCountryMaster.Dock = DockStyle.Fill;
                 frmCountryMaster.Show();
-                frmCountryMaster.WindowState = FormWindowState.Maximized;                
+                frmCountryMaster.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -597,7 +597,7 @@ namespace StaffSync
                 frmDesignationMaster.MdiParent = this;
                 frmDesignationMaster.Dock = DockStyle.Fill;
                 frmDesignationMaster.Show();
-                frmDesignationMaster.WindowState = FormWindowState.Maximized;                
+                frmDesignationMaster.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -618,7 +618,7 @@ namespace StaffSync
                 frmStateMaster.MdiParent = this;
                 frmStateMaster.Dock = DockStyle.Fill;
                 frmStateMaster.Show();
-                frmStateMaster.WindowState = FormWindowState.Maximized;                
+                frmStateMaster.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -639,7 +639,7 @@ namespace StaffSync
                 frmRelationshipMaster.MdiParent = this;
                 frmRelationshipMaster.Dock = DockStyle.Fill;
                 frmRelationshipMaster.Show();
-                frmRelationshipMaster.WindowState = FormWindowState.Maximized;                
+                frmRelationshipMaster.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -660,7 +660,7 @@ namespace StaffSync
                 frmLastCompanyMaster.MdiParent = this;
                 frmLastCompanyMaster.Dock = DockStyle.Fill;
                 frmLastCompanyMaster.Show();
-                frmLastCompanyMaster.WindowState = FormWindowState.Maximized;                
+                frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -681,7 +681,7 @@ namespace StaffSync
                 frmEduQualMaster.MdiParent = this;
                 frmEduQualMaster.Dock = DockStyle.Fill;
                 frmEduQualMaster.Show();
-                frmEduQualMaster.WindowState = FormWindowState.Maximized;                
+                frmEduQualMaster.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -708,7 +708,7 @@ namespace StaffSync
                     frmDepartmentMaster.MdiParent = this;
                     frmDepartmentMaster.Dock = DockStyle.Fill;
                     frmDepartmentMaster.Show();
-                    frmDepartmentMaster.WindowState = FormWindowState.Maximized;                    
+                    frmDepartmentMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -724,7 +724,7 @@ namespace StaffSync
                         frmDepartmentMaster.MdiParent = this;
                         frmDepartmentMaster.Dock = DockStyle.Fill;
                         frmDepartmentMaster.Show();
-                        frmDepartmentMaster.WindowState = FormWindowState.Maximized;                        
+                        frmDepartmentMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -751,7 +751,7 @@ namespace StaffSync
                     frmDepartmentMaster.MdiParent = this;
                     frmDepartmentMaster.Dock = DockStyle.Fill;
                     frmDepartmentMaster.Show();
-                    frmDepartmentMaster.WindowState = FormWindowState.Maximized;                    
+                    frmDepartmentMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -769,8 +769,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -784,7 +784,7 @@ namespace StaffSync
                     frmDesignationMaster.MdiParent = this;
                     frmDesignationMaster.Dock = DockStyle.Fill;
                     frmDesignationMaster.Show();
-                    frmDesignationMaster.WindowState = FormWindowState.Maximized;                    
+                    frmDesignationMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -800,7 +800,7 @@ namespace StaffSync
                         frmDesignationMaster.MdiParent = this;
                         frmDesignationMaster.Dock = DockStyle.Fill;
                         frmDesignationMaster.Show();
-                        frmDesignationMaster.WindowState = FormWindowState.Maximized;                        
+                        frmDesignationMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -834,7 +834,7 @@ namespace StaffSync
                     frmDesignationMaster.MdiParent = this;
                     frmDesignationMaster.Dock = DockStyle.Fill;
                     frmDesignationMaster.Show();
-                    frmDesignationMaster.WindowState = FormWindowState.Maximized;                    
+                    frmDesignationMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -847,8 +847,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -862,7 +862,7 @@ namespace StaffSync
                     frmEduQualMaster.MdiParent = this;
                     frmEduQualMaster.Dock = DockStyle.Fill;
                     frmEduQualMaster.Show();
-                    frmEduQualMaster.WindowState = FormWindowState.Maximized;                    
+                    frmEduQualMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -878,7 +878,7 @@ namespace StaffSync
                         frmEduQualMaster.MdiParent = this;
                         frmEduQualMaster.Dock = DockStyle.Fill;
                         frmEduQualMaster.Show();
-                        frmEduQualMaster.WindowState = FormWindowState.Maximized;                        
+                        frmEduQualMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -912,7 +912,7 @@ namespace StaffSync
                     frmEduQualMaster.MdiParent = this;
                     frmEduQualMaster.Dock = DockStyle.Fill;
                     frmEduQualMaster.Show();
-                    frmEduQualMaster.WindowState = FormWindowState.Maximized;                    
+                    frmEduQualMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -925,8 +925,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -940,7 +940,7 @@ namespace StaffSync
                     frmRelationshipMaster.MdiParent = this;
                     frmRelationshipMaster.Dock = DockStyle.Fill;
                     frmRelationshipMaster.Show();
-                    frmRelationshipMaster.WindowState = FormWindowState.Maximized;                    
+                    frmRelationshipMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -956,7 +956,7 @@ namespace StaffSync
                         frmRelationshipMaster.MdiParent = this;
                         frmRelationshipMaster.Dock = DockStyle.Fill;
                         frmRelationshipMaster.Show();
-                        frmRelationshipMaster.WindowState = FormWindowState.Maximized;                        
+                        frmRelationshipMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -990,7 +990,7 @@ namespace StaffSync
                     frmRelationshipMaster.MdiParent = this;
                     frmRelationshipMaster.Dock = DockStyle.Fill;
                     frmRelationshipMaster.Show();
-                    frmRelationshipMaster.WindowState = FormWindowState.Maximized;                    
+                    frmRelationshipMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -1003,8 +1003,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -1018,7 +1018,7 @@ namespace StaffSync
                     frmStateMaster.MdiParent = this;
                     frmStateMaster.Dock = DockStyle.Fill;
                     frmStateMaster.Show();
-                    frmStateMaster.WindowState = FormWindowState.Maximized;                    
+                    frmStateMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -1034,7 +1034,7 @@ namespace StaffSync
                         frmStateMaster.MdiParent = this;
                         frmStateMaster.Dock = DockStyle.Fill;
                         frmStateMaster.Show();
-                        frmStateMaster.WindowState = FormWindowState.Maximized;                        
+                        frmStateMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -1068,7 +1068,7 @@ namespace StaffSync
                     frmStateMaster.MdiParent = this;
                     frmStateMaster.Dock = DockStyle.Fill;
                     frmStateMaster.Show();
-                    frmStateMaster.WindowState = FormWindowState.Maximized;                    
+                    frmStateMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -1081,8 +1081,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -1096,7 +1096,7 @@ namespace StaffSync
                     frmCountryMaster.MdiParent = this;
                     frmCountryMaster.Dock = DockStyle.Fill;
                     frmCountryMaster.Show();
-                    frmCountryMaster.WindowState = FormWindowState.Maximized;                    
+                    frmCountryMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -1112,7 +1112,7 @@ namespace StaffSync
                         frmCountryMaster.MdiParent = this;
                         frmCountryMaster.Dock = DockStyle.Fill;
                         frmCountryMaster.Show();
-                        frmCountryMaster.WindowState = FormWindowState.Maximized;                        
+                        frmCountryMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -1146,7 +1146,7 @@ namespace StaffSync
                     frmCountryMaster.MdiParent = this;
                     frmCountryMaster.Dock = DockStyle.Fill;
                     frmCountryMaster.Show();
-                    frmCountryMaster.WindowState = FormWindowState.Maximized;                    
+                    frmCountryMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -1159,8 +1159,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -1174,7 +1174,7 @@ namespace StaffSync
                     frmLastCompanyMaster.MdiParent = this;
                     frmLastCompanyMaster.Dock = DockStyle.Fill;
                     frmLastCompanyMaster.Show();
-                    frmLastCompanyMaster.WindowState = FormWindowState.Maximized;                    
+                    frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -1190,7 +1190,7 @@ namespace StaffSync
                         frmLastCompanyMaster.MdiParent = this;
                         frmLastCompanyMaster.Dock = DockStyle.Fill;
                         frmLastCompanyMaster.Show();
-                        frmLastCompanyMaster.WindowState = FormWindowState.Maximized;                        
+                        frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -1224,7 +1224,7 @@ namespace StaffSync
                     frmLastCompanyMaster.MdiParent = this;
                     frmLastCompanyMaster.Dock = DockStyle.Fill;
                     frmLastCompanyMaster.Show();
-                    frmLastCompanyMaster.WindowState = FormWindowState.Maximized;                    
+                    frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -1237,8 +1237,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -1251,7 +1251,7 @@ namespace StaffSync
                     frmSkillsMaster.MdiParent = this;
                     frmSkillsMaster.Dock = DockStyle.Fill;
                     frmSkillsMaster.Show();
-                    frmSkillsMaster.WindowState = FormWindowState.Maximized;                    
+                    frmSkillsMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -1266,7 +1266,7 @@ namespace StaffSync
                         frmSkillsMaster.MdiParent = this;
                         frmSkillsMaster.Dock = DockStyle.Fill;
                         frmSkillsMaster.Show();
-                        frmSkillsMaster.WindowState = FormWindowState.Maximized;                        
+                        frmSkillsMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -1297,7 +1297,7 @@ namespace StaffSync
                 frmSkillsMaster.MdiParent = this;
                 frmSkillsMaster.Dock = DockStyle.Fill;
                 frmSkillsMaster.Show();
-                frmSkillsMaster.WindowState = FormWindowState.Maximized;                
+                frmSkillsMaster.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -1764,7 +1764,7 @@ namespace StaffSync
             //txtDTTo.Text = DateTime.Today.ToString("dd-MM-yyyy");
             txtDTTo.Text = Convert.ToDateTime("01-" + DateTime.Today.ToString("MM-yyyy")).AddMonths(1).AddDays(-(Convert.ToDateTime("01-" + DateTime.Today.ToString("MM-yyyy")).AddMonths(1).Day)).ToString("dd-MM-yyyy");
 
-            string htmlPath = Path.Combine(Application.StartupPath,"Dashboard","StaffSyncDashboard.html");
+            string htmlPath = Path.Combine(Application.StartupPath, "Dashboard", "StaffSyncDashboard.html");
 
             myWebView.Source = new Uri(htmlPath);
 
@@ -1785,7 +1785,7 @@ namespace StaffSync
                 objActiveClientInfo = objClientInfo.getClientInfo(objSelectedClientFinYearInfo.ClientID);
                 objActiveFinYear = objFinYearInfo.GetSpecificFinYearInfo(objSelectedClientFinYearInfo.FinYearID);
 
-                if(Convert.ToBoolean(objAppSettings.GetSpecificAppSettingsInfo("Show Dashboard KPIs").AppSettingValue.ToString()) == true)
+                if (Convert.ToBoolean(objAppSettings.GetSpecificAppSettingsInfo("Show Dashboard KPIs").AppSettingValue.ToString()) == true)
                 {
                     sptrDashboardContainer.Visible = true;
                     //LoadDepartmentColumnChart(objSelectedClientFinYearInfo.ClientID, objSelectedClientFinYearInfo.FinYearID);
@@ -1926,8 +1926,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 5;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -1941,7 +1941,7 @@ namespace StaffSync
                     frmLeavesApproval.MdiParent = this;
                     frmLeavesApproval.Dock = DockStyle.Fill;
                     frmLeavesApproval.Show();
-                    frmLeavesApproval.WindowState = FormWindowState.Maximized;                    
+                    frmLeavesApproval.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -1957,7 +1957,7 @@ namespace StaffSync
                         frmLeavesApproval.MdiParent = this;
                         frmLeavesApproval.Dock = DockStyle.Fill;
                         frmLeavesApproval.Show();
-                        frmLeavesApproval.WindowState = FormWindowState.Maximized;                        
+                        frmLeavesApproval.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -1991,7 +1991,7 @@ namespace StaffSync
                     frmLeavesApproval.MdiParent = this;
                     frmLeavesApproval.Dock = DockStyle.Fill;
                     frmLeavesApproval.Show();
-                    frmLeavesApproval.WindowState = FormWindowState.Maximized;                    
+                    frmLeavesApproval.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -2004,8 +2004,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 9;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -2019,7 +2019,7 @@ namespace StaffSync
                     frmUserManagement.MdiParent = this;
                     frmUserManagement.Dock = DockStyle.Fill;
                     frmUserManagement.Show();
-                    frmUserManagement.WindowState = FormWindowState.Maximized;                    
+                    frmUserManagement.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -2035,7 +2035,7 @@ namespace StaffSync
                         frmUserManagement.MdiParent = this;
                         frmUserManagement.Dock = DockStyle.Fill;
                         frmUserManagement.Show();
-                        frmUserManagement.WindowState = FormWindowState.Maximized;                        
+                        frmUserManagement.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -2069,7 +2069,7 @@ namespace StaffSync
                     frmUserManagement.MdiParent = this;
                     frmUserManagement.Dock = DockStyle.Fill;
                     frmUserManagement.Show();
-                    frmUserManagement.WindowState = FormWindowState.Maximized;                    
+                    frmUserManagement.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -2082,8 +2082,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 9;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -2097,7 +2097,7 @@ namespace StaffSync
                     frmRolesAndResponsibilities.MdiParent = this;
                     frmRolesAndResponsibilities.Dock = DockStyle.Fill;
                     frmRolesAndResponsibilities.Show();
-                    frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;                    
+                    frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -2113,7 +2113,7 @@ namespace StaffSync
                         frmRolesAndResponsibilities.MdiParent = this;
                         frmRolesAndResponsibilities.Dock = DockStyle.Fill;
                         frmRolesAndResponsibilities.Show();
-                        frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;                        
+                        frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -2147,7 +2147,7 @@ namespace StaffSync
                     frmRolesAndResponsibilities.MdiParent = this;
                     frmRolesAndResponsibilities.Dock = DockStyle.Fill;
                     frmRolesAndResponsibilities.Show();
-                    frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;                    
+                    frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -2160,8 +2160,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 9;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -2175,7 +2175,7 @@ namespace StaffSync
                     frmModuleAssignment.MdiParent = this;
                     frmModuleAssignment.Dock = DockStyle.Fill;
                     frmModuleAssignment.Show();
-                    frmModuleAssignment.WindowState = FormWindowState.Maximized;                    
+                    frmModuleAssignment.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -2191,7 +2191,7 @@ namespace StaffSync
                         frmModuleAssignment.MdiParent = this;
                         frmModuleAssignment.Dock = DockStyle.Fill;
                         frmModuleAssignment.Show();
-                        frmModuleAssignment.WindowState = FormWindowState.Maximized;                        
+                        frmModuleAssignment.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -2225,7 +2225,7 @@ namespace StaffSync
                     frmModuleAssignment.MdiParent = this;
                     frmModuleAssignment.Dock = DockStyle.Fill;
                     frmModuleAssignment.Show();
-                    frmModuleAssignment.WindowState = FormWindowState.Maximized;                    
+                    frmModuleAssignment.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -2238,8 +2238,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 6;
 
             if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
@@ -2270,8 +2270,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 8;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -2285,7 +2285,7 @@ namespace StaffSync
                     frmRolesProfileMaster.MdiParent = this;
                     frmRolesProfileMaster.Dock = DockStyle.Fill;
                     frmRolesProfileMaster.Show();
-                    frmRolesProfileMaster.WindowState = FormWindowState.Maximized;                    
+                    frmRolesProfileMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -2301,7 +2301,7 @@ namespace StaffSync
                         frmRolesProfileMaster.MdiParent = this;
                         frmRolesProfileMaster.Dock = DockStyle.Fill;
                         frmRolesProfileMaster.Show();
-                        frmRolesProfileMaster.WindowState = FormWindowState.Maximized;                        
+                        frmRolesProfileMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -2335,7 +2335,7 @@ namespace StaffSync
                     frmRolesProfileMaster.MdiParent = this;
                     frmRolesProfileMaster.Dock = DockStyle.Fill;
                     frmRolesProfileMaster.Show();
-                    frmRolesProfileMaster.WindowState = FormWindowState.Maximized;                    
+                    frmRolesProfileMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -2413,7 +2413,7 @@ namespace StaffSync
                             frmUserManagement.MdiParent = this;
                             frmUserManagement.Dock = DockStyle.Fill;
                             frmUserManagement.Show();
-                            frmUserManagement.WindowState = FormWindowState.Maximized;                            
+                            frmUserManagement.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -2429,7 +2429,7 @@ namespace StaffSync
                                 frmUserManagement.MdiParent = this;
                                 frmUserManagement.Dock = DockStyle.Fill;
                                 frmUserManagement.Show();
-                                frmUserManagement.WindowState = FormWindowState.Maximized;                                
+                                frmUserManagement.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -2463,7 +2463,7 @@ namespace StaffSync
                             frmUserManagement.MdiParent = this;
                             frmUserManagement.Dock = DockStyle.Fill;
                             frmUserManagement.Show();
-                            frmUserManagement.WindowState = FormWindowState.Maximized;                            
+                            frmUserManagement.WindowState = FormWindowState.Maximized;
                         }
                     }
                     break;
@@ -2482,7 +2482,7 @@ namespace StaffSync
                             frmRolesAndResponsibilities.MdiParent = this;
                             frmRolesAndResponsibilities.Dock = DockStyle.Fill;
                             frmRolesAndResponsibilities.Show();
-                            frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;                            
+                            frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -2498,7 +2498,7 @@ namespace StaffSync
                                 frmRolesAndResponsibilities.MdiParent = this;
                                 frmRolesAndResponsibilities.Dock = DockStyle.Fill;
                                 frmRolesAndResponsibilities.Show();
-                                frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;                                
+                                frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -2532,7 +2532,7 @@ namespace StaffSync
                             frmRolesAndResponsibilities.MdiParent = this;
                             frmRolesAndResponsibilities.Dock = DockStyle.Fill;
                             frmRolesAndResponsibilities.Show();
-                            frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;                            
+                            frmRolesAndResponsibilities.WindowState = FormWindowState.Maximized;
                         }
                     }
                     break;
@@ -2551,7 +2551,7 @@ namespace StaffSync
                             frmModuleAssignment.MdiParent = this;
                             frmModuleAssignment.Dock = DockStyle.Fill;
                             frmModuleAssignment.Show();
-                            frmModuleAssignment.WindowState = FormWindowState.Maximized;                            
+                            frmModuleAssignment.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -2567,7 +2567,7 @@ namespace StaffSync
                                 frmModuleAssignment.MdiParent = this;
                                 frmModuleAssignment.Dock = DockStyle.Fill;
                                 frmModuleAssignment.Show();
-                                frmModuleAssignment.WindowState = FormWindowState.Maximized;                                
+                                frmModuleAssignment.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -2601,7 +2601,7 @@ namespace StaffSync
                             frmModuleAssignment.MdiParent = this;
                             frmModuleAssignment.Dock = DockStyle.Fill;
                             frmModuleAssignment.Show();
-                            frmModuleAssignment.WindowState = FormWindowState.Maximized;                            
+                            frmModuleAssignment.WindowState = FormWindowState.Maximized;
                         }
                     }
                     break;
@@ -2620,7 +2620,7 @@ namespace StaffSync
                             frmRolesProfileMaster.MdiParent = this;
                             frmRolesProfileMaster.Dock = DockStyle.Fill;
                             frmRolesProfileMaster.Show();
-                            frmRolesProfileMaster.WindowState = FormWindowState.Maximized;                            
+                            frmRolesProfileMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -2636,7 +2636,7 @@ namespace StaffSync
                                 frmRolesProfileMaster.MdiParent = this;
                                 frmRolesProfileMaster.Dock = DockStyle.Fill;
                                 frmRolesProfileMaster.Show();
-                                frmRolesProfileMaster.WindowState = FormWindowState.Maximized;                                
+                                frmRolesProfileMaster.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -2670,7 +2670,7 @@ namespace StaffSync
                             frmRolesProfileMaster.MdiParent = this;
                             frmRolesProfileMaster.Dock = DockStyle.Fill;
                             frmRolesProfileMaster.Show();
-                            frmRolesProfileMaster.WindowState = FormWindowState.Maximized;                            
+                            frmRolesProfileMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
 
@@ -2714,7 +2714,7 @@ namespace StaffSync
                             frmAttendanceMaterDetails.MdiParent = this;
                             frmAttendanceMaterDetails.Dock = DockStyle.Fill;
                             frmAttendanceMaterDetails.Show();
-                            frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;                            
+                            frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -2730,7 +2730,7 @@ namespace StaffSync
                                 frmAttendanceMaterDetails.MdiParent = this;
                                 frmAttendanceMaterDetails.Dock = DockStyle.Fill;
                                 frmAttendanceMaterDetails.Show();
-                                frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;                                
+                                frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -2764,7 +2764,7 @@ namespace StaffSync
                             frmAttendanceMaterDetails.MdiParent = this;
                             frmAttendanceMaterDetails.Dock = DockStyle.Fill;
                             frmAttendanceMaterDetails.Show();
-                            frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;                            
+                            frmAttendanceMaterDetails.WindowState = FormWindowState.Maximized;
                         }
                     }
                     break;
@@ -2800,7 +2800,7 @@ namespace StaffSync
                             frmLeavesMasterDetails.MdiParent = this;
                             frmLeavesMasterDetails.Dock = DockStyle.Fill;
                             frmLeavesMasterDetails.Show();
-                            frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;                            
+                            frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -2816,7 +2816,7 @@ namespace StaffSync
                                 frmLeavesMasterDetails.MdiParent = this;
                                 frmLeavesMasterDetails.Dock = DockStyle.Fill;
                                 frmLeavesMasterDetails.Show();
-                                frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;                                
+                                frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -2850,7 +2850,7 @@ namespace StaffSync
                             frmLeavesMasterDetails.MdiParent = this;
                             frmLeavesMasterDetails.Dock = DockStyle.Fill;
                             frmLeavesMasterDetails.Show();
-                            frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;                            
+                            frmLeavesMasterDetails.WindowState = FormWindowState.Maximized;
                         }
                     }
                     cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList(objSelectedClientFinYearInfo.ClientID).Count + ")";
@@ -2870,7 +2870,7 @@ namespace StaffSync
                             frmLeavesApproval.MdiParent = this;
                             frmLeavesApproval.Dock = DockStyle.Fill;
                             frmLeavesApproval.Show();
-                            frmLeavesApproval.WindowState = FormWindowState.Maximized;                            
+                            frmLeavesApproval.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2)
@@ -2886,7 +2886,7 @@ namespace StaffSync
                                 frmLeavesApproval.MdiParent = this;
                                 frmLeavesApproval.Dock = DockStyle.Fill;
                                 frmLeavesApproval.Show();
-                                frmLeavesApproval.WindowState = FormWindowState.Maximized;                                
+                                frmLeavesApproval.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -2920,7 +2920,7 @@ namespace StaffSync
                             frmLeavesApproval.MdiParent = this;
                             frmLeavesApproval.Dock = DockStyle.Fill;
                             frmLeavesApproval.Show();
-                            frmLeavesApproval.WindowState = FormWindowState.Maximized;                            
+                            frmLeavesApproval.WindowState = FormWindowState.Maximized;
                         }
                     }
                     cmbLeaveApproval.Text = "Leave Approval (" + objLeaveInfo.getPendingLeaveApprovalList(objSelectedClientFinYearInfo.ClientID).Count + ")";
@@ -2940,7 +2940,7 @@ namespace StaffSync
                             frmLeavesReject.MdiParent = this;
                             frmLeavesReject.Dock = DockStyle.Fill;
                             frmLeavesReject.Show();
-                            frmLeavesReject.WindowState = FormWindowState.Maximized;                            
+                            frmLeavesReject.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1)
@@ -2956,7 +2956,7 @@ namespace StaffSync
                                 frmLeavesReject.MdiParent = this;
                                 frmLeavesReject.Dock = DockStyle.Fill;
                                 frmLeavesReject.Show();
-                                frmLeavesReject.WindowState = FormWindowState.Maximized;                                
+                                frmLeavesReject.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -2990,7 +2990,7 @@ namespace StaffSync
                             frmLeavesReject.MdiParent = this;
                             frmLeavesReject.Dock = DockStyle.Fill;
                             frmLeavesReject.Show();
-                            frmLeavesReject.WindowState = FormWindowState.Maximized;                            
+                            frmLeavesReject.WindowState = FormWindowState.Maximized;
                         }
                     }
                     break;
@@ -3036,7 +3036,7 @@ namespace StaffSync
                             frmLastCompanyMaster.MdiParent = this;
                             frmLastCompanyMaster.Dock = DockStyle.Fill;
                             frmLastCompanyMaster.Show();
-                            frmLastCompanyMaster.WindowState = FormWindowState.Maximized;                            
+                            frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -3052,7 +3052,7 @@ namespace StaffSync
                                 frmLastCompanyMaster.MdiParent = this;
                                 frmLastCompanyMaster.Dock = DockStyle.Fill;
                                 frmLastCompanyMaster.Show();
-                                frmLastCompanyMaster.WindowState = FormWindowState.Maximized;                                
+                                frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -3086,7 +3086,7 @@ namespace StaffSync
                             frmLastCompanyMaster.MdiParent = this;
                             frmLastCompanyMaster.Dock = DockStyle.Fill;
                             frmLastCompanyMaster.Show();
-                            frmLastCompanyMaster.WindowState = FormWindowState.Maximized;                            
+                            frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     break;
@@ -3104,7 +3104,7 @@ namespace StaffSync
                             frmEduQualMaster.MdiParent = this;
                             frmEduQualMaster.Dock = DockStyle.Fill;
                             frmEduQualMaster.Show();
-                            frmEduQualMaster.WindowState = FormWindowState.Maximized;                            
+                            frmEduQualMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -3120,7 +3120,7 @@ namespace StaffSync
                                 frmEduQualMaster.MdiParent = this;
                                 frmEduQualMaster.Dock = DockStyle.Fill;
                                 frmEduQualMaster.Show();
-                                frmEduQualMaster.WindowState = FormWindowState.Maximized;                                
+                                frmEduQualMaster.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -3154,7 +3154,7 @@ namespace StaffSync
                             frmEduQualMaster.MdiParent = this;
                             frmEduQualMaster.Dock = DockStyle.Fill;
                             frmEduQualMaster.Show();
-                            frmEduQualMaster.WindowState = FormWindowState.Maximized;                            
+                            frmEduQualMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     break;
@@ -3172,7 +3172,7 @@ namespace StaffSync
                             frmSkillsMaster.MdiParent = this;
                             frmSkillsMaster.Dock = DockStyle.Fill;
                             frmSkillsMaster.Show();
-                            frmSkillsMaster.WindowState = FormWindowState.Maximized;                            
+                            frmSkillsMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -3188,7 +3188,7 @@ namespace StaffSync
                                 frmSkillsMaster.MdiParent = this;
                                 frmSkillsMaster.Dock = DockStyle.Fill;
                                 frmSkillsMaster.Show();
-                                frmSkillsMaster.WindowState = FormWindowState.Maximized;                                
+                                frmSkillsMaster.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -3220,7 +3220,7 @@ namespace StaffSync
                         frmSkillsMaster.MdiParent = this;
                         frmSkillsMaster.Dock = DockStyle.Fill;
                         frmSkillsMaster.Show();
-                        frmSkillsMaster.WindowState = FormWindowState.Maximized;                        
+                        frmSkillsMaster.WindowState = FormWindowState.Maximized;
                     }
                     break;
                 case "cmbDepartmentList":
@@ -3237,7 +3237,7 @@ namespace StaffSync
                             frmDepartmentMaster.MdiParent = this;
                             frmDepartmentMaster.Dock = DockStyle.Fill;
                             frmDepartmentMaster.Show();
-                            frmDepartmentMaster.WindowState = FormWindowState.Maximized;                            
+                            frmDepartmentMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -3253,7 +3253,7 @@ namespace StaffSync
                                 frmDepartmentMaster.MdiParent = this;
                                 frmDepartmentMaster.Dock = DockStyle.Fill;
                                 frmDepartmentMaster.Show();
-                                frmDepartmentMaster.WindowState = FormWindowState.Maximized;                                
+                                frmDepartmentMaster.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -3288,7 +3288,7 @@ namespace StaffSync
                             frmDepartmentMaster.MdiParent = this;
                             frmDepartmentMaster.Dock = DockStyle.Fill;
                             frmDepartmentMaster.Show();
-                            frmDepartmentMaster.WindowState = FormWindowState.Maximized;                            
+                            frmDepartmentMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     break;
@@ -3306,7 +3306,7 @@ namespace StaffSync
                             frmDesignationMaster.MdiParent = this;
                             frmDesignationMaster.Dock = DockStyle.Fill;
                             frmDesignationMaster.Show();
-                            frmDesignationMaster.WindowState = FormWindowState.Maximized;                            
+                            frmDesignationMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -3322,7 +3322,7 @@ namespace StaffSync
                                 frmDesignationMaster.MdiParent = this;
                                 frmDesignationMaster.Dock = DockStyle.Fill;
                                 frmDesignationMaster.Show();
-                                frmDesignationMaster.WindowState = FormWindowState.Maximized;                                
+                                frmDesignationMaster.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -3356,7 +3356,7 @@ namespace StaffSync
                             frmDesignationMaster.MdiParent = this;
                             frmDesignationMaster.Dock = DockStyle.Fill;
                             frmDesignationMaster.Show();
-                            frmDesignationMaster.WindowState = FormWindowState.Maximized;                            
+                            frmDesignationMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     break;
@@ -3374,7 +3374,7 @@ namespace StaffSync
                             frmCountryMaster.MdiParent = this;
                             frmCountryMaster.Dock = DockStyle.Fill;
                             frmCountryMaster.Show();
-                            frmCountryMaster.WindowState = FormWindowState.Maximized;                            
+                            frmCountryMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -3390,7 +3390,7 @@ namespace StaffSync
                                 frmCountryMaster.MdiParent = this;
                                 frmCountryMaster.Dock = DockStyle.Fill;
                                 frmCountryMaster.Show();
-                                frmCountryMaster.WindowState = FormWindowState.Maximized;                                
+                                frmCountryMaster.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -3424,7 +3424,7 @@ namespace StaffSync
                             frmCountryMaster.MdiParent = this;
                             frmCountryMaster.Dock = DockStyle.Fill;
                             frmCountryMaster.Show();
-                            frmCountryMaster.WindowState = FormWindowState.Maximized;                            
+                            frmCountryMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     break;
@@ -3442,7 +3442,7 @@ namespace StaffSync
                             frmStateMaster.MdiParent = this;
                             frmStateMaster.Dock = DockStyle.Fill;
                             frmStateMaster.Show();
-                            frmStateMaster.WindowState = FormWindowState.Maximized;                            
+                            frmStateMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -3458,7 +3458,7 @@ namespace StaffSync
                                 frmStateMaster.MdiParent = this;
                                 frmStateMaster.Dock = DockStyle.Fill;
                                 frmStateMaster.Show();
-                                frmStateMaster.WindowState = FormWindowState.Maximized;                                
+                                frmStateMaster.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -3492,7 +3492,7 @@ namespace StaffSync
                             frmStateMaster.MdiParent = this;
                             frmStateMaster.Dock = DockStyle.Fill;
                             frmStateMaster.Show();
-                            frmStateMaster.WindowState = FormWindowState.Maximized;                            
+                            frmStateMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     break;
@@ -3510,7 +3510,7 @@ namespace StaffSync
                             frmRelationshipMaster.MdiParent = this;
                             frmRelationshipMaster.Dock = DockStyle.Fill;
                             frmRelationshipMaster.Show();
-                            frmRelationshipMaster.WindowState = FormWindowState.Maximized;                            
+                            frmRelationshipMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -3526,7 +3526,7 @@ namespace StaffSync
                                 frmRelationshipMaster.MdiParent = this;
                                 frmRelationshipMaster.Dock = DockStyle.Fill;
                                 frmRelationshipMaster.Show();
-                                frmRelationshipMaster.WindowState = FormWindowState.Maximized;                                
+                                frmRelationshipMaster.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -3560,7 +3560,7 @@ namespace StaffSync
                             frmRelationshipMaster.MdiParent = this;
                             frmRelationshipMaster.Dock = DockStyle.Fill;
                             frmRelationshipMaster.Show();
-                            frmRelationshipMaster.WindowState = FormWindowState.Maximized;                            
+                            frmRelationshipMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     break;
@@ -3578,7 +3578,7 @@ namespace StaffSync
                             frmLeaveTypeMaster.MdiParent = this;
                             frmLeaveTypeMaster.Dock = DockStyle.Fill;
                             frmLeaveTypeMaster.Show();
-                            frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;                            
+                            frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -3594,7 +3594,7 @@ namespace StaffSync
                                 frmLeaveTypeMaster.MdiParent = this;
                                 frmLeaveTypeMaster.Dock = DockStyle.Fill;
                                 frmLeaveTypeMaster.Show();
-                                frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;                                
+                                frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;
                             }
                             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                             {
@@ -3628,7 +3628,7 @@ namespace StaffSync
                             frmLeaveTypeMaster.MdiParent = this;
                             frmLeaveTypeMaster.Dock = DockStyle.Fill;
                             frmLeaveTypeMaster.Show();
-                            frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;                            
+                            frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;
                         }
                     }
                     break;
@@ -3643,8 +3643,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -3658,7 +3658,7 @@ namespace StaffSync
                     frmLastCompanyMaster.MdiParent = this;
                     frmLastCompanyMaster.Dock = DockStyle.Fill;
                     frmLastCompanyMaster.Show();
-                    frmLastCompanyMaster.WindowState = FormWindowState.Maximized;                    
+                    frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -3674,7 +3674,7 @@ namespace StaffSync
                         frmLastCompanyMaster.MdiParent = this;
                         frmLastCompanyMaster.Dock = DockStyle.Fill;
                         frmLastCompanyMaster.Show();
-                        frmLastCompanyMaster.WindowState = FormWindowState.Maximized;                        
+                        frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -3709,7 +3709,7 @@ namespace StaffSync
                     frmLastCompanyMaster.MdiParent = this;
                     frmLastCompanyMaster.Dock = DockStyle.Fill;
                     frmLastCompanyMaster.Show();
-                    frmLastCompanyMaster.WindowState = FormWindowState.Maximized;                    
+                    frmLastCompanyMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -3722,8 +3722,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -3737,7 +3737,7 @@ namespace StaffSync
                     frmEduQualMaster.MdiParent = this;
                     frmEduQualMaster.Dock = DockStyle.Fill;
                     frmEduQualMaster.Show();
-                    frmEduQualMaster.WindowState = FormWindowState.Maximized;                    
+                    frmEduQualMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -3753,7 +3753,7 @@ namespace StaffSync
                         frmEduQualMaster.MdiParent = this;
                         frmEduQualMaster.Dock = DockStyle.Fill;
                         frmEduQualMaster.Show();
-                        frmEduQualMaster.WindowState = FormWindowState.Maximized;                        
+                        frmEduQualMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -3788,7 +3788,7 @@ namespace StaffSync
                     frmEduQualMaster.MdiParent = this;
                     frmEduQualMaster.Dock = DockStyle.Fill;
                     frmEduQualMaster.Show();
-                    frmEduQualMaster.WindowState = FormWindowState.Maximized;                    
+                    frmEduQualMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -3801,8 +3801,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -3816,7 +3816,7 @@ namespace StaffSync
                     frmSkillsMaster.MdiParent = this;
                     frmSkillsMaster.Dock = DockStyle.Fill;
                     frmSkillsMaster.Show();
-                    frmSkillsMaster.WindowState = FormWindowState.Maximized;                    
+                    frmSkillsMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -3832,7 +3832,7 @@ namespace StaffSync
                         frmSkillsMaster.MdiParent = this;
                         frmSkillsMaster.Dock = DockStyle.Fill;
                         frmSkillsMaster.Show();
-                        frmSkillsMaster.WindowState = FormWindowState.Maximized;                        
+                        frmSkillsMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -3863,7 +3863,7 @@ namespace StaffSync
                 frmSkillsMaster.MdiParent = this;
                 frmSkillsMaster.Dock = DockStyle.Fill;
                 frmSkillsMaster.Show();
-                frmSkillsMaster.WindowState = FormWindowState.Maximized;                
+                frmSkillsMaster.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -3875,8 +3875,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -3890,7 +3890,7 @@ namespace StaffSync
                     frmDepartmentMaster.MdiParent = this;
                     frmDepartmentMaster.Dock = DockStyle.Fill;
                     frmDepartmentMaster.Show();
-                    frmDepartmentMaster.WindowState = FormWindowState.Maximized;                    
+                    frmDepartmentMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -3906,7 +3906,7 @@ namespace StaffSync
                         frmDepartmentMaster.MdiParent = this;
                         frmDepartmentMaster.Dock = DockStyle.Fill;
                         frmDepartmentMaster.Show();
-                        frmDepartmentMaster.WindowState = FormWindowState.Maximized;                        
+                        frmDepartmentMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -3940,7 +3940,7 @@ namespace StaffSync
                     frmDepartmentMaster.MdiParent = this;
                     frmDepartmentMaster.Dock = DockStyle.Fill;
                     frmDepartmentMaster.Show();
-                    frmDepartmentMaster.WindowState = FormWindowState.Maximized;                    
+                    frmDepartmentMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -3953,8 +3953,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -3968,7 +3968,7 @@ namespace StaffSync
                     frmDesignationMaster.MdiParent = this;
                     frmDesignationMaster.Dock = DockStyle.Fill;
                     frmDesignationMaster.Show();
-                    frmDesignationMaster.WindowState = FormWindowState.Maximized;                    
+                    frmDesignationMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -3984,7 +3984,7 @@ namespace StaffSync
                         frmDesignationMaster.MdiParent = this;
                         frmDesignationMaster.Dock = DockStyle.Fill;
                         frmDesignationMaster.Show();
-                        frmDesignationMaster.WindowState = FormWindowState.Maximized;                        
+                        frmDesignationMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -4018,7 +4018,7 @@ namespace StaffSync
                     frmDesignationMaster.MdiParent = this;
                     frmDesignationMaster.Dock = DockStyle.Fill;
                     frmDesignationMaster.Show();
-                    frmDesignationMaster.WindowState = FormWindowState.Maximized;                    
+                    frmDesignationMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -4031,8 +4031,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -4046,7 +4046,7 @@ namespace StaffSync
                     frmStateMaster.MdiParent = this;
                     frmStateMaster.Dock = DockStyle.Fill;
                     frmStateMaster.Show();
-                    frmStateMaster.WindowState = FormWindowState.Maximized;                    
+                    frmStateMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -4062,7 +4062,7 @@ namespace StaffSync
                         frmStateMaster.MdiParent = this;
                         frmStateMaster.Dock = DockStyle.Fill;
                         frmStateMaster.Show();
-                        frmStateMaster.WindowState = FormWindowState.Maximized;                        
+                        frmStateMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -4097,7 +4097,7 @@ namespace StaffSync
                     frmStateMaster.MdiParent = this;
                     frmStateMaster.Dock = DockStyle.Fill;
                     frmStateMaster.Show();
-                    frmStateMaster.WindowState = FormWindowState.Maximized;                    
+                    frmStateMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -4110,8 +4110,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -4125,7 +4125,7 @@ namespace StaffSync
                     frmRelationshipMaster.MdiParent = this;
                     frmRelationshipMaster.Dock = DockStyle.Fill;
                     frmRelationshipMaster.Show();
-                    frmRelationshipMaster.WindowState = FormWindowState.Maximized;                    
+                    frmRelationshipMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -4141,7 +4141,7 @@ namespace StaffSync
                         frmRelationshipMaster.MdiParent = this;
                         frmRelationshipMaster.Dock = DockStyle.Fill;
                         frmRelationshipMaster.Show();
-                        frmRelationshipMaster.WindowState = FormWindowState.Maximized;                        
+                        frmRelationshipMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -4175,7 +4175,7 @@ namespace StaffSync
                     frmRelationshipMaster.MdiParent = this;
                     frmRelationshipMaster.Dock = DockStyle.Fill;
                     frmRelationshipMaster.Show();
-                    frmRelationshipMaster.WindowState = FormWindowState.Maximized;                    
+                    frmRelationshipMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -4188,8 +4188,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 3;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -4203,7 +4203,7 @@ namespace StaffSync
                     payrollMaster.MdiParent = this;
                     payrollMaster.Dock = DockStyle.Fill;
                     payrollMaster.Show();
-                    payrollMaster.WindowState = FormWindowState.Maximized;                    
+                    payrollMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -4219,7 +4219,7 @@ namespace StaffSync
                         payrollMaster.MdiParent = this;
                         payrollMaster.Dock = DockStyle.Fill;
                         payrollMaster.Show();
-                        payrollMaster.WindowState = FormWindowState.Maximized;                        
+                        payrollMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -4253,7 +4253,7 @@ namespace StaffSync
                     payrollMaster.MdiParent = this;
                     payrollMaster.Dock = DockStyle.Fill;
                     payrollMaster.Show();
-                    payrollMaster.WindowState = FormWindowState.Maximized;                    
+                    payrollMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -4281,7 +4281,7 @@ namespace StaffSync
                     frmPayrollAllowences.MdiParent = this;
                     frmPayrollAllowences.Dock = DockStyle.Fill;
                     frmPayrollAllowences.Show();
-                    frmPayrollAllowences.WindowState = FormWindowState.Maximized;                    
+                    frmPayrollAllowences.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3)
@@ -4297,7 +4297,7 @@ namespace StaffSync
                         frmPayrollAllowences.MdiParent = this;
                         frmPayrollAllowences.Dock = DockStyle.Fill;
                         frmPayrollAllowences.Show();
-                        frmPayrollAllowences.WindowState = FormWindowState.Maximized;                        
+                        frmPayrollAllowences.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -4331,7 +4331,7 @@ namespace StaffSync
                     frmPayrollAllowences.MdiParent = this;
                     frmPayrollAllowences.Dock = DockStyle.Fill;
                     frmPayrollAllowences.Show();
-                    frmPayrollAllowences.WindowState = FormWindowState.Maximized;                    
+                    frmPayrollAllowences.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -4359,7 +4359,7 @@ namespace StaffSync
                     frmPayrollDeductions.MdiParent = this;
                     frmPayrollDeductions.Dock = DockStyle.Fill;
                     frmPayrollDeductions.Show();
-                    frmPayrollDeductions.WindowState = FormWindowState.Maximized;                    
+                    frmPayrollDeductions.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3)
@@ -4375,7 +4375,7 @@ namespace StaffSync
                         frmPayrollDeductions.MdiParent = this;
                         frmPayrollDeductions.Dock = DockStyle.Fill;
                         frmPayrollDeductions.Show();
-                        frmPayrollDeductions.WindowState = FormWindowState.Maximized;                        
+                        frmPayrollDeductions.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -4409,7 +4409,7 @@ namespace StaffSync
                     frmPayrollDeductions.MdiParent = this;
                     frmPayrollDeductions.Dock = DockStyle.Fill;
                     frmPayrollDeductions.Show();
-                    frmPayrollDeductions.WindowState = FormWindowState.Maximized;                    
+                    frmPayrollDeductions.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -4437,7 +4437,7 @@ namespace StaffSync
                     frmReimbursement.MdiParent = this;
                     frmReimbursement.Dock = DockStyle.Fill;
                     frmReimbursement.Show();
-                    frmReimbursement.WindowState = FormWindowState.Maximized;                    
+                    frmReimbursement.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3)
@@ -4453,7 +4453,7 @@ namespace StaffSync
                         frmReimbursement.MdiParent = this;
                         frmReimbursement.Dock = DockStyle.Fill;
                         frmReimbursement.Show();
-                        frmReimbursement.WindowState = FormWindowState.Maximized;                        
+                        frmReimbursement.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -4487,7 +4487,7 @@ namespace StaffSync
                     frmReimbursement.MdiParent = this;
                     frmReimbursement.Dock = DockStyle.Fill;
                     frmReimbursement.Show();
-                    frmReimbursement.WindowState = FormWindowState.Maximized;                    
+                    frmReimbursement.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -4509,7 +4509,7 @@ namespace StaffSync
                 frmLeaveStatement.MdiParent = this;
                 frmLeaveStatement.Dock = DockStyle.Fill;
                 frmLeaveStatement.Show();
-                frmLeaveStatement.WindowState = FormWindowState.Maximized;                
+                frmLeaveStatement.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -4596,7 +4596,7 @@ namespace StaffSync
                 frmCurrentUserLeaveMaster.MdiParent = this;
                 frmCurrentUserLeaveMaster.Dock = DockStyle.Fill;
                 frmCurrentUserLeaveMaster.Show();
-                frmCurrentUserLeaveMaster.WindowState = FormWindowState.Maximized;                
+                frmCurrentUserLeaveMaster.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -4636,7 +4636,7 @@ namespace StaffSync
                     frmEmpLeaveEntitlement.MdiParent = this;
                     frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
                     frmEmpLeaveEntitlement.Show();
-                    frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;                    
+                    frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1)
@@ -4652,7 +4652,7 @@ namespace StaffSync
                         frmEmpLeaveEntitlement.MdiParent = this;
                         frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
                         frmEmpLeaveEntitlement.Show();
-                        frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;                        
+                        frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -4686,7 +4686,7 @@ namespace StaffSync
                     frmEmpLeaveEntitlement.MdiParent = this;
                     frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
                     frmEmpLeaveEntitlement.Show();
-                    frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;                    
+                    frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -4705,8 +4705,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -4720,7 +4720,7 @@ namespace StaffSync
                     frmSalaryProfile.MdiParent = this;
                     frmSalaryProfile.Dock = DockStyle.Fill;
                     frmSalaryProfile.Show();
-                    frmSalaryProfile.WindowState = FormWindowState.Maximized;                    
+                    frmSalaryProfile.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -4736,7 +4736,7 @@ namespace StaffSync
                         frmSalaryProfile.MdiParent = this;
                         frmSalaryProfile.Dock = DockStyle.Fill;
                         frmSalaryProfile.Show();
-                        frmSalaryProfile.WindowState = FormWindowState.Maximized;                        
+                        frmSalaryProfile.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -4770,7 +4770,7 @@ namespace StaffSync
                     frmSalaryProfile.MdiParent = this;
                     frmSalaryProfile.Dock = DockStyle.Fill;
                     frmSalaryProfile.Show();
-                    frmSalaryProfile.WindowState = FormWindowState.Maximized;                    
+                    frmSalaryProfile.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -4783,8 +4783,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -4798,7 +4798,7 @@ namespace StaffSync
                     frmUpdateSalaryProfile.MdiParent = this;
                     frmUpdateSalaryProfile.Dock = DockStyle.Fill;
                     frmUpdateSalaryProfile.Show();
-                    frmUpdateSalaryProfile.WindowState = FormWindowState.Maximized;                    
+                    frmUpdateSalaryProfile.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -4814,7 +4814,7 @@ namespace StaffSync
                         frmUpdateSalaryProfile.MdiParent = this;
                         frmUpdateSalaryProfile.Dock = DockStyle.Fill;
                         frmUpdateSalaryProfile.Show();
-                        frmUpdateSalaryProfile.WindowState = FormWindowState.Maximized;                        
+                        frmUpdateSalaryProfile.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -4848,7 +4848,7 @@ namespace StaffSync
                     frmUpdateSalaryProfile.MdiParent = this;
                     frmUpdateSalaryProfile.Dock = DockStyle.Fill;
                     frmUpdateSalaryProfile.Show();
-                    frmUpdateSalaryProfile.WindowState = FormWindowState.Maximized;                    
+                    frmUpdateSalaryProfile.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -4870,7 +4870,7 @@ namespace StaffSync
                 frmEmpBulkLeaveApproval.MdiParent = this;
                 frmEmpBulkLeaveApproval.Dock = DockStyle.Fill;
                 frmEmpBulkLeaveApproval.Show();
-                frmEmpBulkLeaveApproval.WindowState = FormWindowState.Maximized;                
+                frmEmpBulkLeaveApproval.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -4882,8 +4882,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -4897,7 +4897,7 @@ namespace StaffSync
                     frmLeaveTypeMaster.MdiParent = this;
                     frmLeaveTypeMaster.Dock = DockStyle.Fill;
                     frmLeaveTypeMaster.Show();
-                    frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;                    
+                    frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -4913,7 +4913,7 @@ namespace StaffSync
                         frmLeaveTypeMaster.MdiParent = this;
                         frmLeaveTypeMaster.Dock = DockStyle.Fill;
                         frmLeaveTypeMaster.Show();
-                        frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;                        
+                        frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -4947,7 +4947,7 @@ namespace StaffSync
                     frmLeaveTypeMaster.MdiParent = this;
                     frmLeaveTypeMaster.Dock = DockStyle.Fill;
                     frmLeaveTypeMaster.Show();
-                    frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;                    
+                    frmLeaveTypeMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -4966,7 +4966,7 @@ namespace StaffSync
             }
 
             objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
-            
+
             AppModuleID = 2;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -4980,7 +4980,7 @@ namespace StaffSync
                     frmEmployeeMasterDetails.MdiParent = this;
                     frmEmployeeMasterDetails.Dock = DockStyle.Fill;
                     frmEmployeeMasterDetails.Show();
-                    frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;                    
+                    frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -4996,7 +4996,7 @@ namespace StaffSync
                         frmEmployeeMasterDetails.MdiParent = this;
                         frmEmployeeMasterDetails.Dock = DockStyle.Fill;
                         frmEmployeeMasterDetails.Show();
-                        frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;                        
+                        frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -5030,7 +5030,7 @@ namespace StaffSync
                     frmEmployeeMasterDetails.MdiParent = this;
                     frmEmployeeMasterDetails.Dock = DockStyle.Fill;
                     frmEmployeeMasterDetails.Show();
-                    frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;                    
+                    frmEmployeeMasterDetails.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -5043,8 +5043,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -5058,7 +5058,7 @@ namespace StaffSync
                     frmEmpLeaveEntitlement.MdiParent = this;
                     frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
                     frmEmpLeaveEntitlement.Show();
-                    frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;                    
+                    frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -5074,7 +5074,7 @@ namespace StaffSync
                         frmEmpLeaveEntitlement.MdiParent = this;
                         frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
                         frmEmpLeaveEntitlement.Show();
-                        frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;                        
+                        frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -5108,7 +5108,7 @@ namespace StaffSync
                     frmEmpLeaveEntitlement.MdiParent = this;
                     frmEmpLeaveEntitlement.Dock = DockStyle.Fill;
                     frmEmpLeaveEntitlement.Show();
-                    frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;                    
+                    frmEmpLeaveEntitlement.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -5130,7 +5130,7 @@ namespace StaffSync
                 frmLeaveStatements.MdiParent = this;
                 frmLeaveStatements.Dock = DockStyle.Fill;
                 frmLeaveStatements.Show();
-                frmLeaveStatements.WindowState = FormWindowState.Maximized;                
+                frmLeaveStatements.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -5157,7 +5157,7 @@ namespace StaffSync
                     frmWeeklyProfileMas.MdiParent = this;
                     frmWeeklyProfileMas.Dock = DockStyle.Fill;
                     frmWeeklyProfileMas.Show();
-                    frmWeeklyProfileMas.WindowState = FormWindowState.Maximized;                    
+                    frmWeeklyProfileMas.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -5173,7 +5173,7 @@ namespace StaffSync
                         frmWeeklyProfileMas.MdiParent = this;
                         frmWeeklyProfileMas.Dock = DockStyle.Fill;
                         frmWeeklyProfileMas.Show();
-                        frmWeeklyProfileMas.WindowState = FormWindowState.Maximized;                        
+                        frmWeeklyProfileMas.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -5207,7 +5207,7 @@ namespace StaffSync
                     frmWeeklyProfileMas.MdiParent = this;
                     frmWeeklyProfileMas.Dock = DockStyle.Fill;
                     frmWeeklyProfileMas.Show();
-                    frmWeeklyProfileMas.WindowState = FormWindowState.Maximized;                    
+                    frmWeeklyProfileMas.WindowState = FormWindowState.Maximized;
                 }
             }
             //frmWeeklyProfileMaster frmWeeklyProfileMaster = new frmWeeklyProfileMaster();
@@ -5237,7 +5237,7 @@ namespace StaffSync
                     frmWeeklyProfileDetailsInfo.MdiParent = this;
                     frmWeeklyProfileDetailsInfo.Dock = DockStyle.Fill;
                     frmWeeklyProfileDetailsInfo.Show();
-                    frmWeeklyProfileDetailsInfo.WindowState = FormWindowState.Maximized;                    
+                    frmWeeklyProfileDetailsInfo.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -5253,7 +5253,7 @@ namespace StaffSync
                         frmWeeklyProfileDetailsInfo.MdiParent = this;
                         frmWeeklyProfileDetailsInfo.Dock = DockStyle.Fill;
                         frmWeeklyProfileDetailsInfo.Show();
-                        frmWeeklyProfileDetailsInfo.WindowState = FormWindowState.Maximized;                        
+                        frmWeeklyProfileDetailsInfo.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -5287,7 +5287,7 @@ namespace StaffSync
                     frmWeeklyProfileDetailsInfo.MdiParent = this;
                     frmWeeklyProfileDetailsInfo.Dock = DockStyle.Fill;
                     frmWeeklyProfileDetailsInfo.Show();
-                    frmWeeklyProfileDetailsInfo.WindowState = FormWindowState.Maximized;                    
+                    frmWeeklyProfileDetailsInfo.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -5303,7 +5303,7 @@ namespace StaffSync
                 frmBulkLeaveApproval.MdiParent = this;
                 frmBulkLeaveApproval.Dock = DockStyle.Fill;
                 frmBulkLeaveApproval.Show();
-                frmBulkLeaveApproval.WindowState = FormWindowState.Maximized;                
+                frmBulkLeaveApproval.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -5315,8 +5315,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -5330,7 +5330,7 @@ namespace StaffSync
                     frmPayrollAllowences.MdiParent = this;
                     frmPayrollAllowences.Dock = DockStyle.Fill;
                     frmPayrollAllowences.Show();
-                    frmPayrollAllowences.WindowState = FormWindowState.Maximized;                    
+                    frmPayrollAllowences.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -5346,7 +5346,7 @@ namespace StaffSync
                         frmPayrollAllowences.MdiParent = this;
                         frmPayrollAllowences.Dock = DockStyle.Fill;
                         frmPayrollAllowences.Show();
-                        frmPayrollAllowences.WindowState = FormWindowState.Maximized;                        
+                        frmPayrollAllowences.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -5380,7 +5380,7 @@ namespace StaffSync
                     frmPayrollAllowences.MdiParent = this;
                     frmPayrollAllowences.Dock = DockStyle.Fill;
                     frmPayrollAllowences.Show();
-                    frmPayrollAllowences.WindowState = FormWindowState.Maximized;                    
+                    frmPayrollAllowences.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -5393,8 +5393,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -5408,7 +5408,7 @@ namespace StaffSync
                     frmReimbursement.MdiParent = this;
                     frmReimbursement.Dock = DockStyle.Fill;
                     frmReimbursement.Show();
-                    frmReimbursement.WindowState = FormWindowState.Maximized;                    
+                    frmReimbursement.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -5424,7 +5424,7 @@ namespace StaffSync
                         frmReimbursement.MdiParent = this;
                         frmReimbursement.Dock = DockStyle.Fill;
                         frmReimbursement.Show();
-                        frmReimbursement.WindowState = FormWindowState.Maximized;                        
+                        frmReimbursement.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -5458,7 +5458,7 @@ namespace StaffSync
                     frmReimbursement.MdiParent = this;
                     frmReimbursement.Dock = DockStyle.Fill;
                     frmReimbursement.Show();
-                    frmReimbursement.WindowState = FormWindowState.Maximized;                    
+                    frmReimbursement.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -5471,8 +5471,8 @@ namespace StaffSync
                 return;
             }
 
-            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString())); 
-            
+            objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID.ToString()));
+
             AppModuleID = 10;
 
             if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
@@ -5486,7 +5486,7 @@ namespace StaffSync
                     frmPayrollDeductions.MdiParent = this;
                     frmPayrollDeductions.Dock = DockStyle.Fill;
                     frmPayrollDeductions.Show();
-                    frmPayrollDeductions.WindowState = FormWindowState.Maximized;                    
+                    frmPayrollDeductions.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -5502,7 +5502,7 @@ namespace StaffSync
                         frmPayrollDeductions.MdiParent = this;
                         frmPayrollDeductions.Dock = DockStyle.Fill;
                         frmPayrollDeductions.Show();
-                        frmPayrollDeductions.WindowState = FormWindowState.Maximized;                        
+                        frmPayrollDeductions.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -5536,7 +5536,7 @@ namespace StaffSync
                     frmPayrollDeductions.MdiParent = this;
                     frmPayrollDeductions.Dock = DockStyle.Fill;
                     frmPayrollDeductions.Show();
-                    frmPayrollDeductions.WindowState = FormWindowState.Maximized;                    
+                    frmPayrollDeductions.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -5558,7 +5558,7 @@ namespace StaffSync
                 frmPendingApprovalList.MdiParent = this;
                 frmPendingApprovalList.Dock = DockStyle.Fill;
                 frmPendingApprovalList.Show();
-                frmPendingApprovalList.WindowState = FormWindowState.Maximized;                
+                frmPendingApprovalList.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -5579,7 +5579,7 @@ namespace StaffSync
                 frmLeaveRejectionList.MdiParent = this;
                 frmLeaveRejectionList.Dock = DockStyle.Fill;
                 frmLeaveRejectionList.Show();
-                frmLeaveRejectionList.WindowState = FormWindowState.Maximized;                
+                frmLeaveRejectionList.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -5600,7 +5600,7 @@ namespace StaffSync
                 frmConsolidatedLeaveStatement.MdiParent = this;
                 frmConsolidatedLeaveStatement.Dock = DockStyle.Fill;
                 frmConsolidatedLeaveStatement.Show();
-                frmConsolidatedLeaveStatement.WindowState = FormWindowState.Maximized;                
+                frmConsolidatedLeaveStatement.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -5621,7 +5621,7 @@ namespace StaffSync
                 frmOutstandingLeaveStatement.MdiParent = this;
                 frmOutstandingLeaveStatement.Dock = DockStyle.Fill;
                 frmOutstandingLeaveStatement.Show();
-                frmOutstandingLeaveStatement.WindowState = FormWindowState.Maximized;                
+                frmOutstandingLeaveStatement.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -5642,7 +5642,7 @@ namespace StaffSync
                 frmDailyAttendanceProcess.MdiParent = this;
                 frmDailyAttendanceProcess.Dock = DockStyle.Fill;
                 frmDailyAttendanceProcess.Show();
-                frmDailyAttendanceProcess.WindowState = FormWindowState.Maximized;                
+                frmDailyAttendanceProcess.WindowState = FormWindowState.Maximized;
             }
 
             //if (CurrentUser.ClientID == 0)
@@ -5723,7 +5723,7 @@ namespace StaffSync
                 frmDailyAttendanceProcess.MdiParent = this;
                 frmDailyAttendanceProcess.Dock = DockStyle.Fill;
                 frmDailyAttendanceProcess.Show();
-                frmDailyAttendanceProcess.WindowState = FormWindowState.Maximized;                
+                frmDailyAttendanceProcess.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -5744,7 +5744,7 @@ namespace StaffSync
                 frmPayrollBatchProcess.MdiParent = this;
                 frmPayrollBatchProcess.Dock = DockStyle.Fill;
                 frmPayrollBatchProcess.Show();
-                frmPayrollBatchProcess.WindowState = FormWindowState.Maximized;                
+                frmPayrollBatchProcess.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -5765,7 +5765,7 @@ namespace StaffSync
                 frmPublicHolidayConfig.MdiParent = this;
                 frmPublicHolidayConfig.Dock = DockStyle.Fill;
                 frmPublicHolidayConfig.Show();
-                frmPublicHolidayConfig.WindowState = FormWindowState.Maximized;                
+                frmPublicHolidayConfig.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -5784,7 +5784,7 @@ namespace StaffSync
                     frmCountryMaster.MdiParent = this;
                     frmCountryMaster.Dock = DockStyle.Fill;
                     frmCountryMaster.Show();
-                    frmCountryMaster.WindowState = FormWindowState.Maximized;                    
+                    frmCountryMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -5800,7 +5800,7 @@ namespace StaffSync
                         frmCountryMaster.MdiParent = this;
                         frmCountryMaster.Dock = DockStyle.Fill;
                         frmCountryMaster.Show();
-                        frmCountryMaster.WindowState = FormWindowState.Maximized;                        
+                        frmCountryMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -5834,7 +5834,7 @@ namespace StaffSync
                     frmCountryMaster.MdiParent = this;
                     frmCountryMaster.Dock = DockStyle.Fill;
                     frmCountryMaster.Show();
-                    frmCountryMaster.WindowState = FormWindowState.Maximized;                    
+                    frmCountryMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -5862,7 +5862,7 @@ namespace StaffSync
                     frmSSEmployeeMaster.MdiParent = this;
                     frmSSEmployeeMaster.Dock = DockStyle.Fill;
                     frmSSEmployeeMaster.Show();
-                    frmSSEmployeeMaster.WindowState = FormWindowState.Maximized;                    
+                    frmSSEmployeeMaster.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 2 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 3 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 4 || objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 5)
@@ -5878,7 +5878,7 @@ namespace StaffSync
                         frmSSEmployeeMaster.MdiParent = this;
                         frmSSEmployeeMaster.Dock = DockStyle.Fill;
                         frmSSEmployeeMaster.Show();
-                        frmSSEmployeeMaster.WindowState = FormWindowState.Maximized;                        
+                        frmSSEmployeeMaster.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -5912,7 +5912,7 @@ namespace StaffSync
                     frmSSEmployeeMaster.MdiParent = this;
                     frmSSEmployeeMaster.Dock = DockStyle.Fill;
                     frmSSEmployeeMaster.Show();
-                    frmSSEmployeeMaster.WindowState = FormWindowState.Maximized;                    
+                    frmSSEmployeeMaster.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -5941,7 +5941,7 @@ namespace StaffSync
                     frmCompanyInfo.MdiParent = this;
                     frmCompanyInfo.Dock = DockStyle.Fill;
                     frmCompanyInfo.Show();
-                    frmCompanyInfo.WindowState = FormWindowState.Maximized;                    
+                    frmCompanyInfo.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1)
@@ -5958,7 +5958,7 @@ namespace StaffSync
                         frmCompanyInfo.MdiParent = this;
                         frmCompanyInfo.Dock = DockStyle.Fill;
                         frmCompanyInfo.Show();
-                        frmCompanyInfo.WindowState = FormWindowState.Maximized;                        
+                        frmCompanyInfo.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -5993,7 +5993,7 @@ namespace StaffSync
                     frmCompanyInfo.MdiParent = this;
                     frmCompanyInfo.Dock = DockStyle.Fill;
                     frmCompanyInfo.Show();
-                    frmCompanyInfo.WindowState = FormWindowState.Maximized;                    
+                    frmCompanyInfo.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -6022,7 +6022,7 @@ namespace StaffSync
                     frmBranchInfo.MdiParent = this;
                     frmBranchInfo.Dock = DockStyle.Fill;
                     frmBranchInfo.Show();
-                    frmBranchInfo.WindowState = FormWindowState.Maximized;                    
+                    frmBranchInfo.WindowState = FormWindowState.Maximized;
                 }
             }
             else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.RoleID == 1)
@@ -6038,7 +6038,7 @@ namespace StaffSync
                         frmBranchInfo.MdiParent = this;
                         frmBranchInfo.Dock = DockStyle.Fill;
                         frmBranchInfo.Show();
-                        frmBranchInfo.WindowState = FormWindowState.Maximized;                        
+                        frmBranchInfo.WindowState = FormWindowState.Maximized;
                     }
                     else if (objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.ModuleID != AppModuleID)
                     {
@@ -6072,7 +6072,7 @@ namespace StaffSync
                     frmBranchInfo.MdiParent = this;
                     frmBranchInfo.Dock = DockStyle.Fill;
                     frmBranchInfo.Show();
-                    frmBranchInfo.WindowState = FormWindowState.Maximized;                    
+                    frmBranchInfo.WindowState = FormWindowState.Maximized;
                 }
             }
         }
@@ -6088,7 +6088,7 @@ namespace StaffSync
                 frmBulkLeaveRejection.MdiParent = this;
                 frmBulkLeaveRejection.Dock = DockStyle.Fill;
                 frmBulkLeaveRejection.Show();
-                frmBulkLeaveRejection.WindowState = FormWindowState.Maximized;                
+                frmBulkLeaveRejection.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -6108,7 +6108,7 @@ namespace StaffSync
                 frmAdvanceTypeMas.MdiParent = this;
                 frmAdvanceTypeMas.Dock = DockStyle.Fill;
                 frmAdvanceTypeMas.Show();
-                frmAdvanceTypeMas.WindowState = FormWindowState.Maximized;                
+                frmAdvanceTypeMas.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -6123,7 +6123,7 @@ namespace StaffSync
                 frmEmpAdvanceRequest.MdiParent = this;
                 frmEmpAdvanceRequest.Dock = DockStyle.Fill;
                 frmEmpAdvanceRequest.Show();
-                frmEmpAdvanceRequest.WindowState = FormWindowState.Maximized;                
+                frmEmpAdvanceRequest.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -6143,7 +6143,7 @@ namespace StaffSync
                 frmAdvanceApprovalList.MdiParent = this;
                 frmAdvanceApprovalList.Dock = DockStyle.Fill;
                 frmAdvanceApprovalList.Show();
-                frmAdvanceApprovalList.WindowState = FormWindowState.Maximized;                
+                frmAdvanceApprovalList.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -6158,7 +6158,7 @@ namespace StaffSync
                 frmAdvanceApprovalList.MdiParent = this;
                 frmAdvanceApprovalList.Dock = DockStyle.Fill;
                 frmAdvanceApprovalList.Show();
-                frmAdvanceApprovalList.WindowState = FormWindowState.Maximized;                
+                frmAdvanceApprovalList.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -6173,7 +6173,7 @@ namespace StaffSync
                 frmEmpAdvanceRepayment.MdiParent = this;
                 frmEmpAdvanceRepayment.Dock = DockStyle.Fill;
                 frmEmpAdvanceRepayment.Show();
-                frmEmpAdvanceRepayment.WindowState = FormWindowState.Maximized;                
+                frmEmpAdvanceRepayment.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -6188,7 +6188,7 @@ namespace StaffSync
                 frmPayrollConfiguration.MdiParent = this;
                 frmPayrollConfiguration.Dock = DockStyle.Fill;
                 frmPayrollConfiguration.Show();
-                frmPayrollConfiguration.WindowState = FormWindowState.Maximized;                
+                frmPayrollConfiguration.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -6208,12 +6208,12 @@ namespace StaffSync
 
         private void circularKpiControl1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void circularKpiControl1_DoubleClick(object sender, EventArgs e)
         {
-            
+
         }
 
         private void dtgAdvanceRiskBase_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -7270,7 +7270,7 @@ namespace StaffSync
                 frmAssetCategory.MdiParent = this;
                 frmAssetCategory.Dock = DockStyle.Fill;
                 frmAssetCategory.Show();
-                frmAssetCategory.WindowState = FormWindowState.Maximized;                
+                frmAssetCategory.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -7285,7 +7285,7 @@ namespace StaffSync
                 frmAssetsInfo.MdiParent = this;
                 frmAssetsInfo.Dock = DockStyle.Fill;
                 frmAssetsInfo.Show();
-                frmAssetsInfo.WindowState = FormWindowState.Maximized;                
+                frmAssetsInfo.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -7300,7 +7300,7 @@ namespace StaffSync
                 frmEmpAssetRequest.MdiParent = this;
                 frmEmpAssetRequest.Dock = DockStyle.Fill;
                 frmEmpAssetRequest.Show();
-                frmEmpAssetRequest.WindowState = FormWindowState.Maximized;                
+                frmEmpAssetRequest.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -7321,7 +7321,7 @@ namespace StaffSync
                 frmSchedulerDashboard.MdiParent = this;
                 frmSchedulerDashboard.Dock = DockStyle.Fill;
                 frmSchedulerDashboard.Show();
-                frmSchedulerDashboard.WindowState = FormWindowState.Maximized;                
+                frmSchedulerDashboard.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -7368,7 +7368,7 @@ namespace StaffSync
                 frmEmpSpecificReports.MdiParent = this;
                 frmEmpSpecificReports.Dock = DockStyle.Fill;
                 frmEmpSpecificReports.Show();
-                frmEmpSpecificReports.WindowState = FormWindowState.Maximized;                
+                frmEmpSpecificReports.WindowState = FormWindowState.Maximized;
             }
         }
 
@@ -7722,7 +7722,7 @@ namespace StaffSync
         private async void btnRefresh_Click(object sender, EventArgs e)
         {
             dtgUserDashboardPreferences.DataSource = objEmployeeDashboardConfig.getEmployeeDashboardConfigInfoList(objSelectedClientFinYearInfo.ClientID, objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID);
-            FormatDashboardPreferencesGrid(); 
+            FormatDashboardPreferencesGrid();
             refreshDashboardCharts();
         }
 
@@ -7751,7 +7751,100 @@ namespace StaffSync
 
             dynamic message = JsonConvert.DeserializeObject<dynamic>(e.WebMessageAsJson);
 
-            if (message.Action == "LeaveUtilisationEmployeeDrilldown")
+            if (message.Action == "RefreshDashboardCard")
+            {
+                try
+                {
+                    string dashboardKey =
+                        Convert.ToString(
+                            message.DashboardKey
+                        );
+
+                    switch (dashboardKey)
+                    {
+                        case "EmployeesOnLeaveToday":
+                            await displayEmployeesOnLeaveTodayChartData();
+                            break;
+
+                        case "LeaveSummary":
+                            await displayLeaveStatusSummaryChartData();
+                            break;
+
+                        case "LeaveMatrix":
+                            await displayLeaveMatrixChartData();
+                            break;
+
+                        case "UpcomingHolidays":
+                            await displayUpcomingHolidayChartData();
+                            break;
+
+                        case "AttendanceSummary":
+                            await displayAttendanceSummaryChartData();
+                            break;
+
+                        case "AttendanceCalendar":
+                            await displayAttendanceCalendarChartData();
+                            break;
+
+                        case "UpcomingApprovedLeaves":
+                            await displayUpcomingPlannedLeavesChartData();
+                            break;
+
+                        case "PendingApprovalLeaves":
+                            await displayPendingApprovalLeaveChartData();
+                            break;
+
+                        case "HolidaySummary":
+                            await displayYearlyHolidaySummaryData();
+                            break;
+
+                        case "MonthlyAttendanceRegister":
+                            await displayMonthlyAttendanceRegisterData();
+                            break;
+
+                        case "EmployeeAdvanceInformation":
+                            await displayEmployeeAdvanceInformationChartData();
+                            break;
+
+                        case "MonthlyEmployeeAdvanceInformation":
+                            await displayMonthlyEmployeeAdvanceInformationChartData();
+                            break;
+
+                        case "BirthdayToday":
+                            /*
+                             * The current HTML assigns the same
+                             * DashboardKey ("BirthdayToday") to both
+                             * Birthday and Work Anniversary cards.
+                             *
+                             * Until the Work Anniversary card key is
+                             * corrected in HTML, refresh both related
+                             * data sets so the Work Anniversary card
+                             * cannot retain stale data.
+                             */
+                            await displayBirthdayEmployeesChartData();
+                            await displayWorkAnniversaryEmployeesChartData();
+                            break;
+
+                        default:
+                            /*
+                             * Unknown card key: do not refresh the
+                             * complete dashboard. This keeps the
+                             * card-refresh operation isolated.
+                             */
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        ex.Message,
+                        "StaffSync",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+            }
+            else if (message.Action == "LeaveUtilisationEmployeeDrilldown")
             {
                 try
                 {
@@ -8292,7 +8385,8 @@ namespace StaffSync
                 {
                     System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
                     {
-                            FileName = selectedFilePath, UseShellExecute = true
+                        FileName = selectedFilePath,
+                        UseShellExecute = true
                     });
                 }
 
