@@ -65,6 +65,9 @@
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.imgList = new System.Windows.Forms.ImageList(this.components);
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dtgUserDashboardPreferences = new Krypton.Toolkit.KryptonDataGridView();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -77,6 +80,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.picActiveInActive)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgUserDashboardPreferences)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -94,8 +99,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1299, 434);
-            this.splitContainer1.SplitterDistance = 365;
+            this.splitContainer1.Size = new System.Drawing.Size(1299, 768);
+            this.splitContainer1.SplitterDistance = 691;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -103,13 +108,14 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox8);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1299, 365);
+            this.panel1.Size = new System.Drawing.Size(1299, 691);
             this.panel1.TabIndex = 1;
             // 
             // groupBox8
@@ -392,7 +398,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(69, 92);
+            this.label2.Location = new System.Drawing.Point(69, 94);
             this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(212, 15);
@@ -402,7 +408,7 @@
             // 
             // btnResetPassword
             // 
-            this.btnResetPassword.Location = new System.Drawing.Point(363, 90);
+            this.btnResetPassword.Location = new System.Drawing.Point(363, 88);
             this.btnResetPassword.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.btnResetPassword.Name = "btnResetPassword";
             this.btnResetPassword.Size = new System.Drawing.Size(367, 26);
@@ -426,7 +432,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(75, 58);
+            this.label1.Location = new System.Drawing.Point(105, 58);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(81, 15);
@@ -450,7 +456,7 @@
             // 
             this.label30.AutoSize = true;
             this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(65, 25);
+            this.label30.Location = new System.Drawing.Point(98, 25);
             this.label30.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(88, 15);
@@ -469,7 +475,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1299, 64);
+            this.panel2.Size = new System.Drawing.Size(1299, 72);
             this.panel2.TabIndex = 1;
             // 
             // btnCancel
@@ -537,11 +543,53 @@
             this.imgList.Images.SetKeyName(2, "green-circle.png");
             this.imgList.Images.SetKeyName(3, "red-circle.png");
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.dtgUserDashboardPreferences);
+            this.groupBox2.Location = new System.Drawing.Point(16, 359);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(1267, 315);
+            this.groupBox2.TabIndex = 32;
+            this.groupBox2.TabStop = false;
+            // 
+            // dtgUserDashboardPreferences
+            // 
+            this.dtgUserDashboardPreferences.AllowUserToResizeRows = false;
+            this.dtgUserDashboardPreferences.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgUserDashboardPreferences.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgUserDashboardPreferences.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgUserDashboardPreferences.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgUserDashboardPreferences.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgUserDashboardPreferences.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgUserDashboardPreferences.Location = new System.Drawing.Point(188, 20);
+            this.dtgUserDashboardPreferences.MultiSelect = false;
+            this.dtgUserDashboardPreferences.Name = "dtgUserDashboardPreferences";
+            this.dtgUserDashboardPreferences.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgUserDashboardPreferences.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgUserDashboardPreferences.Size = new System.Drawing.Size(587, 269);
+            this.dtgUserDashboardPreferences.TabIndex = 49;
+            this.dtgUserDashboardPreferences.CurrentCellDirtyStateChanged += new System.EventHandler(this.dtgUserDashboardPreferences_CurrentCellDirtyStateChanged_1);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(61, 20);
+            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(125, 15);
+            this.label3.TabIndex = 50;
+            this.label3.Text = "Dashboard Access";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // frmUserManagement
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1299, 434);
+            this.ClientSize = new System.Drawing.Size(1299, 768);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -570,6 +618,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.picActiveInActive)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgUserDashboardPreferences)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -611,5 +662,8 @@
         private Krypton.Toolkit.KryptonButton btnModifyDetails;
         private Krypton.Toolkit.KryptonButton btnReportingManagerSearch;
         private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private Krypton.Toolkit.KryptonDataGridView dtgUserDashboardPreferences;
+        private System.Windows.Forms.Label label3;
     }
 }

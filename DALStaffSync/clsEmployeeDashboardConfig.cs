@@ -14,6 +14,13 @@ namespace DALStaffSync
     {
         dbStaffSync.clsEmployeeDashboardConfig objEmployeeDashboardConfig = new dbStaffSync.clsEmployeeDashboardConfig();
 
+        public List<EmployeeSpecificDashboardConfigModel> getEmployeeSpecificDashboardConfigInfo(int ClientID, int EmpID)
+        {
+            List<EmployeeSpecificDashboardConfigModel> lstEmployeeSpecificDashboardConfigInfoList = objEmployeeDashboardConfig.getEmployeeSpecificDashboardConfigInfo(ClientID, EmpID);
+
+            return lstEmployeeSpecificDashboardConfigInfoList;
+        }
+
         public List<EmployeeDashboardConfigModel> getEmployeeDashboardConfigInfoList(int ClientID, int EmpID)
         {
             List<EmployeeDashboardConfigModel> lstEmployeeDashboardConfigModel = objEmployeeDashboardConfig.getEmployeeDashboardConfigInfoList(ClientID, EmpID);

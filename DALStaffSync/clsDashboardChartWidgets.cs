@@ -141,6 +141,15 @@ namespace DALStaffSync
             return objEmployeeDateOfJoiningList;
         }
 
+        public List<EmployeeConfirmationDayChartData> displayEmployeesConfirmationChartData(int clientID, DateTime dtConfirmationDate)
+        {
+            List<EmployeeConfirmationDayChartData> objEmployeesConfirmationChartDataList = new List<EmployeeConfirmationDayChartData>();
+
+            objEmployeesConfirmationChartDataList = objDashboardChartWidgets.displayEmployeesConfirmationChartData(clientID, dtConfirmationDate);
+
+            return objEmployeesConfirmationChartDataList;
+        }
+
         public List<MonthlyAttendanceRegisterRow> displayMonthlyAttendanceRegisterData(int clientId, int year) //, CancellationToken cancellationToken = default)
         {
             List<MonthlyAttendanceRegisterRow> objMonthlyAttendanceRegisterList = new List<MonthlyAttendanceRegisterRow>();

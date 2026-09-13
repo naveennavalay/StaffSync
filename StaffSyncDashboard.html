@@ -3155,8 +3155,8 @@
                         Employees Having Birthday Today
                     </div>
                     <!--<div class="chart-subtitle">
-                    Birthday Wishes
-                </div>-->
+                        Birthday Wishes
+                    </div>-->
                 </div>
 
                 <span id="birthdayTodayCount"
@@ -3177,8 +3177,8 @@
                         Employees Having Work Anniversary Today
                     </div>
                     <!--<div class="chart-subtitle">
-                    Birthday Wishes
-                </div>-->
+                        Birthday Wishes
+                    </div>-->
                 </div>
 
                 <span id="workAnniversaryTodayCount"
@@ -3192,28 +3192,68 @@
         </div>
 
 
+        <!-- ========================================================
+        HOLIDAY SUMMARY
+        --------------------------------------------------------
+        Yearly holiday list displayed directly inside the card.
+        Existing Upcoming Holidays card remains unchanged.
+        ======================================================== -->
 
-        <div id="employeeConfirmationTodayCard" data-dashboard-key="EmployeeConfirmationToday" class="chart-card birthday-card">
+        <div id="holidaySummaryCard"
+             data-dashboard-key="HolidaySummary"
+             class="chart-card holiday-summary-card">
 
             <div class="chart-card-header">
+
                 <div>
                     <div class="chart-title">
-                        Employees Getting Confirmed Today
+                        Yearly Holiday
                     </div>
-                    <!--<div class="chart-subtitle">
-                    Employee Confirmation
-                </div>-->
                 </div>
 
-                <span id="employeeConfirmationTodayCount"
-                      class="today-card-count">
-                    0
-                </span>
+                <div class="holiday-summary-header-action">
+
+                    <!--<button type="button"
+                            class="yearly-holiday-card-year-button"
+                            onclick="changeYearlyHolidayYear(-1)"
+                            aria-label="Previous year">
+                        &#8249;
+                    </button>
+
+                    <span id="yearlyHolidayCardYear"
+                          class="yearly-holiday-card-year">
+                        2026
+                    </span>
+
+                    <button type="button"
+                            class="yearly-holiday-card-year-button"
+                            onclick="changeYearlyHolidayYear(1)"
+                            aria-label="Next year">
+                        &#8250;
+                    </button>-->
+
+                    <span id="holidaySummaryCount"
+                          class="holiday-summary-count">
+                        0
+                    </span>
+
+                </div>
+
             </div>
 
-            <div id="employeeConfirmationTodayContainer" class="birthday-employees-container">
+            <div id="holidaySummaryPreview"
+                 class="holiday-summary-direct-list">
+
+                <div class="holiday-summary-empty">
+                    Yearly holiday data will appear here.
+                </div>
+
             </div>
+
         </div>
+
+
+
 
         <div id="employeesOnLeaveTodayCard"
              data-dashboard-key="EmployeesOnLeaveToday"
@@ -3248,8 +3288,8 @@
                         Upcoming Approved Leaves
                     </div>
                     <!--<div class="chart-subtitle">
-                    Applied & Approved Leaves
-                </div>-->
+                        Applied & Approved Leaves
+                    </div>-->
                 </div>
 
                 <span id="upcomingPlannedLeavesCount"
@@ -3271,8 +3311,8 @@
                         Leave Approval Pending
                     </div>
                     <!--<div class="chart-subtitle">
-                    Pending Leave Requests
-                </div>-->
+                        Pending Leave Requests
+                    </div>-->
                 </div>
 
                 <span id="pendingApprovalLeaveCount"
@@ -3287,8 +3327,6 @@
         </div>
 
 
-
-
         <div id="upcomingHolidaysCard" data-dashboard-key="UpcomingHolidays" class="chart-card dashboard-standard-height-card">
             <div class="chart-card-header">
                 <div>
@@ -3296,8 +3334,8 @@
                         Upcoming Holidays
                     </div>
                     <!--<div class="chart-subtitle">
-                    Month → Applications
-                </div>-->
+                        Month → Applications
+                    </div>-->
                 </div>
 
                 <span id="upcomingHolidaysCount"
@@ -3306,90 +3344,10 @@
                 </span>
 
                 <!--<div class="chart-type">
-                Column
-            </div>-->
+                    Column
+                </div>-->
             </div>
             <div id="upcomingHolidaysChart" class="chart-container">
-            </div>
-        </div>
-
-        <!-- ========================================================
-    HOLIDAY SUMMARY
-    --------------------------------------------------------
-    Yearly holiday list displayed directly inside the card.
-    Existing Upcoming Holidays card remains unchanged.
-    ======================================================== -->
-
-        <div id="holidaySummaryCard"
-             data-dashboard-key="HolidaySummary"
-             class="chart-card holiday-summary-card">
-
-            <div class="chart-card-header">
-
-                <div>
-                    <div class="chart-title">
-                        Yearly Holiday
-                    </div>
-                </div>
-
-                <div class="holiday-summary-header-action">
-
-                    <!--<button type="button"
-                        class="yearly-holiday-card-year-button"
-                        onclick="changeYearlyHolidayYear(-1)"
-                        aria-label="Previous year">
-                    &#8249;
-                </button>
-
-                <span id="yearlyHolidayCardYear"
-                      class="yearly-holiday-card-year">
-                    2026
-                </span>
-
-                <button type="button"
-                        class="yearly-holiday-card-year-button"
-                        onclick="changeYearlyHolidayYear(1)"
-                        aria-label="Next year">
-                    &#8250;
-                </button>-->
-
-                    <span id="holidaySummaryCount"
-                          class="holiday-summary-count">
-                        0
-                    </span>
-
-                </div>
-
-            </div>
-
-            <div id="holidaySummaryPreview"
-                 class="holiday-summary-direct-list">
-
-                <div class="holiday-summary-empty">
-                    Yearly holiday data will appear here.
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-
-        <div id="monthlyAttendanceRegisterCard"
-             data-dashboard-key="MonthlyAttendanceRegister"
-             class="chart-card monthly-attendance-register-card">
-
-            <div class="chart-card-header">
-                <div>
-                    <div class="chart-title">
-                        Monthly Attendance Register
-                    </div>
-                </div>
-            </div>
-
-            <div id="monthlyAttendanceRegisterChart"
-                 class="chart-container monthly-attendance-register-container">
             </div>
         </div>
 
@@ -3401,12 +3359,12 @@
                         Leave Summary
                     </div>
                     <!--<div class="chart-subtitle">
-                    Department → Employees
-                </div>-->
+                        Department → Employees
+                    </div>-->
                 </div>
                 <!--<div class="chart-type">
-                Bar
-            </div>-->
+                    Bar
+                </div>-->
             </div>
             <div id="leaveApplicationsChart" class="chart-container">
             </div>
@@ -3419,80 +3377,80 @@
                         Leave Matrix
                     </div>
                     <!--<div class="chart-subtitle">
-                    Month → Applications
-                </div>-->
+                        Month → Applications
+                    </div>-->
                 </div>
                 <!--<div class="chart-type">
-                Column
-            </div>-->
+                    Column
+                </div>-->
             </div>
             <div id="leaveMatrixChart" class="chart-container">
             </div>
         </div>
 
-        <!--<div id="attendanceSummaryCard" data-dashboard-key="AttendanceSummary" class="chart-card dashboard-standard-height-card">
-    <div class="chart-card-header">
-        <div>
-            <div class="chart-title">
-                Attendance Summary
-            </div>-->
-        <!--<div class="chart-subtitle">
-        Month → Applications
-    </div>-->
-        <!--</div>-->
-        <!--<div class="chart-type">
-        Column
-    </div>-->
-        <!--</div>
+        <div id="attendanceSummaryCard" data-dashboard-key="AttendanceSummary" class="chart-card dashboard-standard-height-card">
+            <div class="chart-card-header">
+                <div>
+                    <div class="chart-title">
+                        Attendance Summary
+                    </div>
+                    <!--<div class="chart-subtitle">
+                        Month → Applications
+                    </div>-->
+                </div>
+                <!--<div class="chart-type">
+                    Column
+                </div>-->
+            </div>
 
-        <div id="attendanceSummaryChart"
-             class="chart-container">
+            <div id="attendanceSummaryChart"
+                 class="chart-container">
+            </div>
         </div>
-    </div>-->
         <!--<div id="workAnniversaryTodayCard" data-dashboard-key="BirthdayToday" class="chart-card birthday-card">
 
-    <div class="chart-card-header">
-        <div>
-            <div class="chart-title">
-                Employees Having Work Anniversary Today
-            </div>-->
+        <div class="chart-card-header">
+            <div>
+                <div class="chart-title">
+                    Employees Having Work Anniversary Today
+                </div>-->
         <!--<div class="chart-subtitle">
-        Birthday Wishes
-    </div>-->
+            Birthday Wishes
+        </div>-->
         <!--</div>
-        </div>
+            </div>
 
-        <div id="workAnniversaryEmployeesContainer" class="birthday-employees-container">
-        </div>
-    </div>-->
+            <div id="workAnniversaryEmployeesContainer" class="birthday-employees-container">
+            </div>
+        </div>-->
         <!--<div id="attendanceCalendarCard" data-dashboard-key="AttendanceCalendar" class="chart-card attendance-calendar-card">
 
-    <div class="chart-card-header">
-        <div>
-            <div class="chart-title">
-                Attendance Calender
-            </div>-->
+            <div class="chart-card-header">
+                <div>
+                    <div class="chart-title">
+                        Attendance Calender
+                    </div>-->
         <!--<div class="chart-subtitle">
-        Month → Applications
-    </div>-->
+            Month → Applications
+        </div>-->
         <!--</div>-->
         <!--<div class="chart-type">
-        Column
-    </div>-->
+            Column
+        </div>-->
         <!--</div>
-        <div id="attendanceCalendarChart" class="chart-container">
-        </div>
-    </div>-->
+            <div id="attendanceCalendarChart" class="chart-container">
+            </div>
+        </div>-->
         <!-- ========================================================
-    EMPLOYEE ADVANCE INFORMATION
-    --------------------------------------------------------
-    Additive card only. Existing dashboard cards are preserved.
-    Four-level drilldown:
-      1. Overall Advance Information
-      2. All Advance Types
-      3. Selected Advance Type
-      4. Employees associated with selected Advance Type
-    ======================================================== -->
+        EMPLOYEE ADVANCE INFORMATION
+        --------------------------------------------------------
+        Additive card only. Existing dashboard cards are preserved.
+        Four-level drilldown:
+          1. Overall Advance Information
+          2. All Advance Types
+          3. Selected Advance Type
+          4. Employees associated with selected Advance Type
+        ======================================================== -->
 
         <div id="employeeAdvanceInformationCard"
              data-dashboard-key="EmployeeAdvanceInformation"
@@ -3537,16 +3495,16 @@
 
 
         <!-- ========================================================
-    MONTHLY ADVANCE INFORMATION
-    --------------------------------------------------------
-    Additive card. Existing Total Advance Information is
-    preserved unchanged.
-    Drilldown:
-      1. Total Advance by Month
-      2. Individual Advance Type + Month
-      3. Specific Advance Type by Month
-      4. Monthly Specific Advance Employee Details
-    ======================================================== -->
+        MONTHLY ADVANCE INFORMATION
+        --------------------------------------------------------
+        Additive card. Existing Total Advance Information is
+        preserved unchanged.
+        Drilldown:
+          1. Total Advance by Month
+          2. Individual Advance Type + Month
+          3. Specific Advance Type by Month
+          4. Monthly Specific Advance Employee Details
+        ======================================================== -->
 
         <div id="monthlyEmployeeAdvanceInformationCard"
              data-dashboard-key="MonthlyEmployeeAdvanceInformation"
@@ -3587,6 +3545,23 @@
             </div>
         </div>
 
+
+        <div id="monthlyAttendanceRegisterCard"
+             data-dashboard-key="MonthlyAttendanceRegister"
+             class="chart-card monthly-attendance-register-card">
+
+            <div class="chart-card-header">
+                <div>
+                    <div class="chart-title">
+                        Monthly Attendance Register
+                    </div>
+                </div>
+            </div>
+
+            <div id="monthlyAttendanceRegisterChart"
+                 class="chart-container monthly-attendance-register-container">
+            </div>
+        </div>
 
     </div>
 </body>
@@ -13360,230 +13335,6 @@
         });
     }
 
-
-
-
-    /* ============================================================
-       EMPLOYEE CONFIRMATION TODAY
-       ------------------------------------------------------------
-       Displays employees whose Confirmation Date is today.
-       Uses the same visual pattern as Birthday / Work Anniversary.
-       ============================================================ */
-
-    function displayEmployeeConfirmationTodayChartData(data) {
-
-        console.log(
-            "Employee Confirmation Today Data received from C#:",
-            data
-        );
-
-        var container =
-            document.getElementById(
-                "employeeConfirmationTodayContainer"
-            );
-
-        if (!container) {
-            console.error(
-                "employeeConfirmationTodayContainer element not found."
-            );
-            return;
-        }
-
-        container.innerHTML = "";
-
-        /*
-         * Reset the header count before validating the data.
-         */
-        var confirmationCountElement =
-            document.getElementById(
-                "employeeConfirmationTodayCount"
-            );
-
-        if (confirmationCountElement) {
-            confirmationCountElement.innerText = "0";
-        }
-
-        if (!data) {
-
-            container.innerHTML =
-                '<div class="birthday-no-data">' +
-                'No employee confirmations today.' +
-                '</div>';
-
-            return;
-        }
-
-        if (typeof data === "string") {
-
-            try {
-                data = JSON.parse(data);
-            }
-            catch (error) {
-
-                console.error(
-                    "Unable to parse Employee Confirmation Today data:",
-                    error
-                );
-
-                container.innerHTML =
-                    '<div class="birthday-no-data">' +
-                    'Unable to load employee confirmation information.' +
-                    '</div>';
-
-                return;
-            }
-        }
-
-        /*
-         * Display the total number of employees getting confirmed today.
-         */
-        if (
-            Array.isArray(data) &&
-            confirmationCountElement
-        ) {
-            confirmationCountElement.innerText =
-                String(data.length);
-        }
-
-        if (
-            !Array.isArray(data) ||
-            data.length === 0
-        ) {
-
-            container.innerHTML =
-                '<div class="birthday-no-data">' +
-                'No employee confirmations today.' +
-                '</div>';
-
-            return;
-        }
-
-        data.forEach(function (employee) {
-
-            var item =
-                document.createElement("div");
-
-            item.className =
-                "birthday-employee-item";
-
-            var photoHtml = "";
-
-            if (employee.EmpPhotoBase64) {
-
-                photoHtml =
-                    '<img class="birthday-employee-photo" ' +
-                    'src="' +
-                    employee.EmpPhoto +
-                    '" ' +
-                    'alt="' +
-                    escapeHtml(
-                        employee.EmpName || ""
-                    ) +
-                    '">';
-            }
-            else {
-
-                var initials =
-                    getEmployeeInitials(
-                        employee.EmpName || ""
-                    );
-
-                photoHtml =
-                    '<div class="birthday-employee-photo-placeholder">' +
-                    escapeHtml(initials) +
-                    '</div>';
-            }
-
-            var department =
-                employee.DepartmentTitle || "";
-
-            var confirmationDateText = "";
-
-            if (employee.ConfirmationDate) {
-
-                var confirmationDate =
-                    new Date(
-                        employee.ConfirmationDate
-                    );
-
-                if (!isNaN(confirmationDate.getTime())) {
-
-                    confirmationDateText =
-                        confirmationDate.toLocaleDateString(
-                            "en-GB",
-                            {
-                                day: "2-digit",
-                                month: "short"
-                            }
-                        ).toUpperCase();
-                }
-            }
-
-            var employeeCode =
-                String(
-                    employee.EmpCode ||
-                    employee.EmployeeCode ||
-                    ""
-                ).trim();
-
-            var employeeDisplayName =
-                employeeCode
-                    ? employeeCode +
-                    " - " +
-                    (employee.EmpName || "")
-                    : (employee.EmpName || "");
-
-            item.innerHTML =
-                photoHtml +
-
-                '<div class="birthday-employee-info">' +
-
-                '<div class="birthday-employee-name">' +
-                escapeHtml(
-                    employeeDisplayName
-                ) +
-                '</div>' +
-
-                '<div class="birthday-employee-department">' +
-                'Department - ' +
-                escapeHtml(department) +
-                '</div>' +
-
-                '</div>' +
-
-                '<div class="birthday-employee-date">' +
-
-                '<span class="birthday-calendar-icon">' +
-                '📋' +
-                '</span>' +
-
-                '<span class="birthday-date-text">' +
-                escapeHtml(confirmationDateText) +
-                '</span>' +
-
-                '</div>';
-
-            container.appendChild(item);
-        });
-
-        /*
-         * The masonry layout watches card size, but explicitly
-         * request a reflow as well because the list is populated
-         * asynchronously by C#.
-         */
-        if (
-            typeof window.refreshDashboardMasonry ===
-            "function"
-        ) {
-
-            setTimeout(
-                function () {
-                    window.refreshDashboardMasonry();
-                },
-                20
-            );
-        }
-    }
 
 
     function getEmployeeInitials(name) {

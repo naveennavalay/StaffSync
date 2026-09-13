@@ -7575,6 +7575,29 @@ namespace StaffSync
             }
         }
 
+
+        private async Task displayEmployeeConfirmationChartData()
+        {
+            try
+            {
+                List<EmployeeConfirmationDayChartData> data = objDashboardChartWidgets.displayEmployeesConfirmationChartData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(DateTime.Today));
+
+                string json = JsonConvert.SerializeObject(data);
+
+                string script = $"displayEmployeeConfirmationTodayChartData({json});";
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "StaffSync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
         private async Task displayYearlyHolidaySummaryData()
         {
             try
@@ -7743,6 +7766,7 @@ namespace StaffSync
             await displayMonthlyAttendanceRegisterData();
             await displayEmployeeAdvanceInformationChartData();
             await displayMonthlyEmployeeAdvanceInformationChartData();
+            await displayEmployeeConfirmationChartData();
         }
 
         private async void myWebView_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)

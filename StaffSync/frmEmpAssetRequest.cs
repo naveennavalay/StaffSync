@@ -484,7 +484,7 @@ namespace StaffSync
                 EmpPersonalPersonalInfo objSelectedReportingManagerPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblReportingManagerID.Text));
                 lblRequestToMailID.Text = objSelectedReportingManagerPersonalInfo.ContactNumber2.ToString();
 
-                cmbAssetType.SelectedIndex = 1;
+                //cmbAssetType.SelectedIndex = 1;
                 cmbAssetType.SelectedIndex = 0;
 
                 _originalValues = AuditLogger.getOriginalValues(this);

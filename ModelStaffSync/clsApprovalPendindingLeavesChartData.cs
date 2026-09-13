@@ -8,6 +8,7 @@ namespace ModelStaffSync
     public class ApprovalPendindingLeavesChartData
     {
         public int EmpID { get; set; }
+        public string EmpCode { get; set; }
         public string EmpName { get; set; }
         public string DesignationTitle { get; set; }
         public string DepartmentTitle { get; set; }

@@ -17,6 +17,69 @@ namespace dbStaffSync
         DataSet dtDataset;
         clsGenFunc objGenFunc = new clsGenFunc();
 
+        public List<EmployeeSpecificDashboardConfigModel> getEmployeeSpecificDashboardConfigInfo(int ClientID, int EmpID)
+        {
+            List<EmployeeSpecificDashboardConfigModel> lstEmployeeSpecificDashboardConfigInfoList = new List<EmployeeSpecificDashboardConfigModel>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                            EmpDBChartInfo.EmpDBChartID,
+                                            DBChartInfo.DBChartID,
+                                            DBChartInfo.DBChartTitle,
+                                            EmpDBChartInfo.DBChartEnabled,
+                                            PersonalInfoMas.PersonalInfoID,
+                                            EmpDBChartInfo.OrderID
+                                        FROM
+                                            (
+                                                (
+                                                    ClientMas
+                                                    INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                )
+                                                INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                            )
+                                            INNER JOIN (
+                                                DBChartInfo
+                                                INNER JOIN EmpDBChartInfo ON DBChartInfo.DBChartID = EmpDBChartInfo.DBChartID
+                                            ) ON PersonalInfoMas.PersonalInfoID = EmpDBChartInfo.PersonalInfoID
+                                        WHERE
+                                            (
+                                                ((DBChartInfo.IsActive) = True)
+                                                AND ((DBChartInfo.IsDeleted) = False)
+                                                AND ((EmpMas.EmpID) = " + EmpID + @")
+                                                AND ((ClientMas.ClientID) = " + ClientID + @")
+                                            )
+                                        ORDER BY
+                                            DBChartInfo.DBChartID;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                lstEmployeeSpecificDashboardConfigInfoList = JsonConvert.DeserializeObject<List<EmployeeSpecificDashboardConfigModel>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return lstEmployeeSpecificDashboardConfigInfoList;
+        }
+
         public List<EmployeeDashboardConfigModel> getEmployeeDashboardConfigInfoList(int ClientID, int EmpID)
         {
             List<EmployeeDashboardConfigModel> objEmployeeDashboardConfigModelList = new List<EmployeeDashboardConfigModel>();

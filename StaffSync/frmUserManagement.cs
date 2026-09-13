@@ -13,6 +13,7 @@ namespace StaffSync
 {
     public partial class frmUserManagement : Form
     {
+        DALStaffSync.clsEmployeeDashboardConfig objEmployeeDashboardConfig = new DALStaffSync.clsEmployeeDashboardConfig();
         DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
         DALStaffSync.clsUserManagement objUserManagementList = new DALStaffSync.clsUserManagement();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
@@ -67,6 +68,10 @@ namespace StaffSync
             FocusManager.ShowNavigationError = true;
             FocusManager.Register(this);
             FocusManager.SetFocus(btnModifyDetails);
+
+            dtgUserDashboardPreferences.DataSource = objEmployeeDashboardConfig.getEmployeeSpecificDashboardConfigInfo(objTempClientFinYearInfo.ClientID, 1);
+            FormatDashboardPreferencesGrid();
+            dtgUserDashboardPreferences.Enabled = false;
 
             //lstUserManagementList.Items.Clear();
             //List<UserManagementList> objUserManagmentList = objUserManagementList.GetUserManagementList();
@@ -155,6 +160,10 @@ namespace StaffSync
             cmbLockStatus.Items.Clear();
             picActiveInActive.Visible = false;
             picLockUnlock.Visible = false;
+
+            dtgUserDashboardPreferences.DataSource = objEmployeeDashboardConfig.getEmployeeSpecificDashboardConfigInfo(objTempClientFinYearInfo.ClientID, 1);
+            FormatDashboardPreferencesGrid();
+            dtgUserDashboardPreferences.Enabled = false;
         }
 
         public void enableControls()
@@ -221,6 +230,12 @@ namespace StaffSync
                 objUserManagementList.UpdateUserActiveStatus(Convert.ToInt16(lblReportingManagerID.Text), strActiveStatus == "active" ? true : false);
                 objUserManagementList.UpdateUserLockStatus(Convert.ToInt16(lblReportingManagerID.Text), strLockStatus == "lock" ? true : false);
 
+                foreach (DataGridViewRow row in dtgUserDashboardPreferences.Rows)
+                {
+                    bool isVisible = Convert.ToBoolean(row.Cells["DBChartEnabled"].Value);
+                    objEmployeeDashboardConfig.UpdateEmployeeDashboardConfigInfo(Convert.ToInt32(row.Cells["EmpDBChartID"].Value), Convert.ToInt32(row.Cells["PersonalInfoID"].Value), Convert.ToInt32(row.Cells["DBChartID"].Value), isVisible, Convert.ToInt32(row.Cells["OrderID"].Value));
+                }
+
                 foreach (var changedValues in onlyChangedValues)
                 {
                     if (lblActionMode.Text == "modify")
@@ -286,6 +301,10 @@ namespace StaffSync
                 txtRepEmpContactNumber.Text = objReportingManagerInfo.ContactNumber1;
                 picRepEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblReportingManagerID.Text.ToString())).EmpPhoto);
 
+                dtgUserDashboardPreferences.DataSource = objEmployeeDashboardConfig.getEmployeeSpecificDashboardConfigInfo(objTempClientFinYearInfo.ClientID, Convert.ToInt16(lblReportingManagerID.Text.ToString()));
+                FormatDashboardPreferencesGrid();
+                dtgUserDashboardPreferences.Enabled = true;
+
                 UserInfo objLoggingInUserInfo = objLogin.getSpecificUserInfo(Convert.ToInt16(selectedEmployeeID.ToString()));
                 if (objLoggingInUserInfo.UserID != 0)
                 {
@@ -301,6 +320,33 @@ namespace StaffSync
                 }
                 _originalValues = AuditLogger.getOriginalValues(this);
             }
+        }
+
+        private void FormatDashboardPreferencesGrid()
+        {
+            dtgUserDashboardPreferences.Columns["DBChartID"].ReadOnly = true;
+            dtgUserDashboardPreferences.Columns["DBChartID"].Width = 50;
+            dtgUserDashboardPreferences.Columns["DBChartID"].Visible = false;
+
+            dtgUserDashboardPreferences.Columns["DBChartTitle"].ReadOnly = true;
+            dtgUserDashboardPreferences.Columns["DBChartTitle"].Width = 300;
+            dtgUserDashboardPreferences.Columns["DBChartTitle"].Visible = true;
+
+            dtgUserDashboardPreferences.Columns["EmpDBChartID"].ReadOnly = true;
+            dtgUserDashboardPreferences.Columns["EmpDBChartID"].Width = 50;
+            dtgUserDashboardPreferences.Columns["EmpDBChartID"].Visible = false;
+
+            dtgUserDashboardPreferences.Columns["PersonalInfoID"].ReadOnly = true;
+            dtgUserDashboardPreferences.Columns["PersonalInfoID"].Width = 50;
+            dtgUserDashboardPreferences.Columns["PersonalInfoID"].Visible = false;
+
+            dtgUserDashboardPreferences.Columns["DBChartEnabled"].ReadOnly = false;
+            dtgUserDashboardPreferences.Columns["DBChartEnabled"].Width = 75;
+            dtgUserDashboardPreferences.Columns["DBChartEnabled"].Visible = true;
+
+            dtgUserDashboardPreferences.Columns["OrderID"].ReadOnly = true;
+            dtgUserDashboardPreferences.Columns["OrderID"].Width = 50;
+            dtgUserDashboardPreferences.Columns["OrderID"].Visible = false;
         }
 
         private void cmbLockStatus_SelectedIndexChanged(object sender, EventArgs e)
@@ -341,6 +387,22 @@ namespace StaffSync
         {
             frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblReportingManagerID.Text.ToString()), "UserManagementInformation", "User Management Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             objAuditLogStatements.ShowDialog(this);
+        }
+
+        private void dtgUserDashboardPreferences_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dtgUserDashboardPreferences.IsCurrentCellDirty)
+            {
+                dtgUserDashboardPreferences.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        private void dtgUserDashboardPreferences_CurrentCellDirtyStateChanged_1(object sender, EventArgs e)
+        {
+            if (dtgUserDashboardPreferences.IsCurrentCellDirty)
+            {
+                dtgUserDashboardPreferences.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
         }
     }
 }

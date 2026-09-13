@@ -32,4 +32,23 @@ namespace ModelStaffSync
         [DisplayName("OrderID")]
         public int OrderID { get; set; }
     }
+
+    public class EmployeeSpecificDashboardConfigModel
+    {
+        public int EmpDBChartID { get; set; }
+
+        public int DBChartID { get; set; }
+
+        [DisplayName("Dashboard Chart Title")]
+        public string DBChartTitle { get; set; }
+
+        public int PersonalInfoID { get; set; }
+
+        [DisplayName("Show / Hide")]
+        public bool DBChartEnabled { get; set; }
+
+        [DisplayName("OrderID")]
+        public int OrderID { get; set; }
+    }
+
 }

@@ -1053,7 +1053,7 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
 
                 string strQuery = @"SELECT
-                                        E.EmpID AS EmpID,
+                                        E.EmpID AS EmpID,E.EmpCode AS EmpCode,
                                         E.EmpName AS EmpName,
                                         DesigMas.DesignationTitle,
                                         DepMas.DepartmentTitle,
@@ -1073,66 +1073,17 @@ namespace dbStaffSync
                                             INNER JOIN DepMas ON E.DepartmentID = DepMas.DepartmentID
                                         ) ON DesigMas.DesignationID = E.EmpDesignationID
                                     WHERE
-                                        (
                                             ((E.EmpID) > 1)
                                             AND ((DateDiff(""d"", Date(), L.ActualLeaveDateFrom)) > 0)                                            
                                             AND ((L.ActualLeaveDateFrom) >= DateSerial(" + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Year + ", " + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Month + ", " + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Day + @") 
                                             AND ((E.ClientID) = " + clientID + ") " + @"
                                             AND ((E.IsActive) = True)
                                             AND ((E.IsDeleted) = False)
-                                            AND (
-                                                (
-                                                    Left(
-                                                        IIf(
-                                                            IsNull([L].[LeaveApprovalComments]),
-                                                            """",
-                                                            [L].[LeaveApprovalComments]
-                                                        ),
-                                                        10
-                                                    )
-                                                ) = ""Approved :""
-                                            )
-                                        )
+                                            AND ((Left(IIf(IsNull([L].[LeaveApprovalComments]),"""", [L].[LeaveApprovalComments]), 10)) = ""Approved :""))
                                     ORDER BY
                                         E.EmpID,
                                         L.ActualLeaveDateFrom,
-                                        E.EmpName";
-
-                strQuery = @"SELECT
-                                    TOP 5 E.EmpID AS EmpID,
-                                    E.EmpName AS EmpName,
-                                    DesigMas.DesignationTitle,
-                                    DepMas.DepartmentTitle,
-                                    L.ActualLeaveDateFrom AS LeaveDate,
-                                    LT.LeaveTypeTitle AS LeaveType,
-                                    DateDiff(""d"", Date(), L.ActualLeaveDateFrom) AS DaysToGo
-                                FROM
-                                    LeaveTypeMas AS LT
-                                    INNER JOIN (
-                                        (
-                                            DesigMas
-                                            INNER JOIN (
-                                                DepMas
-                                                INNER JOIN EmpMas AS E ON DepMas.DepartmentID = E.DepartmentID
-                                            ) ON DesigMas.DesignationID = E.EmpDesignationID
-                                        )
-                                        INNER JOIN EmpLeaveTransMas AS L ON E.EmpID = L.EmpID
-                                    ) ON LT.LeaveTypeID = L.LeaveTypeID
-                                WHERE
-                                    E.EmpID > 1
-                                    AND L.ActualLeaveDateFrom >= DateSerial(" + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Year + ", " + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Month + ", " + Convert.ToDateTime(fromDate.ToString("dd-MMM-yyyy")).Day + @") 
-                                    AND L.ActualLeaveDateFrom < DateSerial(" + Convert.ToDateTime(toDate.ToString("dd-MMM-yyyy")).Year + ", " + Convert.ToDateTime(toDate.ToString("dd-MMM-yyyy")).Month + ", " + Convert.ToDateTime(toDate.ToString("dd-MMM-yyyy")).Day + @") 
-                                    AND DateDiff(""d"", Date(), L.ActualLeaveDateFrom) > 0
-                                    AND E.ClientID = " + clientID + @"
-                                    AND E.IsActive = True
-                                    AND E.IsDeleted = False
-                                    AND L.Canceled = False
-                                    AND L.LeaveApprovalComments = ""Not yet Approved""
-                                    AND L.LeaveRejectionComments = ""Not yet Rejected""
-                                ORDER BY
-                                    E.EmpID,
-                                    L.ActualLeaveDateFrom,
-                                    E.EmpName;";
+                                        E.EmpName, E.EmpCode Asc;";
 
                 DataTable dt = new DataTable();
 
@@ -1172,7 +1123,7 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
 
                 string strQuery = @"SELECT
-                                        E.EmpID AS EmpID,
+                                        E.EmpID AS EmpID, E.EmpCode AS EmpCode,
                                         E.EmpName AS EmpName,
                                         DesigMas.DesignationTitle,
                                         DepMas.DepartmentTitle,
@@ -1211,10 +1162,11 @@ namespace dbStaffSync
                                     ORDER BY
                                         E.EmpID,
                                         L.ActualLeaveDateFrom,
-                                        E.EmpName;";
+                                        E.EmpName, E.EmpCode Asc;";
 
                 strQuery = @"SELECT TOP 5 
                                     E.EmpID AS EmpID,
+                                    E.EmpCode AS EmpCode,
                                     E.EmpName AS EmpName,
                                     DesigMas.DesignationTitle,
                                     DepMas.DepartmentTitle,
@@ -1256,7 +1208,7 @@ namespace dbStaffSync
                                 ORDER BY
                                     E.EmpID,
                                     L.ActualLeaveDateFrom,
-                                    E.EmpName;";
+                                    E.EmpName, E.EmpCode Asc;";
                 DataTable dt = new DataTable();
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -1285,7 +1237,6 @@ namespace dbStaffSync
 
             return objApprovalPendindingLeavesChartDataList;
         }
-
 
         public List<EmployeeBirthdayChartData> displayBirthdayEmployeesChartData(int clientID, DateTime dtBirthdayDate)
         {
@@ -1445,6 +1396,93 @@ namespace dbStaffSync
             }
 
             return objEmployeeDateOfJoiningChartData;
+        }
+
+
+        public List<EmployeeConfirmationDayChartData> displayEmployeesConfirmationChartData(int clientID, DateTime dtConfirmationDate)
+        {
+            List<EmployeeConfirmationDayChartData> objEmployeesConfirmationChartDataList = new List<EmployeeConfirmationDayChartData>();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                        EmpMas.EmpID,
+                                        EmpMas.EmpCode,
+                                        EmpMas.EmpName,
+                                        DesigMas.DesignationTitle,
+                                        DepMas.DepartmentTitle,
+                                        PersonalInfoMas.DateOfConfirmation,
+                                        Photos.PhotoID,
+                                        Photos.EmpPhoto,
+                                        EmpMas.IsActive,
+                                        EmpMas.IsDeleted,
+                                        ClientMas.ClientID
+                                    FROM
+                                        (
+                                            (
+                                                DesigMas
+                                                INNER JOIN (
+                                                    DepMas
+                                                    INNER JOIN (
+                                                        ClientMas
+                                                        INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                    ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                                ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                            )
+                                            INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                        )
+                                        LEFT JOIN Photos ON EmpMas.EmpID = Photos.EmpID
+                                    WHERE
+                                        (
+                                            ((EmpMas.EmpID) > 1)
+                                            AND ((EmpMas.IsActive) = True)
+                                            AND ((EmpMas.IsDeleted) = False)
+                                            AND ((ClientMas.ClientID) = " + clientID + @")
+                                            AND (
+                                                (Month([PersonalInfoMas].[DateOfConfirmation])) = Month(Date())
+                                            )
+                                            AND (
+                                                (Day([PersonalInfoMas].[DateOfConfirmation])) = Day(Date())
+                                            )
+                                        )
+                                    ORDER BY
+                                        EmpMas.EmpID,
+                                        EmpMas.EmpName;";
+
+                DataTable dt = new DataTable();
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeesConfirmationChartDataList = JsonConvert.DeserializeObject<List<EmployeeConfirmationDayChartData>>(DataTableToJSon);
+                //foreach (EmployeeBirthdayChartData indEmployeeBirthdayChartData in objEmployeeBirthdayChartDataList)
+                //{
+                //    indEmployeeBirthdayChartData.EmpPhotoBase64 = indEmployeeBirthdayChartData.EmpPhoto;
+
+                //}
+            }
+            catch (Exception ex)
+            {
+                // Log if required
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    dbStaffSync.closeDBConnection();
+                }
+            }
+
+            return objEmployeesConfirmationChartDataList;
         }
 
         public List<MonthlyAttendanceRegisterRow> displayMonthlyAttendanceRegisterData(int clientId, int year) //, CancellationToken cancellationToken = default)
