@@ -167,5 +167,14 @@ namespace DALStaffSync
 
             return objEmployeeAdvanceInformationList;
         }
+
+        public List<AssetRegisterChartData> displayAssetRegisterChartData(int clientId) //, CancellationToken cancellationToken = default)
+        {
+            List<AssetRegisterChartData> objAssetRegisterChartDataList = new List<AssetRegisterChartData>();
+
+            objAssetRegisterChartDataList = objDashboardChartWidgets.displayAssetRegisterChartData(clientId);
+
+            return objAssetRegisterChartDataList;
+        }
     }
 }

@@ -1750,5 +1750,111 @@ namespace dbStaffSync
 
             return objEmployeeAdvanceInformationRowList;
         }
+
+        public List<AssetRegisterChartData> displayAssetRegisterChartData(int clientId) //, CancellationToken cancellationToken = default)
+        {
+            List<AssetRegisterChartData> objAssetRegisterChartDataList = new List<AssetRegisterChartData>();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                        AssetCategoryMas.AssetCatMasID,
+                                        AssetCategoryMas.AssetCode AS AssetCatCode,
+                                        AssetCategoryMas.AssetName AS AssetCatName,
+                                        AssetCategoryMas.AssetDescription AS AssetCatDesc,
+                                        AssetMas.AssetID,
+                                        AssetMas.AssetCode,
+                                        AssetMas.AssetName,
+                                        CurrentAssetStatus.CurrentAssetStatusName,
+                                        AssetMasMoreDetails.SerialNumber,
+                                        AssetMasMoreDetails.ModelNumber,
+                                        AssetMasMoreDetails.ManufacturerInfo,
+                                        AssetMasMoreDetails.AssetTag,
+                                        AssetMasMoreDetails.PurchaseDate,
+                                        AssetMasMoreDetails.PurchaseValue,
+                                        AssetMasMoreDetails.VendorName,
+                                        AssetMasMoreDetails.InvoiceNumber,
+                                        AssetMasMoreDetails.WarrantyStartDate,
+                                        AssetMasMoreDetails.WarrantyEndDate,
+                                        AssetMasMoreDetails.HasWarranty,
+                                        AssetMasMoreDetails.NextServiceDate,
+                                        AssetMasMoreDetails.Location,
+                                        AssetMas.TotalQuantity,
+                                        AssetMas.OutstandingQuantity,
+                                        EmpMas.EmpID,
+                                        EmpMas.EmpCode,
+                                        EmpMas.EmpName,
+                                        DesigMas.DesignationTitle,
+                                        DepMas.DepartmentTitle,
+                                        ClientMas.ClientID
+                                    FROM
+                                        (
+                                            DesigMas
+                                            INNER JOIN (
+                                                DepMas
+                                                INNER JOIN EmpMas ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                            ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                        )
+                                        INNER JOIN (
+                                            CurrentAssetStatus
+                                            INNER JOIN (
+                                                ClientMas
+                                                INNER JOIN (
+                                                    (
+                                                        (
+                                                            AssetCategoryMas
+                                                            INNER JOIN AssetMas ON AssetCategoryMas.AssetCatMasID = AssetMas.AssetCatMasID
+                                                        )
+                                                        INNER JOIN AssetMasMoreDetails ON AssetMas.AssetID = AssetMasMoreDetails.AssetID
+                                                    )
+                                                    INNER JOIN (
+                                                        EmpAssetAllocation
+                                                        INNER JOIN PersonalInfoMas ON EmpAssetAllocation.PersonalInfoID = PersonalInfoMas.PersonalInfoID
+                                                    ) ON AssetMas.AssetID = EmpAssetAllocation.AssetID
+                                                ) ON ClientMas.ClientID = AssetCategoryMas.ClientID
+                                            ) ON CurrentAssetStatus.CurrentAssetStatusID = AssetMas.CurrentAssetStatusID
+                                        ) ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                    WHERE
+                                        (
+                                            ((ClientMas.ClientID) = " + clientId + @")
+                                            AND ((AssetMas.IsActive) = True)
+                                            AND ((AssetMas.IsDeleted) = False)
+                                            AND ((EmpMas.IsActive) = True)
+                                            AND ((EmpMas.IsDeleted) = False)
+                                        )
+                                    ORDER BY
+                                        AssetCategoryMas.AssetCatMasID,
+                                        AssetMas.AssetID;";
+
+                DataTable dt = new DataTable();
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objAssetRegisterChartDataList = JsonConvert.DeserializeObject<List<AssetRegisterChartData>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                // Log if required
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    dbStaffSync.closeDBConnection();
+                }
+            }
+
+            return objAssetRegisterChartDataList;
+        }
     }
 }

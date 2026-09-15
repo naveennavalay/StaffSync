@@ -7405,6 +7405,19 @@ namespace StaffSync
             await myWebView.CoreWebView2.ExecuteScriptAsync(script);
         }
 
+        private async Task displayAssetRegisterChartData()
+        {
+            List<AssetRegisterChartData> data = new List<AssetRegisterChartData>();
+
+            data = objDashboardChartWidgets.displayAssetRegisterChartData(CurrentUser.ClientID);
+
+            string json = JsonConvert.SerializeObject(data);
+
+            string script = $"displayAssetRegisterChartData({json});";
+
+            await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+        }
+
         private async Task displayLeaveMatrixChartData()
         {
             try
@@ -7751,22 +7764,23 @@ namespace StaffSync
 
         public async void refreshDashboardCharts()
         {
-            await displayEmployeesOnLeaveTodayChartData();
-            await displayLeaveStatusSummaryChartData();
-            await displayLeaveMatrixChartData();
-            await displayUpcomingHolidayChartData();
-            await displayAttendanceSummaryChartData();
-            await displayAttendanceCalendarChartData();
-            await displayLeaveOutstandingSummary();
-            await displayUpcomingPlannedLeavesChartData();
-            await displayBirthdayEmployeesChartData();
-            await displayWorkAnniversaryEmployeesChartData();
-            await displayYearlyHolidaySummaryData();
-            await displayPendingApprovalLeaveChartData();
-            await displayMonthlyAttendanceRegisterData();
-            await displayEmployeeAdvanceInformationChartData();
-            await displayMonthlyEmployeeAdvanceInformationChartData();
-            await displayEmployeeConfirmationChartData();
+            await displayAssetRegisterChartData();
+            //await displayEmployeesOnLeaveTodayChartData();
+            //await displayLeaveStatusSummaryChartData();
+            //await displayLeaveMatrixChartData();
+            //await displayUpcomingHolidayChartData();
+            //await displayAttendanceSummaryChartData();
+            //await displayAttendanceCalendarChartData();
+            //await displayLeaveOutstandingSummary();
+            //await displayUpcomingPlannedLeavesChartData();
+            //await displayBirthdayEmployeesChartData();
+            //await displayWorkAnniversaryEmployeesChartData();
+            //await displayYearlyHolidaySummaryData();
+            //await displayPendingApprovalLeaveChartData();
+            //await displayMonthlyAttendanceRegisterData();
+            //await displayEmployeeAdvanceInformationChartData();
+            //await displayMonthlyEmployeeAdvanceInformationChartData();
+            //await displayEmployeeConfirmationChartData();
         }
 
         private async void myWebView_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
