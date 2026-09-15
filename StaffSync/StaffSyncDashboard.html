@@ -3114,6 +3114,186 @@
                 height: 13px;
             }
         }
+
+
+        /* ============================================================
+           ASSET REGISTER - HEAT MAP + DRILLDOWN
+           ------------------------------------------------------------
+           Additive only. Existing dashboard CSS is preserved.
+           ============================================================ */
+
+        .asset-register-card {
+            min-width: 0;
+        }
+
+        .asset-register-container {
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        .asset-register-drilldown-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 5px 0;
+            min-height: 28px;
+        }
+
+        .asset-register-drilldown-title {
+            flex: 1 1 auto;
+            min-width: 0;
+            color: #174b76;
+            font-size: 13px;
+            font-weight: 700;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .asset-register-drilldown-back {
+            flex: 0 0 auto;
+            height: 24px;
+            padding: 2px 10px;
+            border: 1px solid #c8dce9;
+            border-radius: 5px;
+            background: #eef5fa;
+            color: #28648a;
+            font-size: 9px;
+            font-family: inherit;
+            cursor: pointer;
+            outline: none;
+        }
+
+            .asset-register-drilldown-back:hover {
+                border-color: #8fb8d2;
+                background: #f3f8fb;
+                color: #174a7e;
+            }
+
+        .asset-register-drilldown-chart {
+            width: 100%;
+            height: 285px;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        .asset-register-empty {
+            width: 100%;
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #7b8b98;
+            font-size: 11px;
+            box-sizing: border-box;
+        }
+
+        .asset-register-employee-table-wrap {
+            width: 100%;
+            max-height: 285px;
+            overflow: auto;
+            border: 1px solid #dce7ef;
+            border-radius: 7px;
+            box-sizing: border-box;
+            background: #ffffff;
+        }
+
+        .asset-register-employee-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            font-size: 9px;
+        }
+
+            .asset-register-employee-table th {
+                position: sticky;
+                top: 0;
+                z-index: 1;
+                padding: 7px 6px;
+                background: #eef5fa;
+                color: #174a7e;
+                border-bottom: 1px solid #d8e5ee;
+                text-align: left;
+                font-weight: 700;
+                white-space: nowrap;
+            }
+
+            .asset-register-employee-table td {
+                padding: 7px 6px;
+                border-bottom: 1px solid #edf1f4;
+                color: #3e4d58;
+                vertical-align: middle;
+                word-break: break-word;
+            }
+
+            .asset-register-employee-table tr:last-child td {
+                border-bottom: 0;
+            }
+
+            .asset-register-employee-table th:nth-child(1),
+            .asset-register-employee-table td:nth-child(1) {
+                width: 18%;
+            }
+
+            .asset-register-employee-table th:nth-child(2),
+            .asset-register-employee-table td:nth-child(2) {
+                width: 27%;
+            }
+
+            .asset-register-employee-table th:nth-child(3),
+            .asset-register-employee-table td:nth-child(3) {
+                width: 39%;
+            }
+
+            .asset-register-employee-table th:nth-child(4),
+            .asset-register-employee-table td:nth-child(4) {
+                width: 16%;
+                text-align: center;
+            }
+
+        .asset-register-table-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
+            padding: 6px 2px 0 2px;
+            color: #667985;
+            font-size: 9px;
+        }
+
+        .asset-register-summary-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 3px 7px;
+            border: 1px solid #dce7ef;
+            border-radius: 12px;
+            background: #f8fbfd;
+            color: #667985;
+        }
+
+            .asset-register-summary-pill b {
+                color: #174a7e;
+            }
+
+        @media (max-width: 700px) {
+            .asset-register-drilldown-chart {
+                height: 260px;
+            }
+
+            .asset-register-employee-table-wrap {
+                max-height: 260px;
+            }
+
+            .asset-register-drilldown-title {
+                font-size: 11px;
+            }
+
+            .asset-register-employee-table {
+                font-size: 8px;
+            }
+        }
     </style>
 
     <!--
@@ -3155,8 +3335,8 @@
                         Employees Having Birthday Today
                     </div>
                     <!--<div class="chart-subtitle">
-                    Birthday Wishes
-                </div>-->
+                        Birthday Wishes
+                    </div>-->
                 </div>
 
                 <span id="birthdayTodayCount"
@@ -3177,8 +3357,8 @@
                         Employees Having Work Anniversary Today
                     </div>
                     <!--<div class="chart-subtitle">
-                    Birthday Wishes
-                </div>-->
+                        Birthday Wishes
+                    </div>-->
                 </div>
 
                 <span id="workAnniversaryTodayCount"
@@ -3192,28 +3372,68 @@
         </div>
 
 
+        <!-- ========================================================
+        HOLIDAY SUMMARY
+        --------------------------------------------------------
+        Yearly holiday list displayed directly inside the card.
+        Existing Upcoming Holidays card remains unchanged.
+        ======================================================== -->
 
-        <div id="employeeConfirmationTodayCard" data-dashboard-key="EmployeeConfirmationToday" class="chart-card birthday-card">
+        <div id="holidaySummaryCard"
+             data-dashboard-key="HolidaySummary"
+             class="chart-card holiday-summary-card">
 
             <div class="chart-card-header">
+
                 <div>
                     <div class="chart-title">
-                        Employees Getting Confirmed Today
+                        Yearly Holiday
                     </div>
-                    <!--<div class="chart-subtitle">
-                    Employee Confirmation
-                </div>-->
                 </div>
 
-                <span id="employeeConfirmationTodayCount"
-                      class="today-card-count">
-                    0
-                </span>
+                <div class="holiday-summary-header-action">
+
+                    <!--<button type="button"
+                            class="yearly-holiday-card-year-button"
+                            onclick="changeYearlyHolidayYear(-1)"
+                            aria-label="Previous year">
+                        &#8249;
+                    </button>
+
+                    <span id="yearlyHolidayCardYear"
+                          class="yearly-holiday-card-year">
+                        2026
+                    </span>
+
+                    <button type="button"
+                            class="yearly-holiday-card-year-button"
+                            onclick="changeYearlyHolidayYear(1)"
+                            aria-label="Next year">
+                        &#8250;
+                    </button>-->
+
+                    <span id="holidaySummaryCount"
+                          class="holiday-summary-count">
+                        0
+                    </span>
+
+                </div>
+
             </div>
 
-            <div id="employeeConfirmationTodayContainer" class="birthday-employees-container">
+            <div id="holidaySummaryPreview"
+                 class="holiday-summary-direct-list">
+
+                <div class="holiday-summary-empty">
+                    Yearly holiday data will appear here.
+                </div>
+
             </div>
+
         </div>
+
+
+
 
         <div id="employeesOnLeaveTodayCard"
              data-dashboard-key="EmployeesOnLeaveToday"
@@ -3248,8 +3468,8 @@
                         Upcoming Approved Leaves
                     </div>
                     <!--<div class="chart-subtitle">
-                    Applied & Approved Leaves
-                </div>-->
+                        Applied & Approved Leaves
+                    </div>-->
                 </div>
 
                 <span id="upcomingPlannedLeavesCount"
@@ -3271,8 +3491,8 @@
                         Leave Approval Pending
                     </div>
                     <!--<div class="chart-subtitle">
-                    Pending Leave Requests
-                </div>-->
+                        Pending Leave Requests
+                    </div>-->
                 </div>
 
                 <span id="pendingApprovalLeaveCount"
@@ -3287,8 +3507,6 @@
         </div>
 
 
-
-
         <div id="upcomingHolidaysCard" data-dashboard-key="UpcomingHolidays" class="chart-card dashboard-standard-height-card">
             <div class="chart-card-header">
                 <div>
@@ -3296,8 +3514,8 @@
                         Upcoming Holidays
                     </div>
                     <!--<div class="chart-subtitle">
-                    Month → Applications
-                </div>-->
+                        Month → Applications
+                    </div>-->
                 </div>
 
                 <span id="upcomingHolidaysCount"
@@ -3306,90 +3524,10 @@
                 </span>
 
                 <!--<div class="chart-type">
-                Column
-            </div>-->
+                    Column
+                </div>-->
             </div>
             <div id="upcomingHolidaysChart" class="chart-container">
-            </div>
-        </div>
-
-        <!-- ========================================================
-    HOLIDAY SUMMARY
-    --------------------------------------------------------
-    Yearly holiday list displayed directly inside the card.
-    Existing Upcoming Holidays card remains unchanged.
-    ======================================================== -->
-
-        <div id="holidaySummaryCard"
-             data-dashboard-key="HolidaySummary"
-             class="chart-card holiday-summary-card">
-
-            <div class="chart-card-header">
-
-                <div>
-                    <div class="chart-title">
-                        Yearly Holiday
-                    </div>
-                </div>
-
-                <div class="holiday-summary-header-action">
-
-                    <!--<button type="button"
-                        class="yearly-holiday-card-year-button"
-                        onclick="changeYearlyHolidayYear(-1)"
-                        aria-label="Previous year">
-                    &#8249;
-                </button>
-
-                <span id="yearlyHolidayCardYear"
-                      class="yearly-holiday-card-year">
-                    2026
-                </span>
-
-                <button type="button"
-                        class="yearly-holiday-card-year-button"
-                        onclick="changeYearlyHolidayYear(1)"
-                        aria-label="Next year">
-                    &#8250;
-                </button>-->
-
-                    <span id="holidaySummaryCount"
-                          class="holiday-summary-count">
-                        0
-                    </span>
-
-                </div>
-
-            </div>
-
-            <div id="holidaySummaryPreview"
-                 class="holiday-summary-direct-list">
-
-                <div class="holiday-summary-empty">
-                    Yearly holiday data will appear here.
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-
-        <div id="monthlyAttendanceRegisterCard"
-             data-dashboard-key="MonthlyAttendanceRegister"
-             class="chart-card monthly-attendance-register-card">
-
-            <div class="chart-card-header">
-                <div>
-                    <div class="chart-title">
-                        Monthly Attendance Register
-                    </div>
-                </div>
-            </div>
-
-            <div id="monthlyAttendanceRegisterChart"
-                 class="chart-container monthly-attendance-register-container">
             </div>
         </div>
 
@@ -3401,12 +3539,12 @@
                         Leave Summary
                     </div>
                     <!--<div class="chart-subtitle">
-                    Department → Employees
-                </div>-->
+                        Department → Employees
+                    </div>-->
                 </div>
                 <!--<div class="chart-type">
-                Bar
-            </div>-->
+                    Bar
+                </div>-->
             </div>
             <div id="leaveApplicationsChart" class="chart-container">
             </div>
@@ -3419,80 +3557,80 @@
                         Leave Matrix
                     </div>
                     <!--<div class="chart-subtitle">
-                    Month → Applications
-                </div>-->
+                        Month → Applications
+                    </div>-->
                 </div>
                 <!--<div class="chart-type">
-                Column
-            </div>-->
+                    Column
+                </div>-->
             </div>
             <div id="leaveMatrixChart" class="chart-container">
             </div>
         </div>
 
-        <!--<div id="attendanceSummaryCard" data-dashboard-key="AttendanceSummary" class="chart-card dashboard-standard-height-card">
-    <div class="chart-card-header">
-        <div>
-            <div class="chart-title">
-                Attendance Summary
-            </div>-->
-        <!--<div class="chart-subtitle">
-        Month → Applications
-    </div>-->
-        <!--</div>-->
-        <!--<div class="chart-type">
-        Column
-    </div>-->
-        <!--</div>
+        <div id="attendanceSummaryCard" data-dashboard-key="AttendanceSummary" class="chart-card dashboard-standard-height-card">
+            <div class="chart-card-header">
+                <div>
+                    <div class="chart-title">
+                        Attendance Summary
+                    </div>
+                    <!--<div class="chart-subtitle">
+                        Month → Applications
+                    </div>-->
+                </div>
+                <!--<div class="chart-type">
+                    Column
+                </div>-->
+            </div>
 
-        <div id="attendanceSummaryChart"
-             class="chart-container">
+            <div id="attendanceSummaryChart"
+                 class="chart-container">
+            </div>
         </div>
-    </div>-->
         <!--<div id="workAnniversaryTodayCard" data-dashboard-key="BirthdayToday" class="chart-card birthday-card">
 
-    <div class="chart-card-header">
-        <div>
-            <div class="chart-title">
-                Employees Having Work Anniversary Today
-            </div>-->
+        <div class="chart-card-header">
+            <div>
+                <div class="chart-title">
+                    Employees Having Work Anniversary Today
+                </div>-->
         <!--<div class="chart-subtitle">
-        Birthday Wishes
-    </div>-->
+            Birthday Wishes
+        </div>-->
         <!--</div>
-        </div>
+            </div>
 
-        <div id="workAnniversaryEmployeesContainer" class="birthday-employees-container">
-        </div>
-    </div>-->
+            <div id="workAnniversaryEmployeesContainer" class="birthday-employees-container">
+            </div>
+        </div>-->
         <!--<div id="attendanceCalendarCard" data-dashboard-key="AttendanceCalendar" class="chart-card attendance-calendar-card">
 
-    <div class="chart-card-header">
-        <div>
-            <div class="chart-title">
-                Attendance Calender
-            </div>-->
+            <div class="chart-card-header">
+                <div>
+                    <div class="chart-title">
+                        Attendance Calender
+                    </div>-->
         <!--<div class="chart-subtitle">
-        Month → Applications
-    </div>-->
+            Month → Applications
+        </div>-->
         <!--</div>-->
         <!--<div class="chart-type">
-        Column
-    </div>-->
+            Column
+        </div>-->
         <!--</div>
-        <div id="attendanceCalendarChart" class="chart-container">
-        </div>
-    </div>-->
+            <div id="attendanceCalendarChart" class="chart-container">
+            </div>
+        </div>-->
         <!-- ========================================================
-    EMPLOYEE ADVANCE INFORMATION
-    --------------------------------------------------------
-    Additive card only. Existing dashboard cards are preserved.
-    Four-level drilldown:
-      1. Overall Advance Information
-      2. All Advance Types
-      3. Selected Advance Type
-      4. Employees associated with selected Advance Type
-    ======================================================== -->
+        EMPLOYEE ADVANCE INFORMATION
+        --------------------------------------------------------
+        Additive card only. Existing dashboard cards are preserved.
+        Four-level drilldown:
+          1. Overall Advance Information
+          2. All Advance Types
+          3. Selected Advance Type
+          4. Employees associated with selected Advance Type
+        ======================================================== -->
 
         <div id="employeeAdvanceInformationCard"
              data-dashboard-key="EmployeeAdvanceInformation"
@@ -3537,16 +3675,16 @@
 
 
         <!-- ========================================================
-    MONTHLY ADVANCE INFORMATION
-    --------------------------------------------------------
-    Additive card. Existing Total Advance Information is
-    preserved unchanged.
-    Drilldown:
-      1. Total Advance by Month
-      2. Individual Advance Type + Month
-      3. Specific Advance Type by Month
-      4. Monthly Specific Advance Employee Details
-    ======================================================== -->
+        MONTHLY ADVANCE INFORMATION
+        --------------------------------------------------------
+        Additive card. Existing Total Advance Information is
+        preserved unchanged.
+        Drilldown:
+          1. Total Advance by Month
+          2. Individual Advance Type + Month
+          3. Specific Advance Type by Month
+          4. Monthly Specific Advance Employee Details
+        ======================================================== -->
 
         <div id="monthlyEmployeeAdvanceInformationCard"
              data-dashboard-key="MonthlyEmployeeAdvanceInformation"
@@ -3587,6 +3725,79 @@
             </div>
         </div>
 
+
+        <div id="monthlyAttendanceRegisterCard"
+             data-dashboard-key="MonthlyAttendanceRegister"
+             class="chart-card monthly-attendance-register-card">
+
+            <div class="chart-card-header">
+                <div>
+                    <div class="chart-title">
+                        Monthly Attendance Register
+                    </div>
+                </div>
+            </div>
+
+            <div id="monthlyAttendanceRegisterChart"
+                 class="chart-container monthly-attendance-register-container">
+            </div>
+        </div>
+
+
+        <!-- ========================================================
+        ASSET REGISTER
+        --------------------------------------------------------
+        Additive card only. Existing dashboard cards and behavior
+        are preserved unchanged.
+
+        Drilldown:
+          1. All Assets
+          2. Asset Category
+          3. Specific Asset
+          4. Department-wise allocation (pie chart)
+          5. Employee-wise allocation (table)
+        ======================================================== -->
+
+        <div id="assetRegisterCard"
+             data-dashboard-key="AssetRegister"
+             class="chart-card asset-register-card">
+
+            <div class="chart-card-header">
+                <div>
+                    <div class="chart-title">
+                        Asset Register
+                    </div>
+                </div>
+            </div>
+
+            <div id="assetRegisterContainer"
+                 class="asset-register-container">
+
+                <div id="assetRegisterDrilldownHeader"
+                     class="asset-register-drilldown-header">
+
+                    <div id="assetRegisterDrilldownTitle"
+                         class="asset-register-drilldown-title">
+                        All Assets
+                    </div>
+
+                    <button id="assetRegisterBack"
+                            type="button"
+                            class="asset-register-drilldown-back"
+                            style="display:none;">
+                        ← Back
+                    </button>
+
+                </div>
+
+                <div id="assetRegisterChart"
+                     class="asset-register-drilldown-chart">
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 
     </div>
 </body>
@@ -13362,230 +13573,6 @@
 
 
 
-
-    /* ============================================================
-       EMPLOYEE CONFIRMATION TODAY
-       ------------------------------------------------------------
-       Displays employees whose Confirmation Date is today.
-       Uses the same visual pattern as Birthday / Work Anniversary.
-       ============================================================ */
-
-    function displayEmployeeConfirmationTodayChartData(data) {
-
-        console.log(
-            "Employee Confirmation Today Data received from C#:",
-            data
-        );
-
-        var container =
-            document.getElementById(
-                "employeeConfirmationTodayContainer"
-            );
-
-        if (!container) {
-            console.error(
-                "employeeConfirmationTodayContainer element not found."
-            );
-            return;
-        }
-
-        container.innerHTML = "";
-
-        /*
-         * Reset the header count before validating the data.
-         */
-        var confirmationCountElement =
-            document.getElementById(
-                "employeeConfirmationTodayCount"
-            );
-
-        if (confirmationCountElement) {
-            confirmationCountElement.innerText = "0";
-        }
-
-        if (!data) {
-
-            container.innerHTML =
-                '<div class="birthday-no-data">' +
-                'No employee confirmations today.' +
-                '</div>';
-
-            return;
-        }
-
-        if (typeof data === "string") {
-
-            try {
-                data = JSON.parse(data);
-            }
-            catch (error) {
-
-                console.error(
-                    "Unable to parse Employee Confirmation Today data:",
-                    error
-                );
-
-                container.innerHTML =
-                    '<div class="birthday-no-data">' +
-                    'Unable to load employee confirmation information.' +
-                    '</div>';
-
-                return;
-            }
-        }
-
-        /*
-         * Display the total number of employees getting confirmed today.
-         */
-        if (
-            Array.isArray(data) &&
-            confirmationCountElement
-        ) {
-            confirmationCountElement.innerText =
-                String(data.length);
-        }
-
-        if (
-            !Array.isArray(data) ||
-            data.length === 0
-        ) {
-
-            container.innerHTML =
-                '<div class="birthday-no-data">' +
-                'No employee confirmations today.' +
-                '</div>';
-
-            return;
-        }
-
-        data.forEach(function (employee) {
-
-            var item =
-                document.createElement("div");
-
-            item.className =
-                "birthday-employee-item";
-
-            var photoHtml = "";
-
-            if (employee.EmpPhotoBase64) {
-
-                photoHtml =
-                    '<img class="birthday-employee-photo" ' +
-                    'src="' +
-                    employee.EmpPhoto +
-                    '" ' +
-                    'alt="' +
-                    escapeHtml(
-                        employee.EmpName || ""
-                    ) +
-                    '">';
-            }
-            else {
-
-                var initials =
-                    getEmployeeInitials(
-                        employee.EmpName || ""
-                    );
-
-                photoHtml =
-                    '<div class="birthday-employee-photo-placeholder">' +
-                    escapeHtml(initials) +
-                    '</div>';
-            }
-
-            var department =
-                employee.DepartmentTitle || "";
-
-            var confirmationDateText = "";
-
-            if (employee.ConfirmationDate) {
-
-                var confirmationDate =
-                    new Date(
-                        employee.ConfirmationDate
-                    );
-
-                if (!isNaN(confirmationDate.getTime())) {
-
-                    confirmationDateText =
-                        confirmationDate.toLocaleDateString(
-                            "en-GB",
-                            {
-                                day: "2-digit",
-                                month: "short"
-                            }
-                        ).toUpperCase();
-                }
-            }
-
-            var employeeCode =
-                String(
-                    employee.EmpCode ||
-                    employee.EmployeeCode ||
-                    ""
-                ).trim();
-
-            var employeeDisplayName =
-                employeeCode
-                    ? employeeCode +
-                    " - " +
-                    (employee.EmpName || "")
-                    : (employee.EmpName || "");
-
-            item.innerHTML =
-                photoHtml +
-
-                '<div class="birthday-employee-info">' +
-
-                '<div class="birthday-employee-name">' +
-                escapeHtml(
-                    employeeDisplayName
-                ) +
-                '</div>' +
-
-                '<div class="birthday-employee-department">' +
-                'Department - ' +
-                escapeHtml(department) +
-                '</div>' +
-
-                '</div>' +
-
-                '<div class="birthday-employee-date">' +
-
-                '<span class="birthday-calendar-icon">' +
-                '📋' +
-                '</span>' +
-
-                '<span class="birthday-date-text">' +
-                escapeHtml(confirmationDateText) +
-                '</span>' +
-
-                '</div>';
-
-            container.appendChild(item);
-        });
-
-        /*
-         * The masonry layout watches card size, but explicitly
-         * request a reflow as well because the list is populated
-         * asynchronously by C#.
-         */
-        if (
-            typeof window.refreshDashboardMasonry ===
-            "function"
-        ) {
-
-            setTimeout(
-                function () {
-                    window.refreshDashboardMasonry();
-                },
-                20
-            );
-        }
-    }
-
-
     function getEmployeeInitials(name) {
 
         if (!name)
@@ -21598,6 +21585,1687 @@
             );
 
         }
+
+    })();
+
+
+    /* ================================================================
+       STAFFSYNC ASSET REGISTER
+       ---------------------------------------------------------------
+       Additive dashboard functionality.
+
+       Expected C# data source:
+       displayAssetRegisterChartData(data)
+
+       The supplied Access query can be serialized directly as a list.
+       The implementation accepts the fields returned by that query and
+       also supports optional allocation quantity fields when the C# model
+       supplies them (Quantity / AllocationQuantity / AllocatedQuantity /
+       AssetQuantity).
+
+       Drilldown:
+         Level 1: All Assets -> Total Count / Outstanding / Issued
+         Level 2: Asset Category -> Total Count / Outstanding / Issued
+         Level 3: Specific Asset -> Total Count / Outstanding / Issued
+         Level 4: Department -> Pie chart of issued quantity
+         Level 5: Employees -> EmpCode / Name / Designation / Quantity
+       ================================================================ */
+
+    (function () {
+
+        "use strict";
+
+        window.assetRegisterResponseData = [];
+        window.assetRegisterCurrentLevel = "overall";
+        window.assetRegisterSelectedCategoryId = null;
+        window.assetRegisterSelectedCategoryName = "";
+        window.assetRegisterSelectedAssetId = null;
+        window.assetRegisterSelectedAssetName = "";
+        window.assetRegisterSelectedDepartmentTitle = "";
+        window.assetRegisterChart = null;
+
+        function assetRegisterNumber(value) {
+            var n = Number(value);
+            return isFinite(n) ? n : 0;
+        }
+
+        function assetRegisterText(value) {
+            if (value === null || value === undefined) {
+                return "";
+            }
+            return String(value).trim();
+        }
+
+        function assetRegisterEsc(value) {
+            return assetRegisterText(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#39;");
+        }
+
+        function assetRegisterFormatNumber(value) {
+            var number = assetRegisterNumber(value);
+            return number.toLocaleString(
+                "en-IN",
+                {
+                    maximumFractionDigits: 2
+                }
+            );
+        }
+
+        function assetRegisterGetRows(data) {
+
+            if (Array.isArray(data)) {
+                return data;
+            }
+
+            if (data && Array.isArray(data.Rows)) {
+                return data.Rows;
+            }
+
+            if (data && Array.isArray(data.Data)) {
+                return data.Data;
+            }
+
+            if (data && Array.isArray(data.AssetRegister)) {
+                return data.AssetRegister;
+            }
+
+            return [];
+        }
+
+        function assetRegisterNormalizeRows(data) {
+
+            var rows = assetRegisterGetRows(data);
+
+            return rows.map(function (item) {
+
+                item = item || {};
+
+                var totalQuantity =
+                    assetRegisterNumber(
+                        item.TotalQuantity
+                    );
+
+                var outstandingQuantity =
+                    assetRegisterNumber(
+                        item.OutstandingQuantity
+                    );
+
+                var allocationQuantity =
+                    item.Quantity !== undefined &&
+                        item.Quantity !== null
+                        ? assetRegisterNumber(item.Quantity)
+                        : item.AllocationQuantity !== undefined &&
+                            item.AllocationQuantity !== null
+                            ? assetRegisterNumber(item.AllocationQuantity)
+                            : item.AllocatedQuantity !== undefined &&
+                                item.AllocatedQuantity !== null
+                                ? assetRegisterNumber(item.AllocatedQuantity)
+                                : item.AssetQuantity !== undefined &&
+                                    item.AssetQuantity !== null
+                                    ? assetRegisterNumber(item.AssetQuantity)
+                                    : 1;
+
+                return {
+                    AssetCatMasID:
+                        item.AssetCatMasID !== undefined
+                            ? item.AssetCatMasID
+                            : item.AssetCategoryID,
+
+                    CategoryCode:
+                        assetRegisterText(
+                            item.AssetCategoryCode ||
+                            item.AssetCatCode ||
+                            item.AssetCode
+                        ),
+
+                    CategoryName:
+                        assetRegisterText(
+                            item.AssetCategoryName ||
+                            item.AssetCatMasName ||
+                            item.AssetName
+                        ),
+
+                    AssetID:
+                        item.AssetID !== undefined
+                            ? item.AssetID
+                            : item.AssetMasID,
+
+                    AssetCode:
+                        assetRegisterText(
+                            item.AssetMasCode ||
+                            item.AssetCode
+                        ),
+
+                    AssetName:
+                        assetRegisterText(
+                            item.AssetMasName ||
+                            item.AssetName
+                        ),
+
+                    CurrentAssetStatusName:
+                        assetRegisterText(
+                            item.CurrentAssetStatusName ||
+                            item.AssetStatusName
+                        ),
+
+                    SerialNumber:
+                        assetRegisterText(item.SerialNumber),
+
+                    ModelNumber:
+                        assetRegisterText(item.ModelNumber),
+
+                    ManufacturerInfo:
+                        assetRegisterText(item.ManufacturerInfo),
+
+                    AssetTag:
+                        assetRegisterText(item.AssetTag),
+
+                    PurchaseDate:
+                        assetRegisterText(item.PurchaseDate),
+
+                    PurchaseValue:
+                        assetRegisterNumber(item.PurchaseValue),
+
+                    VendorName:
+                        assetRegisterText(item.VendorName),
+
+                    InvoiceNumber:
+                        assetRegisterText(item.InvoiceNumber),
+
+                    WarrantyStartDate:
+                        assetRegisterText(item.WarrantyStartDate),
+
+                    WarrantyEndDate:
+                        assetRegisterText(item.WarrantyEndDate),
+
+                    HasWarranty:
+                        item.HasWarranty,
+
+                    NextServiceDate:
+                        assetRegisterText(item.NextServiceDate),
+
+                    Location:
+                        assetRegisterText(item.Location),
+
+                    TotalQuantity:
+                        totalQuantity,
+
+                    OutstandingQuantity:
+                        outstandingQuantity,
+
+                    IssuedQuantity:
+                        Math.max(
+                            totalQuantity - outstandingQuantity,
+                            0
+                        ),
+
+                    AllocationQuantity:
+                        allocationQuantity,
+
+                    EmpID:
+                        item.EmpID,
+
+                    EmpCode:
+                        assetRegisterText(
+                            item.EmpCode ||
+                            item.EmployeeCode
+                        ),
+
+                    EmpName:
+                        assetRegisterText(
+                            item.EmpName ||
+                            item.EmployeeName
+                        ),
+
+                    DesignationTitle:
+                        assetRegisterText(
+                            item.DesignationTitle ||
+                            item.Designation
+                        ),
+
+                    DepartmentTitle:
+                        assetRegisterText(
+                            item.DepartmentTitle ||
+                            item.Department
+                        )
+                };
+            });
+        }
+
+        function assetRegisterAggregateAssets(rows) {
+
+            var map = {};
+
+            rows.forEach(function (row) {
+
+                var key =
+                    row.AssetID !== null &&
+                        row.AssetID !== undefined &&
+                        assetRegisterText(row.AssetID) !== ""
+                        ? String(row.AssetID)
+                        : "CODE:" + row.AssetCode +
+                        "|NAME:" + row.AssetName;
+
+                if (!map[key]) {
+                    map[key] = {
+                        AssetID: row.AssetID,
+                        AssetCode: row.AssetCode,
+                        AssetName: row.AssetName,
+                        CategoryID: row.AssetCatMasID,
+                        CategoryCode: row.CategoryCode,
+                        CategoryName: row.CategoryName,
+                        TotalQuantity: row.TotalQuantity,
+                        OutstandingQuantity: row.OutstandingQuantity,
+                        IssuedQuantity: row.IssuedQuantity,
+                        Rows: []
+                    };
+                }
+
+                map[key].Rows.push(row);
+
+                /*
+                 * The same AssetMas row can appear more than once because
+                 * EmpAssetAllocation returns one row per allocation.
+                 * Therefore TotalQuantity / OutstandingQuantity are kept
+                 * as the maximum value for the asset rather than summed.
+                 */
+                map[key].TotalQuantity = Math.max(
+                    map[key].TotalQuantity,
+                    row.TotalQuantity
+                );
+
+                map[key].OutstandingQuantity = Math.max(
+                    map[key].OutstandingQuantity,
+                    row.OutstandingQuantity
+                );
+
+                map[key].IssuedQuantity = Math.max(
+                    map[key].TotalQuantity -
+                    map[key].OutstandingQuantity,
+                    0
+                );
+            });
+
+            return Object.keys(map)
+                .map(function (key) {
+                    return map[key];
+                })
+                .sort(function (a, b) {
+                    return String(a.AssetName).localeCompare(
+                        String(b.AssetName)
+                    );
+                });
+        }
+
+        function assetRegisterAggregateCategories(rows) {
+
+            var assets = assetRegisterAggregateAssets(rows);
+            var map = {};
+
+            assets.forEach(function (asset) {
+
+                var key =
+                    asset.CategoryID !== null &&
+                        asset.CategoryID !== undefined &&
+                        assetRegisterText(asset.CategoryID) !== ""
+                        ? String(asset.CategoryID)
+                        : "NAME:" + asset.CategoryName;
+
+                if (!map[key]) {
+                    map[key] = {
+                        CategoryID: asset.CategoryID,
+                        CategoryCode: asset.CategoryCode,
+                        CategoryName: asset.CategoryName || "Uncategorised",
+                        TotalQuantity: 0,
+                        OutstandingQuantity: 0,
+                        IssuedQuantity: 0,
+                        AssetCount: 0,
+                        Assets: []
+                    };
+                }
+
+                map[key].TotalQuantity +=
+                    asset.TotalQuantity;
+
+                map[key].OutstandingQuantity +=
+                    asset.OutstandingQuantity;
+
+                map[key].IssuedQuantity +=
+                    asset.IssuedQuantity;
+
+                map[key].AssetCount += 1;
+                map[key].Assets.push(asset);
+            });
+
+            return Object.keys(map)
+                .map(function (key) {
+                    return map[key];
+                })
+                .sort(function (a, b) {
+                    return String(a.CategoryName).localeCompare(
+                        String(b.CategoryName)
+                    );
+                });
+        }
+
+        function assetRegisterOverallSummary(rows) {
+
+            var assets = assetRegisterAggregateAssets(rows);
+
+            var result = {
+                TotalQuantity: 0,
+                OutstandingQuantity: 0,
+                IssuedQuantity: 0,
+                AssetCount: assets.length
+            };
+
+            assets.forEach(function (asset) {
+                result.TotalQuantity += asset.TotalQuantity;
+                result.OutstandingQuantity += asset.OutstandingQuantity;
+                result.IssuedQuantity += asset.IssuedQuantity;
+            });
+
+            return result;
+        }
+
+        function assetRegisterFindAsset(rows, assetId, assetName) {
+
+            var assets = assetRegisterAggregateAssets(rows);
+
+            for (var i = 0; i < assets.length; i++) {
+
+                if (
+                    assetId !== null &&
+                    assetId !== undefined &&
+                    assetRegisterText(assetId) !== "" &&
+                    assetRegisterText(assets[i].AssetID) ===
+                    assetRegisterText(assetId)
+                ) {
+                    return assets[i];
+                }
+
+                if (
+                    assetRegisterText(assets[i].AssetName) ===
+                    assetRegisterText(assetName)
+                ) {
+                    return assets[i];
+                }
+            }
+
+            return null;
+        }
+
+        function assetRegisterFindCategory(rows, categoryId, categoryName) {
+
+            var categories =
+                assetRegisterAggregateCategories(rows);
+
+            for (var i = 0; i < categories.length; i++) {
+
+                if (
+                    categoryId !== null &&
+                    categoryId !== undefined &&
+                    assetRegisterText(categoryId) !== "" &&
+                    assetRegisterText(categories[i].CategoryID) ===
+                    assetRegisterText(categoryId)
+                ) {
+                    return categories[i];
+                }
+
+                if (
+                    assetRegisterText(categories[i].CategoryName) ===
+                    assetRegisterText(categoryName)
+                ) {
+                    return categories[i];
+                }
+            }
+
+            return null;
+        }
+
+        function assetRegisterPrepareHeatmapRows(items) {
+
+            var result = [];
+
+            items.forEach(function (item, rowIndex) {
+
+                result.push({
+                    value: [0, rowIndex, assetRegisterNumber(item.TotalQuantity)],
+                    metric: "Total Count",
+                    row: item
+                });
+
+                result.push({
+                    value: [1, rowIndex, assetRegisterNumber(item.OutstandingQuantity)],
+                    metric: "Total Outstanding",
+                    row: item
+                });
+
+                result.push({
+                    value: [2, rowIndex, assetRegisterNumber(item.IssuedQuantity)],
+                    metric: "Total Issued",
+                    row: item
+                });
+            });
+
+            return result;
+        }
+
+        function assetRegisterHeatmapOption(
+            items,
+            rowNames,
+            titleText,
+            clickHandler
+        ) {
+
+            var heatmapData =
+                assetRegisterPrepareHeatmapRows(items);
+
+            var maxValue = 0;
+
+            heatmapData.forEach(function (item) {
+                maxValue = Math.max(
+                    maxValue,
+                    assetRegisterNumber(item.value[2])
+                );
+            });
+
+            return {
+
+                animation: true,
+                animationDuration: 500,
+
+                tooltip: {
+                    position: "top",
+                    formatter: function (params) {
+
+                        if (!params || !params.data) {
+                            return "";
+                        }
+
+                        var row = params.data.row || {};
+
+                        var heading =
+                            row.AssetName ||
+                            row.CategoryName ||
+                            row.Name ||
+                            "All Assets";
+
+                        return (
+                            "<b>" + assetRegisterEsc(heading) +
+                            "</b><br/>" +
+                            assetRegisterEsc(params.data.metric) +
+                            ": <b>" +
+                            assetRegisterFormatNumber(params.value[2]) +
+                            "</b><br/><span style=\"color:#777\">Click to drill down</span>"
+                        );
+                    }
+                },
+
+                grid: {
+                    left: 150,
+                    right: 28,
+                    top: 28,
+                    bottom: 40,
+                    containLabel: true
+                },
+
+                xAxis: {
+                    type: "category",
+                    data: [
+                        "Total Count",
+                        "Total Outstanding",
+                        "Total Issued"
+                    ],
+                    splitArea: {
+                        show: true
+                    },
+                    axisLabel: {
+                        fontSize: 9,
+                        interval: 0,
+                        formatter: function (value) {
+                            if (value === "Total Outstanding") {
+                                return "Outstanding";
+                            }
+                            if (value === "Total Count") {
+                                return "Count";
+                            }
+                            return "Issued";
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    }
+                },
+
+                yAxis: {
+                    type: "category",
+                    data: rowNames,
+                    inverse: true,
+                    axisLabel: {
+                        fontSize: 9,
+                        interval: 0,
+                        width: 135,
+                        overflow: "truncate"
+                    },
+                    axisTick: {
+                        show: false
+                    }
+                },
+
+                visualMap: {
+                    min: 0,
+                    max: maxValue > 0 ? maxValue : 1,
+                    calculable: false,
+                    orient: "horizontal",
+                    left: "center",
+                    bottom: 2,
+                    itemWidth: 80,
+                    itemHeight: 7,
+                    text: ["Higher", "Lower"],
+                    textStyle: {
+                        fontSize: 8
+                    },
+                    inRange: {
+                        color: [
+                            "#edf6fb",
+                            "#b7d9ea",
+                            "#69a8c9",
+                            "#28648a"
+                        ]
+                    }
+                },
+
+                series: [
+                    {
+                        name: titleText,
+                        type: "heatmap",
+                        data: heatmapData,
+                        label: {
+                            show: true,
+                            fontSize: 9,
+                            color: "#1f3f55",
+                            formatter: function (params) {
+                                return assetRegisterFormatNumber(
+                                    params.value[2]
+                                );
+                            }
+                        },
+                        itemStyle: {
+                            borderColor: "#ffffff",
+                            borderWidth: 2,
+                            borderRadius: 4
+                        },
+                        emphasis: {
+                            itemStyle: {
+                                borderColor: "#174a7e",
+                                borderWidth: 2
+                            }
+                        }
+                    }
+                ]
+            };
+        }
+
+        function assetRegisterEnsureChart() {
+
+            var element =
+                document.getElementById(
+                    "assetRegisterChart"
+                );
+
+            if (!element || typeof echarts === "undefined") {
+                return null;
+            }
+
+            var chart =
+                echarts.getInstanceByDom(element);
+
+            if (!chart) {
+                chart = echarts.init(element);
+            }
+
+            window.assetRegisterChart = chart;
+
+            return chart;
+        }
+
+        function assetRegisterSetHeader(title, showBack) {
+
+            var titleElement =
+                document.getElementById(
+                    "assetRegisterDrilldownTitle"
+                );
+
+            var backButton =
+                document.getElementById(
+                    "assetRegisterBack"
+                );
+
+            if (titleElement) {
+                titleElement.textContent =
+                    title || "All Assets";
+            }
+
+            if (backButton) {
+                backButton.style.display =
+                    showBack ? "inline-flex" : "none";
+
+                /*
+                 * Bind the handler every time the Asset Register header
+                 * changes. This keeps the button functional after each
+                 * drilldown render and avoids relying on a one-time
+                 * DOM event registration.
+                 */
+                backButton.onclick = function (event) {
+
+                    if (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    assetRegisterGoBack();
+                };
+            }
+        }
+
+        function assetRegisterClearAndShowEmpty(message) {
+
+            var element =
+                document.getElementById(
+                    "assetRegisterChart"
+                );
+
+            if (!element) {
+                return;
+            }
+
+            /*
+             * IMPORTANT ECHARTS LIFECYCLE FIX
+             * --------------------------------
+             * Do not leave an ECharts instance attached to this DOM element
+             * when its innerHTML is replaced.  clear() only clears the chart
+             * option; it does NOT detach the ECharts instance from the DOM.
+             *
+             * If the employee/detail view replaces the element contents and
+             * Back later reuses the same ECharts instance, ECharts can still
+             * report a valid instance even though its canvas was removed from
+             * the DOM.  The subsequent setOption() then has nothing visible to
+             * render.
+             */
+            var chart =
+                echarts.getInstanceByDom(element);
+
+            if (chart) {
+                try {
+                    chart.dispose();
+                }
+                catch (error) {
+                    console.warn(
+                        "Asset Register - Unable to dispose chart:",
+                        error
+                    );
+                }
+            }
+
+            if (window.assetRegisterChart === chart) {
+                window.assetRegisterChart = null;
+            }
+
+            element.innerHTML =
+                '<div class="asset-register-empty">' +
+                assetRegisterEsc(message || "No asset data available") +
+                "</div>";
+        }
+
+        function assetRegisterResize() {
+
+            try {
+                if (window.assetRegisterChart) {
+                    window.assetRegisterChart.resize();
+                }
+            }
+            catch (error) {
+                console.warn(
+                    "Asset Register chart resize failed:",
+                    error
+                );
+            }
+        }
+
+        /* ============================================================
+           ASSET REGISTER DRILLDOWN HISTORY
+           ------------------------------------------------------------
+           Keep an explicit navigation stack.
+           This is intentionally separate from the selected ID/name
+           variables so Back always restores the exact previous level.
+           ============================================================ */
+
+        window.assetRegisterHistory = [];
+
+        function assetRegisterPushHistory(level) {
+
+            window.assetRegisterHistory =
+                window.assetRegisterHistory || [];
+
+            window.assetRegisterHistory.push({
+                level: level,
+                categoryId: window.assetRegisterSelectedCategoryId,
+                categoryName: window.assetRegisterSelectedCategoryName,
+                assetId: window.assetRegisterSelectedAssetId,
+                assetName: window.assetRegisterSelectedAssetName,
+                departmentTitle: window.assetRegisterSelectedDepartmentTitle
+            });
+
+            console.log(
+                "Asset Register - History pushed:",
+                window.assetRegisterHistory[
+                window.assetRegisterHistory.length - 1
+                ]
+            );
+        }
+
+        function renderAssetRegisterOverall(rows) {
+
+            window.assetRegisterCurrentLevel = "overall";
+            window.assetRegisterSelectedCategoryId = null;
+            window.assetRegisterSelectedCategoryName = "";
+            window.assetRegisterSelectedAssetId = null;
+            window.assetRegisterSelectedAssetName = "";
+
+            assetRegisterSetHeader(
+                "All Assets",
+                false
+            );
+
+            var summary =
+                assetRegisterOverallSummary(rows);
+
+            if (summary.AssetCount === 0) {
+                assetRegisterClearAndShowEmpty(
+                    "No asset register data available"
+                );
+                return;
+            }
+
+            var item = {
+                Name: "All Assets",
+                TotalQuantity: summary.TotalQuantity,
+                OutstandingQuantity: summary.OutstandingQuantity,
+                IssuedQuantity: summary.IssuedQuantity,
+                AssetCount: summary.AssetCount
+            };
+
+            var chart = assetRegisterEnsureChart();
+            if (!chart) {
+                return;
+            }
+
+            chart.clear();
+            chart.off("click");
+
+            var option =
+                assetRegisterHeatmapOption(
+                    [item],
+                    ["All Assets"],
+                    "All Assets",
+                    null
+                );
+
+            chart.setOption(option, true);
+
+            chart.on("click", function (params) {
+
+                if (!params || !params.data) {
+                    return;
+                }
+
+                assetRegisterPushHistory("overall");
+                renderAssetRegisterCategories(rows);
+            });
+
+            assetRegisterResize();
+
+            console.log(
+                "Asset Register - Overall rendered.",
+                summary
+            );
+        }
+
+        function renderAssetRegisterCategories(rows) {
+
+            window.assetRegisterCurrentLevel = "category";
+
+            assetRegisterSetHeader(
+                "Asset Categories",
+                true
+            );
+
+            var categories =
+                assetRegisterAggregateCategories(rows);
+
+            if (categories.length === 0) {
+                assetRegisterClearAndShowEmpty(
+                    "No asset categories available"
+                );
+                return;
+            }
+
+            var chart = assetRegisterEnsureChart();
+            if (!chart) {
+                return;
+            }
+
+            chart.clear();
+            chart.off("click");
+
+            var rowNames =
+                categories.map(function (item) {
+                    return item.CategoryName || "Uncategorised";
+                });
+
+            chart.setOption(
+                assetRegisterHeatmapOption(
+                    categories,
+                    rowNames,
+                    "Asset Categories",
+                    null
+                ),
+                true
+            );
+
+            chart.on("click", function (params) {
+
+                if (!params || !params.data) {
+                    return;
+                }
+
+                var category =
+                    params.data.row;
+
+                if (!category) {
+                    return;
+                }
+
+                window.assetRegisterSelectedCategoryId =
+                    category.CategoryID;
+
+                window.assetRegisterSelectedCategoryName =
+                    category.CategoryName || "";
+
+                assetRegisterPushHistory("category");
+
+                renderAssetRegisterAssets(
+                    rows,
+                    category.CategoryID,
+                    category.CategoryName
+                );
+            });
+
+            assetRegisterResize();
+
+            console.log(
+                "Asset Register - Category level rendered.",
+                categories
+            );
+        }
+
+        function renderAssetRegisterAssets(
+            rows,
+            categoryId,
+            categoryName
+        ) {
+
+            window.assetRegisterCurrentLevel = "asset";
+            window.assetRegisterSelectedCategoryId =
+                categoryId;
+            window.assetRegisterSelectedCategoryName =
+                categoryName ||
+                window.assetRegisterSelectedCategoryName ||
+                "";
+
+            var category =
+                assetRegisterFindCategory(
+                    rows,
+                    categoryId,
+                    categoryName
+                );
+
+            if (!category) {
+                assetRegisterClearAndShowEmpty(
+                    "Selected asset category was not found"
+                );
+                return;
+            }
+
+            assetRegisterSetHeader(
+                category.CategoryName,
+                true
+            );
+
+            var assets =
+                category.Assets || [];
+
+            if (assets.length === 0) {
+                assetRegisterClearAndShowEmpty(
+                    "No assets available for " +
+                    category.CategoryName
+                );
+                return;
+            }
+
+            var chart = assetRegisterEnsureChart();
+            if (!chart) {
+                return;
+            }
+
+            chart.clear();
+            chart.off("click");
+
+            var rowNames =
+                assets.map(function (item) {
+                    var code = assetRegisterText(item.AssetCode);
+                    var name = assetRegisterText(item.AssetName);
+                    return code
+                        ? code + " - " + name
+                        : name;
+                });
+
+            chart.setOption(
+                assetRegisterHeatmapOption(
+                    assets,
+                    rowNames,
+                    category.CategoryName,
+                    null
+                ),
+                true
+            );
+
+            chart.on("click", function (params) {
+
+                if (!params || !params.data) {
+                    return;
+                }
+
+                var asset =
+                    params.data.row;
+
+                if (!asset) {
+                    return;
+                }
+
+                window.assetRegisterSelectedAssetId =
+                    asset.AssetID;
+
+                window.assetRegisterSelectedAssetName =
+                    asset.AssetName || "";
+
+                assetRegisterPushHistory("asset");
+
+                renderAssetRegisterDepartments(
+                    rows,
+                    asset.AssetID,
+                    asset.AssetName
+                );
+            });
+
+            assetRegisterResize();
+
+            console.log(
+                "Asset Register - Asset level rendered.",
+                {
+                    Category: category.CategoryName,
+                    Assets: assets
+                }
+            );
+        }
+
+        function assetRegisterAggregateDepartments(
+            assetRows
+        ) {
+
+            var map = {};
+
+            assetRows.forEach(function (row) {
+
+                var department =
+                    row.DepartmentTitle ||
+                    "Unassigned";
+
+                if (!map[department]) {
+                    map[department] = {
+                        DepartmentTitle: department,
+                        Quantity: 0,
+                        IssuedQuantity: 0,
+                        OutstandingQuantity: 0,
+                        Rows: []
+                    };
+                }
+
+                map[department].Quantity +=
+                    Math.max(
+                        assetRegisterNumber(
+                            row.AllocationQuantity
+                        ),
+                        0
+                    );
+
+                map[department].IssuedQuantity =
+                    map[department].Quantity;
+
+                /*
+                 * The supplied query contains AssetMas-level
+                 * OutstandingQuantity, not department-level outstanding
+                 * quantity. Do not duplicate the asset balance across
+                 * departments. If a future model supplies a dedicated
+                 * DepartmentOutstandingQuantity field it can be used.
+                 */
+                if (
+                    row.DepartmentOutstandingQuantity !== undefined &&
+                    row.DepartmentOutstandingQuantity !== null
+                ) {
+                    map[department].OutstandingQuantity +=
+                        assetRegisterNumber(
+                            row.DepartmentOutstandingQuantity
+                        );
+                }
+
+                map[department].Rows.push(row);
+            });
+
+            return Object.keys(map)
+                .map(function (key) {
+                    return map[key];
+                })
+                .sort(function (a, b) {
+                    return String(a.DepartmentTitle).localeCompare(
+                        String(b.DepartmentTitle)
+                    );
+                });
+        }
+
+        function renderAssetRegisterDepartments(
+            rows,
+            assetId,
+            assetName
+        ) {
+
+            window.assetRegisterCurrentLevel = "department";
+            window.assetRegisterSelectedAssetId = assetId;
+            window.assetRegisterSelectedAssetName =
+                assetName ||
+                window.assetRegisterSelectedAssetName ||
+                "";
+
+            var asset =
+                assetRegisterFindAsset(
+                    rows,
+                    assetId,
+                    assetName
+                );
+
+            if (!asset) {
+                assetRegisterClearAndShowEmpty(
+                    "Selected asset was not found"
+                );
+                return;
+            }
+
+            var assetTitle =
+                assetRegisterText(asset.AssetCode)
+                    ? asset.AssetCode + " - " + asset.AssetName
+                    : asset.AssetName;
+
+            assetRegisterSetHeader(
+                assetTitle + " - Department",
+                true
+            );
+
+            var departments =
+                assetRegisterAggregateDepartments(
+                    asset.Rows
+                );
+
+            if (departments.length === 0) {
+                assetRegisterClearAndShowEmpty(
+                    "No department allocation data available for " +
+                    asset.AssetName
+                );
+                return;
+            }
+
+            var chart = assetRegisterEnsureChart();
+            if (!chart) {
+                return;
+            }
+
+            chart.clear();
+            chart.off("click");
+
+            var pieData =
+                departments.map(function (department) {
+                    return {
+                        name: department.DepartmentTitle,
+                        value: department.IssuedQuantity,
+                        department: department
+                    };
+                });
+
+            var totalIssued =
+                pieData.reduce(function (total, item) {
+                    return total + assetRegisterNumber(item.value);
+                }, 0);
+
+            chart.setOption({
+
+                animation: true,
+                animationDuration: 600,
+
+                tooltip: {
+                    trigger: "item",
+                    formatter: function (params) {
+
+                        var department =
+                            params.data &&
+                                params.data.department
+                                ? params.data.department
+                                : null;
+
+                        var outstanding =
+                            department
+                                ? department.OutstandingQuantity
+                                : 0;
+
+                        return (
+                            "<b>" +
+                            assetRegisterEsc(params.name) +
+                            "</b><br/>" +
+                            "Total Issued: <b>" +
+                            assetRegisterFormatNumber(params.value) +
+                            "</b><br/>" +
+                            "Total Outstanding: <b>" +
+                            assetRegisterFormatNumber(outstanding) +
+                            "</b><br/>" +
+                            "Percentage: <b>" +
+                            assetRegisterNumber(params.percent).toFixed(1) +
+                            "%</b><br/><span style=\"color:#777\">Click for employees</span>"
+                        );
+                    }
+                },
+
+                legend: {
+                    type: "scroll",
+                    bottom: 0,
+                    left: "center",
+                    textStyle: {
+                        fontSize: 9
+                    }
+                },
+
+                graphic: [
+                    {
+                        type: "text",
+                        left: "center",
+                        top: "39%",
+                        style: {
+                            text: assetRegisterFormatNumber(totalIssued),
+                            fontSize: 23,
+                            fontWeight: "bold",
+                            fill: "#333333",
+                            textAlign: "center"
+                        }
+                    },
+                    {
+                        type: "text",
+                        left: "center",
+                        top: "52%",
+                        style: {
+                            text: "Total Issued",
+                            fontSize: 10,
+                            fill: "#777777",
+                            textAlign: "center"
+                        }
+                    }
+                ],
+
+                series: [
+                    {
+                        name: "Department",
+                        type: "pie",
+                        radius: ["38%", "67%"],
+                        center: ["50%", "48%"],
+                        avoidLabelOverlap: true,
+                        label: {
+                            show: true,
+                            fontSize: 9,
+                            formatter: function (params) {
+                                return (
+                                    params.name +
+                                    "\n" +
+                                    assetRegisterFormatNumber(params.value) +
+                                    " (" +
+                                    assetRegisterNumber(params.percent).toFixed(1) +
+                                    "%)"
+                                );
+                            }
+                        },
+                        labelLine: {
+                            show: true,
+                            length: 8,
+                            length2: 8
+                        },
+                        emphasis: {
+                            scale: true,
+                            scaleSize: 7,
+                            label: {
+                                show: true,
+                                fontSize: 11,
+                                fontWeight: "bold"
+                            }
+                        },
+                        data: pieData
+                    }
+                ]
+            }, true);
+
+            chart.on("click", function (params) {
+
+                if (
+                    !params ||
+                    params.componentType !== "series" ||
+                    !params.data
+                ) {
+                    return;
+                }
+
+                var department =
+                    params.data.department;
+
+                if (!department) {
+                    return;
+                }
+
+                window.assetRegisterSelectedDepartmentTitle =
+                    department.DepartmentTitle;
+
+                assetRegisterPushHistory("department");
+
+                renderAssetRegisterEmployees(
+                    rows,
+                    asset,
+                    department.DepartmentTitle
+                );
+            });
+
+            assetRegisterResize();
+
+            console.log(
+                "Asset Register - Department level rendered.",
+                {
+                    Asset: asset.AssetName,
+                    Departments: departments
+                }
+            );
+        }
+
+        function renderAssetRegisterEmployees(
+            allRows,
+            asset,
+            departmentTitle
+        ) {
+
+            window.assetRegisterCurrentLevel = "employee";
+            window.assetRegisterSelectedDepartmentTitle =
+                departmentTitle;
+
+            var element =
+                document.getElementById(
+                    "assetRegisterChart"
+                );
+
+            if (!element) {
+                return;
+            }
+
+            var rows =
+                (asset.Rows || []).filter(function (row) {
+                    return (
+                        String(
+                            row.DepartmentTitle ||
+                            "Unassigned"
+                        ) ===
+                        String(departmentTitle)
+                    );
+                });
+
+            if (rows.length === 0) {
+                assetRegisterClearAndShowEmpty(
+                    "No employees associated with " +
+                    assetRegisterText(asset.AssetName) +
+                    " in " +
+                    assetRegisterText(departmentTitle)
+                );
+                return;
+            }
+
+            /*
+             * Combine duplicate allocation rows for the same employee.
+             * This keeps the employee drilldown clean when the query
+             * returns more than one physical allocation record.
+             */
+            var employeeMap = {};
+
+            rows.forEach(function (row) {
+
+                var key =
+                    row.EmpID !== null &&
+                        row.EmpID !== undefined &&
+                        assetRegisterText(row.EmpID) !== ""
+                        ? String(row.EmpID)
+                        : row.EmpCode + "|" + row.EmpName;
+
+                if (!employeeMap[key]) {
+                    employeeMap[key] = {
+                        EmpID: row.EmpID,
+                        EmpCode: row.EmpCode,
+                        EmpName: row.EmpName,
+                        DesignationTitle: row.DesignationTitle,
+                        Quantity: 0
+                    };
+                }
+
+                employeeMap[key].Quantity +=
+                    Math.max(
+                        assetRegisterNumber(
+                            row.AllocationQuantity
+                        ),
+                        0
+                    );
+            });
+
+            var employees =
+                Object.keys(employeeMap)
+                    .map(function (key) {
+                        return employeeMap[key];
+                    })
+                    .sort(function (a, b) {
+                        return String(a.EmpName).localeCompare(
+                            String(b.EmpName)
+                        );
+                    });
+
+            assetRegisterSetHeader(
+                assetRegisterText(asset.AssetName) +
+                " - " +
+                assetRegisterText(departmentTitle),
+                true
+            );
+
+            var html =
+                '<div class="asset-register-employee-table-wrap">';
+
+            html +=
+                '<table class="asset-register-employee-table">';
+
+            html +=
+                "<thead><tr>" +
+                "<th>EmpCode</th>" +
+                "<th>EmpName</th>" +
+                "<th>Designation</th>" +
+                "<th>Quantity</th>" +
+                "</tr></thead>";
+
+            html += "<tbody>";
+
+            employees.forEach(function (employee) {
+
+                html +=
+                    "<tr>" +
+                    "<td>" +
+                    assetRegisterEsc(
+                        employee.EmpCode || "-"
+                    ) +
+                    "</td>" +
+                    "<td>" +
+                    assetRegisterEsc(
+                        employee.EmpName || "-"
+                    ) +
+                    "</td>" +
+                    "<td>" +
+                    assetRegisterEsc(
+                        employee.DesignationTitle || "-"
+                    ) +
+                    "</td>" +
+                    "<td>" +
+                    assetRegisterFormatNumber(
+                        employee.Quantity
+                    ) +
+                    "</td>" +
+                    "</tr>";
+            });
+
+            html += "</tbody></table></div>";
+
+            var totalEmployeeQuantity =
+                employees.reduce(function (total, employee) {
+                    return total +
+                        assetRegisterNumber(employee.Quantity);
+                }, 0);
+
+            html +=
+                '<div class="asset-register-table-footer">' +
+                '<span class="asset-register-summary-pill">' +
+                'Employees: <b>' +
+                employees.length +
+                '</b></span>' +
+                '<span class="asset-register-summary-pill">' +
+                'Quantity: <b>' +
+                assetRegisterFormatNumber(totalEmployeeQuantity) +
+                '</b></span>' +
+                '</div>';
+
+            /*
+             * IMPORTANT ECHARTS LIFECYCLE FIX
+             * --------------------------------
+             * The employee level replaces the chart host's innerHTML with a
+             * table.  The old ECharts instance MUST be disposed BEFORE that
+             * replacement.  Merely calling clear() leaves the instance
+             * registered against the DOM element while its canvas has already
+             * been removed.  On the next Back operation ensureChart() then
+             * retrieves that stale instance and the previous chart is not
+             * painted.
+             */
+            var existingChart =
+                echarts.getInstanceByDom(element);
+
+            if (existingChart) {
+                try {
+                    existingChart.dispose();
+                }
+                catch (error) {
+                    console.warn(
+                        "Asset Register - Unable to dispose employee chart:",
+                        error
+                    );
+                }
+            }
+
+            if (window.assetRegisterChart === existingChart) {
+                window.assetRegisterChart = null;
+            }
+
+            element.innerHTML = html;
+
+            console.log(
+                "Asset Register - Employee level rendered.",
+                {
+                    Asset: asset.AssetName,
+                    Department: departmentTitle,
+                    Employees: employees
+                }
+            );
+        }
+
+        function assetRegisterGoBack() {
+
+            var rows =
+                window.assetRegisterResponseData || [];
+
+            var history =
+                window.assetRegisterHistory || [];
+
+            console.log(
+                "Asset Register - Back clicked. Current level:",
+                window.assetRegisterCurrentLevel,
+                "History:",
+                history
+            );
+
+            if (history.length === 0) {
+
+                console.log(
+                    "Asset Register - No previous level available."
+                );
+
+                return;
+            }
+
+            /*
+             * Pop the exact previous state.
+             * The render methods do NOT push history, so Back can never
+             * create a new navigation entry or get stuck in a loop.
+             */
+            var previous = history.pop();
+
+            window.assetRegisterHistory = history;
+
+            window.assetRegisterSelectedCategoryId =
+                previous.categoryId;
+
+            window.assetRegisterSelectedCategoryName =
+                previous.categoryName || "";
+
+            window.assetRegisterSelectedAssetId =
+                previous.assetId;
+
+            window.assetRegisterSelectedAssetName =
+                previous.assetName || "";
+
+            window.assetRegisterSelectedDepartmentTitle =
+                previous.departmentTitle || "";
+
+            console.log(
+                "Asset Register - Restoring previous state:",
+                previous
+            );
+
+            if (previous.level === "overall") {
+
+                renderAssetRegisterOverall(rows);
+                return;
+            }
+
+            if (previous.level === "category") {
+
+                renderAssetRegisterCategories(rows);
+                return;
+            }
+
+            if (previous.level === "asset") {
+
+                renderAssetRegisterAssets(
+                    rows,
+                    previous.categoryId,
+                    previous.categoryName
+                );
+                return;
+            }
+
+            if (previous.level === "department") {
+
+                var previousAsset =
+                    assetRegisterFindAsset(
+                        rows,
+                        previous.assetId,
+                        previous.assetName
+                    );
+
+                if (!previousAsset) {
+
+                    console.warn(
+                        "Asset Register - Previous asset could not be restored:",
+                        previous
+                    );
+
+                    renderAssetRegisterCategories(rows);
+                    return;
+                }
+
+                renderAssetRegisterDepartments(
+                    rows,
+                    previous.assetId,
+                    previous.assetName
+                );
+                return;
+            }
+
+            /* Safety fallback. */
+            renderAssetRegisterOverall(rows);
+        }
+
+        function displayAssetRegisterChartData(data) {
+
+            console.log(
+                "Asset Register Data received from C#:",
+                data
+            );
+
+            var element =
+                document.getElementById(
+                    "assetRegisterChart"
+                );
+
+            if (!element) {
+                console.error(
+                    "assetRegisterChart element not found."
+                );
+                return;
+            }
+
+            var rows =
+                assetRegisterNormalizeRows(data);
+
+            window.assetRegisterResponseData = rows;
+            window.assetRegisterCurrentLevel = "overall";
+            window.assetRegisterSelectedCategoryId = null;
+            window.assetRegisterSelectedCategoryName = "";
+            window.assetRegisterSelectedAssetId = null;
+            window.assetRegisterSelectedAssetName = "";
+            window.assetRegisterSelectedDepartmentTitle = "";
+            window.assetRegisterHistory = [];
+
+            renderAssetRegisterOverall(rows);
+        }
+
+        window.displayAssetRegisterChartData =
+            displayAssetRegisterChartData;
+
+        window.addEventListener(
+            "resize",
+            function () {
+                assetRegisterResize();
+            }
+        );
+
+        /*
+         * The C# side can call displayAssetRegisterChartData(data)
+         * after the WebView is loaded. No existing dashboard lifecycle
+         * is modified here.
+         */
 
     })();
 

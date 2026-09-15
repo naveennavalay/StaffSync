@@ -7765,22 +7765,22 @@ namespace StaffSync
         public async void refreshDashboardCharts()
         {
             await displayAssetRegisterChartData();
-            //await displayEmployeesOnLeaveTodayChartData();
-            //await displayLeaveStatusSummaryChartData();
-            //await displayLeaveMatrixChartData();
-            //await displayUpcomingHolidayChartData();
-            //await displayAttendanceSummaryChartData();
-            //await displayAttendanceCalendarChartData();
-            //await displayLeaveOutstandingSummary();
-            //await displayUpcomingPlannedLeavesChartData();
-            //await displayBirthdayEmployeesChartData();
-            //await displayWorkAnniversaryEmployeesChartData();
-            //await displayYearlyHolidaySummaryData();
-            //await displayPendingApprovalLeaveChartData();
-            //await displayMonthlyAttendanceRegisterData();
-            //await displayEmployeeAdvanceInformationChartData();
-            //await displayMonthlyEmployeeAdvanceInformationChartData();
-            //await displayEmployeeConfirmationChartData();
+            await displayEmployeesOnLeaveTodayChartData();
+            await displayLeaveStatusSummaryChartData();
+            await displayLeaveMatrixChartData();
+            await displayUpcomingHolidayChartData();
+            await displayAttendanceSummaryChartData();
+            await displayAttendanceCalendarChartData();
+            await displayLeaveOutstandingSummary();
+            await displayUpcomingPlannedLeavesChartData();
+            await displayBirthdayEmployeesChartData();
+            await displayWorkAnniversaryEmployeesChartData();
+            await displayYearlyHolidaySummaryData();
+            await displayPendingApprovalLeaveChartData();
+            await displayMonthlyAttendanceRegisterData();
+            await displayEmployeeAdvanceInformationChartData();
+            await displayMonthlyEmployeeAdvanceInformationChartData();
+            await displayEmployeeConfirmationChartData();
         }
 
         private async void myWebView_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
