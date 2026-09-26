@@ -54,6 +54,58 @@ namespace dbStaffSync
             return lstPublicHolidayType;
         }
 
+        public List<PublicHolidayInfo> getDateSpecificHolidayInfo(int ClientID, DateTime dtCurrentDate)
+        {
+            List<PublicHolidayInfo> objPublicHolidayInfoList = new List<PublicHolidayInfo>();
+            DataTable dt = new DataTable();
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                string strQuery = @"SELECT
+                                        PubHolType.PubHolTypeID,
+                                        PubHolType.PubHolTypeCode,
+                                        PubHolType.PubHolTypeTitle,
+                                        PubHolidayDetails.PubHolDetID,
+                                        PubHolidayDetails.PubHolidayTitle,
+                                        PubHolidayDetails.PubHolDate,
+                                        PubHolType.PubHolTypeTitle,
+                                        ClientMas.ClientID
+                                    FROM
+                                        ClientMas
+                                        INNER JOIN (
+                                            PublicHolidayMas
+                                            INNER JOIN (
+                                                PubHolType
+                                                INNER JOIN PubHolidayDetails ON PubHolType.PubHolTypeID = PubHolidayDetails.PubHolTypeID
+                                            ) ON PublicHolidayMas.PubHolMasID = PubHolidayDetails.PubHolMasID
+                                        ) ON ClientMas.ClientID = PublicHolidayMas.ClientID
+                                    WHERE
+                                        (
+                                            ((PubHolidayDetails.PubHolDate) = #" + dtCurrentDate.ToString("dd-MMM-yyyy") + "#) " + 
+                                            " AND ((ClientMas.ClientID) = " + ClientID + ") " + 
+                                        ");";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objPublicHolidayInfoList = JsonConvert.DeserializeObject<List<PublicHolidayInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return objPublicHolidayInfoList;
+        }
+
         public List<PublicHolidayInfo> getHolidayList(int ClientID, DateTime dtFrom, DateTime dtTo)
         {
             List<PublicHolidayInfo> objPublicHolidayInfoList = new List<PublicHolidayInfo>();

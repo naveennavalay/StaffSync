@@ -31,6 +31,7 @@ namespace StaffSync
         DALStaffSync.clsEmpMnthlyAttdInfo objEmpMnthlyAttdInfo = new DALStaffSync.clsEmpMnthlyAttdInfo();
         DALStaffSync.clsWeeklyOffInfo objWeeklyOffInfo = new DALStaffSync.clsWeeklyOffInfo();
         DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
+        DALStaffSync.clsPublicHolidayInfo objPublichHolidayInfo = new DALStaffSync.clsPublicHolidayInfo();
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
@@ -318,10 +319,19 @@ namespace StaffSync
         {
             bool validateStatus = true;
 
+            List<PublicHolidayInfo> objIsCurrentDayHoliday = objPublichHolidayInfo.getDateSpecificHolidayInfo(objTempClientFinYearInfo.ClientID, Convert.ToDateTime(txtDailyAttendanceDate.Value));
             if (Convert.ToDateTime(txtDailyAttendanceDate.Value) > DateTime.Today)
             {
                 MessageBox.Show("Attendance Date should not be greater than today's date", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 validateStatus = false;
+            }
+            else if (objIsCurrentDayHoliday.Count > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Today is \"" + objIsCurrentDayHoliday[0].PubHolidayTitle + "\" and marked as \"" + objIsCurrentDayHoliday[0].PubHolTypeTitle + "\".\n" + "Do you want to continue.?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.No)
+                {
+                    validateStatus = false;
+                }
             }
             else
             {

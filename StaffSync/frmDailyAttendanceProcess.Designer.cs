@@ -36,6 +36,7 @@
             this.lblNote = new System.Windows.Forms.Label();
             this.dtgDailyAttendanceProcess = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.lblDayName = new System.Windows.Forms.Label();
             this.lblBatchProcessID = new System.Windows.Forms.Label();
             this.chkCompactDetailedView = new Krypton.Toolkit.KryptonCheckButton();
             this.lblLeaveMasID = new System.Windows.Forms.Label();
@@ -52,7 +53,6 @@
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.qryMnthlyAttdInfoTableAdapter = new StaffSync.StaffsyncDBDataSet2TableAdapters.qryMnthlyAttdInfoTableAdapter();
             this.qryDepartmentListTableAdapter1 = new StaffSync.dsDepartmentListTableAdapters.qryDepartmentListTableAdapter();
-            this.lblDayName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -166,6 +166,17 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Batch Daily Attendence Process";
             // 
+            // lblDayName
+            // 
+            this.lblDayName.AutoSize = true;
+            this.lblDayName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDayName.Location = new System.Drawing.Point(345, 37);
+            this.lblDayName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDayName.Name = "lblDayName";
+            this.lblDayName.Size = new System.Drawing.Size(0, 15);
+            this.lblDayName.TabIndex = 68;
+            this.lblDayName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblBatchProcessID
             // 
             this.lblBatchProcessID.AutoSize = true;
@@ -216,7 +227,7 @@
             this.txtDailyAttendanceDate.ShowCheckBox = true;
             this.txtDailyAttendanceDate.Size = new System.Drawing.Size(148, 21);
             this.txtDailyAttendanceDate.TabIndex = 47;
-            this.txtDailyAttendanceDate.ValueNullable = new System.DateTime(((long)(0)));
+            this.txtDailyAttendanceDate.ValueNullable = new System.DateTime(2001, 1, 1, 0, 0, 0, 0);
             this.txtDailyAttendanceDate.ValueChanged += new System.EventHandler(this.txtDailyAttendanceDate_ValueChanged);
             // 
             // label29
@@ -339,17 +350,6 @@
             // qryDepartmentListTableAdapter1
             // 
             this.qryDepartmentListTableAdapter1.ClearBeforeFill = true;
-            // 
-            // lblDayName
-            // 
-            this.lblDayName.AutoSize = true;
-            this.lblDayName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDayName.Location = new System.Drawing.Point(345, 37);
-            this.lblDayName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblDayName.Name = "lblDayName";
-            this.lblDayName.Size = new System.Drawing.Size(0, 15);
-            this.lblDayName.TabIndex = 68;
-            this.lblDayName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frmDailyAttendanceProcess
             // 

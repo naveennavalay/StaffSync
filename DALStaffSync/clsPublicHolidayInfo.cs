@@ -26,6 +26,15 @@ namespace DALStaffSync
             return lstPublicHolidayType;
         }
 
+        public List<PublicHolidayInfo> getDateSpecificHolidayInfo(int ClientID, DateTime dtCurrentDate)
+        {
+            List<PublicHolidayInfo> objPublicHolidayInfoList = new List<PublicHolidayInfo>();
+
+            objPublicHolidayInfoList = objPublicHolidayInfo.getDateSpecificHolidayInfo(ClientID, dtCurrentDate);
+
+            return objPublicHolidayInfoList;
+        }
+
         public List<PublicHolidayInfo> getHolidayList(int ClientID, DateTime dtFrom, DateTime dtTo)
         {
             List<PublicHolidayInfo> objPublicHolidayInfoList = new List<PublicHolidayInfo>();
