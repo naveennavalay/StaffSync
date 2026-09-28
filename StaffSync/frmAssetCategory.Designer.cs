@@ -33,7 +33,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.cmbIsActive = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtAssetDescription = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -57,6 +56,9 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmbParentCategory = new Krypton.Toolkit.KryptonComboBox();
+            this.cmbIsActive = new Krypton.Toolkit.KryptonComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -68,13 +70,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbParentCategory)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -86,7 +90,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
             this.splitContainer1.Size = new System.Drawing.Size(946, 425);
-            this.splitContainer1.SplitterDistance = 358;
+            this.splitContainer1.SplitterDistance = 357;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -98,14 +102,16 @@
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(946, 358);
+            this.panel1.Size = new System.Drawing.Size(946, 357);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.cmbIsActive);
+            this.groupBox5.Controls.Add(this.cmbParentCategory);
+            this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.label17);
             this.groupBox5.Controls.Add(this.txtAssetDescription);
             this.groupBox5.Controls.Add(this.label18);
@@ -113,26 +119,13 @@
             this.groupBox5.Controls.Add(this.label16);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.Location = new System.Drawing.Point(19, 102);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox5.Size = new System.Drawing.Size(910, 251);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Asset Category Details";
-            // 
-            // cmbIsActive
-            // 
-            this.cmbIsActive.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.cmbIsActive.FormattingEnabled = true;
-            this.cmbIsActive.Location = new System.Drawing.Point(185, 213);
-            this.cmbIsActive.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.cmbIsActive.MaxDropDownItems = 5;
-            this.cmbIsActive.Name = "cmbIsActive";
-            this.cmbIsActive.Size = new System.Drawing.Size(568, 23);
-            this.cmbIsActive.TabIndex = 34;
-            this.cmbIsActive.Tag = "Is Active";
-            this.cmbIsActive.SelectedIndexChanged += new System.EventHandler(this.cmbRelationship_SelectedIndexChanged);
             // 
             // label17
             // 
@@ -149,12 +142,12 @@
             // txtAssetDescription
             // 
             this.txtAssetDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.txtAssetDescription.Location = new System.Drawing.Point(185, 73);
+            this.txtAssetDescription.Location = new System.Drawing.Point(185, 95);
             this.txtAssetDescription.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtAssetDescription.MaxLength = 255;
             this.txtAssetDescription.Multiline = true;
             this.txtAssetDescription.Name = "txtAssetDescription";
-            this.txtAssetDescription.Size = new System.Drawing.Size(568, 132);
+            this.txtAssetDescription.Size = new System.Drawing.Size(568, 110);
             this.txtAssetDescription.TabIndex = 4;
             this.txtAssetDescription.Tag = "Category Description";
             this.txtAssetDescription.WordWrap = false;
@@ -163,7 +156,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(42, 81);
+            this.label18.Location = new System.Drawing.Point(42, 98);
             this.label18.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(140, 15);
@@ -206,9 +199,9 @@
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(24, 15);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(905, 80);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
@@ -217,7 +210,7 @@
             // lnkViewAuditLog
             // 
             this.lnkViewAuditLog.Location = new System.Drawing.Point(464, 34);
-            this.lnkViewAuditLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lnkViewAuditLog.Margin = new System.Windows.Forms.Padding(4);
             this.lnkViewAuditLog.Name = "lnkViewAuditLog";
             this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
             this.lnkViewAuditLog.TabIndex = 36;
@@ -228,7 +221,7 @@
             // btnSearch
             // 
             this.btnSearch.Location = new System.Drawing.Point(417, 27);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSearch.Size = new System.Drawing.Size(39, 34);
@@ -298,15 +291,15 @@
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(946, 62);
+            this.panel2.Size = new System.Drawing.Size(946, 63);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
             this.btnCloseMe.Location = new System.Drawing.Point(803, 9);
-            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -319,7 +312,7 @@
             // btnRemoveDetails
             // 
             this.btnRemoveDetails.Location = new System.Drawing.Point(438, 9);
-            this.btnRemoveDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRemoveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveDetails.Name = "btnRemoveDetails";
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
@@ -332,7 +325,7 @@
             // btnSaveDetails
             // 
             this.btnSaveDetails.Location = new System.Drawing.Point(304, 9);
-            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
@@ -345,7 +338,7 @@
             // btnModifyDetails
             // 
             this.btnModifyDetails.Location = new System.Drawing.Point(170, 9);
-            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
@@ -358,7 +351,7 @@
             // btnGenerateDetails
             // 
             this.btnGenerateDetails.Location = new System.Drawing.Point(36, 9);
-            this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerateDetails.Name = "btnGenerateDetails";
             this.btnGenerateDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnGenerateDetails.Size = new System.Drawing.Size(126, 38);
@@ -371,7 +364,7 @@
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(572, 9);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
@@ -399,6 +392,40 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(73, 69);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(109, 15);
+            this.label2.TabIndex = 35;
+            this.label2.Text = "Parent Category";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbParentCategory
+            // 
+            this.cmbParentCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbParentCategory.DropDownWidth = 440;
+            this.cmbParentCategory.Location = new System.Drawing.Point(185, 66);
+            this.cmbParentCategory.Name = "cmbParentCategory";
+            this.cmbParentCategory.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbParentCategory.Size = new System.Drawing.Size(568, 22);
+            this.cmbParentCategory.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbParentCategory.TabIndex = 42;
+            // 
+            // cmbIsActive
+            // 
+            this.cmbIsActive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbIsActive.DropDownWidth = 440;
+            this.cmbIsActive.Location = new System.Drawing.Point(185, 215);
+            this.cmbIsActive.Name = "cmbIsActive";
+            this.cmbIsActive.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbIsActive.Size = new System.Drawing.Size(568, 22);
+            this.cmbIsActive.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbIsActive.TabIndex = 43;
+            // 
             // frmAssetCategory
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -407,7 +434,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAssetCategory";
@@ -430,6 +457,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbParentCategory)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -447,7 +476,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txtAssetName;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.ComboBox cmbIsActive;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ErrorProvider errValidator;
         private Krypton.Toolkit.KryptonButton btnCloseMe;
@@ -463,5 +491,8 @@
         private System.Windows.Forms.TextBox txtAssetCode;
         private System.Windows.Forms.Label label1;
         private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
+        private System.Windows.Forms.Label label2;
+        private Krypton.Toolkit.KryptonComboBox cmbIsActive;
+        private Krypton.Toolkit.KryptonComboBox cmbParentCategory;
     }
 }

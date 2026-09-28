@@ -276,6 +276,8 @@ namespace StaffSync
                 dtgEmployeeList.Columns["LeaveComments"].Width = 250;
                 dtgEmployeeList.Columns["OrderID"].Visible = false;
                 dtgEmployeeList.Columns["ClientID"].Visible = false;
+                dtgEmployeeList.Columns["StateID"].Visible = false;
+                dtgEmployeeList.Columns["SexID"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listEmployeeLeaveRejectRequestList")
             {
@@ -302,6 +304,8 @@ namespace StaffSync
                 dtgEmployeeList.Columns["LeaveComments"].Width = 250;
                 dtgEmployeeList.Columns["OrderID"].Visible = false;
                 dtgEmployeeList.Columns["ClientID"].Visible = false;
+                dtgEmployeeList.Columns["StateID"].Visible = false;
+                dtgEmployeeList.Columns["SexID"].Visible = false;
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listUserModuleAssignment")
             {
@@ -377,7 +381,6 @@ namespace StaffSync
                 dtgEmployeeList.Columns["ContactNumber2"].Width = 150;
                 dtgEmployeeList.Columns["StateID"].Visible = false;
                 dtgEmployeeList.Columns["SexID"].Visible = false;
-
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listEmployeesPayslip")
             {

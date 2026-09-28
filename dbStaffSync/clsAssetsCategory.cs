@@ -296,7 +296,7 @@ namespace dbStaffSync
             return objAssetsCategoryList;
         }
 
-        public int InsertAssetCategoryInfo(string txtAssetCode, string txtAssetName, string txtAssetDescription, string txtAssetNote, bool IsActive, bool IsDeleted, int txtClientID)
+        public int InsertAssetCategoryInfo(string txtAssetCode, string txtAssetName, string txtAssetDescription, string txtAssetNote, int ParentAssetCatMasID, bool IsActive, bool IsDeleted, int txtClientID)
         {
             int affectedRows = 0;
             try
@@ -306,8 +306,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO AssetCategoryMas (AssetCatMasID, AssetCode, AssetName, AssetDescription, AssetNote, IsActive, IsDeleted, ClientID) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + txtAssetCode + "', '" + txtAssetName + "', '" + txtAssetDescription + "','" + txtAssetNote + "'," + IsActive + ", " + IsDeleted + ", " + txtClientID + ")";
+                string strQuery = "INSERT INTO AssetCategoryMas (AssetCatMasID, AssetCode, AssetName, AssetDescription, AssetNote, ParentAssetCatMasID, IsActive, IsDeleted, ClientID) VALUES " +
+                 "(" + maxRowCount.Data + ",'" + txtAssetCode + "', '" + txtAssetName + "', '" + txtAssetDescription + "','" + txtAssetNote + "'," + ParentAssetCatMasID + ", " + IsActive + ", " + IsDeleted + ", " + txtClientID + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -328,7 +328,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpdateAssetCategoryInfo(int intAssetCatMasID, string txtAssetCode, string txtAssetName, string txtAssetDescription, string txtAssetNote, bool IsActive, bool IsDeleted, int txtClientID)
+        public int UpdateAssetCategoryInfo(int intAssetCatMasID, string txtAssetCode, string txtAssetName, string txtAssetDescription, string txtAssetNote, int ParentAssetCatMasID, bool IsActive, bool IsDeleted, int txtClientID)
         {
             int affectedRows = 0;
             try
@@ -337,7 +337,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE AssetCategoryMas SET " + 
-                                        " AssetCode = '" + txtAssetCode + "', AssetName = '" + txtAssetName + "', AssetDescription = '" + txtAssetDescription + "', IsActive = " + IsActive + ", AssetNote = '" + txtAssetNote + "', ClientID = " + txtClientID + 
+                                        " AssetCode = '" + txtAssetCode + "', AssetName = '" + txtAssetName + "', AssetDescription = '" + txtAssetDescription + "', ParentAssetCatMasID = " + ParentAssetCatMasID + ", IsActive = " + IsActive + ", AssetNote = '" + txtAssetNote + "', ClientID = " + txtClientID + 
                                   " WHERE " +
                                         " AssetCatMasID = " + intAssetCatMasID;
 

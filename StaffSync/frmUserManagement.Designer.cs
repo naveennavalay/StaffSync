@@ -32,6 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUserManagement));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.dtgUserDashboardPreferences = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnReportingManagerSearch = new Krypton.Toolkit.KryptonButton();
@@ -65,14 +68,13 @@
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.imgList = new System.Windows.Forms.ImageList(this.components);
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dtgUserDashboardPreferences = new Krypton.Toolkit.KryptonDataGridView();
-            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgUserDashboardPreferences)).BeginInit();
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -80,8 +82,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picActiveInActive)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgUserDashboardPreferences)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -117,6 +117,48 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1299, 691);
             this.panel1.TabIndex = 1;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.dtgUserDashboardPreferences);
+            this.groupBox2.Location = new System.Drawing.Point(16, 359);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(1267, 315);
+            this.groupBox2.TabIndex = 32;
+            this.groupBox2.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(61, 20);
+            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(125, 15);
+            this.label3.TabIndex = 50;
+            this.label3.Text = "Dashboard Access";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // dtgUserDashboardPreferences
+            // 
+            this.dtgUserDashboardPreferences.AllowUserToResizeRows = false;
+            this.dtgUserDashboardPreferences.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgUserDashboardPreferences.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgUserDashboardPreferences.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgUserDashboardPreferences.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgUserDashboardPreferences.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgUserDashboardPreferences.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgUserDashboardPreferences.Location = new System.Drawing.Point(188, 20);
+            this.dtgUserDashboardPreferences.MultiSelect = false;
+            this.dtgUserDashboardPreferences.Name = "dtgUserDashboardPreferences";
+            this.dtgUserDashboardPreferences.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgUserDashboardPreferences.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgUserDashboardPreferences.Size = new System.Drawing.Size(587, 269);
+            this.dtgUserDashboardPreferences.TabIndex = 49;
+            this.dtgUserDashboardPreferences.CurrentCellDirtyStateChanged += new System.EventHandler(this.dtgUserDashboardPreferences_CurrentCellDirtyStateChanged_1);
             // 
             // groupBox8
             // 
@@ -158,11 +200,11 @@
             // 
             // btnReportingManagerSearch
             // 
-            this.btnReportingManagerSearch.Location = new System.Drawing.Point(420, 23);
+            this.btnReportingManagerSearch.Location = new System.Drawing.Point(420, 26);
             this.btnReportingManagerSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnReportingManagerSearch.Name = "btnReportingManagerSearch";
             this.btnReportingManagerSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnReportingManagerSearch.Size = new System.Drawing.Size(39, 34);
+            this.btnReportingManagerSearch.Size = new System.Drawing.Size(29, 28);
             this.btnReportingManagerSearch.TabIndex = 37;
             this.btnReportingManagerSearch.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnReportingManagerSearch.Values.Image = global::StaffSync.Properties.Resources.search;
@@ -543,48 +585,6 @@
             this.imgList.Images.SetKeyName(2, "green-circle.png");
             this.imgList.Images.SetKeyName(3, "red-circle.png");
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.dtgUserDashboardPreferences);
-            this.groupBox2.Location = new System.Drawing.Point(16, 359);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(1267, 315);
-            this.groupBox2.TabIndex = 32;
-            this.groupBox2.TabStop = false;
-            // 
-            // dtgUserDashboardPreferences
-            // 
-            this.dtgUserDashboardPreferences.AllowUserToResizeRows = false;
-            this.dtgUserDashboardPreferences.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dtgUserDashboardPreferences.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dtgUserDashboardPreferences.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgUserDashboardPreferences.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dtgUserDashboardPreferences.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.dtgUserDashboardPreferences.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgUserDashboardPreferences.Location = new System.Drawing.Point(188, 20);
-            this.dtgUserDashboardPreferences.MultiSelect = false;
-            this.dtgUserDashboardPreferences.Name = "dtgUserDashboardPreferences";
-            this.dtgUserDashboardPreferences.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.dtgUserDashboardPreferences.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgUserDashboardPreferences.Size = new System.Drawing.Size(587, 269);
-            this.dtgUserDashboardPreferences.TabIndex = 49;
-            this.dtgUserDashboardPreferences.CurrentCellDirtyStateChanged += new System.EventHandler(this.dtgUserDashboardPreferences_CurrentCellDirtyStateChanged_1);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(61, 20);
-            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(125, 15);
-            this.label3.TabIndex = 50;
-            this.label3.Text = "Dashboard Access";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // frmUserManagement
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -609,6 +609,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgUserDashboardPreferences)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRepEmpPhoto)).EndInit();
@@ -618,9 +621,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picActiveInActive)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgUserDashboardPreferences)).EndInit();
             this.ResumeLayout(false);
 
         }

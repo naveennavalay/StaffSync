@@ -161,7 +161,7 @@ namespace StaffSync
                     strActionStatement = "AssetCategoryNewUpdates";
                     onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
 
-                    int newID = objAssetsCategory.InsertAssetCategoryInfo(txtAssetCode.Text.Trim(), txtAssetName.Text.Trim(), txtAssetDescription.Text.Trim(), "", cmbIsActive.Text.Trim() == "Yes" ? true : false, false, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                    int newID = objAssetsCategory.InsertAssetCategoryInfo(txtAssetCode.Text.Trim(), txtAssetName.Text.Trim(), txtAssetDescription.Text.Trim(), "", Convert.ToInt32(cmbParentCategory.SelectedIndex + 1), cmbIsActive.Text.Trim() == "Yes" ? true : false, false, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                     if (newID > 0)
                         MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -171,7 +171,7 @@ namespace StaffSync
                     strActionStatement = "AssetCategoryExistingUpdates";
                     onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
 
-                    int affectedRows = objAssetsCategory.UpdateAssetCategoryInfo(Convert.ToInt16(lblCategoryID.Text.Trim()), txtAssetCode.Text.Trim(), txtAssetName.Text.Trim(), txtAssetDescription.Text.Trim(), "", cmbIsActive.Text.Trim() == "Yes" ? true : false, false, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                    int affectedRows = objAssetsCategory.UpdateAssetCategoryInfo(Convert.ToInt16(lblCategoryID.Text.Trim()), txtAssetCode.Text.Trim(), txtAssetName.Text.Trim(), txtAssetDescription.Text.Trim(), "", Convert.ToInt32(cmbParentCategory.SelectedIndex + 1), cmbIsActive.Text.Trim() == "Yes" ? true : false, false, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                     if (affectedRows > 0)
                         MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                }
@@ -207,6 +207,8 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.SelectedIndex = 0;
+            cmbParentCategory.DataSource = null;
+            cmbParentCategory.Items.Clear();
             lnkViewAuditLog.Visible = false;
         }
 
@@ -221,6 +223,11 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.Enabled = true;
+
+            cmbParentCategory.DataSource = objAssetsCategory.getAssetsCategoryNamesList(Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            cmbParentCategory.DisplayMember = "AssetName";
+            cmbParentCategory.ValueMember = "AssetCatMasID";
+            cmbParentCategory.Enabled = true;
         }
 
         public void disableControls()
@@ -234,6 +241,7 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.Enabled = false;
+            cmbParentCategory.Enabled = false;
         }
 
         public void onGenerateButtonClick()
@@ -303,6 +311,7 @@ namespace StaffSync
             txtAssetName.Text = AssetsCategoryModel.AssetName;
             txtAssetDescription.Text = AssetsCategoryModel.AssetDescription;
             cmbIsActive.Text = AssetsCategoryModel.IsActive == true ? "Yes" : "No";
+            cmbParentCategory.SelectedIndex = AssetsCategoryModel.ParentAssetCatMasID - 1;
 
             _originalValues = AuditLogger.getOriginalValues(this);
             lnkViewAuditLog.Visible = true;

@@ -50,20 +50,20 @@ namespace DALStaffSync
             return objAssetsCategory.getAssetsCategoryInfoFilter(txtAssetName, txtClientID);
         }
 
-        public int InsertAssetCategoryInfo(string txtAssetCode, string txtAssetName, string txtAssetDescription, string txtAssetNote, bool IsActive, bool IsDeleted, int txtClientID)
+        public int InsertAssetCategoryInfo(string txtAssetCode, string txtAssetName, string txtAssetDescription, string txtAssetNote, int ParentAssetCatMasID, bool IsActive, bool IsDeleted, int txtClientID)
         {
             int affectedRows = 0;
 
-            affectedRows = objAssetsCategory.InsertAssetCategoryInfo(txtAssetCode, txtAssetName, txtAssetDescription, txtAssetNote, IsActive, IsDeleted, txtClientID);
+            affectedRows = objAssetsCategory.InsertAssetCategoryInfo(txtAssetCode, txtAssetName, txtAssetDescription, txtAssetNote, ParentAssetCatMasID, IsActive, IsDeleted, txtClientID);
 
             return affectedRows;
         }
 
-        public int UpdateAssetCategoryInfo(int intAssetCatMasID, string txtAssetCode, string txtAssetName, string txtAssetDescription, string txtAssetNote, bool IsActive, bool IsDeleted, int txtClientID)
+        public int UpdateAssetCategoryInfo(int intAssetCatMasID, string txtAssetCode, string txtAssetName, string txtAssetDescription, string txtAssetNote, int ParentAssetCatMasID, bool IsActive, bool IsDeleted, int txtClientID)
         {
             int affectedRows = 0;
 
-            affectedRows = objAssetsCategory.UpdateAssetCategoryInfo(intAssetCatMasID, txtAssetCode, txtAssetName,txtAssetDescription, txtAssetNote,IsActive, IsDeleted, txtClientID);
+            affectedRows = objAssetsCategory.UpdateAssetCategoryInfo(intAssetCatMasID, txtAssetCode, txtAssetName,txtAssetDescription, txtAssetNote, ParentAssetCatMasID, IsActive, IsDeleted, txtClientID);
 
             return affectedRows;
         }
