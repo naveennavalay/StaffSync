@@ -33,6 +33,9 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cmbIsActive = new Krypton.Toolkit.KryptonComboBox();
+            this.cmbParentCategory = new Krypton.Toolkit.KryptonComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.txtAssetDescription = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -56,22 +59,19 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cmbParentCategory = new Krypton.Toolkit.KryptonComboBox();
-            this.cmbIsActive = new Krypton.Toolkit.KryptonComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbParentCategory)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbParentCategory)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -126,6 +126,40 @@
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Asset Category Details";
+            // 
+            // cmbIsActive
+            // 
+            this.cmbIsActive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbIsActive.DropDownWidth = 440;
+            this.cmbIsActive.Location = new System.Drawing.Point(185, 215);
+            this.cmbIsActive.Name = "cmbIsActive";
+            this.cmbIsActive.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbIsActive.Size = new System.Drawing.Size(568, 22);
+            this.cmbIsActive.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbIsActive.TabIndex = 43;
+            // 
+            // cmbParentCategory
+            // 
+            this.cmbParentCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbParentCategory.DropDownWidth = 440;
+            this.cmbParentCategory.Location = new System.Drawing.Point(185, 66);
+            this.cmbParentCategory.Name = "cmbParentCategory";
+            this.cmbParentCategory.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbParentCategory.Size = new System.Drawing.Size(568, 22);
+            this.cmbParentCategory.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbParentCategory.TabIndex = 42;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(73, 69);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(109, 15);
+            this.label2.TabIndex = 35;
+            this.label2.Text = "Parent Category";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label17
             // 
@@ -220,11 +254,11 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(417, 27);
+            this.btnSearch.Location = new System.Drawing.Point(417, 30);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnSearch.Size = new System.Drawing.Size(39, 34);
+            this.btnSearch.Size = new System.Drawing.Size(29, 28);
             this.btnSearch.TabIndex = 16;
             this.btnSearch.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSearch.Values.Image = global::StaffSync.Properties.Resources.search;
@@ -392,40 +426,6 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(73, 69);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(109, 15);
-            this.label2.TabIndex = 35;
-            this.label2.Text = "Parent Category";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cmbParentCategory
-            // 
-            this.cmbParentCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbParentCategory.DropDownWidth = 440;
-            this.cmbParentCategory.Location = new System.Drawing.Point(185, 66);
-            this.cmbParentCategory.Name = "cmbParentCategory";
-            this.cmbParentCategory.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbParentCategory.Size = new System.Drawing.Size(568, 22);
-            this.cmbParentCategory.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbParentCategory.TabIndex = 42;
-            // 
-            // cmbIsActive
-            // 
-            this.cmbIsActive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbIsActive.DropDownWidth = 440;
-            this.cmbIsActive.Location = new System.Drawing.Point(185, 215);
-            this.cmbIsActive.Name = "cmbIsActive";
-            this.cmbIsActive.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbIsActive.Size = new System.Drawing.Size(568, 22);
-            this.cmbIsActive.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbIsActive.TabIndex = 43;
-            // 
             // frmAssetCategory
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -451,14 +451,14 @@
             this.panel1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbParentCategory)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbParentCategory)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbIsActive)).EndInit();
             this.ResumeLayout(false);
 
         }

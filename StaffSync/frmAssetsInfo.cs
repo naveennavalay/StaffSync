@@ -150,7 +150,7 @@ namespace StaffSync
             txtAssetCode.Text = "ASC-" + (lblAsssetID.Text.Trim()).ToString().PadLeft(4, '0');
             errValidator.Clear();
 
-            cmbAssetCategory.DataSource = objAssetsCategory.getAssetsCategoryNamesList(Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            cmbAssetCategory.DataSource = objAssetsCategory.getAssetsCategoryList(Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             cmbAssetCategory.DisplayMember = "AssetName";
             cmbAssetCategory.ValueMember = "AssetCatMasID";
 
@@ -188,7 +188,7 @@ namespace StaffSync
                     strActionStatement = "AssetsInfoNewUpdates";
                     onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
 
-                    AssetID = objAssetsInfo.InsertAssetInfo(txtAssetCode.Text, txtAssetName.Text, txtAssetDescription.Text, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, cmbAssetCategory.SelectedIndex + 1, chkRecoverable.Checked, chkReturnRequired.Checked, chkRecoverable.Checked, cmbRecoveryType.SelectedIndex + 1, chkAffectsPayroll.Checked, cmbPayrollAffectType.Text, 0, cmbAssetCurrentStatus.SelectedIndex + 1, Convert.ToDecimal(txtTotalQuantity.Text.ToString()), Convert.ToDecimal(txtOutstandingQuantity.Text.ToString()));
+                    AssetID = objAssetsInfo.InsertAssetInfo(txtAssetCode.Text, txtAssetName.Text, txtAssetDescription.Text, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, Convert.ToInt32(cmbAssetCategory.SelectedValue), chkRecoverable.Checked, chkReturnRequired.Checked, chkRecoverable.Checked, cmbRecoveryType.SelectedIndex + 1, chkAffectsPayroll.Checked, cmbPayrollAffectType.Text, 0, cmbAssetCurrentStatus.SelectedIndex + 1, Convert.ToDecimal(txtTotalQuantity.Text.ToString()), Convert.ToDecimal(txtOutstandingQuantity.Text.ToString()));
                     if (AssetID > 0)
                     {
                         AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(AssetID, DateTime.Today, 0, Convert.ToDecimal(txtTotalQuantity.Text), 0, Convert.ToDecimal(txtTotalQuantity.Text), "Cr", "By Opening", 0);
@@ -202,7 +202,7 @@ namespace StaffSync
                     strActionStatement = "AssetsInfoUpdates";
                     onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
 
-                    AssetID = objAssetsInfo.UpdateAssetInfo(Convert.ToInt32(lblAsssetID.Text.ToString()), txtAssetCode.Text, txtAssetName.Text, txtAssetDescription.Text, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, cmbAssetCategory.SelectedIndex + 1, chkRecoverable.Checked, chkReturnRequired.Checked, chkRecoverable.Checked, cmbRecoveryType.SelectedIndex + 1, chkAffectsPayroll.Checked, cmbPayrollAffectType.Text, 0, cmbAssetCurrentStatus.SelectedIndex + 1);
+                    AssetID = objAssetsInfo.UpdateAssetInfo(Convert.ToInt32(lblAsssetID.Text.ToString()), txtAssetCode.Text, txtAssetName.Text, txtAssetDescription.Text, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, Convert.ToInt32(cmbAssetCategory.SelectedValue), chkRecoverable.Checked, chkReturnRequired.Checked, chkRecoverable.Checked, cmbRecoveryType.SelectedIndex + 1, chkAffectsPayroll.Checked, cmbPayrollAffectType.Text, 0, cmbAssetCurrentStatus.SelectedIndex + 1);
                     if (AssetID > 0)
                     {
                         AssetID = objAssetsInfo.UpdateAssetMoreInfo(1, AssetID, txtSerialNumber.Text.ToString(), txtModelNumber.Text.ToString(), txtManufacturerInfo.Text.ToString(), "", dtPurchaseDate.Value, 0, txtVenderName.Text.ToString(), txtInvoiceNumber.Text.ToString(), "", chkHasWarranty.Checked, dtWarrantyStartDate.Value, dtWarrantyEndDate.Value, dtLastServiceDate.Value, dtNextServiceDate.Value);
@@ -662,8 +662,12 @@ namespace StaffSync
             txtAssetName.Text = objSelectedAssetInfo.AssetName.ToString();
             txtAssetDescription.Text = objSelectedAssetInfo.AssetDescription.ToString();
             cmbIsActive.Text = objSelectedAssetInfo.IsActive ? "Yes" : "No";
-            cmbAssetCategory.SelectedIndex = objSelectedAssetInfo.AssetCatMasID - 1;
-            
+            cmbAssetCategory.SelectedIndex = objSelectedAssetInfo.AssetCatMasID; //- 1;
+            if(AssetInfo.ParentAssetCatMasID > 1)
+                cmbAssetCategory.Text = "-----" + AssetInfo.AssetCategoryName.ToString();
+            else
+                cmbAssetCategory.Text = AssetInfo.AssetCategoryName.ToString();
+
             cmbAssetCurrentStatus.SelectedIndex = objSelectedAssetInfo.CurrentAssetStatusID - 1;
             chkCriticalAsset.Checked = Convert.ToBoolean(objSelectedAssetInfo.IsCriticalAsset.ToString());
             chkReturnRequired.Checked = Convert.ToBoolean(objSelectedAssetInfo.IsRequireReturn.ToString());
@@ -744,7 +748,7 @@ namespace StaffSync
             cmbIsActive.SelectedIndex = 1;
             errValidator.Clear();
 
-            cmbAssetCategory.DataSource = objAssetsCategory.getAssetsCategoryNamesList(Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            cmbAssetCategory.DataSource = objAssetsCategory.getAssetsCategoryList(Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             cmbAssetCategory.DisplayMember = "AssetName";
             cmbAssetCategory.ValueMember = "AssetCatMasID";
 
@@ -780,7 +784,7 @@ namespace StaffSync
                 enableControls();
                 cmbIsActive.SelectedIndex = 1;
 
-                cmbAssetCategory.DataSource = objAssetsCategory.getAssetsCategoryNamesList(Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                cmbAssetCategory.DataSource = objAssetsCategory.getAssetsCategoryList(Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                 cmbAssetCategory.DisplayMember = "AssetName";
                 cmbAssetCategory.ValueMember = "AssetCatMasID";
 

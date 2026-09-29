@@ -107,6 +107,8 @@ namespace StaffSync
             objAssetsInfoModel.AssetDescription = dtgAssetInfoList.SelectedRows[0].Cells["AssetDescription"].Value.ToString();
             objAssetsInfoModel.AssetCategoryName = dtgAssetInfoList.SelectedRows[0].Cells["AssetCategoryName"].Value.ToString();
             objAssetsInfoModel.CurrentAssetStatusName = dtgAssetInfoList.SelectedRows[0].Cells["CurrentAssetStatusName"].Value.ToString();
+            objAssetsInfoModel.AssetCatMasID = Convert.ToInt16(dtgAssetInfoList.SelectedRows[0].Cells["AssetCatMasID"].Value.ToString());
+            objAssetsInfoModel.ParentAssetCatMasID = Convert.ToInt16(dtgAssetInfoList.SelectedRows[0].Cells["ParentAssetCatMasID"].Value.ToString());
 
             if (this.frmAssetsInfo.lblActionMode.Text == "remove")
                 this.frmAssetsInfo.lblActionMode.Text = "delete";

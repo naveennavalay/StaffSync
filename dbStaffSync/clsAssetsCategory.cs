@@ -150,6 +150,36 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
 
                 string strQuery = "SELECT * FROM AssetCategoryMas WHERE IsActive = true AND IsDeleted = false AND ClientID = " + txtClientID + " ORDER BY AssetCatMasID ASC";
+                strQuery = @"SELECT
+                                    AssetCategoryMas.AssetCatMasID,
+                                    AssetCategoryMas.AssetCode,
+                                    IIf(
+                                        AssetCategoryMas.ParentAssetCatMasID = 1,
+                                        AssetCategoryMas.AssetName,
+                                        ""-----"" & AssetCategoryMas.AssetName
+                                    ) AS AssetName,
+                                    AssetCategoryMas.AssetDescription,
+                                    AssetCategoryMas_1.AssetName AS ParentCatMasName,
+                                    AssetCategoryMas.ParentAssetCatMasID,
+                                    AssetCategoryMas.IsActive,
+                                    AssetCategoryMas.IsDeleted
+                                FROM
+                                    AssetCategoryMas
+                                    LEFT JOIN AssetCategoryMas AS AssetCategoryMas_1 ON AssetCategoryMas.ParentAssetCatMasID = AssetCategoryMas_1.AssetCatMasID
+                                WHERE
+                                    (
+                                        ((AssetCategoryMas.ClientID) = " + txtClientID + @")
+                                        AND ((AssetCategoryMas.IsActive) = True)
+                                        AND ((AssetCategoryMas.IsDeleted) = False)
+                                    )
+                                ORDER BY
+                                    IIf(
+                                        AssetCategoryMas.ParentAssetCatMasID = 1,
+                                        AssetCategoryMas.AssetCatMasID,
+                                        AssetCategoryMas.ParentAssetCatMasID
+                                    ),
+                                    IIf(AssetCategoryMas.ParentAssetCatMasID = 1, 0, 1),
+                                    AssetCategoryMas.AssetCatMasID;";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -302,6 +332,8 @@ namespace dbStaffSync
             try
             {
                 Response<int> maxRowCount = objGenFunc.getMaxRowCount("AssetCategoryMas", "AssetCatMasID");
+
+                ParentAssetCatMasID = (ParentAssetCatMasID == 0) ? 1 : ParentAssetCatMasID;
 
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();

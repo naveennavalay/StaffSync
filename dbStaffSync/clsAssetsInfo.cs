@@ -199,7 +199,7 @@ namespace dbStaffSync
                                         " AssetMas.AssetName, " +
                                         " AssetMas.AssetDescription, " + 
                                         " AssetMas.IsActive, " + 
-                                        " AssetMas.IsDeleted, " + 
+                                        " AssetMas.IsDeleted, " +
                                         " AssetMas.AssetCatMasID, " + 
                                         " AssetMas.IsRecoverable, " + 
                                         " AssetMas.IsRequireReturn, " + 
@@ -208,11 +208,11 @@ namespace dbStaffSync
                                         " AssetMas.AffectsPayroll, " + 
                                         " AssetMas.PayrollImpact, " + 
                                         " AssetMas.PayrollHeaderID, " + 
-                                        " AssetMas.CurrentAssetStatusID, " + 
+                                        " AssetMas.CurrentAssetStatusID, " +
                                         " AssetCategoryMas.AssetCode, " + 
                                         " AssetCategoryMas.AssetName, " + 
-                                        " AssetCategoryMas.AssetDescription, " + 
-                                        " AssetCategoryMas.AssetCatMasID, " + 
+                                        " AssetCategoryMas.AssetDescription, " +
+                                        " AssetCategoryMas.ParentAssetCatMasID, " + 
                                         " RecoveryTypeMas.RecoveryTypeCode, " + 
                                         " RecoveryTypeMas.RecoveryTypeName, " + 
                                         " RecoveryTypeMas.RecoveryTypeDescription, " + 
@@ -238,6 +238,7 @@ namespace dbStaffSync
                                 " AssetMas.AssetName, " +
                                 " AssetMas.AssetDescription, " +
                                 " AssetCategoryMas.AssetName AS AssetCategoryName, " +
+                                " AssetCategoryMas.ParentAssetCatMasID, " +
                                 " AssetMas.IsActive, " +
                                 " AssetMas.IsDeleted, " +
                                 " AssetMas.AssetCatMasID, " +
@@ -279,7 +280,9 @@ namespace dbStaffSync
                                         " AssetMas.AssetCode, " +
                                         " AssetMas.AssetName, " +
                                         " AssetMas.AssetDescription, " +
+                                        " AssetCategoryMas.AssetCatMasID, " +
                                         " AssetCategoryMas.AssetName AS AssetCategoryName, " +
+                                        " AssetCategoryMas.ParentAssetCatMasID, " +
                                         " CurrentAssetStatus.CurrentAssetStatusName, " +
                                         " AssetMas.IsActive, " +
                                         " AssetMas.IsDeleted, " +
@@ -524,7 +527,8 @@ namespace dbStaffSync
                                         " AssetMas.AssetName, " + 
                                         " AssetMas.AssetDescription, " + 
                                         " AssetCategoryMas.AssetName AS AssetCategoryName, " + 
-                                        " CurrentAssetStatus.CurrentAssetStatusName, " + 
+                                        " CurrentAssetStatus.CurrentAssetStatusName, " +
+                                        " AssetCategoryMas.ParentAssetCatMasID, " +
                                         " AssetMas.IsActive, " + 
                                         " AssetMas.IsDeleted, " + 
                                         " AssetCategoryMas.ClientID " + 

@@ -52,14 +52,17 @@ namespace StaffSync
             dtgCategoryList.Columns["AssetCode"].Width = 100;
             dtgCategoryList.Columns["AssetName"].ReadOnly = true;
             dtgCategoryList.Columns["AssetName"].Width = 250;
+            dtgCategoryList.Columns["ParentCatMasName"].ReadOnly = true;
+            dtgCategoryList.Columns["ParentCatMasName"].Width = 250;
             dtgCategoryList.Columns["AssetDescription"].ReadOnly = true;
             dtgCategoryList.Columns["AssetDescription"].Width = 300;
             dtgCategoryList.Columns["IsActive"].ReadOnly = true;
             dtgCategoryList.Columns["IsActive"].Width = 50;
             dtgCategoryList.Columns["IsActive"].Visible = false;
+            dtgCategoryList.Columns["IsDeleted"].Visible = false;
             dtgCategoryList.Columns["AssetNote"].Visible = false;
             dtgCategoryList.Columns["ClientID"].Visible = false;
-            dtgCategoryList.Columns["IsDeleted"].Visible =false;            
+            dtgCategoryList.Columns["ParentAssetCatMasID"].Visible = false;
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -94,6 +97,7 @@ namespace StaffSync
             objAssetCategoryModel.AssetCode = dtgCategoryList.SelectedRows[0].Cells["AssetCode"].Value.ToString();
             objAssetCategoryModel.AssetName = dtgCategoryList.SelectedRows[0].Cells["AssetName"].Value.ToString();
             objAssetCategoryModel.AssetDescription = dtgCategoryList.SelectedRows[0].Cells["AssetDescription"].Value.ToString();
+            objAssetCategoryModel.ParentCatMasName = dtgCategoryList.SelectedRows[0].Cells["ParentCatMasName"].Value.ToString();
             objAssetCategoryModel.IsActive = Convert.ToBoolean(dtgCategoryList.SelectedRows[0].Cells["IsActive"].Value.ToString());
             objAssetCategoryModel.IsDeleted = Convert.ToBoolean(dtgCategoryList.SelectedRows[0].Cells["IsDeleted"].Value.ToString());
             objAssetCategoryModel.ParentAssetCatMasID = Convert.ToInt16(dtgCategoryList.SelectedRows[0].Cells["ParentAssetCatMasID"].Value.ToString());
@@ -114,7 +118,9 @@ namespace StaffSync
                 objAssetCategoryModel.AssetCode = "";
                 objAssetCategoryModel.AssetName = "";
                 objAssetCategoryModel.AssetDescription = "";
+                objAssetCategoryModel.ParentCatMasName = "";
                 objAssetCategoryModel.IsActive = false;
+                objAssetCategoryModel.IsDeleted = false;
                 this.frmAssetCategory.displaySelectedValuesOnUI(objAssetCategoryModel);
                 this.Close();
             }

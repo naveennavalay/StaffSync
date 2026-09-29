@@ -206,7 +206,7 @@ namespace StaffSync
             cmbIsActive.Items.Add("");
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
-            cmbIsActive.SelectedIndex = 0;
+            cmbIsActive.SelectedIndex = 1;
             cmbParentCategory.DataSource = null;
             cmbParentCategory.Items.Clear();
             lnkViewAuditLog.Visible = false;
@@ -222,6 +222,7 @@ namespace StaffSync
             cmbIsActive.Items.Add("");
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
+            cmbIsActive.SelectedIndex = 1;
             cmbIsActive.Enabled = true;
 
             cmbParentCategory.DataSource = objAssetsCategory.getAssetsCategoryNamesList(Convert.ToInt32(objTempClientFinYearInfo.ClientID));
@@ -240,6 +241,7 @@ namespace StaffSync
             cmbIsActive.Items.Add("");
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
+            cmbIsActive.SelectedIndex = 1;
             cmbIsActive.Enabled = false;
             cmbParentCategory.Enabled = false;
         }
@@ -309,6 +311,7 @@ namespace StaffSync
             lblCategoryID.Text = AssetsCategoryModel.AssetCatMasID.ToString();
             txtAssetCode.Text = AssetsCategoryModel.AssetCode;
             txtAssetName.Text = AssetsCategoryModel.AssetName;
+            txtAssetName.Text = txtAssetName.Text.ToString().Replace("-----", "");
             txtAssetDescription.Text = AssetsCategoryModel.AssetDescription;
             cmbIsActive.Text = AssetsCategoryModel.IsActive == true ? "Yes" : "No";
             cmbParentCategory.SelectedIndex = AssetsCategoryModel.ParentAssetCatMasID - 1;

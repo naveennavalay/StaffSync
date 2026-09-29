@@ -18,7 +18,7 @@ namespace ModelStaffSync
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public int AssetCatMasID { get; set; }
-
+        public int ParentAssetCatMasID { get; set; }
         public bool IsRecoverable { get; set; }
         public bool IsRequireReturn { get; set; }
         public bool IsCriticalAsset { get; set; }
@@ -72,6 +72,8 @@ namespace ModelStaffSync
         [DisplayName("Asset Current Status Description")] 
         public string CurrentAssetDescription { get; set; }
 
+        public int AssetCatMasID { get; set; }
+        public int ParentAssetCatMasID { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
     }

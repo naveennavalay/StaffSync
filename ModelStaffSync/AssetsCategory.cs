@@ -20,6 +20,9 @@ namespace ModelStaffSync
         
         [DisplayName("Category Description")] 
         public string AssetDescription { get; set; }
+
+        [DisplayName("Parent Category Name")] 
+        public string ParentCatMasName { get; set; }
         public string AssetNote { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
