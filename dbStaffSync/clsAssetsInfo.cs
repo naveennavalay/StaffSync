@@ -212,6 +212,7 @@ namespace dbStaffSync
                                         " AssetCategoryMas.AssetCode, " + 
                                         " AssetCategoryMas.AssetName, " + 
                                         " AssetCategoryMas.AssetDescription, " + 
+                                        " AssetCategoryMas.AssetCatMasID, " + 
                                         " RecoveryTypeMas.RecoveryTypeCode, " + 
                                         " RecoveryTypeMas.RecoveryTypeName, " + 
                                         " RecoveryTypeMas.RecoveryTypeDescription, " + 
