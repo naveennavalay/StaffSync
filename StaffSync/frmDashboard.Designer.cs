@@ -239,9 +239,6 @@
             this.myWebView = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dtgUserDashboardPreferences = new Krypton.Toolkit.KryptonDataGridView();
-            this.qryRoleProfileBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
-            this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lblDashboardTitle = new System.Windows.Forms.Label();
@@ -252,6 +249,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtDTFrom = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.qryRoleProfileBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
+            this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -274,10 +274,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.myWebView)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgUserDashboardPreferences)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.grpDashboardDateRange.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             this.SuspendLayout();
             // 
             // imgEmpPhotos
@@ -320,10 +320,10 @@
             this.LoggedInUser,
             this.LogInTime,
             this.LastActionByLoggedInUser});
-            this.myStatusBar.Location = new System.Drawing.Point(0, 723);
+            this.myStatusBar.Location = new System.Drawing.Point(0, 743);
             this.myStatusBar.Name = "myStatusBar";
             this.myStatusBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.myStatusBar.Size = new System.Drawing.Size(1444, 22);
+            this.myStatusBar.Size = new System.Drawing.Size(1634, 22);
             this.myStatusBar.TabIndex = 2;
             this.myStatusBar.Text = "statusStrip1";
             this.myStatusBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.myStatusBar_ItemClicked);
@@ -338,7 +338,7 @@
             this.kryptonRibbonTab1});
             this.tblRibbon.SelectedTab = this.kryptonRibbonTab1;
             this.tblRibbon.ShowMinimizeButton = false;
-            this.tblRibbon.Size = new System.Drawing.Size(1444, 143);
+            this.tblRibbon.Size = new System.Drawing.Size(1634, 143);
             this.tblRibbon.TabIndex = 5;
             this.tblRibbon.SelectedTabChanged += new System.EventHandler(this.tblRibbon_SelectedTabChanged);
             // 
@@ -1970,8 +1970,8 @@
             this.sptrDashboardContainer.Panel2.AutoScroll = true;
             this.sptrDashboardContainer.Panel2.Controls.Add(this.panel1);
             this.sptrDashboardContainer.SeparatorStyle = Krypton.Toolkit.SeparatorStyle.HighProfile;
-            this.sptrDashboardContainer.Size = new System.Drawing.Size(1444, 542);
-            this.sptrDashboardContainer.SplitterDistance = 1414;
+            this.sptrDashboardContainer.Size = new System.Drawing.Size(1634, 562);
+            this.sptrDashboardContainer.SplitterDistance = 1600;
             this.sptrDashboardContainer.TabIndex = 12;
             this.sptrDashboardContainer.Visible = false;
             this.sptrDashboardContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.sptrDashboardContainer_SplitterMoved);
@@ -1986,7 +1986,7 @@
             this.myWebView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.myWebView.Location = new System.Drawing.Point(0, 0);
             this.myWebView.Name = "myWebView";
-            this.myWebView.Size = new System.Drawing.Size(1414, 542);
+            this.myWebView.Size = new System.Drawing.Size(1600, 562);
             this.myWebView.TabIndex = 0;
             this.myWebView.UseWaitCursor = true;
             this.myWebView.ZoomFactor = 1D;
@@ -1999,7 +1999,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(25, 542);
+            this.panel1.Size = new System.Drawing.Size(29, 562);
             this.panel1.TabIndex = 0;
             // 
             // dtgUserDashboardPreferences
@@ -2017,25 +2017,10 @@
             this.dtgUserDashboardPreferences.Name = "dtgUserDashboardPreferences";
             this.dtgUserDashboardPreferences.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgUserDashboardPreferences.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgUserDashboardPreferences.Size = new System.Drawing.Size(25, 542);
+            this.dtgUserDashboardPreferences.Size = new System.Drawing.Size(29, 562);
             this.dtgUserDashboardPreferences.TabIndex = 48;
             this.dtgUserDashboardPreferences.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgUserDashboardPreferences_CellValueChanged);
             this.dtgUserDashboardPreferences.CurrentCellDirtyStateChanged += new System.EventHandler(this.dtgUserDashboardPreferences_CurrentCellDirtyStateChanged);
-            // 
-            // qryRoleProfileBindingSource
-            // 
-            this.qryRoleProfileBindingSource.DataMember = "qryRoleProfile";
-            this.qryRoleProfileBindingSource.DataSource = this.staffsyncDBDTSet;
-            this.qryRoleProfileBindingSource.CurrentChanged += new System.EventHandler(this.qryRoleProfileBindingSource_CurrentChanged);
-            // 
-            // staffsyncDBDTSet
-            // 
-            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
-            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // qryRoleProfileTableAdapter
-            // 
-            this.qryRoleProfileTableAdapter.ClearBeforeFill = true;
             // 
             // kryptonRibbonGroupButton5
             // 
@@ -2051,7 +2036,7 @@
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(0, 143);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1444, 38);
+            this.groupBox4.Size = new System.Drawing.Size(1634, 38);
             this.groupBox4.TabIndex = 107;
             this.groupBox4.TabStop = false;
             // 
@@ -2083,14 +2068,14 @@
             this.grpDashboardDateRange.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpDashboardDateRange.Location = new System.Drawing.Point(1059, 0);
             this.grpDashboardDateRange.Name = "grpDashboardDateRange";
-            this.grpDashboardDateRange.Size = new System.Drawing.Size(385, 38);
+            this.grpDashboardDateRange.Size = new System.Drawing.Size(575, 38);
             this.grpDashboardDateRange.TabIndex = 106;
             this.grpDashboardDateRange.TabStop = false;
             // 
             // btnToDateEdit
             // 
             this.btnToDateEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnToDateEdit.Location = new System.Drawing.Point(306, 6);
+            this.btnToDateEdit.Location = new System.Drawing.Point(496, 6);
             this.btnToDateEdit.Name = "btnToDateEdit";
             this.btnToDateEdit.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnToDateEdit.Size = new System.Drawing.Size(23, 26);
@@ -2103,7 +2088,7 @@
             // btnRefresh
             // 
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefresh.Location = new System.Drawing.Point(332, 6);
+            this.btnRefresh.Location = new System.Drawing.Point(522, 6);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnRefresh.Size = new System.Drawing.Size(23, 26);
@@ -2116,7 +2101,7 @@
             // txtDTTo
             // 
             this.txtDTTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDTTo.Location = new System.Drawing.Point(201, 9);
+            this.txtDTTo.Location = new System.Drawing.Point(391, 9);
             this.txtDTTo.Mask = "##-##-####";
             this.txtDTTo.Name = "txtDTTo";
             this.txtDTTo.Size = new System.Drawing.Size(102, 21);
@@ -2129,7 +2114,7 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(175, 12);
+            this.label5.Location = new System.Drawing.Point(365, 12);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(23, 15);
@@ -2140,7 +2125,7 @@
             // txtDTFrom
             // 
             this.txtDTFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDTFrom.Location = new System.Drawing.Point(62, 9);
+            this.txtDTFrom.Location = new System.Drawing.Point(252, 9);
             this.txtDTFrom.Mask = "##-##-####";
             this.txtDTFrom.Name = "txtDTFrom";
             this.txtDTFrom.Size = new System.Drawing.Size(102, 21);
@@ -2154,7 +2139,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(19, 12);
+            this.label3.Location = new System.Drawing.Point(209, 12);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 15);
@@ -2162,13 +2147,28 @@
             this.label3.Text = "From";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // qryRoleProfileBindingSource
+            // 
+            this.qryRoleProfileBindingSource.DataMember = "qryRoleProfile";
+            this.qryRoleProfileBindingSource.DataSource = this.staffsyncDBDTSet;
+            this.qryRoleProfileBindingSource.CurrentChanged += new System.EventHandler(this.qryRoleProfileBindingSource_CurrentChanged);
+            // 
+            // staffsyncDBDTSet
+            // 
+            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
+            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // qryRoleProfileTableAdapter
+            // 
+            this.qryRoleProfileTableAdapter.ClearBeforeFill = true;
+            // 
             // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1444, 745);
+            this.ClientSize = new System.Drawing.Size(1634, 765);
             this.Controls.Add(this.sptrDashboardContainer);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.tblRibbon);
@@ -2208,11 +2208,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.myWebView)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgUserDashboardPreferences)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.grpDashboardDateRange.ResumeLayout(false);
             this.grpDashboardDateRange.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
