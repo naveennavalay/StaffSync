@@ -596,6 +596,7 @@
             this.txtTotalQuantity.TabIndex = 93;
             this.txtTotalQuantity.Tag = "Invoice Number";
             this.txtTotalQuantity.WordWrap = false;
+            this.txtTotalQuantity.TextChanged += new System.EventHandler(this.txtTotalQuantity_TextChanged);
             // 
             // label20
             // 

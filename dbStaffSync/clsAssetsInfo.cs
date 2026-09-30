@@ -282,6 +282,7 @@ namespace dbStaffSync
                                         " AssetMas.AssetDescription, " +
                                         " AssetCategoryMas.AssetCatMasID, " +
                                         " AssetCategoryMas.AssetName AS AssetCategoryName, " +
+                                        " AssetMas.OutstandingQuantity, " +
                                         " AssetCategoryMas.ParentAssetCatMasID, " +
                                         " CurrentAssetStatus.CurrentAssetStatusName, " +
                                         " AssetMas.IsActive, " +

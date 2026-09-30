@@ -944,5 +944,45 @@ namespace StaffSync
             frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblAsssetID.Text.ToString()), "AssetsInfo", "Assets Information", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             objAuditLogStatements.ShowDialog(this);
         }
+
+        private void txtTotalQuantity_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtTotalQuantity.Text.ToString().Trim()))
+            {
+                txtOutstandingQuantity.Text = "0";
+            }
+            else
+            {
+                decimal totalQuantity;
+                if (decimal.TryParse(txtTotalQuantity.Text, out totalQuantity))
+                {
+                    if (totalQuantity < 0)
+                    {
+                        MessageBox.Show("Total Quantity should not be negative.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtTotalQuantity.Text = "0";
+                        txtOutstandingQuantity.Text = "0";
+                    }
+                    else if (totalQuantity == 0)
+                    {
+                        txtOutstandingQuantity.Text = "0";
+                    }
+                    else if (totalQuantity < Convert.ToDecimal(txtOutstandingQuantity.Text))
+                    {
+                        MessageBox.Show("Total Quantity should not be less than Outstanding Quantity.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtTotalQuantity.Text = txtOutstandingQuantity.Text;
+                    }
+                    else
+                    {
+                        txtOutstandingQuantity.Text = totalQuantity.ToString();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please enter a valid numeric value for Total Quantity.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtTotalQuantity.Text = "0";
+                    txtOutstandingQuantity.Text = "0";
+                }
+            }
+        }
     }
 }

@@ -55,22 +55,29 @@ namespace StaffSync
             dtgAssetInfoList.Columns["AssetCode"].Width = 100;
 
             dtgAssetInfoList.Columns["AssetName"].ReadOnly = true;
-            dtgAssetInfoList.Columns["AssetName"].Width = 200;
+            dtgAssetInfoList.Columns["AssetName"].Width = 350;
 
             dtgAssetInfoList.Columns["AssetDescription"].ReadOnly = true;
-            dtgAssetInfoList.Columns["AssetDescription"].Width = 200;
+            dtgAssetInfoList.Columns["AssetDescription"].Width = 350;
 
             dtgAssetInfoList.Columns["AssetCategoryName"].ReadOnly = true;
-            dtgAssetInfoList.Columns["AssetCategoryName"].Width = 200;
+            dtgAssetInfoList.Columns["AssetCategoryName"].Width = 250;
 
             dtgAssetInfoList.Columns["CurrentAssetStatusName"].ReadOnly = true;
-            dtgAssetInfoList.Columns["CurrentAssetStatusName"].Width = 200;
+            dtgAssetInfoList.Columns["CurrentAssetStatusName"].Width = 150;
+
+            dtgAssetInfoList.Columns["OutstandingQuantity"].ReadOnly = true; 
+            dtgAssetInfoList.Columns["OutstandingQuantity"].Width = 75;
+            dtgAssetInfoList.Columns["OutstandingQuantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dtgAssetInfoList.Columns["OutstandingQuantity"].DefaultCellStyle.Format = "0.00";
 
             dtgAssetInfoList.Columns["CurrentAssetDescription"].ReadOnly = true;
             dtgAssetInfoList.Columns["CurrentAssetDescription"].Visible = false;
 
             dtgAssetInfoList.Columns["IsActive"].Visible = false;
-            dtgAssetInfoList.Columns["IsDeleted"].Visible = false;            
+            dtgAssetInfoList.Columns["IsDeleted"].Visible = false;
+            dtgAssetInfoList.Columns["AssetCatMasID"].Visible = false;
+            dtgAssetInfoList.Columns["ParentAssetCatMasID"].Visible = false;
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)

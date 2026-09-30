@@ -66,6 +66,9 @@ namespace ModelStaffSync
         [DisplayName("Asset Category")] 
         public string AssetCategoryName { get; set; }
 
+        [DisplayName("Quantity")] 
+        public string OutstandingQuantity { get; set; }
+
         [DisplayName("Asset Current Status")]
         public string CurrentAssetStatusName { get; set; }
 

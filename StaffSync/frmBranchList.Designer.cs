@@ -78,7 +78,6 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -89,9 +88,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1407, 568);
-            this.splitContainer1.SplitterDistance = 493;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(1055, 462);
+            this.splitContainer1.SplitterDistance = 400;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -102,9 +100,8 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1407, 493);
+            this.panel1.Size = new System.Drawing.Size(1055, 400);
             this.panel1.TabIndex = 1;
             // 
             // dtgCompanyList
@@ -116,23 +113,22 @@
             this.dtgCompanyList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dtgCompanyList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgCompanyList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dtgCompanyList.Location = new System.Drawing.Point(24, 78);
-            this.dtgCompanyList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtgCompanyList.Location = new System.Drawing.Point(18, 63);
             this.dtgCompanyList.Name = "dtgCompanyList";
             this.dtgCompanyList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgCompanyList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgCompanyList.Size = new System.Drawing.Size(1361, 401);
+            this.dtgCompanyList.Size = new System.Drawing.Size(1021, 326);
             this.dtgCompanyList.TabIndex = 10;
             this.dtgCompanyList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgCompanyList_Paint);
             this.dtgCompanyList.DoubleClick += new System.EventHandler(this.dtgCompanyList_DoubleClick);
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(207, 33);
-            this.txtSearch.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.txtSearch.Location = new System.Drawing.Point(155, 27);
+            this.txtSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(819, 25);
+            this.txtSearch.Size = new System.Drawing.Size(615, 21);
             this.txtSearch.TabIndex = 4;
             this.txtSearch.WordWrap = false;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
@@ -141,8 +137,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(28, 38);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.Location = new System.Drawing.Point(21, 31);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(175, 15);
             this.label1.TabIndex = 5;
@@ -154,15 +150,13 @@
             this.panel2.Controls.Add(this.btnCloseMe);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1407, 70);
+            this.panel2.Size = new System.Drawing.Size(1055, 58);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1259, 17);
-            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCloseMe.Location = new System.Drawing.Point(913, 11);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -253,15 +247,14 @@
             // 
             // frmBranchList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1407, 568);
+            this.ClientSize = new System.Drawing.Size(1055, 462);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmBranchList";
