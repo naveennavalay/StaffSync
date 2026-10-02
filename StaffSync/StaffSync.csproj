@@ -404,6 +404,12 @@
     <Compile Include="frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmImportDataProcess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmImportDataProcess.Designer.cs">
+      <DependentUpon>frmImportDataProcess.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmEmpSpecificReports.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1015,6 +1021,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmImportDataProcess.resx">
+      <DependentUpon>frmImportDataProcess.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEmpSpecificReports.resx">
       <DependentUpon>frmEmpSpecificReports.cs</DependentUpon>

@@ -169,20 +169,19 @@
             this.lblAssetID.AutoSize = true;
             this.lblAssetID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblAssetID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAssetID.Location = new System.Drawing.Point(436, 214);
+            this.lblAssetID.Location = new System.Drawing.Point(436, 243);
             this.lblAssetID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblAssetID.Name = "lblAssetID";
             this.lblAssetID.Size = new System.Drawing.Size(11, 15);
             this.lblAssetID.TabIndex = 82;
             this.lblAssetID.Text = " ";
-            this.lblAssetID.Visible = false;
             // 
             // picMoreInfo
             // 
             this.picMoreInfo.BackgroundImage = global::StaffSync.Properties.Resources.tooltip;
             this.picMoreInfo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picMoreInfo.InitialImage = global::StaffSync.Properties.Resources.tooltip;
-            this.picMoreInfo.Location = new System.Drawing.Point(382, 207);
+            this.picMoreInfo.Location = new System.Drawing.Point(739, 207);
             this.picMoreInfo.Name = "picMoreInfo";
             this.picMoreInfo.Size = new System.Drawing.Size(35, 29);
             this.picMoreInfo.TabIndex = 79;
@@ -193,7 +192,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(480, 214);
+            this.label1.Location = new System.Drawing.Point(480, 243);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(149, 15);
@@ -204,7 +203,7 @@
             // 
             // txtMaxLoanAmountAvail
             // 
-            this.txtMaxLoanAmountAvail.Location = new System.Drawing.Point(634, 211);
+            this.txtMaxLoanAmountAvail.Location = new System.Drawing.Point(634, 240);
             this.txtMaxLoanAmountAvail.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtMaxLoanAmountAvail.MaxLength = 255;
             this.txtMaxLoanAmountAvail.Name = "txtMaxLoanAmountAvail";
@@ -314,7 +313,6 @@
             this.lblReportingManagerID.Size = new System.Drawing.Size(11, 15);
             this.lblReportingManagerID.TabIndex = 40;
             this.lblReportingManagerID.Text = " ";
-            this.lblReportingManagerID.Visible = false;
             // 
             // txtRepDepartment
             // 
@@ -501,7 +499,7 @@
             this.cmbAssetType.Margin = new System.Windows.Forms.Padding(4);
             this.cmbAssetType.Name = "cmbAssetType";
             this.cmbAssetType.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbAssetType.Size = new System.Drawing.Size(224, 22);
+            this.cmbAssetType.Size = new System.Drawing.Size(588, 22);
             this.cmbAssetType.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbAssetType.TabIndex = 0;
             this.cmbAssetType.Tag = "Asset Type";
@@ -564,7 +562,6 @@
             this.lblTaskID.Size = new System.Drawing.Size(11, 15);
             this.lblTaskID.TabIndex = 84;
             this.lblTaskID.Text = " ";
-            this.lblTaskID.Visible = false;
             // 
             // lblAssetRegID
             // 
@@ -577,7 +574,6 @@
             this.lblAssetRegID.Size = new System.Drawing.Size(11, 15);
             this.lblAssetRegID.TabIndex = 83;
             this.lblAssetRegID.Text = " ";
-            this.lblAssetRegID.Visible = false;
             // 
             // lblClientID
             // 
@@ -590,7 +586,6 @@
             this.lblClientID.Size = new System.Drawing.Size(11, 15);
             this.lblClientID.TabIndex = 82;
             this.lblClientID.Text = " ";
-            this.lblClientID.Visible = false;
             // 
             // lblAssetRequestID
             // 
@@ -603,7 +598,6 @@
             this.lblAssetRequestID.Size = new System.Drawing.Size(11, 15);
             this.lblAssetRequestID.TabIndex = 81;
             this.lblAssetRequestID.Text = " ";
-            this.lblAssetRequestID.Visible = false;
             // 
             // lnkViewAuditLog
             // 
@@ -653,7 +647,6 @@
             this.lblEmpID.Size = new System.Drawing.Size(11, 15);
             this.lblEmpID.TabIndex = 36;
             this.lblEmpID.Text = " ";
-            this.lblEmpID.Visible = false;
             // 
             // lblPersonalInfoID
             // 

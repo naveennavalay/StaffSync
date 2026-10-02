@@ -7725,7 +7725,7 @@ namespace StaffSync
         {
             try
             {
-                List<MonthlyAttendanceRegisterRow> data = objDashboardChartWidgets.displayMonthlyAttendanceRegisterData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text).Year);
+                List<MonthlyAttendanceRegisterRow> data = await objDashboardChartWidgets.displayMonthlyAttendanceRegisterData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text).Year);
                 string json = JsonConvert.SerializeObject(data);
 
                 string script = $"displayMonthlyAttendanceRegisterData({json});";
@@ -8652,6 +8652,27 @@ namespace StaffSync
                 File.WriteAllBytes(
                     outputFilePath,
                     memoryStream.ToArray());
+            }
+        }
+
+        private void importMasterDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Import Master Data";
+                sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
+                frmImportDataProcess frmImportDataProcess = new frmImportDataProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmImportDataProcess.MdiParent = this;
+                //frmImportDataProcess.Dock = DockStyle.Fill;
+                frmImportDataProcess.Show();
+                //frmImportDataProcess.WindowState = FormWindowState.Maximized;                
             }
         }
     }

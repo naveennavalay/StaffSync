@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DALStaffSync
 {
@@ -150,11 +151,11 @@ namespace DALStaffSync
             return objEmployeesConfirmationChartDataList;
         }
 
-        public List<MonthlyAttendanceRegisterRow> displayMonthlyAttendanceRegisterData(int clientId, int year) //, CancellationToken cancellationToken = default)
+        public async Task<List<MonthlyAttendanceRegisterRow>> displayMonthlyAttendanceRegisterData(int clientId, int year) //, CancellationToken cancellationToken = default)
         {
             List<MonthlyAttendanceRegisterRow> objMonthlyAttendanceRegisterList = new List<MonthlyAttendanceRegisterRow>();
 
-            objMonthlyAttendanceRegisterList = objDashboardChartWidgets.displayMonthlyAttendanceRegisterData(clientId, year);
+            objMonthlyAttendanceRegisterList = await objDashboardChartWidgets.displayMonthlyAttendanceRegisterData(clientId, year);
 
             return objMonthlyAttendanceRegisterList;
         }

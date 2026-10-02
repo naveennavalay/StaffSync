@@ -662,7 +662,7 @@ namespace StaffSync
             txtAssetName.Text = objSelectedAssetInfo.AssetName.ToString();
             txtAssetDescription.Text = objSelectedAssetInfo.AssetDescription.ToString();
             cmbIsActive.Text = objSelectedAssetInfo.IsActive ? "Yes" : "No";
-            cmbAssetCategory.SelectedIndex = objSelectedAssetInfo.AssetCatMasID; //- 1;
+            //cmbAssetCategory.SelectedIndex = objSelectedAssetInfo.AssetCatMasID; //- 1;
             if(AssetInfo.ParentAssetCatMasID > 1)
                 cmbAssetCategory.Text = "-----" + AssetInfo.AssetCategoryName.ToString();
             else

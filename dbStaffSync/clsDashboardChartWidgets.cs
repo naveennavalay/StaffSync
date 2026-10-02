@@ -7,6 +7,8 @@ using System.Data.OleDb;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace dbStaffSync
 {
@@ -1485,76 +1487,37 @@ namespace dbStaffSync
             return objEmployeesConfirmationChartDataList;
         }
 
-        public List<MonthlyAttendanceRegisterRow> displayMonthlyAttendanceRegisterData(int clientId, int year) //, CancellationToken cancellationToken = default)
+        public async Task<List<MonthlyAttendanceRegisterRow>> displayMonthlyAttendanceRegisterData(int clientId, int year) //, CancellationToken cancellationToken = default)
         {
-            List<MonthlyAttendanceRegisterRow> objMonthlyAttendanceRegisterRowList = new List<MonthlyAttendanceRegisterRow>();
-
-            try
+            return await Task.Run(() =>
             {
-                conn = dbStaffSync.openDBConnection();
+                List<MonthlyAttendanceRegisterRow> objMonthlyAttendanceRegisterRowList = new List<MonthlyAttendanceRegisterRow>();
 
-                string strQuery = @"SELECT
-                                        ""MONTH"" AS RecordType,
-                                        Month(Q.AttendanceDate) AS MonthNo,
-                                        Format(Q.AttendanceDate, ""mmm"") AS MonthName,
-                                        Null AS EmpID,
-                                        Null AS EmpCode,
-                                        Null AS EmployeeName,
-                                        Null AS AttendanceDate,
-                                        Null AS AttendanceStatus,
-                                        Sum(IIf(Q.AttStatus = ""Present"", 1, 0)) AS PresentCount,
-                                        Sum(IIf(Q.AttStatus = ""Leave : Full Day"", 1, 0)) AS LeaveCount,
-                                        Sum(IIf(InStr(1, Q.AttStatus, ""Cancelled"", 1) > 0, 1, 0)) AS CancelledCount,
-                                        Sum(IIf(InStr(1, Q.AttStatus, ""Rejected"", 1) > 0, 1, 0)) AS RejectedCount
-                                    FROM
-                                        (
-                                            SELECT
-                                                E.EmpID,
-                                                E.EmpCode AS EmpCode,
-                                                E.EmpName AS EmployeeName,
-                                                DateValue(A.AttDate) AS AttendanceDate,
-                                                A.AttStatus
-                                            FROM
-                                                (ClientMas AS C
-                                                INNER JOIN EmpMas AS E
-                                                    ON C.ClientID = E.ClientID)
-                                                INNER JOIN EmpDailyAttendanceInfo AS A
-                                                    ON E.EmpID = A.EmpID
-                                            WHERE
-                                                E.ClientID = " + clientId + @"
-                                                AND E.IsActive = True
-                                                AND E.IsDeleted = False
-                                                AND A.AttDate >= DateSerial(" + year + @", 1, 1)
-                                                AND A.AttDate < DateSerial(" + (year + 1) + @", 1, 1)
-                                                AND A.AttID =
-                                                    (
-                                                        SELECT Max(A2.AttID)
-                                                        FROM EmpDailyAttendanceInfo AS A2
-                                                        WHERE
-                                                            A2.EmpID = A.EmpID
-                                                            AND DateValue(A2.AttDate) =
-                                                                DateValue(A.AttDate)
-                                                    )
-                                        ) AS Q
-                                    GROUP BY
-                                        Month(Q.AttendanceDate),
-                                        Format(Q.AttendanceDate, ""mmm"")
+                try
+                {
+                    conn = dbStaffSync.openDBConnection();
 
-                                    UNION ALL
-
+                    string strQuery = @"SELECT
+                                ""MONTH"" AS RecordType,
+                                Month(Q.AttendanceDate) AS MonthNo,
+                                Format(Q.AttendanceDate, ""mmm"") AS MonthName,
+                                Null AS EmpID,
+                                Null AS EmpCode,
+                                Null AS EmployeeName,
+                                Null AS AttendanceDate,
+                                Null AS AttendanceStatus,
+                                Sum(IIf(Q.AttStatus = ""Present"", 1, 0)) AS PresentCount,
+                                Sum(IIf(Q.AttStatus = ""Leave : Full Day"", 1, 0)) AS LeaveCount,
+                                Sum(IIf(InStr(1, Q.AttStatus, ""Cancelled"", 1) > 0, 1, 0)) AS CancelledCount,
+                                Sum(IIf(InStr(1, Q.AttStatus, ""Rejected"", 1) > 0, 1, 0)) AS RejectedCount
+                            FROM
+                                (
                                     SELECT
-                                        ""DETAIL"" AS RecordType,
-                                        Month(DateValue(A.AttDate)) AS MonthNo,
-                                        Format(DateValue(A.AttDate), ""mmm"") AS MonthName,
                                         E.EmpID,
                                         E.EmpCode AS EmpCode,
                                         E.EmpName AS EmployeeName,
                                         DateValue(A.AttDate) AS AttendanceDate,
-                                        A.AttStatus AS AttendanceStatus,
-                                        Null AS PresentCount,
-                                        Null AS LeaveCount,
-                                        Null AS CancelledCount,
-                                        Null AS RejectedCount
+                                        A.AttStatus
                                     FROM
                                         (ClientMas AS C
                                         INNER JOIN EmpMas AS E
@@ -1576,41 +1539,102 @@ namespace dbStaffSync
                                                     AND DateValue(A2.AttDate) =
                                                         DateValue(A.AttDate)
                                             )
+                                ) AS Q
+                            GROUP BY
+                                Month(Q.AttendanceDate),
+                                Format(Q.AttendanceDate, ""mmm"")
 
-                                    ORDER BY
-                                        RecordType,
-                                        MonthNo,
-                                        EmpCode,
-                                        EmployeeName,
-                                        AttendanceDate;";
+                            UNION ALL
 
-                DataTable dt = new DataTable();
+                            SELECT
+                                ""DETAIL"" AS RecordType,
+                                Month(DateValue(A.AttDate)) AS MonthNo,
+                                Format(DateValue(A.AttDate), ""mmm"") AS MonthName,
+                                E.EmpID,
+                                E.EmpCode AS EmpCode,
+                                E.EmpName AS EmployeeName,
+                                DateValue(A.AttDate) AS AttendanceDate,
+                                A.AttStatus AS AttendanceStatus,
+                                Null AS PresentCount,
+                                Null AS LeaveCount,
+                                Null AS CancelledCount,
+                                Null AS RejectedCount
+                            FROM
+                                (ClientMas AS C
+                                INNER JOIN EmpMas AS E
+                                    ON C.ClientID = E.ClientID)
+                                INNER JOIN EmpDailyAttendanceInfo AS A
+                                    ON E.EmpID = A.EmpID
+                            WHERE
+                                E.ClientID = " + clientId + @"
+                                AND E.IsActive = True
+                                AND E.IsDeleted = False
+                                AND A.AttDate >= DateSerial(" + year + @", 1, 1)
+                                AND A.AttDate < DateSerial(" + (year + 1) + @", 1, 1)
+                                AND A.AttID =
+                                    (
+                                        SELECT Max(A2.AttID)
+                                        FROM EmpDailyAttendanceInfo AS A2
+                                        WHERE
+                                            A2.EmpID = A.EmpID
+                                            AND DateValue(A2.AttDate) =
+                                                DateValue(A.AttDate)
+                                    )
 
-                OleDbCommand cmd = conn.CreateCommand();
-                cmd.CommandType = CommandType.Text;
-                cmd.CommandText = strQuery;
-                cmd.ExecuteNonQuery();
+                            ORDER BY
+                                RecordType,
+                                MonthNo,
+                                EmpCode,
+                                EmployeeName,
+                                AttendanceDate;";
 
-                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
-                da.Fill(dt);
+                    //DataTable dt = new DataTable();
 
-                string DataTableToJSon = "";
-                DataTableToJSon = JsonConvert.SerializeObject(dt);
-                objMonthlyAttendanceRegisterRowList = JsonConvert.DeserializeObject<List<MonthlyAttendanceRegisterRow>>(DataTableToJSon);
-            }
-            catch (Exception ex)
-            {
-                // Log if required
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    dbStaffSync.closeDBConnection();
+                    //OleDbCommand cmd = conn.CreateCommand();
+                    //cmd.CommandType = CommandType.Text;
+                    //cmd.CommandText = strQuery;
+                    //cmd.ExecuteNonQueryAsync();
+
+                    //OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                    //da.Fill(dt);
+
+                    //string DataTableToJSon = JsonConvert.SerializeObject(dt);
+                    //objMonthlyAttendanceRegisterRowList = JsonConvert.DeserializeObject<List<MonthlyAttendanceRegisterRow>>(DataTableToJSon);
+
+                    DataTable dt = new DataTable();
+
+                    OleDbCommand cmd = conn.CreateCommand();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strQuery;
+
+                    // IMPORTANT:
+                    // Do NOT call ExecuteNonQuery() for this SELECT.
+
+                    OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+
+                    da.Fill(dt);
+
+                    string DataTableToJson = JsonConvert.SerializeObject(dt);
+
+                    objMonthlyAttendanceRegisterRowList = JsonConvert.DeserializeObject<List<MonthlyAttendanceRegisterRow>>(DataTableToJson);
+
+                    return objMonthlyAttendanceRegisterRowList;
+
                 }
-            }
+                catch (Exception)
+                {
+                    // Log if required
+                }
+                finally
+                {
+                    if (conn != null)
+                    {
+                        dbStaffSync.closeDBConnection();
+                    }
+                }
 
-            return objMonthlyAttendanceRegisterRowList;
+                return objMonthlyAttendanceRegisterRowList;
+            });
         }
 
         public List<EmployeeAdvanceInformationChartData> displayEmployeeAdvanceInformationChartData(int clientId, DateTime dtFrom, DateTime dtTo) //, CancellationToken cancellationToken = default)
