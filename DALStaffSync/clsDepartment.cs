@@ -31,7 +31,7 @@ namespace DALStaffSync
             return selectedDepartmentTitle;
         }
 
-        public int GetBloodGroupByTitle(string DepartmentTitle)
+        public int GetDepartmentTitleByTitle(string DepartmentTitle)
         {
             int selectedDepartmentID = 0;
             

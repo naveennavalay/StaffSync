@@ -112,6 +112,136 @@ namespace dbStaffSync
             return objSpecificShiftInfo;
         }
 
+        public int GetShiftTitleByTitle(string ShiftTitle)
+        {
+            int selectedShiftID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT ShiftID FROM ShiftMas WHERE ShiftTitle = '" + ShiftTitle + "'";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                cmd.Parameters.AddWithValue("@ShiftTitle", ShiftTitle.Trim());
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    selectedShiftID = Convert.ToInt32(result);
+                }
+                else
+                {
+                    selectedShiftID = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedShiftID;
+        }
+
+        public int InsertShiftMasInfo(string txtShiftCode, string txtShiftTitle, string txtShiftInitial, DateTime ShiftStart, DateTime ShiftEnd, bool IsActive, bool IsDeleted)
+        {
+            int affectedRows = 0;
+            try
+            {
+
+                Response<int> maxRowCount = objGenFunc.getMaxRowCount("SkillsMas", "SkillID");
+
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "INSERT INTO ShiftMas (ShiftID, ShiftCode, ShiftTitle, ShiftInitital, ShiftStart, ShiftEnd, IsActive, IsDelete) VALUES " +
+                 "(" + maxRowCount.Data + ",'" + "STT-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtShiftTitle.Trim() + "','" + txtShiftInitial.Trim() + "', #" + ShiftStart.ToString("hh:mm:ss tt") + "#, #" + ShiftEnd.ToString("hh:mm:ss tt") + "#, " + IsActive + "," + IsDeleted + ")";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = maxRowCount.Data;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return affectedRows;
+        }
+
+        public int UpdateShiftMas(int ShiftID, string txtShiftCode, string txtShiftTitle, string txtShiftInitial, DateTime ShiftStart, DateTime ShiftEnd, bool IsActive, bool IsDeleted)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE ShiftMas SET " +
+                "ShiftCode = '" + txtShiftCode.Trim() + "', ShiftTitle = '" + txtShiftTitle.Trim() + "', ShiftInitial = '" + txtShiftInitial.Trim() + "', ShiftStart = #" + ShiftStart.ToString("hh:mm:ss tt") + "#, ShiftEnd = #" + ShiftEnd.ToString("hh:mm:ss tt") + "#, IsActive = " + IsActive + ", IsDeleted = " + IsDeleted +
+                " WHERE ShiftID = " + ShiftID.ToString().Trim();
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return affectedRows;
+        }
+
+        public int DeleteShiftMasInfo(int ShiftID)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "DELETE * FROM ShiftMas WHERE ShiftID = " + ShiftID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return affectedRows;
+        }
+
+
         public int InsertEmployeeShiftInfo(int txtEmpID, int txtShiftID, DateTime txtEffectiveDate)
         {
             int affectedRows = 0;

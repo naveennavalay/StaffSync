@@ -88,6 +88,43 @@ namespace dbStaffSync
             return objSkillsList;
         }
 
+        public int GetSkillByTitle(string SkillTitle)
+        {
+            int selectedSkillID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT SkillID FROM SkillsMas WHERE SkillTitle = '" + SkillTitle + "'";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                cmd.Parameters.AddWithValue("@SkillTitle", SkillTitle.Trim());
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    selectedSkillID = Convert.ToInt32(result);
+                }
+                else
+                {
+                    selectedSkillID = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedSkillID;
+        }
+
         public int InsertSkill(string txtSkillCode, string txtSkillTitle, string txtSkillInitial, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;

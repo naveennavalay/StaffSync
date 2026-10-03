@@ -88,6 +88,43 @@ namespace dbStaffSync
             return objQualificationList;
         }
 
+        public int GetEduQualByTitle(string EduQualTitle)
+        {
+            int selectedEducQualID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT EduQualID FROM EduQualMas WHERE EduQualTitle = '" + EduQualTitle + "'";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                cmd.Parameters.AddWithValue("@EduQualTitle", EduQualTitle.Trim());
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    selectedEducQualID = Convert.ToInt32(result);
+                }
+                else
+                {
+                    selectedEducQualID = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedEducQualID;
+        }
+
         public int InsertEduQual(string txtEduQualCode, string txtEduQualTitle, string txtEduQualInitial, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;

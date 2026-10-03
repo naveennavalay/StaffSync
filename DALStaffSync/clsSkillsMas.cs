@@ -22,6 +22,15 @@ namespace DALStaffSync
             return objSkillsMas.GetSkillList(filterText);
         }
 
+        public int GetSkillByTitle(string SkillTitle)
+        {
+            int SkillID = 0;
+
+            SkillID = objSkillsMas.GetSkillByTitle(SkillTitle);
+
+            return SkillID;
+        }
+
         public int InsertSkill(string txtSkillCode, string txtSkillTitle, string txtSkillInitial, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;

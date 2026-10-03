@@ -32,6 +32,42 @@ namespace DALStaffSync
             return objSpecificShiftInfo;
         }
 
+        public int GetShiftTitleByTitle(string ShiftTitle)
+        {
+            int ShiftID = 0;
+
+            ShiftID = objShiftMasInfo.GetShiftTitleByTitle(ShiftTitle);
+
+            return ShiftID;
+        }
+
+        public int InsertShiftMasInfo(string txtShiftCode, string txtShiftTitle, string txtShiftInitial, DateTime ShiftStart, DateTime ShiftEnd, bool IsActive, bool IsDeleted)
+        {
+            int affectedRows = 0;
+
+            affectedRows = objShiftMasInfo.InsertShiftMasInfo(txtShiftCode, txtShiftTitle, txtShiftInitial, ShiftStart, ShiftEnd, IsActive, IsDeleted);
+
+            return affectedRows;
+        }
+
+        public int UpdateShiftMasInfo(int txtShiftID, string txtShiftCode, string txtShiftTitle, string txtShiftInitial, DateTime ShiftStart, DateTime ShiftEnd, bool IsActive, bool IsDeleted)
+        {
+            int affectedRows = 0;
+
+            affectedRows = objShiftMasInfo.UpdateShiftMas(txtShiftID, txtShiftCode, txtShiftTitle, txtShiftInitial, ShiftStart, ShiftEnd, IsActive, IsDeleted);
+
+            return affectedRows;
+        }
+
+        public int DeleteShiftMasInfo(int ShiftID)
+        {
+            int affectedRows = 0;
+
+            affectedRows = objShiftMasInfo.DeleteShiftMasInfo(ShiftID);
+
+            return affectedRows;
+        }
+
         public int InsertEmployeeShiftInfo(int txtEmpID, int txtShiftID, DateTime txtEffectiveDate)
         {
             int affectedRows = 0;

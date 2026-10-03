@@ -127,7 +127,18 @@ namespace dbStaffSync
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
-                selectedDepartmentID = (int)cmd.ExecuteScalar();
+                //selectedDepartmentID = (int)cmd.ExecuteScalar();
+
+                cmd.Parameters.AddWithValue("@DesignationTitle", DepartmentTitle.Trim());
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    selectedDepartmentID = Convert.ToInt32(result);
+                }
+                else
+                {
+                    selectedDepartmentID = 0;
+                }
             }
             catch (Exception ex)
             {

@@ -118,7 +118,17 @@ namespace dbStaffSync
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
-                selectedStateID = (int)cmd.ExecuteScalar();
+
+                cmd.Parameters.AddWithValue("@CountryTitle", CountryName.Trim());
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    selectedStateID = Convert.ToInt32(result);
+                }
+                else
+                {
+                    selectedStateID = 0;
+                }
             }
             catch (Exception ex)
             {
@@ -145,7 +155,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO CountryMas (CountryID, CountryCode, CountryTitle, CountryInitial, IsActive, IsDeleted) VALUES " +
-                 "(" + maxRowCount  + ",'" + "CON-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtCountryTitle.Trim() + "','" + txtCountryInitial.Trim() + "'," + IsActive + "," + IsDeleted + ")";
+                 "(" + maxRowCount.Data + ",'" + "CON-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtCountryTitle.Trim() + "','" + txtCountryInitial.Trim() + "'," + IsActive + "," + IsDeleted + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

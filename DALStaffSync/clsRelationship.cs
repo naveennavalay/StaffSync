@@ -30,6 +30,15 @@ namespace DALStaffSync
             return dt;
         }
 
+        public int GetRelationshipTitleByTitle(string RelationshipTitle)
+        {
+            int RelationshipID = 0;
+
+            RelationshipID = objRelationship.GetRelationshipTitleByTitle(RelationshipTitle);
+
+            return RelationshipID;
+        }
+
         public int InsertRelationship(string txtRelationshipCode, string txtRelationshipTitle, string txtRelationshipInitial, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;

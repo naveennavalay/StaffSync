@@ -36,6 +36,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dtgImportDataSourceList = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lblSelectedDataAction = new System.Windows.Forms.Label();
+            this.chkSelectOrUnselect = new Krypton.Toolkit.KryptonCheckButton();
             this.chkAvoidDuplicateRows = new System.Windows.Forms.CheckBox();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
             this.txtSourceFilePath = new System.Windows.Forms.TextBox();
@@ -62,8 +64,6 @@
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
-            this.chkSelectOrUnselect = new Krypton.Toolkit.KryptonCheckButton();
-            this.lblSelectedDataAction = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -179,6 +179,30 @@
             this.groupBox4.TabIndex = 65;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Asset Information";
+            // 
+            // lblSelectedDataAction
+            // 
+            this.lblSelectedDataAction.AutoSize = true;
+            this.lblSelectedDataAction.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.lblSelectedDataAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelectedDataAction.Location = new System.Drawing.Point(354, 75);
+            this.lblSelectedDataAction.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblSelectedDataAction.Name = "lblSelectedDataAction";
+            this.lblSelectedDataAction.Size = new System.Drawing.Size(11, 15);
+            this.lblSelectedDataAction.TabIndex = 87;
+            this.lblSelectedDataAction.Text = " ";
+            this.lblSelectedDataAction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // chkSelectOrUnselect
+            // 
+            this.chkSelectOrUnselect.Enabled = false;
+            this.chkSelectOrUnselect.Location = new System.Drawing.Point(106, 119);
+            this.chkSelectOrUnselect.Name = "chkSelectOrUnselect";
+            this.chkSelectOrUnselect.Size = new System.Drawing.Size(87, 15);
+            this.chkSelectOrUnselect.TabIndex = 86;
+            this.chkSelectOrUnselect.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.chkSelectOrUnselect.Values.Text = "Unselect";
+            this.chkSelectOrUnselect.Click += new System.EventHandler(this.chkSelectOrUnselect_Click);
             // 
             // chkAvoidDuplicateRows
             // 
@@ -320,6 +344,13 @@
             this.dtgImportDataPreview.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgImportDataPreview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgImportDataPreview.Size = new System.Drawing.Size(777, 279);
+            this.dtgImportDataPreview.StateCommon.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgImportDataPreview.StateCommon.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgImportDataPreview.StateCommon.BackStyle = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
+            this.dtgImportDataPreview.StateDisabled.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgImportDataPreview.StateDisabled.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgImportDataPreview.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgImportDataPreview.StateNormal.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgImportDataPreview.TabIndex = 65;
             // 
             // lnkViewAuditLog
@@ -373,6 +404,7 @@
             // 
             // btnSaveDetails
             // 
+            this.btnSaveDetails.Enabled = false;
             this.btnSaveDetails.Location = new System.Drawing.Point(20, 6);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -453,30 +485,6 @@
             // qryAllEmpLeavePendingStatementTableAdapter
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
-            // 
-            // chkSelectOrUnselect
-            // 
-            this.chkSelectOrUnselect.Enabled = false;
-            this.chkSelectOrUnselect.Location = new System.Drawing.Point(106, 119);
-            this.chkSelectOrUnselect.Name = "chkSelectOrUnselect";
-            this.chkSelectOrUnselect.Size = new System.Drawing.Size(87, 15);
-            this.chkSelectOrUnselect.TabIndex = 86;
-            this.chkSelectOrUnselect.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.chkSelectOrUnselect.Values.Text = "Unselect";
-            this.chkSelectOrUnselect.Click += new System.EventHandler(this.chkSelectOrUnselect_Click);
-            // 
-            // lblSelectedDataAction
-            // 
-            this.lblSelectedDataAction.AutoSize = true;
-            this.lblSelectedDataAction.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblSelectedDataAction.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSelectedDataAction.Location = new System.Drawing.Point(354, 75);
-            this.lblSelectedDataAction.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblSelectedDataAction.Name = "lblSelectedDataAction";
-            this.lblSelectedDataAction.Size = new System.Drawing.Size(11, 15);
-            this.lblSelectedDataAction.TabIndex = 87;
-            this.lblSelectedDataAction.Text = " ";
-            this.lblSelectedDataAction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frmImportDataProcess
             // 
