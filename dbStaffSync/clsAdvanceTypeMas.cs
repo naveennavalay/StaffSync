@@ -159,7 +159,10 @@ namespace dbStaffSync
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
-                selectedAdvanceTypeID = (int)cmd.ExecuteScalar();
+                //selectedAdvanceTypeID = (int)cmd.ExecuteScalar();
+                object a = cmd.ExecuteScalar();
+                if (a != null)
+                    selectedAdvanceTypeID = (int)a;
             }
             catch (Exception ex)
             {

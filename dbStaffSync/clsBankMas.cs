@@ -100,6 +100,74 @@ namespace dbStaffSync
             return bankDetailsInfoList;
         }
 
+        public int GetBankInfoTitleByTitle(string BankName)
+        {
+            int selectedBankInfoID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT BankID FROM BankMasInfo WHERE BankName = '" + BankName + "'";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                cmd.Parameters.AddWithValue("@BankName", BankName.Trim());
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    selectedBankInfoID = Convert.ToInt32(result);
+                }
+                else
+                {
+                    selectedBankInfoID = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedBankInfoID;
+        }
+
+        public int InsertBankMasInfo(string txtBankCode, string txtBankName, string txtBankAddress, string txtIFSCCode, bool IsActive, bool IsDeleted)
+        {
+            int affectedRows = 0;
+
+            try
+            {
+                Response<int> maxRowCount = objGenFunc.getMaxRowCount("BankMasInfo", "BankID");
+
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "INSERT INTO BankMasInfo (BankID, BankCode, BankName, BankAddress, IFSCCode, IsActive, IsDeleted) VALUES " +
+                "(" + maxRowCount.Data + ",'" + "BNK-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtBankName + "','" + txtBankAddress + "','" + txtIFSCCode + "', " + IsActive + ", " + IsDeleted + ")";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = maxRowCount.Data;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
 
         public int InsertEmployeeBankReference(int txtEmpID, string txtEmpACNumber, int txtBankID, bool IsDefault)
         {

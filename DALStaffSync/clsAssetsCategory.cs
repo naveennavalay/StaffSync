@@ -50,6 +50,15 @@ namespace DALStaffSync
             return objAssetsCategory.getAssetsCategoryInfoFilter(txtAssetName, txtClientID);
         }
 
+        public int GetAssetsCategoryInfoByName(string AssetName)
+        {
+            int AssetCatMasID = 0;
+
+            AssetCatMasID = objAssetsCategory.GetAssetsCategoryInfoByName(AssetName);
+
+            return AssetCatMasID;
+        }
+
         public int InsertAssetCategoryInfo(string txtAssetCode, string txtAssetName, string txtAssetDescription, string txtAssetNote, int ParentAssetCatMasID, bool IsActive, bool IsDeleted, int txtClientID)
         {
             int affectedRows = 0;

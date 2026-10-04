@@ -167,6 +167,43 @@ namespace dbStaffSync
             return LeaveTypeInfoList;
         }
 
+        public int GetLeaveTypeMasInfoByName(string LeaveTypeTitle)
+        {
+            int selectedLeaveTypeID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT LeaveTypeID FROM LeaveTypeMas WHERE LeaveTypeTitle = '" + LeaveTypeTitle + "'";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                cmd.Parameters.AddWithValue("@LeaveTypeTitle", LeaveTypeTitle.Trim());
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    selectedLeaveTypeID = Convert.ToInt32(result);
+                }
+                else
+                {
+                    selectedLeaveTypeID = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedLeaveTypeID;
+        }
+
         public int InsertLeaveTypeInfo(string txtLeaveCode, string txtLeaveTypeTitle, bool IsPaid, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;
@@ -178,7 +215,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO LeaveTypeMas (LeaveTypeID, LeaveCode, LeaveTypeTitle, IsPaid, IsActive, IsDelete, OrderID) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + "LEV-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "', '" + txtLeaveTypeTitle + "', " + IsPaid + ", " + IsActive + ", false," + maxRowCount + ")";
+                 "(" + maxRowCount.Data + ",'" + "LEV-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "', '" + txtLeaveTypeTitle + "', " + IsPaid + ", " + IsActive + ", false," + maxRowCount.Data + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

@@ -326,6 +326,44 @@ namespace dbStaffSync
             return objAssetsCategoryList;
         }
 
+        public int GetAssetsCategoryInfoByName(string AssetName)
+        {
+            int selectedAssetID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT AssetCatMasID FROM AssetCategoryMas WHERE AssetName = '" + AssetName + "'";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                cmd.Parameters.AddWithValue("@AssetName", AssetName.Trim());
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    selectedAssetID = Convert.ToInt32(result);
+                }
+                else
+                {
+                    selectedAssetID = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedAssetID;
+        }
+
+
         public int InsertAssetCategoryInfo(string txtAssetCode, string txtAssetName, string txtAssetDescription, string txtAssetNote, int ParentAssetCatMasID, bool IsActive, bool IsDeleted, int txtClientID)
         {
             int affectedRows = 0;
@@ -339,7 +377,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO AssetCategoryMas (AssetCatMasID, AssetCode, AssetName, AssetDescription, AssetNote, ParentAssetCatMasID, IsActive, IsDeleted, ClientID) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + txtAssetCode + "', '" + txtAssetName + "', '" + txtAssetDescription + "','" + txtAssetNote + "'," + ParentAssetCatMasID + ", " + IsActive + ", " + IsDeleted + ", " + txtClientID + ")";
+                 "(" + maxRowCount.Data + ",'" + "ACC-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "', '" + txtAssetName + "', '" + txtAssetDescription + "','" + txtAssetNote + "'," + ParentAssetCatMasID + ", " + IsActive + ", " + IsDeleted + ", " + txtClientID + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

@@ -54,6 +54,15 @@ namespace DALStaffSync
             return LeaveTypeInfoList;
         }
 
+        public int GetLeaveTypeMasInfoByName(string LeaveTypeTitle)
+        {
+            int LeaveTypeID = 0;
+
+            LeaveTypeID = objLeaveTypeMas.GetLeaveTypeMasInfoByName(LeaveTypeTitle);
+
+            return LeaveTypeID;
+        }
+
         public int InsertLeaveTypeInfo(string txtLeaveCode, string txtLeaveTypeTitle, bool IsPaid, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;

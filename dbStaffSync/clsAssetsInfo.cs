@@ -666,6 +666,43 @@ namespace dbStaffSync
             return objAssetEditingList;
         }
 
+        public int GetAssetInfoByName(string AssetName)
+        {
+            int selectedAssetID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT AssetID FROM AssetMas WHERE AssetName = '" + AssetName + "'";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                cmd.Parameters.AddWithValue("@AssetName", AssetName.Trim());
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    selectedAssetID = Convert.ToInt32(result);
+                }
+                else
+                {
+                    selectedAssetID = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedAssetID;
+        }
+
         public int InsertAssetInfo(string txtAssetCode, string txtAssetName, string txtAssetDescription, bool IsActive, bool IsDeleted, int AssetCatMasID, bool IsRecoverable, bool IsRequireReturn, bool IsCriticalAsset, int RecoveryTypeID, bool AffectsPayroll, string PayrollImpact, int PayrollHeaderID, int CurrentAssetStatusID, decimal TotalQuantity, decimal OutstandingQuantity)
         {
             int affectedRows = 0;
@@ -677,7 +714,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "INSERT INTO AssetMas (AssetID, AssetCode, AssetName, AssetDescription, IsActive, IsDeleted, AssetCatMasID, IsRecoverable, IsRequireReturn, IsCriticalAsset, RecoveryTypeID, AffectsPayroll, PayrollImpact, PayrollHeaderID, CurrentAssetStatusID, TotalQuantity, OutstandingQuantity) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + txtAssetCode + "', '" + txtAssetName + "', '" + txtAssetDescription + "'," + IsActive + ", " + IsDeleted + ", " + AssetCatMasID + ", " + IsRecoverable + ", " + IsRequireReturn + ", " + IsCriticalAsset + ", " + RecoveryTypeID + ", " + AffectsPayroll + ", '" + PayrollImpact + "', " + PayrollHeaderID + ", " + CurrentAssetStatusID + "," + TotalQuantity + "," + OutstandingQuantity + ")";
+                 "(" + maxRowCount.Data + ",'" + "ACS-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "', '" + txtAssetName + "', '" + txtAssetDescription + "'," + IsActive + ", " + IsDeleted + ", " + AssetCatMasID + ", " + IsRecoverable + ", " + IsRequireReturn + ", " + IsCriticalAsset + ", " + RecoveryTypeID + ", " + AffectsPayroll + ", '" + PayrollImpact + "', " + PayrollHeaderID + ", " + CurrentAssetStatusID + "," + TotalQuantity + "," + OutstandingQuantity + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

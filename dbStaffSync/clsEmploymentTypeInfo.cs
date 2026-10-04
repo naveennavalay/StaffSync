@@ -116,6 +116,77 @@ namespace dbStaffSync
             return objEmploymentTypeInfo;
         }
 
+        public int GetEmployeeTypeTitleByTitle(string EmpTypeTitle)
+        {
+            int selectedEmpTypeMasID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT EmpTypeMasID FROM EmploymentTypeMas WHERE EmpTypeTitle = '" + EmpTypeTitle + "'";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                cmd.Parameters.AddWithValue("@EmpTypeTitle", EmpTypeTitle.Trim());
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    selectedEmpTypeMasID = Convert.ToInt32(result);
+                }
+                else
+                {
+                    selectedEmpTypeMasID = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedEmpTypeMasID;
+        }
+
+        public int InsertEmploymentTypeMasInfo(string txtEmpTypeCode, string txtEmpTypeTitle, string txtEmpTypeInitial, bool IsActive, bool IsDeleted)
+        {
+            int affectedRows = 0;
+            try
+            {
+
+                Response<int> maxRowCount = objGenFunc.getMaxRowCount("EmploymentTypeMas", "EmpTypeMasID");
+
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "INSERT INTO EmploymentTypeMas (EmpTypeMasID, EmpTypeCode, EmpTypeTitle, EmpTypeInitial, IsActive, IsDelete) VALUES " +
+                 "(" + maxRowCount.Data + ", '" + "ETP-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "', '" + txtEmpTypeTitle + "', '" + txtEmpTypeInitial + "', " + IsActive + ", " + IsDeleted + ")";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = maxRowCount.Data;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return affectedRows;
+        }
+
         public int InsertEmploymentTypeInfo(int txtEmpID, int txtEmpTypeMasID, DateTime txtEffectiveDate)
         {
             int affectedRows = 0;

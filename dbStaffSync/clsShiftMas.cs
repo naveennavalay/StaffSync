@@ -155,7 +155,7 @@ namespace dbStaffSync
             try
             {
 
-                Response<int> maxRowCount = objGenFunc.getMaxRowCount("SkillsMas", "SkillID");
+                Response<int> maxRowCount = objGenFunc.getMaxRowCount("ShiftMas", "ShiftID");
 
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();

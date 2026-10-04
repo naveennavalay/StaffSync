@@ -32,6 +32,24 @@ namespace DALStaffSync
             return objTempEmpTypeInfo;
         }
 
+        public int GetEmployeeTypeTitleByTitle(string EmpTypeTitle)
+        {
+            int EmpTypeMasID = 0;
+
+            EmpTypeMasID = objEmploymentTypeInfo.GetEmployeeTypeTitleByTitle(EmpTypeTitle);
+
+            return EmpTypeMasID;
+        }
+
+        public int InsertEmploymentTypeMasInfo(string txtEmpTypeCode, string txtEmpTypeTitle, string txtEmpTypeInitial, bool IsActive, bool IsDeleted)
+        {
+            int affectedRows = 0;
+
+            affectedRows = objEmploymentTypeInfo.InsertEmploymentTypeMasInfo(txtEmpTypeCode, txtEmpTypeTitle, txtEmpTypeInitial, IsActive, IsDeleted);
+
+            return affectedRows;
+        }
+
         public int InsertEmploymentTypeInfo(int txtEmpID, int txtEmpTypeMasID, DateTime txtEffectiveDate)
         {
             int affectedRows = 0;

@@ -150,7 +150,7 @@
             this.dtgImportDataSourceList.Name = "dtgImportDataSourceList";
             this.dtgImportDataSourceList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgImportDataSourceList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgImportDataSourceList.Size = new System.Drawing.Size(331, 417);
+            this.dtgImportDataSourceList.Size = new System.Drawing.Size(331, 422);
             this.dtgImportDataSourceList.TabIndex = 64;
             this.dtgImportDataSourceList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgImportDataSourceList_CellDoubleClick);
             // 

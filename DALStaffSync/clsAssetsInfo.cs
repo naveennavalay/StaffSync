@@ -55,6 +55,11 @@ namespace DALStaffSync
             return objAssetsInfo.getAssetsRequestList(txtClientID);
         }
 
+        public int GetAssetInfoByName(string AssetName)
+        {
+            return objAssetsInfo.GetAssetInfoByName(AssetName);
+        }
+
         public int InsertAssetInfo(string txtAssetCode, string txtAssetName, string txtAssetDescription, bool IsActive, bool IsDeleted, int AssetCatMasID, bool IsRecoverable, bool IsRequireReturn, bool IsCriticalAsset, int RecoveryTypeID, bool AffectsPayroll, string PayrollImpact, int PayrollHeaderID, int CurrentAssetStatusID, decimal TotalQuantity, decimal OutstandingQuantity)
         {
             return objAssetsInfo.InsertAssetInfo(txtAssetCode, txtAssetName, txtAssetDescription, IsActive, IsDeleted, AssetCatMasID, IsRecoverable, IsRequireReturn, IsCriticalAsset, RecoveryTypeID, AffectsPayroll, PayrollImpact, PayrollHeaderID, CurrentAssetStatusID, TotalQuantity, OutstandingQuantity);

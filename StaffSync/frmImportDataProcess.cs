@@ -40,6 +40,17 @@ namespace StaffSync
         DALStaffSync.clsSkillsMas objSkillsMas = new DALStaffSync.clsSkillsMas();
         DALStaffSync.clsRelationship objRelationship = new DALStaffSync.clsRelationship();
         DALStaffSync.clsShiftMas objShiftMas = new DALStaffSync.clsShiftMas();
+        DALStaffSync.clsEmploymentTypeInfo objEmploymentTypeInfo = new DALStaffSync.clsEmploymentTypeInfo();
+        DALStaffSync.clsBankMas objBankMas = new DALStaffSync.clsBankMas();
+        DALStaffSync.clsAdvanceTypeMas objAdvanceTypeMas = new DALStaffSync.clsAdvanceTypeMas();
+        DALStaffSync.clsAssetsCategory objAssetsCategory = new DALStaffSync.clsAssetsCategory();
+        DALStaffSync.clsAssetsInfo objAssetsInfo = new DALStaffSync.clsAssetsInfo();
+        DALStaffSync.clsAssetRegister objAssetRegister = new DALStaffSync.clsAssetRegister();
+        DALStaffSync.clsLeaveTypeMas objLeaveTypeMas = new DALStaffSync.clsLeaveTypeMas();
+        DALStaffSync.clsAllowenceInfo objAllowenceInfo = new DALStaffSync.clsAllowenceInfo();
+        DALStaffSync.clsDeductionsInfo objDeductionInfo = new DALStaffSync.clsDeductionsInfo();
+        DALStaffSync.clsReimbursement objReimbursementInfo = new DALStaffSync.clsReimbursement();
+
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         List<ClientInfo> objActiveClientInfo = new List<ClientInfo>();
@@ -248,7 +259,7 @@ namespace StaffSync
             dtgImportDataSourceList.Columns["ImpDataInfoCode"].Visible = false;
             dtgImportDataSourceList.Columns["ImpDataInfoTitle"].HeaderText = "Import Data";
             dtgImportDataSourceList.Columns["ImpDataInfoTitle"].ReadOnly = true;
-            dtgImportDataSourceList.Columns["ImpDataInfoTitle"].Width = 250;
+            dtgImportDataSourceList.Columns["ImpDataInfoTitle"].Width = 225;
             dtgImportDataSourceList.Columns["ImpDataInfoDescription"].Visible = false;
             dtgImportDataSourceList.Columns["IsActive"].Visible = false;
             dtgImportDataSourceList.Columns["IsDeleted"].Visible = false;
@@ -408,31 +419,149 @@ namespace StaffSync
             }
             else if (lblSelectedDataAction.Text == "Import Asset Category Information")
             {
-
+                //dtgImportDataPreview.Columns["AssetCatMasID"].HeaderText = "Category ID";
+                //dtgImportDataPreview.Columns["AssetCatMasID"].Visible = false;
+                //dtgImportDataPreview.Columns["AssetCode"].HeaderText = "Category Code";
+                //dtgImportDataPreview.Columns["AssetCode"].Visible = false;
+                //dtgImportDataPreview.Columns["AssetCode"].Width = 150;
+                dtgImportDataPreview.Columns["AssetName"].HeaderText = "Category Title";
+                dtgImportDataPreview.Columns["AssetName"].Width = 300;
+                dtgImportDataPreview.Columns["AssetName"].ReadOnly = true;
+                dtgImportDataPreview.Columns["AssetDescription"].HeaderText = "Category Description";
+                dtgImportDataPreview.Columns["AssetDescription"].Width = 200;
+                dtgImportDataPreview.Columns["AssetDescription"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].HeaderText = "Is Active";
+                dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+                //dtgImportDataPreview.Columns["AssetNote"].HeaderText = "Skill Initial";
+                //dtgImportDataPreview.Columns["AssetNote"].Width = 200;
+                //dtgImportDataPreview.Columns["AssetNote"].ReadOnly = true;
+                //dtgImportDataPreview.Columns["AssetNote"].Visible = false;
+                //dtgImportDataPreview.Columns["ClientID"].Visible = false;
+                //dtgImportDataPreview.Columns["ParentAssetCatMasID"].Visible = false;
             }
             else if (lblSelectedDataAction.Text == "Import Assets Information")
             {
+                //dtgImportDataPreview.Columns["AssetID"].HeaderText = "Asset ID";
+                //dtgImportDataPreview.Columns["AssetID"].Visible = false;
+                //dtgImportDataPreview.Columns["AssetCode"].HeaderText = "Asset Code";
+                //dtgImportDataPreview.Columns["AssetCode"].Visible = false;
+                //dtgImportDataPreview.Columns["AssetCode"].Width = 150;
+                dtgImportDataPreview.Columns["AssetName"].HeaderText = "Asset Name";
+                dtgImportDataPreview.Columns["AssetName"].Width = 300;
+                dtgImportDataPreview.Columns["AssetName"].ReadOnly = true;
+                dtgImportDataPreview.Columns["AssetDescription"].HeaderText = "Asset Description";
+                dtgImportDataPreview.Columns["AssetDescription"].Width = 200;
+                dtgImportDataPreview.Columns["AssetDescription"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ParentCategory"].HeaderText = "Category";
+                dtgImportDataPreview.Columns["ParentCategory"].Width = 200;
+                dtgImportDataPreview.Columns["ParentCategory"].ReadOnly = true;
 
+                dtgImportDataPreview.Columns["TotalQuantity"].HeaderText = "Total Quantity";
+                dtgImportDataPreview.Columns["TotalQuantity"].Width = 200;
+                dtgImportDataPreview.Columns["TotalQuantity"].ReadOnly = true;
+                dtgImportDataPreview.Columns["OutstandingQuantity"].HeaderText = "Outstanding Quantity";
+                dtgImportDataPreview.Columns["OutstandingQuantity"].Width = 200;
+                dtgImportDataPreview.Columns["OutstandingQuantity"].ReadOnly = true;
+
+                dtgImportDataPreview.Columns["IsActive"].HeaderText = "Is Active";
+                dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+                //dtgImportDataPreview.Columns["AssetNote"].HeaderText = "Skill Initial";
+                //dtgImportDataPreview.Columns["AssetNote"].Width = 200;
+                //dtgImportDataPreview.Columns["AssetNote"].ReadOnly = true;
+                //dtgImportDataPreview.Columns["AssetNote"].Visible = false;
+                //dtgImportDataPreview.Columns["ClientID"].Visible = false;
+                //dtgImportDataPreview.Columns["ParentAssetCatMasID"].Visible = false;
             }
             else if (lblSelectedDataAction.Text == "Import Leave Type Information")
             {
-
+                //dtgImportDataPreview.Columns["LeaveTypeID"].HeaderText = "Leave Type ID";
+                //dtgImportDataPreview.Columns["LeaveTypeID"].Visible = false;
+                //dtgImportDataPreview.Columns["LeaveCode"].HeaderText = "Leave Type Code";
+                //dtgImportDataPreview.Columns["LeaveCode"].Visible = false;
+                //dtgImportDataPreview.Columns["LeaveCode"].Width = 150;
+                dtgImportDataPreview.Columns["LeaveTypeTitle"].HeaderText = "Leave Type Name";
+                dtgImportDataPreview.Columns["LeaveTypeTitle"].Width = 300;
+                dtgImportDataPreview.Columns["LeaveTypeTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsPaid"].HeaderText = "Is Paid";
+                dtgImportDataPreview.Columns["IsPaid"].Width = 300;
+                dtgImportDataPreview.Columns["IsPaid"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].HeaderText = "Is Active";
+                dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Earnings Information")
+            else if (lblSelectedDataAction.Text == "Import Allowance Information")
             {
-
+                //dtgImportDataPreview.Columns["AllID"].HeaderText = "Allowance ID";
+                //dtgImportDataPreview.Columns["AllID"].Visible = false;
+                //dtgImportDataPreview.Columns["AllCode"].HeaderText = "Allowance Code";
+                //dtgImportDataPreview.Columns["AllCode"].Visible = false;
+                //dtgImportDataPreview.Columns["AllCode"].Width = 150;
+                dtgImportDataPreview.Columns["AllTitle"].HeaderText = "Allowance Name";
+                dtgImportDataPreview.Columns["AllTitle"].Width = 300;
+                dtgImportDataPreview.Columns["AllTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["AllDescription"].HeaderText = "Allowance Description";
+                dtgImportDataPreview.Columns["AllDescription"].Width = 300;
+                dtgImportDataPreview.Columns["AllDescription"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].HeaderText = "Is Active";
+                dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
             else if (lblSelectedDataAction.Text == "Import Deductions Information")
             {
-
+                //dtgImportDataPreview.Columns["DedID"].HeaderText = "Deduction ID";
+                //dtgImportDataPreview.Columns["DedID"].Visible = false;
+                //dtgImportDataPreview.Columns["DedCode"].HeaderText = "Deduction Code";
+                //dtgImportDataPreview.Columns["DedCode"].Visible = false;
+                //dtgImportDataPreview.Columns["DedCode"].Width = 150;
+                dtgImportDataPreview.Columns["DedTitle"].HeaderText = "Deduction Name";
+                dtgImportDataPreview.Columns["DedTitle"].Width = 300;
+                dtgImportDataPreview.Columns["DedTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["DedDescription"].HeaderText = "Deduction Description";
+                dtgImportDataPreview.Columns["DedDescription"].Width = 300;
+                dtgImportDataPreview.Columns["DedDescription"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].HeaderText = "Is Active";
+                dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
             else if (lblSelectedDataAction.Text == "Import Reimbursement Information")
             {
-
+                //dtgImportDataPreview.Columns["ReimbID"].HeaderText = "Reimbursement ID";
+                //dtgImportDataPreview.Columns["ReimbID"].Visible = false;
+                //dtgImportDataPreview.Columns["ReimbCode"].HeaderText = "Reimbursement Code";
+                //dtgImportDataPreview.Columns["ReimbCode"].Visible = false;
+                //dtgImportDataPreview.Columns["ReimbCode"].Width = 150;
+                dtgImportDataPreview.Columns["ReimbTitle"].HeaderText = "Reimbursement Name";
+                dtgImportDataPreview.Columns["ReimbTitle"].Width = 300;
+                dtgImportDataPreview.Columns["ReimbTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ReimbDescription"].HeaderText = "Reimbursement Description";
+                dtgImportDataPreview.Columns["ReimbDescription"].Width = 300;
+                dtgImportDataPreview.Columns["ReimbDescription"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].HeaderText = "Is Active";
+                dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Advances Information")
+            else if (lblSelectedDataAction.Text == "Import Advance Type Information")
             {
-
+                //dtgImportDataPreview.Columns["AdvanceTypeID"].HeaderText = "Advance Type ID";
+                //dtgImportDataPreview.Columns["AdvanceTypeID"].Visible = false;
+                //dtgImportDataPreview.Columns["AdvanceTypeCode"].HeaderText = "Advance Type Code";
+                //dtgImportDataPreview.Columns["AdvanceTypeCode"].Visible = false;
+                //dtgImportDataPreview.Columns["AdvanceTypeCode"].Width = 150;
+                dtgImportDataPreview.Columns["AdvanceTypeTitle"].HeaderText = "Advance Type Title";
+                dtgImportDataPreview.Columns["AdvanceTypeTitle"].Width = 300;
+                dtgImportDataPreview.Columns["AdvanceTypeTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].HeaderText = "Is Active";
+                dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
             else if (lblSelectedDataAction.Text == "Import Public Holiday Information")
             {
@@ -444,7 +573,21 @@ namespace StaffSync
             }
             else if (lblSelectedDataAction.Text == "Import Employement Type Information")
             {
-
+                //dtgImportDataPreview.Columns["EmpTypeMasID"].HeaderText = "Advance Type ID";
+                //dtgImportDataPreview.Columns["EmpTypeMasID"].Visible = false;
+                //dtgImportDataPreview.Columns["EmpTypeCode"].HeaderText = "Advance Type Code";
+                //dtgImportDataPreview.Columns["EmpTypeCode"].Visible = false;
+                //dtgImportDataPreview.Columns["EmpTypeCode"].Width = 150;
+                dtgImportDataPreview.Columns["EmpTypeTitle"].HeaderText = "Advance Type Title";
+                dtgImportDataPreview.Columns["EmpTypeTitle"].Width = 300;
+                dtgImportDataPreview.Columns["EmpTypeTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["EmpTypeInitial"].HeaderText = "Advance Type Initial";
+                dtgImportDataPreview.Columns["EmpTypeInitial"].Width = 300;
+                dtgImportDataPreview.Columns["EmpTypeInitial"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].HeaderText = "Is Active";
+                dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
             else if (lblSelectedDataAction.Text == "Import Shift Information")
             {
@@ -474,7 +617,24 @@ namespace StaffSync
             }
             else if (lblSelectedDataAction.Text == "Import Bank Information")
             {
-
+                //dtgImportDataPreview.Columns["BankID"].HeaderText = "Bank ID";
+                //dtgImportDataPreview.Columns["BankID"].Visible = false;
+                //dtgImportDataPreview.Columns["BankCode"].HeaderText = "Bank Code";
+                //dtgImportDataPreview.Columns["BankCode"].Visible = false;
+                //dtgImportDataPreview.Columns["BankCode"].Width = 150;
+                dtgImportDataPreview.Columns["BankName"].HeaderText = "Bank Name";
+                dtgImportDataPreview.Columns["BankName"].Width = 300;
+                dtgImportDataPreview.Columns["BankName"].ReadOnly = true;
+                dtgImportDataPreview.Columns["BankAddress"].HeaderText = "Bank Address";
+                dtgImportDataPreview.Columns["BankAddress"].Width = 200;
+                dtgImportDataPreview.Columns["BankAddress"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IFSCCode"].HeaderText = "IFSC Code";
+                dtgImportDataPreview.Columns["IFSCCode"].Width = 200;
+                dtgImportDataPreview.Columns["IFSCCode"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].HeaderText = "Is Active";
+                dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
         }
 
@@ -517,12 +677,14 @@ namespace StaffSync
                     {
                         MessageBox.Show("No data rows were found in the selected file.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ClearImportPreview();
+                        btnSaveDetails.Enabled = false;
                         return;
                     }
 
                     dtgImportDataPreview.Enabled = true;
                     chkSelectOrUnselect.Enabled = true;
                     chkSelectOrUnselect.Checked = true;
+                    btnSaveDetails.Enabled = true;
 
                     dtgImportDataPreview.DataSource = null;
                     dtgImportDataPreview.DataSource = importedData;
@@ -886,11 +1048,10 @@ namespace StaffSync
         {
             int selectedCount = 0;
 
-            if (dtgImportDataPreview != null &&
-                dtgImportDataPreview.Columns.Contains("IsSelected"))
+            btnSaveDetails.Enabled = false;
+            if (dtgImportDataPreview != null && dtgImportDataPreview.Columns.Contains("IsSelected"))
             {
-                foreach (DataGridViewRow row
-                         in dtgImportDataPreview.Rows)
+                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
                     if (row.IsNewRow)
                         continue;
@@ -899,19 +1060,24 @@ namespace StaffSync
 
                     if (row.Cells["IsSelected"].Value != null)
                     {
-                        bool.TryParse(
-                            row.Cells["IsSelected"].Value.ToString(),
-                            out isSelected);
+                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
                     }
 
                     if (isSelected)
+                    {
                         selectedCount++;
+                        btnSaveDetails.Enabled = true;
+                    }
                 }
             }
 
-            lblTotalRowsSelected.Text =
-                "Total Rows Selected : " +
-                selectedCount.ToString();
+            lblTotalRowsSelected.Text = "Total Rows Selected : " + selectedCount.ToString();
+
+            if (btnSaveDetails.Enabled == false)
+            {
+                chkSelectOrUnselect.Checked = false; 
+                chkSelectOrUnselect.Text = "Select All";
+            }
         }
 
         private void ClearImportPreview()
@@ -1110,7 +1276,7 @@ namespace StaffSync
                         continue;
                     }
 
-                    int intDesignationID = objDesignation.InsertDesignation(designationCode, designationTitle, designationInitial, true, false);
+                    int intDesignationID = objDesignation.InsertDesignation(designationCode, designationTitle, designationInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
                     if(intDesignationID > 0)
                     {
                         intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
@@ -1148,7 +1314,7 @@ namespace StaffSync
                         continue;
                     }
 
-                    int intDepartmentID = objDepartment.InsertDepartment("", departmentTitle, departmentInitial, true, false);
+                    int intDepartmentID = objDepartment.InsertDepartment("", departmentTitle, departmentInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
                     if (intDepartmentID > 0)
                     {
                         intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
@@ -1190,7 +1356,7 @@ namespace StaffSync
                         continue;
                     }
 
-                    int intCountryID = objCountries.InsertCountry("", countryTitle, countryInitial, true, false);
+                    int intCountryID = objCountries.InsertCountry("", countryTitle, countryInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
                     if (intCountryID > 0)
                     {
                         intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
@@ -1228,7 +1394,7 @@ namespace StaffSync
                         continue;
                     }
 
-                    int intCountryID = objStates.InsertState("", StateTitle, StateInitial, true, false);
+                    int intCountryID = objStates.InsertState("", StateTitle, StateInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
                     if (intCountryID > 0)
                     {
                         intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
@@ -1266,7 +1432,7 @@ namespace StaffSync
                         continue;
                     }
 
-                    int intEduQualID = objEduQalification.InsertEduQual("", EduQualTitle, EduQualInitial, true, false);
+                    int intEduQualID = objEduQalification.InsertEduQual("", EduQualTitle, EduQualInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
                     if (intEduQualID > 0)
                     {
                         intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
@@ -1304,7 +1470,7 @@ namespace StaffSync
                         continue;
                     }
 
-                    int intSkillsID = objSkillsMas.InsertSkill("", SkillTitle, SkillInitial, true, false);
+                    int intSkillsID = objSkillsMas.InsertSkill("", SkillTitle, SkillInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
                     if (intSkillsID > 0)
                     {
                         intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
@@ -1342,7 +1508,7 @@ namespace StaffSync
                         continue;
                     }
 
-                    int intRelationshipID = objRelationship.InsertRelationship("", RelationshipTitle, RelationshipInitial, true, false);
+                    int intRelationshipID = objRelationship.InsertRelationship("", RelationshipTitle, RelationshipInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
                     if (intRelationshipID > 0)
                     {
                         intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
@@ -1356,31 +1522,274 @@ namespace StaffSync
             }
             else if (lblSelectedDataAction.Text == "Import Asset Category Information")
             {
+                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
 
+                    bool isSelected = false;
+                    if (row.Cells["IsSelected"].Value != null)
+                    {
+                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
+                    }
+                    if (!isSelected)
+                        continue;
+
+                    //string AssetCatMasID = GetImportCellValue(row, "AssetCatMasID");
+                    //string AssetCode = GetImportCellValue(row, "AssetCode");
+                    string AssetName = GetImportCellValue(row, "AssetName");
+                    string AssetDescription = GetImportCellValue(row, "AssetDescription");
+                    string ParentCategory = GetImportCellValue(row, "ParentCategory");
+
+                    if (objAssetsCategory.GetAssetsCategoryInfoByName(AssetName) != 0)
+                    {
+                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
+                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalDuplicateRows.Refresh();
+                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalNotImportedRows.Refresh();
+                        continue;
+                    }
+
+                    int intCategoryID = objAssetsCategory.InsertAssetCategoryInfo("", AssetName, AssetDescription, "", Convert.ToInt32(objAssetsCategory.GetAssetsCategoryInfoByName(ParentCategory).ToString()), GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, objTempClientFinYearInfo.ClientID);
+                    if (intCategoryID > 0)
+                    {
+                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
+                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
+                    }
+                }
             }
             else if (lblSelectedDataAction.Text == "Import Assets Information")
             {
+                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
 
+                    bool isSelected = false;
+                    if (row.Cells["IsSelected"].Value != null)
+                    {
+                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
+                    }
+                    if (!isSelected)
+                        continue;
+
+                    //string AssetID = GetImportCellValue(row, "AssetID");
+                    //string AssetCode = GetImportCellValue(row, "AssetCode");
+                    string AssetName = GetImportCellValue(row, "AssetName");
+                    string AssetDescription = GetImportCellValue(row, "AssetDescription");
+                    string ParentCategory = GetImportCellValue(row, "ParentCategory");
+                    string TotalQuantity = GetImportCellValue(row, "TotalQuantity");
+                    string OutstandingQuantity = GetImportCellValue(row, "OutstandingQuantity");
+
+                    if (objAssetsInfo.GetAssetInfoByName(AssetName) != 0)
+                    {
+                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
+                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalDuplicateRows.Refresh();
+                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalNotImportedRows.Refresh();
+                        continue;
+                    }
+
+                    int intAssetID = objAssetsInfo.InsertAssetInfo("", AssetName, AssetDescription, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, Convert.ToInt32(objAssetsCategory.GetAssetsCategoryInfoByName(ParentCategory).ToString()), false, false, false, 1, false, "", 0, 1, Convert.ToDecimal(TotalQuantity.ToString()), Convert.ToDecimal(OutstandingQuantity.ToString()));
+                    if (intAssetID > 0)
+                    {
+                        int AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(intAssetID, DateTime.Today, 0, Convert.ToDecimal(TotalQuantity), 0, Convert.ToDecimal(OutstandingQuantity), "Cr", "By Opening", 0);
+                        int AssetMoreDetailedID = objAssetsInfo.InsertAssetMoreInfo(intAssetID, "N/A", "N/A", "N/A", "N/A", Convert.ToDateTime(DateTime.Today), 0, "N/A", "N/A", "N/A", true, Convert.ToDateTime(DateTime.Today), Convert.ToDateTime(DateTime.Today), Convert.ToDateTime(DateTime.Today), Convert.ToDateTime(DateTime.Today));
+                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
+                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
+                    }
+                }
             }
             else if (lblSelectedDataAction.Text == "Import Leave Type Information")
             {
+                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
 
+                    bool isSelected = false;
+                    if (row.Cells["IsSelected"].Value != null)
+                    {
+                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
+                    }
+                    if (!isSelected)
+                        continue;
+
+                    //string LeaveTypeID = GetImportCellValue(row, "LeaveTypeID");
+                    //string LeaveCode = GetImportCellValue(row, "LeaveCode");
+                    string LeaveTypeTitle = GetImportCellValue(row, "LeaveTypeTitle");
+                    string IsPaid = GetImportCellValue(row, "IsPaid");
+
+                    if (objLeaveTypeMas.GetLeaveTypeMasInfoByName(LeaveTypeTitle) != 0)
+                    {
+                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
+                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalDuplicateRows.Refresh();
+                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalNotImportedRows.Refresh();
+                        continue;
+                    }
+
+                    int intLeaveTypeID = objLeaveTypeMas.InsertLeaveTypeInfo("", LeaveTypeTitle, IsPaid.ToString() == "1" ? true : false, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
+                    if (intLeaveTypeID > 0)
+                    {
+                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
+                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
+                    }
+                }
             }
-            else if (lblSelectedDataAction.Text == "Import Earnings Information")
+            else if (lblSelectedDataAction.Text == "Import Allowance Information")
             {
+                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
 
+                    bool isSelected = false;
+                    if (row.Cells["IsSelected"].Value != null)
+                    {
+                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
+                    }
+                    if (!isSelected)
+                        continue;
+
+                    //string ReimbID = GetImportCellValue(row, "AllID");
+                    //string ReimbCode = GetImportCellValue(row, "AllCode");
+                    string AllTitle = GetImportCellValue(row, "AllTitle");
+                    string AllDescription = GetImportCellValue(row, "AllDescription");
+
+                    if (objAllowenceInfo.GetAllowenceTitleByTitle(AllTitle) != 0)
+                    {
+                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
+                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalDuplicateRows.Refresh();
+                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalNotImportedRows.Refresh();
+                        continue;
+                    }
+
+                    int intAllowanceID = objAllowenceInfo.InsertAllowence("", AllTitle, AllDescription, false, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, 0, false, false);
+                    if (intAllowanceID > 0)
+                    {
+                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
+                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
+                    }
+                }
             }
             else if (lblSelectedDataAction.Text == "Import Deductions Information")
             {
+                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
 
+                    bool isSelected = false;
+                    if (row.Cells["IsSelected"].Value != null)
+                    {
+                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
+                    }
+                    if (!isSelected)
+                        continue;
+
+                    //string DedID = GetImportCellValue(row, "DedID");
+                    //string DedCode = GetImportCellValue(row, "DedCode");
+                    string DedTitle = GetImportCellValue(row, "DedTitle");
+                    string DedDescription = GetImportCellValue(row, "DedDescription");
+
+                    if (objDeductionInfo.GetDeductionTitleByTitle(DedTitle) != 0)
+                    {
+                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
+                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalDuplicateRows.Refresh();
+                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalNotImportedRows.Refresh();
+                        continue;
+                    }
+
+                    int intDeductionID = objDeductionInfo.InsertDeduction("", DedTitle, DedDescription, false, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, 0, false, false);
+                    if (intDeductionID > 0)
+                    {
+                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
+                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
+                    }
+                }
             }
             else if (lblSelectedDataAction.Text == "Import Reimbursement Information")
             {
+                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
 
+                    bool isSelected = false;
+                    if (row.Cells["IsSelected"].Value != null)
+                    {
+                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
+                    }
+                    if (!isSelected)
+                        continue;
+
+                    //string ReimbID = GetImportCellValue(row, "ReimbID");
+                    //string ReimbCode = GetImportCellValue(row, "ReimbCode");
+                    string ReimbTitle = GetImportCellValue(row, "ReimbTitle");
+                    string ReimbDescription = GetImportCellValue(row, "ReimbDescription");
+
+                    if (objReimbursementInfo.GetReimbursementTitleByTitle(ReimbTitle) != 0)
+                    {
+                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
+                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalDuplicateRows.Refresh();
+                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalNotImportedRows.Refresh();
+                        continue;
+                    }
+
+                    int intDeductionID = objReimbursementInfo.InsertReimbursement("", ReimbTitle, ReimbDescription, false, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, 0, false, false);
+                    if (intDeductionID > 0)
+                    {
+                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
+                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
+                    }
+                }
             }
-            else if (lblSelectedDataAction.Text == "Import Advances Information")
+            else if (lblSelectedDataAction.Text == "Import Advance Type Information")
             {
+                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
 
+                    bool isSelected = false;
+                    if (row.Cells["IsSelected"].Value != null)
+                    {
+                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
+                    }
+                    if (!isSelected)
+                        continue;
+
+                    //string AdvanceTypeID = GetImportCellValue(row, "AdvanceTypeID");
+                    //string AdvanceTypeCode = GetImportCellValue(row, "AdvanceTypeCode");
+                    string AdvanceTypeTitle = GetImportCellValue(row, "AdvanceTypeTitle");
+
+                    if (objAdvanceTypeMas.GetAdvanceTypeByTitle(AdvanceTypeTitle) != 0)
+                    {
+                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
+                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalDuplicateRows.Refresh();
+                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalNotImportedRows.Refresh();
+                        continue;
+                    }
+
+                    int intAdvanceTypeID = objAdvanceTypeMas.InsertAdvanceType("", AdvanceTypeTitle, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, objTempClientFinYearInfo.ClientID);
+                    if (intAdvanceTypeID > 0)
+                    {
+                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
+                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
+                    }
+                }
             }
             else if (lblSelectedDataAction.Text == "Import Public Holiday Information")
             {
@@ -1392,7 +1801,41 @@ namespace StaffSync
             }
             else if (lblSelectedDataAction.Text == "Import Employement Type Information")
             {
+                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
 
+                    bool isSelected = false;
+                    if (row.Cells["IsSelected"].Value != null)
+                    {
+                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
+                    }
+                    if (!isSelected)
+                        continue;
+
+                    //string EmpTypeMasID = GetImportCellValue(row, "EmpTypeMasID");
+                    //string EmpTypeCode = GetImportCellValue(row, "EmpTypeCode");
+                    string EmpTypeTitle = GetImportCellValue(row, "EmpTypeTitle");
+                    string EmpTypeInitial = GetImportCellValue(row, "EmpTypeInitial");
+
+                    if (objEmploymentTypeInfo.GetEmployeeTypeTitleByTitle(EmpTypeTitle) != 0)
+                    {
+                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
+                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalDuplicateRows.Refresh();
+                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalNotImportedRows.Refresh();
+                        continue;
+                    }
+
+                    int intEmployementTypeID = objEmploymentTypeInfo.InsertEmploymentTypeMasInfo("", EmpTypeTitle, EmpTypeInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
+                    if (intEmployementTypeID > 0)
+                    {
+                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
+                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
+                    }
+                }
             }
             else if (lblSelectedDataAction.Text == "Import Shift Information")
             {
@@ -1426,7 +1869,7 @@ namespace StaffSync
                         continue;
                     }
 
-                    int intShiftInfoID = objShiftMas.InsertShiftMasInfo("", ShiftTitle, ShiftInitital, StartTime, EndTime, true, false);
+                    int intShiftInfoID = objShiftMas.InsertShiftMasInfo("", ShiftTitle, ShiftInitital, StartTime, EndTime, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
                     if (intShiftInfoID > 0)
                     {
                         intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
@@ -1436,7 +1879,42 @@ namespace StaffSync
             }
             else if (lblSelectedDataAction.Text == "Import Bank Information")
             {
+                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
 
+                    bool isSelected = false;
+                    if (row.Cells["IsSelected"].Value != null)
+                    {
+                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
+                    }
+                    if (!isSelected)
+                        continue;
+
+                    //string BankID = GetImportCellValue(row, "BankID");
+                    //string BankCode = GetImportCellValue(row, "BankCode");
+                    string BankName = GetImportCellValue(row, "BankName");
+                    string BankAddress = GetImportCellValue(row, "BankAddress");
+                    string IFSCCode = GetImportCellValue(row, "IFSCCode");
+
+                    if (objBankMas.GetBankInfoTitleByTitle(BankName) != 0)
+                    {
+                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
+                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalDuplicateRows.Refresh();
+                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalNotImportedRows.Refresh();
+                        continue;
+                    }
+
+                    int intBankInfoID = objBankMas.InsertBankMasInfo("", BankName, BankAddress, IFSCCode, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
+                    if (intBankInfoID > 0)
+                    {
+                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
+                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
+                    }
+                }
             }
 
             dtgImportDataPreview.Enabled = false;
@@ -1469,6 +1947,7 @@ namespace StaffSync
 
         public void disableControls()
         {
+            btnSaveDetails.Enabled = false;
             //txtLeaveApprovalDate.Enabled = false;
             //dtgBulkLeaveApproval.Enabled = false;
         }

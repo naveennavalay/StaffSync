@@ -35,6 +35,23 @@ namespace DALStaffSync
             return bankDetailsInfoList;
         }
 
+        public int GetBankInfoTitleByTitle(string BankName)
+        {
+            int BankID = 0;
+
+            BankID = objBankMas.GetBankInfoTitleByTitle(BankName);
+
+            return BankID;
+        }
+
+        public int InsertBankMasInfo(string txtBankCode, string txtBankName, string txtBankAddress, string txtIFSCCode, bool IsActive, bool IsDeleted)
+        {
+            int affectedRows = 0;
+
+            affectedRows = objBankMas.InsertBankMasInfo(txtBankCode, txtBankName, txtBankAddress, txtIFSCCode, IsActive, IsDeleted);
+
+            return affectedRows;
+        }
 
         public int InsertEmployeeBankReference(int txtEmpID, string txtEmpACNumber, int txtBankID, bool IsDefault)
         {
