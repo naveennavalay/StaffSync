@@ -192,6 +192,7 @@
             this.lblSelectedDataAction.TabIndex = 87;
             this.lblSelectedDataAction.Text = " ";
             this.lblSelectedDataAction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblSelectedDataAction.Visible = false;
             // 
             // chkSelectOrUnselect
             // 
