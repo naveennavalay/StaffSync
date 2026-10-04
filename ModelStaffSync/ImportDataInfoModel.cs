@@ -20,6 +20,7 @@ namespace ModelStaffSync
 
         [DisplayName("Description")]
         public string ImpDataInfoDescription { get; set; }
+        public string ImpDataInfoTemplateName { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public int OrderID { get; set; }

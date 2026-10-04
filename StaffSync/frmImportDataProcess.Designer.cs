@@ -58,12 +58,12 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
-            this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
+            this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
+            this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -76,10 +76,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgImportDataPreview)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -119,7 +119,7 @@
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.Location = new System.Drawing.Point(10, 12);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(1175, 490);
+            this.groupBox5.Size = new System.Drawing.Size(1175, 487);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             // 
@@ -127,11 +127,11 @@
             // 
             this.groupBox1.Controls.Add(this.dtgImportDataSourceList);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 21);
+            this.groupBox1.Location = new System.Drawing.Point(12, 18);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(352, 459);
+            this.groupBox1.Size = new System.Drawing.Size(370, 459);
             this.groupBox1.TabIndex = 66;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Import Data Action";
@@ -146,11 +146,11 @@
             this.dtgImportDataSourceList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dtgImportDataSourceList.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
             this.dtgImportDataSourceList.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
-            this.dtgImportDataSourceList.Location = new System.Drawing.Point(14, 25);
+            this.dtgImportDataSourceList.Location = new System.Drawing.Point(11, 25);
             this.dtgImportDataSourceList.Name = "dtgImportDataSourceList";
             this.dtgImportDataSourceList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgImportDataSourceList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgImportDataSourceList.Size = new System.Drawing.Size(331, 422);
+            this.dtgImportDataSourceList.Size = new System.Drawing.Size(349, 422);
             this.dtgImportDataSourceList.TabIndex = 64;
             this.dtgImportDataSourceList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgImportDataSourceList_CellDoubleClick);
             // 
@@ -171,11 +171,11 @@
             this.groupBox4.Controls.Add(this.dtgImportDataPreview);
             this.groupBox4.Controls.Add(this.lnkViewAuditLog);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(372, 22);
+            this.groupBox4.Location = new System.Drawing.Point(390, 18);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(793, 459);
+            this.groupBox4.Size = new System.Drawing.Size(775, 459);
             this.groupBox4.TabIndex = 65;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Asset Information";
@@ -458,20 +458,6 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
-            // empMasInfoBindingSource
-            // 
-            this.empMasInfoBindingSource.DataMember = "EmpMasInfo";
-            this.empMasInfoBindingSource.DataSource = this.staffsyncDBDTSet;
-            // 
-            // staffsyncDBDTSet
-            // 
-            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
-            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // empMasInfoTableAdapter
-            // 
-            this.empMasInfoTableAdapter.ClearBeforeFill = true;
-            // 
             // staffsyncDBDataSet1
             // 
             this.staffsyncDBDataSet1.DataSetName = "StaffsyncDBDataSet1";
@@ -485,6 +471,20 @@
             // qryAllEmpLeavePendingStatementTableAdapter
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
+            // 
+            // empMasInfoBindingSource
+            // 
+            this.empMasInfoBindingSource.DataMember = "EmpMasInfo";
+            this.empMasInfoBindingSource.DataSource = this.staffsyncDBDTSet;
+            // 
+            // staffsyncDBDTSet
+            // 
+            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
+            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // empMasInfoTableAdapter
+            // 
+            this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
             // frmImportDataProcess
             // 
@@ -518,10 +518,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgImportDataPreview)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             this.ResumeLayout(false);
 
         }

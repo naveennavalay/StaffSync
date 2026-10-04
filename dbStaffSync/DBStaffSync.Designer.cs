@@ -514,8 +514,6 @@ namespace dbStaffSync {
         
         private global::System.Data.DataRelation relationPublicHolidayMasPubHolidayDetails;
         
-        private global::System.Data.DataRelation relationPersonalInfoMasEmpDBChartInfo;
-        
         private global::System.Data.DataRelation relationDBChartInfoEmpDBChartInfo;
         
         private global::System.Data.DataRelation relationAssetCategoryMasAssetMas;
@@ -3853,7 +3851,6 @@ namespace dbStaffSync {
             this.relationPersonalInfoMasEmpActiveInactiveStatusInfo = this.Relations["PersonalInfoMasEmpActiveInactiveStatusInfo"];
             this.relationPubHolTypePubHolidayDetails = this.Relations["PubHolTypePubHolidayDetails"];
             this.relationPublicHolidayMasPubHolidayDetails = this.Relations["PublicHolidayMasPubHolidayDetails"];
-            this.relationPersonalInfoMasEmpDBChartInfo = this.Relations["PersonalInfoMasEmpDBChartInfo"];
             this.relationDBChartInfoEmpDBChartInfo = this.Relations["DBChartInfoEmpDBChartInfo"];
             this.relationAssetCategoryMasAssetMas = this.Relations["AssetCategoryMasAssetMas"];
             this.relationClientMasAssetCategoryMas = this.Relations["ClientMasAssetCategoryMas"];
@@ -4567,10 +4564,6 @@ namespace dbStaffSync {
                         this.tablePublicHolidayMas.PubHolMasIDColumn}, new global::System.Data.DataColumn[] {
                         this.tablePubHolidayDetails.PubHolMasIDColumn}, false);
             this.Relations.Add(this.relationPublicHolidayMasPubHolidayDetails);
-            this.relationPersonalInfoMasEmpDBChartInfo = new global::System.Data.DataRelation("PersonalInfoMasEmpDBChartInfo", new global::System.Data.DataColumn[] {
-                        this.tablePersonalInfoMas.PersonalInfoIDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableEmpDBChartInfo.PersonalInfoIDColumn}, false);
-            this.Relations.Add(this.relationPersonalInfoMasEmpDBChartInfo);
             this.relationDBChartInfoEmpDBChartInfo = new global::System.Data.DataRelation("DBChartInfoEmpDBChartInfo", new global::System.Data.DataColumn[] {
                         this.tableDBChartInfo.DBChartIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableEmpDBChartInfo.DBChartIDColumn}, false);
@@ -59051,17 +59044,14 @@ namespace dbStaffSync {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public EmpDBChartInfoRow AddEmpDBChartInfoRow(int EmpDBChartID, PersonalInfoMasRow parentPersonalInfoMasRowByPersonalInfoMasEmpDBChartInfo, DBChartInfoRow parentDBChartInfoRowByDBChartInfoEmpDBChartInfo, bool DBChartEnabled, int OrderID) {
+            public EmpDBChartInfoRow AddEmpDBChartInfoRow(int EmpDBChartID, int PersonalInfoID, DBChartInfoRow parentDBChartInfoRowByDBChartInfoEmpDBChartInfo, bool DBChartEnabled, int OrderID) {
                 EmpDBChartInfoRow rowEmpDBChartInfoRow = ((EmpDBChartInfoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         EmpDBChartID,
-                        null,
+                        PersonalInfoID,
                         null,
                         DBChartEnabled,
                         OrderID};
-                if ((parentPersonalInfoMasRowByPersonalInfoMasEmpDBChartInfo != null)) {
-                    columnValuesArray[1] = parentPersonalInfoMasRowByPersonalInfoMasEmpDBChartInfo[0];
-                }
                 if ((parentDBChartInfoRowByDBChartInfoEmpDBChartInfo != null)) {
                     columnValuesArray[2] = parentDBChartInfoRowByDBChartInfoEmpDBChartInfo[0];
                 }
@@ -59996,6 +59986,8 @@ namespace dbStaffSync {
             
             private global::System.Data.DataColumn columnImpDataInfoDescription;
             
+            private global::System.Data.DataColumn columnImpDataInfoTemplateName;
+            
             private global::System.Data.DataColumn columnIsActive;
             
             private global::System.Data.DataColumn columnIsDeleted;
@@ -60069,6 +60061,14 @@ namespace dbStaffSync {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ImpDataInfoTemplateNameColumn {
+                get {
+                    return this.columnImpDataInfoTemplateName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public global::System.Data.DataColumn IsActiveColumn {
                 get {
                     return this.columnIsActive;
@@ -60128,13 +60128,14 @@ namespace dbStaffSync {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ImprtDataInfoRow AddImprtDataInfoRow(int ImpDataInfoID, string ImpDataInfoCode, string ImpDataInfoTitle, string ImpDataInfoDescription, bool IsActive, bool IsDeleted, int OrderID) {
+            public ImprtDataInfoRow AddImprtDataInfoRow(int ImpDataInfoID, string ImpDataInfoCode, string ImpDataInfoTitle, string ImpDataInfoDescription, string ImpDataInfoTemplateName, bool IsActive, bool IsDeleted, int OrderID) {
                 ImprtDataInfoRow rowImprtDataInfoRow = ((ImprtDataInfoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ImpDataInfoID,
                         ImpDataInfoCode,
                         ImpDataInfoTitle,
                         ImpDataInfoDescription,
+                        ImpDataInfoTemplateName,
                         IsActive,
                         IsDeleted,
                         OrderID};
@@ -60171,6 +60172,7 @@ namespace dbStaffSync {
                 this.columnImpDataInfoCode = base.Columns["ImpDataInfoCode"];
                 this.columnImpDataInfoTitle = base.Columns["ImpDataInfoTitle"];
                 this.columnImpDataInfoDescription = base.Columns["ImpDataInfoDescription"];
+                this.columnImpDataInfoTemplateName = base.Columns["ImpDataInfoTemplateName"];
                 this.columnIsActive = base.Columns["IsActive"];
                 this.columnIsDeleted = base.Columns["IsDeleted"];
                 this.columnOrderID = base.Columns["OrderID"];
@@ -60187,6 +60189,8 @@ namespace dbStaffSync {
                 base.Columns.Add(this.columnImpDataInfoTitle);
                 this.columnImpDataInfoDescription = new global::System.Data.DataColumn("ImpDataInfoDescription", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnImpDataInfoDescription);
+                this.columnImpDataInfoTemplateName = new global::System.Data.DataColumn("ImpDataInfoTemplateName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnImpDataInfoTemplateName);
                 this.columnIsActive = new global::System.Data.DataColumn("IsActive", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsActive);
                 this.columnIsDeleted = new global::System.Data.DataColumn("IsDeleted", typeof(bool), null, global::System.Data.MappingType.Element);
@@ -60200,6 +60204,7 @@ namespace dbStaffSync {
                 this.columnImpDataInfoCode.MaxLength = 255;
                 this.columnImpDataInfoTitle.MaxLength = 255;
                 this.columnImpDataInfoDescription.MaxLength = 255;
+                this.columnImpDataInfoTemplateName.MaxLength = 255;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -97794,17 +97799,6 @@ namespace dbStaffSync {
                     return ((EmpActiveInactiveStatusInfoRow[])(base.GetChildRows(this.Table.ChildRelations["PersonalInfoMasEmpActiveInactiveStatusInfo"])));
                 }
             }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public EmpDBChartInfoRow[] GetEmpDBChartInfoRows() {
-                if ((this.Table.ChildRelations["PersonalInfoMasEmpDBChartInfo"] == null)) {
-                    return new EmpDBChartInfoRow[0];
-                }
-                else {
-                    return ((EmpDBChartInfoRow[])(base.GetChildRows(this.Table.ChildRelations["PersonalInfoMasEmpDBChartInfo"])));
-                }
-            }
         }
         
         /// <summary>
@@ -100752,17 +100746,6 @@ namespace dbStaffSync {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public PersonalInfoMasRow PersonalInfoMasRow {
-                get {
-                    return ((PersonalInfoMasRow)(this.GetParentRow(this.Table.ParentRelations["PersonalInfoMasEmpDBChartInfo"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["PersonalInfoMasEmpDBChartInfo"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public DBChartInfoRow DBChartInfoRow {
                 get {
                     return ((DBChartInfoRow)(this.GetParentRow(this.Table.ParentRelations["DBChartInfoEmpDBChartInfo"])));
@@ -101403,6 +101386,23 @@ namespace dbStaffSync {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string ImpDataInfoTemplateName {
+                get {
+                    try {
+                        return ((string)(this[this.tableImprtDataInfo.ImpDataInfoTemplateNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ImpDataInfoTemplateName\' in table \'ImprtDataInfo\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableImprtDataInfo.ImpDataInfoTemplateNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsActive {
                 get {
                     try {
@@ -101483,6 +101483,18 @@ namespace dbStaffSync {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetImpDataInfoDescriptionNull() {
                 this[this.tableImprtDataInfo.ImpDataInfoDescriptionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsImpDataInfoTemplateNameNull() {
+                return this.IsNull(this.tableImprtDataInfo.ImpDataInfoTemplateNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetImpDataInfoTemplateNameNull() {
+                this[this.tableImprtDataInfo.ImpDataInfoTemplateNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -167253,13 +167265,14 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             tableMapping.ColumnMappings.Add("ImpDataInfoCode", "ImpDataInfoCode");
             tableMapping.ColumnMappings.Add("ImpDataInfoTitle", "ImpDataInfoTitle");
             tableMapping.ColumnMappings.Add("ImpDataInfoDescription", "ImpDataInfoDescription");
+            tableMapping.ColumnMappings.Add("ImpDataInfoTemplateName", "ImpDataInfoTemplateName");
             tableMapping.ColumnMappings.Add("IsActive", "IsActive");
             tableMapping.ColumnMappings.Add("IsDeleted", "IsDeleted");
             tableMapping.ColumnMappings.Add("OrderID", "OrderID");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `ImprtDataInfo` WHERE ((`ImpDataInfoID` = ?) AND ((? = 1 AND `ImpDataInfoCode` IS NULL) OR (`ImpDataInfoCode` = ?)) AND ((? = 1 AND `ImpDataInfoTitle` IS NULL) OR (`ImpDataInfoTitle` = ?)) AND ((? = 1 AND `ImpDataInfoDescription` IS NULL) OR (`ImpDataInfoDescription` = ?)) AND ((? = 1 AND `IsActive` IS NULL) OR (`IsActive` = ?)) AND ((? = 1 AND `IsDeleted` IS NULL) OR (`IsDeleted` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `ImprtDataInfo` WHERE ((`ImpDataInfoID` = ?) AND ((? = 1 AND `ImpDataInfoCode` IS NULL) OR (`ImpDataInfoCode` = ?)) AND ((? = 1 AND `ImpDataInfoTitle` IS NULL) OR (`ImpDataInfoTitle` = ?)) AND ((? = 1 AND `ImpDataInfoDescription` IS NULL) OR (`ImpDataInfoDescription` = ?)) AND ((? = 1 AND `ImpDataInfoTemplateName` IS NULL) OR (`ImpDataInfoTemplateName` = ?)) AND ((? = 1 AND `IsActive` IS NULL) OR (`IsActive` = ?)) AND ((? = 1 AND `IsDeleted` IS NULL) OR (`IsDeleted` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ImpDataInfoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ImpDataInfoCode", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoCode", global::System.Data.DataRowVersion.Original, true, null));
@@ -167268,6 +167281,8 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ImpDataInfoTitle", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoTitle", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ImpDataInfoDescription", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoDescription", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ImpDataInfoDescription", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoDescription", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ImpDataInfoTemplateName", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoTemplateName", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ImpDataInfoTemplateName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoTemplateName", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IsActive", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsActive", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IsActive", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsActive", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IsDeleted", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsDeleted", global::System.Data.DataRowVersion.Original, true, null));
@@ -167277,24 +167292,26 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO `ImprtDataInfo` (`ImpDataInfoID`, `ImpDataInfoCode`, `ImpDataInfoTitl" +
-                "e`, `ImpDataInfoDescription`, `IsActive`, `IsDeleted`, `OrderID`) VALUES (?, ?, " +
-                "?, ?, ?, ?, ?)";
+                "e`, `ImpDataInfoDescription`, `ImpDataInfoTemplateName`, `IsActive`, `IsDeleted`" +
+                ", `OrderID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ImpDataInfoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ImpDataInfoCode", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoCode", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ImpDataInfoTitle", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoTitle", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ImpDataInfoDescription", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoDescription", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ImpDataInfoTemplateName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoTemplateName", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsActive", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsActive", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsDeleted", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsDeleted", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `ImprtDataInfo` SET `ImpDataInfoID` = ?, `ImpDataInfoCode` = ?, `ImpDataInfoTitle` = ?, `ImpDataInfoDescription` = ?, `IsActive` = ?, `IsDeleted` = ?, `OrderID` = ? WHERE ((`ImpDataInfoID` = ?) AND ((? = 1 AND `ImpDataInfoCode` IS NULL) OR (`ImpDataInfoCode` = ?)) AND ((? = 1 AND `ImpDataInfoTitle` IS NULL) OR (`ImpDataInfoTitle` = ?)) AND ((? = 1 AND `ImpDataInfoDescription` IS NULL) OR (`ImpDataInfoDescription` = ?)) AND ((? = 1 AND `IsActive` IS NULL) OR (`IsActive` = ?)) AND ((? = 1 AND `IsDeleted` IS NULL) OR (`IsDeleted` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `ImprtDataInfo` SET `ImpDataInfoID` = ?, `ImpDataInfoCode` = ?, `ImpDataInfoTitle` = ?, `ImpDataInfoDescription` = ?, `ImpDataInfoTemplateName` = ?, `IsActive` = ?, `IsDeleted` = ?, `OrderID` = ? WHERE ((`ImpDataInfoID` = ?) AND ((? = 1 AND `ImpDataInfoCode` IS NULL) OR (`ImpDataInfoCode` = ?)) AND ((? = 1 AND `ImpDataInfoTitle` IS NULL) OR (`ImpDataInfoTitle` = ?)) AND ((? = 1 AND `ImpDataInfoDescription` IS NULL) OR (`ImpDataInfoDescription` = ?)) AND ((? = 1 AND `ImpDataInfoTemplateName` IS NULL) OR (`ImpDataInfoTemplateName` = ?)) AND ((? = 1 AND `IsActive` IS NULL) OR (`IsActive` = ?)) AND ((? = 1 AND `IsDeleted` IS NULL) OR (`IsDeleted` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ImpDataInfoID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ImpDataInfoCode", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoCode", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ImpDataInfoTitle", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoTitle", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ImpDataInfoDescription", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoDescription", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ImpDataInfoTemplateName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoTemplateName", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsActive", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsActive", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsDeleted", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsDeleted", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Current, false, null));
@@ -167305,6 +167322,8 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ImpDataInfoTitle", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoTitle", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ImpDataInfoDescription", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoDescription", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ImpDataInfoDescription", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoDescription", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ImpDataInfoTemplateName", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoTemplateName", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ImpDataInfoTemplateName", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ImpDataInfoTemplateName", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IsActive", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsActive", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_IsActive", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsActive", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_IsDeleted", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "IsDeleted", global::System.Data.DataRowVersion.Original, true, null));
@@ -167327,7 +167346,7 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT ImpDataInfoID, ImpDataInfoCode, ImpDataInfoTitle, ImpDataInfoDescription, " +
-                "IsActive, IsDeleted, OrderID FROM ImprtDataInfo";
+                "ImpDataInfoTemplateName, IsActive, IsDeleted, OrderID FROM ImprtDataInfo";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -167388,7 +167407,7 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ImpDataInfoID, string Original_ImpDataInfoCode, string Original_ImpDataInfoTitle, string Original_ImpDataInfoDescription, bool Original_IsActive, bool Original_IsDeleted, global::System.Nullable<int> Original_OrderID) {
+        public virtual int Delete(int Original_ImpDataInfoID, string Original_ImpDataInfoCode, string Original_ImpDataInfoTitle, string Original_ImpDataInfoDescription, string Original_ImpDataInfoTemplateName, bool Original_IsActive, bool Original_IsDeleted, global::System.Nullable<int> Original_OrderID) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ImpDataInfoID));
             if ((Original_ImpDataInfoCode == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
@@ -167414,17 +167433,25 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_ImpDataInfoDescription));
             }
-            this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[8].Value = ((bool)(Original_IsActive));
-            this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[10].Value = ((bool)(Original_IsDeleted));
-            if ((Original_OrderID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[12].Value = ((int)(Original_OrderID.Value));
+            if ((Original_ImpDataInfoTemplateName == null)) {
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((string)(Original_ImpDataInfoTemplateName));
+            }
+            this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[10].Value = ((bool)(Original_IsActive));
+            this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[12].Value = ((bool)(Original_IsDeleted));
+            if ((Original_OrderID.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((int)(Original_OrderID.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -167446,7 +167473,7 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ImpDataInfoID, string ImpDataInfoCode, string ImpDataInfoTitle, string ImpDataInfoDescription, bool IsActive, bool IsDeleted, global::System.Nullable<int> OrderID) {
+        public virtual int Insert(int ImpDataInfoID, string ImpDataInfoCode, string ImpDataInfoTitle, string ImpDataInfoDescription, string ImpDataInfoTemplateName, bool IsActive, bool IsDeleted, global::System.Nullable<int> OrderID) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ImpDataInfoID));
             if ((ImpDataInfoCode == null)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -167466,13 +167493,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = ((string)(ImpDataInfoDescription));
             }
-            this.Adapter.InsertCommand.Parameters[4].Value = ((bool)(IsActive));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((bool)(IsDeleted));
-            if ((OrderID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(OrderID.Value));
+            if ((ImpDataInfoTemplateName == null)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(ImpDataInfoTemplateName));
+            }
+            this.Adapter.InsertCommand.Parameters[5].Value = ((bool)(IsActive));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((bool)(IsDeleted));
+            if ((OrderID.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[7].Value = ((int)(OrderID.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -167494,7 +167527,23 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int ImpDataInfoID, string ImpDataInfoCode, string ImpDataInfoTitle, string ImpDataInfoDescription, bool IsActive, bool IsDeleted, global::System.Nullable<int> OrderID, int Original_ImpDataInfoID, string Original_ImpDataInfoCode, string Original_ImpDataInfoTitle, string Original_ImpDataInfoDescription, bool Original_IsActive, bool Original_IsDeleted, global::System.Nullable<int> Original_OrderID) {
+        public virtual int Update(
+                    int ImpDataInfoID, 
+                    string ImpDataInfoCode, 
+                    string ImpDataInfoTitle, 
+                    string ImpDataInfoDescription, 
+                    string ImpDataInfoTemplateName, 
+                    bool IsActive, 
+                    bool IsDeleted, 
+                    global::System.Nullable<int> OrderID, 
+                    int Original_ImpDataInfoID, 
+                    string Original_ImpDataInfoCode, 
+                    string Original_ImpDataInfoTitle, 
+                    string Original_ImpDataInfoDescription, 
+                    string Original_ImpDataInfoTemplateName, 
+                    bool Original_IsActive, 
+                    bool Original_IsDeleted, 
+                    global::System.Nullable<int> Original_OrderID) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ImpDataInfoID));
             if ((ImpDataInfoCode == null)) {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
@@ -167514,50 +167563,64 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(ImpDataInfoDescription));
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((bool)(IsActive));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((bool)(IsDeleted));
+            if ((ImpDataInfoTemplateName == null)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(ImpDataInfoTemplateName));
+            }
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((bool)(IsActive));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((bool)(IsDeleted));
             if ((OrderID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(OrderID.Value));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(OrderID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_ImpDataInfoID));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_ImpDataInfoID));
             if ((Original_ImpDataInfoCode == null)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_ImpDataInfoCode));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_ImpDataInfoCode));
             }
             if ((Original_ImpDataInfoTitle == null)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(Original_ImpDataInfoTitle));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_ImpDataInfoTitle));
             }
             if ((Original_ImpDataInfoDescription == null)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(Original_ImpDataInfoDescription));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(Original_ImpDataInfoDescription));
             }
-            this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((bool)(Original_IsActive));
-            this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[17].Value = ((bool)(Original_IsDeleted));
+            if ((Original_ImpDataInfoTemplateName == null)) {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_ImpDataInfoTemplateName));
+            }
+            this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[18].Value = ((bool)(Original_IsActive));
+            this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[20].Value = ((bool)(Original_IsDeleted));
             if ((Original_OrderID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((int)(Original_OrderID.Value));
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((int)(Original_OrderID.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[22].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -167579,8 +167642,8 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string ImpDataInfoCode, string ImpDataInfoTitle, string ImpDataInfoDescription, bool IsActive, bool IsDeleted, global::System.Nullable<int> OrderID, int Original_ImpDataInfoID, string Original_ImpDataInfoCode, string Original_ImpDataInfoTitle, string Original_ImpDataInfoDescription, bool Original_IsActive, bool Original_IsDeleted, global::System.Nullable<int> Original_OrderID) {
-            return this.Update(Original_ImpDataInfoID, ImpDataInfoCode, ImpDataInfoTitle, ImpDataInfoDescription, IsActive, IsDeleted, OrderID, Original_ImpDataInfoID, Original_ImpDataInfoCode, Original_ImpDataInfoTitle, Original_ImpDataInfoDescription, Original_IsActive, Original_IsDeleted, Original_OrderID);
+        public virtual int Update(string ImpDataInfoCode, string ImpDataInfoTitle, string ImpDataInfoDescription, string ImpDataInfoTemplateName, bool IsActive, bool IsDeleted, global::System.Nullable<int> OrderID, int Original_ImpDataInfoID, string Original_ImpDataInfoCode, string Original_ImpDataInfoTitle, string Original_ImpDataInfoDescription, string Original_ImpDataInfoTemplateName, bool Original_IsActive, bool Original_IsDeleted, global::System.Nullable<int> Original_OrderID) {
+            return this.Update(Original_ImpDataInfoID, ImpDataInfoCode, ImpDataInfoTitle, ImpDataInfoDescription, ImpDataInfoTemplateName, IsActive, IsDeleted, OrderID, Original_ImpDataInfoID, Original_ImpDataInfoCode, Original_ImpDataInfoTitle, Original_ImpDataInfoDescription, Original_ImpDataInfoTemplateName, Original_IsActive, Original_IsDeleted, Original_OrderID);
         }
     }
     

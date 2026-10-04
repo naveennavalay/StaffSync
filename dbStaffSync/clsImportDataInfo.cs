@@ -32,6 +32,7 @@ namespace dbStaffSync
                                     ImprtDataInfo.ImpDataInfoCode,
                                     ImprtDataInfo.ImpDataInfoTitle,
                                     ImprtDataInfo.ImpDataInfoDescription,
+                                    ImprtDataInfo.ImpDataInfoTemplateName,
                                     ImprtDataInfo.IsActive,
                                     ImprtDataInfo.IsDeleted,
                                     ImprtDataInfo.OrderID

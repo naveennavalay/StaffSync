@@ -1,0 +1,3 @@
+BankName,BankAddress,IFSCCode,IsActive,IsDeleted
+Bank 01,Address 01,IFSC 01,1,0
+Bank 02,Address 02,IFSC 02,1,0

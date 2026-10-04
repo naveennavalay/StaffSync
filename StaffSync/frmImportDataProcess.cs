@@ -60,6 +60,8 @@ namespace StaffSync
         private DataTable objImportDataPreviewTable = new DataTable();
         private string objSelectedImportFilePath = string.Empty;
         private bool isImportPreviewEventsAttached = false;
+        // Download template button state
+        private bool isDownloadTemplateEventsAttached = false;
 
         private void Control_CellValueChangedCustom(object sender, CellValueChangedEventArgs e)
         {
@@ -261,9 +263,15 @@ namespace StaffSync
             dtgImportDataSourceList.Columns["ImpDataInfoTitle"].ReadOnly = true;
             dtgImportDataSourceList.Columns["ImpDataInfoTitle"].Width = 225;
             dtgImportDataSourceList.Columns["ImpDataInfoDescription"].Visible = false;
+            dtgImportDataSourceList.Columns["ImpDataInfoTemplateName"].ReadOnly = true;
+            dtgImportDataSourceList.Columns["ImpDataInfoTemplateName"].Width = 225;
+            dtgImportDataSourceList.Columns["ImpDataInfoTemplateName"].Visible = false;
             dtgImportDataSourceList.Columns["IsActive"].Visible = false;
             dtgImportDataSourceList.Columns["IsDeleted"].Visible = false;
             dtgImportDataSourceList.Columns["OrderID"].Visible = false;
+
+            // Download Template button column.
+            AddDownloadTemplateColumn();
 
             if (lblSelectedDataAction.Text == "Import Organisation Information")
             {
@@ -279,7 +287,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["DesignationInitial"].ReadOnly = true;
                 dtgImportDataPreview.Columns["DesignationInitial"].Width = 150;
                 dtgImportDataPreview.Columns["IsActive"].HeaderText = "Is Active";
-                dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";                
+                dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
@@ -297,7 +305,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["DesignationInitial"].Width = 200;
                 dtgImportDataPreview.Columns["DesignationInitial"].ReadOnly = true;
                 dtgImportDataPreview.Columns["IsActive"].HeaderText = "Is Active";
-                dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";                                
+                dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
@@ -639,11 +647,400 @@ namespace StaffSync
         }
 
 
+        /// <summary>
+        /// Adds the Download Template button column to the import source grid.
+        /// Safe to call multiple times because formatGrid() is called more than once.
+        /// </summary>
+        private void AddDownloadTemplateColumn()
+        {
+            try
+            {
+                const string columnName = "DownloadTemplate";
+
+                if (!dtgImportDataSourceList.Columns.Contains(columnName))
+                {
+                    DataGridViewButtonColumn downloadColumn = new DataGridViewButtonColumn();
+
+                    downloadColumn.Name = columnName;
+                    downloadColumn.HeaderText = "Download";
+                    downloadColumn.ToolTipText = "Download CSV Template";
+                    downloadColumn.Text = "⇩";
+                    downloadColumn.UseColumnTextForButtonValue = true;
+                    downloadColumn.Width = 52;
+                    downloadColumn.MinimumWidth = 52;
+                    downloadColumn.FlatStyle = FlatStyle.Standard;
+                    downloadColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    downloadColumn.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI Symbol", 11F, System.Drawing.FontStyle.Bold);
+                    downloadColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+                    downloadColumn.ReadOnly = true;
+                    dtgImportDataSourceList.Columns.Add(downloadColumn);
+                }
+
+                if (!isDownloadTemplateEventsAttached)
+                {
+                    dtgImportDataSourceList.CellContentClick += dtgImportDataSourceList_CellContentClick;
+                    isDownloadTemplateEventsAttached = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to add the template download button." +  Environment.NewLine + Environment.NewLine + ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Handles a click on the Download Template button for the selected row.
+        /// The physical template file name is taken directly from column
+        /// "ImpDataInfoTemplateName" and copied from the application's
+        /// importtemplate folder to the user's Downloads folder.
+        /// </summary>
+        private void dtgImportDataSourceList_CellContentClick(
+            object sender,
+            DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                    return;
+
+                if (dtgImportDataSourceList.Columns[e.ColumnIndex].Name !=
+                    "DownloadTemplate")
+                {
+                    return;
+                }
+
+                if (dtgImportDataSourceList.Rows[e.RowIndex].IsNewRow)
+                    return;
+
+                string templateFileName = Convert.ToString(
+                    dtgImportDataSourceList.Rows[e.RowIndex]
+                        .Cells["ImpDataInfoTemplateName"].Value).Trim();
+
+                if (string.IsNullOrWhiteSpace(templateFileName))
+                {
+                    MessageBox.Show(
+                        "Template file name is not available for the selected import data.",
+                        "Staffsync",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
+                }
+
+                DownloadImportTemplate(templateFileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to download the selected template." +
+                    Environment.NewLine + Environment.NewLine +
+                    ex.Message,
+                    "Staffsync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Copies the existing physical template file from:
+        ///     Application.exe path\importtemplate\<filename from column 2>
+        ///
+        /// directly to the current user's Downloads folder.
+        /// No new CSV content is generated and no SaveFileDialog is shown.
+        /// </summary>
+        private void DownloadImportTemplate(string templateFileName)
+        {
+            try
+            {
+                // Only the file name is allowed. This prevents a value in the
+                // grid from escaping the importtemplate folder.
+                templateFileName = Path.GetFileName(templateFileName);
+
+                if (string.IsNullOrWhiteSpace(templateFileName))
+                {
+                    MessageBox.Show(
+                        "Invalid template file name.",
+                        "Staffsync",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
+                }
+
+                string sourceTemplateFolder = Path.Combine(
+                    Application.StartupPath,
+                    "importtemplate");
+
+                string sourceTemplateFile = Path.Combine(
+                    sourceTemplateFolder,
+                    templateFileName);
+
+                if (!File.Exists(sourceTemplateFile))
+                {
+                    MessageBox.Show(
+                        "The template file was not found." +
+                        Environment.NewLine + Environment.NewLine +
+                        sourceTemplateFile,
+                        "Staffsync",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string downloadsFolder = Path.Combine(
+                    Environment.GetFolderPath(
+                        Environment.SpecialFolder.UserProfile),
+                    "Downloads");
+
+                if (!Directory.Exists(downloadsFolder))
+                {
+                    Directory.CreateDirectory(downloadsFolder);
+                }
+
+                string destinationTemplateFile = Path.Combine(
+                    downloadsFolder,
+                    templateFileName);
+
+                // Copy the actual physical file from the application's
+                // importtemplate folder to Downloads.
+                File.Copy(
+                    sourceTemplateFile,
+                    destinationTemplateFile,
+                    true);
+
+                // Open the downloaded physical template file directly using
+                // the application associated with its file type.
+                System.Diagnostics.Process.Start(
+                    new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = destinationTemplateFile,
+                        UseShellExecute = true
+                    });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to download the selected template." +
+                    Environment.NewLine + Environment.NewLine +
+                    ex.Message,
+                    "Staffsync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Returns the input columns expected by the existing import logic.
+        /// Database-generated IDs and IsDeleted are intentionally omitted.
+        /// </summary>
+        private string[] GetImportTemplateColumns(string importSourceTitle)
+        {
+            switch (importSourceTitle.Trim())
+            {
+                case "Import Organisation Information":
+                case "Import Designation Information":
+                    return new[]
+                    {
+                        "DesignationCode",
+                        "DesignationTitle",
+                        "DesignationInitial",
+                        "IsActive"
+                    };
+
+                case "Import Department Information":
+                    return new[]
+                    {
+                        "DepartmentTitle",
+                        "DepartmentInitial",
+                        "IsActive"
+                    };
+
+                case "Import Countries Information":
+                    return new[]
+                    {
+                        "CountryTitle",
+                        "CountryInitial",
+                        "IsActive"
+                    };
+
+                case "Import States Information":
+                    return new[]
+                    {
+                        "StateCode",
+                        "StateTitle",
+                        "StateInitial",
+                        "IsActive"
+                    };
+
+                case "Import Education Information":
+                    return new[]
+                    {
+                        "EduQualCode",
+                        "EduQualTitle",
+                        "EduQualInitial",
+                        "IsActive"
+                    };
+
+                case "Import Skills Information":
+                    return new[]
+                    {
+                        "SkillCode",
+                        "SkillTitle",
+                        "SkillInitial",
+                        "IsActive"
+                    };
+
+                case "Import Relationship Information":
+                    return new[]
+                    {
+                        "RelationshipCode",
+                        "RelationshipTitle",
+                        "RelationshipInitial",
+                        "IsActive"
+                    };
+
+                case "Import Asset Category Information":
+                    return new[]
+                    {
+                        "AssetCode",
+                        "AssetName",
+                        "AssetDescription",
+                        "ParentCategory",
+                        "IsActive"
+                    };
+
+                case "Import Assets Information":
+                    return new[]
+                    {
+                        "AssetCode",
+                        "AssetName",
+                        "AssetDescription",
+                        "ParentCategory",
+                        "TotalQuantity",
+                        "OutstandingQuantity",
+                        "IsActive"
+                    };
+
+                case "Import Leave Type Information":
+                    return new[]
+                    {
+                        "LeaveCode",
+                        "LeaveTypeTitle",
+                        "IsPaid",
+                        "IsActive"
+                    };
+
+                case "Import Allowance Information":
+                    return new[]
+                    {
+                        "AllCode",
+                        "AllTitle",
+                        "AllDescription",
+                        "IsActive"
+                    };
+
+                case "Import Deductions Information":
+                    return new[]
+                    {
+                        "DedCode",
+                        "DedTitle",
+                        "DedDescription",
+                        "IsActive"
+                    };
+
+                case "Import Reimbursement Information":
+                    return new[]
+                    {
+                        "ReimbCode",
+                        "ReimbTitle",
+                        "ReimbDescription",
+                        "IsActive"
+                    };
+
+                case "Import Advance Type Information":
+                    return new[]
+                    {
+                        "AdvanceTypeCode",
+                        "AdvanceTypeTitle",
+                        "IsActive"
+                    };
+
+                case "Import Employement Type Information":
+                    return new[]
+                    {
+                        "EmpTypeCode",
+                        "EmpTypeTitle",
+                        "EmpTypeInitial",
+                        "IsActive"
+                    };
+
+                case "Import Shift Information":
+                    return new[]
+                    {
+                        "ShiftCode",
+                        "ShiftTitle",
+                        "ShiftInitital",
+                        "ShiftStart",
+                        "ShiftEnd",
+                        "IsActive"
+                    };
+
+                case "Import Bank Information":
+                    return new[]
+                    {
+                        "BankCode",
+                        "BankName",
+                        "BankAddress",
+                        "IFSCCode",
+                        "IsActive"
+                    };
+
+                // These branches currently have no import-processing logic
+                // in the supplied source, so a misleading template is not
+                // generated for them.
+                case "Import Company Information":
+                case "Import Weekly Off Information":
+                case "Import Public Holiday Information":
+                case "Import Gender Information":
+                    return null;
+
+                default:
+                    return null;
+            }
+        }
+
+        private string EscapeCsvTemplateValue(string value)
+        {
+            if (value == null)
+                return string.Empty;
+
+            if (value.Contains(",") ||
+                value.Contains("\"") ||
+                value.Contains("\r") ||
+                value.Contains("\n"))
+            {
+                return "\"" + value.Replace("\"", "\"\"") + "\"";
+            }
+
+            return value;
+        }
+
+        private string MakeSafeTemplateFileName(string fileName)
+        {
+            foreach (char invalidCharacter in Path.GetInvalidFileNameChars())
+            {
+                fileName = fileName.Replace(
+                    invalidCharacter.ToString(),
+                    string.Empty);
+            }
+
+            return fileName.Trim();
+        }
+
+
         private void btnSearch_Click(object sender, EventArgs e)
         {
             try
             {
-                if(lblSelectedDataAction.Text == "")
+                if (lblSelectedDataAction.Text == "")
                 {
                     MessageBox.Show("Please select an import data source.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
@@ -1075,7 +1472,7 @@ namespace StaffSync
 
             if (btnSaveDetails.Enabled == false)
             {
-                chkSelectOrUnselect.Checked = false; 
+                chkSelectOrUnselect.Checked = false;
                 chkSelectOrUnselect.Text = "Select All";
             }
         }
@@ -1265,7 +1662,7 @@ namespace StaffSync
                     string designationCode = GetImportCellValue(row, "DesignationCode");
                     string designationTitle = GetImportCellValue(row, "DesignationTitle");
                     string designationInitial = GetImportCellValue(row, "DesignationInitial");
-                    
+
                     if (objDesignation.GetDesignationByTitle(designationTitle) != 0)
                     {
                         intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
@@ -1277,7 +1674,7 @@ namespace StaffSync
                     }
 
                     int intDesignationID = objDesignation.InsertDesignation(designationCode, designationTitle, designationInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
-                    if(intDesignationID > 0)
+                    if (intDesignationID > 0)
                     {
                         intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
                         lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
