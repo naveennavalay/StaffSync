@@ -47,6 +47,7 @@ namespace StaffSync
         DALStaffSync.clsAssetsInfo objAssetsInfo = new DALStaffSync.clsAssetsInfo();
         DALStaffSync.clsAssetRegister objAssetRegister = new DALStaffSync.clsAssetRegister();
         DALStaffSync.clsLeaveTypeMas objLeaveTypeMas = new DALStaffSync.clsLeaveTypeMas();
+        DALStaffSync.clsWeeklyOffInfo objWeeklyOffInfo = new DALStaffSync.clsWeeklyOffInfo();
         DALStaffSync.clsAllowenceInfo objAllowenceInfo = new DALStaffSync.clsAllowenceInfo();
         DALStaffSync.clsDeductionsInfo objDeductionInfo = new DALStaffSync.clsDeductionsInfo();
         DALStaffSync.clsReimbursement objReimbursementInfo = new DALStaffSync.clsReimbursement();
@@ -74,6 +75,7 @@ namespace StaffSync
             InitializeComponent();
             dtgImportDataSourceList.DataSource = objImportDataInfo.getImportInfoData();
             formatGrid();
+            defaultSelectedImportOption();
             //attendanceGridControl1.CellValueChangedCustom += Control_CellValueChangedCustom;
         }
 
@@ -84,6 +86,7 @@ namespace StaffSync
             objActiveClientInfo = objClientInfo.getClientInfoByEmpID(objTempCurrentlyLoggedInUserInfo.EmpID);
             dtgImportDataSourceList.DataSource = objImportDataInfo.getImportInfoData();
             formatGrid();
+            defaultSelectedImportOption();
         }
 
         public frmImportDataProcess(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
@@ -93,14 +96,37 @@ namespace StaffSync
             objTempClientFinYearInfo = objSelectedClientFinYearInfo;
             ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
             objActiveClientInfo = objClientInfo.getClientInfoByEmpID(objTempCurrentlyLoggedInUserInfo.EmpID);
+
             dtgImportDataSourceList.DataSource = objImportDataInfo.getImportInfoData();
             formatGrid();
+            defaultSelectedImportOption();
         }
 
         public frmImportDataProcess(int txtEmployeeID, int txtLeaveMasID)
         {
             InitializeComponent();
             dtgImportDataSourceList.DataSource = objImportDataInfo.getImportInfoData();
+            formatGrid();
+            defaultSelectedImportOption();
+        }
+
+        private void defaultSelectedImportOption()
+        {
+            //lblSelectedDataAction.Text = Convert.ToString(dtgImportDataSourceList.Rows[1].Cells["ImpDataInfoTitle"].Value).Trim();
+            lblSelectedDataAction.Text = dtgImportDataSourceList[3, 0].Value.ToString();
+            string templateFileName = Convert.ToString(dtgImportDataSourceList.Rows[0].Cells["ImpDataInfoTemplateName"].Value).Trim();
+            templateFileName = Path.GetFileName(templateFileName);
+            string sourceTemplateFolder = Path.Combine(Application.StartupPath, "importtemplate");
+            string sourceTemplateFile = Path.Combine(sourceTemplateFolder, templateFileName);
+
+            txtSourceFilePath.Text = sourceTemplateFile;
+
+            DataTable importedData = ReadImportFile(sourceTemplateFile);
+            dtgImportDataPreview.DataSource = null;
+            dtgImportDataPreview.DataSource = importedData;
+
+            BindImportPreviewData(importedData);
+
             formatGrid();
         }
 
@@ -123,6 +149,7 @@ namespace StaffSync
             onCancelButtonClick();
             disableControls();
             clearControls();
+            defaultSelectedImportOption();
         }
 
         public void LoadAttendanceInfo()
@@ -423,7 +450,21 @@ namespace StaffSync
             }
             else if (lblSelectedDataAction.Text == "Weekly Off Information")
             {
-
+                //dtgImportDataPreview.Columns["WklyOffMasID"].HeaderText = "Relationship ID";
+                //dtgImportDataPreview.Columns["WklyOffMasID"].Visible = false;
+                //dtgImportDataPreview.Columns["WklyOffCode"].HeaderText = "Relationship Code";
+                //dtgImportDataPreview.Columns["WklyOffCode"].Visible = false;
+                //dtgImportDataPreview.Columns["WklyOffCode"].Width = 150;
+                dtgImportDataPreview.Columns["WklyOffTitle"].HeaderText = "Weekly Off Title";
+                dtgImportDataPreview.Columns["WklyOffTitle"].Width = 300;
+                dtgImportDataPreview.Columns["WklyOffTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["WklyOffDay"].HeaderText = "Weekly Day";
+                dtgImportDataPreview.Columns["WklyOffDay"].Width = 300;
+                dtgImportDataPreview.Columns["WklyOffDay"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].HeaderText = "Is Active";
+                dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
             else if (lblSelectedDataAction.Text == "Asset Category Information")
             {
@@ -1099,12 +1140,9 @@ namespace StaffSync
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Unable to read the selected import file.\n\n" +
-                    ex.Message,
-                    "Staffsync",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                defaultSelectedImportOption();
+                dtgImportDataSourceList[0, 0].Selected = true;
+                MessageBox.Show("Selected source template is different or \nunable to read the selected source file.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1915,7 +1953,51 @@ namespace StaffSync
             }
             else if (lblSelectedDataAction.Text == "Weekly Off Information")
             {
+                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
 
+                    bool isSelected = false;
+                    if (row.Cells["IsSelected"].Value != null)
+                    {
+                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
+                    }
+                    if (!isSelected)
+                        continue;
+
+                    //string WklyOffMasID = GetImportCellValue(row, "WklyOffMasID");
+                    //string WklyOffCode = GetImportCellValue(row, "WklyOffCode");
+                    string WklyOffTitle = GetImportCellValue(row, "WklyOffTitle");
+                    string WklyOffDay = GetImportCellValue(row, "WklyOffDay");
+                    //DateTime WklyOffEffectiveDate = GetImportCellValue(row, "WklyOffEffectiveDate");
+
+                    if (objWeeklyOffInfo.GetWklyOffTitleByTitle(WklyOffTitle) != 0)
+                    {
+                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
+                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalDuplicateRows.Refresh();
+                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalNotImportedRows.Refresh();
+                        continue;
+                    }
+
+                    int intWeeklyOffInfoID = objWeeklyOffInfo.InsertWeeklyOffInfo("", WklyOffTitle, DateTime.Today, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
+                    if (intWeeklyOffInfoID > 0)
+                    {
+                        string[] weekDays = new CultureInfo("en-us").DateTimeFormat.DayNames;
+
+                        List<string> weeklyOffDays = WklyOffDay.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+                        foreach (string dayName in weeklyOffDays)
+                        {
+                            DayOfWeek day = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), dayName, true);
+                            int WeeklyOffDayID = objWeeklyOffInfo.InsertWeeklyOffDetailInfo(Convert.ToInt16(intWeeklyOffInfoID), Convert.ToInt32(day) == 0 ? 7 : Convert.ToInt32(day), 0);
+                        }                        
+
+                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
+                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
+                    }
+                }
             }
             else if (lblSelectedDataAction.Text == "Asset Category Information")
             {
@@ -2493,7 +2575,6 @@ namespace StaffSync
                 objDashboard.refreshDashboardCharts();
                 this.Close();
             }
-
         }
 
         private void frmImportDataProcess_Activated(object sender, EventArgs e)

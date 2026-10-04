@@ -76,6 +76,43 @@ namespace dbStaffSync
             return objWklyOffProfileMasInfoList;
         }
 
+        public int GetWklyOffTitleByTitle(string WklyOffTitle)
+        {
+            int selectedWklyOffID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT WklyOffMasID FROM WklyOffProfileInfo WHERE WklyOffTitle = '" + WklyOffTitle + "'";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                cmd.Parameters.AddWithValue("@WklyOffTitle", WklyOffTitle.Trim());
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    selectedWklyOffID = Convert.ToInt32(result);
+                }
+                else
+                {
+                    selectedWklyOffID = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedWklyOffID;
+        }
+
         public int InsertWeeklyOffInfo(string txtWklyOffCode, string txtWklyOffTitle, DateTime txtWklyOffEffectiveDate, bool IsActive, bool IsDelete)
         {
             int affectedRows = 0;

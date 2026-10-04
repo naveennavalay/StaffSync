@@ -31,6 +31,15 @@ namespace DALStaffSync
             return objWklyOffProfileMasInfoList;
         }
 
+        public int GetWklyOffTitleByTitle(string WklyOffTitle)
+        {
+            int WklyOffMasID = 0;
+
+            WklyOffMasID = objWeeklyOffInfo.GetWklyOffTitleByTitle(WklyOffTitle);
+
+            return WklyOffMasID;
+        }
+
         public int InsertWeeklyOffInfo(string txtWklyOffCode, string txtWklyOffTitle, DateTime txtWklyOffEffectiveDate, bool IsActive, bool IsDelete)
         {
             int affectedRows = 0;
