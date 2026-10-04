@@ -273,7 +273,7 @@ namespace StaffSync
             // Download Template button column.
             AddDownloadTemplateColumn();
 
-            if (lblSelectedDataAction.Text == "Import Organisation Information")
+            if (lblSelectedDataAction.Text == "Organisation Information")
             {
                 dtgImportDataPreview.Columns["DesignationID"].HeaderText = "Designation ID";
                 dtgImportDataPreview.Columns["DesignationID"].Visible = false;
@@ -291,7 +291,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Designation Information")
+            else if (lblSelectedDataAction.Text == "Designation Information")
             {
                 //dtgImportDataPreview.Columns["DesignationID"].HeaderText = "Designation ID";
                 //dtgImportDataPreview.Columns["DesignationID"].Visible = false;
@@ -309,7 +309,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Department Information")
+            else if (lblSelectedDataAction.Text == "Department Information")
             {
                 //dtgImportDataPreview.Columns["DepartmentID"].HeaderText = "Department ID";
                 //dtgImportDataPreview.Columns["DepartmentID"].Visible = false;
@@ -327,11 +327,11 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Company Information")
+            else if (lblSelectedDataAction.Text == "Company Information")
             {
 
             }
-            else if (lblSelectedDataAction.Text == "Import Countries Information")
+            else if (lblSelectedDataAction.Text == "Countries Information")
             {
                 //dtgImportDataPreview.Columns["CountryID"].HeaderText = "Country ID";
                 //dtgImportDataPreview.Columns["CountryID"].Visible = false;
@@ -349,7 +349,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import States Information")
+            else if (lblSelectedDataAction.Text == "States Information")
             {
                 //dtgImportDataPreview.Columns["StateID"].HeaderText = "State ID";
                 //dtgImportDataPreview.Columns["StateID"].Visible = false;
@@ -367,7 +367,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Education Information")
+            else if (lblSelectedDataAction.Text == "Education Information")
             {
                 //dtgImportDataPreview.Columns["EduQualID"].HeaderText = "Education ID";
                 //dtgImportDataPreview.Columns["EduQualID"].Visible = false;
@@ -385,7 +385,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Skills Information")
+            else if (lblSelectedDataAction.Text == "Skills Information")
             {
                 //dtgImportDataPreview.Columns["SkillID"].HeaderText = "Skill ID";
                 //dtgImportDataPreview.Columns["SkillID"].Visible = false;
@@ -403,7 +403,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Relationship Information")
+            else if (lblSelectedDataAction.Text == "Relationship Information")
             {
                 //dtgImportDataPreview.Columns["RelationShipID"].HeaderText = "Relationship ID";
                 //dtgImportDataPreview.Columns["RelationShipID"].Visible = false;
@@ -421,11 +421,11 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Weekly Off Information")
+            else if (lblSelectedDataAction.Text == "Weekly Off Information")
             {
 
             }
-            else if (lblSelectedDataAction.Text == "Import Asset Category Information")
+            else if (lblSelectedDataAction.Text == "Asset Category Information")
             {
                 //dtgImportDataPreview.Columns["AssetCatMasID"].HeaderText = "Category ID";
                 //dtgImportDataPreview.Columns["AssetCatMasID"].Visible = false;
@@ -449,7 +449,7 @@ namespace StaffSync
                 //dtgImportDataPreview.Columns["ClientID"].Visible = false;
                 //dtgImportDataPreview.Columns["ParentAssetCatMasID"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Assets Information")
+            else if (lblSelectedDataAction.Text == "Assets Information")
             {
                 //dtgImportDataPreview.Columns["AssetID"].HeaderText = "Asset ID";
                 //dtgImportDataPreview.Columns["AssetID"].Visible = false;
@@ -484,7 +484,7 @@ namespace StaffSync
                 //dtgImportDataPreview.Columns["ClientID"].Visible = false;
                 //dtgImportDataPreview.Columns["ParentAssetCatMasID"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Leave Type Information")
+            else if (lblSelectedDataAction.Text == "Leave Type Information")
             {
                 //dtgImportDataPreview.Columns["LeaveTypeID"].HeaderText = "Leave Type ID";
                 //dtgImportDataPreview.Columns["LeaveTypeID"].Visible = false;
@@ -502,7 +502,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Allowance Information")
+            else if (lblSelectedDataAction.Text == "Allowance Information")
             {
                 //dtgImportDataPreview.Columns["AllID"].HeaderText = "Allowance ID";
                 //dtgImportDataPreview.Columns["AllID"].Visible = false;
@@ -520,7 +520,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Deductions Information")
+            else if (lblSelectedDataAction.Text == "Deductions Information")
             {
                 //dtgImportDataPreview.Columns["DedID"].HeaderText = "Deduction ID";
                 //dtgImportDataPreview.Columns["DedID"].Visible = false;
@@ -538,7 +538,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Reimbursement Information")
+            else if (lblSelectedDataAction.Text == "Reimbursement Information")
             {
                 //dtgImportDataPreview.Columns["ReimbID"].HeaderText = "Reimbursement ID";
                 //dtgImportDataPreview.Columns["ReimbID"].Visible = false;
@@ -556,7 +556,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Advance Type Information")
+            else if (lblSelectedDataAction.Text == "Advance Type Information")
             {
                 //dtgImportDataPreview.Columns["AdvanceTypeID"].HeaderText = "Advance Type ID";
                 //dtgImportDataPreview.Columns["AdvanceTypeID"].Visible = false;
@@ -571,15 +571,15 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Public Holiday Information")
+            else if (lblSelectedDataAction.Text == "Public Holiday Information")
             {
 
             }
-            else if (lblSelectedDataAction.Text == "Import Gender Information")
+            else if (lblSelectedDataAction.Text == "Gender Information")
             {
 
             }
-            else if (lblSelectedDataAction.Text == "Import Employement Type Information")
+            else if (lblSelectedDataAction.Text == "Employement Type Information")
             {
                 //dtgImportDataPreview.Columns["EmpTypeMasID"].HeaderText = "Advance Type ID";
                 //dtgImportDataPreview.Columns["EmpTypeMasID"].Visible = false;
@@ -597,7 +597,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Shift Information")
+            else if (lblSelectedDataAction.Text == "Shift Information")
             {
                 //dtgImportDataPreview.Columns["ShiftID"].HeaderText = "Shift ID";
                 //dtgImportDataPreview.Columns["ShiftID"].Visible = false;
@@ -623,7 +623,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-            else if (lblSelectedDataAction.Text == "Import Bank Information")
+            else if (lblSelectedDataAction.Text == "Bank Information")
             {
                 //dtgImportDataPreview.Columns["BankID"].HeaderText = "Bank ID";
                 //dtgImportDataPreview.Columns["BankID"].Visible = false;
@@ -1640,11 +1640,11 @@ namespace StaffSync
                 return;
             }
 
-            if (lblSelectedDataAction.Text == "Import Organisation Information")
+            if (lblSelectedDataAction.Text == "Organisation Information")
             {
 
             }
-            else if (lblSelectedDataAction.Text == "Import Designation Information")
+            else if (lblSelectedDataAction.Text == "Designation Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -1681,7 +1681,7 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Department Information")
+            else if (lblSelectedDataAction.Text == "Department Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -1719,11 +1719,11 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Company Information")
+            else if (lblSelectedDataAction.Text == "Company Information")
             {
 
             }
-            else if (lblSelectedDataAction.Text == "Import Countries Information")
+            else if (lblSelectedDataAction.Text == "Countries Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -1761,7 +1761,7 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import States Information")
+            else if (lblSelectedDataAction.Text == "States Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -1799,7 +1799,7 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Education Information")
+            else if (lblSelectedDataAction.Text == "Education Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -1837,7 +1837,7 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Skills Information")
+            else if (lblSelectedDataAction.Text == "Skills Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -1875,7 +1875,7 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Relationship Information")
+            else if (lblSelectedDataAction.Text == "Relationship Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -1913,11 +1913,11 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Weekly Off Information")
+            else if (lblSelectedDataAction.Text == "Weekly Off Information")
             {
 
             }
-            else if (lblSelectedDataAction.Text == "Import Asset Category Information")
+            else if (lblSelectedDataAction.Text == "Asset Category Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -1956,7 +1956,7 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Assets Information")
+            else if (lblSelectedDataAction.Text == "Assets Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -1999,7 +1999,7 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Leave Type Information")
+            else if (lblSelectedDataAction.Text == "Leave Type Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -2037,7 +2037,7 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Allowance Information")
+            else if (lblSelectedDataAction.Text == "Allowance Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -2075,7 +2075,7 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Deductions Information")
+            else if (lblSelectedDataAction.Text == "Deductions Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -2113,7 +2113,7 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Reimbursement Information")
+            else if (lblSelectedDataAction.Text == "Reimbursement Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -2151,7 +2151,7 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Advance Type Information")
+            else if (lblSelectedDataAction.Text == "Advance Type Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -2188,15 +2188,15 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Public Holiday Information")
+            else if (lblSelectedDataAction.Text == "Public Holiday Information")
             {
 
             }
-            else if (lblSelectedDataAction.Text == "Import Gender Information")
+            else if (lblSelectedDataAction.Text == "Gender Information")
             {
 
             }
-            else if (lblSelectedDataAction.Text == "Import Employement Type Information")
+            else if (lblSelectedDataAction.Text == "Employement Type Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -2234,7 +2234,7 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Shift Information")
+            else if (lblSelectedDataAction.Text == "Shift Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -2274,7 +2274,7 @@ namespace StaffSync
                     }
                 }
             }
-            else if (lblSelectedDataAction.Text == "Import Bank Information")
+            else if (lblSelectedDataAction.Text == "Bank Information")
             {
                 foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
                 {
@@ -2520,7 +2520,7 @@ namespace StaffSync
 
         private void dtgImportDataSourceList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            lblSelectedDataAction.Text = dtgImportDataSourceList[2, e.RowIndex].Value.ToString();
+            lblSelectedDataAction.Text = dtgImportDataSourceList[3, e.RowIndex].Value.ToString();
         }
 
         private void chkSelectOrUnselect_Click(object sender, EventArgs e)
