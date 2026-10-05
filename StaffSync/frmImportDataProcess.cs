@@ -15,22 +15,29 @@ using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.IO;
+using System.Drawing.Imaging;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static StaffSync.PDFComponent;
 using static StaffSync.PDFComponent.SimplePdfGenerator;
+using static System.Windows.Forms.MonthCalendar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Security.AccessControl;
 
 namespace StaffSync
 {
     public partial class frmImportDataProcess : Form
     {
         DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
+        DALStaffSync.clsClientStatutory objClientStatutory = new DALStaffSync.clsClientStatutory();
+        DALStaffSync.clsClientBranchInfo clsClientBranchInfo = new DALStaffSync.clsClientBranchInfo();
+        clsImpageOperation objImpageOperation = new clsImpageOperation();
+        DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
         DALStaffSync.clsImportDataInfo objImportDataInfo = new DALStaffSync.clsImportDataInfo();
         DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
         DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
@@ -300,23 +307,61 @@ namespace StaffSync
             // Download Template button column.
             AddDownloadTemplateColumn();
 
-            if (lblSelectedDataAction.Text == "Organisation Information")
+            if (lblSelectedDataAction.Text == "Company Information")
             {
-                dtgImportDataPreview.Columns["DesignationID"].HeaderText = "Designation ID";
-                dtgImportDataPreview.Columns["DesignationID"].Visible = false;
-                dtgImportDataPreview.Columns["DesignationCode"].HeaderText = "Designation Code";
-                dtgImportDataPreview.Columns["DesignationCode"].Visible = false;
-                dtgImportDataPreview.Columns["DesignationCode"].Width = 150;
-                dtgImportDataPreview.Columns["DesignationTitle"].HeaderText = "Designation Title";
-                dtgImportDataPreview.Columns["DesignationTitle"].Width = 250;
-                dtgImportDataPreview.Columns["DesignationTitle"].ReadOnly = true;
-                dtgImportDataPreview.Columns["DesignationInitial"].HeaderText = "Designation Initial";
-                dtgImportDataPreview.Columns["DesignationInitial"].ReadOnly = true;
-                dtgImportDataPreview.Columns["DesignationInitial"].Width = 150;
+                //dtgImportDataPreview.Columns["ClientID"].HeaderText = "Client ID";
+                //dtgImportDataPreview.Columns["ClientID"].Visible = false;
+                //dtgImportDataPreview.Columns["ClientCode"].HeaderText = "Client Code";
+                //dtgImportDataPreview.Columns["ClientCode"].Visible = false;
+                //dtgImportDataPreview.Columns["ClientCode"].Width = 150;
+                dtgImportDataPreview.Columns["ClientName"].HeaderText = "Client Title";
+                dtgImportDataPreview.Columns["ClientName"].Width = 250;
+                dtgImportDataPreview.Columns["ClientName"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientAddress1"].HeaderText = "Address 01";
+                dtgImportDataPreview.Columns["ClientAddress1"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientAddress1"].Width = 250;
+                dtgImportDataPreview.Columns["ClientAddress2"].HeaderText = "Address 02";
+                dtgImportDataPreview.Columns["ClientAddress2"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientAddress2"].Width = 250;
+                dtgImportDataPreview.Columns["ClientArea"].HeaderText = "Area";
+                dtgImportDataPreview.Columns["ClientArea"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientArea"].Width = 100;
+                dtgImportDataPreview.Columns["ClientCity"].HeaderText = "City";
+                dtgImportDataPreview.Columns["ClientCity"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientCity"].Width = 100;
+                dtgImportDataPreview.Columns["ClientState"].HeaderText = "State";
+                dtgImportDataPreview.Columns["ClientState"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientState"].Width = 100;
+                dtgImportDataPreview.Columns["ClientPIN"].HeaderText = "PIN";
+                dtgImportDataPreview.Columns["ClientPIN"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientPIN"].Width = 100;
+                dtgImportDataPreview.Columns["ClientCountry"].HeaderText = "Country";
+                dtgImportDataPreview.Columns["ClientCountry"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientCountry"].Width = 100;
+                dtgImportDataPreview.Columns["ClientPhone"].HeaderText = "Phone";
+                dtgImportDataPreview.Columns["ClientPhone"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientPhone"].Width = 100;
+                dtgImportDataPreview.Columns["ClientMailID"].HeaderText = "Mail ID";
+                dtgImportDataPreview.Columns["ClientMailID"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientMailID"].Width = 250;
+                dtgImportDataPreview.Columns["ClientContactPerson"].HeaderText = "Contact Person";
+                dtgImportDataPreview.Columns["ClientContactPerson"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientContactPerson"].Width = 250;
+                dtgImportDataPreview.Columns["ClientContactNumber"].HeaderText = "Contact Number";
+                dtgImportDataPreview.Columns["ClientContactNumber"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientContactNumber"].Width = 100;
+                dtgImportDataPreview.Columns["ClientContactMail"].HeaderText = "Contact Mail ID";
+                dtgImportDataPreview.Columns["ClientContactMail"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientContactMail"].Width = 250;
+                dtgImportDataPreview.Columns["ClientWebSite"].HeaderText = "Client Web Site";
+                dtgImportDataPreview.Columns["ClientWebSite"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientWebSite"].Width = 250;
                 dtgImportDataPreview.Columns["IsActive"].HeaderText = "Is Active";
                 dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+                dtgImportDataPreview.Columns["FinYearID"].ReadOnly = true; 
+                dtgImportDataPreview.Columns["FinYearID"].Visible = false;
             }
             else if (lblSelectedDataAction.Text == "Designation Information")
             {
@@ -353,10 +398,6 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
-            }
-            else if (lblSelectedDataAction.Text == "Company Information")
-            {
-
             }
             else if (lblSelectedDataAction.Text == "Countries Information")
             {
@@ -1678,9 +1719,76 @@ namespace StaffSync
                 return;
             }
 
-            if (lblSelectedDataAction.Text == "Organisation Information")
+            if (lblSelectedDataAction.Text == "Company Information")
             {
+                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
 
+                    bool isSelected = false;
+                    if (row.Cells["IsSelected"].Value != null)
+                    {
+                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
+                    }
+                    if (!isSelected)
+                        continue;
+                    //string ClientID = GetImportCellValue(row, "ClientID");
+                    //string ClientCode = GetImportCellValue(row, "ClientCode");
+                    string ClientName = GetImportCellValue(row, "ClientName");
+                    string ClientAddress1 = GetImportCellValue(row, "ClientAddress1");
+                    string ClientAddress2 = GetImportCellValue(row, "ClientAddress2");
+                    string ClientArea = GetImportCellValue(row, "ClientArea");
+                    string ClientCity = GetImportCellValue(row, "ClientCity");
+                    string ClientState = GetImportCellValue(row, "ClientState");
+                    string ClientPIN = GetImportCellValue(row, "ClientPIN");
+                    string ClientCountry = GetImportCellValue(row, "ClientCountry");
+                    string ClientPhone = GetImportCellValue(row, "ClientPhone");
+                    string ClientMailID = GetImportCellValue(row, "ClientMailID");
+                    string ClientContactPerson = GetImportCellValue(row, "ClientContactPerson");
+                    string ClientContactNumber = GetImportCellValue(row, "ClientContactNumber");
+                    string ClientContactMail = GetImportCellValue(row, "ClientContactMail");
+                    string ClientWebSite = GetImportCellValue(row, "ClientWebSite");
+
+                    if (objClientInfo.getClientInfoByTitle(ClientName) != 0)
+                    {
+                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
+                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalDuplicateRows.Refresh();
+                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
+                        lblTotalNotImportedRows.Refresh();
+                        continue;
+                    }
+
+                    int intClientID = objClientInfo.InsertClientInfo("", ClientName, ClientAddress1, ClientAddress2, ClientArea, ClientCity, ClientState, ClientPIN, ClientCountry, ClientPhone, ClientMailID, ClientContactPerson, ClientContactNumber, ClientMailID, ClientWebSite, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, objTempClientFinYearInfo.FinYearID);
+                    if (intClientID > 0)
+                    {
+                        if (picCompLogo.Image != null)
+                        {
+                            byte[] image_bytes = objImpageOperation.ImageToBytes(picCompLogo.Image, ImageFormat.Jpeg, true);
+                            if (image_bytes.Length > 0)
+                            {
+                                int photoID = objPhotoMas.UpdateCompanyLogoInfo(Convert.ToInt16(intClientID), image_bytes);
+                            }
+                        }
+
+                        objClientStatutory.InsertClientStatutory(intClientID, DateTime.Now, false, false, "N/A",false, "N/A", false, "N/A", false, "N/A");
+                        objClientStatutory.InsertClientProvidentFundSettings(1, "A", Convert.ToDecimal("0.00"), Convert.ToDecimal("0.00"), "A", Convert.ToDecimal("0.00"), Convert.ToDecimal("0.00"), "A", Convert.ToDecimal("0.00"), Convert.ToDecimal("0.00"), DateTime.Now);
+
+                        int BranchID = clsClientBranchInfo.InsertClientBranchInfo("", ClientName, ClientAddress1, ClientAddress2, ClientArea, ClientCity, ClientState, ClientPIN, ClientCountry, ClientPhone, ClientMailID, ClientContactPerson, ClientContactNumber, ClientMailID, ClientWebSite, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, objTempClientFinYearInfo.ClientID);
+                        if (txtCompLogo.Text == "overwrite")
+                        {
+                            byte[] image_bytes = objImpageOperation.ImageToBytes(picCompLogo.Image, ImageFormat.Jpeg, true);
+                            if (image_bytes.Length > 0)
+                            {
+                                int photoID = objPhotoMas.UpdateCompanyBranchLogoInfo(Convert.ToInt16(intClientID), image_bytes);
+                            }
+                        }
+
+                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
+                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
+                    }
+                }
             }
             else if (lblSelectedDataAction.Text == "Designation Information")
             {
@@ -1756,10 +1864,6 @@ namespace StaffSync
                         lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
                     }
                 }
-            }
-            else if (lblSelectedDataAction.Text == "Company Information")
-            {
-
             }
             else if (lblSelectedDataAction.Text == "Countries Information")
             {

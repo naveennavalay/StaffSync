@@ -234,6 +234,43 @@ namespace dbStaffSync
             return objClientInfoList;
         }
 
+        public int getClientInfoByTitle(string txtClientName)
+        {
+            int selectedAssetID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT ClientID FROM ClientMas WHERE ClientName = '" + txtClientName + "'";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                cmd.Parameters.AddWithValue("@ClientName", txtClientName.Trim());
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    selectedAssetID = Convert.ToInt32(result);
+                }
+                else
+                {
+                    selectedAssetID = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedAssetID;
+        }
+
         public int InsertClientInfo(string txtClientCode, string txtClientName, string txtClientAddress1, string txtClientAddress2, string txtClientArea, string txtClientCity, string txtClientState, string txtClientPIN, string txtClientCountry, string txtClientPhone, string txtClientMailID, string txtClientContactPerson, string txtClientContactNumber, string txtClientContactMail, string txtClientWebSite, bool IsActive, bool IsDeleted, int txtFinYearID)
         {
             int affectedRows = 0;

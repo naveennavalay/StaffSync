@@ -51,6 +51,15 @@ namespace DALStaffSync
             return objClientInfoList;
         }
 
+        public int getClientInfoByTitle(string txtClientName)
+        {
+            int affectedRows = 0;
+
+            affectedRows = objClientInfo.getClientInfoByTitle(txtClientName);
+
+            return affectedRows;
+        }
+
         public int InsertClientInfo(string txtClientCode, string txtClientName, string txtClientAddress1, string txtClientAddress2, string txtClientArea, string txtClientCity, string txtClientState, string txtClientPIN, string txtClientCountry, string txtClientPhone, string txtClientMailID, string txtClientContactPerson, string txtClientContactNumber, string txtClientContactMail, string txtClientWebSite, bool IsActive, bool IsDeleted, int txtFinYearID)
         {
             int affectedRows = 0;
