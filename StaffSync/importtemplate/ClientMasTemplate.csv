@@ -1,0 +1,3 @@
+ClientName,ClientAddress1,ClientAddress2,ClientArea,ClientCity,ClientState,ClientPIN,ClientCountry,ClientPhone,ClientMailID,ClientContactPerson,ClientContactNumber,ClientContactMail,ClientWebSite,ClientLogo,IsActive,IsDeleted,FinYearID
+Default Company,N/A,N/A,N/A,N/A,Karnataka,526585,India,080-528014500,genericmail@softsolutions.com,Navee. D. Navale,080-528014500,genericmail@softsolutions.com,https://softsolutions.com,,TRUE,FALSE,2
+Default Company 01,N/A,N/A,N/A,N/A,Karnataka,526586,India,080-528014501,genericmail@softsolutions.com,Navee. D. Navale,080-528014501,genericmail@softsolutions.com,https://softsolutions.com,,TRUE,FALSE,2
