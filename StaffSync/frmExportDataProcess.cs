@@ -31,7 +31,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace StaffSync
 {
-    public partial class frmImportDataProcess : Form
+    public partial class frmExportDataProcess : Form
     {
         DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
         DALStaffSync.clsClientStatutory objClientStatutory = new DALStaffSync.clsClientStatutory();
@@ -64,10 +64,11 @@ namespace StaffSync
         List<ClientInfo> objActiveClientInfo = new List<ClientInfo>();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
 
-        // Import preview state
+        // Import/Export preview state
         private DataTable objImportDataPreviewTable = new DataTable();
         private string objSelectedImportFilePath = string.Empty;
         private bool isImportPreviewEventsAttached = false;
+        private bool isExportPreviewEventsAttached = false;
         // Download template button state
         private bool isDownloadTemplateEventsAttached = false;
 
@@ -77,7 +78,7 @@ namespace StaffSync
             //MessageBox.Show($"RowID: {e.Change.RowIndex}, Column: {e.Change.ColumnIndex}, ColumnName: {e.Change.ColumnName}, OldValue: {e.Change.OldValue}, NewValue: {e.Change.NewValue}");
         }
 
-        public frmImportDataProcess()
+        public frmExportDataProcess()
         {
             InitializeComponent();
             dtgImportDataSourceList.DataSource = objImportDataInfo.getImportInfoData();
@@ -86,7 +87,7 @@ namespace StaffSync
             //attendanceGridControl1.CellValueChangedCustom += Control_CellValueChangedCustom;
         }
 
-        public frmImportDataProcess(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
+        public frmExportDataProcess(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
         {
             InitializeComponent();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
@@ -96,7 +97,7 @@ namespace StaffSync
             defaultSelectedImportOption();
         }
 
-        public frmImportDataProcess(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
+        public frmExportDataProcess(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
         {
             InitializeComponent();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
@@ -109,7 +110,7 @@ namespace StaffSync
             defaultSelectedImportOption();
         }
 
-        public frmImportDataProcess(int txtEmployeeID, int txtLeaveMasID)
+        public frmExportDataProcess(int txtEmployeeID, int txtLeaveMasID)
         {
             InitializeComponent();
             dtgImportDataSourceList.DataSource = objImportDataInfo.getImportInfoData();
@@ -119,22 +120,46 @@ namespace StaffSync
 
         private void defaultSelectedImportOption()
         {
-            //lblSelectedDataAction.Text = Convert.ToString(dtgImportDataSourceList.Rows[1].Cells["ImpDataInfoTitle"].Value).Trim();
-            lblSelectedDataAction.Text = dtgImportDataSourceList[3, 0].Value.ToString();
-            string templateFileName = Convert.ToString(dtgImportDataSourceList.Rows[0].Cells["ImpDataInfoTemplateName"].Value).Trim();
-            templateFileName = Path.GetFileName(templateFileName);
-            string sourceTemplateFolder = Path.Combine(Application.StartupPath, "importtemplate");
-            string sourceTemplateFile = Path.Combine(sourceTemplateFolder, templateFileName);
+            try
+            {
+                if (dtgImportDataSourceList == null ||
+                    dtgImportDataSourceList.Rows.Count == 0)
+                {
+                    ClearExportPreview();
+                    return;
+                }
 
-            txtSourceFilePath.Text = sourceTemplateFile;
+                string selectedTitle = GetSelectedImportSourceTitle();
 
-            DataTable importedData = ReadImportFile(sourceTemplateFile);
-            dtgImportDataPreview.DataSource = null;
-            dtgImportDataPreview.DataSource = importedData;
+                if (string.IsNullOrWhiteSpace(selectedTitle))
+                {
+                    selectedTitle = Convert.ToString(
+                        dtgImportDataSourceList.Rows[0]
+                            .Cells["ImpDataInfoTitle"].Value);
+                }
 
-            BindImportPreviewData(importedData);
+                lblSelectedDataAction.Text =
+                    selectedTitle == null
+                        ? string.Empty
+                        : selectedTitle.Trim();
 
-            formatGrid();
+                // This is an Export form. Do not read an import template here.
+                // The selected master data is loaded directly from the database
+                // when the user selects the item on the left grid.
+                ClearExportPreview();
+            }
+            catch (Exception ex)
+            {
+                ClearExportPreview();
+
+                MessageBox.Show(
+                    "Unable to initialize Export Data Process." +
+                    Environment.NewLine + Environment.NewLine +
+                    ex.Message,
+                    "Staffsync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -150,7 +175,7 @@ namespace StaffSync
             this.Close();
         }
 
-        private void frmImportDataProcess_Load(object sender, EventArgs e)
+        private void frmExportDataProcess_Load(object sender, EventArgs e)
         {
             FocusManager.EnableHighlighting = false;
             FocusManager.ShowNavigationError = true;
@@ -161,9 +186,8 @@ namespace StaffSync
             //this.qryAllEmpLeavePendingStatementTableAdapter.Fill(this.staffsyncDBDataSet1.qryAllEmpLeavePendingStatement);
             //// TODO: This line of code loads data into the 'staffsyncDBDTSet.EmpMasInfo' table. You can move, or remove it, as needed.
             //this.empMasInfoTableAdapter.Fill(this.staffsyncDBDTSet.EmpMasInfo);
-            onCancelButtonClick();
+            InitializeExportFormats();
             disableControls();
-            clearControls();
             defaultSelectedImportOption();
         }
 
@@ -313,7 +337,7 @@ namespace StaffSync
             dtgImportDataSourceList.Columns["OrderID"].Visible = false;
 
             // Download Template button column.
-            AddDownloadTemplateColumn();
+            //AddDownloadTemplateColumn();
 
             if (lblSelectedDataAction.Text == "Company Information")
             {
@@ -368,7 +392,7 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsDeleted"].HeaderText = "Is Deleted";
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
-                dtgImportDataPreview.Columns["FinYearID"].ReadOnly = true; 
+                dtgImportDataPreview.Columns["FinYearID"].ReadOnly = true;
                 dtgImportDataPreview.Columns["FinYearID"].Visible = false;
             }
             else if (lblSelectedDataAction.Text == "Designation Information")
@@ -774,7 +798,7 @@ namespace StaffSync
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unable to add the template download button." +  Environment.NewLine + Environment.NewLine + ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Unable to add the template download button." + Environment.NewLine + Environment.NewLine + ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -784,9 +808,7 @@ namespace StaffSync
         /// "ImpDataInfoTemplateName" and copied from the application's
         /// importtemplate folder to the user's Downloads folder.
         /// </summary>
-        private void dtgImportDataSourceList_CellContentClick(
-            object sender,
-            DataGridViewCellEventArgs e)
+        private void dtgImportDataSourceList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
@@ -1128,71 +1150,10 @@ namespace StaffSync
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (lblSelectedDataAction.Text == "")
-                {
-                    MessageBox.Show("Please select an import data source.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
-                string selectedImportSource = GetSelectedImportSourceTitle();
-
-                using (OpenFileDialog openFileDialog = new OpenFileDialog())
-                {
-                    openFileDialog.Title = "Select Import File";
-                    openFileDialog.Filter =
-                        "Supported Files (*.csv;*.xls;*.xlsx)|*.csv;*.xls;*.xlsx|" +
-                        "CSV Files (*.csv)|*.csv|" +
-                        "Excel 97-2003 (*.xls)|*.xls|" +
-                        "Excel Files (*.xlsx)|*.xlsx|" +
-                        "All Files (*.*)|*.*";
-                    openFileDialog.FilterIndex = 1;
-                    openFileDialog.Multiselect = false;
-                    openFileDialog.CheckFileExists = true;
-                    openFileDialog.RestoreDirectory = true;
-
-                    if (openFileDialog.ShowDialog(this) != DialogResult.OK)
-                        return;
-
-                    objSelectedImportFilePath = openFileDialog.FileName;
-                    txtSourceFilePath.Text = objSelectedImportFilePath;
-
-                    DataTable importedData = ReadImportFile(objSelectedImportFilePath);
-
-                    if (importedData == null || importedData.Rows.Count == 0)
-                    {
-                        MessageBox.Show("No data rows were found in the selected file.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        ClearImportPreview();
-                        btnSaveDetails.Enabled = false;
-                        return;
-                    }
-
-                    dtgImportDataPreview.Enabled = true;
-                    chkSelectOrUnselect.Enabled = true;
-                    chkSelectOrUnselect.Checked = true;
-                    btnSaveDetails.Enabled = true;
-
-                    dtgImportDataPreview.DataSource = null;
-                    dtgImportDataPreview.DataSource = importedData;
-
-                    BindImportPreviewData(importedData);
-
-                    formatGrid();
-
-                    lblTotalRowsFromSource.Text = "Total Rows from Source : " + importedData.Rows.Count.ToString();
-
-                    UpdateImportSelectedRowCount();
-
-                    MessageBox.Show(importedData.Rows.Count.ToString() + " row(s) found and loaded successfully.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                defaultSelectedImportOption();
-                dtgImportDataSourceList[0, 0].Selected = true;
-                MessageBox.Show("Selected source template is different or \nunable to read the selected source file.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            // The original Import form used this button to select an external
+            // CSV/Excel file. Export Data Process does not need a source file.
+            // The data source is the selected StaffSync master on the left.
+            LoadSelectedExportData();
         }
 
         /// <summary>
@@ -1485,6 +1446,241 @@ namespace StaffSync
             dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
         }
 
+        /// <summary>
+        /// Binds database data to the Export preview grid and adds the UI-only
+        /// IsSelected checkbox column as the first column.
+        /// </summary>
+        /// <summary>
+        /// Converts a strongly typed list returned by a StaffSync DAL method
+        /// into a DataTable so the existing export preview/export pipeline can
+        /// work with both DataTable and List&lt;T&gt; based DAL methods.
+        /// </summary>
+        private DataTable ConvertListToDataTable<T>(IEnumerable<T> items)
+        {
+            DataTable table = new DataTable(typeof(T).Name);
+
+            if (items == null)
+                return table;
+
+            System.Reflection.PropertyInfo[] properties =
+                typeof(T).GetProperties(System.Reflection.BindingFlags.Public |
+                                         System.Reflection.BindingFlags.Instance);
+
+            foreach (System.Reflection.PropertyInfo property in properties)
+            {
+                Type propertyType = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
+
+                // DataTable does not accept pointer/by-ref property types.
+                if (propertyType.IsPointer || propertyType.IsByRef)
+                    continue;
+
+                table.Columns.Add(property.Name, propertyType);
+            }
+
+            foreach (T item in items)
+            {
+                DataRow row = table.NewRow();
+
+                foreach (System.Reflection.PropertyInfo property in properties)
+                {
+                    if (!table.Columns.Contains(property.Name))
+                        continue;
+
+                    object value = property.GetValue(item, null);
+                    row[property.Name] = value ?? DBNull.Value;
+                }
+
+                table.Rows.Add(row);
+            }
+
+            return table;
+        }
+
+        private void BindExportPreviewData(DataTable sourceData)
+        {
+            if (sourceData == null)
+            {
+                ClearExportPreview();
+                return;
+            }
+
+            objImportDataPreviewTable = sourceData.Copy();
+
+            if (objImportDataPreviewTable.Columns.Contains("IsSelected"))
+            {
+                objImportDataPreviewTable.Columns.Remove("IsSelected");
+            }
+
+            DataColumn selectedColumn =
+                new DataColumn("IsSelected", typeof(bool));
+
+            selectedColumn.DefaultValue = true;
+            objImportDataPreviewTable.Columns.Add(selectedColumn);
+            selectedColumn.SetOrdinal(0);
+
+            dtgImportDataPreview.AutoGenerateColumns = true;
+            dtgImportDataPreview.DataSource = null;
+            dtgImportDataPreview.DataSource = objImportDataPreviewTable;
+
+            if (dtgImportDataPreview.Columns.Contains("IsSelected"))
+            {
+                dtgImportDataPreview.Columns["IsSelected"].HeaderText = "Select";
+                dtgImportDataPreview.Columns["IsSelected"].Width = 60;
+                dtgImportDataPreview.Columns["IsSelected"].DisplayIndex = 0;
+                dtgImportDataPreview.Columns["IsSelected"].ReadOnly = false;
+            }
+
+            AttachExportPreviewEvents();
+
+            foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+                if (row.Cells["IsSelected"] != null)
+                    row.Cells["IsSelected"].Value = true;
+            }
+
+            lblTotalRowsFromSource.Text =
+                "Total Rows from Source : " +
+                sourceData.Rows.Count.ToString();
+
+            chkSelectOrUnselect.Enabled =
+                sourceData.Rows.Count > 0;
+
+            chkSelectOrUnselect.Checked =
+                sourceData.Rows.Count > 0;
+
+            chkSelectOrUnselect.Text =
+                sourceData.Rows.Count > 0
+                    ? "Unselect All"
+                    : "Select All";
+
+            UpdateExportSelectedRowCount();
+        }
+
+        private void AttachExportPreviewEvents()
+        {
+            if (isExportPreviewEventsAttached)
+                return;
+
+            dtgImportDataPreview.CurrentCellDirtyStateChanged +=
+                dtgExportPreview_CurrentCellDirtyStateChanged;
+
+            dtgImportDataPreview.CellValueChanged +=
+                dtgExportPreview_CellValueChanged;
+
+            isExportPreviewEventsAttached = true;
+        }
+
+        private void dtgExportPreview_CurrentCellDirtyStateChanged(
+            object sender,
+            EventArgs e)
+        {
+            if (dtgImportDataPreview.IsCurrentCellDirty)
+            {
+                dtgImportDataPreview.CommitEdit(
+                    DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        private void dtgExportPreview_CellValueChanged(
+            object sender,
+            DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 ||
+                e.ColumnIndex < 0 ||
+                !dtgImportDataPreview.Columns.Contains("IsSelected"))
+            {
+                return;
+            }
+
+            if (dtgImportDataPreview.Columns[e.ColumnIndex].Name ==
+                "IsSelected")
+            {
+                UpdateExportSelectedRowCount();
+            }
+        }
+
+        private void UpdateExportSelectedRowCount()
+        {
+            int selectedCount = 0;
+
+            if (dtgImportDataPreview != null &&
+                dtgImportDataPreview.Columns.Contains("IsSelected"))
+            {
+                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
+
+                    bool isSelected = false;
+
+                    if (row.Cells["IsSelected"].Value != null)
+                    {
+                        bool.TryParse(
+                            row.Cells["IsSelected"].Value.ToString(),
+                            out isSelected);
+                    }
+
+                    if (isSelected)
+                        selectedCount++;
+                }
+            }
+
+            lblTotalRowsSelected.Text =
+                "Total Rows Selected : " +
+                selectedCount.ToString();
+
+            btnSaveDetails.Enabled = selectedCount > 0;
+
+            if (dtgImportDataPreview != null &&
+                dtgImportDataPreview.Rows.Count > 0 &&
+                selectedCount == dtgImportDataPreview.Rows.Count)
+            {
+                chkSelectOrUnselect.Checked = true;
+                chkSelectOrUnselect.Text = "Unselect All";
+            }
+            else if (selectedCount == 0)
+            {
+                chkSelectOrUnselect.Checked = false;
+                chkSelectOrUnselect.Text = "Select All";
+            }
+            else
+            {
+                chkSelectOrUnselect.Checked = false;
+                chkSelectOrUnselect.Text = "Select All";
+            }
+        }
+
+        private void ClearExportPreview()
+        {
+            objImportDataPreviewTable = new DataTable();
+
+            if (dtgImportDataPreview != null)
+                dtgImportDataPreview.DataSource = null;
+
+            lblTotalRowsFromSource.Text =
+                "Total Rows from Source : 0";
+
+            lblTotalRowsSelected.Text =
+                "Total Rows Selected : 0";
+
+            lblTotalImportedRows.Text =
+                "Total Rows Imported : 0";
+
+            lblTotalDuplicateRows.Text =
+                "Total Duplicate Rows : 0";
+
+            lblTotalNotImportedRows.Text =
+                "Total Rows Not Imported : 0";
+
+            chkSelectOrUnselect.Checked = false;
+            chkSelectOrUnselect.Text = "Select All";
+            chkSelectOrUnselect.Enabled = false;
+            btnSaveDetails.Enabled = false;
+        }
+
         private void AttachImportPreviewEvents()
         {
             if (isImportPreviewEventsAttached)
@@ -1704,831 +1900,621 @@ namespace StaffSync
 
         private void btnGenerateDetails_Click(object sender, EventArgs e)
         {
-            onGenerateButtonClick();
-            clearControls();
-            enableControls();
+            LoadSelectedExportData();
             errValidator.Clear();
         }
 
+        /// <summary>
+        /// Exports only the rows currently selected in the preview grid.
+        /// Supported formats: PDF, CSV, XML and JSON.
+        /// </summary>
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
-            int intTotalDuplicateRowsCount = 0;
-            int intTotalImportedRowsCount = 0;
-
-
-            if (lblSelectedDataAction.Text == "")
-            {
-                MessageBox.Show("Please select an import data source.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            if (objImportDataPreviewTable == null || objImportDataPreviewTable.Rows.Count == 0)
-            {
-                MessageBox.Show("No data available to import. Please load the data first.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            if (lblSelectedDataAction.Text == "Company Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-                    //string ClientID = GetImportCellValue(row, "ClientID");
-                    //string ClientCode = GetImportCellValue(row, "ClientCode");
-                    string ClientName = GetImportCellValue(row, "ClientName");
-                    string ClientAddress1 = GetImportCellValue(row, "ClientAddress1");
-                    string ClientAddress2 = GetImportCellValue(row, "ClientAddress2");
-                    string ClientArea = GetImportCellValue(row, "ClientArea");
-                    string ClientCity = GetImportCellValue(row, "ClientCity");
-                    string ClientState = GetImportCellValue(row, "ClientState");
-                    string ClientPIN = GetImportCellValue(row, "ClientPIN");
-                    string ClientCountry = GetImportCellValue(row, "ClientCountry");
-                    string ClientPhone = GetImportCellValue(row, "ClientPhone");
-                    string ClientMailID = GetImportCellValue(row, "ClientMailID");
-                    string ClientContactPerson = GetImportCellValue(row, "ClientContactPerson");
-                    string ClientContactNumber = GetImportCellValue(row, "ClientContactNumber");
-                    string ClientContactMail = GetImportCellValue(row, "ClientContactMail");
-                    string ClientWebSite = GetImportCellValue(row, "ClientWebSite");
-
-                    if (objClientInfo.getClientInfoByTitle(ClientName) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intClientID = objClientInfo.InsertClientInfo("", ClientName, ClientAddress1, ClientAddress2, ClientArea, ClientCity, ClientState, ClientPIN, ClientCountry, ClientPhone, ClientMailID, ClientContactPerson, ClientContactNumber, ClientMailID, ClientWebSite, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, objTempClientFinYearInfo.FinYearID);
-                    if (intClientID > 0)
-                    {
-                        if (picCompLogo.Image != null)
-                        {
-                            byte[] image_bytes = objImpageOperation.ImageToBytes(picCompLogo.Image, ImageFormat.Jpeg, true);
-                            if (image_bytes.Length > 0)
-                            {
-                                int photoID = objPhotoMas.UpdateCompanyLogoInfo(Convert.ToInt16(intClientID), image_bytes);
-                            }
-                        }
-
-                        objClientStatutory.InsertClientStatutory(intClientID, DateTime.Now, false, false, "N/A",false, "N/A", false, "N/A", false, "N/A");
-                        objClientStatutory.InsertClientProvidentFundSettings(1, "A", Convert.ToDecimal("0.00"), Convert.ToDecimal("0.00"), "A", Convert.ToDecimal("0.00"), Convert.ToDecimal("0.00"), "A", Convert.ToDecimal("0.00"), Convert.ToDecimal("0.00"), DateTime.Now);
-
-                        int BranchID = clsClientBranchInfo.InsertClientBranchInfo("", ClientName, ClientAddress1, ClientAddress2, ClientArea, ClientCity, ClientState, ClientPIN, ClientCountry, ClientPhone, ClientMailID, ClientContactPerson, ClientContactNumber, ClientMailID, ClientWebSite, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, objTempClientFinYearInfo.ClientID);
-                        if (txtCompLogo.Text == "overwrite")
-                        {
-                            byte[] image_bytes = objImpageOperation.ImageToBytes(picCompLogo.Image, ImageFormat.Jpeg, true);
-                            if (image_bytes.Length > 0)
-                            {
-                                int photoID = objPhotoMas.UpdateCompanyBranchLogoInfo(Convert.ToInt16(intClientID), image_bytes);
-                            }
-                        }
-
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Designation Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-                    //string designationID = GetImportCellValue(row, "DesignationID");
-                    string designationCode = GetImportCellValue(row, "DesignationCode");
-                    string designationTitle = GetImportCellValue(row, "DesignationTitle");
-                    string designationInitial = GetImportCellValue(row, "DesignationInitial");
-
-                    if (objDesignation.GetDesignationByTitle(designationTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intDesignationID = objDesignation.InsertDesignation(designationCode, designationTitle, designationInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
-                    if (intDesignationID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Department Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string designationID = GetImportCellValue(row, "DepartmentID");
-                    //string designationCode = GetImportCellValue(row, "DepCode");
-                    string departmentTitle = GetImportCellValue(row, "DepartmentTitle");
-                    string departmentInitial = GetImportCellValue(row, "DepartmentInitial");
-
-                    if (objDepartment.GetDepartmentTitleByTitle(departmentTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intDepartmentID = objDepartment.InsertDepartment("", departmentTitle, departmentInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
-                    if (intDepartmentID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Countries Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string countryID = GetImportCellValue(row, "DepartmentID");
-                    //string countryCode = GetImportCellValue(row, "DepCode");
-                    string countryTitle = GetImportCellValue(row, "CountryTitle");
-                    string countryInitial = GetImportCellValue(row, "CountryInitial");
-
-                    if (objCountries.GetCountryByTitle(countryTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intCountryID = objCountries.InsertCountry("", countryTitle, countryInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
-                    if (intCountryID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "States Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string stateID = GetImportCellValue(row, "StateID");
-                    //string stateCode = GetImportCellValue(row, "StateCode");
-                    string StateTitle = GetImportCellValue(row, "StateTitle");
-                    string StateInitial = GetImportCellValue(row, "StateInitial");
-
-                    if (objStates.GetStateByTitle(StateTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intCountryID = objStates.InsertState("", StateTitle, StateInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
-                    if (intCountryID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Education Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string EduQualID = GetImportCellValue(row, "EduQualID");
-                    //string eduQualCode = GetImportCellValue(row, "EduQualCode");
-                    string EduQualTitle = GetImportCellValue(row, "EduQualTitle");
-                    string EduQualInitial = GetImportCellValue(row, "EduQualInitial");
-
-                    if (objEduQalification.GetEduQualByTitle(EduQualTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intEduQualID = objEduQalification.InsertEduQual("", EduQualTitle, EduQualInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
-                    if (intEduQualID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Skills Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string SkillID = GetImportCellValue(row, "SkillID");
-                    //string SkillCode = GetImportCellValue(row, "SkillCode");
-                    string SkillTitle = GetImportCellValue(row, "SkillTitle");
-                    string SkillInitial = GetImportCellValue(row, "SkillInitial");
-
-                    if (objSkillsMas.GetSkillByTitle(SkillTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intSkillsID = objSkillsMas.InsertSkill("", SkillTitle, SkillInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
-                    if (intSkillsID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Relationship Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string RelationShipID = GetImportCellValue(row, "RelationShipID");
-                    //string RelationshipCode = GetImportCellValue(row, "RelationshipCode");
-                    string RelationshipTitle = GetImportCellValue(row, "RelationShipTitle");
-                    string RelationshipInitial = GetImportCellValue(row, "RelationshipInitial");
-
-                    if (objRelationship.GetRelationshipTitleByTitle(RelationshipTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intRelationshipID = objRelationship.InsertRelationship("", RelationshipTitle, RelationshipInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
-                    if (intRelationshipID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Weekly Off Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string WklyOffMasID = GetImportCellValue(row, "WklyOffMasID");
-                    //string WklyOffCode = GetImportCellValue(row, "WklyOffCode");
-                    string WklyOffTitle = GetImportCellValue(row, "WklyOffTitle");
-                    string WklyOffDay = GetImportCellValue(row, "WklyOffDay");
-                    //DateTime WklyOffEffectiveDate = GetImportCellValue(row, "WklyOffEffectiveDate");
-
-                    if (objWeeklyOffInfo.GetWklyOffTitleByTitle(WklyOffTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intWeeklyOffInfoID = objWeeklyOffInfo.InsertWeeklyOffInfo("", WklyOffTitle, DateTime.Today, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
-                    if (intWeeklyOffInfoID > 0)
-                    {
-                        string[] weekDays = new CultureInfo("en-us").DateTimeFormat.DayNames;
-
-                        List<string> weeklyOffDays = WklyOffDay.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
-                        foreach (string dayName in weeklyOffDays)
-                        {
-                            DayOfWeek day = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), dayName, true);
-                            int WeeklyOffDayID = objWeeklyOffInfo.InsertWeeklyOffDetailInfo(Convert.ToInt16(intWeeklyOffInfoID), Convert.ToInt32(day) == 0 ? 7 : Convert.ToInt32(day), 0);
-                        }                        
-
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Asset Category Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string AssetCatMasID = GetImportCellValue(row, "AssetCatMasID");
-                    //string AssetCode = GetImportCellValue(row, "AssetCode");
-                    string AssetName = GetImportCellValue(row, "AssetName");
-                    string AssetDescription = GetImportCellValue(row, "AssetDescription");
-                    string ParentCategory = GetImportCellValue(row, "ParentCategory");
-
-                    if (objAssetsCategory.GetAssetsCategoryInfoByName(AssetName) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intCategoryID = objAssetsCategory.InsertAssetCategoryInfo("", AssetName, AssetDescription, "", Convert.ToInt32(objAssetsCategory.GetAssetsCategoryInfoByName(ParentCategory).ToString()), GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, objTempClientFinYearInfo.ClientID);
-                    if (intCategoryID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Assets Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string AssetID = GetImportCellValue(row, "AssetID");
-                    //string AssetCode = GetImportCellValue(row, "AssetCode");
-                    string AssetName = GetImportCellValue(row, "AssetName");
-                    string AssetDescription = GetImportCellValue(row, "AssetDescription");
-                    string ParentCategory = GetImportCellValue(row, "ParentCategory");
-                    string TotalQuantity = GetImportCellValue(row, "TotalQuantity");
-                    string OutstandingQuantity = GetImportCellValue(row, "OutstandingQuantity");
-
-                    if (objAssetsInfo.GetAssetInfoByName(AssetName) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intAssetID = objAssetsInfo.InsertAssetInfo("", AssetName, AssetDescription, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, Convert.ToInt32(objAssetsCategory.GetAssetsCategoryInfoByName(ParentCategory).ToString()), false, false, false, 1, false, "", 0, 1, Convert.ToDecimal(TotalQuantity.ToString()), Convert.ToDecimal(OutstandingQuantity.ToString()));
-                    if (intAssetID > 0)
-                    {
-                        int AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(intAssetID, DateTime.Today, 0, Convert.ToDecimal(TotalQuantity), 0, Convert.ToDecimal(OutstandingQuantity), "Cr", "By Opening", 0);
-                        int AssetMoreDetailedID = objAssetsInfo.InsertAssetMoreInfo(intAssetID, "N/A", "N/A", "N/A", "N/A", Convert.ToDateTime(DateTime.Today), 0, "N/A", "N/A", "N/A", true, Convert.ToDateTime(DateTime.Today), Convert.ToDateTime(DateTime.Today), Convert.ToDateTime(DateTime.Today), Convert.ToDateTime(DateTime.Today));
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Leave Type Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string LeaveTypeID = GetImportCellValue(row, "LeaveTypeID");
-                    //string LeaveCode = GetImportCellValue(row, "LeaveCode");
-                    string LeaveTypeTitle = GetImportCellValue(row, "LeaveTypeTitle");
-                    string IsPaid = GetImportCellValue(row, "IsPaid");
-
-                    if (objLeaveTypeMas.GetLeaveTypeMasInfoByName(LeaveTypeTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intLeaveTypeID = objLeaveTypeMas.InsertLeaveTypeInfo("", LeaveTypeTitle, IsPaid.ToString() == "1" ? true : false, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
-                    if (intLeaveTypeID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Allowance Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string ReimbID = GetImportCellValue(row, "AllID");
-                    //string ReimbCode = GetImportCellValue(row, "AllCode");
-                    string AllTitle = GetImportCellValue(row, "AllTitle");
-                    string AllDescription = GetImportCellValue(row, "AllDescription");
-
-                    if (objAllowenceInfo.GetAllowenceTitleByTitle(AllTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intAllowanceID = objAllowenceInfo.InsertAllowence("", AllTitle, AllDescription, false, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, 0, false, false);
-                    if (intAllowanceID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Deductions Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string DedID = GetImportCellValue(row, "DedID");
-                    //string DedCode = GetImportCellValue(row, "DedCode");
-                    string DedTitle = GetImportCellValue(row, "DedTitle");
-                    string DedDescription = GetImportCellValue(row, "DedDescription");
-
-                    if (objDeductionInfo.GetDeductionTitleByTitle(DedTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intDeductionID = objDeductionInfo.InsertDeduction("", DedTitle, DedDescription, false, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, 0, false, false);
-                    if (intDeductionID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Reimbursement Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string ReimbID = GetImportCellValue(row, "ReimbID");
-                    //string ReimbCode = GetImportCellValue(row, "ReimbCode");
-                    string ReimbTitle = GetImportCellValue(row, "ReimbTitle");
-                    string ReimbDescription = GetImportCellValue(row, "ReimbDescription");
-
-                    if (objReimbursementInfo.GetReimbursementTitleByTitle(ReimbTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intDeductionID = objReimbursementInfo.InsertReimbursement("", ReimbTitle, ReimbDescription, false, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, 0, false, false);
-                    if (intDeductionID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Advance Type Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string AdvanceTypeID = GetImportCellValue(row, "AdvanceTypeID");
-                    //string AdvanceTypeCode = GetImportCellValue(row, "AdvanceTypeCode");
-                    string AdvanceTypeTitle = GetImportCellValue(row, "AdvanceTypeTitle");
-
-                    if (objAdvanceTypeMas.GetAdvanceTypeByTitle(AdvanceTypeTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intAdvanceTypeID = objAdvanceTypeMas.InsertAdvanceType("", AdvanceTypeTitle, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false, objTempClientFinYearInfo.ClientID);
-                    if (intAdvanceTypeID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Public Holiday Information")
-            {
-
-            }
-            else if (lblSelectedDataAction.Text == "Gender Information")
-            {
-
-            }
-            else if (lblSelectedDataAction.Text == "Employement Type Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string EmpTypeMasID = GetImportCellValue(row, "EmpTypeMasID");
-                    //string EmpTypeCode = GetImportCellValue(row, "EmpTypeCode");
-                    string EmpTypeTitle = GetImportCellValue(row, "EmpTypeTitle");
-                    string EmpTypeInitial = GetImportCellValue(row, "EmpTypeInitial");
-
-                    if (objEmploymentTypeInfo.GetEmployeeTypeTitleByTitle(EmpTypeTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intEmployementTypeID = objEmploymentTypeInfo.InsertEmploymentTypeMasInfo("", EmpTypeTitle, EmpTypeInitial, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
-                    if (intEmployementTypeID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Shift Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string RelationShipID = GetImportCellValue(row, "ShiftID");
-                    //string RelationshipCode = GetImportCellValue(row, "ShiftCode");
-                    string ShiftTitle = GetImportCellValue(row, "ShiftTitle");
-                    string ShiftInitital = GetImportCellValue(row, "ShiftInitital");
-                    DateTime StartTime = DateTime.Parse(GetImportCellValue(row, "ShiftStart"));
-                    DateTime EndTime = DateTime.Parse(GetImportCellValue(row, "ShiftEnd"));
-
-                    if (objShiftMas.GetShiftTitleByTitle(ShiftTitle) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intShiftInfoID = objShiftMas.InsertShiftMasInfo("", ShiftTitle, ShiftInitital, StartTime, EndTime, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
-                    if (intShiftInfoID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-            else if (lblSelectedDataAction.Text == "Bank Information")
-            {
-                foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
-                {
-                    if (row.IsNewRow)
-                        continue;
-
-                    bool isSelected = false;
-                    if (row.Cells["IsSelected"].Value != null)
-                    {
-                        bool.TryParse(row.Cells["IsSelected"].Value.ToString(), out isSelected);
-                    }
-                    if (!isSelected)
-                        continue;
-
-                    //string BankID = GetImportCellValue(row, "BankID");
-                    //string BankCode = GetImportCellValue(row, "BankCode");
-                    string BankName = GetImportCellValue(row, "BankName");
-                    string BankAddress = GetImportCellValue(row, "BankAddress");
-                    string IFSCCode = GetImportCellValue(row, "IFSCCode");
-
-                    if (objBankMas.GetBankInfoTitleByTitle(BankName) != 0)
-                    {
-                        intTotalDuplicateRowsCount = intTotalDuplicateRowsCount + 1;
-                        lblTotalDuplicateRows.Text = "Total Duplicate Rows : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalDuplicateRows.Refresh();
-                        lblTotalNotImportedRows.Text = "Total Rows Not Imported : " + intTotalDuplicateRowsCount.ToString();
-                        lblTotalNotImportedRows.Refresh();
-                        continue;
-                    }
-
-                    int intBankInfoID = objBankMas.InsertBankMasInfo("", BankName, BankAddress, IFSCCode, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
-                    if (intBankInfoID > 0)
-                    {
-                        intTotalImportedRowsCount = intTotalImportedRowsCount + 1;
-                        lblTotalImportedRows.Text = "Total Rows Imported : " + intTotalImportedRowsCount.ToString();
-                    }
-                }
-            }
-
-            dtgImportDataPreview.Enabled = false;
-            btnSaveDetails.Enabled = false;
-
-            MessageBox.Show("Data imported Successfully !!!", "Info");
-
-            //onSaveButtonClick();
-            //disableControls();
-            //clearControls();
-            ////FormatTheGrid();
-            //errValidator.Clear();
+            ExportSelectedData();
         }
+
+        private void LoadSelectedExportData()
+        {
+            try
+            {
+                string selectedTitle = GetSelectedImportSourceTitle();
+
+                if (string.IsNullOrWhiteSpace(selectedTitle))
+                {
+                    MessageBox.Show(
+                        "Please select an export data source.",
+                        "Staffsync",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
+                }
+
+                lblSelectedDataAction.Text = selectedTitle.Trim();
+
+                if (string.Equals(
+                    lblSelectedDataAction.Text,
+                    "Shift Information",
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable shiftData = ConvertListToDataTable(objShiftMas.GetShiftList());
+
+                    if (shiftData == null || shiftData.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+
+                        MessageBox.Show(
+                            "No Shift Information is available for export.",
+                            "Staffsync",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    BindExportPreviewData(shiftData);
+                    FormatShiftExportGrid();
+                    dtgImportDataPreview.Enabled = true;
+
+                    return;
+                }
+
+                // Other master-data loaders can be added here one by one.
+                // No schema or DAL method is invented for sources that have
+                // not yet been supplied by the application.
+                ClearExportPreview();
+
+                MessageBox.Show(
+                    "Export loading is not yet configured for: " +
+                    lblSelectedDataAction.Text,
+                    "Staffsync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to load the selected export data." +
+                    Environment.NewLine + Environment.NewLine +
+                    ex.Message,
+                    "Staffsync - Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void FormatShiftExportGrid()
+        {
+            if (dtgImportDataPreview == null)
+                return;
+
+            if (dtgImportDataPreview.Columns.Contains("IsSelected"))
+            {
+                dtgImportDataPreview.Columns["IsSelected"].HeaderText = "Select";
+                dtgImportDataPreview.Columns["IsSelected"].Width = 60;
+                dtgImportDataPreview.Columns["IsSelected"].DisplayIndex = 0;
+                dtgImportDataPreview.Columns["IsSelected"].ReadOnly = false;
+            }
+
+            SetExportColumnVisible("ShiftID", false);
+            SetExportColumnVisible("ShiftCode", false);
+            SetExportColumnVisible("ShiftInitital", false);
+            SetExportColumnVisible("ShiftStart", false);
+            SetExportColumnVisible("ShiftEnd", false);
+            SetExportColumnVisible("IsActive", false);
+            SetExportColumnVisible("IsDeleted", false);
+
+            if (dtgImportDataPreview.Columns.Contains("ShiftTitle"))
+            {
+                dtgImportDataPreview.Columns["ShiftTitle"].HeaderText = "Shift Title";
+                dtgImportDataPreview.Columns["ShiftTitle"].Width = 300;
+                dtgImportDataPreview.Columns["ShiftTitle"].ReadOnly = true;
+            }
+        }
+
+        private void SetExportColumnVisible(string columnName, bool visible)
+        {
+            if (dtgImportDataPreview != null &&
+                dtgImportDataPreview.Columns.Contains(columnName))
+            {
+                dtgImportDataPreview.Columns[columnName].Visible = visible;
+            }
+        }
+
+        private DataTable GetSelectedExportData()
+        {
+            DataTable selectedData = new DataTable();
+
+            if (dtgImportDataPreview == null ||
+                dtgImportDataPreview.Rows.Count == 0 ||
+                !dtgImportDataPreview.Columns.Contains("IsSelected"))
+            {
+                return selectedData;
+            }
+
+            foreach (DataGridViewColumn column in dtgImportDataPreview.Columns)
+            {
+                if (column.Name == "IsSelected")
+                    continue;
+
+                if (!column.Visible)
+                    continue;
+
+                string columnName = column.Name;
+
+                if (string.IsNullOrWhiteSpace(columnName))
+                    columnName = "Column" + selectedData.Columns.Count.ToString();
+
+                if (selectedData.Columns.Contains(columnName))
+                    columnName = columnName + "_" + selectedData.Columns.Count.ToString();
+
+                selectedData.Columns.Add(columnName, typeof(string));
+            }
+
+            foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+                bool isSelected = false;
+
+                if (row.Cells["IsSelected"].Value != null)
+                {
+                    bool.TryParse(
+                        row.Cells["IsSelected"].Value.ToString(),
+                        out isSelected);
+                }
+
+                if (!isSelected)
+                    continue;
+
+                DataRow dataRow = selectedData.NewRow();
+                int outputColumnIndex = 0;
+
+                foreach (DataGridViewColumn column in dtgImportDataPreview.Columns)
+                {
+                    if (column.Name == "IsSelected" || !column.Visible)
+                        continue;
+
+                    object value = row.Cells[column.Name].Value;
+
+                    dataRow[outputColumnIndex] =
+                        value == null || value == DBNull.Value
+                            ? string.Empty
+                            : Convert.ToString(value, CultureInfo.InvariantCulture);
+
+                    outputColumnIndex++;
+                }
+
+                selectedData.Rows.Add(dataRow);
+            }
+
+            return selectedData;
+        }
+
+        private void ExportSelectedData()
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(lblSelectedDataAction.Text))
+                {
+                    MessageBox.Show(
+                        "Please select an export data source.",
+                        "Staffsync",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
+                }
+
+                if (dtgImportDataPreview == null ||
+                    dtgImportDataPreview.Rows.Count == 0)
+                {
+                    MessageBox.Show(
+                        "No data is available for export.",
+                        "Staffsync",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
+                }
+
+                DataTable selectedData = GetSelectedExportData();
+
+                if (selectedData.Rows.Count == 0)
+                {
+                    MessageBox.Show(
+                        "Please select at least one row to export.",
+                        "Staffsync",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
+                }
+
+                string format = Convert.ToString(cmbOutputFormat.SelectedItem);
+
+                if (string.IsNullOrWhiteSpace(format))
+                {
+                    MessageBox.Show(
+                        "Please select an export format.",
+                        "Staffsync",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
+                }
+
+                string extension = format.Trim().TrimStart('.').ToLowerInvariant();
+                string filter;
+
+                switch (extension)
+                {
+                    case "pdf":
+                        filter = "PDF Files (*.pdf)|*.pdf";
+                        break;
+                    case "csv":
+                        filter = "CSV Files (*.csv)|*.csv";
+                        break;
+                    case "xml":
+                        filter = "XML Files (*.xml)|*.xml";
+                        break;
+                    case "json":
+                        filter = "JSON Files (*.json)|*.json";
+                        break;
+                    default:
+                        MessageBox.Show(
+                            "Unsupported export format: " + format,
+                            "Staffsync",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        return;
+                }
+
+                string defaultFileName =
+                    MakeSafeExportFileName(lblSelectedDataAction.Text) +
+                    "_" +
+                    DateTime.Now.ToString("yyyyMMdd_HHmmss") +
+                    "." + extension;
+
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Title = "Export StaffSync Data";
+                    saveFileDialog.Filter = filter;
+                    saveFileDialog.DefaultExt = extension;
+                    saveFileDialog.AddExtension = true;
+                    saveFileDialog.FileName = defaultFileName;
+                    saveFileDialog.OverwritePrompt = true;
+                    saveFileDialog.RestoreDirectory = true;
+
+                    if (saveFileDialog.ShowDialog(this) != DialogResult.OK)
+                        return;
+
+                    string outputFile = saveFileDialog.FileName;
+
+                    switch (extension)
+                    {
+                        case "csv":
+                            ExportDataTableToCsv(selectedData, outputFile);
+                            break;
+                        case "xml":
+                            ExportDataTableToXml(selectedData, outputFile);
+                            break;
+                        case "json":
+                            ExportDataTableToJson(selectedData, outputFile);
+                            break;
+                        case "pdf":
+                            ExportDataTableToPdf(selectedData, outputFile);
+                            break;
+                    }
+
+                    if (!File.Exists(outputFile))
+                        throw new IOException("The export file could not be created.");
+
+                    MessageBox.Show(
+                        selectedData.Rows.Count.ToString() +
+                        " row(s) exported successfully." +
+                        Environment.NewLine + Environment.NewLine +
+                        outputFile,
+                        "Staffsync",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    System.Diagnostics.Process.Start(
+                        new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = outputFile,
+                            UseShellExecute = true
+                        });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to export data." +
+                    Environment.NewLine + Environment.NewLine +
+                    ex.Message,
+                    "Staffsync - Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private string MakeSafeExportFileName(string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+                return "StaffSyncExport";
+
+            foreach (char invalidCharacter in Path.GetInvalidFileNameChars())
+            {
+                fileName = fileName.Replace(invalidCharacter, '_');
+            }
+
+            return fileName.Trim();
+        }
+
+        private string EscapeExportCsvValue(string value)
+        {
+            if (value == null)
+                return string.Empty;
+
+            if (value.Contains(",") ||
+                value.Contains("\"") ||
+                value.Contains("\r") ||
+                value.Contains("\n"))
+            {
+                return "\"" + value.Replace("\"", "\"\"") + "\"";
+            }
+
+            return value;
+        }
+
+        private void ExportDataTableToCsv(DataTable data, string outputFile)
+        {
+            StringBuilder csv = new StringBuilder();
+
+            for (int i = 0; i < data.Columns.Count; i++)
+            {
+                if (i > 0)
+                    csv.Append(",");
+
+                csv.Append(EscapeExportCsvValue(data.Columns[i].ColumnName));
+            }
+
+            csv.AppendLine();
+
+            foreach (DataRow row in data.Rows)
+            {
+                for (int i = 0; i < data.Columns.Count; i++)
+                {
+                    if (i > 0)
+                        csv.Append(",");
+
+                    csv.Append(
+                        EscapeExportCsvValue(
+                            row[i] == DBNull.Value
+                                ? string.Empty
+                                : Convert.ToString(row[i])));
+                }
+
+                csv.AppendLine();
+            }
+
+            File.WriteAllText(outputFile, csv.ToString(), new UTF8Encoding(true));
+        }
+
+        private void ExportDataTableToXml(DataTable data, string outputFile)
+        {
+            using (System.Xml.XmlWriter writer =
+                   System.Xml.XmlWriter.Create(
+                       outputFile,
+                       new System.Xml.XmlWriterSettings
+                       {
+                           Indent = true,
+                           Encoding = new UTF8Encoding(false)
+                       }))
+            {
+                writer.WriteStartDocument();
+                writer.WriteStartElement("StaffSyncExport");
+                writer.WriteAttributeString("DataType", lblSelectedDataAction.Text);
+                writer.WriteAttributeString(
+                    "GeneratedOn",
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                writer.WriteStartElement("Rows");
+
+                foreach (DataRow row in data.Rows)
+                {
+                    writer.WriteStartElement("Row");
+
+                    foreach (DataColumn column in data.Columns)
+                    {
+                        writer.WriteStartElement(
+                            MakeSafeXmlName(column.ColumnName));
+
+                        if (row[column] != DBNull.Value)
+                        {
+                            writer.WriteString(Convert.ToString(row[column]));
+                        }
+
+                        writer.WriteEndElement();
+                    }
+
+                    writer.WriteEndElement();
+                }
+
+                writer.WriteEndElement();
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+            }
+        }
+
+        private string MakeSafeXmlName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return "Column";
+
+            StringBuilder result = new StringBuilder();
+
+            foreach (char character in name)
+            {
+                if (char.IsLetterOrDigit(character) || character == '_')
+                    result.Append(character);
+                else
+                    result.Append('_');
+            }
+
+            if (result.Length == 0)
+                return "Column";
+
+            if (char.IsDigit(result[0]))
+                result.Insert(0, '_');
+
+            return result.ToString();
+        }
+
+        private void ExportDataTableToJson(DataTable data, string outputFile)
+        {
+            List<Dictionary<string, object>> rows =
+                new List<Dictionary<string, object>>();
+
+            foreach (DataRow row in data.Rows)
+            {
+                Dictionary<string, object> item =
+                    new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+
+                foreach (DataColumn column in data.Columns)
+                {
+                    item[column.ColumnName] =
+                        row[column] == DBNull.Value ? null : row[column];
+                }
+
+                rows.Add(item);
+            }
+
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(
+                rows,
+                Newtonsoft.Json.Formatting.Indented);
+
+            File.WriteAllText(outputFile, json, new UTF8Encoding(true));
+        }
+
+        private void ExportDataTableToPdf(DataTable data, string outputFile)
+        {
+            using (FileStream stream = new FileStream(outputFile, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                iTextSharp.text.Document document =
+                    new iTextSharp.text.Document(
+                        iTextSharp.text.PageSize.A4.Rotate(),
+                        20f,
+                        20f,
+                        25f,
+                        25f);
+
+                PdfWriter.GetInstance(document, stream);
+                document.Open();
+
+                iTextSharp.text.Font titleFont =
+                    FontFactory.GetFont(
+                        FontFactory.HELVETICA_BOLD,
+                        16f);
+
+                iTextSharp.text.Font infoFont =
+                    FontFactory.GetFont(
+                        FontFactory.HELVETICA,
+                        8f);
+
+                document.Add(
+                    new Paragraph(
+                        lblSelectedDataAction.Text,
+                        titleFont));
+
+                document.Add(
+                    new Paragraph(
+                        "Generated: " +
+                        DateTime.Now.ToString("dd-MMM-yyyy HH:mm:ss"),
+                        infoFont));
+
+                document.Add(new Paragraph(" "));
+
+                int columnCount = data.Columns.Count;
+
+                PdfPTable table =
+                    new PdfPTable(columnCount);
+
+                table.WidthPercentage = 100f;
+                table.HeaderRows = 1;
+
+                iTextSharp.text.Font headerFont =
+                    FontFactory.GetFont(
+                        FontFactory.HELVETICA_BOLD,
+                        8f);
+
+                iTextSharp.text.Font cellFont =
+                    FontFactory.GetFont(
+                        FontFactory.HELVETICA,
+                        7f);
+
+                foreach (DataColumn column in data.Columns)
+                {
+                    PdfPCell headerCell =
+                        new PdfPCell(
+                            new Phrase(
+                                column.ColumnName,
+                                headerFont));
+
+                    headerCell.HorizontalAlignment =
+                        Element.ALIGN_CENTER;
+
+                    headerCell.VerticalAlignment =
+                        Element.ALIGN_MIDDLE;
+
+                    headerCell.BackgroundColor =
+                        new BaseColor(230, 230, 230);
+
+                    table.AddCell(headerCell);
+                }
+
+                foreach (DataRow row in data.Rows)
+                {
+                    foreach (DataColumn column in data.Columns)
+                    {
+                        string value =
+                            row[column] == DBNull.Value
+                                ? string.Empty
+                                : Convert.ToString(row[column]);
+
+                        PdfPCell cell =
+                            new PdfPCell(
+                                new Phrase(value, cellFont));
+
+                        cell.VerticalAlignment =
+                            Element.ALIGN_MIDDLE;
+
+                        table.AddCell(cell);
+                    }
+                }
+
+                document.Add(table);
+                document.Close();
+            }
+        }
+
+        private void InitializeExportFormats()
+        {
+            cmbOutputFormat.Items.Clear();
+            cmbOutputFormat.Items.Add("CSV");
+            cmbOutputFormat.Items.Add("JSON");
+            cmbOutputFormat.Items.Add("PDF");
+            cmbOutputFormat.Items.Add("XML");
+
+            if (cmbOutputFormat.Items.Count > 0)
+                cmbOutputFormat.SelectedIndex = 0;
+        }
+
 
         public void clearControls()
         {
-            lblSelectedDataAction.Text = "";
             lblTotalRowsFromSource.Text = "Total Rows from Source : 0";
             lblTotalRowsSelected.Text = "Total Rows Selected : 0";
             lblTotalImportedRows.Text = "Total Rows Imported : 0";
             lblTotalDuplicateRows.Text = "Total Duplicate Rows : 0";
             lblTotalNotImportedRows.Text = "Total Rows Not Imported : 0";
-            //FormatTheGrid();
+
+            InitializeExportFormats();
         }
 
         public void enableControls()
@@ -2547,7 +2533,8 @@ namespace StaffSync
         {
             btnGenerateDetails.Enabled = true;
             btnModifyDetails.Enabled = false;
-            btnSaveDetails.Enabled = true;
+            btnSaveDetails.Enabled = dtgImportDataPreview != null &&
+                                      dtgImportDataPreview.Rows.Count > 0;
             btnRemoveDetails.Enabled = false;
             btnCancel.Enabled = true;
         }
@@ -2673,7 +2660,7 @@ namespace StaffSync
             MessageBox.Show("Double Clicked on the grid", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void frmImportDataProcess_KeyDown(object sender, KeyEventArgs e)
+        private void frmExportDataProcess_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
@@ -2689,7 +2676,7 @@ namespace StaffSync
             }
         }
 
-        private void frmImportDataProcess_Activated(object sender, EventArgs e)
+        private void frmExportDataProcess_Activated(object sender, EventArgs e)
         {
             dtgImportDataSourceList.StateCommon.HeaderColumn.Content.Font = new System.Drawing.Font("Segoe UI", 8F, FontStyle.Bold);
         }
@@ -2713,21 +2700,59 @@ namespace StaffSync
 
         private void dtgImportDataSourceList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            lblSelectedDataAction.Text = dtgImportDataSourceList[3, e.RowIndex].Value.ToString();
+            try
+            {
+                if (e.RowIndex < 0 ||
+                    dtgImportDataSourceList.Rows[e.RowIndex].IsNewRow)
+                {
+                    return;
+                }
+
+                if (dtgImportDataSourceList.Columns.Contains("ImpDataInfoTitle"))
+                {
+                    lblSelectedDataAction.Text = Convert.ToString(
+                        dtgImportDataSourceList.Rows[e.RowIndex]
+                            .Cells["ImpDataInfoTitle"].Value).Trim();
+                }
+                else
+                {
+                    lblSelectedDataAction.Text = Convert.ToString(
+                        dtgImportDataSourceList.Rows[e.RowIndex].Cells[3].Value).Trim();
+                }
+
+                LoadSelectedExportData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to load the selected export data." +
+                    Environment.NewLine + Environment.NewLine +
+                    ex.Message,
+                    "Staffsync - Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
         }
 
         private void chkSelectOrUnselect_Click(object sender, EventArgs e)
         {
-            if (dtgImportDataPreview == null || !dtgImportDataPreview.Columns.Contains("IsSelected"))
+            if (dtgImportDataPreview == null ||
+                !dtgImportDataPreview.Columns.Contains("IsSelected"))
             {
-                chkSelectOrUnselect.Text = chkSelectOrUnselect.Checked ? "Unselect All" : "Select All";
-                lblTotalRowsSelected.Text = "Total Rows Selected : 0";
+                chkSelectOrUnselect.Text =
+                    chkSelectOrUnselect.Checked
+                        ? "Unselect All"
+                        : "Select All";
+
+                lblTotalRowsSelected.Text =
+                    "Total Rows Selected : 0";
                 return;
             }
 
             bool selectAll = chkSelectOrUnselect.Checked;
 
-            chkSelectOrUnselect.Text = selectAll ? "Unselect All" : "Select All";
+            chkSelectOrUnselect.Text =
+                selectAll ? "Unselect All" : "Select All";
 
             foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
             {
@@ -2737,7 +2762,8 @@ namespace StaffSync
                 row.Cells["IsSelected"].Value = selectAll;
             }
 
-            UpdateImportSelectedRowCount();
+            UpdateExportSelectedRowCount();
         }
+
     }
 }
