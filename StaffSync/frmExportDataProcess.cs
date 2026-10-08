@@ -725,11 +725,11 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["ShiftInitital"].Width = 200;
                 dtgImportDataPreview.Columns["ShiftInitital"].ReadOnly = true;
                 dtgImportDataPreview.Columns["ShiftStart"].HeaderText = "Shift Start Time";
-                dtgImportDataPreview.Columns["ShiftStart"].DefaultCellStyle.Format = "hh:mm:ss";
+                dtgImportDataPreview.Columns["ShiftStart"].DefaultCellStyle.Format = "hh:mm:ss tt";
                 dtgImportDataPreview.Columns["ShiftStart"].Width = 200;
                 dtgImportDataPreview.Columns["ShiftStart"].ReadOnly = true;
                 dtgImportDataPreview.Columns["ShiftEnd"].HeaderText = "Shift End Time";
-                dtgImportDataPreview.Columns["ShiftEnd"].DefaultCellStyle.Format = "hh:mm:ss";
+                dtgImportDataPreview.Columns["ShiftEnd"].DefaultCellStyle.Format = "hh:mm:ss tt";
                 dtgImportDataPreview.Columns["ShiftEnd"].Width = 200;
                 dtgImportDataPreview.Columns["ShiftEnd"].ReadOnly = true;
                 dtgImportDataPreview.Columns["IsActive"].HeaderText = "Is Active";
@@ -1511,8 +1511,7 @@ namespace StaffSync
                 objImportDataPreviewTable.Columns.Remove("IsSelected");
             }
 
-            DataColumn selectedColumn =
-                new DataColumn("IsSelected", typeof(bool));
+            DataColumn selectedColumn = new DataColumn("IsSelected", typeof(bool));
 
             selectedColumn.DefaultValue = true;
             objImportDataPreviewTable.Columns.Add(selectedColumn);
@@ -1541,21 +1540,10 @@ namespace StaffSync
                     row.Cells["IsSelected"].Value = true;
             }
 
-            lblTotalRowsFromSource.Text =
-                "Total Rows from Source : " +
-                sourceData.Rows.Count.ToString();
-
-            chkSelectOrUnselect.Enabled =
-                sourceData.Rows.Count > 0;
-
-            chkSelectOrUnselect.Checked =
-                sourceData.Rows.Count > 0;
-
-            chkSelectOrUnselect.Text =
-                sourceData.Rows.Count > 0
-                    ? "Unselect All"
-                    : "Select All";
-
+            lblTotalRowsFromSource.Text = "Total Rows from Source : " + sourceData.Rows.Count.ToString();
+            chkSelectOrUnselect.Enabled = sourceData.Rows.Count > 0;
+            chkSelectOrUnselect.Checked = sourceData.Rows.Count > 0;
+            chkSelectOrUnselect.Text = sourceData.Rows.Count > 0 ? "Unselect All" : "Select All";
             UpdateExportSelectedRowCount();
         }
 
@@ -1921,93 +1909,244 @@ namespace StaffSync
 
                 if (string.IsNullOrWhiteSpace(selectedTitle))
                 {
-                    MessageBox.Show(
-                        "Please select an export data source.",
-                        "Staffsync",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                    MessageBox.Show("Please select an export data source.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
                 lblSelectedDataAction.Text = selectedTitle.Trim();
 
-                if (string.Equals(
-                    lblSelectedDataAction.Text,
-                    "Shift Information",
-                    StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(lblSelectedDataAction.Text, "Designation Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtDesignationList = ConvertListToDataTable(objDesignation.GetDesignationList());
+                    if (dtDesignationList == null || dtDesignationList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Designation Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    BindExportPreviewData(dtDesignationList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Department Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtDepartmentList = ConvertListToDataTable(objDepartment.GetDepartmentList());
+                    if (dtDepartmentList == null || dtDepartmentList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Department Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    BindExportPreviewData(dtDepartmentList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Countries Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtCountriesList = objCountries.GetCountryList();
+                    if (dtCountriesList == null || dtCountriesList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Countries Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    BindExportPreviewData(dtCountriesList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "States Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtStatesList = ConvertListToDataTable(objStates.GetStateList());
+                    if (dtStatesList == null || dtStatesList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No States Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    BindExportPreviewData(dtStatesList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Education Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtEductionList = ConvertListToDataTable(objEduQalification.GetEduQualMasList());
+                    if (dtEductionList == null || dtEductionList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Education Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    BindExportPreviewData(dtEductionList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Skills Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtSkillsList = ConvertListToDataTable(objSkillsMas.GetSkillList());
+                    if (dtSkillsList == null || dtSkillsList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Skills Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    
+                    BindExportPreviewData(dtSkillsList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+                    
+                    return; 
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Shift Information", StringComparison.OrdinalIgnoreCase))
                 {
                     DataTable shiftData = ConvertListToDataTable(objShiftMas.GetShiftList());
-
                     if (shiftData == null || shiftData.Rows.Count == 0)
                     {
                         ClearExportPreview();
-
-                        MessageBox.Show(
-                            "No Shift Information is available for export.",
-                            "Staffsync",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                        MessageBox.Show("No Shift Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
 
                     BindExportPreviewData(shiftData);
-                    FormatShiftExportGrid();
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
                     dtgImportDataPreview.Enabled = true;
 
                     return;
                 }
 
-                // Other master-data loaders can be added here one by one.
-                // No schema or DAL method is invented for sources that have
-                // not yet been supplied by the application.
                 ClearExportPreview();
 
-                MessageBox.Show(
-                    "Export loading is not yet configured for: " +
-                    lblSelectedDataAction.Text,
-                    "Staffsync",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                MessageBox.Show("Export loading is not yet configured for: " + lblSelectedDataAction.Text, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Unable to load the selected export data." +
-                    Environment.NewLine + Environment.NewLine +
-                    ex.Message,
-                    "Staffsync - Export Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Unable to load the selected export data." + Environment.NewLine + Environment.NewLine + ex.Message, "Staffsync - Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void FormatShiftExportGrid()
+        private void FormatPreviewGrid(string selectedItem)
         {
             if (dtgImportDataPreview == null)
                 return;
 
-            if (dtgImportDataPreview.Columns.Contains("IsSelected"))
+            dtgImportDataPreview.Columns["IsSelected"].HeaderText = "Select";
+            dtgImportDataPreview.Columns["IsSelected"].Width = 60;
+            dtgImportDataPreview.Columns["IsSelected"].DisplayIndex = 0;
+            dtgImportDataPreview.Columns["IsSelected"].ReadOnly = false;
+
+            if (string.Equals(lblSelectedDataAction.Text, "Designation Information", StringComparison.OrdinalIgnoreCase))
             {
-                dtgImportDataPreview.Columns["IsSelected"].HeaderText = "Select";
-                dtgImportDataPreview.Columns["IsSelected"].Width = 60;
-                dtgImportDataPreview.Columns["IsSelected"].DisplayIndex = 0;
-                dtgImportDataPreview.Columns["IsSelected"].ReadOnly = false;
+                dtgImportDataPreview.Columns["DesignationID"].Visible = false;
+                dtgImportDataPreview.Columns["DesignationCode"].Visible = false;
+                dtgImportDataPreview.Columns["DesignationTitle"].HeaderText = "Designation Name";
+                dtgImportDataPreview.Columns["DesignationTitle"].Width = 300;
+                dtgImportDataPreview.Columns["DesignationTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["DesignationInitial"].HeaderText = "Designation Initial";
+                dtgImportDataPreview.Columns["DesignationInitial"].Width = 200;
+                dtgImportDataPreview.Columns["DesignationInitial"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
-
-            SetExportColumnVisible("ShiftID", false);
-            SetExportColumnVisible("ShiftCode", false);
-            SetExportColumnVisible("ShiftInitital", false);
-            SetExportColumnVisible("ShiftStart", false);
-            SetExportColumnVisible("ShiftEnd", false);
-            SetExportColumnVisible("IsActive", false);
-            SetExportColumnVisible("IsDeleted", false);
-
-            if (dtgImportDataPreview.Columns.Contains("ShiftTitle"))
+            else if (string.Equals(lblSelectedDataAction.Text, "Department Information", StringComparison.OrdinalIgnoreCase))
             {
+                dtgImportDataPreview.Columns["DepartmentID"].Visible = false;
+                dtgImportDataPreview.Columns["DepCode"].Visible = false;
+                dtgImportDataPreview.Columns["DepartmentTitle"].HeaderText = "Department Name";
+                dtgImportDataPreview.Columns["DepartmentTitle"].Width = 300;
+                dtgImportDataPreview.Columns["DepartmentTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["DepartmentInitial"].HeaderText = "Department Initial";
+                dtgImportDataPreview.Columns["DepartmentInitial"].Width = 200;
+                dtgImportDataPreview.Columns["DepartmentInitial"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Countries Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["CountryID"].Visible = false;
+                dtgImportDataPreview.Columns["CountryCode"].Visible = false;
+                dtgImportDataPreview.Columns["CountryTitle"].HeaderText = "Country Name";
+                dtgImportDataPreview.Columns["CountryTitle"].Width = 300;
+                dtgImportDataPreview.Columns["CountryTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["CountryInitial"].HeaderText = "Country Code";
+                dtgImportDataPreview.Columns["CountryInitial"].Width = 200;
+                dtgImportDataPreview.Columns["CountryInitial"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "States Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["StateID"].Visible = false;
+                dtgImportDataPreview.Columns["StateCode"].Visible = false;
+                dtgImportDataPreview.Columns["StateTitle"].HeaderText = "State Name";
+                dtgImportDataPreview.Columns["StateTitle"].Width = 300;
+                dtgImportDataPreview.Columns["StateTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["StateInitial"].HeaderText = "State Code";
+                dtgImportDataPreview.Columns["StateInitial"].Width = 200;
+                dtgImportDataPreview.Columns["StateInitial"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsConfigured"].Visible = false;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Education Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["EduQualID"].Visible = false;
+                dtgImportDataPreview.Columns["EduQualCode"].Visible = false;
+                dtgImportDataPreview.Columns["EduQualTitle"].HeaderText = "Education Name";
+                dtgImportDataPreview.Columns["EduQualTitle"].Width = 300;
+                dtgImportDataPreview.Columns["EduQualTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["EduQualInitial"].HeaderText = "Education Code";
+                dtgImportDataPreview.Columns["EduQualInitial"].Width = 200;
+                dtgImportDataPreview.Columns["EduQualInitial"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Skills Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["SkillID"].Visible = false;
+                dtgImportDataPreview.Columns["SkillCode"].Visible = false;
+                dtgImportDataPreview.Columns["SkillTitle"].HeaderText = "Skills Name";
+                dtgImportDataPreview.Columns["SkillTitle"].Width = 300;
+                dtgImportDataPreview.Columns["SkillTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["SkillInitial"].HeaderText = "Skills Code";
+                dtgImportDataPreview.Columns["SkillInitial"].Width = 200;
+                dtgImportDataPreview.Columns["SkillInitial"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Shift Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["ShiftID"].Visible = false;
+                dtgImportDataPreview.Columns["ShiftCode"].Visible = false;
                 dtgImportDataPreview.Columns["ShiftTitle"].HeaderText = "Shift Title";
                 dtgImportDataPreview.Columns["ShiftTitle"].Width = 300;
                 dtgImportDataPreview.Columns["ShiftTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ShiftStart"].HeaderText = "Shift Start";
+                dtgImportDataPreview.Columns["ShiftStart"].DefaultCellStyle.Format = "hh:mm:ss tt";
+                dtgImportDataPreview.Columns["ShiftStart"].DefaultCellStyle.NullValue = string.Empty;
+                dtgImportDataPreview.Columns["ShiftStart"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ShiftEnd"].HeaderText = "Shift End";
+                dtgImportDataPreview.Columns["ShiftEnd"].DefaultCellStyle.Format = "hh:mm:ss tt";
+                dtgImportDataPreview.Columns["ShiftEnd"].DefaultCellStyle.NullValue = string.Empty;
+                dtgImportDataPreview.Columns["ShiftEnd"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
+
+            dtgImportDataPreview.Refresh();
         }
 
         private void SetExportColumnVisible(string columnName, bool visible)
@@ -2017,6 +2156,104 @@ namespace StaffSync
             {
                 dtgImportDataPreview.Columns[columnName].Visible = visible;
             }
+        }
+
+        /// <summary>
+        /// Returns the value exactly as displayed by the Export preview grid.
+        /// This deliberately uses DataGridViewCell.FormattedValue instead of
+        /// DataGridViewCell.Value so column formatting is preserved in every
+        /// export format (CSV, XML, JSON, HTML and PDF).
+        /// </summary>
+        /// <summary>
+        /// Returns the column title exactly as displayed in the DataGridView.
+        /// HeaderText is intentionally preferred over the database column Name.
+        /// </summary>
+        private string GetExportDisplayColumnHeader(DataGridViewColumn column)
+        {
+            if (column == null)
+                return string.Empty;
+
+            string headerText = Convert.ToString(column.HeaderText);
+
+            if (!string.IsNullOrWhiteSpace(headerText))
+                return headerText.Trim();
+
+            return Convert.ToString(column.Name);
+        }
+
+        private string GetFormattedExportCellValue(
+            DataGridViewRow row,
+            string columnName)
+        {
+            if (row == null || string.IsNullOrWhiteSpace(columnName))
+                return string.Empty;
+
+            if (!dtgImportDataPreview.Columns.Contains(columnName))
+                return string.Empty;
+
+            DataGridViewCell cell = row.Cells[columnName];
+
+            if (cell == null)
+                return string.Empty;
+
+            object cellValue = cell.Value;
+
+            if (cellValue == null || cellValue == DBNull.Value)
+                return string.Empty;
+
+            // First choice: use exactly what the DataGridView displays.
+            // This preserves DefaultCellStyle.Format and any other normal
+            // DataGridView formatting.
+            object formattedValue = cell.FormattedValue;
+
+            if (formattedValue != null && formattedValue != DBNull.Value)
+            {
+                string displayValue = Convert.ToString(
+                    formattedValue,
+                    CultureInfo.CurrentCulture);
+
+                // If the cell has an explicit .NET format and the underlying
+                // value is DateTime, apply the same format explicitly as a
+                // defensive fallback. This prevents a DateTime such as
+                // 30-Dec-1899 09:00:00 from leaking into the export.
+                string format = cell.InheritedStyle != null
+                    ? cell.InheritedStyle.Format
+                    : string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(format) &&
+                    cellValue is DateTime)
+                {
+                    return ((DateTime)cellValue).ToString(
+                        format,
+                        CultureInfo.CurrentCulture);
+                }
+
+                return displayValue;
+            }
+
+            // Final fallback for formatted DateTime cells.
+            string inheritedFormat = cell.InheritedStyle != null
+                ? cell.InheritedStyle.Format
+                : string.Empty;
+
+            if (cellValue is DateTime)
+            {
+                DateTime dateTimeValue = (DateTime)cellValue;
+
+                if (!string.IsNullOrWhiteSpace(inheritedFormat))
+                {
+                    return dateTimeValue.ToString(
+                        inheritedFormat,
+                        CultureInfo.CurrentCulture);
+                }
+
+                return dateTimeValue.ToString(
+                    CultureInfo.CurrentCulture);
+            }
+
+            return Convert.ToString(
+                cellValue,
+                CultureInfo.CurrentCulture);
         }
 
         private DataTable GetSelectedExportData()
@@ -2038,13 +2275,36 @@ namespace StaffSync
                 if (!column.Visible)
                     continue;
 
-                string columnName = column.Name;
+                // IMPORTANT:
+                // Export the column title exactly as it is displayed in the
+                // DataGridView UI.  Do not use the underlying database column
+                // name here.
+                //
+                // Example:
+                //     Database column : ShiftStart
+                //     Grid title      : Shift Start
+                //     Export title    : Shift Start
+                //
+                // This makes the CSV, JSON, HTML and PDF headers match the UI.
+                // XML also retains the exact UI title through the DisplayHeader
+                // metadata written by ExportDataTableToXml().
+                string columnName = GetExportDisplayColumnHeader(column);
 
                 if (string.IsNullOrWhiteSpace(columnName))
                     columnName = "Column" + selectedData.Columns.Count.ToString();
 
-                if (selectedData.Columns.Contains(columnName))
-                    columnName = columnName + "_" + selectedData.Columns.Count.ToString();
+                // DataTable column names must be unique. Keep the UI title for
+                // the first occurrence and add a minimal suffix only if two
+                // visible grid columns have exactly the same title.
+                string originalColumnName = columnName;
+                int duplicateIndex = 2;
+
+                while (selectedData.Columns.Contains(columnName))
+                {
+                    columnName = originalColumnName + " (" +
+                                 duplicateIndex.ToString() + ")";
+                    duplicateIndex++;
+                }
 
                 selectedData.Columns.Add(columnName, typeof(string));
             }
@@ -2074,12 +2334,19 @@ namespace StaffSync
                     if (column.Name == "IsSelected" || !column.Visible)
                         continue;
 
-                    object value = row.Cells[column.Name].Value;
+                    // IMPORTANT:
+                    // Export the value exactly as it is displayed in the
+                    // DataGridView, including the column's formatting.
+                    // For example, a DateTime column displayed as
+                    // "hh:mm:ss tt" is exported as "09:00:00 AM" and not
+                    // as the underlying DateTime value (30-Dec-1899 09:00:00).
+                    string displayValue =
+                        GetFormattedExportCellValue(row, column.Name);
 
-                    dataRow[outputColumnIndex] =
-                        value == null || value == DBNull.Value
-                            ? string.Empty
-                            : Convert.ToString(value, CultureInfo.InvariantCulture);
+                    // Store the displayed grid value as a string.
+                    // This is intentional: CSV, JSON, XML, HTML and PDF must
+                    // not re-serialize the original database DateTime.
+                    dataRow[outputColumnIndex] = displayValue;
 
                     outputColumnIndex++;
                 }
@@ -2205,11 +2472,32 @@ namespace StaffSync
                     if (!File.Exists(outputFile))
                         throw new IOException("The export file could not be created.");
 
-                    MessageBox.Show(
+                    string fileToOpen = outputFile;
+                    string successMessage =
                         selectedData.Rows.Count.ToString() +
                         " row(s) exported successfully." +
                         Environment.NewLine + Environment.NewLine +
-                        outputFile,
+                        outputFile;
+
+                    if (extension == "xml")
+                    {
+                        string htmlPreviewFile = Path.Combine(
+                            Path.GetDirectoryName(outputFile),
+                            Path.GetFileNameWithoutExtension(outputFile) + ".html");
+
+                        if (File.Exists(htmlPreviewFile))
+                        {
+                            fileToOpen = htmlPreviewFile;
+                            successMessage +=
+                                Environment.NewLine + Environment.NewLine +
+                                "HTML preview:" +
+                                Environment.NewLine +
+                                htmlPreviewFile;
+                        }
+                    }
+
+                    MessageBox.Show(
+                        successMessage,
                         "Staffsync",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
@@ -2217,7 +2505,7 @@ namespace StaffSync
                     System.Diagnostics.Process.Start(
                         new System.Diagnostics.ProcessStartInfo
                         {
-                            FileName = outputFile,
+                            FileName = fileToOpen,
                             UseShellExecute = true
                         });
                 }
@@ -2299,6 +2587,10 @@ namespace StaffSync
 
         private void ExportDataTableToXml(DataTable data, string outputFile)
         {
+            // Keep the XML as a clean, machine-readable export.
+            // A standalone HTML companion is also generated from the same data so the
+            // exported information can be opened reliably in Chrome/Edge without
+            // depending on local-file XSLT security behavior.
             using (System.Xml.XmlWriter writer =
                    System.Xml.XmlWriter.Create(
                        outputFile,
@@ -2322,11 +2614,22 @@ namespace StaffSync
 
                     foreach (DataColumn column in data.Columns)
                     {
+                        // XML element names cannot contain spaces, so the
+                        // machine-readable element name is made XML-safe.
+                        // The exact DataGridView UI title is preserved in the
+                        // DisplayHeader attribute.
                         writer.WriteStartElement(
                             MakeSafeXmlName(column.ColumnName));
 
+                        writer.WriteAttributeString(
+                            "DisplayHeader",
+                            column.ColumnName);
+
                         if (row[column] != DBNull.Value)
                         {
+                            // GetSelectedExportData stores the DataGridView
+                            // formatted/display value as a string, so XML
+                            // receives exactly the value shown in the preview.
                             writer.WriteString(Convert.ToString(row[column]));
                         }
 
@@ -2340,6 +2643,97 @@ namespace StaffSync
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
             }
+
+            // Generate a self-contained HTML view next to the XML file.
+            // This is intentionally generated without external CSS/XSL files so the
+            // user can double-click the HTML file and view the export immediately.
+            string htmlFile = Path.Combine(
+                Path.GetDirectoryName(outputFile),
+                Path.GetFileNameWithoutExtension(outputFile) + ".html");
+
+            ExportDataTableToHtml(data, htmlFile);
+        }
+
+        private void ExportDataTableToHtml(DataTable data, string outputFile)
+        {
+            StringBuilder html = new StringBuilder();
+
+            html.AppendLine("<!DOCTYPE html>");
+            html.AppendLine("<html>");
+            html.AppendLine("<head>");
+            html.AppendLine("<meta charset=\"utf-8\" />");
+            html.AppendLine("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />");
+            html.AppendLine("<title>StaffSync Export - " + HtmlEncode(lblSelectedDataAction.Text) + "</title>");
+            html.AppendLine("<style>");
+            html.AppendLine("body{font-family:Segoe UI,Arial,sans-serif;background:#f5f7fa;margin:0;padding:24px;color:#202124;}");
+            html.AppendLine(".report{max-width:1400px;margin:0 auto;background:#fff;border:1px solid #d9dee7;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.08);overflow:hidden;}");
+            html.AppendLine(".header{padding:20px 24px;border-bottom:1px solid #e3e7ed;background:#f8fafc;}");
+            html.AppendLine(".title{font-size:22px;font-weight:600;margin:0 0 6px 0;}");
+            html.AppendLine(".meta{font-size:13px;color:#667085;}");
+            html.AppendLine(".table-wrap{overflow:auto;padding:18px 24px 24px 24px;}");
+            html.AppendLine("table{border-collapse:collapse;width:100%;min-width:650px;font-size:13px;}");
+            html.AppendLine("th{background:#eef2f7;font-weight:600;text-align:left;border:1px solid #d9dee7;padding:9px 10px;white-space:nowrap;}");
+            html.AppendLine("td{border:1px solid #e1e5eb;padding:8px 10px;vertical-align:top;}");
+            html.AppendLine("tr:nth-child(even) td{background:#fafbfc;}");
+            html.AppendLine(".footer{padding:12px 24px;border-top:1px solid #e3e7ed;color:#667085;font-size:12px;}");
+            html.AppendLine("</style>");
+            html.AppendLine("</head>");
+            html.AppendLine("<body>");
+            html.AppendLine("<div class=\"report\">");
+            html.AppendLine("<div class=\"header\">");
+            html.AppendLine("<div class=\"title\">StaffSync Export - " + HtmlEncode(lblSelectedDataAction.Text) + "</div>");
+            html.AppendLine("<div class=\"meta\">Generated On: " + HtmlEncode(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")) + "</div>");
+            html.AppendLine("</div>");
+            html.AppendLine("<div class=\"table-wrap\">");
+            html.AppendLine("<table>");
+            html.AppendLine("<thead><tr>");
+
+            foreach (DataColumn column in data.Columns)
+            {
+                html.Append("<th>");
+                html.Append(HtmlEncode(column.ColumnName));
+                html.AppendLine("</th>");
+            }
+
+            html.AppendLine("</tr></thead>");
+            html.AppendLine("<tbody>");
+
+            foreach (DataRow row in data.Rows)
+            {
+                html.AppendLine("<tr>");
+
+                foreach (DataColumn column in data.Columns)
+                {
+                    html.Append("<td>");
+
+                    if (row[column] != DBNull.Value)
+                    {
+                        html.Append(HtmlEncode(Convert.ToString(row[column])));
+                    }
+
+                    html.AppendLine("</td>");
+                }
+
+                html.AppendLine("</tr>");
+            }
+
+            html.AppendLine("</tbody>");
+            html.AppendLine("</table>");
+            html.AppendLine("</div>");
+            html.AppendLine("<div class=\"footer\">StaffSync Payroll Management - Exported rows: " + data.Rows.Count.ToString() + "</div>");
+            html.AppendLine("</div>");
+            html.AppendLine("</body>");
+            html.AppendLine("</html>");
+
+            File.WriteAllText(outputFile, html.ToString(), new UTF8Encoding(false));
+        }
+
+        private string HtmlEncode(string value)
+        {
+            if (value == null)
+                return string.Empty;
+
+            return System.Net.WebUtility.HtmlEncode(value);
         }
 
         private string MakeSafeXmlName(string name)
@@ -2378,8 +2772,11 @@ namespace StaffSync
 
                 foreach (DataColumn column in data.Columns)
                 {
+                    // Values in selectedData are already the formatted
+                    // DataGridView display values. Keep them as strings so
+                    // JSON does not re-serialize the original DateTime.
                     item[column.ColumnName] =
-                        row[column] == DBNull.Value ? null : row[column];
+                        row[column] == DBNull.Value ? null : row[column].ToString();
                 }
 
                 rows.Add(item);
@@ -2702,22 +3099,18 @@ namespace StaffSync
         {
             try
             {
-                if (e.RowIndex < 0 ||
-                    dtgImportDataSourceList.Rows[e.RowIndex].IsNewRow)
+                if (e.RowIndex < 0 || dtgImportDataSourceList.Rows[e.RowIndex].IsNewRow)
                 {
                     return;
                 }
 
                 if (dtgImportDataSourceList.Columns.Contains("ImpDataInfoTitle"))
                 {
-                    lblSelectedDataAction.Text = Convert.ToString(
-                        dtgImportDataSourceList.Rows[e.RowIndex]
-                            .Cells["ImpDataInfoTitle"].Value).Trim();
+                    lblSelectedDataAction.Text = Convert.ToString(dtgImportDataSourceList.Rows[e.RowIndex].Cells["ImpDataInfoTitle"].Value).Trim();
                 }
                 else
                 {
-                    lblSelectedDataAction.Text = Convert.ToString(
-                        dtgImportDataSourceList.Rows[e.RowIndex].Cells[3].Value).Trim();
+                    lblSelectedDataAction.Text = Convert.ToString(dtgImportDataSourceList.Rows[e.RowIndex].Cells[3].Value).Trim();
                 }
 
                 LoadSelectedExportData();

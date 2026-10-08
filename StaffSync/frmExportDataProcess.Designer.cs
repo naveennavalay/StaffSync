@@ -36,11 +36,12 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dtgImportDataSourceList = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cmbOutputFormat = new Krypton.Toolkit.KryptonComboBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.txtCompLogo = new Krypton.Toolkit.KryptonTextBox();
             this.picCompLogo = new System.Windows.Forms.PictureBox();
             this.lblSelectedDataAction = new System.Windows.Forms.Label();
             this.chkSelectOrUnselect = new Krypton.Toolkit.KryptonCheckButton();
-            this.chkAvoidDuplicateRows = new System.Windows.Forms.CheckBox();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
             this.txtSourceFilePath = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -57,6 +58,7 @@
             this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
             this.btnSaveDetails = new Krypton.Toolkit.KryptonButton();
             this.btnModifyDetails = new Krypton.Toolkit.KryptonButton();
+            this.chkAvoidDuplicateRows = new System.Windows.Forms.CheckBox();
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
@@ -66,8 +68,6 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.cmbOutputFormat = new Krypton.Toolkit.KryptonComboBox();
-            this.label28 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -77,6 +77,7 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgImportDataSourceList)).BeginInit();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbOutputFormat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCompLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgImportDataPreview)).BeginInit();
             this.panel2.SuspendLayout();
@@ -85,7 +86,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbOutputFormat)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -189,9 +189,33 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Asset Information";
             // 
+            // cmbOutputFormat
+            // 
+            this.cmbOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbOutputFormat.DropDownWidth = 440;
+            this.cmbOutputFormat.Location = new System.Drawing.Point(87, 404);
+            this.cmbOutputFormat.Name = "cmbOutputFormat";
+            this.cmbOutputFormat.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbOutputFormat.Size = new System.Drawing.Size(190, 22);
+            this.cmbOutputFormat.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbOutputFormat.TabIndex = 91;
+            this.cmbOutputFormat.Tag = "Gender";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(29, 408);
+            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(52, 15);
+            this.label28.TabIndex = 90;
+            this.label28.Text = "Format";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // txtCompLogo
             // 
-            this.txtCompLogo.Location = new System.Drawing.Point(517, 398);
+            this.txtCompLogo.Location = new System.Drawing.Point(517, 408);
             this.txtCompLogo.Multiline = true;
             this.txtCompLogo.Name = "txtCompLogo";
             this.txtCompLogo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -207,7 +231,7 @@
             // picCompLogo
             // 
             this.picCompLogo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picCompLogo.Location = new System.Drawing.Point(621, 387);
+            this.picCompLogo.Location = new System.Drawing.Point(621, 397);
             this.picCompLogo.Margin = new System.Windows.Forms.Padding(4);
             this.picCompLogo.Name = "picCompLogo";
             this.picCompLogo.Size = new System.Drawing.Size(50, 39);
@@ -240,24 +264,9 @@
             this.chkSelectOrUnselect.Values.Text = "Unselect";
             this.chkSelectOrUnselect.Click += new System.EventHandler(this.chkSelectOrUnselect_Click);
             // 
-            // chkAvoidDuplicateRows
-            // 
-            this.chkAvoidDuplicateRows.AutoSize = true;
-            this.chkAvoidDuplicateRows.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkAvoidDuplicateRows.Checked = true;
-            this.chkAvoidDuplicateRows.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAvoidDuplicateRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkAvoidDuplicateRows.Location = new System.Drawing.Point(525, 0);
-            this.chkAvoidDuplicateRows.Name = "chkAvoidDuplicateRows";
-            this.chkAvoidDuplicateRows.Size = new System.Drawing.Size(164, 19);
-            this.chkAvoidDuplicateRows.TabIndex = 85;
-            this.chkAvoidDuplicateRows.Tag = "Avoid Duplicate Rows";
-            this.chkAvoidDuplicateRows.Text = "Avoid Duplicate Rows";
-            this.chkAvoidDuplicateRows.UseVisualStyleBackColor = true;
-            // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(672, 358);
+            this.btnSearch.Location = new System.Drawing.Point(672, 368);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -270,7 +279,7 @@
             // 
             // txtSourceFilePath
             // 
-            this.txtSourceFilePath.Location = new System.Drawing.Point(87, 359);
+            this.txtSourceFilePath.Location = new System.Drawing.Point(87, 369);
             this.txtSourceFilePath.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtSourceFilePath.MaxLength = 255;
             this.txtSourceFilePath.Multiline = true;
@@ -285,7 +294,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(4, 365);
+            this.label6.Location = new System.Drawing.Point(4, 375);
             this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 15);
@@ -308,7 +317,7 @@
             // 
             this.lblTotalNotImportedRows.AutoSize = true;
             this.lblTotalNotImportedRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalNotImportedRows.Location = new System.Drawing.Point(610, 327);
+            this.lblTotalNotImportedRows.Location = new System.Drawing.Point(610, 346);
             this.lblTotalNotImportedRows.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblTotalNotImportedRows.Name = "lblTotalNotImportedRows";
             this.lblTotalNotImportedRows.Size = new System.Drawing.Size(149, 15);
@@ -320,7 +329,7 @@
             // 
             this.lblTotalDuplicateRows.AutoSize = true;
             this.lblTotalDuplicateRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalDuplicateRows.Location = new System.Drawing.Point(405, 327);
+            this.lblTotalDuplicateRows.Location = new System.Drawing.Point(405, 346);
             this.lblTotalDuplicateRows.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblTotalDuplicateRows.Name = "lblTotalDuplicateRows";
             this.lblTotalDuplicateRows.Size = new System.Drawing.Size(163, 15);
@@ -332,7 +341,7 @@
             // 
             this.lblTotalImportedRows.AutoSize = true;
             this.lblTotalImportedRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalImportedRows.Location = new System.Drawing.Point(204, 327);
+            this.lblTotalImportedRows.Location = new System.Drawing.Point(204, 346);
             this.lblTotalImportedRows.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblTotalImportedRows.Name = "lblTotalImportedRows";
             this.lblTotalImportedRows.Size = new System.Drawing.Size(159, 15);
@@ -344,7 +353,7 @@
             // 
             this.lblTotalRowsSelected.AutoSize = true;
             this.lblTotalRowsSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalRowsSelected.Location = new System.Drawing.Point(4, 327);
+            this.lblTotalRowsSelected.Location = new System.Drawing.Point(4, 346);
             this.lblTotalRowsSelected.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblTotalRowsSelected.Name = "lblTotalRowsSelected";
             this.lblTotalRowsSelected.Size = new System.Drawing.Size(158, 15);
@@ -378,7 +387,7 @@
             this.dtgImportDataPreview.Name = "dtgImportDataPreview";
             this.dtgImportDataPreview.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgImportDataPreview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgImportDataPreview.Size = new System.Drawing.Size(768, 285);
+            this.dtgImportDataPreview.Size = new System.Drawing.Size(768, 293);
             this.dtgImportDataPreview.StateCommon.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgImportDataPreview.StateCommon.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgImportDataPreview.StateCommon.BackStyle = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
@@ -390,7 +399,7 @@
             // 
             // lnkViewAuditLog
             // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(726, 361);
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(726, 371);
             this.lnkViewAuditLog.Name = "lnkViewAuditLog";
             this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
             this.lnkViewAuditLog.TabIndex = 37;
@@ -463,6 +472,21 @@
             this.btnModifyDetails.Visible = false;
             this.btnModifyDetails.Click += new System.EventHandler(this.btnModifyDetails_Click);
             // 
+            // chkAvoidDuplicateRows
+            // 
+            this.chkAvoidDuplicateRows.AutoSize = true;
+            this.chkAvoidDuplicateRows.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkAvoidDuplicateRows.Checked = true;
+            this.chkAvoidDuplicateRows.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAvoidDuplicateRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkAvoidDuplicateRows.Location = new System.Drawing.Point(525, 0);
+            this.chkAvoidDuplicateRows.Name = "chkAvoidDuplicateRows";
+            this.chkAvoidDuplicateRows.Size = new System.Drawing.Size(164, 19);
+            this.chkAvoidDuplicateRows.TabIndex = 85;
+            this.chkAvoidDuplicateRows.Tag = "Avoid Duplicate Rows";
+            this.chkAvoidDuplicateRows.Text = "Avoid Duplicate Rows";
+            this.chkAvoidDuplicateRows.UseVisualStyleBackColor = true;
+            // 
             // btnGenerateDetails
             // 
             this.btnGenerateDetails.Location = new System.Drawing.Point(284, 6);
@@ -521,30 +545,6 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
-            // cmbOutputFormat
-            // 
-            this.cmbOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbOutputFormat.DropDownWidth = 440;
-            this.cmbOutputFormat.Location = new System.Drawing.Point(87, 394);
-            this.cmbOutputFormat.Name = "cmbOutputFormat";
-            this.cmbOutputFormat.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbOutputFormat.Size = new System.Drawing.Size(190, 22);
-            this.cmbOutputFormat.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbOutputFormat.TabIndex = 91;
-            this.cmbOutputFormat.Tag = "Gender";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(29, 398);
-            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(52, 15);
-            this.label28.TabIndex = 90;
-            this.label28.Text = "Format";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // frmExportDataProcess
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -574,6 +574,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgImportDataSourceList)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbOutputFormat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picCompLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgImportDataPreview)).EndInit();
             this.panel2.ResumeLayout(false);
@@ -583,7 +584,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbOutputFormat)).EndInit();
             this.ResumeLayout(false);
 
         }
