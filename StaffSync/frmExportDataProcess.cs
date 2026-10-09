@@ -1995,6 +1995,79 @@ namespace StaffSync
 
                     return;
                 }
+                else if (string.Equals(lblSelectedDataAction.Text, "Relationship Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtRelationshipList = objRelationship.GetRelationshipList();
+                    if (dtRelationshipList == null || dtRelationshipList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Relationship Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    
+                    BindExportPreviewData(dtRelationshipList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+                    
+                    return; 
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Weekly Off Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtWeeklyOffList = ConvertListToDataTable(objWeeklyOffInfo.getWklyOffProfileMasInfoList(""));
+                    if (dtWeeklyOffList == null || dtWeeklyOffList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Weekly Off Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    BindExportPreviewData(dtWeeklyOffList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Asset Category Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtAssetCategoryList = ConvertListToDataTable(objAssetsCategory.getAssetsCategoryList(objTempClientFinYearInfo.ClientID));
+                    if (dtAssetCategoryList == null || dtAssetCategoryList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Asset Category Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    BindExportPreviewData(dtAssetCategoryList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Assets Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtAssetCategoryList = ConvertListToDataTable(objAssetsInfo.getAssetsInfoList(objTempClientFinYearInfo.ClientID));
+                    if (dtAssetCategoryList == null || dtAssetCategoryList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Asset Category Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    BindExportPreviewData(dtAssetCategoryList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Leave Type Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtLeaveTypeList = objLeaveTypeMas.GetLeaveTypeList();
+                    if (dtLeaveTypeList == null || dtLeaveTypeList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Leave Type Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    BindExportPreviewData(dtLeaveTypeList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+                    return;
+                }
                 else if (string.Equals(lblSelectedDataAction.Text, "Skills Information", StringComparison.OrdinalIgnoreCase))
                 {
                     DataTable dtSkillsList = ConvertListToDataTable(objSkillsMas.GetSkillList());
@@ -2004,12 +2077,12 @@ namespace StaffSync
                         MessageBox.Show("No Skills Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
-                    
+
                     BindExportPreviewData(dtSkillsList);
                     FormatPreviewGrid(lblSelectedDataAction.Text);
                     dtgImportDataPreview.Enabled = true;
-                    
-                    return; 
+
+                    return;
                 }
                 else if (string.Equals(lblSelectedDataAction.Text, "Shift Information", StringComparison.OrdinalIgnoreCase))
                 {
@@ -2114,6 +2187,74 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }
+            else if (string.Equals(lblSelectedDataAction.Text, "Weekly Off Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["WklyOffMasID"].Visible = false;
+                dtgImportDataPreview.Columns["WklyOffCode"].Visible = false;
+                dtgImportDataPreview.Columns["WklyOffTitle"].HeaderText = "Weekly Off Profile Name";
+                dtgImportDataPreview.Columns["WklyOffTitle"].Width = 300;
+                dtgImportDataPreview.Columns["WklyOffTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["WklyOffDays"].HeaderText = "Weekly Days Off Days";
+                dtgImportDataPreview.Columns["WklyOffDays"].Width = 300;
+                dtgImportDataPreview.Columns["WklyOffTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["WklyOffEffectiveDate"].Visible = false;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDelete"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Asset Category Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["AssetCatMasID"].Visible = false;
+                dtgImportDataPreview.Columns["ParentAssetCatMasID"].Visible = false;
+                dtgImportDataPreview.Columns["AssetCode"].Visible = false;
+                dtgImportDataPreview.Columns["AssetName"].HeaderText = "Asset Category Name";
+                dtgImportDataPreview.Columns["AssetName"].Width = 350;
+                dtgImportDataPreview.Columns["AssetName"].ReadOnly = true;
+                dtgImportDataPreview.Columns["AssetDescription"].HeaderText = "Asset Category Description";
+                dtgImportDataPreview.Columns["AssetDescription"].Width = 350;
+                dtgImportDataPreview.Columns["AssetDescription"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ParentCatMasName"].HeaderText = "Parent Category Asset";
+                dtgImportDataPreview.Columns["ParentCatMasName"].Width = 350;
+                dtgImportDataPreview.Columns["ParentCatMasName"].ReadOnly = true;
+                dtgImportDataPreview.Columns["AssetNote"].Visible = false;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+                dtgImportDataPreview.Columns["ClientID"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Assets Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["AssetID"].Visible = false;
+                dtgImportDataPreview.Columns["AssetCode"].Visible = false;
+                dtgImportDataPreview.Columns["AssetName"].HeaderText = "Asset Name";
+                dtgImportDataPreview.Columns["AssetName"].Width = 350;
+                dtgImportDataPreview.Columns["AssetName"].ReadOnly = true;
+                dtgImportDataPreview.Columns["AssetDescription"].HeaderText = "Asset Description";
+                dtgImportDataPreview.Columns["AssetDescription"].Width = 350;
+                dtgImportDataPreview.Columns["AssetDescription"].ReadOnly = true;
+                dtgImportDataPreview.Columns["AssetCategoryName"].HeaderText = "Asset Category";
+                dtgImportDataPreview.Columns["AssetCategoryName"].Width = 350;
+                dtgImportDataPreview.Columns["AssetCategoryName"].ReadOnly = true;
+                dtgImportDataPreview.Columns["OutstandingQuantity"].Visible = false;
+                dtgImportDataPreview.Columns["CurrentAssetStatusName"].Visible = false;
+                dtgImportDataPreview.Columns["CurrentAssetDescription"].Visible = false;
+                dtgImportDataPreview.Columns["AssetCatMasID"].Visible = false;
+                dtgImportDataPreview.Columns["ParentAssetCatMasID"].Visible = false;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Leave Type Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["LeaveTypeID"].Visible = false;
+                dtgImportDataPreview.Columns["LeaveCode"].Visible = false;
+                dtgImportDataPreview.Columns["LeaveTypeTitle"].HeaderText = "Leave Type Name";
+                dtgImportDataPreview.Columns["LeaveTypeTitle"].Width = 300;
+                dtgImportDataPreview.Columns["LeaveTypeTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsPaid"].HeaderText = "Is Paid";
+                dtgImportDataPreview.Columns["IsPaid"].Width = 75;
+                dtgImportDataPreview.Columns["IsPaid"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDelete"].Visible = false;
+                dtgImportDataPreview.Columns["OrderID"].Visible = false;
+            }
             else if (string.Equals(lblSelectedDataAction.Text, "Skills Information", StringComparison.OrdinalIgnoreCase))
             {
                 dtgImportDataPreview.Columns["SkillID"].Visible = false;
@@ -2124,6 +2265,19 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["SkillInitial"].HeaderText = "Skills Code";
                 dtgImportDataPreview.Columns["SkillInitial"].Width = 200;
                 dtgImportDataPreview.Columns["SkillInitial"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Relationship Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["RelationshipID"].Visible = false;
+                dtgImportDataPreview.Columns["RelationshipCode"].Visible = false;
+                dtgImportDataPreview.Columns["RelationshipTitle"].HeaderText = "Relationship Name";
+                dtgImportDataPreview.Columns["RelationshipTitle"].Width = 300;
+                dtgImportDataPreview.Columns["RelationshipTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["RelationshipInitial"].HeaderText = "Relationship Code";
+                dtgImportDataPreview.Columns["RelationshipInitial"].Width = 200;
+                dtgImportDataPreview.Columns["RelationshipInitial"].ReadOnly = true;
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }

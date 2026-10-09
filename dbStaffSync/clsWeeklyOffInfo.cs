@@ -36,12 +36,58 @@ namespace dbStaffSync
 
                 string strQuery = "";
                 if(string.IsNullOrEmpty(txtWklyOffTitle))
-                    strQuery = "SELECT " + 
-                                        "WklyOffMasID, WklyOffCode, WklyOffTitle, WklyOffEffectiveDate " +
-                                  " FROM " + 
-                                        " WklyOffProfileInfo " + 
-                                  " WHERE " + 
-                                        "(((WklyOffProfileInfo.IsActive) = True) AND ((WklyOffProfileInfo.IsDelete) = False));";
+                    strQuery = @"SELECT
+                                    W.WklyOffMasID,
+                                    W.WklyOffCode,
+                                    W.WklyOffTitle,
+                                    W.WklyOffEffectiveDate,
+                                    Switch (
+                                        D1.WklyOffDay = 1,
+                                        ""Sunday"",
+                                        D1.WklyOffDay = 2,
+                                        ""Monday"",
+                                        D1.WklyOffDay = 3,
+                                        ""Tuesday"",
+                                        D1.WklyOffDay = 4,
+                                        ""Wednesday"",
+                                        D1.WklyOffDay = 5,
+                                        ""Thursday"",
+                                        D1.WklyOffDay = 6,
+                                        ""Friday"",
+                                        D1.WklyOffDay = 7,
+                                        ""Saturday""
+                                    ) & IIf(
+                                        D2.WklyOffDay IS NOT NULL,
+                                        "", "" & Switch (
+                                            D2.WklyOffDay = 1,
+                                            ""Sunday"",
+                                            D2.WklyOffDay = 2,
+                                            ""Monday"",
+                                            D2.WklyOffDay = 3,
+                                            ""Tuesday"",
+                                            D2.WklyOffDay = 4,
+                                            ""Wednesday"",
+                                            D2.WklyOffDay = 5,
+                                            ""Thursday"",
+                                            D2.WklyOffDay = 6,
+                                            ""Friday"",
+                                            D2.WklyOffDay = 7,
+                                            ""Saturday""
+                                        ),
+                                        """"
+                                    ) AS WklyOffDays
+                                FROM
+                                    (
+                                        WklyOffProfileInfo AS W
+                                        INNER JOIN WklyOffProfileDetails AS D1 ON W.WklyOffMasID = D1.WklyOffMasID
+                                    )
+                                    INNER JOIN WklyOffProfileDetails AS D2 ON D1.WklyOffMasID = D2.WklyOffMasID
+                                WHERE
+                                    W.IsActive = True
+                                    AND W.IsDelete = False
+                                    AND D1.WklyOffDetID < D2.WklyOffDetID
+                                ORDER BY
+                                    W.WklyOffMasID;";
                 else
                     strQuery ="SELECT " + 
                                         "WklyOffMasID, WklyOffCode, WklyOffTitle, WklyOffEffectiveDate " +

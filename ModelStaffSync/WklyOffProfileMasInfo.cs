@@ -18,6 +18,9 @@ namespace ModelStaffSync
         [DisplayName("Weekly Off Title")]
         public string WklyOffTitle { get; set; }
 
+        [DisplayName("Weekly Off Days")]
+        public string WklyOffDays { get; set; }
+
         [DisplayName("Effective From")]
         public DateTime WklyOffEffectiveDate { get; set; }
 
