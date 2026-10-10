@@ -387,7 +387,7 @@
             this.dtgImportDataPreview.Name = "dtgImportDataPreview";
             this.dtgImportDataPreview.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgImportDataPreview.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgImportDataPreview.Size = new System.Drawing.Size(768, 293);
+            this.dtgImportDataPreview.Size = new System.Drawing.Size(768, 291);
             this.dtgImportDataPreview.StateCommon.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgImportDataPreview.StateCommon.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgImportDataPreview.StateCommon.BackStyle = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;

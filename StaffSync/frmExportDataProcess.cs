@@ -58,6 +58,7 @@ namespace StaffSync
         DALStaffSync.clsAllowenceInfo objAllowenceInfo = new DALStaffSync.clsAllowenceInfo();
         DALStaffSync.clsDeductionsInfo objDeductionInfo = new DALStaffSync.clsDeductionsInfo();
         DALStaffSync.clsReimbursement objReimbursementInfo = new DALStaffSync.clsReimbursement();
+        DALStaffSync.clsPublicHolidayInfo objPublicHolidayInfo = new DALStaffSync.clsPublicHolidayInfo();
 
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
@@ -65,6 +66,10 @@ namespace StaffSync
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
 
         // Import/Export preview state
+
+        DateTime dtFromDate = DateTime.Today;
+        DateTime dtToDate = DateTime.Today;
+
         private DataTable objImportDataPreviewTable = new DataTable();
         private string objSelectedImportFilePath = string.Empty;
         private bool isImportPreviewEventsAttached = false;
@@ -108,6 +113,21 @@ namespace StaffSync
             dtgImportDataSourceList.DataSource = objImportDataInfo.getImportInfoData();
             formatGrid();
             defaultSelectedImportOption();
+        }
+
+        public frmExportDataProcess(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo, DateTime dtFrom, DateTime dtTo)
+        {
+            InitializeComponent();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+            objTempClientFinYearInfo = objSelectedClientFinYearInfo;
+            ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
+            objActiveClientInfo = objClientInfo.getClientInfoByEmpID(objTempCurrentlyLoggedInUserInfo.EmpID);
+
+            dtgImportDataSourceList.DataSource = objImportDataInfo.getImportInfoData();
+            formatGrid();
+            defaultSelectedImportOption();
+            dtFromDate = dtFrom;
+            dtToDate = dtTo;
         }
 
         public frmExportDataProcess(int txtEmployeeID, int txtLeaveMasID)
@@ -2068,6 +2088,90 @@ namespace StaffSync
                     dtgImportDataPreview.Enabled = true;
                     return;
                 }
+                else if (string.Equals(lblSelectedDataAction.Text, "Allowance Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtAllowanceList = objAllowenceInfo.GetAllowenceList();
+                    if (dtAllowanceList == null || dtAllowanceList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Allowance Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    BindExportPreviewData(dtAllowanceList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Deductions Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtDeductionsList = objDeductionInfo.GetDeductionList();
+                    if (dtDeductionsList == null || dtDeductionsList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Deductions Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    BindExportPreviewData(dtDeductionsList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Reimbursement Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtReimbursementList = objReimbursementInfo.GetReimbursementList();
+                    if (dtReimbursementList == null || dtReimbursementList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Reimbursement Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    BindExportPreviewData(dtReimbursementList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Advance Type Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtAdvanceTypeList = objAdvanceTypeMas.GetAdvanceTypeList(objTempClientFinYearInfo.ClientID);
+                    if (dtAdvanceTypeList == null || dtAdvanceTypeList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Advance Type Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    BindExportPreviewData(dtAdvanceTypeList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Public Holiday Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtPublicHolidayList = ConvertListToDataTable(objPublicHolidayInfo.getHolidayList(objTempClientFinYearInfo.ClientID, Convert.ToDateTime(dtFromDate), Convert.ToDateTime(dtToDate)));
+                    if (dtPublicHolidayList == null || dtPublicHolidayList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Public Holiday Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    BindExportPreviewData(dtPublicHolidayList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Employement Type Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtEmploymentTypeList = ConvertListToDataTable(objEmploymentTypeInfo.GetEmploymentTypeList());
+                    if (dtEmploymentTypeList == null || dtEmploymentTypeList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Employment Type Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    BindExportPreviewData(dtEmploymentTypeList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+                    return;
+                }
                 else if (string.Equals(lblSelectedDataAction.Text, "Skills Information", StringComparison.OrdinalIgnoreCase))
                 {
                     DataTable dtSkillsList = ConvertListToDataTable(objSkillsMas.GetSkillList());
@@ -2082,6 +2186,20 @@ namespace StaffSync
                     FormatPreviewGrid(lblSelectedDataAction.Text);
                     dtgImportDataPreview.Enabled = true;
 
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Bank Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtBankList = ConvertListToDataTable(objBankMas.GetFullBanksList());
+                    if (dtBankList == null || dtBankList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Bank Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    BindExportPreviewData(dtBankList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
                     return;
                 }
                 else if (string.Equals(lblSelectedDataAction.Text, "Shift Information", StringComparison.OrdinalIgnoreCase))
@@ -2255,6 +2373,133 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IsDelete"].Visible = false;
                 dtgImportDataPreview.Columns["OrderID"].Visible = false;
             }
+            else if (string.Equals(lblSelectedDataAction.Text, "Allowance Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["AllID"].Visible = false;
+                dtgImportDataPreview.Columns["AllCode"].Visible = false;
+                dtgImportDataPreview.Columns["AllTitle"].HeaderText = "Allowance Name";
+                dtgImportDataPreview.Columns["AllTitle"].Width = 300;
+                dtgImportDataPreview.Columns["AllTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["AllDescription"].HeaderText = "Description";
+                dtgImportDataPreview.Columns["AllDescription"].Width = 350;
+                dtgImportDataPreview.Columns["AllDescription"].ReadOnly = true;
+                dtgImportDataPreview.Columns["CalcFormula"].Visible = false;
+                dtgImportDataPreview.Columns["IsFixed"].Visible = false;
+                dtgImportDataPreview.Columns["MaxCap"].Visible = false;
+                dtgImportDataPreview.Columns["VisibleInPayslip"].Visible = false;
+                dtgImportDataPreview.Columns["ProrataBasis"].Visible = false;
+                dtgImportDataPreview.Columns["CompContribute"].Visible = false;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+                dtgImportDataPreview.Columns["OrderID"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Deductions Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["DedID"].Visible = false;
+                dtgImportDataPreview.Columns["DedCode"].Visible = false;
+                dtgImportDataPreview.Columns["DedTitle"].HeaderText = "Deductions Name";
+                dtgImportDataPreview.Columns["DedTitle"].Width = 300;
+                dtgImportDataPreview.Columns["DedTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["DedDescription"].HeaderText = "Description";
+                dtgImportDataPreview.Columns["DedDescription"].Width = 350;
+                dtgImportDataPreview.Columns["DedDescription"].ReadOnly = true;
+                dtgImportDataPreview.Columns["CalcFormula"].Visible = false;
+                dtgImportDataPreview.Columns["IsFixed"].Visible = false;
+                dtgImportDataPreview.Columns["MaxCap"].Visible = false;
+                dtgImportDataPreview.Columns["VisibleInPayslip"].Visible = false;
+                dtgImportDataPreview.Columns["ProrataBasis"].Visible = false;
+                dtgImportDataPreview.Columns["CompContribute"].Visible = false;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+                dtgImportDataPreview.Columns["OrderID"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Reimbursement Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["ReimbID"].Visible = false;
+                dtgImportDataPreview.Columns["ReimbCode"].Visible = false;
+                dtgImportDataPreview.Columns["ReimbTitle"].HeaderText = "Reimbursement Name";
+                dtgImportDataPreview.Columns["ReimbTitle"].Width = 300;
+                dtgImportDataPreview.Columns["ReimbTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ReimbDescription"].HeaderText = "Description";
+                dtgImportDataPreview.Columns["ReimbDescription"].Width = 350;
+                dtgImportDataPreview.Columns["ReimbDescription"].ReadOnly = true;
+                dtgImportDataPreview.Columns["CalcFormula"].Visible = false;
+                dtgImportDataPreview.Columns["IsFixed"].Visible = false;
+                dtgImportDataPreview.Columns["MaxCap"].Visible = false;
+                dtgImportDataPreview.Columns["VisibleInPayslip"].Visible = false;
+                dtgImportDataPreview.Columns["ProrataBasis"].Visible = false;
+                dtgImportDataPreview.Columns["CompContribute"].Visible = false;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+                dtgImportDataPreview.Columns["OrderID"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Advance Type Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["AdvanceTypeID"].Visible = false;
+                dtgImportDataPreview.Columns["AdvanceTypeCode"].Visible = false;
+                dtgImportDataPreview.Columns["AdvanceTypeTitle"].HeaderText = "Advance Type Name";
+                dtgImportDataPreview.Columns["AdvanceTypeTitle"].Width = 300;
+                dtgImportDataPreview.Columns["AdvanceTypeTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+                dtgImportDataPreview.Columns["OrderID"].Visible = false;
+                dtgImportDataPreview.Columns["ClientID"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Advance Type Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["AdvTypeID"].Visible = false;
+                dtgImportDataPreview.Columns["AdvTypeCode"].Visible = false;
+                dtgImportDataPreview.Columns["AdvTypeTitle"].HeaderText = "Advance Type Name";
+                dtgImportDataPreview.Columns["AdvTypeTitle"].Width = 300;
+                dtgImportDataPreview.Columns["AdvTypeTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["AdvTypeDescription"].HeaderText = "Description";
+                dtgImportDataPreview.Columns["AdvTypeDescription"].Width = 350;
+                dtgImportDataPreview.Columns["AdvTypeDescription"].ReadOnly = true;
+                dtgImportDataPreview.Columns["CalcFormula"].Visible = false;
+                dtgImportDataPreview.Columns["IsFixed"].Visible = false;
+                dtgImportDataPreview.Columns["MaxCap"].Visible = false;
+                dtgImportDataPreview.Columns["VisibleInPayslip"].Visible = false;
+                dtgImportDataPreview.Columns["ProrataBasis"].Visible = false;
+                dtgImportDataPreview.Columns["CompContribute"].Visible = false;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+                dtgImportDataPreview.Columns["OrderID"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Public Holiday Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["PubHolDetID"].Visible = false;
+                dtgImportDataPreview.Columns["PubHolMasID"].Visible = false;
+                dtgImportDataPreview.Columns["PubHolidayTitle"].HeaderText = "Public Holiday Name";
+                dtgImportDataPreview.Columns["PubHolidayTitle"].Width = 200;
+                dtgImportDataPreview.Columns["PubHolidayTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["PubHolDate"].HeaderText = "Date";
+                dtgImportDataPreview.Columns["PubHolDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgImportDataPreview.Columns["PubHolDate"].DefaultCellStyle.NullValue = string.Empty;
+                dtgImportDataPreview.Columns["PubHolDate"].Width = 100;
+                dtgImportDataPreview.Columns["PubHolDate"].ReadOnly = true;
+                dtgImportDataPreview.Columns["PubHolTypeTitle"].HeaderText = "Holiday Type";
+                dtgImportDataPreview.Columns["PubHolTypeTitle"].Width = 150;
+                dtgImportDataPreview.Columns["PubHolTypeTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["DayName"].HeaderText = "Day";
+                dtgImportDataPreview.Columns["DayName"].Width = 100;
+                dtgImportDataPreview.Columns["DayName"].ReadOnly = true;
+                dtgImportDataPreview.Columns["OrderID"].Visible = false;
+                dtgImportDataPreview.Columns["IsFestival"].HeaderText = "Is Festival";
+                dtgImportDataPreview.Columns["IsFestival"].Width = 100;
+                dtgImportDataPreview.Columns["IsFestival"].ReadOnly = true;
+                dtgImportDataPreview.Columns["PubHolTypeID"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Employement Type Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["EmpTypeMasID"].Visible = false;
+                dtgImportDataPreview.Columns["EmpTypeCode"].Visible = false;
+                dtgImportDataPreview.Columns["EmpTypeTitle"].HeaderText = "Employment Type Name";
+                dtgImportDataPreview.Columns["EmpTypeTitle"].Width = 300;
+                dtgImportDataPreview.Columns["EmpTypeTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["EmpTypeInitial"].Visible = false;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+            }
             else if (string.Equals(lblSelectedDataAction.Text, "Skills Information", StringComparison.OrdinalIgnoreCase))
             {
                 dtgImportDataPreview.Columns["SkillID"].Visible = false;
@@ -2278,6 +2523,22 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["RelationshipInitial"].HeaderText = "Relationship Code";
                 dtgImportDataPreview.Columns["RelationshipInitial"].Width = 200;
                 dtgImportDataPreview.Columns["RelationshipInitial"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Bank Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["BankID"].Visible = false;
+                dtgImportDataPreview.Columns["BankCode"].Visible = false;
+                dtgImportDataPreview.Columns["BankName"].HeaderText = "Bank Name";
+                dtgImportDataPreview.Columns["BankName"].Width = 250;
+                dtgImportDataPreview.Columns["BankName"].ReadOnly = true;
+                dtgImportDataPreview.Columns["BankAddress"].HeaderText = "Bank Code";
+                dtgImportDataPreview.Columns["BankAddress"].Width = 350;
+                dtgImportDataPreview.Columns["BankAddress"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IFSCCode"].HeaderText = "IFSC Code";
+                dtgImportDataPreview.Columns["IFSCCode"].Width = 200;
+                dtgImportDataPreview.Columns["IFSCCode"].ReadOnly = true;
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
             }

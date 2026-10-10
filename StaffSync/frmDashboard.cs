@@ -8689,7 +8689,7 @@ namespace StaffSync
                 lblDashboardTitle.Text = "Export Data";
                 sptrDashboardContainer.Visible = false;
                 grpDashboardDateRange.Visible = false;
-                frmExportDataProcess frmExportDataProcess = new frmExportDataProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmExportDataProcess frmExportDataProcess = new frmExportDataProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
                 frmExportDataProcess.MdiParent = this;
                 //frmExportDataProcess.Dock = DockStyle.Fill;
                 frmExportDataProcess.Show();

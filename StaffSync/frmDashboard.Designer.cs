@@ -201,6 +201,8 @@
             this.cmbReportSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem32 = new System.Windows.Forms.ToolStripSeparator();
             this.importMasterDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem33 = new System.Windows.Forms.ToolStripSeparator();
+            this.exportMasterDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonRibbonGroupSeparator9 = new Krypton.Ribbon.KryptonRibbonGroupSeparator();
             this.kryptonRibbonGroup7 = new Krypton.Ribbon.KryptonRibbonGroup();
             this.kryptonRibbonGroupTriple5 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
@@ -254,8 +256,6 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
-            this.toolStripMenuItem33 = new System.Windows.Forms.ToolStripSeparator();
-            this.exportMasterDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -1438,7 +1438,7 @@
             this.toolStripMenuItem33,
             this.exportMasterDataToolStripMenuItem});
             this.cmbApplicationSettings.Name = "cmDatamartList01";
-            this.cmbApplicationSettings.Size = new System.Drawing.Size(229, 300);
+            this.cmbApplicationSettings.Size = new System.Drawing.Size(229, 278);
             this.cmbApplicationSettings.Tag = "DatamartMenu";
             this.cmbApplicationSettings.Text = "Datamart Menu";
             this.cmbApplicationSettings.Opening += new System.ComponentModel.CancelEventHandler(this.cmbApplicationSettings_Opening);
@@ -1743,6 +1743,19 @@
             this.importMasterDataToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.importMasterDataToolStripMenuItem.Text = "Import Master Data";
             this.importMasterDataToolStripMenuItem.Click += new System.EventHandler(this.importMasterDataToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem33
+            // 
+            this.toolStripMenuItem33.Name = "toolStripMenuItem33";
+            this.toolStripMenuItem33.Size = new System.Drawing.Size(225, 6);
+            // 
+            // exportMasterDataToolStripMenuItem
+            // 
+            this.exportMasterDataToolStripMenuItem.Image = global::StaffSync.Properties.Resources.export;
+            this.exportMasterDataToolStripMenuItem.Name = "exportMasterDataToolStripMenuItem";
+            this.exportMasterDataToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.exportMasterDataToolStripMenuItem.Text = "Export Data";
+            this.exportMasterDataToolStripMenuItem.Click += new System.EventHandler(this.exportMasterDataToolStripMenuItem_Click);
             // 
             // kryptonRibbonGroup7
             // 
@@ -2183,19 +2196,6 @@
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             this.kryptonRibbonGroupButton5.Click += new System.EventHandler(this.kryptonRibbonGroupButton5_Click);
             // 
-            // toolStripMenuItem33
-            // 
-            this.toolStripMenuItem33.Name = "toolStripMenuItem33";
-            this.toolStripMenuItem33.Size = new System.Drawing.Size(225, 6);
-            // 
-            // exportMasterDataToolStripMenuItem
-            // 
-            this.exportMasterDataToolStripMenuItem.Image = global::StaffSync.Properties.Resources.export;
-            this.exportMasterDataToolStripMenuItem.Name = "exportMasterDataToolStripMenuItem";
-            this.exportMasterDataToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.exportMasterDataToolStripMenuItem.Text = "Export Data";
-            this.exportMasterDataToolStripMenuItem.Click += new System.EventHandler(this.exportMasterDataToolStripMenuItem_Click);
-            // 
             // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2466,9 +2466,7 @@
         private Microsoft.Web.WebView2.WinForms.WebView2 myWebView;
         private System.Windows.Forms.GroupBox groupBox4;
         public System.Windows.Forms.Label lblDashboardTitle;
-        private System.Windows.Forms.MaskedTextBox txtDTTo;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.MaskedTextBox txtDTFrom;
         private System.Windows.Forms.Label label3;
         private Krypton.Toolkit.KryptonButton btnRefresh;
         public System.Windows.Forms.GroupBox grpDashboardDateRange;
@@ -2479,6 +2477,8 @@
         private System.Windows.Forms.ToolStripMenuItem importMasterDataToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem33;
         private System.Windows.Forms.ToolStripMenuItem exportMasterDataToolStripMenuItem;
+        public System.Windows.Forms.MaskedTextBox txtDTTo;
+        public System.Windows.Forms.MaskedTextBox txtDTFrom;
     }
 }
 
