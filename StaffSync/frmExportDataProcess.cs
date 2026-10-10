@@ -34,6 +34,7 @@ namespace StaffSync
     public partial class frmExportDataProcess : Form
     {
         DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
+        DALStaffSync.clsEmployeeMaster objEmployeeInfo = new DALStaffSync.clsEmployeeMaster();
         DALStaffSync.clsClientStatutory objClientStatutory = new DALStaffSync.clsClientStatutory();
         DALStaffSync.clsClientBranchInfo clsClientBranchInfo = new DALStaffSync.clsClientBranchInfo();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
@@ -2202,6 +2203,34 @@ namespace StaffSync
                     dtgImportDataPreview.Enabled = true;
                     return;
                 }
+                else if (string.Equals(lblSelectedDataAction.Text, "Company Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtCompanyList = ConvertListToDataTable(objClientInfo.getAllCompanyList());
+                    if (dtCompanyList == null || dtCompanyList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Company Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    BindExportPreviewData(dtCompanyList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+                    return;
+                }
+                else if (string.Equals(lblSelectedDataAction.Text, "Employee Information", StringComparison.OrdinalIgnoreCase))
+                {
+                    DataTable dtEmployeeList = ConvertListToDataTable(objEmployeeInfo.getCompleteEmployeesList());
+                    if (dtEmployeeList == null || dtEmployeeList.Rows.Count == 0)
+                    {
+                        ClearExportPreview();
+                        MessageBox.Show("No Employee Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    BindExportPreviewData(dtEmployeeList);
+                    FormatPreviewGrid(lblSelectedDataAction.Text);
+                    dtgImportDataPreview.Enabled = true;
+                    return;
+                }
                 else if (string.Equals(lblSelectedDataAction.Text, "Shift Information", StringComparison.OrdinalIgnoreCase))
                 {
                     DataTable shiftData = ConvertListToDataTable(objShiftMas.GetShiftList());
@@ -2541,6 +2570,79 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["IFSCCode"].ReadOnly = true;
                 dtgImportDataPreview.Columns["IsActive"].Visible = false;
                 dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Company Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["ClientID"].Visible = false;
+                dtgImportDataPreview.Columns["ClientCode"].Visible = false;
+                dtgImportDataPreview.Columns["ClientName"].HeaderText = "Company Name";
+                dtgImportDataPreview.Columns["ClientName"].Width = 250;
+                dtgImportDataPreview.Columns["ClientName"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientAddress1"].HeaderText = "Address";
+                dtgImportDataPreview.Columns["ClientAddress1"].Width = 250;
+                dtgImportDataPreview.Columns["ClientAddress1"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientAddress2"].HeaderText = "Address";
+                dtgImportDataPreview.Columns["ClientAddress2"].Width = 250;
+                dtgImportDataPreview.Columns["ClientAddress2"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientArea"].HeaderText = "Area";
+                dtgImportDataPreview.Columns["ClientArea"].Width = 150;
+                dtgImportDataPreview.Columns["ClientArea"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientCity"].HeaderText = "City";
+                dtgImportDataPreview.Columns["ClientCity"].Width = 150;
+                dtgImportDataPreview.Columns["ClientCity"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientState"].HeaderText = "State";
+                dtgImportDataPreview.Columns["ClientState"].Width = 150;
+                dtgImportDataPreview.Columns["ClientState"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientPIN"].HeaderText = "PIN";
+                dtgImportDataPreview.Columns["ClientPIN"].Width = 100;
+                dtgImportDataPreview.Columns["ClientPIN"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientCountry"].HeaderText = "Country";
+                dtgImportDataPreview.Columns["ClientCountry"].Width = 100;
+                dtgImportDataPreview.Columns["ClientCountry"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientPhone"].HeaderText = "Phone";
+                dtgImportDataPreview.Columns["ClientPhone"].Width = 100;
+                dtgImportDataPreview.Columns["ClientPhone"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientMailID"].HeaderText = "Mail ID";
+                dtgImportDataPreview.Columns["ClientMailID"].Width = 250;
+                dtgImportDataPreview.Columns["ClientMailID"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientContactPerson"].HeaderText = "Contact Person";
+                dtgImportDataPreview.Columns["ClientContactPerson"].Width = 125;
+                dtgImportDataPreview.Columns["ClientContactPerson"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientContactNumber"].HeaderText = "Contact Number";
+                dtgImportDataPreview.Columns["ClientContactNumber"].Width = 100;
+                dtgImportDataPreview.Columns["ClientContactNumber"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientContactMail"].HeaderText = "Contact Mail";
+                dtgImportDataPreview.Columns["ClientContactMail"].Width = 250;
+                dtgImportDataPreview.Columns["ClientContactMail"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ClientWebsite"].HeaderText = "Web Site";
+                dtgImportDataPreview.Columns["ClientWebsite"].Width = 250;
+                dtgImportDataPreview.Columns["ClientWebsite"].ReadOnly = true;
+                dtgImportDataPreview.Columns["IsActive"].Visible = false;
+                dtgImportDataPreview.Columns["IsDeleted"].Visible = false;
+            }
+            else if (string.Equals(lblSelectedDataAction.Text, "Employee Information", StringComparison.OrdinalIgnoreCase))
+            {
+                dtgImportDataPreview.Columns["EmpID"].Visible = false;
+                dtgImportDataPreview.Columns["EmpCode"].HeaderText = "Employee Code";
+                dtgImportDataPreview.Columns["EmpCode"].Width = 100;
+                dtgImportDataPreview.Columns["EmpCode"].ReadOnly = true;
+                dtgImportDataPreview.Columns["EmpName"].HeaderText = "Employee Name";
+                dtgImportDataPreview.Columns["EmpName"].Width = 250;
+                dtgImportDataPreview.Columns["EmpName"].ReadOnly = true;
+                dtgImportDataPreview.Columns["DesignationTitle"].HeaderText = "Designation";
+                dtgImportDataPreview.Columns["DesignationTitle"].Width = 150;
+                dtgImportDataPreview.Columns["DesignationTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["DepartmentTitle"].HeaderText = "Department";
+                dtgImportDataPreview.Columns["DepartmentTitle"].Width = 150;
+                dtgImportDataPreview.Columns["DepartmentTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ContactNumber1"].HeaderText = "Contact Number";
+                dtgImportDataPreview.Columns["ContactNumber1"].Width = 150;
+                dtgImportDataPreview.Columns["ContactNumber1"].ReadOnly = true;
+                dtgImportDataPreview.Columns["ContactNumber2"].HeaderText = "Mail ID";
+                dtgImportDataPreview.Columns["ContactNumber2"].Width = 150;
+                dtgImportDataPreview.Columns["ContactNumber2"].ReadOnly = true;
+                dtgImportDataPreview.Columns["StateID"].Visible = false;
+                dtgImportDataPreview.Columns["SexID"].Visible = false;
             }
             else if (string.Equals(lblSelectedDataAction.Text, "Shift Information", StringComparison.OrdinalIgnoreCase))
             {
