@@ -41,51 +41,50 @@ namespace dbStaffSync
                                     W.WklyOffCode,
                                     W.WklyOffTitle,
                                     W.WklyOffEffectiveDate,
-                                    Switch (
-                                        D1.WklyOffDay = 1,
-                                        ""Sunday"",
-                                        D1.WklyOffDay = 2,
-                                        ""Monday"",
-                                        D1.WklyOffDay = 3,
-                                        ""Tuesday"",
-                                        D1.WklyOffDay = 4,
-                                        ""Wednesday"",
-                                        D1.WklyOffDay = 5,
-                                        ""Thursday"",
-                                        D1.WklyOffDay = 6,
-                                        ""Friday"",
-                                        D1.WklyOffDay = 7,
-                                        ""Saturday""
-                                    ) & IIf(
-                                        D2.WklyOffDay IS NOT NULL,
-                                        "", "" & Switch (
-                                            D2.WklyOffDay = 1,
-                                            ""Sunday"",
-                                            D2.WklyOffDay = 2,
-                                            ""Monday"",
-                                            D2.WklyOffDay = 3,
-                                            ""Tuesday"",
-                                            D2.WklyOffDay = 4,
-                                            ""Wednesday"",
-                                            D2.WklyOffDay = 5,
-                                            ""Thursday"",
-                                            D2.WklyOffDay = 6,
-                                            ""Friday"",
-                                            D2.WklyOffDay = 7,
-                                            ""Saturday""
-                                        ),
-                                        """"
+                                    IIf(
+                                        D1.WklyOffDetID Is Null,
+                                        """",
+                                        Switch(
+                                            D1.WklyOffDay = 1, ""Monday"",
+                                            D1.WklyOffDay = 2, ""Tuesday"",
+                                            D1.WklyOffDay = 3, ""Wednesday"",
+                                            D1.WklyOffDay = 4, ""Thursday"",
+                                            D1.WklyOffDay = 5, ""Friday"",
+                                            D1.WklyOffDay = 6, ""Saturday"",
+                                            D1.WklyOffDay = 7, ""Sunday""
+                                        )
+                                    )
+                                    &
+                                    IIf(
+                                        D2.WklyOffDetID Is Null,
+                                        """",
+                                        "", "" &
+                                        Switch(
+                                            D2.WklyOffDay = 1, ""Monday"",
+                                            D2.WklyOffDay = 2, ""Tuesday"",
+                                            D2.WklyOffDay = 3, ""Wednesday"",
+                                            D2.WklyOffDay = 4, ""Thursday"",
+                                            D2.WklyOffDay = 5, ""Friday"",
+                                            D2.WklyOffDay = 6, ""Saturday"",
+                                            D2.WklyOffDay = 7, ""Sunday""
+                                        )
                                     ) AS WklyOffDays
                                 FROM
                                     (
                                         WklyOffProfileInfo AS W
-                                        INNER JOIN WklyOffProfileDetails AS D1 ON W.WklyOffMasID = D1.WklyOffMasID
+                                        LEFT JOIN WklyOffProfileDetails AS D1
+                                            ON W.WklyOffMasID = D1.WklyOffMasID
                                     )
-                                    INNER JOIN WklyOffProfileDetails AS D2 ON D1.WklyOffMasID = D2.WklyOffMasID
+                                    LEFT JOIN WklyOffProfileDetails AS D2
+                                        ON D1.WklyOffMasID = D2.WklyOffMasID
+                                        AND D1.WklyOffDay < D2.WklyOffDay
                                 WHERE
                                     W.IsActive = True
                                     AND W.IsDelete = False
-                                    AND D1.WklyOffDetID < D2.WklyOffDetID
+                                    AND (
+                                        D1.WklyOffDetID Is Null
+                                        OR D2.WklyOffDetID Is Not Null
+                                    )
                                 ORDER BY
                                     W.WklyOffMasID;";
                 else

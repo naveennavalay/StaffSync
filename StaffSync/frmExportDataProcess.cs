@@ -1934,6 +1934,8 @@ namespace StaffSync
                     return;
                 }
 
+                grpMoreOptions.Visible = false;
+
                 lblSelectedDataAction.Text = selectedTitle.Trim();
 
                 if (string.Equals(lblSelectedDataAction.Text, "Designation Information", StringComparison.OrdinalIgnoreCase))
@@ -2205,7 +2207,8 @@ namespace StaffSync
                 }
                 else if (string.Equals(lblSelectedDataAction.Text, "Company Information", StringComparison.OrdinalIgnoreCase))
                 {
-                    DataTable dtCompanyList = ConvertListToDataTable(objClientInfo.getAllCompanyList());
+                    grpMoreOptions.Visible = true;
+                    DataTable dtCompanyList = ConvertListToDataTable(objClientInfo.getAllCompanyList(objTempClientFinYearInfo.ClientID));
                     if (dtCompanyList == null || dtCompanyList.Rows.Count == 0)
                     {
                         ClearExportPreview();
@@ -2229,6 +2232,7 @@ namespace StaffSync
                     BindExportPreviewData(dtEmployeeList);
                     FormatPreviewGrid(lblSelectedDataAction.Text);
                     dtgImportDataPreview.Enabled = true;
+                    grpMoreOptions.Visible = true;
                     return;
                 }
                 else if (string.Equals(lblSelectedDataAction.Text, "Shift Information", StringComparison.OrdinalIgnoreCase))

@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmExportDataProcess));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.grpMoreOptions = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dtgImportDataSourceList = new Krypton.Toolkit.KryptonDataGridView();
@@ -68,11 +69,20 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
+            this.chkFamilyMembersInfo = new System.Windows.Forms.CheckBox();
+            this.chkNomineeInfo = new System.Windows.Forms.CheckBox();
+            this.chkQualSkillsInfo = new System.Windows.Forms.CheckBox();
+            this.chkInsuredMemberInfo = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.grpMoreOptions.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgImportDataSourceList)).BeginInit();
@@ -102,20 +112,42 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1195, 570);
-            this.splitContainer1.SplitterDistance = 512;
+            this.splitContainer1.Size = new System.Drawing.Size(1195, 728);
+            this.splitContainer1.SplitterDistance = 653;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.panel1.Controls.Add(this.grpMoreOptions);
             this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1195, 512);
+            this.panel1.Size = new System.Drawing.Size(1195, 653);
             this.panel1.TabIndex = 1;
+            // 
+            // grpMoreOptions
+            // 
+            this.grpMoreOptions.Controls.Add(this.checkBox1);
+            this.grpMoreOptions.Controls.Add(this.checkBox2);
+            this.grpMoreOptions.Controls.Add(this.checkBox3);
+            this.grpMoreOptions.Controls.Add(this.checkBox4);
+            this.grpMoreOptions.Controls.Add(this.chkQualSkillsInfo);
+            this.grpMoreOptions.Controls.Add(this.chkInsuredMemberInfo);
+            this.grpMoreOptions.Controls.Add(this.chkNomineeInfo);
+            this.grpMoreOptions.Controls.Add(this.chkFamilyMembersInfo);
+            this.grpMoreOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpMoreOptions.Location = new System.Drawing.Point(10, 506);
+            this.grpMoreOptions.Margin = new System.Windows.Forms.Padding(4);
+            this.grpMoreOptions.Name = "grpMoreOptions";
+            this.grpMoreOptions.Padding = new System.Windows.Forms.Padding(4);
+            this.grpMoreOptions.Size = new System.Drawing.Size(1175, 126);
+            this.grpMoreOptions.TabIndex = 67;
+            this.grpMoreOptions.TabStop = false;
+            this.grpMoreOptions.Text = "More Options";
+            this.grpMoreOptions.Visible = false;
             // 
             // groupBox5
             // 
@@ -419,7 +451,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1195, 54);
+            this.panel2.Size = new System.Drawing.Size(1195, 71);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
@@ -545,11 +577,131 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
+            // chkFamilyMembersInfo
+            // 
+            this.chkFamilyMembersInfo.AutoSize = true;
+            this.chkFamilyMembersInfo.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkFamilyMembersInfo.Checked = true;
+            this.chkFamilyMembersInfo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkFamilyMembersInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkFamilyMembersInfo.Location = new System.Drawing.Point(31, 25);
+            this.chkFamilyMembersInfo.Name = "chkFamilyMembersInfo";
+            this.chkFamilyMembersInfo.Size = new System.Drawing.Size(209, 19);
+            this.chkFamilyMembersInfo.TabIndex = 85;
+            this.chkFamilyMembersInfo.Tag = "Family Members Information";
+            this.chkFamilyMembersInfo.Text = "Family Members Information";
+            this.chkFamilyMembersInfo.UseVisualStyleBackColor = true;
+            // 
+            // chkNomineeInfo
+            // 
+            this.chkNomineeInfo.AutoSize = true;
+            this.chkNomineeInfo.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkNomineeInfo.Checked = true;
+            this.chkNomineeInfo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkNomineeInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkNomineeInfo.Location = new System.Drawing.Point(79, 50);
+            this.chkNomineeInfo.Name = "chkNomineeInfo";
+            this.chkNomineeInfo.Size = new System.Drawing.Size(161, 19);
+            this.chkNomineeInfo.TabIndex = 86;
+            this.chkNomineeInfo.Tag = "Nominee Information";
+            this.chkNomineeInfo.Text = "Nominee Information";
+            this.chkNomineeInfo.UseVisualStyleBackColor = true;
+            // 
+            // chkQualSkillsInfo
+            // 
+            this.chkQualSkillsInfo.AutoSize = true;
+            this.chkQualSkillsInfo.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkQualSkillsInfo.Checked = true;
+            this.chkQualSkillsInfo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkQualSkillsInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkQualSkillsInfo.Location = new System.Drawing.Point(13, 100);
+            this.chkQualSkillsInfo.Name = "chkQualSkillsInfo";
+            this.chkQualSkillsInfo.Size = new System.Drawing.Size(227, 19);
+            this.chkQualSkillsInfo.TabIndex = 88;
+            this.chkQualSkillsInfo.Tag = "Qualification & Skills Information";
+            this.chkQualSkillsInfo.Text = "Qualification & Skills Information";
+            this.chkQualSkillsInfo.UseVisualStyleBackColor = true;
+            // 
+            // chkInsuredMemberInfo
+            // 
+            this.chkInsuredMemberInfo.AutoSize = true;
+            this.chkInsuredMemberInfo.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkInsuredMemberInfo.Checked = true;
+            this.chkInsuredMemberInfo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkInsuredMemberInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkInsuredMemberInfo.Location = new System.Drawing.Point(60, 75);
+            this.chkInsuredMemberInfo.Name = "chkInsuredMemberInfo";
+            this.chkInsuredMemberInfo.Size = new System.Drawing.Size(180, 19);
+            this.chkInsuredMemberInfo.TabIndex = 87;
+            this.chkInsuredMemberInfo.Tag = "Insured Member Details";
+            this.chkInsuredMemberInfo.Text = "Insured Member Details";
+            this.chkInsuredMemberInfo.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.checkBox1.Location = new System.Drawing.Point(290, 100);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(227, 19);
+            this.checkBox1.TabIndex = 92;
+            this.checkBox1.Tag = "Qualification & Skills Information";
+            this.checkBox1.Text = "Qualification & Skills Information";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox2.Checked = true;
+            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.checkBox2.Location = new System.Drawing.Point(366, 75);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(151, 19);
+            this.checkBox2.TabIndex = 91;
+            this.checkBox2.Tag = "Holiday Information";
+            this.checkBox2.Text = "Holiday Information";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox3.Checked = true;
+            this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.checkBox3.Location = new System.Drawing.Point(422, 50);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(95, 19);
+            this.checkBox3.TabIndex = 90;
+            this.checkBox3.Tag = "Salary Slip";
+            this.checkBox3.Text = "Salary Slip";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox4.Checked = true;
+            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.checkBox4.Location = new System.Drawing.Point(343, 25);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(174, 19);
+            this.checkBox4.TabIndex = 89;
+            this.checkBox4.Tag = "Attendance Information";
+            this.checkBox4.Text = "Attendance Information";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
             // frmExportDataProcess
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1195, 570);
+            this.ClientSize = new System.Drawing.Size(1195, 728);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -569,6 +721,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.grpMoreOptions.ResumeLayout(false);
+            this.grpMoreOptions.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgImportDataSourceList)).EndInit();
@@ -628,5 +782,14 @@
         private Krypton.Toolkit.KryptonTextBox txtCompLogo;
         private Krypton.Toolkit.KryptonComboBox cmbOutputFormat;
         private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.GroupBox grpMoreOptions;
+        private System.Windows.Forms.CheckBox chkQualSkillsInfo;
+        private System.Windows.Forms.CheckBox chkInsuredMemberInfo;
+        private System.Windows.Forms.CheckBox chkNomineeInfo;
+        private System.Windows.Forms.CheckBox chkFamilyMembersInfo;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox4;
     }
 }

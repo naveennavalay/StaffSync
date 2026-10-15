@@ -15,6 +15,16 @@ namespace DALStaffSync
     {
         dbStaffSync.clsClientInfo objClientInfo = new dbStaffSync.clsClientInfo();
 
+
+        public List<ClientInfo> getAllCompanyList(int intClientID)
+        {
+            List<ClientInfo> companyList = new List<ClientInfo>();
+
+            companyList = objClientInfo.getAllCompanyList(intClientID);
+
+            return companyList;
+        }
+
         public List<ClientInfo> getAllCompanyList()
         {
             List<ClientInfo> companyList = new List<ClientInfo>();

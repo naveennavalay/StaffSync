@@ -18,6 +18,73 @@ namespace dbStaffSync
         DataSet dtDataset;
         clsGenFunc objGenFunc = new clsGenFunc();
 
+
+        public List<ClientInfo> getAllCompanyList(int intClientID)
+        {
+            List<ClientInfo> companyList = new List<ClientInfo>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = @"SELECT
+                                        ClientMas.ClientID,
+                                        ClientMas.ClientCode,
+                                        ClientMas.ClientName,
+                                        ClientMas.ClientAddress1,
+                                        ClientMas.ClientAddress2,
+                                        ClientMas.ClientArea,
+                                        ClientMas.ClientCity,
+                                        ClientMas.ClientState,
+                                        ClientMas.ClientPIN,
+                                        ClientMas.ClientCountry,
+                                        ClientMas.ClientPhone,
+                                        ClientMas.ClientMailID,
+                                        ClientMas.ClientContactPerson,
+                                        ClientMas.ClientContactNumber,
+                                        ClientMas.ClientContactMail,
+                                        ClientMas.ClientWebSite,
+                                        ClientMas.IsActive,
+                                        ClientMas.IsDeleted
+                                    FROM
+                                        ClientMas
+                                    WHERE
+                                        (
+                                            ((ClientMas.ClientID) = " + intClientID + @")
+                                            AND ((ClientMas.IsActive) = True)
+                                            AND ((ClientMas.IsDeleted) = False)
+                                        )
+                                    ORDER BY
+                                        ClientMas.ClientID;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                companyList = JsonConvert.DeserializeObject<List<ClientInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return companyList;
+        }
+
         public List<ClientInfo> getAllCompanyList()
         {
             List<ClientInfo> companyList = new List<ClientInfo>();
