@@ -39,6 +39,8 @@ namespace StaffSync
         DALStaffSync.clsClientBranchInfo clsClientBranchInfo = new DALStaffSync.clsClientBranchInfo();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
+        DALStaffSync.clsEmployeePersonalInfo objEmployeePersonalInfo = new DALStaffSync.clsEmployeePersonalInfo();
+        DALStaffSync.clsEmpPersonalFamilyMemberInfo objEmpPersonalFamilyMemberInfo = new DALStaffSync.clsEmpPersonalFamilyMemberInfo();
         DALStaffSync.clsImportDataInfo objImportDataInfo = new DALStaffSync.clsImportDataInfo();
         DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
         DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
@@ -1472,6 +1474,132 @@ namespace StaffSync
         /// IsSelected checkbox column as the first column.
         /// </summary>
         /// <summary>
+        /// PLACEHOLDER: Replace this method body with your actual DAL call.
+        /// Return all family-member rows for the employees being exported.
+        /// Required columns:
+        /// EmpID, FamMemName, FamMemDOB, FamMemAge, FamMemRelationship,
+        /// FamMemAddr1, FamMemAddr2, FamMemArea, FamMemCity, FamMemState,
+        /// FamMemPIN, FamMemCountry, FamMemContactNumber, FamMemMailID,
+        /// FamMemBloodGroup, FamMemInsuranceEnrolled.
+        /// Do not hard-code a single EmpID; the export contains multiple employees.
+        /// </summary>
+        private DataTable GetFamilyMembersInformation()
+        {
+            // TODO: Call your DAL method here and return its DataTable.
+            // Example placeholder return keeps the form compilable until the DAL is added.
+            DataTable familyMembers = new DataTable("FamilyMembersInformation");
+            familyMembers.Columns.Add("EmpID", typeof(int));
+            familyMembers.Columns.Add("FamMemName", typeof(string));
+            familyMembers.Columns.Add("FamMemDOB", typeof(DateTime));
+            familyMembers.Columns.Add("FamMemAge", typeof(int));
+            familyMembers.Columns.Add("FamMemRelationship", typeof(string));
+            familyMembers.Columns.Add("FamMemAddr1", typeof(string));
+            familyMembers.Columns.Add("FamMemAddr2", typeof(string));
+            familyMembers.Columns.Add("FamMemArea", typeof(string));
+            familyMembers.Columns.Add("FamMemCity", typeof(string));
+            familyMembers.Columns.Add("FamMemState", typeof(string));
+            familyMembers.Columns.Add("FamMemPIN", typeof(string));
+            familyMembers.Columns.Add("FamMemCountry", typeof(string));
+            familyMembers.Columns.Add("FamMemContactNumber", typeof(string));
+            familyMembers.Columns.Add("FamMemMailID", typeof(string));
+            familyMembers.Columns.Add("FamMemBloodGroup", typeof(string));
+            familyMembers.Columns.Add("FamMemInsuranceEnrolled", typeof(bool));
+            return familyMembers;
+        }
+
+        /// <summary>
+        /// Combines employee data with family-member data by EmpID.
+        /// An employee with multiple family members produces one row per family member.
+        /// Employees without family records are retained with blank family columns.
+        /// </summary>
+        private DataTable MergeEmployeeAndFamilyMemberInformation(DataTable employees, DataTable familyMembers)
+        {
+            if (employees == null)
+                return new DataTable();
+
+            if (familyMembers == null)
+                familyMembers = new DataTable();
+
+            string[] familyColumns = new string[]
+            {
+                "FamMemName", "FamMemDOB", "FamMemAge", "FamMemRelationship",
+                "FamMemAddr1", "FamMemAddr2", "FamMemArea", "FamMemCity",
+                "FamMemState", "FamMemPIN", "FamMemCountry",
+                "FamMemContactNumber", "FamMemMailID", "FamMemBloodGroup",
+                "FamMemInsuranceEnrolled"
+            };
+
+            DataTable merged = employees.Clone();
+            foreach (string columnName in familyColumns)
+            {
+                if (!merged.Columns.Contains(columnName))
+                {
+                    Type columnType = familyMembers.Columns.Contains(columnName)
+                        ? familyMembers.Columns[columnName].DataType
+                        : typeof(string);
+                    merged.Columns.Add(columnName, columnType);
+                }
+            }
+
+            bool hasEmployeeId = employees.Columns.Contains("EmpID");
+            bool hasFamilyEmployeeId = familyMembers.Columns.Contains("EmpID");
+            if (!hasEmployeeId || !hasFamilyEmployeeId)
+            {
+                // Do not silently join data without the key needed to match records.
+                throw new InvalidOperationException(
+                    "Family Members Information requires an EmpID column in both data sets.");
+            }
+
+            foreach (DataRow employeeRow in employees.Rows)
+            {
+                object employeeId = employeeRow["EmpID"];
+                List<DataRow> matchingFamilyRows = new List<DataRow>();
+
+                foreach (DataRow familyRow in familyMembers.Rows)
+                {
+                    if (familyRow["EmpID"] != DBNull.Value && employeeId != DBNull.Value &&
+                        Convert.ToString(familyRow["EmpID"]) == Convert.ToString(employeeId))
+                    {
+                        matchingFamilyRows.Add(familyRow);
+                    }
+                }
+
+                if (matchingFamilyRows.Count == 0)
+                {
+                    DataRow mergedRow = merged.NewRow();
+                    CopyEmployeeColumns(employeeRow, mergedRow, employees.Columns);
+                    merged.Rows.Add(mergedRow);
+                    continue;
+                }
+
+                foreach (DataRow familyRow in matchingFamilyRows)
+                {
+                    DataRow mergedRow = merged.NewRow();
+                    CopyEmployeeColumns(employeeRow, mergedRow, employees.Columns);
+
+                    foreach (string columnName in familyColumns)
+                    {
+                        if (familyMembers.Columns.Contains(columnName))
+                            mergedRow[columnName] = familyRow[columnName] ?? DBNull.Value;
+                    }
+
+                    merged.Rows.Add(mergedRow);
+                }
+            }
+
+            return merged;
+        }
+
+        private void CopyEmployeeColumns(DataRow sourceRow, DataRow targetRow, DataColumnCollection sourceColumns)
+        {
+            foreach (DataColumn column in sourceColumns)
+            {
+                if (targetRow.Table.Columns.Contains(column.ColumnName))
+                    targetRow[column.ColumnName] = sourceRow[column.ColumnName] ?? DBNull.Value;
+            }
+        }
+
+        /// <summary>
         /// Converts a strongly typed list returned by a StaffSync DAL method
         /// into a DataTable so the existing export preview/export pipeline can
         /// work with both DataTable and List&lt;T&gt; based DAL methods.
@@ -2027,12 +2155,12 @@ namespace StaffSync
                         MessageBox.Show("No Relationship Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
-                    
+
                     BindExportPreviewData(dtRelationshipList);
                     FormatPreviewGrid(lblSelectedDataAction.Text);
                     dtgImportDataPreview.Enabled = true;
-                    
-                    return; 
+
+                    return;
                 }
                 else if (string.Equals(lblSelectedDataAction.Text, "Weekly Off Information", StringComparison.OrdinalIgnoreCase))
                 {
@@ -2207,7 +2335,6 @@ namespace StaffSync
                 }
                 else if (string.Equals(lblSelectedDataAction.Text, "Company Information", StringComparison.OrdinalIgnoreCase))
                 {
-                    grpMoreOptions.Visible = true;
                     DataTable dtCompanyList = ConvertListToDataTable(objClientInfo.getAllCompanyList(objTempClientFinYearInfo.ClientID));
                     if (dtCompanyList == null || dtCompanyList.Rows.Count == 0)
                     {
@@ -2222,6 +2349,7 @@ namespace StaffSync
                 }
                 else if (string.Equals(lblSelectedDataAction.Text, "Employee Information", StringComparison.OrdinalIgnoreCase))
                 {
+                    grpMoreOptions.Visible = true;
                     DataTable dtEmployeeList = ConvertListToDataTable(objEmployeeInfo.getCompleteEmployeesList());
                     if (dtEmployeeList == null || dtEmployeeList.Rows.Count == 0)
                     {
@@ -2229,6 +2357,15 @@ namespace StaffSync
                         MessageBox.Show("No Employee Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
+
+                    // Add Family Members Information only when its option is selected.
+                    // The DAL method below is intentionally a placeholder for you to implement.
+                    //if (chkFamilyMembersInfo.Checked)
+                    //{
+                    //    DataTable dtFamilyMembers = GetFamilyMembersInformation();
+                    //    dtEmployeeList = MergeEmployeeAndFamilyMemberInformation(dtEmployeeList, dtFamilyMembers);
+                    //}
+
                     BindExportPreviewData(dtEmployeeList);
                     FormatPreviewGrid(lblSelectedDataAction.Text);
                     dtgImportDataPreview.Enabled = true;
