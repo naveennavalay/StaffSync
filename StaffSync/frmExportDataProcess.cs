@@ -43,6 +43,7 @@ namespace StaffSync
         DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
         DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
         DALStaffSync.clsEmpPersonalFamilyMemberInfo objEmpPersonalFamilyMemberInfo = new DALStaffSync.clsEmpPersonalFamilyMemberInfo();
+        DALStaffSync.clsEmpNomineeMas objEmpNomineeMas = new DALStaffSync.clsEmpNomineeMas();
         DALStaffSync.clsCountries objCountries = new DALStaffSync.clsCountries();
         DALStaffSync.clsStates objStates = new DALStaffSync.clsStates();
         DALStaffSync.clsEduQalification objEduQalification = new DALStaffSync.clsEduQalification();
@@ -1590,6 +1591,106 @@ namespace StaffSync
             return merged;
         }
 
+        /// <summary>
+        /// PLACEHOLDER: Returns nominee information for the employees included
+        /// in the Employee Information export.
+        ///
+        /// Based on the confirmed query, the expected columns are:
+        /// EmpID, NomineePerson, ContactNumber, RelationShipTitle.
+        ///
+        /// Replace the empty DataTable below with the actual DAL/database call.
+        /// The final implementation must return nominees for all exported
+        /// employees, not only EmpID = 1.
+        /// </summary>
+        private DataTable GetEmployeeNomineeInformation()
+        {
+            // TODO: Replace this placeholder with the actual nominee DAL call.
+            DataTable nomineeInformation = new DataTable("EmployeeNomineeInformation");
+            nomineeInformation.Columns.Add("EmpID", typeof(int));
+            nomineeInformation.Columns.Add("NomineePerson", typeof(string));
+            nomineeInformation.Columns.Add("ContactNumber", typeof(string));
+            nomineeInformation.Columns.Add("RelationShipTitle", typeof(string));
+            return nomineeInformation;
+        }
+
+        /// <summary>
+        /// Combines employee data with nominee information by EmpID.
+        /// An employee with multiple nominees produces one row per nominee.
+        /// Employees without nominee records are retained with blank nominee columns.
+        /// </summary>
+        private DataTable MergeEmployeeAndNomineeInformation(
+            DataTable employees, DataTable nomineeInformation)
+        {
+            if (employees == null)
+                return new DataTable();
+
+            if (nomineeInformation == null)
+                nomineeInformation = new DataTable();
+
+            string[] nomineeColumns = new string[]
+            {
+                "NomineePerson", "ContactNumber", "RelationShipTitle"
+            };
+
+            DataTable merged = employees.Clone();
+            foreach (string columnName in nomineeColumns)
+            {
+                if (!merged.Columns.Contains(columnName))
+                {
+                    Type columnType = nomineeInformation.Columns.Contains(columnName)
+                        ? nomineeInformation.Columns[columnName].DataType
+                        : typeof(string);
+                    merged.Columns.Add(columnName, columnType);
+                }
+            }
+
+            if (!employees.Columns.Contains("EmpID") ||
+                !nomineeInformation.Columns.Contains("EmpID"))
+            {
+                throw new InvalidOperationException(
+                    "Employee Nominee Information requires an EmpID column in both data sets.");
+            }
+
+            foreach (DataRow employeeRow in employees.Rows)
+            {
+                object employeeId = employeeRow["EmpID"];
+                List<DataRow> matchingNomineeRows = new List<DataRow>();
+
+                foreach (DataRow nomineeRow in nomineeInformation.Rows)
+                {
+                    if (nomineeRow["EmpID"] != DBNull.Value && employeeId != DBNull.Value &&
+                        Convert.ToString(nomineeRow["EmpID"]) == Convert.ToString(employeeId))
+                    {
+                        matchingNomineeRows.Add(nomineeRow);
+                    }
+                }
+
+                if (matchingNomineeRows.Count == 0)
+                {
+                    DataRow mergedRow = merged.NewRow();
+                    CopyEmployeeColumns(employeeRow, mergedRow, employees.Columns);
+                    merged.Rows.Add(mergedRow);
+                    continue;
+                }
+
+                foreach (DataRow nomineeRow in matchingNomineeRows)
+                {
+                    DataRow mergedRow = merged.NewRow();
+                    CopyEmployeeColumns(employeeRow, mergedRow, employees.Columns);
+
+                    foreach (string columnName in nomineeColumns)
+                    {
+                        if (nomineeInformation.Columns.Contains(columnName))
+                            mergedRow[columnName] = nomineeRow[columnName] ?? DBNull.Value;
+                    }
+
+                    merged.Rows.Add(mergedRow);
+                }
+            }
+
+            return merged;
+        }
+
         private void CopyEmployeeColumns(DataRow sourceRow, DataRow targetRow, DataColumnCollection sourceColumns)
         {
             foreach (DataColumn column in sourceColumns)
@@ -2358,15 +2459,80 @@ namespace StaffSync
                         return;
                     }
 
-                    // Add Family Members Information only when its option is selected.
-                    // The DAL method below is intentionally a placeholder for you to implement.
+                    // Load all family-member records first, then merge once.
+                    // Merging inside the employee loop repeatedly re-expanded the
+                    // already merged employee table and duplicated family rows.
                     if (chkFamilyMembersInfo.Checked)
                     {
-                        foreach (DataRow dtIndRow in dtEmployeeList.Rows)
+                        DataTable dtAllFamilyMembers = null;
+                        List<int> employeeIds = dtEmployeeList.AsEnumerable()
+                            .Where(r => r["EmpID"] != DBNull.Value)
+                            .Select(r => Convert.ToInt32(r["EmpID"]))
+                            .Distinct()
+                            .ToList();
+
+                        foreach (int employeeId in employeeIds)
                         {
-                            DataTable dtFamilyMembers = ConvertListToDataTable(objEmpPersonalFamilyMemberInfo.GetEmpPersonalFamilyMemberInfoByEmpID(objTempClientFinYearInfo.ClientID, Convert.ToInt32(dtIndRow["EmpID"])));
-                            dtEmployeeList = MergeEmployeeAndFamilyMemberInformation(dtEmployeeList, dtFamilyMembers);
+                            DataTable dtFamilyMembers = ConvertListToDataTable(
+                                objEmpPersonalFamilyMemberInfo.GetEmpPersonalFamilyMemberInfoByEmpID(
+                                    objTempClientFinYearInfo.ClientID, employeeId));
+
+                            if (dtFamilyMembers == null || dtFamilyMembers.Rows.Count == 0)
+                                continue;
+
+                            if (dtAllFamilyMembers == null)
+                                dtAllFamilyMembers = dtFamilyMembers.Clone();
+
+                            foreach (DataRow familyRow in dtFamilyMembers.Rows)
+                                dtAllFamilyMembers.ImportRow(familyRow);
                         }
+
+                        if (dtAllFamilyMembers == null)
+                        {
+                            // Preserve the expected family columns even when no employee
+                            // currently has family records, using the existing helper.
+                            dtAllFamilyMembers = new DataTable("FamilyMembersInformation");
+                            dtAllFamilyMembers.Columns.Add("EmpID", typeof(int));
+                        }
+
+                        dtEmployeeList = MergeEmployeeAndFamilyMemberInformation(
+                            dtEmployeeList, dtAllFamilyMembers);
+                    }
+
+                    // Load nominee records for each distinct employee ID. Do not use
+                    // the family-member merge helper for nominee data; it ignores
+                    // nominee fields and was the cause of the missing nominee table.
+                    if (chkNomineeInfo.Checked)
+                    {
+                        List<ModelStaffSync.NomineeInfo> nomineeList =
+                            new List<ModelStaffSync.NomineeInfo>();
+
+                        List<int> employeeIds = dtEmployeeList.AsEnumerable()
+                            .Where(r => r["EmpID"] != DBNull.Value)
+                            .Select(r => Convert.ToInt32(r["EmpID"]))
+                            .Distinct()
+                            .ToList();
+
+                        foreach (int employeeId in employeeIds)
+                        {
+                            ModelStaffSync.NomineeInfo nomineeInfo =
+                                objEmpNomineeMas.GetNomineeInfo(employeeId);
+                            if (nomineeInfo != null)
+                                nomineeList.Add(nomineeInfo);
+                        }
+
+                        DataTable dtNomineeInfo = ConvertListToDataTable(nomineeList);
+                        if (dtNomineeInfo == null)
+                        {
+                            dtNomineeInfo = new DataTable("EmployeeNomineeInformation");
+                            dtNomineeInfo.Columns.Add("EmpID", typeof(int));
+                            dtNomineeInfo.Columns.Add("NomineePerson", typeof(string));
+                            dtNomineeInfo.Columns.Add("ContactNumber", typeof(string));
+                            dtNomineeInfo.Columns.Add("RelationShipTitle", typeof(string));
+                        }
+
+                        dtEmployeeList = MergeEmployeeAndNomineeInformation(
+                            dtEmployeeList, dtNomineeInfo);
                     }
 
                     BindExportPreviewData(dtEmployeeList);
@@ -3332,8 +3498,16 @@ namespace StaffSync
             // EmpID may be hidden in the preview grid and therefore omitted by
             // GetSelectedExportData(). Detect the family export by its family
             // columns, then group using EmpID when available or EmpCode otherwise.
+            string[] nomineeColumns = new string[]
+            {
+                "NomineePerson", "ContactNumber", "RelationShipTitle"
+            };
+
             bool hasFamilyColumns = data != null &&
                 familyColumns.Any(c => data.Columns.Contains(c));
+            bool hasNomineeColumns = data != null &&
+                nomineeColumns.Any(c => data.Columns.Contains(c));
+            bool hasEmployeeDetailTables = hasFamilyColumns || hasNomineeColumns;
 
             StringBuilder html = new StringBuilder();
             html.AppendLine("<!DOCTYPE html>");
@@ -3371,13 +3545,16 @@ namespace StaffSync
             html.AppendLine(".family-table .col-family-address{width:var(--family-address-width);}");
             html.AppendLine(".family-heading{font-weight:600;margin:0 0 8px 0;color:#6941c6;}");
             html.AppendLine(".empty-family{color:#667085;font-style:italic;font-weight:normal;}");
+            html.AppendLine(".nominee-heading{font-weight:600;margin:16px 0 8px 0;color:#175cd3;}");
+            html.AppendLine(".nominee-table{width:100%;min-width:600px;margin:0 0 8px 0;border-collapse:collapse;}");
+            html.AppendLine(".nominee-table th{background:#dbeafe;white-space:normal;}");
             html.AppendLine(".report-toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px;}");
             html.AppendLine(".report-search{flex:1;min-width:220px;max-width:520px;padding:9px 12px;border:1px solid #c7ced8;border-radius:5px;font:inherit;font-size:13px;box-sizing:border-box;}");
             html.AppendLine(".report-search:focus{outline:2px solid #b9d4ff;border-color:#5488d8;}");
             html.AppendLine(".report-toolbar-actions{display:flex;justify-content:flex-end;gap:8px;}");
             html.AppendLine(".footer{padding:12px 24px;border-top:1px solid #e3e7ed;color:#667085;font-size:12px;}");
             html.AppendLine("</style>");
-            if (hasFamilyColumns)
+            if (hasEmployeeDetailTables)
             {
                 html.AppendLine("<script>");
                 html.AppendLine("var allFamiliesExpanded=false;");
@@ -3397,13 +3574,15 @@ namespace StaffSync
             html.AppendLine("<div class=\"header\"><div class=\"title\">StaffSync Export - " + HtmlEncode(lblSelectedDataAction.Text) + "</div>");
             html.AppendLine("<div class=\"meta\">Generated On: " + HtmlEncode(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")) + "</div></div>");
             html.AppendLine("<div class=\"table-wrap\">");
-            if (!hasFamilyColumns)
+            if (!hasEmployeeDetailTables)
                 html.AppendLine("<div class=\"report-toolbar\"><input type=\"search\" id=\"report-search\" class=\"report-search\" placeholder=\"Search data...\" oninput=\"filterReport()\" autocomplete=\"off\" /></div>");
 
-            if (hasFamilyColumns)
+            if (hasEmployeeDetailTables)
             {
                 List<DataColumn> employeeColumns = data.Columns.Cast<DataColumn>()
-                    .Where(c => c.ColumnName != "IsSelected" && !familyColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase))
+                    .Where(c => c.ColumnName != "IsSelected" &&
+                                !familyColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase) &&
+                                !nomineeColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase))
                     .ToList();
                 // Render the address components as one readable Address column.
                 // The source DataTable remains unchanged; this affects HTML presentation only.
@@ -3416,6 +3595,9 @@ namespace StaffSync
                 List<DataColumn> actualFamilyColumns = data.Columns.Cast<DataColumn>()
                     .Where(c => familyColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase) &&
                                 !addressColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase))
+                    .ToList();
+                List<DataColumn> actualNomineeColumns = data.Columns.Cast<DataColumn>()
+                    .Where(c => nomineeColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase))
                     .ToList();
 
                 html.AppendLine("<div class=\"report-toolbar\"><input type=\"search\" id=\"report-search\" class=\"report-search\" placeholder=\"Search employees and family members...\" oninput=\"filterReport()\" autocomplete=\"off\" /><div class=\"report-toolbar-actions\"><button type=\"button\" id=\"toggle-all-families\" class=\"toggle global-toggle\" onclick=\"toggleAllFamilies()\">Expand All</button></div></div>");
@@ -3457,48 +3639,93 @@ namespace StaffSync
                         html.Append("<td>" + HtmlEncode(employeeRow[column] == DBNull.Value ? string.Empty : Convert.ToString(employeeRow[column])) + "</td>");
                     html.AppendLine("</tr>");
                     html.AppendLine("<tr id=\"" + detailId + "\" class=\"family-detail\" data-expanded=\"false\" style=\"display:none\"><td colspan=\"" + (employeeColumns.Count + 1).ToString() + "\">");
-                    html.AppendLine("<div class=\"family-heading\">Family Members Information</div>");
+                    if (hasFamilyColumns)
+                    {
+                        html.AppendLine("<div class=\"family-heading\">Family Members Information</div>");
 
-                    List<DataRow> familyRows = group.Rows.Where(r => actualFamilyColumns.Any(c => r[c] != DBNull.Value && !string.IsNullOrWhiteSpace(Convert.ToString(r[c])))).ToList();
-                    if (familyRows.Count == 0)
-                    {
-                        html.AppendLine("<div class=\"empty-family\">No family-member information available.</div>");
-                    }
-                    else
-                    {
-                        html.AppendLine("<table class=\"family-table\"><colgroup>");
-                        foreach (DataColumn column in actualFamilyColumns)
-                            html.AppendLine("<col class=\"" + GetFamilyMemberColumnCssClass(column.ColumnName) + "\" />");
-                        html.AppendLine("<col class=\"col-family-address\" />");
-                        html.AppendLine("</colgroup><thead><tr>");
-                        foreach (DataColumn column in actualFamilyColumns)
-                            html.Append("<th>" + HtmlEncode(GetFamilyMemberDisplayHeader(column.ColumnName)) + "</th>");
-                        html.AppendLine("<th>Address</th>");
-                        html.AppendLine("</tr></thead><tbody>");
-                        foreach (DataRow familyRow in familyRows)
+                        List<DataRow> familyRows = group.Rows
+                            .Where(r => actualFamilyColumns.Any(c => r[c] != DBNull.Value && !string.IsNullOrWhiteSpace(Convert.ToString(r[c]))))
+                            .GroupBy(r => string.Join("|", familyColumns.Select(c => data.Columns.Contains(c) && r[c] != DBNull.Value ? Convert.ToString(r[c]) : string.Empty)), StringComparer.OrdinalIgnoreCase)
+                            .Select(g => g.First())
+                            .ToList();
+                        if (familyRows.Count == 0)
                         {
-                            html.AppendLine("<tr>");
-                            foreach (DataColumn column in actualFamilyColumns)
-                            {
-                                string value = familyRow[column] == DBNull.Value ? string.Empty : Convert.ToString(familyRow[column]);
-                                value = ConvertBooleanDisplayValue(value);
-                                html.Append("<td>" + HtmlEncode(value) + "</td>");
-                            }
-
-                            List<string> addressParts = new List<string>();
-                            foreach (string addressColumn in addressColumns)
-                            {
-                                if (data.Columns.Contains(addressColumn) && familyRow[addressColumn] != DBNull.Value)
-                                {
-                                    string addressPart = Convert.ToString(familyRow[addressColumn]).Trim();
-                                    if (!string.IsNullOrWhiteSpace(addressPart))
-                                        addressParts.Add(addressPart);
-                                }
-                            }
-                            html.Append("<td>" + HtmlEncode(string.Join(", ", addressParts)) + "</td>");
-                            html.AppendLine("</tr>");
+                            html.AppendLine("<div class=\"empty-family\">No family-member information available.</div>");
                         }
-                        html.AppendLine("</tbody></table>");
+                        else
+                        {
+                            html.AppendLine("<table class=\"family-table\"><colgroup>");
+                            foreach (DataColumn column in actualFamilyColumns)
+                                html.AppendLine("<col class=\"" + GetFamilyMemberColumnCssClass(column.ColumnName) + "\" />");
+                            html.AppendLine("<col class=\"col-family-address\" />");
+                            html.AppendLine("</colgroup><thead><tr>");
+                            foreach (DataColumn column in actualFamilyColumns)
+                                html.Append("<th>" + HtmlEncode(GetFamilyMemberDisplayHeader(column.ColumnName)) + "</th>");
+                            html.AppendLine("<th>Address</th>");
+                            html.AppendLine("</tr></thead><tbody>");
+                            foreach (DataRow familyRow in familyRows)
+                            {
+                                html.AppendLine("<tr>");
+                                foreach (DataColumn column in actualFamilyColumns)
+                                {
+                                    string value = familyRow[column] == DBNull.Value ? string.Empty : Convert.ToString(familyRow[column]);
+                                    value = ConvertBooleanDisplayValue(value);
+                                    html.Append("<td>" + HtmlEncode(value) + "</td>");
+                                }
+
+                                List<string> addressParts = new List<string>();
+                                foreach (string addressColumn in addressColumns)
+                                {
+                                    if (data.Columns.Contains(addressColumn) && familyRow[addressColumn] != DBNull.Value)
+                                    {
+                                        string addressPart = Convert.ToString(familyRow[addressColumn]).Trim();
+                                        if (!string.IsNullOrWhiteSpace(addressPart))
+                                            addressParts.Add(addressPart);
+                                    }
+                                }
+                                html.Append("<td>" + HtmlEncode(string.Join(", ", addressParts)) + "</td>");
+                                html.AppendLine("</tr>");
+                            }
+                            html.AppendLine("</tbody></table>");
+                        }
+                    }
+
+                    if (actualNomineeColumns.Count > 0)
+                    {
+                        html.AppendLine("<div class=\"nominee-heading\">Nominee Information</div>");
+                        List<DataRow> nomineeRows = group.Rows
+                            .Where(r => actualNomineeColumns.Any(c => r[c] != DBNull.Value && !string.IsNullOrWhiteSpace(Convert.ToString(r[c]))))
+                            .GroupBy(r => string.Join("|", actualNomineeColumns.Select(c => r[c] == DBNull.Value ? string.Empty : Convert.ToString(r[c]))), StringComparer.OrdinalIgnoreCase)
+                            .Select(g => g.First())
+                            .ToList();
+
+                        if (nomineeRows.Count == 0)
+                        {
+                            html.AppendLine("<div class=\"empty-family\">No nominee information available.</div>");
+                        }
+                        else
+                        {
+                            html.AppendLine("<table class=\"nominee-table\"><thead><tr>");
+                            foreach (DataColumn column in actualNomineeColumns)
+                            {
+                                string header = column.ColumnName == "NomineePerson" ? "Nominee Name" :
+                                    column.ColumnName == "ContactNumber" ? "Contact Number" :
+                                    column.ColumnName == "RelationShipTitle" ? "Relationship" : column.ColumnName;
+                                html.Append("<th>" + HtmlEncode(header) + "</th>");
+                            }
+                            html.AppendLine("</tr></thead><tbody>");
+                            foreach (DataRow nomineeRow in nomineeRows)
+                            {
+                                html.AppendLine("<tr>");
+                                foreach (DataColumn column in actualNomineeColumns)
+                                {
+                                    string value = nomineeRow[column] == DBNull.Value ? string.Empty : Convert.ToString(nomineeRow[column]);
+                                    html.Append("<td>" + HtmlEncode(value) + "</td>");
+                                }
+                                html.AppendLine("</tr>");
+                            }
+                            html.AppendLine("</tbody></table>");
+                        }
                     }
                     html.AppendLine("</td></tr>");
                     groupIndex++;

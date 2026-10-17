@@ -13,6 +13,7 @@ namespace ModelStaffSync
         public string NomineePerson { get; set; }
         public int EmpID { get; set; }
         public int RelationshipID { get; set; }
+        public string RelationShipTitle { get; set; }
         public string ContactNumber { get; set; }
     }
 }

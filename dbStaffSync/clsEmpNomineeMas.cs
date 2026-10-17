@@ -30,7 +30,24 @@ namespace dbStaffSync
             {
                 conn = dbStaffSync.openDBConnection();
 
-                string strQuery = "SELECT * FROM NomineeMas WHERE EmpID = " + EmployeeID + "";
+                string strQuery = @"SELECT
+                                    NomineeMas.NomineeID,
+                                    NomineeMas.NomineePerson,
+                                    RelationShipMas.RelationShipTitle,
+                                    NomineeMas.ContactNumber,
+                                    EmpMas.EmpID
+                                FROM
+                                    RelationShipMas
+                                    INNER JOIN (
+                                        EmpMas
+                                        INNER JOIN NomineeMas ON EmpMas.EmpID = NomineeMas.EmpID
+                                    ) ON RelationShipMas.RelationShipID = NomineeMas.RelationShipID
+                                WHERE
+                                    (
+                                        ((EmpMas.EmpID) = " + EmployeeID + @")
+                                        AND ((EmpMas.IsActive) = True)
+                                        AND ((EmpMas.IsDeleted) = False)
+                                    );";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -49,6 +66,7 @@ namespace dbStaffSync
                     empNomineeInfo.NomineePerson = objEmpNomineeInfo[0].NomineePerson;
                     empNomineeInfo.EmpID = objEmpNomineeInfo[0].EmpID;
                     empNomineeInfo.RelationshipID = objEmpNomineeInfo[0].RelationshipID;
+                    empNomineeInfo.RelationShipTitle = objEmpNomineeInfo[0].RelationShipTitle;
                     empNomineeInfo.ContactNumber = objEmpNomineeInfo[0].ContactNumber;
                 }
             }
