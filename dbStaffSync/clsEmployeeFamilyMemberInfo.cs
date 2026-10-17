@@ -20,6 +20,134 @@ namespace dbStaffSync
 
         }
 
+        public List<EmpPersonalFamilyMemberInfo> GetEmpPersonalFamilyMemberInfoByEmpID(int intCompanyID, int intEmpID)
+        {
+            List<EmpPersonalFamilyMemberInfo> lstEmpPersonalFamilyMemberInfo = new List<EmpPersonalFamilyMemberInfo>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                        EmpFamilyInfo.EmpPerFamInfoID,
+                                        EmpFamilyInfo.PersonalInfoID,
+                                        EmpFamilyInfo.FamMemName,
+                                        EmpFamilyInfo.FamMemDOB,
+                                        EmpFamilyInfo.FamMemAge,
+                                        EmpFamilyInfo.FamMemRelationship,
+                                        EmpFamilyInfo.FamMemAddr1,
+                                        EmpFamilyInfo.FamMemAddr2,
+                                        EmpFamilyInfo.FamMemArea,
+                                        EmpFamilyInfo.FamMemCity,
+                                        EmpFamilyInfo.FamMemState,
+                                        EmpFamilyInfo.FamMemPIN,
+                                        EmpFamilyInfo.FamMemCountry,
+                                        EmpFamilyInfo.FamMemContactNumber,
+                                        EmpFamilyInfo.FamMemMailID,
+                                        EmpFamilyInfo.FamMemBloodGroup,
+                                        EmpFamilyInfo.FamMemInsuranceEnrolled,
+                                        EmpMas.EmpID,
+                                        EmpMas.IsActive,
+                                        EmpMas.IsDeleted,
+                                        ClientMas.ClientID
+                                    FROM
+                                        ClientMas
+                                        INNER JOIN (
+                                            (
+                                                EmpMas
+                                                INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                            )
+                                            INNER JOIN EmpFamilyInfo ON PersonalInfoMas.PersonalInfoID = EmpFamilyInfo.PersonalInfoID
+                                        ) ON ClientMas.ClientID = EmpMas.ClientID
+                                    WHERE
+                                        (
+                                            ((EmpMas.EmpID) = " + intEmpID + @")
+                                            AND ((EmpMas.IsActive) = True)
+                                            AND ((EmpMas.IsDeleted) = False)
+                                            AND ((ClientMas.ClientID) = " + intCompanyID + @")
+                                        );";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                List<EmpPersonalFamilyMemberInfo> objEmpPersonalFamilyMemberInfo = JsonConvert.DeserializeObject<List<EmpPersonalFamilyMemberInfo>>(DataTableToJSon);
+                if (objEmpPersonalFamilyMemberInfo.Count > 0)
+                {
+                    lstEmpPersonalFamilyMemberInfo = objEmpPersonalFamilyMemberInfo;
+                    int minRecords = Math.Abs(objEmpPersonalFamilyMemberInfo.Count - 10);
+                    for (int iDefaultRecord = 0; iDefaultRecord < minRecords; iDefaultRecord++)
+                    {
+                        lstEmpPersonalFamilyMemberInfo.Add(new EmpPersonalFamilyMemberInfo
+                        {
+                            EmpPerFamInfoID = 0,
+                            PersonalInfoID = objEmpPersonalFamilyMemberInfo[iDefaultRecord].PersonalInfoID,
+                            FamMemName = "",
+                            FamMemDOB = null,
+                            FamMemAge = null,
+                            FamMemRelationship = "",
+                            FamMemAddr1 = "",
+                            FamMemAddr2 = "",
+                            FamMemArea = "",
+                            FamMemCity = "",
+                            FamMemState = "",
+                            FamMemPIN = "",
+                            FamMemCountry = "",
+                            FamMemContactNumber = "",
+                            FamMemMailID = "",
+                            FamMemBloodGroup = "",
+                            FamMemInsuranceEnrolled = false
+                        });
+                    }
+                }
+                else
+                {
+                    for (int iDefaultRecord = 0; iDefaultRecord < 10; iDefaultRecord++)
+                    {
+                        lstEmpPersonalFamilyMemberInfo.Add(new EmpPersonalFamilyMemberInfo
+                        {
+                            EmpPerFamInfoID = 0,
+                            PersonalInfoID = objEmpPersonalFamilyMemberInfo[iDefaultRecord].PersonalInfoID,
+                            FamMemName = "",
+                            FamMemDOB = null,
+                            FamMemAge = null,
+                            FamMemRelationship = "",
+                            FamMemAddr1 = "",
+                            FamMemAddr2 = "",
+                            FamMemArea = "",
+                            FamMemCity = "",
+                            FamMemState = "",
+                            FamMemPIN = "",
+                            FamMemCountry = "",
+                            FamMemContactNumber = "",
+                            FamMemMailID = "",
+                            FamMemBloodGroup = "",
+                            FamMemInsuranceEnrolled = false
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return lstEmpPersonalFamilyMemberInfo;
+        }
+
         public List<EmpPersonalFamilyMemberInfo> GetEmpPersonalFamilyMemberInfo(int txtPersonalIDInfoID)
         {
             List<EmpPersonalFamilyMemberInfo> lstEmpPersonalFamilyMemberInfo = new List<EmpPersonalFamilyMemberInfo>();

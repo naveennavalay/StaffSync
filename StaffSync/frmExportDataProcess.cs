@@ -39,11 +39,10 @@ namespace StaffSync
         DALStaffSync.clsClientBranchInfo clsClientBranchInfo = new DALStaffSync.clsClientBranchInfo();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
-        DALStaffSync.clsEmployeePersonalInfo objEmployeePersonalInfo = new DALStaffSync.clsEmployeePersonalInfo();
-        DALStaffSync.clsEmpPersonalFamilyMemberInfo objEmpPersonalFamilyMemberInfo = new DALStaffSync.clsEmpPersonalFamilyMemberInfo();
         DALStaffSync.clsImportDataInfo objImportDataInfo = new DALStaffSync.clsImportDataInfo();
         DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
         DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
+        DALStaffSync.clsEmpPersonalFamilyMemberInfo objEmpPersonalFamilyMemberInfo = new DALStaffSync.clsEmpPersonalFamilyMemberInfo();
         DALStaffSync.clsCountries objCountries = new DALStaffSync.clsCountries();
         DALStaffSync.clsStates objStates = new DALStaffSync.clsStates();
         DALStaffSync.clsEduQalification objEduQalification = new DALStaffSync.clsEduQalification();
@@ -1512,7 +1511,8 @@ namespace StaffSync
         /// An employee with multiple family members produces one row per family member.
         /// Employees without family records are retained with blank family columns.
         /// </summary>
-        private DataTable MergeEmployeeAndFamilyMemberInformation(DataTable employees, DataTable familyMembers)
+        private DataTable MergeEmployeeAndFamilyMemberInformation(
+            DataTable employees, DataTable familyMembers)
         {
             if (employees == null)
                 return new DataTable();
@@ -2360,11 +2360,14 @@ namespace StaffSync
 
                     // Add Family Members Information only when its option is selected.
                     // The DAL method below is intentionally a placeholder for you to implement.
-                    //if (chkFamilyMembersInfo.Checked)
-                    //{
-                    //    DataTable dtFamilyMembers = GetFamilyMembersInformation();
-                    //    dtEmployeeList = MergeEmployeeAndFamilyMemberInformation(dtEmployeeList, dtFamilyMembers);
-                    //}
+                    if (chkFamilyMembersInfo.Checked)
+                    {
+                        foreach (DataRow dtIndRow in dtEmployeeList.Rows)
+                        {
+                            DataTable dtFamilyMembers = ConvertListToDataTable(objEmpPersonalFamilyMemberInfo.GetEmpPersonalFamilyMemberInfoByEmpID(objTempClientFinYearInfo.ClientID, Convert.ToInt32(dtIndRow["EmpID"])));
+                            dtEmployeeList = MergeEmployeeAndFamilyMemberInformation(dtEmployeeList, dtFamilyMembers);
+                        }
+                    }
 
                     BindExportPreviewData(dtEmployeeList);
                     FormatPreviewGrid(lblSelectedDataAction.Text);
@@ -3314,8 +3317,25 @@ namespace StaffSync
 
         private void ExportDataTableToHtml(DataTable data, string outputFile)
         {
-            StringBuilder html = new StringBuilder();
+            // When Family Members Information is selected, render the HTML export
+            // as employee rows with expandable family-member details underneath.
+            // Other exports continue to use the original flat-table layout.
+            string[] familyColumns = new string[]
+            {
+                "FamMemName", "FamMemDOB", "FamMemAge", "FamMemRelationship",
+                "FamMemAddr1", "FamMemAddr2", "FamMemArea", "FamMemCity",
+                "FamMemState", "FamMemPIN", "FamMemCountry",
+                "FamMemContactNumber", "FamMemMailID", "FamMemBloodGroup",
+                "FamMemInsuranceEnrolled"
+            };
 
+            // EmpID may be hidden in the preview grid and therefore omitted by
+            // GetSelectedExportData(). Detect the family export by its family
+            // columns, then group using EmpID when available or EmpCode otherwise.
+            bool hasFamilyColumns = data != null &&
+                familyColumns.Any(c => data.Columns.Contains(c));
+
+            StringBuilder html = new StringBuilder();
             html.AppendLine("<!DOCTYPE html>");
             html.AppendLine("<html>");
             html.AppendLine("<head>");
@@ -3332,58 +3352,233 @@ namespace StaffSync
             html.AppendLine("table{border-collapse:collapse;width:100%;min-width:650px;font-size:13px;}");
             html.AppendLine("th{background:#eef2f7;font-weight:600;text-align:left;border:1px solid #d9dee7;padding:9px 10px;white-space:nowrap;}");
             html.AppendLine("td{border:1px solid #e1e5eb;padding:8px 10px;vertical-align:top;}");
-            html.AppendLine("tr:nth-child(even) td{background:#fafbfc;}");
+            html.AppendLine(".employee-row td{background:#fafbfc;font-weight:600;}");
+            html.AppendLine(".toggle{border:1px solid #98a2b3;background:#fff;border-radius:4px;cursor:pointer;padding:2px 8px;margin-right:8px;font-size:14px;}");
+            html.AppendLine(".family-detail td{background:#fff;padding:14px 18px;}");
+            // Adjustable family-subtable column widths. Change these percentages to suit the report layout.
+            html.AppendLine(":root{--family-name-width:10%;--family-dob-width:8%;--family-age-width:5%;--family-relationship-width:8%;--family-contact-width:10%;--family-email-width:12%;--family-blood-width:7%;--family-insurance-width:8%;--family-address-width:32%;}");
+            html.AppendLine(".family-table{table-layout:fixed;min-width:1100px;width:100%;margin:0;border-collapse:collapse;}");
+            html.AppendLine(".family-table th{background:#f3e8ff;white-space:normal;overflow-wrap:anywhere;}");
+            html.AppendLine(".family-table td{overflow-wrap:anywhere;word-break:normal;}");
+            html.AppendLine(".family-table .col-family-name{width:var(--family-name-width);}");
+            html.AppendLine(".family-table .col-family-dob{width:var(--family-dob-width);}");
+            html.AppendLine(".family-table .col-family-age{width:var(--family-age-width);}");
+            html.AppendLine(".family-table .col-family-relationship{width:var(--family-relationship-width);}");
+            html.AppendLine(".family-table .col-family-contact{width:var(--family-contact-width);}");
+            html.AppendLine(".family-table .col-family-email{width:var(--family-email-width);}");
+            html.AppendLine(".family-table .col-family-blood{width:var(--family-blood-width);}");
+            html.AppendLine(".family-table .col-family-insurance{width:var(--family-insurance-width);}");
+            html.AppendLine(".family-table .col-family-address{width:var(--family-address-width);}");
+            html.AppendLine(".family-heading{font-weight:600;margin:0 0 8px 0;color:#6941c6;}");
+            html.AppendLine(".empty-family{color:#667085;font-style:italic;font-weight:normal;}");
+            html.AppendLine(".report-toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px;}");
+            html.AppendLine(".report-search{flex:1;min-width:220px;max-width:520px;padding:9px 12px;border:1px solid #c7ced8;border-radius:5px;font:inherit;font-size:13px;box-sizing:border-box;}");
+            html.AppendLine(".report-search:focus{outline:2px solid #b9d4ff;border-color:#5488d8;}");
+            html.AppendLine(".report-toolbar-actions{display:flex;justify-content:flex-end;gap:8px;}");
             html.AppendLine(".footer{padding:12px 24px;border-top:1px solid #e3e7ed;color:#667085;font-size:12px;}");
             html.AppendLine("</style>");
+            if (hasFamilyColumns)
+            {
+                html.AppendLine("<script>");
+                html.AppendLine("var allFamiliesExpanded=false;");
+                html.AppendLine("function setFamilyExpanded(id,expand){var row=document.getElementById(id);if(!row)return;row.setAttribute('data-expanded',expand?'true':'false');row.style.display=expand?'table-row':'none';var buttons=document.querySelectorAll('.employee-toggle');for(var j=0;j<buttons.length;j++){if(buttons[j].getAttribute('aria-controls')===id){buttons[j].textContent=expand?'−':'+';buttons[j].setAttribute('aria-expanded',expand?'true':'false');break;}}}");
+                html.AppendLine("function toggleFamily(id,button){var row=document.getElementById(id);if(!row)return;var expand=row.style.display==='none';setFamilyExpanded(id,expand);updateGlobalToggleState();}");
+                html.AppendLine("function toggleAllFamilies(){var rows=document.querySelectorAll('.family-detail');allFamiliesExpanded=!allFamiliesExpanded;for(var i=0;i<rows.length;i++){setFamilyExpanded(rows[i].id,allFamiliesExpanded);}var button=document.getElementById('toggle-all-families');if(button)button.textContent=allFamiliesExpanded?'Collapse All':'Expand All';}");
+                html.AppendLine("function updateGlobalToggleState(){var rows=document.querySelectorAll('.family-detail');var allExpanded=rows.length>0;for(var i=0;i<rows.length;i++){if(rows[i].getAttribute('data-expanded')!=='true'){allExpanded=false;break;}}allFamiliesExpanded=allExpanded;var button=document.getElementById('toggle-all-families');if(button)button.textContent=allExpanded?'Collapse All':'Expand All';}");
+                html.AppendLine("function filterReport(){var input=document.getElementById('report-search');var query=input?input.value.toLowerCase().trim():'';var employeeRows=document.querySelectorAll('tr.employee-row');if(employeeRows.length){for(var i=0;i<employeeRows.length;i++){var employee=employeeRows[i];var detail=employee.nextElementSibling;if(!detail||!detail.classList.contains('family-detail'))continue;var employeeText=employee.textContent.toLowerCase();var familyText=detail.textContent.toLowerCase();var match=!query||employeeText.indexOf(query)>=0||familyText.indexOf(query)>=0;employee.style.display=match?'table-row':'none';if(!query){detail.style.display=detail.getAttribute('data-expanded')==='true'?'table-row':'none';}else if(!match){detail.style.display='none';}else if(familyText.indexOf(query)>=0){detail.style.display='table-row';}else{detail.style.display=detail.getAttribute('data-expanded')==='true'?'table-row':'none';}}return;}var tables=document.querySelectorAll('.table-wrap table');for(var t=0;t<tables.length;t++){var rows=tables[t].querySelectorAll('tbody tr');for(var r=0;r<rows.length;r++){var rowText=rows[r].textContent.toLowerCase();rows[r].style.display=(!query||rowText.indexOf(query)>=0)?'table-row':'none';}}}");
+                html.AppendLine("</script>");
+            }
+            else
+            {
+                html.AppendLine("<script>function filterReport(){var input=document.getElementById('report-search');var query=input?input.value.toLowerCase().trim():'';var tables=document.querySelectorAll('.table-wrap table');for(var t=0;t<tables.length;t++){var rows=tables[t].querySelectorAll('tbody tr');for(var r=0;r<rows.length;r++){var rowText=rows[r].textContent.toLowerCase();rows[r].style.display=(!query||rowText.indexOf(query)>=0)?'table-row':'none';}}}</script>");
+            }
             html.AppendLine("</head>");
-            html.AppendLine("<body>");
-            html.AppendLine("<div class=\"report\">");
-            html.AppendLine("<div class=\"header\">");
-            html.AppendLine("<div class=\"title\">StaffSync Export - " + HtmlEncode(lblSelectedDataAction.Text) + "</div>");
-            html.AppendLine("<div class=\"meta\">Generated On: " + HtmlEncode(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")) + "</div>");
-            html.AppendLine("</div>");
+            html.AppendLine("<body><div class=\"report\">");
+            html.AppendLine("<div class=\"header\"><div class=\"title\">StaffSync Export - " + HtmlEncode(lblSelectedDataAction.Text) + "</div>");
+            html.AppendLine("<div class=\"meta\">Generated On: " + HtmlEncode(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")) + "</div></div>");
             html.AppendLine("<div class=\"table-wrap\">");
-            html.AppendLine("<table>");
-            html.AppendLine("<thead><tr>");
+            if (!hasFamilyColumns)
+                html.AppendLine("<div class=\"report-toolbar\"><input type=\"search\" id=\"report-search\" class=\"report-search\" placeholder=\"Search data...\" oninput=\"filterReport()\" autocomplete=\"off\" /></div>");
 
-            foreach (DataColumn column in data.Columns)
+            if (hasFamilyColumns)
             {
-                html.Append("<th>");
-                html.Append(HtmlEncode(column.ColumnName));
-                html.AppendLine("</th>");
-            }
-
-            html.AppendLine("</tr></thead>");
-            html.AppendLine("<tbody>");
-
-            foreach (DataRow row in data.Rows)
-            {
-                html.AppendLine("<tr>");
-
-                foreach (DataColumn column in data.Columns)
+                List<DataColumn> employeeColumns = data.Columns.Cast<DataColumn>()
+                    .Where(c => c.ColumnName != "IsSelected" && !familyColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase))
+                    .ToList();
+                // Render the address components as one readable Address column.
+                // The source DataTable remains unchanged; this affects HTML presentation only.
+                string[] addressColumns = new string[]
                 {
-                    html.Append("<td>");
+                    "FamMemAddr1", "FamMemAddr2", "FamMemArea", "FamMemCity",
+                    "FamMemState", "FamMemPIN", "FamMemCountry"
+                };
 
-                    if (row[column] != DBNull.Value)
+                List<DataColumn> actualFamilyColumns = data.Columns.Cast<DataColumn>()
+                    .Where(c => familyColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase) &&
+                                !addressColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase))
+                    .ToList();
+
+                html.AppendLine("<div class=\"report-toolbar\"><input type=\"search\" id=\"report-search\" class=\"report-search\" placeholder=\"Search employees and family members...\" oninput=\"filterReport()\" autocomplete=\"off\" /><div class=\"report-toolbar-actions\"><button type=\"button\" id=\"toggle-all-families\" class=\"toggle global-toggle\" onclick=\"toggleAllFamilies()\">Expand All</button></div></div>");
+                html.AppendLine("<table><thead><tr><th></th>");
+                foreach (DataColumn column in employeeColumns)
+                    html.Append("<th>" + HtmlEncode(column.ColumnName) + "</th>");
+                html.AppendLine("</tr></thead><tbody>");
+
+                // Each merged row represents one employee/family-member pair.
+                // EmpID is often hidden and omitted from the export data, so use
+                // EmpCode as the fallback grouping key. If neither is present,
+                // fall back to the available employee-identifying columns.
+                // Prefer the visible employee code over EmpID. EmpID can be a
+                // hidden/internal value that is not the best grouping key in the
+                // formatted export dataset. Normalize whitespace and casing so
+                // duplicate employee rows are grouped into a single parent row.
+                string employeeKeyColumn = employeeColumns
+                    .FirstOrDefault(c => c.ColumnName.IndexOf("Employee Code", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                         c.ColumnName.IndexOf("EmployeeCode", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                                         c.ColumnName.IndexOf("EmpCode", StringComparison.OrdinalIgnoreCase) >= 0)?.ColumnName;
+
+                if (employeeKeyColumn == null && data.Columns.Contains("EmpCode"))
+                    employeeKeyColumn = "EmpCode";
+                if (employeeKeyColumn == null && data.Columns.Contains("EmpID"))
+                    employeeKeyColumn = "EmpID";
+
+                var employeeGroups = employeeKeyColumn == null
+                    ? data.Rows.Cast<DataRow>().Select((row, index) => new { Key = index.ToString(), Rows = new List<DataRow> { row } })
+                    : data.Rows.Cast<DataRow>()
+                        .GroupBy(r => Convert.ToString(r[employeeKeyColumn]).Trim(), StringComparer.OrdinalIgnoreCase)
+                        .Select(group => new { Key = group.Key, Rows = group.ToList() });
+                int groupIndex = 0;
+                foreach (var group in employeeGroups)
+                {
+                    DataRow employeeRow = group.Rows[0];
+                    string detailId = "family_detail_" + groupIndex.ToString();
+                    html.AppendLine("<tr class=\"employee-row\"><td><button type=\"button\" class=\"toggle employee-toggle\" aria-expanded=\"false\" aria-controls=\"" + detailId + "\" onclick=\"toggleFamily('" + detailId + "',this)\">+</button></td>");
+                    foreach (DataColumn column in employeeColumns)
+                        html.Append("<td>" + HtmlEncode(employeeRow[column] == DBNull.Value ? string.Empty : Convert.ToString(employeeRow[column])) + "</td>");
+                    html.AppendLine("</tr>");
+                    html.AppendLine("<tr id=\"" + detailId + "\" class=\"family-detail\" data-expanded=\"false\" style=\"display:none\"><td colspan=\"" + (employeeColumns.Count + 1).ToString() + "\">");
+                    html.AppendLine("<div class=\"family-heading\">Family Members Information</div>");
+
+                    List<DataRow> familyRows = group.Rows.Where(r => actualFamilyColumns.Any(c => r[c] != DBNull.Value && !string.IsNullOrWhiteSpace(Convert.ToString(r[c])))).ToList();
+                    if (familyRows.Count == 0)
                     {
-                        html.Append(HtmlEncode(Convert.ToString(row[column])));
+                        html.AppendLine("<div class=\"empty-family\">No family-member information available.</div>");
                     }
+                    else
+                    {
+                        html.AppendLine("<table class=\"family-table\"><colgroup>");
+                        foreach (DataColumn column in actualFamilyColumns)
+                            html.AppendLine("<col class=\"" + GetFamilyMemberColumnCssClass(column.ColumnName) + "\" />");
+                        html.AppendLine("<col class=\"col-family-address\" />");
+                        html.AppendLine("</colgroup><thead><tr>");
+                        foreach (DataColumn column in actualFamilyColumns)
+                            html.Append("<th>" + HtmlEncode(GetFamilyMemberDisplayHeader(column.ColumnName)) + "</th>");
+                        html.AppendLine("<th>Address</th>");
+                        html.AppendLine("</tr></thead><tbody>");
+                        foreach (DataRow familyRow in familyRows)
+                        {
+                            html.AppendLine("<tr>");
+                            foreach (DataColumn column in actualFamilyColumns)
+                            {
+                                string value = familyRow[column] == DBNull.Value ? string.Empty : Convert.ToString(familyRow[column]);
+                                value = ConvertBooleanDisplayValue(value);
+                                html.Append("<td>" + HtmlEncode(value) + "</td>");
+                            }
 
-                    html.AppendLine("</td>");
+                            List<string> addressParts = new List<string>();
+                            foreach (string addressColumn in addressColumns)
+                            {
+                                if (data.Columns.Contains(addressColumn) && familyRow[addressColumn] != DBNull.Value)
+                                {
+                                    string addressPart = Convert.ToString(familyRow[addressColumn]).Trim();
+                                    if (!string.IsNullOrWhiteSpace(addressPart))
+                                        addressParts.Add(addressPart);
+                                }
+                            }
+                            html.Append("<td>" + HtmlEncode(string.Join(", ", addressParts)) + "</td>");
+                            html.AppendLine("</tr>");
+                        }
+                        html.AppendLine("</tbody></table>");
+                    }
+                    html.AppendLine("</td></tr>");
+                    groupIndex++;
                 }
-
-                html.AppendLine("</tr>");
+                html.AppendLine("</tbody></table>");
+            }
+            else
+            {
+                // Preserve the existing flat-table presentation for every other export.
+                html.AppendLine("<table><thead><tr>");
+                foreach (DataColumn column in data.Columns)
+                    html.Append("<th>" + HtmlEncode(column.ColumnName) + "</th>");
+                html.AppendLine("</tr></thead><tbody>");
+                foreach (DataRow row in data.Rows)
+                {
+                    html.AppendLine("<tr>");
+                    foreach (DataColumn column in data.Columns)
+                    {
+                        string value = row[column] == DBNull.Value ? string.Empty : Convert.ToString(row[column]);
+                        html.Append("<td>" + HtmlEncode(value) + "</td>");
+                    }
+                    html.AppendLine("</tr>");
+                }
+                html.AppendLine("</tbody></table>");
             }
 
-            html.AppendLine("</tbody>");
-            html.AppendLine("</table>");
-            html.AppendLine("</div>");
-            html.AppendLine("<div class=\"footer\">StaffSync Payroll Management - Exported rows: " + data.Rows.Count.ToString() + "</div>");
-            html.AppendLine("</div>");
-            html.AppendLine("</body>");
-            html.AppendLine("</html>");
-
+            html.AppendLine("</div><div class=\"footer\">StaffSync Payroll Management - Exported rows: " + data.Rows.Count.ToString() + "</div>");
+            html.AppendLine("</div></body></html>");
             File.WriteAllText(outputFile, html.ToString(), new UTF8Encoding(false));
+        }
+
+        private string ConvertBooleanDisplayValue(string value)
+        {
+            if (string.Equals(value, "True", StringComparison.OrdinalIgnoreCase))
+                return "Yes";
+
+            if (string.Equals(value, "False", StringComparison.OrdinalIgnoreCase))
+                return "No";
+
+            return value ?? string.Empty;
+        }
+
+
+        private string GetFamilyMemberColumnCssClass(string columnName)
+        {
+            switch (columnName)
+            {
+                case "FamMemName": return "col-family-name";
+                case "FamMemDOB": return "col-family-dob";
+                case "FamMemAge": return "col-family-age";
+                case "FamMemRelationship": return "col-family-relationship";
+                case "FamMemContactNumber": return "col-family-contact";
+                case "FamMemMailID": return "col-family-email";
+                case "FamMemBloodGroup": return "col-family-blood";
+                case "FamMemInsuranceEnrolled": return "col-family-insurance";
+                default: return "";
+            }
+        }
+
+        private string GetFamilyMemberDisplayHeader(string columnName)
+        {
+            switch (columnName)
+            {
+                case "FamMemName": return "Family Member Name";
+                case "FamMemDOB": return "Date of Birth";
+                case "FamMemAge": return "Age";
+                case "FamMemRelationship": return "Relationship";
+                case "FamMemAddr1": return "Address Line 1";
+                case "FamMemAddr2": return "Address Line 2";
+                case "FamMemArea": return "Area";
+                case "FamMemCity": return "City";
+                case "FamMemState": return "State";
+                case "FamMemPIN": return "PIN Code";
+                case "FamMemCountry": return "Country";
+                case "FamMemContactNumber": return "Contact Number";
+                case "FamMemMailID": return "Email ID";
+                case "FamMemBloodGroup": return "Blood Group";
+                case "FamMemInsuranceEnrolled": return "Insurance Enrolled";
+                default: return columnName;
+            }
         }
 
         private string HtmlEncode(string value)

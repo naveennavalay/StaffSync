@@ -35,6 +35,15 @@ namespace DALStaffSync
             return affectedRows;
         }
 
+        public List<EmpPersonalFamilyMemberInfo> GetEmpPersonalFamilyMemberInfoByEmpID(int intCompanyID, int intEmpID)
+        {
+            List<EmpPersonalFamilyMemberInfo> lstEmpPersonalFamilyMemberInfo = new List<EmpPersonalFamilyMemberInfo>();
+
+            lstEmpPersonalFamilyMemberInfo = objEmpPersonalFamilyMemberInfo.GetEmpPersonalFamilyMemberInfoByEmpID(intCompanyID, intEmpID);
+
+            return lstEmpPersonalFamilyMemberInfo;
+        }
+
         public List<EmpPersonalFamilyMemberInfo> GetEmpPersonalFamilyMemberInfo(int txtPersonalInfoID)
         {
             List<EmpPersonalFamilyMemberInfo> lstEmpPersonalFamilyMemberInfo = new List<EmpPersonalFamilyMemberInfo>();
