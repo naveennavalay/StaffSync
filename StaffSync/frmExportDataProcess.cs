@@ -48,6 +48,7 @@ namespace StaffSync
         DALStaffSync.clsCountries objCountries = new DALStaffSync.clsCountries();
         DALStaffSync.clsStates objStates = new DALStaffSync.clsStates();
         DALStaffSync.clsEduQalification objEduQalification = new DALStaffSync.clsEduQalification();
+        DALStaffSync.clsEmpSkillsMas objEmpSkillsMas = new DALStaffSync.clsEmpSkillsMas();
         DALStaffSync.clsSkillsMas objSkillsMas = new DALStaffSync.clsSkillsMas();
         DALStaffSync.clsRelationship objRelationship = new DALStaffSync.clsRelationship();
         DALStaffSync.clsShiftMas objShiftMas = new DALStaffSync.clsShiftMas();
@@ -1718,6 +1719,26 @@ namespace StaffSync
         }
 
         /// <summary>
+        /// PLACEHOLDER: Returns employee skill records for the Employee Information export.
+        ///
+        /// Expected columns: EmpID and SkillTitle. Return one row per skill assigned to
+        /// an employee. The employee-specific data is expected to come from the
+        /// EmpMas -> EmpSkillMas -> SkillsMas relationship.
+        ///
+        /// TODO: Replace this placeholder with the actual DAL/query. Do not use
+        /// objSkillsMas.GetSkillList() here because it returns the skills master list,
+        /// not the skills assigned to each employee.
+        /// </summary>
+        private DataTable GetEmployeeSkillsInformation()
+        {
+            // TODO: Replace with the employee-specific Skills DAL method/query.
+            DataTable employeeSkillsInformation = new DataTable("EmployeeSkillsInformation");
+            employeeSkillsInformation.Columns.Add("EmpID", typeof(int));
+            employeeSkillsInformation.Columns.Add("SkillTitle", typeof(string));
+            return employeeSkillsInformation;
+        }
+
+        /// <summary>
         /// Combines employee data with education qualification information by EmpID.
         /// An employee with multiple qualifications produces one row per qualification.
         /// Employees without qualification records are retained with a blank qualification.
@@ -1785,7 +1806,7 @@ namespace StaffSync
         }
 
         /// <summary>
-        /// Creates employee rows with independent family, nominee and education detail
+        /// Creates employee rows with independent family, nominee, education and skills detail
         /// columns. Detail lists are aligned by index (not cross-joined), so multiple
         /// records in one section do not overwrite records in another section.
         /// </summary>
@@ -1807,6 +1828,7 @@ namespace StaffSync
             foreach (string column in nomineeColumns)
                 if (!result.Columns.Contains(column)) result.Columns.Add(column, typeof(string));
             if (!result.Columns.Contains("EduQualTitle")) result.Columns.Add("EduQualTitle", typeof(string));
+            if (!result.Columns.Contains("SkillTitle")) result.Columns.Add("SkillTitle", typeof(string));
 
             foreach (DataRow employee in employees.Rows)
             {
@@ -1827,11 +1849,15 @@ namespace StaffSync
                 DataTable education = chkQualSkillsInfo.Checked
                     ? (objEmpEduQualMas.GetEduQualListInfo(empId))
                     : new DataTable();
+                DataTable skills = chkQualSkillsInfo.Checked
+                    ? (objEmpSkillsMas.GetSkillsListInfo(empId))
+                    : new DataTable();
 
                 List<DataRow> familyRows = family.Rows.Cast<DataRow>().Where(r => family.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> nomineeRows = nominee.Rows.Cast<DataRow>().ToList();
                 List<DataRow> educationRows = education.Rows.Cast<DataRow>().Where(r => education.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
-                int rowCount = Math.Max(1, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, educationRows.Count)));
+                List<DataRow> skillsRows = skills.Rows.Cast<DataRow>().Where(r => skills.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
+                int rowCount = Math.Max(1, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count))));
 
                 for (int i = 0; i < rowCount; i++)
                 {
@@ -1848,6 +1874,8 @@ namespace StaffSync
                     }
                     if (i < educationRows.Count && education.Columns.Contains("EduQualTitle"))
                         output["EduQualTitle"] = educationRows[i]["EduQualTitle"] == DBNull.Value ? DBNull.Value : educationRows[i]["EduQualTitle"];
+                    if (i < skillsRows.Count && skills.Columns.Contains("SkillTitle"))
+                        output["SkillTitle"] = skillsRows[i]["SkillTitle"] == DBNull.Value ? DBNull.Value : skillsRows[i]["SkillTitle"];
                     result.Rows.Add(output);
                 }
             }
@@ -3588,7 +3616,8 @@ namespace StaffSync
             };
             string[] nomineeColumns = new string[] { "NomineePerson", "NomineeContactNumber", "NomineeRelationShipTitle" };
             string[] educationColumns = new string[] { "EduQualTitle" };
-            string[] detailColumns = familyColumns.Concat(nomineeColumns).Concat(educationColumns).ToArray();
+            string[] skillsColumns = new string[] { "SkillTitle" };
+            string[] detailColumns = familyColumns.Concat(nomineeColumns).Concat(educationColumns).Concat(skillsColumns).ToArray();
 
             // EmpID may be hidden in the preview grid and therefore omitted by
             // GetSelectedExportData(). Detect the family export by its family
@@ -3771,6 +3800,11 @@ namespace StaffSync
                     html.AppendLine("<div class=\"family-heading\">Education Qualification Information</div>");
                     AppendSimpleDetailTable(html, educationRows, educationColumns, data, "No education qualification information available.");
 
+                    // Skills are displayed in their own subtable and may contain multiple rows per employee.
+                    List<DataRow> employeeSkillRows = group.Rows.Where(r => skillsColumns.Any(c => data.Columns.Contains(c) && r[c] != DBNull.Value && !string.IsNullOrWhiteSpace(Convert.ToString(r[c])))).ToList();
+                    html.AppendLine("<div class=\"family-heading\">Skills Information</div>");
+                    AppendSimpleDetailTable(html, employeeSkillRows, skillsColumns, data, "No skills information available.");
+
                     html.AppendLine("</td></tr>");
                     groupIndex++;
                 }
@@ -3812,7 +3846,7 @@ namespace StaffSync
 
             html.AppendLine("<table class=\"family-table\"><thead><tr>");
             foreach (string column in availableColumns)
-                html.Append("<th>" + HtmlEncode(column == "EduQualTitle" ? "Education Qualification" : (column == "NomineePerson" ? "Nominee Name" : (column == "RelationShipTitle" ? "Relationship" : column == "NomineeContactNumber" ? "Contact Number" : column == "NomineeRelationShipTitle" ? "Relationship" : column))) + "</th>");
+                html.Append("<th>" + HtmlEncode(column == "EduQualTitle" ? "Education Qualification" : (column == "SkillTitle" ? "Skills Name" : (column == "NomineePerson" ? "Nominee Name" : (column == "RelationShipTitle" ? "Relationship" : column == "NomineeContactNumber" ? "Contact Number" : column == "NomineeRelationShipTitle" ? "Relationship" : column)))) + "</th>");
             html.AppendLine("</tr></thead><tbody>");
             foreach (DataRow row in rows)
             {
