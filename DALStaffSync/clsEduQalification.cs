@@ -22,6 +22,15 @@ namespace DALStaffSync
             return objEduQalification.GetEduQualMasList(filterText);
         }
 
+        public string GetEduQualByID(int intEduQualID)
+        {
+            string selectedEduQualTitle = "";
+            
+            selectedEduQualTitle = objEduQalification.GetEduQualByID(intEduQualID);
+
+            return selectedEduQualTitle;
+        }
+
         public int GetEduQualByTitle(string EduQualTitle)
         {
             int selectedEduQualID = 0;
