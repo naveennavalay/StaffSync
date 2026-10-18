@@ -1735,6 +1735,7 @@ namespace StaffSync
             DataTable employeeSkillsInformation = new DataTable("EmployeeSkillsInformation");
             employeeSkillsInformation.Columns.Add("EmpID", typeof(int));
             employeeSkillsInformation.Columns.Add("SkillTitle", typeof(string));
+            employeeSkillsInformation.Columns.Add("ExpertiseLevel", typeof(int));
             return employeeSkillsInformation;
         }
 
@@ -1829,6 +1830,7 @@ namespace StaffSync
                 if (!result.Columns.Contains(column)) result.Columns.Add(column, typeof(string));
             if (!result.Columns.Contains("EduQualTitle")) result.Columns.Add("EduQualTitle", typeof(string));
             if (!result.Columns.Contains("SkillTitle")) result.Columns.Add("SkillTitle", typeof(string));
+            if (!result.Columns.Contains("ExpertiseLevel")) result.Columns.Add("ExpertiseLevel", typeof(int));
 
             foreach (DataRow employee in employees.Rows)
             {
@@ -1874,8 +1876,17 @@ namespace StaffSync
                     }
                     if (i < educationRows.Count && education.Columns.Contains("EduQualTitle"))
                         output["EduQualTitle"] = educationRows[i]["EduQualTitle"] == DBNull.Value ? DBNull.Value : educationRows[i]["EduQualTitle"];
-                    if (i < skillsRows.Count && skills.Columns.Contains("SkillTitle"))
-                        output["SkillTitle"] = skillsRows[i]["SkillTitle"] == DBNull.Value ? DBNull.Value : skillsRows[i]["SkillTitle"];
+                    if (i < skillsRows.Count)
+                    {
+                        if (skills.Columns.Contains("SkillTitle"))
+                            output["SkillTitle"] = skillsRows[i]["SkillTitle"] == DBNull.Value ? DBNull.Value : skillsRows[i]["SkillTitle"];
+                        if (skills.Columns.Contains("ExpertiseLevel") && skillsRows[i]["ExpertiseLevel"] != DBNull.Value)
+                        {
+                            int expertiseLevel;
+                            if (int.TryParse(Convert.ToString(skillsRows[i]["ExpertiseLevel"]), out expertiseLevel))
+                                output["ExpertiseLevel"] = Math.Max(0, Math.Min(10, expertiseLevel));
+                        }
+                    }
                     result.Rows.Add(output);
                 }
             }
@@ -3616,7 +3627,7 @@ namespace StaffSync
             };
             string[] nomineeColumns = new string[] { "NomineePerson", "NomineeContactNumber", "NomineeRelationShipTitle" };
             string[] educationColumns = new string[] { "EduQualTitle" };
-            string[] skillsColumns = new string[] { "SkillTitle" };
+            string[] skillsColumns = new string[] { "SkillTitle", "ExpertiseLevel" };
             string[] detailColumns = familyColumns.Concat(nomineeColumns).Concat(educationColumns).Concat(skillsColumns).ToArray();
 
             // EmpID may be hidden in the preview grid and therefore omitted by
@@ -3640,7 +3651,7 @@ namespace StaffSync
             html.AppendLine(".meta{font-size:13px;color:#667085;}");
             html.AppendLine(".table-wrap{overflow:auto;padding:18px 24px 24px 24px;}");
             html.AppendLine("table{border-collapse:collapse;width:100%;min-width:650px;font-size:13px;}");
-            html.AppendLine("th{background:#eef2f7;font-weight:600;text-align:left;border:1px solid #d9dee7;padding:9px 10px;white-space:nowrap;}");
+            html.AppendLine("th{background:#800000;color:#fff;font-weight:600;text-align:left;border:1px solid #6b0000;padding:9px 10px;white-space:nowrap;}");
             html.AppendLine("td{border:1px solid #e1e5eb;padding:8px 10px;vertical-align:top;}");
             html.AppendLine(".employee-row td{background:#fafbfc;font-weight:600;}");
             html.AppendLine(".toggle{border:1px solid #98a2b3;background:#fff;border-radius:4px;cursor:pointer;padding:2px 8px;margin-right:8px;font-size:14px;}");
@@ -3648,7 +3659,7 @@ namespace StaffSync
             // Adjustable family-subtable column widths. Change these percentages to suit the report layout.
             html.AppendLine(":root{--family-name-width:10%;--family-dob-width:8%;--family-age-width:5%;--family-relationship-width:8%;--family-contact-width:10%;--family-email-width:12%;--family-blood-width:7%;--family-insurance-width:8%;--family-address-width:32%;}");
             html.AppendLine(".family-table{table-layout:fixed;min-width:1100px;width:100%;margin:0;border-collapse:collapse;}");
-            html.AppendLine(".family-table th{background:#f3e8ff;white-space:normal;overflow-wrap:anywhere;}");
+            html.AppendLine(".family-table th{background:#800000;color:#fff;border-color:#6b0000;white-space:normal;overflow-wrap:anywhere;}");
             html.AppendLine(".family-table td{overflow-wrap:anywhere;word-break:normal;}");
             html.AppendLine(".family-table .col-family-name{width:var(--family-name-width);}");
             html.AppendLine(".family-table .col-family-dob{width:var(--family-dob-width);}");
@@ -3659,12 +3670,14 @@ namespace StaffSync
             html.AppendLine(".family-table .col-family-blood{width:var(--family-blood-width);}");
             html.AppendLine(".family-table .col-family-insurance{width:var(--family-insurance-width);}");
             html.AppendLine(".family-table .col-family-address{width:var(--family-address-width);}");
-            html.AppendLine(".family-heading{font-weight:600;margin:0 0 8px 0;color:#6941c6;}");
+            html.AppendLine(".family-heading{font-weight:600;margin:0 0 8px 0;color:#800000;}");
             html.AppendLine(".empty-family{color:#667085;font-style:italic;font-weight:normal;}");
             html.AppendLine(".report-toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px;}");
             html.AppendLine(".report-search{flex:1;min-width:220px;max-width:520px;padding:9px 12px;border:1px solid #c7ced8;border-radius:5px;font:inherit;font-size:13px;box-sizing:border-box;}");
             html.AppendLine(".report-search:focus{outline:2px solid #b9d4ff;border-color:#5488d8;}");
-            html.AppendLine(".report-toolbar-actions{display:flex;justify-content:flex-end;gap:8px;}");
+            html.AppendLine(".report-toolbar-actions{display:flex;justify-content:flex-end;gap:8px;align-items:center;} ");
+            html.AppendLine(".report-count{font-size:12px;color:#475467;white-space:nowrap;padding:6px 0;}");
+            html.AppendLine(".expertise-rating{display:inline-flex;align-items:center;gap:1px;white-space:nowrap;} .expertise-star{font-size:18px;line-height:1;} .expertise-value{font-size:12px;margin-left:6px;color:#344054;font-weight:600;}");
             html.AppendLine(".footer{padding:12px 24px;border-top:1px solid #e3e7ed;color:#667085;font-size:12px;}");
             html.AppendLine("</style>");
             if (hasFamilyColumns)
@@ -3675,12 +3688,12 @@ namespace StaffSync
                 html.AppendLine("function toggleFamily(id,button){var row=document.getElementById(id);if(!row)return;var expand=row.style.display==='none';setFamilyExpanded(id,expand);updateGlobalToggleState();}");
                 html.AppendLine("function toggleAllFamilies(){var rows=document.querySelectorAll('.family-detail');allFamiliesExpanded=!allFamiliesExpanded;for(var i=0;i<rows.length;i++){setFamilyExpanded(rows[i].id,allFamiliesExpanded);}var button=document.getElementById('toggle-all-families');if(button)button.textContent=allFamiliesExpanded?'Collapse All':'Expand All';}");
                 html.AppendLine("function updateGlobalToggleState(){var rows=document.querySelectorAll('.family-detail');var allExpanded=rows.length>0;for(var i=0;i<rows.length;i++){if(rows[i].getAttribute('data-expanded')!=='true'){allExpanded=false;break;}}allFamiliesExpanded=allExpanded;var button=document.getElementById('toggle-all-families');if(button)button.textContent=allExpanded?'Collapse All':'Expand All';}");
-                html.AppendLine("function filterReport(){var input=document.getElementById('report-search');var query=input?input.value.toLowerCase().trim():'';var employeeRows=document.querySelectorAll('tr.employee-row');if(employeeRows.length){for(var i=0;i<employeeRows.length;i++){var employee=employeeRows[i];var detail=employee.nextElementSibling;if(!detail||!detail.classList.contains('family-detail'))continue;var employeeText=employee.textContent.toLowerCase();var familyText=detail.textContent.toLowerCase();var match=!query||employeeText.indexOf(query)>=0||familyText.indexOf(query)>=0;employee.style.display=match?'table-row':'none';if(!query){detail.style.display=detail.getAttribute('data-expanded')==='true'?'table-row':'none';}else if(!match){detail.style.display='none';}else if(familyText.indexOf(query)>=0){detail.style.display='table-row';}else{detail.style.display=detail.getAttribute('data-expanded')==='true'?'table-row':'none';}}return;}var tables=document.querySelectorAll('.table-wrap table');for(var t=0;t<tables.length;t++){var rows=tables[t].querySelectorAll('tbody tr');for(var r=0;r<rows.length;r++){var rowText=rows[r].textContent.toLowerCase();rows[r].style.display=(!query||rowText.indexOf(query)>=0)?'table-row':'none';}}}");
+                html.AppendLine("function updateReportCount(found,total){var el=document.getElementById('report-count');if(el)el.textContent='Showing '+found+' of '+total+' records';}function filterReport(){var input=document.getElementById('report-search');var query=input?input.value.toLowerCase().trim():'';var employeeRows=document.querySelectorAll('tr.employee-row');if(employeeRows.length){var found=0;for(var i=0;i<employeeRows.length;i++){var employee=employeeRows[i];var detail=employee.nextElementSibling;if(!detail||!detail.classList.contains('family-detail'))continue;var employeeText=employee.textContent.toLowerCase();var familyText=detail.textContent.toLowerCase();var match=!query||employeeText.indexOf(query)>=0||familyText.indexOf(query)>=0;employee.style.display=match?'table-row':'none';if(match)found++;if(!query){detail.style.display=detail.getAttribute('data-expanded')==='true'?'table-row':'none';}else if(!match){detail.style.display='none';}else if(familyText.indexOf(query)>=0){detail.style.display='table-row';}else{detail.style.display=detail.getAttribute('data-expanded')==='true'?'table-row':'none';}}updateReportCount(found,employeeRows.length);return;}var tables=document.querySelectorAll('.table-wrap table');var found=0,total=0;for(var t=0;t<tables.length;t++){var rows=tables[t].querySelectorAll('tbody tr');for(var r=0;r<rows.length;r++){total++;var rowText=rows[r].textContent.toLowerCase();var match=!query||rowText.indexOf(query)>=0;rows[r].style.display=match?'table-row':'none';if(match)found++;}}updateReportCount(found,total);}");
                 html.AppendLine("</script>");
             }
             else
             {
-                html.AppendLine("<script>function filterReport(){var input=document.getElementById('report-search');var query=input?input.value.toLowerCase().trim():'';var tables=document.querySelectorAll('.table-wrap table');for(var t=0;t<tables.length;t++){var rows=tables[t].querySelectorAll('tbody tr');for(var r=0;r<rows.length;r++){var rowText=rows[r].textContent.toLowerCase();rows[r].style.display=(!query||rowText.indexOf(query)>=0)?'table-row':'none';}}}</script>");
+                html.AppendLine("<script>function filterReport(){var input=document.getElementById('report-search');var query=input?input.value.toLowerCase().trim():'';var tables=document.querySelectorAll('.table-wrap table');var found=0,total=0;for(var t=0;t<tables.length;t++){var rows=tables[t].querySelectorAll('tbody tr');for(var r=0;r<rows.length;r++){total++;var rowText=rows[r].textContent.toLowerCase();var match=!query||rowText.indexOf(query)>=0;rows[r].style.display=match?'table-row':'none';if(match)found++;}}var el=document.getElementById('report-count');if(el)el.textContent='Showing '+found+' of '+total+' records';}</script>");
             }
             html.AppendLine("</head>");
             html.AppendLine("<body><div class=\"report\">");
@@ -3688,7 +3701,7 @@ namespace StaffSync
             html.AppendLine("<div class=\"meta\">Generated On: " + HtmlEncode(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")) + "</div></div>");
             html.AppendLine("<div class=\"table-wrap\">");
             if (!hasFamilyColumns)
-                html.AppendLine("<div class=\"report-toolbar\"><input type=\"search\" id=\"report-search\" class=\"report-search\" placeholder=\"Search data...\" oninput=\"filterReport()\" autocomplete=\"off\" /></div>");
+                html.AppendLine("<div class=\"report-toolbar\"><input type=\"search\" id=\"report-search\" class=\"report-search\" placeholder=\"Search data...\" oninput=\"filterReport()\" autocomplete=\"off\" /><span id=\"report-count\" class=\"report-count\"></span></div>");
 
             if (hasFamilyColumns)
             {
@@ -3708,7 +3721,7 @@ namespace StaffSync
                                 !addressColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase))
                     .ToList();
 
-                html.AppendLine("<div class=\"report-toolbar\"><input type=\"search\" id=\"report-search\" class=\"report-search\" placeholder=\"Search employees and family members...\" oninput=\"filterReport()\" autocomplete=\"off\" /><div class=\"report-toolbar-actions\"><button type=\"button\" id=\"toggle-all-families\" class=\"toggle global-toggle\" onclick=\"toggleAllFamilies()\">Expand All</button></div></div>");
+                html.AppendLine("<div class=\"report-toolbar\"><input type=\"search\" id=\"report-search\" class=\"report-search\" placeholder=\"Search employees and family members...\" oninput=\"filterReport()\" autocomplete=\"off\" /><span id=\"report-count\" class=\"report-count\"></span><div class=\"report-toolbar-actions\"><button type=\"button\" id=\"toggle-all-families\" class=\"toggle global-toggle\" onclick=\"toggleAllFamilies()\">Expand All</button></div></div>");
                 html.AppendLine("<table><thead><tr><th></th>");
                 foreach (DataColumn column in employeeColumns)
                     html.Append("<th>" + HtmlEncode(column.ColumnName) + "</th>");
@@ -3830,6 +3843,7 @@ namespace StaffSync
                 html.AppendLine("</tbody></table>");
             }
 
+            html.AppendLine("<script>if(document.getElementById('report-search'))filterReport();else{var count=document.getElementById('report-count');if(count)count.textContent='Showing " + data.Rows.Count.ToString() + " of " + data.Rows.Count.ToString() + " records';}</script>");
             html.AppendLine("</div><div class=\"footer\">StaffSync Payroll Management - Exported rows: " + data.Rows.Count.ToString() + "</div>");
             html.AppendLine("</div></body></html>");
             File.WriteAllText(outputFile, html.ToString(), new UTF8Encoding(false));
@@ -3846,13 +3860,33 @@ namespace StaffSync
 
             html.AppendLine("<table class=\"family-table\"><thead><tr>");
             foreach (string column in availableColumns)
-                html.Append("<th>" + HtmlEncode(column == "EduQualTitle" ? "Education Qualification" : (column == "SkillTitle" ? "Skills Name" : (column == "NomineePerson" ? "Nominee Name" : (column == "RelationShipTitle" ? "Relationship" : column == "NomineeContactNumber" ? "Contact Number" : column == "NomineeRelationShipTitle" ? "Relationship" : column)))) + "</th>");
+                html.Append("<th>" + HtmlEncode(column == "EduQualTitle" ? "Education Qualification" : (column == "SkillTitle" ? "Skills Name" : (column == "ExpertiseLevel" ? "Expertise Level" : (column == "NomineePerson" ? "Nominee Name" : (column == "RelationShipTitle" ? "Relationship" : column == "NomineeContactNumber" ? "Contact Number" : column == "NomineeRelationShipTitle" ? "Relationship" : column))))) + "</th>");
             html.AppendLine("</tr></thead><tbody>");
             foreach (DataRow row in rows)
             {
                 html.AppendLine("<tr>");
                 foreach (string column in availableColumns)
-                    html.Append("<td>" + HtmlEncode(row[column] == DBNull.Value ? string.Empty : Convert.ToString(row[column])) + "</td>");
+                {
+                    if (string.Equals(column, "ExpertiseLevel", StringComparison.OrdinalIgnoreCase))
+                    {
+                        int level = 0;
+                        if (row[column] != DBNull.Value)
+                            int.TryParse(Convert.ToString(row[column]), out level);
+                        level = Math.Max(0, Math.Min(10, level));
+                        int hue = (int)Math.Round(level * 12.0); // 0 = red, 120 = green
+                        html.Append("<td><span class=\"expertise-rating\" title=\"Expertise level " + level.ToString() + " out of 10\">");
+                        for (int star = 1; star <= 10; star++)
+                        {
+                            string starColor = star <= level ? "hsl(" + hue.ToString() + ", 75%, 38%)" : "#d0d5dd";
+                            html.Append("<span class=\"expertise-star\" style=\"color:" + starColor + "\">" + (star <= level ? "★" : "☆") + "</span>");
+                        }
+                        html.Append("<span class=\"expertise-value\">" + level.ToString() + "/10</span></span></td>");
+                    }
+                    else
+                    {
+                        html.Append("<td>" + HtmlEncode(row[column] == DBNull.Value ? string.Empty : Convert.ToString(row[column])) + "</td>");
+                    }
+                }
                 html.AppendLine("</tr>");
             }
             html.AppendLine("</tbody></table>");
