@@ -26,7 +26,24 @@ namespace dbStaffSync
             {
                 conn = dbStaffSync.openDBConnection();
 
-                string strQuery = "SELECT * FROM EmpSkillMas WHERE EmpID = " + EmployeeID;
+                string strQuery = @"SELECT
+                                        EmpSkillMas.EmpSkillID,
+                                        EmpSkillMas.SkillID,
+                                        SkillsMas.SkillTitle,
+                                        EmpSkillMas.ExpertiseLevel,
+                                        EmpMas.EmpID
+                                    FROM
+                                        SkillsMas
+                                        INNER JOIN (
+                                            EmpMas
+                                            INNER JOIN EmpSkillMas ON EmpMas.EmpID = EmpSkillMas.EmpID
+                                        ) ON SkillsMas.SkillID = EmpSkillMas.SkillID
+                                    WHERE
+                                        (
+                                            ((EmpMas.EmpID) = " + EmployeeID + @")
+                                            AND ((EmpMas.IsActive) = True)
+                                            AND ((EmpMas.IsDeleted) = False)
+                                        );";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
