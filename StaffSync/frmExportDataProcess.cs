@@ -1,4 +1,5 @@
-﻿using iTextSharp.text;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Krypton.Toolkit;
 using ModelStaffSync;
@@ -46,6 +47,7 @@ namespace StaffSync
         DALStaffSync.clsEmpPersonalFamilyMemberInfo objEmpPersonalFamilyMemberInfo = new DALStaffSync.clsEmpPersonalFamilyMemberInfo();
         DALStaffSync.clsEmpNomineeMas objEmpNomineeMas = new DALStaffSync.clsEmpNomineeMas();
         DALStaffSync.clsEmpEduQualMas objEmpEduQualMas = new DALStaffSync.clsEmpEduQualMas();
+        DALStaffSync.clsEmpWeeklyOffInfo objEmpWeeklyOffInfo = new DALStaffSync.clsEmpWeeklyOffInfo();
         DALStaffSync.clsCountries objCountries = new DALStaffSync.clsCountries();
         DALStaffSync.clsStates objStates = new DALStaffSync.clsStates();
         DALStaffSync.clsEduQalification objEduQalification = new DALStaffSync.clsEduQalification();
@@ -1869,14 +1871,7 @@ namespace StaffSync
                 List<DataRow> nomineeRows = nominee.Rows.Cast<DataRow>().ToList();
                 List<DataRow> educationRows = education.Rows.Cast<DataRow>().Where(r => education.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> skillsRows = skills.Rows.Cast<DataRow>().Where(r => skills.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
-                List<DataRow> mnthlyAttendanceRows = monthlyAttendance.Rows.Cast<DataRow>()
-                    .Where(r => !monthlyAttendance.Columns.Contains("EmpID") ||
-                        r["EmpID"] == DBNull.Value ||
-                        Convert.ToString(r["EmpID"]) == Convert.ToString(empId))
-                    .Where(r => !monthlyAttendance.Columns.Contains("RecordType") ||
-                        r["RecordType"] == DBNull.Value ||
-                        string.Equals(Convert.ToString(r["RecordType"]), "MONTH", StringComparison.OrdinalIgnoreCase))
-                    .ToList();
+                List<DataRow> mnthlyAttendanceRows = monthlyAttendance.Rows.Cast<DataRow>().Where(r => !monthlyAttendance.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).Where(r => !monthlyAttendance.Columns.Contains("RecordType") || r["RecordType"] == DBNull.Value || string.Equals(Convert.ToString(r["RecordType"]), "MONTH", StringComparison.OrdinalIgnoreCase)).ToList();
 
                 //DataTable employeeAttendanceSummary = BuildConsolidatedAttendanceSummary(monthlyAttendanceRegisterData, empId, attendanceYear);
                 //List<DataRow> attendanceRows = employeeAttendanceSummary.Rows.Cast<DataRow>().ToList();
@@ -1888,20 +1883,35 @@ namespace StaffSync
                     DataRow output = result.NewRow();
                     CopyEmployeeColumns(employee, output, employees.Columns);
                     if (i < familyRows.Count)
+                    {
                         foreach (string column in familyColumns)
-                            if (family.Columns.Contains(column) && result.Columns.Contains(column)) output[column] = familyRows[i][column] == DBNull.Value ? DBNull.Value : familyRows[i][column];
+                        {
+                            if (family.Columns.Contains(column) && result.Columns.Contains(column))
+                            {
+                                output[column] = familyRows[i][column] == DBNull.Value ? DBNull.Value : familyRows[i][column];
+                            }
+                        }
+                    }
                     if (i < nomineeRows.Count)
                     {
-                        if (nominee.Columns.Contains("NomineePerson")) output["NomineePerson"] = nomineeRows[i]["NomineePerson"] == DBNull.Value ? DBNull.Value : nomineeRows[i]["NomineePerson"];
-                        if (nominee.Columns.Contains("ContactNumber")) output["NomineeContactNumber"] = nomineeRows[i]["ContactNumber"] == DBNull.Value ? DBNull.Value : nomineeRows[i]["ContactNumber"];
-                        if (nominee.Columns.Contains("RelationShipTitle")) output["NomineeRelationShipTitle"] = nomineeRows[i]["RelationShipTitle"] == DBNull.Value ? DBNull.Value : nomineeRows[i]["RelationShipTitle"];
+                        if (nominee.Columns.Contains("NomineePerson"))
+                            output["NomineePerson"] = nomineeRows[i]["NomineePerson"] == DBNull.Value ? DBNull.Value : nomineeRows[i]["NomineePerson"];
+                        if (nominee.Columns.Contains("ContactNumber")) 
+                            output["NomineeContactNumber"] = nomineeRows[i]["ContactNumber"] == DBNull.Value ? DBNull.Value : nomineeRows[i]["ContactNumber"];
+                        if (nominee.Columns.Contains("RelationShipTitle")) 
+                            output["NomineeRelationShipTitle"] = nomineeRows[i]["RelationShipTitle"] == DBNull.Value ? DBNull.Value : nomineeRows[i]["RelationShipTitle"];
                     }
+
                     if (i < educationRows.Count && education.Columns.Contains("EduQualTitle"))
+                    {
                         output["EduQualTitle"] = educationRows[i]["EduQualTitle"] == DBNull.Value ? DBNull.Value : educationRows[i]["EduQualTitle"];
+                    }
+                    
                     if (i < skillsRows.Count)
                     {
                         if (skills.Columns.Contains("SkillTitle"))
                             output["SkillTitle"] = skillsRows[i]["SkillTitle"] == DBNull.Value ? DBNull.Value : skillsRows[i]["SkillTitle"];
+                        
                         if (skills.Columns.Contains("ExpertiseLevel") && skillsRows[i]["ExpertiseLevel"] != DBNull.Value)
                         {
                             int expertiseLevel;
@@ -1932,9 +1942,22 @@ namespace StaffSync
                         DateTime attendanceMonthDate;
                         if (TryGetAttendanceMonthDate(output["AttendanceMonth"], (int)attendanceRow["YearNo"], out attendanceMonthDate))
                         {
-                            int configuredWorkingDays = CountWorkingDaysExcludingWeeklyOffs(attendanceMonthDate.Year, attendanceMonthDate.Month);
-                            if (configuredWorkingDays >= 0)
-                                actualWorkingDaysValue = (decimal)configuredWorkingDays;
+                            List<EmployeeWeeklyOffInfo> objEmpSpecificWeeklyOfDays = objEmpWeeklyOffInfo.getEmployeeSpecificWeeklyOffInfo(empId);
+                            int daysInMonth = DateTime.DaysInMonth(attendanceMonthDate.Year, attendanceMonthDate.Month);
+                            int wklyOffCount = 0;
+
+                            for (int day = 1; day <= daysInMonth; day++)
+                            {
+                                DateTime date = new DateTime(attendanceMonthDate.Year, attendanceMonthDate.Month, day);
+                                if (objEmpSpecificWeeklyOfDays.Any(wo => wo.WeeklyOffDayName.ToString() == date.DayOfWeek.ToString()))
+                                    wklyOffCount++;
+                            }
+
+                            //int configuredWorkingDays = CountWorkingDaysExcludingWeeklyOffs(attendanceMonthDate.Year, attendanceMonthDate.Month);
+                            //if (configuredWorkingDays >= 0)
+                            //    actualWorkingDaysValue = (decimal)configuredWorkingDays;
+
+                            actualWorkingDaysValue = daysInMonth - wklyOffCount;
                         }
 
                         if (result.Columns.Contains("ActualWorkingDays"))
@@ -2112,7 +2135,7 @@ namespace StaffSync
         /// The active/effective weekly-off profile is read through the existing DAL.
         /// </summary>
         private int CountWorkingDaysExcludingWeeklyOffs(int year, int month)
-        {
+        {            
             HashSet<DayOfWeek> weeklyOffDays = GetConfiguredWeeklyOffDays(year, month);
             int daysInMonth = DateTime.DaysInMonth(year, month);
             int workingDays = 0;
@@ -4307,7 +4330,7 @@ namespace StaffSync
             html.AppendLine("<th>Present</th>");
             html.AppendLine("<th>Leave</th>");
             html.AppendLine("<th>Payable Days</th>");
-            html.AppendLine("<th>Attendance % (Working Days)</th>");
+            html.AppendLine("<th>Attendance %</th>");
             html.AppendLine("</tr></thead><tbody>");
 
             List<DataRow> attendanceRows = employeeRows == null

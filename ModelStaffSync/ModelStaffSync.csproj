@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsEmployeeWeeklyOffInfo.cs" />
     <Compile Include="ImportDataInfoModel.cs" />
     <Compile Include="AppMailTemplateModel.cs" />
     <Compile Include="AppReports.cs" />
