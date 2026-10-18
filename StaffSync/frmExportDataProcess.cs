@@ -35,6 +35,7 @@ namespace StaffSync
     {
         DALStaffSync.clsClientInfo objClientInfo = new DALStaffSync.clsClientInfo();
         DALStaffSync.clsEmployeeMaster objEmployeeInfo = new DALStaffSync.clsEmployeeMaster();
+        DALStaffSync.clsDashboardChartWidgets objDashboardChartWidgets = new DALStaffSync.clsDashboardChartWidgets();
         DALStaffSync.clsClientStatutory objClientStatutory = new DALStaffSync.clsClientStatutory();
         DALStaffSync.clsClientBranchInfo clsClientBranchInfo = new DALStaffSync.clsClientBranchInfo();
         clsImpageOperation objImpageOperation = new clsImpageOperation();
@@ -1832,34 +1833,55 @@ namespace StaffSync
             if (!result.Columns.Contains("SkillTitle")) result.Columns.Add("SkillTitle", typeof(string));
             if (!result.Columns.Contains("ExpertiseLevel")) result.Columns.Add("ExpertiseLevel", typeof(int));
 
+            // Consolidated Attendance Report columns.
+            if (!result.Columns.Contains("AttendanceMonth")) result.Columns.Add("AttendanceMonth", typeof(string));
+            // WorkingDays retains the total calendar days returned by the monthly query.
+            if (!result.Columns.Contains("WorkingDays")) result.Columns.Add("WorkingDays", typeof(decimal));
+            // ActualWorkingDays excludes the configured weekly-off days for the month.
+            if (!result.Columns.Contains("ActualWorkingDays")) result.Columns.Add("ActualWorkingDays", typeof(decimal));
+            if (!result.Columns.Contains("Present")) result.Columns.Add("Present", typeof(decimal));
+            if (!result.Columns.Contains("Leave")) result.Columns.Add("Leave", typeof(decimal));
+            if (!result.Columns.Contains("PayableDays")) result.Columns.Add("PayableDays", typeof(decimal));
+            if (!result.Columns.Contains("AttendancePercentage")) result.Columns.Add("AttendancePercentage", typeof(decimal));
+
+            // Reuse the same Monthly Attendance Register DAL/query used by the dashboard.
+            // The query returns MONTH and DETAIL rows and keeps the latest AttID per employee/date.
+            int attendanceYear = dtFromDate.Year > 1900 ? dtFromDate.Year : DateTime.Today.Year;
+            List<MonthlyAttendanceRegisterRow> monthlyAttendanceRegisterData = new List<MonthlyAttendanceRegisterRow>();
+
             foreach (DataRow employee in employees.Rows)
             {
                 int empId = Convert.ToInt32(employee["EmpID"]);
-                DataTable family = chkFamilyMembersInfo.Checked
-                    ? ConvertListToDataTable(objEmpPersonalFamilyMemberInfo.GetEmpPersonalFamilyMemberInfoByEmpID(objTempClientFinYearInfo.ClientID, empId))
-                    : new DataTable();
+                DataTable family = chkFamilyMembersInfo.Checked ? ConvertListToDataTable(objEmpPersonalFamilyMemberInfo.GetEmpPersonalFamilyMemberInfoByEmpID(objTempClientFinYearInfo.ClientID, empId)) : new DataTable();
 
                 DataTable nominee = new DataTable();
                 if (chkNomineeInfo.Checked)
                 {
                     ModelStaffSync.NomineeInfo nomineeInfo = objEmpNomineeMas.GetNomineeInfo(empId);
-                    nominee = ConvertListToDataTable(nomineeInfo == null
-                        ? new List<ModelStaffSync.NomineeInfo>()
-                        : new List<ModelStaffSync.NomineeInfo> { nomineeInfo });
+                    nominee = ConvertListToDataTable(nomineeInfo == null ? new List<ModelStaffSync.NomineeInfo>() : new List<ModelStaffSync.NomineeInfo> { nomineeInfo });
                 }
 
-                DataTable education = chkQualSkillsInfo.Checked
-                    ? (objEmpEduQualMas.GetEduQualListInfo(empId))
-                    : new DataTable();
-                DataTable skills = chkQualSkillsInfo.Checked
-                    ? (objEmpSkillsMas.GetSkillsListInfo(empId))
-                    : new DataTable();
+                DataTable education = chkQualSkillsInfo.Checked ? (objEmpEduQualMas.GetEduQualListInfo(empId)) : new DataTable();
+                DataTable skills = chkQualSkillsInfo.Checked ? (objEmpSkillsMas.GetSkillsListInfo(empId)) : new DataTable();
+                DataTable monthlyAttendance = ConvertListToDataTable(objDashboardChartWidgets.GetMonthlyAttendanceRegisterDataByEmpID(empId));
 
                 List<DataRow> familyRows = family.Rows.Cast<DataRow>().Where(r => family.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> nomineeRows = nominee.Rows.Cast<DataRow>().ToList();
                 List<DataRow> educationRows = education.Rows.Cast<DataRow>().Where(r => education.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> skillsRows = skills.Rows.Cast<DataRow>().Where(r => skills.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
-                int rowCount = Math.Max(1, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count))));
+                List<DataRow> mnthlyAttendanceRows = monthlyAttendance.Rows.Cast<DataRow>()
+                    .Where(r => !monthlyAttendance.Columns.Contains("EmpID") ||
+                        r["EmpID"] == DBNull.Value ||
+                        Convert.ToString(r["EmpID"]) == Convert.ToString(empId))
+                    .Where(r => !monthlyAttendance.Columns.Contains("RecordType") ||
+                        r["RecordType"] == DBNull.Value ||
+                        string.Equals(Convert.ToString(r["RecordType"]), "MONTH", StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                //DataTable employeeAttendanceSummary = BuildConsolidatedAttendanceSummary(monthlyAttendanceRegisterData, empId, attendanceYear);
+                //List<DataRow> attendanceRows = employeeAttendanceSummary.Rows.Cast<DataRow>().ToList();
+
+                int rowCount = Math.Max(1, Math.Max(mnthlyAttendanceRows.Count, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count)))));
 
                 for (int i = 0; i < rowCount; i++)
                 {
@@ -1887,10 +1909,414 @@ namespace StaffSync
                                 output["ExpertiseLevel"] = Math.Max(0, Math.Min(10, expertiseLevel));
                         }
                     }
+
+                    // Consolidated Attendance Information - one row per month.
+                    // Map the actual column names returned by the Monthly Attendance
+                    // Register query to the export's existing consolidated columns.
+                    // Keep aliases supported as well, so the export remains compatible
+                    // if the DAL returns the older summary column names.
+                    if (i < mnthlyAttendanceRows.Count)
+                    {
+                        DataRow attendanceRow = mnthlyAttendanceRows[i];
+
+                        output["AttendanceMonth"] = attendanceRow["MonthYear"];
+                        output["WorkingDays"] = attendanceRow["TotalDays"];
+                        output["Present"] = attendanceRow["PresentCount"];
+                        output["Leave"] = attendanceRow["LeaveCount"];
+                        output["PayableDays"] = attendanceRow["PayableDays"];
+
+                        // Keep the query's Total Days value in WorkingDays and calculate
+                        // ActualWorkingDays separately by excluding configured weekly offs.
+                        // Attendance percentage uses ActualWorkingDays as its denominator.
+                        object actualWorkingDaysValue = DBNull.Value;
+                        DateTime attendanceMonthDate;
+                        if (TryGetAttendanceMonthDate(output["AttendanceMonth"], (int)attendanceRow["YearNo"], out attendanceMonthDate))
+                        {
+                            int configuredWorkingDays = CountWorkingDaysExcludingWeeklyOffs(attendanceMonthDate.Year, attendanceMonthDate.Month);
+                            if (configuredWorkingDays >= 0)
+                                actualWorkingDaysValue = (decimal)configuredWorkingDays;
+                        }
+
+                        if (result.Columns.Contains("ActualWorkingDays"))
+                            output["ActualWorkingDays"] = actualWorkingDaysValue;
+
+                        if (result.Columns.Contains("AttendancePercentage"))
+                        {
+                            decimal presentDays;
+                            decimal actualWorkingDays;
+                            if (TryConvertToDecimal(output["Present"], out presentDays) && TryConvertToDecimal(output["ActualWorkingDays"], out actualWorkingDays) && actualWorkingDays > 0m)
+                            {
+                                output["AttendancePercentage"] = Math.Round((presentDays / actualWorkingDays) * 100m, 2, MidpointRounding.AwayFromZero);
+                            }
+                            else
+                            {
+                                output["AttendancePercentage"] = DBNull.Value;
+                            }
+                        }
+                    }
+
                     result.Rows.Add(output);
                 }
             }
             return result;
+        }
+
+        /// <summary>
+        /// Builds month-wise attendance totals from the same latest-AttID detail rows
+        /// used by the Monthly Attendance Register dashboard.
+        /// WorkingDays counts days with a recognized attendance status.
+        /// PayableDays currently assumes Present + full-day leave; adjust this rule
+        /// if the payroll policy distinguishes paid and unpaid leave.
+        /// </summary>
+        private DataTable BuildConsolidatedAttendanceSummary(
+            List<MonthlyAttendanceRegisterRow> attendanceData,
+            int empId,
+            int year)
+        {
+            DataTable summary = new DataTable("ConsolidatedAttendanceSummary");
+            summary.Columns.Add("AttendanceMonth", typeof(string));
+            summary.Columns.Add("WorkingDays", typeof(decimal));
+            summary.Columns.Add("Present", typeof(decimal));
+            summary.Columns.Add("Leave", typeof(decimal));
+            summary.Columns.Add("PayableDays", typeof(decimal));
+
+            if (attendanceData == null || attendanceData.Count == 0)
+                return summary;
+
+            // Use the DETAIL records returned by the same dashboard query.
+            // The query has already selected the latest AttID for each employee/date.
+            // Filter by employee and year before grouping by month.
+            List<MonthlyAttendanceRegisterRow> employeeDetailRows = attendanceData
+                .Where(row => row != null &&
+                    string.Equals(row.RecordType, "DETAIL", StringComparison.OrdinalIgnoreCase) &&
+                    row.EmpID.HasValue && row.EmpID.Value == empId &&
+                    row.AttendanceDate.HasValue && row.AttendanceDate.Value.Year == year)
+                .GroupBy(row => new
+                {
+                    MonthNo = row.MonthNo ?? row.AttendanceDate.Value.Month,
+                    Date = row.AttendanceDate.Value.Date
+                })
+                .Select(group => group.First())
+                .ToList();
+
+            foreach (var monthGroup in employeeDetailRows
+                .GroupBy(row => row.MonthNo ?? row.AttendanceDate.Value.Month)
+                .OrderBy(group => group.Key))
+            {
+                int present = 0;
+                int fullDayLeave = 0;
+                int cancelled = 0;
+                int rejected = 0;
+
+                foreach (MonthlyAttendanceRegisterRow attendanceRow in monthGroup)
+                {
+                    string status = (attendanceRow.AttendanceStatus ?? string.Empty).Trim();
+
+                    // Match the supplied Access query's MONTH summary rules exactly.
+                    if (string.Equals(status, "Present", StringComparison.OrdinalIgnoreCase))
+                    {
+                        present++;
+                    }
+                    else if (string.Equals(status, "Leave : Full Day", StringComparison.OrdinalIgnoreCase))
+                    {
+                        fullDayLeave++;
+                    }
+                    else if (status.IndexOf("Cancelled", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        cancelled++;
+                    }
+                    else if (status.IndexOf("Rejected", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        rejected++;
+                    }
+                }
+
+                DataRow summaryRow = summary.NewRow();
+                int monthNo = monthGroup.Key;
+                string monthName = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(monthNo);
+
+                summaryRow["AttendanceMonth"] = monthName + " - " + year.ToString(CultureInfo.InvariantCulture);
+                summaryRow["WorkingDays"] = present + fullDayLeave + cancelled + rejected;
+                summaryRow["Present"] = present;
+                summaryRow["Leave"] = fullDayLeave;
+                // In the supplied query, LeaveCount counts only "Leave : Full Day".
+                // Therefore PayableDays follows the requested query as Present + LeaveCount.
+                summaryRow["PayableDays"] = present + fullDayLeave;
+                summary.Rows.Add(summaryRow);
+            }
+
+            return summary;
+        }
+
+        /// <summary>
+        /// Converts a month label such as "Jan - 2026" or a month number into
+        /// the first date of that month.
+        /// </summary>
+        private bool TryGetAttendanceMonthDate(object monthValue, int fallbackYear, out DateTime monthDate)
+        {
+            monthDate = DateTime.MinValue;
+            if (monthValue == null || monthValue == DBNull.Value)
+                return false;
+
+            string text = Convert.ToString(monthValue, CultureInfo.InvariantCulture).Trim();
+            if (string.IsNullOrWhiteSpace(text))
+                return false;
+
+            DateTime parsedDate;
+            if (DateTime.TryParseExact(text, new[] { "MMM - yyyy", "MMMM - yyyy", "MMM-yyyy", "MMMM-yyyy" },
+                CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate) ||
+                DateTime.TryParse(text, CultureInfo.CurrentCulture, DateTimeStyles.None, out parsedDate))
+            {
+                monthDate = new DateTime(parsedDate.Year, parsedDate.Month, 1);
+                return true;
+            }
+
+            int monthNumber;
+            if (int.TryParse(text, out monthNumber) && monthNumber >= 1 && monthNumber <= 12 && fallbackYear >= 1900)
+            {
+                monthDate = new DateTime(fallbackYear, monthNumber, 1);
+                return true;
+            }
+
+            string monthPart = text;
+            int separator = text.IndexOf('-');
+            if (separator >= 0)
+                monthPart = text.Substring(0, separator).Trim();
+
+            for (int month = 1; month <= 12; month++)
+            {
+                string abbreviated = CultureInfo.InvariantCulture.DateTimeFormat.GetAbbreviatedMonthName(month);
+                string full = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(month);
+                if (string.Equals(monthPart, abbreviated, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(monthPart, full, StringComparison.OrdinalIgnoreCase))
+                {
+                    int year = fallbackYear;
+                    if (separator >= 0)
+                    {
+                        int parsedYear;
+                        if (int.TryParse(text.Substring(separator + 1).Trim(), out parsedYear) && parsedYear >= 1900)
+                            year = parsedYear;
+                    }
+                    if (year < 1900)
+                        return false;
+                    monthDate = new DateTime(year, month, 1);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Counts dates in the month that are not configured weekly-off days.
+        /// The active/effective weekly-off profile is read through the existing DAL.
+        /// </summary>
+        private int CountWorkingDaysExcludingWeeklyOffs(int year, int month)
+        {
+            HashSet<DayOfWeek> weeklyOffDays = GetConfiguredWeeklyOffDays(year, month);
+            int daysInMonth = DateTime.DaysInMonth(year, month);
+            int workingDays = 0;
+
+            for (int day = 1; day <= daysInMonth; day++)
+            {
+                DateTime date = new DateTime(year, month, day);
+                if (!weeklyOffDays.Contains(date.DayOfWeek))
+                    workingDays++;
+            }
+
+            return workingDays;
+        }
+
+        /// <summary>
+        /// Reads WklyOffDays from the most recently effective weekly-off profile
+        /// for the requested month. WklyOffDays may contain day names or numeric
+        /// DayOfWeek values separated by commas, semicolons, or spaces.
+        /// </summary>
+        private HashSet<DayOfWeek> GetConfiguredWeeklyOffDays(int year, int month)
+        {
+            HashSet<DayOfWeek> result = new HashSet<DayOfWeek>();
+            DateTime monthEnd = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+
+            try
+            {
+                var profiles = objWeeklyOffInfo.getWklyOffProfileMasInfoList("");
+                object selectedProfile = null;
+                DateTime selectedEffectiveDate = DateTime.MinValue;
+                bool foundProfileWithDate = false;
+
+                if (profiles != null)
+                {
+                    foreach (object profile in profiles)
+                    {
+                        if (profile == null)
+                            continue;
+
+                        object daysValue = GetObjectPropertyValue(profile, "WklyOffDays");
+                        if (daysValue == null || daysValue == DBNull.Value || string.IsNullOrWhiteSpace(Convert.ToString(daysValue)))
+                            continue;
+
+                        object effectiveValue = GetObjectPropertyValue(profile, "WklyOffEffectiveDate");
+                        DateTime effectiveDate;
+                        bool hasEffectiveDate = DateTime.TryParse(Convert.ToString(effectiveValue), out effectiveDate);
+                        if (hasEffectiveDate && effectiveDate.Date > monthEnd.Date)
+                            continue;
+
+                        if (selectedProfile == null ||
+                            (hasEffectiveDate && (!foundProfileWithDate || effectiveDate.Date >= selectedEffectiveDate.Date)) ||
+                            (!hasEffectiveDate && !foundProfileWithDate))
+                        {
+                            selectedProfile = profile;
+                            if (hasEffectiveDate)
+                            {
+                                selectedEffectiveDate = effectiveDate.Date;
+                                foundProfileWithDate = true;
+                            }
+                        }
+                    }
+                }
+
+                if (selectedProfile == null)
+                    return result;
+
+                string dayText = Convert.ToString(GetObjectPropertyValue(selectedProfile, "WklyOffDays"));
+                string[] tokens = dayText.Split(new char[] { ',', ';', '|', '/', '\t', '\r', '\n', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string tokenValue in tokens)
+                {
+                    string token = tokenValue.Trim().Trim('[', ']', '(', ')');
+                    DayOfWeek parsedDay;
+                    if (Enum.TryParse(token, true, out parsedDay))
+                    {
+                        result.Add(parsedDay);
+                        continue;
+                    }
+
+                    int dayNumber;
+                    if (int.TryParse(token, out dayNumber) && dayNumber >= 0 && dayNumber <= 6)
+                        result.Add((DayOfWeek)dayNumber);
+                }
+            }
+            catch
+            {
+                // Preserve export operation if the weekly-off profile cannot be read.
+                // An empty set means no weekday is silently assumed to be an off day.
+            }
+
+            return result;
+        }
+
+        private object GetObjectPropertyValue(object source, string propertyName)
+        {
+            if (source == null || string.IsNullOrWhiteSpace(propertyName))
+                return null;
+
+            System.Reflection.PropertyInfo property = source.GetType().GetProperty(propertyName);
+            return property == null ? null : property.GetValue(source, null);
+        }
+
+        /// <summary>
+        /// Returns the first value found in a DataRow from a list of possible column
+        /// names. This allows the export mapper to consume the Monthly Attendance
+        /// Register query's field names without requiring changes to the DAL/query.
+        /// </summary>
+        private object GetFirstAvailableColumnValue(DataRow row, params string[] columnNames)
+        {
+            if (row == null || columnNames == null)
+                return DBNull.Value;
+
+            foreach (string columnName in columnNames)
+            {
+                if (!string.IsNullOrWhiteSpace(columnName) &&
+                    row.Table.Columns.Contains(columnName))
+                {
+                    object value = row[columnName];
+                    if (value == null || value == DBNull.Value)
+                        continue;
+
+                    // Keep valid zero values, but skip empty strings so the next alias
+                    // can be tried when a DAL exposes multiple compatible columns.
+                    if (value is string && string.IsNullOrWhiteSpace((string)value))
+                        continue;
+
+                    return value;
+                }
+            }
+
+            return DBNull.Value;
+        }
+
+        private bool TryConvertToDecimal(object value, out decimal result)
+        {
+            result = 0m;
+            if (value == null || value == DBNull.Value)
+                return false;
+
+            string text = Convert.ToString(value, CultureInfo.InvariantCulture);
+            return decimal.TryParse(text, NumberStyles.Any, CultureInfo.InvariantCulture, out result)
+                || decimal.TryParse(Convert.ToString(value), NumberStyles.Any, CultureInfo.CurrentCulture, out result);
+        }
+
+        private object SumNumericValues(params object[] values)
+        {
+            decimal total = 0m;
+            bool foundValue = false;
+
+            if (values != null)
+            {
+                foreach (object value in values)
+                {
+                    if (value == null || value == DBNull.Value)
+                        continue;
+
+                    decimal number;
+                    if (decimal.TryParse(Convert.ToString(value, CultureInfo.InvariantCulture),
+                        NumberStyles.Any, CultureInfo.InvariantCulture, out number))
+                    {
+                        total += number;
+                        foundValue = true;
+                    }
+                    else if (decimal.TryParse(Convert.ToString(value), out number))
+                    {
+                        total += number;
+                        foundValue = true;
+                    }
+                }
+            }
+
+            return foundValue ? (object)total : DBNull.Value;
+        }
+
+        private object FormatAttendanceMonthYear(object monthValue, int year)
+        {
+            if (monthValue == null || monthValue == DBNull.Value)
+                return DBNull.Value;
+
+            string value = Convert.ToString(monthValue, CultureInfo.InvariantCulture);
+            if (string.IsNullOrWhiteSpace(value))
+                return DBNull.Value;
+
+            // Preserve values already formatted by the query, including Month - Year.
+            if (value.IndexOf("-", StringComparison.Ordinal) >= 0)
+                return value;
+
+            int monthNumber;
+            if (int.TryParse(value, out monthNumber) && monthNumber >= 1 && monthNumber <= 12)
+                return CultureInfo.InvariantCulture.DateTimeFormat.GetAbbreviatedMonthName(monthNumber) + " - " + year.ToString(CultureInfo.InvariantCulture);
+
+            DateTime monthDate;
+            if (DateTime.TryParse(value, CultureInfo.CurrentCulture, DateTimeStyles.None, out monthDate) ||
+                DateTime.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out monthDate))
+                return monthDate.ToString("MMM - yyyy", CultureInfo.InvariantCulture);
+
+            // If Month is already a month name (e.g. October), append the report year.
+            for (int monthNumberFromName = 1; monthNumberFromName <= 12; monthNumberFromName++)
+            {
+                string monthName = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(monthNumberFromName);
+                if (string.Equals(value, monthName, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(value, monthName.Substring(0, 3), StringComparison.OrdinalIgnoreCase))
+                    return CultureInfo.InvariantCulture.DateTimeFormat.GetAbbreviatedMonthName(monthNumberFromName) + " - " + year.ToString(CultureInfo.InvariantCulture);
+            }
+
+            return value + " - " + year.ToString(CultureInfo.InvariantCulture);
         }
 
         private void CopyEmployeeColumns(DataRow sourceRow, DataRow targetRow, DataColumnCollection sourceColumns)
@@ -3628,7 +4054,12 @@ namespace StaffSync
             string[] nomineeColumns = new string[] { "NomineePerson", "NomineeContactNumber", "NomineeRelationShipTitle" };
             string[] educationColumns = new string[] { "EduQualTitle" };
             string[] skillsColumns = new string[] { "SkillTitle", "ExpertiseLevel" };
-            string[] detailColumns = familyColumns.Concat(nomineeColumns).Concat(educationColumns).Concat(skillsColumns).ToArray();
+            string[] attendanceColumns = new string[]
+            {
+                "AttendanceMonth", "WorkingDays", "Present", "Leave", "PayableDays", "AttendancePercentage"
+            };
+            string[] detailColumns = familyColumns.Concat(nomineeColumns)
+                .Concat(educationColumns).Concat(skillsColumns).Concat(attendanceColumns).ToArray();
 
             // EmpID may be hidden in the preview grid and therefore omitted by
             // GetSelectedExportData(). Detect the family export by its family
@@ -3818,6 +4249,10 @@ namespace StaffSync
                     html.AppendLine("<div class=\"family-heading\">Skills Information</div>");
                     AppendSimpleDetailTable(html, employeeSkillRows, skillsColumns, data, "No skills information available.");
 
+                    // Consolidated Attendance Report placeholder.
+                    // Monthly attendance values will be populated by the attendance DAL.
+                    AppendConsolidatedAttendancePlaceholder(html, group.Rows, data);
+
                     html.AppendLine("</td></tr>");
                     groupIndex++;
                 }
@@ -3847,6 +4282,77 @@ namespace StaffSync
             html.AppendLine("</div><div class=\"footer\">StaffSync Payroll Management - Exported rows: " + data.Rows.Count.ToString() + "</div>");
             html.AppendLine("</div></body></html>");
             File.WriteAllText(outputFile, html.ToString(), new UTF8Encoding(false));
+        }
+
+        /// <summary>
+        /// Renders the employee's consolidated monthly attendance report.
+        /// Values are supplied from the same Monthly Attendance Register DAL used by the dashboard.
+        /// Expected fields: AttendanceMonth, WorkingDays, Present, Leave, PayableDays.
+        /// </summary>
+        private void AppendConsolidatedAttendancePlaceholder(
+            StringBuilder html,
+            List<DataRow> employeeRows,
+            DataTable data)
+        {
+            string[] attendanceColumns = new string[]
+            {
+                "AttendanceMonth", "WorkingDays", "ActualWorkingDays", "Present", "Leave", "PayableDays", "AttendancePercentage"
+            };
+
+            html.AppendLine("<div class=\"family-heading\">Consolidated Attendance Report</div>");
+            html.AppendLine("<table class=\"family-table attendance-summary-table\"><thead><tr>");
+            html.AppendLine("<th>Month - Year</th>");
+            html.AppendLine("<th>Total Days in Month</th>");
+            html.AppendLine("<th>Actual Working Days</th>");
+            html.AppendLine("<th>Present</th>");
+            html.AppendLine("<th>Leave</th>");
+            html.AppendLine("<th>Payable Days</th>");
+            html.AppendLine("<th>Attendance % (Working Days)</th>");
+            html.AppendLine("</tr></thead><tbody>");
+
+            List<DataRow> attendanceRows = employeeRows == null
+                ? new List<DataRow>()
+                : employeeRows.Where(row =>
+                    data != null &&
+                    attendanceColumns.All(column => data.Columns.Contains(column)) &&
+                    row["AttendanceMonth"] != DBNull.Value &&
+                    !string.IsNullOrWhiteSpace(Convert.ToString(row["AttendanceMonth"])))
+                    .GroupBy(row => Convert.ToString(row["AttendanceMonth"]), StringComparer.OrdinalIgnoreCase)
+                    .Select(group => group.First())
+                    .ToList();
+
+            if (attendanceRows.Count == 0)
+            {
+                html.AppendLine("<tr><td colspan=\"7\" class=\"empty-family\">No monthly attendance records were returned for this employee and year.</td></tr>");
+            }
+            else
+            {
+                foreach (DataRow attendanceRow in attendanceRows)
+                {
+                    html.AppendLine("<tr>");
+                    foreach (string column in attendanceColumns)
+                    {
+                        string value = string.Empty;
+                        if (attendanceRow[column] != DBNull.Value)
+                        {
+                            if (string.Equals(column, "AttendancePercentage", StringComparison.OrdinalIgnoreCase))
+                            {
+                                decimal percentage;
+                                if (TryConvertToDecimal(attendanceRow[column], out percentage))
+                                    value = percentage.ToString("0.00", CultureInfo.InvariantCulture) + "%";
+                            }
+                            else
+                            {
+                                value = Convert.ToString(attendanceRow[column]);
+                            }
+                        }
+                        html.Append("<td>" + HtmlEncode(value) + "</td>");
+                    }
+                    html.AppendLine("</tr>");
+                }
+            }
+
+            html.AppendLine("</tbody></table>");
         }
 
         private void AppendSimpleDetailTable(StringBuilder html, List<DataRow> rows, string[] columns, DataTable data, string emptyMessage)

@@ -10,6 +10,8 @@ namespace ModelStaffSync
         public string RecordType { get; set; }
 
         public int? MonthNo { get; set; }
+        public int? YearNo { get; set; }
+        public string MonthYear { get; set; }
         public string MonthName { get; set; }
 
         public int? EmpID { get; set; }
@@ -19,9 +21,11 @@ namespace ModelStaffSync
         public DateTime? AttendanceDate { get; set; }
         public string AttendanceStatus { get; set; }
 
+        public decimal? TotalDays { get; set; }
         public decimal? PresentCount { get; set; }
         public decimal? LeaveCount { get; set; }
         public decimal? CancelledCount { get; set; }
         public decimal? RejectedCount { get; set; }
+        public decimal? PayableDays { get; set; }
     }
 }

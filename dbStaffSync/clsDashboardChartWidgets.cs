@@ -1637,6 +1637,112 @@ namespace dbStaffSync
             });
         }
 
+        public List<MonthlyAttendanceRegisterRow> GetMonthlyAttendanceRegisterDataByEmpID(int EmpID) //, CancellationToken cancellationToken = default)
+        {            
+            List<MonthlyAttendanceRegisterRow> objMonthlyAttendanceRegisterRowList = new List<MonthlyAttendanceRegisterRow>();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                        ""MONTH"" AS RecordType,
+                                        Q.EmpID AS EmpID,
+                                        Format(Q.AttendanceDate, ""mmm"") AS MonthName,
+                                        Month(Q.AttendanceDate) AS MonthNo,
+                                        Year(Q.AttendanceDate) AS YearNo,
+                                        Format(Q.AttendanceDate, ""mmm"") & "" - "" & Year(Q.AttendanceDate) AS MonthYear,
+                                        Day(DateSerial(Year(Q.AttendanceDate), Month(Q.AttendanceDate) + 1, 0)) AS TotalDays,
+                                        Sum(IIf(Q.AttStatus = ""Present"", 1, 0)) AS PresentCount,
+                                        Sum(IIf(Q.AttStatus = ""Leave : Full Day"", 1, 0)) AS LeaveCount,
+                                        Sum(
+                                            IIf(InStr (1, Q.AttStatus, ""Cancelled"", 1) > 0, 1, 0)
+                                        ) AS CancelledCount,
+                                        Sum(
+                                            IIf(InStr (1, Q.AttStatus, ""Rejected"", 1) > 0, 1, 0)
+                                        ) AS RejectedCount,
+                                        Sum(
+                                            IIf(Q.AttStatus = ""Present"", 1, 0) + IIf(Q.AttStatus = ""Leave : Full Day"", 1, 0)
+                                        ) AS PayableDays
+                                    FROM
+                                        (
+                                            SELECT
+                                                E.EmpID,
+                                                DateValue (A.AttDate) AS AttendanceDate,
+                                                A.AttStatus
+                                            FROM
+                                                (
+                                                    ClientMas AS C
+                                                    INNER JOIN EmpMas AS E ON C.ClientID = E.ClientID
+                                                )
+                                                INNER JOIN EmpDailyAttendanceInfo AS A ON E.EmpID = A.EmpID
+                                            WHERE
+                                                E.EmpID = " + EmpID + @"
+                                                AND E.IsActive = True
+                                                AND E.IsDeleted = False
+                                                AND A.AttID = (
+                                                    SELECT
+                                                        Max(A2.AttID)
+                                                    FROM
+                                                        EmpDailyAttendanceInfo AS A2
+                                                    WHERE
+                                                        A2.EmpID = A.EmpID
+                                                        AND DateValue (A2.AttDate) = DateValue (A.AttDate)
+                                                )
+                                        ) AS Q
+                                    GROUP BY
+                                        Q.EmpID,
+                                        Format(Q.AttendanceDate, ""mmm""),
+                                        Year(Q.AttendanceDate),
+                                        Day(
+                                            DateSerial (
+                                                Year(Q.AttendanceDate),
+                                                Month(Q.AttendanceDate) + 1,
+                                                0
+                                            )
+                                        ),
+                                        Month(Q.AttendanceDate)
+                                    HAVING
+                                        (((Q.EmpID) = " + EmpID + @"))
+                                    ORDER BY
+                                        Year(Q.AttendanceDate),
+                                        Month(Q.AttendanceDate);";
+
+                DataTable dt = new DataTable();
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                // IMPORTANT:
+                // Do NOT call ExecuteNonQuery() for this SELECT.
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+
+                da.Fill(dt);
+
+                string DataTableToJson = JsonConvert.SerializeObject(dt);
+
+                objMonthlyAttendanceRegisterRowList = JsonConvert.DeserializeObject<List<MonthlyAttendanceRegisterRow>>(DataTableToJson);
+
+                return objMonthlyAttendanceRegisterRowList;
+
+            }
+            catch (Exception)
+            {
+                // Log if required
+            }
+            finally
+            {
+                if (conn != null)
+                {
+                    dbStaffSync.closeDBConnection();
+                }
+            }
+
+            return objMonthlyAttendanceRegisterRowList;
+        }
+
         public List<EmployeeAdvanceInformationChartData> displayEmployeeAdvanceInformationChartData(int clientId, DateTime dtFrom, DateTime dtTo) //, CancellationToken cancellationToken = default)
         {
             List<EmployeeAdvanceInformationChartData> objEmployeeAdvanceInformationRowList = new List<EmployeeAdvanceInformationChartData>();

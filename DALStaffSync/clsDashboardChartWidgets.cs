@@ -169,6 +169,15 @@ namespace DALStaffSync
             return objEmployeeAdvanceInformationList;
         }
 
+        public List<MonthlyAttendanceRegisterRow> GetMonthlyAttendanceRegisterDataByEmpID(int EmpID) //, CancellationToken cancellationToken = default)
+        {
+            List<MonthlyAttendanceRegisterRow> objMonthlyAttendanceRegisterList = new List<MonthlyAttendanceRegisterRow>();
+
+            objMonthlyAttendanceRegisterList = objDashboardChartWidgets.GetMonthlyAttendanceRegisterDataByEmpID(EmpID);
+
+            return objMonthlyAttendanceRegisterList;
+        }
+
         public List<AssetRegisterChartData> displayAssetRegisterChartData(int clientId) //, CancellationToken cancellationToken = default)
         {
             List<AssetRegisterChartData> objAssetRegisterChartDataList = new List<AssetRegisterChartData>();
