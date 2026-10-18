@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Bibliography;
-using iTextSharp.text;
+﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Krypton.Toolkit;
 using ModelStaffSync;
@@ -47,7 +46,6 @@ namespace StaffSync
         DALStaffSync.clsEmpPersonalFamilyMemberInfo objEmpPersonalFamilyMemberInfo = new DALStaffSync.clsEmpPersonalFamilyMemberInfo();
         DALStaffSync.clsEmpNomineeMas objEmpNomineeMas = new DALStaffSync.clsEmpNomineeMas();
         DALStaffSync.clsEmpEduQualMas objEmpEduQualMas = new DALStaffSync.clsEmpEduQualMas();
-        DALStaffSync.clsEmpWeeklyOffInfo objEmpWeeklyOffInfo = new DALStaffSync.clsEmpWeeklyOffInfo();
         DALStaffSync.clsCountries objCountries = new DALStaffSync.clsCountries();
         DALStaffSync.clsStates objStates = new DALStaffSync.clsStates();
         DALStaffSync.clsEduQalification objEduQalification = new DALStaffSync.clsEduQalification();
@@ -79,6 +77,10 @@ namespace StaffSync
         DateTime dtToDate = DateTime.Today;
 
         private DataTable objImportDataPreviewTable = new DataTable();
+        // Employee Information keeps its complete detail rows separately from the
+        // one-row-per-employee preview grid so selecting an employee still exports
+        // all optional detail records without duplicating employees in the UI.
+        private DataTable objEmployeeInformationExportTable = new DataTable();
         private string objSelectedImportFilePath = string.Empty;
         private bool isImportPreviewEventsAttached = false;
         private bool isExportPreviewEventsAttached = false;
@@ -1814,6 +1816,73 @@ namespace StaffSync
         /// columns. Detail lists are aligned by index (not cross-joined), so multiple
         /// records in one section do not overwrite records in another section.
         /// </summary>
+        private DataTable CreateEmployeeInformationPreview(DataTable employeeDetails)
+        {
+            if (employeeDetails == null)
+                return new DataTable();
+
+            DataTable preview = employeeDetails.Clone();
+            if (!employeeDetails.Columns.Contains("EmpID"))
+                throw new InvalidOperationException("Employee Information preview requires an EmpID column.");
+
+            HashSet<string> addedEmployeeIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (DataRow sourceRow in employeeDetails.Rows)
+            {
+                string employeeId = sourceRow["EmpID"] == DBNull.Value
+                    ? string.Empty
+                    : Convert.ToString(sourceRow["EmpID"]).Trim();
+
+                // Do not collapse rows with a missing key together; preserve those
+                // records independently rather than accidentally hiding employees.
+                if (!string.IsNullOrEmpty(employeeId) && !addedEmployeeIds.Add(employeeId))
+                    continue;
+
+                preview.ImportRow(sourceRow);
+            }
+
+            return preview;
+        }
+
+        private void ConfigureEmployeeInformationPreviewColumns()
+        {
+            if (dtgImportDataPreview == null || dtgImportDataPreview.Columns.Count == 0)
+                return;
+
+            // The preview is an employee list, not a detail-data browser. Keep the
+            // standard employee fields only; optional family, nominee, education,
+            // skills and monthly attendance columns remain in the export backing table.
+            string[] visibleColumns = new string[]
+            {
+                "EmpCode", "EmpName", "DOB", "DOJ", "DateOfJoining",
+                "Date Of Joining", "DesignationTitle", "DepartmentTitle",
+                "ContactNumber1", "ContactNumber2"
+            };
+
+            foreach (DataGridViewColumn column in dtgImportDataPreview.Columns)
+            {
+                column.Visible = column.Name == "IsSelected" ||
+                                 visibleColumns.Contains(column.Name, StringComparer.OrdinalIgnoreCase);
+            }
+
+            string dobColumn = dtgImportDataPreview.Columns.Contains("DOB") ? "DOB" : null;
+            if (dobColumn != null)
+            {
+                dtgImportDataPreview.Columns[dobColumn].HeaderText = "DOB";
+                dtgImportDataPreview.Columns[dobColumn].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgImportDataPreview.Columns[dobColumn].DefaultCellStyle.NullValue = string.Empty;
+            }
+
+            string dojColumn = dtgImportDataPreview.Columns.Contains("DOJ") ? "DOJ" :
+                (dtgImportDataPreview.Columns.Contains("DateOfJoining") ? "DateOfJoining" :
+                (dtgImportDataPreview.Columns.Contains("Date Of Joining") ? "Date Of Joining" : null));
+            if (dojColumn != null)
+            {
+                dtgImportDataPreview.Columns[dojColumn].HeaderText = "DOJ";
+                dtgImportDataPreview.Columns[dojColumn].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgImportDataPreview.Columns[dojColumn].DefaultCellStyle.NullValue = string.Empty;
+            }
+        }
+
         private DataTable BuildEmployeeInformationWithDetails(DataTable employees)
         {
             string[] familyColumns = new string[]
@@ -1871,7 +1940,14 @@ namespace StaffSync
                 List<DataRow> nomineeRows = nominee.Rows.Cast<DataRow>().ToList();
                 List<DataRow> educationRows = education.Rows.Cast<DataRow>().Where(r => education.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> skillsRows = skills.Rows.Cast<DataRow>().Where(r => skills.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
-                List<DataRow> mnthlyAttendanceRows = monthlyAttendance.Rows.Cast<DataRow>().Where(r => !monthlyAttendance.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).Where(r => !monthlyAttendance.Columns.Contains("RecordType") || r["RecordType"] == DBNull.Value || string.Equals(Convert.ToString(r["RecordType"]), "MONTH", StringComparison.OrdinalIgnoreCase)).ToList();
+                List<DataRow> mnthlyAttendanceRows = monthlyAttendance.Rows.Cast<DataRow>()
+                    .Where(r => !monthlyAttendance.Columns.Contains("EmpID") ||
+                        r["EmpID"] == DBNull.Value ||
+                        Convert.ToString(r["EmpID"]) == Convert.ToString(empId))
+                    .Where(r => !monthlyAttendance.Columns.Contains("RecordType") ||
+                        r["RecordType"] == DBNull.Value ||
+                        string.Equals(Convert.ToString(r["RecordType"]), "MONTH", StringComparison.OrdinalIgnoreCase))
+                    .ToList();
 
                 //DataTable employeeAttendanceSummary = BuildConsolidatedAttendanceSummary(monthlyAttendanceRegisterData, empId, attendanceYear);
                 //List<DataRow> attendanceRows = employeeAttendanceSummary.Rows.Cast<DataRow>().ToList();
@@ -1883,35 +1959,20 @@ namespace StaffSync
                     DataRow output = result.NewRow();
                     CopyEmployeeColumns(employee, output, employees.Columns);
                     if (i < familyRows.Count)
-                    {
                         foreach (string column in familyColumns)
-                        {
-                            if (family.Columns.Contains(column) && result.Columns.Contains(column))
-                            {
-                                output[column] = familyRows[i][column] == DBNull.Value ? DBNull.Value : familyRows[i][column];
-                            }
-                        }
-                    }
+                            if (family.Columns.Contains(column) && result.Columns.Contains(column)) output[column] = familyRows[i][column] == DBNull.Value ? DBNull.Value : familyRows[i][column];
                     if (i < nomineeRows.Count)
                     {
-                        if (nominee.Columns.Contains("NomineePerson"))
-                            output["NomineePerson"] = nomineeRows[i]["NomineePerson"] == DBNull.Value ? DBNull.Value : nomineeRows[i]["NomineePerson"];
-                        if (nominee.Columns.Contains("ContactNumber")) 
-                            output["NomineeContactNumber"] = nomineeRows[i]["ContactNumber"] == DBNull.Value ? DBNull.Value : nomineeRows[i]["ContactNumber"];
-                        if (nominee.Columns.Contains("RelationShipTitle")) 
-                            output["NomineeRelationShipTitle"] = nomineeRows[i]["RelationShipTitle"] == DBNull.Value ? DBNull.Value : nomineeRows[i]["RelationShipTitle"];
+                        if (nominee.Columns.Contains("NomineePerson")) output["NomineePerson"] = nomineeRows[i]["NomineePerson"] == DBNull.Value ? DBNull.Value : nomineeRows[i]["NomineePerson"];
+                        if (nominee.Columns.Contains("ContactNumber")) output["NomineeContactNumber"] = nomineeRows[i]["ContactNumber"] == DBNull.Value ? DBNull.Value : nomineeRows[i]["ContactNumber"];
+                        if (nominee.Columns.Contains("RelationShipTitle")) output["NomineeRelationShipTitle"] = nomineeRows[i]["RelationShipTitle"] == DBNull.Value ? DBNull.Value : nomineeRows[i]["RelationShipTitle"];
                     }
-
                     if (i < educationRows.Count && education.Columns.Contains("EduQualTitle"))
-                    {
                         output["EduQualTitle"] = educationRows[i]["EduQualTitle"] == DBNull.Value ? DBNull.Value : educationRows[i]["EduQualTitle"];
-                    }
-                    
                     if (i < skillsRows.Count)
                     {
                         if (skills.Columns.Contains("SkillTitle"))
                             output["SkillTitle"] = skillsRows[i]["SkillTitle"] == DBNull.Value ? DBNull.Value : skillsRows[i]["SkillTitle"];
-                        
                         if (skills.Columns.Contains("ExpertiseLevel") && skillsRows[i]["ExpertiseLevel"] != DBNull.Value)
                         {
                             int expertiseLevel;
@@ -1929,6 +1990,58 @@ namespace StaffSync
                     {
                         DataRow attendanceRow = mnthlyAttendanceRows[i];
 
+                        // The current summary query exposes Month, PresentCount,
+                        // LeaveCount, CancelledCount and RejectedCount. Older query
+                        // versions may expose the longer aliases below, so retain them.
+                        // Prefer an already formatted month/year label. Do not use a generic
+                        // "Month" field here because some DAL models use that field for
+                        // RecordType (for example, the literal value "MONTH").
+                        //object monthYearValue = GetFirstAvailableColumnValue(
+                        //    attendanceRow, "Month - Year", "AttendanceMonth", "MonthName", "MonthNo");
+                        //object attendanceRowYear = GetFirstAvailableColumnValue(
+                        //    attendanceRow, "Year", "AttendanceYear", "CalendarYear");
+                        //int monthYear = attendanceYear;
+                        //if (attendanceRowYear != DBNull.Value)
+                        //{
+                        //    int parsedYear;
+                        //    if (int.TryParse(Convert.ToString(attendanceRowYear, CultureInfo.InvariantCulture), out parsedYear) && parsedYear >= 1900)
+                        //        monthYear = parsedYear;
+                        //}
+                        //object presentValue = GetFirstAvailableColumnValue(
+                        //    attendanceRow, "PresentCount", "Present", "PresentDays");
+                        //object leaveValue = GetFirstAvailableColumnValue(
+                        //    attendanceRow, "LeaveCount", "Leave", "LeaveDays");
+                        //object cancelledValue = GetFirstAvailableColumnValue(
+                        //    attendanceRow, "CancelledCount", "Cancelled", "CancelledDays");
+                        //object rejectedValue = GetFirstAvailableColumnValue(
+                        //    attendanceRow, "RejectedCount", "Rejected", "RejectedDays");
+                        //object workingDaysValue = GetFirstAvailableColumnValue(
+                        //    attendanceRow, "Total Days", "WorkingDays", "WorkingDaysCount");
+                        //object payableDaysValue = GetFirstAvailableColumnValue(
+                        //    attendanceRow, "Payable Days", "PayableDays");
+
+                        //// If the query only returns the four status counts, derive
+                        //// Working Days from those counts. Payable Days follows the
+                        //// existing report rule: Present + full-day LeaveCount.
+                        //if (workingDaysValue == DBNull.Value)
+                        //    workingDaysValue = SumNumericValues(presentValue, leaveValue, cancelledValue, rejectedValue);
+                        //if (payableDaysValue == DBNull.Value)
+                        //    payableDaysValue = SumNumericValues(presentValue, leaveValue);
+
+                        //monthYearValue = FormatAttendanceMonthYear(monthYearValue, monthYear);
+
+                        //if (result.Columns.Contains("AttendanceMonth"))
+                        //    output["AttendanceMonth"] = monthYearValue;
+                        //if (result.Columns.Contains("WorkingDays"))
+                        //    output["WorkingDays"] = workingDaysValue;
+                        //if (result.Columns.Contains("Present"))
+                        //    output["Present"] = presentValue;
+                        //if (result.Columns.Contains("Leave"))
+                        //    output["Leave"] = leaveValue;
+                        //if (result.Columns.Contains("PayableDays"))
+                        //    output["PayableDays"] = payableDaysValue;
+
+
                         output["AttendanceMonth"] = attendanceRow["MonthYear"];
                         output["WorkingDays"] = attendanceRow["TotalDays"];
                         output["Present"] = attendanceRow["PresentCount"];
@@ -1942,22 +2055,9 @@ namespace StaffSync
                         DateTime attendanceMonthDate;
                         if (TryGetAttendanceMonthDate(output["AttendanceMonth"], (int)attendanceRow["YearNo"], out attendanceMonthDate))
                         {
-                            List<EmployeeWeeklyOffInfo> objEmpSpecificWeeklyOfDays = objEmpWeeklyOffInfo.getEmployeeSpecificWeeklyOffInfo(empId);
-                            int daysInMonth = DateTime.DaysInMonth(attendanceMonthDate.Year, attendanceMonthDate.Month);
-                            int wklyOffCount = 0;
-
-                            for (int day = 1; day <= daysInMonth; day++)
-                            {
-                                DateTime date = new DateTime(attendanceMonthDate.Year, attendanceMonthDate.Month, day);
-                                if (objEmpSpecificWeeklyOfDays.Any(wo => wo.WeeklyOffDayName.ToString() == date.DayOfWeek.ToString()))
-                                    wklyOffCount++;
-                            }
-
-                            //int configuredWorkingDays = CountWorkingDaysExcludingWeeklyOffs(attendanceMonthDate.Year, attendanceMonthDate.Month);
-                            //if (configuredWorkingDays >= 0)
-                            //    actualWorkingDaysValue = (decimal)configuredWorkingDays;
-
-                            actualWorkingDaysValue = daysInMonth - wklyOffCount;
+                            int configuredWorkingDays = CountWorkingDaysExcludingWeeklyOffs(attendanceMonthDate.Year, attendanceMonthDate.Month);
+                            if (configuredWorkingDays >= 0)
+                                actualWorkingDaysValue = (decimal)configuredWorkingDays;
                         }
 
                         if (result.Columns.Contains("ActualWorkingDays"))
@@ -2135,7 +2235,7 @@ namespace StaffSync
         /// The active/effective weekly-off profile is read through the existing DAL.
         /// </summary>
         private int CountWorkingDaysExcludingWeeklyOffs(int year, int month)
-        {            
+        {
             HashSet<DayOfWeek> weeklyOffDays = GetConfiguredWeeklyOffDays(year, month);
             int daysInMonth = DateTime.DaysInMonth(year, month);
             int workingDays = 0;
@@ -2545,6 +2645,7 @@ namespace StaffSync
         private void ClearExportPreview()
         {
             objImportDataPreviewTable = new DataTable();
+            objEmployeeInformationExportTable = new DataTable();
 
             if (dtgImportDataPreview != null)
                 dtgImportDataPreview.DataSource = null;
@@ -3115,8 +3216,16 @@ namespace StaffSync
                     // each type in a separate subtable instead of the employee parent row.
                     dtEmployeeList = BuildEmployeeInformationWithDetails(dtEmployeeList);
 
-                    BindExportPreviewData(dtEmployeeList);
+                    // Keep the complete employee/detail rows for export, but show
+                    // only one row per employee in the preview grid. Monthly
+                    // attendance and other optional details can create multiple
+                    // backing rows for one employee; those must not duplicate the
+                    // employee in the selectable preview.
+                    objEmployeeInformationExportTable = dtEmployeeList.Copy();
+                    DataTable employeePreview = CreateEmployeeInformationPreview(dtEmployeeList);
+                    BindExportPreviewData(employeePreview);
                     FormatPreviewGrid(lblSelectedDataAction.Text);
+                    ConfigureEmployeeInformationPreviewColumns();
                     dtgImportDataPreview.Enabled = true;
                     grpMoreOptions.Visible = true;
                     return;
@@ -3519,12 +3628,18 @@ namespace StaffSync
                 dtgImportDataPreview.Columns["EmpName"].HeaderText = "Employee Name";
                 dtgImportDataPreview.Columns["EmpName"].Width = 250;
                 dtgImportDataPreview.Columns["EmpName"].ReadOnly = true;
+                dtgImportDataPreview.Columns["DOB"].HeaderText = "Birth Date";
+                dtgImportDataPreview.Columns["DOB"].Width = 150;
+                dtgImportDataPreview.Columns["DOB"].ReadOnly = true;
                 dtgImportDataPreview.Columns["DesignationTitle"].HeaderText = "Designation";
                 dtgImportDataPreview.Columns["DesignationTitle"].Width = 150;
                 dtgImportDataPreview.Columns["DesignationTitle"].ReadOnly = true;
                 dtgImportDataPreview.Columns["DepartmentTitle"].HeaderText = "Department";
                 dtgImportDataPreview.Columns["DepartmentTitle"].Width = 150;
                 dtgImportDataPreview.Columns["DepartmentTitle"].ReadOnly = true;
+                dtgImportDataPreview.Columns["DOJ"].HeaderText = "Joining Date";
+                dtgImportDataPreview.Columns["DOJ"].Width = 150;
+                dtgImportDataPreview.Columns["DOJ"].ReadOnly = true;
                 dtgImportDataPreview.Columns["ContactNumber1"].HeaderText = "Contact Number";
                 dtgImportDataPreview.Columns["ContactNumber1"].Width = 150;
                 dtgImportDataPreview.Columns["ContactNumber1"].ReadOnly = true;
@@ -3665,6 +3780,13 @@ namespace StaffSync
 
         private DataTable GetSelectedExportData()
         {
+            if (string.Equals(lblSelectedDataAction.Text, "Employee Information", StringComparison.OrdinalIgnoreCase) &&
+                objEmployeeInformationExportTable != null &&
+                objEmployeeInformationExportTable.Rows.Count > 0)
+            {
+                return GetSelectedEmployeeInformationExportData();
+            }
+
             DataTable selectedData = new DataTable();
 
             if (dtgImportDataPreview == null ||
@@ -3759,6 +3881,94 @@ namespace StaffSync
                 }
 
                 selectedData.Rows.Add(dataRow);
+            }
+
+            return selectedData;
+        }
+
+        private DataTable GetSelectedEmployeeInformationExportData()
+        {
+            DataTable selectedData = new DataTable();
+            if (dtgImportDataPreview == null ||
+                !dtgImportDataPreview.Columns.Contains("EmpID") ||
+                !objEmployeeInformationExportTable.Columns.Contains("EmpID"))
+                return selectedData;
+
+            List<DataGridViewColumn> visibleEmployeeColumns = dtgImportDataPreview.Columns
+                .Cast<DataGridViewColumn>()
+                .Where(column => column.Name != "IsSelected" && column.Name != "EmpID" && column.Visible)
+                .OrderBy(column => column.DisplayIndex)
+                .ToList();
+
+            foreach (DataGridViewColumn column in visibleEmployeeColumns)
+            {
+                string name = GetExportDisplayColumnHeader(column);
+                if (string.IsNullOrWhiteSpace(name)) name = column.Name;
+                string baseName = name;
+                int suffix = 2;
+                while (selectedData.Columns.Contains(name)) name = baseName + " (" + (suffix++).ToString() + ")";
+                selectedData.Columns.Add(name, typeof(string));
+            }
+
+            // Preserve detail fields for the HTML/XML/CSV/JSON/PDF export pipeline,
+            // but never expose them as preview-grid columns.
+            string[] detailColumns = new string[]
+            {
+                "FamMemName", "FamMemDOB", "FamMemAge", "FamMemRelationship",
+                "FamMemAddr1", "FamMemAddr2", "FamMemArea", "FamMemCity",
+                "FamMemState", "FamMemPIN", "FamMemCountry", "FamMemContactNumber",
+                "FamMemMailID", "FamMemBloodGroup", "FamMemInsuranceEnrolled",
+                "NomineePerson", "NomineeContactNumber", "NomineeRelationShipTitle",
+                "EduQualTitle", "SkillTitle", "ExpertiseLevel", "AttendanceMonth",
+                "WorkingDays", "ActualWorkingDays", "Present", "Leave", "PayableDays",
+                "AttendancePercentage"
+            };
+            foreach (string detailColumn in detailColumns)
+            {
+                if (objEmployeeInformationExportTable.Columns.Contains(detailColumn) &&
+                    !selectedData.Columns.Contains(detailColumn))
+                    selectedData.Columns.Add(detailColumn, typeof(string));
+            }
+
+            foreach (DataGridViewRow gridRow in dtgImportDataPreview.Rows)
+            {
+                if (gridRow.IsNewRow) continue;
+                bool isSelected = false;
+                if (gridRow.Cells["IsSelected"].Value != null)
+                    bool.TryParse(Convert.ToString(gridRow.Cells["IsSelected"].Value), out isSelected);
+                if (!isSelected) continue;
+
+                object employeeIdValue = gridRow.Cells["EmpID"].Value;
+                if (employeeIdValue == null || employeeIdValue == DBNull.Value) continue;
+                string employeeId = Convert.ToString(employeeIdValue).Trim();
+
+                List<DataRow> detailRows = objEmployeeInformationExportTable.Rows.Cast<DataRow>()
+                    .Where(row => row["EmpID"] != DBNull.Value &&
+                                  string.Equals(Convert.ToString(row["EmpID"]).Trim(), employeeId, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                foreach (DataRow detailRow in detailRows)
+                {
+                    DataRow output = selectedData.NewRow();
+                    int outputIndex = 0;
+                    foreach (DataGridViewColumn column in visibleEmployeeColumns)
+                    {
+                        output[outputIndex++] = GetFormattedExportCellValue(gridRow, column.Name);
+                    }
+                    foreach (string detailColumn in detailColumns)
+                    {
+                        if (selectedData.Columns.Contains(detailColumn))
+                        {
+                            object value = objEmployeeInformationExportTable.Columns.Contains(detailColumn)
+                                ? detailRow[detailColumn]
+                                : DBNull.Value;
+                            output[detailColumn] = value == null || value == DBNull.Value
+                                ? string.Empty
+                                : Convert.ToString(value, CultureInfo.CurrentCulture);
+                        }
+                    }
+                    selectedData.Rows.Add(output);
+                }
             }
 
             return selectedData;
@@ -4079,7 +4289,7 @@ namespace StaffSync
             string[] skillsColumns = new string[] { "SkillTitle", "ExpertiseLevel" };
             string[] attendanceColumns = new string[]
             {
-                "AttendanceMonth", "WorkingDays", "Present", "Leave", "PayableDays", "AttendancePercentage"
+                "AttendanceMonth", "WorkingDays", "ActualWorkingDays", "Present", "Leave", "PayableDays", "AttendancePercentage"
             };
             string[] detailColumns = familyColumns.Concat(nomineeColumns)
                 .Concat(educationColumns).Concat(skillsColumns).Concat(attendanceColumns).ToArray();
@@ -4330,7 +4540,7 @@ namespace StaffSync
             html.AppendLine("<th>Present</th>");
             html.AppendLine("<th>Leave</th>");
             html.AppendLine("<th>Payable Days</th>");
-            html.AppendLine("<th>Attendance %</th>");
+            html.AppendLine("<th>Attendance % (Working Days)</th>");
             html.AppendLine("</tr></thead><tbody>");
 
             List<DataRow> attendanceRows = employeeRows == null
@@ -4453,12 +4663,12 @@ namespace StaffSync
         {
             switch (columnName)
             {
-                case "FamMemName": return "Family Member Name";
+                case "FamMemName": return "Member Name";
                 case "FamMemDOB": return "Date of Birth";
                 case "FamMemAge": return "Age";
                 case "FamMemRelationship": return "Relationship";
-                case "FamMemAddr1": return "Address Line 1";
-                case "FamMemAddr2": return "Address Line 2";
+                case "FamMemAddr1": return "Address 01";
+                case "FamMemAddr2": return "Address 02";
                 case "FamMemArea": return "Area";
                 case "FamMemCity": return "City";
                 case "FamMemState": return "State";
@@ -4467,7 +4677,7 @@ namespace StaffSync
                 case "FamMemContactNumber": return "Contact Number";
                 case "FamMemMailID": return "Email ID";
                 case "FamMemBloodGroup": return "Blood Group";
-                case "FamMemInsuranceEnrolled": return "Insurance Enrolled";
+                case "FamMemInsuranceEnrolled": return "Insuranced?";
                 default: return columnName;
             }
         }

@@ -18,11 +18,17 @@ namespace ModelStaffSync
         [DisplayName("Employee Name")]
         public string EmpName { get; set; }
 
+        [DisplayName("Date of Birth")] 
+        public DateTime DOB { get; set; }
+
         [DisplayName("Designation")]
         public string DesignationTitle { get; set; }
 
         [DisplayName("Department")]
         public string DepartmentTitle { get; set; }
+
+        [DisplayName("Date of Joining")]
+        public DateTime DOJ { get; set; }
 
         [DisplayName("Contact Number")]
         public string ContactNumber1 { get; set; }

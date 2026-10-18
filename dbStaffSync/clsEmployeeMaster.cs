@@ -37,6 +37,37 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "SELECT * FROM EmpMasInfo WHERE IsActive = true AND IsDeleted = false and ClientID = " + CurrentUser.ClientID + " ORDER BY EmpID Asc";
+                strQuery = @"SELECT
+                                    EmpMas.EmpID,
+                                    EmpMas.EmpCode,
+                                    EmpMas.EmpName,
+                                    PersonalInfoMas.DOB,
+                                    DesigMas.DesignationTitle,
+                                    PersonalInfoMas.DOJ,
+                                    DepMas.DepartmentTitle,
+                                    PersonalInfoMas.ContactNumber1,
+                                    PersonalInfoMas.ContactNumber2
+                                FROM
+                                    (
+                                        DesigMas
+                                        INNER JOIN (
+                                            DepMas
+                                            INNER JOIN (
+                                                ClientMas
+                                                INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                            ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                        ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                    )
+                                    INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                WHERE
+                                    (
+                                        ((EmpMas.EmpID) > 1)
+                                        AND ((EmpMas.IsActive) = True)
+                                        AND ((EmpMas.IsDeleted) = False)
+                                        AND ((ClientMas.ClientID) = " + CurrentUser.ClientID + @")
+                                    )
+                                ORDER BY
+                                    EmpMas.EmpID;";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
