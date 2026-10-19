@@ -25,6 +25,61 @@ namespace dbStaffSync
 
         }
 
+        public List<EmployeePayslipConsolidatedValues> getEmployeeSpecificConsolidatedPayslipValues(int empID)
+        {
+            List<EmployeePayslipConsolidatedValues> objEmployeePayslipConsolidatedValues = new List<EmployeePayslipConsolidatedValues>();
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+                DataTable dt = new DataTable();
+
+                string strQuery = @"SELECT
+                                        DateSerial (Year(EmpSalMas.EmpSalDate), Month(EmpSalMas.EmpSalDate), 1) AS SalaryMonth,
+                                        CCur (Sum(IIf(EmpSalDetails.SalHeaderTitle = ""Basic Salary"", IIf(IsNull(EmpSalDetails.AllowanceAmount), 0,EmpSalDetails.AllowanceAmount), 0))) AS BasicSalary,
+                                        CCur (Sum(IIf(EmpSalDetails.SalHeaderTitle <> ""Basic Salary"" OR IsNull(EmpSalDetails.SalHeaderTitle), IIf(IsNull(EmpSalDetails.AllowanceAmount), 0, EmpSalDetails.AllowanceAmount), 0))) AS TotalAllowanceAmount,
+                                        CCur (Sum(IIf(IsNull(EmpSalDetails.DeductionAmount), 0, EmpSalDetails.DeductionAmount))) AS TotalDeductionAmount,
+                                        CCur (Sum(IIf(IsNull(EmpSalDetails.ReimbursmentAmount), 0, EmpSalDetails.ReimbursmentAmount))) AS TotalReimbursementAmount,
+                                        EmpMas.EmpID
+                                    FROM
+                                        (
+                                            EmpMas
+                                            INNER JOIN EmpSalMas ON EmpMas.EmpID = EmpSalMas.EmpID
+                                        )
+                                        INNER JOIN EmpSalDetails ON EmpSalMas.EmpSalID = EmpSalDetails.EmpSalID
+                                    WHERE
+                                        EmpMas.EmpID = " + empID + @"
+                                    GROUP BY
+                                        DateSerial (Year(EmpSalMas.EmpSalDate), Month(EmpSalMas.EmpSalDate), 1),
+                                        EmpMas.EmpID
+                                    ORDER BY
+                                        DateSerial (Year(EmpSalMas.EmpSalDate), Month(EmpSalMas.EmpSalDate),1);";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeePayslipConsolidatedValues = JsonConvert.DeserializeObject<List<EmployeePayslipConsolidatedValues>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objEmployeePayslipConsolidatedValues;
+        }
+
         public List<EmployeePaySlipList> getAllEmployeePayslipList()
         {
             List<EmployeePaySlipList> objEmployeePaySlipList = new List<EmployeePaySlipList>();

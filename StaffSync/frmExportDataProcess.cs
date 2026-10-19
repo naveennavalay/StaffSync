@@ -53,6 +53,7 @@ namespace StaffSync
         DALStaffSync.clsEduQalification objEduQalification = new DALStaffSync.clsEduQalification();
         DALStaffSync.clsEmpSkillsMas objEmpSkillsMas = new DALStaffSync.clsEmpSkillsMas();
         DALStaffSync.clsEmployeeAdvanceInfo objEmployeeAdvanceInfo = new DALStaffSync.clsEmployeeAdvanceInfo();
+        DALStaffSync.clsEmpPayroll objEmpPayroll = new DALStaffSync.clsEmpPayroll();
         DALStaffSync.clsSkillsMas objSkillsMas = new DALStaffSync.clsSkillsMas();
         DALStaffSync.clsRelationship objRelationship = new DALStaffSync.clsRelationship();
         DALStaffSync.clsShiftMas objShiftMas = new DALStaffSync.clsShiftMas();
@@ -1956,6 +1957,7 @@ namespace StaffSync
                 DataTable monthlyAttendance = ConvertListToDataTable(objDashboardChartWidgets.GetMonthlyAttendanceRegisterDataByEmpID(empId));
                 DataTable leaveInformation = ConvertListToDataTable(objEmpLeaveEntitlementInfo.getEmployeeSpecificLeaveInfo(empId));
                 DataTable advanceInformation = ConvertListToDataTable(objEmployeeAdvanceInfo.getEmployeeAdvanceInformationList(empId));
+                DataTable consolidatedPayslipValues = ConvertListToDataTable(objEmpPayroll.getEmployeeSpecificConsolidatedPayslipValues(empId));
 
                 List<DataRow> familyRows = family.Rows.Cast<DataRow>().Where(r => family.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> nomineeRows = nominee.Rows.Cast<DataRow>().ToList();
@@ -1964,11 +1966,12 @@ namespace StaffSync
                 List<DataRow> mnthlyAttendanceRows = monthlyAttendance.Rows.Cast<DataRow>().Where(r => !monthlyAttendance.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).Where(r => !monthlyAttendance.Columns.Contains("RecordType") || r["RecordType"] == DBNull.Value || string.Equals(Convert.ToString(r["RecordType"]), "MONTH", StringComparison.OrdinalIgnoreCase)).ToList();
                 List<DataRow> empLeaveRows = leaveInformation.Rows.Cast<DataRow>().Where(r => !leaveInformation.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> empAdvanceRows = advanceInformation.Rows.Cast<DataRow>().Where(r => !advanceInformation.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
+                List<DataRow> empPayslipRows = consolidatedPayslipValues.Rows.Cast<DataRow>().Where(r => !consolidatedPayslipValues.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
 
                 //DataTable employeeAttendanceSummary = BuildConsolidatedAttendanceSummary(monthlyAttendanceRegisterData, empId, attendanceYear);
                 //List<DataRow> attendanceRows = employeeAttendanceSummary.Rows.Cast<DataRow>().ToList();
 
-                int rowCount = Math.Max(1, Math.Max(empAdvanceRows.Count, Math.Max(empLeaveRows.Count, Math.Max(mnthlyAttendanceRows.Count, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count)))))));
+                int rowCount = Math.Max(1, Math.Max(empPayslipRows.Count, Math.Max(empAdvanceRows.Count, Math.Max(empLeaveRows.Count, Math.Max(mnthlyAttendanceRows.Count, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count))))))));
 
                 for (int i = 0; i < rowCount; i++)
                 {
@@ -2094,6 +2097,13 @@ namespace StaffSync
                         }
                     }
 
+                    if (i < empPayslipRows.Count)
+                    {
+                        DataRow indPayslipInfo = empPayslipRows[i];
+                        
+                    }
+
+                        
                     result.Rows.Add(output);
                 }
             }

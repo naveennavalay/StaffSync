@@ -19,6 +19,15 @@ namespace DALStaffSync
 
         }
 
+        public List<EmployeePayslipConsolidatedValues> getEmployeeSpecificConsolidatedPayslipValues(int empID)
+        {
+            List<EmployeePayslipConsolidatedValues> objEmployeePaySlipList = new List<EmployeePayslipConsolidatedValues>();
+
+            objEmployeePaySlipList = objEmpPayroll.getEmployeeSpecificConsolidatedPayslipValues(empID);
+
+            return objEmployeePaySlipList;
+        }
+
         public List<EmployeePaySlipList> getAllEmployeePayslipList()
         {
             List<EmployeePaySlipList> objEmployeePaySlipList = new List<EmployeePaySlipList>();

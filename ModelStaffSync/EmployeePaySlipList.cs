@@ -37,4 +37,25 @@ namespace ModelStaffSync
         [DisplayName("SalaryOrderID")]
         public int OrderID { get; set; }
     }
+
+    public class EmployeePayslipConsolidatedValues
+    {
+        [DisplayName("EmpID")]
+        public int EmpID { get; set; }
+
+        [DisplayName("Salary Month")] 
+        public DateTime SalaryMonth { get; set; }
+
+        [DisplayName("Basic Salary")] 
+        public decimal BasicSalary { get; set; }
+
+        [DisplayName("Total Allowances")]
+        public decimal TotalAllowanceAmount { get; set; }
+
+        [DisplayName("Total Deductions")]
+        public decimal TotalDeductionAmount { get; set; }
+
+        [DisplayName("Total Reimbursement")]
+        public decimal TotalReimbursementAmount { get; set; }
+    }
 }
