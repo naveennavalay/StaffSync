@@ -118,4 +118,14 @@ namespace ModelStaffSync
         [DisplayName("Leave Balance")] 
         public double LeaveBalance { get; set; }
     }
+
+    public class EmpSpecificLeaveInfo
+    {
+        public int LeaveTypeID { get; set; }
+        public string LeaveTypeTitle { get; set; }
+        public decimal TotalLeaves { get; set; }
+        public decimal BalanceLeaves { get; set; }
+        public bool IsPaid { get; set; }
+        public int EmpID { get; set; }
+    }
 }

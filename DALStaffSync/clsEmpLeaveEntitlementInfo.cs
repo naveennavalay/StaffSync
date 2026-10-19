@@ -55,6 +55,15 @@ namespace DALStaffSync
             return objConsolidatedLeaveOutStandingStatement;
         }
 
+        public List<EmpSpecificLeaveInfo> getEmployeeSpecificLeaveInfo(int txtEmpID)
+        {
+            List<EmpSpecificLeaveInfo> objEmpSpecificLeaveInfoList = new List<EmpSpecificLeaveInfo>();
+
+            objEmpSpecificLeaveInfoList = objEmpLeaveEntitlementInfo.getEmployeeSpecificLeaveInfo(txtEmpID);
+
+            return objEmpSpecificLeaveInfoList;
+        }
+
         public List<LeaveEntitlementInfo> AddNewEntryOnGridEmployeeLeaveEntitilementList(int txtEmpID, int[] intLeaveTypeIDs, int txtNewLeaveTypeID)
         {
             List<LeaveEntitlementInfo> LeaveEntitlementInfoList = new List<LeaveEntitlementInfo>();

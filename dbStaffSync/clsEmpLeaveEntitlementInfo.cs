@@ -106,6 +106,67 @@ namespace dbStaffSync
             return LeaveEntitlementInfoList;
         }
 
+
+        public List<EmpSpecificLeaveInfo> getEmployeeSpecificLeaveInfo(int txtEmpID)
+        {
+            List<EmpSpecificLeaveInfo> objEmpSpecificLeaveInfoList = new List<EmpSpecificLeaveInfo>();
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = @"SELECT
+                                        LeaveTypeMas.LeaveTypeID,
+                                        LeaveTypeMas.LeaveTypeTitle,
+                                        EmpLeaveEntitlement.TotalLeaves,
+                                        EmpLeaveEntitlement.BalanceLeaves,
+                                        LeaveTypeMas.IsPaid,
+                                        EmpMas.EmpID
+                                    FROM
+                                        LeaveTypeMas
+                                        INNER JOIN (
+                                            EmpMas
+                                            INNER JOIN EmpLeaveEntitlement ON EmpMas.EmpID = EmpLeaveEntitlement.EmpID
+                                        ) ON LeaveTypeMas.LeaveTypeID = EmpLeaveEntitlement.LeaveTypeID
+                                    WHERE
+                                        (
+                                            ((EmpLeaveEntitlement.TotalLeaves) > 0)
+                                            AND ((EmpMas.EmpID) = " + txtEmpID + @")
+                                            AND ((LeaveTypeMas.IsActive) = True)
+                                            AND ((LeaveTypeMas.IsDelete) = False)
+                                        )
+                                    ORDER BY
+                                        LeaveTypeMas.LeaveTypeID,
+                                        LeaveTypeMas.OrderID;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmpSpecificLeaveInfoList = JsonConvert.DeserializeObject<List<EmpSpecificLeaveInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objEmpSpecificLeaveInfoList;
+        }
+
         public List<LeaveEntitlementInfo> getEmployeeLeaveEntitilementList(int txtEmpID, int txtLeaveMasID)
         {
             List<LeaveEntitlementInfo> LeaveEntitlementInfoList = new List<LeaveEntitlementInfo>();

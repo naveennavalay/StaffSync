@@ -54,6 +54,7 @@ namespace StaffSync
         DALStaffSync.clsRelationship objRelationship = new DALStaffSync.clsRelationship();
         DALStaffSync.clsShiftMas objShiftMas = new DALStaffSync.clsShiftMas();
         DALStaffSync.clsEmploymentTypeInfo objEmploymentTypeInfo = new DALStaffSync.clsEmploymentTypeInfo();
+        DALStaffSync.clsEmpLeaveEntitlementInfo
         DALStaffSync.clsBankMas objBankMas = new DALStaffSync.clsBankMas();
         DALStaffSync.clsAdvanceTypeMas objAdvanceTypeMas = new DALStaffSync.clsAdvanceTypeMas();
         DALStaffSync.clsAssetsCategory objAssetsCategory = new DALStaffSync.clsAssetsCategory();
@@ -4321,7 +4322,24 @@ namespace StaffSync
             html.AppendLine(".toggle{border:1px solid #98a2b3;background:#fff;border-radius:4px;cursor:pointer;padding:2px 8px;margin-right:8px;font-size:14px;}");
             html.AppendLine(".family-detail td{background:#fff;padding:14px 18px;}");
             // Adjustable family-subtable column widths. Change these percentages to suit the report layout.
-            html.AppendLine(":root{--family-name-width:10%;--family-dob-width:8%;--family-age-width:5%;--family-relationship-width:8%;--family-contact-width:10%;--family-email-width:12%;--family-blood-width:7%;--family-insurance-width:8%;--family-address-width:32%;}");
+            html.AppendLine(":root{--family-name-width:15%;--family-dob-width:10%;--family-age-width:5%;--family-relationship-width:8%;--family-contact-width:8%;--family-email-width:15%;--family-blood-width:7%;--family-insurance-width:8%;--family-address-width:32%;}");
+            // Manually configurable widths for every employee detail subtable.
+            // Change these percentages here; no rendering logic needs to be rewritten.
+            html.AppendLine(":root{" +
+                "--nominee-name-width:34%;" +
+                "--nominee-contact-width:33%;" +
+                "--nominee-relationship-width:33%;" +
+                "--education-qualification-width:100%;" +
+                "--skills-name-width:65%;" +
+                "--skills-expertise-width:35%;" +
+                "--attendance-month-width:16%;" +
+                "--attendance-total-days-width:16%;" +
+                "--attendance-working-days-width:16%;" +
+                "--attendance-present-width:10%;" +
+                "--attendance-leave-width:10%;" +
+                "--attendance-payable-days-width:12%;" +
+                "--attendance-percentage-width:20%;" +
+                "}");
             html.AppendLine(".family-table{table-layout:fixed;min-width:1100px;width:100%;margin:0;border-collapse:collapse;}");
             html.AppendLine(".family-table th{background:#800000;color:#fff;border-color:#6b0000;white-space:normal;overflow-wrap:anywhere;}");
             html.AppendLine(".family-table td{overflow-wrap:anywhere;word-break:normal;}");
@@ -4334,6 +4352,31 @@ namespace StaffSync
             html.AppendLine(".family-table .col-family-blood{width:var(--family-blood-width);}");
             html.AppendLine(".family-table .col-family-insurance{width:var(--family-insurance-width);}");
             html.AppendLine(".family-table .col-family-address{width:var(--family-address-width);}");
+            // Nominee Information column widths
+            html.AppendLine(".nominee-table{table-layout:fixed;width:100%;min-width:0;}");
+            html.AppendLine(".nominee-table .col-nominee-name{width:var(--nominee-name-width);}");
+            html.AppendLine(".nominee-table .col-nominee-contact{width:var(--nominee-contact-width);}");
+            html.AppendLine(".nominee-table .col-nominee-relationship{width:var(--nominee-relationship-width);}");
+
+            // Education Qualification column width
+            html.AppendLine(".education-table{table-layout:fixed;width:100%;min-width:0;}");
+            html.AppendLine(".education-table .col-education-qualification{width:var(--education-qualification-width);}");
+
+            // Skills Information column widths
+            html.AppendLine(".skills-table{table-layout:fixed;width:100%;min-width:0;}");
+            html.AppendLine(".skills-table .col-skills-name{width:var(--skills-name-width);}");
+            html.AppendLine(".skills-table .col-skills-expertise{width:var(--skills-expertise-width);}");
+
+            // Consolidated Attendance Report column widths
+            html.AppendLine(".attendance-summary-table{table-layout:fixed;width:100%;}");
+            html.AppendLine(".attendance-summary-table th,.attendance-summary-table td{overflow-wrap:anywhere;}");
+            html.AppendLine(".attendance-summary-table .col-attendance-month{width:var(--attendance-month-width);}");
+            html.AppendLine(".attendance-summary-table .col-attendance-total-days{width:var(--attendance-total-days-width);}");
+            html.AppendLine(".attendance-summary-table .col-attendance-working-days{width:var(--attendance-working-days-width);}");
+            html.AppendLine(".attendance-summary-table .col-attendance-present{width:var(--attendance-present-width);}");
+            html.AppendLine(".attendance-summary-table .col-attendance-leave{width:var(--attendance-leave-width);}");
+            html.AppendLine(".attendance-summary-table .col-attendance-payable-days{width:var(--attendance-payable-days-width);}");
+            html.AppendLine(".attendance-summary-table .col-attendance-percentage{width:var(--attendance-percentage-width);}");
             html.AppendLine(".family-heading{font-weight:600;margin:0 0 8px 0;color:#800000;}");
             html.AppendLine(".empty-family{color:#667085;font-style:italic;font-weight:normal;}");
             html.AppendLine(".report-toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px;}");
@@ -4448,6 +4491,11 @@ namespace StaffSync
                             foreach (DataColumn column in actualFamilyColumns)
                             {
                                 string value = familyRow[column] == DBNull.Value ? string.Empty : Convert.ToString(familyRow[column]);
+
+                                DateTime dtValue;
+                                if (DateTime.TryParse(value, out dtValue))
+                                    value = dtValue.ToString("dd-MMM-yyyy");
+
                                 value = ConvertBooleanDisplayValue(value);
                                 html.Append("<td>" + HtmlEncode(value) + "</td>");
                             }
@@ -4533,7 +4581,15 @@ namespace StaffSync
             };
 
             html.AppendLine("<div class=\"family-heading\">Consolidated Attendance Report</div>");
-            html.AppendLine("<table class=\"family-table attendance-summary-table\"><thead><tr>");
+            html.AppendLine("<table class=\"family-table attendance-summary-table\"><colgroup>");
+            html.AppendLine("<col class=\"col-attendance-month\" />");
+            html.AppendLine("<col class=\"col-attendance-total-days\" />");
+            html.AppendLine("<col class=\"col-attendance-working-days\" />");
+            html.AppendLine("<col class=\"col-attendance-present\" />");
+            html.AppendLine("<col class=\"col-attendance-leave\" />");
+            html.AppendLine("<col class=\"col-attendance-payable-days\" />");
+            html.AppendLine("<col class=\"col-attendance-percentage\" />");
+            html.AppendLine("</colgroup><thead><tr>");
             html.AppendLine("<th>Month - Year</th>");
             html.AppendLine("<th>Total Days in Month</th>");
             html.AppendLine("<th>Actual Working Days</th>");
@@ -4597,9 +4653,78 @@ namespace StaffSync
                 return;
             }
 
-            html.AppendLine("<table class=\"family-table\"><thead><tr>");
+            // Determine the subtable type from its existing data columns.
+            // This only controls layout; row selection and data rendering stay unchanged.
+            string subtableCssClass;
+            if (availableColumns.Contains("NomineePerson") ||
+                availableColumns.Contains("NomineeContactNumber") ||
+                availableColumns.Contains("NomineeRelationShipTitle"))
+            {
+                subtableCssClass = "nominee-table";
+            }
+            else if (availableColumns.Contains("EduQualTitle"))
+            {
+                subtableCssClass = "education-table";
+            }
+            else if (availableColumns.Contains("SkillTitle") ||
+                     availableColumns.Contains("ExpertiseLevel"))
+            {
+                subtableCssClass = "skills-table";
+            }
+            else
+            {
+                subtableCssClass = string.Empty;
+            }
+
+            html.AppendLine("<table class=\"family-table " + subtableCssClass + "\"><colgroup>");
             foreach (string column in availableColumns)
-                html.Append("<th>" + HtmlEncode(column == "EduQualTitle" ? "Education Qualification" : (column == "SkillTitle" ? "Skills Name" : (column == "ExpertiseLevel" ? "Expertise Level" : (column == "NomineePerson" ? "Nominee Name" : (column == "RelationShipTitle" ? "Relationship" : column == "NomineeContactNumber" ? "Contact Number" : column == "NomineeRelationShipTitle" ? "Relationship" : column))))) + "</th>");
+            {
+                string cssClass = string.Empty;
+                switch (column)
+                {
+                    case "NomineePerson": cssClass = "col-nominee-name"; break;
+                    case "NomineeContactNumber": cssClass = "col-nominee-contact"; break;
+                    case "NomineeRelationShipTitle": cssClass = "col-nominee-relationship"; break;
+                    case "EduQualTitle": cssClass = "col-education-qualification"; break;
+                    case "SkillTitle": cssClass = "col-skills-name"; break;
+                    case "ExpertiseLevel": cssClass = "col-skills-expertise"; break;
+                }
+                html.AppendLine("<col class=\"" + cssClass + "\" />");
+            }
+            html.AppendLine("</colgroup><thead><tr>");
+            foreach (string column in availableColumns)
+            {
+                // Resolve each displayed header explicitly to avoid nested-ternary
+                // syntax errors and keep the existing field/header mapping clear.
+                string displayHeader;
+                switch (column)
+                {
+                    case "EduQualTitle":
+                        displayHeader = "Education Qualification";
+                        break;
+                    case "SkillTitle":
+                        displayHeader = "Skills Name";
+                        break;
+                    case "ExpertiseLevel":
+                        displayHeader = "Expertise Level";
+                        break;
+                    case "NomineePerson":
+                        displayHeader = "Nominee Name";
+                        break;
+                    case "NomineeContactNumber":
+                        displayHeader = "Contact Number";
+                        break;
+                    case "NomineeRelationShipTitle":
+                    case "RelationShipTitle":
+                        displayHeader = "Relationship";
+                        break;
+                    default:
+                        displayHeader = column;
+                        break;
+                }
+
+                html.Append("<th>" + HtmlEncode(displayHeader) + "</th>");
+            }
             html.AppendLine("</tr></thead><tbody>");
             foreach (DataRow row in rows)
             {
@@ -5058,6 +5183,8 @@ namespace StaffSync
                     return;
                 }
 
+                this.Cursor = Cursors.WaitCursor;
+
                 if (dtgImportDataSourceList.Columns.Contains("ImpDataInfoTitle"))
                 {
                     lblSelectedDataAction.Text = Convert.ToString(dtgImportDataSourceList.Rows[e.RowIndex].Cells["ImpDataInfoTitle"].Value).Trim();
@@ -5068,38 +5195,28 @@ namespace StaffSync
                 }
 
                 LoadSelectedExportData();
+
+                this.Cursor = Cursors.Default;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Unable to load the selected export data." +
-                    Environment.NewLine + Environment.NewLine +
-                    ex.Message,
-                    "Staffsync - Export Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                this.Cursor = Cursors.Default;
+                MessageBox.Show("Unable to load the selected export data." + Environment.NewLine + Environment.NewLine + ex.Message, "Staffsync - Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void chkSelectOrUnselect_Click(object sender, EventArgs e)
         {
-            if (dtgImportDataPreview == null ||
-                !dtgImportDataPreview.Columns.Contains("IsSelected"))
+            if (dtgImportDataPreview == null || !dtgImportDataPreview.Columns.Contains("IsSelected"))
             {
-                chkSelectOrUnselect.Text =
-                    chkSelectOrUnselect.Checked
-                        ? "Unselect All"
-                        : "Select All";
-
-                lblTotalRowsSelected.Text =
-                    "Total Rows Selected : 0";
+                chkSelectOrUnselect.Text = chkSelectOrUnselect.Checked ? "Unselect All" : "Select All";
+                lblTotalRowsSelected.Text = "Total Rows Selected : 0";
                 return;
             }
 
             bool selectAll = chkSelectOrUnselect.Checked;
 
-            chkSelectOrUnselect.Text =
-                selectAll ? "Unselect All" : "Select All";
+            chkSelectOrUnselect.Text = selectAll ? "Unselect All" : "Select All";
 
             foreach (DataGridViewRow row in dtgImportDataPreview.Rows)
             {
