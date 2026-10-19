@@ -2031,7 +2031,9 @@ namespace StaffSync
                         string advanceDateColumn = GetFirstExistingColumn(empIndAdvanceRow.Table,
                             "Date", "AdvanceDate", "AdvDate", "CreatedDate", "TransactionDate", "IssueDate");
                         string advanceAmountColumn = GetFirstExistingColumn(empIndAdvanceRow.Table,
-                            "AdvanceAmount", "Advance Amount", "AdvAmount", "Amount", "IssuedAmount", "TotalAdvanceAmount", "CBalance");
+                            // The employee advance query returns IssueAmount as the original issued amount.
+                            // CBalance is the running/outstanding balance and must not be used here.
+                            "IssueAmount", "Issue Amount", "AdvanceAmount", "Advance Amount", "AdvAmount", "Amount", "IssuedAmount", "TotalAdvanceAmount");
                         string advanceIssueDateColumn = GetFirstExistingColumn(empIndAdvanceRow.Table,
                             "IssueDate", "AdvanceIssueDate", "AdvIssueDate", "DateOfIssue", "IssuedDate", "Date", "AdvanceDate");
                         string advanceLastPaymentColumn = GetFirstExistingColumn(empIndAdvanceRow.Table,
@@ -3216,12 +3218,6 @@ namespace StaffSync
                 }
                 else if (string.Equals(lblSelectedDataAction.Text, "Employee Information", StringComparison.OrdinalIgnoreCase))
                 {
-                    cmbOutputFormat.Items.Clear();
-                    cmbOutputFormat.Items.Add("XML");
-
-                    if (cmbOutputFormat.Items.Count > 0)
-                        cmbOutputFormat.SelectedIndex = 0;
-
                     grpMoreOptions.Visible = true;
                     DataTable dtEmployeeList = ConvertListToDataTable(objEmployeeInfo.getCompleteEmployeesList());
                     if (dtEmployeeList == null || dtEmployeeList.Rows.Count == 0)
@@ -3230,6 +3226,11 @@ namespace StaffSync
                         MessageBox.Show("No Employee Information is available for export.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
+
+                    cmbOutputFormat.Items.Clear();
+                    cmbOutputFormat.Items.Add("XML");
+                    if (cmbOutputFormat.Items.Count > 0)
+                        cmbOutputFormat.SelectedIndex = 0;
 
                     // Build one employee/detail data set. Family, nominee and qualification
                     // values are kept in their own columns so the HTML renderer can display
@@ -4042,7 +4043,11 @@ namespace StaffSync
 
                 if (string.IsNullOrWhiteSpace(format))
                 {
-                    MessageBox.Show("Please select an export format.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(
+                        "Please select an export format.",
+                        "Staffsync",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                     return;
                 }
 
@@ -4810,7 +4815,7 @@ namespace StaffSync
                 string requestIdColumn = GetFirstExistingColumn(advances, "EmpAdvanceRequestID", "AdvanceRequestID", "EmpAdvRequestID");
                 string orderColumn = GetFirstExistingColumn(advances, "OrderID", "OrderId", "RecoveryOrderID");
                 string advanceDateColumn = GetFirstExistingColumn(advances, "AdvanceDate", "Date", "AdvDate", "CreatedDate", "TransactionDate", "IssueDate", "AdvanceIssueDate");
-                string amountColumn = GetFirstExistingColumn(advances, "AdvanceAmount", "Advance Amount", "AdvAmount", "Amount", "IssuedAmount", "TotalAdvanceAmount", "RequestAmount", "SanctionedAmount");
+                string amountColumn = GetFirstExistingColumn(advances, "IssueAmount", "Issue Amount", "AdvanceAmount", "Advance Amount", "AdvAmount", "Amount", "IssuedAmount", "TotalAdvanceAmount", "RequestAmount", "SanctionedAmount");
                 string issueDateColumn = GetFirstExistingColumn(advances, "IssueDate", "AdvanceIssueDate", "AdvIssueDate", "DateOfIssue", "IssuedDate");
                 string lastPaymentColumn = GetFirstExistingColumn(advances, "LastPaymentDate", "Last Payment Date", "LastPaidDate", "LastPayment", "LastRecoveryDate", "LastInstallmentDate");
                 string outstandingColumn = GetFirstExistingColumn(advances, "OutstandingBalance", "Outstanding Balance", "OutstandingAmount", "BalanceAmount", "Balance", "RemainingAmount", "PendingAmount");
@@ -4862,10 +4867,14 @@ namespace StaffSync
                     // The validated Access query uses CBalance from the earliest recovery
                     // record as the advance amount (e.g. 800.00), and CBalance from the
                     // latest recovery record as the outstanding balance (e.g. 675.00).
+                    // IssueAmount is the actual amount issued (₹800 in the validated query).
+                    // CBalance is the remaining balance (₹675 in the validated query),
+                    // so only use it as an amount fallback if no issued-amount field exists.
                     string advanceAmount = GetFirstNonEmptyAdvanceText(firstRecord,
-                        amountColumn, "AdvanceAmount", "Advance Amount", "AdvAmount", "Amount", "CBalance", "ClosingBalance");
+                        "IssueAmount", "Issue Amount", amountColumn, "AdvanceAmount", "Advance Amount", "AdvAmount", "Amount", "IssuedAmount", "TotalAdvanceAmount", "RequestAmount", "SanctionedAmount");
                     if (string.IsNullOrWhiteSpace(advanceAmount))
-                        advanceAmount = GetFirstNonEmptyAdvanceText(lastRecord, "AdvanceAmount", "Advance Amount", "AdvAmount", "Amount", "CBalance");
+                        advanceAmount = GetFirstNonEmptyAdvanceText(lastRecord,
+                            "IssueAmount", "Issue Amount", amountColumn, "AdvanceAmount", "Advance Amount", "AdvAmount", "Amount", "IssuedAmount", "TotalAdvanceAmount", "RequestAmount", "SanctionedAmount");
 
                     string issueDate = GetFirstNonEmptyAdvanceText(firstRecord,
                         issueDateColumn, "IssueDate", "AdvanceIssueDate", "AdvIssueDate", "DateOfIssue", "IssuedDate", advanceDateColumn, "AdvanceDate", "Date");
@@ -5581,7 +5590,6 @@ namespace StaffSync
                 }
 
                 InitializeExportFormats();
-
                 LoadSelectedExportData();
 
                 this.Cursor = Cursors.Default;
