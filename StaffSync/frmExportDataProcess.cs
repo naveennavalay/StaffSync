@@ -46,6 +46,7 @@ namespace StaffSync
         DALStaffSync.clsEmpPersonalFamilyMemberInfo objEmpPersonalFamilyMemberInfo = new DALStaffSync.clsEmpPersonalFamilyMemberInfo();
         DALStaffSync.clsEmpNomineeMas objEmpNomineeMas = new DALStaffSync.clsEmpNomineeMas();
         DALStaffSync.clsEmpEduQualMas objEmpEduQualMas = new DALStaffSync.clsEmpEduQualMas();
+        DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
         DALStaffSync.clsCountries objCountries = new DALStaffSync.clsCountries();
         DALStaffSync.clsStates objStates = new DALStaffSync.clsStates();
         DALStaffSync.clsEduQalification objEduQalification = new DALStaffSync.clsEduQalification();
@@ -54,7 +55,6 @@ namespace StaffSync
         DALStaffSync.clsRelationship objRelationship = new DALStaffSync.clsRelationship();
         DALStaffSync.clsShiftMas objShiftMas = new DALStaffSync.clsShiftMas();
         DALStaffSync.clsEmploymentTypeInfo objEmploymentTypeInfo = new DALStaffSync.clsEmploymentTypeInfo();
-        DALStaffSync.clsEmpLeaveEntitlementInfo
         DALStaffSync.clsBankMas objBankMas = new DALStaffSync.clsBankMas();
         DALStaffSync.clsAdvanceTypeMas objAdvanceTypeMas = new DALStaffSync.clsAdvanceTypeMas();
         DALStaffSync.clsAssetsCategory objAssetsCategory = new DALStaffSync.clsAssetsCategory();
@@ -1905,6 +1905,13 @@ namespace StaffSync
             if (!result.Columns.Contains("SkillTitle")) result.Columns.Add("SkillTitle", typeof(string));
             if (!result.Columns.Contains("ExpertiseLevel")) result.Columns.Add("ExpertiseLevel", typeof(int));
 
+            // Employee-specific Leave Information columns populated from the
+            // employee leave-entitlement DAL below.
+            if (!result.Columns.Contains("LeaveTitle")) result.Columns.Add("LeaveTitle", typeof(string));
+            if (!result.Columns.Contains("LeaveAlloted")) result.Columns.Add("LeaveAlloted", typeof(decimal));
+            if (!result.Columns.Contains("LeaveUtilised")) result.Columns.Add("LeaveUtilised", typeof(decimal));
+            if (!result.Columns.Contains("LeaveBalance")) result.Columns.Add("LeaveBalance", typeof(decimal));
+
             // Consolidated Attendance Report columns.
             if (!result.Columns.Contains("AttendanceMonth")) result.Columns.Add("AttendanceMonth", typeof(string));
             // WorkingDays retains the total calendar days returned by the monthly query.
@@ -1936,24 +1943,19 @@ namespace StaffSync
                 DataTable education = chkQualSkillsInfo.Checked ? (objEmpEduQualMas.GetEduQualListInfo(empId)) : new DataTable();
                 DataTable skills = chkQualSkillsInfo.Checked ? (objEmpSkillsMas.GetSkillsListInfo(empId)) : new DataTable();
                 DataTable monthlyAttendance = ConvertListToDataTable(objDashboardChartWidgets.GetMonthlyAttendanceRegisterDataByEmpID(empId));
+                DataTable leaveInformation = ConvertListToDataTable(objEmpLeaveEntitlementInfo.getEmployeeSpecificLeaveInfo(empId));
 
                 List<DataRow> familyRows = family.Rows.Cast<DataRow>().Where(r => family.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> nomineeRows = nominee.Rows.Cast<DataRow>().ToList();
                 List<DataRow> educationRows = education.Rows.Cast<DataRow>().Where(r => education.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> skillsRows = skills.Rows.Cast<DataRow>().Where(r => skills.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
-                List<DataRow> mnthlyAttendanceRows = monthlyAttendance.Rows.Cast<DataRow>()
-                    .Where(r => !monthlyAttendance.Columns.Contains("EmpID") ||
-                        r["EmpID"] == DBNull.Value ||
-                        Convert.ToString(r["EmpID"]) == Convert.ToString(empId))
-                    .Where(r => !monthlyAttendance.Columns.Contains("RecordType") ||
-                        r["RecordType"] == DBNull.Value ||
-                        string.Equals(Convert.ToString(r["RecordType"]), "MONTH", StringComparison.OrdinalIgnoreCase))
-                    .ToList();
+                List<DataRow> mnthlyAttendanceRows = monthlyAttendance.Rows.Cast<DataRow>().Where(r => !monthlyAttendance.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).Where(r => !monthlyAttendance.Columns.Contains("RecordType") || r["RecordType"] == DBNull.Value || string.Equals(Convert.ToString(r["RecordType"]), "MONTH", StringComparison.OrdinalIgnoreCase)).ToList();
+                List<DataRow> empLeaveRows = leaveInformation.Rows.Cast<DataRow>().Where(r => !leaveInformation.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
 
                 //DataTable employeeAttendanceSummary = BuildConsolidatedAttendanceSummary(monthlyAttendanceRegisterData, empId, attendanceYear);
                 //List<DataRow> attendanceRows = employeeAttendanceSummary.Rows.Cast<DataRow>().ToList();
 
-                int rowCount = Math.Max(1, Math.Max(mnthlyAttendanceRows.Count, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count)))));
+                int rowCount = Math.Max(1, Math.Max(empLeaveRows.Count, Math.Max(mnthlyAttendanceRows.Count, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count))))));
 
                 for (int i = 0; i < rowCount; i++)
                 {
@@ -1961,7 +1963,8 @@ namespace StaffSync
                     CopyEmployeeColumns(employee, output, employees.Columns);
                     if (i < familyRows.Count)
                         foreach (string column in familyColumns)
-                            if (family.Columns.Contains(column) && result.Columns.Contains(column)) output[column] = familyRows[i][column] == DBNull.Value ? DBNull.Value : familyRows[i][column];
+                            if (family.Columns.Contains(column) && result.Columns.Contains(column))
+                                output[column] = familyRows[i][column] == DBNull.Value ? DBNull.Value : familyRows[i][column];
                     if (i < nomineeRows.Count)
                     {
                         if (nominee.Columns.Contains("NomineePerson")) output["NomineePerson"] = nomineeRows[i]["NomineePerson"] == DBNull.Value ? DBNull.Value : nomineeRows[i]["NomineePerson"];
@@ -1982,6 +1985,30 @@ namespace StaffSync
                         }
                     }
 
+                    if (i < empLeaveRows.Count)
+                    {
+                        DataRow empIndLeaveRow = empLeaveRows[i];
+
+                        output["LeaveTitle"] = empLeaveRows[i].Table.Columns.Contains("LeaveTypeTitle") && empIndLeaveRow["LeaveTypeTitle"] != DBNull.Value
+                            ? empIndLeaveRow["LeaveTypeTitle"] : DBNull.Value;
+
+                        if (empLeaveRows[i].Table.Columns.Contains("TotalLeaves"))
+                            output["LeaveAlloted"] = empIndLeaveRow["TotalLeaves"] == DBNull.Value ? DBNull.Value : empIndLeaveRow["TotalLeaves"];
+
+                        // Use an actual utilised value if this DAL version supplies one.
+                        // Otherwise the HTML renderer calculates TotalLeaves - BalanceLeaves.
+                        if (empLeaveRows[i].Table.Columns.Contains("UtilisedLeaves"))
+                            output["LeaveUtilised"] = empIndLeaveRow["UtilisedLeaves"] == DBNull.Value ? DBNull.Value : empIndLeaveRow["UtilisedLeaves"];
+                        else if (empLeaveRows[i].Table.Columns.Contains("LeaveUtilised"))
+                            output["LeaveUtilised"] = empIndLeaveRow["LeaveUtilised"] == DBNull.Value ? DBNull.Value : empIndLeaveRow["LeaveUtilised"];
+
+                        if (empLeaveRows[i].Table.Columns.Contains("BalanceLeaves"))
+                            output["LeaveBalance"] = empIndLeaveRow["BalanceLeaves"] == DBNull.Value ? DBNull.Value : empIndLeaveRow["BalanceLeaves"];
+                        else if (empLeaveRows[i].Table.Columns.Contains("LeaveBalance"))
+                            output["LeaveBalance"] = empIndLeaveRow["LeaveBalance"] == DBNull.Value ? DBNull.Value : empIndLeaveRow["LeaveBalance"];
+                        // IsPaid remains available in the source but is not one of the requested display columns.
+                    }
+
                     // Consolidated Attendance Information - one row per month.
                     // Map the actual column names returned by the Monthly Attendance
                     // Register query to the export's existing consolidated columns.
@@ -1990,58 +2017,6 @@ namespace StaffSync
                     if (i < mnthlyAttendanceRows.Count)
                     {
                         DataRow attendanceRow = mnthlyAttendanceRows[i];
-
-                        // The current summary query exposes Month, PresentCount,
-                        // LeaveCount, CancelledCount and RejectedCount. Older query
-                        // versions may expose the longer aliases below, so retain them.
-                        // Prefer an already formatted month/year label. Do not use a generic
-                        // "Month" field here because some DAL models use that field for
-                        // RecordType (for example, the literal value "MONTH").
-                        //object monthYearValue = GetFirstAvailableColumnValue(
-                        //    attendanceRow, "Month - Year", "AttendanceMonth", "MonthName", "MonthNo");
-                        //object attendanceRowYear = GetFirstAvailableColumnValue(
-                        //    attendanceRow, "Year", "AttendanceYear", "CalendarYear");
-                        //int monthYear = attendanceYear;
-                        //if (attendanceRowYear != DBNull.Value)
-                        //{
-                        //    int parsedYear;
-                        //    if (int.TryParse(Convert.ToString(attendanceRowYear, CultureInfo.InvariantCulture), out parsedYear) && parsedYear >= 1900)
-                        //        monthYear = parsedYear;
-                        //}
-                        //object presentValue = GetFirstAvailableColumnValue(
-                        //    attendanceRow, "PresentCount", "Present", "PresentDays");
-                        //object leaveValue = GetFirstAvailableColumnValue(
-                        //    attendanceRow, "LeaveCount", "Leave", "LeaveDays");
-                        //object cancelledValue = GetFirstAvailableColumnValue(
-                        //    attendanceRow, "CancelledCount", "Cancelled", "CancelledDays");
-                        //object rejectedValue = GetFirstAvailableColumnValue(
-                        //    attendanceRow, "RejectedCount", "Rejected", "RejectedDays");
-                        //object workingDaysValue = GetFirstAvailableColumnValue(
-                        //    attendanceRow, "Total Days", "WorkingDays", "WorkingDaysCount");
-                        //object payableDaysValue = GetFirstAvailableColumnValue(
-                        //    attendanceRow, "Payable Days", "PayableDays");
-
-                        //// If the query only returns the four status counts, derive
-                        //// Working Days from those counts. Payable Days follows the
-                        //// existing report rule: Present + full-day LeaveCount.
-                        //if (workingDaysValue == DBNull.Value)
-                        //    workingDaysValue = SumNumericValues(presentValue, leaveValue, cancelledValue, rejectedValue);
-                        //if (payableDaysValue == DBNull.Value)
-                        //    payableDaysValue = SumNumericValues(presentValue, leaveValue);
-
-                        //monthYearValue = FormatAttendanceMonthYear(monthYearValue, monthYear);
-
-                        //if (result.Columns.Contains("AttendanceMonth"))
-                        //    output["AttendanceMonth"] = monthYearValue;
-                        //if (result.Columns.Contains("WorkingDays"))
-                        //    output["WorkingDays"] = workingDaysValue;
-                        //if (result.Columns.Contains("Present"))
-                        //    output["Present"] = presentValue;
-                        //if (result.Columns.Contains("Leave"))
-                        //    output["Leave"] = leaveValue;
-                        //if (result.Columns.Contains("PayableDays"))
-                        //    output["PayableDays"] = payableDaysValue;
-
 
                         output["AttendanceMonth"] = attendanceRow["MonthYear"];
                         output["WorkingDays"] = attendanceRow["TotalDays"];
@@ -3901,6 +3876,11 @@ namespace StaffSync
                 .OrderBy(column => column.DisplayIndex)
                 .ToList();
 
+            // Keep EmpID as an internal key for employee-specific detail lookups.
+            // It is excluded from visibleEmployeeColumns above, so it will not appear in the report.
+            if (!selectedData.Columns.Contains("EmpID"))
+                selectedData.Columns.Add("EmpID", typeof(string));
+
             foreach (DataGridViewColumn column in visibleEmployeeColumns)
             {
                 string name = GetExportDisplayColumnHeader(column);
@@ -3920,8 +3900,9 @@ namespace StaffSync
                 "FamMemState", "FamMemPIN", "FamMemCountry", "FamMemContactNumber",
                 "FamMemMailID", "FamMemBloodGroup", "FamMemInsuranceEnrolled",
                 "NomineePerson", "NomineeContactNumber", "NomineeRelationShipTitle",
-                "EduQualTitle", "SkillTitle", "ExpertiseLevel", "AttendanceMonth",
-                "WorkingDays", "ActualWorkingDays", "Present", "Leave", "PayableDays",
+                "EduQualTitle", "SkillTitle", "ExpertiseLevel",
+                "LeaveTitle", "LeaveAlloted", "LeaveUtilised", "LeaveBalance",
+                "AttendanceMonth", "WorkingDays", "ActualWorkingDays", "Present", "Leave", "PayableDays",
                 "AttendancePercentage"
             };
             foreach (string detailColumn in detailColumns)
@@ -3956,6 +3937,7 @@ namespace StaffSync
                     {
                         output[outputIndex++] = GetFormattedExportCellValue(gridRow, column.Name);
                     }
+                    output["EmpID"] = employeeId;
                     foreach (string detailColumn in detailColumns)
                     {
                         if (selectedData.Columns.Contains(detailColumn))
@@ -4288,18 +4270,14 @@ namespace StaffSync
             string[] nomineeColumns = new string[] { "NomineePerson", "NomineeContactNumber", "NomineeRelationShipTitle" };
             string[] educationColumns = new string[] { "EduQualTitle" };
             string[] skillsColumns = new string[] { "SkillTitle", "ExpertiseLevel" };
-            string[] attendanceColumns = new string[]
-            {
-                "AttendanceMonth", "WorkingDays", "ActualWorkingDays", "Present", "Leave", "PayableDays", "AttendancePercentage"
-            };
-            string[] detailColumns = familyColumns.Concat(nomineeColumns)
-                .Concat(educationColumns).Concat(skillsColumns).Concat(attendanceColumns).ToArray();
+            string[] leaveColumns = new string[] { "LeaveTitle", "LeaveAlloted", "LeaveUtilised", "LeaveBalance" };
+            string[] attendanceColumns = new string[] { "AttendanceMonth", "WorkingDays", "ActualWorkingDays", "Present", "Leave", "PayableDays", "AttendancePercentage" };
+            string[] detailColumns = familyColumns.Concat(nomineeColumns).Concat(educationColumns).Concat(skillsColumns).Concat(leaveColumns).Concat(attendanceColumns).ToArray();
 
             // EmpID may be hidden in the preview grid and therefore omitted by
             // GetSelectedExportData(). Detect the family export by its family
             // columns, then group using EmpID when available or EmpCode otherwise.
-            bool hasFamilyColumns = data != null &&
-                detailColumns.Any(c => data.Columns.Contains(c));
+            bool hasFamilyColumns = data != null && detailColumns.Any(c => data.Columns.Contains(c));
 
             StringBuilder html = new StringBuilder();
             html.AppendLine("<!DOCTYPE html>");
@@ -4322,7 +4300,7 @@ namespace StaffSync
             html.AppendLine(".toggle{border:1px solid #98a2b3;background:#fff;border-radius:4px;cursor:pointer;padding:2px 8px;margin-right:8px;font-size:14px;}");
             html.AppendLine(".family-detail td{background:#fff;padding:14px 18px;}");
             // Adjustable family-subtable column widths. Change these percentages to suit the report layout.
-            html.AppendLine(":root{--family-name-width:15%;--family-dob-width:10%;--family-age-width:5%;--family-relationship-width:8%;--family-contact-width:8%;--family-email-width:15%;--family-blood-width:7%;--family-insurance-width:8%;--family-address-width:32%;}");
+            html.AppendLine(":root{--family-name-width:15%;--family-dob-width:10%;--family-age-width:5%;--family-relationship-width:8%;--family-contact-width:9%;--family-email-width:15%;--family-blood-width:7%;--family-insurance-width:8%;--family-address-width:32%;}");
             // Manually configurable widths for every employee detail subtable.
             // Change these percentages here; no rendering logic needs to be rewritten.
             html.AppendLine(":root{" +
@@ -4332,6 +4310,10 @@ namespace StaffSync
                 "--education-qualification-width:100%;" +
                 "--skills-name-width:65%;" +
                 "--skills-expertise-width:35%;" +
+                "--leave-title-width:40%;" +
+                "--leave-alloted-width:20%;" +
+                "--leave-utilised-width:20%;" +
+                "--leave-balance-width:20%;" +
                 "--attendance-month-width:16%;" +
                 "--attendance-total-days-width:16%;" +
                 "--attendance-working-days-width:16%;" +
@@ -4366,6 +4348,14 @@ namespace StaffSync
             html.AppendLine(".skills-table{table-layout:fixed;width:100%;min-width:0;}");
             html.AppendLine(".skills-table .col-skills-name{width:var(--skills-name-width);}");
             html.AppendLine(".skills-table .col-skills-expertise{width:var(--skills-expertise-width);}");
+
+            // Leave Information placeholder column widths
+            html.AppendLine(".leave-table{table-layout:fixed;width:100%;min-width:0;}");
+            html.AppendLine(".leave-table th,.leave-table td{overflow-wrap:anywhere;}");
+            html.AppendLine(".leave-table .col-leave-title{width:var(--leave-title-width);}");
+            html.AppendLine(".leave-table .col-leave-alloted{width:var(--leave-alloted-width);}");
+            html.AppendLine(".leave-table .col-leave-utilised{width:var(--leave-utilised-width);}");
+            html.AppendLine(".leave-table .col-leave-balance{width:var(--leave-balance-width);}");
 
             // Consolidated Attendance Report column widths
             html.AppendLine(".attendance-summary-table{table-layout:fixed;width:100%;}");
@@ -4413,7 +4403,9 @@ namespace StaffSync
             if (hasFamilyColumns)
             {
                 List<DataColumn> employeeColumns = data.Columns.Cast<DataColumn>()
-                    .Where(c => c.ColumnName != "IsSelected" && !detailColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase))
+                    .Where(c => c.ColumnName != "IsSelected" &&
+                                !string.Equals(c.ColumnName, "EmpID", StringComparison.OrdinalIgnoreCase) &&
+                                !detailColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase))
                     .ToList();
                 // Render the address components as one readable Address column.
                 // The source DataTable remains unchanged; this affects HTML presentation only.
@@ -4530,6 +4522,10 @@ namespace StaffSync
                     html.AppendLine("<div class=\"family-heading\">Skills Information</div>");
                     AppendSimpleDetailTable(html, employeeSkillRows, skillsColumns, data, "No skills information available.");
 
+                    // Leave Information: render the employee's leave entitlement records.
+                    // EmpID is carried internally through the export dataset for this lookup.
+                    AppendLeaveInformationPlaceholder(html, group.Rows, data);
+
                     // Consolidated Attendance Report placeholder.
                     // Monthly attendance values will be populated by the attendance DAL.
                     AppendConsolidatedAttendancePlaceholder(html, group.Rows, data);
@@ -4566,14 +4562,151 @@ namespace StaffSync
         }
 
         /// <summary>
+        /// Renders the employee-specific leave entitlement rows supplied by
+        /// objEmpLeaveEntitlementInfo.getEmployeeSpecificLeaveInfo(empId).
+        /// The DAL fields are LeaveTypeTitle, TotalLeaves and BalanceLeaves.
+        /// If a utilised-leave field is returned, it is used; otherwise utilised
+        /// leaves are calculated as TotalLeaves - BalanceLeaves.
+        /// </summary>
+        private void AppendLeaveInformationPlaceholder(StringBuilder html, List<DataRow> employeeRows, DataTable data)
+        {
+            html.AppendLine("<div class=\"family-heading\">Leave Information</div>");
+            html.AppendLine("<table class=\"family-table leave-table\"><colgroup>");
+            html.AppendLine("<col class=\"col-leave-title\" />");
+            html.AppendLine("<col class=\"col-leave-alloted\" />");
+            html.AppendLine("<col class=\"col-leave-utilised\" />");
+            html.AppendLine("<col class=\"col-leave-balance\" />");
+            html.AppendLine("</colgroup><thead><tr>");
+            html.AppendLine("<th>LeaveTitle</th><th>Leave Alloted</th><th>Leave Utilised</th><th>Leave Balance</th>");
+            html.AppendLine("</tr></thead><tbody>");
+
+            bool hasLeaveRows = false;
+            int empId = 0;
+
+            // Fetch the leave rows directly while rendering. This avoids losing them
+            // when leave, attendance, family and skills are merged by row index.
+            if (employeeRows != null)
+            {
+                foreach (DataRow employeeRow in employeeRows)
+                {
+                    if (employeeRow == null || employeeRow.RowState == DataRowState.Deleted ||
+                        employeeRow.Table == null || !employeeRow.Table.Columns.Contains("EmpID") ||
+                        employeeRow["EmpID"] == DBNull.Value)
+                        continue;
+                    int.TryParse(Convert.ToString(employeeRow["EmpID"]), out empId);
+                    if (empId > 0) break;
+                }
+            }
+
+            DataTable leaveData = new DataTable();
+            if (empId > 0)
+            {
+                try
+                {
+                    leaveData = ConvertListToDataTable(objEmpLeaveEntitlementInfo.getEmployeeSpecificLeaveInfo(empId));
+                }
+                catch
+                {
+                    leaveData = new DataTable();
+                }
+            }
+
+            if (leaveData != null && leaveData.Rows.Count > 0)
+            {
+                string titleColumn = GetFirstExistingColumn(leaveData, "LeaveTypeTitle", "LeaveTitle", "LeaveType", "LeaveName");
+                string allottedColumn = GetFirstExistingColumn(leaveData, "TotalLeaves", "LeaveAlloted", "LeavesAllotted", "AllottedLeaves");
+                string balanceColumn = GetFirstExistingColumn(leaveData, "BalanceLeaves", "LeaveBalance", "LeavesBalance", "Balance");
+                string utilisedColumn = GetFirstExistingColumn(leaveData, "UtilisedLeaves", "LeaveUtilised", "LeavesUtilised", "UtilizedLeaves", "LeaveUsed");
+
+                foreach (DataRow leaveRow in leaveData.Rows)
+                {
+                    if (leaveRow == null || leaveRow.RowState == DataRowState.Deleted) continue;
+                    string leaveTitle = titleColumn == null || leaveRow[titleColumn] == DBNull.Value
+                        ? string.Empty : Convert.ToString(leaveRow[titleColumn]).Trim();
+                    if (string.IsNullOrWhiteSpace(leaveTitle)) continue;
+
+                    decimal allotted = allottedColumn == null ? 0m : GetLeaveDecimal(leaveRow, allottedColumn);
+                    decimal balance = balanceColumn == null ? 0m : GetLeaveDecimal(leaveRow, balanceColumn);
+                    decimal utilised = utilisedColumn != null ? GetLeaveDecimal(leaveRow, utilisedColumn) : allotted - balance;
+                    if (utilised < 0m) utilised = 0m;
+
+                    html.AppendLine("<tr>");
+                    html.AppendLine("<td>" + HtmlEncode(leaveTitle) + "</td>");
+                    html.AppendLine("<td>" + allotted.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture) + "</td>");
+                    html.AppendLine("<td>" + utilised.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture) + "</td>");
+                    html.AppendLine("<td>" + balance.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture) + "</td>");
+                    html.AppendLine("</tr>");
+                    hasLeaveRows = true;
+                }
+            }
+
+            // Compatibility fallback: use leave values already merged into the report.
+            if (!hasLeaveRows && employeeRows != null && data != null &&
+                data.Columns.Contains("LeaveTitle") && data.Columns.Contains("LeaveAlloted") && data.Columns.Contains("LeaveBalance"))
+            {
+                foreach (DataRow row in employeeRows)
+                {
+                    if (row == null || row.RowState == DataRowState.Deleted || row["LeaveTitle"] == DBNull.Value) continue;
+                    string leaveTitle = Convert.ToString(row["LeaveTitle"]).Trim();
+                    if (string.IsNullOrWhiteSpace(leaveTitle)) continue;
+                    decimal allotted = GetLeaveDecimal(row, "LeaveAlloted");
+                    decimal balance = GetLeaveDecimal(row, "LeaveBalance");
+                    decimal utilised = data.Columns.Contains("LeaveUtilised") && row["LeaveUtilised"] != DBNull.Value
+                        ? GetLeaveDecimal(row, "LeaveUtilised") : allotted - balance;
+                    if (utilised < 0m) utilised = 0m;
+                    html.AppendLine("<tr>");
+                    html.AppendLine("<td>" + HtmlEncode(leaveTitle) + "</td>");
+                    html.AppendLine("<td>" + allotted.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture) + "</td>");
+                    html.AppendLine("<td>" + utilised.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture) + "</td>");
+                    html.AppendLine("<td>" + balance.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture) + "</td>");
+                    html.AppendLine("</tr>");
+                    hasLeaveRows = true;
+                }
+            }
+
+            if (!hasLeaveRows)
+                html.AppendLine("<tr><td colspan=\"4\" class=\"empty-family\">No leave information available for this employee.</td></tr>");
+            html.AppendLine("</tbody></table>");
+        }
+
+        private string GetFirstExistingColumn(DataTable table, params string[] candidates)
+        {
+            if (table == null || candidates == null) return null;
+            foreach (string candidate in candidates)
+            {
+                if (table.Columns.Contains(candidate)) return candidate;
+                foreach (DataColumn column in table.Columns)
+                    if (string.Equals(column.ColumnName, candidate, StringComparison.OrdinalIgnoreCase)) return column.ColumnName;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Safely reads a numeric leave field, returning zero for missing/null values.
+        /// </summary>
+        private decimal GetLeaveDecimal(DataRow row, string columnName)
+        {
+            if (row == null || row.Table == null ||
+                !row.Table.Columns.Contains(columnName) ||
+                row[columnName] == DBNull.Value)
+                return 0m;
+
+            decimal value;
+            return decimal.TryParse(
+                Convert.ToString(row[columnName]),
+                System.Globalization.NumberStyles.Any,
+                System.Globalization.CultureInfo.InvariantCulture,
+                out value)
+                ? value
+                : 0m;
+        }
+
+        /// <summary>
         /// Renders the employee's consolidated monthly attendance report.
         /// Values are supplied from the same Monthly Attendance Register DAL used by the dashboard.
         /// Expected fields: AttendanceMonth, WorkingDays, Present, Leave, PayableDays.
         /// </summary>
-        private void AppendConsolidatedAttendancePlaceholder(
-            StringBuilder html,
-            List<DataRow> employeeRows,
-            DataTable data)
+        private void AppendConsolidatedAttendancePlaceholder(StringBuilder html, List<DataRow> employeeRows, DataTable data)
         {
             string[] attendanceColumns = new string[]
             {
