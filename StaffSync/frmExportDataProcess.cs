@@ -1924,6 +1924,15 @@ namespace StaffSync
             if (!result.Columns.Contains("EmployeeAdvanceLastPaymentDate")) result.Columns.Add("EmployeeAdvanceLastPaymentDate", typeof(object));
             if (!result.Columns.Contains("EmployeeAdvanceOutstandingBalance")) result.Columns.Add("EmployeeAdvanceOutstandingBalance", typeof(object));
 
+            // Employee-specific monthly payslip columns. These values come from
+            // objEmpPayroll.getEmployeeSpecificConsolidatedPayslipValues(empId).
+            if (!result.Columns.Contains("EmployeePayslipSalaryDate")) result.Columns.Add("EmployeePayslipSalaryDate", typeof(object));
+            if (!result.Columns.Contains("EmployeePayslipBasicSalary")) result.Columns.Add("EmployeePayslipBasicSalary", typeof(object));
+            if (!result.Columns.Contains("EmployeePayslipTotalAllowances")) result.Columns.Add("EmployeePayslipTotalAllowances", typeof(object));
+            if (!result.Columns.Contains("EmployeePayslipTotalDeductions")) result.Columns.Add("EmployeePayslipTotalDeductions", typeof(object));
+            if (!result.Columns.Contains("EmployeePayslipTotalReimbursements")) result.Columns.Add("EmployeePayslipTotalReimbursements", typeof(object));
+            if (!result.Columns.Contains("EmployeePayslipNetSalary")) result.Columns.Add("EmployeePayslipNetSalary", typeof(object));
+
             // Consolidated Attendance Report columns.
             if (!result.Columns.Contains("AttendanceMonth")) result.Columns.Add("AttendanceMonth", typeof(string));
             // WorkingDays retains the total calendar days returned by the monthly query.
@@ -2100,10 +2109,38 @@ namespace StaffSync
                     if (i < empPayslipRows.Count)
                     {
                         DataRow indPayslipInfo = empPayslipRows[i];
-                        
+                        DataTable payslipTable = indPayslipInfo.Table;
+
+                        string salaryDateColumn = GetFirstExistingColumn(payslipTable,
+                            "SalaryMonth", "SalaryDate", "EmpSalDate", "PayDate", "PayrollDate", "MonthYear");
+                        string basicSalaryColumn = GetFirstExistingColumn(payslipTable,
+                            "Basic Salary", "BasicSalary", "BasicAmount", "BasicPay");
+                        string allowancesColumn = GetFirstExistingColumn(payslipTable,
+                            "TotalAllowanceAmount", "TotalAllowances", "TotalAllowance", "AllowanceAmount", "Total Allowances");
+                        string deductionsColumn = GetFirstExistingColumn(payslipTable,
+                            "TotalDeductionAmount", "TotalDeductions", "TotalDeduction", "DeductionAmount", "Total Deductions");
+                        string reimbursementsColumn = GetFirstExistingColumn(payslipTable,
+                            "TotalReimbursementAmount", "TotalReimbursements", "TotalReimbursement", "ReimbursementAmount", "Total Reimbursements", "TotalReimbursmentAmount");
+
+                        object salaryDateValue = GetPayslipRawValue(indPayslipInfo, salaryDateColumn);
+                        decimal basicSalary = GetPayslipDecimal(indPayslipInfo, basicSalaryColumn);
+                        decimal totalAllowances = GetPayslipDecimal(indPayslipInfo, allowancesColumn);
+                        decimal totalDeductions = GetPayslipDecimal(indPayslipInfo, deductionsColumn);
+                        decimal totalReimbursements = GetPayslipDecimal(indPayslipInfo, reimbursementsColumn);
+                        decimal netSalary = basicSalary + totalAllowances - totalDeductions + totalReimbursements;
+
+                        output["EmployeePayslipSalaryDate"] = salaryDateValue;
+                        output["EmployeePayslipBasicSalary"] = string.IsNullOrEmpty(basicSalaryColumn) ? (object)DBNull.Value : basicSalary;
+                        output["EmployeePayslipTotalAllowances"] = string.IsNullOrEmpty(allowancesColumn) ? (object)DBNull.Value : totalAllowances;
+                        output["EmployeePayslipTotalDeductions"] = string.IsNullOrEmpty(deductionsColumn) ? (object)DBNull.Value : totalDeductions;
+                        output["EmployeePayslipTotalReimbursements"] = string.IsNullOrEmpty(reimbursementsColumn) ? (object)DBNull.Value : totalReimbursements;
+                        output["EmployeePayslipNetSalary"] =
+                            string.IsNullOrEmpty(basicSalaryColumn) && string.IsNullOrEmpty(allowancesColumn) &&
+                            string.IsNullOrEmpty(deductionsColumn) && string.IsNullOrEmpty(reimbursementsColumn)
+                            ? (object)DBNull.Value : netSalary;
                     }
 
-                        
+
                     result.Rows.Add(output);
                 }
             }
@@ -4424,6 +4461,10 @@ namespace StaffSync
             html.AppendLine(".advance-statement-table .col-advance-issue-date{width:var(--advance-issue-date-width);}");
             html.AppendLine(".advance-statement-table .col-advance-last-payment{width:var(--advance-last-payment-width);}");
             html.AppendLine(".advance-statement-table .col-advance-outstanding{width:var(--advance-outstanding-width);}");
+            // Employee-specific Payslip Statement column widths.
+            html.AppendLine(".payslip-statement-table{table-layout:fixed;width:100%;min-width:0;}");
+            html.AppendLine(".payslip-statement-table th,.payslip-statement-table td{overflow-wrap:anywhere;text-align:right;}");
+            html.AppendLine(".payslip-statement-table th:first-child,.payslip-statement-table td:first-child{text-align:left;}");
 
             // Consolidated Attendance Report column widths
             html.AppendLine(".attendance-summary-table{table-layout:fixed;width:100%;}");
@@ -4597,6 +4638,9 @@ namespace StaffSync
                     // Employee-specific Advance Statements.
                     AppendEmployeeAdvanceStatements(html, group.Rows);
 
+                    // Employee-specific monthly Payslip Statements.
+                    AppendEmployeePayslipStatements(html, group.Rows);
+
                     // Consolidated Attendance Report placeholder.
                     // Monthly attendance values will be populated by the attendance DAL.
                     AppendConsolidatedAttendancePlaceholder(html, group.Rows, data);
@@ -4738,6 +4782,197 @@ namespace StaffSync
             if (!hasLeaveRows)
                 html.AppendLine("<tr><td colspan=\"4\" class=\"empty-family\">No leave information available for this employee.</td></tr>");
             html.AppendLine("</tbody></table>");
+        }
+
+        /// <summary>
+        /// Renders the employee's month-wise consolidated payslip values.
+        /// Net Salary is calculated as Basic Salary + Total Allowances - Total Deductions
+        /// + Total Reimbursements. Values are taken from the rows already populated
+        /// by getEmployeeSpecificConsolidatedPayslipValues in BuildEmployeeInformationWithDetails.
+        /// </summary>
+        private void AppendEmployeePayslipStatements(StringBuilder html, List<DataRow> employeeRows)
+        {
+            html.AppendLine("<div class=\"family-heading\">Employee Specific Payslip Statements</div>");
+            html.AppendLine("<table class=\"family-table payslip-statement-table\"><thead><tr>");
+            html.AppendLine("<th>Salary Date</th><th>Basic Salary</th><th>Total Allowances</th><th>Total Deductions</th><th>Total Reimbursements</th><th>Net Salary</th>");
+            html.AppendLine("</tr></thead><tbody>");
+
+            // Load the payslip rows directly for the employee being rendered. This avoids
+            // relying on the flattened employee/detail rows to carry every payslip field.
+            int employeeId = 0;
+            if (employeeRows != null)
+            {
+                foreach (DataRow employeeRow in employeeRows)
+                {
+                    if (employeeRow == null || employeeRow.RowState == DataRowState.Deleted || employeeRow.Table == null)
+                        continue;
+                    string idColumn = GetFirstExistingColumn(employeeRow.Table, "EmpID", "EmployeeID", "EmpId");
+                    if (!string.IsNullOrEmpty(idColumn) && employeeRow[idColumn] != DBNull.Value &&
+                        int.TryParse(Convert.ToString(employeeRow[idColumn]), out employeeId) && employeeId > 0)
+                        break;
+                }
+            }
+
+            DataTable payslipData = new DataTable("EmployeePayslipStatements");
+            if (employeeId > 0)
+            {
+                try
+                {
+                    payslipData = ConvertListToDataTable(
+                        objEmpPayroll.getEmployeeSpecificConsolidatedPayslipValues(employeeId));
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(
+                        "Unable to load employee-specific payslip statements: " + ex.Message);
+                }
+            }
+
+            bool found = false;
+            if (payslipData != null && payslipData.Rows.Count > 0)
+            {
+                string empIdColumn = GetFirstExistingColumn(payslipData, "EmpID", "EmployeeID", "EmpId");
+                string salaryDateColumn = FindPayslipColumn(payslipData,
+                    new string[] { "SalaryMonth", "SalaryDate", "EmpSalDate", "EmpSalMonth", "SalDate", "PayDate", "PayrollDate", "MonthYear", "SalaryPeriod", "Month", "Date" },
+                    "date");
+                string basicColumn = FindPayslipColumn(payslipData,
+                    new string[] { "Basic Salary", "BasicSalary", "BasicSal", "EmpSalBasic", "BasicAmount", "BasicPay", "Basic", "BasicSalaryAmount" },
+                    "basic");
+                string allowanceColumn = FindPayslipColumn(payslipData,
+                    new string[] { "TotalAllowanceAmount", "TotalAllowances", "TotalAllowance", "AllowanceAmount", "Total Allowances", "AllAmount", "AllowanceTotal", "Allowances" },
+                    "allowance");
+                string deductionColumn = FindPayslipColumn(payslipData,
+                    new string[] { "TotalDeductionAmount", "TotalDeductions", "TotalDeduction", "DeductionAmount", "Total Deductions", "DedAmount", "DeductionTotal", "Deductions" },
+                    "deduction");
+                string reimbursementColumn = FindPayslipColumn(payslipData,
+                    new string[] { "TotalReimbursementAmount", "TotalReimbursements", "TotalReimbursement", "ReimbursementAmount", "Total Reimbursements", "TotalReimbursmentAmount", "TotalReimbursementAmout", "ReimbAmount", "ReimbursementTotal", "Reimbursements" },
+                    "reimburs");
+
+                IEnumerable<DataRow> sourceRows = payslipData.Rows.Cast<DataRow>();
+                if (!string.IsNullOrEmpty(empIdColumn))
+                    sourceRows = sourceRows.Where(r => r[empIdColumn] == DBNull.Value ||
+                        Convert.ToString(r[empIdColumn]) == employeeId.ToString());
+
+                foreach (DataRow row in sourceRows)
+                {
+                    if (row == null || row.RowState == DataRowState.Deleted) continue;
+                    object salaryDate = GetPayslipRawValue(row, salaryDateColumn);
+                    object basicRaw = GetPayslipRawValue(row, basicColumn);
+                    object allowanceRaw = GetPayslipRawValue(row, allowanceColumn);
+                    object deductionRaw = GetPayslipRawValue(row, deductionColumn);
+                    object reimbursementRaw = GetPayslipRawValue(row, reimbursementColumn);
+
+                    bool hasAnyValue = (salaryDate != DBNull.Value) || (basicRaw != DBNull.Value) ||
+                        (allowanceRaw != DBNull.Value) || (deductionRaw != DBNull.Value) ||
+                        (reimbursementRaw != DBNull.Value);
+                    if (!hasAnyValue) continue;
+
+                    decimal basic = GetPayslipDecimalValue(basicRaw);
+                    decimal allowances = GetPayslipDecimalValue(allowanceRaw);
+                    decimal deductions = GetPayslipDecimalValue(deductionRaw);
+                    decimal reimbursements = GetPayslipDecimalValue(reimbursementRaw);
+                    decimal netSalary = basic + allowances - deductions + reimbursements;
+
+                    html.AppendLine("<tr>");
+                    html.AppendLine("<td>" + HtmlEncode(GetPayslipDateText(salaryDate)) + "</td>");
+                    html.AppendLine("<td class=\"numeric\">" + HtmlEncode(basic.ToString("N2", CultureInfo.InvariantCulture)) + "</td>");
+                    html.AppendLine("<td class=\"numeric\">" + HtmlEncode(allowances.ToString("N2", CultureInfo.InvariantCulture)) + "</td>");
+                    html.AppendLine("<td class=\"numeric\">" + HtmlEncode(deductions.ToString("N2", CultureInfo.InvariantCulture)) + "</td>");
+                    html.AppendLine("<td class=\"numeric\">" + HtmlEncode(reimbursements.ToString("N2", CultureInfo.InvariantCulture)) + "</td>");
+                    html.AppendLine("<td class=\"numeric\"><strong>" + HtmlEncode(netSalary.ToString("N2", CultureInfo.InvariantCulture)) + "</strong></td>");
+                    html.AppendLine("</tr>");
+                    found = true;
+                }
+            }
+
+            if (!found)
+                html.AppendLine("<tr><td colspan=\"6\" class=\"empty-family\">No payslip information available for this employee.</td></tr>");
+            html.AppendLine("</tbody></table>");
+        }
+
+        /// <summary>
+        /// Finds a payslip column using exact aliases first, then a normalized
+        /// case/spacing-insensitive name match, and finally a conservative semantic match.
+        /// </summary>
+        private string FindPayslipColumn(DataTable table, string[] aliases, string semantic)
+        {
+            if (table == null) return null;
+
+            string exact = GetFirstExistingColumn(table, aliases);
+            if (!string.IsNullOrEmpty(exact)) return exact;
+
+            Func<string, string> normalize = value => new string((value ?? string.Empty)
+                .Where(char.IsLetterOrDigit).Select(char.ToLowerInvariant).ToArray());
+            foreach (string alias in aliases ?? new string[0])
+            {
+                string normalizedAlias = normalize(alias);
+                foreach (DataColumn column in table.Columns)
+                {
+                    if (normalize(column.ColumnName) == normalizedAlias)
+                        return column.ColumnName;
+                }
+            }
+
+            foreach (DataColumn column in table.Columns)
+            {
+                string name = normalize(column.ColumnName);
+                if (semantic == "date" &&
+                    (name.Contains("salarydate") || name.Contains("salarymonth") || name.Contains("paydate") || name.Contains("payrollmonth") || name.Contains("salaryperiod")))
+                    return column.ColumnName;
+                if (semantic == "basic" && name.Contains("basic") && !name.Contains("allowance") && !name.Contains("deduction"))
+                    return column.ColumnName;
+                if (semantic == "allowance" && name.Contains("allowance") && !name.Contains("deduction"))
+                    return column.ColumnName;
+                if (semantic == "deduction" && name.Contains("deduction"))
+                    return column.ColumnName;
+                if (semantic == "reimburs" && (name.Contains("reimburs") || name.Contains("reimburse")))
+                    return column.ColumnName;
+            }
+            return null;
+        }
+
+        private object GetPayslipRawValue(DataRow row, string columnName)
+        {
+            return row == null || row.Table == null || string.IsNullOrEmpty(columnName) ||
+                !row.Table.Columns.Contains(columnName) || row[columnName] == DBNull.Value
+                ? (object)DBNull.Value : row[columnName];
+        }
+
+        private decimal GetPayslipDecimal(DataRow row, string columnName)
+        {
+            return GetPayslipDecimalValue(GetPayslipRawValue(row, columnName));
+        }
+
+        private decimal GetPayslipDecimalValue(object value)
+        {
+            if (value == null || value == DBNull.Value) return 0m;
+            decimal amount;
+            if (decimal.TryParse(Convert.ToString(value), NumberStyles.Any, CultureInfo.InvariantCulture, out amount))
+                return amount;
+            if (decimal.TryParse(Convert.ToString(value), NumberStyles.Any, CultureInfo.CurrentCulture, out amount))
+                return amount;
+            return 0m;
+        }
+
+        private string GetPayslipDateText(object value)
+        {
+            if (value == null || value == DBNull.Value) return string.Empty;
+            DateTime date;
+            return DateTime.TryParse(Convert.ToString(value), out date)
+                ? date.ToString("dd-MMM-yyyy", CultureInfo.InvariantCulture)
+                : Convert.ToString(value);
+        }
+
+        private DateTime GetPayslipDateSortValue(object value)
+        {
+            if (value == null || value == DBNull.Value) return DateTime.MaxValue;
+            DateTime date;
+            return DateTime.TryParse(Convert.ToString(value), out date) ? date : DateTime.MaxValue;
+        }
+
+        private string GetPayslipMoneyText(object value)
+        {
+            return GetPayslipDecimalValue(value).ToString("N2", CultureInfo.InvariantCulture);
         }
 
         private string GetFirstExistingColumn(DataTable table, params string[] candidates)
