@@ -1,4 +1,5 @@
-﻿using iTextSharp.text;
+﻿using DALStaffSync;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Krypton.Toolkit;
 using ModelStaffSync;
@@ -51,6 +52,7 @@ namespace StaffSync
         DALStaffSync.clsStates objStates = new DALStaffSync.clsStates();
         DALStaffSync.clsEduQalification objEduQalification = new DALStaffSync.clsEduQalification();
         DALStaffSync.clsEmpSkillsMas objEmpSkillsMas = new DALStaffSync.clsEmpSkillsMas();
+        DALStaffSync.clsEmployeeAdvanceInfo objEmployeeAdvanceInfo = new DALStaffSync.clsEmployeeAdvanceInfo();
         DALStaffSync.clsSkillsMas objSkillsMas = new DALStaffSync.clsSkillsMas();
         DALStaffSync.clsRelationship objRelationship = new DALStaffSync.clsRelationship();
         DALStaffSync.clsShiftMas objShiftMas = new DALStaffSync.clsShiftMas();
@@ -1912,6 +1914,15 @@ namespace StaffSync
             if (!result.Columns.Contains("LeaveUtilised")) result.Columns.Add("LeaveUtilised", typeof(decimal));
             if (!result.Columns.Contains("LeaveBalance")) result.Columns.Add("LeaveBalance", typeof(decimal));
 
+            // Employee-specific Advance Statement columns populated from
+            // objEmployeeAdvanceInfo.getEmployeeAdvanceInformationList(empId).
+            if (!result.Columns.Contains("EmployeeAdvanceName")) result.Columns.Add("EmployeeAdvanceName", typeof(string));
+            if (!result.Columns.Contains("EmployeeAdvanceDate")) result.Columns.Add("EmployeeAdvanceDate", typeof(object));
+            if (!result.Columns.Contains("EmployeeAdvanceAmount")) result.Columns.Add("EmployeeAdvanceAmount", typeof(object));
+            if (!result.Columns.Contains("EmployeeAdvanceIssueDate")) result.Columns.Add("EmployeeAdvanceIssueDate", typeof(object));
+            if (!result.Columns.Contains("EmployeeAdvanceLastPaymentDate")) result.Columns.Add("EmployeeAdvanceLastPaymentDate", typeof(object));
+            if (!result.Columns.Contains("EmployeeAdvanceOutstandingBalance")) result.Columns.Add("EmployeeAdvanceOutstandingBalance", typeof(object));
+
             // Consolidated Attendance Report columns.
             if (!result.Columns.Contains("AttendanceMonth")) result.Columns.Add("AttendanceMonth", typeof(string));
             // WorkingDays retains the total calendar days returned by the monthly query.
@@ -1944,6 +1955,7 @@ namespace StaffSync
                 DataTable skills = chkQualSkillsInfo.Checked ? (objEmpSkillsMas.GetSkillsListInfo(empId)) : new DataTable();
                 DataTable monthlyAttendance = ConvertListToDataTable(objDashboardChartWidgets.GetMonthlyAttendanceRegisterDataByEmpID(empId));
                 DataTable leaveInformation = ConvertListToDataTable(objEmpLeaveEntitlementInfo.getEmployeeSpecificLeaveInfo(empId));
+                DataTable advanceInformation = ConvertListToDataTable(objEmployeeAdvanceInfo.getEmployeeAdvanceInformationList(empId));
 
                 List<DataRow> familyRows = family.Rows.Cast<DataRow>().Where(r => family.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> nomineeRows = nominee.Rows.Cast<DataRow>().ToList();
@@ -1951,11 +1963,12 @@ namespace StaffSync
                 List<DataRow> skillsRows = skills.Rows.Cast<DataRow>().Where(r => skills.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> mnthlyAttendanceRows = monthlyAttendance.Rows.Cast<DataRow>().Where(r => !monthlyAttendance.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).Where(r => !monthlyAttendance.Columns.Contains("RecordType") || r["RecordType"] == DBNull.Value || string.Equals(Convert.ToString(r["RecordType"]), "MONTH", StringComparison.OrdinalIgnoreCase)).ToList();
                 List<DataRow> empLeaveRows = leaveInformation.Rows.Cast<DataRow>().Where(r => !leaveInformation.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
+                List<DataRow> empAdvanceRows = advanceInformation.Rows.Cast<DataRow>().Where(r => !advanceInformation.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
 
                 //DataTable employeeAttendanceSummary = BuildConsolidatedAttendanceSummary(monthlyAttendanceRegisterData, empId, attendanceYear);
                 //List<DataRow> attendanceRows = employeeAttendanceSummary.Rows.Cast<DataRow>().ToList();
 
-                int rowCount = Math.Max(1, Math.Max(empLeaveRows.Count, Math.Max(mnthlyAttendanceRows.Count, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count))))));
+                int rowCount = Math.Max(1, Math.Max(empAdvanceRows.Count, Math.Max(empLeaveRows.Count, Math.Max(mnthlyAttendanceRows.Count, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count)))))));
 
                 for (int i = 0; i < rowCount; i++)
                 {
@@ -2007,6 +2020,31 @@ namespace StaffSync
                         else if (empLeaveRows[i].Table.Columns.Contains("LeaveBalance"))
                             output["LeaveBalance"] = empIndLeaveRow["LeaveBalance"] == DBNull.Value ? DBNull.Value : empIndLeaveRow["LeaveBalance"];
                         // IsPaid remains available in the source but is not one of the requested display columns.
+                    }
+
+                    if (i < empAdvanceRows.Count)
+                    {
+                        DataRow empIndAdvanceRow = empAdvanceRows[i];
+
+                        string advanceNameColumn = GetFirstExistingColumn(empIndAdvanceRow.Table,
+                            "AdvanceName", "AdvanceTypeTitle", "AdvTypeTitle", "AdvanceTitle", "AdvanceTypeName", "AdvName");
+                        string advanceDateColumn = GetFirstExistingColumn(empIndAdvanceRow.Table,
+                            "Date", "AdvanceDate", "AdvDate", "CreatedDate", "TransactionDate", "IssueDate");
+                        string advanceAmountColumn = GetFirstExistingColumn(empIndAdvanceRow.Table,
+                            "AdvanceAmount", "Advance Amount", "AdvAmount", "Amount", "IssuedAmount", "TotalAdvanceAmount", "CBalance");
+                        string advanceIssueDateColumn = GetFirstExistingColumn(empIndAdvanceRow.Table,
+                            "IssueDate", "AdvanceIssueDate", "AdvIssueDate", "DateOfIssue", "IssuedDate", "Date", "AdvanceDate");
+                        string advanceLastPaymentColumn = GetFirstExistingColumn(empIndAdvanceRow.Table,
+                            "LastPaymentDate", "Last Payment Date", "LastPaidDate", "LastPayment", "LastRecoveryDate", "LastInstallmentDate");
+                        string advanceOutstandingColumn = GetFirstExistingColumn(empIndAdvanceRow.Table,
+                            "OutstandingBalance", "Outstanding Balance", "OutstandingAmount", "BalanceAmount", "Balance", "RemainingAmount", "PendingAmount", "CBalance");
+
+                        output["EmployeeAdvanceName"] = GetAdvanceText(empIndAdvanceRow, advanceNameColumn);
+                        output["EmployeeAdvanceDate"] = GetAdvanceRawValue(empIndAdvanceRow, advanceDateColumn);
+                        output["EmployeeAdvanceAmount"] = GetAdvanceRawValue(empIndAdvanceRow, advanceAmountColumn);
+                        output["EmployeeAdvanceIssueDate"] = GetAdvanceRawValue(empIndAdvanceRow, advanceIssueDateColumn);
+                        output["EmployeeAdvanceLastPaymentDate"] = GetAdvanceRawValue(empIndAdvanceRow, advanceLastPaymentColumn);
+                        output["EmployeeAdvanceOutstandingBalance"] = GetAdvanceRawValue(empIndAdvanceRow, advanceOutstandingColumn);
                     }
 
                     // Consolidated Attendance Information - one row per month.
@@ -3178,6 +3216,12 @@ namespace StaffSync
                 }
                 else if (string.Equals(lblSelectedDataAction.Text, "Employee Information", StringComparison.OrdinalIgnoreCase))
                 {
+                    cmbOutputFormat.Items.Clear();
+                    cmbOutputFormat.Items.Add("XML");
+
+                    if (cmbOutputFormat.Items.Count > 0)
+                        cmbOutputFormat.SelectedIndex = 0;
+
                     grpMoreOptions.Visible = true;
                     DataTable dtEmployeeList = ConvertListToDataTable(objEmployeeInfo.getCompleteEmployeesList());
                     if (dtEmployeeList == null || dtEmployeeList.Rows.Count == 0)
@@ -3998,11 +4042,7 @@ namespace StaffSync
 
                 if (string.IsNullOrWhiteSpace(format))
                 {
-                    MessageBox.Show(
-                        "Please select an export format.",
-                        "Staffsync",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                    MessageBox.Show("Please select an export format.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -4314,6 +4354,11 @@ namespace StaffSync
                 "--leave-alloted-width:20%;" +
                 "--leave-utilised-width:20%;" +
                 "--leave-balance-width:20%;" +
+                "--advance-name-width:28%;" +
+                "--advance-amount-width:18%;" +
+                "--advance-issue-date-width:18%;" +
+                "--advance-last-payment-width:18%;" +
+                "--advance-outstanding-width:18%;" +
                 "--attendance-month-width:16%;" +
                 "--attendance-total-days-width:16%;" +
                 "--attendance-working-days-width:16%;" +
@@ -4356,6 +4401,14 @@ namespace StaffSync
             html.AppendLine(".leave-table .col-leave-alloted{width:var(--leave-alloted-width);}");
             html.AppendLine(".leave-table .col-leave-utilised{width:var(--leave-utilised-width);}");
             html.AppendLine(".leave-table .col-leave-balance{width:var(--leave-balance-width);}");
+            // Employee-specific Advance Statement column widths.
+            html.AppendLine(".advance-statement-table{table-layout:fixed;width:100%;min-width:0;}");
+            html.AppendLine(".advance-statement-table th,.advance-statement-table td{overflow-wrap:anywhere;}");
+            html.AppendLine(".advance-statement-table .col-advance-name{width:var(--advance-name-width);}");
+            html.AppendLine(".advance-statement-table .col-advance-amount{width:var(--advance-amount-width);}");
+            html.AppendLine(".advance-statement-table .col-advance-issue-date{width:var(--advance-issue-date-width);}");
+            html.AppendLine(".advance-statement-table .col-advance-last-payment{width:var(--advance-last-payment-width);}");
+            html.AppendLine(".advance-statement-table .col-advance-outstanding{width:var(--advance-outstanding-width);}");
 
             // Consolidated Attendance Report column widths
             html.AppendLine(".attendance-summary-table{table-layout:fixed;width:100%;}");
@@ -4525,6 +4578,9 @@ namespace StaffSync
                     // Leave Information: render the employee's leave entitlement records.
                     // EmpID is carried internally through the export dataset for this lookup.
                     AppendLeaveInformationPlaceholder(html, group.Rows, data);
+
+                    // Employee-specific Advance Statements.
+                    AppendEmployeeAdvanceStatements(html, group.Rows);
 
                     // Consolidated Attendance Report placeholder.
                     // Monthly attendance values will be populated by the attendance DAL.
@@ -4699,6 +4755,203 @@ namespace StaffSync
                 out value)
                 ? value
                 : 0m;
+        }
+
+        /// <summary>
+        /// Loads and renders employee-specific advance statements directly from the
+        /// existing advance DAL. This avoids depending on advance values being copied
+        /// into the flattened employee-detail rows before HTML rendering.
+        /// </summary>
+        private void AppendEmployeeAdvanceStatements(StringBuilder html, List<DataRow> employeeRows)
+        {
+            html.AppendLine("<div class=\"family-heading\">Employee Specific Advance Statements</div>");
+            html.AppendLine("<table class=\"family-table advance-statement-table\"><colgroup>");
+            // The standalone Date column was redundant: the issue date is shown in Issue Date.
+            html.AppendLine("<col class=\"col-advance-name\" /><col class=\"col-advance-amount\" />");
+            html.AppendLine("<col class=\"col-advance-issue-date\" /><col class=\"col-advance-last-payment\" />");
+            html.AppendLine("<col class=\"col-advance-outstanding\" />");
+            html.AppendLine("</colgroup><thead><tr>");
+            html.AppendLine("<th>Advance Name</th><th>Advance Amount</th><th>Issue Date</th><th>Last Payment Date</th><th>Outstanding Balance</th>");
+            html.AppendLine("</tr></thead><tbody>");
+
+            int employeeId = 0;
+            if (employeeRows != null)
+            {
+                foreach (DataRow employeeRow in employeeRows)
+                {
+                    if (employeeRow == null || employeeRow.RowState == DataRowState.Deleted || employeeRow.Table == null)
+                        continue;
+                    string empIdColumn = GetFirstExistingColumn(employeeRow.Table, "EmpID", "EmployeeID", "EmpId");
+                    if (string.IsNullOrEmpty(empIdColumn) || employeeRow[empIdColumn] == DBNull.Value)
+                        continue;
+                    if (int.TryParse(Convert.ToString(employeeRow[empIdColumn]), out employeeId) && employeeId > 0)
+                        break;
+                }
+            }
+
+            DataTable advances = new DataTable("EmployeeAdvanceStatements");
+            if (employeeId > 0)
+            {
+                try
+                {
+                    advances = ConvertListToDataTable(objEmployeeAdvanceInfo.getEmployeeAdvanceInformationList(employeeId));
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Unable to load employee advance statements: " + ex.Message);
+                }
+            }
+
+            bool found = false;
+            if (advances != null && advances.Rows.Count > 0)
+            {
+                string empIdColumn = GetFirstExistingColumn(advances, "EmpID", "EmployeeID", "EmpId");
+                string nameColumn = GetFirstExistingColumn(advances, "AdvanceName", "AdvanceTypeTitle", "AdvTypeTitle", "AdvanceTitle", "AdvanceTypeName", "AdvName");
+                string requestIdColumn = GetFirstExistingColumn(advances, "EmpAdvanceRequestID", "AdvanceRequestID", "EmpAdvRequestID");
+                string orderColumn = GetFirstExistingColumn(advances, "OrderID", "OrderId", "RecoveryOrderID");
+                string advanceDateColumn = GetFirstExistingColumn(advances, "AdvanceDate", "Date", "AdvDate", "CreatedDate", "TransactionDate", "IssueDate", "AdvanceIssueDate");
+                string amountColumn = GetFirstExistingColumn(advances, "AdvanceAmount", "Advance Amount", "AdvAmount", "Amount", "IssuedAmount", "TotalAdvanceAmount", "RequestAmount", "SanctionedAmount");
+                string issueDateColumn = GetFirstExistingColumn(advances, "IssueDate", "AdvanceIssueDate", "AdvIssueDate", "DateOfIssue", "IssuedDate");
+                string lastPaymentColumn = GetFirstExistingColumn(advances, "LastPaymentDate", "Last Payment Date", "LastPaidDate", "LastPayment", "LastRecoveryDate", "LastInstallmentDate");
+                string outstandingColumn = GetFirstExistingColumn(advances, "OutstandingBalance", "Outstanding Balance", "OutstandingAmount", "BalanceAmount", "Balance", "RemainingAmount", "PendingAmount");
+                string closingBalanceColumn = GetFirstExistingColumn(advances, "CBalance", "ClosingBalance", "CurrentBalance");
+
+                // Filter the DAL result to this employee, then group recovery rows into one
+                // statement per advance request (or per advance name if the request ID is absent).
+                List<DataRow> employeeAdvanceRows = advances.Rows.Cast<DataRow>()
+                    .Where(r => r != null && r.RowState != DataRowState.Deleted)
+                    .Where(r => string.IsNullOrEmpty(empIdColumn) || r[empIdColumn] == DBNull.Value ||
+                        Convert.ToString(r[empIdColumn]) == employeeId.ToString())
+                    .ToList();
+
+                var advanceGroups = employeeAdvanceRows.GroupBy(r =>
+                {
+                    string requestId = !string.IsNullOrEmpty(requestIdColumn) ? GetAdvanceText(r, requestIdColumn) : string.Empty;
+                    if (!string.IsNullOrWhiteSpace(requestId)) return "REQUEST:" + requestId;
+                    string advanceName = GetAdvanceText(r, nameColumn);
+                    return "NAME:" + (string.IsNullOrWhiteSpace(advanceName) ? "Unknown" : advanceName);
+                });
+
+                foreach (var advanceGroup in advanceGroups)
+                {
+                    List<DataRow> records = advanceGroup.ToList();
+                    if (!string.IsNullOrEmpty(orderColumn))
+                    {
+                        records = records.OrderBy(r =>
+                        {
+                            decimal order;
+                            return decimal.TryParse(GetAdvanceText(r, orderColumn), NumberStyles.Any, CultureInfo.InvariantCulture, out order) ? order : decimal.MaxValue;
+                        }).ToList();
+                    }
+                    else if (!string.IsNullOrEmpty(advanceDateColumn))
+                    {
+                        records = records.OrderBy(r =>
+                        {
+                            DateTime date;
+                            return DateTime.TryParse(GetAdvanceText(r, advanceDateColumn), out date) ? date : DateTime.MaxValue;
+                        }).ToList();
+                    }
+
+                    if (records.Count == 0) continue;
+                    DataRow firstRecord = records[0];
+                    DataRow lastRecord = records[records.Count - 1];
+
+                    string advanceName = GetAdvanceText(firstRecord, nameColumn);
+                    if (string.IsNullOrWhiteSpace(advanceName)) advanceName = GetAdvanceText(lastRecord, nameColumn);
+
+                    // The validated Access query uses CBalance from the earliest recovery
+                    // record as the advance amount (e.g. 800.00), and CBalance from the
+                    // latest recovery record as the outstanding balance (e.g. 675.00).
+                    string advanceAmount = GetFirstNonEmptyAdvanceText(firstRecord,
+                        amountColumn, "AdvanceAmount", "Advance Amount", "AdvAmount", "Amount", "CBalance", "ClosingBalance");
+                    if (string.IsNullOrWhiteSpace(advanceAmount))
+                        advanceAmount = GetFirstNonEmptyAdvanceText(lastRecord, "AdvanceAmount", "Advance Amount", "AdvAmount", "Amount", "CBalance");
+
+                    string issueDate = GetFirstNonEmptyAdvanceText(firstRecord,
+                        issueDateColumn, "IssueDate", "AdvanceIssueDate", "AdvIssueDate", "DateOfIssue", "IssuedDate", advanceDateColumn, "AdvanceDate", "Date");
+                    string lastPaymentDate = GetFirstNonEmptyAdvanceText(lastRecord,
+                        lastPaymentColumn, "LastPaymentDate", "Last Payment Date", "LastPaidDate", "LastRecoveryDate", "LastInstallmentDate", advanceDateColumn, "AdvanceDate", "Date");
+                    string outstanding = GetFirstNonEmptyAdvanceText(lastRecord,
+                        outstandingColumn, "OutstandingBalance", "Outstanding Balance", "OutstandingAmount", "BalanceAmount", "Balance", "RemainingAmount", "PendingAmount", closingBalanceColumn, "CBalance", "ClosingBalance", "CurrentBalance");
+
+                    if (string.IsNullOrWhiteSpace(advanceName) && string.IsNullOrWhiteSpace(advanceAmount) &&
+                        string.IsNullOrWhiteSpace(issueDate) && string.IsNullOrWhiteSpace(lastPaymentDate) &&
+                        string.IsNullOrWhiteSpace(outstanding))
+                        continue;
+
+                    html.AppendLine("<tr><td>" + HtmlEncode(advanceName) + "</td>" +
+                        "<td class=\"numeric\">" + HtmlEncode(FormatAdvanceMoney(advanceAmount)) + "</td>" +
+                        "<td>" + HtmlEncode(FormatAdvanceDate(issueDate)) + "</td>" +
+                        "<td>" + HtmlEncode(FormatAdvanceDate(lastPaymentDate)) + "</td>" +
+                        "<td class=\"numeric\">" + HtmlEncode(FormatAdvanceMoney(outstanding)) + "</td></tr>");
+                    found = true;
+                }
+            }
+
+            if (!found)
+                html.AppendLine("<tr><td colspan=\"5\" class=\"empty-family\">No advance statement information available for this employee.</td></tr>");
+            html.AppendLine("</tbody></table>");
+        }
+
+        private string GetFirstNonEmptyAdvanceText(DataRow row, params string[] columnNames)
+        {
+            if (row == null || row.Table == null || columnNames == null) return string.Empty;
+            foreach (string requestedName in columnNames)
+            {
+                if (string.IsNullOrWhiteSpace(requestedName)) continue;
+                string actualName = GetFirstExistingColumn(row.Table, requestedName);
+                if (string.IsNullOrEmpty(actualName) || row[actualName] == DBNull.Value) continue;
+                string value = Convert.ToString(row[actualName]).Trim();
+                if (!string.IsNullOrWhiteSpace(value)) return value;
+            }
+            return string.Empty;
+        }
+
+        private string FormatAdvanceDate(string value)
+        {
+            DateTime date;
+            return DateTime.TryParse(value, out date) ? date.ToString("dd-MMM-yyyy") : value;
+        }
+
+        private string FormatAdvanceMoney(string value)
+        {
+            decimal amount;
+            if (decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out amount) ||
+                decimal.TryParse(value, NumberStyles.Any, CultureInfo.CurrentCulture, out amount))
+                return amount.ToString("N2", CultureInfo.CurrentCulture);
+            return value;
+        }
+
+        private object GetAdvanceRawValue(DataRow row, string columnName)
+        {
+            if (row == null || string.IsNullOrEmpty(columnName) || row.Table == null ||
+                !row.Table.Columns.Contains(columnName) || row[columnName] == DBNull.Value)
+                return DBNull.Value;
+            return row[columnName];
+        }
+
+        private string GetAdvanceText(DataRow row, string columnName)
+        {
+            return row == null || row.Table == null || string.IsNullOrEmpty(columnName) || !row.Table.Columns.Contains(columnName) || row[columnName] == DBNull.Value
+                ? string.Empty : Convert.ToString(row[columnName]).Trim();
+        }
+
+        private string GetAdvanceDateText(DataRow row, string columnName)
+        {
+            string value = GetAdvanceText(row, columnName);
+            DateTime date;
+            return DateTime.TryParse(value, out date) ? date.ToString("dd-MMM-yyyy") : value;
+        }
+
+        private string GetAdvanceMoneyText(DataRow row, string columnName)
+        {
+            string value = GetAdvanceText(row, columnName);
+            decimal amount;
+            if (decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out amount))
+                return amount.ToString("N2", CultureInfo.InvariantCulture);
+            if (decimal.TryParse(value, NumberStyles.Any, CultureInfo.CurrentCulture, out amount))
+                return amount.ToString("N2", CultureInfo.CurrentCulture);
+            return value;
         }
 
         /// <summary>
@@ -5326,6 +5579,8 @@ namespace StaffSync
                 {
                     lblSelectedDataAction.Text = Convert.ToString(dtgImportDataSourceList.Rows[e.RowIndex].Cells[3].Value).Trim();
                 }
+
+                InitializeExportFormats();
 
                 LoadSelectedExportData();
 
