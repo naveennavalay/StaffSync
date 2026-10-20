@@ -1916,13 +1916,6 @@ namespace StaffSync
             if (!result.Columns.Contains("EmployeeBankAddress")) result.Columns.Add("EmployeeBankAddress", typeof(string));
             if (!result.Columns.Contains("EmployeeBankIFSCCode")) result.Columns.Add("EmployeeBankIFSCCode", typeof(string));
 
-            // Employee-specific statutory identifiers are kept for the detail sub-table,
-            // not shown in the main employee summary row.
-            if (!result.Columns.Contains("UANNumber")) result.Columns.Add("UANNumber", typeof(string));
-            if (!result.Columns.Contains("PANNumber")) result.Columns.Add("PANNumber", typeof(string));
-            if (!result.Columns.Contains("ESINumber")) result.Columns.Add("ESINumber", typeof(string));
-            if (!result.Columns.Contains("PTNumber")) result.Columns.Add("PTNumber", typeof(string));
-
             // Employee-specific Leave Information columns populated from the
             // employee leave-entitlement DAL below.
             if (!result.Columns.Contains("LeaveTitle")) result.Columns.Add("LeaveTitle", typeof(string));
@@ -2060,23 +2053,9 @@ namespace StaffSync
                             output["EmployeeBankAddress"] = empBankRow[bankAddressColumn] == DBNull.Value ? DBNull.Value : empBankRow[bankAddressColumn];
                     }
 
-                    if (i < employeeStatutoryInfoRows.Count)
-                    {
-                        DataRow empStatutoryRow = employeeStatutoryInfoRows[i];
-                        string uanColumn = GetFirstExistingColumn(empStatutoryRow.Table,
-                            "UANNumber", "UAN", "UniversalAccountNumber", "UniversalAccountNo");
-                        string panColumn = GetFirstExistingColumn(empStatutoryRow.Table,
-                            "PANNumber", "PAN", "PermanentAccountNumber");
-                        string esiColumn = GetFirstExistingColumn(empStatutoryRow.Table,
-                            "ESINumber", "ESI", "ESICNumber", "ESICNo");
-                        string ptColumn = GetFirstExistingColumn(empStatutoryRow.Table,
-                            "PTNumber", "PTNo", "ProfessionalTaxNumber", "ProfessionalTaxNo", "PTRegistrationNumber");
-
-                        if (!string.IsNullOrEmpty(uanColumn)) output["UANNumber"] = empStatutoryRow[uanColumn] == DBNull.Value ? DBNull.Value : empStatutoryRow[uanColumn];
-                        if (!string.IsNullOrEmpty(panColumn)) output["PANNumber"] = empStatutoryRow[panColumn] == DBNull.Value ? DBNull.Value : empStatutoryRow[panColumn];
-                        if (!string.IsNullOrEmpty(esiColumn)) output["ESINumber"] = empStatutoryRow[esiColumn] == DBNull.Value ? DBNull.Value : empStatutoryRow[esiColumn];
-                        if (!string.IsNullOrEmpty(ptColumn)) output["PTNumber"] = empStatutoryRow[ptColumn] == DBNull.Value ? DBNull.Value : empStatutoryRow[ptColumn];
-                    }
+                    // Statutory identifiers are rendered in their own HTML subsection below.
+                    // Do not assign PAN/UAN/ESI/PT fields to the employee result DataRow:
+                    // those source columns are not guaranteed to exist in ReportingManagerInfo.
 
                     if (i < empLeaveRows.Count)
                     {
@@ -4061,7 +4040,6 @@ namespace StaffSync
                 "NomineePerson", "NomineeContactNumber", "NomineeRelationShipTitle",
                 "EduQualTitle", "SkillTitle", "ExpertiseLevel",
                 "EmployeeBankName", "EmployeeBankAccountNumber", "EmployeeBankAddress", "EmployeeBankIFSCCode",
-                "UANNumber", "PANNumber", "ESINumber", "PTNumber", "UAN", "PAN", "ESI", "PTNo", "ProfessionalTaxNumber",
                 "LeaveTitle", "LeaveAlloted", "LeaveUtilised", "LeaveBalance",
                 "AttendanceMonth", "WorkingDays", "ActualWorkingDays", "Present", "Leave", "PayableDays",
                 "AttendancePercentage"
@@ -4093,20 +4071,16 @@ namespace StaffSync
                 foreach (DataRow detailRow in detailRows)
                 {
                     DataRow output = selectedData.NewRow();
-
-                    // IMPORTANT: EmpID is the first internal column in selectedData,
-                    // but it is not part of visibleEmployeeColumns. Therefore each
-                    // visible grid value must be written to the corresponding output
-                    // column after EmpID (index + 1). Starting at output column zero
-                    // overwrites the internal EmpID slot and shifts all visible values
-                    // one cell to the left, making Employee Code appear missing.
+                    // EmpID is the first internal column in selectedData and is not
+                    // part of visibleEmployeeColumns. Start visible values at index 1
+                    // so Employee Code, Employee Name, and the remaining fields stay
+                    // aligned with their respective headers.
                     for (int visibleColumnIndex = 0;
                          visibleColumnIndex < visibleEmployeeColumns.Count;
                          visibleColumnIndex++)
                     {
                         DataGridViewColumn column = visibleEmployeeColumns[visibleColumnIndex];
-                        string outputColumnName = selectedData.Columns[visibleColumnIndex + 1].ColumnName;
-                        output[outputColumnName] = GetFormattedExportCellValue(gridRow, column.Name);
+                        output[visibleColumnIndex + 1] = GetFormattedExportCellValue(gridRow, column.Name);
                     }
                     output["EmpID"] = employeeId;
                     foreach (string detailColumn in detailColumns)
@@ -4562,6 +4536,11 @@ namespace StaffSync
             html.AppendLine(".attendance-summary-table .col-attendance-payable-days{width:var(--attendance-payable-days-width);}");
             html.AppendLine(".attendance-summary-table .col-attendance-percentage{width:var(--attendance-percentage-width);}");
             html.AppendLine(".family-heading{font-weight:600;margin:0 0 8px 0;color:#800000;}");
+            html.AppendLine(".statutory-information-table{table-layout:fixed;width:100%;}");
+            html.AppendLine(".statutory-information-table th,.statutory-information-table td{width:25%;overflow-wrap:anywhere;}");
+            html.AppendLine(".subsection-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:5px 0;margin:0 0 8px 0;border:0;background:transparent;color:#800000;font:inherit;font-weight:600;text-align:left;cursor:pointer;}");
+            html.AppendLine(".subsection-toggle:hover{text-decoration:underline;}");
+            html.AppendLine(".subsection-toggle-icon{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;flex:0 0 20px;border:1px solid #b8c0cc;border-radius:4px;background:#fff;color:#344054;font-size:14px;line-height:1;}");
             html.AppendLine(".empty-family{color:#667085;font-style:italic;font-weight:normal;}");
             html.AppendLine(".report-toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px;}");
             html.AppendLine(".report-search{flex:1;min-width:220px;max-width:520px;padding:9px 12px;border:1px solid #c7ced8;border-radius:5px;font:inherit;font-size:13px;box-sizing:border-box;}");
@@ -4579,7 +4558,10 @@ namespace StaffSync
                 html.AppendLine("function toggleFamily(id,button){var row=document.getElementById(id);if(!row)return;var expand=row.style.display==='none';setFamilyExpanded(id,expand);updateGlobalToggleState();}");
                 html.AppendLine("function toggleAllFamilies(){var rows=document.querySelectorAll('.family-detail');allFamiliesExpanded=!allFamiliesExpanded;for(var i=0;i<rows.length;i++){setFamilyExpanded(rows[i].id,allFamiliesExpanded);}var button=document.getElementById('toggle-all-families');if(button)button.textContent=allFamiliesExpanded?'Collapse All':'Expand All';}");
                 html.AppendLine("function updateGlobalToggleState(){var rows=document.querySelectorAll('.family-detail');var allExpanded=rows.length>0;for(var i=0;i<rows.length;i++){if(rows[i].getAttribute('data-expanded')!=='true'){allExpanded=false;break;}}allFamiliesExpanded=allExpanded;var button=document.getElementById('toggle-all-families');if(button)button.textContent=allExpanded?'Collapse All':'Expand All';}");
-                html.AppendLine("function updateReportCount(found,total){var el=document.getElementById('report-count');if(el)el.textContent='Showing '+found+' of '+total+' records';}function filterReport(){var input=document.getElementById('report-search');var query=input?input.value.toLowerCase().trim():'';var employeeRows=document.querySelectorAll('tr.employee-row');if(employeeRows.length){var found=0;for(var i=0;i<employeeRows.length;i++){var employee=employeeRows[i];var detail=employee.nextElementSibling;if(!detail||!detail.classList.contains('family-detail'))continue;var employeeText=employee.textContent.toLowerCase();var familyText=detail.textContent.toLowerCase();var match=!query||employeeText.indexOf(query)>=0||familyText.indexOf(query)>=0;employee.style.display=match?'table-row':'none';if(match)found++;if(!query){detail.style.display=detail.getAttribute('data-expanded')==='true'?'table-row':'none';}else if(!match){detail.style.display='none';}else if(familyText.indexOf(query)>=0){detail.style.display='table-row';}else{detail.style.display=detail.getAttribute('data-expanded')==='true'?'table-row':'none';}}updateReportCount(found,employeeRows.length);return;}var tables=document.querySelectorAll('.table-wrap table');var found=0,total=0;for(var t=0;t<tables.length;t++){var rows=tables[t].querySelectorAll('tbody tr');for(var r=0;r<rows.length;r++){total++;var rowText=rows[r].textContent.toLowerCase();var match=!query||rowText.indexOf(query)>=0;rows[r].style.display=match?'table-row':'none';if(match)found++;}}updateReportCount(found,total);}");
+                // Subsection toggles affect only their own sibling content, never the employee-level row.
+                html.AppendLine("function toggleSubsection(button){var expanded=button.getAttribute('aria-expanded')==='true';button.setAttribute('aria-expanded',expanded?'false':'true');var node=button.nextElementSibling;while(node&&!node.classList.contains('subsection-toggle')){node.style.display=expanded?'none':'';node=node.nextElementSibling;}var icon=button.querySelector('.subsection-toggle-icon');if(icon)icon.textContent=expanded?'+':'−';}");
+                html.AppendLine("function initializeSubsectionToggles(){var headings=document.querySelectorAll('.family-detail .family-heading');for(var i=0;i<headings.length;i++){var heading=headings[i];var button=document.createElement('button');button.type='button';button.className='subsection-toggle';button.setAttribute('aria-expanded','true');button.innerHTML='<span>'+heading.textContent+'</span><span class=\"subsection-toggle-icon\" aria-hidden=\"true\">−</span>';button.onclick=function(){toggleSubsection(this);};heading.parentNode.replaceChild(button,heading);}} ");
+                html.AppendLine("function updateReportCount(found,total){var el=document.getElementById('report-count');if(el)el.textContent='Showing '+found+' of '+total+' records';}function filterReport(){var input=document.getElementById('report-search');var query=input?input.value.toLowerCase().trim():'';var employeeRows=document.querySelectorAll('tr.employee-row');if(employeeRows.length){var found=0;for(var i=0;i<employeeRows.length;i++){var employee=employeeRows[i];var detail=employee.nextElementSibling;if(!detail||!detail.classList.contains('family-detail'))continue;var employeeText=employee.textContent.toLowerCase();var familyText=detail.textContent.toLowerCase();var match=!query||employeeText.indexOf(query)>=0||familyText.indexOf(query)>=0;employee.style.display=match?'table-row':'none';if(match)found++;if(!query){detail.style.display=detail.getAttribute('data-expanded')==='true'?'table-row':'none';}else if(!match){detail.style.display='none';}else if(familyText.indexOf(query)>=0){detail.style.display='table-row';}else{detail.style.display=detail.getAttribute('data-expanded')==='true'?'table-row':'none';}}updateReportCount(found,employeeRows.length);return;}var tables=document.querySelectorAll('.table-wrap table');var found=0,total=0;for(var t=0;t<tables.length;t++){var rows=tables[t].querySelectorAll('tbody tr');for(var r=0;r<rows.length;r++){total++;var rowText=rows[r].textContent.toLowerCase();var match=!query||rowText.indexOf(query)>=0;rows[r].style.display=match?'table-row':'none';if(match)found++;}}updateReportCount(found,total);}document.addEventListener('DOMContentLoaded',initializeSubsectionToggles);");
                 html.AppendLine("</script>");
             }
             else
@@ -4599,8 +4581,7 @@ namespace StaffSync
                 List<DataColumn> employeeColumns = data.Columns.Cast<DataColumn>()
                     .Where(c => c.ColumnName != "IsSelected" &&
                                 !string.Equals(c.ColumnName, "EmpID", StringComparison.OrdinalIgnoreCase) &&
-                                !detailColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase) &&
-                                !new string[] { "UANNumber", "UAN", "UniversalAccountNumber", "UniversalAccountNo", "PANNumber", "PAN", "PermanentAccountNumber", "ESINumber", "ESI", "ESICNumber", "ESICNo", "PTNumber", "PTNo", "ProfessionalTaxNumber", "ProfessionalTaxNo", "PTRegistrationNumber" }.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase))
+                                !detailColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase))
                     .ToList();
                 // Render the address components as one readable Address column.
                 // The source DataTable remains unchanged; this affects HTML presentation only.
@@ -4727,7 +4708,8 @@ namespace StaffSync
                     // Employee-specific Advance Statements.
                     AppendEmployeeAdvanceStatements(html, group.Rows);
 
-                    // Employee-specific statutory identifiers are displayed in a detail sub-table.
+                    // Employee-specific Statutory Information. This is a separate subtable,
+                    // not part of the main employee summary row.
                     AppendEmployeeStatutoryInformation(html, group.Rows);
 
                     // Employee-specific monthly Payslip Statements.
@@ -4952,10 +4934,9 @@ namespace StaffSync
         }
 
         /// <summary>
-        /// Renders the employee's month-wise consolidated payslip values.
-        /// Net Salary is calculated as Basic Salary + Total Allowances - Total Deductions
-        /// + Total Reimbursements. Values are taken from the rows already populated
-        /// by getEmployeeSpecificConsolidatedPayslipValues in BuildEmployeeInformationWithDetails.
+        /// Renders statutory identifiers in a dedicated employee-detail subsection.
+        /// Reads the values from EmpPersonalIDInfo and tolerates different DAL property names.
+        /// Empty or null values are shown as N/A.
         /// </summary>
         private void AppendEmployeeStatutoryInformation(StringBuilder html, List<DataRow> employeeRows)
         {
@@ -4964,20 +4945,77 @@ namespace StaffSync
             html.AppendLine("<th>UAN Number</th><th>PAN Number</th><th>ESI Number</th><th>PT Number</th>");
             html.AppendLine("</tr></thead><tbody>");
 
-            DataRow row = employeeRows == null ? null : employeeRows.FirstOrDefault(r => r != null && r.Table != null && r.RowState != DataRowState.Deleted);
-            string uan = GetFirstNonEmptyAdvanceText(row, "UANNumber", "UAN", "UniversalAccountNumber", "UniversalAccountNo");
-            string pan = GetFirstNonEmptyAdvanceText(row, "PANNumber", "PAN", "PermanentAccountNumber");
-            string esi = GetFirstNonEmptyAdvanceText(row, "ESINumber", "ESI", "ESICNumber", "ESICNo");
-            string pt = GetFirstNonEmptyAdvanceText(row, "PTNumber", "PTNo", "ProfessionalTaxNumber", "ProfessionalTaxNo", "PTRegistrationNumber");
+            int employeeId = 0;
+            if (employeeRows != null)
+            {
+                foreach (DataRow employeeRow in employeeRows)
+                {
+                    if (employeeRow == null || employeeRow.RowState == DataRowState.Deleted || employeeRow.Table == null)
+                        continue;
+                    string idColumn = GetFirstExistingColumn(employeeRow.Table, "EmpID", "EmployeeID", "EmpId");
+                    if (!string.IsNullOrWhiteSpace(idColumn) && employeeRow[idColumn] != DBNull.Value &&
+                        int.TryParse(Convert.ToString(employeeRow[idColumn]), out employeeId) && employeeId > 0)
+                        break;
+                }
+            }
+
+            string uan = "N/A";
+            string pan = "N/A";
+            string esi = "N/A";
+            string pt = "N/A";
+
+            if (employeeId > 0)
+            {
+                try
+                {
+                    ModelStaffSync.EmpPersonalIDInfo statutoryInfo = objEmployeePersonalIDInfo.GetEmpPersonalIDInfo(employeeId);
+                    DataTable statutoryData = ConvertListToDataTable(
+                        statutoryInfo == null
+                            ? new List<ModelStaffSync.EmpPersonalIDInfo>()
+                            : new List<ModelStaffSync.EmpPersonalIDInfo> { statutoryInfo });
+
+                    if (statutoryData != null && statutoryData.Rows.Count > 0)
+                    {
+                        DataRow row = statutoryData.Rows[0];
+                        uan = GetStatutoryDisplayValue(row, "UANNumber", "UAN", "UniversalAccountNumber", "EmpUANNumber");
+                        pan = GetStatutoryDisplayValue(row, "PANNumber", "PANNo", "PAN", "EmpPANNumber");
+                        esi = GetStatutoryDisplayValue(row, "ESINumber", "ESINo", "ESI", "EmpESINumber");
+                        pt = GetStatutoryDisplayValue(row, "PTNumber", "PTNo", "ProfessionalTaxNumber", "ProfessionalTaxNo", "EmpPTNumber");
+                    }
+                }
+                catch
+                {
+                    // Keep N/A fallbacks if the statutory DAL has no record or cannot be read.
+                }
+            }
 
             html.AppendLine("<tr>");
-            html.AppendLine("<td>" + HtmlEncode(string.IsNullOrWhiteSpace(uan) ? "N/A" : uan) + "</td>");
-            html.AppendLine("<td>" + HtmlEncode(string.IsNullOrWhiteSpace(pan) ? "N/A" : pan) + "</td>");
-            html.AppendLine("<td>" + HtmlEncode(string.IsNullOrWhiteSpace(esi) ? "N/A" : esi) + "</td>");
-            html.AppendLine("<td>" + HtmlEncode(string.IsNullOrWhiteSpace(pt) ? "N/A" : pt) + "</td>");
+            html.AppendLine("<td>" + HtmlEncode(uan) + "</td>");
+            html.AppendLine("<td>" + HtmlEncode(pan) + "</td>");
+            html.AppendLine("<td>" + HtmlEncode(esi) + "</td>");
+            html.AppendLine("<td>" + HtmlEncode(pt) + "</td>");
             html.AppendLine("</tr></tbody></table>");
         }
 
+        private string GetStatutoryDisplayValue(DataRow row, params string[] columnNames)
+        {
+            if (row == null || row.Table == null || columnNames == null)
+                return "N/A";
+
+            string column = GetFirstExistingColumn(row.Table, columnNames);
+            if (string.IsNullOrWhiteSpace(column) || row[column] == DBNull.Value)
+                return "N/A";
+
+            string value = Convert.ToString(row[column]);
+            return string.IsNullOrWhiteSpace(value) ? "N/A" : value.Trim();
+        }
+
+        /// <summary>
+        /// Renders the employee's month-wise consolidated payslip values.
+        /// Net Salary is calculated as Basic Salary + Total Allowances - Total Deductions
+        /// + Total Reimbursements. Values are taken from the rows already populated
+        /// by getEmployeeSpecificConsolidatedPayslipValues in BuildEmployeeInformationWithDetails.
+        /// </summary>
         private void AppendEmployeePayslipStatements(StringBuilder html, List<DataRow> employeeRows)
         {
             html.AppendLine("<div class=\"family-heading\">Employee Specific Payslip Statements</div>");
