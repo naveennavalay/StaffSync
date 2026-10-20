@@ -44,6 +44,7 @@ namespace StaffSync
         DALStaffSync.clsImportDataInfo objImportDataInfo = new DALStaffSync.clsImportDataInfo();
         DALStaffSync.clsDesignation objDesignation = new DALStaffSync.clsDesignation();
         DALStaffSync.clsDepartment objDepartment = new DALStaffSync.clsDepartment();
+        DALStaffSync.clsEmployeePersonalIDInfo objEmployeePersonalIDInfo = new DALStaffSync.clsEmployeePersonalIDInfo();
         DALStaffSync.clsEmpPersonalFamilyMemberInfo objEmpPersonalFamilyMemberInfo = new DALStaffSync.clsEmpPersonalFamilyMemberInfo();
         DALStaffSync.clsEmpNomineeMas objEmpNomineeMas = new DALStaffSync.clsEmpNomineeMas();
         DALStaffSync.clsEmpEduQualMas objEmpEduQualMas = new DALStaffSync.clsEmpEduQualMas();
@@ -1915,6 +1916,13 @@ namespace StaffSync
             if (!result.Columns.Contains("EmployeeBankAddress")) result.Columns.Add("EmployeeBankAddress", typeof(string));
             if (!result.Columns.Contains("EmployeeBankIFSCCode")) result.Columns.Add("EmployeeBankIFSCCode", typeof(string));
 
+            // Employee-specific statutory identifiers are kept for the detail sub-table,
+            // not shown in the main employee summary row.
+            if (!result.Columns.Contains("UANNumber")) result.Columns.Add("UANNumber", typeof(string));
+            if (!result.Columns.Contains("PANNumber")) result.Columns.Add("PANNumber", typeof(string));
+            if (!result.Columns.Contains("ESINumber")) result.Columns.Add("ESINumber", typeof(string));
+            if (!result.Columns.Contains("PTNumber")) result.Columns.Add("PTNumber", typeof(string));
+
             // Employee-specific Leave Information columns populated from the
             // employee leave-entitlement DAL below.
             if (!result.Columns.Contains("LeaveTitle")) result.Columns.Add("LeaveTitle", typeof(string));
@@ -1976,6 +1984,9 @@ namespace StaffSync
                 DataTable consolidatedPayslipValues = ConvertListToDataTable(objEmpPayroll.getEmployeeSpecificConsolidatedPayslipValues(empId));
                 DataTable employeeBankAccountInfo = ConvertListToDataTable(objEmployeeBankACInfo.getEmployeeSpecificBankAccountInfo(empId));
 
+                ModelStaffSync.EmpPersonalIDInfo objIndEmployeePersonalIDInfo = objEmployeePersonalIDInfo.GetEmpPersonalIDInfo(empId);
+                DataTable employeeStatutoryInfo = ConvertListToDataTable(objIndEmployeePersonalIDInfo == null ? new List<ModelStaffSync.EmpPersonalIDInfo>() : new List<ModelStaffSync.EmpPersonalIDInfo> { objIndEmployeePersonalIDInfo });
+
                 List<DataRow> familyRows = family.Rows.Cast<DataRow>().Where(r => family.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> nomineeRows = nominee.Rows.Cast<DataRow>().ToList();
                 List<DataRow> educationRows = education.Rows.Cast<DataRow>().Where(r => education.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
@@ -1985,11 +1996,12 @@ namespace StaffSync
                 List<DataRow> empAdvanceRows = advanceInformation.Rows.Cast<DataRow>().Where(r => !advanceInformation.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> empPayslipRows = consolidatedPayslipValues.Rows.Cast<DataRow>().Where(r => !consolidatedPayslipValues.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> empBankAccountRows = employeeBankAccountInfo.Rows.Cast<DataRow>().Where(r => !employeeBankAccountInfo.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
+                List<DataRow> employeeStatutoryInfoRows = employeeStatutoryInfo.Rows.Cast<DataRow>().ToList();
 
                 //DataTable employeeAttendanceSummary = BuildConsolidatedAttendanceSummary(monthlyAttendanceRegisterData, empId, attendanceYear);
                 //List<DataRow> attendanceRows = employeeAttendanceSummary.Rows.Cast<DataRow>().ToList();
 
-                int rowCount = Math.Max(1, Math.Max(empBankAccountRows.Count, Math.Max(empPayslipRows.Count, Math.Max(empAdvanceRows.Count, Math.Max(empLeaveRows.Count, Math.Max(mnthlyAttendanceRows.Count, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count)))))))));
+                int rowCount = Math.Max(1, Math.Max(employeeStatutoryInfoRows.Count, Math.Max(empBankAccountRows.Count, Math.Max(empPayslipRows.Count, Math.Max(empAdvanceRows.Count, Math.Max(empLeaveRows.Count, Math.Max(mnthlyAttendanceRows.Count, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count))))))))));
 
                 for (int i = 0; i < rowCount; i++)
                 {
@@ -2046,6 +2058,24 @@ namespace StaffSync
 
                         if (!string.IsNullOrWhiteSpace(bankAddressColumn) && output.Table.Columns.Contains("EmployeeBankAddress"))
                             output["EmployeeBankAddress"] = empBankRow[bankAddressColumn] == DBNull.Value ? DBNull.Value : empBankRow[bankAddressColumn];
+                    }
+
+                    if (i < employeeStatutoryInfoRows.Count)
+                    {
+                        DataRow empStatutoryRow = employeeStatutoryInfoRows[i];
+                        string uanColumn = GetFirstExistingColumn(empStatutoryRow.Table,
+                            "UANNumber", "UAN", "UniversalAccountNumber", "UniversalAccountNo");
+                        string panColumn = GetFirstExistingColumn(empStatutoryRow.Table,
+                            "PANNumber", "PAN", "PermanentAccountNumber");
+                        string esiColumn = GetFirstExistingColumn(empStatutoryRow.Table,
+                            "ESINumber", "ESI", "ESICNumber", "ESICNo");
+                        string ptColumn = GetFirstExistingColumn(empStatutoryRow.Table,
+                            "PTNumber", "PTNo", "ProfessionalTaxNumber", "ProfessionalTaxNo", "PTRegistrationNumber");
+
+                        if (!string.IsNullOrEmpty(uanColumn)) output["UANNumber"] = empStatutoryRow[uanColumn] == DBNull.Value ? DBNull.Value : empStatutoryRow[uanColumn];
+                        if (!string.IsNullOrEmpty(panColumn)) output["PANNumber"] = empStatutoryRow[panColumn] == DBNull.Value ? DBNull.Value : empStatutoryRow[panColumn];
+                        if (!string.IsNullOrEmpty(esiColumn)) output["ESINumber"] = empStatutoryRow[esiColumn] == DBNull.Value ? DBNull.Value : empStatutoryRow[esiColumn];
+                        if (!string.IsNullOrEmpty(ptColumn)) output["PTNumber"] = empStatutoryRow[ptColumn] == DBNull.Value ? DBNull.Value : empStatutoryRow[ptColumn];
                     }
 
                     if (i < empLeaveRows.Count)
@@ -4031,6 +4061,7 @@ namespace StaffSync
                 "NomineePerson", "NomineeContactNumber", "NomineeRelationShipTitle",
                 "EduQualTitle", "SkillTitle", "ExpertiseLevel",
                 "EmployeeBankName", "EmployeeBankAccountNumber", "EmployeeBankAddress", "EmployeeBankIFSCCode",
+                "UANNumber", "PANNumber", "ESINumber", "PTNumber", "UAN", "PAN", "ESI", "PTNo", "ProfessionalTaxNumber",
                 "LeaveTitle", "LeaveAlloted", "LeaveUtilised", "LeaveBalance",
                 "AttendanceMonth", "WorkingDays", "ActualWorkingDays", "Present", "Leave", "PayableDays",
                 "AttendancePercentage"
@@ -4062,10 +4093,20 @@ namespace StaffSync
                 foreach (DataRow detailRow in detailRows)
                 {
                     DataRow output = selectedData.NewRow();
-                    int outputIndex = 0;
-                    foreach (DataGridViewColumn column in visibleEmployeeColumns)
+
+                    // IMPORTANT: EmpID is the first internal column in selectedData,
+                    // but it is not part of visibleEmployeeColumns. Therefore each
+                    // visible grid value must be written to the corresponding output
+                    // column after EmpID (index + 1). Starting at output column zero
+                    // overwrites the internal EmpID slot and shifts all visible values
+                    // one cell to the left, making Employee Code appear missing.
+                    for (int visibleColumnIndex = 0;
+                         visibleColumnIndex < visibleEmployeeColumns.Count;
+                         visibleColumnIndex++)
                     {
-                        output[outputIndex++] = GetFormattedExportCellValue(gridRow, column.Name);
+                        DataGridViewColumn column = visibleEmployeeColumns[visibleColumnIndex];
+                        string outputColumnName = selectedData.Columns[visibleColumnIndex + 1].ColumnName;
+                        output[outputColumnName] = GetFormattedExportCellValue(gridRow, column.Name);
                     }
                     output["EmpID"] = employeeId;
                     foreach (string detailColumn in detailColumns)
@@ -4558,7 +4599,8 @@ namespace StaffSync
                 List<DataColumn> employeeColumns = data.Columns.Cast<DataColumn>()
                     .Where(c => c.ColumnName != "IsSelected" &&
                                 !string.Equals(c.ColumnName, "EmpID", StringComparison.OrdinalIgnoreCase) &&
-                                !detailColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase))
+                                !detailColumns.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase) &&
+                                !new string[] { "UANNumber", "UAN", "UniversalAccountNumber", "UniversalAccountNo", "PANNumber", "PAN", "PermanentAccountNumber", "ESINumber", "ESI", "ESICNumber", "ESICNo", "PTNumber", "PTNo", "ProfessionalTaxNumber", "ProfessionalTaxNo", "PTRegistrationNumber" }.Contains(c.ColumnName, StringComparer.OrdinalIgnoreCase))
                     .ToList();
                 // Render the address components as one readable Address column.
                 // The source DataTable remains unchanged; this affects HTML presentation only.
@@ -4684,6 +4726,9 @@ namespace StaffSync
 
                     // Employee-specific Advance Statements.
                     AppendEmployeeAdvanceStatements(html, group.Rows);
+
+                    // Employee-specific statutory identifiers are displayed in a detail sub-table.
+                    AppendEmployeeStatutoryInformation(html, group.Rows);
 
                     // Employee-specific monthly Payslip Statements.
                     AppendEmployeePayslipStatements(html, group.Rows);
@@ -4912,6 +4957,27 @@ namespace StaffSync
         /// + Total Reimbursements. Values are taken from the rows already populated
         /// by getEmployeeSpecificConsolidatedPayslipValues in BuildEmployeeInformationWithDetails.
         /// </summary>
+        private void AppendEmployeeStatutoryInformation(StringBuilder html, List<DataRow> employeeRows)
+        {
+            html.AppendLine("<div class=\"family-heading\">Employee Statutory Information</div>");
+            html.AppendLine("<table class=\"family-table statutory-information-table\"><thead><tr>");
+            html.AppendLine("<th>UAN Number</th><th>PAN Number</th><th>ESI Number</th><th>PT Number</th>");
+            html.AppendLine("</tr></thead><tbody>");
+
+            DataRow row = employeeRows == null ? null : employeeRows.FirstOrDefault(r => r != null && r.Table != null && r.RowState != DataRowState.Deleted);
+            string uan = GetFirstNonEmptyAdvanceText(row, "UANNumber", "UAN", "UniversalAccountNumber", "UniversalAccountNo");
+            string pan = GetFirstNonEmptyAdvanceText(row, "PANNumber", "PAN", "PermanentAccountNumber");
+            string esi = GetFirstNonEmptyAdvanceText(row, "ESINumber", "ESI", "ESICNumber", "ESICNo");
+            string pt = GetFirstNonEmptyAdvanceText(row, "PTNumber", "PTNo", "ProfessionalTaxNumber", "ProfessionalTaxNo", "PTRegistrationNumber");
+
+            html.AppendLine("<tr>");
+            html.AppendLine("<td>" + HtmlEncode(string.IsNullOrWhiteSpace(uan) ? "N/A" : uan) + "</td>");
+            html.AppendLine("<td>" + HtmlEncode(string.IsNullOrWhiteSpace(pan) ? "N/A" : pan) + "</td>");
+            html.AppendLine("<td>" + HtmlEncode(string.IsNullOrWhiteSpace(esi) ? "N/A" : esi) + "</td>");
+            html.AppendLine("<td>" + HtmlEncode(string.IsNullOrWhiteSpace(pt) ? "N/A" : pt) + "</td>");
+            html.AppendLine("</tr></tbody></table>");
+        }
+
         private void AppendEmployeePayslipStatements(StringBuilder html, List<DataRow> employeeRows)
         {
             html.AppendLine("<div class=\"family-heading\">Employee Specific Payslip Statements</div>");
