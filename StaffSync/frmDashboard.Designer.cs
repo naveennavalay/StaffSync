@@ -256,6 +256,8 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
+            this.toolStripMenuItem34 = new System.Windows.Forms.ToolStripSeparator();
+            this.assetIssuanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -1133,16 +1135,18 @@
             // 
             this.cmbAssesmentManagement.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.cmbAssesmentManagement.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.assetAllocationToolStripMenuItem});
+            this.assetAllocationToolStripMenuItem,
+            this.toolStripMenuItem34,
+            this.assetIssuanceToolStripMenuItem});
             this.cmbAssesmentManagement.Name = "cmbAssesmentManagement";
-            this.cmbAssesmentManagement.Size = new System.Drawing.Size(164, 26);
+            this.cmbAssesmentManagement.Size = new System.Drawing.Size(181, 76);
             // 
             // assetAllocationToolStripMenuItem
             // 
             this.assetAllocationToolStripMenuItem.Image = global::StaffSync.Properties.Resources.asset_operations;
             this.assetAllocationToolStripMenuItem.Name = "assetAllocationToolStripMenuItem";
-            this.assetAllocationToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
-            this.assetAllocationToolStripMenuItem.Text = "Asset Operations";
+            this.assetAllocationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.assetAllocationToolStripMenuItem.Text = "Asset Requests";
             this.assetAllocationToolStripMenuItem.Click += new System.EventHandler(this.assetAllocationToolStripMenuItem_Click);
             // 
             // kryptonRibbonGroupTriple15
@@ -2196,6 +2200,18 @@
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             this.kryptonRibbonGroupButton5.Click += new System.EventHandler(this.kryptonRibbonGroupButton5_Click);
             // 
+            // toolStripMenuItem34
+            // 
+            this.toolStripMenuItem34.Name = "toolStripMenuItem34";
+            this.toolStripMenuItem34.Size = new System.Drawing.Size(177, 6);
+            // 
+            // assetIssuanceToolStripMenuItem
+            // 
+            this.assetIssuanceToolStripMenuItem.Name = "assetIssuanceToolStripMenuItem";
+            this.assetIssuanceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.assetIssuanceToolStripMenuItem.Text = "Asset Issuance";
+            this.assetIssuanceToolStripMenuItem.Click += new System.EventHandler(this.assetIssuanceToolStripMenuItem_Click);
+            // 
             // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2479,6 +2495,8 @@
         private System.Windows.Forms.ToolStripMenuItem exportMasterDataToolStripMenuItem;
         public System.Windows.Forms.MaskedTextBox txtDTTo;
         public System.Windows.Forms.MaskedTextBox txtDTFrom;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem34;
+        private System.Windows.Forms.ToolStripMenuItem assetIssuanceToolStripMenuItem;
     }
 }
 

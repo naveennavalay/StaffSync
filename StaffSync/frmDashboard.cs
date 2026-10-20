@@ -8696,5 +8696,26 @@ namespace StaffSync
                 //frmExportDataProcess.WindowState = FormWindowState.Maximized;            
             }
         }
+
+        private void assetIssuanceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Export Data";
+                sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
+                frmExportDataProcess frmExportDataProcess = new frmExportDataProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+                frmExportDataProcess.MdiParent = this;
+                //frmExportDataProcess.Dock = DockStyle.Fill;
+                frmExportDataProcess.Show();
+                //frmExportDataProcess.WindowState = FormWindowState.Maximized;            
+            }
+        }
     }
 }
