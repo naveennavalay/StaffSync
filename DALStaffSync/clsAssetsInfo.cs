@@ -60,6 +60,11 @@ namespace DALStaffSync
             return objAssetsInfo.GetAssetInfoByName(AssetName);
         }
 
+        public SelectedAssetInfo getSelectedAssetInfo(int AssetID)
+        {
+            return objAssetsInfo.getSelectedAssetInfo(AssetID);
+        }
+
         public int InsertAssetInfo(string txtAssetCode, string txtAssetName, string txtAssetDescription, bool IsActive, bool IsDeleted, int AssetCatMasID, bool IsRecoverable, bool IsRequireReturn, bool IsCriticalAsset, int RecoveryTypeID, bool AffectsPayroll, string PayrollImpact, int PayrollHeaderID, int CurrentAssetStatusID, decimal TotalQuantity, decimal OutstandingQuantity)
         {
             return objAssetsInfo.InsertAssetInfo(txtAssetCode, txtAssetName, txtAssetDescription, IsActive, IsDeleted, AssetCatMasID, IsRecoverable, IsRequireReturn, IsCriticalAsset, RecoveryTypeID, AffectsPayroll, PayrollImpact, PayrollHeaderID, CurrentAssetStatusID, TotalQuantity, OutstandingQuantity);
@@ -69,6 +74,12 @@ namespace DALStaffSync
         {
             return objAssetsInfo.UpdateAssetInfo(AssetID, txtAssetCode, txtAssetName, txtAssetDescription, IsActive, IsDeleted, txtAssetCatMasID, IsRecoverable, IsRequireReturn, IsCriticalAsset, RecoveryTypeID, AffectsPayroll, txtPayrollImpact, PayrollHeaderID, CurrentAssetStatusID);
         }
+
+        public int UpdateAssetRegisterBalanceInfo(int txtAssetID, decimal OutstandingQuantity)
+        {
+            return objAssetsInfo.UpdateAssetRegisterBalanceInfo(txtAssetID, OutstandingQuantity);
+        }
+
 
         public int DeleteAssetInfo(int AssetID)
         {
@@ -103,6 +114,16 @@ namespace DALStaffSync
         public int DeleteAssetRequestInfo(int AssetRequestID)
         {
             return objAssetsInfo.DeleteAssetRequestInfo(AssetRequestID);
+        }
+
+        public int UpdateAssetRequestFirstApprover(int AssetRequestID, string FirstApproverStatus)
+        {
+            return objAssetsInfo.UpdateAssetRequestFirstApprover(AssetRequestID, FirstApproverStatus);
+        }
+
+        public int UpdateAssetRequestSecondApprover(int AssetRequestID, string SecondApproverStatus)
+        {
+            return objAssetsInfo.UpdateAssetRequestSecondApprover(AssetRequestID, SecondApproverStatus);
         }
     }
 }

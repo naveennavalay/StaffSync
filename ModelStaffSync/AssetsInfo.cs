@@ -158,6 +158,14 @@ namespace ModelStaffSync
         public int EmpAdvanceRequestID { get; set; }
     }
 
+    public class SpecificAssetRegisterInfo
+    {
+        public int AssetRegID { get; set; }
+        public int AssetID { get; set; }
+        public decimal CBalance { get; set; }
+        public int EmpAdvanceRequestID { get; set; }
+    }
+
     public class AssetEditingList
     {
         public int AssetID { get; set; }
@@ -229,6 +237,11 @@ namespace ModelStaffSync
         [DisplayName("Department")] 
         public string DepartmentTitle { get; set; }
 
+        public int AssetCatMasID { get; set; }
+
+        [DisplayName("Asset CategoryName")]
+        public string AssetCategoryName { get; set; }
+
         public int AssetID { get; set; }
         
         [DisplayName("Asset Code")] 
@@ -247,12 +260,26 @@ namespace ModelStaffSync
         [DisplayName("Comments")] 
         public string AssetRequestComments { set; get; }
         
-        [DisplayName("Status")] 
+        [DisplayName("First Approver Status")] 
         public bool AssetRequestByStatus { get; set; }
         public string RequestedTo { set; get; }
         public string RequestedDate { set; get; }
         public string RequestedToComments { set; get; }
+        
+        [DisplayName("Second Approver Status")] 
         public string AssetRequestStatus { set; get; }
+
+        [DisplayName("Request Status")] 
+        public string RequestStatus { set; get; }
         public int ClientID { get; set; }
+    }
+
+    public class  SelectedAssetInfo
+    {
+        public int AssetID { get; set; }
+        public string AssetCode { get; set; }
+        public string AssetName { get; set; }
+        public decimal TotalQuantity { get; set; }
+        public decimal OutstandingQuantity { get; set; }
     }
 }

@@ -35,6 +35,7 @@ namespace StaffSync
         DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
         DALStaffSync.clsAdvanceTypeMas objAdvanceTypeMas = new DALStaffSync.clsAdvanceTypeMas();
         DALStaffSync.clsAdvanceTransaction objAdvanceTransaction = new DALStaffSync.clsAdvanceTransaction();
+        DALStaffSync.clsAssetsInfo objAssetsInfo = new DALStaffSync.clsAssetsInfo();
         DALStaffSync.clsAssetRegister objAssetRegister = new DALStaffSync.clsAssetRegister();
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
@@ -59,6 +60,7 @@ namespace StaffSync
             objTempClientFinYearInfo = objSelectedClientFinYearInfo;
             ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
             strApproverType = tmpApproverType;
+            this.Text = "Pending Requesters List : " + strApproverType;
             GetAdvancePendingList(strApproverType);
             GetAssetRequesterPendingList(strApproverType);
         }
@@ -113,16 +115,34 @@ namespace StaffSync
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
-            if (this.dtgAdvanceRequestersList.Rows.Count > 0)
+            bool advanceSelected = dtgAdvanceRequestersList.Rows.Cast<DataGridViewRow>().Any(row => !row.IsNewRow && Convert.ToBoolean(row.Cells["Select"].Value ?? false));
+            bool assetSelected = dtgAssetsRequestersList.Rows.Cast<DataGridViewRow>().Any(row => !row.IsNewRow && Convert.ToBoolean(row.Cells["Select"].Value ?? false));
+            if (!advanceSelected && !assetSelected)
             {
-                if (MessageBox.Show("You are about to execute Bulk Advance Request Approval. \nAre you sure to continue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                {
-                    return;
-                }
+                MessageBox.Show("Please select at least one request from either grid.", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-            string AdvanceRequestCode = "";
+            string message;
+            if (advanceSelected && assetSelected)
+            {
+                message = "You are about to process Bulk Request Approvals.\nAre you sure to continue?";
+            }
+            else if (advanceSelected)
+            {
+                message = "You are about to process Bulk Advance Request Approval.\nAre you sure to continue?";
+            }
+            else
+            {
+                message = "You are about to process Bulk Asset Request Approval.\nAre you sure to continue?";
+            }
 
+            DialogResult result = MessageBox.Show(message, "Confirm Bulk Approval", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result != DialogResult.Yes)
+                return;
+
+            string AdvanceRequestCode = "";
 
             if (strApproverType == "FirstApprover")
             {
@@ -154,6 +174,39 @@ namespace StaffSync
                             objAdvanceTransaction.InsertAdvanceTransaction(dc.Cells["EmpAdvReqCode"].Value.ToString(), AdvanceRequestID, DateTime.Now.Date, 0, 0, 0, 0, "Cr", "By Advance Request : \"" + AdvanceRequestCode + "\" Rejection", 0);
                             objAdvanceTransaction.RejectOrCancleApproverStatus(AdvanceRequestID, "Cancelled", DateTime.Now.Date);
                             objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "First Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + ApproverRequestedToComments1 + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                    }
+                }
+
+                foreach (DataGridViewRow dc in dtgAssetsRequestersList.Rows)
+                {
+                    if (Convert.ToBoolean(dc.Cells["Select"].Value.ToString()) == true)
+                    {
+                        int AssetID = Convert.ToInt32(dc.Cells["AssetID"].Value);
+                        int AssetRequestID = Convert.ToInt32(dc.Cells["AssetRequestID"].Value);
+                        string AssetRequestCode = dc.Cells["AssetRequestCode"].Value.ToString();
+                        string AssetRequestStatus = dc.Cells["RequestStatus"].Value.ToString();
+                        objAssetsInfo.UpdateAssetRequestFirstApprover(AssetRequestID, AssetRequestStatus);
+                        SelectedAssetInfo objSelectedAssetInfo = objAssetsInfo.getSelectedAssetInfo(AssetID);
+                        SpecificAssetRegisterInfo objSpecificAssetRegisterInfo = objAssetRegister.getSpecificAssetRegisterInfo(AssetID, AssetRequestID);
+
+                        decimal newBalance = objSelectedAssetInfo.OutstandingQuantity - objSpecificAssetRegisterInfo.CBalance;
+
+                        if (AssetRequestStatus.ToString() == "In Progress" || AssetRequestStatus.ToString() == "Pending")
+                        {
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "First Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AssetRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                        else if (AssetRequestStatus.ToString() == "Approved")
+                        {
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "First Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AssetRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                        else if (AssetRequestStatus.ToString() == "Rejected")
+                        {
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "First Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AssetRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                        else if (AssetRequestStatus.ToString() == "Cancelled")
+                        {
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "First Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AssetRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                     }
                 }
@@ -190,6 +243,45 @@ namespace StaffSync
                             objAdvanceTransaction.InsertAdvanceTransaction(dc.Cells["EmpAdvReqCode"].Value.ToString(), AdvanceRequestID, DateTime.Now.Date, 0, 0, 0, 0, "Cr", "By Advance Request : \"" + AdvanceRequestCode + "\" Rejection", 0);
                             objAdvanceTransaction.RejectOrCancleApproverStatus(AdvanceRequestID, "Cancelled", DateTime.Now.Date);
                             objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "Second Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + RequestMovedToComments + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                    }
+                }
+
+                foreach (DataGridViewRow dc in dtgAssetsRequestersList.Rows)
+                {
+                    if (Convert.ToBoolean(dc.Cells["Select"].Value.ToString()) == true)
+                    {
+                        int AssetID = Convert.ToInt32(dc.Cells["AssetID"].Value);
+                        int AssetRequestID = Convert.ToInt32(dc.Cells["AssetRequestID"].Value);
+                        string AssetRequestCode = dc.Cells["AssetRequestCode"].Value.ToString();
+                        string AssetRequestStatus = dc.Cells["RequestStatus"].Value.ToString();
+                        
+                        objAssetsInfo.UpdateAssetRequestSecondApprover(AssetRequestID, AssetRequestStatus);
+
+                        SelectedAssetInfo objSelectedAssetInfo = objAssetsInfo.getSelectedAssetInfo(AssetID);
+                        SpecificAssetRegisterInfo objSpecificAssetRegisterInfo = objAssetRegister.getSpecificAssetRegisterInfo(AssetID, AssetRequestID);
+
+                        decimal newBalance = objSelectedAssetInfo.OutstandingQuantity - objSpecificAssetRegisterInfo.CBalance;
+
+                        if (AssetRequestStatus.ToString() == "In Progress" || AssetRequestStatus.ToString() == "Pending")
+                        {
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "Second Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                        else if (AssetRequestStatus.ToString() == "Approved")
+                        {
+                            int AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(AssetID, DateTime.Today, objSelectedAssetInfo.OutstandingQuantity, 0, objSpecificAssetRegisterInfo.CBalance, newBalance, "Dr", "To Asset Issue", AssetRequestID);
+                            AssetRegisterID = objAssetsInfo.UpdateAssetRegisterBalanceInfo(AssetID, newBalance);
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "Second Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                        else if (AssetRequestStatus.ToString() == "Rejected")
+                        {
+                            int AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(AssetID, DateTime.Today, objSpecificAssetRegisterInfo.CBalance, 0, objSpecificAssetRegisterInfo.CBalance, 0, "Rj", "To Asset Issue - " + objSelectedAssetInfo.AssetName + " Request Rejected", AssetRequestID);
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "Second Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                        else if (AssetRequestStatus.ToString() == "Cancelled")
+                        {
+                            int AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(AssetID, DateTime.Today, objSpecificAssetRegisterInfo.CBalance, 0, objSpecificAssetRegisterInfo.CBalance, 0, "Cnl", "To Asset Issue - " + objSelectedAssetInfo.AssetName + " Request Cancellation", AssetRequestID); 
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "Second Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                     }
                 }
@@ -353,7 +445,11 @@ namespace StaffSync
         private void GetAssetRequesterPendingList(string tmpApproverType)
         {   
             dtgAssetsRequestersList.DataSource = null;
-            dtgAssetsRequestersList.DataSource = objAssetRegister.PendingAssetApprovalList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID));
+
+            if (strApproverType == "FirstApprover")
+                dtgAssetsRequestersList.DataSource = objAssetRegister.FirstApprovalPendingAssetApprovalList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID));
+            else if (strApproverType == "SecondApprover")
+                dtgAssetsRequestersList.DataSource = objAssetRegister.SecondApprovalPendingAssetApprovalList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID));
 
             dtgAssetsRequestersList.Columns["Select"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["Select"].Visible = true;
@@ -361,37 +457,44 @@ namespace StaffSync
             dtgAssetsRequestersList.Columns["EmpID"].Visible = false;
             dtgAssetsRequestersList.Columns["EmpCode"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["EmpCode"].Visible = true;
-            dtgAssetsRequestersList.Columns["EmpCode"].Width = 125;
+            dtgAssetsRequestersList.Columns["EmpCode"].Width = 100;
             dtgAssetsRequestersList.Columns["EmpName"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["EmpName"].Visible = true;
-            dtgAssetsRequestersList.Columns["EmpName"].Width = 350;
+            dtgAssetsRequestersList.Columns["EmpName"].Width = 250;
             dtgAssetsRequestersList.Columns["DesignationTitle"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["DesignationTitle"].Visible = true;
-            dtgAssetsRequestersList.Columns["DesignationTitle"].Width = 250;
+            dtgAssetsRequestersList.Columns["DesignationTitle"].Width = 150;
             dtgAssetsRequestersList.Columns["DepartmentTitle"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["DepartmentTitle"].Visible = true;
-            dtgAssetsRequestersList.Columns["DepartmentTitle"].Width = 250;
+            dtgAssetsRequestersList.Columns["DepartmentTitle"].Width = 150;
+            dtgAssetsRequestersList.Columns["AssetCatMasID"].Visible = false;
+            dtgAssetsRequestersList.Columns["AssetCategoryName"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["AssetCategoryName"].Visible = true;
+            dtgAssetsRequestersList.Columns["AssetCategoryName"].Width = 150;
             dtgAssetsRequestersList.Columns["AssetID"].Visible = false;
             dtgAssetsRequestersList.Columns["AssetCode"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["AssetCode"].Visible = true;
-            dtgAssetsRequestersList.Columns["AssetCode"].Width = 150;
+            dtgAssetsRequestersList.Columns["AssetCode"].Width = 100;
             dtgAssetsRequestersList.Columns["AssetName"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["AssetName"].Visible = true;
-            dtgAssetsRequestersList.Columns["AssetName"].Width = 250;
-            dtgAssetsRequestersList.Columns["AssetRequestID"].Visible = true;
+            dtgAssetsRequestersList.Columns["AssetName"].Width = 350;
+            dtgAssetsRequestersList.Columns["AssetRequestID"].Visible = false;
             dtgAssetsRequestersList.Columns["AssetRequestCode"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["AssetRequestCode"].Visible = true;
-            dtgAssetsRequestersList.Columns["AssetRequestCode"].Width = 150;
+            dtgAssetsRequestersList.Columns["AssetRequestCode"].Width = 125;
             dtgAssetsRequestersList.Columns["AssetRequestDate"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["AssetRequestDate"].Visible = true;
-            dtgAssetsRequestersList.Columns["AssetRequestDate"].Width = 250;
+            dtgAssetsRequestersList.Columns["AssetRequestDate"].Width = 125;
             dtgAssetsRequestersList.Columns["AssetRequestDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
             dtgAssetsRequestersList.Columns["AssetRequestComments"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["AssetRequestComments"].Visible = true;
-            dtgAssetsRequestersList.Columns["AssetRequestComments"].Width = 350;
+            dtgAssetsRequestersList.Columns["AssetRequestComments"].Width = 250;
             dtgAssetsRequestersList.Columns["AssetRequestByStatus"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["AssetRequestByStatus"].Visible = true;
             dtgAssetsRequestersList.Columns["AssetRequestByStatus"].Width = 150;
+            dtgAssetsRequestersList.Columns["RequestStatus"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["RequestStatus"].Visible = true;
+            dtgAssetsRequestersList.Columns["RequestStatus"].Width = 100;
             dtgAssetsRequestersList.Columns["RequestedTo"].Visible = false;
             //dtgAssetsRequestersList.Columns["ApproverEmpCode"].ReadOnly = true;
             //dtgAssetsRequestersList.Columns["ApproverEmpCode"].Visible = true;
@@ -405,6 +508,10 @@ namespace StaffSync
             dtgAssetsRequestersList.Columns["AssetRequestStatus"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["AssetRequestStatus"].Visible = true;
             dtgAssetsRequestersList.Columns["AssetRequestStatus"].Width = 150;
+            dtgAssetsRequestersList.Columns["RequestedToComments"].Visible = false;
+            dtgAssetsRequestersList.Columns["RequestedDate"].Visible = false;
+            dtgAssetsRequestersList.Columns["AssetRequestStatus"].Visible = false;
+            dtgAssetsRequestersList.Columns["ClientID"].Visible = false;
         }
 
         private void frmAdvanceApprovalList_KeyDown(object sender, KeyEventArgs e)
@@ -498,7 +605,7 @@ namespace StaffSync
             if (e.RowIndex < 0)
                 return;
 
-            if (dtgAssetsRequestersList.Columns[e.ColumnIndex].Name == "AssetRequestComments")
+            if (dtgAssetsRequestersList.Columns[e.ColumnIndex].Name == "RequestStatus")
             {
                 int AdvanceRequestID = Convert.ToInt32(dtgAssetsRequestersList.Rows[e.RowIndex].Cells["assetRequestID"].Value);
 
@@ -510,10 +617,17 @@ namespace StaffSync
                     {
                         btnSaveDetails.Enabled = true;
                         dtgAssetsRequestersList.Rows[e.RowIndex].Cells["Select"].Value = true;
-                        dtgAssetsRequestersList.Rows[e.RowIndex].Cells["AssetRequestComments"].Value = frm.SelectedStatus;
+                        dtgAssetsRequestersList.Rows[e.RowIndex].Cells["RequestStatus"].Value = frm.SelectedStatus;
                     }
                 }
             }
+        }
+
+        private void picRefresh1_Click(object sender, EventArgs e)
+        {
+            btnSaveDetails.Enabled = false;
+            GetAdvancePendingList(strApproverType);
+            GetAssetRequesterPendingList(strApproverType);
         }
     }
 }

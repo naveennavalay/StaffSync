@@ -19,6 +19,11 @@ namespace DALStaffSync
             return objAssetsRegisterInfo.getSpecificAssetRegisterInfo(AssetID, AssetTRDate, EmpAssetRequestID);
         }
 
+        public SpecificAssetRegisterInfo getSpecificAssetRegisterInfo(int AssetID, int EmpAssetRequestID)
+        {
+            return objAssetsRegisterInfo.getSpecificAssetRegisterInfo(AssetID, EmpAssetRequestID);
+        }
+
         public int InsertAssetRegisterInfo(int txtAssetID, DateTime dtAssetTRDate, decimal txtOBalance, decimal txtCrBalance, decimal txtDrBalance, decimal txtCBalance, string txtTRType, string txtComments, int txtEmpAdvanceRequestID)
         {
             return objAssetsRegisterInfo.InsertAssetRegisterInfo(txtAssetID, dtAssetTRDate, txtOBalance, txtCrBalance, txtDrBalance, txtCBalance, txtTRType, txtComments, txtEmpAdvanceRequestID);
@@ -34,9 +39,14 @@ namespace DALStaffSync
             return objAssetsRegisterInfo.DeleteAssetRegisterInfo(txtAssetRegID);
         }
 
-        public List<AssetApproverPendingList> PendingAssetApprovalList(int txtClientID)
+        public List<AssetApproverPendingList> FirstApprovalPendingAssetApprovalList(int txtClientID)
         {
-            return objAssetsRegisterInfo.PendingAssetApprovalList(txtClientID);
+            return objAssetsRegisterInfo.FirstApprovalPendingAssetApprovalList(txtClientID);
+        }
+
+        public List<AssetApproverPendingList> SecondApprovalPendingAssetApprovalList(int txtClientID)
+        {
+            return objAssetsRegisterInfo.SecondApprovalPendingAssetApprovalList(txtClientID);
         }
     }
 }

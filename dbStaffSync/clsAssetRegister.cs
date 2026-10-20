@@ -76,6 +76,56 @@ namespace dbStaffSync
         //        return new AssetInfo();
         //}
 
+        public SpecificAssetRegisterInfo getSpecificAssetRegisterInfo(int AssetID, int EmpAssetRequestID)
+        {
+            List<SpecificAssetRegisterInfo> objSpecificAssetRegisterInfoList = new List<SpecificAssetRegisterInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                        AssetRegister.AssetRegID,
+                                        AssetRegister.AssetID,
+                                        AssetRegister.CBalance,
+                                        AssetRegister.EmpAdvanceRequestID
+                                    FROM
+                                        AssetRegister
+                                    WHERE
+                                        (
+                                            ((AssetRegister.AssetID) = " + AssetID + @")
+                                            AND ((AssetRegister.EmpAdvanceRequestID) = " + EmpAssetRequestID + @")
+                                        );";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objSpecificAssetRegisterInfoList = JsonConvert.DeserializeObject<List<SpecificAssetRegisterInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            if (objSpecificAssetRegisterInfoList.Count > 0)
+                return objSpecificAssetRegisterInfoList[0];
+            else
+                return new SpecificAssetRegisterInfo();
+        }
+
         public AssetRegister getSpecificAssetRegisterInfo(int AssetID, DateTime AssetTRDate, int EmpAssetRequestID)
         {
             List<AssetRegister> objAssetRegisterInfo = new List<AssetRegister>();
@@ -229,7 +279,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public List<AssetApproverPendingList> PendingAssetApprovalList(int txtClientID)
+        public List<AssetApproverPendingList> FirstApprovalPendingAssetApprovalList(int txtClientID)
         {
             List<AssetApproverPendingList> objAssetApproverPendingListInfo = new List<AssetApproverPendingList>();
             DataTable dt = new DataTable();
@@ -295,7 +345,151 @@ namespace dbStaffSync
                                         " ) " +
                                     " ORDER BY " +
                                         " EmpAssetRequest.AssetRequestID;";
+                strQuery = @"SELECT
+                                E.EmpID,
+                                E.EmpCode,
+                                E.EmpName,
+                                D.DesignationTitle,
+                                P.DepartmentTitle,
+                                C.AssetCatMasID,
+                                C.AssetName AS AssetCategoryName,
+                                A.AssetID,
+                                A.AssetCode,
+                                A.AssetName,
+                                R.AssetRequestID,
+                                R.AssetRequestCode,
+                                R.AssetRequestDate,
+                                R.AssetRequestComments,
+                                R.AssetRequestByStatus,
+                                IIf(R.AssetRequestByStatus = False, ""Pending"", """") AS RequestStatus,
+                                R.RequestedTo,
+                                R.RequestedDate,
+                                R.RequestedToStatus,
+                                R.RequestedToComments,
+                                R.AssetRequestStatus,
+                                CL.ClientID
+                            FROM
+                                DesigMas AS D
+                                INNER JOIN (
+                                    DepMas AS P
+                                    INNER JOIN (
+                                        ClientMas AS CL
+                                        INNER JOIN (
+                                            (
+                                                AssetCategoryMas AS C
+                                                INNER JOIN AssetMas AS A ON C.AssetCatMasID = A.AssetCatMasID
+                                            )
+                                            INNER JOIN (
+                                                EmpAssetRequest AS R
+                                                INNER JOIN EmpMas AS E ON R.AssetRequestByID = E.EmpID
+                                            ) ON A.AssetID = R.AssetID
+                                        ) ON CL.ClientID = E.ClientID
+                                    ) ON P.DepartmentID = E.DepartmentID
+                                ) ON D.DesignationID = E.EmpDesignationID
+                            WHERE
+                                (
+                                    ((E.EmpID) > 1)
+                                    AND ((R.AssetRequestByStatus) = False)
+                                    AND ((R.RequestedToStatus) = False)
+                                    AND ((R.AssetRequestStatus) = False)
+                                    AND ((R.IsActive) = True)
+                                    AND ((R.IsDeleted) = False)
+                                    AND ((CL.ClientID) = " + txtClientID + @")
+                                    AND ((C.ClientID) = [CL].[ClientID])
+                                )
+                            ORDER BY
+                                R.AssetRequestID,
+                                R.AssetRequestDate;";
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
 
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objAssetApproverPendingListInfo = JsonConvert.DeserializeObject<List<AssetApproverPendingList>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objAssetApproverPendingListInfo;
+        }
+
+        public List<AssetApproverPendingList> SecondApprovalPendingAssetApprovalList(int txtClientID)
+        {
+            List<AssetApproverPendingList> objAssetApproverPendingListInfo = new List<AssetApproverPendingList>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "";
+                strQuery = @"SELECT
+                                E.EmpID,
+                                E.EmpCode,
+                                E.EmpName,
+                                D.DesignationTitle,
+                                P.DepartmentTitle,
+                                C.AssetCatMasID,
+                                C.AssetName AS AssetCategoryName,
+                                A.AssetID,
+                                A.AssetCode,
+                                A.AssetName,
+                                R.AssetRequestID,
+                                R.AssetRequestCode,
+                                R.AssetRequestDate,
+                                R.AssetRequestComments,
+                                R.AssetRequestByStatus,
+                                IIf(R.AssetRequestByStatus = False, ""Pending"", """") AS RequestStatus,
+                                R.RequestedTo,
+                                R.RequestedDate,
+                                R.RequestedToStatus,
+                                R.RequestedToComments,
+                                R.AssetRequestStatus,
+                                CL.ClientID
+                            FROM
+                                DesigMas AS D
+                                INNER JOIN (
+                                    DepMas AS P
+                                    INNER JOIN (
+                                        ClientMas AS CL
+                                        INNER JOIN (
+                                            (
+                                                AssetCategoryMas AS C
+                                                INNER JOIN AssetMas AS A ON C.AssetCatMasID = A.AssetCatMasID
+                                            )
+                                            INNER JOIN (
+                                                EmpAssetRequest AS R
+                                                INNER JOIN EmpMas AS E ON R.AssetRequestByID = E.EmpID
+                                            ) ON A.AssetID = R.AssetID
+                                        ) ON CL.ClientID = E.ClientID
+                                    ) ON P.DepartmentID = E.DepartmentID
+                                ) ON D.DesignationID = E.EmpDesignationID
+                            WHERE
+                                (
+                                    ((E.EmpID) > 1)
+                                    AND ((R.AssetRequestByStatus) = True)
+                                    AND ((R.RequestedToStatus) = True)
+                                    AND ((R.AssetRequestStatus) = False)
+                                    AND ((R.IsActive) = True)
+                                    AND ((R.IsDeleted) = False)
+                                    AND ((CL.ClientID) = " + txtClientID + @")
+                                    AND ((C.ClientID) = [CL].[ClientID])
+                                )
+                            ORDER BY
+                                R.AssetRequestID,
+                                R.AssetRequestDate;";
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;

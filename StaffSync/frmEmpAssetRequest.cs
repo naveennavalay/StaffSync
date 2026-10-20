@@ -458,7 +458,7 @@ namespace StaffSync
         }
 
         public void SelectedEmployeeID(string SearchOptionSelectedForm, int selectedEmployeeID)
-        {
+        {   
             if (SearchOptionSelectedForm == "listAssetRequestingUsers")
             {
                 lblEmpID.Text = selectedEmployeeID.ToString();
@@ -526,6 +526,19 @@ namespace StaffSync
                 _originalValues = AuditLogger.getOriginalValues(this);
 
                 lnkViewAuditLog.Visible = true;
+            }
+            else if (SearchOptionSelectedForm == "listAssetRequestingManager")
+            {
+                EmployeeInfo objSelectedEmployeeInfo = objEmployeeMaster.GetSelectedEmployeeInfo(Convert.ToInt16(selectedEmployeeID.ToString()));
+                lblReportingManagerID.Text = selectedEmployeeID.ToString();
+                ReportingManagerInfo objReportingManagerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(lblReportingManagerID.Text));
+                txtRepCode.Text = objReportingManagerInfo.EmpCode;
+                txtRepName.Text = objReportingManagerInfo.EmpName;
+                txtRepDesignation.Text = objReportingManagerInfo.DesignationTitle;
+                txtRepDepartment.Text = objReportingManagerInfo.DepartmentTitle;
+                picRepEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblReportingManagerID.Text)).EmpPhoto);
+                EmpPersonalPersonalInfo objSelectedReportingManagerPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblReportingManagerID.Text));
+                lblRequestToMailID.Text = objSelectedReportingManagerPersonalInfo.ContactNumber2.ToString();
             }
         }
 
@@ -637,15 +650,25 @@ namespace StaffSync
 
         private void btnRepSearch_Click(object sender, EventArgs e)
         {   
+            //if (lblActionMode.Text == "add")
+            //{
+            //    frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAssetRequestingManager");
+            //    frmEmployeeList.ShowDialog(this);
+            //}
+            //else if (lblActionMode.Text == "modify")
+            //{
+            //    frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAssetRequestingManager");
+            //    frmEmployeeList.ShowDialog(this);
+            //}
             if (lblActionMode.Text == "add")
             {
-                //frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAdvanceRequestToUsers");
-                //frmEmployeeList.ShowDialog(this);
+                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAssetRequestingManager", Convert.ToInt32(lblClientID.Text.ToString()));
+                frmEmployeeList.ShowDialog(this);
             }
             else if (lblActionMode.Text == "modify")
             {
-                //frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAdvanceRequestToUsers");
-                //frmEmployeeList.ShowDialog(this);
+                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAssetRequestingManager", Convert.ToInt32(lblClientID.Text.ToString()));
+                frmEmployeeList.ShowDialog(this);
             }
         }
 

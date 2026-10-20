@@ -703,6 +703,51 @@ namespace dbStaffSync
             return selectedAssetID;
         }
 
+        public SelectedAssetInfo getSelectedAssetInfo(int AssetID)
+        {
+            List<SelectedAssetInfo> objSelectedAssetInfoList = new List<SelectedAssetInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                        AssetMas.AssetID,
+                                        AssetMas.AssetCode,
+                                        AssetMas.AssetName,
+                                        AssetMas.TotalQuantity,
+                                        AssetMas.OutstandingQuantity
+                                    FROM
+                                        AssetMas
+                                    WHERE
+                                        (((AssetMas.AssetID) = " + AssetID + "));";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objSelectedAssetInfoList = JsonConvert.DeserializeObject<List<SelectedAssetInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objSelectedAssetInfoList.FirstOrDefault();
+        }
+
         public int InsertAssetInfo(string txtAssetCode, string txtAssetName, string txtAssetDescription, bool IsActive, bool IsDeleted, int AssetCatMasID, bool IsRecoverable, bool IsRequireReturn, bool IsCriticalAsset, int RecoveryTypeID, bool AffectsPayroll, string PayrollImpact, int PayrollHeaderID, int CurrentAssetStatusID, decimal TotalQuantity, decimal OutstandingQuantity)
         {
             int affectedRows = 0;
@@ -767,6 +812,38 @@ namespace dbStaffSync
             }
             return affectedRows;
         }
+
+
+        public int UpdateAssetRegisterBalanceInfo(int txtAssetID, decimal OutstandingQuantity)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE AssetMas SET " +
+                                        " OutstandingQuantity = " + OutstandingQuantity +
+                                  " WHERE " +
+                                        " AssetID = " + txtAssetID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
 
         public int DeleteAssetInfo(int AssetID)
         {
@@ -993,6 +1070,100 @@ namespace dbStaffSync
                 string strQuery = "DELETE * FROM EmpAssetRequest " +
                                   "WHERE " +
                                   "AssetRequestID = " + AssetRequestID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = AssetRequestID;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+
+        public int UpdateAssetRequestFirstApprover(int AssetRequestID, string FirstApproverStatus)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "";
+
+                if(FirstApproverStatus == "Approved")
+                {
+                    strQuery = "UPDATE EmpAssetRequest SET AssetRequestByStatus = True, RequestedToStatus = True, AssetRequestStatus = False WHERE AssetRequestID = " + AssetRequestID;
+                }
+                else if(FirstApproverStatus == "In Progress")
+                {
+                    strQuery = "UPDATE EmpAssetRequest SET AssetRequestByStatus = True, RequestedToStatus = False, AssetRequestStatus = False WHERE AssetRequestID = " + AssetRequestID;
+                }
+                else if (FirstApproverStatus == "Cancelled" )
+                {
+                    strQuery = "UPDATE EmpAssetRequest SET IsActive = False, IsDeleted = True, AssetRequestByStatus = False, AssetRequestStatus = False WHERE AssetRequestID = " + AssetRequestID;
+                }
+                else if (FirstApproverStatus == "Rejected")
+                {
+                    strQuery = "UPDATE EmpAssetRequest SET IsActive = False, IsDeleted = True, AssetRequestByStatus = False, AssetRequestStatus = False WHERE AssetRequestID = " + AssetRequestID;
+                }
+                
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = AssetRequestID;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+
+        public int UpdateAssetRequestSecondApprover(int AssetRequestID, string FirstApproverStatus)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "";
+
+                if (FirstApproverStatus == "Approved")
+                {
+                    strQuery = "UPDATE EmpAssetRequest SET AssetRequestStatus = True WHERE AssetRequestID = " + AssetRequestID;
+                }
+                else if (FirstApproverStatus == "In Progress")
+                {
+                    strQuery = "UPDATE EmpAssetRequest SET AssetRequestStatus = False WHERE AssetRequestID = " + AssetRequestID;
+                }
+                else if (FirstApproverStatus == "Cancelled")
+                {
+                    strQuery = "UPDATE EmpAssetRequest SET IsActive = False, IsDeleted = True, AssetRequestStatus = False WHERE AssetRequestID = " + AssetRequestID;
+                }
+                else if (FirstApproverStatus == "Rejected")
+                {
+                    strQuery = "UPDATE EmpAssetRequest SET IsActive = False, IsDeleted = True, AssetRequestStatus = False WHERE AssetRequestID = " + AssetRequestID;
+                }
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

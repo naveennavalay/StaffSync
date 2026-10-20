@@ -32,6 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAdvanceApprovalList));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.picRefresh1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dtgAssetsRequestersList = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.picRefresh = new System.Windows.Forms.PictureBox();
             this.label34 = new System.Windows.Forms.Label();
@@ -46,15 +50,14 @@
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dtgAssetsRequestersList = new Krypton.Toolkit.KryptonDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefresh1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgAssetsRequestersList)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRefresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgAdvanceRequestersList)).BeginInit();
@@ -64,9 +67,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgAssetsRequestersList)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -101,6 +101,68 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1148, 601);
             this.panel1.TabIndex = 1;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox1.Controls.Add(this.picRefresh1);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.dtgAssetsRequestersList);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(13, 310);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(1122, 287);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Assets Requesters List";
+            // 
+            // picRefresh1
+            // 
+            this.picRefresh1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picRefresh1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picRefresh1.Image = ((System.Drawing.Image)(resources.GetObject("picRefresh1.Image")));
+            this.picRefresh1.Location = new System.Drawing.Point(1089, 1);
+            this.picRefresh1.Name = "picRefresh1";
+            this.picRefresh1.Size = new System.Drawing.Size(23, 22);
+            this.picRefresh1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRefresh1.TabIndex = 61;
+            this.picRefresh1.TabStop = false;
+            this.picRefresh1.Click += new System.EventHandler(this.picRefresh1_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.label1.Location = new System.Drawing.Point(5, 264);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(471, 15);
+            this.label1.TabIndex = 60;
+            this.label1.Text = "🟢 Double-click on the Status column to update the Asset Request status";
+            // 
+            // dtgAssetsRequestersList
+            // 
+            this.dtgAssetsRequestersList.AllowUserToAddRows = false;
+            this.dtgAssetsRequestersList.AllowUserToDeleteRows = false;
+            this.dtgAssetsRequestersList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgAssetsRequestersList.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgAssetsRequestersList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgAssetsRequestersList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgAssetsRequestersList.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgAssetsRequestersList.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgAssetsRequestersList.Location = new System.Drawing.Point(8, 30);
+            this.dtgAssetsRequestersList.Margin = new System.Windows.Forms.Padding(4);
+            this.dtgAssetsRequestersList.MultiSelect = false;
+            this.dtgAssetsRequestersList.Name = "dtgAssetsRequestersList";
+            this.dtgAssetsRequestersList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgAssetsRequestersList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgAssetsRequestersList.Size = new System.Drawing.Size(1104, 230);
+            this.dtgAssetsRequestersList.TabIndex = 59;
+            this.dtgAssetsRequestersList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAssetsRequestersList_CellDoubleClick);
             // 
             // groupBox5
             // 
@@ -148,8 +210,6 @@
             // 
             this.dtgAdvanceRequestersList.AllowUserToAddRows = false;
             this.dtgAdvanceRequestersList.AllowUserToDeleteRows = false;
-            this.dtgAdvanceRequestersList.AllowUserToResizeColumns = false;
-            this.dtgAdvanceRequestersList.AllowUserToResizeRows = false;
             this.dtgAdvanceRequestersList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dtgAdvanceRequestersList.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dtgAdvanceRequestersList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -238,69 +298,6 @@
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.dtgAssetsRequestersList);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(13, 310);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(1122, 287);
-            this.groupBox1.TabIndex = 10;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Assets Requesters List";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(1089, 1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(23, 22);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 61;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label1.Location = new System.Drawing.Point(5, 264);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(471, 15);
-            this.label1.TabIndex = 60;
-            this.label1.Text = "🟢 Double-click on the Status column to update the Asset Request status";
-            // 
-            // dtgAssetsRequestersList
-            // 
-            this.dtgAssetsRequestersList.AllowUserToAddRows = false;
-            this.dtgAssetsRequestersList.AllowUserToDeleteRows = false;
-            this.dtgAssetsRequestersList.AllowUserToResizeColumns = false;
-            this.dtgAssetsRequestersList.AllowUserToResizeRows = false;
-            this.dtgAssetsRequestersList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dtgAssetsRequestersList.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dtgAssetsRequestersList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgAssetsRequestersList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dtgAssetsRequestersList.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.dtgAssetsRequestersList.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgAssetsRequestersList.Location = new System.Drawing.Point(8, 30);
-            this.dtgAssetsRequestersList.Margin = new System.Windows.Forms.Padding(4);
-            this.dtgAssetsRequestersList.MultiSelect = false;
-            this.dtgAssetsRequestersList.Name = "dtgAssetsRequestersList";
-            this.dtgAssetsRequestersList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.dtgAssetsRequestersList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgAssetsRequestersList.Size = new System.Drawing.Size(1104, 230);
-            this.dtgAssetsRequestersList.TabIndex = 59;
-            this.dtgAssetsRequestersList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAssetsRequestersList_CellDoubleClick);
-            // 
             // frmAdvanceApprovalList
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -325,6 +322,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefresh1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgAssetsRequestersList)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRefresh)).EndInit();
@@ -335,10 +336,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgAssetsRequestersList)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -362,7 +359,7 @@
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.PictureBox picRefresh;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox picRefresh1;
         private System.Windows.Forms.Label label1;
         private Krypton.Toolkit.KryptonDataGridView dtgAssetsRequestersList;
     }

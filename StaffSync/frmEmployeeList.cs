@@ -731,6 +731,20 @@ namespace StaffSync
                 dtgEmployeeList.Columns["StateID"].Visible = false;
                 dtgEmployeeList.Columns["SexID"].Visible = false;
             }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestingManager")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+                dtgEmployeeList.Columns["StateID"].Visible = false;
+                dtgEmployeeList.Columns["SexID"].Visible = false;
+            }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestEditUsers")
             {
                 dtgEmployeeList.DataSource = null;
@@ -883,6 +897,10 @@ namespace StaffSync
             else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestingUsers")
             {
                 this.frmEmpAssetRequest.SelectedEmployeeID("listAssetRequestingUsers", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestingManager")
+            {
+                this.frmEmpAssetRequest.SelectedEmployeeID("listAssetRequestingManager", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestingUsers")
             {
