@@ -53,6 +53,7 @@ namespace StaffSync
         DALStaffSync.clsEduQalification objEduQalification = new DALStaffSync.clsEduQalification();
         DALStaffSync.clsEmpSkillsMas objEmpSkillsMas = new DALStaffSync.clsEmpSkillsMas();
         DALStaffSync.clsEmployeeAdvanceInfo objEmployeeAdvanceInfo = new DALStaffSync.clsEmployeeAdvanceInfo();
+        DALStaffSync.clsEmployeeBankACInfo objEmployeeBankACInfo = new clsEmployeeBankACInfo();
         DALStaffSync.clsEmpPayroll objEmpPayroll = new DALStaffSync.clsEmpPayroll();
         DALStaffSync.clsSkillsMas objSkillsMas = new DALStaffSync.clsSkillsMas();
         DALStaffSync.clsRelationship objRelationship = new DALStaffSync.clsRelationship();
@@ -1908,6 +1909,12 @@ namespace StaffSync
             if (!result.Columns.Contains("SkillTitle")) result.Columns.Add("SkillTitle", typeof(string));
             if (!result.Columns.Contains("ExpertiseLevel")) result.Columns.Add("ExpertiseLevel", typeof(int));
 
+            // Employee-specific bank account information for the expandable HTML detail section.
+            if (!result.Columns.Contains("EmployeeBankName")) result.Columns.Add("EmployeeBankName", typeof(string));
+            if (!result.Columns.Contains("EmployeeBankAccountNumber")) result.Columns.Add("EmployeeBankAccountNumber", typeof(string));
+            if (!result.Columns.Contains("EmployeeBankAddress")) result.Columns.Add("EmployeeBankAddress", typeof(string));
+            if (!result.Columns.Contains("EmployeeBankIFSCCode")) result.Columns.Add("EmployeeBankIFSCCode", typeof(string));
+
             // Employee-specific Leave Information columns populated from the
             // employee leave-entitlement DAL below.
             if (!result.Columns.Contains("LeaveTitle")) result.Columns.Add("LeaveTitle", typeof(string));
@@ -1967,6 +1974,7 @@ namespace StaffSync
                 DataTable leaveInformation = ConvertListToDataTable(objEmpLeaveEntitlementInfo.getEmployeeSpecificLeaveInfo(empId));
                 DataTable advanceInformation = ConvertListToDataTable(objEmployeeAdvanceInfo.getEmployeeAdvanceInformationList(empId));
                 DataTable consolidatedPayslipValues = ConvertListToDataTable(objEmpPayroll.getEmployeeSpecificConsolidatedPayslipValues(empId));
+                DataTable employeeBankAccountInfo = ConvertListToDataTable(objEmployeeBankACInfo.getEmployeeSpecificBankAccountInfo(empId));
 
                 List<DataRow> familyRows = family.Rows.Cast<DataRow>().Where(r => family.Columns.Contains("EmpID") && r["EmpID"] != DBNull.Value && Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> nomineeRows = nominee.Rows.Cast<DataRow>().ToList();
@@ -1976,11 +1984,12 @@ namespace StaffSync
                 List<DataRow> empLeaveRows = leaveInformation.Rows.Cast<DataRow>().Where(r => !leaveInformation.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> empAdvanceRows = advanceInformation.Rows.Cast<DataRow>().Where(r => !advanceInformation.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> empPayslipRows = consolidatedPayslipValues.Rows.Cast<DataRow>().Where(r => !consolidatedPayslipValues.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
+                List<DataRow> empBankAccountRows = employeeBankAccountInfo.Rows.Cast<DataRow>().Where(r => !employeeBankAccountInfo.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
 
                 //DataTable employeeAttendanceSummary = BuildConsolidatedAttendanceSummary(monthlyAttendanceRegisterData, empId, attendanceYear);
                 //List<DataRow> attendanceRows = employeeAttendanceSummary.Rows.Cast<DataRow>().ToList();
 
-                int rowCount = Math.Max(1, Math.Max(empPayslipRows.Count, Math.Max(empAdvanceRows.Count, Math.Max(empLeaveRows.Count, Math.Max(mnthlyAttendanceRows.Count, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count))))))));
+                int rowCount = Math.Max(1, Math.Max(empBankAccountRows.Count, Math.Max(empPayslipRows.Count, Math.Max(empAdvanceRows.Count, Math.Max(empLeaveRows.Count, Math.Max(mnthlyAttendanceRows.Count, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count)))))))));
 
                 for (int i = 0; i < rowCount; i++)
                 {
@@ -2008,6 +2017,35 @@ namespace StaffSync
                             if (int.TryParse(Convert.ToString(skillsRows[i]["ExpertiseLevel"]), out expertiseLevel))
                                 output["ExpertiseLevel"] = Math.Max(0, Math.Min(10, expertiseLevel));
                         }
+                    }
+
+                    if (i < empBankAccountRows.Count)
+                    {
+                        DataRow empBankRow = empBankAccountRows[i];
+                        // Read source column names used by the employee-bank DAL.
+                        // Always write to the dedicated detail columns added to result;
+                        // do not assign EmpACNumber/AccountNumber to output directly,
+                        // because those columns may not exist in the employee result table.
+                        string bankNameColumn = GetFirstExistingColumn(empBankRow.Table,
+                            "EmployeeBankACName", "BankName", "BankTitle", "BankTitleName");
+                        string bankAccountColumn = GetFirstExistingColumn(empBankRow.Table,
+                            "EmpACNumber", "EmployeeBankACNumber", "AccountNumber", "EmployeeBankAccountNumber", "BankAccountNumber");
+                        string bankIfscColumn = GetFirstExistingColumn(empBankRow.Table,
+                            "IFSCCode", "EmployeeBankIFSCCode", "IFSC", "EmpIFSCCode");
+                        string bankAddressColumn = GetFirstExistingColumn(empBankRow.Table,
+                            "EmployeeBankAddress", "Address", "BankAddress", "BranchAddress", "BankBranchAddress", "AccountAddress");
+
+                        if (!string.IsNullOrWhiteSpace(bankNameColumn) && output.Table.Columns.Contains("EmployeeBankName"))
+                            output["EmployeeBankName"] = empBankRow[bankNameColumn] == DBNull.Value ? DBNull.Value : empBankRow[bankNameColumn];
+
+                        if (!string.IsNullOrWhiteSpace(bankAccountColumn) && output.Table.Columns.Contains("EmployeeBankAccountNumber"))
+                            output["EmployeeBankAccountNumber"] = empBankRow[bankAccountColumn] == DBNull.Value ? DBNull.Value : empBankRow[bankAccountColumn];
+
+                        if (!string.IsNullOrWhiteSpace(bankIfscColumn) && output.Table.Columns.Contains("EmployeeBankIFSCCode"))
+                            output["EmployeeBankIFSCCode"] = empBankRow[bankIfscColumn] == DBNull.Value ? DBNull.Value : empBankRow[bankIfscColumn];
+
+                        if (!string.IsNullOrWhiteSpace(bankAddressColumn) && output.Table.Columns.Contains("EmployeeBankAddress"))
+                            output["EmployeeBankAddress"] = empBankRow[bankAddressColumn] == DBNull.Value ? DBNull.Value : empBankRow[bankAddressColumn];
                     }
 
                     if (i < empLeaveRows.Count)
@@ -2139,7 +2177,6 @@ namespace StaffSync
                             string.IsNullOrEmpty(deductionsColumn) && string.IsNullOrEmpty(reimbursementsColumn)
                             ? (object)DBNull.Value : netSalary;
                     }
-
 
                     result.Rows.Add(output);
                 }
@@ -3993,6 +4030,7 @@ namespace StaffSync
                 "FamMemMailID", "FamMemBloodGroup", "FamMemInsuranceEnrolled",
                 "NomineePerson", "NomineeContactNumber", "NomineeRelationShipTitle",
                 "EduQualTitle", "SkillTitle", "ExpertiseLevel",
+                "EmployeeBankName", "EmployeeBankAccountNumber", "EmployeeBankAddress", "EmployeeBankIFSCCode",
                 "LeaveTitle", "LeaveAlloted", "LeaveUtilised", "LeaveBalance",
                 "AttendanceMonth", "WorkingDays", "ActualWorkingDays", "Present", "Leave", "PayableDays",
                 "AttendancePercentage"
@@ -4362,9 +4400,10 @@ namespace StaffSync
             string[] nomineeColumns = new string[] { "NomineePerson", "NomineeContactNumber", "NomineeRelationShipTitle" };
             string[] educationColumns = new string[] { "EduQualTitle" };
             string[] skillsColumns = new string[] { "SkillTitle", "ExpertiseLevel" };
+            string[] bankColumns = new string[] { "EmployeeBankName", "EmployeeBankAccountNumber", "EmployeeBankAddress", "EmployeeBankIFSCCode" };
             string[] leaveColumns = new string[] { "LeaveTitle", "LeaveAlloted", "LeaveUtilised", "LeaveBalance" };
             string[] attendanceColumns = new string[] { "AttendanceMonth", "WorkingDays", "ActualWorkingDays", "Present", "Leave", "PayableDays", "AttendancePercentage" };
-            string[] detailColumns = familyColumns.Concat(nomineeColumns).Concat(educationColumns).Concat(skillsColumns).Concat(leaveColumns).Concat(attendanceColumns).ToArray();
+            string[] detailColumns = familyColumns.Concat(nomineeColumns).Concat(educationColumns).Concat(skillsColumns).Concat(bankColumns).Concat(leaveColumns).Concat(attendanceColumns).ToArray();
 
             // EmpID may be hidden in the preview grid and therefore omitted by
             // GetSelectedExportData(). Detect the family export by its family
@@ -4422,6 +4461,11 @@ namespace StaffSync
             html.AppendLine(".family-table{table-layout:fixed;min-width:1100px;width:100%;margin:0;border-collapse:collapse;}");
             html.AppendLine(".family-table th{background:#800000;color:#fff;border-color:#6b0000;white-space:normal;overflow-wrap:anywhere;}");
             html.AppendLine(".family-table td{overflow-wrap:anywhere;word-break:normal;}");
+            html.AppendLine(".bank-information-table{table-layout:fixed;width:100%;min-width:0;margin-bottom:14px;}");
+            html.AppendLine(".bank-information-table th:nth-child(1){width:24%;}");
+            html.AppendLine(".bank-information-table th:nth-child(2){width:20%;}");
+            html.AppendLine(".bank-information-table th:nth-child(3){width:36%;}");
+            html.AppendLine(".bank-information-table th:nth-child(4){width:20%;}");
             html.AppendLine(".family-table .col-family-name{width:var(--family-name-width);}");
             html.AppendLine(".family-table .col-family-dob{width:var(--family-dob-width);}");
             html.AppendLine(".family-table .col-family-age{width:var(--family-age-width);}");
@@ -4631,6 +4675,9 @@ namespace StaffSync
                     html.AppendLine("<div class=\"family-heading\">Skills Information</div>");
                     AppendSimpleDetailTable(html, employeeSkillRows, skillsColumns, data, "No skills information available.");
 
+                    // Employee-specific Bank Information.
+                    AppendEmployeeBankInformation(html, group.Rows, data);
+
                     // Leave Information: render the employee's leave entitlement records.
                     // EmpID is carried internally through the export dataset for this lookup.
                     AppendLeaveInformationPlaceholder(html, group.Rows, data);
@@ -4674,6 +4721,81 @@ namespace StaffSync
             html.AppendLine("</div><div class=\"footer\">StaffSync Payroll Management - Exported rows: " + data.Rows.Count.ToString() + "</div>");
             html.AppendLine("</div></body></html>");
             File.WriteAllText(outputFile, html.ToString(), new UTF8Encoding(false));
+        }
+
+        /// <summary>
+        /// Renders employee-specific bank account details in their own subtable.
+        /// Data is read from getEmployeeSpecificBankAccountInfo and supports the
+        /// field names currently used by the employee bank account DAL.
+        /// </summary>
+        private void AppendEmployeeBankInformation(StringBuilder html, List<DataRow> employeeRows, DataTable data)
+        {
+            html.AppendLine("<div class=\"family-heading\">Bank Information</div>");
+            html.AppendLine("<table class=\"family-table bank-information-table\"><thead><tr><th>Bank Name</th><th>A/C Number</th><th>Address</th><th>IFSC Code</th></tr></thead><tbody>");
+
+            int empId = 0;
+            if (employeeRows != null)
+            {
+                foreach (DataRow employeeRow in employeeRows)
+                {
+                    if (employeeRow == null || employeeRow.RowState == DataRowState.Deleted ||
+                        employeeRow.Table == null || !employeeRow.Table.Columns.Contains("EmpID") ||
+                        employeeRow["EmpID"] == DBNull.Value)
+                        continue;
+                    int.TryParse(Convert.ToString(employeeRow["EmpID"]), out empId);
+                    if (empId > 0) break;
+                }
+            }
+
+            DataTable bankData = new DataTable();
+            if (empId > 0)
+            {
+                try
+                {
+                    bankData = ConvertListToDataTable(objEmployeeBankACInfo.getEmployeeSpecificBankAccountInfo(empId));
+                }
+                catch
+                {
+                    bankData = new DataTable();
+                }
+            }
+
+            bool hasRows = false;
+            if (bankData != null)
+            {
+                foreach (DataRow bankRow in bankData.Rows)
+                {
+                    if (bankData.Columns.Contains("EmpID") && bankRow["EmpID"] != DBNull.Value &&
+                        Convert.ToString(bankRow["EmpID"]) != Convert.ToString(empId))
+                        continue;
+
+                    // Use the actual source-column names returned by clsEmployeeBankACInfo.
+                    // In this DAL, the account number may be named EmpACNumber rather than AccountNumber.
+                    string bankNameColumn = GetFirstExistingColumn(bankData,
+                        "EmployeeBankACName", "BankName", "BankTitle", "BankTitleName");
+                    string accountColumn = GetFirstExistingColumn(bankData,
+                        "EmpACNumber", "EmployeeBankACNumber", "AccountNumber", "AccountNo",
+                        "BankAccountNumber", "EmployeeBankAccountNumber");
+                    string addressColumn = GetFirstExistingColumn(bankData,
+                        "EmployeeBankAddress", "Address", "BankAddress", "BranchAddress",
+                        "BankBranchAddress", "AccountAddress");
+                    string ifscColumn = GetFirstExistingColumn(bankData,
+                        "IFSCCode", "EmployeeBankIFSCCode", "IFSC", "EmpIFSCCode");
+                    string bankName = string.IsNullOrWhiteSpace(bankNameColumn) || bankRow[bankNameColumn] == DBNull.Value ? string.Empty : Convert.ToString(bankRow[bankNameColumn]);
+                    string account = string.IsNullOrWhiteSpace(accountColumn) || bankRow[accountColumn] == DBNull.Value ? string.Empty : Convert.ToString(bankRow[accountColumn]);
+                    string address = string.IsNullOrWhiteSpace(addressColumn) || bankRow[addressColumn] == DBNull.Value ? string.Empty : Convert.ToString(bankRow[addressColumn]);
+                    string ifsc = string.IsNullOrWhiteSpace(ifscColumn) || bankRow[ifscColumn] == DBNull.Value ? string.Empty : Convert.ToString(bankRow[ifscColumn]);
+                    if (string.IsNullOrWhiteSpace(bankName) && string.IsNullOrWhiteSpace(account) && string.IsNullOrWhiteSpace(address) && string.IsNullOrWhiteSpace(ifsc))
+                        continue;
+
+                    html.AppendLine("<tr><td>" + HtmlEncode(bankName) + "</td><td>" + HtmlEncode(account) + "</td><td>" + HtmlEncode(address) + "</td><td>" + HtmlEncode(ifsc) + "</td></tr>");
+                    hasRows = true;
+                }
+            }
+
+            if (!hasRows)
+                html.AppendLine("<tr><td colspan=\"4\" class=\"empty-family\">No bank information available for this employee.</td></tr>");
+            html.AppendLine("</tbody></table>");
         }
 
         /// <summary>

@@ -26,4 +26,14 @@ namespace ModelStaffSync
         public string EmpACNumber { get; set; }
         public bool IsDefault { get; set; }
     }
+
+    public class EmployeeSpecificBankInfo
+    {
+        public int EmpID { get; set; }
+        public int BankID { get; set; }
+        public string BankName { get; set; }
+        public string EmpACNumber { get; set; }
+        public string BankAddress { get; set; }
+        public string IFSCCode { get; set; }
+    }
 }

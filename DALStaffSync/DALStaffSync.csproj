@@ -50,6 +50,7 @@
     <Compile Include="clsAdvanceTypeConfigInfo.cs" />
     <Compile Include="clsAdvanceTypeMas.cs" />
     <Compile Include="clsAppMailTemplate.cs" />
+    <Compile Include="clsEmployeeBankACInfo.cs" />
     <Compile Include="clsEmployeeAdvanceInfo.cs" />
     <Compile Include="clsEmpWeeklyOffInfo.cs" />
     <Compile Include="clsImportDataInfo.cs" />
