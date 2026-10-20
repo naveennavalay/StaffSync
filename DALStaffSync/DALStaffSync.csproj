@@ -52,6 +52,7 @@
     <Compile Include="clsAppMailTemplate.cs" />
     <Compile Include="clsEmployeeBankACInfo.cs" />
     <Compile Include="clsEmployeeAdvanceInfo.cs" />
+    <Compile Include="clsEmpAssetAllocationInfo.cs" />
     <Compile Include="clsEmpWeeklyOffInfo.cs" />
     <Compile Include="clsImportDataInfo.cs" />
     <Compile Include="clsAppReports.cs" />
