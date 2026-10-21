@@ -129,6 +129,8 @@
             this.tlbManageEmployeeAssetsButton = new Krypton.Ribbon.KryptonRibbonGroupButton();
             this.cmbAssesmentManagement = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.assetAllocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem34 = new System.Windows.Forms.ToolStripSeparator();
+            this.assetIssuanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonRibbonGroupSeparator8 = new Krypton.Ribbon.KryptonRibbonGroupSeparator();
             this.kryptonRibbonGroupTriple15 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbManageEmployeeAdvancesButton = new Krypton.Ribbon.KryptonRibbonGroupButton();
@@ -148,6 +150,8 @@
             this.advanceDeductionThroughPayrollReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem28 = new System.Windows.Forms.ToolStripSeparator();
             this.advanceRepaymentHistoryReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kryptonRibbonGroupTriple19 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
+            this.tlbManageEmployeeReimbButton = new Krypton.Ribbon.KryptonRibbonGroupButton();
             this.kryptonRibbonGroup9 = new Krypton.Ribbon.KryptonRibbonGroup();
             this.kryptonRibbonGroupTriple18 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbApplicationReports = new Krypton.Ribbon.KryptonRibbonGroupButton();
@@ -256,8 +260,10 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
-            this.toolStripMenuItem34 = new System.Windows.Forms.ToolStripSeparator();
-            this.assetIssuanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbReimbManagement = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ReimbursementRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.kryptonRibbonGroupSeparator3 = new Krypton.Ribbon.KryptonRibbonGroupSeparator();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -284,6 +290,7 @@
             this.grpDashboardDateRange.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
+            this.cmbReimbManagement.SuspendLayout();
             this.SuspendLayout();
             // 
             // imgEmpPhotos
@@ -1115,7 +1122,9 @@
             this.kryptonRibbonGroup8.Items.AddRange(new Krypton.Ribbon.KryptonRibbonGroupContainer[] {
             this.kryptonRibbonGroupTriple17,
             this.kryptonRibbonGroupSeparator8,
-            this.kryptonRibbonGroupTriple15});
+            this.kryptonRibbonGroupTriple15,
+            this.kryptonRibbonGroupSeparator3,
+            this.kryptonRibbonGroupTriple19});
             this.kryptonRibbonGroup8.TextLine1 = "Assets & Advances Management";
             // 
             // kryptonRibbonGroupTriple17
@@ -1139,15 +1148,27 @@
             this.toolStripMenuItem34,
             this.assetIssuanceToolStripMenuItem});
             this.cmbAssesmentManagement.Name = "cmbAssesmentManagement";
-            this.cmbAssesmentManagement.Size = new System.Drawing.Size(181, 76);
+            this.cmbAssesmentManagement.Size = new System.Drawing.Size(153, 54);
             // 
             // assetAllocationToolStripMenuItem
             // 
             this.assetAllocationToolStripMenuItem.Image = global::StaffSync.Properties.Resources.asset_operations;
             this.assetAllocationToolStripMenuItem.Name = "assetAllocationToolStripMenuItem";
-            this.assetAllocationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.assetAllocationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.assetAllocationToolStripMenuItem.Text = "Asset Requests";
             this.assetAllocationToolStripMenuItem.Click += new System.EventHandler(this.assetAllocationToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem34
+            // 
+            this.toolStripMenuItem34.Name = "toolStripMenuItem34";
+            this.toolStripMenuItem34.Size = new System.Drawing.Size(149, 6);
+            // 
+            // assetIssuanceToolStripMenuItem
+            // 
+            this.assetIssuanceToolStripMenuItem.Name = "assetIssuanceToolStripMenuItem";
+            this.assetIssuanceToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.assetIssuanceToolStripMenuItem.Text = "Asset Issuance";
+            this.assetIssuanceToolStripMenuItem.Click += new System.EventHandler(this.assetIssuanceToolStripMenuItem_Click);
             // 
             // kryptonRibbonGroupTriple15
             // 
@@ -1291,6 +1312,19 @@
             this.advanceRepaymentHistoryReportToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
             this.advanceRepaymentHistoryReportToolStripMenuItem.Text = "Advance Repayment History Report";
             this.advanceRepaymentHistoryReportToolStripMenuItem.Click += new System.EventHandler(this.advanceRepaymentHistoryReportToolStripMenuItem_Click);
+            // 
+            // kryptonRibbonGroupTriple19
+            // 
+            this.kryptonRibbonGroupTriple19.Items.AddRange(new Krypton.Ribbon.KryptonRibbonGroupItem[] {
+            this.tlbManageEmployeeReimbButton});
+            // 
+            // tlbManageEmployeeReimbButton
+            // 
+            this.tlbManageEmployeeReimbButton.ButtonType = Krypton.Ribbon.GroupButtonType.DropDown;
+            this.tlbManageEmployeeReimbButton.ContextMenuStrip = this.cmbReimbManagement;
+            this.tlbManageEmployeeReimbButton.ImageLarge = global::StaffSync.Properties.Resources.reimbursement;
+            this.tlbManageEmployeeReimbButton.ImageSmall = global::StaffSync.Properties.Resources.reimbursement;
+            this.tlbManageEmployeeReimbButton.TextLine1 = "Manage Reimbursements";
             // 
             // kryptonRibbonGroup9
             // 
@@ -2200,17 +2234,27 @@
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             this.kryptonRibbonGroupButton5.Click += new System.EventHandler(this.kryptonRibbonGroupButton5_Click);
             // 
-            // toolStripMenuItem34
+            // cmbReimbManagement
             // 
-            this.toolStripMenuItem34.Name = "toolStripMenuItem34";
-            this.toolStripMenuItem34.Size = new System.Drawing.Size(177, 6);
+            this.cmbReimbManagement.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.cmbReimbManagement.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ReimbursementRequestToolStripMenuItem,
+            this.toolStripSeparator6});
+            this.cmbReimbManagement.Name = "cmbAssesmentManagement";
+            this.cmbReimbManagement.Size = new System.Drawing.Size(204, 32);
             // 
-            // assetIssuanceToolStripMenuItem
+            // ReimbursementRequestToolStripMenuItem
             // 
-            this.assetIssuanceToolStripMenuItem.Name = "assetIssuanceToolStripMenuItem";
-            this.assetIssuanceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.assetIssuanceToolStripMenuItem.Text = "Asset Issuance";
-            this.assetIssuanceToolStripMenuItem.Click += new System.EventHandler(this.assetIssuanceToolStripMenuItem_Click);
+            this.ReimbursementRequestToolStripMenuItem.Image = global::StaffSync.Properties.Resources.asset_operations;
+            this.ReimbursementRequestToolStripMenuItem.Name = "ReimbursementRequestToolStripMenuItem";
+            this.ReimbursementRequestToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
+            this.ReimbursementRequestToolStripMenuItem.Text = "Reimbursement Request";
+            this.ReimbursementRequestToolStripMenuItem.Click += new System.EventHandler(this.ReimbursementRequestToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(200, 6);
             // 
             // frmDashboard
             // 
@@ -2263,6 +2307,7 @@
             this.grpDashboardDateRange.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
+            this.cmbReimbManagement.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2497,6 +2542,12 @@
         public System.Windows.Forms.MaskedTextBox txtDTFrom;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem34;
         private System.Windows.Forms.ToolStripMenuItem assetIssuanceToolStripMenuItem;
+        private Krypton.Ribbon.KryptonRibbonGroupTriple kryptonRibbonGroupTriple19;
+        private Krypton.Ribbon.KryptonRibbonGroupButton tlbManageEmployeeReimbButton;
+        private System.Windows.Forms.ContextMenuStrip cmbReimbManagement;
+        private System.Windows.Forms.ToolStripMenuItem ReimbursementRequestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private Krypton.Ribbon.KryptonRibbonGroupSeparator kryptonRibbonGroupSeparator3;
     }
 }
 

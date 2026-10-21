@@ -50,6 +50,10 @@
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.picRefresh2 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dtgReimbursmentRequestersList = new Krypton.Toolkit.KryptonDataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -67,6 +71,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefresh2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgReimbursmentRequestersList)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -84,8 +91,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1148, 664);
-            this.splitContainer1.SplitterDistance = 601;
+            this.splitContainer1.Size = new System.Drawing.Size(1167, 782);
+            this.splitContainer1.SplitterDistance = 707;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -93,13 +100,14 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1148, 601);
+            this.panel1.Size = new System.Drawing.Size(1167, 707);
             this.panel1.TabIndex = 1;
             // 
             // groupBox1
@@ -109,7 +117,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.dtgAssetsRequestersList);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(13, 310);
+            this.groupBox1.Location = new System.Drawing.Point(13, 304);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -163,6 +171,7 @@
             this.dtgAssetsRequestersList.Size = new System.Drawing.Size(1104, 230);
             this.dtgAssetsRequestersList.TabIndex = 59;
             this.dtgAssetsRequestersList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgAssetsRequestersList_CellDoubleClick);
+            this.dtgAssetsRequestersList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAssetsRequestersList_Paint);
             // 
             // groupBox5
             // 
@@ -236,7 +245,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1148, 58);
+            this.panel2.Size = new System.Drawing.Size(1167, 70);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
@@ -298,11 +307,73 @@
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox2.Controls.Add(this.picRefresh2);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.dtgReimbursmentRequestersList);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(13, 600);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(1122, 287);
+            this.groupBox2.TabIndex = 11;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Reimbursment Requesters List";
+            // 
+            // picRefresh2
+            // 
+            this.picRefresh2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picRefresh2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picRefresh2.Image = ((System.Drawing.Image)(resources.GetObject("picRefresh2.Image")));
+            this.picRefresh2.Location = new System.Drawing.Point(1089, 1);
+            this.picRefresh2.Name = "picRefresh2";
+            this.picRefresh2.Size = new System.Drawing.Size(23, 22);
+            this.picRefresh2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRefresh2.TabIndex = 61;
+            this.picRefresh2.TabStop = false;
+            this.picRefresh2.Click += new System.EventHandler(this.picRefresh2_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.label2.Location = new System.Drawing.Point(5, 264);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(471, 15);
+            this.label2.TabIndex = 60;
+            this.label2.Text = "🟢 Double-click on the Status column to update the Asset Request status";
+            // 
+            // dtgReimbursmentRequestersList
+            // 
+            this.dtgReimbursmentRequestersList.AllowUserToAddRows = false;
+            this.dtgReimbursmentRequestersList.AllowUserToDeleteRows = false;
+            this.dtgReimbursmentRequestersList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgReimbursmentRequestersList.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgReimbursmentRequestersList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgReimbursmentRequestersList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgReimbursmentRequestersList.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgReimbursmentRequestersList.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgReimbursmentRequestersList.Location = new System.Drawing.Point(8, 30);
+            this.dtgReimbursmentRequestersList.Margin = new System.Windows.Forms.Padding(4);
+            this.dtgReimbursmentRequestersList.MultiSelect = false;
+            this.dtgReimbursmentRequestersList.Name = "dtgReimbursmentRequestersList";
+            this.dtgReimbursmentRequestersList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgReimbursmentRequestersList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgReimbursmentRequestersList.Size = new System.Drawing.Size(1104, 230);
+            this.dtgReimbursmentRequestersList.TabIndex = 59;
+            this.dtgReimbursmentRequestersList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgReimbursmentRequestersList_Paint);
+            // 
             // frmAdvanceApprovalList
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1148, 664);
+            this.ClientSize = new System.Drawing.Size(1167, 782);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -336,6 +407,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefresh2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgReimbursmentRequestersList)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -362,5 +437,9 @@
         private System.Windows.Forms.PictureBox picRefresh1;
         private System.Windows.Forms.Label label1;
         private Krypton.Toolkit.KryptonDataGridView dtgAssetsRequestersList;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.PictureBox picRefresh2;
+        private System.Windows.Forms.Label label2;
+        private Krypton.Toolkit.KryptonDataGridView dtgReimbursmentRequestersList;
     }
 }

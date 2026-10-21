@@ -38,6 +38,7 @@ namespace StaffSync
         DALStaffSync.clsAssetsInfo objAssetsInfo = new DALStaffSync.clsAssetsInfo();
         DALStaffSync.clsAssetRegister objAssetRegister = new DALStaffSync.clsAssetRegister();
         DALStaffSync.clsEmpAssetAllocationInfo objEmpAssetAllocationInfo = new DALStaffSync.clsEmpAssetAllocationInfo();
+        DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
@@ -64,6 +65,7 @@ namespace StaffSync
             this.Text = "Pending Requesters List : " + strApproverType;
             GetAdvancePendingList(strApproverType);
             GetAssetRequesterPendingList(strApproverType);
+            GetReimbursmentRequesterPendingList(strApproverType);
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -291,6 +293,7 @@ namespace StaffSync
 
             GetAdvancePendingList(strApproverType);
             GetAssetRequesterPendingList(strApproverType);
+            GetReimbursmentRequesterPendingList(strApproverType);
 
             disableControls();
             clearControls();
@@ -516,6 +519,49 @@ namespace StaffSync
             dtgAssetsRequestersList.Columns["ClientID"].Visible = false;
         }
 
+        private void GetReimbursmentRequesterPendingList(string tmpApproverType)
+        {
+            dtgReimbursmentRequestersList.DataSource = null;
+
+            if (strApproverType == "FirstApprover")
+                dtgReimbursmentRequestersList.DataSource = objEmpReimbursRequestInfo.FirstApprovalPendingReimbursmentApprovalList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID));
+            else if (strApproverType == "SecondApprover")
+                dtgReimbursmentRequestersList.DataSource = objEmpReimbursRequestInfo.SecondApprovalPendingReimbursmentApprovalList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID));
+
+            dtgReimbursmentRequestersList.Columns["Select"].ReadOnly = true;
+            dtgReimbursmentRequestersList.Columns["Select"].Visible = true;
+            dtgReimbursmentRequestersList.Columns["Select"].Width = 50;
+            dtgReimbursmentRequestersList.Columns["EmpID"].Visible = false;
+            dtgReimbursmentRequestersList.Columns["EmpCode"].ReadOnly = true;
+            dtgReimbursmentRequestersList.Columns["EmpCode"].Visible = true;
+            dtgReimbursmentRequestersList.Columns["EmpCode"].Width = 100;
+            dtgReimbursmentRequestersList.Columns["EmpName"].ReadOnly = true;
+            dtgReimbursmentRequestersList.Columns["EmpName"].Visible = true;
+            dtgReimbursmentRequestersList.Columns["EmpName"].Width = 250;
+            dtgReimbursmentRequestersList.Columns["DesignationTitle"].ReadOnly = true;
+            dtgReimbursmentRequestersList.Columns["DesignationTitle"].Visible = true;
+            dtgReimbursmentRequestersList.Columns["DesignationTitle"].Width = 150;
+            dtgReimbursmentRequestersList.Columns["DepartmentTitle"].ReadOnly = true;
+            dtgReimbursmentRequestersList.Columns["DepartmentTitle"].Visible = true;
+            dtgReimbursmentRequestersList.Columns["DepartmentTitle"].Width = 150;
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestID"].Visible = false;
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestCode"].ReadOnly = true;
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestCode"].Visible = true;
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestCode"].Width = 150;
+            dtgReimbursmentRequestersList.Columns["ReimbTitle"].ReadOnly = true;
+            dtgReimbursmentRequestersList.Columns["ReimbTitle"].Visible = true;
+            dtgReimbursmentRequestersList.Columns["ReimbTitle"].Width = 100;
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestDate"].ReadOnly = true;
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestDate"].Width = 125;
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestAmount"].ReadOnly = true;
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestAmount"].Visible = true;
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestAmount"].Width = 250;
+            dtgReimbursmentRequestersList.Columns["IsActive"].Visible = false;
+            dtgReimbursmentRequestersList.Columns["IsDeleted"].Visible = false;
+            dtgReimbursmentRequestersList.Columns["ClientID"].Visible = false;
+        }
+
         private void frmAdvanceApprovalList_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
@@ -578,6 +624,7 @@ namespace StaffSync
             btnSaveDetails.Enabled = false;
             GetAdvancePendingList(strApproverType);
             GetAssetRequesterPendingList(strApproverType);
+            GetReimbursmentRequesterPendingList(strApproverType);
         }
 
         private void frmAdvanceApprovalList_Activated(object sender, EventArgs e)
@@ -630,6 +677,49 @@ namespace StaffSync
             btnSaveDetails.Enabled = false;
             GetAdvancePendingList(strApproverType);
             GetAssetRequesterPendingList(strApproverType);
+            GetReimbursmentRequesterPendingList(strApproverType);
+        }
+
+        private void picRefresh2_Click(object sender, EventArgs e)
+        {
+            btnSaveDetails.Enabled = false;
+            GetAdvancePendingList(strApproverType);
+            GetAssetRequesterPendingList(strApproverType);
+            GetReimbursmentRequesterPendingList(strApproverType);
+        }
+
+        private void dtgAssetsRequestersList_Paint(object sender, PaintEventArgs e)
+        {
+            KryptonDataGridView dgv = sender as KryptonDataGridView;
+
+            if (dgv.Rows.Count == 0)
+            {
+                string message = "No Data Available";
+
+                using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
+                {
+                    SizeF size = e.Graphics.MeasureString(message, font);
+
+                    e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
+                }
+            }
+        }
+
+        private void dtgReimbursmentRequestersList_Paint(object sender, PaintEventArgs e)
+        {
+            KryptonDataGridView dgv = sender as KryptonDataGridView;
+
+            if (dgv.Rows.Count == 0)
+            {
+                string message = "No Data Available";
+
+                using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
+                {
+                    SizeF size = e.Graphics.MeasureString(message, font);
+
+                    e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
+                }
+            }
         }
     }
 }

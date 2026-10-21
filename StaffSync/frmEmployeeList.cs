@@ -35,6 +35,7 @@ namespace StaffSync
         frmLeaveStatements frmLeaveStatements = null;
         frmEmpAdvanceRequest frmEmpAdvancRequest = null;
         frmEmpAssetRequest frmEmpAssetRequest = null;
+        frmEmpReimbRequestInfo frmEmpReimbRequestInfo = null;
         frmDashboard frmDashboard = null;
         frmPayrollConfiguration frmPayrollConfiguration = null;
         DALStaffSync.clsLeaveTRList objLeaveInfo = new DALStaffSync.clsLeaveTRList();
@@ -183,6 +184,14 @@ namespace StaffSync
         {
             InitializeComponent();
             this.frmEmpAssetRequest = frmEmpAssetRequst;
+            lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+            lblClientID.Text = ClientID.ToString();
+        }
+
+        public frmEmployeeList(frmEmpReimbRequestInfo frmEmpReimbRequstInfo, string SearchOptionClickedFor, int ClientID)
+        {
+            InitializeComponent();
+            this.frmEmpReimbRequestInfo = frmEmpReimbRequstInfo;
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
             lblClientID.Text = ClientID.ToString();
         }
@@ -781,6 +790,20 @@ namespace StaffSync
                 //dtgEmployeeList.Columns["AssetMasIsDeleted"].Visible = false;
                 //dtgEmployeeList.Columns["ClientID"].Visible = false;
             }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listReimbRequestingUsers")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+                dtgEmployeeList.Columns["StateID"].Visible = false;
+                dtgEmployeeList.Columns["SexID"].Visible = false;
+            }
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -909,6 +932,14 @@ namespace StaffSync
             else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestEditUsers")
             {
                 this.frmEmpAssetRequest.SelectedEmployeeID("listAssetRequestEditUsers", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["AssetRequestID"].Value.ToString()));
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listReimbRequestingUsers")
+            {
+                this.frmEmpReimbRequestInfo.SelectedEmployeeID("listReimbRequestingUsers", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listReimbRequestingManager")
+            {
+                this.frmEmpReimbRequestInfo.SelectedEmployeeID("listReimbRequestingManager", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
             }
 
             this.Close();
