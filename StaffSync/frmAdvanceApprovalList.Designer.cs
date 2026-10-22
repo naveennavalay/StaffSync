@@ -32,6 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAdvanceApprovalList));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.picRefresh2 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dtgReimbursmentRequestersList = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.picRefresh1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,21 +48,20 @@
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             this.btnSaveDetails = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
-            this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.picRefresh2 = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dtgReimbursmentRequestersList = new Krypton.Toolkit.KryptonDataGridView();
+            this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
+            this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picRefresh2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgReimbursmentRequestersList)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRefresh1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgAssetsRequestersList)).BeginInit();
@@ -67,13 +70,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgAdvanceRequestersList)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picRefresh2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgReimbursmentRequestersList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -91,8 +91,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1167, 782);
-            this.splitContainer1.SplitterDistance = 707;
+            this.splitContainer1.Size = new System.Drawing.Size(1167, 871);
+            this.splitContainer1.SplitterDistance = 787;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -107,8 +107,70 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1167, 707);
+            this.panel1.Size = new System.Drawing.Size(1167, 787);
             this.panel1.TabIndex = 1;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox2.Controls.Add(this.picRefresh2);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.dtgReimbursmentRequestersList);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(13, 602);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(1122, 287);
+            this.groupBox2.TabIndex = 11;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Reimbursment Requesters List";
+            // 
+            // picRefresh2
+            // 
+            this.picRefresh2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picRefresh2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.picRefresh2.Image = ((System.Drawing.Image)(resources.GetObject("picRefresh2.Image")));
+            this.picRefresh2.Location = new System.Drawing.Point(1089, 1);
+            this.picRefresh2.Name = "picRefresh2";
+            this.picRefresh2.Size = new System.Drawing.Size(23, 22);
+            this.picRefresh2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRefresh2.TabIndex = 61;
+            this.picRefresh2.TabStop = false;
+            this.picRefresh2.Click += new System.EventHandler(this.picRefresh2_Click);
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.label2.Location = new System.Drawing.Point(5, 264);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(715, 19);
+            this.label2.TabIndex = 60;
+            this.label2.Text = "🟢 Double-click on the Status column to update the Reimbursment Request status";
+            // 
+            // dtgReimbursmentRequestersList
+            // 
+            this.dtgReimbursmentRequestersList.AllowUserToAddRows = false;
+            this.dtgReimbursmentRequestersList.AllowUserToDeleteRows = false;
+            this.dtgReimbursmentRequestersList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgReimbursmentRequestersList.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dtgReimbursmentRequestersList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgReimbursmentRequestersList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgReimbursmentRequestersList.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgReimbursmentRequestersList.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
+            this.dtgReimbursmentRequestersList.Location = new System.Drawing.Point(8, 30);
+            this.dtgReimbursmentRequestersList.Margin = new System.Windows.Forms.Padding(4);
+            this.dtgReimbursmentRequestersList.MultiSelect = false;
+            this.dtgReimbursmentRequestersList.Name = "dtgReimbursmentRequestersList";
+            this.dtgReimbursmentRequestersList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgReimbursmentRequestersList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgReimbursmentRequestersList.Size = new System.Drawing.Size(1104, 230);
+            this.dtgReimbursmentRequestersList.TabIndex = 59;
+            this.dtgReimbursmentRequestersList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgReimbursmentRequestersList_CellDoubleClick);
+            this.dtgReimbursmentRequestersList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgReimbursmentRequestersList_Paint);
             // 
             // groupBox1
             // 
@@ -117,7 +179,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.dtgAssetsRequestersList);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(13, 304);
+            this.groupBox1.Location = new System.Drawing.Point(13, 306);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -141,7 +203,6 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.InfoText;
@@ -180,7 +241,7 @@
             this.groupBox5.Controls.Add(this.label34);
             this.groupBox5.Controls.Add(this.dtgAdvanceRequestersList);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(13, 11);
+            this.groupBox5.Location = new System.Drawing.Point(13, 13);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
@@ -204,7 +265,6 @@
             // 
             // label34
             // 
-            this.label34.AutoSize = true;
             this.label34.BackColor = System.Drawing.Color.Transparent;
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label34.ForeColor = System.Drawing.SystemColors.InfoText;
@@ -245,7 +305,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1167, 70);
+            this.panel2.Size = new System.Drawing.Size(1167, 79);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
@@ -279,20 +339,6 @@
             // 
             this.errValidator.ContainerControl = this;
             // 
-            // empMasInfoBindingSource
-            // 
-            this.empMasInfoBindingSource.DataMember = "EmpMasInfo";
-            this.empMasInfoBindingSource.DataSource = this.staffsyncDBDTSet;
-            // 
-            // staffsyncDBDTSet
-            // 
-            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
-            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // empMasInfoTableAdapter
-            // 
-            this.empMasInfoTableAdapter.ClearBeforeFill = true;
-            // 
             // staffsyncDBDataSet1
             // 
             this.staffsyncDBDataSet1.DataSetName = "StaffsyncDBDataSet1";
@@ -307,73 +353,25 @@
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
             // 
-            // groupBox2
+            // empMasInfoBindingSource
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.groupBox2.Controls.Add(this.picRefresh2);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.dtgReimbursmentRequestersList);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(13, 600);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(1122, 287);
-            this.groupBox2.TabIndex = 11;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Reimbursment Requesters List";
+            this.empMasInfoBindingSource.DataMember = "EmpMasInfo";
+            this.empMasInfoBindingSource.DataSource = this.staffsyncDBDTSet;
             // 
-            // picRefresh2
+            // staffsyncDBDTSet
             // 
-            this.picRefresh2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picRefresh2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.picRefresh2.Image = ((System.Drawing.Image)(resources.GetObject("picRefresh2.Image")));
-            this.picRefresh2.Location = new System.Drawing.Point(1089, 1);
-            this.picRefresh2.Name = "picRefresh2";
-            this.picRefresh2.Size = new System.Drawing.Size(23, 22);
-            this.picRefresh2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picRefresh2.TabIndex = 61;
-            this.picRefresh2.TabStop = false;
-            this.picRefresh2.Click += new System.EventHandler(this.picRefresh2_Click);
+            this.staffsyncDBDTSet.DataSetName = "StaffsyncDBDTSet";
+            this.staffsyncDBDTSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // label2
+            // empMasInfoTableAdapter
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label2.Location = new System.Drawing.Point(5, 264);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(471, 15);
-            this.label2.TabIndex = 60;
-            this.label2.Text = "🟢 Double-click on the Status column to update the Asset Request status";
-            // 
-            // dtgReimbursmentRequestersList
-            // 
-            this.dtgReimbursmentRequestersList.AllowUserToAddRows = false;
-            this.dtgReimbursmentRequestersList.AllowUserToDeleteRows = false;
-            this.dtgReimbursmentRequestersList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dtgReimbursmentRequestersList.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dtgReimbursmentRequestersList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgReimbursmentRequestersList.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dtgReimbursmentRequestersList.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.dtgReimbursmentRequestersList.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ButtonLowProfile;
-            this.dtgReimbursmentRequestersList.Location = new System.Drawing.Point(8, 30);
-            this.dtgReimbursmentRequestersList.Margin = new System.Windows.Forms.Padding(4);
-            this.dtgReimbursmentRequestersList.MultiSelect = false;
-            this.dtgReimbursmentRequestersList.Name = "dtgReimbursmentRequestersList";
-            this.dtgReimbursmentRequestersList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.dtgReimbursmentRequestersList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgReimbursmentRequestersList.Size = new System.Drawing.Size(1104, 230);
-            this.dtgReimbursmentRequestersList.TabIndex = 59;
-            this.dtgReimbursmentRequestersList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgReimbursmentRequestersList_Paint);
+            this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
             // frmAdvanceApprovalList
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1167, 782);
+            this.ClientSize = new System.Drawing.Size(1167, 871);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -393,24 +391,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picRefresh2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgReimbursmentRequestersList)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRefresh1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgAssetsRequestersList)).EndInit();
             this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRefresh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgAdvanceRequestersList)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picRefresh2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgReimbursmentRequestersList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
             this.ResumeLayout(false);
 
         }

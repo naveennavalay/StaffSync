@@ -410,6 +410,12 @@
     <Compile Include="frmEmpReimbRequestInfo.Designer.cs">
       <DependentUpon>frmEmpReimbRequestInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEmpReimbursmentPayments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmpReimbursmentPayments.Designer.cs">
+      <DependentUpon>frmEmpReimbursmentPayments.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmExportDataProcess.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1036,6 +1042,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmEmpReimbRequestInfo.resx">
       <DependentUpon>frmEmpReimbRequestInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmpReimbursmentPayments.resx">
+      <DependentUpon>frmEmpReimbursmentPayments.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmExportDataProcess.resx">
       <DependentUpon>frmExportDataProcess.cs</DependentUpon>

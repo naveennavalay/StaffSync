@@ -238,7 +238,7 @@ namespace StaffSync
 
                 if (ReimbursmentRequestID > 0)
                 {
-                    iTaskID = objAppUserTasks.InsertUserTask(DateTime.Now, ReimbursmentRequestID, Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToInt16(lblReportingManagerID.Text.Trim()), "New Reimbursment request raised from employee code : \"" + txtEmpCode.Text.Trim() + "\" and employee name: \"" + txtEmpName.Text.Trim() + "\".", "Initiated", DateTime.Now.AddDays(7), "ReimbursmentNewRequest");
+                    //iTaskID = objAppUserTasks.InsertUserTask(DateTime.Now, ReimbursmentRequestID, Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToInt16(lblReportingManagerID.Text.Trim()), "New Reimbursment request raised from employee code : \"" + txtEmpCode.Text.Trim() + "\" and employee name: \"" + txtEmpName.Text.Trim() + "\".", "Initiated", DateTime.Now.AddDays(7), "ReimbursmentNewRequest");
                     MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -398,6 +398,9 @@ namespace StaffSync
 
             txtMaxLoanAmountAvail.Text = "0";
             txtComments.Text = "";
+            chkFamilyMembersInfo.Enabled = false;
+            chkFamilyMembersInfo.Checked = false;
+            txtComments.Enabled = false;
 
             lblRequestFromMailID.Text = "";
             lblRequestToMailID.Text = "";
@@ -443,6 +446,8 @@ namespace StaffSync
             cmbReimbursementType.Enabled = false;
             txtReimbursementAmount.Enabled = false;
             dtReimbRequestDate.Enabled = false;
+            chkFamilyMembersInfo.Enabled = false;
+            txtComments.Enabled = false;
         }
 
         private void frmEmpReimbRequestInfo_Load(object sender, EventArgs e)

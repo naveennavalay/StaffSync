@@ -137,7 +137,7 @@ namespace dbStaffSync
             return selectedReimbursementID;
         }
 
-        public ReimbursementModel getSelectedDeductionInfo(int txtReimbursementID)
+        public ReimbursementModel getSelectedReimbursementInfo(int txtReimbursementID)
         {
             List<ReimbursementModel> objReimbursementModel = new List<ReimbursementModel>();
 

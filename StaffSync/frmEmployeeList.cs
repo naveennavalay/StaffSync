@@ -38,6 +38,7 @@ namespace StaffSync
         frmEmpReimbRequestInfo frmEmpReimbRequestInfo = null;
         frmDashboard frmDashboard = null;
         frmPayrollConfiguration frmPayrollConfiguration = null;
+        frmEmpReimbursmentPayments frmEmpReimbursmentPayments = null;
         DALStaffSync.clsLeaveTRList objLeaveInfo = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsDashboardWidgetData objDashboard = new DALStaffSync.clsDashboardWidgetData();
         DALStaffSync.clsUserManagement objUsersInfo = new DALStaffSync.clsUserManagement();
@@ -45,6 +46,7 @@ namespace StaffSync
         DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
         DALStaffSync.clsEmpPayroll objEmpPayroll = new DALStaffSync.clsEmpPayroll();
         DALStaffSync.clsAssetsInfo objAssetInfo = new DALStaffSync.clsAssetsInfo();
+        DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
 
         public frmEmployeeList()
         {
@@ -206,6 +208,15 @@ namespace StaffSync
             lblFinYearID.Text = txtFinYearID.ToString();
             lblFilterDate.Text = filterDate.ToString("dd-MMM-yyyy");
         }
+
+        public frmEmployeeList(frmEmpReimbursmentPayments frmEmpReimbursmentPaymnts, string SearchOptionClickedFor, int ClientID)
+        {
+            InitializeComponent();
+            this.frmEmpReimbursmentPayments = frmEmpReimbursmentPaymnts;
+            lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+            lblClientID.Text = ClientID.ToString();
+        }
+
 
         private void btnCloseMe_Click(object sender, EventArgs e)
         {
@@ -804,6 +815,75 @@ namespace StaffSync
                 dtgEmployeeList.Columns["StateID"].Visible = false;
                 dtgEmployeeList.Columns["SexID"].Visible = false;
             }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listReimbRequestingManager")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+                dtgEmployeeList.Columns["StateID"].Visible = false;
+                dtgEmployeeList.Columns["SexID"].Visible = false;
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listReimbRequestPaymentPendingList")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objEmpReimbursRequestInfo.GetReimbursmentPaymentPendingList(Convert.ToInt16(lblClientID.Text.ToString()));
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].HeaderText = "Emp Code";
+                dtgEmployeeList.Columns["EmpCode"].Width = 100;
+                dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpName"].HeaderText = "Employee Name";
+                dtgEmployeeList.Columns["EmpName"].Width = 200;
+                dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+                dtgEmployeeList.Columns["DesignationTitle"].HeaderText = "Designation";
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
+                dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["DepartmentTitle"].HeaderText = "Department";
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+                dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["ReimbID"].Visible = false;
+                dtgEmployeeList.Columns["ReimbTitle"].HeaderText = "Reimbursment Type";
+                dtgEmployeeList.Columns["ReimbTitle"].Width = 200;
+                dtgEmployeeList.Columns["ReimbTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["ReimbRequestID"].Visible = false;
+                dtgEmployeeList.Columns["ReimbRequestCode"].HeaderText = "Request Code";
+                dtgEmployeeList.Columns["ReimbRequestCode"].Width = 150;
+                dtgEmployeeList.Columns["ReimbRequestCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["ReimbRequestDate"].HeaderText = "Request Date";
+                dtgEmployeeList.Columns["ReimbRequestDate"].Width = 150;
+                dtgEmployeeList.Columns["ReimbRequestDate"].ReadOnly = true;
+                dtgEmployeeList.Columns["ReimbRequestDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgEmployeeList.Columns["ReimbRequestStatus"].HeaderText = "Request Status";
+                dtgEmployeeList.Columns["ReimbRequestStatus"].Width = 150;
+                dtgEmployeeList.Columns["ReimbRequestStatus"].ReadOnly = true;
+                dtgEmployeeList.Columns["ReimbRequestDescription"].HeaderText = "Description";
+                dtgEmployeeList.Columns["ReimbRequestDescription"].Width = 350;
+                dtgEmployeeList.Columns["ReimbRequestDescription"].ReadOnly = true;
+                dtgEmployeeList.Columns["ReimbRequestDetailID"].Visible = false;
+                dtgEmployeeList.Columns["ReimbRequestTRDate"].HeaderText = "Last Pay Date";
+                dtgEmployeeList.Columns["ReimbRequestTRDate"].Width = 200;
+                dtgEmployeeList.Columns["ReimbRequestTRDate"].ReadOnly = true;
+                dtgEmployeeList.Columns["ReimbRequestTRDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgEmployeeList.Columns["CBalance"].HeaderText = "Outstanding Balance";
+                dtgEmployeeList.Columns["CBalance"].Width = 150;
+                dtgEmployeeList.Columns["CBalance"].ReadOnly = true;
+                dtgEmployeeList.Columns["Comments"].HeaderText = "Comments";
+                dtgEmployeeList.Columns["Comments"].Width = 350;
+                dtgEmployeeList.Columns["Comments"].ReadOnly = true;
+                dtgEmployeeList.Columns["ReimbursRequestID"].Visible = false;
+                dtgEmployeeList.Columns["RequestStatus"].Visible = false;
+                dtgEmployeeList.Columns["EmpIsActive"].Visible = false;
+                dtgEmployeeList.Columns["EmpIsDeleted"].Visible = false;
+                dtgEmployeeList.Columns["RequestIsActive"].Visible = false;
+                dtgEmployeeList.Columns["RequestIsDeleted"].Visible = false;
+                dtgEmployeeList.Columns["ClientID"].Visible = false;
+                dtgEmployeeList.Columns["IncludeInNextPayslipProcess"].Visible = false;
+            }
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -940,6 +1020,10 @@ namespace StaffSync
             else if (lblSearchOptionClickedFor.Text.Trim() == "listReimbRequestingManager")
             {
                 this.frmEmpReimbRequestInfo.SelectedEmployeeID("listReimbRequestingManager", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listReimbRequestPaymentPendingList")
+            {
+                this.frmEmpReimbursmentPayments.SelectedEmployeeID("listReimbRequestPaymentPendingList", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["ReimbRequestID"].Value.ToString()));
             }
 
             this.Close();

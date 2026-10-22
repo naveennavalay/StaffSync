@@ -39,6 +39,8 @@ namespace StaffSync
         DALStaffSync.clsAssetRegister objAssetRegister = new DALStaffSync.clsAssetRegister();
         DALStaffSync.clsEmpAssetAllocationInfo objEmpAssetAllocationInfo = new DALStaffSync.clsEmpAssetAllocationInfo();
         DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
+        DALStaffSync.clsReimbursement objReimbursementInfo = new DALStaffSync.clsReimbursement();
+        //DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo()
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
@@ -120,14 +122,15 @@ namespace StaffSync
         {
             bool advanceSelected = dtgAdvanceRequestersList.Rows.Cast<DataGridViewRow>().Any(row => !row.IsNewRow && Convert.ToBoolean(row.Cells["Select"].Value ?? false));
             bool assetSelected = dtgAssetsRequestersList.Rows.Cast<DataGridViewRow>().Any(row => !row.IsNewRow && Convert.ToBoolean(row.Cells["Select"].Value ?? false));
-            if (!advanceSelected && !assetSelected)
+            bool reimbursementSelected = dtgReimbursmentRequestersList.Rows.Cast<DataGridViewRow>().Any(row => !row.IsNewRow && Convert.ToBoolean(row.Cells["Select"].Value ?? false));
+            if (!advanceSelected && !assetSelected && !reimbursementSelected)
             {
                 MessageBox.Show("Please select at least one request from either grid.", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string message;
-            if (advanceSelected && assetSelected)
+            string message = "";
+            if (advanceSelected && assetSelected && reimbursementSelected)
             {
                 message = "You are about to process Bulk Request Approvals.\nAre you sure to continue?";
             }
@@ -135,13 +138,16 @@ namespace StaffSync
             {
                 message = "You are about to process Bulk Advance Request Approval.\nAre you sure to continue?";
             }
-            else
+            else if (assetSelected)
             {
                 message = "You are about to process Bulk Asset Request Approval.\nAre you sure to continue?";
             }
+            else if (reimbursementSelected)
+            {
+                message = "You are about to process Bulk Reimbursment Request Approval.\nAre you sure to continue?";
+            }
 
             DialogResult result = MessageBox.Show(message, "Confirm Bulk Approval", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
             if (result != DialogResult.Yes)
                 return;
 
@@ -210,6 +216,36 @@ namespace StaffSync
                         else if (AssetRequestStatus.ToString() == "Cancelled")
                         {
                             objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "First Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AssetRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                    }
+                }
+
+                foreach (DataGridViewRow dc in dtgReimbursmentRequestersList.Rows)
+                {
+                    if (Convert.ToBoolean(dc.Cells["Select"].Value.ToString()) == true)
+                    {
+                        int ReimbID = Convert.ToInt32(dc.Cells["ReimbID"].Value);
+                        int ReimbursRequestID = Convert.ToInt32(dc.Cells["ReimbursRequestID"].Value);
+                        string ReimbursRequestCode = dc.Cells["ReimbursRequestCode"].Value.ToString();
+                        string ReimbursRequestStatus = dc.Cells["RequestStatus"].Value.ToString();
+                        objEmpReimbursRequestInfo.UpdateReimbursmentRequestFirstApprover(ReimbursRequestID, ReimbursRequestStatus);
+                        ReimbursementModel objSelectedReimbursement = objReimbursementInfo.getSelectedReimbursementInfo(ReimbID);
+
+                        if (ReimbursRequestStatus.ToString() == "In Progress" || ReimbursRequestStatus.ToString() == "Pending")
+                        {
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), ReimbursRequestID, "First Approver updated the Status for Reimbursment Request : \"" + ReimbursRequestCode + "\" to \"" + ReimbursRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "ReimbursRequestStatusRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                        else if (ReimbursRequestStatus.ToString() == "Approved")
+                        {
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), ReimbursRequestID, "First Approver updated the Status for Reimbursment Request : \"" + ReimbursRequestCode + "\" to \"" + ReimbursRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "ReimbursRequestStatusRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                        else if (ReimbursRequestStatus.ToString() == "Rejected")
+                        {
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), ReimbursRequestID, "First Approver updated the Status for Reimbursment Request : \"" + ReimbursRequestCode + "\" to \"" + ReimbursRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "ReimbursRequestStatusRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                        else if (ReimbursRequestStatus.ToString() == "Cancelled")
+                        {
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), ReimbursRequestID, "First Approver updated the Status for Reimbursment Request : \"" + ReimbursRequestCode + "\" to \"" + ReimbursRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "ReimbursRequestStatusRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                     }
                 }
@@ -286,6 +322,41 @@ namespace StaffSync
                         {
                             int AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(AssetID, DateTime.Today, objSpecificAssetRegisterInfo.CBalance, 0, objSpecificAssetRegisterInfo.CBalance, 0, "Cnl", "To Asset Issue - " + objSelectedAssetInfo.AssetName + " Request Cancellation", AssetRequestID); 
                             objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "Second Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                    }
+                }
+
+                foreach (DataGridViewRow dc in dtgReimbursmentRequestersList.Rows)
+                {
+                    if (Convert.ToBoolean(dc.Cells["Select"].Value.ToString()) == true)
+                    {
+                        int ReimbID = Convert.ToInt32(dc.Cells["ReimbID"].Value);
+                        int ReimbursRequestID = Convert.ToInt32(dc.Cells["ReimbursRequestID"].Value);
+                        string ReimbursRequestCode = dc.Cells["ReimbursRequestCode"].Value.ToString();
+                        string ReimbursRequestStatus = dc.Cells["RequestStatus"].Value.ToString();
+                        string ReimbursRequestDescription = dc.Cells["ReimbursAproveComments1"].Value.ToString();
+                        decimal ReimbursRequestAmount = Convert.ToDecimal(dc.Cells["ReimbursRequestAmount"].Value.ToString());
+                        DateTime ReimbursRequestDate = Convert.ToDateTime(dc.Cells["ReimbursRequestDate"].Value.ToString());
+                        objEmpReimbursRequestInfo.UpdateReimbursmentRequestSecondApprover(ReimbursRequestID, ReimbursRequestStatus);
+                        ReimbursementModel objSelectedReimbursement = objReimbursementInfo.getSelectedReimbursementInfo(ReimbID);
+
+                        if (ReimbursRequestStatus.ToString() == "In Progress" || ReimbursRequestStatus.ToString() == "Pending")
+                        {
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), ReimbursRequestID, "Second Approver updated the Status for Reimbursment Request : \"" + ReimbursRequestCode + "\" to \"" + ReimbursRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "ReimbursRequestStatusRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                        else if (ReimbursRequestStatus.ToString() == "Approved")
+                        {
+                            objEmpReimbursRequestInfo.InsertEmployeeReimbursmentRequestMasInfo(ReimbursRequestDate, ReimbursRequestDescription, "In Progress", true, false, ReimbursRequestID);
+                            objEmpReimbursRequestInfo.InsertEmployeeReimbursmentRequestDetailedInfo(ReimbursRequestID, ReimbursRequestDate, 0, ReimbursRequestAmount, 0, ReimbursRequestAmount, "Cr", "By Reimbursment Request");
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), ReimbursRequestID, "Second Approver updated the Status for Reimbursment Request : \"" + ReimbursRequestCode + "\" to \"" + ReimbursRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "ReimbursRequestStatusRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                        else if (ReimbursRequestStatus.ToString() == "Rejected")
+                        {
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), ReimbursRequestID, "Second Approver updated the Status for Reimbursment Request : \"" + ReimbursRequestCode + "\" to \"" + ReimbursRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "ReimbursRequestStatusRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                        }
+                        else if (ReimbursRequestStatus.ToString() == "Cancelled")
+                        {
+                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), ReimbursRequestID, "Second Approver updated the Status for Reimbursment Request : \"" + ReimbursRequestCode + "\" to \"" + ReimbursRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "ReimbursRequestStatusRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                     }
                 }
@@ -524,9 +595,9 @@ namespace StaffSync
             dtgReimbursmentRequestersList.DataSource = null;
 
             if (strApproverType == "FirstApprover")
-                dtgReimbursmentRequestersList.DataSource = objEmpReimbursRequestInfo.FirstApprovalPendingReimbursmentApprovalList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID));
+                dtgReimbursmentRequestersList.DataSource = objEmpReimbursRequestInfo.FirstApprovalPendingReimbursmentApprovalList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID), Convert.ToInt32(objTempCurrentlyLoggedInUserInfo.EmpID));
             else if (strApproverType == "SecondApprover")
-                dtgReimbursmentRequestersList.DataSource = objEmpReimbursRequestInfo.SecondApprovalPendingReimbursmentApprovalList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID));
+                dtgReimbursmentRequestersList.DataSource = objEmpReimbursRequestInfo.SecondApprovalPendingReimbursmentApprovalList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID), Convert.ToInt32(objTempCurrentlyLoggedInUserInfo.EmpID));
 
             dtgReimbursmentRequestersList.Columns["Select"].ReadOnly = true;
             dtgReimbursmentRequestersList.Columns["Select"].Visible = true;
@@ -547,19 +618,33 @@ namespace StaffSync
             dtgReimbursmentRequestersList.Columns["ReimbursRequestID"].Visible = false;
             dtgReimbursmentRequestersList.Columns["ReimbursRequestCode"].ReadOnly = true;
             dtgReimbursmentRequestersList.Columns["ReimbursRequestCode"].Visible = true;
-            dtgReimbursmentRequestersList.Columns["ReimbursRequestCode"].Width = 150;
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestCode"].Width = 100;
+            dtgReimbursmentRequestersList.Columns["ReimbID"].Visible = false; 
             dtgReimbursmentRequestersList.Columns["ReimbTitle"].ReadOnly = true;
             dtgReimbursmentRequestersList.Columns["ReimbTitle"].Visible = true;
-            dtgReimbursmentRequestersList.Columns["ReimbTitle"].Width = 100;
+            dtgReimbursmentRequestersList.Columns["ReimbTitle"].Width = 300;
             dtgReimbursmentRequestersList.Columns["ReimbursRequestDate"].ReadOnly = true;
             dtgReimbursmentRequestersList.Columns["ReimbursRequestDate"].Width = 125;
             dtgReimbursmentRequestersList.Columns["ReimbursRequestDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
             dtgReimbursmentRequestersList.Columns["ReimbursRequestAmount"].ReadOnly = true;
             dtgReimbursmentRequestersList.Columns["ReimbursRequestAmount"].Visible = true;
-            dtgReimbursmentRequestersList.Columns["ReimbursRequestAmount"].Width = 250;
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestAmount"].Width = 125;
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestAmount"].DefaultCellStyle.Format = "c2";
+            dtgReimbursmentRequestersList.Columns["ReimbursAproveComments1"].ReadOnly = true;
+            dtgReimbursmentRequestersList.Columns["ReimbursAproveComments1"].Visible = true;
+            dtgReimbursmentRequestersList.Columns["ReimbursAproveComments1"].Width = 300;
+            dtgReimbursmentRequestersList.Columns["RequestStatus"].ReadOnly = true;
+            dtgReimbursmentRequestersList.Columns["RequestStatus"].Visible = true;
+            dtgReimbursmentRequestersList.Columns["RequestStatus"].Width = 100;
+            dtgReimbursmentRequestersList.Columns["ReimbursAproveBy1"].Visible = false;
+            dtgReimbursmentRequestersList.Columns["ReimbursAproveBy2"].Visible = false;
+            dtgReimbursmentRequestersList.Columns["ReimbursRequestFinalStatus"].Visible = false;
+            dtgReimbursmentRequestersList.Columns["ReimbursAproveStatus1"].Visible = false;
+            dtgReimbursmentRequestersList.Columns["ReimbursAproveStatus2"].Visible = false;
             dtgReimbursmentRequestersList.Columns["IsActive"].Visible = false;
             dtgReimbursmentRequestersList.Columns["IsDeleted"].Visible = false;
-            dtgReimbursmentRequestersList.Columns["ClientID"].Visible = false;
+            //dtgReimbursmentRequestersList.Columns["ClientID"].Visible = false;
         }
 
         private void frmAdvanceApprovalList_KeyDown(object sender, KeyEventArgs e)
@@ -718,6 +803,29 @@ namespace StaffSync
                     SizeF size = e.Graphics.MeasureString(message, font);
 
                     e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
+                }
+            }
+        }
+
+        private void dtgReimbursmentRequestersList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            if (dtgReimbursmentRequestersList.Columns[e.ColumnIndex].Name == "RequestStatus")
+            {
+                int ReimbursRequestID = Convert.ToInt32(dtgReimbursmentRequestersList.Rows[e.RowIndex].Cells["ReimbursRequestID"].Value);
+
+                string CurrentStatus = dtgReimbursmentRequestersList.Rows[e.RowIndex].Cells["RequestStatus"].Value?.ToString();
+
+                using (var frm = new frmUpdateAdvanceStatus(ReimbursRequestID, CurrentStatus))
+                {
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        btnSaveDetails.Enabled = true;
+                        dtgReimbursmentRequestersList.Rows[e.RowIndex].Cells["Select"].Value = true;
+                        dtgReimbursmentRequestersList.Rows[e.RowIndex].Cells["RequestStatus"].Value = frm.SelectedStatus;
+                    }
                 }
             }
         }

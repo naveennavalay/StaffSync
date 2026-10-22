@@ -51,9 +51,9 @@ namespace DALStaffSync
             return selectedReimbursementID;
         }
 
-        public ReimbursementModel getSelectedDeductionInfo(int txtReimbursementID)
+        public ReimbursementModel getSelectedReimbursementInfo(int txtReimbursementID)
         {
-            return objReimbursement.getSelectedDeductionInfo(txtReimbursementID);
+            return objReimbursement.getSelectedReimbursementInfo(txtReimbursementID);
         }
 
         public int InsertReimbursement(string txtReimbCode, string txtReimbTitle, string txtReimbDescription, bool IsFixed, bool IsActive, bool IsDeleted, decimal txtMaxCap, bool ShowInPayslip, bool ConsiderProrataBasis)

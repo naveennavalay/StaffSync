@@ -17,20 +17,30 @@ namespace DALStaffSync
 
         }
 
-        public List<ReimbursementInfoPendingList> FirstApprovalPendingReimbursmentApprovalList(int txtClientID)
+        public List<ReimbursementPaymentsPendingList> getSelectedReimbursmentPaymentPendingList(int txtRequestID)
+        {
+            return objEmpReimbursRequestInfo.getSelectedReimbursmentPaymentPendingList(txtRequestID);
+        }
+
+        public List<ReimbursementPaymentsPendingList> GetReimbursmentPaymentPendingList(int txtClientID)
+        {
+            return objEmpReimbursRequestInfo.GetReimbursmentPaymentPendingList(txtClientID);
+        }
+
+        public List<ReimbursementInfoPendingList> FirstApprovalPendingReimbursmentApprovalList(int txtClientID, int txtApproverID)
         {
             List<ReimbursementInfoPendingList> objReimbursementInfoPendingListInfo = new List<ReimbursementInfoPendingList>();
 
-            objReimbursementInfoPendingListInfo = objEmpReimbursRequestInfo.FirstApprovalPendingReimbursmentApprovalList(txtClientID);
+            objReimbursementInfoPendingListInfo = objEmpReimbursRequestInfo.FirstApprovalPendingReimbursmentApprovalList(txtClientID, txtApproverID);
 
             return objReimbursementInfoPendingListInfo;
         }
 
-        public List<ReimbursementInfoPendingList> SecondApprovalPendingReimbursmentApprovalList(int txtClientID)
+        public List<ReimbursementInfoPendingList> SecondApprovalPendingReimbursmentApprovalList(int txtClientID, int txtApproverID)
         {
             List<ReimbursementInfoPendingList> objReimbursementInfoPendingListInfo = new List<ReimbursementInfoPendingList>();
 
-            objReimbursementInfoPendingListInfo = objEmpReimbursRequestInfo.SecondApprovalPendingReimbursmentApprovalList(txtClientID);
+            objReimbursementInfoPendingListInfo = objEmpReimbursRequestInfo.SecondApprovalPendingReimbursmentApprovalList(txtClientID, txtApproverID);
 
             return objReimbursementInfoPendingListInfo;
         }
@@ -40,6 +50,26 @@ namespace DALStaffSync
         {
             return objEmpReimbursRequestInfo.InsertEmployeeReimbursmentRequestInfo(PersonalInfoID, IsActive, IsDeleted, ReimbID, ReimbursRequestDate, ReimbursRequestAmount,
                 ReimbursAproveStatus1, ReimbursAproveDate1, ReimbursAproveBy1, ReimbursAproveComments1, ReimbursAproveStatus2, ReimbursApproveDate2, ReimbursAproveBy2, ReimbursAproveComments2, ReimbursRequestFinalStatus, IncludeInNextPayslipProcess);
-        }   
+        }
+
+        public int UpdateReimbursmentRequestFirstApprover(int ReimbursRequestID, string FirstApproverStatus)
+        {
+            return objEmpReimbursRequestInfo.UpdateReimbursmentRequestFirstApprover(ReimbursRequestID, FirstApproverStatus);
+        }
+
+        public int UpdateReimbursmentRequestSecondApprover(int ReimbursRequestID, string FirstApproverStatus)
+        {
+            return objEmpReimbursRequestInfo.UpdateReimbursmentRequestSecondApprover(ReimbursRequestID, FirstApproverStatus);
+        }
+
+        public int InsertEmployeeReimbursmentRequestMasInfo(DateTime ReimbRequestDate, string ReimbRequestDescription, string ReimbRequestStatus, bool IsActive, bool IsDeleted, int ReimbursRequestID)
+        {
+            return objEmpReimbursRequestInfo.InsertEmployeeReimbursmentRequestMasInfo(ReimbRequestDate, ReimbRequestDescription.ToString(), ReimbRequestStatus, IsActive, IsDeleted, ReimbursRequestID);
+        }
+
+        public int InsertEmployeeReimbursmentRequestDetailedInfo(int ReimbRequestID, DateTime ReimbRequestTRDate, decimal OBalance, decimal CrAmount, decimal DrAmount, decimal CBalance, string TRType, string Comments)
+        {
+            return objEmpReimbursRequestInfo.InsertEmployeeReimbursmentRequestDetailedInfo(ReimbRequestID, ReimbRequestTRDate, OBalance, CrAmount, DrAmount, CBalance, TRType, Comments);
+        }
     }
 }

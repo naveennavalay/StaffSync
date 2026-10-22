@@ -33,6 +33,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtComments = new Krypton.Toolkit.KryptonTextBox();
+            this.chkFamilyMembersInfo = new System.Windows.Forms.CheckBox();
             this.lblReimbursmentID = new System.Windows.Forms.Label();
             this.picMoreInfo = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,7 +56,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtComments = new Krypton.Toolkit.KryptonTextBox();
             this.dtReimbRequestDate = new System.Windows.Forms.MaskedTextBox();
             this.label29 = new System.Windows.Forms.Label();
             this.cmbReimbursementType = new Krypton.Toolkit.KryptonComboBox();
@@ -90,7 +91,6 @@
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.ttAdvanceType = new System.Windows.Forms.ToolTip(this.components);
-            this.chkFamilyMembersInfo = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -122,8 +122,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1063, 699);
-            this.splitContainer1.SplitterDistance = 631;
+            this.splitContainer1.Size = new System.Drawing.Size(1063, 709);
+            this.splitContainer1.SplitterDistance = 640;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -137,12 +137,13 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1063, 631);
+            this.panel1.Size = new System.Drawing.Size(1063, 640);
             this.panel1.TabIndex = 1;
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox1.Controls.Add(this.txtComments);
             this.groupBox1.Controls.Add(this.chkFamilyMembersInfo);
             this.groupBox1.Controls.Add(this.lblReimbursmentID);
             this.groupBox1.Controls.Add(this.picMoreInfo);
@@ -152,13 +153,12 @@
             this.groupBox1.Controls.Add(this.txtReimbursementAmount);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.txtComments);
             this.groupBox1.Controls.Add(this.dtReimbRequestDate);
             this.groupBox1.Controls.Add(this.label29);
             this.groupBox1.Controls.Add(this.cmbReimbursementType);
             this.groupBox1.Controls.Add(this.label42);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox1.Location = new System.Drawing.Point(16, 178);
+            this.groupBox1.Location = new System.Drawing.Point(16, 190);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -166,12 +166,41 @@
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
             // 
+            // txtComments
+            // 
+            this.txtComments.Location = new System.Drawing.Point(150, 321);
+            this.txtComments.Multiline = true;
+            this.txtComments.Name = "txtComments";
+            this.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtComments.Size = new System.Drawing.Size(589, 116);
+            this.txtComments.StateActive.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.txtComments.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.txtComments.StateDisabled.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.txtComments.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.txtComments.TabIndex = 88;
+            // 
+            // chkFamilyMembersInfo
+            // 
+            this.chkFamilyMembersInfo.AutoSize = true;
+            this.chkFamilyMembersInfo.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkFamilyMembersInfo.Checked = true;
+            this.chkFamilyMembersInfo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkFamilyMembersInfo.Enabled = false;
+            this.chkFamilyMembersInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkFamilyMembersInfo.Location = new System.Drawing.Point(515, 288);
+            this.chkFamilyMembersInfo.Name = "chkFamilyMembersInfo";
+            this.chkFamilyMembersInfo.Size = new System.Drawing.Size(223, 19);
+            this.chkFamilyMembersInfo.TabIndex = 86;
+            this.chkFamilyMembersInfo.Tag = "Include in next payslip process";
+            this.chkFamilyMembersInfo.Text = "Include in next payslip process";
+            this.chkFamilyMembersInfo.UseVisualStyleBackColor = true;
+            // 
             // lblReimbursmentID
             // 
             this.lblReimbursmentID.AutoSize = true;
             this.lblReimbursmentID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblReimbursmentID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblReimbursmentID.Location = new System.Drawing.Point(436, 243);
+            this.lblReimbursmentID.Location = new System.Drawing.Point(436, 255);
             this.lblReimbursmentID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblReimbursmentID.Name = "lblReimbursmentID";
             this.lblReimbursmentID.Size = new System.Drawing.Size(11, 15);
@@ -183,7 +212,7 @@
             this.picMoreInfo.BackgroundImage = global::StaffSync.Properties.Resources.tooltip;
             this.picMoreInfo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picMoreInfo.InitialImage = global::StaffSync.Properties.Resources.tooltip;
-            this.picMoreInfo.Location = new System.Drawing.Point(739, 207);
+            this.picMoreInfo.Location = new System.Drawing.Point(739, 219);
             this.picMoreInfo.Name = "picMoreInfo";
             this.picMoreInfo.Size = new System.Drawing.Size(35, 29);
             this.picMoreInfo.TabIndex = 79;
@@ -194,7 +223,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(480, 243);
+            this.label1.Location = new System.Drawing.Point(480, 255);
             this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(149, 15);
@@ -205,7 +234,7 @@
             // 
             // txtMaxLoanAmountAvail
             // 
-            this.txtMaxLoanAmountAvail.Location = new System.Drawing.Point(634, 240);
+            this.txtMaxLoanAmountAvail.Location = new System.Drawing.Point(634, 252);
             this.txtMaxLoanAmountAvail.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtMaxLoanAmountAvail.MaxLength = 255;
             this.txtMaxLoanAmountAvail.Name = "txtMaxLoanAmountAvail";
@@ -222,7 +251,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(86, 246);
+            this.label13.Location = new System.Drawing.Point(86, 258);
             this.label13.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(55, 15);
@@ -232,7 +261,7 @@
             // 
             // txtReimbursementAmount
             // 
-            this.txtReimbursementAmount.Location = new System.Drawing.Point(150, 243);
+            this.txtReimbursementAmount.Location = new System.Drawing.Point(150, 255);
             this.txtReimbursementAmount.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtReimbursementAmount.MaxLength = 255;
             this.txtReimbursementAmount.Name = "txtReimbursementAmount";
@@ -259,7 +288,7 @@
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Location = new System.Drawing.Point(0, 13);
+            this.groupBox2.Location = new System.Drawing.Point(0, 25);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(1035, 183);
             this.groupBox2.TabIndex = 70;
@@ -270,7 +299,7 @@
             // 
             this.lblRequestToMailID.AutoSize = true;
             this.lblRequestToMailID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRequestToMailID.Location = new System.Drawing.Point(398, 31);
+            this.lblRequestToMailID.Location = new System.Drawing.Point(398, 43);
             this.lblRequestToMailID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblRequestToMailID.Name = "lblRequestToMailID";
             this.lblRequestToMailID.Size = new System.Drawing.Size(82, 15);
@@ -283,7 +312,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(805, 31);
+            this.label11.Location = new System.Drawing.Point(805, 43);
             this.label11.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(44, 15);
@@ -293,7 +322,7 @@
             // 
             // btnRepSearch
             // 
-            this.btnRepSearch.Location = new System.Drawing.Point(324, 25);
+            this.btnRepSearch.Location = new System.Drawing.Point(324, 37);
             this.btnRepSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnRepSearch.Name = "btnRepSearch";
             this.btnRepSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -309,7 +338,7 @@
             this.lblReportingManagerID.AutoSize = true;
             this.lblReportingManagerID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblReportingManagerID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblReportingManagerID.Location = new System.Drawing.Point(362, 33);
+            this.lblReportingManagerID.Location = new System.Drawing.Point(362, 45);
             this.lblReportingManagerID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblReportingManagerID.Name = "lblReportingManagerID";
             this.lblReportingManagerID.Size = new System.Drawing.Size(11, 15);
@@ -318,7 +347,7 @@
             // 
             // txtRepDepartment
             // 
-            this.txtRepDepartment.Location = new System.Drawing.Point(150, 135);
+            this.txtRepDepartment.Location = new System.Drawing.Point(150, 147);
             this.txtRepDepartment.Margin = new System.Windows.Forms.Padding(4);
             this.txtRepDepartment.Multiline = true;
             this.txtRepDepartment.Name = "txtRepDepartment";
@@ -333,7 +362,7 @@
             // 
             // txtRepDesignation
             // 
-            this.txtRepDesignation.Location = new System.Drawing.Point(150, 98);
+            this.txtRepDesignation.Location = new System.Drawing.Point(150, 110);
             this.txtRepDesignation.Margin = new System.Windows.Forms.Padding(4);
             this.txtRepDesignation.Multiline = true;
             this.txtRepDesignation.Name = "txtRepDesignation";
@@ -349,7 +378,7 @@
             // 
             // txtRepName
             // 
-            this.txtRepName.Location = new System.Drawing.Point(150, 61);
+            this.txtRepName.Location = new System.Drawing.Point(150, 73);
             this.txtRepName.Margin = new System.Windows.Forms.Padding(4);
             this.txtRepName.Multiline = true;
             this.txtRepName.Name = "txtRepName";
@@ -366,7 +395,7 @@
             // txtRepCode
             // 
             this.txtRepCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtRepCode.Location = new System.Drawing.Point(150, 25);
+            this.txtRepCode.Location = new System.Drawing.Point(150, 37);
             this.txtRepCode.Margin = new System.Windows.Forms.Padding(4);
             this.txtRepCode.Multiline = true;
             this.txtRepCode.Name = "txtRepCode";
@@ -384,7 +413,7 @@
             // picRepEmpPhoto
             // 
             this.picRepEmpPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picRepEmpPhoto.Location = new System.Drawing.Point(852, 25);
+            this.picRepEmpPhoto.Location = new System.Drawing.Point(852, 37);
             this.picRepEmpPhoto.Margin = new System.Windows.Forms.Padding(4);
             this.picRepEmpPhoto.Name = "picRepEmpPhoto";
             this.picRepEmpPhoto.Size = new System.Drawing.Size(161, 138);
@@ -396,7 +425,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(63, 142);
+            this.label6.Location = new System.Drawing.Point(63, 154);
             this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(82, 15);
@@ -408,7 +437,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(61, 105);
+            this.label7.Location = new System.Drawing.Point(61, 117);
             this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(84, 15);
@@ -420,7 +449,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(100, 68);
+            this.label8.Location = new System.Drawing.Point(100, 80);
             this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(45, 15);
@@ -432,7 +461,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(38, 31);
+            this.label9.Location = new System.Drawing.Point(38, 43);
             this.label9.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(107, 15);
@@ -443,7 +472,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(4, 309);
+            this.label5.Location = new System.Drawing.Point(4, 321);
             this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(137, 15);
@@ -451,27 +480,10 @@
             this.label5.Text = "Request Description";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // txtComments
-            // 
-            this.txtComments.Location = new System.Drawing.Point(150, 309);
-            this.txtComments.Margin = new System.Windows.Forms.Padding(4);
-            this.txtComments.Multiline = true;
-            this.txtComments.Name = "txtComments";
-            this.txtComments.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtComments.Size = new System.Drawing.Size(587, 109);
-            this.txtComments.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtComments.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtComments.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtComments.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtComments.TabIndex = 4;
-            this.txtComments.Tag = "Asset Request Reason";
-            this.txtComments.Enter += new System.EventHandler(this.txtComments_Enter);
-            // 
             // dtReimbRequestDate
             // 
             this.dtReimbRequestDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.dtReimbRequestDate.Location = new System.Drawing.Point(150, 275);
+            this.dtReimbRequestDate.Location = new System.Drawing.Point(150, 287);
             this.dtReimbRequestDate.Margin = new System.Windows.Forms.Padding(4);
             this.dtReimbRequestDate.Mask = "##-##-####";
             this.dtReimbRequestDate.Name = "dtReimbRequestDate";
@@ -485,7 +497,7 @@
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(47, 278);
+            this.label29.Location = new System.Drawing.Point(47, 290);
             this.label29.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(94, 15);
@@ -497,7 +509,7 @@
             // 
             this.cmbReimbursementType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbReimbursementType.DropDownWidth = 440;
-            this.cmbReimbursementType.Location = new System.Drawing.Point(150, 210);
+            this.cmbReimbursementType.Location = new System.Drawing.Point(150, 222);
             this.cmbReimbursementType.Margin = new System.Windows.Forms.Padding(4);
             this.cmbReimbursementType.Name = "cmbReimbursementType";
             this.cmbReimbursementType.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -511,7 +523,7 @@
             // 
             this.label42.AutoSize = true;
             this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(-2, 214);
+            this.label42.Location = new System.Drawing.Point(-2, 226);
             this.label42.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(143, 15);
@@ -544,7 +556,7 @@
             this.groupBox8.Controls.Add(this.label35);
             this.groupBox8.Controls.Add(this.label34);
             this.groupBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox8.Location = new System.Drawing.Point(16, 10);
+            this.groupBox8.Location = new System.Drawing.Point(16, 22);
             this.groupBox8.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Padding = new System.Windows.Forms.Padding(4);
@@ -558,7 +570,7 @@
             this.lblTaskID.AutoSize = true;
             this.lblTaskID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblTaskID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTaskID.Location = new System.Drawing.Point(763, 98);
+            this.lblTaskID.Location = new System.Drawing.Point(763, 110);
             this.lblTaskID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblTaskID.Name = "lblTaskID";
             this.lblTaskID.Size = new System.Drawing.Size(11, 15);
@@ -570,7 +582,7 @@
             this.lblAssetRegID.AutoSize = true;
             this.lblAssetRegID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblAssetRegID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAssetRegID.Location = new System.Drawing.Point(763, 68);
+            this.lblAssetRegID.Location = new System.Drawing.Point(763, 80);
             this.lblAssetRegID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblAssetRegID.Name = "lblAssetRegID";
             this.lblAssetRegID.Size = new System.Drawing.Size(11, 15);
@@ -582,7 +594,7 @@
             this.lblClientID.AutoSize = true;
             this.lblClientID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblClientID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClientID.Location = new System.Drawing.Point(763, 38);
+            this.lblClientID.Location = new System.Drawing.Point(763, 50);
             this.lblClientID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblClientID.Name = "lblClientID";
             this.lblClientID.Size = new System.Drawing.Size(11, 15);
@@ -594,7 +606,7 @@
             this.lblAssetRequestID.AutoSize = true;
             this.lblAssetRequestID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblAssetRequestID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAssetRequestID.Location = new System.Drawing.Point(442, 15);
+            this.lblAssetRequestID.Location = new System.Drawing.Point(442, 27);
             this.lblAssetRequestID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblAssetRequestID.Name = "lblAssetRequestID";
             this.lblAssetRequestID.Size = new System.Drawing.Size(11, 15);
@@ -603,7 +615,7 @@
             // 
             // lnkViewAuditLog
             // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(360, 28);
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(360, 40);
             this.lnkViewAuditLog.Name = "lnkViewAuditLog";
             this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
             this.lnkViewAuditLog.TabIndex = 80;
@@ -616,7 +628,7 @@
             this.lblViewEmpSpecificAdvanceInfo.AutoSize = true;
             this.lblViewEmpSpecificAdvanceInfo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblViewEmpSpecificAdvanceInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblViewEmpSpecificAdvanceInfo.Location = new System.Drawing.Point(567, 31);
+            this.lblViewEmpSpecificAdvanceInfo.Location = new System.Drawing.Point(567, 43);
             this.lblViewEmpSpecificAdvanceInfo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblViewEmpSpecificAdvanceInfo.Name = "lblViewEmpSpecificAdvanceInfo";
             this.lblViewEmpSpecificAdvanceInfo.Size = new System.Drawing.Size(171, 15);
@@ -629,7 +641,7 @@
             // 
             this.lblRequestFromMailID.AutoSize = true;
             this.lblRequestFromMailID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRequestFromMailID.Location = new System.Drawing.Point(547, 10);
+            this.lblRequestFromMailID.Location = new System.Drawing.Point(547, 22);
             this.lblRequestFromMailID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblRequestFromMailID.Name = "lblRequestFromMailID";
             this.lblRequestFromMailID.Size = new System.Drawing.Size(82, 15);
@@ -643,7 +655,7 @@
             this.lblEmpID.AutoSize = true;
             this.lblEmpID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblEmpID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmpID.Location = new System.Drawing.Point(509, 15);
+            this.lblEmpID.Location = new System.Drawing.Point(509, 27);
             this.lblEmpID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblEmpID.Name = "lblEmpID";
             this.lblEmpID.Size = new System.Drawing.Size(11, 15);
@@ -655,7 +667,7 @@
             this.lblPersonalInfoID.AutoSize = true;
             this.lblPersonalInfoID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblPersonalInfoID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPersonalInfoID.Location = new System.Drawing.Point(652, 33);
+            this.lblPersonalInfoID.Location = new System.Drawing.Point(652, 45);
             this.lblPersonalInfoID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblPersonalInfoID.Name = "lblPersonalInfoID";
             this.lblPersonalInfoID.Size = new System.Drawing.Size(11, 15);
@@ -665,7 +677,7 @@
             // 
             // btnEmpSearch
             // 
-            this.btnEmpSearch.Location = new System.Drawing.Point(324, 25);
+            this.btnEmpSearch.Location = new System.Drawing.Point(324, 37);
             this.btnEmpSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnEmpSearch.Name = "btnEmpSearch";
             this.btnEmpSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -678,7 +690,7 @@
             // 
             // txtDepartment
             // 
-            this.txtDepartment.Location = new System.Drawing.Point(150, 135);
+            this.txtDepartment.Location = new System.Drawing.Point(150, 147);
             this.txtDepartment.Margin = new System.Windows.Forms.Padding(4);
             this.txtDepartment.Multiline = true;
             this.txtDepartment.Name = "txtDepartment";
@@ -693,7 +705,7 @@
             // 
             // txtDesignation
             // 
-            this.txtDesignation.Location = new System.Drawing.Point(150, 98);
+            this.txtDesignation.Location = new System.Drawing.Point(150, 110);
             this.txtDesignation.Margin = new System.Windows.Forms.Padding(4);
             this.txtDesignation.Multiline = true;
             this.txtDesignation.Name = "txtDesignation";
@@ -709,7 +721,7 @@
             // 
             // txtEmpName
             // 
-            this.txtEmpName.Location = new System.Drawing.Point(150, 61);
+            this.txtEmpName.Location = new System.Drawing.Point(150, 73);
             this.txtEmpName.Margin = new System.Windows.Forms.Padding(4);
             this.txtEmpName.Multiline = true;
             this.txtEmpName.Name = "txtEmpName";
@@ -726,7 +738,7 @@
             // txtEmpCode
             // 
             this.txtEmpCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtEmpCode.Location = new System.Drawing.Point(150, 25);
+            this.txtEmpCode.Location = new System.Drawing.Point(150, 37);
             this.txtEmpCode.Margin = new System.Windows.Forms.Padding(4);
             this.txtEmpCode.Multiline = true;
             this.txtEmpCode.Name = "txtEmpCode";
@@ -745,7 +757,7 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(509, 33);
+            this.lblActionMode.Location = new System.Drawing.Point(509, 45);
             this.lblActionMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
@@ -757,7 +769,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.Location = new System.Drawing.Point(805, 31);
+            this.label38.Location = new System.Drawing.Point(805, 43);
             this.label38.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(44, 15);
@@ -768,7 +780,7 @@
             // picEmpPhoto
             // 
             this.picEmpPhoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picEmpPhoto.Location = new System.Drawing.Point(852, 25);
+            this.picEmpPhoto.Location = new System.Drawing.Point(852, 37);
             this.picEmpPhoto.Margin = new System.Windows.Forms.Padding(4);
             this.picEmpPhoto.Name = "picEmpPhoto";
             this.picEmpPhoto.Size = new System.Drawing.Size(161, 138);
@@ -780,7 +792,7 @@
             // 
             this.label37.AutoSize = true;
             this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.Location = new System.Drawing.Point(63, 142);
+            this.label37.Location = new System.Drawing.Point(63, 154);
             this.label37.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(82, 15);
@@ -792,7 +804,7 @@
             // 
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label36.Location = new System.Drawing.Point(61, 105);
+            this.label36.Location = new System.Drawing.Point(61, 117);
             this.label36.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(84, 15);
@@ -804,7 +816,7 @@
             // 
             this.label35.AutoSize = true;
             this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.Location = new System.Drawing.Point(100, 68);
+            this.label35.Location = new System.Drawing.Point(100, 80);
             this.label35.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(45, 15);
@@ -816,7 +828,7 @@
             // 
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.Location = new System.Drawing.Point(38, 31);
+            this.label34.Location = new System.Drawing.Point(38, 43);
             this.label34.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(107, 15);
@@ -836,12 +848,12 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1063, 63);
+            this.panel2.Size = new System.Drawing.Size(1063, 64);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(903, 12);
+            this.btnCloseMe.Location = new System.Drawing.Point(903, 13);
             this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -854,7 +866,7 @@
             // 
             // btnRemoveDetails
             // 
-            this.btnRemoveDetails.Location = new System.Drawing.Point(434, 12);
+            this.btnRemoveDetails.Location = new System.Drawing.Point(703, 13);
             this.btnRemoveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveDetails.Name = "btnRemoveDetails";
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -863,11 +875,12 @@
             this.btnRemoveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnRemoveDetails.Values.Image = global::StaffSync.Properties.Resources.delete;
             this.btnRemoveDetails.Values.Text = "Delete";
+            this.btnRemoveDetails.Visible = false;
             this.btnRemoveDetails.Click += new System.EventHandler(this.btnRemoveDetails_Click);
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(299, 12);
+            this.btnSaveDetails.Location = new System.Drawing.Point(166, 13);
             this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -880,7 +893,7 @@
             // 
             // btnModifyDetails
             // 
-            this.btnModifyDetails.Location = new System.Drawing.Point(165, 12);
+            this.btnModifyDetails.Location = new System.Drawing.Point(569, 13);
             this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -889,11 +902,12 @@
             this.btnModifyDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnModifyDetails.Values.Image = global::StaffSync.Properties.Resources.update;
             this.btnModifyDetails.Values.Text = "Modify";
+            this.btnModifyDetails.Visible = false;
             this.btnModifyDetails.Click += new System.EventHandler(this.btnModifyDetails_Click);
             // 
             // btnGenerateDetails
             // 
-            this.btnGenerateDetails.Location = new System.Drawing.Point(31, 12);
+            this.btnGenerateDetails.Location = new System.Drawing.Point(31, 13);
             this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerateDetails.Name = "btnGenerateDetails";
             this.btnGenerateDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -906,7 +920,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(568, 12);
+            this.btnCancel.Location = new System.Drawing.Point(300, 13);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -926,26 +940,11 @@
             this.ttAdvanceType.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.ttAdvanceType.ToolTipTitle = "This is sample tooltip text";
             // 
-            // chkFamilyMembersInfo
-            // 
-            this.chkFamilyMembersInfo.AutoSize = true;
-            this.chkFamilyMembersInfo.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkFamilyMembersInfo.Checked = true;
-            this.chkFamilyMembersInfo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkFamilyMembersInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkFamilyMembersInfo.Location = new System.Drawing.Point(515, 276);
-            this.chkFamilyMembersInfo.Name = "chkFamilyMembersInfo";
-            this.chkFamilyMembersInfo.Size = new System.Drawing.Size(223, 19);
-            this.chkFamilyMembersInfo.TabIndex = 86;
-            this.chkFamilyMembersInfo.Tag = "Include in next payslip process";
-            this.chkFamilyMembersInfo.Text = "Include in next payslip process";
-            this.chkFamilyMembersInfo.UseVisualStyleBackColor = true;
-            // 
             // frmEmpReimbRequestInfo
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1063, 699);
+            this.ClientSize = new System.Drawing.Size(1063, 709);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1013,7 +1012,6 @@
         private System.Windows.Forms.ErrorProvider errValidator;
         private System.Windows.Forms.Label lblPersonalInfoID;
         private System.Windows.Forms.Label label5;
-        private Krypton.Toolkit.KryptonTextBox txtComments;
         private System.Windows.Forms.GroupBox groupBox2;
         private Krypton.Toolkit.KryptonTextBox txtRepDepartment;
         private Krypton.Toolkit.KryptonTextBox txtRepDesignation;
@@ -1044,5 +1042,6 @@
         private System.Windows.Forms.Label lblAssetRegID;
         private System.Windows.Forms.Label lblTaskID;
         private System.Windows.Forms.CheckBox chkFamilyMembersInfo;
+        private Krypton.Toolkit.KryptonTextBox txtComments;
     }
 }

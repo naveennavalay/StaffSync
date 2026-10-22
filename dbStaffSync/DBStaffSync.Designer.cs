@@ -312,9 +312,9 @@ namespace dbStaffSync {
         
         private ReimbRequestMasDataTable tableReimbRequestMas;
         
-        private ReimbRequestDetailInfoDataTable tableReimbRequestDetailInfo;
-        
         private ReimbursRequestInfoDataTable tableReimbursRequestInfo;
+        
+        private ReimbRequestDetailInfoDataTable tableReimbRequestDetailInfo;
         
         private global::System.Data.DataRelation relationCountryMasAddressMas;
         
@@ -532,13 +532,13 @@ namespace dbStaffSync {
         
         private global::System.Data.DataRelation relationEmpMasEmpDailyAttendanceInfo;
         
-        private global::System.Data.DataRelation relationReimbRequestMasReimbRequestDetailInfo;
-        
         private global::System.Data.DataRelation relationReimbursRequestInfoReimbRequestMas;
         
         private global::System.Data.DataRelation relationPersonalInfoMasReimbursRequestInfo;
         
         private global::System.Data.DataRelation relationReimbursementHeaderMasReimbursRequestInfo;
+        
+        private global::System.Data.DataRelation relationReimbRequestMasReimbRequestDetailInfo;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -1000,11 +1000,11 @@ namespace dbStaffSync {
                 if ((ds.Tables["ReimbRequestMas"] != null)) {
                     base.Tables.Add(new ReimbRequestMasDataTable(ds.Tables["ReimbRequestMas"]));
                 }
-                if ((ds.Tables["ReimbRequestDetailInfo"] != null)) {
-                    base.Tables.Add(new ReimbRequestDetailInfoDataTable(ds.Tables["ReimbRequestDetailInfo"]));
-                }
                 if ((ds.Tables["ReimbursRequestInfo"] != null)) {
                     base.Tables.Add(new ReimbursRequestInfoDataTable(ds.Tables["ReimbursRequestInfo"]));
+                }
+                if ((ds.Tables["ReimbRequestDetailInfo"] != null)) {
+                    base.Tables.Add(new ReimbRequestDetailInfoDataTable(ds.Tables["ReimbRequestDetailInfo"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -2468,9 +2468,9 @@ namespace dbStaffSync {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ReimbRequestDetailInfoDataTable ReimbRequestDetailInfo {
+        public ReimbursRequestInfoDataTable ReimbursRequestInfo {
             get {
-                return this.tableReimbRequestDetailInfo;
+                return this.tableReimbursRequestInfo;
             }
         }
         
@@ -2478,9 +2478,9 @@ namespace dbStaffSync {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ReimbursRequestInfoDataTable ReimbursRequestInfo {
+        public ReimbRequestDetailInfoDataTable ReimbRequestDetailInfo {
             get {
-                return this.tableReimbursRequestInfo;
+                return this.tableReimbRequestDetailInfo;
             }
         }
         
@@ -2983,11 +2983,11 @@ namespace dbStaffSync {
                 if ((ds.Tables["ReimbRequestMas"] != null)) {
                     base.Tables.Add(new ReimbRequestMasDataTable(ds.Tables["ReimbRequestMas"]));
                 }
-                if ((ds.Tables["ReimbRequestDetailInfo"] != null)) {
-                    base.Tables.Add(new ReimbRequestDetailInfoDataTable(ds.Tables["ReimbRequestDetailInfo"]));
-                }
                 if ((ds.Tables["ReimbursRequestInfo"] != null)) {
                     base.Tables.Add(new ReimbursRequestInfoDataTable(ds.Tables["ReimbursRequestInfo"]));
+                }
+                if ((ds.Tables["ReimbRequestDetailInfo"] != null)) {
+                    base.Tables.Add(new ReimbRequestDetailInfoDataTable(ds.Tables["ReimbRequestDetailInfo"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -3886,16 +3886,16 @@ namespace dbStaffSync {
                     this.tableReimbRequestMas.InitVars();
                 }
             }
-            this.tableReimbRequestDetailInfo = ((ReimbRequestDetailInfoDataTable)(base.Tables["ReimbRequestDetailInfo"]));
-            if ((initTable == true)) {
-                if ((this.tableReimbRequestDetailInfo != null)) {
-                    this.tableReimbRequestDetailInfo.InitVars();
-                }
-            }
             this.tableReimbursRequestInfo = ((ReimbursRequestInfoDataTable)(base.Tables["ReimbursRequestInfo"]));
             if ((initTable == true)) {
                 if ((this.tableReimbursRequestInfo != null)) {
                     this.tableReimbursRequestInfo.InitVars();
+                }
+            }
+            this.tableReimbRequestDetailInfo = ((ReimbRequestDetailInfoDataTable)(base.Tables["ReimbRequestDetailInfo"]));
+            if ((initTable == true)) {
+                if ((this.tableReimbRequestDetailInfo != null)) {
+                    this.tableReimbRequestDetailInfo.InitVars();
                 }
             }
             this.relationCountryMasAddressMas = this.Relations["CountryMasAddressMas"];
@@ -4006,10 +4006,10 @@ namespace dbStaffSync {
             this.relationAssetCategoryMasAssetMas = this.Relations["AssetCategoryMasAssetMas"];
             this.relationClientMasAssetCategoryMas = this.Relations["ClientMasAssetCategoryMas"];
             this.relationEmpMasEmpDailyAttendanceInfo = this.Relations["EmpMasEmpDailyAttendanceInfo"];
-            this.relationReimbRequestMasReimbRequestDetailInfo = this.Relations["ReimbRequestMasReimbRequestDetailInfo"];
             this.relationReimbursRequestInfoReimbRequestMas = this.Relations["ReimbursRequestInfoReimbRequestMas"];
             this.relationPersonalInfoMasReimbursRequestInfo = this.Relations["PersonalInfoMasReimbursRequestInfo"];
             this.relationReimbursementHeaderMasReimbursRequestInfo = this.Relations["ReimbursementHeaderMasReimbursRequestInfo"];
+            this.relationReimbRequestMasReimbRequestDetailInfo = this.Relations["ReimbRequestMasReimbRequestDetailInfo"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4308,10 +4308,10 @@ namespace dbStaffSync {
             base.Tables.Add(this.tableqryEmpOutStandingAdvanceInfo);
             this.tableReimbRequestMas = new ReimbRequestMasDataTable();
             base.Tables.Add(this.tableReimbRequestMas);
-            this.tableReimbRequestDetailInfo = new ReimbRequestDetailInfoDataTable();
-            base.Tables.Add(this.tableReimbRequestDetailInfo);
             this.tableReimbursRequestInfo = new ReimbursRequestInfoDataTable();
             base.Tables.Add(this.tableReimbursRequestInfo);
+            this.tableReimbRequestDetailInfo = new ReimbRequestDetailInfoDataTable();
+            base.Tables.Add(this.tableReimbRequestDetailInfo);
             this.relationCountryMasAddressMas = new global::System.Data.DataRelation("CountryMasAddressMas", new global::System.Data.DataColumn[] {
                         this.tableCountryMas.CountryIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableAddressMas.CountryIDColumn}, false);
@@ -4744,10 +4744,6 @@ namespace dbStaffSync {
                         this.tableEmpMas.EmpIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableEmpDailyAttendanceInfo.EmpIDColumn}, false);
             this.Relations.Add(this.relationEmpMasEmpDailyAttendanceInfo);
-            this.relationReimbRequestMasReimbRequestDetailInfo = new global::System.Data.DataRelation("ReimbRequestMasReimbRequestDetailInfo", new global::System.Data.DataColumn[] {
-                        this.tableReimbRequestMas.ReimbRequestIDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableReimbRequestDetailInfo.ReimbRequestIDColumn}, false);
-            this.Relations.Add(this.relationReimbRequestMasReimbRequestDetailInfo);
             this.relationReimbursRequestInfoReimbRequestMas = new global::System.Data.DataRelation("ReimbursRequestInfoReimbRequestMas", new global::System.Data.DataColumn[] {
                         this.tableReimbursRequestInfo.ReimbursRequestIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableReimbRequestMas.ReimbursRequestIDColumn}, false);
@@ -4760,6 +4756,10 @@ namespace dbStaffSync {
                         this.tableReimbursementHeaderMas.ReimbIDColumn}, new global::System.Data.DataColumn[] {
                         this.tableReimbursRequestInfo.ReimbIDColumn}, false);
             this.Relations.Add(this.relationReimbursementHeaderMasReimbursRequestInfo);
+            this.relationReimbRequestMasReimbRequestDetailInfo = new global::System.Data.DataRelation("ReimbRequestMasReimbRequestDetailInfo", new global::System.Data.DataColumn[] {
+                        this.tableReimbRequestMas.ReimbRequestIDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableReimbRequestDetailInfo.ReimbRequestIDColumn}, false);
+            this.Relations.Add(this.relationReimbRequestMasReimbRequestDetailInfo);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5628,13 +5628,13 @@ namespace dbStaffSync {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private bool ShouldSerializeReimbRequestDetailInfo() {
+        private bool ShouldSerializeReimbursRequestInfo() {
             return false;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private bool ShouldSerializeReimbursRequestInfo() {
+        private bool ShouldSerializeReimbRequestDetailInfo() {
             return false;
         }
         
@@ -6126,10 +6126,10 @@ namespace dbStaffSync {
         public delegate void ReimbRequestMasRowChangeEventHandler(object sender, ReimbRequestMasRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public delegate void ReimbRequestDetailInfoRowChangeEventHandler(object sender, ReimbRequestDetailInfoRowChangeEvent e);
+        public delegate void ReimbursRequestInfoRowChangeEventHandler(object sender, ReimbursRequestInfoRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public delegate void ReimbursRequestInfoRowChangeEventHandler(object sender, ReimbursRequestInfoRowChangeEvent e);
+        public delegate void ReimbRequestDetailInfoRowChangeEventHandler(object sender, ReimbRequestDetailInfoRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -61860,380 +61860,6 @@ namespace dbStaffSync {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ReimbRequestDetailInfoDataTable : global::System.Data.TypedTableBase<ReimbRequestDetailInfoRow> {
-            
-            private global::System.Data.DataColumn columnReimbRequestDetailID;
-            
-            private global::System.Data.DataColumn columnReimbRequestID;
-            
-            private global::System.Data.DataColumn columnReimbRequestTRDate;
-            
-            private global::System.Data.DataColumn columnOBalance;
-            
-            private global::System.Data.DataColumn columnCrBalance;
-            
-            private global::System.Data.DataColumn columnDrAmount;
-            
-            private global::System.Data.DataColumn columnCBalance;
-            
-            private global::System.Data.DataColumn columnComments;
-            
-            private global::System.Data.DataColumn columnOrderID;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ReimbRequestDetailInfoDataTable() {
-                this.TableName = "ReimbRequestDetailInfo";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            internal ReimbRequestDetailInfoDataTable(global::System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            protected ReimbRequestDetailInfoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn ReimbRequestDetailIDColumn {
-                get {
-                    return this.columnReimbRequestDetailID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn ReimbRequestIDColumn {
-                get {
-                    return this.columnReimbRequestID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn ReimbRequestTRDateColumn {
-                get {
-                    return this.columnReimbRequestTRDate;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn OBalanceColumn {
-                get {
-                    return this.columnOBalance;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn CrBalanceColumn {
-                get {
-                    return this.columnCrBalance;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn DrAmountColumn {
-                get {
-                    return this.columnDrAmount;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn CBalanceColumn {
-                get {
-                    return this.columnCBalance;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn CommentsColumn {
-                get {
-                    return this.columnComments;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn OrderIDColumn {
-                get {
-                    return this.columnOrderID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ReimbRequestDetailInfoRow this[int index] {
-                get {
-                    return ((ReimbRequestDetailInfoRow)(this.Rows[index]));
-                }
-            }
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event ReimbRequestDetailInfoRowChangeEventHandler ReimbRequestDetailInfoRowChanging;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event ReimbRequestDetailInfoRowChangeEventHandler ReimbRequestDetailInfoRowChanged;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event ReimbRequestDetailInfoRowChangeEventHandler ReimbRequestDetailInfoRowDeleting;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event ReimbRequestDetailInfoRowChangeEventHandler ReimbRequestDetailInfoRowDeleted;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void AddReimbRequestDetailInfoRow(ReimbRequestDetailInfoRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ReimbRequestDetailInfoRow AddReimbRequestDetailInfoRow(int ReimbRequestDetailID, ReimbRequestMasRow parentReimbRequestMasRowByReimbRequestMasReimbRequestDetailInfo, System.DateTime ReimbRequestTRDate, decimal OBalance, decimal CrBalance, decimal DrAmount, decimal CBalance, string Comments, int OrderID) {
-                ReimbRequestDetailInfoRow rowReimbRequestDetailInfoRow = ((ReimbRequestDetailInfoRow)(this.NewRow()));
-                object[] columnValuesArray = new object[] {
-                        ReimbRequestDetailID,
-                        null,
-                        ReimbRequestTRDate,
-                        OBalance,
-                        CrBalance,
-                        DrAmount,
-                        CBalance,
-                        Comments,
-                        OrderID};
-                if ((parentReimbRequestMasRowByReimbRequestMasReimbRequestDetailInfo != null)) {
-                    columnValuesArray[1] = parentReimbRequestMasRowByReimbRequestMasReimbRequestDetailInfo[0];
-                }
-                rowReimbRequestDetailInfoRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowReimbRequestDetailInfoRow);
-                return rowReimbRequestDetailInfoRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ReimbRequestDetailInfoRow FindByReimbRequestDetailID(int ReimbRequestDetailID) {
-                return ((ReimbRequestDetailInfoRow)(this.Rows.Find(new object[] {
-                            ReimbRequestDetailID})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public override global::System.Data.DataTable Clone() {
-                ReimbRequestDetailInfoDataTable cln = ((ReimbRequestDetailInfoDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            protected override global::System.Data.DataTable CreateInstance() {
-                return new ReimbRequestDetailInfoDataTable();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            internal void InitVars() {
-                this.columnReimbRequestDetailID = base.Columns["ReimbRequestDetailID"];
-                this.columnReimbRequestID = base.Columns["ReimbRequestID"];
-                this.columnReimbRequestTRDate = base.Columns["ReimbRequestTRDate"];
-                this.columnOBalance = base.Columns["OBalance"];
-                this.columnCrBalance = base.Columns["CrBalance"];
-                this.columnDrAmount = base.Columns["DrAmount"];
-                this.columnCBalance = base.Columns["CBalance"];
-                this.columnComments = base.Columns["Comments"];
-                this.columnOrderID = base.Columns["OrderID"];
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            private void InitClass() {
-                this.columnReimbRequestDetailID = new global::System.Data.DataColumn("ReimbRequestDetailID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnReimbRequestDetailID);
-                this.columnReimbRequestID = new global::System.Data.DataColumn("ReimbRequestID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnReimbRequestID);
-                this.columnReimbRequestTRDate = new global::System.Data.DataColumn("ReimbRequestTRDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnReimbRequestTRDate);
-                this.columnOBalance = new global::System.Data.DataColumn("OBalance", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnOBalance);
-                this.columnCrBalance = new global::System.Data.DataColumn("CrBalance", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCrBalance);
-                this.columnDrAmount = new global::System.Data.DataColumn("DrAmount", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDrAmount);
-                this.columnCBalance = new global::System.Data.DataColumn("CBalance", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCBalance);
-                this.columnComments = new global::System.Data.DataColumn("Comments", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnComments);
-                this.columnOrderID = new global::System.Data.DataColumn("OrderID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnOrderID);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnReimbRequestDetailID}, true));
-                this.columnReimbRequestDetailID.AllowDBNull = false;
-                this.columnReimbRequestDetailID.Unique = true;
-                this.columnComments.MaxLength = 536870910;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ReimbRequestDetailInfoRow NewReimbRequestDetailInfoRow() {
-                return ((ReimbRequestDetailInfoRow)(this.NewRow()));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ReimbRequestDetailInfoRow(builder);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            protected override global::System.Type GetRowType() {
-                return typeof(ReimbRequestDetailInfoRow);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.ReimbRequestDetailInfoRowChanged != null)) {
-                    this.ReimbRequestDetailInfoRowChanged(this, new ReimbRequestDetailInfoRowChangeEvent(((ReimbRequestDetailInfoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.ReimbRequestDetailInfoRowChanging != null)) {
-                    this.ReimbRequestDetailInfoRowChanging(this, new ReimbRequestDetailInfoRowChangeEvent(((ReimbRequestDetailInfoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.ReimbRequestDetailInfoRowDeleted != null)) {
-                    this.ReimbRequestDetailInfoRowDeleted(this, new ReimbRequestDetailInfoRowChangeEvent(((ReimbRequestDetailInfoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.ReimbRequestDetailInfoRowDeleting != null)) {
-                    this.ReimbRequestDetailInfoRowDeleting(this, new ReimbRequestDetailInfoRowChangeEvent(((ReimbRequestDetailInfoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void RemoveReimbRequestDetailInfoRow(ReimbRequestDetailInfoRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
-                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                DBStaffSync ds = new DBStaffSync();
-                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ReimbRequestDetailInfoDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
-                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
-                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
-                        global::System.Xml.Schema.XmlSchema schema = null;
-                        dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
-                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
-                            s2.SetLength(0);
-                            schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
-                                s1.Position = 0;
-                                s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
-                                    ;
-                                }
-                                if ((s1.Position == s1.Length)) {
-                                    return type;
-                                }
-                            }
-                        }
-                    }
-                    finally {
-                        if ((s1 != null)) {
-                            s1.Close();
-                        }
-                        if ((s2 != null)) {
-                            s2.Close();
-                        }
-                    }
-                }
-                xs.Add(dsSchema);
-                return type;
-            }
-        }
-        
-        /// <summary>
-        ///Represents the strongly named DataTable class.
-        ///</summary>
-        [global::System.Serializable()]
-        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class ReimbursRequestInfoDataTable : global::System.Data.TypedTableBase<ReimbursRequestInfoRow> {
             
             private global::System.Data.DataColumn columnReimbursRequestID;
@@ -62712,6 +62338,395 @@ namespace dbStaffSync {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "ReimbursRequestInfoDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class ReimbRequestDetailInfoDataTable : global::System.Data.TypedTableBase<ReimbRequestDetailInfoRow> {
+            
+            private global::System.Data.DataColumn columnReimbRequestDetailID;
+            
+            private global::System.Data.DataColumn columnReimbRequestID;
+            
+            private global::System.Data.DataColumn columnReimbRequestTRDate;
+            
+            private global::System.Data.DataColumn columnOBalance;
+            
+            private global::System.Data.DataColumn columnCrBalance;
+            
+            private global::System.Data.DataColumn columnDrAmount;
+            
+            private global::System.Data.DataColumn columnCBalance;
+            
+            private global::System.Data.DataColumn columnTRType;
+            
+            private global::System.Data.DataColumn columnComments;
+            
+            private global::System.Data.DataColumn columnOrderID;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public ReimbRequestDetailInfoDataTable() {
+                this.TableName = "ReimbRequestDetailInfo";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal ReimbRequestDetailInfoDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected ReimbRequestDetailInfoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ReimbRequestDetailIDColumn {
+                get {
+                    return this.columnReimbRequestDetailID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ReimbRequestIDColumn {
+                get {
+                    return this.columnReimbRequestID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ReimbRequestTRDateColumn {
+                get {
+                    return this.columnReimbRequestTRDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn OBalanceColumn {
+                get {
+                    return this.columnOBalance;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn CrBalanceColumn {
+                get {
+                    return this.columnCrBalance;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn DrAmountColumn {
+                get {
+                    return this.columnDrAmount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn CBalanceColumn {
+                get {
+                    return this.columnCBalance;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn TRTypeColumn {
+                get {
+                    return this.columnTRType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn CommentsColumn {
+                get {
+                    return this.columnComments;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn OrderIDColumn {
+                get {
+                    return this.columnOrderID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public ReimbRequestDetailInfoRow this[int index] {
+                get {
+                    return ((ReimbRequestDetailInfoRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event ReimbRequestDetailInfoRowChangeEventHandler ReimbRequestDetailInfoRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event ReimbRequestDetailInfoRowChangeEventHandler ReimbRequestDetailInfoRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event ReimbRequestDetailInfoRowChangeEventHandler ReimbRequestDetailInfoRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public event ReimbRequestDetailInfoRowChangeEventHandler ReimbRequestDetailInfoRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void AddReimbRequestDetailInfoRow(ReimbRequestDetailInfoRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public ReimbRequestDetailInfoRow AddReimbRequestDetailInfoRow(int ReimbRequestDetailID, ReimbRequestMasRow parentReimbRequestMasRowByReimbRequestMasReimbRequestDetailInfo, System.DateTime ReimbRequestTRDate, decimal OBalance, decimal CrBalance, decimal DrAmount, decimal CBalance, string TRType, string Comments, int OrderID) {
+                ReimbRequestDetailInfoRow rowReimbRequestDetailInfoRow = ((ReimbRequestDetailInfoRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        ReimbRequestDetailID,
+                        null,
+                        ReimbRequestTRDate,
+                        OBalance,
+                        CrBalance,
+                        DrAmount,
+                        CBalance,
+                        TRType,
+                        Comments,
+                        OrderID};
+                if ((parentReimbRequestMasRowByReimbRequestMasReimbRequestDetailInfo != null)) {
+                    columnValuesArray[1] = parentReimbRequestMasRowByReimbRequestMasReimbRequestDetailInfo[0];
+                }
+                rowReimbRequestDetailInfoRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowReimbRequestDetailInfoRow);
+                return rowReimbRequestDetailInfoRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public ReimbRequestDetailInfoRow FindByReimbRequestDetailID(int ReimbRequestDetailID) {
+                return ((ReimbRequestDetailInfoRow)(this.Rows.Find(new object[] {
+                            ReimbRequestDetailID})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                ReimbRequestDetailInfoDataTable cln = ((ReimbRequestDetailInfoDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new ReimbRequestDetailInfoDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal void InitVars() {
+                this.columnReimbRequestDetailID = base.Columns["ReimbRequestDetailID"];
+                this.columnReimbRequestID = base.Columns["ReimbRequestID"];
+                this.columnReimbRequestTRDate = base.Columns["ReimbRequestTRDate"];
+                this.columnOBalance = base.Columns["OBalance"];
+                this.columnCrBalance = base.Columns["CrBalance"];
+                this.columnDrAmount = base.Columns["DrAmount"];
+                this.columnCBalance = base.Columns["CBalance"];
+                this.columnTRType = base.Columns["TRType"];
+                this.columnComments = base.Columns["Comments"];
+                this.columnOrderID = base.Columns["OrderID"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            private void InitClass() {
+                this.columnReimbRequestDetailID = new global::System.Data.DataColumn("ReimbRequestDetailID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReimbRequestDetailID);
+                this.columnReimbRequestID = new global::System.Data.DataColumn("ReimbRequestID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReimbRequestID);
+                this.columnReimbRequestTRDate = new global::System.Data.DataColumn("ReimbRequestTRDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReimbRequestTRDate);
+                this.columnOBalance = new global::System.Data.DataColumn("OBalance", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOBalance);
+                this.columnCrBalance = new global::System.Data.DataColumn("CrBalance", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCrBalance);
+                this.columnDrAmount = new global::System.Data.DataColumn("DrAmount", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDrAmount);
+                this.columnCBalance = new global::System.Data.DataColumn("CBalance", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCBalance);
+                this.columnTRType = new global::System.Data.DataColumn("TRType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTRType);
+                this.columnComments = new global::System.Data.DataColumn("Comments", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnComments);
+                this.columnOrderID = new global::System.Data.DataColumn("OrderID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOrderID);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnReimbRequestDetailID}, true));
+                this.columnReimbRequestDetailID.AllowDBNull = false;
+                this.columnReimbRequestDetailID.Unique = true;
+                this.columnTRType.MaxLength = 255;
+                this.columnComments.MaxLength = 536870910;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public ReimbRequestDetailInfoRow NewReimbRequestDetailInfoRow() {
+                return ((ReimbRequestDetailInfoRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new ReimbRequestDetailInfoRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(ReimbRequestDetailInfoRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.ReimbRequestDetailInfoRowChanged != null)) {
+                    this.ReimbRequestDetailInfoRowChanged(this, new ReimbRequestDetailInfoRowChangeEvent(((ReimbRequestDetailInfoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.ReimbRequestDetailInfoRowChanging != null)) {
+                    this.ReimbRequestDetailInfoRowChanging(this, new ReimbRequestDetailInfoRowChangeEvent(((ReimbRequestDetailInfoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.ReimbRequestDetailInfoRowDeleted != null)) {
+                    this.ReimbRequestDetailInfoRowDeleted(this, new ReimbRequestDetailInfoRowChangeEvent(((ReimbRequestDetailInfoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.ReimbRequestDetailInfoRowDeleting != null)) {
+                    this.ReimbRequestDetailInfoRowDeleting(this, new ReimbRequestDetailInfoRowChangeEvent(((ReimbRequestDetailInfoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void RemoveReimbRequestDetailInfoRow(ReimbRequestDetailInfoRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                DBStaffSync ds = new DBStaffSync();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "ReimbRequestDetailInfoDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -104724,269 +104739,6 @@ namespace dbStaffSync {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class ReimbRequestDetailInfoRow : global::System.Data.DataRow {
-            
-            private ReimbRequestDetailInfoDataTable tableReimbRequestDetailInfo;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            internal ReimbRequestDetailInfoRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableReimbRequestDetailInfo = ((ReimbRequestDetailInfoDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int ReimbRequestDetailID {
-                get {
-                    return ((int)(this[this.tableReimbRequestDetailInfo.ReimbRequestDetailIDColumn]));
-                }
-                set {
-                    this[this.tableReimbRequestDetailInfo.ReimbRequestDetailIDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int ReimbRequestID {
-                get {
-                    try {
-                        return ((int)(this[this.tableReimbRequestDetailInfo.ReimbRequestIDColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ReimbRequestID\' in table \'ReimbRequestDetailInfo\' is DBNull" +
-                                ".", e);
-                    }
-                }
-                set {
-                    this[this.tableReimbRequestDetailInfo.ReimbRequestIDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public System.DateTime ReimbRequestTRDate {
-                get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tableReimbRequestDetailInfo.ReimbRequestTRDateColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ReimbRequestTRDate\' in table \'ReimbRequestDetailInfo\' is DB" +
-                                "Null.", e);
-                    }
-                }
-                set {
-                    this[this.tableReimbRequestDetailInfo.ReimbRequestTRDateColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public decimal OBalance {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableReimbRequestDetailInfo.OBalanceColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'OBalance\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReimbRequestDetailInfo.OBalanceColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public decimal CrBalance {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableReimbRequestDetailInfo.CrBalanceColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'CrBalance\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReimbRequestDetailInfo.CrBalanceColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public decimal DrAmount {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableReimbRequestDetailInfo.DrAmountColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DrAmount\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReimbRequestDetailInfo.DrAmountColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public decimal CBalance {
-                get {
-                    try {
-                        return ((decimal)(this[this.tableReimbRequestDetailInfo.CBalanceColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'CBalance\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReimbRequestDetailInfo.CBalanceColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string Comments {
-                get {
-                    try {
-                        return ((string)(this[this.tableReimbRequestDetailInfo.CommentsColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Comments\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReimbRequestDetailInfo.CommentsColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int OrderID {
-                get {
-                    try {
-                        return ((int)(this[this.tableReimbRequestDetailInfo.OrderIDColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'OrderID\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableReimbRequestDetailInfo.OrderIDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ReimbRequestMasRow ReimbRequestMasRow {
-                get {
-                    return ((ReimbRequestMasRow)(this.GetParentRow(this.Table.ParentRelations["ReimbRequestMasReimbRequestDetailInfo"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["ReimbRequestMasReimbRequestDetailInfo"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsReimbRequestIDNull() {
-                return this.IsNull(this.tableReimbRequestDetailInfo.ReimbRequestIDColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetReimbRequestIDNull() {
-                this[this.tableReimbRequestDetailInfo.ReimbRequestIDColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsReimbRequestTRDateNull() {
-                return this.IsNull(this.tableReimbRequestDetailInfo.ReimbRequestTRDateColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetReimbRequestTRDateNull() {
-                this[this.tableReimbRequestDetailInfo.ReimbRequestTRDateColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsOBalanceNull() {
-                return this.IsNull(this.tableReimbRequestDetailInfo.OBalanceColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetOBalanceNull() {
-                this[this.tableReimbRequestDetailInfo.OBalanceColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsCrBalanceNull() {
-                return this.IsNull(this.tableReimbRequestDetailInfo.CrBalanceColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetCrBalanceNull() {
-                this[this.tableReimbRequestDetailInfo.CrBalanceColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsDrAmountNull() {
-                return this.IsNull(this.tableReimbRequestDetailInfo.DrAmountColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetDrAmountNull() {
-                this[this.tableReimbRequestDetailInfo.DrAmountColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsCBalanceNull() {
-                return this.IsNull(this.tableReimbRequestDetailInfo.CBalanceColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetCBalanceNull() {
-                this[this.tableReimbRequestDetailInfo.CBalanceColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsCommentsNull() {
-                return this.IsNull(this.tableReimbRequestDetailInfo.CommentsColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetCommentsNull() {
-                this[this.tableReimbRequestDetailInfo.CommentsColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsOrderIDNull() {
-                return this.IsNull(this.tableReimbRequestDetailInfo.OrderIDColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetOrderIDNull() {
-                this[this.tableReimbRequestDetailInfo.OrderIDColumn] = global::System.Convert.DBNull;
-            }
-        }
-        
-        /// <summary>
-        ///Represents strongly named DataRow class.
-        ///</summary>
         public partial class ReimbursRequestInfoRow : global::System.Data.DataRow {
             
             private ReimbursRequestInfoDataTable tableReimbursRequestInfo;
@@ -105529,6 +105281,297 @@ namespace dbStaffSync {
                 else {
                     return ((ReimbRequestMasRow[])(base.GetChildRows(this.Table.ChildRelations["ReimbursRequestInfoReimbRequestMas"])));
                 }
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class ReimbRequestDetailInfoRow : global::System.Data.DataRow {
+            
+            private ReimbRequestDetailInfoDataTable tableReimbRequestDetailInfo;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            internal ReimbRequestDetailInfoRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableReimbRequestDetailInfo = ((ReimbRequestDetailInfoDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int ReimbRequestDetailID {
+                get {
+                    return ((int)(this[this.tableReimbRequestDetailInfo.ReimbRequestDetailIDColumn]));
+                }
+                set {
+                    this[this.tableReimbRequestDetailInfo.ReimbRequestDetailIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int ReimbRequestID {
+                get {
+                    try {
+                        return ((int)(this[this.tableReimbRequestDetailInfo.ReimbRequestIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ReimbRequestID\' in table \'ReimbRequestDetailInfo\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableReimbRequestDetailInfo.ReimbRequestIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public System.DateTime ReimbRequestTRDate {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableReimbRequestDetailInfo.ReimbRequestTRDateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ReimbRequestTRDate\' in table \'ReimbRequestDetailInfo\' is DB" +
+                                "Null.", e);
+                    }
+                }
+                set {
+                    this[this.tableReimbRequestDetailInfo.ReimbRequestTRDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public decimal OBalance {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableReimbRequestDetailInfo.OBalanceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OBalance\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReimbRequestDetailInfo.OBalanceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public decimal CrBalance {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableReimbRequestDetailInfo.CrBalanceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CrBalance\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReimbRequestDetailInfo.CrBalanceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public decimal DrAmount {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableReimbRequestDetailInfo.DrAmountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DrAmount\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReimbRequestDetailInfo.DrAmountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public decimal CBalance {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableReimbRequestDetailInfo.CBalanceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CBalance\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReimbRequestDetailInfo.CBalanceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string TRType {
+                get {
+                    try {
+                        return ((string)(this[this.tableReimbRequestDetailInfo.TRTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TRType\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReimbRequestDetailInfo.TRTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string Comments {
+                get {
+                    try {
+                        return ((string)(this[this.tableReimbRequestDetailInfo.CommentsColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Comments\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReimbRequestDetailInfo.CommentsColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int OrderID {
+                get {
+                    try {
+                        return ((int)(this[this.tableReimbRequestDetailInfo.OrderIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'OrderID\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReimbRequestDetailInfo.OrderIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public ReimbRequestMasRow ReimbRequestMasRow {
+                get {
+                    return ((ReimbRequestMasRow)(this.GetParentRow(this.Table.ParentRelations["ReimbRequestMasReimbRequestDetailInfo"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["ReimbRequestMasReimbRequestDetailInfo"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsReimbRequestIDNull() {
+                return this.IsNull(this.tableReimbRequestDetailInfo.ReimbRequestIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetReimbRequestIDNull() {
+                this[this.tableReimbRequestDetailInfo.ReimbRequestIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsReimbRequestTRDateNull() {
+                return this.IsNull(this.tableReimbRequestDetailInfo.ReimbRequestTRDateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetReimbRequestTRDateNull() {
+                this[this.tableReimbRequestDetailInfo.ReimbRequestTRDateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsOBalanceNull() {
+                return this.IsNull(this.tableReimbRequestDetailInfo.OBalanceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetOBalanceNull() {
+                this[this.tableReimbRequestDetailInfo.OBalanceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsCrBalanceNull() {
+                return this.IsNull(this.tableReimbRequestDetailInfo.CrBalanceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetCrBalanceNull() {
+                this[this.tableReimbRequestDetailInfo.CrBalanceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsDrAmountNull() {
+                return this.IsNull(this.tableReimbRequestDetailInfo.DrAmountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetDrAmountNull() {
+                this[this.tableReimbRequestDetailInfo.DrAmountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsCBalanceNull() {
+                return this.IsNull(this.tableReimbRequestDetailInfo.CBalanceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetCBalanceNull() {
+                this[this.tableReimbRequestDetailInfo.CBalanceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsTRTypeNull() {
+                return this.IsNull(this.tableReimbRequestDetailInfo.TRTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetTRTypeNull() {
+                this[this.tableReimbRequestDetailInfo.TRTypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsCommentsNull() {
+                return this.IsNull(this.tableReimbRequestDetailInfo.CommentsColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetCommentsNull() {
+                this[this.tableReimbRequestDetailInfo.CommentsColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsOrderIDNull() {
+                return this.IsNull(this.tableReimbRequestDetailInfo.OrderIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetOrderIDNull() {
+                this[this.tableReimbRequestDetailInfo.OrderIDColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -110432,22 +110475,22 @@ namespace dbStaffSync {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public class ReimbRequestDetailInfoRowChangeEvent : global::System.EventArgs {
+        public class ReimbursRequestInfoRowChangeEvent : global::System.EventArgs {
             
-            private ReimbRequestDetailInfoRow eventRow;
+            private ReimbursRequestInfoRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ReimbRequestDetailInfoRowChangeEvent(ReimbRequestDetailInfoRow row, global::System.Data.DataRowAction action) {
+            public ReimbursRequestInfoRowChangeEvent(ReimbursRequestInfoRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ReimbRequestDetailInfoRow Row {
+            public ReimbursRequestInfoRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -110466,22 +110509,22 @@ namespace dbStaffSync {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public class ReimbursRequestInfoRowChangeEvent : global::System.EventArgs {
+        public class ReimbRequestDetailInfoRowChangeEvent : global::System.EventArgs {
             
-            private ReimbursRequestInfoRow eventRow;
+            private ReimbRequestDetailInfoRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ReimbursRequestInfoRowChangeEvent(ReimbursRequestInfoRow row, global::System.Data.DataRowAction action) {
+            public ReimbRequestDetailInfoRowChangeEvent(ReimbRequestDetailInfoRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ReimbursRequestInfoRow Row {
+            public ReimbRequestDetailInfoRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -173032,589 +173075,6 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class ReimbRequestDetailInfoTableAdapter : global::System.ComponentModel.Component {
-        
-        private global::System.Data.OleDb.OleDbDataAdapter _adapter;
-        
-        private global::System.Data.OleDb.OleDbConnection _connection;
-        
-        private global::System.Data.OleDb.OleDbTransaction _transaction;
-        
-        private global::System.Data.OleDb.OleDbCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public ReimbRequestDetailInfoTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        protected internal global::System.Data.OleDb.OleDbDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        internal global::System.Data.OleDb.OleDbConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((global::System.Data.OleDb.OleDbCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        internal global::System.Data.OleDb.OleDbTransaction Transaction {
-            get {
-                return this._transaction;
-            }
-            set {
-                this._transaction = value;
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    this.CommandCollection[i].Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.DeleteCommand != null))) {
-                    this.Adapter.DeleteCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.InsertCommand != null))) {
-                    this.Adapter.InsertCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.UpdateCommand != null))) {
-                    this.Adapter.UpdateCommand.Transaction = this._transaction;
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        protected global::System.Data.OleDb.OleDbCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private void InitAdapter() {
-            this._adapter = new global::System.Data.OleDb.OleDbDataAdapter();
-            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "ReimbRequestDetailInfo";
-            tableMapping.ColumnMappings.Add("ReimbRequestDetailID", "ReimbRequestDetailID");
-            tableMapping.ColumnMappings.Add("ReimbRequestID", "ReimbRequestID");
-            tableMapping.ColumnMappings.Add("ReimbRequestTRDate", "ReimbRequestTRDate");
-            tableMapping.ColumnMappings.Add("OBalance", "OBalance");
-            tableMapping.ColumnMappings.Add("CrBalance", "CrBalance");
-            tableMapping.ColumnMappings.Add("DrAmount", "DrAmount");
-            tableMapping.ColumnMappings.Add("CBalance", "CBalance");
-            tableMapping.ColumnMappings.Add("Comments", "Comments");
-            tableMapping.ColumnMappings.Add("OrderID", "OrderID");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `ReimbRequestDetailInfo` WHERE ((`ReimbRequestDetailID` = ?) AND ((? = 1 AND `ReimbRequestID` IS NULL) OR (`ReimbRequestID` = ?)) AND ((? = 1 AND `ReimbRequestTRDate` IS NULL) OR (`ReimbRequestTRDate` = ?)) AND ((? = 1 AND `OBalance` IS NULL) OR (`OBalance` = ?)) AND ((? = 1 AND `CrBalance` IS NULL) OR (`CrBalance` = ?)) AND ((? = 1 AND `DrAmount` IS NULL) OR (`DrAmount` = ?)) AND ((? = 1 AND `CBalance` IS NULL) OR (`CBalance` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestDetailID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestDetailID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CrBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CrBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_DrAmount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_DrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `ReimbRequestDetailInfo` (`ReimbRequestDetailID`, `ReimbRequestID`, `" +
-                "ReimbRequestTRDate`, `OBalance`, `CrBalance`, `DrAmount`, `CBalance`, `Comments`" +
-                ", `OrderID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestDetailID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestDetailID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CrBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Comments", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Comments", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `ReimbRequestDetailInfo` SET `ReimbRequestDetailID` = ?, `ReimbRequestID` = ?, `ReimbRequestTRDate` = ?, `OBalance` = ?, `CrBalance` = ?, `DrAmount` = ?, `CBalance` = ?, `Comments` = ?, `OrderID` = ? WHERE ((`ReimbRequestDetailID` = ?) AND ((? = 1 AND `ReimbRequestID` IS NULL) OR (`ReimbRequestID` = ?)) AND ((? = 1 AND `ReimbRequestTRDate` IS NULL) OR (`ReimbRequestTRDate` = ?)) AND ((? = 1 AND `OBalance` IS NULL) OR (`OBalance` = ?)) AND ((? = 1 AND `CrBalance` IS NULL) OR (`CrBalance` = ?)) AND ((? = 1 AND `DrAmount` IS NULL) OR (`DrAmount` = ?)) AND ((? = 1 AND `CBalance` IS NULL) OR (`CBalance` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestDetailID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestDetailID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CrBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Comments", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Comments", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestDetailID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestDetailID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CrBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CrBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_DrAmount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_DrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Original, false, null));
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private void InitConnection() {
-            this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::dbStaffSync.Properties.Settings.Default.StaffsyncDBConnectionString;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
-            this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ReimbRequestDetailID, ReimbRequestID, ReimbRequestTRDate, OBalance, CrBala" +
-                "nce, DrAmount, CBalance, Comments, OrderID FROM ReimbRequestDetailInfo";
-            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(DBStaffSync.ReimbRequestDetailInfoDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual DBStaffSync.ReimbRequestDetailInfoDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            DBStaffSync.ReimbRequestDetailInfoDataTable dataTable = new DBStaffSync.ReimbRequestDetailInfoDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(DBStaffSync.ReimbRequestDetailInfoDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(DBStaffSync dataSet) {
-            return this.Adapter.Update(dataSet, "ReimbRequestDetailInfo");
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new global::System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ReimbRequestDetailID, global::System.Nullable<int> Original_ReimbRequestID, global::System.Nullable<global::System.DateTime> Original_ReimbRequestTRDate, global::System.Nullable<decimal> Original_OBalance, global::System.Nullable<decimal> Original_CrBalance, global::System.Nullable<decimal> Original_DrAmount, global::System.Nullable<decimal> Original_CBalance, global::System.Nullable<int> Original_OrderID) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ReimbRequestDetailID));
-            if ((Original_ReimbRequestID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_ReimbRequestID.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            if ((Original_ReimbRequestTRDate.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((System.DateTime)(Original_ReimbRequestTRDate.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            if ((Original_OBalance.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((decimal)(Original_OBalance.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            if ((Original_CrBalance.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((decimal)(Original_CrBalance.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            if ((Original_DrAmount.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((decimal)(Original_DrAmount.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            if ((Original_CBalance.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[12].Value = ((decimal)(Original_CBalance.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
-            if ((Original_OrderID.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[14].Value = ((int)(Original_OrderID.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[14].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ReimbRequestDetailID, global::System.Nullable<int> ReimbRequestID, global::System.Nullable<global::System.DateTime> ReimbRequestTRDate, global::System.Nullable<decimal> OBalance, global::System.Nullable<decimal> CrBalance, global::System.Nullable<decimal> DrAmount, global::System.Nullable<decimal> CBalance, string Comments, global::System.Nullable<int> OrderID) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ReimbRequestDetailID));
-            if ((ReimbRequestID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(ReimbRequestID.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            if ((ReimbRequestTRDate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(ReimbRequestTRDate.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            if ((OBalance.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((decimal)(OBalance.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            if ((CrBalance.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(CrBalance.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            if ((DrAmount.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((decimal)(DrAmount.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            if ((CBalance.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((decimal)(CBalance.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            if ((Comments == null)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(Comments));
-            }
-            if ((OrderID.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((int)(OrderID.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(
-                    int ReimbRequestDetailID, 
-                    global::System.Nullable<int> ReimbRequestID, 
-                    global::System.Nullable<global::System.DateTime> ReimbRequestTRDate, 
-                    global::System.Nullable<decimal> OBalance, 
-                    global::System.Nullable<decimal> CrBalance, 
-                    global::System.Nullable<decimal> DrAmount, 
-                    global::System.Nullable<decimal> CBalance, 
-                    string Comments, 
-                    global::System.Nullable<int> OrderID, 
-                    int Original_ReimbRequestDetailID, 
-                    global::System.Nullable<int> Original_ReimbRequestID, 
-                    global::System.Nullable<global::System.DateTime> Original_ReimbRequestTRDate, 
-                    global::System.Nullable<decimal> Original_OBalance, 
-                    global::System.Nullable<decimal> Original_CrBalance, 
-                    global::System.Nullable<decimal> Original_DrAmount, 
-                    global::System.Nullable<decimal> Original_CBalance, 
-                    global::System.Nullable<int> Original_OrderID) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ReimbRequestDetailID));
-            if ((ReimbRequestID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(ReimbRequestID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            if ((ReimbRequestTRDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(ReimbRequestTRDate.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            if ((OBalance.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((decimal)(OBalance.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            if ((CrBalance.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(CrBalance.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            if ((DrAmount.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(DrAmount.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            if ((CBalance.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((decimal)(CBalance.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            if ((Comments == null)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Comments));
-            }
-            if ((OrderID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(OrderID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_ReimbRequestDetailID));
-            if ((Original_ReimbRequestID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_ReimbRequestID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
-            }
-            if ((Original_ReimbRequestTRDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((System.DateTime)(Original_ReimbRequestTRDate.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
-            }
-            if ((Original_OBalance.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((decimal)(Original_OBalance.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
-            }
-            if ((Original_CrBalance.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((decimal)(Original_CrBalance.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
-            }
-            if ((Original_DrAmount.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((decimal)(Original_DrAmount.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
-            }
-            if ((Original_CBalance.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((decimal)(Original_CBalance.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
-            }
-            if ((Original_OrderID.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((int)(Original_OrderID.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[23].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(
-                    global::System.Nullable<int> ReimbRequestID, 
-                    global::System.Nullable<global::System.DateTime> ReimbRequestTRDate, 
-                    global::System.Nullable<decimal> OBalance, 
-                    global::System.Nullable<decimal> CrBalance, 
-                    global::System.Nullable<decimal> DrAmount, 
-                    global::System.Nullable<decimal> CBalance, 
-                    string Comments, 
-                    global::System.Nullable<int> OrderID, 
-                    int Original_ReimbRequestDetailID, 
-                    global::System.Nullable<int> Original_ReimbRequestID, 
-                    global::System.Nullable<global::System.DateTime> Original_ReimbRequestTRDate, 
-                    global::System.Nullable<decimal> Original_OBalance, 
-                    global::System.Nullable<decimal> Original_CrBalance, 
-                    global::System.Nullable<decimal> Original_DrAmount, 
-                    global::System.Nullable<decimal> Original_CBalance, 
-                    global::System.Nullable<int> Original_OrderID) {
-            return this.Update(Original_ReimbRequestDetailID, ReimbRequestID, ReimbRequestTRDate, OBalance, CrBalance, DrAmount, CBalance, Comments, OrderID, Original_ReimbRequestDetailID, Original_ReimbRequestID, Original_ReimbRequestTRDate, Original_OBalance, Original_CrBalance, Original_DrAmount, Original_CBalance, Original_OrderID);
-        }
-    }
-    
-    /// <summary>
-    ///Represents the connection and commands used to retrieve and save data.
-    ///</summary>
-    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
-    [global::System.ComponentModel.ToolboxItem(true)]
-    [global::System.ComponentModel.DataObjectAttribute(true)]
-    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
     public partial class ReimbursRequestInfoTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.OleDb.OleDbDataAdapter _adapter;
@@ -174447,6 +173907,628 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class ReimbRequestDetailInfoTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.OleDb.OleDbDataAdapter _adapter;
+        
+        private global::System.Data.OleDb.OleDbConnection _connection;
+        
+        private global::System.Data.OleDb.OleDbTransaction _transaction;
+        
+        private global::System.Data.OleDb.OleDbCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public ReimbRequestDetailInfoTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected internal global::System.Data.OleDb.OleDbDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        internal global::System.Data.OleDb.OleDbConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.OleDb.OleDbCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        internal global::System.Data.OleDb.OleDbTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        protected global::System.Data.OleDb.OleDbCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.OleDb.OleDbDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "ReimbRequestDetailInfo";
+            tableMapping.ColumnMappings.Add("ReimbRequestDetailID", "ReimbRequestDetailID");
+            tableMapping.ColumnMappings.Add("ReimbRequestID", "ReimbRequestID");
+            tableMapping.ColumnMappings.Add("ReimbRequestTRDate", "ReimbRequestTRDate");
+            tableMapping.ColumnMappings.Add("OBalance", "OBalance");
+            tableMapping.ColumnMappings.Add("CrBalance", "CrBalance");
+            tableMapping.ColumnMappings.Add("DrAmount", "DrAmount");
+            tableMapping.ColumnMappings.Add("CBalance", "CBalance");
+            tableMapping.ColumnMappings.Add("TRType", "TRType");
+            tableMapping.ColumnMappings.Add("Comments", "Comments");
+            tableMapping.ColumnMappings.Add("OrderID", "OrderID");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `ReimbRequestDetailInfo` WHERE ((`ReimbRequestDetailID` = ?) AND ((? = 1 AND `ReimbRequestID` IS NULL) OR (`ReimbRequestID` = ?)) AND ((? = 1 AND `ReimbRequestTRDate` IS NULL) OR (`ReimbRequestTRDate` = ?)) AND ((? = 1 AND `OBalance` IS NULL) OR (`OBalance` = ?)) AND ((? = 1 AND `CrBalance` IS NULL) OR (`CrBalance` = ?)) AND ((? = 1 AND `DrAmount` IS NULL) OR (`DrAmount` = ?)) AND ((? = 1 AND `CBalance` IS NULL) OR (`CBalance` = ?)) AND ((? = 1 AND `TRType` IS NULL) OR (`TRType` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestDetailID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestDetailID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CrBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CrBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_DrAmount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_DrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_TRType", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TRType", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_TRType", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TRType", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `ReimbRequestDetailInfo` (`ReimbRequestDetailID`, `ReimbRequestID`, `" +
+                "ReimbRequestTRDate`, `OBalance`, `CrBalance`, `DrAmount`, `CBalance`, `TRType`, " +
+                "`Comments`, `OrderID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestDetailID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestDetailID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CrBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TRType", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TRType", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Comments", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Comments", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `ReimbRequestDetailInfo` SET `ReimbRequestDetailID` = ?, `ReimbRequestID` = ?, `ReimbRequestTRDate` = ?, `OBalance` = ?, `CrBalance` = ?, `DrAmount` = ?, `CBalance` = ?, `TRType` = ?, `Comments` = ?, `OrderID` = ? WHERE ((`ReimbRequestDetailID` = ?) AND ((? = 1 AND `ReimbRequestID` IS NULL) OR (`ReimbRequestID` = ?)) AND ((? = 1 AND `ReimbRequestTRDate` IS NULL) OR (`ReimbRequestTRDate` = ?)) AND ((? = 1 AND `OBalance` IS NULL) OR (`OBalance` = ?)) AND ((? = 1 AND `CrBalance` IS NULL) OR (`CrBalance` = ?)) AND ((? = 1 AND `DrAmount` IS NULL) OR (`DrAmount` = ?)) AND ((? = 1 AND `CBalance` IS NULL) OR (`CBalance` = ?)) AND ((? = 1 AND `TRType` IS NULL) OR (`TRType` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestDetailID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestDetailID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CrBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TRType", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TRType", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Comments", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Comments", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestDetailID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestDetailID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CrBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CrBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_DrAmount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_DrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_TRType", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TRType", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_TRType", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TRType", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Original, false, null));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.OleDb.OleDbConnection();
+            this._connection.ConnectionString = global::dbStaffSync.Properties.Settings.Default.StaffsyncDBConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
+            this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT ReimbRequestDetailID, ReimbRequestID, ReimbRequestTRDate, OBalance, CrBala" +
+                "nce, DrAmount, CBalance, TRType, Comments, OrderID FROM ReimbRequestDetailInfo";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(DBStaffSync.ReimbRequestDetailInfoDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual DBStaffSync.ReimbRequestDetailInfoDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            DBStaffSync.ReimbRequestDetailInfoDataTable dataTable = new DBStaffSync.ReimbRequestDetailInfoDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(DBStaffSync.ReimbRequestDetailInfoDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(DBStaffSync dataSet) {
+            return this.Adapter.Update(dataSet, "ReimbRequestDetailInfo");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_ReimbRequestDetailID, global::System.Nullable<int> Original_ReimbRequestID, global::System.Nullable<global::System.DateTime> Original_ReimbRequestTRDate, global::System.Nullable<decimal> Original_OBalance, global::System.Nullable<decimal> Original_CrBalance, global::System.Nullable<decimal> Original_DrAmount, global::System.Nullable<decimal> Original_CBalance, string Original_TRType, global::System.Nullable<int> Original_OrderID) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ReimbRequestDetailID));
+            if ((Original_ReimbRequestID.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_ReimbRequestID.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((Original_ReimbRequestTRDate.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((System.DateTime)(Original_ReimbRequestTRDate.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((Original_OBalance.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((decimal)(Original_OBalance.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((Original_CrBalance.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((decimal)(Original_CrBalance.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            if ((Original_DrAmount.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((decimal)(Original_DrAmount.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            if ((Original_CBalance.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[12].Value = ((decimal)(Original_CBalance.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            if ((Original_TRType == null)) {
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((string)(Original_TRType));
+            }
+            if ((Original_OrderID.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[16].Value = ((int)(Original_OrderID.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(int ReimbRequestDetailID, global::System.Nullable<int> ReimbRequestID, global::System.Nullable<global::System.DateTime> ReimbRequestTRDate, global::System.Nullable<decimal> OBalance, global::System.Nullable<decimal> CrBalance, global::System.Nullable<decimal> DrAmount, global::System.Nullable<decimal> CBalance, string TRType, string Comments, global::System.Nullable<int> OrderID) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ReimbRequestDetailID));
+            if ((ReimbRequestID.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(ReimbRequestID.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((ReimbRequestTRDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(ReimbRequestTRDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((OBalance.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((decimal)(OBalance.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((CrBalance.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(CrBalance.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((DrAmount.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((decimal)(DrAmount.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((CBalance.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((decimal)(CBalance.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((TRType == null)) {
+                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(TRType));
+            }
+            if ((Comments == null)) {
+                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(Comments));
+            }
+            if ((OrderID.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[9].Value = ((int)(OrderID.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(
+                    int ReimbRequestDetailID, 
+                    global::System.Nullable<int> ReimbRequestID, 
+                    global::System.Nullable<global::System.DateTime> ReimbRequestTRDate, 
+                    global::System.Nullable<decimal> OBalance, 
+                    global::System.Nullable<decimal> CrBalance, 
+                    global::System.Nullable<decimal> DrAmount, 
+                    global::System.Nullable<decimal> CBalance, 
+                    string TRType, 
+                    string Comments, 
+                    global::System.Nullable<int> OrderID, 
+                    int Original_ReimbRequestDetailID, 
+                    global::System.Nullable<int> Original_ReimbRequestID, 
+                    global::System.Nullable<global::System.DateTime> Original_ReimbRequestTRDate, 
+                    global::System.Nullable<decimal> Original_OBalance, 
+                    global::System.Nullable<decimal> Original_CrBalance, 
+                    global::System.Nullable<decimal> Original_DrAmount, 
+                    global::System.Nullable<decimal> Original_CBalance, 
+                    string Original_TRType, 
+                    global::System.Nullable<int> Original_OrderID) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ReimbRequestDetailID));
+            if ((ReimbRequestID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(ReimbRequestID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((ReimbRequestTRDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(ReimbRequestTRDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((OBalance.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((decimal)(OBalance.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            if ((CrBalance.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(CrBalance.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((DrAmount.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(DrAmount.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            if ((CBalance.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((decimal)(CBalance.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((TRType == null)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(TRType));
+            }
+            if ((Comments == null)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Comments));
+            }
+            if ((OrderID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(OrderID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_ReimbRequestDetailID));
+            if ((Original_ReimbRequestID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_ReimbRequestID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            if ((Original_ReimbRequestTRDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((System.DateTime)(Original_ReimbRequestTRDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            if ((Original_OBalance.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((decimal)(Original_OBalance.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            if ((Original_CrBalance.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((decimal)(Original_CrBalance.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
+            }
+            if ((Original_DrAmount.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((decimal)(Original_DrAmount.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
+            }
+            if ((Original_CBalance.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((decimal)(Original_CBalance.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[22].Value = global::System.DBNull.Value;
+            }
+            if ((Original_TRType == null)) {
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[24].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[24].Value = ((string)(Original_TRType));
+            }
+            if ((Original_OrderID.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((int)(Original_OrderID.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[26].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(
+                    global::System.Nullable<int> ReimbRequestID, 
+                    global::System.Nullable<global::System.DateTime> ReimbRequestTRDate, 
+                    global::System.Nullable<decimal> OBalance, 
+                    global::System.Nullable<decimal> CrBalance, 
+                    global::System.Nullable<decimal> DrAmount, 
+                    global::System.Nullable<decimal> CBalance, 
+                    string TRType, 
+                    string Comments, 
+                    global::System.Nullable<int> OrderID, 
+                    int Original_ReimbRequestDetailID, 
+                    global::System.Nullable<int> Original_ReimbRequestID, 
+                    global::System.Nullable<global::System.DateTime> Original_ReimbRequestTRDate, 
+                    global::System.Nullable<decimal> Original_OBalance, 
+                    global::System.Nullable<decimal> Original_CrBalance, 
+                    global::System.Nullable<decimal> Original_DrAmount, 
+                    global::System.Nullable<decimal> Original_CBalance, 
+                    string Original_TRType, 
+                    global::System.Nullable<int> Original_OrderID) {
+            return this.Update(Original_ReimbRequestDetailID, ReimbRequestID, ReimbRequestTRDate, OBalance, CrBalance, DrAmount, CBalance, TRType, Comments, OrderID, Original_ReimbRequestDetailID, Original_ReimbRequestID, Original_ReimbRequestTRDate, Original_OBalance, Original_CrBalance, Original_DrAmount, Original_CBalance, Original_TRType, Original_OrderID);
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
     public partial class QueriesTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.IDbCommand[] _commandCollection;
@@ -174727,9 +174809,9 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
         
         private ReimbRequestMasTableAdapter _reimbRequestMasTableAdapter;
         
-        private ReimbRequestDetailInfoTableAdapter _reimbRequestDetailInfoTableAdapter;
-        
         private ReimbursRequestInfoTableAdapter _reimbursRequestInfoTableAdapter;
+        
+        private ReimbRequestDetailInfoTableAdapter _reimbRequestDetailInfoTableAdapter;
         
         private bool _backupDataSetBeforeUpdate;
         
@@ -176109,12 +176191,12 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
         [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
             "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
             "a", "System.Drawing.Design.UITypeEditor")]
-        public ReimbRequestDetailInfoTableAdapter ReimbRequestDetailInfoTableAdapter {
+        public ReimbursRequestInfoTableAdapter ReimbursRequestInfoTableAdapter {
             get {
-                return this._reimbRequestDetailInfoTableAdapter;
+                return this._reimbursRequestInfoTableAdapter;
             }
             set {
-                this._reimbRequestDetailInfoTableAdapter = value;
+                this._reimbursRequestInfoTableAdapter = value;
             }
         }
         
@@ -176123,12 +176205,12 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
         [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
             "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
             "a", "System.Drawing.Design.UITypeEditor")]
-        public ReimbursRequestInfoTableAdapter ReimbursRequestInfoTableAdapter {
+        public ReimbRequestDetailInfoTableAdapter ReimbRequestDetailInfoTableAdapter {
             get {
-                return this._reimbursRequestInfoTableAdapter;
+                return this._reimbRequestDetailInfoTableAdapter;
             }
             set {
-                this._reimbursRequestInfoTableAdapter = value;
+                this._reimbRequestDetailInfoTableAdapter = value;
             }
         }
         
@@ -176539,13 +176621,13 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                             && (this._reimbRequestMasTableAdapter.Connection != null))) {
                     return this._reimbRequestMasTableAdapter.Connection;
                 }
-                if (((this._reimbRequestDetailInfoTableAdapter != null) 
-                            && (this._reimbRequestDetailInfoTableAdapter.Connection != null))) {
-                    return this._reimbRequestDetailInfoTableAdapter.Connection;
-                }
                 if (((this._reimbursRequestInfoTableAdapter != null) 
                             && (this._reimbursRequestInfoTableAdapter.Connection != null))) {
                     return this._reimbursRequestInfoTableAdapter.Connection;
+                }
+                if (((this._reimbRequestDetailInfoTableAdapter != null) 
+                            && (this._reimbRequestDetailInfoTableAdapter.Connection != null))) {
+                    return this._reimbRequestDetailInfoTableAdapter.Connection;
                 }
                 return null;
             }
@@ -176851,10 +176933,10 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                 if ((this._reimbRequestMasTableAdapter != null)) {
                     count = (count + 1);
                 }
-                if ((this._reimbRequestDetailInfoTableAdapter != null)) {
+                if ((this._reimbursRequestInfoTableAdapter != null)) {
                     count = (count + 1);
                 }
-                if ((this._reimbursRequestInfoTableAdapter != null)) {
+                if ((this._reimbRequestDetailInfoTableAdapter != null)) {
                     count = (count + 1);
                 }
                 return count;
@@ -176868,21 +176950,21 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private int UpdateUpdatedRows(DBStaffSync dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._finYearMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.FinYearMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._finYearMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._stateMasTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.StateMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._stateMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._finYearMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.FinYearMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._finYearMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -176904,21 +176986,21 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._empMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._empMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._sexMasTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._sexMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._empMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -176949,12 +177031,30 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._bloodGroupMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._bloodGroupMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._contactPersonMasTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.ContactPersonMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._contactPersonMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._depMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.DepMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._depMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -176967,21 +177067,21 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._bloodGroupMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._assetCategoryMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.AssetCategoryMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._bloodGroupMasTableAdapter.Update(updatedRows));
+                    result = (result + this._assetCategoryMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._depMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.DepMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._reimbursementHeaderMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ReimbursementHeaderMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._depMasTableAdapter.Update(updatedRows));
+                    result = (result + this._reimbursementHeaderMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177003,66 +177103,12 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._reimbursementHeaderMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ReimbursementHeaderMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._reimbursementHeaderMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._personalInfoMasTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.PersonalInfoMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._personalInfoMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._assetCategoryMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.AssetCategoryMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._assetCategoryMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._schedulerJobMasterTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.SchedulerJobMaster.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._schedulerJobMasterTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._empSalMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpSalMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._empSalMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._deductionHeaderMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.DeductionHeaderMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._deductionHeaderMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._advanceTypeMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.AdvanceTypeMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._advanceTypeMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177084,111 +177130,39 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._publicHolidayMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.PublicHolidayMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._empSalMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpSalMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._publicHolidayMasTableAdapter.Update(updatedRows));
+                    result = (result + this._empSalMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._eSIMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ESIMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._deductionHeaderMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.DeductionHeaderMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._eSIMasTableAdapter.Update(updatedRows));
+                    result = (result + this._deductionHeaderMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._pubHolTypeTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.PubHolType.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._schedulerJobMasterTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.SchedulerJobMaster.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._pubHolTypeTableAdapter.Update(updatedRows));
+                    result = (result + this._schedulerJobMasterTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._profTaxMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ProfTaxMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._advanceTypeMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.AdvanceTypeMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._profTaxMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._provFundMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ProvFundMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._provFundMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._empSalDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpSalDetails.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._empSalDetailsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._employmentTypeMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmploymentTypeMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._employmentTypeMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._empAssetRequestTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpAssetRequest.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._empAssetRequestTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._docUploadsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.DocUploads.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._docUploadsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._schedulerJobSettingsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.SchedulerJobSettings.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._schedulerJobSettingsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._bankMasInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.BankMasInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._bankMasInfoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._skillsMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._skillsMasTableAdapter.Update(updatedRows));
+                    result = (result + this._advanceTypeMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177201,39 +177175,30 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._taxSchemeInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.TaxSchemeInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._taxSchemeInfoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._skillsMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._skillsMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._usersTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Users.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._usersTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._dBChartInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.DBChartInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._dBChartInfoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._empAdvanceRequestMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpAdvanceRequestMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._empAdvanceRequestMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._appModulesTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.AppModules.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._appModulesTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177246,21 +177211,93 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._shiftMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ShiftMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._empAdvanceRequestMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpAdvanceRequestMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._shiftMasTableAdapter.Update(updatedRows));
+                    result = (result + this._empAdvanceRequestMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._taxSchemeInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.TaxSchemeInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._provFundMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ProvFundMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._taxSchemeInfoTableAdapter.Update(updatedRows));
+                    result = (result + this._provFundMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._profTaxMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ProfTaxMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._profTaxMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._pubHolTypeTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.PubHolType.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._pubHolTypeTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._eSIMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ESIMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._eSIMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._empAssetRequestTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpAssetRequest.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empAssetRequestTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._schedulerJobSettingsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.SchedulerJobSettings.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._schedulerJobSettingsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._empSalDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpSalDetails.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empSalDetailsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._dBChartInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.DBChartInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._dBChartInfoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._publicHolidayMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.PublicHolidayMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._publicHolidayMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177273,6 +177310,15 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._leaveMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.LeaveMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._leaveMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._lastCompDetMasTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -177282,30 +177328,12 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._relationShipMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._docUploadsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.DocUploads.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._relationShipMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._rolesTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Roles.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._rolesTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._leaveMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.LeaveMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._leaveMasTableAdapter.Update(updatedRows));
+                    result = (result + this._docUploadsTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177318,75 +177346,66 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._assetMasMoreDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.AssetMasMoreDetails.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._employmentTypeMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmploymentTypeMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._assetMasMoreDetailsTableAdapter.Update(updatedRows));
+                    result = (result + this._employmentTypeMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._empEduQualMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpEduQualMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._bankMasInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.BankMasInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._empEduQualMasTableAdapter.Update(updatedRows));
+                    result = (result + this._bankMasInfoTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._userAuditLogTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.UserAuditLog.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._rolesTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Roles.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._userAuditLogTableAdapter.Update(updatedRows));
+                    result = (result + this._rolesTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._empLeaveEntitlementTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpLeaveEntitlement.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._shiftMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ShiftMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._empLeaveEntitlementTableAdapter.Update(updatedRows));
+                    result = (result + this._shiftMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._emprContributionTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmprContribution.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._appModulesTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.AppModules.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._emprContributionTableAdapter.Update(updatedRows));
+                    result = (result + this._appModulesTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._allowanceHeaderMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.AllowanceHeaderMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._relationShipMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._allowanceHeaderMasTableAdapter.Update(updatedRows));
+                    result = (result + this._relationShipMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._clientSigningPersonTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ClientSigningPerson.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._assetRegisterTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.AssetRegister.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._clientSigningPersonTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._empAssetAllocationTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpAssetAllocation.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._empAssetAllocationTableAdapter.Update(updatedRows));
+                    result = (result + this._assetRegisterTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177399,6 +177418,123 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._empLeaveEntitlementTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpLeaveEntitlement.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empLeaveEntitlementTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._empAssetAllocationTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpAssetAllocation.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empAssetAllocationTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._assetMasMoreDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.AssetMasMoreDetails.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._assetMasMoreDetailsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._empSalProfileInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpSalProfileInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empSalProfileInfoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._userAuditLogTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.UserAuditLog.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._userAuditLogTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._empShiftInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpShiftInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empShiftInfoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._empSkillMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpSkillMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empSkillMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._allowanceHeaderMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.AllowanceHeaderMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._allowanceHeaderMasTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._empWebLoginInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpWebLoginInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empWebLoginInfoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._empTaxSchemeInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpTaxSchemeInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empTaxSchemeInfoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._clientSigningPersonTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ClientSigningPerson.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._clientSigningPersonTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._emprContributionTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmprContribution.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._emprContributionTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._schedulerJobHistoryTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.SchedulerJobHistory.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._schedulerJobHistoryTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._empDocMasTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.EmpDocMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -177408,21 +177544,12 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._empBankInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpBankInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._empDailyAttendanceInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpDailyAttendanceInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._empBankInfoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._empDBChartInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpDBChartInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._empDBChartInfoTableAdapter.Update(updatedRows));
+                    result = (result + this._empDailyAttendanceInfoTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177435,6 +177562,15 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._empDBChartInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpDBChartInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._empDBChartInfoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._pubHolidayDetailsTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.PubHolidayDetails.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -177444,12 +177580,12 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._assetRegisterTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.AssetRegister.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._empEduQualMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpEduQualMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._assetRegisterTableAdapter.Update(updatedRows));
+                    result = (result + this._empEduQualMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177471,12 +177607,12 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._eSIDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ESIDetails.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._printSettingsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.PrintSettings.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._eSIDetailsTableAdapter.Update(updatedRows));
+                    result = (result + this._printSettingsTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177489,57 +177625,30 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._empDailyAttendanceInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpDailyAttendanceInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._empBankInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpBankInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._empDailyAttendanceInfoTableAdapter.Update(updatedRows));
+                    result = (result + this._empBankInfoTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._schedulerJobHistoryTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.SchedulerJobHistory.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._empAdvanceDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpAdvanceDetails.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._schedulerJobHistoryTableAdapter.Update(updatedRows));
+                    result = (result + this._empAdvanceDetailsTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._empWebLoginInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpWebLoginInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._eSIDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ESIDetails.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._empWebLoginInfoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._printSettingsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.PrintSettings.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._printSettingsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._empBatchAttndEntrNotProcTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpBatchAttndEntrNotProc.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._empBatchAttndEntrNotProcTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._appUserTasksTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.AppUserTasks.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._appUserTasksTableAdapter.Update(updatedRows));
+                    result = (result + this._eSIDetailsTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177549,6 +177658,15 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._wklyOffProfileDetailsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._salProfileDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.SalProfileDetails.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._salProfileDetailsTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177570,75 +177688,21 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._empSkillMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpSkillMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._empWeeklyOffTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpWeeklyOff.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._empSkillMasTableAdapter.Update(updatedRows));
+                    result = (result + this._empWeeklyOffTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._empTaxSchemeInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpTaxSchemeInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._appUserTasksTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.AppUserTasks.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._empTaxSchemeInfoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._salProfileDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.SalProfileDetails.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._salProfileDetailsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._photosTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Photos.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._photosTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._nomineeMasTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.NomineeMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._nomineeMasTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._mnthlyAttdInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.MnthlyAttdInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._mnthlyAttdInfoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._empTypeInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpTypeInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._empTypeInfoTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._empAdvanceDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpAdvanceDetails.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._empAdvanceDetailsTableAdapter.Update(updatedRows));
+                    result = (result + this._appUserTasksTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177651,21 +177715,21 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._empSalProfileInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpSalProfileInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._empWorkExpTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpWorkExp.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._empSalProfileInfoTableAdapter.Update(updatedRows));
+                    result = (result + this._empWorkExpTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._empWeeklyOffTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpWeeklyOff.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._empBatchAttndEntrNotProcTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpBatchAttndEntrNotProc.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._empWeeklyOffTableAdapter.Update(updatedRows));
+                    result = (result + this._empBatchAttndEntrNotProcTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177678,12 +177742,21 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._profTaxDetailedSlabTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ProfTaxDetailedSlab.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._empTypeInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.EmpTypeInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._profTaxDetailedSlabTableAdapter.Update(updatedRows));
+                    result = (result + this._empTypeInfoTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._mnthlyAttdInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.MnthlyAttdInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._mnthlyAttdInfoTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177705,12 +177778,12 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._empShiftInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpShiftInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._nomineeMasTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.NomineeMas.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._empShiftInfoTableAdapter.Update(updatedRows));
+                    result = (result + this._nomineeMasTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177723,12 +177796,12 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._reimbRequestDetailInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ReimbRequestDetailInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._photosTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Photos.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._reimbRequestDetailInfoTableAdapter.Update(updatedRows));
+                    result = (result + this._photosTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177750,12 +177823,21 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._empWorkExpTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.EmpWorkExp.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._profTaxDetailedSlabTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ProfTaxDetailedSlab.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._empWorkExpTableAdapter.Update(updatedRows));
+                    result = (result + this._profTaxDetailedSlabTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._reimbRequestDetailInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ReimbRequestDetailInfo.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._reimbRequestDetailInfoTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -177769,19 +177851,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private int UpdateInsertedRows(DBStaffSync dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._finYearMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.FinYearMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._finYearMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._stateMasTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.StateMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._stateMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._finYearMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.FinYearMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._finYearMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -177801,19 +177883,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._empMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._empMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._sexMasTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._sexMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._empMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -177841,11 +177923,27 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._bloodGroupMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._bloodGroupMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._contactPersonMasTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.ContactPersonMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._contactPersonMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._depMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.DepMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._depMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -177857,19 +177955,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._bloodGroupMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._assetCategoryMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.AssetCategoryMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._bloodGroupMasTableAdapter.Update(addedRows));
+                    result = (result + this._assetCategoryMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._depMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.DepMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._reimbursementHeaderMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ReimbursementHeaderMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._depMasTableAdapter.Update(addedRows));
+                    result = (result + this._reimbursementHeaderMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -177889,59 +177987,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._reimbursementHeaderMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ReimbursementHeaderMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._reimbursementHeaderMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._personalInfoMasTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.PersonalInfoMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._personalInfoMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._assetCategoryMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.AssetCategoryMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._assetCategoryMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._schedulerJobMasterTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.SchedulerJobMaster.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._schedulerJobMasterTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._empSalMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpSalMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._empSalMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._deductionHeaderMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.DeductionHeaderMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._deductionHeaderMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._advanceTypeMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.AdvanceTypeMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._advanceTypeMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -177961,99 +178011,35 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._publicHolidayMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.PublicHolidayMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._empSalMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpSalMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._publicHolidayMasTableAdapter.Update(addedRows));
+                    result = (result + this._empSalMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._eSIMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ESIMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._deductionHeaderMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.DeductionHeaderMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._eSIMasTableAdapter.Update(addedRows));
+                    result = (result + this._deductionHeaderMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._pubHolTypeTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.PubHolType.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._schedulerJobMasterTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.SchedulerJobMaster.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._pubHolTypeTableAdapter.Update(addedRows));
+                    result = (result + this._schedulerJobMasterTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._profTaxMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ProfTaxMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._advanceTypeMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.AdvanceTypeMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._profTaxMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._provFundMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ProvFundMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._provFundMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._empSalDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpSalDetails.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._empSalDetailsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._employmentTypeMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmploymentTypeMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._employmentTypeMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._empAssetRequestTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpAssetRequest.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._empAssetRequestTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._docUploadsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.DocUploads.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._docUploadsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._schedulerJobSettingsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.SchedulerJobSettings.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._schedulerJobSettingsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._bankMasInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.BankMasInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._bankMasInfoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._skillsMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._skillsMasTableAdapter.Update(addedRows));
+                    result = (result + this._advanceTypeMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178065,35 +178051,27 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._taxSchemeInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.TaxSchemeInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._taxSchemeInfoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._skillsMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._skillsMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._usersTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Users.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._usersTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._dBChartInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.DBChartInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._dBChartInfoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._empAdvanceRequestMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpAdvanceRequestMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._empAdvanceRequestMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._appModulesTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.AppModules.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._appModulesTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178105,19 +178083,83 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._shiftMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ShiftMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._empAdvanceRequestMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpAdvanceRequestMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._shiftMasTableAdapter.Update(addedRows));
+                    result = (result + this._empAdvanceRequestMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._taxSchemeInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.TaxSchemeInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._provFundMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ProvFundMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._taxSchemeInfoTableAdapter.Update(addedRows));
+                    result = (result + this._provFundMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._profTaxMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ProfTaxMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._profTaxMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._pubHolTypeTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.PubHolType.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._pubHolTypeTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._eSIMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ESIMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._eSIMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._empAssetRequestTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpAssetRequest.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empAssetRequestTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._schedulerJobSettingsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.SchedulerJobSettings.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._schedulerJobSettingsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._empSalDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpSalDetails.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empSalDetailsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._dBChartInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.DBChartInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._dBChartInfoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._publicHolidayMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.PublicHolidayMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._publicHolidayMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178129,6 +178171,14 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._leaveMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.LeaveMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._leaveMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._lastCompDetMasTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -178137,27 +178187,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._relationShipMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._docUploadsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.DocUploads.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._relationShipMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._rolesTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Roles.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._rolesTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._leaveMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.LeaveMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._leaveMasTableAdapter.Update(addedRows));
+                    result = (result + this._docUploadsTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178169,67 +178203,59 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._assetMasMoreDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.AssetMasMoreDetails.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._employmentTypeMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmploymentTypeMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._assetMasMoreDetailsTableAdapter.Update(addedRows));
+                    result = (result + this._employmentTypeMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._empEduQualMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpEduQualMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._bankMasInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.BankMasInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._empEduQualMasTableAdapter.Update(addedRows));
+                    result = (result + this._bankMasInfoTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._userAuditLogTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.UserAuditLog.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._rolesTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Roles.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._userAuditLogTableAdapter.Update(addedRows));
+                    result = (result + this._rolesTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._empLeaveEntitlementTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpLeaveEntitlement.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._shiftMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ShiftMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._empLeaveEntitlementTableAdapter.Update(addedRows));
+                    result = (result + this._shiftMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._emprContributionTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmprContribution.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._appModulesTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.AppModules.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._emprContributionTableAdapter.Update(addedRows));
+                    result = (result + this._appModulesTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._allowanceHeaderMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.AllowanceHeaderMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._relationShipMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.RelationShipMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._allowanceHeaderMasTableAdapter.Update(addedRows));
+                    result = (result + this._relationShipMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._clientSigningPersonTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ClientSigningPerson.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._assetRegisterTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.AssetRegister.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._clientSigningPersonTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._empAssetAllocationTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpAssetAllocation.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._empAssetAllocationTableAdapter.Update(addedRows));
+                    result = (result + this._assetRegisterTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178241,6 +178267,110 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._empLeaveEntitlementTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpLeaveEntitlement.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empLeaveEntitlementTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._empAssetAllocationTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpAssetAllocation.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empAssetAllocationTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._assetMasMoreDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.AssetMasMoreDetails.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._assetMasMoreDetailsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._empSalProfileInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpSalProfileInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empSalProfileInfoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._userAuditLogTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.UserAuditLog.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._userAuditLogTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._empShiftInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpShiftInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empShiftInfoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._empSkillMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpSkillMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empSkillMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._allowanceHeaderMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.AllowanceHeaderMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._allowanceHeaderMasTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._empWebLoginInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpWebLoginInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empWebLoginInfoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._empTaxSchemeInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpTaxSchemeInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empTaxSchemeInfoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._clientSigningPersonTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ClientSigningPerson.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._clientSigningPersonTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._emprContributionTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmprContribution.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._emprContributionTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._schedulerJobHistoryTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.SchedulerJobHistory.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._schedulerJobHistoryTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._empDocMasTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.EmpDocMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -178249,19 +178379,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._empBankInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpBankInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._empDailyAttendanceInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpDailyAttendanceInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._empBankInfoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._empDBChartInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpDBChartInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._empDBChartInfoTableAdapter.Update(addedRows));
+                    result = (result + this._empDailyAttendanceInfoTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178273,6 +178395,14 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._empDBChartInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpDBChartInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._empDBChartInfoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._pubHolidayDetailsTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.PubHolidayDetails.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -178281,11 +178411,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._assetRegisterTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.AssetRegister.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._empEduQualMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpEduQualMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._assetRegisterTableAdapter.Update(addedRows));
+                    result = (result + this._empEduQualMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178305,11 +178435,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._eSIDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ESIDetails.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._printSettingsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.PrintSettings.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._eSIDetailsTableAdapter.Update(addedRows));
+                    result = (result + this._printSettingsTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178321,51 +178451,27 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._empDailyAttendanceInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpDailyAttendanceInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._empBankInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpBankInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._empDailyAttendanceInfoTableAdapter.Update(addedRows));
+                    result = (result + this._empBankInfoTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._schedulerJobHistoryTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.SchedulerJobHistory.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._empAdvanceDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpAdvanceDetails.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._schedulerJobHistoryTableAdapter.Update(addedRows));
+                    result = (result + this._empAdvanceDetailsTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._empWebLoginInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpWebLoginInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._eSIDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ESIDetails.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._empWebLoginInfoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._printSettingsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.PrintSettings.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._printSettingsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._empBatchAttndEntrNotProcTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpBatchAttndEntrNotProc.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._empBatchAttndEntrNotProcTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._appUserTasksTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.AppUserTasks.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._appUserTasksTableAdapter.Update(addedRows));
+                    result = (result + this._eSIDetailsTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178374,6 +178480,14 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._wklyOffProfileDetailsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._salProfileDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.SalProfileDetails.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._salProfileDetailsTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178393,67 +178507,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._empSkillMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpSkillMas.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._empWeeklyOffTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpWeeklyOff.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._empSkillMasTableAdapter.Update(addedRows));
+                    result = (result + this._empWeeklyOffTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._empTaxSchemeInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpTaxSchemeInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._appUserTasksTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.AppUserTasks.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._empTaxSchemeInfoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._salProfileDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.SalProfileDetails.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._salProfileDetailsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._photosTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Photos.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._photosTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._nomineeMasTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.NomineeMas.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._nomineeMasTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._mnthlyAttdInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.MnthlyAttdInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._mnthlyAttdInfoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._empTypeInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpTypeInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._empTypeInfoTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._empAdvanceDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpAdvanceDetails.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._empAdvanceDetailsTableAdapter.Update(addedRows));
+                    result = (result + this._appUserTasksTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178465,19 +178531,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._empSalProfileInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpSalProfileInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._empWorkExpTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpWorkExp.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._empSalProfileInfoTableAdapter.Update(addedRows));
+                    result = (result + this._empWorkExpTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._empWeeklyOffTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpWeeklyOff.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._empBatchAttndEntrNotProcTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpBatchAttndEntrNotProc.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._empWeeklyOffTableAdapter.Update(addedRows));
+                    result = (result + this._empBatchAttndEntrNotProcTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178489,11 +178555,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._profTaxDetailedSlabTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ProfTaxDetailedSlab.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._empTypeInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.EmpTypeInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._profTaxDetailedSlabTableAdapter.Update(addedRows));
+                    result = (result + this._empTypeInfoTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._mnthlyAttdInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.MnthlyAttdInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._mnthlyAttdInfoTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178513,11 +178587,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._empShiftInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpShiftInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._nomineeMasTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.NomineeMas.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._empShiftInfoTableAdapter.Update(addedRows));
+                    result = (result + this._nomineeMasTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178529,11 +178603,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._reimbRequestDetailInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ReimbRequestDetailInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._photosTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Photos.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._reimbRequestDetailInfoTableAdapter.Update(addedRows));
+                    result = (result + this._photosTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178553,11 +178627,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._empWorkExpTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.EmpWorkExp.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._profTaxDetailedSlabTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ProfTaxDetailedSlab.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._empWorkExpTableAdapter.Update(addedRows));
+                    result = (result + this._profTaxDetailedSlabTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._reimbRequestDetailInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ReimbRequestDetailInfo.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._reimbRequestDetailInfoTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -178571,11 +178653,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private int UpdateDeletedRows(DBStaffSync dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._empWorkExpTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpWorkExp.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._reimbRequestDetailInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ReimbRequestDetailInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._empWorkExpTableAdapter.Update(deletedRows));
+                    result = (result + this._reimbRequestDetailInfoTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._profTaxDetailedSlabTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ProfTaxDetailedSlab.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._profTaxDetailedSlabTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -178595,11 +178685,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._reimbRequestDetailInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ReimbRequestDetailInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._photosTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Photos.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._reimbRequestDetailInfoTableAdapter.Update(deletedRows));
+                    result = (result + this._photosTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -178611,11 +178701,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._empShiftInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpShiftInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._nomineeMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.NomineeMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._empShiftInfoTableAdapter.Update(deletedRows));
+                    result = (result + this._nomineeMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -178635,51 +178725,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._profTaxDetailedSlabTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ProfTaxDetailedSlab.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._mnthlyAttdInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.MnthlyAttdInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._profTaxDetailedSlabTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._provFundDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ProvFundDetails.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._provFundDetailsTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._empWeeklyOffTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpWeeklyOff.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._empWeeklyOffTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._empSalProfileInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpSalProfileInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._empSalProfileInfoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._advanceConfigInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.AdvanceConfigInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._advanceConfigInfoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._empAdvanceDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpAdvanceDetails.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._empAdvanceDetailsTableAdapter.Update(deletedRows));
+                    result = (result + this._mnthlyAttdInfoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -178691,51 +178741,51 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._mnthlyAttdInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.MnthlyAttdInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._provFundDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ProvFundDetails.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._mnthlyAttdInfoTableAdapter.Update(deletedRows));
+                    result = (result + this._provFundDetailsTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._nomineeMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.NomineeMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empBatchAttndEntrNotProcTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpBatchAttndEntrNotProc.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._nomineeMasTableAdapter.Update(deletedRows));
+                    result = (result + this._empBatchAttndEntrNotProcTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._photosTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Photos.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empWorkExpTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpWorkExp.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._photosTableAdapter.Update(deletedRows));
+                    result = (result + this._empWorkExpTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._salProfileDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.SalProfileDetails.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._advanceConfigInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AdvanceConfigInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._salProfileDetailsTableAdapter.Update(deletedRows));
+                    result = (result + this._advanceConfigInfoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._empTaxSchemeInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpTaxSchemeInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._appUserTasksTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AppUserTasks.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._empTaxSchemeInfoTableAdapter.Update(deletedRows));
+                    result = (result + this._appUserTasksTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._empSkillMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpSkillMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empWeeklyOffTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpWeeklyOff.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._empSkillMasTableAdapter.Update(deletedRows));
+                    result = (result + this._empWeeklyOffTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -178755,6 +178805,14 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._salProfileDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.SalProfileDetails.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._salProfileDetailsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._wklyOffProfileDetailsTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.WklyOffProfileDetails.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -178763,51 +178821,27 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._appUserTasksTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.AppUserTasks.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._eSIDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ESIDetails.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._appUserTasksTableAdapter.Update(deletedRows));
+                    result = (result + this._eSIDetailsTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._empBatchAttndEntrNotProcTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpBatchAttndEntrNotProc.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empAdvanceDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpAdvanceDetails.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._empBatchAttndEntrNotProcTableAdapter.Update(deletedRows));
+                    result = (result + this._empAdvanceDetailsTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._printSettingsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.PrintSettings.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empBankInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpBankInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._printSettingsTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._empWebLoginInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpWebLoginInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._empWebLoginInfoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._schedulerJobHistoryTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.SchedulerJobHistory.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._schedulerJobHistoryTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._empDailyAttendanceInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpDailyAttendanceInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._empDailyAttendanceInfoTableAdapter.Update(deletedRows));
+                    result = (result + this._empBankInfoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -178819,11 +178853,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._eSIDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ESIDetails.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._printSettingsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.PrintSettings.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._eSIDetailsTableAdapter.Update(deletedRows));
+                    result = (result + this._printSettingsTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -178843,11 +178877,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._assetRegisterTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.AssetRegister.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empEduQualMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpEduQualMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._assetRegisterTableAdapter.Update(deletedRows));
+                    result = (result + this._empEduQualMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -178859,14 +178893,6 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._imprtDataInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ImprtDataInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._imprtDataInfoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._empDBChartInfoTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.EmpDBChartInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -178875,11 +178901,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._empBankInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpBankInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._imprtDataInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ImprtDataInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._empBankInfoTableAdapter.Update(deletedRows));
+                    result = (result + this._imprtDataInfoTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._empDailyAttendanceInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpDailyAttendanceInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._empDailyAttendanceInfoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -178891,35 +178925,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._empLeaveTransMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpLeaveTransMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._schedulerJobHistoryTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.SchedulerJobHistory.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._empLeaveTransMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._empAssetAllocationTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpAssetAllocation.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._empAssetAllocationTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._clientSigningPersonTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ClientSigningPerson.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._clientSigningPersonTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._allowanceHeaderMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.AllowanceHeaderMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._allowanceHeaderMasTableAdapter.Update(deletedRows));
+                    result = (result + this._schedulerJobHistoryTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -178931,11 +178941,51 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._empLeaveEntitlementTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpLeaveEntitlement.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._clientSigningPersonTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ClientSigningPerson.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._empLeaveEntitlementTableAdapter.Update(deletedRows));
+                    result = (result + this._clientSigningPersonTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._empTaxSchemeInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpTaxSchemeInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._empTaxSchemeInfoTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._empWebLoginInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpWebLoginInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._empWebLoginInfoTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._allowanceHeaderMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AllowanceHeaderMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._allowanceHeaderMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._empSkillMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpSkillMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._empSkillMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._empShiftInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpShiftInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._empShiftInfoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -178947,11 +178997,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._empEduQualMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpEduQualMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empSalProfileInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpSalProfileInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._empEduQualMasTableAdapter.Update(deletedRows));
+                    result = (result + this._empSalProfileInfoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -178963,27 +179013,35 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._leaveTypeMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.LeaveTypeMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empAssetAllocationTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpAssetAllocation.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._leaveTypeMasTableAdapter.Update(deletedRows));
+                    result = (result + this._empAssetAllocationTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._leaveMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.LeaveMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empLeaveEntitlementTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpLeaveEntitlement.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._leaveMasTableAdapter.Update(deletedRows));
+                    result = (result + this._empLeaveEntitlementTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._rolesTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Roles.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empLeaveTransMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpLeaveTransMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._rolesTableAdapter.Update(deletedRows));
+                    result = (result + this._empLeaveTransMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._assetRegisterTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AssetRegister.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._assetRegisterTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -178995,27 +179053,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._lastCompDetMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._appModulesTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AppModules.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._lastCompDetMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._salProfileMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.SalProfileMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._salProfileMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._taxSchemeInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.TaxSchemeInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._taxSchemeInfoTableAdapter.Update(deletedRows));
+                    result = (result + this._appModulesTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -179027,59 +179069,11 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._reimbRequestMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ReimbRequestMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._rolesTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Roles.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._reimbRequestMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._appModulesTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.AppModules.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._appModulesTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._empAdvanceRequestMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpAdvanceRequestMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._empAdvanceRequestMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._dBChartInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.DBChartInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._dBChartInfoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._usersTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Users.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._usersTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._wklyOffProfileInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.WklyOffProfileInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._wklyOffProfileInfoTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._skillsMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._skillsMasTableAdapter.Update(deletedRows));
+                    result = (result + this._rolesTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -179091,11 +179085,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._schedulerJobSettingsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.SchedulerJobSettings.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._employmentTypeMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmploymentTypeMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._schedulerJobSettingsTableAdapter.Update(deletedRows));
+                    result = (result + this._employmentTypeMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._leaveTypeMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.LeaveTypeMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._leaveTypeMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -179107,59 +179109,27 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._empAssetRequestTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpAssetRequest.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._lastCompDetMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.LastCompDetMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._empAssetRequestTableAdapter.Update(deletedRows));
+                    result = (result + this._lastCompDetMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._employmentTypeMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmploymentTypeMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._leaveMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.LeaveMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._employmentTypeMasTableAdapter.Update(deletedRows));
+                    result = (result + this._leaveMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._empSalDetailsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.EmpSalDetails.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._salProfileMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.SalProfileMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._empSalDetailsTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._provFundMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ProvFundMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._provFundMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._profTaxMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ProfTaxMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._profTaxMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._pubHolTypeTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.PubHolType.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._pubHolTypeTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._eSIMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ESIMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._eSIMasTableAdapter.Update(deletedRows));
+                    result = (result + this._salProfileMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -179171,19 +179141,115 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._reimbursRequestInfoTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ReimbursRequestInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._dBChartInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.DBChartInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._reimbursRequestInfoTableAdapter.Update(deletedRows));
+                    result = (result + this._dBChartInfoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._assetMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.AssetMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._empSalDetailsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpSalDetails.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._assetMasTableAdapter.Update(deletedRows));
+                    result = (result + this._empSalDetailsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._schedulerJobSettingsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.SchedulerJobSettings.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._schedulerJobSettingsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._empAssetRequestTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpAssetRequest.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._empAssetRequestTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._eSIMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ESIMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._eSIMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._pubHolTypeTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.PubHolType.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._pubHolTypeTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._profTaxMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ProfTaxMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._profTaxMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._provFundMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ProvFundMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._provFundMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._empAdvanceRequestMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.EmpAdvanceRequestMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._empAdvanceRequestMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._reimbRequestMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ReimbRequestMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._reimbRequestMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._usersTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Users.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._usersTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._skillsMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.SkillsMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._skillsMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._taxSchemeInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.TaxSchemeInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._taxSchemeInfoTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._wklyOffProfileInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.WklyOffProfileInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._wklyOffProfileInfoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -179192,6 +179258,14 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._advanceTypeMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._schedulerJobMasterTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.SchedulerJobMaster.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._schedulerJobMasterTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -179211,19 +179285,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._schedulerJobMasterTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.SchedulerJobMaster.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._reimbursRequestInfoTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ReimbursRequestInfo.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._schedulerJobMasterTableAdapter.Update(deletedRows));
+                    result = (result + this._reimbursRequestInfoTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._assetCategoryMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.AssetCategoryMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._assetMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AssetMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._assetCategoryMasTableAdapter.Update(deletedRows));
+                    result = (result + this._assetMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -179232,14 +179306,6 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._personalInfoMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._reimbursementHeaderMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ReimbursementHeaderMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._reimbursementHeaderMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -179259,19 +179325,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._depMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.DepMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._reimbursementHeaderMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ReimbursementHeaderMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._depMasTableAdapter.Update(deletedRows));
+                    result = (result + this._reimbursementHeaderMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._bloodGroupMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._assetCategoryMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.AssetCategoryMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._bloodGroupMasTableAdapter.Update(deletedRows));
+                    result = (result + this._assetCategoryMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -179283,11 +179349,27 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._depMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.DepMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._depMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._contactPersonMasTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.ContactPersonMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._contactPersonMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._bloodGroupMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.BloodGroupMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._bloodGroupMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -179315,19 +179397,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._sexMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._sexMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._empMasTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.EmpMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._empMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._sexMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.SexMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._sexMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -179347,19 +179429,19 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._stateMasTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.StateMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._stateMasTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._finYearMasTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.FinYearMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._finYearMasTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._stateMasTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.StateMas.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._stateMasTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -179887,13 +179969,13 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
-            if (((this._reimbRequestDetailInfoTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._reimbRequestDetailInfoTableAdapter.Connection) == false))) {
+            if (((this._reimbursRequestInfoTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._reimbursRequestInfoTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
-            if (((this._reimbursRequestInfoTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._reimbursRequestInfoTableAdapter.Connection) == false))) {
+            if (((this._reimbRequestDetailInfoTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._reimbRequestDetailInfoTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -180802,15 +180884,6 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                         adaptersWithAcceptChangesDuringUpdate.Add(this._reimbRequestMasTableAdapter.Adapter);
                     }
                 }
-                if ((this._reimbRequestDetailInfoTableAdapter != null)) {
-                    revertConnections.Add(this._reimbRequestDetailInfoTableAdapter, this._reimbRequestDetailInfoTableAdapter.Connection);
-                    this._reimbRequestDetailInfoTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(workConnection));
-                    this._reimbRequestDetailInfoTableAdapter.Transaction = ((global::System.Data.OleDb.OleDbTransaction)(workTransaction));
-                    if (this._reimbRequestDetailInfoTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._reimbRequestDetailInfoTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._reimbRequestDetailInfoTableAdapter.Adapter);
-                    }
-                }
                 if ((this._reimbursRequestInfoTableAdapter != null)) {
                     revertConnections.Add(this._reimbursRequestInfoTableAdapter, this._reimbursRequestInfoTableAdapter.Connection);
                     this._reimbursRequestInfoTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(workConnection));
@@ -180818,6 +180891,15 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     if (this._reimbursRequestInfoTableAdapter.Adapter.AcceptChangesDuringUpdate) {
                         this._reimbursRequestInfoTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
                         adaptersWithAcceptChangesDuringUpdate.Add(this._reimbursRequestInfoTableAdapter.Adapter);
+                    }
+                }
+                if ((this._reimbRequestDetailInfoTableAdapter != null)) {
+                    revertConnections.Add(this._reimbRequestDetailInfoTableAdapter, this._reimbRequestDetailInfoTableAdapter.Connection);
+                    this._reimbRequestDetailInfoTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(workConnection));
+                    this._reimbRequestDetailInfoTableAdapter.Transaction = ((global::System.Data.OleDb.OleDbTransaction)(workTransaction));
+                    if (this._reimbRequestDetailInfoTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._reimbRequestDetailInfoTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._reimbRequestDetailInfoTableAdapter.Adapter);
                     }
                 }
                 // 
@@ -181266,13 +181348,13 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     this._reimbRequestMasTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._reimbRequestMasTableAdapter]));
                     this._reimbRequestMasTableAdapter.Transaction = null;
                 }
-                if ((this._reimbRequestDetailInfoTableAdapter != null)) {
-                    this._reimbRequestDetailInfoTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._reimbRequestDetailInfoTableAdapter]));
-                    this._reimbRequestDetailInfoTableAdapter.Transaction = null;
-                }
                 if ((this._reimbursRequestInfoTableAdapter != null)) {
                     this._reimbursRequestInfoTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._reimbursRequestInfoTableAdapter]));
                     this._reimbursRequestInfoTableAdapter.Transaction = null;
+                }
+                if ((this._reimbRequestDetailInfoTableAdapter != null)) {
+                    this._reimbRequestDetailInfoTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._reimbRequestDetailInfoTableAdapter]));
+                    this._reimbRequestDetailInfoTableAdapter.Transaction = null;
                 }
                 if ((0 < adaptersWithAcceptChangesDuringUpdate.Count)) {
                     global::System.Data.Common.DataAdapter[] adapters = new System.Data.Common.DataAdapter[adaptersWithAcceptChangesDuringUpdate.Count];

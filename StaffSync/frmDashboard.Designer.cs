@@ -150,8 +150,12 @@
             this.advanceDeductionThroughPayrollReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem28 = new System.Windows.Forms.ToolStripSeparator();
             this.advanceRepaymentHistoryReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kryptonRibbonGroupSeparator3 = new Krypton.Ribbon.KryptonRibbonGroupSeparator();
             this.kryptonRibbonGroupTriple19 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbManageEmployeeReimbButton = new Krypton.Ribbon.KryptonRibbonGroupButton();
+            this.cmbReimbManagement = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ReimbursementRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.kryptonRibbonGroup9 = new Krypton.Ribbon.KryptonRibbonGroup();
             this.kryptonRibbonGroupTriple18 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbApplicationReports = new Krypton.Ribbon.KryptonRibbonGroupButton();
@@ -260,10 +264,7 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
-            this.cmbReimbManagement = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ReimbursementRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.kryptonRibbonGroupSeparator3 = new Krypton.Ribbon.KryptonRibbonGroupSeparator();
+            this.ReimbursementPaymentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -273,6 +274,7 @@
             this.cmPayrollManagement.SuspendLayout();
             this.cmbAssesmentManagement.SuspendLayout();
             this.cmbManageAdvances.SuspendLayout();
+            this.cmbReimbManagement.SuspendLayout();
             this.cmbApprovals.SuspendLayout();
             this.cmbApplicationSettings.SuspendLayout();
             this.cmUserManagementList.SuspendLayout();
@@ -290,7 +292,6 @@
             this.grpDashboardDateRange.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
-            this.cmbReimbManagement.SuspendLayout();
             this.SuspendLayout();
             // 
             // imgEmpPhotos
@@ -1324,7 +1325,30 @@
             this.tlbManageEmployeeReimbButton.ContextMenuStrip = this.cmbReimbManagement;
             this.tlbManageEmployeeReimbButton.ImageLarge = global::StaffSync.Properties.Resources.reimbursement;
             this.tlbManageEmployeeReimbButton.ImageSmall = global::StaffSync.Properties.Resources.reimbursement;
-            this.tlbManageEmployeeReimbButton.TextLine1 = "Manage Reimbursements";
+            this.tlbManageEmployeeReimbButton.TextLine1 = "Reimbursements";
+            // 
+            // cmbReimbManagement
+            // 
+            this.cmbReimbManagement.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.cmbReimbManagement.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ReimbursementRequestToolStripMenuItem,
+            this.toolStripSeparator6,
+            this.ReimbursementPaymentToolStripMenuItem});
+            this.cmbReimbManagement.Name = "cmbAssesmentManagement";
+            this.cmbReimbManagement.Size = new System.Drawing.Size(214, 76);
+            // 
+            // ReimbursementRequestToolStripMenuItem
+            // 
+            this.ReimbursementRequestToolStripMenuItem.Image = global::StaffSync.Properties.Resources.asset_operations;
+            this.ReimbursementRequestToolStripMenuItem.Name = "ReimbursementRequestToolStripMenuItem";
+            this.ReimbursementRequestToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.ReimbursementRequestToolStripMenuItem.Text = "Reimbursement Request";
+            this.ReimbursementRequestToolStripMenuItem.Click += new System.EventHandler(this.ReimbursementRequestToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(210, 6);
             // 
             // kryptonRibbonGroup9
             // 
@@ -2234,27 +2258,12 @@
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             this.kryptonRibbonGroupButton5.Click += new System.EventHandler(this.kryptonRibbonGroupButton5_Click);
             // 
-            // cmbReimbManagement
+            // ReimbursementPaymentToolStripMenuItem
             // 
-            this.cmbReimbManagement.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.cmbReimbManagement.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ReimbursementRequestToolStripMenuItem,
-            this.toolStripSeparator6});
-            this.cmbReimbManagement.Name = "cmbAssesmentManagement";
-            this.cmbReimbManagement.Size = new System.Drawing.Size(204, 32);
-            // 
-            // ReimbursementRequestToolStripMenuItem
-            // 
-            this.ReimbursementRequestToolStripMenuItem.Image = global::StaffSync.Properties.Resources.asset_operations;
-            this.ReimbursementRequestToolStripMenuItem.Name = "ReimbursementRequestToolStripMenuItem";
-            this.ReimbursementRequestToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
-            this.ReimbursementRequestToolStripMenuItem.Text = "Reimbursement Request";
-            this.ReimbursementRequestToolStripMenuItem.Click += new System.EventHandler(this.ReimbursementRequestToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(200, 6);
+            this.ReimbursementPaymentToolStripMenuItem.Name = "ReimbursementPaymentToolStripMenuItem";
+            this.ReimbursementPaymentToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.ReimbursementPaymentToolStripMenuItem.Text = "Reimbursement Payments";
+            this.ReimbursementPaymentToolStripMenuItem.Click += new System.EventHandler(this.ReimbursementPaymentToolStripMenuItem_Click);
             // 
             // frmDashboard
             // 
@@ -2289,6 +2298,7 @@
             this.cmPayrollManagement.ResumeLayout(false);
             this.cmbAssesmentManagement.ResumeLayout(false);
             this.cmbManageAdvances.ResumeLayout(false);
+            this.cmbReimbManagement.ResumeLayout(false);
             this.cmbApprovals.ResumeLayout(false);
             this.cmbApplicationSettings.ResumeLayout(false);
             this.cmUserManagementList.ResumeLayout(false);
@@ -2307,7 +2317,6 @@
             this.grpDashboardDateRange.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qryRoleProfileBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
-            this.cmbReimbManagement.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2548,6 +2557,7 @@
         private System.Windows.Forms.ToolStripMenuItem ReimbursementRequestToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private Krypton.Ribbon.KryptonRibbonGroupSeparator kryptonRibbonGroupSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem ReimbursementPaymentToolStripMenuItem;
     }
 }
 

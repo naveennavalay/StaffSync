@@ -269,7 +269,7 @@ namespace ModelStaffSync
         [DisplayName("Second Approver Status")] 
         public string AssetRequestStatus { set; get; }
 
-        [DisplayName("Request Status")] 
+        [DisplayName("Status")] 
         public string RequestStatus { set; get; }
         public int ClientID { get; set; }
     }
