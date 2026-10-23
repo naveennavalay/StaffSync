@@ -411,9 +411,9 @@ namespace StaffSync
         {
             dtgAdvanceRequestersList.DataSource = null;
             if (tmpApproverType == "FirstApprover")
-                dtgAdvanceRequestersList.DataSource = objAdvanceTransaction.AdvanceFirstApprovalPendingList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID));
+                dtgAdvanceRequestersList.DataSource = objAdvanceTransaction.AdvanceFirstApprovalPendingList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID), Convert.ToInt32(objTempCurrentlyLoggedInUserInfo.EmpID));
             else if (tmpApproverType == "SecondApprover")
-                dtgAdvanceRequestersList.DataSource = objAdvanceTransaction.AdvanceSecondApprovalPendingList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID));
+                dtgAdvanceRequestersList.DataSource = objAdvanceTransaction.AdvanceSecondApprovalPendingList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID), Convert.ToInt32(objTempCurrentlyLoggedInUserInfo.EmpID));
 
             dtgAdvanceRequestersList.Columns["Select"].ReadOnly = true;
             dtgAdvanceRequestersList.Columns["Select"].Visible = true;
@@ -523,9 +523,9 @@ namespace StaffSync
             dtgAssetsRequestersList.DataSource = null;
 
             if (strApproverType == "FirstApprover")
-                dtgAssetsRequestersList.DataSource = objAssetRegister.FirstApprovalPendingAssetApprovalList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID));
+                dtgAssetsRequestersList.DataSource = objAssetRegister.FirstApprovalPendingAssetApprovalList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID), Convert.ToInt32(objTempCurrentlyLoggedInUserInfo.EmpID));
             else if (strApproverType == "SecondApprover")
-                dtgAssetsRequestersList.DataSource = objAssetRegister.SecondApprovalPendingAssetApprovalList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID));
+                dtgAssetsRequestersList.DataSource = objAssetRegister.SecondApprovalPendingAssetApprovalList(Convert.ToInt32(ModelStaffSync.CurrentUser.ClientID), Convert.ToInt32(objTempCurrentlyLoggedInUserInfo.EmpID));
 
             dtgAssetsRequestersList.Columns["Select"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["Select"].Visible = true;

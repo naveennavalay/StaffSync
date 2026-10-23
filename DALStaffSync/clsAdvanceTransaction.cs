@@ -23,14 +23,14 @@ namespace DALStaffSync
             return objAdvanceTransaction.IsAdvanceAlreadyExist(txtEmpPersonalInfoID);
         }
 
-        public List<AdvanceApprovalPendingList> AdvanceFirstApprovalPendingList(int txtClientID)
+        public List<AdvanceApprovalPendingList> AdvanceFirstApprovalPendingList(int txtClientID, int txtFirstApproverID)
         {
-            return objAdvanceTransaction.AdvanceFirstApprovalPendingList(txtClientID);
+            return objAdvanceTransaction.AdvanceFirstApprovalPendingList(txtClientID, txtFirstApproverID);
         }
 
-        public List<AdvanceApprovalPendingList> AdvanceSecondApprovalPendingList(int txtClientID)
+        public List<AdvanceApprovalPendingList> AdvanceSecondApprovalPendingList(int txtClientID, int txtSecondApproverID)
         {
-            return objAdvanceTransaction.AdvanceSecondApprovalPendingList(txtClientID);
+            return objAdvanceTransaction.AdvanceSecondApprovalPendingList(txtClientID, txtSecondApproverID);
         }
 
         public int InsertEmpAdvanceRequestMas(int txtEmpPersonalInfoID, int txtAdvanceTypeID, bool IsActive, bool IsDeleted, DateTime txtEmpAdvanceRequestDate, string txtEmpAdvanceRequestComments, int txtRequestedTo, DateTime txtRequestedToDate, 

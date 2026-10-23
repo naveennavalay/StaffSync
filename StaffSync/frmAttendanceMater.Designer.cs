@@ -275,6 +275,7 @@
             this.lblLeaveMasID.Size = new System.Drawing.Size(11, 15);
             this.lblLeaveMasID.TabIndex = 50;
             this.lblLeaveMasID.Text = " ";
+            this.lblLeaveMasID.Visible = false;
             // 
             // btnReportingManagerSearch
             // 

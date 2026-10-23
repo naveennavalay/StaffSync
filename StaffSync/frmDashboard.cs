@@ -435,23 +435,23 @@ namespace StaffSync
 
         private void employeeWiseReportsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (CurrentUser.ClientID == 0)
-            {
-                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (CurrentUser.ClientID == 0)
+            //{
+            //    MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
-            if (this.MdiChildren.Length == 0)
-            {
-                lblDashboardTitle.Text = "Employee Wise Reports";
-                sptrDashboardContainer.Visible = false;
-                grpDashboardDateRange.Visible = false;
-                frmEmployeeWiseReports frmEmployeeWiseReportsDetails = new frmEmployeeWiseReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
-                frmEmployeeWiseReportsDetails.MdiParent = this;
-                frmEmployeeWiseReportsDetails.Dock = DockStyle.Fill;
-                frmEmployeeWiseReportsDetails.Show();
-                frmEmployeeWiseReportsDetails.WindowState = FormWindowState.Maximized;
-            }
+            //if (this.MdiChildren.Length == 0)
+            //{
+            //    lblDashboardTitle.Text = "Employee Wise Reports";
+            //    sptrDashboardContainer.Visible = false;
+            //    grpDashboardDateRange.Visible = false;
+            //    frmEmployeeWiseReports frmEmployeeWiseReportsDetails = new frmEmployeeWiseReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+            //    frmEmployeeWiseReportsDetails.MdiParent = this;
+            //    frmEmployeeWiseReportsDetails.Dock = DockStyle.Fill;
+            //    frmEmployeeWiseReportsDetails.Show();
+            //    frmEmployeeWiseReportsDetails.WindowState = FormWindowState.Maximized;
+            //}
         }
 
         private void employeeAttendanceReportsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -477,23 +477,23 @@ namespace StaffSync
 
         private void employeePayrollReportsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (CurrentUser.ClientID == 0)
-            {
-                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (CurrentUser.ClientID == 0)
+            //{
+            //    MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
-            if (this.MdiChildren.Length == 0)
-            {
-                lblDashboardTitle.Text = "Employee Payroll Reports";
-                sptrDashboardContainer.Visible = false;
-                grpDashboardDateRange.Visible = false;
-                frmEmployeePayrollReports frmEmployeePayrollReportsDetails = new frmEmployeePayrollReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
-                frmEmployeePayrollReportsDetails.MdiParent = this;
-                frmEmployeePayrollReportsDetails.Dock = DockStyle.Fill;
-                frmEmployeePayrollReportsDetails.Show();
-                frmEmployeePayrollReportsDetails.WindowState = FormWindowState.Maximized;
-            }
+            //if (this.MdiChildren.Length == 0)
+            //{
+            //    lblDashboardTitle.Text = "Employee Payroll Reports";
+            //    sptrDashboardContainer.Visible = false;
+            //    grpDashboardDateRange.Visible = false;
+            //    frmEmployeePayrollReports frmEmployeePayrollReportsDetails = new frmEmployeePayrollReports(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+            //    frmEmployeePayrollReportsDetails.MdiParent = this;
+            //    frmEmployeePayrollReportsDetails.Dock = DockStyle.Fill;
+            //    frmEmployeePayrollReportsDetails.Show();
+            //    frmEmployeePayrollReportsDetails.WindowState = FormWindowState.Maximized;
+            //}
         }
 
         private void employeeLeavesReportToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8707,7 +8707,7 @@ namespace StaffSync
 
             if (this.MdiChildren.Length == 0)
             {
-                lblDashboardTitle.Text = "Export Data";
+                lblDashboardTitle.Text = "Asset Issuance";
                 sptrDashboardContainer.Visible = false;
                 grpDashboardDateRange.Visible = false;
                 frmExportDataProcess frmExportDataProcess = new frmExportDataProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
@@ -8728,7 +8728,7 @@ namespace StaffSync
 
             if (this.MdiChildren.Length == 0)
             {
-                lblDashboardTitle.Text = "Export Data";
+                lblDashboardTitle.Text = "Reimbursment Request";
                 sptrDashboardContainer.Visible = false;
                 grpDashboardDateRange.Visible = false;
                 frmEmpReimbRequestInfo frmEmpReimbRequestInfo = new frmEmpReimbRequestInfo(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
@@ -8749,7 +8749,7 @@ namespace StaffSync
 
             if (this.MdiChildren.Length == 0)
             {
-                lblDashboardTitle.Text = "Export Data";
+                lblDashboardTitle.Text = "Reimbursment Payments";
                 sptrDashboardContainer.Visible = false;
                 grpDashboardDateRange.Visible = false;
                 frmEmpReimbursmentPayments frmEmpReimbursmentPayments = new frmEmpReimbursmentPayments(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
@@ -8757,6 +8757,36 @@ namespace StaffSync
                 //frmExportDataProcess.Dock = DockStyle.Fill;
                 frmEmpReimbursmentPayments.Show();
                 //frmExportDataProcess.WindowState = FormWindowState.Maximized;            
+            }
+        }
+
+        private void cmbAdvanceRequest1_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Advance Request Details";
+                sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
+                frmEmpAdvanceRequest frmEmpAdvanceRequest = new frmEmpAdvanceRequest(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmEmpAdvanceRequest.MdiParent = this;
+                frmEmpAdvanceRequest.Dock = DockStyle.Fill;
+                frmEmpAdvanceRequest.Show();
+                frmEmpAdvanceRequest.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void cmbAdvanceRepayment1_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Advance Repayment Details";
+                sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
+                frmEmpAdvanceRepayment frmEmpAdvanceRepayment = new frmEmpAdvanceRepayment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmEmpAdvanceRepayment.MdiParent = this;
+                frmEmpAdvanceRepayment.Dock = DockStyle.Fill;
+                frmEmpAdvanceRepayment.Show();
+                frmEmpAdvanceRepayment.WindowState = FormWindowState.Maximized;
             }
         }
     }

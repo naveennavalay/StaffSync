@@ -279,7 +279,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public List<AssetApproverPendingList> FirstApprovalPendingAssetApprovalList(int txtClientID)
+        public List<AssetApproverPendingList> FirstApprovalPendingAssetApprovalList(int txtClientID, int FirstApproverID)
         {
             List<AssetApproverPendingList> objAssetApproverPendingListInfo = new List<AssetApproverPendingList>();
             DataTable dt = new DataTable();
@@ -389,6 +389,7 @@ namespace dbStaffSync
                             WHERE
                                 (
                                     ((E.EmpID) > 1)
+                                    AND ((R.AssetRequestByID) = " + FirstApproverID + @")
                                     AND ((R.AssetRequestByStatus) = False)
                                     AND ((R.RequestedToStatus) = False)
                                     AND ((R.AssetRequestStatus) = False)
@@ -425,7 +426,7 @@ namespace dbStaffSync
             return objAssetApproverPendingListInfo;
         }
 
-        public List<AssetApproverPendingList> SecondApprovalPendingAssetApprovalList(int txtClientID)
+        public List<AssetApproverPendingList> SecondApprovalPendingAssetApprovalList(int txtClientID, int SecondApproverID)
         {
             List<AssetApproverPendingList> objAssetApproverPendingListInfo = new List<AssetApproverPendingList>();
             DataTable dt = new DataTable();
@@ -479,6 +480,7 @@ namespace dbStaffSync
                             WHERE
                                 (
                                     ((E.EmpID) > 1)
+                                    AND ((R.RequestedTo) = " + SecondApproverID + @")
                                     AND ((R.AssetRequestByStatus) = True)
                                     AND ((R.RequestedToStatus) = True)
                                     AND ((R.AssetRequestStatus) = False)

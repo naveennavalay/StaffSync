@@ -162,6 +162,7 @@
             this.lblCancelStatus.Size = new System.Drawing.Size(11, 15);
             this.lblCancelStatus.TabIndex = 24;
             this.lblCancelStatus.Text = " ";
+            this.lblCancelStatus.Visible = false;
             // 
             // lblLeaveTRID
             // 
@@ -174,6 +175,7 @@
             this.lblLeaveTRID.Size = new System.Drawing.Size(11, 15);
             this.lblLeaveTRID.TabIndex = 23;
             this.lblLeaveTRID.Text = " ";
+            this.lblLeaveTRID.Visible = false;
             // 
             // picDownloadLeaveTRList
             // 
@@ -325,7 +327,7 @@
             // 
             // txtLeaveNote
             // 
-            this.txtLeaveNote.Location = new System.Drawing.Point(711, 25);
+            this.txtLeaveNote.Location = new System.Drawing.Point(725, 25);
             this.txtLeaveNote.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtLeaveNote.MaxLength = 255;
             this.txtLeaveNote.Multiline = true;
@@ -339,7 +341,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(649, 32);
+            this.label8.Location = new System.Drawing.Point(638, 32);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(79, 15);
@@ -580,7 +582,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.Location = new System.Drawing.Point(675, 30);
+            this.label38.Location = new System.Drawing.Point(673, 30);
             this.label38.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(44, 15);
@@ -590,7 +592,7 @@
             // 
             // picEmpPhoto
             // 
-            this.picEmpPhoto.Location = new System.Drawing.Point(712, 26);
+            this.picEmpPhoto.Location = new System.Drawing.Point(726, 26);
             this.picEmpPhoto.Name = "picEmpPhoto";
             this.picEmpPhoto.Size = new System.Drawing.Size(131, 115);
             this.picEmpPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;

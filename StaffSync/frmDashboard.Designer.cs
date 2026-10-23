@@ -135,27 +135,16 @@
             this.kryptonRibbonGroupTriple15 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbManageEmployeeAdvancesButton = new Krypton.Ribbon.KryptonRibbonGroupButton();
             this.cmbManageAdvances = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmbAdvanceManagement = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmbAdvanceRequest = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem25 = new System.Windows.Forms.ToolStripSeparator();
-            this.cmbAdvanceRepayment = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem20 = new System.Windows.Forms.ToolStripSeparator();
-            this.cmbAdvanceManagementReports = new System.Windows.Forms.ToolStripMenuItem();
-            this.employeeAdvanceOutstandingSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem24 = new System.Windows.Forms.ToolStripSeparator();
-            this.advanceRecoveryStatementEmployeewiseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem26 = new System.Windows.Forms.ToolStripSeparator();
-            this.monthlyAdvanceRecoveryReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem27 = new System.Windows.Forms.ToolStripSeparator();
-            this.advanceDeductionThroughPayrollReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem28 = new System.Windows.Forms.ToolStripSeparator();
-            this.advanceRepaymentHistoryReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbAdvanceRequest1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem35 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmbAdvanceRepayment1 = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonRibbonGroupSeparator3 = new Krypton.Ribbon.KryptonRibbonGroupSeparator();
             this.kryptonRibbonGroupTriple19 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbManageEmployeeReimbButton = new Krypton.Ribbon.KryptonRibbonGroupButton();
             this.cmbReimbManagement = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ReimbursementRequestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.ReimbursementPaymentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonRibbonGroup9 = new Krypton.Ribbon.KryptonRibbonGroup();
             this.kryptonRibbonGroupTriple18 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbApplicationReports = new Krypton.Ribbon.KryptonRibbonGroupButton();
@@ -264,7 +253,6 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
-            this.ReimbursementPaymentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -392,6 +380,7 @@
             this.tlbMyOptions.ImageLarge = global::StaffSync.Properties.Resources.myOptions;
             this.tlbMyOptions.ImageSmall = global::StaffSync.Properties.Resources.myOptions;
             this.tlbMyOptions.TextLine1 = "My Options";
+            this.tlbMyOptions.Visible = false;
             this.tlbMyOptions.Click += new System.EventHandler(this.tlbMyOptions_Click);
             // 
             // cmMyOptions
@@ -620,6 +609,7 @@
             this.tlbManageRecruitmentButton.ImageLarge = global::StaffSync.Properties.Resources.recruitment;
             this.tlbManageRecruitmentButton.ImageSmall = global::StaffSync.Properties.Resources.recruitment;
             this.tlbManageRecruitmentButton.TextLine1 = "     Manage Recruitment     ";
+            this.tlbManageRecruitmentButton.Visible = false;
             this.tlbManageRecruitmentButton.Click += new System.EventHandler(this.tlbManageRecruitmentButton_Click);
             // 
             // kryptonRibbonGroup1
@@ -1189,130 +1179,33 @@
             // 
             this.cmbManageAdvances.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.cmbManageAdvances.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmbAdvanceManagement,
-            this.toolStripMenuItem20,
-            this.cmbAdvanceManagementReports});
+            this.cmbAdvanceRequest1,
+            this.toolStripMenuItem35,
+            this.cmbAdvanceRepayment1});
             this.cmbManageAdvances.Name = "cmbManageAdvances";
-            this.cmbManageAdvances.Size = new System.Drawing.Size(238, 54);
+            this.cmbManageAdvances.Size = new System.Drawing.Size(184, 54);
             this.cmbManageAdvances.Opening += new System.ComponentModel.CancelEventHandler(this.cmbManageAdvances_Opening);
             // 
-            // cmbAdvanceManagement
+            // cmbAdvanceRequest1
             // 
-            this.cmbAdvanceManagement.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmbAdvanceRequest,
-            this.toolStripMenuItem25,
-            this.cmbAdvanceRepayment});
-            this.cmbAdvanceManagement.Image = global::StaffSync.Properties.Resources.advances1;
-            this.cmbAdvanceManagement.Name = "cmbAdvanceManagement";
-            this.cmbAdvanceManagement.Size = new System.Drawing.Size(237, 22);
-            this.cmbAdvanceManagement.Text = "Advance Management";
-            this.cmbAdvanceManagement.Click += new System.EventHandler(this.cmbAdvanceManagement_Click);
+            this.cmbAdvanceRequest1.Image = global::StaffSync.Properties.Resources.advance_request;
+            this.cmbAdvanceRequest1.Name = "cmbAdvanceRequest1";
+            this.cmbAdvanceRequest1.Size = new System.Drawing.Size(183, 22);
+            this.cmbAdvanceRequest1.Text = "Advance Request";
+            this.cmbAdvanceRequest1.Click += new System.EventHandler(this.cmbAdvanceRequest1_Click);
             // 
-            // cmbAdvanceRequest
+            // toolStripMenuItem35
             // 
-            this.cmbAdvanceRequest.Image = global::StaffSync.Properties.Resources.advance_request;
-            this.cmbAdvanceRequest.Name = "cmbAdvanceRequest";
-            this.cmbAdvanceRequest.Size = new System.Drawing.Size(183, 22);
-            this.cmbAdvanceRequest.Tag = "cmbAdvanceRequest";
-            this.cmbAdvanceRequest.Text = "Advance Request";
-            this.cmbAdvanceRequest.Click += new System.EventHandler(this.cmbAdvanceRequest_Click);
+            this.toolStripMenuItem35.Name = "toolStripMenuItem35";
+            this.toolStripMenuItem35.Size = new System.Drawing.Size(180, 6);
             // 
-            // toolStripMenuItem25
+            // cmbAdvanceRepayment1
             // 
-            this.toolStripMenuItem25.Name = "toolStripMenuItem25";
-            this.toolStripMenuItem25.Size = new System.Drawing.Size(180, 6);
-            this.toolStripMenuItem25.Click += new System.EventHandler(this.toolStripMenuItem25_Click);
-            // 
-            // cmbAdvanceRepayment
-            // 
-            this.cmbAdvanceRepayment.Image = global::StaffSync.Properties.Resources.advances;
-            this.cmbAdvanceRepayment.Name = "cmbAdvanceRepayment";
-            this.cmbAdvanceRepayment.Size = new System.Drawing.Size(183, 22);
-            this.cmbAdvanceRepayment.Text = "Advance Repayment";
-            this.cmbAdvanceRepayment.Click += new System.EventHandler(this.cmbAdvanceRepayment_Click);
-            // 
-            // toolStripMenuItem20
-            // 
-            this.toolStripMenuItem20.Name = "toolStripMenuItem20";
-            this.toolStripMenuItem20.Size = new System.Drawing.Size(234, 6);
-            this.toolStripMenuItem20.Click += new System.EventHandler(this.toolStripMenuItem20_Click);
-            // 
-            // cmbAdvanceManagementReports
-            // 
-            this.cmbAdvanceManagementReports.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.employeeAdvanceOutstandingSummaryToolStripMenuItem,
-            this.toolStripMenuItem24,
-            this.advanceRecoveryStatementEmployeewiseToolStripMenuItem,
-            this.toolStripMenuItem26,
-            this.monthlyAdvanceRecoveryReportToolStripMenuItem,
-            this.toolStripMenuItem27,
-            this.advanceDeductionThroughPayrollReportToolStripMenuItem,
-            this.toolStripMenuItem28,
-            this.advanceRepaymentHistoryReportToolStripMenuItem});
-            this.cmbAdvanceManagementReports.Image = global::StaffSync.Properties.Resources.reports;
-            this.cmbAdvanceManagementReports.Name = "cmbAdvanceManagementReports";
-            this.cmbAdvanceManagementReports.Size = new System.Drawing.Size(237, 22);
-            this.cmbAdvanceManagementReports.Text = "Advance Management Reports";
-            this.cmbAdvanceManagementReports.Click += new System.EventHandler(this.cmbAdvanceManagementReports_Click);
-            // 
-            // employeeAdvanceOutstandingSummaryToolStripMenuItem
-            // 
-            this.employeeAdvanceOutstandingSummaryToolStripMenuItem.Name = "employeeAdvanceOutstandingSummaryToolStripMenuItem";
-            this.employeeAdvanceOutstandingSummaryToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
-            this.employeeAdvanceOutstandingSummaryToolStripMenuItem.Text = "Employee Advance Outstanding Summary";
-            this.employeeAdvanceOutstandingSummaryToolStripMenuItem.Click += new System.EventHandler(this.employeeAdvanceOutstandingSummaryToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem24
-            // 
-            this.toolStripMenuItem24.Name = "toolStripMenuItem24";
-            this.toolStripMenuItem24.Size = new System.Drawing.Size(316, 6);
-            this.toolStripMenuItem24.Click += new System.EventHandler(this.toolStripMenuItem24_Click);
-            // 
-            // advanceRecoveryStatementEmployeewiseToolStripMenuItem
-            // 
-            this.advanceRecoveryStatementEmployeewiseToolStripMenuItem.Name = "advanceRecoveryStatementEmployeewiseToolStripMenuItem";
-            this.advanceRecoveryStatementEmployeewiseToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
-            this.advanceRecoveryStatementEmployeewiseToolStripMenuItem.Text = "Advance Recovery Statement (Employee-wise)";
-            this.advanceRecoveryStatementEmployeewiseToolStripMenuItem.Click += new System.EventHandler(this.advanceRecoveryStatementEmployeewiseToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem26
-            // 
-            this.toolStripMenuItem26.Name = "toolStripMenuItem26";
-            this.toolStripMenuItem26.Size = new System.Drawing.Size(316, 6);
-            this.toolStripMenuItem26.Click += new System.EventHandler(this.toolStripMenuItem26_Click);
-            // 
-            // monthlyAdvanceRecoveryReportToolStripMenuItem
-            // 
-            this.monthlyAdvanceRecoveryReportToolStripMenuItem.Name = "monthlyAdvanceRecoveryReportToolStripMenuItem";
-            this.monthlyAdvanceRecoveryReportToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
-            this.monthlyAdvanceRecoveryReportToolStripMenuItem.Text = "Monthly Advance Recovery Report";
-            this.monthlyAdvanceRecoveryReportToolStripMenuItem.Click += new System.EventHandler(this.monthlyAdvanceRecoveryReportToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem27
-            // 
-            this.toolStripMenuItem27.Name = "toolStripMenuItem27";
-            this.toolStripMenuItem27.Size = new System.Drawing.Size(316, 6);
-            this.toolStripMenuItem27.Click += new System.EventHandler(this.toolStripMenuItem27_Click);
-            // 
-            // advanceDeductionThroughPayrollReportToolStripMenuItem
-            // 
-            this.advanceDeductionThroughPayrollReportToolStripMenuItem.Name = "advanceDeductionThroughPayrollReportToolStripMenuItem";
-            this.advanceDeductionThroughPayrollReportToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
-            this.advanceDeductionThroughPayrollReportToolStripMenuItem.Text = "Advance Deduction Through Payroll Report";
-            this.advanceDeductionThroughPayrollReportToolStripMenuItem.Click += new System.EventHandler(this.advanceDeductionThroughPayrollReportToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem28
-            // 
-            this.toolStripMenuItem28.Name = "toolStripMenuItem28";
-            this.toolStripMenuItem28.Size = new System.Drawing.Size(316, 6);
-            this.toolStripMenuItem28.Click += new System.EventHandler(this.toolStripMenuItem28_Click);
-            // 
-            // advanceRepaymentHistoryReportToolStripMenuItem
-            // 
-            this.advanceRepaymentHistoryReportToolStripMenuItem.Name = "advanceRepaymentHistoryReportToolStripMenuItem";
-            this.advanceRepaymentHistoryReportToolStripMenuItem.Size = new System.Drawing.Size(319, 22);
-            this.advanceRepaymentHistoryReportToolStripMenuItem.Text = "Advance Repayment History Report";
-            this.advanceRepaymentHistoryReportToolStripMenuItem.Click += new System.EventHandler(this.advanceRepaymentHistoryReportToolStripMenuItem_Click);
+            this.cmbAdvanceRepayment1.Image = global::StaffSync.Properties.Resources.advances;
+            this.cmbAdvanceRepayment1.Name = "cmbAdvanceRepayment1";
+            this.cmbAdvanceRepayment1.Size = new System.Drawing.Size(183, 22);
+            this.cmbAdvanceRepayment1.Text = "Advance Repayment";
+            this.cmbAdvanceRepayment1.Click += new System.EventHandler(this.cmbAdvanceRepayment1_Click);
             // 
             // kryptonRibbonGroupTriple19
             // 
@@ -1335,7 +1228,7 @@
             this.toolStripSeparator6,
             this.ReimbursementPaymentToolStripMenuItem});
             this.cmbReimbManagement.Name = "cmbAssesmentManagement";
-            this.cmbReimbManagement.Size = new System.Drawing.Size(214, 76);
+            this.cmbReimbManagement.Size = new System.Drawing.Size(214, 54);
             // 
             // ReimbursementRequestToolStripMenuItem
             // 
@@ -1349,6 +1242,13 @@
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(210, 6);
+            // 
+            // ReimbursementPaymentToolStripMenuItem
+            // 
+            this.ReimbursementPaymentToolStripMenuItem.Name = "ReimbursementPaymentToolStripMenuItem";
+            this.ReimbursementPaymentToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.ReimbursementPaymentToolStripMenuItem.Text = "Reimbursement Payments";
+            this.ReimbursementPaymentToolStripMenuItem.Click += new System.EventHandler(this.ReimbursementPaymentToolStripMenuItem_Click);
             // 
             // kryptonRibbonGroup9
             // 
@@ -2258,13 +2158,6 @@
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             this.kryptonRibbonGroupButton5.Click += new System.EventHandler(this.kryptonRibbonGroupButton5_Click);
             // 
-            // ReimbursementPaymentToolStripMenuItem
-            // 
-            this.ReimbursementPaymentToolStripMenuItem.Name = "ReimbursementPaymentToolStripMenuItem";
-            this.ReimbursementPaymentToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.ReimbursementPaymentToolStripMenuItem.Text = "Reimbursement Payments";
-            this.ReimbursementPaymentToolStripMenuItem.Click += new System.EventHandler(this.ReimbursementPaymentToolStripMenuItem_Click);
-            // 
             // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2488,10 +2381,6 @@
         private Krypton.Ribbon.KryptonRibbonGroupTriple kryptonRibbonGroupTriple15;
         private Krypton.Ribbon.KryptonRibbonGroupButton tlbManageEmployeeAdvancesButton;
         private System.Windows.Forms.ContextMenuStrip cmbManageAdvances;
-        private System.Windows.Forms.ToolStripMenuItem cmbAdvanceManagement;
-        private System.Windows.Forms.ToolStripMenuItem cmbAdvanceRequest;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem20;
-        private System.Windows.Forms.ToolStripMenuItem cmbAdvanceManagementReports;
         private Krypton.Ribbon.KryptonRibbonGroupSeparator kryptonRibbonGroupSeparator5;
         private Krypton.Ribbon.KryptonRibbonGroupTriple kryptonRibbonGroupTriple16;
         private Krypton.Ribbon.KryptonRibbonGroupButton tlbMyTasks;
@@ -2502,17 +2391,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem23;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem22;
         private System.Windows.Forms.ToolStripMenuItem cmbSecondApproval;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem25;
-        private System.Windows.Forms.ToolStripMenuItem cmbAdvanceRepayment;
-        private System.Windows.Forms.ToolStripMenuItem employeeAdvanceOutstandingSummaryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem24;
-        private System.Windows.Forms.ToolStripMenuItem advanceRecoveryStatementEmployeewiseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem26;
-        private System.Windows.Forms.ToolStripMenuItem monthlyAdvanceRecoveryReportToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem27;
-        private System.Windows.Forms.ToolStripMenuItem advanceDeductionThroughPayrollReportToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem28;
-        private System.Windows.Forms.ToolStripMenuItem advanceRepaymentHistoryReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem29;
         private System.Windows.Forms.ToolStripMenuItem cmbManageEmployeePayrollConfiguration;
         public Krypton.Toolkit.KryptonSplitContainer sptrDashboardContainer;
@@ -2558,6 +2436,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private Krypton.Ribbon.KryptonRibbonGroupSeparator kryptonRibbonGroupSeparator3;
         private System.Windows.Forms.ToolStripMenuItem ReimbursementPaymentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cmbAdvanceRequest1;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem35;
+        private System.Windows.Forms.ToolStripMenuItem cmbAdvanceRepayment1;
     }
 }
 

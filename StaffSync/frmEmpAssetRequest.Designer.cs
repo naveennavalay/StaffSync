@@ -175,6 +175,7 @@
             this.lblAssetID.Size = new System.Drawing.Size(11, 15);
             this.lblAssetID.TabIndex = 82;
             this.lblAssetID.Text = " ";
+            this.lblAssetID.Visible = false;
             // 
             // picMoreInfo
             // 
@@ -186,6 +187,7 @@
             this.picMoreInfo.Size = new System.Drawing.Size(35, 29);
             this.picMoreInfo.TabIndex = 79;
             this.picMoreInfo.TabStop = false;
+            this.picMoreInfo.Visible = false;
             this.picMoreInfo.Click += new System.EventHandler(this.picMoreInfo_Click);
             // 
             // label1
@@ -562,6 +564,7 @@
             this.lblTaskID.Size = new System.Drawing.Size(11, 15);
             this.lblTaskID.TabIndex = 84;
             this.lblTaskID.Text = " ";
+            this.lblTaskID.Visible = false;
             // 
             // lblAssetRegID
             // 
@@ -574,6 +577,7 @@
             this.lblAssetRegID.Size = new System.Drawing.Size(11, 15);
             this.lblAssetRegID.TabIndex = 83;
             this.lblAssetRegID.Text = " ";
+            this.lblAssetRegID.Visible = false;
             // 
             // lblClientID
             // 
@@ -586,6 +590,7 @@
             this.lblClientID.Size = new System.Drawing.Size(11, 15);
             this.lblClientID.TabIndex = 82;
             this.lblClientID.Text = " ";
+            this.lblClientID.Visible = false;
             // 
             // lblAssetRequestID
             // 
@@ -598,6 +603,7 @@
             this.lblAssetRequestID.Size = new System.Drawing.Size(11, 15);
             this.lblAssetRequestID.TabIndex = 81;
             this.lblAssetRequestID.Text = " ";
+            this.lblAssetRequestID.Visible = false;
             // 
             // lnkViewAuditLog
             // 
@@ -621,6 +627,7 @@
             this.lblViewEmpSpecificAdvanceInfo.TabIndex = 79;
             this.lblViewEmpSpecificAdvanceInfo.Text = "View Advance Information";
             this.lblViewEmpSpecificAdvanceInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblViewEmpSpecificAdvanceInfo.Visible = false;
             this.lblViewEmpSpecificAdvanceInfo.Click += new System.EventHandler(this.lblViewEmpSpecificAdvanceInfo_Click);
             // 
             // lblRequestFromMailID
@@ -647,6 +654,7 @@
             this.lblEmpID.Size = new System.Drawing.Size(11, 15);
             this.lblEmpID.TabIndex = 36;
             this.lblEmpID.Text = " ";
+            this.lblEmpID.Visible = false;
             // 
             // lblPersonalInfoID
             // 

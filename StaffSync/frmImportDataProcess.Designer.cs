@@ -36,6 +36,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dtgImportDataSourceList = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.txtCompLogo = new Krypton.Toolkit.KryptonTextBox();
+            this.picCompLogo = new System.Windows.Forms.PictureBox();
             this.lblSelectedDataAction = new System.Windows.Forms.Label();
             this.chkSelectOrUnselect = new Krypton.Toolkit.KryptonCheckButton();
             this.chkAvoidDuplicateRows = new System.Windows.Forms.CheckBox();
@@ -64,8 +66,6 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.picCompLogo = new System.Windows.Forms.PictureBox();
-            this.txtCompLogo = new Krypton.Toolkit.KryptonTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -75,6 +75,7 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgImportDataSourceList)).BeginInit();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picCompLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgImportDataPreview)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
@@ -82,7 +83,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picCompLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -184,6 +184,33 @@
             this.groupBox4.TabIndex = 65;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Asset Information";
+            // 
+            // txtCompLogo
+            // 
+            this.txtCompLogo.Location = new System.Drawing.Point(613, 66);
+            this.txtCompLogo.Multiline = true;
+            this.txtCompLogo.Name = "txtCompLogo";
+            this.txtCompLogo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtCompLogo.Size = new System.Drawing.Size(101, 28);
+            this.txtCompLogo.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCompLogo.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtCompLogo.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCompLogo.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCompLogo.TabIndex = 89;
+            this.txtCompLogo.Visible = false;
+            this.txtCompLogo.WordWrap = false;
+            // 
+            // picCompLogo
+            // 
+            this.picCompLogo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picCompLogo.Location = new System.Drawing.Point(717, 55);
+            this.picCompLogo.Margin = new System.Windows.Forms.Padding(4);
+            this.picCompLogo.Name = "picCompLogo";
+            this.picCompLogo.Size = new System.Drawing.Size(50, 39);
+            this.picCompLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCompLogo.TabIndex = 88;
+            this.picCompLogo.TabStop = false;
+            this.picCompLogo.Visible = false;
             // 
             // lblSelectedDataAction
             // 
@@ -492,33 +519,6 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
-            // picCompLogo
-            // 
-            this.picCompLogo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picCompLogo.Location = new System.Drawing.Point(717, 55);
-            this.picCompLogo.Margin = new System.Windows.Forms.Padding(4);
-            this.picCompLogo.Name = "picCompLogo";
-            this.picCompLogo.Size = new System.Drawing.Size(50, 39);
-            this.picCompLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picCompLogo.TabIndex = 88;
-            this.picCompLogo.TabStop = false;
-            this.picCompLogo.Visible = false;
-            // 
-            // txtCompLogo
-            // 
-            this.txtCompLogo.Location = new System.Drawing.Point(613, 66);
-            this.txtCompLogo.Multiline = true;
-            this.txtCompLogo.Name = "txtCompLogo";
-            this.txtCompLogo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtCompLogo.Size = new System.Drawing.Size(101, 28);
-            this.txtCompLogo.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCompLogo.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtCompLogo.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCompLogo.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCompLogo.TabIndex = 89;
-            this.txtCompLogo.Visible = false;
-            this.txtCompLogo.WordWrap = false;
-            // 
             // frmImportDataProcess
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -548,6 +548,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgImportDataSourceList)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picCompLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgImportDataPreview)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
@@ -555,7 +556,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picCompLogo)).EndInit();
             this.ResumeLayout(false);
 
         }

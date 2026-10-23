@@ -39,14 +39,14 @@ namespace DALStaffSync
             return objAssetsRegisterInfo.DeleteAssetRegisterInfo(txtAssetRegID);
         }
 
-        public List<AssetApproverPendingList> FirstApprovalPendingAssetApprovalList(int txtClientID)
+        public List<AssetApproverPendingList> FirstApprovalPendingAssetApprovalList(int txtClientID, int FirstApproverID)
         {
-            return objAssetsRegisterInfo.FirstApprovalPendingAssetApprovalList(txtClientID);
+            return objAssetsRegisterInfo.FirstApprovalPendingAssetApprovalList(txtClientID, FirstApproverID);
         }
 
-        public List<AssetApproverPendingList> SecondApprovalPendingAssetApprovalList(int txtClientID)
+        public List<AssetApproverPendingList> SecondApprovalPendingAssetApprovalList(int txtClientID, int SecondApproverID)
         {
-            return objAssetsRegisterInfo.SecondApprovalPendingAssetApprovalList(txtClientID);
+            return objAssetsRegisterInfo.SecondApprovalPendingAssetApprovalList(txtClientID, SecondApproverID);
         }
     }
 }

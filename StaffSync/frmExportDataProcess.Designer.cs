@@ -115,7 +115,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1195, 728);
+            this.splitContainer1.Size = new System.Drawing.Size(1203, 728);
             this.splitContainer1.SplitterDistance = 653;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -128,7 +128,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1195, 653);
+            this.panel1.Size = new System.Drawing.Size(1203, 653);
             this.panel1.TabIndex = 1;
             // 
             // grpMoreOptions
@@ -358,13 +358,12 @@
             this.groupBox4.Size = new System.Drawing.Size(806, 459);
             this.groupBox4.TabIndex = 65;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Asset Information";
             // 
             // cmbOutputFormat
             // 
             this.cmbOutputFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbOutputFormat.DropDownWidth = 440;
-            this.cmbOutputFormat.Location = new System.Drawing.Point(87, 404);
+            this.cmbOutputFormat.Location = new System.Drawing.Point(87, 380);
             this.cmbOutputFormat.Name = "cmbOutputFormat";
             this.cmbOutputFormat.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbOutputFormat.Size = new System.Drawing.Size(190, 22);
@@ -376,7 +375,7 @@
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(29, 408);
+            this.label28.Location = new System.Drawing.Point(29, 384);
             this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(52, 15);
@@ -423,6 +422,7 @@
             this.lblSelectedDataAction.TabIndex = 87;
             this.lblSelectedDataAction.Text = " ";
             this.lblSelectedDataAction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblSelectedDataAction.Visible = false;
             // 
             // chkSelectOrUnselect
             // 
@@ -437,7 +437,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(672, 368);
+            this.btnSearch.Location = new System.Drawing.Point(672, 414);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -446,11 +446,12 @@
             this.btnSearch.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSearch.Values.Image = global::StaffSync.Properties.Resources.search;
             this.btnSearch.Values.Text = "";
+            this.btnSearch.Visible = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // txtSourceFilePath
             // 
-            this.txtSourceFilePath.Location = new System.Drawing.Point(87, 369);
+            this.txtSourceFilePath.Location = new System.Drawing.Point(87, 415);
             this.txtSourceFilePath.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtSourceFilePath.MaxLength = 255;
             this.txtSourceFilePath.Multiline = true;
@@ -459,18 +460,20 @@
             this.txtSourceFilePath.Size = new System.Drawing.Size(576, 28);
             this.txtSourceFilePath.TabIndex = 72;
             this.txtSourceFilePath.Tag = "Asset Code ";
+            this.txtSourceFilePath.Visible = false;
             this.txtSourceFilePath.WordWrap = false;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(4, 375);
+            this.label6.Location = new System.Drawing.Point(4, 421);
             this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 15);
             this.label6.TabIndex = 73;
             this.label6.Text = "Output File";
+            this.label6.Visible = false;
             // 
             // label5
             // 
@@ -570,7 +573,7 @@
             // 
             // lnkViewAuditLog
             // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(726, 371);
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(726, 417);
             this.lnkViewAuditLog.Name = "lnkViewAuditLog";
             this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
             this.lnkViewAuditLog.TabIndex = 37;
@@ -590,7 +593,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1195, 71);
+            this.panel2.Size = new System.Drawing.Size(1203, 71);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
@@ -657,6 +660,7 @@
             this.chkAvoidDuplicateRows.Tag = "Avoid Duplicate Rows";
             this.chkAvoidDuplicateRows.Text = "Avoid Duplicate Rows";
             this.chkAvoidDuplicateRows.UseVisualStyleBackColor = true;
+            this.chkAvoidDuplicateRows.Visible = false;
             // 
             // btnGenerateDetails
             // 

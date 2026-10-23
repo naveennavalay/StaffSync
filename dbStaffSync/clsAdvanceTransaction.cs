@@ -117,7 +117,7 @@ namespace dbStaffSync
                 return false;
         }
 
-        public List<AdvanceApprovalPendingList> AdvanceFirstApprovalPendingList(int txtClientID)
+        public List<AdvanceApprovalPendingList> AdvanceFirstApprovalPendingList(int txtClientID, int txtFirstApproverID)
         {
             List<AdvanceApprovalPendingList> objAdvanceApprovalPendingList = new List<AdvanceApprovalPendingList>();
 
@@ -183,7 +183,8 @@ namespace dbStaffSync
                                         " ) ON AdvanceTypeMas.AdvanceTypeID = EmpAdvanceRequestMas.AdvanceTypeID " + 
                                     " WHERE " + 
                                         " ( " + 
-                                            " ((ClientMas.ClientID) = " + txtClientID + ") " + 
+                                            " ((ClientMas.ClientID) = " + txtClientID + ") " +
+                                            " AND ((EmpAdvanceRequestMas.RequestedTo) = " + txtFirstApproverID + ") " +
                                             " AND ( " +
                                                 " (EmpAdvanceRequestMas.RequestedToComments) = 'Pending' OR (EmpAdvanceRequestMas.RequestedToComments) = 'In Progress'" + 
                                             " ) " + 
@@ -220,7 +221,7 @@ namespace dbStaffSync
                 return new List<AdvanceApprovalPendingList>();
         }
 
-        public List<AdvanceApprovalPendingList> AdvanceSecondApprovalPendingList(int txtClientID)
+        public List<AdvanceApprovalPendingList> AdvanceSecondApprovalPendingList(int txtClientID, int txtSecondApproverID)
         {
             List<AdvanceApprovalPendingList> objAdvanceApprovalPendingList = new List<AdvanceApprovalPendingList>();
 
@@ -286,7 +287,8 @@ namespace dbStaffSync
                                         " ) ON AdvanceTypeMas.AdvanceTypeID = EmpAdvanceRequestMas.AdvanceTypeID " + 
                                     " WHERE " + 
                                         " ( " + 
-                                            " ((ClientMas.ClientID) = " + txtClientID + ") " + 
+                                            " ((ClientMas.ClientID) = " + txtClientID + ") " +
+                                            " AND ((EmpAdvanceRequestMas.RequestedTo) = " + txtSecondApproverID + ") " +
                                             " AND ( " +
                                                 " (EmpAdvanceRequestMas.RequestMovedToComments) = 'Pending' OR (EmpAdvanceRequestMas.RequestMovedToComments) = 'In Progress'" +
                                             " ) " + 
@@ -947,7 +949,7 @@ namespace dbStaffSync
                                         " AND ((EmpAdvanceRequestMas.IsDeleted) = False) " +
                                     " ) " +
                                 " ORDER BY " +
-                                    " EmpAdvanceRequestMas.EmpAdvanceRequestID DESC;";
+                                    " EmpMas.EmpID, EmpAdvanceRequestMas.EmpAdvanceRequestID ASC;";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

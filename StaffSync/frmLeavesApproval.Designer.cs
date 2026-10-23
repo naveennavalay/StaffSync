@@ -69,6 +69,7 @@
             this.cmbLeaveType = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lblClientID = new System.Windows.Forms.Label();
             this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
             this.label38 = new System.Windows.Forms.Label();
@@ -96,7 +97,6 @@
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonCommand1 = new Krypton.Toolkit.KryptonCommand();
             this.kryptonCommand2 = new Krypton.Toolkit.KryptonCommand();
-            this.lblClientID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -257,6 +257,7 @@
             this.lblLeaveMasID.Size = new System.Drawing.Size(11, 15);
             this.lblLeaveMasID.TabIndex = 25;
             this.lblLeaveMasID.Text = " ";
+            this.lblLeaveMasID.Visible = false;
             // 
             // lblSpecificLeaveBalance
             // 
@@ -269,6 +270,7 @@
             this.lblSpecificLeaveBalance.Size = new System.Drawing.Size(11, 15);
             this.lblSpecificLeaveBalance.TabIndex = 24;
             this.lblSpecificLeaveBalance.Text = " ";
+            this.lblSpecificLeaveBalance.Visible = false;
             // 
             // lblLeaveTRID
             // 
@@ -281,6 +283,7 @@
             this.lblLeaveTRID.Size = new System.Drawing.Size(11, 15);
             this.lblLeaveTRID.TabIndex = 23;
             this.lblLeaveTRID.Text = " ";
+            this.lblLeaveTRID.Visible = false;
             // 
             // picDownloadLeaveTRList
             // 
@@ -578,6 +581,19 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Professional Info";
             // 
+            // lblClientID
+            // 
+            this.lblClientID.AutoSize = true;
+            this.lblClientID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblClientID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClientID.Location = new System.Drawing.Point(639, 30);
+            this.lblClientID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblClientID.Name = "lblClientID";
+            this.lblClientID.Size = new System.Drawing.Size(11, 15);
+            this.lblClientID.TabIndex = 86;
+            this.lblClientID.Text = " ";
+            this.lblClientID.Visible = false;
+            // 
             // lnkViewAuditLog
             // 
             this.lnkViewAuditLog.Location = new System.Drawing.Point(338, 27);
@@ -851,19 +867,6 @@
             // kryptonCommand2
             // 
             this.kryptonCommand2.Text = "kryptonCommand2";
-            // 
-            // lblClientID
-            // 
-            this.lblClientID.AutoSize = true;
-            this.lblClientID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblClientID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClientID.Location = new System.Drawing.Point(639, 30);
-            this.lblClientID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblClientID.Name = "lblClientID";
-            this.lblClientID.Size = new System.Drawing.Size(11, 15);
-            this.lblClientID.TabIndex = 86;
-            this.lblClientID.Text = " ";
-            this.lblClientID.Visible = false;
             // 
             // frmLeavesApproval
             // 

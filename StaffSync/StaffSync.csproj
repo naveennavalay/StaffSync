@@ -950,23 +950,11 @@
     <Compile Include="frmEmployeeLeavesReports.Designer.cs">
       <DependentUpon>frmEmployeeLeavesReports.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmEmployeePayrollReports.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmEmployeePayrollReports.Designer.cs">
-      <DependentUpon>frmEmployeePayrollReports.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmEmployeeAttendanceReports.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmEmployeeAttendanceReports.Designer.cs">
       <DependentUpon>frmEmployeeAttendanceReports.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmEmployeeWiseReports.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmEmployeeWiseReports.Designer.cs">
-      <DependentUpon>frmEmployeeWiseReports.cs</DependentUpon>
     </Compile>
     <Compile Include="frmLeavesMaster.cs">
       <SubType>Form</SubType>
@@ -1313,14 +1301,8 @@
     <EmbeddedResource Include="frmEmployeeLeavesReports.resx">
       <DependentUpon>frmEmployeeLeavesReports.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmEmployeePayrollReports.resx">
-      <DependentUpon>frmEmployeePayrollReports.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="frmEmployeeAttendanceReports.resx">
       <DependentUpon>frmEmployeeAttendanceReports.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmEmployeeWiseReports.resx">
-      <DependentUpon>frmEmployeeWiseReports.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLeavesMaster.resx">
       <DependentUpon>frmLeavesMaster.cs</DependentUpon>

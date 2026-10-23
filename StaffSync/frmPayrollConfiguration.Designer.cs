@@ -33,6 +33,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblYearlySalarySummaryStatement = new System.Windows.Forms.Label();
             this.lblPFCalcAmount = new System.Windows.Forms.Label();
             this.chkAutoCalculate = new System.Windows.Forms.CheckBox();
             this.lblBasicSalaryPerHour = new System.Windows.Forms.Label();
@@ -80,7 +81,6 @@
             this.btnGenerateDetails = new Krypton.Toolkit.KryptonButton();
             this.btnCancel = new Krypton.Toolkit.KryptonButton();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lblYearlySalarySummaryStatement = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -163,6 +163,18 @@
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
             // 
+            // lblYearlySalarySummaryStatement
+            // 
+            this.lblYearlySalarySummaryStatement.AutoSize = true;
+            this.lblYearlySalarySummaryStatement.Enabled = false;
+            this.lblYearlySalarySummaryStatement.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblYearlySalarySummaryStatement.Location = new System.Drawing.Point(851, 78);
+            this.lblYearlySalarySummaryStatement.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblYearlySalarySummaryStatement.Name = "lblYearlySalarySummaryStatement";
+            this.lblYearlySalarySummaryStatement.Size = new System.Drawing.Size(154, 15);
+            this.lblYearlySalarySummaryStatement.TabIndex = 108;
+            this.lblYearlySalarySummaryStatement.Text = "Yearly Salary Summary";
+            // 
             // lblPFCalcAmount
             // 
             this.lblPFCalcAmount.AutoSize = true;
@@ -174,6 +186,7 @@
             this.lblPFCalcAmount.Size = new System.Drawing.Size(11, 15);
             this.lblPFCalcAmount.TabIndex = 107;
             this.lblPFCalcAmount.Text = " ";
+            this.lblPFCalcAmount.Visible = false;
             // 
             // chkAutoCalculate
             // 
@@ -201,6 +214,7 @@
             this.lblBasicSalaryPerHour.Size = new System.Drawing.Size(11, 15);
             this.lblBasicSalaryPerHour.TabIndex = 74;
             this.lblBasicSalaryPerHour.Text = " ";
+            this.lblBasicSalaryPerHour.Visible = false;
             // 
             // lblBasicSalaryPerDay
             // 
@@ -213,6 +227,7 @@
             this.lblBasicSalaryPerDay.Size = new System.Drawing.Size(11, 15);
             this.lblBasicSalaryPerDay.TabIndex = 73;
             this.lblBasicSalaryPerDay.Text = " ";
+            this.lblBasicSalaryPerDay.Visible = false;
             // 
             // lblBasicSalary
             // 
@@ -225,6 +240,7 @@
             this.lblBasicSalary.Size = new System.Drawing.Size(11, 15);
             this.lblBasicSalary.TabIndex = 67;
             this.lblBasicSalary.Text = " ";
+            this.lblBasicSalary.Visible = false;
             // 
             // btnViewCalender
             // 
@@ -848,18 +864,6 @@
             // errValidator
             // 
             this.errValidator.ContainerControl = this;
-            // 
-            // lblYearlySalarySummaryStatement
-            // 
-            this.lblYearlySalarySummaryStatement.AutoSize = true;
-            this.lblYearlySalarySummaryStatement.Enabled = false;
-            this.lblYearlySalarySummaryStatement.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblYearlySalarySummaryStatement.Location = new System.Drawing.Point(851, 78);
-            this.lblYearlySalarySummaryStatement.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblYearlySalarySummaryStatement.Name = "lblYearlySalarySummaryStatement";
-            this.lblYearlySalarySummaryStatement.Size = new System.Drawing.Size(154, 15);
-            this.lblYearlySalarySummaryStatement.TabIndex = 108;
-            this.lblYearlySalarySummaryStatement.Text = "Yearly Salary Summary";
             // 
             // frmPayrollConfiguration
             // 

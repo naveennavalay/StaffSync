@@ -134,6 +134,7 @@
             this.lblPrintSettingID.Size = new System.Drawing.Size(11, 15);
             this.lblPrintSettingID.TabIndex = 31;
             this.lblPrintSettingID.Text = " ";
+            this.lblPrintSettingID.Visible = false;
             // 
             // lblClientID
             // 
@@ -146,6 +147,7 @@
             this.lblClientID.Size = new System.Drawing.Size(11, 15);
             this.lblClientID.TabIndex = 30;
             this.lblClientID.Text = " ";
+            this.lblClientID.Visible = false;
             // 
             // txtClientName
             // 
