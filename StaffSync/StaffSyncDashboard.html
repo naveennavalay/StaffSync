@@ -3244,6 +3244,27 @@
     -->
 
     <div id="dashboardMasonryLayout" class="dashboard-masonry-layout">
+        <!-- Reimbursement Outstanding: populated by frmDashboard.cs -->
+        <div id="reimbursementOutstandingCard" data-dashboard-key="ReimbursementOutstanding" class="chart-card">
+            <div class="chart-card-header">
+                <div>
+                    <div class="chart-title">Reimbursement Outstanding</div>
+                    <div class="chart-subtitle">Monthly outstanding amount · click a month to drill down</div>
+                </div>
+                <span id="reimbursementOutstandingTotal" class="today-card-count">₹0</span>
+            </div>
+            <div style="padding:10px 12px;">
+                <div id="reimbursementOutstandingBreadcrumb" style="font-size:12px;color:#64748b;margin-bottom:6px;">Monthly overview</div>
+                <div id="reimbursementOutstandingChart" style="width:100%;height:245px;min-height:220px;"></div>
+                <div id="reimbursementOutstandingDetails" style="display:none;overflow:auto;max-height:260px;margin-top:8px;">
+                    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+                        <thead><tr><th style="text-align:left;padding:6px;border-bottom:1px solid #dbe3ea;">Employee</th><th style="text-align:left;padding:6px;border-bottom:1px solid #dbe3ea;">Request</th><th style="text-align:left;padding:6px;border-bottom:1px solid #dbe3ea;">Date</th><th style="text-align:left;padding:6px;border-bottom:1px solid #dbe3ea;">Status</th><th style="text-align:right;padding:6px;border-bottom:1px solid #dbe3ea;">Outstanding</th></tr></thead>
+                        <tbody id="reimbursementOutstandingDetailsBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
 
         <div id="birthdayTodayCard" data-dashboard-key="BirthdayToday" class="chart-card birthday-card">
 
@@ -3687,6 +3708,163 @@
 
 
     </div>
+    <script>
+        (function () {
+            "use strict";
+            var rows = [];
+            var chart = null;
+            var level = "month";
+            var selectedMonth = null;
+            var selectedTitle = null;
+
+            function pick(o, names, fallback) {
+                if (!o) return fallback;
+                for (var i = 0; i < names.length; i++) {
+                    var v = o[names[i]];
+                    if (v !== undefined && v !== null && v !== "") return v;
+                    var key = Object.keys(o).find(function (k) { return k.toLowerCase() === names[i].toLowerCase(); });
+                    if (key && o[key] !== undefined && o[key] !== null && o[key] !== "") return o[key];
+                }
+                return fallback;
+            }
+            function amount(r) {
+                var v = pick(r, ["CBalance", "OutstandingAmount", "Balance", "ReimbBalance", "PendingAmount", "AmountOutstanding", "ReimbRequestBalance"], 0);
+                if (typeof v === "string") v = v.replace(/[₹,\s]/g, "");
+                var n = Number(v); return isFinite(n) ? n : 0;
+            }
+            function dateValue(r) {
+                var value = pick(r, ["ReimbRequestTRDate", "ReimbRequestDate", "RequestDate", "Date", "TransactionDate"], "");
+                if (value === null || value === undefined || value === "") return "";
+                // Display the date portion only; do not show the time component.
+                if (typeof value === "string") {
+                    var trimmed = value.trim();
+                    var isoMatch = trimmed.match(/^(\d{4}-\d{2}-\d{2})/);
+                    if (isoMatch) return isoMatch[1];
+                    var dotNetMatch = trimmed.match(/^\/Date\((\d+)/);
+                    if (dotNetMatch) {
+                        var dotNetDate = new Date(Number(dotNetMatch[1]));
+                        return isNaN(dotNetDate.getTime()) ? trimmed : dotNetDate.toLocaleDateString("en-CA");
+                    }
+                    var parsed = new Date(trimmed);
+                    if (!isNaN(parsed.getTime())) return parsed.toLocaleDateString("en-CA");
+                    return trimmed.split(/[T ]/)[0];
+                }
+                var date = new Date(value);
+                return isNaN(date.getTime()) ? String(value) : date.toLocaleDateString("en-CA");
+            }
+            function monthLabel(r) {
+                var raw = dateValue(r);
+                if (!raw) return "Undated";
+                var d = new Date(raw);
+                if (isNaN(d.getTime())) {
+                    var m = String(raw).match(/(\d{4})[-/](\d{1,2})/);
+                    if (m) d = new Date(Number(m[1]), Number(m[2]) - 1, 1);
+                }
+                if (isNaN(d.getTime())) return String(raw);
+                return d.toLocaleString("en-IN", { month: "short", year: "numeric" });
+            }
+            function title(r) { return String(pick(r, ["ReimbTitle", "ReimbursementTitle", "ReimbursementType", "Title"], "Other")); }
+            function money(v) { return "₹" + Number(v || 0).toLocaleString("en-IN", { maximumFractionDigits: 2 }); }
+            function text(v) { return v === null || v === undefined ? "" : String(v); }
+            function esc(v) { return text(v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;"); }
+            function element(id) { return document.getElementById(id); }
+            function initChart() {
+                var el = element("reimbursementOutstandingChart");
+                if (!el || !window.echarts) return null;
+                var existing = echarts.getInstanceByDom(el);
+                return existing || echarts.init(el);
+            }
+            function renderEmpty(message) {
+                var el = element("reimbursementOutstandingChart");
+                if (el) el.innerHTML = '<div style="height:220px;display:flex;align-items:center;justify-content:center;color:#64748b;font-size:13px;text-align:center;">' + esc(message) + '</div>';
+                element("reimbursementOutstandingTotal").textContent = money(0);
+            }
+            function setChartOption(option) {
+                chart = initChart();
+                if (!chart) { renderEmpty("Chart library (ECharts) is unavailable."); return; }
+                chart.clear(); chart.setOption(option, true); chart.resize();
+            }
+            function renderMonths() {
+                level = "month"; selectedMonth = null; selectedTitle = null;
+                element("reimbursementOutstandingBreadcrumb").textContent = "Monthly overview — click a bar to view reimbursement types";
+                element("reimbursementOutstandingDetails").style.display = "none";
+                var totals = {};
+                rows.forEach(function (r) { var m = monthLabel(r); totals[m] = (totals[m] || 0) + amount(r); });
+                var keys = Object.keys(totals).sort(function (a, b) { var da = new Date("1 " + a), db = new Date("1 " + b); return da - db; });
+                var total = rows.reduce(function (s, r) { return s + amount(r); }, 0);
+                element("reimbursementOutstandingTotal").textContent = money(total);
+                if (!keys.length) { renderEmpty("No reimbursement outstanding records were returned."); return; }
+                setChartOption({ animation: true, grid: { left: 65, right: 20, top: 25, bottom: 55, containLabel: true }, tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, formatter: function (p) { return esc(p[0].axisValue) + "<br/>Outstanding: <b>" + money(p[0].value) + "</b>"; } }, xAxis: { type: "category", data: keys, axisLabel: { rotate: 25, interval: 0 } }, yAxis: { type: "value", axisLabel: { formatter: function (v) { return v >= 100000 ? "₹" + (v / 100000).toFixed(1) + "L" : v >= 1000 ? "₹" + (v / 1000).toFixed(0) + "K" : "₹" + v; } } }, series: [{ name: "Outstanding", type: "bar", barMaxWidth: 38, data: keys.map(function (k) { return { name: k, value: totals[k], itemStyle: { color: "#4387c5", borderRadius: [5, 5, 0, 0] } }; }), label: { show: true, position: "top", formatter: function (p) { return money(p.value); }, fontSize: 10 } }] });
+                chart.off("click"); chart.on("click", function (p) { if (p.componentType === "series") renderTypes(p.name); });
+            }
+            function renderTypes(month) {
+                level = "type"; selectedMonth = month; selectedTitle = null;
+                var filtered = rows.filter(function (r) { return monthLabel(r) === month; });
+                var sums = {};
+                filtered.forEach(function (r) { var t = title(r); sums[t] = (sums[t] || 0) + amount(r); });
+                element("reimbursementOutstandingBreadcrumb").innerHTML = '<button id="reimbBackToMonths" type="button" style="margin-right:8px;">← Back</button> ' + esc(month) + " — click a segment to view employees";
+                element("reimbursementOutstandingDetails").style.display = "none";
+                element("reimbursementOutstandingChart").style.display = "block";
+                element("reimbursementOutstandingChart").style.height = "245px";
+                element("reimbBackToMonths").onclick = renderMonths;
+                var names = Object.keys(sums);
+                if (!names.length) { renderEmpty("No reimbursement types for this month."); return; }
+                setChartOption({ tooltip: { trigger: "item", formatter: function (p) { return esc(p.name) + "<br/>Outstanding: <b>" + money(p.value) + "</b> (" + p.percent + "%)"; } }, legend: { type: "scroll", bottom: 0 }, series: [{ type: "pie", radius: ["38%", "68%"], center: ["50%", "45%"], data: names.map(function (n) { return { name: n, value: sums[n] }; }), label: { formatter: function (p) { return p.name + "\n" + money(p.value); } } }] });
+                chart.off("click"); chart.on("click", function (p) { if (p.componentType === "series") renderEmployees(month, p.name); });
+            }
+            function renderEmployees(month, reimbTitle) {
+                level = "employees"; selectedMonth = month; selectedTitle = reimbTitle;
+                var filtered = rows.filter(function (r) { return monthLabel(r) === month && title(r) === reimbTitle; });
+                element("reimbursementOutstandingBreadcrumb").innerHTML = '<button id="reimbBackToTypes" type="button" style="margin-right:8px;">← Back</button> ' + esc(month) + " / " + esc(reimbTitle) + " — employee details";
+                element("reimbBackToTypes").onclick = function () { renderTypes(month); };
+                var body = element("reimbursementOutstandingDetailsBody"); body.innerHTML = "";
+                filtered.forEach(function (r) {
+                    var emp = pick(r, ["EmpName", "EmployeeName", "Employee"], ""); var code = pick(r, ["EmpCode", "EmployeeCode"], "");
+                    var req = pick(r, ["ReimbRequestCode", "ReimbursementRequestCode", "RequestCode", "ReimbRequestID", "ReimbRequestId"], "");
+                    var dt = dateValue(r); var status = pick(r, ["ReimbRequestStatus", "RequestStatus", "Status"], "");
+                    var tr = document.createElement("tr");
+                    tr.innerHTML = '<td style="padding:6px;border-bottom:1px solid #edf1f5;">' + esc(emp) + (code ? ' <small>(' + esc(code) + ')</small>' : '') + '<br/><small>' + esc(pick(r, ["DepartmentTitle", "DepartmentName"], "")) + ' · ' + esc(pick(r, ["DesignationTitle", "DesignationName"], "")) + '</small></td><td style="padding:6px;border-bottom:1px solid #edf1f5;">' + esc(req) + '<br/><small>' + esc(pick(r, ["ReimbRequestDescription", "RequestDescription", "Comments"], "")) + '</small></td><td style="padding:6px;border-bottom:1px solid #edf1f5;">' + esc(dt) + '</td><td style="padding:6px;border-bottom:1px solid #edf1f5;">' + esc(status) + '</td><td style="padding:6px;text-align:right;border-bottom:1px solid #edf1f5;white-space:nowrap;">' + money(amount(r)) + '</td>';
+                    body.appendChild(tr);
+                });
+                // At employee level, show the table in place of the chart. Keeping the
+                // fixed-height ECharts canvas visible was obscuring the employee rows.
+                var chartEl = element("reimbursementOutstandingChart");
+                if (chart) { chart.off("click"); }
+                chartEl.style.display = "none";
+                element("reimbursementOutstandingDetails").style.display = "block";
+                element("reimbursementOutstandingDetails").style.maxHeight = "none";
+                element("reimbursementOutstandingDetails").style.overflow = "visible";
+                var total = filtered.reduce(function (s, r) { return s + amount(r); }, 0);
+                element("reimbursementOutstandingTotal").textContent = money(total);
+                if (!filtered.length) {
+                    var emptyRow = document.createElement("tr");
+                    emptyRow.innerHTML = '<td colspan="5" style="padding:14px;text-align:center;color:#64748b;">No employee records matched this month and reimbursement type.</td>';
+                    body.appendChild(emptyRow);
+                }
+                // Resize the card layout after the table becomes visible.
+                setTimeout(function () { window.dispatchEvent(new Event("resize")); }, 0);
+            }
+            window.displayReimbursementOutstandingChartData = function (data) {
+                try {
+                    if (typeof data === "string") data = JSON.parse(data);
+                    rows = Array.isArray(data) ? data : [];
+                    console.log("Reimbursement Outstanding rows received:", rows.length, rows.length ? rows[0] : null);
+                    if (!element("reimbursementOutstandingChart")) { console.error("Reimbursement Outstanding chart container is missing."); return; }
+                    if (!window.echarts) { renderEmpty("ECharts did not load. Check the dashboard's chart library reference."); return; }
+                    renderMonths();
+                } catch (e) { console.error("Unable to render reimbursement outstanding chart:", e); renderEmpty("Unable to render reimbursement data. See console for details."); }
+            };
+            window.addEventListener("resize", function () { if (chart) chart.resize(); });
+            if (window.__staffSyncPendingReimbursementData) {
+                window.displayReimbursementOutstandingChartData(window.__staffSyncPendingReimbursementData);
+                window.__staffSyncPendingReimbursementData = null;
+            }
+            document.addEventListener("DOMContentLoaded", function () {
+                if (window.__staffSyncPendingReimbursementData) { window.displayReimbursementOutstandingChartData(window.__staffSyncPendingReimbursementData); window.__staffSyncPendingReimbursementData = null; }
+            });
+        })();
+    </script>
+
 </body>
 
 

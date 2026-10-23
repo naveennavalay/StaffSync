@@ -53,6 +53,7 @@ namespace StaffSync
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         DALStaffSync.clsAppSettings objAppSettings = new DALStaffSync.clsAppSettings();
         DALStaffSync.clsDashboardChartWidgets objDashboardChartWidgets = new DALStaffSync.clsDashboardChartWidgets();
+        DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
 
         List<ClientInfo> objActiveClientInfo = new List<ClientInfo>();
         List<FinYearMas> objActiveFinYear = new List<FinYearMas>();
@@ -127,7 +128,7 @@ namespace StaffSync
         {
             _rightPanelExpandedDistance = sptrDashboardContainer.Panel2.Width;
 
-            sptrDashboardContainer.Panel2Collapsed  = false;
+            sptrDashboardContainer.Panel2Collapsed = false;
 
             //sptrDashboardContainer.Panel2.Width = RightPanelCollapsedWidth;
         }
@@ -7781,6 +7782,7 @@ namespace StaffSync
             await displayEmployeeAdvanceInformationChartData();
             await displayMonthlyEmployeeAdvanceInformationChartData();
             await displayEmployeeConfirmationChartData();
+            await displayReimbursementOutstandingChartData();
         }
 
         private async void myWebView_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
@@ -7846,6 +7848,10 @@ namespace StaffSync
 
                         case "MonthlyEmployeeAdvanceInformation":
                             await displayMonthlyEmployeeAdvanceInformationChartData();
+                            break;
+
+                        case "ReimbursementOutstanding":
+                            await displayReimbursementOutstandingChartData();
                             break;
 
                         case "BirthdayToday":
@@ -8442,6 +8448,85 @@ namespace StaffSync
                 return;
             }
 
+        }
+
+        // ---------------------------------------------------------------------
+        // REIMBURSEMENT OUTSTANDING DASHBOARD - LIVE DATA HANDOFF
+        // ---------------------------------------------------------------------
+        // Live data is returned by GetReimbursmentPaymentPendingList. The HTML renderer
+        // accepts the serialized row properties and maps common field-name variants.
+        // Expected fields used by the HTML:
+        // Month, ReimbTitle, OutstandingAmount, EmpCode, EmpName,
+        // DesignationTitle, DepartmentTitle, ReimbRequestCode,
+        // ReimbRequestDate, ReimbRequestStatus, ReimbRequestDescription.
+        private async Task displayReimbursementOutstandingChartData()
+        {
+            try
+            {
+                //List<EmployeeAdvanceInformationChartData> data = objDashboardChartWidgets.displayEmployeeAdvanceInformationChartData(objSelectedClientFinYearInfo.ClientID, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+                if (myWebView == null || myWebView.CoreWebView2 == null)
+                {
+                    return;
+                }
+
+                List<ReimbursementPaymentsPendingList> data =
+                    objEmpReimbursRequestInfo.GetReimbursmentPaymentPendingList(
+                        objSelectedClientFinYearInfo.ClientID);
+
+                string json = JsonConvert.SerializeObject(data ?? new List<ReimbursementPaymentsPendingList>());
+
+                // The page may still be loading when the initial query completes.
+                // Execute only after the renderer entry point is available.
+                string script = @"(function(){
+                    var payload = " + json + @";
+                    if (typeof window.displayReimbursementOutstandingChartData === 'function') {
+                        window.displayReimbursementOutstandingChartData(payload);
+                    } else {
+                        window.__staffSyncPendingReimbursementData = payload;
+                    }
+                })();";
+
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "StaffSync",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+
+            //try
+            //{
+            //    var data = new[]
+            //    {
+            //        new { Month = "Jan 2026", ReimbTitle = "Travel", OutstandingAmount = 18500.00, EmpCode = "EMP001", EmpName = "Aarav Sharma", DesignationTitle = "Software Engineer", DepartmentTitle = "Development", ReimbRequestCode = "REIMB-2026-001", ReimbRequestDate = "2026-01-12", ReimbRequestStatus = "Pending", ReimbRequestDescription = "Client visit travel" },
+            //        new { Month = "Jan 2026", ReimbTitle = "Medical", OutstandingAmount = 4200.00, EmpCode = "EMP002", EmpName = "Priya Nair", DesignationTitle = "QA Engineer", DepartmentTitle = "Testing", ReimbRequestCode = "REIMB-2026-002", ReimbRequestDate = "2026-01-18", ReimbRequestStatus = "Pending", ReimbRequestDescription = "Medical reimbursement" },
+            //        new { Month = "Feb 2026", ReimbTitle = "Travel", OutstandingAmount = 12750.00, EmpCode = "EMP003", EmpName = "Rahul Verma", DesignationTitle = "Technical Specialist", DepartmentTitle = "Support", ReimbRequestCode = "REIMB-2026-003", ReimbRequestDate = "2026-02-08", ReimbRequestStatus = "Submitted", ReimbRequestDescription = "Customer onsite visit" },
+            //        new { Month = "Feb 2026", ReimbTitle = "Food", OutstandingAmount = 1850.00, EmpCode = "EMP004", EmpName = "Sneha Rao", DesignationTitle = "HR Executive", DepartmentTitle = "Human Resources", ReimbRequestCode = "REIMB-2026-004", ReimbRequestDate = "2026-02-16", ReimbRequestStatus = "Pending", ReimbRequestDescription = "Business meeting meals" },
+            //        new { Month = "Mar 2026", ReimbTitle = "Travel", OutstandingAmount = 9200.00, EmpCode = "EMP001", EmpName = "Aarav Sharma", DesignationTitle = "Software Engineer", DepartmentTitle = "Development", ReimbRequestCode = "REIMB-2026-005", ReimbRequestDate = "2026-03-04", ReimbRequestStatus = "Pending", ReimbRequestDescription = "Local conveyance" },
+            //        new { Month = "Mar 2026", ReimbTitle = "Equipment", OutstandingAmount = 6500.00, EmpCode = "EMP005", EmpName = "Kiran Patel", DesignationTitle = "DevOps Engineer", DepartmentTitle = "DevOps", ReimbRequestCode = "REIMB-2026-006", ReimbRequestDate = "2026-03-21", ReimbRequestStatus = "Submitted", ReimbRequestDescription = "Work accessory purchase" },
+            //        new { Month = "Apr 2026", ReimbTitle = "Medical", OutstandingAmount = 3100.00, EmpCode = "EMP002", EmpName = "Priya Nair", DesignationTitle = "QA Engineer", DepartmentTitle = "Testing", ReimbRequestCode = "REIMB-2026-007", ReimbRequestDate = "2026-04-11", ReimbRequestStatus = "Pending", ReimbRequestDescription = "Prescription expenses" },
+            //        new { Month = "Apr 2026", ReimbTitle = "Travel", OutstandingAmount = 14700.00, EmpCode = "EMP003", EmpName = "Rahul Verma", DesignationTitle = "Technical Specialist", DepartmentTitle = "Support", ReimbRequestCode = "REIMB-2026-008", ReimbRequestDate = "2026-04-25", ReimbRequestStatus = "Pending", ReimbRequestDescription = "Customer workshop travel" }
+            //    };
+
+            //    string json = JsonConvert.SerializeObject(data);
+            //    string script = $"displayReimbursementOutstandingChartData({json});";
+            //    if (myWebView != null && myWebView.CoreWebView2 != null)
+            //    {
+            //        await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(
+            //        ex.Message,
+            //        "StaffSync - Reimbursement Outstanding",
+            //        MessageBoxButtons.OK,
+            //        MessageBoxIcon.Error);
+            //}
         }
 
         private async Task displayEmployeeAdvanceInformationChartData()
