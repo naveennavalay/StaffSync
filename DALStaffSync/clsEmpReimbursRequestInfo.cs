@@ -45,6 +45,11 @@ namespace DALStaffSync
             return objReimbursementInfoPendingListInfo;
         }
 
+        public List<ReimbursementTransactionList> getReimbursmentTransactionList(int txtReimbRequestID)
+        {
+            return objEmpReimbursRequestInfo.getReimbursmentTransactionList(txtReimbRequestID);
+        }
+
         public int InsertEmployeeReimbursmentRequestInfo(int PersonalInfoID, bool IsActive, bool IsDeleted, int ReimbID, DateTime? ReimbursRequestDate, decimal ReimbursRequestAmount,
             bool ReimbursAproveStatus1, DateTime? ReimbursAproveDate1, int ReimbursAproveBy1, string ReimbursAproveComments1, bool ReimbursAproveStatus2, DateTime? ReimbursApproveDate2, int ReimbursAproveBy2, string ReimbursAproveComments2, bool ReimbursRequestFinalStatus, bool IncludeInNextPayslipProcess)
         {
@@ -65,6 +70,11 @@ namespace DALStaffSync
         public int InsertEmployeeReimbursmentRequestMasInfo(DateTime ReimbRequestDate, string ReimbRequestDescription, string ReimbRequestStatus, bool IsActive, bool IsDeleted, int ReimbursRequestID)
         {
             return objEmpReimbursRequestInfo.InsertEmployeeReimbursmentRequestMasInfo(ReimbRequestDate, ReimbRequestDescription.ToString(), ReimbRequestStatus, IsActive, IsDeleted, ReimbursRequestID);
+        }
+
+        public int UpdateEmployeeReimbursmentRequestStatus(int ReimbRequestID, string ReimbStatus)
+        {
+            return objEmpReimbursRequestInfo.UpdateEmployeeReimbursmentRequestStatus(ReimbRequestID, ReimbStatus);
         }
 
         public int InsertEmployeeReimbursmentRequestDetailedInfo(int ReimbRequestID, DateTime ReimbRequestTRDate, decimal OBalance, decimal CrAmount, decimal DrAmount, decimal CBalance, string TRType, string Comments)

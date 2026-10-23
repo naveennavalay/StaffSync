@@ -423,6 +423,62 @@ namespace dbStaffSync
             return objReimbursementInfoPendingListInfo;
         }
 
+        public List<ReimbursementTransactionList> getReimbursmentTransactionList(int txtReimbRequestID)
+        {
+            List<ReimbursementTransactionList> objReimbursementTransactionListInfo = new List<ReimbursementTransactionList>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "";
+
+                strQuery = @"SELECT
+                                    ReimbRequestDetailInfo.ReimbRequestDetailID,
+                                    ReimbRequestDetailInfo.ReimbRequestID,
+                                    ReimbRequestDetailInfo.ReimbRequestTRDate,
+                                    ReimbRequestDetailInfo.OBalance,
+                                    ReimbRequestDetailInfo.CrAmount,
+                                    ReimbRequestDetailInfo.DrAmount,
+                                    ReimbRequestDetailInfo.CBalance,
+                                    ReimbRequestDetailInfo.TRType,
+                                    ReimbRequestDetailInfo.Comments,
+                                    ReimbRequestDetailInfo.OrderID
+                                FROM
+                                    ReimbRequestDetailInfo
+                                WHERE
+                                    (((ReimbRequestDetailInfo.ReimbRequestID) = " + txtReimbRequestID + @"))
+                                ORDER BY
+                                    ReimbRequestDetailInfo.ReimbRequestDetailID,
+                                    ReimbRequestDetailInfo.ReimbRequestTRDate,
+                                    ReimbRequestDetailInfo.OrderID;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objReimbursementTransactionListInfo = JsonConvert.DeserializeObject<List<ReimbursementTransactionList>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objReimbursementTransactionListInfo;
+        }
+
         public int UpdateReimbursmentRequestFirstApprover(int ReimbursRequestID, string FirstApproverStatus)
         {
             int affectedRows = 0;
@@ -582,6 +638,36 @@ namespace dbStaffSync
             return affectedRows;
         }
 
+        public int UpdateEmployeeReimbursmentRequestStatus(int ReimbRequestID, string ReimbStatus)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE ReimbRequestMas SET ReimbRequestStatus = '" + ReimbStatus + "' WHERE ReimbRequestID = " + ReimbRequestID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = ReimbRequestID;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return affectedRows;
+        }
+
         public int InsertEmployeeReimbursmentRequestDetailedInfo(int ReimbRequestID, DateTime ReimbRequestTRDate, decimal OBalance, decimal CrAmount, decimal DrAmount, decimal CBalance, string TRType, string Comments)
         {
             int affectedRows = 0;
@@ -592,8 +678,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO ReimbRequestDetailInfo (ReimbRequestDetailID, ReimbRequestID, ReimbRequestTRDate, OBalance, CrBalance, DrAmount, CBalance, Comments, OrderID) VALUES " +
-                 "(" + maxRowCount.Data + ", " + ReimbRequestID + ", #" + Convert.ToDateTime(ReimbRequestTRDate).ToString("dd-MMM-yyyy") + "#, " + OBalance + ", " + CrAmount + ", " + DrAmount + ", " + CBalance + ", '" + Comments + "', " + maxRowCount.Data + ")";
+                string strQuery = "INSERT INTO ReimbRequestDetailInfo (ReimbRequestDetailID, ReimbRequestID, ReimbRequestTRDate, OBalance, CrAmount, DrAmount, CBalance, TRType, Comments, OrderID) VALUES " +
+                 "(" + maxRowCount.Data + ", " + ReimbRequestID + ", #" + Convert.ToDateTime(ReimbRequestTRDate).ToString("dd-MMM-yyyy") + "#, " + OBalance + ", " + CrAmount + ", " + DrAmount + ", " + CBalance + ", '" + TRType + "', '" + Comments + "', " + maxRowCount.Data + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

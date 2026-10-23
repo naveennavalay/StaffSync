@@ -161,24 +161,24 @@ namespace StaffSync
             if (string.IsNullOrEmpty(dtReimbRequestDate.Text))
             {
                 validationStatus = false;
-                errValidator.SetError(this.dtReimbRequestDate, dtReimbRequestDate.Tag?.ToString() ?? "Date of Request is required.");
+                errValidator.SetError(this.dtReimbRequestDate, dtReimbRequestDate.Tag?.ToString() ?? "Reimbursment Date is required.");
             }
             else if (!DateTime.TryParseExact(dtReimbRequestDate.Text, dateFormat, provider, DateTimeStyles.None, out dos))
             {
                 validationStatus = false;
-                errValidator.SetError(this.dtReimbRequestDate, "Invalid Date of Date of Request format (dd-MM-yyyy).");
+                errValidator.SetError(this.dtReimbRequestDate, "Invalid Date of Reimbursment Date (dd-MM-yyyy).");
             }
-            //else if (dos > DateTime.Now.Date)
-            //{
-            //    validationStatus = false;
-            //    errValidator.SetError(this.txtAdvanceStartDate, "Date of Salary cannot be in the future.");
-            //}
+            else if (dos > DateTime.Now.Date)
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtReimbRequestDate, "Reimbursment Date cannot be future date.");
+            }
             else
             {
                 errValidator.SetError(this.dtReimbRequestDate, "");
             }
 
-            if (txtReimbursementAmount.Text.Trim() == "" || Convert.ToDecimal(txtReimbursementAmount.Text.Trim()) == 0)
+            if (txtReimbursementAmount.Text.Trim() == "" || Convert.ToDecimal(txtReimbursementAmount.Text.Trim()) <= 0)
             {
                 errValidator.SetError(txtReimbursementAmount, "Please enter the Reimbursement Amount");
                 validationStatus = false;

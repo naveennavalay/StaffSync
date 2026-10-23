@@ -75,7 +75,7 @@ namespace StaffSync
         public frmEmpReimbursmentPayments()
         {
             InitializeComponent();
-            //attendanceGridControl1.CellValueChangedCustom += Control_CellValueChangedCustom;
+            clearControls();
         }
 
         public frmEmpReimbursmentPayments(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
@@ -83,6 +83,7 @@ namespace StaffSync
             InitializeComponent();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
             objActiveClientInfo = objClientInfo.getClientInfoByEmpID(objTempCurrentlyLoggedInUserInfo.EmpID);
+            clearControls();
         }
 
         public frmEmpReimbursmentPayments(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
@@ -92,6 +93,7 @@ namespace StaffSync
             objTempClientFinYearInfo = objSelectedClientFinYearInfo;
             ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
             objActiveClientInfo = objClientInfo.getClientInfoByEmpID(objTempCurrentlyLoggedInUserInfo.EmpID);
+            clearControls();
         }
 
         public frmEmpReimbursmentPayments(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo, DateTime dtFrom, DateTime dtTo)
@@ -101,11 +103,13 @@ namespace StaffSync
             objTempClientFinYearInfo = objSelectedClientFinYearInfo;
             ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
             objActiveClientInfo = objClientInfo.getClientInfoByEmpID(objTempCurrentlyLoggedInUserInfo.EmpID);
+            clearControls();
         }
 
         public frmEmpReimbursmentPayments(int txtEmployeeID, int txtLeaveMasID)
         {
             InitializeComponent();
+            clearControls();
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -184,6 +188,9 @@ namespace StaffSync
             enableControls();
             errValidator.Clear();
 
+            txtComments.Text = "To Reimbursment";
+
+            btnSaveDetails.Enabled = true;
             dtReimbRequestDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
         }
 
@@ -193,12 +200,88 @@ namespace StaffSync
         /// </summary>
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
+            string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID, "");
+            if (strValidationMessage != "Success")
+            {
+                MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            if(ValidateValuesOnUI())
+            {
+                int transactionID = objEmpReimbursRequestInfo.InsertEmployeeReimbursmentRequestDetailedInfo(Convert.ToInt32(lblReimbRequestID.Text), Convert.ToDateTime(dtReimbRequestDate.Text.ToString()),  Convert.ToDecimal(txtOBalance.Text), Convert.ToDecimal(0), Convert.ToDecimal(txtReimbursementAmount.Text), Convert.ToDecimal(txtCurrentBalance.Text), "Dr", txtComments.Text);
+                if (transactionID > 0)
+                {
+                    if(Convert.ToDecimal(txtCurrentBalance.Text) == 0)
+                    {
+                        objEmpReimbursRequestInfo.UpdateEmployeeReimbursmentRequestStatus(Convert.ToInt32(lblReimbRequestID.Text), "Completed");
+                    }
+                    else if (Convert.ToDecimal(txtCurrentBalance.Text) > 0)
+                    {
+                        objEmpReimbursRequestInfo.UpdateEmployeeReimbursmentRequestStatus(Convert.ToInt32(lblReimbRequestID.Text), "In Progress");
+                    }
+
+                    dtgReimbursmentPaymentHistory.DataSource = null;
+                    dtgReimbursmentPaymentHistory.DataSource = objEmpReimbursRequestInfo.getReimbursmentTransactionList(Convert.ToInt32(lblReimbRequestID.Text.ToString()));
+                    formatTransactionGrid();
+
+                    MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    disableControls();
+                    clearControls();
+                    errValidator.Clear();
+                }
+            }
         }
 
+        public bool ValidateValuesOnUI()
+        {
+            bool validationStatus = true;
+            errValidator.Clear();
+
+            DateTime dob, doj;
+            string dateFormat = "dd-MM-yyyy";
+            CultureInfo provider = CultureInfo.InvariantCulture;
+
+            if (lblActionMode.Text == "add")
+            {
+                if (txtReimbursementAmount.Text.ToString().Trim() == "")
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.txtReimbursementAmount, txtReimbursementAmount.Tag?.ToString() ?? "Reimbursment Amount should not be Blank.");
+                }
+                if (Convert.ToDecimal(txtReimbursementAmount.Text.ToString()) <= 0)
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.txtReimbursementAmount, txtReimbursementAmount.Tag?.ToString() ?? "Reimbursment Amount should not be Zero.");
+                }
+
+                DateTime reimbTRDate = DateTime.ParseExact(dtReimbRequestDate.Text, dateFormat, provider);
+                if (reimbTRDate > DateTime.Today)
+                {
+                    errValidator.SetError(dtReimbRequestDate, "Transaction Date cannot be future date");
+                    validationStatus = false;
+                }
+
+                if (Convert.ToDecimal(txtCurrentBalance.Text.ToString()) < 0)
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.txtCurrentBalance, txtCurrentBalance.Tag?.ToString() ?? "Outstanding Balance should not be less than Zero.");
+                }
+                //if (Convert.ToDecimal(txtOutstandingQuantity.Text.ToString()) < Convert.ToDecimal(txtTotalQuantity.Text.ToString()))
+                //{
+                //    validationStatus = false;
+                //    errValidator.SetError(this.txtOutstandingQuantity, txtOutstandingQuantity.Tag?.ToString() ?? "Total Outstanding Quantity should not be less than Total Quantity.");
+                //}
+            }
+            return validationStatus;
+        }
 
         public void clearControls()
         {
+            txtOBalance.Text = "0.00";
+            txtTotalCredit.Text = "0.00";
+            txtTotalDebit.Text = "0.00";
+            txtCurrentBalance.Text = "0.00";
             txtRequestCode.Text = "";
             txtReimbType.Text = "";
             txtRequestDate.Text = "";
@@ -214,6 +297,8 @@ namespace StaffSync
             txtComments.Text = "";
             picEmpPhoto.Image  = null;
             dtgReimbursmentPaymentHistory.DataSource = null;
+            dtgReimbursmentPaymentHistory.DataSource = objEmpReimbursRequestInfo.getReimbursmentTransactionList(0);
+            formatTransactionGrid();
 
             lblEmpID.Text = "";
             lblReimbRequestID.Text = "";
@@ -252,7 +337,6 @@ namespace StaffSync
             txtRequestDate.Enabled = false;
             txtComments.Enabled = false;
             picEmpPhoto.Image = null;
-            dtgReimbursmentPaymentHistory.DataSource = null;
             btnReimbursmentSearch.Enabled = false;
             btnSaveDetails.Enabled = false;
             //txtLeaveApprovalDate.Enabled = false;
@@ -466,9 +550,120 @@ namespace StaffSync
                 txtEmpName.Text = objReimbursementPaymentsPendingList[0].EmpName.ToString();
                 txtDesignation.Text = objReimbursementPaymentsPendingList[0].DesignationTitle.ToString();
                 txtDepartment.Text = objReimbursementPaymentsPendingList[0].DepartmentTitle.ToString();
+                txtOBalance.Text = objReimbursementPaymentsPendingList[0].CBalance.ToString();
+                txtCurrentBalance.Text = objReimbursementPaymentsPendingList[0].CBalance.ToString();
 
                 picEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblEmpID.Text)).EmpPhoto);
+                
+                dtgReimbursmentPaymentHistory.DataSource = null;
+                dtgReimbursmentPaymentHistory.DataSource = objEmpReimbursRequestInfo.getReimbursmentTransactionList(Convert.ToInt32(lblReimbRequestID.Text));
+                formatTransactionGrid();
+
+                CalculateTransactionSummary();
+                txtCurrentBalance.Text = objReimbursementPaymentsPendingList[0].CBalance.ToString();
             }
+        }
+
+        private void formatTransactionGrid()
+        {
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestDetailID"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestID"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestTRDate"].HeaderText = "Date";
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestTRDate"].Width = 100;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestTRDate"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestTRDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            dtgReimbursmentPaymentHistory.Columns["OBalance"].HeaderText = "O. Balance";
+            dtgReimbursmentPaymentHistory.Columns["OBalance"].Width = 100;
+            dtgReimbursmentPaymentHistory.Columns["OBalance"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["OBalance"].DefaultCellStyle.Format = "c2";
+            dtgReimbursmentPaymentHistory.Columns["OBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dtgReimbursmentPaymentHistory.Columns["CrAmount"].HeaderText = "Cr. Amount";
+            dtgReimbursmentPaymentHistory.Columns["CrAmount"].Width = 100;
+            dtgReimbursmentPaymentHistory.Columns["CrAmount"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["CrAmount"].DefaultCellStyle.Format = "c2";
+            dtgReimbursmentPaymentHistory.Columns["CrAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dtgReimbursmentPaymentHistory.Columns["DrAmount"].HeaderText = "Dr. Amount";
+            dtgReimbursmentPaymentHistory.Columns["DrAmount"].Width = 100;
+            dtgReimbursmentPaymentHistory.Columns["DrAmount"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["DrAmount"].DefaultCellStyle.Format = "c2";
+            dtgReimbursmentPaymentHistory.Columns["DrAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dtgReimbursmentPaymentHistory.Columns["CBalance"].HeaderText = "C. Balance";
+            dtgReimbursmentPaymentHistory.Columns["CBalance"].Width = 100;
+            dtgReimbursmentPaymentHistory.Columns["CBalance"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["CBalance"].DefaultCellStyle.Format = "c2";
+            dtgReimbursmentPaymentHistory.Columns["CBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dtgReimbursmentPaymentHistory.Columns["TRType"].HeaderText = "Trans. Type";
+            dtgReimbursmentPaymentHistory.Columns["TRType"].Width = 100;
+            dtgReimbursmentPaymentHistory.Columns["TRType"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["Comments"].HeaderText = "Comments";
+            dtgReimbursmentPaymentHistory.Columns["Comments"].Width = 350;
+            dtgReimbursmentPaymentHistory.Columns["Comments"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["OrderID"].Visible = false;
+        }
+
+        private void CalculateTransactionSummary()
+        {
+            decimal totalCredit = 0m;
+            decimal totalDebit = 0m;
+
+            foreach (DataGridViewRow row in dtgReimbursmentPaymentHistory.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+                decimal.TryParse(Convert.ToString(row.Cells["CrAmount"].Value), out decimal credit);
+
+                decimal.TryParse(Convert.ToString(row.Cells["DrAmount"].Value), out decimal debit);
+
+                totalCredit += credit;
+                totalDebit += debit;
+            }
+
+            decimal openingBalance = 0m;
+
+            decimal.TryParse(txtOBalance.Text, out openingBalance);
+
+            decimal currentBalance = openingBalance - totalDebit;
+
+            txtTotalCredit.Text = totalCredit.ToString("N2");
+            txtTotalDebit.Text = totalDebit.ToString("N2");
+            txtCurrentBalance.Text = currentBalance.ToString("N2");
+        }
+
+        private void txtCurrentBalance_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtgReimbursmentPaymentHistory_Paint(object sender, PaintEventArgs e)
+        {
+            KryptonDataGridView dgv = sender as KryptonDataGridView;
+
+            if (dgv.Rows.Count == 0)
+            {
+                string message = "No Data Available";
+
+                using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
+                {
+                    SizeF size = e.Graphics.MeasureString(message, font);
+
+                    e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
+                }
+            }
+        }
+
+        private void txtReimbursementAmount_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtReimbursementAmount.Text))
+            {
+                if (Convert.ToDecimal(txtReimbursementAmount.Text) >= 0)
+                {
+                    decimal currentBalance = Convert.ToDecimal(txtOBalance.Text) - Convert.ToDecimal(txtReimbursementAmount.Text);
+                    txtCurrentBalance.Text = currentBalance.ToString("N2");
+                }
+            }
+            else
+                txtReimbursementAmount.Text = "0.00";
         }
     }
 }

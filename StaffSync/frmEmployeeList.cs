@@ -872,6 +872,7 @@ namespace StaffSync
                 dtgEmployeeList.Columns["CBalance"].HeaderText = "Outstanding Balance";
                 dtgEmployeeList.Columns["CBalance"].Width = 150;
                 dtgEmployeeList.Columns["CBalance"].ReadOnly = true;
+                dtgEmployeeList.Columns["CBalance"].DefaultCellStyle.Format = "c2";
                 dtgEmployeeList.Columns["Comments"].HeaderText = "Comments";
                 dtgEmployeeList.Columns["Comments"].Width = 350;
                 dtgEmployeeList.Columns["Comments"].ReadOnly = true;

@@ -131,8 +131,8 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.groupBox8);
+            this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
@@ -178,13 +178,12 @@
             this.txtComments.StateDisabled.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.txtComments.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.txtComments.TabIndex = 88;
+            this.txtComments.Tag = "Reimbursment Request Description";
             // 
             // chkFamilyMembersInfo
             // 
             this.chkFamilyMembersInfo.AutoSize = true;
             this.chkFamilyMembersInfo.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkFamilyMembersInfo.Checked = true;
-            this.chkFamilyMembersInfo.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkFamilyMembersInfo.Enabled = false;
             this.chkFamilyMembersInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.chkFamilyMembersInfo.Location = new System.Drawing.Point(515, 288);
@@ -206,6 +205,7 @@
             this.lblReimbursmentID.Size = new System.Drawing.Size(11, 15);
             this.lblReimbursmentID.TabIndex = 82;
             this.lblReimbursmentID.Text = " ";
+            this.lblReimbursmentID.Visible = false;
             // 
             // picMoreInfo
             // 
@@ -267,7 +267,7 @@
             this.txtReimbursementAmount.Name = "txtReimbursementAmount";
             this.txtReimbursementAmount.Size = new System.Drawing.Size(103, 21);
             this.txtReimbursementAmount.TabIndex = 1;
-            this.txtReimbursementAmount.Tag = "Asset Quantity";
+            this.txtReimbursementAmount.Tag = "Reimbursment Request Amount";
             this.txtReimbursementAmount.Text = "0";
             this.txtReimbursementAmount.WordWrap = false;
             this.txtReimbursementAmount.TextChanged += new System.EventHandler(this.txtTenure_TextChanged);
@@ -344,6 +344,7 @@
             this.lblReportingManagerID.Size = new System.Drawing.Size(11, 15);
             this.lblReportingManagerID.TabIndex = 40;
             this.lblReportingManagerID.Text = " ";
+            this.lblReportingManagerID.Visible = false;
             // 
             // txtRepDepartment
             // 
@@ -489,7 +490,7 @@
             this.dtReimbRequestDate.Name = "dtReimbRequestDate";
             this.dtReimbRequestDate.Size = new System.Drawing.Size(103, 21);
             this.dtReimbRequestDate.TabIndex = 3;
-            this.dtReimbRequestDate.Tag = "Asset Request Date";
+            this.dtReimbRequestDate.Tag = "Reimbursment Request Date";
             this.dtReimbRequestDate.ValidatingType = typeof(System.DateTime);
             this.dtReimbRequestDate.TextChanged += new System.EventHandler(this.txtAdvanceStartDate_TextChanged);
             // 
@@ -516,7 +517,7 @@
             this.cmbReimbursementType.Size = new System.Drawing.Size(588, 22);
             this.cmbReimbursementType.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbReimbursementType.TabIndex = 0;
-            this.cmbReimbursementType.Tag = "Asset Type";
+            this.cmbReimbursementType.Tag = "Reimbursment Type";
             this.cmbReimbursementType.SelectedIndexChanged += new System.EventHandler(this.cmbAdvanceType_SelectedIndexChanged);
             // 
             // label42
@@ -560,7 +561,7 @@
             this.groupBox8.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox8.Size = new System.Drawing.Size(1032, 174);
+            this.groupBox8.Size = new System.Drawing.Size(1032, 186);
             this.groupBox8.TabIndex = 33;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Employee Information";
@@ -576,6 +577,7 @@
             this.lblTaskID.Size = new System.Drawing.Size(11, 15);
             this.lblTaskID.TabIndex = 84;
             this.lblTaskID.Text = " ";
+            this.lblTaskID.Visible = false;
             // 
             // lblAssetRegID
             // 
@@ -588,6 +590,7 @@
             this.lblAssetRegID.Size = new System.Drawing.Size(11, 15);
             this.lblAssetRegID.TabIndex = 83;
             this.lblAssetRegID.Text = " ";
+            this.lblAssetRegID.Visible = false;
             // 
             // lblClientID
             // 
@@ -600,6 +603,7 @@
             this.lblClientID.Size = new System.Drawing.Size(11, 15);
             this.lblClientID.TabIndex = 82;
             this.lblClientID.Text = " ";
+            this.lblClientID.Visible = false;
             // 
             // lblAssetRequestID
             // 
@@ -612,6 +616,7 @@
             this.lblAssetRequestID.Size = new System.Drawing.Size(11, 15);
             this.lblAssetRequestID.TabIndex = 81;
             this.lblAssetRequestID.Text = " ";
+            this.lblAssetRequestID.Visible = false;
             // 
             // lnkViewAuditLog
             // 
@@ -661,6 +666,7 @@
             this.lblEmpID.Size = new System.Drawing.Size(11, 15);
             this.lblEmpID.TabIndex = 36;
             this.lblEmpID.Text = " ";
+            this.lblEmpID.Visible = false;
             // 
             // lblPersonalInfoID
             // 
@@ -732,7 +738,7 @@
             this.txtEmpName.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpName.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpName.TabIndex = 28;
-            this.txtEmpName.Tag = "Name";
+            this.txtEmpName.Tag = "Employee Name";
             this.txtEmpName.WordWrap = false;
             // 
             // txtEmpCode

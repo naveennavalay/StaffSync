@@ -122,4 +122,18 @@ namespace ModelStaffSync
         public bool IncludeInNextPayslipProcess { get; set; }
     }
 
+    public class ReimbursementTransactionList
+    {
+        public int ReimbRequestDetailID { get; set; }
+        public int ReimbRequestID { get; set; }
+        public DateTime ReimbRequestTRDate { get; set; }
+        public decimal OBalance { get; set; }
+        public decimal CrAmount { get; set; }
+        public decimal DrAmount { get; set; }
+        public decimal CBalance { get; set; }
+        public string TRType { get; set; }
+        public string Comments { get; set; }
+        public int OrderID { get; set; }
+    }
+
 }

@@ -62393,7 +62393,7 @@ namespace dbStaffSync {
             
             private global::System.Data.DataColumn columnOBalance;
             
-            private global::System.Data.DataColumn columnCrBalance;
+            private global::System.Data.DataColumn columnCrAmount;
             
             private global::System.Data.DataColumn columnDrAmount;
             
@@ -62472,9 +62472,9 @@ namespace dbStaffSync {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn CrBalanceColumn {
+            public global::System.Data.DataColumn CrAmountColumn {
                 get {
-                    return this.columnCrBalance;
+                    return this.columnCrAmount;
                 }
             }
             
@@ -62555,14 +62555,14 @@ namespace dbStaffSync {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ReimbRequestDetailInfoRow AddReimbRequestDetailInfoRow(int ReimbRequestDetailID, ReimbRequestMasRow parentReimbRequestMasRowByReimbRequestMasReimbRequestDetailInfo, System.DateTime ReimbRequestTRDate, decimal OBalance, decimal CrBalance, decimal DrAmount, decimal CBalance, string TRType, string Comments, int OrderID) {
+            public ReimbRequestDetailInfoRow AddReimbRequestDetailInfoRow(int ReimbRequestDetailID, ReimbRequestMasRow parentReimbRequestMasRowByReimbRequestMasReimbRequestDetailInfo, System.DateTime ReimbRequestTRDate, decimal OBalance, decimal CrAmount, decimal DrAmount, decimal CBalance, string TRType, string Comments, int OrderID) {
                 ReimbRequestDetailInfoRow rowReimbRequestDetailInfoRow = ((ReimbRequestDetailInfoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ReimbRequestDetailID,
                         null,
                         ReimbRequestTRDate,
                         OBalance,
-                        CrBalance,
+                        CrAmount,
                         DrAmount,
                         CBalance,
                         TRType,
@@ -62604,7 +62604,7 @@ namespace dbStaffSync {
                 this.columnReimbRequestID = base.Columns["ReimbRequestID"];
                 this.columnReimbRequestTRDate = base.Columns["ReimbRequestTRDate"];
                 this.columnOBalance = base.Columns["OBalance"];
-                this.columnCrBalance = base.Columns["CrBalance"];
+                this.columnCrAmount = base.Columns["CrAmount"];
                 this.columnDrAmount = base.Columns["DrAmount"];
                 this.columnCBalance = base.Columns["CBalance"];
                 this.columnTRType = base.Columns["TRType"];
@@ -62623,8 +62623,8 @@ namespace dbStaffSync {
                 base.Columns.Add(this.columnReimbRequestTRDate);
                 this.columnOBalance = new global::System.Data.DataColumn("OBalance", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOBalance);
-                this.columnCrBalance = new global::System.Data.DataColumn("CrBalance", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCrBalance);
+                this.columnCrAmount = new global::System.Data.DataColumn("CrAmount", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCrAmount);
                 this.columnDrAmount = new global::System.Data.DataColumn("DrAmount", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDrAmount);
                 this.columnCBalance = new global::System.Data.DataColumn("CBalance", typeof(decimal), null, global::System.Data.MappingType.Element);
@@ -105361,17 +105361,17 @@ namespace dbStaffSync {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public decimal CrBalance {
+            public decimal CrAmount {
                 get {
                     try {
-                        return ((decimal)(this[this.tableReimbRequestDetailInfo.CrBalanceColumn]));
+                        return ((decimal)(this[this.tableReimbRequestDetailInfo.CrAmountColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'CrBalance\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'CrAmount\' in table \'ReimbRequestDetailInfo\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableReimbRequestDetailInfo.CrBalanceColumn] = value;
+                    this[this.tableReimbRequestDetailInfo.CrAmountColumn] = value;
                 }
             }
             
@@ -105504,14 +105504,14 @@ namespace dbStaffSync {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsCrBalanceNull() {
-                return this.IsNull(this.tableReimbRequestDetailInfo.CrBalanceColumn);
+            public bool IsCrAmountNull() {
+                return this.IsNull(this.tableReimbRequestDetailInfo.CrAmountColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetCrBalanceNull() {
-                this[this.tableReimbRequestDetailInfo.CrBalanceColumn] = global::System.Convert.DBNull;
+            public void SetCrAmountNull() {
+                this[this.tableReimbRequestDetailInfo.CrAmountColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -174023,7 +174023,7 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             tableMapping.ColumnMappings.Add("ReimbRequestID", "ReimbRequestID");
             tableMapping.ColumnMappings.Add("ReimbRequestTRDate", "ReimbRequestTRDate");
             tableMapping.ColumnMappings.Add("OBalance", "OBalance");
-            tableMapping.ColumnMappings.Add("CrBalance", "CrBalance");
+            tableMapping.ColumnMappings.Add("CrAmount", "CrAmount");
             tableMapping.ColumnMappings.Add("DrAmount", "DrAmount");
             tableMapping.ColumnMappings.Add("CBalance", "CBalance");
             tableMapping.ColumnMappings.Add("TRType", "TRType");
@@ -174032,7 +174032,7 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `ReimbRequestDetailInfo` WHERE ((`ReimbRequestDetailID` = ?) AND ((? = 1 AND `ReimbRequestID` IS NULL) OR (`ReimbRequestID` = ?)) AND ((? = 1 AND `ReimbRequestTRDate` IS NULL) OR (`ReimbRequestTRDate` = ?)) AND ((? = 1 AND `OBalance` IS NULL) OR (`OBalance` = ?)) AND ((? = 1 AND `CrBalance` IS NULL) OR (`CrBalance` = ?)) AND ((? = 1 AND `DrAmount` IS NULL) OR (`DrAmount` = ?)) AND ((? = 1 AND `CBalance` IS NULL) OR (`CBalance` = ?)) AND ((? = 1 AND `TRType` IS NULL) OR (`TRType` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `ReimbRequestDetailInfo` WHERE ((`ReimbRequestDetailID` = ?) AND ((? = 1 AND `ReimbRequestID` IS NULL) OR (`ReimbRequestID` = ?)) AND ((? = 1 AND `ReimbRequestTRDate` IS NULL) OR (`ReimbRequestTRDate` = ?)) AND ((? = 1 AND `OBalance` IS NULL) OR (`OBalance` = ?)) AND ((? = 1 AND `CrAmount` IS NULL) OR (`CrAmount` = ?)) AND ((? = 1 AND `DrAmount` IS NULL) OR (`DrAmount` = ?)) AND ((? = 1 AND `CBalance` IS NULL) OR (`CBalance` = ?)) AND ((? = 1 AND `TRType` IS NULL) OR (`TRType` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestDetailID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestDetailID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Original, true, null));
@@ -174041,8 +174041,8 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CrBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CrBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CrAmount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrAmount", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrAmount", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_DrAmount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_DrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Original, true, null));
@@ -174054,14 +174054,14 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO `ReimbRequestDetailInfo` (`ReimbRequestDetailID`, `ReimbRequestID`, `" +
-                "ReimbRequestTRDate`, `OBalance`, `CrBalance`, `DrAmount`, `CBalance`, `TRType`, " +
-                "`Comments`, `OrderID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "ReimbRequestTRDate`, `OBalance`, `CrAmount`, `DrAmount`, `CBalance`, `TRType`, `" +
+                "Comments`, `OrderID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestDetailID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestDetailID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CrBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrAmount", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TRType", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TRType", global::System.Data.DataRowVersion.Current, false, null));
@@ -174069,13 +174069,13 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OrderID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OrderID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `ReimbRequestDetailInfo` SET `ReimbRequestDetailID` = ?, `ReimbRequestID` = ?, `ReimbRequestTRDate` = ?, `OBalance` = ?, `CrBalance` = ?, `DrAmount` = ?, `CBalance` = ?, `TRType` = ?, `Comments` = ?, `OrderID` = ? WHERE ((`ReimbRequestDetailID` = ?) AND ((? = 1 AND `ReimbRequestID` IS NULL) OR (`ReimbRequestID` = ?)) AND ((? = 1 AND `ReimbRequestTRDate` IS NULL) OR (`ReimbRequestTRDate` = ?)) AND ((? = 1 AND `OBalance` IS NULL) OR (`OBalance` = ?)) AND ((? = 1 AND `CrBalance` IS NULL) OR (`CrBalance` = ?)) AND ((? = 1 AND `DrAmount` IS NULL) OR (`DrAmount` = ?)) AND ((? = 1 AND `CBalance` IS NULL) OR (`CBalance` = ?)) AND ((? = 1 AND `TRType` IS NULL) OR (`TRType` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `ReimbRequestDetailInfo` SET `ReimbRequestDetailID` = ?, `ReimbRequestID` = ?, `ReimbRequestTRDate` = ?, `OBalance` = ?, `CrAmount` = ?, `DrAmount` = ?, `CBalance` = ?, `TRType` = ?, `Comments` = ?, `OrderID` = ? WHERE ((`ReimbRequestDetailID` = ?) AND ((? = 1 AND `ReimbRequestID` IS NULL) OR (`ReimbRequestID` = ?)) AND ((? = 1 AND `ReimbRequestTRDate` IS NULL) OR (`ReimbRequestTRDate` = ?)) AND ((? = 1 AND `OBalance` IS NULL) OR (`OBalance` = ?)) AND ((? = 1 AND `CrAmount` IS NULL) OR (`CrAmount` = ?)) AND ((? = 1 AND `DrAmount` IS NULL) OR (`DrAmount` = ?)) AND ((? = 1 AND `CBalance` IS NULL) OR (`CBalance` = ?)) AND ((? = 1 AND `TRType` IS NULL) OR (`TRType` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestDetailID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestDetailID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestID", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CrBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrAmount", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("CBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("TRType", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "TRType", global::System.Data.DataRowVersion.Current, false, null));
@@ -174088,8 +174088,8 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ReimbRequestTRDate", global::System.Data.OleDb.OleDbType.Date, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ReimbRequestTRDate", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OBalance", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CrBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CrBalance", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrBalance", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CrAmount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrAmount", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_CrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CrAmount", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_DrAmount", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_DrAmount", global::System.Data.OleDb.OleDbType.Currency, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DrAmount", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_CBalance", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "CBalance", global::System.Data.DataRowVersion.Original, true, null));
@@ -174113,8 +174113,8 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ReimbRequestDetailID, ReimbRequestID, ReimbRequestTRDate, OBalance, CrBala" +
-                "nce, DrAmount, CBalance, TRType, Comments, OrderID FROM ReimbRequestDetailInfo";
+            this._commandCollection[0].CommandText = "SELECT ReimbRequestDetailID, ReimbRequestID, ReimbRequestTRDate, OBalance, CrAmou" +
+                "nt, DrAmount, CBalance, TRType, Comments, OrderID FROM ReimbRequestDetailInfo";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -174175,7 +174175,7 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ReimbRequestDetailID, global::System.Nullable<int> Original_ReimbRequestID, global::System.Nullable<global::System.DateTime> Original_ReimbRequestTRDate, global::System.Nullable<decimal> Original_OBalance, global::System.Nullable<decimal> Original_CrBalance, global::System.Nullable<decimal> Original_DrAmount, global::System.Nullable<decimal> Original_CBalance, string Original_TRType, global::System.Nullable<int> Original_OrderID) {
+        public virtual int Delete(int Original_ReimbRequestDetailID, global::System.Nullable<int> Original_ReimbRequestID, global::System.Nullable<global::System.DateTime> Original_ReimbRequestTRDate, global::System.Nullable<decimal> Original_OBalance, global::System.Nullable<decimal> Original_CrAmount, global::System.Nullable<decimal> Original_DrAmount, global::System.Nullable<decimal> Original_CBalance, string Original_TRType, global::System.Nullable<int> Original_OrderID) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ReimbRequestDetailID));
             if ((Original_ReimbRequestID.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
@@ -174201,9 +174201,9 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
-            if ((Original_CrBalance.HasValue == true)) {
+            if ((Original_CrAmount.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((decimal)(Original_CrBalance.Value));
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((decimal)(Original_CrAmount.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
@@ -174261,7 +174261,7 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ReimbRequestDetailID, global::System.Nullable<int> ReimbRequestID, global::System.Nullable<global::System.DateTime> ReimbRequestTRDate, global::System.Nullable<decimal> OBalance, global::System.Nullable<decimal> CrBalance, global::System.Nullable<decimal> DrAmount, global::System.Nullable<decimal> CBalance, string TRType, string Comments, global::System.Nullable<int> OrderID) {
+        public virtual int Insert(int ReimbRequestDetailID, global::System.Nullable<int> ReimbRequestID, global::System.Nullable<global::System.DateTime> ReimbRequestTRDate, global::System.Nullable<decimal> OBalance, global::System.Nullable<decimal> CrAmount, global::System.Nullable<decimal> DrAmount, global::System.Nullable<decimal> CBalance, string TRType, string Comments, global::System.Nullable<int> OrderID) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ReimbRequestDetailID));
             if ((ReimbRequestID.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((int)(ReimbRequestID.Value));
@@ -174281,8 +174281,8 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            if ((CrBalance.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(CrBalance.Value));
+            if ((CrAmount.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(CrAmount.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
@@ -174342,7 +174342,7 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     global::System.Nullable<int> ReimbRequestID, 
                     global::System.Nullable<global::System.DateTime> ReimbRequestTRDate, 
                     global::System.Nullable<decimal> OBalance, 
-                    global::System.Nullable<decimal> CrBalance, 
+                    global::System.Nullable<decimal> CrAmount, 
                     global::System.Nullable<decimal> DrAmount, 
                     global::System.Nullable<decimal> CBalance, 
                     string TRType, 
@@ -174352,7 +174352,7 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     global::System.Nullable<int> Original_ReimbRequestID, 
                     global::System.Nullable<global::System.DateTime> Original_ReimbRequestTRDate, 
                     global::System.Nullable<decimal> Original_OBalance, 
-                    global::System.Nullable<decimal> Original_CrBalance, 
+                    global::System.Nullable<decimal> Original_CrAmount, 
                     global::System.Nullable<decimal> Original_DrAmount, 
                     global::System.Nullable<decimal> Original_CBalance, 
                     string Original_TRType, 
@@ -174376,8 +174376,8 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            if ((CrBalance.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(CrBalance.Value));
+            if ((CrAmount.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(CrAmount.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
@@ -174437,9 +174437,9 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                 this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
-            if ((Original_CrBalance.HasValue == true)) {
+            if ((Original_CrAmount.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((decimal)(Original_CrBalance.Value));
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((decimal)(Original_CrAmount.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
@@ -174501,7 +174501,7 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     global::System.Nullable<int> ReimbRequestID, 
                     global::System.Nullable<global::System.DateTime> ReimbRequestTRDate, 
                     global::System.Nullable<decimal> OBalance, 
-                    global::System.Nullable<decimal> CrBalance, 
+                    global::System.Nullable<decimal> CrAmount, 
                     global::System.Nullable<decimal> DrAmount, 
                     global::System.Nullable<decimal> CBalance, 
                     string TRType, 
@@ -174511,12 +174511,12 @@ namespace dbStaffSync.DBStaffSyncTableAdapters {
                     global::System.Nullable<int> Original_ReimbRequestID, 
                     global::System.Nullable<global::System.DateTime> Original_ReimbRequestTRDate, 
                     global::System.Nullable<decimal> Original_OBalance, 
-                    global::System.Nullable<decimal> Original_CrBalance, 
+                    global::System.Nullable<decimal> Original_CrAmount, 
                     global::System.Nullable<decimal> Original_DrAmount, 
                     global::System.Nullable<decimal> Original_CBalance, 
                     string Original_TRType, 
                     global::System.Nullable<int> Original_OrderID) {
-            return this.Update(Original_ReimbRequestDetailID, ReimbRequestID, ReimbRequestTRDate, OBalance, CrBalance, DrAmount, CBalance, TRType, Comments, OrderID, Original_ReimbRequestDetailID, Original_ReimbRequestID, Original_ReimbRequestTRDate, Original_OBalance, Original_CrBalance, Original_DrAmount, Original_CBalance, Original_TRType, Original_OrderID);
+            return this.Update(Original_ReimbRequestDetailID, ReimbRequestID, ReimbRequestTRDate, OBalance, CrAmount, DrAmount, CBalance, TRType, Comments, OrderID, Original_ReimbRequestDetailID, Original_ReimbRequestID, Original_ReimbRequestTRDate, Original_OBalance, Original_CrAmount, Original_DrAmount, Original_CBalance, Original_TRType, Original_OrderID);
         }
     }
     

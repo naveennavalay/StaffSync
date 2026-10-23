@@ -152,7 +152,7 @@
     <Shape ID="DesignTable:ReimbRequestMas" ZOrder="7" X="2263" Y="2884" Height="248" Width="252" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="197" />
     <Shape ID="DesignTable:ReimbursRequestInfo" ZOrder="6" X="1845" Y="2660" Height="305" Width="270" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
     <Shape ID="DesignSources:QueriesTableAdapter" ZOrder="89" X="7669" Y="2611" Height="48" Width="188" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="16" />
-    <Shape ID="DesignTable:ReimbRequestDetailInfo" ZOrder="2" X="2204" Y="2567" Height="267" Width="286" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="216" />
+    <Shape ID="DesignTable:ReimbRequestDetailInfo" ZOrder="2" X="2200" Y="2544" Height="267" Width="286" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="216" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:CountryMasAddressMas" ZOrder="258" LineWidth="11">
@@ -1778,12 +1778,12 @@
     <Connector ID="DesignRelation:ReimbRequestMasReimbRequestDetailInfo" ZOrder="1" LineWidth="11">
       <RoutePoints>
         <Point>
-          <X>2312</X>
+          <X>2361</X>
           <Y>2884</Y>
         </Point>
         <Point>
-          <X>2312</X>
-          <Y>2834</Y>
+          <X>2361</X>
+          <Y>2811</Y>
         </Point>
       </RoutePoints>
     </Connector>
