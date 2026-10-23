@@ -388,8 +388,8 @@ namespace dbStaffSync
                                 ) ON D.DesignationID = E.EmpDesignationID
                             WHERE
                                 (
-                                    ((E.EmpID) > 1)
-                                    AND ((R.AssetRequestByID) = " + FirstApproverID + @")
+                                    
+                                    ((R.AssetRequestByID) = " + FirstApproverID + @")
                                     AND ((R.AssetRequestByStatus) = False)
                                     AND ((R.RequestedToStatus) = False)
                                     AND ((R.AssetRequestStatus) = False)
@@ -452,7 +452,7 @@ namespace dbStaffSync
                                 R.AssetRequestDate,
                                 R.AssetRequestComments,
                                 R.AssetRequestByStatus,
-                                IIf(R.AssetRequestByStatus = False, ""Pending"", """") AS RequestStatus,
+                                IIf(R.AssetRequestStatus = False, ""Pending"", """") AS RequestStatus,
                                 R.RequestedTo,
                                 R.RequestedDate,
                                 R.RequestedToStatus,
@@ -479,8 +479,7 @@ namespace dbStaffSync
                                 ) ON D.DesignationID = E.EmpDesignationID
                             WHERE
                                 (
-                                    ((E.EmpID) > 1)
-                                    AND ((R.RequestedTo) = " + SecondApproverID + @")
+                                    ((R.RequestedTo) = " + SecondApproverID + @")
                                     AND ((R.AssetRequestByStatus) = True)
                                     AND ((R.RequestedToStatus) = True)
                                     AND ((R.AssetRequestStatus) = False)

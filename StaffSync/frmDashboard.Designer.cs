@@ -152,12 +152,9 @@
             this.kryptonRibbonGroupTriple16 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbMyTasks = new Krypton.Ribbon.KryptonRibbonGroupButton();
             this.cmbApprovals = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmbFirstApproval = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripSeparator();
-            this.cmbSecondApproval = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem23 = new System.Windows.Forms.ToolStripMenuItem();
+            this.firstApprovalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem20 = new System.Windows.Forms.ToolStripSeparator();
+            this.secondApprovalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonRibbonGroup4 = new Krypton.Ribbon.KryptonRibbonGroup();
             this.kryptonRibbonGroupTriple10 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbApplicationSettings = new Krypton.Ribbon.KryptonRibbonGroupButton();
@@ -776,7 +773,7 @@
             this.toolStripMenuItem6,
             this.cmbMyLeaveReports});
             this.cmLeaveManagement.Name = "cmDatamartList01";
-            this.cmLeaveManagement.Size = new System.Drawing.Size(183, 182);
+            this.cmLeaveManagement.Size = new System.Drawing.Size(183, 204);
             this.cmLeaveManagement.Tag = "DatamartMenu";
             this.cmLeaveManagement.Text = "Datamart Menu";
             this.cmLeaveManagement.Opening += new System.ComponentModel.CancelEventHandler(this.cmLeaveManagement_Opening);
@@ -789,6 +786,7 @@
             this.cmbLeaveEntitlement.Size = new System.Drawing.Size(182, 22);
             this.cmbLeaveEntitlement.Tag = "cmbLeaveEntitlement";
             this.cmbLeaveEntitlement.Text = "Leave Entitlement";
+            this.cmbLeaveEntitlement.Visible = false;
             this.cmbLeaveEntitlement.Click += new System.EventHandler(this.cmbLeaveEntitlement_Click);
             // 
             // toolStripSeparator4
@@ -876,6 +874,7 @@
             this.cmbMyLeaveReports.Size = new System.Drawing.Size(182, 22);
             this.cmbMyLeaveReports.Tag = "cmbMyLeaveReports";
             this.cmbMyLeaveReports.Text = "Reports";
+            this.cmbMyLeaveReports.Visible = false;
             this.cmbMyLeaveReports.Click += new System.EventHandler(this.cmbMyLeaveReports_Click);
             // 
             // cmbMyLeaveStatementReport01
@@ -1296,61 +1295,33 @@
             // 
             this.cmbApprovals.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.cmbApprovals.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem21,
-            this.toolStripSeparator5,
-            this.toolStripMenuItem23});
+            this.firstApprovalToolStripMenuItem,
+            this.toolStripMenuItem20,
+            this.secondApprovalToolStripMenuItem});
             this.cmbApprovals.Name = "cmbManageAdvances";
-            this.cmbApprovals.Size = new System.Drawing.Size(238, 54);
+            this.cmbApprovals.Size = new System.Drawing.Size(165, 54);
             this.cmbApprovals.Opening += new System.ComponentModel.CancelEventHandler(this.cmbApprovals_Opening);
             // 
-            // toolStripMenuItem21
+            // firstApprovalToolStripMenuItem
             // 
-            this.toolStripMenuItem21.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmbFirstApproval,
-            this.toolStripMenuItem22,
-            this.cmbSecondApproval});
-            this.toolStripMenuItem21.Image = global::StaffSync.Properties.Resources.advances1;
-            this.toolStripMenuItem21.Name = "toolStripMenuItem21";
-            this.toolStripMenuItem21.Size = new System.Drawing.Size(237, 22);
-            this.toolStripMenuItem21.Text = "Approvals";
-            this.toolStripMenuItem21.Click += new System.EventHandler(this.toolStripMenuItem21_Click);
+            this.firstApprovalToolStripMenuItem.Image = global::StaffSync.Properties.Resources.approved;
+            this.firstApprovalToolStripMenuItem.Name = "firstApprovalToolStripMenuItem";
+            this.firstApprovalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.firstApprovalToolStripMenuItem.Text = "First Approval";
+            this.firstApprovalToolStripMenuItem.Click += new System.EventHandler(this.firstApprovalToolStripMenuItem_Click);
             // 
-            // cmbFirstApproval
+            // toolStripMenuItem20
             // 
-            this.cmbFirstApproval.Image = global::StaffSync.Properties.Resources.advance_request;
-            this.cmbFirstApproval.Name = "cmbFirstApproval";
-            this.cmbFirstApproval.Size = new System.Drawing.Size(164, 22);
-            this.cmbFirstApproval.Tag = "cmbFirstApproval";
-            this.cmbFirstApproval.Text = "First Approval";
-            this.cmbFirstApproval.Click += new System.EventHandler(this.cmbFirstApproval_Click);
+            this.toolStripMenuItem20.Name = "toolStripMenuItem20";
+            this.toolStripMenuItem20.Size = new System.Drawing.Size(177, 6);
             // 
-            // toolStripMenuItem22
+            // secondApprovalToolStripMenuItem
             // 
-            this.toolStripMenuItem22.Name = "toolStripMenuItem22";
-            this.toolStripMenuItem22.Size = new System.Drawing.Size(161, 6);
-            this.toolStripMenuItem22.Click += new System.EventHandler(this.toolStripMenuItem22_Click);
-            // 
-            // cmbSecondApproval
-            // 
-            this.cmbSecondApproval.Name = "cmbSecondApproval";
-            this.cmbSecondApproval.Size = new System.Drawing.Size(164, 22);
-            this.cmbSecondApproval.Tag = "cmbSecondApproval";
-            this.cmbSecondApproval.Text = "Second Approval";
-            this.cmbSecondApproval.Click += new System.EventHandler(this.cmbSecondApproval_Click);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(234, 6);
-            this.toolStripSeparator5.Click += new System.EventHandler(this.toolStripSeparator5_Click);
-            // 
-            // toolStripMenuItem23
-            // 
-            this.toolStripMenuItem23.Image = global::StaffSync.Properties.Resources.reports;
-            this.toolStripMenuItem23.Name = "toolStripMenuItem23";
-            this.toolStripMenuItem23.Size = new System.Drawing.Size(237, 22);
-            this.toolStripMenuItem23.Text = "Advance Management Reports";
-            this.toolStripMenuItem23.Click += new System.EventHandler(this.toolStripMenuItem23_Click);
+            this.secondApprovalToolStripMenuItem.Image = global::StaffSync.Properties.Resources.asset_operations;
+            this.secondApprovalToolStripMenuItem.Name = "secondApprovalToolStripMenuItem";
+            this.secondApprovalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.secondApprovalToolStripMenuItem.Text = "Second Approval";
+            this.secondApprovalToolStripMenuItem.Click += new System.EventHandler(this.secondApprovalToolStripMenuItem_Click);
             // 
             // kryptonRibbonGroup4
             // 
@@ -2385,12 +2356,6 @@
         private Krypton.Ribbon.KryptonRibbonGroupTriple kryptonRibbonGroupTriple16;
         private Krypton.Ribbon.KryptonRibbonGroupButton tlbMyTasks;
         private System.Windows.Forms.ContextMenuStrip cmbApprovals;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem21;
-        private System.Windows.Forms.ToolStripMenuItem cmbFirstApproval;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem23;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem22;
-        private System.Windows.Forms.ToolStripMenuItem cmbSecondApproval;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem29;
         private System.Windows.Forms.ToolStripMenuItem cmbManageEmployeePayrollConfiguration;
         public Krypton.Toolkit.KryptonSplitContainer sptrDashboardContainer;
@@ -2439,6 +2404,9 @@
         private System.Windows.Forms.ToolStripMenuItem cmbAdvanceRequest1;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem35;
         private System.Windows.Forms.ToolStripMenuItem cmbAdvanceRepayment1;
+        private System.Windows.Forms.ToolStripMenuItem firstApprovalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem20;
+        private System.Windows.Forms.ToolStripMenuItem secondApprovalToolStripMenuItem;
     }
 }
 

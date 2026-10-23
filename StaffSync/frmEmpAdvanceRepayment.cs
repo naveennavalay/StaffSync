@@ -581,7 +581,7 @@ namespace StaffSync
         {
             List<EmployeeSpecificAdvanceInformation> objEmployeeSpecificAdvanceInformation = objAdvanceTransaction.EmployeeSpecificAdvanceInformation(txtEmpID, txtAdvanceID);
             lblEmpID.Text = txtEmpID.ToString();
-            txtEmpCode.Text = objEmployeeSpecificAdvanceInformation[0].EmpAdvReqCode.ToString();
+            txtEmpCode.Text = objEmployeeSpecificAdvanceInformation[0].EmpCode.ToString();
             txtEmpName.Text = objEmployeeSpecificAdvanceInformation[0].EmpName.ToString();
             txtDesignation.Text = objEmployeeSpecificAdvanceInformation[0].DesignationTitle.ToString();
             txtDepartment.Text = objEmployeeSpecificAdvanceInformation[0].DepartmentTitle.ToString();

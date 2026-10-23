@@ -470,7 +470,7 @@ namespace dbStaffSync
                                           " SET " +
                                                 " RequestedToComments = '" + txtRequestedToComments + "', " +
                                                 " RequestedToDate = #" + RequestedToDate.ToString("dd-MMM-yyyy") + "#, " +
-                                                " RequestedToStatus = true " +
+                                                " RequestedToStatus = True " +
                                             " WHERE " +
                                                 " EmpAdvanceRequestID = " + txtEmpAdvanceRequestID;
 
@@ -505,7 +505,7 @@ namespace dbStaffSync
                 string strQuery = "UPDATE EmpAdvanceRequestMas " +
                                           " SET " +
                                                 " RequestMovedToComments = '" + txtRequestMovedToComments + "', " +
-                                                " RequestedToDate = #" + RequestMovedToDate.ToString("dd-MMM-yyyy") + "# " +
+                                                " RequestMovedToDate = #" + RequestMovedToDate.ToString("dd-MMM-yyyy") + "# " +
                                             " WHERE " +
                                                 " EmpAdvanceRequestID = " + txtEmpAdvanceRequestID;
 
@@ -513,8 +513,9 @@ namespace dbStaffSync
                     strQuery = "UPDATE EmpAdvanceRequestMas " +
                                           " SET " +
                                                 " RequestMovedToComments = '" + txtRequestMovedToComments + "', " +
-                                                " RequestedToDate = #" + RequestMovedToDate.ToString("dd-MMM-yyyy") + "#, " +
-                                                " RequestMovedToStatus = true " +
+                                                " RequestMovedToDate = #" + RequestMovedToDate.ToString("dd-MMM-yyyy") + "#, " +
+                                                " RequestApprovalDate = #" + DateTime.Today.ToString("dd-MMM-yyyy") + "#, " +
+                                                " RequestMovedToStatus = True " +
                                             " WHERE " +
                                                 " EmpAdvanceRequestID = " + txtEmpAdvanceRequestID;
 

@@ -26,6 +26,7 @@ namespace StaffSync
     public partial class frmUpdateAdvanceStatus : Form
     {
         public string SelectedStatus { get; private set; }
+        public bool ApplyToAllRows { get; private set; }
         private int _AdvanceRequestID;
 
         public frmUpdateAdvanceStatus()
@@ -79,6 +80,7 @@ namespace StaffSync
         private void btnOK_Click(object sender, EventArgs e)
         {
             SelectedStatus = cmbStatus.Text;
+            ApplyToAllRows = chkApplyToAllRows.Checked;
             DialogResult = DialogResult.OK;
             this.Close();
         }

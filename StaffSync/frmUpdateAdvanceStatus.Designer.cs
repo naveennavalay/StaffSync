@@ -45,6 +45,7 @@
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
+            this.chkApplyToAllRows = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -74,8 +75,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(344, 148);
-            this.splitContainer1.SplitterDistance = 91;
+            this.splitContainer1.Size = new System.Drawing.Size(344, 183);
+            this.splitContainer1.SplitterDistance = 122;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -83,12 +84,13 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.panel1.Controls.Add(this.chkApplyToAllRows);
             this.panel1.Controls.Add(this.groupBox5);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(344, 91);
+            this.panel1.Size = new System.Drawing.Size(344, 122);
             this.panel1.TabIndex = 1;
             // 
             // groupBox5
@@ -135,7 +137,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(344, 52);
+            this.panel2.Size = new System.Drawing.Size(344, 56);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
@@ -196,11 +198,26 @@
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
             // 
+            // chkApplyToAllRows
+            // 
+            this.chkApplyToAllRows.AutoSize = true;
+            this.chkApplyToAllRows.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkApplyToAllRows.Checked = true;
+            this.chkApplyToAllRows.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkApplyToAllRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkApplyToAllRows.Location = new System.Drawing.Point(195, 83);
+            this.chkApplyToAllRows.Name = "chkApplyToAllRows";
+            this.chkApplyToAllRows.Size = new System.Drawing.Size(130, 19);
+            this.chkApplyToAllRows.TabIndex = 20;
+            this.chkApplyToAllRows.Tag = "Apply to all rows";
+            this.chkApplyToAllRows.Text = "Apply to all rows";
+            this.chkApplyToAllRows.UseVisualStyleBackColor = true;
+            // 
             // frmUpdateAdvanceStatus
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(344, 148);
+            this.ClientSize = new System.Drawing.Size(344, 183);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -219,6 +236,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -248,5 +266,6 @@
         private StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter qryAllEmpLeavePendingStatementTableAdapter;
         private System.Windows.Forms.ComboBox cmbStatus;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox chkApplyToAllRows;
     }
 }

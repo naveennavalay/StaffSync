@@ -162,6 +162,7 @@ namespace StaffSync
                         int AdvanceRequestID = Convert.ToInt32(dc.Cells["EmpAdvanceRequestID"].Value);
                         string ApproverRequestedToComments1 = dc.Cells["ApproverRequestedToComments1"].Value?.ToString();
                         AdvanceRequestCode = dc.Cells["EmpAdvReqCode"].Value?.ToString();
+
                         objAdvanceTransaction.UpdateFirstApproverStatus(AdvanceRequestID, ApproverRequestedToComments1, DateTime.Now.Date);
 
                         if (ApproverRequestedToComments1 == "In Progress" || ApproverRequestedToComments1 == "Pending")
@@ -267,7 +268,7 @@ namespace StaffSync
                         }
                         else if (RequestMovedToComments == "Approved")
                         {
-                            objAdvanceTransaction.InsertAdvanceTransaction(dc.Cells["EmpAdvReqCode"].Value.ToString(), AdvanceRequestID, DateTime.Now.Date, 0, Convert.ToDecimal(dc.Cells["AdvanceAmount"].Value.ToString()), 0, Convert.ToDecimal(dc.Cells["AdvanceAmount"].Value.ToString()), "Cr", "By Advance Request : \"" + AdvanceRequestCode + "\" Approval", 0);
+                            objAdvanceTransaction.InsertAdvanceTransaction(dc.Cells["EmpAdvReqCode"].Value.ToString(), AdvanceRequestID, Convert.ToDateTime(dc.Cells["EmpAdvanceRequestDate"].Value.ToString()), 0, Convert.ToDecimal(dc.Cells["AdvanceAmount"].Value.ToString()), 0, Convert.ToDecimal(dc.Cells["AdvanceAmount"].Value.ToString()), "Cr", "By Advance Request : \"" + AdvanceRequestCode + "\" Approval", 0);
                             objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "Second Approver updated the Status for Advance Request : \"" + AdvanceRequestCode + "\" to \"" + RequestMovedToComments + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                             objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AdvanceRequestID, "Advance Request : \"" + dc.Cells["EmpAdvReqCode"].Value.ToString() +  "\" raised by Employee Code : \"" + dc.Cells["RequesterEmpCode"].Value.ToString() + "\" and Employee Name : \"" + dc.Cells["RequesterEmpName"].Value.ToString() + "\" has been approved and credited", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
@@ -584,6 +585,7 @@ namespace StaffSync
             dtgAssetsRequestersList.Columns["AssetRequestStatus"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["AssetRequestStatus"].Visible = true;
             dtgAssetsRequestersList.Columns["AssetRequestStatus"].Width = 150;
+            dtgAssetsRequestersList.Columns["AssetRequestByStatus"].Visible = false; 
             dtgAssetsRequestersList.Columns["RequestedToComments"].Visible = false;
             dtgAssetsRequestersList.Columns["RequestedDate"].Visible = false;
             dtgAssetsRequestersList.Columns["AssetRequestStatus"].Visible = false;
@@ -680,6 +682,14 @@ namespace StaffSync
                 {
                     if (frm.ShowDialog() == DialogResult.OK)
                     {
+                        if(frm.ApplyToAllRows == true)
+                        {
+                            foreach (DataGridViewRow dc in dtgAdvanceRequestersList.Rows)
+                            {
+                                dc.Cells["Select"].Value = true;
+                                dc.Cells["ApproverRequestedToComments1"].Value = frm.SelectedStatus;
+                            }
+                        }
                         btnSaveDetails.Enabled = true;
                         dtgAdvanceRequestersList.Rows[e.RowIndex].Cells["Select"].Value = true;
                         dtgAdvanceRequestersList.Rows[e.RowIndex].Cells["ApproverRequestedToComments1"].Value = frm.SelectedStatus;
@@ -696,6 +706,14 @@ namespace StaffSync
                 {
                     if (frm.ShowDialog() == DialogResult.OK)
                     {
+                        if (frm.ApplyToAllRows == true)
+                        {
+                            foreach (DataGridViewRow dc in dtgAdvanceRequestersList.Rows)
+                            {
+                                dc.Cells["Select"].Value = true;
+                                dc.Cells["RequestMovedToComments"].Value = frm.SelectedStatus;
+                            }
+                        }
                         btnSaveDetails.Enabled = true;
                         dtgAdvanceRequestersList.Rows[e.RowIndex].Cells["Select"].Value = true;
                         dtgAdvanceRequestersList.Rows[e.RowIndex].Cells["RequestMovedToComments"].Value = frm.SelectedStatus;
@@ -743,12 +761,20 @@ namespace StaffSync
             {
                 int AdvanceRequestID = Convert.ToInt32(dtgAssetsRequestersList.Rows[e.RowIndex].Cells["assetRequestID"].Value);
 
-                string CurrentStatus = dtgAssetsRequestersList.Rows[e.RowIndex].Cells["AssetRequestComments"].Value?.ToString();
+                string CurrentStatus = dtgAssetsRequestersList.Rows[e.RowIndex].Cells["RequestStatus"].Value?.ToString();
 
                 using (var frm = new frmUpdateAdvanceStatus(AdvanceRequestID, CurrentStatus))
                 {
                     if (frm.ShowDialog() == DialogResult.OK)
                     {
+                        if (frm.ApplyToAllRows == true)
+                        {
+                            foreach (DataGridViewRow dc in dtgAssetsRequestersList.Rows)
+                            {
+                                dc.Cells["Select"].Value = true;
+                                dc.Cells["RequestStatus"].Value = frm.SelectedStatus;
+                            }
+                        }
                         btnSaveDetails.Enabled = true;
                         dtgAssetsRequestersList.Rows[e.RowIndex].Cells["Select"].Value = true;
                         dtgAssetsRequestersList.Rows[e.RowIndex].Cells["RequestStatus"].Value = frm.SelectedStatus;
@@ -822,6 +848,14 @@ namespace StaffSync
                 {
                     if (frm.ShowDialog() == DialogResult.OK)
                     {
+                        if (frm.ApplyToAllRows == true)
+                        {
+                            foreach (DataGridViewRow dc in dtgReimbursmentRequestersList.Rows)
+                            {
+                                dc.Cells["Select"].Value = true;
+                                dc.Cells["RequestStatus"].Value = frm.SelectedStatus;
+                            }
+                        }
                         btnSaveDetails.Enabled = true;
                         dtgReimbursmentRequestersList.Rows[e.RowIndex].Cells["Select"].Value = true;
                         dtgReimbursmentRequestersList.Rows[e.RowIndex].Cells["RequestStatus"].Value = frm.SelectedStatus;

@@ -281,9 +281,9 @@ namespace StaffSync
                 strActionStatement = "AdvanceRequestNewUpdates";
                 onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
 
-                EmpAdvanceRequestID = objAdvanceTransaction.InsertEmpAdvanceRequestMas(Convert.ToInt16(lblPersonalInfoID.Text.Trim()), Convert.ToInt16(cmbAdvanceType.SelectedValue.ToString()), true, false, 
-                    DateTime.Now, "Requested", Convert.ToInt16(lblReportingManagerID.Text.Trim()), DateTime.Now, false, "Pending", Convert.ToInt16(lblReportingManagerID.Text.Trim()), DateTime.Now, false, "Pending", 
-                    DateTime.Now, false, Convert.ToDecimal(txtAdvanceAmount.Text.Trim()), Convert.ToDecimal(txtTenure.Text.Trim()), Convert.ToDecimal(txtInstallmentAmount.Text.Trim()), 
+                EmpAdvanceRequestID = objAdvanceTransaction.InsertEmpAdvanceRequestMas(Convert.ToInt16(lblPersonalInfoID.Text.Trim()), Convert.ToInt16(cmbAdvanceType.SelectedValue.ToString()), true, false,
+                    DateTime.ParseExact(txtAdvanceStartDate.Text.Trim(), "dd-MM-yyyy", CultureInfo.InvariantCulture), "Requested", Convert.ToInt16(lblReportingManagerID.Text.Trim()), DateTime.ParseExact(txtAdvanceStartDate.Text.Trim(), "dd-MM-yyyy", CultureInfo.InvariantCulture), false, "Pending", Convert.ToInt16(lblReportingManagerID.Text.Trim()), DateTime.ParseExact(txtAdvanceStartDate.Text.Trim(), "dd-MM-yyyy", CultureInfo.InvariantCulture), false, "Pending",
+                    DateTime.ParseExact(txtAdvanceStartDate.Text.Trim(), "dd-MM-yyyy", CultureInfo.InvariantCulture), false, Convert.ToDecimal(txtAdvanceAmount.Text.Trim()), Convert.ToDecimal(txtTenure.Text.Trim()), Convert.ToDecimal(txtInstallmentAmount.Text.Trim()), 
                     DateTime.ParseExact(txtAdvanceStartDate.Text.Trim(), "dd-MM-yyyy", CultureInfo.InvariantCulture), DateTime.ParseExact(txtAdvanceEndDate.Text.Trim(), "dd-MM-yyyy", CultureInfo.InvariantCulture));
 
                 objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), EmpAdvanceRequestID, "Advance Request - " + "\"ADV-REQ-" + (EmpAdvanceRequestID).ToString().PadLeft(4, '0').Trim() + "\" Raised by Employee Code : \"" + txtEmpCode.Text.Trim() + "\" and Employee Name : \"" + txtEmpName.Text.Trim() + "\".", "Insert", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestRaised", Convert.ToInt32(objTempClientFinYearInfo.ClientID));

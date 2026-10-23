@@ -8789,5 +8789,35 @@ namespace StaffSync
                 frmEmpAdvanceRepayment.WindowState = FormWindowState.Maximized;
             }
         }
+
+        private void firstApprovalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "My Tasks List";
+                sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
+                frmAdvanceApprovalList frmAdvanceApprovalList = new frmAdvanceApprovalList(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo, "FirstApprover");
+                frmAdvanceApprovalList.MdiParent = this;
+                frmAdvanceApprovalList.Dock = DockStyle.Fill;
+                frmAdvanceApprovalList.Show();
+                frmAdvanceApprovalList.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void secondApprovalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "My Tasks List";
+                sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
+                frmAdvanceApprovalList frmAdvanceApprovalList = new frmAdvanceApprovalList(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo, "SecondApprover");
+                frmAdvanceApprovalList.MdiParent = this;
+                frmAdvanceApprovalList.Dock = DockStyle.Fill;
+                frmAdvanceApprovalList.Show();
+                frmAdvanceApprovalList.WindowState = FormWindowState.Maximized;
+            }
+        }
     }
 }
