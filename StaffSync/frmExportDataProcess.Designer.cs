@@ -43,6 +43,7 @@
             this.chkFamilyMembersInfo = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label34 = new System.Windows.Forms.Label();
             this.dtgImportDataSourceList = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cmbOutputFormat = new Krypton.Toolkit.KryptonComboBox();
@@ -77,7 +78,8 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.label34 = new System.Windows.Forms.Label();
+            this.chkReimbStatements = new System.Windows.Forms.CheckBox();
+            this.chkAssetsInformation = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -131,6 +133,8 @@
             // 
             // grpMoreOptions
             // 
+            this.grpMoreOptions.Controls.Add(this.chkAssetsInformation);
+            this.grpMoreOptions.Controls.Add(this.chkReimbStatements);
             this.grpMoreOptions.Controls.Add(this.checkBox1);
             this.grpMoreOptions.Controls.Add(this.checkBox2);
             this.grpMoreOptions.Controls.Add(this.checkBox3);
@@ -295,6 +299,19 @@
             this.groupBox1.TabIndex = 66;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Export Data Action";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.BackColor = System.Drawing.Color.Transparent;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.label34.Location = new System.Drawing.Point(8, 432);
+            this.label34.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(321, 15);
+            this.label34.TabIndex = 65;
+            this.label34.Text = "🟢 Double-click to preview before export the data";
             // 
             // dtgImportDataSourceList
             // 
@@ -699,18 +716,35 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
-            // label34
+            // chkReimbStatements
             // 
-            this.label34.AutoSize = true;
-            this.label34.BackColor = System.Drawing.Color.Transparent;
-            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label34.Location = new System.Drawing.Point(8, 432);
-            this.label34.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(321, 15);
-            this.label34.TabIndex = 65;
-            this.label34.Text = "🟢 Double-click to preview before export the data";
+            this.chkReimbStatements.AutoSize = true;
+            this.chkReimbStatements.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkReimbStatements.Checked = true;
+            this.chkReimbStatements.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkReimbStatements.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkReimbStatements.Location = new System.Drawing.Point(618, 25);
+            this.chkReimbStatements.Name = "chkReimbStatements";
+            this.chkReimbStatements.Size = new System.Drawing.Size(196, 19);
+            this.chkReimbStatements.TabIndex = 93;
+            this.chkReimbStatements.Tag = "Reimbursment Statements";
+            this.chkReimbStatements.Text = "Reimbursment Statements";
+            this.chkReimbStatements.UseVisualStyleBackColor = true;
+            // 
+            // chkAssetsInformation
+            // 
+            this.chkAssetsInformation.AutoSize = true;
+            this.chkAssetsInformation.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkAssetsInformation.Checked = true;
+            this.chkAssetsInformation.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAssetsInformation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkAssetsInformation.Location = new System.Drawing.Point(670, 50);
+            this.chkAssetsInformation.Name = "chkAssetsInformation";
+            this.chkAssetsInformation.Size = new System.Drawing.Size(144, 19);
+            this.chkAssetsInformation.TabIndex = 94;
+            this.chkAssetsInformation.Tag = "Assets Information";
+            this.chkAssetsInformation.Text = "Assets Information";
+            this.chkAssetsInformation.UseVisualStyleBackColor = true;
             // 
             // frmExportDataProcess
             // 
@@ -808,5 +842,7 @@
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.CheckBox chkAssetsInformation;
+        private System.Windows.Forms.CheckBox chkReimbStatements;
     }
 }

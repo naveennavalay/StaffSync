@@ -21,6 +21,114 @@ namespace dbStaffSync
 
         }
 
+        public List<ReimbursementPaymentsPendingList> getEmpSpecificReimbursmentPaymentInfo(int txtEmpID)
+        {
+            List<ReimbursementPaymentsPendingList> objReimbursementPaymentsPendingList = new List<ReimbursementPaymentsPendingList>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "";
+
+                strQuery = @"SELECT
+                                EmpMas.EmpCode,
+                                EmpMas.EmpName,
+                                DesigMas.DesignationTitle,
+                                DepMas.DepartmentTitle,
+                                ReimbursementHeaderMas.ReimbID,
+                                ReimbursementHeaderMas.ReimbTitle,
+                                ReimbRequestMas.ReimbRequestDescription,
+                                ReimbRequestMas.ReimbRequestID,
+                                ReimbRequestMas.ReimbRequestCode,
+                                ReimbRequestMas.ReimbRequestDate,
+                                ReimbRequestMas.ReimbRequestStatus,
+                                LatestDetail.ReimbRequestDetailID,
+                                LatestDetail.ReimbRequestTRDate,
+                                LatestDetail.CBalance,
+                                LatestDetail.Comments,
+                                EmpMas.IsActive AS EmpIsActive,
+                                EmpMas.IsDeleted AS EmpIsDeleted,
+                                ReimbRequestMas.IsActive AS RequestIsActive,
+                                ReimbRequestMas.IsDeleted AS RequestIsDeleted,
+                                EmpMas.EmpID,
+                                ClientMas.ClientID,
+                                ReimbursRequestInfo.IncludeInNextPayslipProcess
+                            FROM
+                                (
+                                    ReimbursementHeaderMas
+                                    INNER JOIN (
+                                        (
+                                            (
+                                                DesigMas
+                                                INNER JOIN (
+                                                    DepMas
+                                                    INNER JOIN (
+                                                        ClientMas
+                                                        INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                    ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                                ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                            )
+                                            INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                        )
+                                        INNER JOIN ReimbursRequestInfo ON PersonalInfoMas.PersonalInfoID = ReimbursRequestInfo.PersonalInfoID
+                                    ) ON ReimbursementHeaderMas.ReimbID = ReimbursRequestInfo.ReimbID
+                                )
+                                INNER JOIN (
+                                    ReimbRequestMas
+                                    INNER JOIN ReimbRequestDetailInfo AS LatestDetail ON ReimbRequestMas.ReimbRequestID = LatestDetail.ReimbRequestID
+                                ) ON ReimbursRequestInfo.ReimbursRequestID = ReimbRequestMas.ReimbursRequestID
+                            WHERE
+                                (
+                                    (
+                                        (LatestDetail.ReimbRequestDetailID) = (
+                                            SELECT
+                                                MAX(D.ReimbRequestDetailID)
+                                            FROM
+                                                ReimbRequestDetailInfo AS D
+                                            WHERE
+                                                D.ReimbRequestID = ReimbRequestMas.ReimbRequestID
+                                        )
+                                    )
+                                    AND ((EmpMas.IsActive) = True)
+                                    AND ((EmpMas.IsDeleted) = False)
+                                    AND ((ReimbRequestMas.IsActive) = True)
+                                    AND ((ReimbRequestMas.IsDeleted) = False)
+                                    AND ((EmpMas.EmpID) = " + txtEmpID + @")
+                                    AND ((ReimbursRequestInfo.IncludeInNextPayslipProcess) = False))
+                            ORDER BY
+                                ReimbursementHeaderMas.ReimbID,
+                                ReimbRequestMas.ReimbRequestID,
+                                ReimbRequestMas.ReimbRequestDate,
+                                LatestDetail.ReimbRequestDetailID,
+                                LatestDetail.ReimbRequestTRDate;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objReimbursementPaymentsPendingList = JsonConvert.DeserializeObject<List<ReimbursementPaymentsPendingList>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objReimbursementPaymentsPendingList;
+        }
+
         public List<ReimbursementPaymentsPendingList> getSelectedReimbursmentPaymentPendingList(int txtRequestID)
         {
             List<ReimbursementPaymentsPendingList> objReimbursementPaymentsPendingList = new List<ReimbursementPaymentsPendingList>();

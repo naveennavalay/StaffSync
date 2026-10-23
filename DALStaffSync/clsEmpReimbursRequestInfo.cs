@@ -17,6 +17,11 @@ namespace DALStaffSync
 
         }
 
+        public List<ReimbursementPaymentsPendingList> getEmpSpecificReimbursmentPaymentInfo(int txtEmpID)
+        {
+            return objEmpReimbursRequestInfo.getEmpSpecificReimbursmentPaymentInfo(txtEmpID);
+        }
+
         public List<ReimbursementPaymentsPendingList> getSelectedReimbursmentPaymentPendingList(int txtRequestID)
         {
             return objEmpReimbursRequestInfo.getSelectedReimbursmentPaymentPendingList(txtRequestID);

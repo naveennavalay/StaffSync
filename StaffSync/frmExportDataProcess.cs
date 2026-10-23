@@ -56,6 +56,7 @@ namespace StaffSync
         DALStaffSync.clsEmployeeAdvanceInfo objEmployeeAdvanceInfo = new DALStaffSync.clsEmployeeAdvanceInfo();
         DALStaffSync.clsEmployeeBankACInfo objEmployeeBankACInfo = new clsEmployeeBankACInfo();
         DALStaffSync.clsEmpPayroll objEmpPayroll = new DALStaffSync.clsEmpPayroll();
+        DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
         DALStaffSync.clsSkillsMas objSkillsMas = new DALStaffSync.clsSkillsMas();
         DALStaffSync.clsRelationship objRelationship = new DALStaffSync.clsRelationship();
         DALStaffSync.clsShiftMas objShiftMas = new DALStaffSync.clsShiftMas();
@@ -1976,6 +1977,7 @@ namespace StaffSync
                 DataTable advanceInformation = ConvertListToDataTable(objEmployeeAdvanceInfo.getEmployeeAdvanceInformationList(empId));
                 DataTable consolidatedPayslipValues = ConvertListToDataTable(objEmpPayroll.getEmployeeSpecificConsolidatedPayslipValues(empId));
                 DataTable employeeBankAccountInfo = ConvertListToDataTable(objEmployeeBankACInfo.getEmployeeSpecificBankAccountInfo(empId));
+                DataTable employeeSpecificReimbInfo = ConvertListToDataTable(objEmpReimbursRequestInfo.getEmpSpecificReimbursmentPaymentInfo(empId));
 
                 ModelStaffSync.EmpPersonalIDInfo objIndEmployeePersonalIDInfo = objEmployeePersonalIDInfo.GetEmpPersonalIDInfo(empId);
                 DataTable employeeStatutoryInfo = ConvertListToDataTable(objIndEmployeePersonalIDInfo == null ? new List<ModelStaffSync.EmpPersonalIDInfo>() : new List<ModelStaffSync.EmpPersonalIDInfo> { objIndEmployeePersonalIDInfo });
@@ -1990,11 +1992,12 @@ namespace StaffSync
                 List<DataRow> empPayslipRows = consolidatedPayslipValues.Rows.Cast<DataRow>().Where(r => !consolidatedPayslipValues.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> empBankAccountRows = employeeBankAccountInfo.Rows.Cast<DataRow>().Where(r => !employeeBankAccountInfo.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
                 List<DataRow> employeeStatutoryInfoRows = employeeStatutoryInfo.Rows.Cast<DataRow>().ToList();
+                List<DataRow> employeeSpecificReimbInfoRows = employeeSpecificReimbInfo.Rows.Cast<DataRow>().Where(r => !employeeSpecificReimbInfo.Columns.Contains("EmpID") || r["EmpID"] == DBNull.Value || Convert.ToString(r["EmpID"]) == Convert.ToString(empId)).ToList();
 
                 //DataTable employeeAttendanceSummary = BuildConsolidatedAttendanceSummary(monthlyAttendanceRegisterData, empId, attendanceYear);
                 //List<DataRow> attendanceRows = employeeAttendanceSummary.Rows.Cast<DataRow>().ToList();
 
-                int rowCount = Math.Max(1, Math.Max(employeeStatutoryInfoRows.Count, Math.Max(empBankAccountRows.Count, Math.Max(empPayslipRows.Count, Math.Max(empAdvanceRows.Count, Math.Max(empLeaveRows.Count, Math.Max(mnthlyAttendanceRows.Count, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count))))))))));
+                int rowCount = Math.Max(1, Math.Max(employeeSpecificReimbInfoRows.Count, Math.Max(employeeStatutoryInfoRows.Count, Math.Max(empBankAccountRows.Count, Math.Max(empPayslipRows.Count, Math.Max(empAdvanceRows.Count, Math.Max(empLeaveRows.Count, Math.Max(mnthlyAttendanceRows.Count, Math.Max(familyRows.Count, Math.Max(nomineeRows.Count, Math.Max(educationRows.Count, skillsRows.Count)))))))))));
 
                 for (int i = 0; i < rowCount; i++)
                 {
@@ -2151,6 +2154,11 @@ namespace StaffSync
                                 output["AttendancePercentage"] = DBNull.Value;
                             }
                         }
+                    }
+
+                    if (i < employeeSpecificReimbInfoRows.Count)
+                    {
+                        DataRow indEmpSpecificReimbInfo = employeeSpecificReimbInfoRows[i];
                     }
 
                     if (i < empPayslipRows.Count)
@@ -4712,6 +4720,10 @@ namespace StaffSync
                     // not part of the main employee summary row.
                     AppendEmployeeStatutoryInformation(html, group.Rows);
 
+                    // Employee-specific Reimbursement Statements.
+                    // Render these directly from the reimbursement DAL, immediately before payslips.
+                    AppendEmployeeReimbursementStatements(html, group.Rows);
+
                     // Employee-specific monthly Payslip Statements.
                     AppendEmployeePayslipStatements(html, group.Rows);
 
@@ -5016,6 +5028,157 @@ namespace StaffSync
         /// + Total Reimbursements. Values are taken from the rows already populated
         /// by getEmployeeSpecificConsolidatedPayslipValues in BuildEmployeeInformationWithDetails.
         /// </summary>
+        /// <summary>
+        /// Loads and renders employee-specific reimbursement requests in a separate
+        /// subtable immediately before the employee-specific payslip statements.
+        /// The DAL lookup is resolved by reflection so this form does not require a
+        /// compile-time dependency on a particular reimbursement-request method name.
+        /// </summary>
+        private void AppendEmployeeReimbursementStatements(StringBuilder html, List<DataRow> employeeRows)
+        {
+            html.AppendLine("<div class=\"family-heading\">Employee Specific Reimbursement Statements</div>");
+            html.AppendLine("<table class=\"family-table reimbursement-statement-table\"><colgroup>");
+            html.AppendLine("<col style=\"width:15%\" /><col style=\"width:25%\" /><col style=\"width:13%\" />");
+            html.AppendLine("<col style=\"width:12%\" /><col style=\"width:12%\" /><col style=\"width:13%\" /><col style=\"width:10%\" />");
+            html.AppendLine("</colgroup><thead><tr>");
+            html.AppendLine("<th>Reimbursement Name</th><th>Description</th><th>Request Code</th><th>Request Date</th><th>Status</th><th>Transaction Date</th><th>Amount</th>");
+            html.AppendLine("</tr></thead><tbody>");
+
+            int employeeId = 0;
+            if (employeeRows != null)
+            {
+                foreach (DataRow employeeRow in employeeRows)
+                {
+                    if (employeeRow == null || employeeRow.RowState == DataRowState.Deleted || employeeRow.Table == null)
+                        continue;
+                    string employeeIdColumn = GetFirstExistingColumn(employeeRow.Table, "EmpID", "EmployeeID", "EmpId");
+                    if (string.IsNullOrEmpty(employeeIdColumn) || employeeRow[employeeIdColumn] == DBNull.Value)
+                        continue;
+                    if (int.TryParse(Convert.ToString(employeeRow[employeeIdColumn]), out employeeId) && employeeId > 0)
+                        break;
+                }
+            }
+
+            DataTable reimbursementData = new DataTable("EmployeeReimbursementStatements");
+            if (employeeId > 0)
+            {
+                try
+                {
+                    reimbursementData = GetEmployeeReimbursementRequestData(employeeId);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Unable to load employee reimbursement statements: " + ex.Message);
+                }
+            }
+
+            bool found = false;
+            if (reimbursementData != null && reimbursementData.Rows.Count > 0)
+            {
+                string employeeIdColumn = GetFirstExistingColumn(reimbursementData, "EmpID", "EmployeeID", "EmpId", "ReimbRequestByID", "ReimbRequestEmployeeID");
+                string nameColumn = GetFirstExistingColumn(reimbursementData, "ReimbTitle", "ReimbursementTitle", "ReimbName", "ReimbursementName");
+                string descriptionColumn = GetFirstExistingColumn(reimbursementData, "ReimbRequestDescription", "ReimbDescription", "ReimbursementDescription", "Description");
+                string codeColumn = GetFirstExistingColumn(reimbursementData, "ReimbRequestCode", "ReimbCode", "RequestCode");
+                string requestDateColumn = GetFirstExistingColumn(reimbursementData, "ReimbRequestDate", "RequestDate", "ReimbursementRequestDate");
+                string statusColumn = GetFirstExistingColumn(reimbursementData, "ReimbRequestStatus", "RequestStatus", "Status");
+                string transactionDateColumn = GetFirstExistingColumn(reimbursementData, "ReimbRequestTRDate", "TransactionDate", "ReimbTransactionDate");
+                string amountColumn = GetFirstExistingColumn(reimbursementData, "CBalance", "ReimbAmount", "ReimbursementAmount", "Amount", "RequestAmount");
+                string commentsColumn = GetFirstExistingColumn(reimbursementData, "Comments", "ReimbRequestComments", "RequestComments");
+
+                List<DataRow> rows = reimbursementData.Rows.Cast<DataRow>()
+                    .Where(r => r != null && r.RowState != DataRowState.Deleted)
+                    .Where(r => string.IsNullOrEmpty(employeeIdColumn) || r[employeeIdColumn] == DBNull.Value ||
+                        Convert.ToString(r[employeeIdColumn]) == employeeId.ToString())
+                    .ToList();
+
+                foreach (DataRow row in rows)
+                {
+                    string name = GetReimbursementText(row, nameColumn);
+                    string description = GetReimbursementText(row, descriptionColumn);
+                    string code = GetReimbursementText(row, codeColumn);
+                    string requestDate = FormatReimbursementDate(GetReimbursementText(row, requestDateColumn));
+                    string status = GetReimbursementText(row, statusColumn);
+                    string transactionDate = FormatReimbursementDate(GetReimbursementText(row, transactionDateColumn));
+                    string amount = FormatReimbursementMoney(GetReimbursementText(row, amountColumn));
+                    string comments = GetReimbursementText(row, commentsColumn);
+
+                    if (string.IsNullOrWhiteSpace(name) && string.IsNullOrWhiteSpace(description) &&
+                        string.IsNullOrWhiteSpace(code) && string.IsNullOrWhiteSpace(requestDate) &&
+                        string.IsNullOrWhiteSpace(status) && string.IsNullOrWhiteSpace(transactionDate) &&
+                        string.IsNullOrWhiteSpace(amount) && string.IsNullOrWhiteSpace(comments))
+                        continue;
+
+                    html.AppendLine("<tr>");
+                    html.AppendLine("<td>" + HtmlEncode(name) + "</td>");
+                    html.AppendLine("<td title=\"" + HtmlEncode(description) + "\">" + HtmlEncode(description) + "</td>");
+                    html.AppendLine("<td>" + HtmlEncode(code) + "</td>");
+                    html.AppendLine("<td>" + HtmlEncode(requestDate) + "</td>");
+                    html.AppendLine("<td>" + HtmlEncode(status) + "</td>");
+                    html.AppendLine("<td>" + HtmlEncode(transactionDate) + "</td>");
+                    html.AppendLine("<td class=\"numeric\">" + HtmlEncode(amount) + "</td>");
+                    html.AppendLine("</tr>");
+                    found = true;
+                }
+            }
+
+            if (!found)
+                html.AppendLine("<tr><td colspan=\"7\" class=\"empty-family\">No reimbursement statement information available for this employee.</td></tr>");
+            html.AppendLine("</tbody></table>");
+        }
+
+        /// <summary>
+        /// Retrieves the current employee's reimbursement payment/request records
+        /// using the same DAL method already used when preparing employee report data.
+        /// Do not use objReimbursementInfo.GetReimbursementList() here: that method
+        /// returns reimbursement master records, not employee-specific transactions.
+        /// </summary>
+        private DataTable GetEmployeeReimbursementRequestData(int employeeId)
+        {
+            if (employeeId <= 0)
+                return new DataTable("EmployeeReimbursementStatements");
+
+            try
+            {
+                // This is the employee-specific DAL call already used at line ~1980
+                // while building the employee information dataset.
+                var reimbursementItems = objEmpReimbursRequestInfo
+                    .getEmpSpecificReimbursmentPaymentInfo(employeeId);
+
+                DataTable reimbursementTable = ConvertListToDataTable(reimbursementItems);
+                return reimbursementTable ?? new DataTable("EmployeeReimbursementStatements");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(
+                    "Unable to load employee reimbursement statements for EmpID " +
+                    employeeId + ": " + ex.Message);
+                return new DataTable("EmployeeReimbursementStatements");
+            }
+        }
+
+        private string GetReimbursementText(DataRow row, string columnName)
+        {
+            if (row == null || row.Table == null || string.IsNullOrWhiteSpace(columnName) ||
+                !row.Table.Columns.Contains(columnName) || row[columnName] == DBNull.Value)
+                return string.Empty;
+            return Convert.ToString(row[columnName]).Trim();
+        }
+
+        private string FormatReimbursementDate(string value)
+        {
+            DateTime date;
+            return DateTime.TryParse(value, out date) ? date.ToString("dd-MMM-yyyy") : value;
+        }
+
+        private string FormatReimbursementMoney(string value)
+        {
+            decimal amount;
+            if (decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out amount) ||
+                decimal.TryParse(value, NumberStyles.Any, CultureInfo.CurrentCulture, out amount))
+                return amount.ToString("N2", CultureInfo.InvariantCulture);
+            return value;
+        }
+
         private void AppendEmployeePayslipStatements(StringBuilder html, List<DataRow> employeeRows)
         {
             html.AppendLine("<div class=\"family-heading\">Employee Specific Payslip Statements</div>");
