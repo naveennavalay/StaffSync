@@ -39,6 +39,11 @@ namespace DALStaffSync
             return objAssetsRegisterInfo.DeleteAssetRegisterInfo(txtAssetRegID);
         }
 
+        public int UpdatgeEmployeeAssetAllocationInfo(int EmpAssetAllocationID, int AssetID, DateTime IssueDate, string IssueCondition, int IssuedBy, string IssueRemarks, int CurrentAssetStatusID, int AssetRequestID)
+        {
+            return objAssetsRegisterInfo.UpdatgeEmployeeAssetAllocationInfo(EmpAssetAllocationID, AssetID, IssueDate, IssueCondition, IssuedBy, IssueRemarks, CurrentAssetStatusID, AssetRequestID);
+        }
+
         public List<AssetApproverPendingList> ApprovalPendingAssetApprovalList(int txtClientID)
         {
             return objAssetsRegisterInfo.ApprovalPendingAssetApprovalList(txtClientID);
@@ -52,6 +57,16 @@ namespace DALStaffSync
         public List<AssetApproverPendingList> SecondApprovalPendingAssetApprovalList(int txtClientID, int SecondApproverID)
         {
             return objAssetsRegisterInfo.SecondApprovalPendingAssetApprovalList(txtClientID, SecondApproverID);
+        }
+
+        public List<ApprovedAssetInformationRequestList> getApprovedAssetInformationRequestList(int ClientID)
+        {
+            return objAssetsRegisterInfo.getApprovedAssetInformationRequestList(ClientID);
+        }
+
+        public List<AssetInformationOfAnAssetRequest> getAssetInformationOfAnAssetRequest(int AssetRequestID) 
+        {
+            return objAssetsRegisterInfo.getAssetInformationOfAnAssetRequest(AssetRequestID);
         }
     }
 }

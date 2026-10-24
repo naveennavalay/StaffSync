@@ -44,6 +44,7 @@ namespace StaffSync
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
         DALStaffSync.clsImportDataInfo objImportDataInfo = new DALStaffSync.clsImportDataInfo();
         DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
+        DALStaffSync.clsAssetRegister objAssetRegisterInfo = new DALStaffSync.clsAssetRegister();
 
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
@@ -191,7 +192,7 @@ namespace StaffSync
             txtComments.Text = "To Reimbursment";
 
             btnSaveDetails.Enabled = true;
-            dtReimbRequestDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            dtIssueDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
         }
 
         /// <summary>
@@ -209,27 +210,31 @@ namespace StaffSync
 
             if(ValidateValuesOnUI())
             {
-                int transactionID = objEmpReimbursRequestInfo.InsertEmployeeReimbursmentRequestDetailedInfo(Convert.ToInt32(lblReimbRequestID.Text), Convert.ToDateTime(dtReimbRequestDate.Text.ToString()),  Convert.ToDecimal(txtOBalance.Text), Convert.ToDecimal(0), Convert.ToDecimal(txtReimbursementAmount.Text), Convert.ToDecimal(txtCurrentBalance.Text), "Dr", txtComments.Text);
-                if (transactionID > 0)
+                foreach (DataGridViewRow dc in dtgAssetRequestedList.Rows)
                 {
-                    if(Convert.ToDecimal(txtCurrentBalance.Text) == 0)
-                    {
-                        objEmpReimbursRequestInfo.UpdateEmployeeReimbursmentRequestStatus(Convert.ToInt32(lblReimbRequestID.Text), "Completed");
-                    }
-                    else if (Convert.ToDecimal(txtCurrentBalance.Text) > 0)
-                    {
-                        objEmpReimbursRequestInfo.UpdateEmployeeReimbursmentRequestStatus(Convert.ToInt32(lblReimbRequestID.Text), "In Progress");
-                    }
 
-                    dtgReimbursmentPaymentHistory.DataSource = null;
-                    dtgReimbursmentPaymentHistory.DataSource = objEmpReimbursRequestInfo.getReimbursmentTransactionList(Convert.ToInt32(lblReimbRequestID.Text.ToString()));
-                    formatTransactionGrid();
-
-                    MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    disableControls();
-                    clearControls();
-                    errValidator.Clear();
                 }
+                //int transactionID = objAssetRegisterInfo.UpdateAssetRegisterInfo()
+                //if (transactionID > 0)
+                //{
+                //    if(Convert.ToDecimal(txtCurrentBalance.Text) == 0)
+                //    {
+                //        objEmpReimbursRequestInfo.UpdateEmployeeReimbursmentRequestStatus(Convert.ToInt32(lblReimbRequestID.Text), "Completed");
+                //    }
+                //    else if (Convert.ToDecimal(txtCurrentBalance.Text) > 0)
+                //    {
+                //        objEmpReimbursRequestInfo.UpdateEmployeeReimbursmentRequestStatus(Convert.ToInt32(lblReimbRequestID.Text), "In Progress");
+                //    }
+
+                //    dtgReimbursmentPaymentHistory.DataSource = null;
+                //    dtgReimbursmentPaymentHistory.DataSource = objEmpReimbursRequestInfo.getReimbursmentTransactionList(Convert.ToInt32(lblReimbRequestID.Text.ToString()));
+                //    formatTransactionGrid();
+
+                //    MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //    disableControls();
+                //    clearControls();
+                //    errValidator.Clear();
+                //}
             }
         }
 
@@ -244,29 +249,29 @@ namespace StaffSync
 
             if (lblActionMode.Text == "add")
             {
-                if (txtReimbursementAmount.Text.ToString().Trim() == "")
-                {
-                    validationStatus = false;
-                    errValidator.SetError(this.txtReimbursementAmount, txtReimbursementAmount.Tag?.ToString() ?? "Reimbursment Amount should not be Blank.");
-                }
-                if (Convert.ToDecimal(txtReimbursementAmount.Text.ToString()) <= 0)
-                {
-                    validationStatus = false;
-                    errValidator.SetError(this.txtReimbursementAmount, txtReimbursementAmount.Tag?.ToString() ?? "Reimbursment Amount should not be Zero.");
-                }
+                //if (txtReimbursementAmount.Text.ToString().Trim() == "")
+                //{
+                //    validationStatus = false;
+                //    errValidator.SetError(this.txtReimbursementAmount, txtReimbursementAmount.Tag?.ToString() ?? "Reimbursment Amount should not be Blank.");
+                //}
+                //if (Convert.ToDecimal(txtReimbursementAmount.Text.ToString()) <= 0)
+                //{
+                //    validationStatus = false;
+                //    errValidator.SetError(this.txtReimbursementAmount, txtReimbursementAmount.Tag?.ToString() ?? "Reimbursment Amount should not be Zero.");
+                //}
 
-                DateTime reimbTRDate = DateTime.ParseExact(dtReimbRequestDate.Text, dateFormat, provider);
-                if (reimbTRDate > DateTime.Today)
-                {
-                    errValidator.SetError(dtReimbRequestDate, "Transaction Date cannot be future date");
-                    validationStatus = false;
-                }
+                //DateTime reimbTRDate = DateTime.ParseExact(dtReimbRequestDate.Text, dateFormat, provider);
+                //if (reimbTRDate > DateTime.Today)
+                //{
+                //    errValidator.SetError(dtReimbRequestDate, "Transaction Date cannot be future date");
+                //    validationStatus = false;
+                //}
 
-                if (Convert.ToDecimal(txtCurrentBalance.Text.ToString()) < 0)
-                {
-                    validationStatus = false;
-                    errValidator.SetError(this.txtCurrentBalance, txtCurrentBalance.Tag?.ToString() ?? "Outstanding Balance should not be less than Zero.");
-                }
+                //if (Convert.ToDecimal(txtCurrentBalance.Text.ToString()) < 0)
+                //{
+                //    validationStatus = false;
+                //    errValidator.SetError(this.txtCurrentBalance, txtCurrentBalance.Tag?.ToString() ?? "Outstanding Balance should not be less than Zero.");
+                //}
                 //if (Convert.ToDecimal(txtOutstandingQuantity.Text.ToString()) < Convert.ToDecimal(txtTotalQuantity.Text.ToString()))
                 //{
                 //    validationStatus = false;
@@ -278,12 +283,7 @@ namespace StaffSync
 
         public void clearControls()
         {
-            txtOBalance.Text = "0.00";
-            txtTotalCredit.Text = "0.00";
-            txtTotalDebit.Text = "0.00";
-            txtCurrentBalance.Text = "0.00";
             txtRequestCode.Text = "";
-            txtReimbType.Text = "";
             txtRequestDate.Text = "";
             txtReimbStatus.Text = "";
             txtRequestDescription.Text = "";
@@ -292,53 +292,56 @@ namespace StaffSync
             txtEmpName.Text = "";
             txtDesignation.Text = "";
             txtDepartment.Text = "";
-            txtReimbursementAmount.Text = "0.00";
             txtRequestDate.Text = DateTime.Today.ToString("dd-MMM-yyyy");
+            dtIssueDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            dtReturnDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
             txtComments.Text = "";
+            lblAssetRequestID.Text = "";
+            lblClientID.Text = "";
+            lblEmpID.Text = "";
+            lblPersonalInfoID.Text = "";
             picEmpPhoto.Image  = null;
-            dtgReimbursmentPaymentHistory.DataSource = null;
-            dtgReimbursmentPaymentHistory.DataSource = objEmpReimbursRequestInfo.getReimbursmentTransactionList(0);
+
+            cmbAssetCondition.DataSource = null;
+            LoadAssetConditionValues();
+            dtgAssetRequestedList.DataSource = null;
+            dtgAssetRequestedList.DataSource = objAssetRegisterInfo.getAssetInformationOfAnAssetRequest(0);
             formatTransactionGrid();
 
             lblEmpID.Text = "";
-            lblReimbRequestID.Text = "";
-            lblReimbTypeID.Text = "";
             lblPersonalInfoID.Text = "";
         }
 
         public void enableControls()
         {
             btnReimbursmentSearch.Enabled = true;
-            txtReimbursementAmount.Text = "0.00";
-            txtReimbursementAmount.Enabled = true;
-            dtReimbRequestDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
-            dtReimbRequestDate.Enabled = true;
+            dtIssueDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            dtReturnDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            dtIssueDate.Enabled = true;
             txtComments.Enabled = true;
-            btnSaveDetails.Enabled = false;
+            btnSaveDetails.Enabled = true;
         }
 
         public void disableControls()
         {
             txtRequestCode.Enabled = false;
-            txtReimbType.Enabled = false;
             txtRequestDate.Enabled = false;
             txtReimbStatus.Enabled = false;
             txtRequestDescription.Enabled = false;
-            txtComments.Enabled = false;
             txtEmpCode.Enabled = false;
             txtEmpName.Enabled = false;
             txtDesignation.Enabled = false;
             txtDepartment.Enabled = false;
-            txtReimbursementAmount.Text = "0.00";
-            txtReimbursementAmount.Enabled = false;
             txtRequestDate.Text = DateTime.Today.ToString("dd-MMM-yyyy");
-            dtReimbRequestDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
-            dtReimbRequestDate.Enabled = false;
+            dtIssueDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            dtReturnDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            dtIssueDate.Enabled = false;
             txtRequestDate.Enabled = false;
             txtComments.Enabled = false;
             picEmpPhoto.Image = null;
             btnReimbursmentSearch.Enabled = false;
             btnSaveDetails.Enabled = false;
+            cmbAssetCondition.Enabled = false;
             //txtLeaveApprovalDate.Enabled = false;
             //dtgBulkLeaveApproval.Enabled = false;
         }
@@ -347,8 +350,8 @@ namespace StaffSync
         {
             btnGenerateDetails.Enabled = true;
             btnModifyDetails.Enabled = false;
-            btnSaveDetails.Enabled = dtgReimbursmentPaymentHistory != null &&
-                                      dtgReimbursmentPaymentHistory.Rows.Count > 0;
+            btnSaveDetails.Enabled = dtgAssetRequestedList != null &&
+                                      dtgAssetRequestedList.Rows.Count > 0;
             btnRemoveDetails.Enabled = false;
             btnCancel.Enabled = true;
         }
@@ -401,6 +404,21 @@ namespace StaffSync
             clearControls();
             //FormatTheGrid();
             errValidator.Clear();
+        }
+
+        private void LoadAssetConditionValues()
+        {
+            cmbAssetCondition.Items.Clear();
+            cmbAssetCondition.Items.Add("");
+            cmbAssetCondition.Items.Add("New");
+            cmbAssetCondition.Items.Add("Excellent");
+            cmbAssetCondition.Items.Add("Good");
+            cmbAssetCondition.Items.Add("Fair");
+            cmbAssetCondition.Items.Add("Poor");
+            cmbAssetCondition.Items.Add("Damaged");
+            cmbAssetCondition.Items.Add("Under Repair");
+            cmbAssetCondition.Items.Add("Refurbished");
+            cmbAssetCondition.SelectedIndex = 1;
         }
 
         private void btnModifyDetails_Click(object sender, EventArgs e)
@@ -521,7 +539,7 @@ namespace StaffSync
         {
             if (lblActionMode.Text == "add")
             {
-                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listReimbRequestPaymentPendingList", Convert.ToInt32(objTempClientFinYearInfo.ClientID.ToString()));
+                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAssetRequestPendingList", Convert.ToInt32(objTempClientFinYearInfo.ClientID.ToString()));
                 frmEmployeeList.ShowDialog(this);
             }
             else if (lblActionMode.Text == "modify")
@@ -533,101 +551,82 @@ namespace StaffSync
 
         public void SelectedEmployeeID(string SearchOptionSelectedForm, int selectedEmployeeID)
         {
-            if (SearchOptionSelectedForm == "listReimbRequestPaymentPendingList")
+            if (SearchOptionSelectedForm == "listAssetRequestPendingList")
             {
-                List<ReimbursementPaymentsPendingList> objReimbursementPaymentsPendingList = objEmpReimbursRequestInfo.getSelectedReimbursmentPaymentPendingList(selectedEmployeeID);
+                List<ApprovedAssetInformationRequestList> objApprovedAssetInformationRequestList = objAssetRegisterInfo.getApprovedAssetInformationRequestList(Convert.ToInt32(objTempClientFinYearInfo.ClientID.ToString()));
 
-                lblReimbTypeID.Text = objReimbursementPaymentsPendingList[0].ReimbID.ToString();
-                lblReimbRequestID.Text = objReimbursementPaymentsPendingList[0].ReimbRequestID.ToString();
-                txtRequestCode.Text = objReimbursementPaymentsPendingList[0].ReimbRequestCode.ToString();
-                txtReimbType.Text = objReimbursementPaymentsPendingList[0].ReimbTitle.ToString();
-                txtRequestDescription.Text = objReimbursementPaymentsPendingList[0].ReimbRequestDescription.ToString();
-                txtReimbStatus.Text = objReimbursementPaymentsPendingList[0].ReimbRequestStatus.ToString();
-                txtRequestDate.Text = Convert.ToDateTime(objReimbursementPaymentsPendingList[0].ReimbRequestDate.ToString()).ToString("dd-MMM-yyyy");
-                dtReimbRequestDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
-                lblEmpID.Text = objReimbursementPaymentsPendingList[0].EmpID.ToString();
-                txtEmpCode.Text = objReimbursementPaymentsPendingList[0].EmpCode.ToString();
-                txtEmpName.Text = objReimbursementPaymentsPendingList[0].EmpName.ToString();
-                txtDesignation.Text = objReimbursementPaymentsPendingList[0].DesignationTitle.ToString();
-                txtDepartment.Text = objReimbursementPaymentsPendingList[0].DepartmentTitle.ToString();
-                txtOBalance.Text = objReimbursementPaymentsPendingList[0].CBalance.ToString();
-                txtCurrentBalance.Text = objReimbursementPaymentsPendingList[0].CBalance.ToString();
+                lblAssetRequestID.Text = objApprovedAssetInformationRequestList[0].AssetRequestID.ToString();
+                txtRequestCode.Text = objApprovedAssetInformationRequestList[0].AssetRequestCode.ToString();
+                txtRequestDate.Text = objApprovedAssetInformationRequestList[0].AssetRequestDate.ToString();
+                txtReimbStatus.Text = objApprovedAssetInformationRequestList[0].RequestStatus.ToString();
+                txtRequestDescription.Text = objApprovedAssetInformationRequestList[0].AssetRequestComments.ToString();
 
+                lblEmpID.Text = objApprovedAssetInformationRequestList[0].EmpID.ToString();
+                lblPersonalInfoID.Text = objApprovedAssetInformationRequestList[0].PersonalInfoID.ToString();
+                txtEmpCode.Text = objApprovedAssetInformationRequestList[0].EmpCode.ToString();
+                txtEmpName.Text = objApprovedAssetInformationRequestList[0].EmpName.ToString();
+                txtDesignation.Text = objApprovedAssetInformationRequestList[0].DesignationTitle.ToString();
+                txtDepartment.Text = objApprovedAssetInformationRequestList[0].DepartmentTitle.ToString();
                 picEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblEmpID.Text)).EmpPhoto);
                 
-                dtgReimbursmentPaymentHistory.DataSource = null;
-                dtgReimbursmentPaymentHistory.DataSource = objEmpReimbursRequestInfo.getReimbursmentTransactionList(Convert.ToInt32(lblReimbRequestID.Text));
+                dtgAssetRequestedList.DataSource = null;
+                dtgAssetRequestedList.DataSource = objAssetRegisterInfo.getAssetInformationOfAnAssetRequest(Convert.ToInt32(lblAssetRequestID.Text));
                 formatTransactionGrid();
-
-                CalculateTransactionSummary();
-                txtCurrentBalance.Text = objReimbursementPaymentsPendingList[0].CBalance.ToString();
             }
         }
 
         private void formatTransactionGrid()
         {
-            dtgReimbursmentPaymentHistory.Columns["ReimbRequestDetailID"].Visible = false;
-            dtgReimbursmentPaymentHistory.Columns["ReimbRequestID"].Visible = false;
-            dtgReimbursmentPaymentHistory.Columns["ReimbRequestTRDate"].HeaderText = "Date";
-            dtgReimbursmentPaymentHistory.Columns["ReimbRequestTRDate"].Width = 100;
-            dtgReimbursmentPaymentHistory.Columns["ReimbRequestTRDate"].ReadOnly = true;
-            dtgReimbursmentPaymentHistory.Columns["ReimbRequestTRDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
-            dtgReimbursmentPaymentHistory.Columns["OBalance"].HeaderText = "O. Balance";
-            dtgReimbursmentPaymentHistory.Columns["OBalance"].Width = 100;
-            dtgReimbursmentPaymentHistory.Columns["OBalance"].ReadOnly = true;
-            dtgReimbursmentPaymentHistory.Columns["OBalance"].DefaultCellStyle.Format = "c2";
-            dtgReimbursmentPaymentHistory.Columns["OBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dtgReimbursmentPaymentHistory.Columns["CrAmount"].HeaderText = "Cr. Amount";
-            dtgReimbursmentPaymentHistory.Columns["CrAmount"].Width = 100;
-            dtgReimbursmentPaymentHistory.Columns["CrAmount"].ReadOnly = true;
-            dtgReimbursmentPaymentHistory.Columns["CrAmount"].DefaultCellStyle.Format = "c2";
-            dtgReimbursmentPaymentHistory.Columns["CrAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dtgReimbursmentPaymentHistory.Columns["DrAmount"].HeaderText = "Dr. Amount";
-            dtgReimbursmentPaymentHistory.Columns["DrAmount"].Width = 100;
-            dtgReimbursmentPaymentHistory.Columns["DrAmount"].ReadOnly = true;
-            dtgReimbursmentPaymentHistory.Columns["DrAmount"].DefaultCellStyle.Format = "c2";
-            dtgReimbursmentPaymentHistory.Columns["DrAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dtgReimbursmentPaymentHistory.Columns["CBalance"].HeaderText = "C. Balance";
-            dtgReimbursmentPaymentHistory.Columns["CBalance"].Width = 100;
-            dtgReimbursmentPaymentHistory.Columns["CBalance"].ReadOnly = true;
-            dtgReimbursmentPaymentHistory.Columns["CBalance"].DefaultCellStyle.Format = "c2";
-            dtgReimbursmentPaymentHistory.Columns["CBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dtgReimbursmentPaymentHistory.Columns["TRType"].HeaderText = "Trans. Type";
-            dtgReimbursmentPaymentHistory.Columns["TRType"].Width = 100;
-            dtgReimbursmentPaymentHistory.Columns["TRType"].ReadOnly = true;
-            dtgReimbursmentPaymentHistory.Columns["Comments"].HeaderText = "Comments";
-            dtgReimbursmentPaymentHistory.Columns["Comments"].Width = 350;
-            dtgReimbursmentPaymentHistory.Columns["Comments"].ReadOnly = true;
-            dtgReimbursmentPaymentHistory.Columns["OrderID"].Visible = false;
-        }
-
-        private void CalculateTransactionSummary()
-        {
-            decimal totalCredit = 0m;
-            decimal totalDebit = 0m;
-
-            foreach (DataGridViewRow row in dtgReimbursmentPaymentHistory.Rows)
-            {
-                if (row.IsNewRow)
-                    continue;
-
-                decimal.TryParse(Convert.ToString(row.Cells["CrAmount"].Value), out decimal credit);
-
-                decimal.TryParse(Convert.ToString(row.Cells["DrAmount"].Value), out decimal debit);
-
-                totalCredit += credit;
-                totalDebit += debit;
-            }
-
-            decimal openingBalance = 0m;
-
-            decimal.TryParse(txtOBalance.Text, out openingBalance);
-
-            decimal currentBalance = openingBalance - totalDebit;
-
-            txtTotalCredit.Text = totalCredit.ToString("N2");
-            txtTotalDebit.Text = totalDebit.ToString("N2");
-            txtCurrentBalance.Text = currentBalance.ToString("N2");
+            dtgAssetRequestedList.Columns["EmpAssetAllocationID"].Visible = false;
+            dtgAssetRequestedList.Columns["AssetCatMasID"].Visible = false;
+            dtgAssetRequestedList.Columns["AssetCategoryName"].HeaderText = "Category";
+            dtgAssetRequestedList.Columns["AssetCategoryName"].Width = 150;
+            dtgAssetRequestedList.Columns["AssetCategoryName"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["AssetID"].Visible = false;
+            dtgAssetRequestedList.Columns["AssetCode"].HeaderText = "Asset Code";
+            dtgAssetRequestedList.Columns["AssetCode"].Width = 150;
+            dtgAssetRequestedList.Columns["AssetCode"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["AssetName"].HeaderText = "Asset Name";
+            dtgAssetRequestedList.Columns["AssetName"].Width = 200;
+            dtgAssetRequestedList.Columns["AssetName"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["AssetMasMoreDetID"].Visible = false;
+            dtgAssetRequestedList.Columns["SerialNumber"].HeaderText = "Serial Number";
+            dtgAssetRequestedList.Columns["SerialNumber"].Width = 150;
+            dtgAssetRequestedList.Columns["SerialNumber"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["ModelNumber"].HeaderText = "Model Number";
+            dtgAssetRequestedList.Columns["ModelNumber"].Width = 150;
+            dtgAssetRequestedList.Columns["ModelNumber"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["AssetTag"].HeaderText = "Asset Tag";
+            dtgAssetRequestedList.Columns["AssetTag"].Width = 150;
+            dtgAssetRequestedList.Columns["AssetTag"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["AssetRequestID"].Visible = false;
+            dtgAssetRequestedList.Columns["AssetRegID"].Visible = false;
+            dtgAssetRequestedList.Columns["Comments"].HeaderText = "Request Description";
+            dtgAssetRequestedList.Columns["Comments"].Width = 350;
+            dtgAssetRequestedList.Columns["Comments"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["OBalance"].HeaderText = "Available Balance";
+            dtgAssetRequestedList.Columns["OBalance"].Width = 150;
+            dtgAssetRequestedList.Columns["OBalance"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["OBalance"].DefaultCellStyle.Format = "c2";
+            dtgAssetRequestedList.Columns["OBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dtgAssetRequestedList.Columns["DrBalance"].HeaderText = "Requested Quantity";
+            dtgAssetRequestedList.Columns["DrBalance"].Width = 150;
+            dtgAssetRequestedList.Columns["DrBalance"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["DrBalance"].DefaultCellStyle.Format = "c2";
+            dtgAssetRequestedList.Columns["DrBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dtgAssetRequestedList.Columns["CBalance"].HeaderText = "Outstanding Balance";
+            dtgAssetRequestedList.Columns["CBalance"].Width = 150;
+            dtgAssetRequestedList.Columns["CBalance"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["CBalance"].DefaultCellStyle.Format = "c2";
+            dtgAssetRequestedList.Columns["CBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dtgAssetRequestedList.Columns["IssueDate"].HeaderText = "Issue Date";
+            dtgAssetRequestedList.Columns["IssueDate"].Width = 150;
+            dtgAssetRequestedList.Columns["IssueDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            dtgAssetRequestedList.Columns["IssueCondition"].HeaderText = "Issue Condition";
+            dtgAssetRequestedList.Columns["IssueCondition"].Width = 150;
+            dtgAssetRequestedList.Columns["IssueRemarks"].HeaderText = "Remarks";
+            dtgAssetRequestedList.Columns["IssueRemarks"].Width = 300;
+            dtgAssetRequestedList.Columns["TRType"].Visible = false;
         }
 
         private void txtCurrentBalance_TextChanged(object sender, EventArgs e)
@@ -654,16 +653,7 @@ namespace StaffSync
 
         private void txtReimbursementAmount_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtReimbursementAmount.Text))
-            {
-                if (Convert.ToDecimal(txtReimbursementAmount.Text) >= 0)
-                {
-                    decimal currentBalance = Convert.ToDecimal(txtOBalance.Text) - Convert.ToDecimal(txtReimbursementAmount.Text);
-                    txtCurrentBalance.Text = currentBalance.ToString("N2");
-                }
-            }
-            else
-                txtReimbursementAmount.Text = "0.00";
+
         }
     }
 }

@@ -46,7 +46,7 @@ namespace StaffSync
         DALStaffSync.clsRolesAndResponsibilities objRolesAndResponsibilities = new DALStaffSync.clsRolesAndResponsibilities();
         DALStaffSync.clsAppModule objAppModule = new DALStaffSync.clsAppModule();
         DALStaffSync.clsEmpPayroll objEmpPayroll = new DALStaffSync.clsEmpPayroll();
-        DALStaffSync.clsAssetsInfo objAssetInfo = new DALStaffSync.clsAssetsInfo();
+        DALStaffSync.clsAssetRegister objAssetRegisterInfo = new DALStaffSync.clsAssetRegister();
         DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
 
         public frmEmployeeList()
@@ -777,7 +777,7 @@ namespace StaffSync
             else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestEditUsers")
             {
                 dtgEmployeeList.DataSource = null;
-                dtgEmployeeList.DataSource = objAssetInfo.getAssetsRequestList(Convert.ToInt16(lblClientID.Text.ToString()));
+                //dtgEmployeeList.DataSource = objAssetInfo.getAssetsRequestList(Convert.ToInt16(lblClientID.Text.ToString()));
                 dtgEmployeeList.Columns["AssetCode"].Width = 100;
                 dtgEmployeeList.Columns["AssetCode"].ReadOnly = true;
                 dtgEmployeeList.Columns["AssetName"].Width = 300;
@@ -893,6 +893,29 @@ namespace StaffSync
                 dtgEmployeeList.Columns["RequestIsDeleted"].Visible = false;
                 dtgEmployeeList.Columns["ClientID"].Visible = false;
                 dtgEmployeeList.Columns["IncludeInNextPayslipProcess"].Visible = false;
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestPendingList")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objAssetRegisterInfo.getApprovedAssetInformationRequestList(Convert.ToInt16(lblClientID.Text.ToString()));
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["PersonalInfoID"].Visible = false;
+                dtgEmployeeList.Columns["AssetRequestID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].HeaderText = "Emp Code";
+                dtgEmployeeList.Columns["EmpCode"].Width = 100;
+                dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpName"].HeaderText = "Employee Name";
+                dtgEmployeeList.Columns["EmpName"].Width = 200;
+                dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+                dtgEmployeeList.Columns["DesignationTitle"].HeaderText = "Designation";
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
+                dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["DepartmentTitle"].HeaderText = "Department";
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+                dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["AssetRequestComments"].HeaderText = "Comments";
+                dtgEmployeeList.Columns["AssetRequestComments"].Width = 350;
+                dtgEmployeeList.Columns["AssetRequestComments"].ReadOnly = true; 
             }
         }
 
@@ -1034,6 +1057,10 @@ namespace StaffSync
             else if (lblSearchOptionClickedFor.Text.Trim() == "listReimbRequestPaymentPendingList")
             {
                 this.frmEmpReimbursmentPayments.SelectedEmployeeID("listReimbRequestPaymentPendingList", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["ReimbRequestID"].Value.ToString()));
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestPendingList")
+            {
+                this.frmEmpAssetAllotment.SelectedEmployeeID("listAssetRequestPendingList", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["AssetRequestID"].Value.ToString()));
             }
 
             this.Close();

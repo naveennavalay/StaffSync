@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace ModelStaffSync
@@ -279,9 +280,107 @@ namespace ModelStaffSync
     public class  SelectedAssetInfo
     {
         public int AssetID { get; set; }
+        
+        [DisplayName("Asset Code")] 
         public string AssetCode { get; set; }
+        
+        [DisplayName("Asset Name")] 
         public string AssetName { get; set; }
+
+        [DisplayName("Quantity")] 
         public decimal TotalQuantity { get; set; }
+
+        [DisplayName("Balance Quantity")] 
         public decimal OutstandingQuantity { get; set; }
     }
+
+    public class ApprovedAssetInformationRequestList
+    {
+        
+        public int AssetRequestID { get; set; }
+
+        [DisplayName("Asset Code")] 
+        public string AssetRequestCode { set; get; }
+
+        [DisplayName("Request Date")] 
+        public DateTime AssetRequestDate { set; get; }
+
+        [DisplayName("Description")] 
+        public string AssetRequestComments { set; get;}
+
+        [DisplayName("Request Status")] 
+        public string RequestStatus {  get; set; }
+        public int EmpID { get; set; }
+
+        [DisplayName("Employee Code")]
+        public string EmpCode { get; set; }
+
+        [DisplayName("Employee Name")]
+        public string EmpName { get; set; }
+
+        [DisplayName("Designation")]
+        public string DesignationTitle { get; set; }
+
+        [DisplayName("Department")]
+        public string DepartmentTitle { get; set; }
+
+        public int PersonalInfoID { get; set; }
+    }
+
+    public class AssetInformationOfAnAssetRequest
+    {
+        public bool Select { get; set; }
+        public int EmpAssetAllocationID { get; set; }
+        public int AssetCatMasID { get; set; }
+        
+        [DisplayName("Category")] 
+        public string AssetCategoryName { get; set; }
+        public int AssetID { get; set; }
+        
+        [DisplayName("Asset Code")] 
+        public string AssetCode { get; set; }
+
+        [DisplayName("Asset Name")] 
+        public string AssetName { get; set; }
+        public int AssetMasMoreDetID { get; set; }
+
+        [DisplayName("Serial Number")] 
+        public string SerialNumber { get; set; }
+
+        [DisplayName("Asset Model Number")] 
+        public string ModelNumber { get; set; }
+
+        [DisplayName("Asset Tag")] 
+        public string AssetTag { get; set; }
+
+        [DisplayName("Asset Status")] 
+        public string CurrentAssetStatusName { get; set; }
+        public int AssetRequestID { get; set; }
+        public int AssetRegID { get; set; }
+        
+        [DisplayName("Available Quantity")] 
+        public decimal OBalance { get; set; }
+
+        [DisplayName("Requested Quantity")] 
+        public decimal DrBalance { get; set; }
+
+        [DisplayName("Balance Quantity")] 
+        public decimal CBalance { get; set; }
+
+        [DisplayName("Asset TR Type")]
+        public string TRType { get; set; }
+
+        [DisplayName("Request Description")] 
+        public string Comments { get; set; }
+
+        [DisplayName("Issue Date")] 
+        public DateTime IssueDate { get; set; }
+
+        [DisplayName("Issue Condition")] 
+        public string IssueCondition { get; set; }
+
+        [DisplayName("Remarks")]
+        public string IssueRemarks { get; set; }
+    }
+
 }
