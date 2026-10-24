@@ -22077,7 +22077,7 @@
                     label: {
                         show: true, position: 'insideRight', distance: 8,
                         color: '#ffffff', fontSize: 10, fontWeight: 700,
-                        formatter: function (p) { return p.value + ' DAYS'; }
+                        formatter: function (p) { var g = groups[p.name]; var count = g ? g.count : 0; return count + (count === 1 ? ' REQUEST' : ' REQUESTS') + ' | ' + p.value + ' DAYS'; }
                     }
                 }]
             });
