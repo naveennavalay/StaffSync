@@ -3223,6 +3223,7 @@
 
 <body>
 
+    <!-- STAFFSYNC PENDING REIMBURSEMENT HORIZONTAL BAR FIX: 2026-10-24 -->
     <!--
         ============================================================
         STAFFSYNC DASHBOARD
@@ -3244,6 +3245,22 @@
     -->
 
     <div id="dashboardMasonryLayout" class="dashboard-masonry-layout">
+
+        <div id="pendingReimbursementApprovalsCard" data-dashboard-key="PendingReimbursementApprovals" class="chart-card">
+            <div class="chart-card-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                <div><div class="chart-card-title" style="font-weight:700;color:#174b76;">Pending Reimbursement Approvals</div><div style="font-size:11px;color:#64748b;margin-top:4px;">Requests awaiting first approval · click a month to drill down</div></div>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span id="pendingReimbursementApprovalsTotal" class="today-card-count" style="background:#b45309;color:#fff;padding:5px 12px;border-radius:16px;font-weight:700;">0 requests</span><span id="pendingReimbursementApprovalsAmount" class="today-card-count" style="background:#eaf3fb;color:#174b76;border:1px solid #c6dff4;padding:5px 12px;border-radius:16px;font-weight:700;">₹0.00</span></div>
+            </div>
+            <div id="pendingReimbursementApprovalsBreadcrumb" style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:#64748b;margin:8px 0;">Monthly overview</div>
+            <div id="pendingReimbursementApprovalsChart" style="width:100%;height:285px;min-height:240px;"></div>
+            <div id="pendingReimbursementApprovalsDetails" style="display:none;overflow:auto;margin-top:8px;">
+                <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:760px;">
+                    <thead><tr style="background:#eff5f9;text-align:left;"><th style="padding:9px;">Employee</th><th style="padding:9px;">Request</th><th style="padding:9px;">Request Date</th><th style="padding:9px;">Days Pending</th><th style="padding:9px;text-align:right;">Amount</th><th style="padding:9px;">Status</th></tr></thead>
+                    <tbody id="pendingReimbursementApprovalsDetailsBody"></tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- Reimbursement Outstanding: populated by frmDashboard.cs -->
         <div id="reimbursementOutstandingCard" data-dashboard-key="ReimbursementOutstanding" class="chart-card">
             <div class="chart-card-header">
@@ -3251,7 +3268,10 @@
                     <div class="chart-title">Reimbursement Outstanding</div>
                     <div class="chart-subtitle">Monthly reimbursement totals · click a month to drill down</div>
                 </div>
-                <span id="reimbursementOutstandingTotal" class="today-card-count">₹0</span>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;">
+                    <span id="reimbursementOutstandingRequestCount" class="today-card-count" style="background:#b45309;color:#fff;padding:5px 12px;border-radius:16px;font-weight:700;">0 requests</span>
+                    <span id="reimbursementOutstandingTotal" class="today-card-count">₹0.00</span>
+                </div>
             </div>
             <div style="padding:10px 12px;">
                 <div id="reimbursementOutstandingBreadcrumb" style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:#64748b;margin-bottom:8px;">Monthly overview</div>
@@ -3782,10 +3802,14 @@
                 return d.toLocaleString("en-IN", { month: "short", year: "numeric" });
             }
             function title(r) { return String(pick(r, ["ReimbTitle", "ReimbursementTitle", "ReimbursementType", "Title"], "Other")); }
-            function money(v) { return "₹" + Number(v || 0).toLocaleString("en-IN", { maximumFractionDigits: 2 }); }
+            function money(v) { return "₹" + Number(v || 0).toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
             function text(v) { return v === null || v === undefined ? "" : String(v); }
             function esc(v) { return text(v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;"); }
             function element(id) { return document.getElementById(id); }
+            function updateRequestCount(count) {
+                var badge = element("reimbursementOutstandingRequestCount");
+                if (badge) badge.textContent = count + (count === 1 ? " request" : " requests");
+            }
             function initChart() {
                 var el = element("reimbursementOutstandingChart");
                 if (!el || !window.echarts) return null;
@@ -3796,6 +3820,7 @@
                 var el = element("reimbursementOutstandingChart");
                 if (el) el.innerHTML = '<div style="height:220px;display:flex;align-items:center;justify-content:center;color:#64748b;font-size:13px;text-align:center;">' + esc(message) + '</div>';
                 element("reimbursementOutstandingTotal").textContent = money(0);
+                updateRequestCount(0);
             }
             function setChartOption(option) {
                 chart = initChart();
@@ -3815,21 +3840,27 @@
                 element("reimbursementOutstandingChart").style.height = "285px";
                 var totals = {};
                 rows.forEach(function (r) {
-                    var m = monthLabel(r); if (!totals[m]) totals[m] = { settled: 0, balance: 0 };
-                    totals[m].settled += settledAmount(r); totals[m].balance += amount(r);
+                    var m = monthLabel(r); if (!totals[m]) totals[m] = { settled: 0, balance: 0, requests: 0 };
+                    totals[m].settled += settledAmount(r); totals[m].balance += amount(r); totals[m].requests += 1;
                 });
                 var keys = Object.keys(totals).sort(function (a, b) { var da = new Date("1 " + a), db = new Date("1 " + b); return da - db; });
                 var total = rows.reduce(function (s, r) { return s + amount(r); }, 0);
                 element("reimbursementOutstandingTotal").textContent = money(total);
+                updateRequestCount(rows.length);
                 if (!keys.length) { renderEmpty("No reimbursement outstanding records were returned."); return; }
-                setChartOption({ animation: true, legend: { top: 0, data: ["Settled / Paid", "Balance Reimbursement"] }, grid: { left: 65, right: 20, top: 35, bottom: 55, containLabel: true }, tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, backgroundColor: "#ffffff", borderColor: "#cbd5e1", borderWidth: 1, padding: [10, 12], textStyle: { color: "#64748b", fontSize: 12 }, extraCssText: "box-shadow:0 3px 12px rgba(15,23,42,.18);border-radius:5px;", formatter: function (ps) { if (!ps || !ps.length) return ""; var month = ps[0].axisValue || ""; var total = 0; ps.forEach(function (p) { total += Number(p.value) || 0; }); var out = "<div style=\"min-width:220px;font-family:Arial,sans-serif;\"><div style=\"font-size:13px;font-weight:700;color:#555;margin-bottom:7px;\">" + esc(month) + " Reimbursement</div>"; ps.forEach(function (p) { var c = (p.color && p.color.color) || p.color || "#64748b"; out += "<div style=\"display:flex;align-items:center;gap:7px;line-height:1.65;white-space:nowrap;\"><span style=\"display:inline-block;width:9px;height:9px;border-radius:50%;background:" + c + ";flex:0 0 9px;\"></span><span style=\"color:#737373;\">" + esc(p.seriesName) + ":</span><span style=\"margin-left:auto;padding-left:12px;color:#737373;\">" + money(p.value) + "</span></div>"; }); out += "<div style=\"border-top:1px solid #e5e7eb;margin-top:6px;padding-top:6px;display:flex;justify-content:space-between;gap:16px;font-weight:700;color:#555;\"><span>Total</span><span>" + money(total) + "</span></div></div>"; return out; } }, xAxis: { type: "category", data: keys, axisLabel: { rotate: 25, interval: 0 } }, yAxis: { type: "value", axisLabel: { formatter: function (v) { return v >= 100000 ? "₹" + (v / 100000).toFixed(1) + "L" : v >= 1000 ? "₹" + (v / 1000).toFixed(0) + "K" : "₹" + v; } } }, series: [{ name: "Settled / Paid", type: "bar", stack: "reimbursement", barMaxWidth: 38, itemStyle: { color: "#58a88b" }, data: keys.map(function (k) { return totals[k].settled; }), label: { show: false } }, { name: "Balance Reimbursement", type: "bar", stack: "reimbursement", barMaxWidth: 38, itemStyle: { color: "#4387c5", borderRadius: [4, 4, 0, 0] }, data: keys.map(function (k) { return totals[k].balance; }) }] });
+                setChartOption({ animation: true, legend: { top: 0, data: ["Settled / Paid", "Balance Reimbursement"] }, grid: { left: 65, right: 20, top: 35, bottom: 55, containLabel: true }, tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, backgroundColor: "#ffffff", borderColor: "#cbd5e1", borderWidth: 1, padding: [10, 12], textStyle: { color: "#64748b", fontSize: 12 }, extraCssText: "box-shadow:0 3px 12px rgba(15,23,42,.18);border-radius:5px;", formatter: function (ps) { if (!ps || !ps.length) return ""; var month = ps[0].axisValue || ""; var total = 0; ps.forEach(function (p) { total += Number(p.value) || 0; }); var requestCount = totals[month] ? totals[month].requests : 0; var out = "<div style=\"min-width:220px;font-family:Arial,sans-serif;\"><div style=\"font-size:13px;font-weight:700;color:#555;margin-bottom:7px;\">" + esc(month) + " Reimbursement</div><div style=\"display:flex;justify-content:space-between;gap:16px;line-height:1.7;color:#737373;\"><span>Requests:</span><b>" + requestCount + "</b></div>"; ps.forEach(function (p) { var c = (p.color && p.color.color) || p.color || "#64748b"; out += "<div style=\"display:flex;align-items:center;gap:7px;line-height:1.65;white-space:nowrap;\"><span style=\"display:inline-block;width:9px;height:9px;border-radius:50%;background:" + c + ";flex:0 0 9px;\"></span><span style=\"color:#737373;\">" + esc(p.seriesName) + ":</span><span style=\"margin-left:auto;padding-left:12px;color:#737373;\">" + money(p.value) + "</span></div>"; }); out += "<div style=\"border-top:1px solid #e5e7eb;margin-top:6px;padding-top:6px;display:flex;justify-content:space-between;gap:16px;font-weight:700;color:#555;\"><span>Total</span><span>" + money(total) + "</span></div></div>"; return out; } }, xAxis: { type: "category", data: keys, axisLabel: { rotate: 25, interval: 0 } }, yAxis: { type: "value", axisLabel: { formatter: function (v) { return v >= 100000 ? "₹" + (v / 100000).toFixed(1) + "L" : v >= 1000 ? "₹" + (v / 1000).toFixed(0) + "K" : "₹" + v; } } }, series: [{ name: "Settled / Paid", type: "bar", stack: "reimbursement", barMaxWidth: 38, itemStyle: { color: "#58a88b" }, data: keys.map(function (k) { return totals[k].settled; }), label: { show: false } }, { name: "Balance Reimbursement", type: "bar", stack: "reimbursement", barMaxWidth: 38, itemStyle: { color: "#4387c5", borderRadius: [4, 4, 0, 0] }, data: keys.map(function (k) { return totals[k].balance; }), label: { show: true, position: "top", distance: 7, color: "#475569", fontSize: 11, formatter: function (p) { var count = totals[p.name] ? totals[p.name].requests : 0; return count + (count === 1 ? " request" : " requests"); } } }] });
                 chart.off("click"); chart.on("click", function (p) { if (p.componentType === "series") renderTypes(p.name); });
             }
             function renderTypes(month) {
                 level = "type"; selectedMonth = month; selectedTitle = null;
                 var filtered = rows.filter(function (r) { return monthLabel(r) === month; });
-                var sums = {};
-                filtered.forEach(function (r) { var t = title(r); sums[t] = (sums[t] || 0) + amount(r); });
+                updateRequestCount(filtered.length);
+                var sums = {}, requestCounts = {};
+                filtered.forEach(function (r) {
+                    var t = title(r);
+                    sums[t] = (sums[t] || 0) + amount(r);
+                    requestCounts[t] = (requestCounts[t] || 0) + 1;
+                });
                 setBreadcrumb("reimbBackToMonths", "Back", month + " — reimbursement type wise outstanding", renderMonths);
                 element("reimbursementOutstandingDetails").style.display = "none";
                 element("reimbursementOutstandingChart").style.display = "block";
@@ -3843,7 +3874,10 @@
                     tooltip: {
                         trigger: "axis", axisPointer: { type: "shadow" }, formatter: function (ps) {
                             if (!ps || !ps.length) return "";
-                            return esc(ps[0].axisValue) + "<br/>Outstanding: <b>" + money(ps[0].value) + "</b>";
+                            var selectedTitle = ps[0].axisValue;
+                            return "<div style=\"min-width:190px;font-family:Arial,sans-serif;\"><b>" + esc(selectedTitle) + "</b>" +
+                                "<div style=\"display:flex;justify-content:space-between;gap:14px;margin-top:5px;\"><span>Requests:</span><b>" + (requestCounts[selectedTitle] || 0) + "</b></div>" +
+                                "<div style=\"display:flex;justify-content:space-between;gap:14px;\"><span>Outstanding:</span><b>" + money(ps[0].value) + "</b></div></div>";
                         }
                     },
                     grid: { left: 65, right: 22, top: 22, bottom: 78, containLabel: true },
@@ -3852,7 +3886,7 @@
                     series: [{
                         name: "Outstanding Reimbursement", type: "bar", barMaxWidth: 46,
                         data: names.map(function (n, i) { return { name: n, value: sums[n], itemStyle: { color: palette[i % palette.length], borderRadius: [4, 4, 0, 0] } }; }),
-                        label: { show: true, position: "top", formatter: function (p) { return money(p.value); }, fontSize: 10 }
+                        label: { show: true, position: "top", formatter: function (p) { var count = requestCounts[p.name] || 0; return count + (count === 1 ? " request" : " requests") + "\n" + money(p.value); }, fontSize: 10 }
                     }]
                 });
                 chart.off("click"); chart.on("click", function (p) { if (p.componentType === "series") renderDepartments(month, p.name); });
@@ -3860,20 +3894,27 @@
             function renderDepartments(month, reimbTitle) {
                 level = "department"; selectedMonth = month; selectedTitle = reimbTitle;
                 var filtered = rows.filter(function (r) { return monthLabel(r) === month && title(r) === reimbTitle; });
-                var sums = {}; filtered.forEach(function (r) { var d = department(r); sums[d] = (sums[d] || 0) + amount(r); });
+                updateRequestCount(filtered.length);
+                var sums = {}, requestCounts = {};
+                filtered.forEach(function (r) {
+                    var d = department(r);
+                    sums[d] = (sums[d] || 0) + amount(r);
+                    requestCounts[d] = (requestCounts[d] || 0) + 1;
+                });
                 setBreadcrumb("reimbBackToTypes", "Back", month + " / " + reimbTitle + " — department-wise outstanding", function () { renderTypes(month); });
                 element("reimbursementOutstandingDetails").style.display = "none";
                 element("reimbursementOutstandingChart").style.display = "block";
                 element("reimbursementOutstandingChart").style.height = "285px";
                 var names = Object.keys(sums);
                 if (!names.length) { renderEmpty("No departments found for this reimbursement type."); return; }
-                setChartOption({ tooltip: { trigger: "item", formatter: function (p) { return esc(p.name) + "<br/>Outstanding: <b>" + money(p.value) + "</b> (" + p.percent + "%)"; } }, legend: { type: "scroll", bottom: 0 }, series: [{ type: "pie", radius: ["38%", "66%"], center: ["50%", "45%"], data: names.map(function (n) { return { name: n, value: sums[n] }; }), label: { formatter: function (p) { return p.name + "\n" + money(p.value); } } }] });
+                setChartOption({ tooltip: { trigger: "item", formatter: function (p) { return "<b>" + esc(p.name) + "</b><br/>Requests: <b>" + (requestCounts[p.name] || 0) + "</b><br/>Outstanding: <b>" + money(p.value) + "</b> (" + p.percent + "%)"; } }, legend: { type: "scroll", bottom: 0 }, series: [{ type: "pie", radius: ["38%", "66%"], center: ["50%", "45%"], data: names.map(function (n) { return { name: n, value: sums[n] }; }), label: { formatter: function (p) { var count = requestCounts[p.name] || 0; return p.name + "\n" + count + (count === 1 ? " request" : " requests") + "\n" + money(p.value); } } }] });
                 chart.off("click"); chart.on("click", function (p) { if (p.componentType === "series") renderEmployees(month, reimbTitle, p.name); });
             }
             function renderEmployees(month, reimbTitle, dept) {
                 level = "employees"; selectedMonth = month; selectedTitle = reimbTitle;
                 var filtered = rows.filter(function (r) { return monthLabel(r) === month && title(r) === reimbTitle && (dept === undefined || department(r) === dept); });
-                setBreadcrumb("reimbBackToDepartments", "Back", month + " / " + reimbTitle + (dept ? " / " + dept : "") + " — employee details", function () { renderDepartments(month, reimbTitle); });
+                updateRequestCount(filtered.length);
+                setBreadcrumb("reimbBackToDepartments", "Back", month + " / " + reimbTitle + (dept ? " / " + dept : "") + " — employee details (" + filtered.length + (filtered.length === 1 ? " request)" : " requests)"), function () { renderDepartments(month, reimbTitle); });
                 var body = element("reimbursementOutstandingDetailsBody"); body.innerHTML = "";
                 filtered.forEach(function (r) {
                     var emp = pick(r, ["EmpName", "EmployeeName", "Employee"], ""); var code = pick(r, ["EmpCode", "EmployeeCode"], "");
@@ -21953,4 +21994,102 @@
 
 
 </body>
+
+<script>
+    (function () {
+        var rows = [], chart = null, level = 'month', selectedMonth = null, selectedTitle = null;
+        function el(id) { return document.getElementById(id); }
+        function pick(r, names, def) { for (var i = 0; i < names.length; i++) { if (r[names[i]] !== undefined && r[names[i]] !== null && r[names[i]] !== '') return r[names[i]]; } return def === undefined ? '' : def; }
+        function dateOf(r) { var v = pick(r, ['ReimbursRequestDate', 'ReimbursementRequestDate', 'RequestDate'], ''); if (!v) return null; var d = new Date(v); if (isNaN(d.getTime())) { var m = String(v).match(/^(\d{1,2})[-/ ]([A-Za-z]{3})[-/ ](\d{4})$/); if (m) d = new Date(m[2] + ' ' + m[1] + ', ' + m[3]); } return isNaN(d.getTime()) ? null : d; }
+        function days(r) { var d = dateOf(r); if (!d) return 0; var today = new Date(); today.setHours(0, 0, 0, 0); d.setHours(0, 0, 0, 0); return Math.max(0, Math.floor((today - d) / 86400000)); }
+        function month(r) { var d = dateOf(r); return d ? d.toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }) : 'Date unavailable'; }
+        function title(r) { return String(pick(r, ['ReimbTitle', 'ReimbursementTitle', 'ReimbursementType'], 'Other')); }
+        function amount(r) { var v = Number(pick(r, ['ReimbursRequestAmount', 'ReimbursementRequestAmount', 'RequestAmount'], 0)); return isFinite(v) ? v : 0; }
+        function money(v) { return '₹' + Number(v || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+        function esc(v) { return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
+        function init() { var e = el('pendingReimbursementApprovalsChart'); if (!e || !window.echarts) return null; return echarts.getInstanceByDom(e) || echarts.init(e); }
+        function setCrumb(text, back, fn) { var b = el('pendingReimbursementApprovalsBreadcrumb'); b.innerHTML = '<span>' + esc(text) + '</span>' + (back ? '<button id="pendingApprovalBack" style="margin-left:auto;padding:5px 12px;border:1px solid #cbd9e5;border-radius:5px;background:#fff;color:#174b76;cursor:pointer;">← Back</button>' : ''); if (back) el('pendingApprovalBack').onclick = fn; }
+        function showChart() { el('pendingReimbursementApprovalsDetails').style.display = 'none'; el('pendingReimbursementApprovalsChart').style.display = 'block'; el('pendingReimbursementApprovalsChart').style.height = '285px'; chart = init(); }
+        function renderMonths() { level = 'month'; selectedMonth = null; selectedTitle = null; showChart(); setCrumb('Monthly overview'); var counts = {}, totals = {}, titleTotals = {}; rows.forEach(function (r) { var m = month(r), t = title(r), a = amount(r); counts[m] = (counts[m] || 0) + 1; totals[m] = (totals[m] || 0) + a; if (!titleTotals[m]) titleTotals[m] = {}; titleTotals[m][t] = (titleTotals[m][t] || 0) + a; }); var keys = Object.keys(counts).sort(function (a, b) { return new Date('1 ' + a) - new Date('1 ' + b); }); el('pendingReimbursementApprovalsTotal').textContent = rows.length + ' requests'; el('pendingReimbursementApprovalsAmount').textContent = money(rows.reduce(function (sum, r) { return sum + amount(r); }, 0)); if (!chart) return; if (!keys.length) { chart.clear(); el('pendingReimbursementApprovalsChart').innerHTML = '<div style=\"padding:45px;text-align:center;color:#64748b;\">No pending first-approval reimbursement requests.</div>'; return; } chart.clear(); chart.setOption({ tooltip: { trigger: 'axis', formatter: function (p) { if (!p || !p.length) return ''; var m = p[0].axisValue, html = '<b>' + esc(m) + '</b><br/>Pending requests: <b>' + counts[m] + '</b><br/><br/><b>Reimbursement title-wise breakup</b>'; Object.keys(titleTotals[m] || {}).sort().forEach(function (t) { html += '<br/>' + esc(t) + ': <b>' + money(titleTotals[m][t]) + '</b>'; }); html += '<br/><hr style=\"border:0;border-top:1px solid #ddd;\"><b>Total Amount: ' + money(totals[m] || 0) + '</b>'; return html; } }, grid: { left: 45, right: 20, top: 20, bottom: 50, containLabel: true }, xAxis: { type: 'category', data: keys, axisLabel: { rotate: 25 } }, yAxis: { type: 'value', minInterval: 1, name: 'Requests' }, series: [{ type: 'bar', name: 'Pending requests', data: keys.map(function (k) { return { name: k, value: counts[k], itemStyle: { color: '#d97706', borderRadius: [4, 4, 0, 0] } }; }), barMaxWidth: 42, label: { show: true, position: 'top' } }] }); chart.off('click'); chart.on('click', function (p) { if (p.componentType === 'series') renderTitles(p.name); }); }
+        function renderTitles(m) {
+            level = 'title'; selectedMonth = m;
+            var rr = rows.filter(function (r) { return month(r) === m; });
+            var groups = {};
+            rr.forEach(function (r) {
+                var t = title(r);
+                if (!groups[t]) groups[t] = { count: 0, totalDays: 0, maxDays: 0, amount: 0 };
+                groups[t].count++;
+                groups[t].amount += amount(r);
+                groups[t].totalDays += days(r);
+                groups[t].maxDays = Math.max(groups[t].maxDays, days(r));
+            });
+            setCrumb(m + ' — reimbursement title-wise pending duration', 'Back', renderMonths);
+            showChart();
+            el('pendingReimbursementApprovalsTotal').textContent = rr.length + ' requests';
+            el('pendingReimbursementApprovalsAmount').textContent = money(rr.reduce(function (sum, r) { return sum + amount(r); }, 0));
+            var names = Object.keys(groups);
+            if (!chart || !names.length) return;
+
+            // Horizontal bar style aligned with the Upcoming Holidays chart.
+            var values = names.map(function (n) { return Math.round(groups[n].totalDays / groups[n].count); });
+            var maxValue = Math.max.apply(null, values.concat([0]));
+            var axisMax = Math.max(10, Math.ceil(maxValue * 1.12));
+            chart.clear();
+            chart.setOption({
+                animation: true,
+                animationDuration: 650,
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { type: 'shadow' },
+                    formatter: function (p) {
+                        if (!p || !p.length) return '';
+                        var name = p[0].axisValue;
+                        var g = groups[name];
+                        return '<b>' + esc(name) + '</b><br/>Requests: ' + g.count +
+                            '<br/>Average days pending: ' + Math.round(g.totalDays / g.count) +
+                            '<br/>Oldest request: ' + g.maxDays + ' days' +
+                            '<br/>Total Amount: <b>' + money(g.amount) + '</b>';
+                    }
+                },
+                grid: { left: 125, right: 35, top: 12, bottom: 28, containLabel: false },
+                xAxis: {
+                    type: 'value', min: 0, max: axisMax, name: 'Days', nameLocation: 'end',
+                    axisLabel: { fontSize: 9, color: '#4b5563' },
+                    axisLine: { show: false }, axisTick: { show: false },
+                    splitLine: { show: true, lineStyle: { color: '#e1e7ef' } }
+                },
+                yAxis: {
+                    type: 'category', data: names, inverse: true,
+                    axisLabel: { fontSize: 10, fontWeight: 600, color: '#333', width: 115, overflow: 'truncate' },
+                    axisLine: { show: false }, axisTick: { show: false }
+                },
+                series: [{
+                    type: 'bar', name: 'Average days pending', data: values,
+                    barMaxWidth: 24, showBackground: true,
+                    backgroundStyle: { color: '#edf2f7', borderRadius: [0, 14, 14, 0] },
+                    itemStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                            { offset: 0, color: '#a50021' },
+                            { offset: 1, color: '#ff8426' }
+                        ]),
+                        borderRadius: [0, 14, 14, 0]
+                    },
+                    label: {
+                        show: true, position: 'insideRight', distance: 8,
+                        color: '#ffffff', fontSize: 10, fontWeight: 700,
+                        formatter: function (p) { return p.value + ' DAYS'; }
+                    }
+                }]
+            });
+            chart.off('click');
+            chart.on('click', function (p) {
+                if (p.componentType === 'series') renderEmployees(m, p.name);
+            });
+        }
+        function renderEmployees(m, t) { level = 'employees'; selectedMonth = m; selectedTitle = t; var rr = rows.filter(function (r) { return month(r) === m && title(r) === t; }); setCrumb(m + ' / ' + t + ' — employee information', 'Back', function () { renderTitles(m); }); el('pendingReimbursementApprovalsChart').style.display = 'none'; el('pendingReimbursementApprovalsDetails').style.display = 'block'; var body = el('pendingReimbursementApprovalsDetailsBody'); body.innerHTML = ''; rr.sort(function (a, b) { return days(b) - days(a); }); rr.forEach(function (r) { var d = dateOf(r), dateText = d ? d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : ''; var n = days(r); var tr = document.createElement('tr'); tr.innerHTML = '<td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(pick(r, ['EmpName'], 'Employee')) + '</strong><div style="color:#64748b;font-size:11px;">' + esc(pick(r, ['EmpCode'], '')) + '</div><div style="color:#64748b;font-size:11px;">' + esc(pick(r, ['DepartmentTitle'], '')) + ' · ' + esc(pick(r, ['DesignationTitle'], '')) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(pick(r, ['ReimbursRequestCode'], 'Request')) + '</strong><div style="font-size:11px;color:#64748b;">' + esc(title(r)) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;white-space:nowrap;">' + esc(dateText) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;font-weight:700;color:' + (n >= 15 ? '#b91c1c' : n >= 7 ? '#b45309' : '#166534') + ';">' + n + ' days</td><td style="padding:9px;border-bottom:1px solid #e5edf3;text-align:right;white-space:nowrap;">' + money(amount(r)) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;">Pending approval</td>'; body.appendChild(tr); }); if (!rr.length) body.innerHTML = '<tr><td colspan="6" style="padding:16px;text-align:center;color:#64748b;">No matching requests.</td></tr>'; el('pendingReimbursementApprovalsTotal').textContent = rr.length + ' requests'; el('pendingReimbursementApprovalsAmount').textContent = money(rr.reduce(function (sum, r) { return sum + amount(r); }, 0)); }
+        window.displayPendingReimbursementApprovals = function (data) { try { if (typeof data === 'string') data = JSON.parse(data); rows = Array.isArray(data) ? data : []; renderMonths(); } catch (e) { console.error('Pending reimbursement approvals render error', e); } };
+        window.addEventListener('resize', function () { if (chart) chart.resize(); }); if (window.__staffSyncPendingApprovalReimbursements) { window.displayPendingReimbursementApprovals(window.__staffSyncPendingApprovalReimbursements); window.__staffSyncPendingApprovalReimbursements = null; }
+    })();
+</script>
+
 </html>
