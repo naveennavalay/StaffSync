@@ -54,6 +54,7 @@ namespace StaffSync
         DALStaffSync.clsAppSettings objAppSettings = new DALStaffSync.clsAppSettings();
         DALStaffSync.clsDashboardChartWidgets objDashboardChartWidgets = new DALStaffSync.clsDashboardChartWidgets();
         DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
+        DALStaffSync.clsAssetRegister objAssetRegisterInfo = new DALStaffSync.clsAssetRegister();
 
         List<ClientInfo> objActiveClientInfo = new List<ClientInfo>();
         List<FinYearMas> objActiveFinYear = new List<FinYearMas>();
@@ -7784,6 +7785,7 @@ namespace StaffSync
             await displayEmployeeConfirmationChartData();
             await displayReimbursementOutstandingChartData();
             await displayApprovalPendingReimbursementData();
+            await displayPendingAssetRequestData();
         }
 
         private async void myWebView_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
@@ -7809,6 +7811,10 @@ namespace StaffSync
 
                         case "PendingReimbursementApprovals":
                             await displayApprovalPendingReimbursementData();
+                            break;
+
+                        case "PendingAssetRequest":
+                            await displayPendingAssetRequestData();
                             break;
 
                         case "EmployeesOnLeaveToday":
@@ -8808,7 +8814,7 @@ namespace StaffSync
                 lblDashboardTitle.Text = "My Tasks List";
                 sptrDashboardContainer.Visible = false;
                 grpDashboardDateRange.Visible = false;
-                frmAdvanceApprovalList frmAdvanceApprovalList = new frmAdvanceApprovalList(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo,  "FirstApprover");
+                frmAdvanceApprovalList frmAdvanceApprovalList = new frmAdvanceApprovalList(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo, "FirstApprover");
                 frmAdvanceApprovalList.MdiParent = this;
                 frmAdvanceApprovalList.Dock = DockStyle.Fill;
                 frmAdvanceApprovalList.Show();
@@ -8900,6 +8906,43 @@ namespace StaffSync
                 MessageBox.Show(ex.Message, "StaffSync - Pending Reimbursement Approvals", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+        private async Task displayPendingAssetRequestData()
+        {
+            try
+            {
+                if (myWebView == null || myWebView.CoreWebView2 == null || objSelectedClientFinYearInfo == null)
+                    return;
+
+                int clientID = Convert.ToInt32(objSelectedClientFinYearInfo.ClientID);
+
+                // Actual data source: DALStaffSync.clsAssetRegister -> clsAssetRegister.cs
+                // Method returns the ModelStaffSync.AssetApproverPendingList records.
+                List<ModelStaffSync.AssetApproverPendingList> data =
+                    objAssetRegisterInfo.ApprovalPendingAssetApprovalList(clientID);
+
+                string json = JsonConvert.SerializeObject(
+                    data ?? new List<ModelStaffSync.AssetApproverPendingList>());
+
+                // Queue the payload if the HTML renderer has not initialized yet.
+                string script = "(function(){var payload=" + json + ";" +
+                    "if(typeof window.displayPendingAssetRequestData==='function'){" +
+                    "window.displayPendingAssetRequestData(payload);" +
+                    "}else{window.__staffSyncPendingAssetRequests=payload;}})();";
+
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "StaffSync - Pending Assets Request",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
 
     }
 }
