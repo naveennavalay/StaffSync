@@ -228,7 +228,7 @@ namespace StaffSync
 
             if (lblActionMode.Text == "add")
             {
-                AssetRequestID = objAssetInfo.InsertAssetRequestInfo("", Convert.ToInt32(lblAssetID.Text.ToString()), true, false, Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), txtComments.Text, false, Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), false, "", false);
+                AssetRequestID = objAssetInfo.InsertAssetRequestInfo("", Convert.ToInt32(lblAssetID.Text.ToString()), true, false, Convert.ToInt32(lblPersonalInfoID.Text.ToString()), Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), txtComments.Text, false, Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), false, "", false);
                 AssetRequestRegisterID = objAssetRegister.InsertAssetRegisterInfo(Convert.ToInt32(lblAssetID.Text.ToString()), Convert.ToDateTime(dtAssetRequestDate.Text), 0, Convert.ToDecimal(txtQuantity.Text.ToString()), 0, Convert.ToDecimal(txtQuantity.Text.ToString()), "Rq", "By " + cmbAssetType.Text + " - Request", Convert.ToInt32(AssetRequestID));
 
                 objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), AssetRequestID, "Asset Request - " + "\"ASR-REQ-" + (AssetRequestID).ToString().PadLeft(4, '0').Trim() + "\" Raised by Employee Code : \"" + txtEmpCode.Text.Trim() + "\" and Employee Name : \"" + txtEmpName.Text.Trim() + "\".", "Insert", ModelStaffSync.CurrentUser.EmpName, "AssetRequestNewUpdates", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
@@ -243,7 +243,7 @@ namespace StaffSync
             {
                 onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
 
-                AssetRequestID = objAssetInfo.UpdateAssetRequestInfo(Convert.ToInt32(lblAssetRequestID.Text.ToString()), Convert.ToInt32(lblAssetID.Text.ToString()), true, false, Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), txtComments.Text, false, Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), false, "", false);
+                AssetRequestID = objAssetInfo.UpdateAssetRequestInfo(Convert.ToInt32(lblAssetRequestID.Text.ToString()), Convert.ToInt32(lblAssetID.Text.ToString()), true, false, Convert.ToInt32(lblPersonalInfoID.Text.ToString()), Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), txtComments.Text, false, Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), false, "", false);
                 AssetRequestRegisterID = objAssetRegister.UpdateAssetRegisterInfo(Convert.ToInt32(lblAssetRegID.Text.ToString()), Convert.ToInt32(lblAssetID.Text.ToString()), Convert.ToDateTime(dtAssetRequestDate.Text), 0, Convert.ToDecimal(txtQuantity.Text.ToString()), 0, Convert.ToDecimal(txtQuantity.Text.ToString()), "Rq", "By " + cmbAssetType.Text + " - Request", Convert.ToInt32(AssetRequestID));
 
                 objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), AssetRequestID, "Asset Request - " + "\"ASR-REQ-" + (AssetRequestID).ToString().PadLeft(4, '0').Trim() + "\" Raised by Employee Code : \"" + txtEmpCode.Text.Trim() + "\" and Employee Name : \"" + txtEmpName.Text.Trim() + "\".", "Update", ModelStaffSync.CurrentUser.EmpName, "AssetRequestExistingUpdates", Convert.ToInt32(objTempClientFinYearInfo.ClientID));

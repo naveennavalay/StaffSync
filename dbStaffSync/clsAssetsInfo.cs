@@ -1150,7 +1150,7 @@ namespace dbStaffSync
 
                 if (FirstApproverStatus == "Approved")
                 {
-                    strQuery = "UPDATE EmpAssetRequest SET AssetRequestStatus = True WHERE AssetRequestID = " + AssetRequestID;
+                    strQuery = "UPDATE EmpAssetRequest SET AssetRequestStatus = True, RequestedDate = #" + DateTime.Today.ToString("dd-MMM-yyyy") + "# WHERE AssetRequestID = " + AssetRequestID;
                 }
                 else if (FirstApproverStatus == "In Progress")
                 {

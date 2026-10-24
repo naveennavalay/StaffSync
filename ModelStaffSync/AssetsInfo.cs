@@ -257,6 +257,8 @@ namespace ModelStaffSync
         [DisplayName("Asset Request Date")]
         public DateTime AssetRequestDate { set; get; }
         
+        public int AssetRequestByID { set; get; }
+
         [DisplayName("Comments")] 
         public string AssetRequestComments { set; get; }
         

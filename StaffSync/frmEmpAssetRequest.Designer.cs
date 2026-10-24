@@ -620,7 +620,7 @@
             this.lblViewEmpSpecificAdvanceInfo.AutoSize = true;
             this.lblViewEmpSpecificAdvanceInfo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblViewEmpSpecificAdvanceInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblViewEmpSpecificAdvanceInfo.Location = new System.Drawing.Point(567, 31);
+            this.lblViewEmpSpecificAdvanceInfo.Location = new System.Drawing.Point(584, 33);
             this.lblViewEmpSpecificAdvanceInfo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblViewEmpSpecificAdvanceInfo.Name = "lblViewEmpSpecificAdvanceInfo";
             this.lblViewEmpSpecificAdvanceInfo.Size = new System.Drawing.Size(171, 15);
@@ -661,7 +661,7 @@
             this.lblPersonalInfoID.AutoSize = true;
             this.lblPersonalInfoID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblPersonalInfoID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPersonalInfoID.Location = new System.Drawing.Point(652, 33);
+            this.lblPersonalInfoID.Location = new System.Drawing.Point(652, 14);
             this.lblPersonalInfoID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblPersonalInfoID.Name = "lblPersonalInfoID";
             this.lblPersonalInfoID.Size = new System.Drawing.Size(11, 15);
@@ -751,7 +751,7 @@
             // 
             this.lblActionMode.AutoSize = true;
             this.lblActionMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActionMode.Location = new System.Drawing.Point(509, 33);
+            this.lblActionMode.Location = new System.Drawing.Point(484, 33);
             this.lblActionMode.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblActionMode.Name = "lblActionMode";
             this.lblActionMode.Size = new System.Drawing.Size(98, 15);
@@ -869,11 +869,12 @@
             this.btnRemoveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnRemoveDetails.Values.Image = global::StaffSync.Properties.Resources.delete;
             this.btnRemoveDetails.Values.Text = "Delete";
+            this.btnRemoveDetails.Visible = false;
             this.btnRemoveDetails.Click += new System.EventHandler(this.btnRemoveDetails_Click);
             // 
             // btnSaveDetails
             // 
-            this.btnSaveDetails.Location = new System.Drawing.Point(299, 12);
+            this.btnSaveDetails.Location = new System.Drawing.Point(166, 12);
             this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -886,7 +887,7 @@
             // 
             // btnModifyDetails
             // 
-            this.btnModifyDetails.Location = new System.Drawing.Point(165, 12);
+            this.btnModifyDetails.Location = new System.Drawing.Point(568, 12);
             this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -895,6 +896,7 @@
             this.btnModifyDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnModifyDetails.Values.Image = global::StaffSync.Properties.Resources.update;
             this.btnModifyDetails.Values.Text = "Modify";
+            this.btnModifyDetails.Visible = false;
             this.btnModifyDetails.Click += new System.EventHandler(this.btnModifyDetails_Click);
             // 
             // btnGenerateDetails
@@ -912,7 +914,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(568, 12);
+            this.btnCancel.Location = new System.Drawing.Point(300, 12);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;

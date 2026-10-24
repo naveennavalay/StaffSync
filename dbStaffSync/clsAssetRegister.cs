@@ -279,6 +279,97 @@ namespace dbStaffSync
             return affectedRows;
         }
 
+        public List<AssetApproverPendingList> ApprovalPendingAssetApprovalList(int txtClientID)
+        {
+            List<AssetApproverPendingList> objAssetApproverPendingListInfo = new List<AssetApproverPendingList>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                        E.EmpID,
+                                        E.EmpCode,
+                                        E.EmpName,
+                                        D.DesignationTitle,
+                                        P.DepartmentTitle,
+                                        C.AssetCatMasID,
+                                        C.AssetName AS AssetCategoryName,
+                                        A.AssetID,
+                                        A.AssetCode,
+                                        A.AssetName,
+                                        R.AssetRequestID,
+                                        R.AssetRequestCode,
+                                        R.AssetRequestDate,
+                                        R.AssetRequestByID,
+                                        R.AssetRequestComments,
+                                        R.AssetRequestByStatus,
+                                        IIf(R.AssetRequestByStatus = False, ""Pending"", """") AS RequestStatus,
+                                        R.RequestedTo,
+                                        R.RequestedDate,
+                                        R.RequestedToStatus,
+                                        R.RequestedToComments,
+                                        R.AssetRequestStatus,
+                                        CL.ClientID
+                                    FROM
+                                        DesigMas AS D
+                                        INNER JOIN (
+                                            DepMas AS P
+                                            INNER JOIN (
+                                                ClientMas AS CL
+                                                INNER JOIN (
+                                                    (
+                                                        AssetCategoryMas AS C
+                                                        INNER JOIN AssetMas AS A ON C.AssetCatMasID = A.AssetCatMasID
+                                                    )
+                                                    INNER JOIN (
+                                                        EmpAssetRequest AS R
+                                                        INNER JOIN EmpMas AS E ON R.AssetRequestByID = E.EmpID
+                                                    ) ON A.AssetID = R.AssetID
+                                                ) ON CL.ClientID = E.ClientID
+                                            ) ON P.DepartmentID = E.DepartmentID
+                                        ) ON D.DesignationID = E.EmpDesignationID
+                                    WHERE
+                                        (
+                                            ((E.EmpID) > 1)
+                                            AND ((R.AssetRequestByStatus) = False)
+                                            AND ((R.RequestedToStatus) = False)
+                                            AND ((R.AssetRequestStatus) = False)
+                                            AND ((CL.ClientID) = 1)
+                                            AND ((R.IsActive) = True)
+                                            AND ((R.IsDeleted) = False)
+                                            AND ((C.ClientID) = [CL].[ClientID])
+                                        )
+                                    ORDER BY
+                                        R.AssetRequestID,
+                                        R.AssetRequestDate;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objAssetApproverPendingListInfo = JsonConvert.DeserializeObject<List<AssetApproverPendingList>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objAssetApproverPendingListInfo;
+        }
+
         public List<AssetApproverPendingList> FirstApprovalPendingAssetApprovalList(int txtClientID, int FirstApproverID)
         {
             List<AssetApproverPendingList> objAssetApproverPendingListInfo = new List<AssetApproverPendingList>();
@@ -359,6 +450,7 @@ namespace dbStaffSync
                                 R.AssetRequestID,
                                 R.AssetRequestCode,
                                 R.AssetRequestDate,
+                                R.AssetRequestByID,
                                 R.AssetRequestComments,
                                 R.AssetRequestByStatus,
                                 IIf(R.AssetRequestByStatus = False, ""Pending"", """") AS RequestStatus,
@@ -451,6 +543,7 @@ namespace dbStaffSync
                                 R.AssetRequestCode,
                                 R.AssetRequestDate,
                                 R.AssetRequestComments,
+                                R.AssetRequestByID,                                
                                 R.AssetRequestByStatus,
                                 IIf(R.AssetRequestStatus = False, ""Pending"", """") AS RequestStatus,
                                 R.RequestedTo,

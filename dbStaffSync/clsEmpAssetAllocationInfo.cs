@@ -26,7 +26,7 @@ namespace dbStaffSync
 
         }
 
-        public int InsertEmployeeAssetAllocationShortInformation(int EmpAssetAllocationID, int PersonalInfoID, int AssetID, DateTime TransDate, string Description, int AssetRequestID)
+        public int InsertEmployeeAssetAllocationShortInformation(int PersonalInfoID, int AssetID, DateTime TransDate, string Description, int AssetRequestID)
         {
             int affectedRows = 0;
             try
@@ -61,7 +61,7 @@ namespace dbStaffSync
         }
 
 
-        public int InsertEmployeeAssetAllocationInformation(int EmpAssetAllocationID, int PersonalInfoID, int AssetID, DateTime TransDate, DateTime IssueDate, string IssueCondition, int IssuedBy, string IssueRemarks, DateTime ReturnDate, string ReturnCondition, int ReturnedTo, string ReturnRemarks, int CurrentAssetStatusID, string Description, int ParentEmpAssetAllocationID, int AssetRequestID)
+        public int InsertEmployeeAssetAllocationInformation(int PersonalInfoID, int AssetID, DateTime TransDate, DateTime IssueDate, string IssueCondition, int IssuedBy, string IssueRemarks, DateTime ReturnDate, string ReturnCondition, int ReturnedTo, string ReturnRemarks, int CurrentAssetStatusID, string Description, int ParentEmpAssetAllocationID, int AssetRequestID)
         {
             int affectedRows = 0;
             try

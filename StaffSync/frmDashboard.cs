@@ -8718,13 +8718,13 @@ namespace StaffSync
 
             if (this.MdiChildren.Length == 0)
             {
-                lblDashboardTitle.Text = "Asset Issuance";
+                lblDashboardTitle.Text = "Asset Allotment";
                 sptrDashboardContainer.Visible = false;
                 grpDashboardDateRange.Visible = false;
-                frmExportDataProcess frmExportDataProcess = new frmExportDataProcess(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
-                frmExportDataProcess.MdiParent = this;
+                frmEmpAssetAllotment frmEmpAssetAllotment = new frmEmpAssetAllotment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+                frmEmpAssetAllotment.MdiParent = this;
                 //frmExportDataProcess.Dock = DockStyle.Fill;
-                frmExportDataProcess.Show();
+                frmEmpAssetAllotment.Show();
                 //frmExportDataProcess.WindowState = FormWindowState.Maximized;            
             }
         }
@@ -8808,7 +8808,7 @@ namespace StaffSync
                 lblDashboardTitle.Text = "My Tasks List";
                 sptrDashboardContainer.Visible = false;
                 grpDashboardDateRange.Visible = false;
-                frmAdvanceApprovalList frmAdvanceApprovalList = new frmAdvanceApprovalList(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo, "FirstApprover");
+                frmAdvanceApprovalList frmAdvanceApprovalList = new frmAdvanceApprovalList(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo,  "FirstApprover");
                 frmAdvanceApprovalList.MdiParent = this;
                 frmAdvanceApprovalList.Dock = DockStyle.Fill;
                 frmAdvanceApprovalList.Show();

@@ -3946,51 +3946,6 @@
             </Mappings>
             <Sources />
           </TableAdapter>
-          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="qryUserRolesResponsibilitiesInfoTableAdapter" GeneratorDataComponentClassName="qryUserRolesResponsibilitiesInfoTableAdapter" Name="qryUserRolesResponsibilitiesInfo" UserDataComponentName="qryUserRolesResponsibilitiesInfoTableAdapter">
-            <MainSource>
-              <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="qryUserRolesResponsibilitiesInfo" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
-                <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT UserID, EmpID, IsActive, IsDeleted, EmpUserName, EmpPassword, IsLocked, RoleID, RoleTitle, RoleDescription, RoleIsActive, RoleIsDeleted, RolesOrderiD, ModuleID, ModuleCode, ModuleTitle, ModuleInitials, ModuleIsActive, ModuleIsDeleted, ModuleOrderID, RoleDefID, CanAdd, CanUpdate, CanDelete, CanView, CanExport, CanApprove, CanReject, CanModifySettings, Notes FROM qryUserRolesResponsibilitiesInfo</CommandText>
-                    <Parameters />
-                  </DbCommand>
-                </SelectCommand>
-              </DbSource>
-            </MainSource>
-            <Mappings>
-              <Mapping SourceColumn="UserID" DataSetColumn="UserID" />
-              <Mapping SourceColumn="EmpID" DataSetColumn="EmpID" />
-              <Mapping SourceColumn="IsActive" DataSetColumn="IsActive" />
-              <Mapping SourceColumn="IsDeleted" DataSetColumn="IsDeleted" />
-              <Mapping SourceColumn="EmpUserName" DataSetColumn="EmpUserName" />
-              <Mapping SourceColumn="EmpPassword" DataSetColumn="EmpPassword" />
-              <Mapping SourceColumn="IsLocked" DataSetColumn="IsLocked" />
-              <Mapping SourceColumn="RoleID" DataSetColumn="RoleID" />
-              <Mapping SourceColumn="RoleTitle" DataSetColumn="RoleTitle" />
-              <Mapping SourceColumn="RoleDescription" DataSetColumn="RoleDescription" />
-              <Mapping SourceColumn="RoleIsActive" DataSetColumn="RoleIsActive" />
-              <Mapping SourceColumn="RoleIsDeleted" DataSetColumn="RoleIsDeleted" />
-              <Mapping SourceColumn="RolesOrderiD" DataSetColumn="RolesOrderiD" />
-              <Mapping SourceColumn="ModuleID" DataSetColumn="ModuleID" />
-              <Mapping SourceColumn="ModuleCode" DataSetColumn="ModuleCode" />
-              <Mapping SourceColumn="ModuleTitle" DataSetColumn="ModuleTitle" />
-              <Mapping SourceColumn="ModuleInitials" DataSetColumn="ModuleInitials" />
-              <Mapping SourceColumn="ModuleIsActive" DataSetColumn="ModuleIsActive" />
-              <Mapping SourceColumn="ModuleIsDeleted" DataSetColumn="ModuleIsDeleted" />
-              <Mapping SourceColumn="ModuleOrderID" DataSetColumn="ModuleOrderID" />
-              <Mapping SourceColumn="RoleDefID" DataSetColumn="RoleDefID" />
-              <Mapping SourceColumn="CanAdd" DataSetColumn="CanAdd" />
-              <Mapping SourceColumn="CanUpdate" DataSetColumn="CanUpdate" />
-              <Mapping SourceColumn="CanDelete" DataSetColumn="CanDelete" />
-              <Mapping SourceColumn="CanView" DataSetColumn="CanView" />
-              <Mapping SourceColumn="CanExport" DataSetColumn="CanExport" />
-              <Mapping SourceColumn="CanApprove" DataSetColumn="CanApprove" />
-              <Mapping SourceColumn="CanReject" DataSetColumn="CanReject" />
-              <Mapping SourceColumn="CanModifySettings" DataSetColumn="CanModifySettings" />
-              <Mapping SourceColumn="Notes" DataSetColumn="Notes" />
-            </Mappings>
-            <Sources />
-          </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="qryFamilyMemberInfoTableAdapter" GeneratorDataComponentClassName="qryFamilyMemberInfoTableAdapter" Name="qryFamilyMemberInfo" UserDataComponentName="qryFamilyMemberInfoTableAdapter">
             <MainSource>
               <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="qryFamilyMemberInfo" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
@@ -7991,137 +7946,6 @@
             </Mappings>
             <Sources />
           </TableAdapter>
-          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="EmpAssetRequestTableAdapter" GeneratorDataComponentClassName="EmpAssetRequestTableAdapter" Name="EmpAssetRequest" UserDataComponentName="EmpAssetRequestTableAdapter">
-            <MainSource>
-              <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="EmpAssetRequest" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
-                <DeleteCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>DELETE FROM `EmpAssetRequest` WHERE ((`AssetRequestID` = ?) AND ((? = 1 AND `AssetRequestCode` IS NULL) OR (`AssetRequestCode` = ?)) AND ((? = 1 AND `AssetID` IS NULL) OR (`AssetID` = ?)) AND ((? = 1 AND `IsActive` IS NULL) OR (`IsActive` = ?)) AND ((? = 1 AND `IsDeleted` IS NULL) OR (`IsDeleted` = ?)) AND ((? = 1 AND `AssetRequestByID` IS NULL) OR (`AssetRequestByID` = ?)) AND ((? = 1 AND `AssetRequestDate` IS NULL) OR (`AssetRequestDate` = ?)) AND ((? = 1 AND `AssetRequestByStatus` IS NULL) OR (`AssetRequestByStatus` = ?)) AND ((? = 1 AND `RequestedDate` IS NULL) OR (`RequestedDate` = ?)) AND ((? = 1 AND `RequestedTo` IS NULL) OR (`RequestedTo` = ?)) AND ((? = 1 AND `RequestedToStatus` IS NULL) OR (`RequestedToStatus` = ?)) AND ((? = 1 AND `AssetRequestStatus` IS NULL) OR (`AssetRequestStatus` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_AssetRequestID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestCode" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestCode" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="Original_AssetRequestCode" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="AssetRequestCode" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_AssetID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_IsActive" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="IsActive" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_IsActive" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsActive" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_IsDeleted" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="IsDeleted" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_IsDeleted" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsDeleted" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestByID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_AssetRequestByID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestDate" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestDate" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="Original_AssetRequestDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="AssetRequestDate" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestByStatus" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByStatus" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_AssetRequestByStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestByStatus" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_RequestedDate" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedDate" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="Original_RequestedDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="RequestedDate" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_RequestedTo" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedTo" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_RequestedTo" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedTo" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_RequestedToStatus" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedToStatus" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_RequestedToStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="RequestedToStatus" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestStatus" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestStatus" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_AssetRequestStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestStatus" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_OrderID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="OrderID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="Original_OrderID" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="OrderID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                    </Parameters>
-                  </DbCommand>
-                </DeleteCommand>
-                <InsertCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>INSERT INTO `EmpAssetRequest` (`AssetRequestID`, `AssetRequestCode`, `AssetID`, `IsActive`, `IsDeleted`, `AssetRequestByID`, `AssetRequestDate`, `AssetRequestComments`, `AssetRequestByStatus`, `RequestedDate`, `RequestedTo`, `RequestedToStatus`, `RequestedToComments`, `AssetRequestStatus`, `OrderID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="AssetRequestID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="AssetRequestCode" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="AssetRequestCode" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="AssetID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="IsActive" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsActive" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="IsDeleted" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsDeleted" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="AssetRequestByID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="AssetRequestDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="AssetRequestDate" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="AssetRequestComments" Precision="0" ProviderType="LongVarWChar" Scale="0" Size="0" SourceColumn="AssetRequestComments" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="AssetRequestByStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestByStatus" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="RequestedDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="RequestedDate" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="RequestedTo" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedTo" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="RequestedToStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="RequestedToStatus" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="RequestedToComments" Precision="0" ProviderType="LongVarWChar" Scale="0" Size="0" SourceColumn="RequestedToComments" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="AssetRequestStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestStatus" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="OrderID" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="OrderID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                    </Parameters>
-                  </DbCommand>
-                </InsertCommand>
-                <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT AssetRequestID, AssetRequestCode, AssetID, IsActive, IsDeleted, AssetRequestByID, AssetRequestDate, AssetRequestComments, AssetRequestByStatus, RequestedDate, RequestedTo, RequestedToStatus, RequestedToComments, AssetRequestStatus, OrderID FROM EmpAssetRequest</CommandText>
-                    <Parameters />
-                  </DbCommand>
-                </SelectCommand>
-                <UpdateCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>UPDATE `EmpAssetRequest` SET `AssetRequestID` = ?, `AssetRequestCode` = ?, `AssetID` = ?, `IsActive` = ?, `IsDeleted` = ?, `AssetRequestByID` = ?, `AssetRequestDate` = ?, `AssetRequestComments` = ?, `AssetRequestByStatus` = ?, `RequestedDate` = ?, `RequestedTo` = ?, `RequestedToStatus` = ?, `RequestedToComments` = ?, `AssetRequestStatus` = ?, `OrderID` = ? WHERE ((`AssetRequestID` = ?) AND ((? = 1 AND `AssetRequestCode` IS NULL) OR (`AssetRequestCode` = ?)) AND ((? = 1 AND `AssetID` IS NULL) OR (`AssetID` = ?)) AND ((? = 1 AND `IsActive` IS NULL) OR (`IsActive` = ?)) AND ((? = 1 AND `IsDeleted` IS NULL) OR (`IsDeleted` = ?)) AND ((? = 1 AND `AssetRequestByID` IS NULL) OR (`AssetRequestByID` = ?)) AND ((? = 1 AND `AssetRequestDate` IS NULL) OR (`AssetRequestDate` = ?)) AND ((? = 1 AND `AssetRequestByStatus` IS NULL) OR (`AssetRequestByStatus` = ?)) AND ((? = 1 AND `RequestedDate` IS NULL) OR (`RequestedDate` = ?)) AND ((? = 1 AND `RequestedTo` IS NULL) OR (`RequestedTo` = ?)) AND ((? = 1 AND `RequestedToStatus` IS NULL) OR (`RequestedToStatus` = ?)) AND ((? = 1 AND `AssetRequestStatus` IS NULL) OR (`AssetRequestStatus` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))</CommandText>
-                    <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="AssetRequestID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="AssetRequestCode" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="AssetRequestCode" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="AssetID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="IsActive" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsActive" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="IsDeleted" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsDeleted" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="AssetRequestByID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="AssetRequestDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="AssetRequestDate" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="AssetRequestComments" Precision="0" ProviderType="LongVarWChar" Scale="0" Size="0" SourceColumn="AssetRequestComments" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="AssetRequestByStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestByStatus" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="RequestedDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="RequestedDate" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="RequestedTo" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedTo" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="RequestedToStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="RequestedToStatus" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="RequestedToComments" Precision="0" ProviderType="LongVarWChar" Scale="0" Size="0" SourceColumn="RequestedToComments" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="AssetRequestStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestStatus" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="OrderID" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="OrderID" SourceColumnNullMapping="false" SourceVersion="Current" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_AssetRequestID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestCode" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestCode" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="Original_AssetRequestCode" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="AssetRequestCode" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_AssetID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_IsActive" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="IsActive" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_IsActive" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsActive" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_IsDeleted" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="IsDeleted" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_IsDeleted" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsDeleted" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestByID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_AssetRequestByID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestDate" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestDate" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="Original_AssetRequestDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="AssetRequestDate" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestByStatus" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByStatus" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_AssetRequestByStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestByStatus" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_RequestedDate" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedDate" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="Original_RequestedDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="RequestedDate" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_RequestedTo" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedTo" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_RequestedTo" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedTo" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_RequestedToStatus" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedToStatus" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_RequestedToStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="RequestedToStatus" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestStatus" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestStatus" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_AssetRequestStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestStatus" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_OrderID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="OrderID" SourceColumnNullMapping="true" SourceVersion="Original" />
-                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="Original_OrderID" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="OrderID" SourceColumnNullMapping="false" SourceVersion="Original" />
-                    </Parameters>
-                  </DbCommand>
-                </UpdateCommand>
-              </DbSource>
-            </MainSource>
-            <Mappings>
-              <Mapping SourceColumn="AssetRequestID" DataSetColumn="AssetRequestID" />
-              <Mapping SourceColumn="AssetRequestCode" DataSetColumn="AssetRequestCode" />
-              <Mapping SourceColumn="AssetID" DataSetColumn="AssetID" />
-              <Mapping SourceColumn="IsActive" DataSetColumn="IsActive" />
-              <Mapping SourceColumn="IsDeleted" DataSetColumn="IsDeleted" />
-              <Mapping SourceColumn="AssetRequestByID" DataSetColumn="AssetRequestByID" />
-              <Mapping SourceColumn="AssetRequestDate" DataSetColumn="AssetRequestDate" />
-              <Mapping SourceColumn="AssetRequestComments" DataSetColumn="AssetRequestComments" />
-              <Mapping SourceColumn="AssetRequestByStatus" DataSetColumn="AssetRequestByStatus" />
-              <Mapping SourceColumn="RequestedDate" DataSetColumn="RequestedDate" />
-              <Mapping SourceColumn="RequestedTo" DataSetColumn="RequestedTo" />
-              <Mapping SourceColumn="RequestedToStatus" DataSetColumn="RequestedToStatus" />
-              <Mapping SourceColumn="RequestedToComments" DataSetColumn="RequestedToComments" />
-              <Mapping SourceColumn="AssetRequestStatus" DataSetColumn="AssetRequestStatus" />
-              <Mapping SourceColumn="OrderID" DataSetColumn="OrderID" />
-            </Mappings>
-            <Sources />
-          </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AssetMasTableAdapter" GeneratorDataComponentClassName="AssetMasTableAdapter" Name="AssetMas" UserDataComponentName="AssetMasTableAdapter">
             <MainSource>
               <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="AssetMas" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
@@ -10190,6 +10014,182 @@
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="EmpAssetRequestTableAdapter" GeneratorDataComponentClassName="EmpAssetRequestTableAdapter" Name="EmpAssetRequest" UserDataComponentName="EmpAssetRequestTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="EmpAssetRequest" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM `EmpAssetRequest` WHERE ((`AssetRequestID` = ?) AND ((? = 1 AND `AssetRequestCode` IS NULL) OR (`AssetRequestCode` = ?)) AND ((? = 1 AND `AssetID` IS NULL) OR (`AssetID` = ?)) AND ((? = 1 AND `IsActive` IS NULL) OR (`IsActive` = ?)) AND ((? = 1 AND `IsDeleted` IS NULL) OR (`IsDeleted` = ?)) AND ((? = 1 AND `AssetRequestByID` IS NULL) OR (`AssetRequestByID` = ?)) AND ((? = 1 AND `AssetRequestDate` IS NULL) OR (`AssetRequestDate` = ?)) AND ((? = 1 AND `AssetRequestByStatus` IS NULL) OR (`AssetRequestByStatus` = ?)) AND ((? = 1 AND `RequestedDate` IS NULL) OR (`RequestedDate` = ?)) AND ((? = 1 AND `RequestedTo` IS NULL) OR (`RequestedTo` = ?)) AND ((? = 1 AND `RequestedToStatus` IS NULL) OR (`RequestedToStatus` = ?)) AND ((? = 1 AND `AssetRequestStatus` IS NULL) OR (`AssetRequestStatus` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_AssetRequestID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestCode" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestCode" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="Original_AssetRequestCode" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="AssetRequestCode" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_AssetID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_IsActive" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="IsActive" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_IsActive" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsActive" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_IsDeleted" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="IsDeleted" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_IsDeleted" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsDeleted" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestByID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_AssetRequestByID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestDate" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestDate" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="Original_AssetRequestDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="AssetRequestDate" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestByStatus" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByStatus" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_AssetRequestByStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestByStatus" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_RequestedDate" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedDate" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="Original_RequestedDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="RequestedDate" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_RequestedTo" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedTo" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_RequestedTo" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedTo" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_RequestedToStatus" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedToStatus" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_RequestedToStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="RequestedToStatus" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestStatus" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestStatus" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_AssetRequestStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestStatus" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_OrderID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="OrderID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="Original_OrderID" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="OrderID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO `EmpAssetRequest` (`AssetRequestID`, `AssetRequestCode`, `AssetID`, `IsActive`, `IsDeleted`, `AssetRequestByID`, `AssetRequestDate`, `AssetRequestComments`, `AssetRequestByStatus`, `RequestedDate`, `RequestedTo`, `RequestedToStatus`, `RequestedToComments`, `AssetRequestStatus`, `OrderID`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="AssetRequestID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="AssetRequestCode" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="AssetRequestCode" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="AssetID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="IsActive" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsActive" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="IsDeleted" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsDeleted" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="AssetRequestByID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="AssetRequestDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="AssetRequestDate" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="AssetRequestComments" Precision="0" ProviderType="LongVarWChar" Scale="0" Size="0" SourceColumn="AssetRequestComments" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="AssetRequestByStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestByStatus" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="RequestedDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="RequestedDate" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="RequestedTo" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedTo" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="RequestedToStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="RequestedToStatus" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="RequestedToComments" Precision="0" ProviderType="LongVarWChar" Scale="0" Size="0" SourceColumn="RequestedToComments" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="AssetRequestStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestStatus" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="OrderID" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="OrderID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT AssetRequestID, AssetRequestCode, AssetID, IsActive, IsDeleted, AssetRequestByID, AssetRequestDate, AssetRequestComments, AssetRequestByStatus, RequestedDate, RequestedTo, RequestedToStatus, RequestedToComments, AssetRequestStatus, OrderID FROM EmpAssetRequest</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE `EmpAssetRequest` SET `AssetRequestID` = ?, `AssetRequestCode` = ?, `AssetID` = ?, `IsActive` = ?, `IsDeleted` = ?, `AssetRequestByID` = ?, `AssetRequestDate` = ?, `AssetRequestComments` = ?, `AssetRequestByStatus` = ?, `RequestedDate` = ?, `RequestedTo` = ?, `RequestedToStatus` = ?, `RequestedToComments` = ?, `AssetRequestStatus` = ?, `OrderID` = ? WHERE ((`AssetRequestID` = ?) AND ((? = 1 AND `AssetRequestCode` IS NULL) OR (`AssetRequestCode` = ?)) AND ((? = 1 AND `AssetID` IS NULL) OR (`AssetID` = ?)) AND ((? = 1 AND `IsActive` IS NULL) OR (`IsActive` = ?)) AND ((? = 1 AND `IsDeleted` IS NULL) OR (`IsDeleted` = ?)) AND ((? = 1 AND `AssetRequestByID` IS NULL) OR (`AssetRequestByID` = ?)) AND ((? = 1 AND `AssetRequestDate` IS NULL) OR (`AssetRequestDate` = ?)) AND ((? = 1 AND `AssetRequestByStatus` IS NULL) OR (`AssetRequestByStatus` = ?)) AND ((? = 1 AND `RequestedDate` IS NULL) OR (`RequestedDate` = ?)) AND ((? = 1 AND `RequestedTo` IS NULL) OR (`RequestedTo` = ?)) AND ((? = 1 AND `RequestedToStatus` IS NULL) OR (`RequestedToStatus` = ?)) AND ((? = 1 AND `AssetRequestStatus` IS NULL) OR (`AssetRequestStatus` = ?)) AND ((? = 1 AND `OrderID` IS NULL) OR (`OrderID` = ?)))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="AssetRequestID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="AssetRequestCode" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="AssetRequestCode" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="AssetID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="IsActive" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsActive" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="IsDeleted" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsDeleted" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="AssetRequestByID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="AssetRequestDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="AssetRequestDate" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="AssetRequestComments" Precision="0" ProviderType="LongVarWChar" Scale="0" Size="0" SourceColumn="AssetRequestComments" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="AssetRequestByStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestByStatus" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="RequestedDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="RequestedDate" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="RequestedTo" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedTo" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="RequestedToStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="RequestedToStatus" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="RequestedToComments" Precision="0" ProviderType="LongVarWChar" Scale="0" Size="0" SourceColumn="RequestedToComments" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="AssetRequestStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestStatus" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="OrderID" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="OrderID" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_AssetRequestID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestCode" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestCode" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="Original_AssetRequestCode" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="AssetRequestCode" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_AssetID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_IsActive" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="IsActive" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_IsActive" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsActive" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_IsDeleted" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="IsDeleted" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_IsDeleted" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="IsDeleted" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestByID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_AssetRequestByID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestDate" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestDate" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="Original_AssetRequestDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="AssetRequestDate" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestByStatus" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestByStatus" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_AssetRequestByStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestByStatus" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_RequestedDate" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedDate" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="Original_RequestedDate" Precision="0" ProviderType="Date" Scale="0" Size="0" SourceColumn="RequestedDate" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_RequestedTo" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedTo" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="Original_RequestedTo" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedTo" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_RequestedToStatus" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="RequestedToStatus" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_RequestedToStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="RequestedToStatus" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_AssetRequestStatus" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="AssetRequestStatus" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Boolean" Direction="Input" ParameterName="Original_AssetRequestStatus" Precision="0" ProviderType="Boolean" Scale="0" Size="0" SourceColumn="AssetRequestStatus" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="IsNull_OrderID" Precision="0" ProviderType="Integer" Scale="0" Size="0" SourceColumn="OrderID" SourceColumnNullMapping="true" SourceVersion="Original" />
+                      <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="Original_OrderID" Precision="0" ProviderType="VarWChar" Scale="0" Size="0" SourceColumn="OrderID" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="AssetRequestID" DataSetColumn="AssetRequestID" />
+              <Mapping SourceColumn="AssetRequestCode" DataSetColumn="AssetRequestCode" />
+              <Mapping SourceColumn="AssetID" DataSetColumn="AssetID" />
+              <Mapping SourceColumn="IsActive" DataSetColumn="IsActive" />
+              <Mapping SourceColumn="IsDeleted" DataSetColumn="IsDeleted" />
+              <Mapping SourceColumn="AssetRequestByID" DataSetColumn="AssetRequestByID" />
+              <Mapping SourceColumn="AssetRequestDate" DataSetColumn="AssetRequestDate" />
+              <Mapping SourceColumn="AssetRequestComments" DataSetColumn="AssetRequestComments" />
+              <Mapping SourceColumn="AssetRequestByStatus" DataSetColumn="AssetRequestByStatus" />
+              <Mapping SourceColumn="RequestedDate" DataSetColumn="RequestedDate" />
+              <Mapping SourceColumn="RequestedTo" DataSetColumn="RequestedTo" />
+              <Mapping SourceColumn="RequestedToStatus" DataSetColumn="RequestedToStatus" />
+              <Mapping SourceColumn="RequestedToComments" DataSetColumn="RequestedToComments" />
+              <Mapping SourceColumn="AssetRequestStatus" DataSetColumn="AssetRequestStatus" />
+              <Mapping SourceColumn="OrderID" DataSetColumn="OrderID" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="qryUserRolesResponsibilitiesInfoTableAdapter" GeneratorDataComponentClassName="qryUserRolesResponsibilitiesInfoTableAdapter" Name="qryUserRolesResponsibilitiesInfo" UserDataComponentName="qryUserRolesResponsibilitiesInfoTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="qryUserRolesResponsibilitiesInfo" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT UserID, EmpID, IsActive, IsDeleted, EmpUserName, EmpPassword, IsLocked, RoleID, RoleTitle, RoleDescription, RoleIsActive, RoleIsDeleted, RolesOrderiD, ModuleID, ModuleCode, ModuleTitle, ModuleInitials, ModuleIsActive, ModuleIsDeleted, ModuleOrderID, RoleDefID, CanAdd, CanUpdate, CanDelete, CanView, CanExport, CanApprove, CanReject, CanModifySettings, Notes FROM qryUserRolesResponsibilitiesInfo</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="UserID" DataSetColumn="UserID" />
+              <Mapping SourceColumn="EmpID" DataSetColumn="EmpID" />
+              <Mapping SourceColumn="IsActive" DataSetColumn="IsActive" />
+              <Mapping SourceColumn="IsDeleted" DataSetColumn="IsDeleted" />
+              <Mapping SourceColumn="EmpUserName" DataSetColumn="EmpUserName" />
+              <Mapping SourceColumn="EmpPassword" DataSetColumn="EmpPassword" />
+              <Mapping SourceColumn="IsLocked" DataSetColumn="IsLocked" />
+              <Mapping SourceColumn="RoleID" DataSetColumn="RoleID" />
+              <Mapping SourceColumn="RoleTitle" DataSetColumn="RoleTitle" />
+              <Mapping SourceColumn="RoleDescription" DataSetColumn="RoleDescription" />
+              <Mapping SourceColumn="RoleIsActive" DataSetColumn="RoleIsActive" />
+              <Mapping SourceColumn="RoleIsDeleted" DataSetColumn="RoleIsDeleted" />
+              <Mapping SourceColumn="RolesOrderiD" DataSetColumn="RolesOrderiD" />
+              <Mapping SourceColumn="ModuleID" DataSetColumn="ModuleID" />
+              <Mapping SourceColumn="ModuleCode" DataSetColumn="ModuleCode" />
+              <Mapping SourceColumn="ModuleTitle" DataSetColumn="ModuleTitle" />
+              <Mapping SourceColumn="ModuleInitials" DataSetColumn="ModuleInitials" />
+              <Mapping SourceColumn="ModuleIsActive" DataSetColumn="ModuleIsActive" />
+              <Mapping SourceColumn="ModuleIsDeleted" DataSetColumn="ModuleIsDeleted" />
+              <Mapping SourceColumn="ModuleOrderID" DataSetColumn="ModuleOrderID" />
+              <Mapping SourceColumn="RoleDefID" DataSetColumn="RoleDefID" />
+              <Mapping SourceColumn="CanAdd" DataSetColumn="CanAdd" />
+              <Mapping SourceColumn="CanUpdate" DataSetColumn="CanUpdate" />
+              <Mapping SourceColumn="CanDelete" DataSetColumn="CanDelete" />
+              <Mapping SourceColumn="CanView" DataSetColumn="CanView" />
+              <Mapping SourceColumn="CanExport" DataSetColumn="CanExport" />
+              <Mapping SourceColumn="CanApprove" DataSetColumn="CanApprove" />
+              <Mapping SourceColumn="CanReject" DataSetColumn="CanReject" />
+              <Mapping SourceColumn="CanModifySettings" DataSetColumn="CanModifySettings" />
+              <Mapping SourceColumn="Notes" DataSetColumn="Notes" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources>
           <DbSource ConnectionRef="StaffsyncDBConnectionString (Settings)" DbObjectName="tmpQrySalPivotTable" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="tmpQrySalPivotTable" MethodsParameterType="CLR" Modifier="Public" Name="tmpQrySalPivotTable" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="tmpQrySalPivotTable">
@@ -12252,90 +12252,6 @@
               <xs:element name="RoleDefID" msprop:Generator_ColumnPropNameInTable="RoleDefIDColumn" msprop:Generator_ColumnPropNameInRow="RoleDefID" msprop:Generator_UserColumnName="RoleDefID" msprop:Generator_ColumnVarNameInTable="columnRoleDefID" type="xs:int" />
               <xs:element name="RoleID" msprop:Generator_ColumnPropNameInTable="RoleIDColumn" msprop:Generator_ColumnPropNameInRow="RoleID" msprop:Generator_UserColumnName="RoleID" msprop:Generator_ColumnVarNameInTable="columnRoleID" type="xs:int" minOccurs="0" />
               <xs:element name="AppModuleID" msprop:Generator_ColumnPropNameInTable="AppModuleIDColumn" msprop:Generator_ColumnPropNameInRow="AppModuleID" msprop:Generator_UserColumnName="AppModuleID" msprop:Generator_ColumnVarNameInTable="columnAppModuleID" type="xs:int" minOccurs="0" />
-              <xs:element name="CanAdd" msprop:Generator_ColumnPropNameInTable="CanAddColumn" msprop:Generator_ColumnPropNameInRow="CanAdd" msprop:Generator_UserColumnName="CanAdd" msprop:Generator_ColumnVarNameInTable="columnCanAdd" type="xs:boolean" minOccurs="0" />
-              <xs:element name="CanUpdate" msprop:Generator_ColumnPropNameInTable="CanUpdateColumn" msprop:Generator_ColumnPropNameInRow="CanUpdate" msprop:Generator_UserColumnName="CanUpdate" msprop:Generator_ColumnVarNameInTable="columnCanUpdate" type="xs:boolean" minOccurs="0" />
-              <xs:element name="CanDelete" msprop:Generator_ColumnPropNameInTable="CanDeleteColumn" msprop:Generator_ColumnPropNameInRow="CanDelete" msprop:Generator_UserColumnName="CanDelete" msprop:Generator_ColumnVarNameInTable="columnCanDelete" type="xs:boolean" minOccurs="0" />
-              <xs:element name="CanView" msprop:Generator_ColumnPropNameInTable="CanViewColumn" msprop:Generator_ColumnPropNameInRow="CanView" msprop:Generator_UserColumnName="CanView" msprop:Generator_ColumnVarNameInTable="columnCanView" type="xs:boolean" minOccurs="0" />
-              <xs:element name="CanExport" msprop:Generator_ColumnPropNameInTable="CanExportColumn" msprop:Generator_ColumnPropNameInRow="CanExport" msprop:Generator_UserColumnName="CanExport" msprop:Generator_ColumnVarNameInTable="columnCanExport" type="xs:boolean" minOccurs="0" />
-              <xs:element name="CanApprove" msprop:Generator_ColumnPropNameInTable="CanApproveColumn" msprop:Generator_ColumnPropNameInRow="CanApprove" msprop:Generator_UserColumnName="CanApprove" msprop:Generator_ColumnVarNameInTable="columnCanApprove" type="xs:boolean" minOccurs="0" />
-              <xs:element name="CanReject" msprop:Generator_ColumnPropNameInTable="CanRejectColumn" msprop:Generator_ColumnPropNameInRow="CanReject" msprop:Generator_UserColumnName="CanReject" msprop:Generator_ColumnVarNameInTable="columnCanReject" type="xs:boolean" minOccurs="0" />
-              <xs:element name="CanModifySettings" msprop:Generator_ColumnPropNameInTable="CanModifySettingsColumn" msprop:Generator_ColumnPropNameInRow="CanModifySettings" msprop:Generator_UserColumnName="CanModifySettings" msprop:Generator_ColumnVarNameInTable="columnCanModifySettings" type="xs:boolean" minOccurs="0" />
-              <xs:element name="Notes" msprop:Generator_ColumnPropNameInTable="NotesColumn" msprop:Generator_ColumnPropNameInRow="Notes" msprop:Generator_UserColumnName="Notes" msprop:Generator_ColumnVarNameInTable="columnNotes" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="536870910" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="qryUserRolesResponsibilitiesInfo" msprop:Generator_RowEvHandlerName="qryUserRolesResponsibilitiesInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="qryUserRolesResponsibilitiesInfoRowDeleted" msprop:Generator_RowDeletingName="qryUserRolesResponsibilitiesInfoRowDeleting" msprop:Generator_RowEvArgName="qryUserRolesResponsibilitiesInfoRowChangeEvent" msprop:Generator_TablePropName="qryUserRolesResponsibilitiesInfo" msprop:Generator_RowChangedName="qryUserRolesResponsibilitiesInfoRowChanged" msprop:Generator_UserTableName="qryUserRolesResponsibilitiesInfo" msprop:Generator_RowChangingName="qryUserRolesResponsibilitiesInfoRowChanging" msprop:Generator_RowClassName="qryUserRolesResponsibilitiesInfoRow" msprop:Generator_TableClassName="qryUserRolesResponsibilitiesInfoDataTable" msprop:Generator_TableVarName="tableqryUserRolesResponsibilitiesInfo">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="UserID" msprop:Generator_ColumnPropNameInTable="UserIDColumn" msprop:Generator_ColumnPropNameInRow="UserID" msprop:Generator_UserColumnName="UserID" msprop:Generator_ColumnVarNameInTable="columnUserID" type="xs:int" minOccurs="0" />
-              <xs:element name="EmpID" msprop:Generator_ColumnPropNameInTable="EmpIDColumn" msprop:Generator_ColumnPropNameInRow="EmpID" msprop:Generator_UserColumnName="EmpID" msprop:Generator_ColumnVarNameInTable="columnEmpID" type="xs:int" minOccurs="0" />
-              <xs:element name="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_UserColumnName="IsActive" msprop:Generator_ColumnVarNameInTable="columnIsActive" type="xs:boolean" minOccurs="0" />
-              <xs:element name="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_UserColumnName="IsDeleted" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" type="xs:boolean" minOccurs="0" />
-              <xs:element name="EmpUserName" msprop:Generator_ColumnPropNameInTable="EmpUserNameColumn" msprop:Generator_ColumnPropNameInRow="EmpUserName" msprop:Generator_UserColumnName="EmpUserName" msprop:Generator_ColumnVarNameInTable="columnEmpUserName" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="EmpPassword" msprop:Generator_ColumnPropNameInTable="EmpPasswordColumn" msprop:Generator_ColumnPropNameInRow="EmpPassword" msprop:Generator_UserColumnName="EmpPassword" msprop:Generator_ColumnVarNameInTable="columnEmpPassword" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="IsLocked" msprop:Generator_ColumnPropNameInTable="IsLockedColumn" msprop:Generator_ColumnPropNameInRow="IsLocked" msprop:Generator_UserColumnName="IsLocked" msprop:Generator_ColumnVarNameInTable="columnIsLocked" type="xs:boolean" minOccurs="0" />
-              <xs:element name="RoleID" msprop:Generator_ColumnPropNameInTable="RoleIDColumn" msprop:Generator_ColumnPropNameInRow="RoleID" msprop:Generator_UserColumnName="RoleID" msprop:Generator_ColumnVarNameInTable="columnRoleID" type="xs:int" minOccurs="0" />
-              <xs:element name="RoleTitle" msprop:Generator_ColumnPropNameInTable="RoleTitleColumn" msprop:Generator_ColumnPropNameInRow="RoleTitle" msprop:Generator_UserColumnName="RoleTitle" msprop:Generator_ColumnVarNameInTable="columnRoleTitle" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="RoleDescription" msprop:Generator_ColumnPropNameInTable="RoleDescriptionColumn" msprop:Generator_ColumnPropNameInRow="RoleDescription" msprop:Generator_UserColumnName="RoleDescription" msprop:Generator_ColumnVarNameInTable="columnRoleDescription" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="RoleIsActive" msprop:Generator_ColumnPropNameInTable="RoleIsActiveColumn" msprop:Generator_ColumnPropNameInRow="RoleIsActive" msprop:Generator_UserColumnName="RoleIsActive" msprop:Generator_ColumnVarNameInTable="columnRoleIsActive" type="xs:boolean" minOccurs="0" />
-              <xs:element name="RoleIsDeleted" msprop:Generator_ColumnPropNameInTable="RoleIsDeletedColumn" msprop:Generator_ColumnPropNameInRow="RoleIsDeleted" msprop:Generator_UserColumnName="RoleIsDeleted" msprop:Generator_ColumnVarNameInTable="columnRoleIsDeleted" type="xs:boolean" minOccurs="0" />
-              <xs:element name="RolesOrderiD" msprop:Generator_ColumnPropNameInTable="RolesOrderiDColumn" msprop:Generator_ColumnPropNameInRow="RolesOrderiD" msprop:Generator_UserColumnName="RolesOrderiD" msprop:Generator_ColumnVarNameInTable="columnRolesOrderiD" type="xs:int" minOccurs="0" />
-              <xs:element name="ModuleID" msprop:Generator_ColumnPropNameInTable="ModuleIDColumn" msprop:Generator_ColumnPropNameInRow="ModuleID" msprop:Generator_UserColumnName="ModuleID" msprop:Generator_ColumnVarNameInTable="columnModuleID" type="xs:int" minOccurs="0" />
-              <xs:element name="ModuleCode" msprop:Generator_ColumnPropNameInTable="ModuleCodeColumn" msprop:Generator_ColumnPropNameInRow="ModuleCode" msprop:Generator_UserColumnName="ModuleCode" msprop:Generator_ColumnVarNameInTable="columnModuleCode" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="ModuleTitle" msprop:Generator_ColumnPropNameInTable="ModuleTitleColumn" msprop:Generator_ColumnPropNameInRow="ModuleTitle" msprop:Generator_UserColumnName="ModuleTitle" msprop:Generator_ColumnVarNameInTable="columnModuleTitle" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="ModuleInitials" msprop:Generator_ColumnPropNameInTable="ModuleInitialsColumn" msprop:Generator_ColumnPropNameInRow="ModuleInitials" msprop:Generator_UserColumnName="ModuleInitials" msprop:Generator_ColumnVarNameInTable="columnModuleInitials" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="ModuleIsActive" msprop:Generator_ColumnPropNameInTable="ModuleIsActiveColumn" msprop:Generator_ColumnPropNameInRow="ModuleIsActive" msprop:Generator_UserColumnName="ModuleIsActive" msprop:Generator_ColumnVarNameInTable="columnModuleIsActive" type="xs:boolean" minOccurs="0" />
-              <xs:element name="ModuleIsDeleted" msprop:Generator_ColumnPropNameInTable="ModuleIsDeletedColumn" msprop:Generator_ColumnPropNameInRow="ModuleIsDeleted" msprop:Generator_UserColumnName="ModuleIsDeleted" msprop:Generator_ColumnVarNameInTable="columnModuleIsDeleted" type="xs:boolean" minOccurs="0" />
-              <xs:element name="ModuleOrderID" msprop:Generator_ColumnPropNameInTable="ModuleOrderIDColumn" msprop:Generator_ColumnPropNameInRow="ModuleOrderID" msprop:Generator_UserColumnName="ModuleOrderID" msprop:Generator_ColumnVarNameInTable="columnModuleOrderID" type="xs:int" minOccurs="0" />
-              <xs:element name="RoleDefID" msprop:Generator_ColumnPropNameInTable="RoleDefIDColumn" msprop:Generator_ColumnPropNameInRow="RoleDefID" msprop:Generator_UserColumnName="RoleDefID" msprop:Generator_ColumnVarNameInTable="columnRoleDefID" type="xs:int" minOccurs="0" />
               <xs:element name="CanAdd" msprop:Generator_ColumnPropNameInTable="CanAddColumn" msprop:Generator_ColumnPropNameInRow="CanAdd" msprop:Generator_UserColumnName="CanAdd" msprop:Generator_ColumnVarNameInTable="columnCanAdd" type="xs:boolean" minOccurs="0" />
               <xs:element name="CanUpdate" msprop:Generator_ColumnPropNameInTable="CanUpdateColumn" msprop:Generator_ColumnPropNameInRow="CanUpdate" msprop:Generator_UserColumnName="CanUpdate" msprop:Generator_ColumnVarNameInTable="columnCanUpdate" type="xs:boolean" minOccurs="0" />
               <xs:element name="CanDelete" msprop:Generator_ColumnPropNameInTable="CanDeleteColumn" msprop:Generator_ColumnPropNameInRow="CanDelete" msprop:Generator_UserColumnName="CanDelete" msprop:Generator_ColumnVarNameInTable="columnCanDelete" type="xs:boolean" minOccurs="0" />
@@ -14467,51 +14383,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="EmpAssetRequest" msprop:Generator_RowEvHandlerName="EmpAssetRequestRowChangeEventHandler" msprop:Generator_RowDeletedName="EmpAssetRequestRowDeleted" msprop:Generator_RowDeletingName="EmpAssetRequestRowDeleting" msprop:Generator_RowEvArgName="EmpAssetRequestRowChangeEvent" msprop:Generator_TablePropName="EmpAssetRequest" msprop:Generator_RowChangedName="EmpAssetRequestRowChanged" msprop:Generator_UserTableName="EmpAssetRequest" msprop:Generator_RowChangingName="EmpAssetRequestRowChanging" msprop:Generator_RowClassName="EmpAssetRequestRow" msprop:Generator_TableClassName="EmpAssetRequestDataTable" msprop:Generator_TableVarName="tableEmpAssetRequest">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="AssetRequestID" msprop:Generator_ColumnPropNameInTable="AssetRequestIDColumn" msprop:Generator_ColumnPropNameInRow="AssetRequestID" msprop:Generator_UserColumnName="AssetRequestID" msprop:Generator_ColumnVarNameInTable="columnAssetRequestID" type="xs:int" />
-              <xs:element name="AssetRequestCode" msprop:Generator_ColumnPropNameInTable="AssetRequestCodeColumn" msprop:Generator_ColumnPropNameInRow="AssetRequestCode" msprop:Generator_UserColumnName="AssetRequestCode" msprop:Generator_ColumnVarNameInTable="columnAssetRequestCode" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="AssetID" msprop:Generator_ColumnPropNameInTable="AssetIDColumn" msprop:Generator_ColumnPropNameInRow="AssetID" msprop:Generator_UserColumnName="AssetID" msprop:Generator_ColumnVarNameInTable="columnAssetID" type="xs:int" minOccurs="0" />
-              <xs:element name="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_UserColumnName="IsActive" msprop:Generator_ColumnVarNameInTable="columnIsActive" type="xs:boolean" minOccurs="0" />
-              <xs:element name="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_UserColumnName="IsDeleted" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" type="xs:boolean" minOccurs="0" />
-              <xs:element name="AssetRequestByID" msprop:Generator_ColumnPropNameInTable="AssetRequestByIDColumn" msprop:Generator_ColumnPropNameInRow="AssetRequestByID" msprop:Generator_UserColumnName="AssetRequestByID" msprop:Generator_ColumnVarNameInTable="columnAssetRequestByID" type="xs:int" minOccurs="0" />
-              <xs:element name="AssetRequestDate" msprop:Generator_ColumnPropNameInTable="AssetRequestDateColumn" msprop:Generator_ColumnPropNameInRow="AssetRequestDate" msprop:Generator_UserColumnName="AssetRequestDate" msprop:Generator_ColumnVarNameInTable="columnAssetRequestDate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="AssetRequestComments" msprop:Generator_ColumnPropNameInTable="AssetRequestCommentsColumn" msprop:Generator_ColumnPropNameInRow="AssetRequestComments" msprop:Generator_UserColumnName="AssetRequestComments" msprop:Generator_ColumnVarNameInTable="columnAssetRequestComments" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="536870910" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="AssetRequestByStatus" msprop:Generator_ColumnPropNameInTable="AssetRequestByStatusColumn" msprop:Generator_ColumnPropNameInRow="AssetRequestByStatus" msprop:Generator_UserColumnName="AssetRequestByStatus" msprop:Generator_ColumnVarNameInTable="columnAssetRequestByStatus" type="xs:boolean" minOccurs="0" />
-              <xs:element name="RequestedDate" msprop:Generator_ColumnPropNameInTable="RequestedDateColumn" msprop:Generator_ColumnPropNameInRow="RequestedDate" msprop:Generator_UserColumnName="RequestedDate" msprop:Generator_ColumnVarNameInTable="columnRequestedDate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="RequestedTo" msprop:Generator_ColumnPropNameInTable="RequestedToColumn" msprop:Generator_ColumnPropNameInRow="RequestedTo" msprop:Generator_UserColumnName="RequestedTo" msprop:Generator_ColumnVarNameInTable="columnRequestedTo" type="xs:int" minOccurs="0" />
-              <xs:element name="RequestedToStatus" msprop:Generator_ColumnPropNameInTable="RequestedToStatusColumn" msprop:Generator_ColumnPropNameInRow="RequestedToStatus" msprop:Generator_UserColumnName="RequestedToStatus" msprop:Generator_ColumnVarNameInTable="columnRequestedToStatus" type="xs:boolean" minOccurs="0" />
-              <xs:element name="RequestedToComments" msprop:Generator_ColumnPropNameInTable="RequestedToCommentsColumn" msprop:Generator_ColumnPropNameInRow="RequestedToComments" msprop:Generator_UserColumnName="RequestedToComments" msprop:Generator_ColumnVarNameInTable="columnRequestedToComments" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="536870910" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="AssetRequestStatus" msprop:Generator_ColumnPropNameInTable="AssetRequestStatusColumn" msprop:Generator_ColumnPropNameInRow="AssetRequestStatus" msprop:Generator_UserColumnName="AssetRequestStatus" msprop:Generator_ColumnVarNameInTable="columnAssetRequestStatus" type="xs:boolean" minOccurs="0" />
-              <xs:element name="OrderID" msprop:Generator_ColumnPropNameInTable="OrderIDColumn" msprop:Generator_ColumnPropNameInRow="OrderID" msprop:Generator_UserColumnName="OrderID" msprop:Generator_ColumnVarNameInTable="columnOrderID" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="255" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element name="AssetMas" msprop:Generator_RowEvHandlerName="AssetMasRowChangeEventHandler" msprop:Generator_RowDeletedName="AssetMasRowDeleted" msprop:Generator_RowDeletingName="AssetMasRowDeleting" msprop:Generator_RowEvArgName="AssetMasRowChangeEvent" msprop:Generator_TablePropName="AssetMas" msprop:Generator_RowChangedName="AssetMasRowChanged" msprop:Generator_UserTableName="AssetMas" msprop:Generator_RowChangingName="AssetMasRowChanging" msprop:Generator_RowClassName="AssetMasRow" msprop:Generator_TableClassName="AssetMasDataTable" msprop:Generator_TableVarName="tableAssetMas">
           <xs:complexType>
             <xs:sequence>
@@ -15324,31 +15195,160 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="ReimbRequestDetailInfo" msprop:Generator_RowEvHandlerName="ReimbRequestDetailInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="ReimbRequestDetailInfoRowDeleted" msprop:Generator_RowDeletingName="ReimbRequestDetailInfoRowDeleting" msprop:Generator_RowEvArgName="ReimbRequestDetailInfoRowChangeEvent" msprop:Generator_TablePropName="ReimbRequestDetailInfo" msprop:Generator_RowChangedName="ReimbRequestDetailInfoRowChanged" msprop:Generator_RowChangingName="ReimbRequestDetailInfoRowChanging" msprop:Generator_TableClassName="ReimbRequestDetailInfoDataTable" msprop:Generator_RowClassName="ReimbRequestDetailInfoRow" msprop:Generator_TableVarName="tableReimbRequestDetailInfo" msprop:Generator_UserTableName="ReimbRequestDetailInfo">
+        <xs:element name="ReimbRequestDetailInfo" msprop:Generator_RowEvHandlerName="ReimbRequestDetailInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="ReimbRequestDetailInfoRowDeleted" msprop:Generator_RowDeletingName="ReimbRequestDetailInfoRowDeleting" msprop:Generator_RowEvArgName="ReimbRequestDetailInfoRowChangeEvent" msprop:Generator_TablePropName="ReimbRequestDetailInfo" msprop:Generator_RowChangedName="ReimbRequestDetailInfoRowChanged" msprop:Generator_UserTableName="ReimbRequestDetailInfo" msprop:Generator_RowChangingName="ReimbRequestDetailInfoRowChanging" msprop:Generator_RowClassName="ReimbRequestDetailInfoRow" msprop:Generator_TableClassName="ReimbRequestDetailInfoDataTable" msprop:Generator_TableVarName="tableReimbRequestDetailInfo">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="ReimbRequestDetailID" msprop:Generator_ColumnPropNameInRow="ReimbRequestDetailID" msprop:Generator_ColumnPropNameInTable="ReimbRequestDetailIDColumn" msprop:Generator_ColumnVarNameInTable="columnReimbRequestDetailID" msprop:Generator_UserColumnName="ReimbRequestDetailID" type="xs:int" />
-              <xs:element name="ReimbRequestID" msprop:Generator_ColumnPropNameInRow="ReimbRequestID" msprop:Generator_ColumnPropNameInTable="ReimbRequestIDColumn" msprop:Generator_ColumnVarNameInTable="columnReimbRequestID" msprop:Generator_UserColumnName="ReimbRequestID" type="xs:int" minOccurs="0" />
-              <xs:element name="ReimbRequestTRDate" msprop:Generator_ColumnPropNameInRow="ReimbRequestTRDate" msprop:Generator_ColumnPropNameInTable="ReimbRequestTRDateColumn" msprop:Generator_ColumnVarNameInTable="columnReimbRequestTRDate" msprop:Generator_UserColumnName="ReimbRequestTRDate" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="OBalance" msprop:Generator_ColumnPropNameInRow="OBalance" msprop:Generator_ColumnPropNameInTable="OBalanceColumn" msprop:Generator_ColumnVarNameInTable="columnOBalance" msprop:Generator_UserColumnName="OBalance" type="xs:decimal" minOccurs="0" />
-              <xs:element name="CrAmount" msprop:Generator_ColumnPropNameInRow="CrAmount" msprop:Generator_ColumnPropNameInTable="CrAmountColumn" msprop:Generator_ColumnVarNameInTable="columnCrAmount" msprop:Generator_UserColumnName="CrAmount" type="xs:decimal" minOccurs="0" />
-              <xs:element name="DrAmount" msprop:Generator_ColumnPropNameInRow="DrAmount" msprop:Generator_ColumnPropNameInTable="DrAmountColumn" msprop:Generator_ColumnVarNameInTable="columnDrAmount" msprop:Generator_UserColumnName="DrAmount" type="xs:decimal" minOccurs="0" />
-              <xs:element name="CBalance" msprop:Generator_ColumnPropNameInRow="CBalance" msprop:Generator_ColumnPropNameInTable="CBalanceColumn" msprop:Generator_ColumnVarNameInTable="columnCBalance" msprop:Generator_UserColumnName="CBalance" type="xs:decimal" minOccurs="0" />
-              <xs:element name="TRType" msprop:Generator_ColumnPropNameInRow="TRType" msprop:Generator_ColumnPropNameInTable="TRTypeColumn" msprop:Generator_ColumnVarNameInTable="columnTRType" msprop:Generator_UserColumnName="TRType" minOccurs="0">
+              <xs:element name="ReimbRequestDetailID" msprop:Generator_ColumnPropNameInTable="ReimbRequestDetailIDColumn" msprop:Generator_ColumnPropNameInRow="ReimbRequestDetailID" msprop:Generator_UserColumnName="ReimbRequestDetailID" msprop:Generator_ColumnVarNameInTable="columnReimbRequestDetailID" type="xs:int" />
+              <xs:element name="ReimbRequestID" msprop:Generator_ColumnPropNameInTable="ReimbRequestIDColumn" msprop:Generator_ColumnPropNameInRow="ReimbRequestID" msprop:Generator_UserColumnName="ReimbRequestID" msprop:Generator_ColumnVarNameInTable="columnReimbRequestID" type="xs:int" minOccurs="0" />
+              <xs:element name="ReimbRequestTRDate" msprop:Generator_ColumnPropNameInTable="ReimbRequestTRDateColumn" msprop:Generator_ColumnPropNameInRow="ReimbRequestTRDate" msprop:Generator_UserColumnName="ReimbRequestTRDate" msprop:Generator_ColumnVarNameInTable="columnReimbRequestTRDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="OBalance" msprop:Generator_ColumnPropNameInTable="OBalanceColumn" msprop:Generator_ColumnPropNameInRow="OBalance" msprop:Generator_UserColumnName="OBalance" msprop:Generator_ColumnVarNameInTable="columnOBalance" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CrAmount" msprop:Generator_ColumnPropNameInTable="CrAmountColumn" msprop:Generator_ColumnPropNameInRow="CrAmount" msprop:Generator_UserColumnName="CrAmount" msprop:Generator_ColumnVarNameInTable="columnCrAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="DrAmount" msprop:Generator_ColumnPropNameInTable="DrAmountColumn" msprop:Generator_ColumnPropNameInRow="DrAmount" msprop:Generator_UserColumnName="DrAmount" msprop:Generator_ColumnVarNameInTable="columnDrAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CBalance" msprop:Generator_ColumnPropNameInTable="CBalanceColumn" msprop:Generator_ColumnPropNameInRow="CBalance" msprop:Generator_UserColumnName="CBalance" msprop:Generator_ColumnVarNameInTable="columnCBalance" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TRType" msprop:Generator_ColumnPropNameInTable="TRTypeColumn" msprop:Generator_ColumnPropNameInRow="TRType" msprop:Generator_UserColumnName="TRType" msprop:Generator_ColumnVarNameInTable="columnTRType" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Comments" msprop:Generator_ColumnPropNameInRow="Comments" msprop:Generator_ColumnPropNameInTable="CommentsColumn" msprop:Generator_ColumnVarNameInTable="columnComments" msprop:Generator_UserColumnName="Comments" minOccurs="0">
+              <xs:element name="Comments" msprop:Generator_ColumnPropNameInTable="CommentsColumn" msprop:Generator_ColumnPropNameInRow="Comments" msprop:Generator_UserColumnName="Comments" msprop:Generator_ColumnVarNameInTable="columnComments" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="536870910" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="OrderID" msprop:Generator_ColumnPropNameInRow="OrderID" msprop:Generator_ColumnPropNameInTable="OrderIDColumn" msprop:Generator_ColumnVarNameInTable="columnOrderID" msprop:Generator_UserColumnName="OrderID" type="xs:int" minOccurs="0" />
+              <xs:element name="OrderID" msprop:Generator_ColumnPropNameInTable="OrderIDColumn" msprop:Generator_ColumnPropNameInRow="OrderID" msprop:Generator_UserColumnName="OrderID" msprop:Generator_ColumnVarNameInTable="columnOrderID" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="EmpAssetRequest" msprop:Generator_RowClassName="EmpAssetRequestRow" msprop:Generator_RowEvHandlerName="EmpAssetRequestRowChangeEventHandler" msprop:Generator_RowDeletedName="EmpAssetRequestRowDeleted" msprop:Generator_RowDeletingName="EmpAssetRequestRowDeleting" msprop:Generator_RowEvArgName="EmpAssetRequestRowChangeEvent" msprop:Generator_TablePropName="EmpAssetRequest" msprop:Generator_RowChangedName="EmpAssetRequestRowChanged" msprop:Generator_UserTableName="EmpAssetRequest" msprop:Generator_RowChangingName="EmpAssetRequestRowChanging" msprop:Generator_TableClassName="EmpAssetRequestDataTable" msprop:Generator_TableVarName="tableEmpAssetRequest">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AssetRequestID" msprop:Generator_UserColumnName="AssetRequestID" msprop:Generator_ColumnPropNameInTable="AssetRequestIDColumn" msprop:Generator_ColumnPropNameInRow="AssetRequestID" msprop:Generator_ColumnVarNameInTable="columnAssetRequestID" type="xs:int" />
+              <xs:element name="AssetRequestCode" msprop:Generator_UserColumnName="AssetRequestCode" msprop:Generator_ColumnPropNameInTable="AssetRequestCodeColumn" msprop:Generator_ColumnPropNameInRow="AssetRequestCode" msprop:Generator_ColumnVarNameInTable="columnAssetRequestCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AssetID" msprop:Generator_UserColumnName="AssetID" msprop:Generator_ColumnPropNameInTable="AssetIDColumn" msprop:Generator_ColumnPropNameInRow="AssetID" msprop:Generator_ColumnVarNameInTable="columnAssetID" type="xs:int" minOccurs="0" />
+              <xs:element name="IsActive" msprop:Generator_UserColumnName="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_ColumnVarNameInTable="columnIsActive" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IsDeleted" msprop:Generator_UserColumnName="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" type="xs:boolean" minOccurs="0" />
+              <xs:element name="AssetRequestByID" msprop:Generator_UserColumnName="AssetRequestByID" msprop:Generator_ColumnPropNameInTable="AssetRequestByIDColumn" msprop:Generator_ColumnPropNameInRow="AssetRequestByID" msprop:Generator_ColumnVarNameInTable="columnAssetRequestByID" type="xs:int" minOccurs="0" />
+              <xs:element name="AssetRequestDate" msprop:Generator_UserColumnName="AssetRequestDate" msprop:Generator_ColumnPropNameInTable="AssetRequestDateColumn" msprop:Generator_ColumnPropNameInRow="AssetRequestDate" msprop:Generator_ColumnVarNameInTable="columnAssetRequestDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="AssetRequestComments" msprop:Generator_UserColumnName="AssetRequestComments" msprop:Generator_ColumnPropNameInTable="AssetRequestCommentsColumn" msprop:Generator_ColumnPropNameInRow="AssetRequestComments" msprop:Generator_ColumnVarNameInTable="columnAssetRequestComments" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="536870910" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AssetRequestByStatus" msprop:Generator_UserColumnName="AssetRequestByStatus" msprop:Generator_ColumnPropNameInTable="AssetRequestByStatusColumn" msprop:Generator_ColumnPropNameInRow="AssetRequestByStatus" msprop:Generator_ColumnVarNameInTable="columnAssetRequestByStatus" type="xs:boolean" minOccurs="0" />
+              <xs:element name="RequestedDate" msprop:Generator_UserColumnName="RequestedDate" msprop:Generator_ColumnPropNameInTable="RequestedDateColumn" msprop:Generator_ColumnPropNameInRow="RequestedDate" msprop:Generator_ColumnVarNameInTable="columnRequestedDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="RequestedTo" msprop:Generator_UserColumnName="RequestedTo" msprop:Generator_ColumnPropNameInTable="RequestedToColumn" msprop:Generator_ColumnPropNameInRow="RequestedTo" msprop:Generator_ColumnVarNameInTable="columnRequestedTo" type="xs:int" minOccurs="0" />
+              <xs:element name="RequestedToStatus" msprop:Generator_UserColumnName="RequestedToStatus" msprop:Generator_ColumnPropNameInTable="RequestedToStatusColumn" msprop:Generator_ColumnPropNameInRow="RequestedToStatus" msprop:Generator_ColumnVarNameInTable="columnRequestedToStatus" type="xs:boolean" minOccurs="0" />
+              <xs:element name="RequestedToComments" msprop:Generator_UserColumnName="RequestedToComments" msprop:Generator_ColumnPropNameInTable="RequestedToCommentsColumn" msprop:Generator_ColumnPropNameInRow="RequestedToComments" msprop:Generator_ColumnVarNameInTable="columnRequestedToComments" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="536870910" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="AssetRequestStatus" msprop:Generator_UserColumnName="AssetRequestStatus" msprop:Generator_ColumnPropNameInTable="AssetRequestStatusColumn" msprop:Generator_ColumnPropNameInRow="AssetRequestStatus" msprop:Generator_ColumnVarNameInTable="columnAssetRequestStatus" type="xs:boolean" minOccurs="0" />
+              <xs:element name="OrderID" msprop:Generator_UserColumnName="OrderID" msprop:Generator_ColumnPropNameInTable="OrderIDColumn" msprop:Generator_ColumnPropNameInRow="OrderID" msprop:Generator_ColumnVarNameInTable="columnOrderID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="qryUserRolesResponsibilitiesInfo" msprop:Generator_RowEvHandlerName="qryUserRolesResponsibilitiesInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="qryUserRolesResponsibilitiesInfoRowDeleted" msprop:Generator_RowDeletingName="qryUserRolesResponsibilitiesInfoRowDeleting" msprop:Generator_RowEvArgName="qryUserRolesResponsibilitiesInfoRowChangeEvent" msprop:Generator_TablePropName="qryUserRolesResponsibilitiesInfo" msprop:Generator_RowChangedName="qryUserRolesResponsibilitiesInfoRowChanged" msprop:Generator_RowChangingName="qryUserRolesResponsibilitiesInfoRowChanging" msprop:Generator_TableClassName="qryUserRolesResponsibilitiesInfoDataTable" msprop:Generator_RowClassName="qryUserRolesResponsibilitiesInfoRow" msprop:Generator_TableVarName="tableqryUserRolesResponsibilitiesInfo" msprop:Generator_UserTableName="qryUserRolesResponsibilitiesInfo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="UserID" msprop:Generator_ColumnPropNameInRow="UserID" msprop:Generator_ColumnPropNameInTable="UserIDColumn" msprop:Generator_ColumnVarNameInTable="columnUserID" msprop:Generator_UserColumnName="UserID" type="xs:int" minOccurs="0" />
+              <xs:element name="EmpID" msprop:Generator_ColumnPropNameInRow="EmpID" msprop:Generator_ColumnPropNameInTable="EmpIDColumn" msprop:Generator_ColumnVarNameInTable="columnEmpID" msprop:Generator_UserColumnName="EmpID" type="xs:int" minOccurs="0" />
+              <xs:element name="IsActive" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnVarNameInTable="columnIsActive" msprop:Generator_UserColumnName="IsActive" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IsDeleted" msprop:Generator_ColumnPropNameInRow="IsDeleted" msprop:Generator_ColumnPropNameInTable="IsDeletedColumn" msprop:Generator_ColumnVarNameInTable="columnIsDeleted" msprop:Generator_UserColumnName="IsDeleted" type="xs:boolean" minOccurs="0" />
+              <xs:element name="EmpUserName" msprop:Generator_ColumnPropNameInRow="EmpUserName" msprop:Generator_ColumnPropNameInTable="EmpUserNameColumn" msprop:Generator_ColumnVarNameInTable="columnEmpUserName" msprop:Generator_UserColumnName="EmpUserName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="EmpPassword" msprop:Generator_ColumnPropNameInRow="EmpPassword" msprop:Generator_ColumnPropNameInTable="EmpPasswordColumn" msprop:Generator_ColumnVarNameInTable="columnEmpPassword" msprop:Generator_UserColumnName="EmpPassword" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="IsLocked" msprop:Generator_ColumnPropNameInRow="IsLocked" msprop:Generator_ColumnPropNameInTable="IsLockedColumn" msprop:Generator_ColumnVarNameInTable="columnIsLocked" msprop:Generator_UserColumnName="IsLocked" type="xs:boolean" minOccurs="0" />
+              <xs:element name="RoleID" msprop:Generator_ColumnPropNameInRow="RoleID" msprop:Generator_ColumnPropNameInTable="RoleIDColumn" msprop:Generator_ColumnVarNameInTable="columnRoleID" msprop:Generator_UserColumnName="RoleID" type="xs:int" minOccurs="0" />
+              <xs:element name="RoleTitle" msprop:Generator_ColumnPropNameInRow="RoleTitle" msprop:Generator_ColumnPropNameInTable="RoleTitleColumn" msprop:Generator_ColumnVarNameInTable="columnRoleTitle" msprop:Generator_UserColumnName="RoleTitle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RoleDescription" msprop:Generator_ColumnPropNameInRow="RoleDescription" msprop:Generator_ColumnPropNameInTable="RoleDescriptionColumn" msprop:Generator_ColumnVarNameInTable="columnRoleDescription" msprop:Generator_UserColumnName="RoleDescription" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RoleIsActive" msprop:Generator_ColumnPropNameInRow="RoleIsActive" msprop:Generator_ColumnPropNameInTable="RoleIsActiveColumn" msprop:Generator_ColumnVarNameInTable="columnRoleIsActive" msprop:Generator_UserColumnName="RoleIsActive" type="xs:boolean" minOccurs="0" />
+              <xs:element name="RoleIsDeleted" msprop:Generator_ColumnPropNameInRow="RoleIsDeleted" msprop:Generator_ColumnPropNameInTable="RoleIsDeletedColumn" msprop:Generator_ColumnVarNameInTable="columnRoleIsDeleted" msprop:Generator_UserColumnName="RoleIsDeleted" type="xs:boolean" minOccurs="0" />
+              <xs:element name="RolesOrderiD" msprop:Generator_ColumnPropNameInRow="RolesOrderiD" msprop:Generator_ColumnPropNameInTable="RolesOrderiDColumn" msprop:Generator_ColumnVarNameInTable="columnRolesOrderiD" msprop:Generator_UserColumnName="RolesOrderiD" type="xs:int" minOccurs="0" />
+              <xs:element name="ModuleID" msprop:Generator_ColumnPropNameInRow="ModuleID" msprop:Generator_ColumnPropNameInTable="ModuleIDColumn" msprop:Generator_ColumnVarNameInTable="columnModuleID" msprop:Generator_UserColumnName="ModuleID" type="xs:int" minOccurs="0" />
+              <xs:element name="ModuleCode" msprop:Generator_ColumnPropNameInRow="ModuleCode" msprop:Generator_ColumnPropNameInTable="ModuleCodeColumn" msprop:Generator_ColumnVarNameInTable="columnModuleCode" msprop:Generator_UserColumnName="ModuleCode" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ModuleTitle" msprop:Generator_ColumnPropNameInRow="ModuleTitle" msprop:Generator_ColumnPropNameInTable="ModuleTitleColumn" msprop:Generator_ColumnVarNameInTable="columnModuleTitle" msprop:Generator_UserColumnName="ModuleTitle" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ModuleInitials" msprop:Generator_ColumnPropNameInRow="ModuleInitials" msprop:Generator_ColumnPropNameInTable="ModuleInitialsColumn" msprop:Generator_ColumnVarNameInTable="columnModuleInitials" msprop:Generator_UserColumnName="ModuleInitials" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ModuleIsActive" msprop:Generator_ColumnPropNameInRow="ModuleIsActive" msprop:Generator_ColumnPropNameInTable="ModuleIsActiveColumn" msprop:Generator_ColumnVarNameInTable="columnModuleIsActive" msprop:Generator_UserColumnName="ModuleIsActive" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ModuleIsDeleted" msprop:Generator_ColumnPropNameInRow="ModuleIsDeleted" msprop:Generator_ColumnPropNameInTable="ModuleIsDeletedColumn" msprop:Generator_ColumnVarNameInTable="columnModuleIsDeleted" msprop:Generator_UserColumnName="ModuleIsDeleted" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ModuleOrderID" msprop:Generator_ColumnPropNameInRow="ModuleOrderID" msprop:Generator_ColumnPropNameInTable="ModuleOrderIDColumn" msprop:Generator_ColumnVarNameInTable="columnModuleOrderID" msprop:Generator_UserColumnName="ModuleOrderID" type="xs:int" minOccurs="0" />
+              <xs:element name="RoleDefID" msprop:Generator_ColumnPropNameInRow="RoleDefID" msprop:Generator_ColumnPropNameInTable="RoleDefIDColumn" msprop:Generator_ColumnVarNameInTable="columnRoleDefID" msprop:Generator_UserColumnName="RoleDefID" type="xs:int" minOccurs="0" />
+              <xs:element name="CanAdd" msprop:Generator_ColumnPropNameInRow="CanAdd" msprop:Generator_ColumnPropNameInTable="CanAddColumn" msprop:Generator_ColumnVarNameInTable="columnCanAdd" msprop:Generator_UserColumnName="CanAdd" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CanUpdate" msprop:Generator_ColumnPropNameInRow="CanUpdate" msprop:Generator_ColumnPropNameInTable="CanUpdateColumn" msprop:Generator_ColumnVarNameInTable="columnCanUpdate" msprop:Generator_UserColumnName="CanUpdate" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CanDelete" msprop:Generator_ColumnPropNameInRow="CanDelete" msprop:Generator_ColumnPropNameInTable="CanDeleteColumn" msprop:Generator_ColumnVarNameInTable="columnCanDelete" msprop:Generator_UserColumnName="CanDelete" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CanView" msprop:Generator_ColumnPropNameInRow="CanView" msprop:Generator_ColumnPropNameInTable="CanViewColumn" msprop:Generator_ColumnVarNameInTable="columnCanView" msprop:Generator_UserColumnName="CanView" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CanExport" msprop:Generator_ColumnPropNameInRow="CanExport" msprop:Generator_ColumnPropNameInTable="CanExportColumn" msprop:Generator_ColumnVarNameInTable="columnCanExport" msprop:Generator_UserColumnName="CanExport" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CanApprove" msprop:Generator_ColumnPropNameInRow="CanApprove" msprop:Generator_ColumnPropNameInTable="CanApproveColumn" msprop:Generator_ColumnVarNameInTable="columnCanApprove" msprop:Generator_UserColumnName="CanApprove" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CanReject" msprop:Generator_ColumnPropNameInRow="CanReject" msprop:Generator_ColumnPropNameInTable="CanRejectColumn" msprop:Generator_ColumnVarNameInTable="columnCanReject" msprop:Generator_UserColumnName="CanReject" type="xs:boolean" minOccurs="0" />
+              <xs:element name="CanModifySettings" msprop:Generator_ColumnPropNameInRow="CanModifySettings" msprop:Generator_ColumnPropNameInTable="CanModifySettingsColumn" msprop:Generator_ColumnVarNameInTable="columnCanModifySettings" msprop:Generator_UserColumnName="CanModifySettings" type="xs:boolean" minOccurs="0" />
+              <xs:element name="Notes" msprop:Generator_ColumnPropNameInRow="Notes" msprop:Generator_ColumnPropNameInTable="NotesColumn" msprop:Generator_ColumnVarNameInTable="columnNotes" msprop:Generator_UserColumnName="Notes" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="536870910" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -15670,10 +15670,6 @@
       <xs:selector xpath=".//mstns:AssetRegister" />
       <xs:field xpath="mstns:AssetRegID" />
     </xs:unique>
-    <xs:unique name="EmpAssetRequest_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:EmpAssetRequest" />
-      <xs:field xpath="mstns:AssetRequestID" />
-    </xs:unique>
     <xs:unique name="AssetMas_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:AssetMas" />
       <xs:field xpath="mstns:AssetID" />
@@ -15766,6 +15762,10 @@
       <xs:selector xpath=".//mstns:ReimbRequestDetailInfo" />
       <xs:field xpath="mstns:ReimbRequestDetailID" />
     </xs:unique>
+    <xs:unique name="EmpAssetRequest_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:EmpAssetRequest" />
+      <xs:field xpath="mstns:AssetRequestID" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
@@ -15839,11 +15839,9 @@
       <msdata:Relationship name="ClientMasUserAuditLog" msdata:parent="ClientMas" msdata:child="UserAuditLog" msdata:parentkey="ClientID" msdata:childkey="ClientID" msprop:Generator_UserParentTable="ClientMas" msprop:Generator_UserChildTable="UserAuditLog" msprop:Generator_RelationVarName="relationClientMasUserAuditLog" msprop:Generator_ChildPropName="GetUserAuditLogRows" msprop:Generator_UserRelationName="ClientMasUserAuditLog" msprop:Generator_ParentPropName="ClientMasRow" />
       <msdata:Relationship name="EmpMasUserAuditLog" msdata:parent="EmpMas" msdata:child="UserAuditLog" msdata:parentkey="EmpID" msdata:childkey="EmpID" msprop:Generator_UserParentTable="EmpMas" msprop:Generator_UserChildTable="UserAuditLog" msprop:Generator_RelationVarName="relationEmpMasUserAuditLog" msprop:Generator_ChildPropName="GetUserAuditLogRows" msprop:Generator_UserRelationName="EmpMasUserAuditLog" msprop:Generator_ParentPropName="EmpMasRow" />
       <msdata:Relationship name="CurrentAssetStatusEmpAssetAllocation" msdata:parent="CurrentAssetStatus" msdata:child="EmpAssetAllocation" msdata:parentkey="CurrentAssetStatusID" msdata:childkey="CurrentAssetStatusID" msprop:Generator_UserParentTable="CurrentAssetStatus" msprop:Generator_UserChildTable="EmpAssetAllocation" msprop:Generator_RelationVarName="relationCurrentAssetStatusEmpAssetAllocation" msprop:Generator_ChildPropName="GetEmpAssetAllocationRows" msprop:Generator_ParentPropName="CurrentAssetStatusRow" msprop:Generator_UserRelationName="CurrentAssetStatusEmpAssetAllocation" />
-      <msdata:Relationship name="EmpAssetRequestEmpAssetAllocation" msdata:parent="EmpAssetRequest" msdata:child="EmpAssetAllocation" msdata:parentkey="AssetRequestID" msdata:childkey="AssetRequestID" msprop:Generator_UserParentTable="EmpAssetRequest" msprop:Generator_UserChildTable="EmpAssetAllocation" msprop:Generator_RelationVarName="relationEmpAssetRequestEmpAssetAllocation" msprop:Generator_ChildPropName="GetEmpAssetAllocationRows" msprop:Generator_ParentPropName="EmpAssetRequestRow" msprop:Generator_UserRelationName="EmpAssetRequestEmpAssetAllocation" />
       <msdata:Relationship name="AssetMasAssetMasMoreDetails" msdata:parent="AssetMas" msdata:child="AssetMasMoreDetails" msdata:parentkey="AssetID" msdata:childkey="AssetID" msprop:Generator_UserParentTable="AssetMas" msprop:Generator_UserChildTable="AssetMasMoreDetails" msprop:Generator_RelationVarName="relationAssetMasAssetMasMoreDetails" msprop:Generator_ChildPropName="GetAssetMasMoreDetailsRows" msprop:Generator_UserRelationName="AssetMasAssetMasMoreDetails" msprop:Generator_ParentPropName="AssetMasRow" />
       <msdata:Relationship name="AssetMasEmpAssetAllocation" msdata:parent="AssetMas" msdata:child="EmpAssetAllocation" msdata:parentkey="AssetID" msdata:childkey="AssetID" msprop:Generator_UserParentTable="AssetMas" msprop:Generator_UserChildTable="EmpAssetAllocation" msprop:Generator_RelationVarName="relationAssetMasEmpAssetAllocation" msprop:Generator_ChildPropName="GetEmpAssetAllocationRows" msprop:Generator_UserRelationName="AssetMasEmpAssetAllocation" msprop:Generator_ParentPropName="AssetMasRow" />
       <msdata:Relationship name="AssetMasAssetRegister" msdata:parent="AssetMas" msdata:child="AssetRegister" msdata:parentkey="AssetID" msdata:childkey="AssetID" msprop:Generator_UserParentTable="AssetMas" msprop:Generator_UserChildTable="AssetRegister" msprop:Generator_RelationVarName="relationAssetMasAssetRegister" msprop:Generator_ChildPropName="GetAssetRegisterRows" msprop:Generator_UserRelationName="AssetMasAssetRegister" msprop:Generator_ParentPropName="AssetMasRow" />
-      <msdata:Relationship name="AssetMasEmpAssetRequest" msdata:parent="AssetMas" msdata:child="EmpAssetRequest" msdata:parentkey="AssetID" msdata:childkey="AssetID" msprop:Generator_UserParentTable="AssetMas" msprop:Generator_UserChildTable="EmpAssetRequest" msprop:Generator_RelationVarName="relationAssetMasEmpAssetRequest" msprop:Generator_ChildPropName="GetEmpAssetRequestRows" msprop:Generator_UserRelationName="AssetMasEmpAssetRequest" msprop:Generator_ParentPropName="AssetMasRow" />
       <msdata:Relationship name="CurrentAssetStatusAssetMas" msdata:parent="CurrentAssetStatus" msdata:child="AssetMas" msdata:parentkey="CurrentAssetStatusID" msdata:childkey="CurrentAssetStatusID" msprop:Generator_UserParentTable="CurrentAssetStatus" msprop:Generator_UserChildTable="AssetMas" msprop:Generator_RelationVarName="relationCurrentAssetStatusAssetMas" msprop:Generator_ChildPropName="GetAssetMasRows" msprop:Generator_ParentPropName="CurrentAssetStatusRow" msprop:Generator_UserRelationName="CurrentAssetStatusAssetMas" />
       <msdata:Relationship name="RecoveryTypeMasAssetMas" msdata:parent="RecoveryTypeMas" msdata:child="AssetMas" msdata:parentkey="RecoveryTypeID" msdata:childkey="RecoveryTypeID" msprop:Generator_UserParentTable="RecoveryTypeMas" msprop:Generator_UserChildTable="AssetMas" msprop:Generator_RelationVarName="relationRecoveryTypeMasAssetMas" msprop:Generator_ChildPropName="GetAssetMasRows" msprop:Generator_ParentPropName="RecoveryTypeMasRow" msprop:Generator_UserRelationName="RecoveryTypeMasAssetMas" />
       <msdata:Relationship name="ClientMasSchedulerJobSettings" msdata:parent="ClientMas" msdata:child="SchedulerJobSettings" msdata:parentkey="ClientID" msdata:childkey="ClientID" msprop:Generator_UserParentTable="ClientMas" msprop:Generator_UserChildTable="SchedulerJobSettings" msprop:Generator_RelationVarName="relationClientMasSchedulerJobSettings" msprop:Generator_ChildPropName="GetSchedulerJobSettingsRows" msprop:Generator_UserRelationName="ClientMasSchedulerJobSettings" msprop:Generator_ParentPropName="ClientMasRow" />
@@ -15870,6 +15868,9 @@
       <msdata:Relationship name="PersonalInfoMasReimbursRequestInfo" msdata:parent="PersonalInfoMas" msdata:child="ReimbursRequestInfo" msdata:parentkey="PersonalInfoID" msdata:childkey="PersonalInfoID" msprop:Generator_UserParentTable="PersonalInfoMas" msprop:Generator_UserChildTable="ReimbursRequestInfo" msprop:Generator_RelationVarName="relationPersonalInfoMasReimbursRequestInfo" msprop:Generator_ChildPropName="GetReimbursRequestInfoRows" msprop:Generator_ParentPropName="PersonalInfoMasRow" msprop:Generator_UserRelationName="PersonalInfoMasReimbursRequestInfo" />
       <msdata:Relationship name="ReimbursementHeaderMasReimbursRequestInfo" msdata:parent="ReimbursementHeaderMas" msdata:child="ReimbursRequestInfo" msdata:parentkey="ReimbID" msdata:childkey="ReimbID" msprop:Generator_UserParentTable="ReimbursementHeaderMas" msprop:Generator_UserChildTable="ReimbursRequestInfo" msprop:Generator_RelationVarName="relationReimbursementHeaderMasReimbursRequestInfo" msprop:Generator_ChildPropName="GetReimbursRequestInfoRows" msprop:Generator_ParentPropName="ReimbursementHeaderMasRow" msprop:Generator_UserRelationName="ReimbursementHeaderMasReimbursRequestInfo" />
       <msdata:Relationship name="ReimbRequestMasReimbRequestDetailInfo" msdata:parent="ReimbRequestMas" msdata:child="ReimbRequestDetailInfo" msdata:parentkey="ReimbRequestID" msdata:childkey="ReimbRequestID" msprop:Generator_UserParentTable="ReimbRequestMas" msprop:Generator_UserChildTable="ReimbRequestDetailInfo" msprop:Generator_RelationVarName="relationReimbRequestMasReimbRequestDetailInfo" msprop:Generator_ChildPropName="GetReimbRequestDetailInfoRows" msprop:Generator_ParentPropName="ReimbRequestMasRow" msprop:Generator_UserRelationName="ReimbRequestMasReimbRequestDetailInfo" />
+      <msdata:Relationship name="EmpAssetRequestEmpAssetAllocation" msdata:parent="EmpAssetRequest" msdata:child="EmpAssetAllocation" msdata:parentkey="AssetRequestID" msdata:childkey="AssetRequestID" msprop:Generator_UserParentTable="EmpAssetRequest" msprop:Generator_UserChildTable="EmpAssetAllocation" msprop:Generator_RelationVarName="relationEmpAssetRequestEmpAssetAllocation" msprop:Generator_ChildPropName="GetEmpAssetAllocationRows" msprop:Generator_ParentPropName="EmpAssetRequestRow" msprop:Generator_UserRelationName="EmpAssetRequestEmpAssetAllocation" />
+      <msdata:Relationship name="AssetMasEmpAssetRequest" msdata:parent="AssetMas" msdata:child="EmpAssetRequest" msdata:parentkey="AssetID" msdata:childkey="AssetID" msprop:Generator_UserParentTable="AssetMas" msprop:Generator_UserChildTable="EmpAssetRequest" msprop:Generator_RelationVarName="relationAssetMasEmpAssetRequest" msprop:Generator_ChildPropName="GetEmpAssetRequestRows" msprop:Generator_UserRelationName="AssetMasEmpAssetRequest" msprop:Generator_ParentPropName="AssetMasRow" />
+      <msdata:Relationship name="PersonalInfoMasEmpAssetRequest" msdata:parent="PersonalInfoMas" msdata:child="EmpAssetRequest" msdata:parentkey="PersonalInfoID" msdata:childkey="AssetRequestByID" msprop:Generator_UserParentTable="PersonalInfoMas" msprop:Generator_UserChildTable="EmpAssetRequest" msprop:Generator_RelationVarName="relationPersonalInfoMasEmpAssetRequest" msprop:Generator_ChildPropName="GetEmpAssetRequestRows" msprop:Generator_UserRelationName="PersonalInfoMasEmpAssetRequest" msprop:Generator_ParentPropName="PersonalInfoMasRow" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

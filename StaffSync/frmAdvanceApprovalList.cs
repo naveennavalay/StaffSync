@@ -311,7 +311,7 @@ namespace StaffSync
                         {
                             int AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(AssetID, DateTime.Today, objSelectedAssetInfo.OutstandingQuantity, 0, objSpecificAssetRegisterInfo.CBalance, newBalance, "Dr", "To Asset Issue", AssetRequestID);
                             AssetRegisterID = objAssetsInfo.UpdateAssetRegisterBalanceInfo(AssetID, newBalance);
-                            objEmpAssetAllocationInfo.InsertEmployeeAssetAllocationShortInformation(AssetID, AssetRequestID, Convert.ToInt32(dc.Cells["EmpID"].Value), DateTime.Today, "Asset Request : \"" + AssetRequestCode + "\" approved to issue \"" + dc.Cells["AssetName"].Value + "\" to issue to \nEmployee Code : \"" + dc.Cells["EmpCode"].Value.ToString() + "\" and Employee Name : \"" + dc.Cells["EmpName"].Value.ToString() + "\"", AssetRequestID);
+                            objEmpAssetAllocationInfo.InsertEmployeeAssetAllocationShortInformation(Convert.ToInt32(dc.Cells["AssetRequestByID"].Value), AssetID, DateTime.Today, "Asset Request : \"" + AssetRequestCode + "\" approved to issue \"" + dc.Cells["AssetName"].Value + "\" to issue to \nEmployee Code : \"" + dc.Cells["EmpCode"].Value.ToString() + "\" and Employee Name : \"" + dc.Cells["EmpName"].Value.ToString() + "\"", AssetRequestID);
                             objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "Second Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                         else if (AssetRequestStatus.ToString() == "Rejected")
@@ -567,6 +567,7 @@ namespace StaffSync
             dtgAssetsRequestersList.Columns["AssetRequestComments"].Visible = true;
             dtgAssetsRequestersList.Columns["AssetRequestComments"].Width = 250;
             dtgAssetsRequestersList.Columns["AssetRequestByStatus"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["AssetRequestByID"].Visible = false;
             dtgAssetsRequestersList.Columns["AssetRequestByStatus"].Visible = true;
             dtgAssetsRequestersList.Columns["AssetRequestByStatus"].Width = 150;
             dtgAssetsRequestersList.Columns["RequestStatus"].ReadOnly = true;

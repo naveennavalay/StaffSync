@@ -36,6 +36,7 @@ namespace StaffSync
         frmEmpAdvanceRequest frmEmpAdvancRequest = null;
         frmEmpAssetRequest frmEmpAssetRequest = null;
         frmEmpReimbRequestInfo frmEmpReimbRequestInfo = null;
+        frmEmpAssetAllotment frmEmpAssetAllotment = null;
         frmDashboard frmDashboard = null;
         frmPayrollConfiguration frmPayrollConfiguration = null;
         frmEmpReimbursmentPayments frmEmpReimbursmentPayments = null;
@@ -194,6 +195,14 @@ namespace StaffSync
         {
             InitializeComponent();
             this.frmEmpReimbRequestInfo = frmEmpReimbRequstInfo;
+            lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+            lblClientID.Text = ClientID.ToString();
+        }
+
+        public frmEmployeeList(frmEmpAssetAllotment frmEmpAssetAllotmnt, string SearchOptionClickedFor, int ClientID)
+        {
+            InitializeComponent();
+            this.frmEmpAssetAllotment = frmEmpAssetAllotmnt;
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
             lblClientID.Text = ClientID.ToString();
         }

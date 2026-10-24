@@ -773,7 +773,7 @@
             this.toolStripMenuItem6,
             this.cmbMyLeaveReports});
             this.cmLeaveManagement.Name = "cmDatamartList01";
-            this.cmLeaveManagement.Size = new System.Drawing.Size(183, 204);
+            this.cmLeaveManagement.Size = new System.Drawing.Size(183, 182);
             this.cmLeaveManagement.Tag = "DatamartMenu";
             this.cmLeaveManagement.Text = "Datamart Menu";
             this.cmLeaveManagement.Opening += new System.ComponentModel.CancelEventHandler(this.cmLeaveManagement_Opening);
@@ -1138,26 +1138,27 @@
             this.toolStripMenuItem34,
             this.assetIssuanceToolStripMenuItem});
             this.cmbAssesmentManagement.Name = "cmbAssesmentManagement";
-            this.cmbAssesmentManagement.Size = new System.Drawing.Size(153, 54);
+            this.cmbAssesmentManagement.Size = new System.Drawing.Size(159, 54);
             // 
             // assetAllocationToolStripMenuItem
             // 
             this.assetAllocationToolStripMenuItem.Image = global::StaffSync.Properties.Resources.asset_operations;
             this.assetAllocationToolStripMenuItem.Name = "assetAllocationToolStripMenuItem";
-            this.assetAllocationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.assetAllocationToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.assetAllocationToolStripMenuItem.Text = "Asset Requests";
             this.assetAllocationToolStripMenuItem.Click += new System.EventHandler(this.assetAllocationToolStripMenuItem_Click);
             // 
             // toolStripMenuItem34
             // 
             this.toolStripMenuItem34.Name = "toolStripMenuItem34";
-            this.toolStripMenuItem34.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem34.Size = new System.Drawing.Size(155, 6);
             // 
             // assetIssuanceToolStripMenuItem
             // 
             this.assetIssuanceToolStripMenuItem.Name = "assetIssuanceToolStripMenuItem";
-            this.assetIssuanceToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.assetIssuanceToolStripMenuItem.Text = "Asset Issuance";
+            this.assetIssuanceToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.assetIssuanceToolStripMenuItem.Tag = "Asset Allotment";
+            this.assetIssuanceToolStripMenuItem.Text = "Asset Allotment";
             this.assetIssuanceToolStripMenuItem.Click += new System.EventHandler(this.assetIssuanceToolStripMenuItem_Click);
             // 
             // kryptonRibbonGroupTriple15
@@ -1306,20 +1307,20 @@
             // 
             this.firstApprovalToolStripMenuItem.Image = global::StaffSync.Properties.Resources.approved;
             this.firstApprovalToolStripMenuItem.Name = "firstApprovalToolStripMenuItem";
-            this.firstApprovalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.firstApprovalToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.firstApprovalToolStripMenuItem.Text = "First Approval";
             this.firstApprovalToolStripMenuItem.Click += new System.EventHandler(this.firstApprovalToolStripMenuItem_Click);
             // 
             // toolStripMenuItem20
             // 
             this.toolStripMenuItem20.Name = "toolStripMenuItem20";
-            this.toolStripMenuItem20.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem20.Size = new System.Drawing.Size(161, 6);
             // 
             // secondApprovalToolStripMenuItem
             // 
             this.secondApprovalToolStripMenuItem.Image = global::StaffSync.Properties.Resources.asset_operations;
             this.secondApprovalToolStripMenuItem.Name = "secondApprovalToolStripMenuItem";
-            this.secondApprovalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.secondApprovalToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.secondApprovalToolStripMenuItem.Text = "Second Approval";
             this.secondApprovalToolStripMenuItem.Click += new System.EventHandler(this.secondApprovalToolStripMenuItem_Click);
             // 
