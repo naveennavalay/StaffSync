@@ -14,6 +14,12 @@ namespace DALStaffSync
     {
         dbStaffSync.clsAssetRegister objAssetsRegisterInfo = new dbStaffSync.clsAssetRegister();
 
+
+        public List<CurrentAssetStatusModel> GetCurrentAssetStatus()
+        {
+            return objAssetsRegisterInfo.GetCurrentAssetStatus();
+        }
+
         public AssetRegister getSpecificAssetRegisterInfo(int AssetID, DateTime AssetTRDate, int EmpAssetRequestID)
         {
             return objAssetsRegisterInfo.getSpecificAssetRegisterInfo(AssetID, AssetTRDate, EmpAssetRequestID);

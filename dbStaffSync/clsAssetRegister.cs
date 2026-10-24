@@ -76,6 +76,42 @@ namespace dbStaffSync
         //        return new AssetInfo();
         //}
 
+        public List<CurrentAssetStatusModel> GetCurrentAssetStatus()
+        {
+            List<CurrentAssetStatusModel> objCurrentAssetStatusList = new List<CurrentAssetStatusModel>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT * FROM CurrentAssetStatus WHERE IsDeleted = false";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objCurrentAssetStatusList = JsonConvert.DeserializeObject<List<CurrentAssetStatusModel>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objCurrentAssetStatusList;
+        }
+
         public SpecificAssetRegisterInfo getSpecificAssetRegisterInfo(int AssetID, int EmpAssetRequestID)
         {
             List<SpecificAssetRegisterInfo> objSpecificAssetRegisterInfoList = new List<SpecificAssetRegisterInfo>();
@@ -292,7 +328,7 @@ namespace dbStaffSync
                                             IssueCondition = '" + IssueCondition + @"', 
                                             IssuedBy = " + IssuedBy + @",
                                             IssueRemarks = '" + IssueRemarks + @"',
-                                            CurrentAssetStatusID = " + CurrentAssetStatusID + @",
+                                            CurrentAssetStatusID = " + CurrentAssetStatusID + @"
                                     WHERE 
                                         EmpAssetAllocationID = " + EmpAssetAllocationID;
 
@@ -610,25 +646,30 @@ namespace dbStaffSync
                                         D.DesignationTitle,
                                         P.DepartmentTitle,
                                         PersonalInfoMas.PersonalInfoID,
+                                        EmpAssetAllocation.IssueDate,
                                         CL.ClientID
                                     FROM
                                         (
-                                            DesigMas AS D
-                                            INNER JOIN (
-                                                DepMas AS P
+                                            (
+                                                DesigMas AS D
                                                 INNER JOIN (
-                                                    ClientMas AS CL
+                                                    DepMas AS P
                                                     INNER JOIN (
-                                                        EmpAssetRequest AS R
-                                                        INNER JOIN EmpMas AS E ON R.AssetRequestByID = E.EmpID
-                                                    ) ON CL.ClientID = E.ClientID
-                                                ) ON P.DepartmentID = E.DepartmentID
-                                            ) ON D.DesignationID = E.EmpDesignationID
+                                                        ClientMas AS CL
+                                                        INNER JOIN (
+                                                            EmpAssetRequest AS R
+                                                            INNER JOIN EmpMas AS E ON R.AssetRequestByID = E.EmpID
+                                                        ) ON CL.ClientID = E.ClientID
+                                                    ) ON P.DepartmentID = E.DepartmentID
+                                                ) ON D.DesignationID = E.EmpDesignationID
+                                            )
+                                            INNER JOIN PersonalInfoMas ON E.EmpID = PersonalInfoMas.EmpID
                                         )
-                                        INNER JOIN PersonalInfoMas ON E.EmpID = PersonalInfoMas.EmpID
+                                        INNER JOIN EmpAssetAllocation ON R.AssetRequestID = EmpAssetAllocation.AssetRequestID
                                     WHERE
                                         (
-                                            ((CL.ClientID) = " + ClientID + @")
+                                            ((EmpAssetAllocation.IssueDate) IS NULL)
+                                            AND ((CL.ClientID) = " + ClientID + @")
                                             AND ((R.AssetRequestByStatus) = True)
                                             AND ((R.RequestedToStatus) = True)
                                             AND ((R.AssetRequestStatus) = True)

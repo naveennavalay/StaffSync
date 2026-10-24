@@ -64,8 +64,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtComments = new Krypton.Toolkit.KryptonTextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.dtIssueDate = new System.Windows.Forms.MaskedTextBox();
-            this.label29 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
             this.btnRemoveDetails = new Krypton.Toolkit.KryptonButton();
@@ -80,8 +78,6 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.dtReturnDate = new System.Windows.Forms.MaskedTextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.cmbAssetCondition = new Krypton.Toolkit.KryptonComboBox();
             this.label74 = new System.Windows.Forms.Label();
             this.lblAssetRequestID = new System.Windows.Forms.Label();
@@ -561,12 +557,8 @@
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.groupBox1.Controls.Add(this.cmbAssetCondition);
             this.groupBox1.Controls.Add(this.label74);
-            this.groupBox1.Controls.Add(this.dtReturnDate);
-            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtComments);
             this.groupBox1.Controls.Add(this.label15);
-            this.groupBox1.Controls.Add(this.dtIssueDate);
-            this.groupBox1.Controls.Add(this.label29);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(10, 525);
             this.groupBox1.Name = "groupBox1";
@@ -598,30 +590,6 @@
             this.label15.TabIndex = 92;
             this.label15.Text = "Comments";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // dtIssueDate
-            // 
-            this.dtIssueDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.dtIssueDate.Location = new System.Drawing.Point(150, 18);
-            this.dtIssueDate.Margin = new System.Windows.Forms.Padding(4);
-            this.dtIssueDate.Mask = "##-##-####";
-            this.dtIssueDate.Name = "dtIssueDate";
-            this.dtIssueDate.Size = new System.Drawing.Size(103, 21);
-            this.dtIssueDate.TabIndex = 90;
-            this.dtIssueDate.Tag = "Transaction Date cannot be future date";
-            this.dtIssueDate.ValidatingType = typeof(System.DateTime);
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(69, 21);
-            this.label29.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(75, 15);
-            this.label29.TabIndex = 91;
-            this.label29.Text = "Issue Date";
-            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel2
             // 
@@ -744,35 +712,11 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
-            // dtReturnDate
-            // 
-            this.dtReturnDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.dtReturnDate.Location = new System.Drawing.Point(424, 18);
-            this.dtReturnDate.Margin = new System.Windows.Forms.Padding(4);
-            this.dtReturnDate.Mask = "##-##-####";
-            this.dtReturnDate.Name = "dtReturnDate";
-            this.dtReturnDate.Size = new System.Drawing.Size(103, 21);
-            this.dtReturnDate.TabIndex = 95;
-            this.dtReturnDate.Tag = "Transaction Date cannot be future date";
-            this.dtReturnDate.ValidatingType = typeof(System.DateTime);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(268, 21);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(147, 15);
-            this.label2.TabIndex = 96;
-            this.label2.Text = "Expected Return Date";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // cmbAssetCondition
             // 
             this.cmbAssetCondition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAssetCondition.DropDownWidth = 440;
-            this.cmbAssetCondition.Location = new System.Drawing.Point(609, 17);
+            this.cmbAssetCondition.Location = new System.Drawing.Point(150, 17);
             this.cmbAssetCondition.Name = "cmbAssetCondition";
             this.cmbAssetCondition.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbAssetCondition.Size = new System.Drawing.Size(128, 22);
@@ -784,7 +728,7 @@
             // 
             this.label74.AutoSize = true;
             this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label74.Location = new System.Drawing.Point(562, 21);
+            this.label74.Location = new System.Drawing.Point(97, 21);
             this.label74.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(47, 15);
@@ -896,14 +840,10 @@
         private System.Windows.Forms.Label label34;
         private Krypton.Toolkit.KryptonTextBox txtComments;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.MaskedTextBox dtIssueDate;
-        private System.Windows.Forms.Label label29;
         private System.Windows.Forms.GroupBox groupBox3;
         private Krypton.Toolkit.KryptonDataGridView dtgAssetRequestedList;
         private Krypton.Toolkit.KryptonTextBox txtRequestDescription;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.MaskedTextBox dtReturnDate;
-        private System.Windows.Forms.Label label2;
         private Krypton.Toolkit.KryptonComboBox cmbAssetCondition;
         private System.Windows.Forms.Label label74;
         private System.Windows.Forms.Label lblAssetRequestID;

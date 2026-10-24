@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurrentAssetStatusModel.cs" />
     <Compile Include="ReimbursementInfo.cs" />
     <Compile Include="clsEmployeeWeeklyOffInfo.cs" />
     <Compile Include="EmpAdvanceInfoModel.cs" />
