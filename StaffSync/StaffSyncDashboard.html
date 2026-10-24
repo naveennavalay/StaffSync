@@ -3249,16 +3249,17 @@
             <div class="chart-card-header">
                 <div>
                     <div class="chart-title">Reimbursement Outstanding</div>
-                    <div class="chart-subtitle">Monthly outstanding amount · click a month to drill down</div>
+                    <div class="chart-subtitle">Monthly reimbursement totals · click a month to drill down</div>
                 </div>
                 <span id="reimbursementOutstandingTotal" class="today-card-count">₹0</span>
             </div>
             <div style="padding:10px 12px;">
-                <div id="reimbursementOutstandingBreadcrumb" style="font-size:12px;color:#64748b;margin-bottom:6px;">Monthly overview</div>
-                <div id="reimbursementOutstandingChart" style="width:100%;height:245px;min-height:220px;"></div>
-                <div id="reimbursementOutstandingDetails" style="display:none;overflow:auto;max-height:260px;margin-top:8px;">
-                    <table style="width:100%;border-collapse:collapse;font-size:12px;">
-                        <thead><tr><th style="text-align:left;padding:6px;border-bottom:1px solid #dbe3ea;">Employee</th><th style="text-align:left;padding:6px;border-bottom:1px solid #dbe3ea;">Request</th><th style="text-align:left;padding:6px;border-bottom:1px solid #dbe3ea;">Date</th><th style="text-align:left;padding:6px;border-bottom:1px solid #dbe3ea;">Status</th><th style="text-align:right;padding:6px;border-bottom:1px solid #dbe3ea;">Outstanding</th></tr></thead>
+                <div id="reimbursementOutstandingBreadcrumb" style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:#64748b;margin-bottom:8px;">Monthly overview</div>
+                <div id="reimbursementOutstandingChart" style="width:100%;height:285px;min-height:240px;"></div>
+                <div id="reimbursementOutstandingDetails" style="display:none;overflow:auto;margin-top:8px;">
+                    <table style="width:100%;border-collapse:collapse;table-layout:fixed;font-size:12px;">
+                        <colgroup><col style="width:19%;"><col style="width:43%;"><col style="width:12%;"><col style="width:12%;"><col style="width:14%;"></colgroup>
+                        <thead><tr style="background:#f1f6fa;"><th style="text-align:left;padding:9px 10px;border-bottom:1px solid #dbe3ea;">Employee</th><th style="text-align:left;padding:9px 10px;border-bottom:1px solid #dbe3ea;">Request</th><th style="text-align:left;padding:9px 10px;border-bottom:1px solid #dbe3ea;">Date</th><th style="text-align:left;padding:9px 10px;border-bottom:1px solid #dbe3ea;">Status</th><th style="text-align:right;padding:9px 10px;border-bottom:1px solid #dbe3ea;">Outstanding</th></tr></thead>
                         <tbody id="reimbursementOutstandingDetailsBody"></tbody>
                     </table>
                 </div>
@@ -3732,35 +3733,52 @@
                 if (typeof v === "string") v = v.replace(/[₹,\s]/g, "");
                 var n = Number(v); return isFinite(n) ? n : 0;
             }
+            function totalAmount(r) {
+                var v = pick(r, ["ReimbRequestAmount", "ReimbursementAmount", "RequestAmount", "TotalReimbursement", "TotalAmount", "ReimbAmount", "ApprovedAmount", "Amount"], null);
+                if (typeof v === "string") v = v.replace(/[₹,\s]/g, "");
+                var n = Number(v);
+                return v === null || !isFinite(n) ? amount(r) : Math.max(n, amount(r));
+            }
+            function settledAmount(r) { return Math.max(0, totalAmount(r) - amount(r)); }
+            function department(r) { return String(pick(r, ["DepartmentTitle", "DepartmentName", "Department", "DeptName"], "Unassigned department")); }
+            function formatReimbursementDate(date) {
+                if (!date || isNaN(date.getTime())) return "";
+                var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                return String(date.getDate()).padStart(2, "0") + "-" + months[date.getMonth()] + "-" + date.getFullYear();
+            }
             function dateValue(r) {
                 var value = pick(r, ["ReimbRequestTRDate", "ReimbRequestDate", "RequestDate", "Date", "TransactionDate"], "");
                 if (value === null || value === undefined || value === "") return "";
-                // Display the date portion only; do not show the time component.
                 if (typeof value === "string") {
                     var trimmed = value.trim();
-                    var isoMatch = trimmed.match(/^(\d{4}-\d{2}-\d{2})/);
-                    if (isoMatch) return isoMatch[1];
+                    // Parse ISO date/time using its date components to avoid timezone shifts.
+                    var isoMatch = trimmed.match(/^(\d{4})-(\d{2})-(\d{2})/);
+                    if (isoMatch) return formatReimbursementDate(new Date(Number(isoMatch[1]), Number(isoMatch[2]) - 1, Number(isoMatch[3])));
                     var dotNetMatch = trimmed.match(/^\/Date\((\d+)/);
-                    if (dotNetMatch) {
-                        var dotNetDate = new Date(Number(dotNetMatch[1]));
-                        return isNaN(dotNetDate.getTime()) ? trimmed : dotNetDate.toLocaleDateString("en-CA");
-                    }
+                    if (dotNetMatch) return formatReimbursementDate(new Date(Number(dotNetMatch[1])));
                     var parsed = new Date(trimmed);
-                    if (!isNaN(parsed.getTime())) return parsed.toLocaleDateString("en-CA");
+                    if (!isNaN(parsed.getTime())) return formatReimbursementDate(parsed);
                     return trimmed.split(/[T ]/)[0];
                 }
                 var date = new Date(value);
-                return isNaN(date.getTime()) ? String(value) : date.toLocaleDateString("en-CA");
+                return isNaN(date.getTime()) ? String(value) : formatReimbursementDate(date);
             }
             function monthLabel(r) {
                 var raw = dateValue(r);
                 if (!raw) return "Undated";
-                var d = new Date(raw);
-                if (isNaN(d.getTime())) {
-                    var m = String(raw).match(/(\d{4})[-/](\d{1,2})/);
-                    if (m) d = new Date(Number(m[1]), Number(m[2]) - 1, 1);
+                var d;
+                var formatted = String(raw).match(/^(\d{2})-([A-Za-z]{3})-(\d{4})$/);
+                if (formatted) {
+                    var monthIndex = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].indexOf(formatted[2]);
+                    if (monthIndex >= 0) d = new Date(Number(formatted[3]), monthIndex, 1);
+                } else {
+                    d = new Date(raw);
+                    if (isNaN(d.getTime())) {
+                        var m = String(raw).match(/(\d{4})[-/](\d{1,2})/);
+                        if (m) d = new Date(Number(m[1]), Number(m[2]) - 1, 1);
+                    }
                 }
-                if (isNaN(d.getTime())) return String(raw);
+                if (!d || isNaN(d.getTime())) return String(raw);
                 return d.toLocaleString("en-IN", { month: "short", year: "numeric" });
             }
             function title(r) { return String(pick(r, ["ReimbTitle", "ReimbursementTitle", "ReimbursementType", "Title"], "Other")); }
@@ -3784,17 +3802,27 @@
                 if (!chart) { renderEmpty("Chart library (ECharts) is unavailable."); return; }
                 chart.clear(); chart.setOption(option, true); chart.resize();
             }
+            function setBreadcrumb(backId, backLabel, textLabel, handler) {
+                var crumb = element("reimbursementOutstandingBreadcrumb");
+                crumb.innerHTML = '<span>' + esc(textLabel) + '</span>' + (backId ? '<button id="' + backId + '" type="button" style="flex:0 0 auto;order:2;margin-left:auto;padding:5px 12px;border:1px solid #cbd9e5;border-radius:5px;background:#fff;color:#174b76;cursor:pointer;">← ' + esc(backLabel) + '</button>' : '');
+                if (backId) element(backId).onclick = handler;
+            }
             function renderMonths() {
                 level = "month"; selectedMonth = null; selectedTitle = null;
-                element("reimbursementOutstandingBreadcrumb").textContent = "Monthly overview — click a bar to view reimbursement types";
+                setBreadcrumb(null, "", "Monthly overview — stacked bars show settled and balance amounts");
                 element("reimbursementOutstandingDetails").style.display = "none";
+                element("reimbursementOutstandingChart").style.display = "block";
+                element("reimbursementOutstandingChart").style.height = "285px";
                 var totals = {};
-                rows.forEach(function (r) { var m = monthLabel(r); totals[m] = (totals[m] || 0) + amount(r); });
+                rows.forEach(function (r) {
+                    var m = monthLabel(r); if (!totals[m]) totals[m] = { settled: 0, balance: 0 };
+                    totals[m].settled += settledAmount(r); totals[m].balance += amount(r);
+                });
                 var keys = Object.keys(totals).sort(function (a, b) { var da = new Date("1 " + a), db = new Date("1 " + b); return da - db; });
                 var total = rows.reduce(function (s, r) { return s + amount(r); }, 0);
                 element("reimbursementOutstandingTotal").textContent = money(total);
                 if (!keys.length) { renderEmpty("No reimbursement outstanding records were returned."); return; }
-                setChartOption({ animation: true, grid: { left: 65, right: 20, top: 25, bottom: 55, containLabel: true }, tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, formatter: function (p) { return esc(p[0].axisValue) + "<br/>Outstanding: <b>" + money(p[0].value) + "</b>"; } }, xAxis: { type: "category", data: keys, axisLabel: { rotate: 25, interval: 0 } }, yAxis: { type: "value", axisLabel: { formatter: function (v) { return v >= 100000 ? "₹" + (v / 100000).toFixed(1) + "L" : v >= 1000 ? "₹" + (v / 1000).toFixed(0) + "K" : "₹" + v; } } }, series: [{ name: "Outstanding", type: "bar", barMaxWidth: 38, data: keys.map(function (k) { return { name: k, value: totals[k], itemStyle: { color: "#4387c5", borderRadius: [5, 5, 0, 0] } }; }), label: { show: true, position: "top", formatter: function (p) { return money(p.value); }, fontSize: 10 } }] });
+                setChartOption({ animation: true, legend: { top: 0, data: ["Settled / Paid", "Balance Reimbursement"] }, grid: { left: 65, right: 20, top: 35, bottom: 55, containLabel: true }, tooltip: { trigger: "axis", axisPointer: { type: "shadow" }, backgroundColor: "#ffffff", borderColor: "#cbd5e1", borderWidth: 1, padding: [10, 12], textStyle: { color: "#64748b", fontSize: 12 }, extraCssText: "box-shadow:0 3px 12px rgba(15,23,42,.18);border-radius:5px;", formatter: function (ps) { if (!ps || !ps.length) return ""; var month = ps[0].axisValue || ""; var total = 0; ps.forEach(function (p) { total += Number(p.value) || 0; }); var out = "<div style=\"min-width:220px;font-family:Arial,sans-serif;\"><div style=\"font-size:13px;font-weight:700;color:#555;margin-bottom:7px;\">" + esc(month) + " Reimbursement</div>"; ps.forEach(function (p) { var c = (p.color && p.color.color) || p.color || "#64748b"; out += "<div style=\"display:flex;align-items:center;gap:7px;line-height:1.65;white-space:nowrap;\"><span style=\"display:inline-block;width:9px;height:9px;border-radius:50%;background:" + c + ";flex:0 0 9px;\"></span><span style=\"color:#737373;\">" + esc(p.seriesName) + ":</span><span style=\"margin-left:auto;padding-left:12px;color:#737373;\">" + money(p.value) + "</span></div>"; }); out += "<div style=\"border-top:1px solid #e5e7eb;margin-top:6px;padding-top:6px;display:flex;justify-content:space-between;gap:16px;font-weight:700;color:#555;\"><span>Total</span><span>" + money(total) + "</span></div></div>"; return out; } }, xAxis: { type: "category", data: keys, axisLabel: { rotate: 25, interval: 0 } }, yAxis: { type: "value", axisLabel: { formatter: function (v) { return v >= 100000 ? "₹" + (v / 100000).toFixed(1) + "L" : v >= 1000 ? "₹" + (v / 1000).toFixed(0) + "K" : "₹" + v; } } }, series: [{ name: "Settled / Paid", type: "bar", stack: "reimbursement", barMaxWidth: 38, itemStyle: { color: "#58a88b" }, data: keys.map(function (k) { return totals[k].settled; }), label: { show: false } }, { name: "Balance Reimbursement", type: "bar", stack: "reimbursement", barMaxWidth: 38, itemStyle: { color: "#4387c5", borderRadius: [4, 4, 0, 0] }, data: keys.map(function (k) { return totals[k].balance; }) }] });
                 chart.off("click"); chart.on("click", function (p) { if (p.componentType === "series") renderTypes(p.name); });
             }
             function renderTypes(month) {
@@ -3802,28 +3830,57 @@
                 var filtered = rows.filter(function (r) { return monthLabel(r) === month; });
                 var sums = {};
                 filtered.forEach(function (r) { var t = title(r); sums[t] = (sums[t] || 0) + amount(r); });
-                element("reimbursementOutstandingBreadcrumb").innerHTML = '<button id="reimbBackToMonths" type="button" style="margin-right:8px;">← Back</button> ' + esc(month) + " — click a segment to view employees";
+                setBreadcrumb("reimbBackToMonths", "Back", month + " — reimbursement type wise outstanding", renderMonths);
                 element("reimbursementOutstandingDetails").style.display = "none";
                 element("reimbursementOutstandingChart").style.display = "block";
-                element("reimbursementOutstandingChart").style.height = "245px";
-                element("reimbBackToMonths").onclick = renderMonths;
+                element("reimbursementOutstandingChart").style.height = "285px";
                 var names = Object.keys(sums);
                 if (!names.length) { renderEmpty("No reimbursement types for this month."); return; }
-                setChartOption({ tooltip: { trigger: "item", formatter: function (p) { return esc(p.name) + "<br/>Outstanding: <b>" + money(p.value) + "</b> (" + p.percent + "%)"; } }, legend: { type: "scroll", bottom: 0 }, series: [{ type: "pie", radius: ["38%", "68%"], center: ["50%", "45%"], data: names.map(function (n) { return { name: n, value: sums[n] }; }), label: { formatter: function (p) { return p.name + "\n" + money(p.value); } } }] });
-                chart.off("click"); chart.on("click", function (p) { if (p.componentType === "series") renderEmployees(month, p.name); });
+                var palette = ["#4387c5", "#58a88b", "#e6a23c", "#8b78c6", "#e27676", "#36a2ae", "#d18a5b", "#6f91b5", "#9aab55", "#c27ba0"];
+                setChartOption({
+                    animation: true,
+                    color: palette,
+                    tooltip: {
+                        trigger: "axis", axisPointer: { type: "shadow" }, formatter: function (ps) {
+                            if (!ps || !ps.length) return "";
+                            return esc(ps[0].axisValue) + "<br/>Outstanding: <b>" + money(ps[0].value) + "</b>";
+                        }
+                    },
+                    grid: { left: 65, right: 22, top: 22, bottom: 78, containLabel: true },
+                    xAxis: { type: "category", data: names, axisLabel: { interval: 0, rotate: names.length > 4 ? 25 : 0, width: 120, overflow: "break", fontSize: 11 } },
+                    yAxis: { type: "value", name: "Outstanding", axisLabel: { formatter: function (v) { return v >= 100000 ? "₹" + (v / 100000).toFixed(1) + "L" : v >= 1000 ? "₹" + (v / 1000).toFixed(0) + "K" : "₹" + v; } } },
+                    series: [{
+                        name: "Outstanding Reimbursement", type: "bar", barMaxWidth: 46,
+                        data: names.map(function (n, i) { return { name: n, value: sums[n], itemStyle: { color: palette[i % palette.length], borderRadius: [4, 4, 0, 0] } }; }),
+                        label: { show: true, position: "top", formatter: function (p) { return money(p.value); }, fontSize: 10 }
+                    }]
+                });
+                chart.off("click"); chart.on("click", function (p) { if (p.componentType === "series") renderDepartments(month, p.name); });
             }
-            function renderEmployees(month, reimbTitle) {
-                level = "employees"; selectedMonth = month; selectedTitle = reimbTitle;
+            function renderDepartments(month, reimbTitle) {
+                level = "department"; selectedMonth = month; selectedTitle = reimbTitle;
                 var filtered = rows.filter(function (r) { return monthLabel(r) === month && title(r) === reimbTitle; });
-                element("reimbursementOutstandingBreadcrumb").innerHTML = '<button id="reimbBackToTypes" type="button" style="margin-right:8px;">← Back</button> ' + esc(month) + " / " + esc(reimbTitle) + " — employee details";
-                element("reimbBackToTypes").onclick = function () { renderTypes(month); };
+                var sums = {}; filtered.forEach(function (r) { var d = department(r); sums[d] = (sums[d] || 0) + amount(r); });
+                setBreadcrumb("reimbBackToTypes", "Back", month + " / " + reimbTitle + " — department-wise outstanding", function () { renderTypes(month); });
+                element("reimbursementOutstandingDetails").style.display = "none";
+                element("reimbursementOutstandingChart").style.display = "block";
+                element("reimbursementOutstandingChart").style.height = "285px";
+                var names = Object.keys(sums);
+                if (!names.length) { renderEmpty("No departments found for this reimbursement type."); return; }
+                setChartOption({ tooltip: { trigger: "item", formatter: function (p) { return esc(p.name) + "<br/>Outstanding: <b>" + money(p.value) + "</b> (" + p.percent + "%)"; } }, legend: { type: "scroll", bottom: 0 }, series: [{ type: "pie", radius: ["38%", "66%"], center: ["50%", "45%"], data: names.map(function (n) { return { name: n, value: sums[n] }; }), label: { formatter: function (p) { return p.name + "\n" + money(p.value); } } }] });
+                chart.off("click"); chart.on("click", function (p) { if (p.componentType === "series") renderEmployees(month, reimbTitle, p.name); });
+            }
+            function renderEmployees(month, reimbTitle, dept) {
+                level = "employees"; selectedMonth = month; selectedTitle = reimbTitle;
+                var filtered = rows.filter(function (r) { return monthLabel(r) === month && title(r) === reimbTitle && (dept === undefined || department(r) === dept); });
+                setBreadcrumb("reimbBackToDepartments", "Back", month + " / " + reimbTitle + (dept ? " / " + dept : "") + " — employee details", function () { renderDepartments(month, reimbTitle); });
                 var body = element("reimbursementOutstandingDetailsBody"); body.innerHTML = "";
                 filtered.forEach(function (r) {
                     var emp = pick(r, ["EmpName", "EmployeeName", "Employee"], ""); var code = pick(r, ["EmpCode", "EmployeeCode"], "");
                     var req = pick(r, ["ReimbRequestCode", "ReimbursementRequestCode", "RequestCode", "ReimbRequestID", "ReimbRequestId"], "");
                     var dt = dateValue(r); var status = pick(r, ["ReimbRequestStatus", "RequestStatus", "Status"], "");
                     var tr = document.createElement("tr");
-                    tr.innerHTML = '<td style="padding:6px;border-bottom:1px solid #edf1f5;">' + esc(emp) + (code ? ' <small>(' + esc(code) + ')</small>' : '') + '<br/><small>' + esc(pick(r, ["DepartmentTitle", "DepartmentName"], "")) + ' · ' + esc(pick(r, ["DesignationTitle", "DesignationName"], "")) + '</small></td><td style="padding:6px;border-bottom:1px solid #edf1f5;">' + esc(req) + '<br/><small>' + esc(pick(r, ["ReimbRequestDescription", "RequestDescription", "Comments"], "")) + '</small></td><td style="padding:6px;border-bottom:1px solid #edf1f5;">' + esc(dt) + '</td><td style="padding:6px;border-bottom:1px solid #edf1f5;">' + esc(status) + '</td><td style="padding:6px;text-align:right;border-bottom:1px solid #edf1f5;white-space:nowrap;">' + money(amount(r)) + '</td>';
+                    tr.innerHTML = '<td style="padding:10px;border-bottom:1px solid #e5edf3;vertical-align:top;overflow-wrap:anywhere;"><strong>' + esc(emp) + '</strong>' + (code ? ' <div style="color:#64748b;font-size:11px;margin-top:3px;">' + esc(code) + '</div>' : '') + '<div style="color:#64748b;font-size:11px;margin-top:3px;">' + esc(department(r)) + ' · ' + esc(pick(r, ["DesignationTitle", "DesignationName"], "")) + '</div></td><td style="padding:10px;border-bottom:1px solid #e5edf3;vertical-align:top;overflow-wrap:anywhere;"><strong>' + esc(req) + '</strong><div style="color:#475569;font-size:11px;line-height:1.45;margin-top:4px;">' + esc(pick(r, ["ReimbRequestDescription", "RequestDescription", "Comments"], "")) + '</div></td><td style="padding:10px;border-bottom:1px solid #e5edf3;vertical-align:top;white-space:nowrap;">' + esc(dt) + '</td><td style="padding:10px;border-bottom:1px solid #e5edf3;vertical-align:top;">' + esc(status) + '</td><td style="padding:10px;text-align:right;border-bottom:1px solid #e5edf3;vertical-align:top;white-space:nowrap;font-weight:600;">' + money(amount(r)) + '</td>';
                     body.appendChild(tr);
                 });
                 // At employee level, show the table in place of the chart. Keeping the
