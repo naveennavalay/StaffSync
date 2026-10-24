@@ -329,7 +329,6 @@ namespace ModelStaffSync
 
     public class AssetInformationOfAnAssetRequest
     {
-        public bool Select { get; set; }
         public int EmpAssetAllocationID { get; set; }
         public int AssetCatMasID { get; set; }
         

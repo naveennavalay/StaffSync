@@ -201,7 +201,7 @@ namespace StaffSync
             enableControls();
             errValidator.Clear();
 
-            txtComments.Text = "To Reimbursment";
+            txtComments.Text = "To Issue: \n" + txtRequestDescription.Text;
 
             btnSaveDetails.Enabled = true;
         }
@@ -764,6 +764,7 @@ namespace StaffSync
             dtgAssetRequestedList.Columns["Comments"].HeaderText = "Request Description";
             dtgAssetRequestedList.Columns["Comments"].Width = 350;
             dtgAssetRequestedList.Columns["Comments"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["OBalance"].Visible = false;
             dtgAssetRequestedList.Columns["OBalance"].HeaderText = "Available Balance";
             dtgAssetRequestedList.Columns["OBalance"].Width = 150;
             dtgAssetRequestedList.Columns["OBalance"].ReadOnly = true;
@@ -774,6 +775,7 @@ namespace StaffSync
             dtgAssetRequestedList.Columns["DrBalance"].ReadOnly = true;
             dtgAssetRequestedList.Columns["DrBalance"].DefaultCellStyle.Format = "c2";
             dtgAssetRequestedList.Columns["DrBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dtgAssetRequestedList.Columns["CBalance"].Visible = false; 
             dtgAssetRequestedList.Columns["CBalance"].HeaderText = "Outstanding Balance";
             dtgAssetRequestedList.Columns["CBalance"].Width = 150;
             dtgAssetRequestedList.Columns["CBalance"].ReadOnly = true;
