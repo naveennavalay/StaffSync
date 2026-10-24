@@ -3246,6 +3246,27 @@
 
     <div id="dashboardMasonryLayout" class="dashboard-masonry-layout">
 
+        <!-- Pending Assets Request: populated by frmDashboard.cs -->
+        <div id="pendingAssetsRequestCard" data-dashboard-key="PendingAssetRequest" class="chart-card">
+            <div class="chart-card-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                <div>
+                    <div class="chart-title" style="font-weight:700;color:#174b76;">Pending Assets Request</div>
+                    <div style="font-size:11px;color:#64748b;margin-top:4px;">Requests awaiting approval · click a month to drill down</div>
+                </div>
+                <span id="pendingAssetsRequestTotal" class="today-card-count" style="background:#b45309;color:#fff;padding:5px 12px;border-radius:16px;font-weight:700;">0 requests</span>
+            </div>
+            <div id="pendingAssetsRequestBreadcrumb" style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:#64748b;margin:8px 0;">Monthly overview</div>
+            <div id="pendingAssetsRequestChart" style="width:100%;height:285px;min-height:240px;"></div>
+            <div id="pendingAssetsRequestDetails" style="display:none;overflow:auto;margin-top:8px;">
+                <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:680px;">
+                    <thead><tr style="background:#eff5f9;text-align:left;"><th style="padding:9px;">Employee</th><th style="padding:9px;">Asset</th><th style="padding:9px;">Request Date</th><th style="padding:9px;">Days Pending</th><th style="padding:9px;">Approval Status</th></tr></thead>
+                    <tbody id="pendingAssetsRequestDetailsBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+
+
         <div id="pendingReimbursementApprovalsCard" data-dashboard-key="PendingReimbursementApprovals" class="chart-card">
             <div class="chart-card-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
                 <div><div class="chart-card-title" style="font-weight:700;color:#174b76;">Pending Reimbursement Approvals</div><div style="font-size:11px;color:#64748b;margin-top:4px;">Requests awaiting first approval · click a month to drill down</div></div>
@@ -22086,9 +22107,91 @@
                 if (p.componentType === 'series') renderEmployees(m, p.name);
             });
         }
-        function renderEmployees(m, t) { level = 'employees'; selectedMonth = m; selectedTitle = t; var rr = rows.filter(function (r) { return month(r) === m && title(r) === t; }); setCrumb(m + ' / ' + t + ' — employee information', 'Back', function () { renderTitles(m); }); el('pendingReimbursementApprovalsChart').style.display = 'none'; el('pendingReimbursementApprovalsDetails').style.display = 'block'; var body = el('pendingReimbursementApprovalsDetailsBody'); body.innerHTML = ''; rr.sort(function (a, b) { return days(b) - days(a); }); rr.forEach(function (r) { var d = dateOf(r), dateText = d ? d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : ''; var n = days(r); var tr = document.createElement('tr'); tr.innerHTML = '<td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(pick(r, ['EmpName'], 'Employee')) + '</strong><div style="color:#64748b;font-size:11px;">' + esc(pick(r, ['EmpCode'], '')) + '</div><div style="color:#64748b;font-size:11px;">' + esc(pick(r, ['DepartmentTitle'], '')) + ' · ' + esc(pick(r, ['DesignationTitle'], '')) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(pick(r, ['ReimbursRequestCode'], 'Request')) + '</strong><div style="font-size:11px;color:#64748b;">' + esc(title(r)) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;white-space:nowrap;">' + esc(dateText) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;font-weight:700;color:' + (n >= 15 ? '#b91c1c' : n >= 7 ? '#b45309' : '#166534') + ';">' + n + ' days</td><td style="padding:9px;border-bottom:1px solid #e5edf3;text-align:right;white-space:nowrap;">' + money(amount(r)) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;">Pending approval</td>'; body.appendChild(tr); }); if (!rr.length) body.innerHTML = '<tr><td colspan="6" style="padding:16px;text-align:center;color:#64748b;">No matching requests.</td></tr>'; el('pendingReimbursementApprovalsTotal').textContent = rr.length + ' requests'; el('pendingReimbursementApprovalsAmount').textContent = money(rr.reduce(function (sum, r) { return sum + amount(r); }, 0)); }
+        function renderEmployees(m, t) { level = 'employees'; selectedMonth = m; selectedTitle = t; var rr = rows.filter(function (r) { return month(r) === m && title(r) === t; }); setCrumb(m + ' / ' + t + ' — employee information', 'Back', function () { renderTitles(m); }); el('pendingReimbursementApprovalsChart').style.display = 'none'; el('pendingReimbursementApprovalsDetails').style.display = 'block'; var body = el('pendingReimbursementApprovalsDetailsBody'); body.innerHTML = ''; rr.sort(function (a, b) { return days(b) - days(a); }); rr.forEach(function (r) { var d = dateOf(r), dateText = d ? (String(d.getDate()).padStart(2, '0') + '-' + d.toLocaleDateString('en-GB', { month: 'short' }) + '-' + d.getFullYear()) : ''; var n = days(r); var tr = document.createElement('tr'); tr.innerHTML = '<td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(pick(r, ['EmpName'], 'Employee')) + '</strong><div style="color:#64748b;font-size:11px;">' + esc(pick(r, ['EmpCode'], '')) + '</div><div style="color:#64748b;font-size:11px;">' + esc(pick(r, ['DepartmentTitle'], '')) + ' · ' + esc(pick(r, ['DesignationTitle'], '')) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(pick(r, ['ReimbursRequestCode'], 'Request')) + '</strong><div style="font-size:11px;color:#64748b;">' + esc(title(r)) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;white-space:nowrap;">' + esc(dateText) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;font-weight:700;color:' + (n >= 15 ? '#b91c1c' : n >= 7 ? '#b45309' : '#166534') + ';">' + n + ' days</td><td style="padding:9px;border-bottom:1px solid #e5edf3;text-align:right;white-space:nowrap;">' + money(amount(r)) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;">Pending approval</td>'; body.appendChild(tr); }); if (!rr.length) body.innerHTML = '<tr><td colspan="6" style="padding:16px;text-align:center;color:#64748b;">No matching requests.</td></tr>'; el('pendingReimbursementApprovalsTotal').textContent = rr.length + ' requests'; el('pendingReimbursementApprovalsAmount').textContent = money(rr.reduce(function (sum, r) { return sum + amount(r); }, 0)); }
         window.displayPendingReimbursementApprovals = function (data) { try { if (typeof data === 'string') data = JSON.parse(data); rows = Array.isArray(data) ? data : []; renderMonths(); } catch (e) { console.error('Pending reimbursement approvals render error', e); } };
         window.addEventListener('resize', function () { if (chart) chart.resize(); }); if (window.__staffSyncPendingApprovalReimbursements) { window.displayPendingReimbursementApprovals(window.__staffSyncPendingApprovalReimbursements); window.__staffSyncPendingApprovalReimbursements = null; }
+    })();
+</script>
+
+<script>
+    (function () {
+        'use strict';
+        var rows = [];
+        var chart = null;
+        var level = 'month';
+        var selectedMonth = null;
+        var selectedAsset = null;
+        function el(id) { return document.getElementById(id); }
+        function pick(row, names, fallback) {
+            if (!row) return fallback == null ? '' : fallback;
+            var keys = Object.keys(row);
+            for (var i = 0; i < names.length; i++) {
+                var found = keys.find(function (k) { return k.toLowerCase() === names[i].toLowerCase(); });
+                if (found != null && row[found] != null && row[found] !== '') return row[found];
+            }
+            return fallback == null ? '' : fallback;
+        }
+        function esc(value) { return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+        function dateOf(row) {
+            var value = pick(row, ['RequestDate', 'AssetRequestDate', 'EmpAssetRequestDate', 'RequestTRDate', 'AssetTRDate', 'CreatedDate', 'RequestOn', 'AppliedDate', 'TRDate', 'ApprovalPendingDate', 'CreatedOn', 'RequestDateTime'], '');
+            if (value === '') return null;
+            var d = new Date(value);
+            if (!isNaN(d.getTime())) return d;
+            var m = String(value).match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})/);
+            if (m) { d = new Date(Number(m[3]), Number(m[2]) - 1, Number(m[1])); if (!isNaN(d.getTime())) return d; }
+            return null;
+        }
+        function days(row) {
+            var raw = pick(row, ['DaysPending', 'PendingDays', 'NoOfDaysPending', 'Days', 'PendingDuration'], null);
+            if (raw !== null && raw !== '' && !isNaN(Number(raw))) return Math.max(0, Math.round(Number(raw)));
+            var d = dateOf(row);
+            return d ? Math.max(0, Math.floor((new Date().setHours(0, 0, 0, 0) - new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime()) / 86400000)) : 0;
+        }
+        function month(row) { var d = dateOf(row); return d ? d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : 'Undated'; }
+        function asset(row) { return String(pick(row, ['AssetName', 'AssetTitle', 'AssetDescription', 'AssetTypeTitle', 'AssetCategoryTitle', 'AssetCode', 'ItemName', 'Asset'], 'Asset request')); }
+        function employee(row) { return String(pick(row, ['EmpName', 'EmployeeName', 'EmployeeTitle', 'RequestedBy', 'EmpFullName', 'Employee'], 'Employee')); }
+        function status(row) { return 'Pending approval'; }
+        function requestDateText(row) { var d = dateOf(row); return d ? (String(d.getDate()).padStart(2, '0') + '-' + d.toLocaleDateString('en-GB', { month: 'short' }) + '-' + d.getFullYear()) : '—'; }
+        function initChart() { var node = el('pendingAssetsRequestChart'); if (!node || !window.echarts) return null; return echarts.getInstanceByDom(node) || echarts.init(node); }
+        function setBreadcrumb(text, back, callback) {
+            var b = el('pendingAssetsRequestBreadcrumb');
+            b.innerHTML = '<span>' + esc(text) + '</span>' + (back ? '<button id="pendingAssetsRequestBack" style="margin-left:auto;padding:5px 12px;border:1px solid #cbd9e5;border-radius:5px;background:#fff;color:#174b76;cursor:pointer;">← Back</button>' : '');
+            if (back) el('pendingAssetsRequestBack').onclick = callback;
+        }
+        function showChart() { el('pendingAssetsRequestDetails').style.display = 'none'; el('pendingAssetsRequestChart').style.display = 'block'; el('pendingAssetsRequestChart').style.height = '285px'; chart = initChart(); }
+        function renderMonths() {
+            level = 'month'; selectedMonth = null; selectedAsset = null; showChart(); setBreadcrumb('Monthly overview');
+            var counts = {}; rows.forEach(function (r) { var m = month(r); counts[m] = (counts[m] || 0) + 1; });
+            var keys = Object.keys(counts).sort(function (a, b) { if (a === 'Undated') return 1; if (b === 'Undated') return -1; return new Date('1 ' + a) - new Date('1 ' + b); });
+            el('pendingAssetsRequestTotal').textContent = rows.length + ' request' + (rows.length === 1 ? '' : 's');
+            if (!chart) return;
+            chart.clear();
+            if (!keys.length) { el('pendingAssetsRequestChart').innerHTML = '<div style="padding:45px;text-align:center;color:#64748b;">No pending asset requests.</div>'; return; }
+            chart.setOption({ tooltip: { trigger: 'axis', formatter: function (p) { var m = p && p.length ? p[0].axisValue : ''; return '<b>' + esc(m) + '</b><br/>Pending asset requests: <b>' + (counts[m] || 0) + '</b>'; } }, grid: { left: 50, right: 22, top: 22, bottom: 48, containLabel: true }, xAxis: { type: 'category', data: keys, axisLabel: { rotate: 25 } }, yAxis: { type: 'value', minInterval: 1, name: 'Requests' }, series: [{ type: 'bar', name: 'Pending requests', data: keys.map(function (k) { return { name: k, value: counts[k], itemStyle: { color: '#d97706', borderRadius: [4, 4, 0, 0] } }; }), barMaxWidth: 42, label: { show: true, position: 'top' } }] });
+            chart.off('click'); chart.on('click', function (p) { if (p.componentType === 'series') renderAssets(p.name); });
+        }
+        function renderAssets(m) {
+            level = 'asset'; selectedMonth = m; selectedAsset = null; showChart();
+            var rr = rows.filter(function (r) { return month(r) === m; }); var groups = {};
+            rr.forEach(function (r) { var a = asset(r); if (!groups[a]) groups[a] = { count: 0, maxDays: 0 }; groups[a].count++; groups[a].maxDays = Math.max(groups[a].maxDays, days(r)); });
+            var keys = Object.keys(groups).sort(function (a, b) { return groups[b].maxDays - groups[a].maxDays; });
+            setBreadcrumb(m + ' — asset-wise pending duration', 'Back', renderMonths);
+            if (!chart) return; chart.clear();
+            chart.setOption({ tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: function (p) { var a = p && p.length ? p[0].name : ''; var g = groups[a] || {}; return '<b>' + esc(a) + '</b><br/>Requests: <b>' + (g.count || 0) + '</b><br/>Longest pending: <b>' + (g.maxDays || 0) + ' days</b>'; } }, grid: { left: 145, right: 25, top: 18, bottom: 18, containLabel: false }, xAxis: { type: 'value', min: 0, axisLabel: { formatter: '{value} days' }, splitLine: { lineStyle: { color: '#dbe5ed' } } }, yAxis: { type: 'category', data: keys, inverse: true, axisLabel: { width: 130, overflow: 'truncate', fontSize: 10 } }, series: [{ type: 'bar', data: keys.map(function (k) { return { name: k, value: groups[k].maxDays, itemStyle: { color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{ offset: 0, color: '#a50021' }, { offset: 1, color: '#ff8426' }]), borderRadius: [0, 14, 14, 0] } }; }), barMaxWidth: 25, showBackground: true, backgroundStyle: { color: '#edf2f7', borderRadius: [0, 14, 14, 0] }, label: { show: true, position: 'insideRight', color: '#fff', fontSize: 10, fontWeight: 700, formatter: function (p) { var g = groups[p.name]; return g.count + ' REQUEST' + (g.count === 1 ? '' : 'S') + ' | ' + p.value + ' DAYS'; } } }] });
+            chart.off('click'); chart.on('click', function (p) { if (p.componentType === 'series') renderEmployees(m, p.name); });
+        }
+        function renderEmployees(m, a) {
+            level = 'employees'; selectedMonth = m; selectedAsset = a; var rr = rows.filter(function (r) { return month(r) === m && asset(r) === a; });
+            setBreadcrumb(m + ' / ' + a + ' — employee request details', 'Back', function () { renderAssets(m); });
+            el('pendingAssetsRequestChart').style.display = 'none'; el('pendingAssetsRequestDetails').style.display = 'block';
+            var body = el('pendingAssetsRequestDetailsBody'); body.innerHTML = ''; rr.sort(function (x, y) { return days(y) - days(x); });
+            rr.forEach(function (r) { var tr = document.createElement('tr'); tr.innerHTML = '<td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(employee(r)) + '</strong><div style="font-size:11px;color:#64748b;">' + esc(pick(r, ['EmpCode', 'EmployeeCode', 'EmployeeID'], '')) + '</div><div style="font-size:11px;color:#64748b;">' + esc(pick(r, ['DepartmentTitle', 'DepartmentName', 'Department'], '')) + ' · ' + esc(pick(r, ['DesignationTitle', 'DesignationName', 'Designation'], '')) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;"><strong>' + esc(asset(r)) + '</strong><div style="font-size:11px;color:#64748b;">' + esc(pick(r, ['AssetCode', 'AssetCategoryTitle', 'AssetTypeTitle', 'Quantity', 'RequestedQuantity'], '')) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;white-space:nowrap;">' + esc(requestDateText(r)) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;font-weight:700;color:' + (days(r) >= 15 ? '#b91c1c' : days(r) >= 7 ? '#b45309' : '#166534') + ';">' + days(r) + ' days</td><td style="padding:9px;border-bottom:1px solid #e5edf3;">' + esc(status(r)) + '</td>'; body.appendChild(tr); });
+            if (!rr.length) body.innerHTML = '<tr><td colspan="5" style="padding:16px;text-align:center;color:#64748b;">No matching asset requests.</td></tr>';
+            el('pendingAssetsRequestTotal').textContent = rr.length + ' request' + (rr.length === 1 ? '' : 's');
+        }
+        window.displayPendingAssetRequestData = function (data) { try { if (typeof data === 'string') data = JSON.parse(data); rows = Array.isArray(data) ? data : []; renderMonths(); } catch (e) { console.error('Pending Assets Request render error', e); } };
+        window.addEventListener('resize', function () { if (chart) chart.resize(); });
+        if (window.__staffSyncPendingAssetRequests) { window.displayPendingAssetRequestData(window.__staffSyncPendingAssetRequests); window.__staffSyncPendingAssetRequests = null; }
     })();
 </script>
 
