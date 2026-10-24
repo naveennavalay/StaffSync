@@ -35,6 +35,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dtgAssetRequestedList = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblAssetRequestID = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtRequestDescription = new Krypton.Toolkit.KryptonTextBox();
             this.kryptonLinkLabel1 = new Krypton.Toolkit.KryptonLinkLabel();
@@ -62,6 +63,8 @@
             this.label35 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbAssetCondition = new Krypton.Toolkit.KryptonComboBox();
+            this.label74 = new System.Windows.Forms.Label();
             this.txtComments = new Krypton.Toolkit.KryptonTextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -78,9 +81,6 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.cmbAssetCondition = new Krypton.Toolkit.KryptonComboBox();
-            this.label74 = new System.Windows.Forms.Label();
-            this.lblAssetRequestID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -92,13 +92,13 @@
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbAssetCondition)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbAssetCondition)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -194,6 +194,20 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Asset Allotment Information";
             // 
+            // lblAssetRequestID
+            // 
+            this.lblAssetRequestID.AutoSize = true;
+            this.lblAssetRequestID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblAssetRequestID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAssetRequestID.Location = new System.Drawing.Point(506, 27);
+            this.lblAssetRequestID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblAssetRequestID.Name = "lblAssetRequestID";
+            this.lblAssetRequestID.Size = new System.Drawing.Size(11, 15);
+            this.lblAssetRequestID.TabIndex = 97;
+            this.lblAssetRequestID.Tag = "";
+            this.lblAssetRequestID.Text = " ";
+            this.lblAssetRequestID.Visible = false;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -208,7 +222,7 @@
             // 
             // txtRequestDescription
             // 
-            this.txtRequestDescription.Location = new System.Drawing.Point(414, 59);
+            this.txtRequestDescription.Location = new System.Drawing.Point(414, 63);
             this.txtRequestDescription.Multiline = true;
             this.txtRequestDescription.Name = "txtRequestDescription";
             this.txtRequestDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -566,6 +580,30 @@
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             // 
+            // cmbAssetCondition
+            // 
+            this.cmbAssetCondition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAssetCondition.DropDownWidth = 440;
+            this.cmbAssetCondition.Location = new System.Drawing.Point(150, 17);
+            this.cmbAssetCondition.Name = "cmbAssetCondition";
+            this.cmbAssetCondition.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbAssetCondition.Size = new System.Drawing.Size(128, 22);
+            this.cmbAssetCondition.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbAssetCondition.TabIndex = 98;
+            this.cmbAssetCondition.Tag = "Current State";
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label74.Location = new System.Drawing.Point(97, 21);
+            this.label74.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(47, 15);
+            this.label74.TabIndex = 97;
+            this.label74.Text = "Status";
+            this.label74.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // txtComments
             // 
             this.txtComments.Location = new System.Drawing.Point(150, 50);
@@ -712,44 +750,6 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
-            // cmbAssetCondition
-            // 
-            this.cmbAssetCondition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAssetCondition.DropDownWidth = 440;
-            this.cmbAssetCondition.Location = new System.Drawing.Point(150, 17);
-            this.cmbAssetCondition.Name = "cmbAssetCondition";
-            this.cmbAssetCondition.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbAssetCondition.Size = new System.Drawing.Size(128, 22);
-            this.cmbAssetCondition.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbAssetCondition.TabIndex = 98;
-            this.cmbAssetCondition.Tag = "Current State";
-            // 
-            // label74
-            // 
-            this.label74.AutoSize = true;
-            this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label74.Location = new System.Drawing.Point(97, 21);
-            this.label74.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(47, 15);
-            this.label74.TabIndex = 97;
-            this.label74.Text = "Status";
-            this.label74.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblAssetRequestID
-            // 
-            this.lblAssetRequestID.AutoSize = true;
-            this.lblAssetRequestID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblAssetRequestID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAssetRequestID.Location = new System.Drawing.Point(506, 27);
-            this.lblAssetRequestID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblAssetRequestID.Name = "lblAssetRequestID";
-            this.lblAssetRequestID.Size = new System.Drawing.Size(11, 15);
-            this.lblAssetRequestID.TabIndex = 97;
-            this.lblAssetRequestID.Tag = "";
-            this.lblAssetRequestID.Text = " ";
-            this.lblAssetRequestID.Visible = false;
-            // 
             // frmEmpAssetAllotment
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -783,13 +783,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.picEmpPhoto)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbAssetCondition)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qryAllEmpLeavePendingStatementBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.empMasInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.staffsyncDBDTSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbAssetCondition)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -584,6 +584,7 @@ namespace StaffSync
                 txtDepartment.Text = objApprovedAssetInformationRequestList[0].DepartmentTitle.ToString();
                 picEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblEmpID.Text)).EmpPhoto);
 
+                txtComments.Text = "To Issue: \n" + txtRequestDescription.Text;
                 dtgAssetRequestedList.DataSource = null;
                 dtgAssetRequestedList.DataSource = objAssetRegisterInfo.getAssetInformationOfAnAssetRequest(Convert.ToInt32(lblAssetRequestID.Text));
                 formatTransactionGrid();
