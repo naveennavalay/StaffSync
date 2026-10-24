@@ -1986,5 +1986,96 @@ namespace dbStaffSync
 
             return objAssetRegisterChartDataList;
         }
+
+        public List<ReimbursementInfoPendingList> PendingReimbursmentApprovalList(int txtClientID)
+        {
+            List<ReimbursementInfoPendingList> objReimbursementInfoPendingListInfo = new List<ReimbursementInfoPendingList>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "";
+
+                strQuery = @"SELECT
+                                EmpMas.EmpID,
+                                EmpMas.EmpCode,
+                                EmpMas.EmpName,
+                                DesigMas.DesignationTitle,
+                                DepMas.DepartmentTitle,
+                                ReimbursRequestInfo.ReimbursRequestID,
+                                ReimbursRequestInfo.ReimbursRequestCode,
+                                ReimbursementHeaderMas.ReimbID,
+                                ReimbursementHeaderMas.ReimbTitle,
+                                ReimbursRequestInfo.ReimbursAproveBy1,
+                                ReimbursRequestInfo.ReimbursRequestDate,
+                                ReimbursRequestInfo.ReimbursRequestAmount,
+                                ReimbursRequestInfo.ReimbursAproveComments1,
+                                ReimbursRequestInfo.ReimbursAproveStatus1,
+                                ReimbursRequestInfo.ReimbursRequestFinalStatus,
+                                ReimbursRequestInfo.ReimbursAproveStatus2,
+                                ReimbursRequestInfo.ReimbursAproveBy2,
+                                IIf(ReimbursRequestInfo.ReimbursAproveStatus1 = False, ""Pending"", """") AS RequestStatus,
+                                ReimbursRequestInfo.IsActive,
+                                ReimbursRequestInfo.IsDeleted,
+                                ClientMas.ClientID
+                            FROM
+                                ReimbursementHeaderMas
+                                INNER JOIN (
+                                    (
+                                        (
+                                            DesigMas
+                                            INNER JOIN (
+                                                DepMas
+                                                INNER JOIN (
+                                                    ClientMas
+                                                    INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                            ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                        )
+                                        INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                    )
+                                    INNER JOIN ReimbursRequestInfo ON PersonalInfoMas.PersonalInfoID = ReimbursRequestInfo.PersonalInfoID
+                                ) ON ReimbursementHeaderMas.ReimbID = ReimbursRequestInfo.ReimbID
+                            WHERE
+                                (
+                                    ((EmpMas.EmpID) > 1)
+                                    AND ((ReimbursRequestInfo.ReimbursAproveStatus1) = False)
+                                    AND ((ReimbursRequestInfo.ReimbursRequestFinalStatus) = False)
+                                    AND ((ReimbursRequestInfo.ReimbursAproveStatus2) = False)
+                                    AND ((ReimbursRequestInfo.IsActive) = True)
+                                    AND ((ReimbursRequestInfo.IsDeleted) = False)
+                                    AND ((ClientMas.ClientID) = " + txtClientID + @")
+                                )
+                            ORDER BY
+                                EmpMas.EmpID,
+                                ReimbursRequestInfo.ReimbursRequestID,
+                                ReimbursRequestInfo.ReimbursRequestDate;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objReimbursementInfoPendingListInfo = JsonConvert.DeserializeObject<List<ReimbursementInfoPendingList>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objReimbursementInfoPendingListInfo;
+        }
     }
 }

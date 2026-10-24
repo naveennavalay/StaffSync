@@ -186,5 +186,14 @@ namespace DALStaffSync
 
             return objAssetRegisterChartDataList;
         }
+
+        public List<ReimbursementInfoPendingList> PendingReimbursmentApprovalList(int txtClientID)
+        {
+            List<ReimbursementInfoPendingList> objReimbursementInfoPendingListInfo = new List<ReimbursementInfoPendingList>();
+
+            objReimbursementInfoPendingListInfo = objDashboardChartWidgets.PendingReimbursmentApprovalList(txtClientID);
+
+            return objReimbursementInfoPendingListInfo;
+        }
     }
 }
