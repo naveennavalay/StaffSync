@@ -790,5 +790,104 @@ namespace dbStaffSync
 
             return objAssetInformationOfAnAssetRequestInfo;
         }
+
+        public List<AssetAnalyticsInformation> getAssetAnalyticsInformation(int ClientID)
+        {
+            List<AssetAnalyticsInformation> objAssetAnalyticsInformationInfo = new List<AssetAnalyticsInformation>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "";
+                strQuery = @"SELECT
+                                E.EmpCode,
+                                E.EmpName,
+                                P.DepartmentTitle,
+                                D.DesignationTitle,
+                                C.AssetCatMasID,
+                                C.AssetCode AS CatAssetCode,
+                                C.AssetName AS CatAssetName,
+                                A.AssetID,
+                                A.AssetCode,
+                                A.AssetName,
+                                A.TotalQuantity,
+                                A.OutstandingQuantity,
+                                (
+                                    SELECT
+                                        Sum(IIf(IsNull(AR1.DrBalance), 0, AR1.DrBalance))
+                                    FROM
+                                        AssetRegister AS AR1
+                                    WHERE
+                                        AR1.AssetID = A.AssetID
+                                        AND AR1.TRType = 'Dr'
+                                ) AS IssuedQuantity,
+                                EA.IssueDate,
+                                EA.IssueCondition,
+                                EA.IssueRemarks,
+                                E.EmpID,
+                                A.IsActive,
+                                A.IsDeleted,
+                                ClientMas.ClientID
+                            FROM
+                                (
+                                    (
+                                        DesigMas AS D
+                                        INNER JOIN (
+                                            DepMas AS P
+                                            INNER JOIN (
+                                                EmpAssetRequest AS R
+                                                INNER JOIN EmpMas AS E ON R.AssetRequestByID = E.EmpID
+                                            ) ON P.DepartmentID = E.DepartmentID
+                                        ) ON D.DesignationID = E.EmpDesignationID
+                                    )
+                                    INNER JOIN (
+                                        (
+                                            AssetCategoryMas AS C
+                                            INNER JOIN AssetMas AS A ON C.AssetCatMasID = A.AssetCatMasID
+                                        )
+                                        INNER JOIN EmpAssetAllocation AS EA ON A.AssetID = EA.AssetID
+                                    ) ON R.AssetRequestID = EA.AssetRequestID
+                                )
+                                INNER JOIN ClientMas ON E.ClientID = ClientMas.ClientID
+                            WHERE
+                                (
+                                    ((EA.IssueDate) IS NOT NULL)
+                                    AND ((E.EmpID) > 1)
+                                    AND ((A.IsActive) = True)
+                                    AND ((A.IsDeleted) = False)
+                                    AND ((EA.ReturnDate) IS NULL)
+                                    AND ((ClientMas.ClientID) = " + ClientID + @")
+                                )
+                            ORDER BY
+                                C.AssetCatMasID,
+                                A.AssetID,
+                                E.EmpID;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objAssetAnalyticsInformationInfo = JsonConvert.DeserializeObject<List<AssetAnalyticsInformation>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objAssetAnalyticsInformationInfo;
+        }
     }
 }

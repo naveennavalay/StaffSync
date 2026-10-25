@@ -74,5 +74,10 @@ namespace DALStaffSync
         {
             return objAssetsRegisterInfo.getAssetInformationOfAnAssetRequest(AssetRequestID);
         }
+
+        public List<AssetAnalyticsInformation> getAssetAnalyticsInformation(int ClientID)
+        {
+            return objAssetsRegisterInfo.getAssetAnalyticsInformation(ClientID);
+        }
     }
 }

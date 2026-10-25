@@ -382,4 +382,26 @@ namespace ModelStaffSync
         public string IssueRemarks { get; set; }
     }
 
+    public class AssetAnalyticsInformation
+    {
+        public int EmpID { get; set; }
+        public string EmpCode { get; set; }
+        public string EmpName { get; set; }
+        public string DepartmentTitle { get; set; }
+        public string DesignationTitle { get; set; }
+        public int AssetCatMasID { get; set; }
+        public string CatAssetCode { get; set; }
+        public string CatAssetName { get; set; }
+        public int AssetID { get; set; }
+        public string AssetCode { get; set; }
+        public string AssetName { get; set; }
+        public decimal TotalQuantity {  get; set; }
+        public decimal OutstandingQuantity { get; set; }
+        public decimal IssuedQuantity { get; set; }
+        public DateTime IssueDate { get; set; }
+        public string IssueCondition { get; set; }
+        public string IssueRemarks { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
+    }
 }
