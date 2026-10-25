@@ -33,6 +33,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.grpMoreOptions = new System.Windows.Forms.GroupBox();
+            this.chkAssetsInformation = new System.Windows.Forms.CheckBox();
+            this.chkReimbStatements = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
@@ -78,8 +80,7 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
-            this.chkReimbStatements = new System.Windows.Forms.CheckBox();
-            this.chkAssetsInformation = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -115,7 +116,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1203, 728);
+            this.splitContainer1.Size = new System.Drawing.Size(1195, 728);
             this.splitContainer1.SplitterDistance = 653;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -128,7 +129,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1203, 653);
+            this.panel1.Size = new System.Drawing.Size(1195, 653);
             this.panel1.TabIndex = 1;
             // 
             // grpMoreOptions
@@ -153,6 +154,36 @@
             this.grpMoreOptions.TabStop = false;
             this.grpMoreOptions.Text = "More Options";
             this.grpMoreOptions.Visible = false;
+            // 
+            // chkAssetsInformation
+            // 
+            this.chkAssetsInformation.AutoSize = true;
+            this.chkAssetsInformation.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkAssetsInformation.Checked = true;
+            this.chkAssetsInformation.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAssetsInformation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkAssetsInformation.Location = new System.Drawing.Point(670, 50);
+            this.chkAssetsInformation.Name = "chkAssetsInformation";
+            this.chkAssetsInformation.Size = new System.Drawing.Size(144, 19);
+            this.chkAssetsInformation.TabIndex = 94;
+            this.chkAssetsInformation.Tag = "Assets Information";
+            this.chkAssetsInformation.Text = "Assets Information";
+            this.chkAssetsInformation.UseVisualStyleBackColor = true;
+            // 
+            // chkReimbStatements
+            // 
+            this.chkReimbStatements.AutoSize = true;
+            this.chkReimbStatements.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkReimbStatements.Checked = true;
+            this.chkReimbStatements.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkReimbStatements.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkReimbStatements.Location = new System.Drawing.Point(618, 25);
+            this.chkReimbStatements.Name = "chkReimbStatements";
+            this.chkReimbStatements.Size = new System.Drawing.Size(196, 19);
+            this.chkReimbStatements.TabIndex = 93;
+            this.chkReimbStatements.Tag = "Reimbursment Statements";
+            this.chkReimbStatements.Text = "Reimbursment Statements";
+            this.chkReimbStatements.UseVisualStyleBackColor = true;
             // 
             // checkBox1
             // 
@@ -593,7 +624,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1203, 71);
+            this.panel2.Size = new System.Drawing.Size(1195, 71);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
@@ -603,6 +634,7 @@
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
             this.btnCloseMe.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.btnCloseMe, "Close Me (Ctrl + Z)");
             this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
             this.btnCloseMe.Values.Text = "Close Me";
@@ -615,6 +647,7 @@
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnRemoveDetails.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.btnRemoveDetails, "Delete (Ctrl + D)");
             this.btnRemoveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnRemoveDetails.Values.Image = global::StaffSync.Properties.Resources.delete;
             this.btnRemoveDetails.Values.Text = "Delete";
@@ -628,6 +661,7 @@
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnSaveDetails.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.btnSaveDetails, "Save (Ctrl + S)");
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSaveDetails.Values.Image = global::StaffSync.Properties.Resources.export;
             this.btnSaveDetails.Values.Text = "Export Data";
@@ -640,6 +674,7 @@
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
             this.btnModifyDetails.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.btnModifyDetails, "Modify (Ctrl + E)");
             this.btnModifyDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnModifyDetails.Values.Image = global::StaffSync.Properties.Resources.update;
             this.btnModifyDetails.Values.Text = "Modify";
@@ -719,36 +754,6 @@
             // empMasInfoTableAdapter
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
-            // 
-            // chkReimbStatements
-            // 
-            this.chkReimbStatements.AutoSize = true;
-            this.chkReimbStatements.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkReimbStatements.Checked = true;
-            this.chkReimbStatements.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkReimbStatements.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkReimbStatements.Location = new System.Drawing.Point(618, 25);
-            this.chkReimbStatements.Name = "chkReimbStatements";
-            this.chkReimbStatements.Size = new System.Drawing.Size(196, 19);
-            this.chkReimbStatements.TabIndex = 93;
-            this.chkReimbStatements.Tag = "Reimbursment Statements";
-            this.chkReimbStatements.Text = "Reimbursment Statements";
-            this.chkReimbStatements.UseVisualStyleBackColor = true;
-            // 
-            // chkAssetsInformation
-            // 
-            this.chkAssetsInformation.AutoSize = true;
-            this.chkAssetsInformation.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkAssetsInformation.Checked = true;
-            this.chkAssetsInformation.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAssetsInformation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkAssetsInformation.Location = new System.Drawing.Point(670, 50);
-            this.chkAssetsInformation.Name = "chkAssetsInformation";
-            this.chkAssetsInformation.Size = new System.Drawing.Size(144, 19);
-            this.chkAssetsInformation.TabIndex = 94;
-            this.chkAssetsInformation.Tag = "Assets Information";
-            this.chkAssetsInformation.Text = "Assets Information";
-            this.chkAssetsInformation.UseVisualStyleBackColor = true;
             // 
             // frmExportDataProcess
             // 
@@ -848,5 +853,6 @@
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.CheckBox chkAssetsInformation;
         private System.Windows.Forms.CheckBox chkReimbStatements;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

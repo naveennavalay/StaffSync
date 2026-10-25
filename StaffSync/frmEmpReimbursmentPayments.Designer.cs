@@ -33,6 +33,14 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtCurrentBalance = new Krypton.Toolkit.KryptonTextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtTotalDebit = new Krypton.Toolkit.KryptonTextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtTotalCredit = new Krypton.Toolkit.KryptonTextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtOBalance = new Krypton.Toolkit.KryptonTextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.dtgReimbursmentPaymentHistory = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -83,17 +91,10 @@
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
-            this.txtOBalance = new Krypton.Toolkit.KryptonTextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtTotalCredit = new Krypton.Toolkit.KryptonTextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtTotalDebit = new Krypton.Toolkit.KryptonTextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtCurrentBalance = new Krypton.Toolkit.KryptonTextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -164,6 +165,127 @@
             this.groupBox3.TabIndex = 67;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Payment Details";
+            // 
+            // txtCurrentBalance
+            // 
+            this.txtCurrentBalance.Enabled = false;
+            this.txtCurrentBalance.Location = new System.Drawing.Point(654, 202);
+            this.txtCurrentBalance.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCurrentBalance.Multiline = true;
+            this.txtCurrentBalance.Name = "txtCurrentBalance";
+            this.txtCurrentBalance.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtCurrentBalance.Size = new System.Drawing.Size(140, 28);
+            this.txtCurrentBalance.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCurrentBalance.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtCurrentBalance.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCurrentBalance.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCurrentBalance.TabIndex = 75;
+            this.txtCurrentBalance.Tag = "Outstanding Balance should not be less than Zero.";
+            this.txtCurrentBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtCurrentBalance.WordWrap = false;
+            this.txtCurrentBalance.TextChanged += new System.EventHandler(this.txtCurrentBalance_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(651, 182);
+            this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(140, 15);
+            this.label7.TabIndex = 74;
+            this.label7.Text = "Outstanding Balance";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtTotalDebit
+            // 
+            this.txtTotalDebit.Enabled = false;
+            this.txtTotalDebit.Location = new System.Drawing.Point(473, 202);
+            this.txtTotalDebit.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTotalDebit.Multiline = true;
+            this.txtTotalDebit.Name = "txtTotalDebit";
+            this.txtTotalDebit.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtTotalDebit.Size = new System.Drawing.Size(140, 28);
+            this.txtTotalDebit.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalDebit.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtTotalDebit.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalDebit.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalDebit.TabIndex = 73;
+            this.txtTotalDebit.Tag = "Designation";
+            this.txtTotalDebit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtTotalDebit.WordWrap = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(470, 182);
+            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(77, 15);
+            this.label4.TabIndex = 72;
+            this.label4.Text = "Total Debit";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtTotalCredit
+            // 
+            this.txtTotalCredit.Enabled = false;
+            this.txtTotalCredit.Location = new System.Drawing.Point(295, 202);
+            this.txtTotalCredit.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTotalCredit.Multiline = true;
+            this.txtTotalCredit.Name = "txtTotalCredit";
+            this.txtTotalCredit.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtTotalCredit.Size = new System.Drawing.Size(140, 28);
+            this.txtTotalCredit.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalCredit.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtTotalCredit.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalCredit.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalCredit.TabIndex = 71;
+            this.txtTotalCredit.Tag = "Designation";
+            this.txtTotalCredit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtTotalCredit.WordWrap = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(292, 182);
+            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(81, 15);
+            this.label3.TabIndex = 70;
+            this.label3.Text = "Total Credit";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtOBalance
+            // 
+            this.txtOBalance.Enabled = false;
+            this.txtOBalance.Location = new System.Drawing.Point(122, 202);
+            this.txtOBalance.Margin = new System.Windows.Forms.Padding(4);
+            this.txtOBalance.Multiline = true;
+            this.txtOBalance.Name = "txtOBalance";
+            this.txtOBalance.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtOBalance.Size = new System.Drawing.Size(140, 28);
+            this.txtOBalance.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOBalance.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtOBalance.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOBalance.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOBalance.TabIndex = 69;
+            this.txtOBalance.Tag = "Current Balance should not be Zero.";
+            this.txtOBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtOBalance.WordWrap = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(119, 182);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(110, 15);
+            this.label2.TabIndex = 68;
+            this.label2.Text = "Current Balance";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dtgReimbursmentPaymentHistory
             // 
@@ -741,6 +863,7 @@
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
             this.btnCloseMe.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.btnCloseMe, "Close Me (Ctrl + Z)");
             this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
             this.btnCloseMe.Values.Text = "Close Me";
@@ -753,6 +876,7 @@
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnRemoveDetails.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.btnRemoveDetails, "Delete (Ctrl + D)");
             this.btnRemoveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnRemoveDetails.Values.Image = global::StaffSync.Properties.Resources.delete;
             this.btnRemoveDetails.Values.Text = "Delete";
@@ -766,6 +890,7 @@
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnSaveDetails.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.btnSaveDetails, "Save (Ctrl + S)");
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSaveDetails.Values.Image = global::StaffSync.Properties.Resources.save;
             this.btnSaveDetails.Values.Text = "Save";
@@ -778,6 +903,7 @@
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
             this.btnModifyDetails.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.btnModifyDetails, "Modify (Ctrl + E)");
             this.btnModifyDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnModifyDetails.Values.Image = global::StaffSync.Properties.Resources.update;
             this.btnModifyDetails.Values.Text = "Modify";
@@ -791,6 +917,7 @@
             this.btnGenerateDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnGenerateDetails.Size = new System.Drawing.Size(126, 38);
             this.btnGenerateDetails.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.btnGenerateDetails, "Generate (Ctrl + N)");
             this.btnGenerateDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnGenerateDetails.Values.Image = global::StaffSync.Properties.Resources._new;
             this.btnGenerateDetails.Values.Text = "Generate";
@@ -803,6 +930,7 @@
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
             this.btnCancel.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.btnCancel, "Cancel (Ctrl + X)");
             this.btnCancel.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCancel.Values.Image = global::StaffSync.Properties.Resources.cancel;
             this.btnCancel.Values.Text = "Cancel";
@@ -825,127 +953,6 @@
             // qryAllEmpLeavePendingStatementTableAdapter
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
-            // 
-            // txtOBalance
-            // 
-            this.txtOBalance.Enabled = false;
-            this.txtOBalance.Location = new System.Drawing.Point(122, 202);
-            this.txtOBalance.Margin = new System.Windows.Forms.Padding(4);
-            this.txtOBalance.Multiline = true;
-            this.txtOBalance.Name = "txtOBalance";
-            this.txtOBalance.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtOBalance.Size = new System.Drawing.Size(140, 28);
-            this.txtOBalance.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOBalance.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtOBalance.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOBalance.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOBalance.TabIndex = 69;
-            this.txtOBalance.Tag = "Current Balance should not be Zero.";
-            this.txtOBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtOBalance.WordWrap = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(119, 182);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 15);
-            this.label2.TabIndex = 68;
-            this.label2.Text = "Current Balance";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtTotalCredit
-            // 
-            this.txtTotalCredit.Enabled = false;
-            this.txtTotalCredit.Location = new System.Drawing.Point(295, 202);
-            this.txtTotalCredit.Margin = new System.Windows.Forms.Padding(4);
-            this.txtTotalCredit.Multiline = true;
-            this.txtTotalCredit.Name = "txtTotalCredit";
-            this.txtTotalCredit.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtTotalCredit.Size = new System.Drawing.Size(140, 28);
-            this.txtTotalCredit.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalCredit.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtTotalCredit.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalCredit.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalCredit.TabIndex = 71;
-            this.txtTotalCredit.Tag = "Designation";
-            this.txtTotalCredit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtTotalCredit.WordWrap = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(292, 182);
-            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(81, 15);
-            this.label3.TabIndex = 70;
-            this.label3.Text = "Total Credit";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtTotalDebit
-            // 
-            this.txtTotalDebit.Enabled = false;
-            this.txtTotalDebit.Location = new System.Drawing.Point(473, 202);
-            this.txtTotalDebit.Margin = new System.Windows.Forms.Padding(4);
-            this.txtTotalDebit.Multiline = true;
-            this.txtTotalDebit.Name = "txtTotalDebit";
-            this.txtTotalDebit.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtTotalDebit.Size = new System.Drawing.Size(140, 28);
-            this.txtTotalDebit.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalDebit.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtTotalDebit.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalDebit.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalDebit.TabIndex = 73;
-            this.txtTotalDebit.Tag = "Designation";
-            this.txtTotalDebit.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtTotalDebit.WordWrap = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(470, 182);
-            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 15);
-            this.label4.TabIndex = 72;
-            this.label4.Text = "Total Debit";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtCurrentBalance
-            // 
-            this.txtCurrentBalance.Enabled = false;
-            this.txtCurrentBalance.Location = new System.Drawing.Point(654, 202);
-            this.txtCurrentBalance.Margin = new System.Windows.Forms.Padding(4);
-            this.txtCurrentBalance.Multiline = true;
-            this.txtCurrentBalance.Name = "txtCurrentBalance";
-            this.txtCurrentBalance.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtCurrentBalance.Size = new System.Drawing.Size(140, 28);
-            this.txtCurrentBalance.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCurrentBalance.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtCurrentBalance.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCurrentBalance.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCurrentBalance.TabIndex = 75;
-            this.txtCurrentBalance.Tag = "Outstanding Balance should not be less than Zero.";
-            this.txtCurrentBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtCurrentBalance.WordWrap = false;
-            this.txtCurrentBalance.TextChanged += new System.EventHandler(this.txtCurrentBalance_TextChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(651, 182);
-            this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(140, 15);
-            this.label7.TabIndex = 74;
-            this.label7.Text = "Outstanding Balance";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // empMasInfoBindingSource
             // 
@@ -1071,5 +1078,6 @@
         private System.Windows.Forms.Label label3;
         private Krypton.Toolkit.KryptonTextBox txtOBalance;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

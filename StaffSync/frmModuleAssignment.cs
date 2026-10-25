@@ -214,11 +214,11 @@ namespace StaffSync
 
                 if (insertNewRecordCount > 0)
                 {
-                    foreach (var changedValues in onlyChangedValues)
-                    {
-                        if (lblActionMode.Text == "modify")
-                            objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
-                    }
+                    //foreach (var changedValues in onlyChangedValues)
+                    //{
+                    //    if (lblActionMode.Text == "modify")
+                    //        objAuditLog.InsertAuditLog(Convert.ToInt32(CurrentUser.EmpID.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), changedValues.ToString().Trim(), "Update", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                    //}
 
 
                     //objLeaveTRList.UpdateEmployeeLeaveBalance(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToDecimal(txtAvailableLeave.Text), Convert.ToDecimal(txtBalanceLeave.Text));
@@ -325,6 +325,36 @@ namespace StaffSync
                 objDashboard.sptrDashboardContainer.Visible = true;
                 objDashboard.refreshDashboardCharts();
                 this.Close();
+            }
+            else if (e.Control && e.KeyCode == Keys.N)
+            {
+                e.SuppressKeyPress = true;
+                //btnGenerateDetails_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.E)
+            {
+                e.SuppressKeyPress = true;
+                btnModifyDetails_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.D)
+            {
+                e.SuppressKeyPress = true;
+                //btnRemoveDetails_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.S)
+            {
+                e.SuppressKeyPress = true;
+                btnSaveDetails_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.X)
+            {
+                e.SuppressKeyPress = true;
+                btnCancel_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.Z)
+            {
+                e.SuppressKeyPress = true;
+                btnCloseMe_Click(sender, e);
             }
         }
 

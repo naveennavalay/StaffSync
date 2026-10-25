@@ -440,6 +440,36 @@ namespace StaffSync
                 objDashboard.refreshDashboardCharts();
                 this.Close();
             }
+            else if (e.Control && e.KeyCode == Keys.N)
+            {
+                e.SuppressKeyPress = true;
+                btnGenerateDetails_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.E)
+            {
+                e.SuppressKeyPress = true;
+                btnModifyDetails_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.D)
+            {
+                e.SuppressKeyPress = true;
+                btnRemoveDetails_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.S)
+            {
+                e.SuppressKeyPress = true;
+                btnSaveDetails_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.X)
+            {
+                e.SuppressKeyPress = true;
+                btnCancel_Click(sender, e);
+            }
+            else if (e.Control && e.KeyCode == Keys.Z)
+            {
+                e.SuppressKeyPress = true;
+                btnCloseMe_Click(sender, e);
+            }
         }
 
         private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)

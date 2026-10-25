@@ -57,6 +57,7 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -74,7 +75,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -98,7 +99,7 @@
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(976, 308);
             this.panel1.TabIndex = 1;
@@ -113,9 +114,9 @@
             this.groupBox5.Controls.Add(this.label16);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.Location = new System.Drawing.Point(19, 102);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox5.Size = new System.Drawing.Size(935, 196);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
@@ -125,7 +126,7 @@
             // 
             this.cmbIsActive.FormattingEnabled = true;
             this.cmbIsActive.Location = new System.Drawing.Point(188, 149);
-            this.cmbIsActive.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbIsActive.Margin = new System.Windows.Forms.Padding(4);
             this.cmbIsActive.MaxDropDownItems = 5;
             this.cmbIsActive.Name = "cmbIsActive";
             this.cmbIsActive.Size = new System.Drawing.Size(568, 23);
@@ -203,9 +204,9 @@
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(24, 15);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(930, 80);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
@@ -214,7 +215,7 @@
             // lnkViewAuditLog
             // 
             this.lnkViewAuditLog.Location = new System.Drawing.Point(463, 34);
-            this.lnkViewAuditLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lnkViewAuditLog.Margin = new System.Windows.Forms.Padding(4);
             this.lnkViewAuditLog.Name = "lnkViewAuditLog";
             this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
             this.lnkViewAuditLog.TabIndex = 48;
@@ -225,7 +226,7 @@
             // btnSearch
             // 
             this.btnSearch.Location = new System.Drawing.Point(416, 27);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSearch.Size = new System.Drawing.Size(39, 34);
@@ -295,7 +296,7 @@
             this.panel2.Controls.Add(this.btnCancel);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(976, 70);
             this.panel2.TabIndex = 1;
@@ -303,11 +304,12 @@
             // btnCloseMe
             // 
             this.btnCloseMe.Location = new System.Drawing.Point(828, 18);
-            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCloseMe.Margin = new System.Windows.Forms.Padding(4);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
             this.btnCloseMe.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.btnCloseMe, "Close Me (Ctrl + Z)");
             this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
             this.btnCloseMe.Values.Text = "Close Me";
@@ -316,11 +318,12 @@
             // btnRemoveDetails
             // 
             this.btnRemoveDetails.Location = new System.Drawing.Point(440, 18);
-            this.btnRemoveDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRemoveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveDetails.Name = "btnRemoveDetails";
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnRemoveDetails.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.btnRemoveDetails, "Delete (Ctrl + D)");
             this.btnRemoveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnRemoveDetails.Values.Image = global::StaffSync.Properties.Resources.delete;
             this.btnRemoveDetails.Values.Text = "Delete";
@@ -329,11 +332,12 @@
             // btnSaveDetails
             // 
             this.btnSaveDetails.Location = new System.Drawing.Point(304, 18);
-            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSaveDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnSaveDetails.Name = "btnSaveDetails";
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnSaveDetails.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.btnSaveDetails, "Save (Ctrl + S)");
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSaveDetails.Values.Image = global::StaffSync.Properties.Resources.save;
             this.btnSaveDetails.Values.Text = "Save";
@@ -342,11 +346,12 @@
             // btnModifyDetails
             // 
             this.btnModifyDetails.Location = new System.Drawing.Point(170, 18);
-            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnModifyDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnModifyDetails.Name = "btnModifyDetails";
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
             this.btnModifyDetails.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.btnModifyDetails, "Modify (Ctrl + E)");
             this.btnModifyDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnModifyDetails.Values.Image = global::StaffSync.Properties.Resources.update;
             this.btnModifyDetails.Values.Text = "Modify";
@@ -355,11 +360,12 @@
             // btnGenerateDetails
             // 
             this.btnGenerateDetails.Location = new System.Drawing.Point(36, 18);
-            this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGenerateDetails.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerateDetails.Name = "btnGenerateDetails";
             this.btnGenerateDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnGenerateDetails.Size = new System.Drawing.Size(126, 38);
             this.btnGenerateDetails.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.btnGenerateDetails, "Generate (Ctrl + N)");
             this.btnGenerateDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnGenerateDetails.Values.Image = global::StaffSync.Properties.Resources._new;
             this.btnGenerateDetails.Values.Text = "Generate";
@@ -368,11 +374,12 @@
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(574, 18);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
             this.btnCancel.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.btnCancel, "Cancel (Ctrl + X)");
             this.btnCancel.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCancel.Values.Image = global::StaffSync.Properties.Resources.cancel;
             this.btnCancel.Values.Text = "Cancel";
@@ -404,7 +411,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmEduQualMaster";
@@ -460,5 +467,6 @@
         private System.Windows.Forms.TextBox txtEduQualCode;
         private System.Windows.Forms.Label label1;
         private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

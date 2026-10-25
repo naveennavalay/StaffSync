@@ -3267,6 +3267,32 @@
 
 
 
+        <!-- Asset Analytics: Month -> Category -> Asset -> Employee drilldown -->
+        <div id="assetAnalyticsInformationCard" data-dashboard-key="AssetAnalyticsInformation" class="chart-card">
+            <div class="chart-card-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                <div>
+                    <div class="chart-title" style="font-weight:700;color:#174b76;">Asset Analytics</div>
+                    <div style="font-size:11px;color:#64748b;margin-top:4px;">Month-wise by Issue Date · select a bar to drill down</div>
+                </div>
+                <span id="assetAnalyticsInformationTotal" class="today-card-count" style="background:#eaf3fb;color:#174b76;border:1px solid #c6dff4;padding:5px 12px;border-radius:16px;font-weight:700;">0 assets</span>
+            </div>
+            <div id="assetAnalyticsInformationBreadcrumb" style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:#64748b;margin:8px 0;">Month-wise overview</div>
+            <div id="assetAnalyticsInformationChart" style="width:100%;height:300px;min-height:250px;"></div>
+            <div id="assetAnalyticsInformationDetails" style="display:none;overflow:auto;margin-top:8px;">
+                <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:760px;">
+                    <thead>
+                        <tr style="background:#eff5f9;text-align:left;">
+                            <th style="padding:9px 10px;width:20%;">Employee</th>
+                            <th style="padding:9px 10px;width:42%;">Asset</th>
+                            <th style="padding:9px 10px;width:18%;">Issue Date</th>
+                            <th style="padding:9px 10px;width:20%;">Issue Condition</th>
+                        </tr>
+                    </thead>
+                    <tbody id="assetAnalyticsInformationDetailsBody"></tbody>
+                </table>
+            </div>
+        </div>
+
         <div id="pendingReimbursementApprovalsCard" data-dashboard-key="PendingReimbursementApprovals" class="chart-card">
             <div class="chart-card-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
                 <div><div class="chart-card-title" style="font-weight:700;color:#174b76;">Pending Reimbursement Approvals</div><div style="font-size:11px;color:#64748b;margin-top:4px;">Requests awaiting first approval · click a month to drill down</div></div>
@@ -22193,6 +22219,191 @@
         window.addEventListener('resize', function () { if (chart) chart.resize(); });
         if (window.__staffSyncPendingAssetRequests) { window.displayPendingAssetRequestData(window.__staffSyncPendingAssetRequests); window.__staffSyncPendingAssetRequests = null; }
     })();
+
+
+    /* ============================================================
+       ASSET ANALYTICS - FOUR LEVEL DRILLDOWN
+       ------------------------------------------------------------
+       C# entry point: displayAssetAnalyticsInformationChartData(data)
+       Levels: Month by Issue Date -> Asset Category -> Individual
+       asset in category -> employees currently holding that asset.
+       Inventory quantities are counted once per AssetID at each
+       summary level, avoiding duplicated master quantities caused
+       by one row per employee allocation.
+       Total Issued is calculated as Total Quantity - Outstanding
+       Quantity, as requested for this dashboard.
+       ============================================================ */
+    (function () {
+        'use strict';
+        var rows = [];
+        var chart = null;
+        var level = 'month';
+        var selectedMonth = null;
+        var selectedCategoryId = null;
+        var selectedCategoryName = null;
+        var selectedAssetId = null;
+        var selectedAssetName = null;
+        function el(id) { return document.getElementById(id); }
+        function esc(value) {
+            return String(value === null || value === undefined ? '' : value).replace(/[&<>"']/g, function (c) {
+                return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+            });
+        }
+        function pick(row, names, fallback) {
+            for (var i = 0; i < names.length; i++) {
+                if (row && row[names[i]] !== undefined && row[names[i]] !== null && row[names[i]] !== '') return row[names[i]];
+            }
+            return fallback;
+        }
+        function number(value) { var n = Number(value); return isFinite(n) ? n : 0; }
+        function dateOf(row) {
+            var v = pick(row, ['IssueDate', 'issueDate'], null);
+            if (!v) return null;
+            var d = new Date(v);
+            if (isNaN(d.getTime())) {
+                var m = String(v).match(/^\/?(\d{1,2})[-/ ]([A-Za-z]{3,}|\d{1,2})[-/ ](\d{4})/);
+                if (m) d = isNaN(Number(m[2])) ? new Date(m[3] + ' ' + m[2] + ' ' + m[1]) : new Date(Number(m[3]), Number(m[2]) - 1, Number(m[1]));
+            }
+            return isNaN(d.getTime()) ? null : d;
+        }
+        function monthKey(row) { var d = dateOf(row); return d ? d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') : 'Undated'; }
+        function monthLabel(key) {
+            if (key === 'Undated') return key;
+            var parts = key.split('-');
+            return new Date(Number(parts[0]), Number(parts[1]) - 1, 1).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        }
+        function categoryId(row) { return String(pick(row, ['AssetCatMasID', 'assetCatMasID'], pick(row, ['CatAssetName'], 'Uncategorised'))); }
+        function categoryName(row) { return String(pick(row, ['CatAssetName', 'AssetCategoryName', 'CategoryName'], 'Uncategorised')); }
+        function assetId(row) { return String(pick(row, ['AssetID', 'assetID'], pick(row, ['AssetCode', 'AssetName'], 'unknown'))); }
+        function assetName(row) { return String(pick(row, ['AssetName'], 'Unnamed asset')); }
+        function inventory(row) {
+            var total = number(pick(row, ['TotalQuantity'], 0));
+            var outstanding = number(pick(row, ['OutstandingQuantity'], 0));
+            return { total: total, outstanding: outstanding, issued: total - outstanding };
+        }
+        function uniqueAssets(input) {
+            var map = {};
+            input.forEach(function (r) {
+                var key = assetId(r);
+                if (!map[key]) map[key] = { row: r, total: inventory(r).total, outstanding: inventory(r).outstanding, issued: inventory(r).issued };
+            });
+            return Object.keys(map).map(function (k) { return map[k]; });
+        }
+        function sums(input) {
+            return uniqueAssets(input).reduce(function (a, x) {
+                a.total += x.total; a.outstanding += x.outstanding; a.issued += x.issued; return a;
+            }, { total: 0, outstanding: 0, issued: 0 });
+        }
+        function fmt(v) { return number(v).toLocaleString('en-IN', { maximumFractionDigits: 2 }); }
+        function initChart() {
+            var node = el('assetAnalyticsInformationChart');
+            if (!node || !window.echarts) return null;
+            return echarts.getInstanceByDom(node) || echarts.init(node);
+        }
+        function breadcrumb(label, back, callback) {
+            var b = el('assetAnalyticsInformationBreadcrumb');
+            b.innerHTML = '<span>' + esc(label) + '</span>' + (back ? '<button id="assetAnalyticsInformationBack" type="button" style="margin-left:auto;padding:5px 12px;border:1px solid #cbd9e5;border-radius:5px;background:#fff;color:#174b76;cursor:pointer;">← Back</button>' : '');
+            if (back) el('assetAnalyticsInformationBack').onclick = callback;
+        }
+        function showChart() {
+            el('assetAnalyticsInformationDetails').style.display = 'none';
+            el('assetAnalyticsInformationChart').style.display = 'block';
+            el('assetAnalyticsInformationChart').style.height = '300px';
+            chart = initChart();
+        }
+        function seriesFor(groups, keys) {
+            return [
+                { name: 'Total Quantity', type: 'bar', data: keys.map(function (k) { return groups[k].total; }), itemStyle: { color: '#7189d8', borderRadius: [8, 8, 0, 0] }, barMaxWidth: 20, label: { show: true, position: 'top', distance: 4, color: '#334155', fontSize: 10, fontWeight: 600, formatter: function (p) { return fmt(p.value); } } },
+                { name: 'Outstanding Quantity', type: 'bar', data: keys.map(function (k) { return groups[k].outstanding; }), itemStyle: { color: '#b2cb43', borderRadius: [8, 8, 0, 0] }, barMaxWidth: 20, label: { show: true, position: 'top', distance: 4, color: '#334155', fontSize: 10, fontWeight: 600, formatter: function (p) { return fmt(p.value); } } },
+                { name: 'Total Issued', type: 'bar', data: keys.map(function (k) { return groups[k].issued; }), itemStyle: { color: '#ed9b61', borderRadius: [8, 8, 0, 0] }, barMaxWidth: 20, label: { show: true, position: 'top', distance: 4, color: '#334155', fontSize: 10, fontWeight: 600, formatter: function (p) { return fmt(p.value); } } }
+            ];
+        }
+        function renderGrouped(title, groups, keys, clickHandler, backHandler, crumb) {
+            level = level;
+            showChart(); breadcrumb(crumb || title, !!backHandler, backHandler);
+            if (!chart) return;
+            chart.clear();
+            if (!keys.length) {
+                el('assetAnalyticsInformationChart').innerHTML = '<div style="padding:45px;text-align:center;color:#64748b;">No asset information available for this selection.</div>';
+                return;
+            }
+            chart.setOption({
+                tooltip: {
+                    trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: function (params) {
+                        var name = params && params.length ? params[0].axisValue : '';
+                        var g = groups[name] || { total: 0, outstanding: 0, issued: 0 };
+                        return '<b>' + esc(name) + '</b><br/>Total Quantity: <b>' + fmt(g.total) + '</b><br/>Outstanding Quantity: <b>' + fmt(g.outstanding) + '</b><br/>Total Issued: <b>' + fmt(g.issued) + '</b>';
+                    }
+                },
+                legend: { top: 2, itemWidth: 12, itemHeight: 8, textStyle: { color: '#475569', fontSize: 10 } },
+                grid: { left: 42, right: 18, top: 42, bottom: 42, containLabel: true, show: true, backgroundColor: '#e3e5e8', borderColor: '#d0d5db', borderWidth: 1 },
+                xAxis: { type: 'category', data: keys, axisTick: { show: false }, axisLine: { lineStyle: { color: '#94a3b8' } }, axisLabel: { rotate: keys.length > 5 ? 28 : 0, interval: 0, fontSize: 10, color: '#475569' } },
+                yAxis: { type: 'value', min: 0, name: 'Quantity', minInterval: 1, axisLabel: { color: '#64748b', fontSize: 10 }, axisLine: { show: false }, splitLine: { lineStyle: { color: '#cbd1d8' } } },
+                series: seriesFor(groups, keys)
+            });
+            chart.off('click');
+            chart.on('click', function (p) { if (p && p.componentType === 'series' && clickHandler) clickHandler(p.name); });
+        }
+        function renderMonths() {
+            level = 'month'; selectedMonth = null; selectedCategoryId = null; selectedCategoryName = null; selectedAssetId = null; selectedAssetName = null;
+            var monthRows = {};
+            rows.forEach(function (r) { var k = monthKey(r); if (!monthRows[k]) monthRows[k] = []; monthRows[k].push(r); });
+            var keys = Object.keys(monthRows).sort();
+            var groups = {}; keys.forEach(function (k) { groups[monthLabel(k)] = sums(monthRows[k]); });
+            var keyMap = {}; keys.forEach(function (k) { keyMap[monthLabel(k)] = k; });
+            var labels = keys.map(monthLabel);
+            el('assetAnalyticsInformationTotal').textContent = uniqueAssets(rows).length + ' assets';
+            renderGrouped('Month-wise Asset Analytics', groups, labels, function (label) { renderCategories(keyMap[label]); }, null, 'Month-wise by Issue Date');
+        }
+        function renderCategories(month) {
+            level = 'category'; selectedMonth = month;
+            var rr = rows.filter(function (r) { return monthKey(r) === month; });
+            var groups = {}, groupRows = {};
+            rr.forEach(function (r) { var id = categoryId(r), name = categoryName(r); if (!groupRows[id]) groupRows[id] = []; groupRows[id].push(r); groups[name] = sums(groupRows[id]); });
+            var names = Object.keys(groups).sort(); var nameToId = {}; rr.forEach(function (r) { nameToId[categoryName(r)] = categoryId(r); });
+            renderGrouped('Asset Categories', groups, names, function (name) { renderAssets(month, nameToId[name], name); }, function () { renderMonths(); }, monthLabel(month) + ' / Asset Categories');
+        }
+        function renderAssets(month, catId, catName) {
+            level = 'asset'; selectedMonth = month; selectedCategoryId = catId; selectedCategoryName = catName;
+            var rr = rows.filter(function (r) { return monthKey(r) === month && categoryId(r) === String(catId); });
+            var assetRows = {}; rr.forEach(function (r) { var id = assetId(r); if (!assetRows[id]) assetRows[id] = []; assetRows[id].push(r); });
+            var groups = {}, idByName = {}; Object.keys(assetRows).forEach(function (id) { var name = assetName(assetRows[id][0]); groups[name] = sums(assetRows[id]); idByName[name] = id; });
+            var names = Object.keys(groups).sort();
+            renderGrouped('Assets in ' + catName, groups, names, function (name) { renderEmployees(month, catId, catName, idByName[name], name); }, function () { renderCategories(month); }, monthLabel(month) + ' / ' + catName + ' / Assets');
+        }
+        function renderEmployees(month, catId, catName, aId, aName) {
+            level = 'employees'; selectedMonth = month; selectedCategoryId = catId; selectedCategoryName = catName; selectedAssetId = aId; selectedAssetName = aName;
+            var rr = rows.filter(function (r) { return monthKey(r) === month && categoryId(r) === String(catId) && assetId(r) === String(aId); });
+            breadcrumb(monthLabel(month) + ' / ' + catName + ' / ' + aName + ' — employee allocation details', true, function () { renderAssets(month, catId, catName); });
+            el('assetAnalyticsInformationChart').style.display = 'none'; el('assetAnalyticsInformationDetails').style.display = 'block';
+            var body = el('assetAnalyticsInformationDetailsBody'); body.innerHTML = '';
+            rr.sort(function (a, b) { var an = String(pick(a, ['EmpName'], '')).toLowerCase(), bn = String(pick(b, ['EmpName'], '')).toLowerCase(); return an.localeCompare(bn); });
+            rr.forEach(function (r) {
+                var d = dateOf(r); var dateText = d ? d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td style="padding:10px;border-bottom:1px solid #e5edf3;vertical-align:top;">' +
+                    '<strong style="display:block;margin-bottom:3px;color:#111827;">' + esc(pick(r, ['EmpName'], '—')) + '</strong>' +
+                    '<span style="display:block;color:#64748b;font-size:11px;">' + esc(pick(r, ['EmpCode'], '—')) + '</span>' +
+                    '<span style="display:block;color:#64748b;font-size:11px;">' + esc(pick(r, ['DepartmentTitle'], '—')) + ' - ' + esc(pick(r, ['DesignationTitle'], '—')) + '</span></td>' +
+                    '<td style="padding:10px;border-bottom:1px solid #e5edf3;vertical-align:top;">' + esc(pick(r, ['AssetName'], '—')) + '</td>' +
+                    '<td style="padding:10px;border-bottom:1px solid #e5edf3;white-space:nowrap;vertical-align:top;">' + esc(dateText) + '</td>' +
+                    '<td style="padding:10px;border-bottom:1px solid #e5edf3;vertical-align:top;">' + esc(pick(r, ['IssueCondition'], '—')) + '</td>';
+                body.appendChild(tr);
+            });
+            if (!rr.length) body.innerHTML = '<tr><td colspan="4" style="padding:16px;text-align:center;color:#64748b;">No current employee allocations found.</td></tr>';
+            el('assetAnalyticsInformationTotal').textContent = rr.length + ' allocation' + (rr.length === 1 ? '' : 's');
+        }
+        window.displayAssetAnalyticsInformationChartData = function (data) {
+            try {
+                if (typeof data === 'string') data = JSON.parse(data);
+                rows = Array.isArray(data) ? data : [];
+                renderMonths();
+            } catch (e) { console.error('Asset Analytics rendering error:', e); }
+        };
+        window.addEventListener('resize', function () { try { if (chart) chart.resize(); } catch (e) { } });
+        if (window.__staffSyncAssetAnalyticsInformation) { window.displayAssetAnalyticsInformationChartData(window.__staffSyncAssetAnalyticsInformation); window.__staffSyncAssetAnalyticsInformation = null; }
+    })();
+
 </script>
 
 </html>

@@ -76,6 +76,7 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -143,7 +144,7 @@
             this.lblAdvanceTypeConfigID.AutoSize = true;
             this.lblAdvanceTypeConfigID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblAdvanceTypeConfigID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAdvanceTypeConfigID.Location = new System.Drawing.Point(526, 32);
+            this.lblAdvanceTypeConfigID.Location = new System.Drawing.Point(568, 32);
             this.lblAdvanceTypeConfigID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAdvanceTypeConfigID.Name = "lblAdvanceTypeConfigID";
             this.lblAdvanceTypeConfigID.Size = new System.Drawing.Size(11, 15);
@@ -580,6 +581,7 @@
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
             this.btnCloseMe.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.btnCloseMe, "Close Me (Ctrl + Z)");
             this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
             this.btnCloseMe.Values.Text = "Close Me";
@@ -592,6 +594,7 @@
             this.btnRemoveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnRemoveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnRemoveDetails.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.btnRemoveDetails, "Delete (Ctrl + D)");
             this.btnRemoveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnRemoveDetails.Values.Image = global::StaffSync.Properties.Resources.delete;
             this.btnRemoveDetails.Values.Text = "Delete";
@@ -604,6 +607,7 @@
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnSaveDetails.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.btnSaveDetails, "Save (Ctrl + S)");
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSaveDetails.Values.Image = global::StaffSync.Properties.Resources.save;
             this.btnSaveDetails.Values.Text = "Save";
@@ -616,6 +620,7 @@
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
             this.btnModifyDetails.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.btnModifyDetails, "Modify (Ctrl + E)");
             this.btnModifyDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnModifyDetails.Values.Image = global::StaffSync.Properties.Resources.update;
             this.btnModifyDetails.Values.Text = "Modify";
@@ -628,6 +633,7 @@
             this.btnGenerateDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnGenerateDetails.Size = new System.Drawing.Size(126, 38);
             this.btnGenerateDetails.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.btnGenerateDetails, "Generate (Ctrl + N)");
             this.btnGenerateDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnGenerateDetails.Values.Image = global::StaffSync.Properties.Resources._new;
             this.btnGenerateDetails.Values.Text = "Generate";
@@ -640,6 +646,7 @@
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
             this.btnCancel.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.btnCancel, "Cancel (Ctrl + X)");
             this.btnCancel.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCancel.Values.Image = global::StaffSync.Properties.Resources.cancel;
             this.btnCancel.Values.Text = "Cancel";
@@ -747,5 +754,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblAdvanceTypeConfigID;
         private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

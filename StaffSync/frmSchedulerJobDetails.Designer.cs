@@ -43,6 +43,7 @@
             this.txtJobCode = new Krypton.Toolkit.KryptonTextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.grpEnableDisable = new System.Windows.Forms.GroupBox();
+            this.chkSystemJob = new System.Windows.Forms.CheckBox();
             this.kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
             this.lblAdvanceNote = new System.Windows.Forms.Label();
             this.lblRuntime = new System.Windows.Forms.Label();
@@ -82,7 +83,7 @@
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
-            this.chkSystemJob = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -301,6 +302,20 @@
             this.grpEnableDisable.Size = new System.Drawing.Size(760, 314);
             this.grpEnableDisable.TabIndex = 28;
             this.grpEnableDisable.TabStop = false;
+            // 
+            // chkSystemJob
+            // 
+            this.chkSystemJob.AutoSize = true;
+            this.chkSystemJob.Checked = true;
+            this.chkSystemJob.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSystemJob.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkSystemJob.Location = new System.Drawing.Point(317, 36);
+            this.chkSystemJob.Name = "chkSystemJob";
+            this.chkSystemJob.Size = new System.Drawing.Size(141, 19);
+            this.chkSystemJob.TabIndex = 56;
+            this.chkSystemJob.Tag = "System Scheduler";
+            this.chkSystemJob.Text = "System Scheduler";
+            this.chkSystemJob.UseVisualStyleBackColor = true;
             // 
             // kryptonPanel1
             // 
@@ -659,6 +674,7 @@
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
             this.btnCloseMe.TabIndex = 17;
+            this.toolTip1.SetToolTip(this.btnCloseMe, "Close Me (Ctrl + Z)");
             this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCloseMe.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseMe.Values.Image")));
             this.btnCloseMe.Values.Text = "Close Me";
@@ -672,6 +688,7 @@
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnSaveDetails.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.btnSaveDetails, "Save (Ctrl + S)");
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSaveDetails.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveDetails.Values.Image")));
             this.btnSaveDetails.Values.Text = "Save";
@@ -684,6 +701,7 @@
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
             this.btnCancel.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.btnCancel, "Cancel (Ctrl + X)");
             this.btnCancel.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCancel.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Values.Image")));
             this.btnCancel.Values.Text = "Cancel";
@@ -720,20 +738,6 @@
             // qryAllEmpLeavePendingStatementTableAdapter
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
-            // 
-            // chkSystemJob
-            // 
-            this.chkSystemJob.AutoSize = true;
-            this.chkSystemJob.Checked = true;
-            this.chkSystemJob.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSystemJob.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkSystemJob.Location = new System.Drawing.Point(317, 36);
-            this.chkSystemJob.Name = "chkSystemJob";
-            this.chkSystemJob.Size = new System.Drawing.Size(141, 19);
-            this.chkSystemJob.TabIndex = 56;
-            this.chkSystemJob.Tag = "System Scheduler";
-            this.chkSystemJob.Text = "System Scheduler";
-            this.chkSystemJob.UseVisualStyleBackColor = true;
             // 
             // frmSchedulerJobDetails
             // 
@@ -835,5 +839,6 @@
         public System.Windows.Forms.Label lblJobSettingsID;
         public System.Windows.Forms.Label lblJobID;
         private System.Windows.Forms.CheckBox chkSystemJob;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

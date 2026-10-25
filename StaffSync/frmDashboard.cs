@@ -7420,6 +7420,31 @@ namespace StaffSync
             await myWebView.CoreWebView2.ExecuteScriptAsync(script);
         }
 
+        // Asset analytics drilldown: Month -> Category -> Asset -> Employee allocation.
+        private async Task displayAssetAnalyticsInformationChartData()
+        {
+            try
+            {
+                if (myWebView == null || myWebView.CoreWebView2 == null)
+                    return;
+
+                List<AssetAnalyticsInformation> data =
+                    objAssetRegisterInfo.getAssetAnalyticsInformation(CurrentUser.ClientID);
+
+                string json = JsonConvert.SerializeObject(data ?? new List<AssetAnalyticsInformation>());
+                string script = $"displayAssetAnalyticsInformationChartData({json});";
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to load Asset Analytics information.\n\n" + ex.Message,
+                    "StaffSync - Asset Analytics",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
         private async Task displayLeaveMatrixChartData()
         {
             try
@@ -7767,6 +7792,7 @@ namespace StaffSync
         public async void refreshDashboardCharts()
         {
             await displayAssetRegisterChartData();
+            await displayAssetAnalyticsInformationChartData();
             await displayEmployeesOnLeaveTodayChartData();
             await displayLeaveStatusSummaryChartData();
             await displayLeaveMatrixChartData();

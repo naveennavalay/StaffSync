@@ -37,7 +37,7 @@ namespace DALStaffSync
 
         public int UpdateAssetRegisterInfo(int txtAssetRegID, int txtAssetID, DateTime dtAssetTRDate, decimal txtOBalance, decimal txtCrBalance, decimal txtDrBalance, decimal txtCBalance, string txtTRType, string txtComments, int txtEmpAdvanceRequestID)
         {
-            return objAssetsRegisterInfo.UpdateAssetRegisterInfo(txtAssetRegID, txtAssetID, dtAssetTRDate, txtOBalance,txtCrBalance, txtDrBalance,txtCBalance, txtTRType,txtComments, txtEmpAdvanceRequestID);
+            return objAssetsRegisterInfo.UpdateAssetRegisterInfo(txtAssetRegID, txtAssetID, dtAssetTRDate, txtOBalance, txtCrBalance, txtDrBalance, txtCBalance, txtTRType, txtComments, txtEmpAdvanceRequestID);
         }
 
         public int DeleteAssetRegisterInfo(int txtAssetRegID)
@@ -70,7 +70,7 @@ namespace DALStaffSync
             return objAssetsRegisterInfo.getApprovedAssetInformationRequestList(ClientID);
         }
 
-        public List<AssetInformationOfAnAssetRequest> getAssetInformationOfAnAssetRequest(int AssetRequestID) 
+        public List<AssetInformationOfAnAssetRequest> getAssetInformationOfAnAssetRequest(int AssetRequestID)
         {
             return objAssetsRegisterInfo.getAssetInformationOfAnAssetRequest(AssetRequestID);
         }

@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUpdateAdvanceStatus));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkApplyToAllRows = new System.Windows.Forms.CheckBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbStatus = new System.Windows.Forms.ComboBox();
@@ -45,7 +46,7 @@
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
-            this.chkApplyToAllRows = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -92,6 +93,21 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(344, 122);
             this.panel1.TabIndex = 1;
+            // 
+            // chkApplyToAllRows
+            // 
+            this.chkApplyToAllRows.AutoSize = true;
+            this.chkApplyToAllRows.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkApplyToAllRows.Checked = true;
+            this.chkApplyToAllRows.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkApplyToAllRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkApplyToAllRows.Location = new System.Drawing.Point(195, 83);
+            this.chkApplyToAllRows.Name = "chkApplyToAllRows";
+            this.chkApplyToAllRows.Size = new System.Drawing.Size(130, 19);
+            this.chkApplyToAllRows.TabIndex = 20;
+            this.chkApplyToAllRows.Tag = "Apply to all rows";
+            this.chkApplyToAllRows.Text = "Apply to all rows";
+            this.chkApplyToAllRows.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
@@ -148,6 +164,7 @@
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
             this.btnCloseMe.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.btnCloseMe, "Close Me (Ctrl + Z)");
             this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
             this.btnCloseMe.Values.Text = "Close Me";
@@ -161,6 +178,7 @@
             this.btnOK.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnOK.Size = new System.Drawing.Size(126, 38);
             this.btnOK.TabIndex = 15;
+            this.toolTip1.SetToolTip(this.btnOK, "Save (Ctrl + S)");
             this.btnOK.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnOK.Values.Image = global::StaffSync.Properties.Resources.update;
             this.btnOK.Values.Text = "Update";
@@ -197,21 +215,6 @@
             // qryAllEmpLeavePendingStatementTableAdapter
             // 
             this.qryAllEmpLeavePendingStatementTableAdapter.ClearBeforeFill = true;
-            // 
-            // chkApplyToAllRows
-            // 
-            this.chkApplyToAllRows.AutoSize = true;
-            this.chkApplyToAllRows.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkApplyToAllRows.Checked = true;
-            this.chkApplyToAllRows.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkApplyToAllRows.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.chkApplyToAllRows.Location = new System.Drawing.Point(195, 83);
-            this.chkApplyToAllRows.Name = "chkApplyToAllRows";
-            this.chkApplyToAllRows.Size = new System.Drawing.Size(130, 19);
-            this.chkApplyToAllRows.TabIndex = 20;
-            this.chkApplyToAllRows.Tag = "Apply to all rows";
-            this.chkApplyToAllRows.Text = "Apply to all rows";
-            this.chkApplyToAllRows.UseVisualStyleBackColor = true;
             // 
             // frmUpdateAdvanceStatus
             // 
@@ -267,5 +270,6 @@
         private System.Windows.Forms.ComboBox cmbStatus;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chkApplyToAllRows;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

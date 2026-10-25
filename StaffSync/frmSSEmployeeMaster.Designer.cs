@@ -226,6 +226,7 @@
             this.cmbSalProfile = new Krypton.Toolkit.KryptonComboBox();
             this.label42 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnSearch = new Krypton.Toolkit.KryptonButton();
             this.txtEmpCode = new Krypton.Toolkit.KryptonTextBox();
             this.lblEmpID = new System.Windows.Forms.Label();
@@ -260,7 +261,7 @@
             this.docUploadsTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.DocUploadsTableAdapter();
             this.qryEmpBirthdayListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryEmpBirthdayListTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryEmpBirthdayListTableAdapter();
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -2991,6 +2992,16 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Professional Info";
             // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(339, 27);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 101;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
+            // 
             // btnSearch
             // 
             this.btnSearch.Location = new System.Drawing.Point(304, 25);
@@ -3078,6 +3089,7 @@
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
             this.btnCloseMe.TabIndex = 14;
+            this.toolTip1.SetToolTip(this.btnCloseMe, "Close Me (Ctrl + Z)");
             this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCloseMe.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnCloseMe.Values.Image")));
             this.btnCloseMe.Values.Text = "Close Me";
@@ -3090,6 +3102,7 @@
             this.btnSaveDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnSaveDetails.Size = new System.Drawing.Size(126, 38);
             this.btnSaveDetails.TabIndex = 25;
+            this.toolTip1.SetToolTip(this.btnSaveDetails, "Save (Ctrl + S)");
             this.btnSaveDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnSaveDetails.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveDetails.Values.Image")));
             this.btnSaveDetails.Values.Text = "Save";
@@ -3102,6 +3115,7 @@
             this.btnModifyDetails.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnModifyDetails.Size = new System.Drawing.Size(126, 38);
             this.btnModifyDetails.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.btnModifyDetails, "Modify (Ctrl + E)");
             this.btnModifyDetails.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnModifyDetails.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnModifyDetails.Values.Image")));
             this.btnModifyDetails.Values.Text = "Modify";
@@ -3127,6 +3141,7 @@
             this.btnCancel.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCancel.Size = new System.Drawing.Size(126, 38);
             this.btnCancel.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.btnCancel, "Cancel (Ctrl + X)");
             this.btnCancel.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCancel.Values.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Values.Image")));
             this.btnCancel.Values.Text = "Cancel";
@@ -3246,16 +3261,6 @@
             // qryEmpBirthdayListTableAdapter
             // 
             this.qryEmpBirthdayListTableAdapter.ClearBeforeFill = true;
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(339, 27);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 101;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // frmSSEmployeeMaster
             // 
@@ -3622,5 +3627,6 @@
         private System.Windows.Forms.GroupBox groupBox14;
         private Krypton.Toolkit.KryptonDataGridView dtgFamilyMemberInforamtion;
         private Krypton.Toolkit.KryptonLinkLabel lnkViewAuditLog;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

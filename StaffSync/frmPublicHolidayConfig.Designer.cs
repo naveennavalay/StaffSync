@@ -51,6 +51,7 @@
             this.staffsyncDBDataSet1 = new StaffSync.StaffsyncDBDataSet1();
             this.qryAllEmpLeavePendingStatementBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.qryAllEmpLeavePendingStatementTableAdapter = new StaffSync.StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -188,6 +189,7 @@
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
             this.btnCloseMe.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.btnCloseMe, "Close Me (Ctrl + Z)");
             this.btnCloseMe.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnCloseMe.Values.Image = global::StaffSync.Properties.Resources.close;
             this.btnCloseMe.Values.Text = "Close Me";
@@ -213,6 +215,7 @@
             this.btnExportData.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnExportData.Size = new System.Drawing.Size(126, 38);
             this.btnExportData.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.btnExportData, "Save (Ctrl + S)");
             this.btnExportData.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.btnExportData.Values.Image = global::StaffSync.Properties.Resources.execute;
             this.btnExportData.Values.Text = "Export Data";
@@ -350,5 +353,6 @@
         private System.Windows.Forms.Label label8;
         private Krypton.Toolkit.KryptonDataGridView dtgConsolidatedAttendanceReport;
         private Krypton.Toolkit.KryptonCheckButton chkCompactDetailedView;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

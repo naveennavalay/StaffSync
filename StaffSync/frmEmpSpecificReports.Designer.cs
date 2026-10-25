@@ -103,6 +103,7 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgReportsList)).BeginInit();
@@ -1258,5 +1259,6 @@
         private System.Windows.Forms.CheckBox chkLeaveMatrix;
         private System.Windows.Forms.CheckBox chkIndividualOrGroupedReport;
         private System.Windows.Forms.CheckBox chkMonthlyLeaveTrend;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
