@@ -652,10 +652,18 @@ namespace StaffSync
 
         private void frmAdvanceApprovalList_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
+            //if (lblActionMode.Text != "")
             {
-                this.Close();
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
             }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
+            objDashboard.sptrDashboardContainer.Visible = true;
+            objDashboard.grpDashboardDateRange.Visible = true;
+            objDashboard.refreshDashboardCharts();
+            this.Close();
         }
 
         private void btnChart_Click(object sender, EventArgs e)
