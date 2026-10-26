@@ -897,10 +897,23 @@ namespace StaffSync
             else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestPendingList")
             {
                 dtgEmployeeList.DataSource = null;
-                dtgEmployeeList.DataSource = objAssetRegisterInfo.getApprovedAssetInformationRequestList(Convert.ToInt16(lblClientID.Text.ToString()));
+                dtgEmployeeList.DataSource = objAssetRegisterInfo.getApprovedAssetInformationRequestList(Convert.ToInt16(lblClientID.Text.ToString()));                
+                dtgEmployeeList.Columns["AssetCatMasID"].Visible = false;
+                dtgEmployeeList.Columns["AssetID"].Visible = false;
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
                 dtgEmployeeList.Columns["PersonalInfoID"].Visible = false;
                 dtgEmployeeList.Columns["AssetRequestID"].Visible = false;
+                dtgEmployeeList.Columns["CatAssetCode"].Visible = false;
+                dtgEmployeeList.Columns["CatAssetName"].HeaderText = "Category";
+                dtgEmployeeList.Columns["CatAssetName"].Width = 200;
+                dtgEmployeeList.Columns["CatAssetName"].ReadOnly = true;
+                dtgEmployeeList.Columns["AssetCode"].Visible = false;
+                dtgEmployeeList.Columns["AssetName"].HeaderText = "Asset Name";
+                dtgEmployeeList.Columns["AssetName"].Width = 350;
+                dtgEmployeeList.Columns["AssetName"].ReadOnly = true;                
+                dtgEmployeeList.Columns["AssetRequestCode"].HeaderText = "Asset Request Code";
+                dtgEmployeeList.Columns["AssetRequestCode"].Width = 125;
+                dtgEmployeeList.Columns["AssetRequestCode"].ReadOnly = true;
                 dtgEmployeeList.Columns["EmpCode"].HeaderText = "Emp Code";
                 dtgEmployeeList.Columns["EmpCode"].Width = 100;
                 dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;

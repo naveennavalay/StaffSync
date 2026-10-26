@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
@@ -298,8 +299,22 @@ namespace ModelStaffSync
     {
         
         public int AssetRequestID { get; set; }
+        public int AssetCatMasID { get; set; }
+        
+        [DisplayName("Category Code")] 
+        public string CatAssetCode { get; set; }
+        
+        [DisplayName("Category Name")] 
+        public string CatAssetName { get; set; }
+        public int AssetID { get; set; }
+        
+        [DisplayName("Asset Code")]
+        public string AssetCode { get; set; }
 
-        [DisplayName("Asset Code")] 
+        [DisplayName("Asset Name")]
+        public string AssetName { get; set; }
+
+        [DisplayName("Asset Request Code")] 
         public string AssetRequestCode { set; get; }
 
         [DisplayName("Request Date")] 

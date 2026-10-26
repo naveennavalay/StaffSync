@@ -635,7 +635,12 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
 
                 string strQuery = @"SELECT
-                                        R.AssetRequestID,
+                                        R.AssetRequestID,    
+                                        AssetCategoryMas.AssetCatMasID,
+                                        AssetCategoryMas.AssetCode AS CatAssetCode,
+                                        AssetCategoryMas.AssetName AS CatAssetName,
+                                        AssetMas.AssetCode,
+                                        AssetMas.AssetName,
                                         R.AssetRequestCode,
                                         R.AssetRequestDate,
                                         R.AssetRequestComments,
@@ -649,23 +654,29 @@ namespace dbStaffSync
                                         EmpAssetAllocation.IssueDate,
                                         CL.ClientID
                                     FROM
-                                        (
-                                            (
-                                                DesigMas AS D
-                                                INNER JOIN (
-                                                    DepMas AS P
-                                                    INNER JOIN (
-                                                        ClientMas AS CL
+                                        AssetCategoryMas
+                                        INNER JOIN (
+                                            AssetMas
+                                            INNER JOIN (
+                                                (
+                                                    (
+                                                        DesigMas AS D
                                                         INNER JOIN (
-                                                            EmpAssetRequest AS R
-                                                            INNER JOIN EmpMas AS E ON R.AssetRequestByID = E.EmpID
-                                                        ) ON CL.ClientID = E.ClientID
-                                                    ) ON P.DepartmentID = E.DepartmentID
-                                                ) ON D.DesignationID = E.EmpDesignationID
-                                            )
-                                            INNER JOIN PersonalInfoMas ON E.EmpID = PersonalInfoMas.EmpID
-                                        )
-                                        INNER JOIN EmpAssetAllocation ON R.AssetRequestID = EmpAssetAllocation.AssetRequestID
+                                                            DepMas AS P
+                                                            INNER JOIN (
+                                                                ClientMas AS CL
+                                                                INNER JOIN (
+                                                                    EmpAssetRequest AS R
+                                                                    INNER JOIN EmpMas AS E ON R.AssetRequestByID = E.EmpID
+                                                                ) ON CL.ClientID = E.ClientID
+                                                            ) ON P.DepartmentID = E.DepartmentID
+                                                        ) ON D.DesignationID = E.EmpDesignationID
+                                                    )
+                                                    INNER JOIN EmpAssetAllocation ON R.AssetRequestID = EmpAssetAllocation.AssetRequestID
+                                                )
+                                                INNER JOIN PersonalInfoMas ON E.EmpID = PersonalInfoMas.EmpID
+                                            ) ON AssetMas.AssetID = EmpAssetAllocation.AssetID
+                                        ) ON AssetCategoryMas.AssetCatMasID = AssetMas.AssetCatMasID
                                     WHERE
                                         (
                                             ((EmpAssetAllocation.IssueDate) IS NULL)
