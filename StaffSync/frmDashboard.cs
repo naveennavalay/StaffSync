@@ -7421,6 +7421,31 @@ namespace StaffSync
         }
 
         // Asset analytics drilldown: Month -> Category -> Asset -> Employee allocation.
+        // Approved requests that have passed both approvals but have not yet been allocated.
+        private async Task displayApprovedUnallocatedAssetsData()
+        {
+            try
+            {
+                if (myWebView == null || myWebView.CoreWebView2 == null)
+                    return;
+
+                List<ApprovedAssetInformationRequestList> data =
+                    objAssetRegisterInfo.getApprovedAssetInformationRequestList(CurrentUser.ClientID);
+
+                string json = JsonConvert.SerializeObject(data ?? new List<ApprovedAssetInformationRequestList>());
+                string script = $"displayApprovedUnallocatedAssetsData({json});";
+                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to load approved assets that are not yet allocated.\n\n" + ex.Message,
+                    "StaffSync - Approved Assets Not Yet Allocated",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
         private async Task displayAssetAnalyticsInformationChartData()
         {
             try
@@ -7793,6 +7818,7 @@ namespace StaffSync
         {
             await displayAssetRegisterChartData();
             await displayAssetAnalyticsInformationChartData();
+            await displayApprovedUnallocatedAssetsData();
             await displayEmployeesOnLeaveTodayChartData();
             await displayLeaveStatusSummaryChartData();
             await displayLeaveMatrixChartData();

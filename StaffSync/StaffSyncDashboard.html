@@ -3308,6 +3308,27 @@
             </div>
         </div>
 
+
+
+        <!-- Approved Assets Not Yet Allocated: Month -> Category -> Asset -> Employee -->
+        <div id="approvedUnallocatedAssetsCard" data-dashboard-key="ApprovedUnallocatedAssets" class="chart-card">
+            <div class="chart-card-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                <div>
+                    <div class="chart-title" style="font-weight:700;color:#174b76;">Approved Assets - Not Yet Allocated</div>
+                    <div style="font-size:11px;color:#64748b;margin-top:4px;">Month-wise by Asset Request Date · select a bar to drill down</div>
+                </div>
+                <span id="approvedUnallocatedAssetsTotal" class="today-card-count" style="background:#fff3dc;color:#92400e;border:1px solid #f3d5a0;padding:5px 12px;border-radius:16px;font-weight:700;">0 requests</span>
+            </div>
+            <div id="approvedUnallocatedAssetsBreadcrumb" style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:#64748b;margin:8px 0;">Monthly overview</div>
+            <div id="approvedUnallocatedAssetsChart" style="width:100%;height:285px;min-height:240px;"></div>
+            <div id="approvedUnallocatedAssetsDetails" style="display:none;overflow:auto;margin-top:8px;">
+                <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:680px;">
+                    <thead><tr style="background:#eff5f9;text-align:left;"><th style="padding:9px;">Employee</th><th style="padding:9px;">Asset Requested</th><th style="padding:9px;">Request Date</th></tr></thead>
+                    <tbody id="approvedUnallocatedAssetsDetailsBody"></tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- Reimbursement Outstanding: populated by frmDashboard.cs -->
         <div id="reimbursementOutstandingCard" data-dashboard-key="ReimbursementOutstanding" class="chart-card">
             <div class="chart-card-header">
@@ -3776,6 +3797,25 @@
 
 
     </div>
+    <script>
+        // StaffSync dashboard-wide date display standard: dd-MMM-yyyy (e.g. 26-Jul-2026).
+        window.formatStaffSyncDashboardDate = window.formatStaffSyncDashboardDate || function (value) {
+            if (value === null || value === undefined || value === "") return "";
+            var d;
+            if (value instanceof Date) { d = value; }
+            else if (typeof value === "string") {
+                var raw = value.trim();
+                var iso = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
+                var ms = raw.match(/^\/Date\((-?\d+)/);
+                if (iso) d = new Date(Number(iso[1]), Number(iso[2]) - 1, Number(iso[3]));
+                else if (ms) d = new Date(Number(ms[1]));
+                else d = new Date(raw);
+            } else { d = new Date(value); }
+            if (!d || isNaN(d.getTime())) return String(value);
+            var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            return String(d.getDate()).padStart(2, "0") + "-" + months[d.getMonth()] + "-" + d.getFullYear();
+        };
+    </script>
     <script>
         (function () {
             "use strict";
@@ -4902,14 +4942,7 @@
                 new Date(item.LeaveDate);
 
             var formattedDate =
-                date.toLocaleDateString(
-                    "en-GB",
-                    {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric"
-                    }
-                );
+                window.formatStaffSyncDashboardDate(date);
 
             var days =
                 Number(item.DaysToGo);
@@ -5381,14 +5414,7 @@
                 new Date(item.LeaveDate);
 
             var formattedDate =
-                date.toLocaleDateString(
-                    "en-GB",
-                    {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric"
-                    }
-                );
+                window.formatStaffSyncDashboardDate(date);
 
             var days =
                 Number(item.DaysToGo);
@@ -5800,14 +5826,7 @@
 
 
             var formattedDate =
-                date.toLocaleDateString(
-                    "en-GB",
-                    {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric"
-                    }
-                );
+                window.formatStaffSyncDashboardDate(date);
 
 
             holidayDates.push(
@@ -7348,15 +7367,7 @@
                 : new Date(cell.date);
 
         var formattedDate =
-            selectedDate.toLocaleDateString(
-                "en-US",
-                {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric"
-                }
-            );
+            window.formatStaffSyncDashboardDate(selectedDate);
 
         subtitle.innerText =
             String(cell.department || "Unknown Department") +
@@ -12514,15 +12525,7 @@
         if (!isNaN(dateObject.getTime())) {
 
             formattedDate =
-                dateObject.toLocaleDateString(
-                    "en-US",
-                    {
-                        weekday: "long",
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric"
-                    }
-                );
+                window.formatStaffSyncDashboardDate(dateObject);
         }
 
         function percentage(value) {
@@ -13247,14 +13250,7 @@
             return String(value);
         }
 
-        return date.toLocaleDateString(
-            "en-GB",
-            {
-                day: "2-digit",
-                month: "short",
-                year: "numeric"
-            }
-        );
+        return window.formatStaffSyncDashboardDate(date);
     }
 
 
@@ -13400,13 +13396,7 @@
                 if (!isNaN(dob.getTime())) {
 
                     dobText =
-                        dob.toLocaleDateString(
-                            "en-GB",
-                            {
-                                day: "2-digit",
-                                month: "short"
-                            }
-                        ).toUpperCase();
+                        window.formatStaffSyncDashboardDate(dob);
                 }
             }
 
@@ -13945,13 +13935,7 @@
                 if (!isNaN(confirmationDate.getTime())) {
 
                     confirmationDateText =
-                        confirmationDate.toLocaleDateString(
-                            "en-GB",
-                            {
-                                day: "2-digit",
-                                month: "short"
-                            }
-                        ).toUpperCase();
+                        window.formatStaffSyncDashboardDate(confirmationDate);
                 }
             }
 
@@ -15212,134 +15196,25 @@
      *     14 Sep 2026
      */
     function formatHolidayDate(dateValue, rawValue) {
-
-        /*
-         * PublicHolidayInfo.PubHolidayDate arrives from Newtonsoft
-         * JSON as:
-         *
-         *     "2026-09-14T00:00:00"
-         *
-         * Read the YYYY-MM-DD portion directly. Do not depend on
-         * browser timezone conversion.
-         */
+        // Read ISO date components directly to avoid browser timezone shifts.
         if (typeof rawValue === "string") {
-
-            var text =
-                rawValue.trim();
-
-            var match =
-                text.match(
-                    /^(\d{4})-(\d{2})-(\d{2})/
-                );
-
+            var raw = rawValue.trim();
+            var match = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
             if (match) {
-
-                var year =
-                    Number(match[1]);
-
-                var month =
-                    Number(match[2]);
-
-                var day =
-                    Number(match[3]);
-
-                var monthNames = [
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Aug",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dec"
-                ];
-
-                if (
-                    month >= 1 &&
-                    month <= 12 &&
-                    day >= 1 &&
-                    day <= 31
-                ) {
-
-                    return (
-                        String(day).padStart(2, "0") +
-                        " " +
-                        monthNames[month - 1] +
-                        " " +
-                        year
-                    );
+                var year = Number(match[1]);
+                var month = Number(match[2]);
+                var day = Number(match[3]);
+                if (month >= 1 && month <= 12 && day >= 1 && day <= 31) {
+                    return window.formatStaffSyncDashboardDate(new Date(year, month - 1, day));
                 }
             }
-
-            /*
-             * Microsoft JSON Date fallback.
-             */
-            var msMatch =
-                text.match(
-                    /\/Date\((-?\d+)(?:[+-]\d+)?\)\//
-                );
-
-            if (msMatch) {
-
-                var msDate =
-                    new Date(
-                        Number(msMatch[1])
-                    );
-
-                if (!isNaN(msDate.getTime())) {
-
-                    return (
-                        String(
-                            msDate.getDate()
-                        ).padStart(2, "0") +
-                        " " +
-                        msDate.toLocaleDateString(
-                            "en-US",
-                            { month: "short" }
-                        ) +
-                        " " +
-                        msDate.getFullYear()
-                    );
-                }
-            }
+            var msMatch = raw.match(/\/Date\((-?\d+)(?:[+-]\d+)?\)\//);
+            if (msMatch) return window.formatStaffSyncDashboardDate(new Date(Number(msMatch[1])));
         }
-
-        /*
-         * Fallback for an already parsed Date.
-         */
-        if (dateValue instanceof Date) {
-
-            if (!isNaN(dateValue.getTime())) {
-
-                return (
-                    String(
-                        dateValue.getDate()
-                    ).padStart(2, "0") +
-                    " " +
-                    dateValue.toLocaleDateString(
-                        "en-US",
-                        { month: "short" }
-                    ) +
-                    " " +
-                    dateValue.getFullYear()
-                );
-            }
+        if (dateValue instanceof Date && !isNaN(dateValue.getTime())) {
+            return window.formatStaffSyncDashboardDate(dateValue);
         }
-
-        if (
-            rawValue !== null &&
-            rawValue !== undefined &&
-            String(rawValue).trim() !== ""
-        ) {
-
-            return String(rawValue);
-
-        }
-
+        if (rawValue !== null && rawValue !== undefined && String(rawValue).trim() !== "") return String(rawValue);
         return "";
     }
 
@@ -22133,7 +22008,7 @@
                 if (p.componentType === 'series') renderEmployees(m, p.name);
             });
         }
-        function renderEmployees(m, t) { level = 'employees'; selectedMonth = m; selectedTitle = t; var rr = rows.filter(function (r) { return month(r) === m && title(r) === t; }); setCrumb(m + ' / ' + t + ' — employee information', 'Back', function () { renderTitles(m); }); el('pendingReimbursementApprovalsChart').style.display = 'none'; el('pendingReimbursementApprovalsDetails').style.display = 'block'; var body = el('pendingReimbursementApprovalsDetailsBody'); body.innerHTML = ''; rr.sort(function (a, b) { return days(b) - days(a); }); rr.forEach(function (r) { var d = dateOf(r), dateText = d ? (String(d.getDate()).padStart(2, '0') + '-' + d.toLocaleDateString('en-GB', { month: 'short' }) + '-' + d.getFullYear()) : ''; var n = days(r); var tr = document.createElement('tr'); tr.innerHTML = '<td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(pick(r, ['EmpName'], 'Employee')) + '</strong><div style="color:#64748b;font-size:11px;">' + esc(pick(r, ['EmpCode'], '')) + '</div><div style="color:#64748b;font-size:11px;">' + esc(pick(r, ['DepartmentTitle'], '')) + ' · ' + esc(pick(r, ['DesignationTitle'], '')) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(pick(r, ['ReimbursRequestCode'], 'Request')) + '</strong><div style="font-size:11px;color:#64748b;">' + esc(title(r)) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;white-space:nowrap;">' + esc(dateText) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;font-weight:700;color:' + (n >= 15 ? '#b91c1c' : n >= 7 ? '#b45309' : '#166534') + ';">' + n + ' days</td><td style="padding:9px;border-bottom:1px solid #e5edf3;text-align:right;white-space:nowrap;">' + money(amount(r)) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;">Pending approval</td>'; body.appendChild(tr); }); if (!rr.length) body.innerHTML = '<tr><td colspan="6" style="padding:16px;text-align:center;color:#64748b;">No matching requests.</td></tr>'; el('pendingReimbursementApprovalsTotal').textContent = rr.length + ' requests'; el('pendingReimbursementApprovalsAmount').textContent = money(rr.reduce(function (sum, r) { return sum + amount(r); }, 0)); }
+        function renderEmployees(m, t) { level = 'employees'; selectedMonth = m; selectedTitle = t; var rr = rows.filter(function (r) { return month(r) === m && title(r) === t; }); setCrumb(m + ' / ' + t + ' — employee information', 'Back', function () { renderTitles(m); }); el('pendingReimbursementApprovalsChart').style.display = 'none'; el('pendingReimbursementApprovalsDetails').style.display = 'block'; var body = el('pendingReimbursementApprovalsDetailsBody'); body.innerHTML = ''; rr.sort(function (a, b) { return days(b) - days(a); }); rr.forEach(function (r) { var d = dateOf(r), dateText = d ? window.formatStaffSyncDashboardDate(d) : ''; var n = days(r); var tr = document.createElement('tr'); tr.innerHTML = '<td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(pick(r, ['EmpName'], 'Employee')) + '</strong><div style="color:#64748b;font-size:11px;">' + esc(pick(r, ['EmpCode'], '')) + '</div><div style="color:#64748b;font-size:11px;">' + esc(pick(r, ['DepartmentTitle'], '')) + ' · ' + esc(pick(r, ['DesignationTitle'], '')) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(pick(r, ['ReimbursRequestCode'], 'Request')) + '</strong><div style="font-size:11px;color:#64748b;">' + esc(title(r)) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;white-space:nowrap;">' + esc(dateText) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;font-weight:700;color:' + (n >= 15 ? '#b91c1c' : n >= 7 ? '#b45309' : '#166534') + ';">' + n + ' days</td><td style="padding:9px;border-bottom:1px solid #e5edf3;text-align:right;white-space:nowrap;">' + money(amount(r)) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;">Pending approval</td>'; body.appendChild(tr); }); if (!rr.length) body.innerHTML = '<tr><td colspan="6" style="padding:16px;text-align:center;color:#64748b;">No matching requests.</td></tr>'; el('pendingReimbursementApprovalsTotal').textContent = rr.length + ' requests'; el('pendingReimbursementApprovalsAmount').textContent = money(rr.reduce(function (sum, r) { return sum + amount(r); }, 0)); }
         window.displayPendingReimbursementApprovals = function (data) { try { if (typeof data === 'string') data = JSON.parse(data); rows = Array.isArray(data) ? data : []; renderMonths(); } catch (e) { console.error('Pending reimbursement approvals render error', e); } };
         window.addEventListener('resize', function () { if (chart) chart.resize(); }); if (window.__staffSyncPendingApprovalReimbursements) { window.displayPendingReimbursementApprovals(window.__staffSyncPendingApprovalReimbursements); window.__staffSyncPendingApprovalReimbursements = null; }
     })();
@@ -22177,7 +22052,7 @@
         function asset(row) { return String(pick(row, ['AssetName', 'AssetTitle', 'AssetDescription', 'AssetTypeTitle', 'AssetCategoryTitle', 'AssetCode', 'ItemName', 'Asset'], 'Asset request')); }
         function employee(row) { return String(pick(row, ['EmpName', 'EmployeeName', 'EmployeeTitle', 'RequestedBy', 'EmpFullName', 'Employee'], 'Employee')); }
         function status(row) { return 'Pending approval'; }
-        function requestDateText(row) { var d = dateOf(row); return d ? (String(d.getDate()).padStart(2, '0') + '-' + d.toLocaleDateString('en-GB', { month: 'short' }) + '-' + d.getFullYear()) : '—'; }
+        function requestDateText(row) { var d = dateOf(row); return d ? window.formatStaffSyncDashboardDate(d) : '—'; }
         function initChart() { var node = el('pendingAssetsRequestChart'); if (!node || !window.echarts) return null; return echarts.getInstanceByDom(node) || echarts.init(node); }
         function setBreadcrumb(text, back, callback) {
             var b = el('pendingAssetsRequestBreadcrumb');
@@ -22379,7 +22254,7 @@
             var body = el('assetAnalyticsInformationDetailsBody'); body.innerHTML = '';
             rr.sort(function (a, b) { var an = String(pick(a, ['EmpName'], '')).toLowerCase(), bn = String(pick(b, ['EmpName'], '')).toLowerCase(); return an.localeCompare(bn); });
             rr.forEach(function (r) {
-                var d = dateOf(r); var dateText = d ? d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
+                var d = dateOf(r); var dateText = d ? window.formatStaffSyncDashboardDate(d) : '—';
                 var tr = document.createElement('tr');
                 tr.innerHTML = '<td style="padding:10px;border-bottom:1px solid #e5edf3;vertical-align:top;">' +
                     '<strong style="display:block;margin-bottom:3px;color:#111827;">' + esc(pick(r, ['EmpName'], '—')) + '</strong>' +
@@ -22402,6 +22277,42 @@
         };
         window.addEventListener('resize', function () { try { if (chart) chart.resize(); } catch (e) { } });
         if (window.__staffSyncAssetAnalyticsInformation) { window.displayAssetAnalyticsInformationChartData(window.__staffSyncAssetAnalyticsInformation); window.__staffSyncAssetAnalyticsInformation = null; }
+    })();
+
+
+
+    /* ============================================================
+       APPROVED ASSETS NOT YET ALLOCATED
+       Drilldown: Month -> Category -> Asset -> Employee request list
+       Data is supplied by getApprovedAssetInformationRequestList.
+       ============================================================ */
+    (function () {
+        'use strict';
+        var rows = [], chart = null, selectedMonth = null, selectedCategoryId = null;
+        function el(id) { return document.getElementById(id); }
+        function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]); }); }
+        function pick(r, names, fallback) { for (var i = 0; i < names.length; i++) if (r[names[i]] !== undefined && r[names[i]] !== null) return r[names[i]]; return fallback == null ? '' : fallback; }
+        function dateOf(r) { var v = pick(r, ['AssetRequestDate', 'RequestDate'], null); if (!v) return null; var d = new Date(v); return isNaN(d.getTime()) ? null : d; }
+        function monthKey(r) { var d = dateOf(r); return d ? d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') : 'Unknown'; }
+        function monthLabel(k) { if (k === 'Unknown') return 'Unknown Date'; var p = k.split('-'); return new Date(Number(p[0]), Number(p[1]) - 1, 1).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }); }
+        function categoryId(r) { return String(pick(r, ['AssetCatMasID', 'AssetCategoryID'], '0')); }
+        function categoryName(r) { return String(pick(r, ['CatAssetName', 'AssetCategoryName', 'AssetCategoryTitle'], 'Uncategorised')); }
+        function assetName(r) { return String(pick(r, ['AssetName', 'RequestedAssetName'], 'Unknown Asset')); }
+        function chartInit() { var n = el('approvedUnallocatedAssetsChart'); if (!n || !window.echarts) return null; return echarts.getInstanceByDom(n) || echarts.init(n); }
+        function breadcrumb(label, back) { var b = el('approvedUnallocatedAssetsBreadcrumb'); b.innerHTML = '<span>' + esc(label) + '</span>' + (back ? '<button id="approvedUnallocatedAssetsBack" type="button" style="margin-left:auto;padding:5px 12px;border:1px solid #cbd9e5;border-radius:5px;background:#fff;color:#174b76;cursor:pointer;">← Back</button>' : ''); if (back) el('approvedUnallocatedAssetsBack').onclick = back; }
+        function showChart() { el('approvedUnallocatedAssetsDetails').style.display = 'none'; el('approvedUnallocatedAssetsChart').style.display = 'block'; chart = chartInit(); }
+        function renderGrouped(title, groups, keys, onClick, back, crumb) {
+            showChart(); breadcrumb(crumb || title, back); if (!chart) return; chart.clear();
+            if (!keys.length) { chart.setOption({ title: { text: 'No approved unallocated requests found', left: 'center', top: 'middle', textStyle: { fontSize: 13, color: '#64748b' } } }); return; }
+            chart.setOption({ tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: function (p) { var n = p && p.length ? p[0].axisValue : ''; return '<b>' + esc(n) + '</b><br/>Approved, not allocated: <b>' + ((groups[n] || 0)) + '</b>'; } }, grid: { left: 45, right: 20, top: 20, bottom: 45, containLabel: true }, xAxis: { type: 'category', data: keys, axisLabel: { rotate: keys.length > 5 ? 25 : 0, interval: 0, fontSize: 10 } }, yAxis: { type: 'value', min: 0, minInterval: 1, name: 'Requests' }, series: [{ name: 'Approved, not allocated', type: 'bar', data: keys.map(function (k) { return groups[k] || 0; }), barMaxWidth: 32, itemStyle: { color: '#d99a32', borderRadius: [7, 7, 0, 0] }, label: { show: true, position: 'top', fontSize: 10, fontWeight: 600 } }] });
+            chart.off('click'); chart.on('click', function (p) { if (p && p.componentType === 'series' && onClick) onClick(p.name); });
+        }
+        function renderMonths() { selectedMonth = null; selectedCategoryId = null; var grouped = {}, map = {}; rows.forEach(function (r) { var k = monthKey(r); grouped[k] = (grouped[k] || 0) + 1; }); var raw = Object.keys(grouped).sort(); raw.forEach(function (k) { map[monthLabel(k)] = k; }); var labels = raw.map(monthLabel), vals = {}; labels.forEach(function (l, i) { vals[l] = grouped[raw[i]]; }); el('approvedUnallocatedAssetsTotal').textContent = rows.length + ' requests'; renderGrouped('Monthly approved unallocated requests', vals, labels, function (label) { renderCategories(map[label]); }, null, 'Month-wise by Asset Request Date'); }
+        function renderCategories(month) { selectedMonth = month; var rr = rows.filter(function (r) { return monthKey(r) === month; }), groups = {}, ids = {}; rr.forEach(function (r) { var name = categoryName(r), id = categoryId(r); groups[name] = (groups[name] || 0) + 1; ids[name] = id; }); renderGrouped('Approved unallocated requests by category', groups, Object.keys(groups).sort(), function (name) { renderAssets(month, ids[name], name); }, function () { renderMonths(); }, monthLabel(month) + ' / Asset Categories'); }
+        function renderAssets(month, catId, catName) { selectedMonth = month; selectedCategoryId = catId; var rr = rows.filter(function (r) { return monthKey(r) === month && categoryId(r) === String(catId); }), groups = {}; rr.forEach(function (r) { var n = assetName(r); groups[n] = (groups[n] || 0) + 1; }); renderGrouped('Approved unallocated requests by asset', groups, Object.keys(groups).sort(), function (name) { renderEmployees(month, catId, catName, name); }, function () { renderCategories(month); }, monthLabel(month) + ' / ' + catName + ' / Assets'); }
+        function renderEmployees(month, catId, catName, aName) { var rr = rows.filter(function (r) { return monthKey(r) === month && categoryId(r) === String(catId) && assetName(r) === aName; }); breadcrumb(monthLabel(month) + ' / ' + catName + ' / ' + aName + ' — employee request details', function () { renderAssets(month, catId, catName); }); el('approvedUnallocatedAssetsChart').style.display = 'none'; el('approvedUnallocatedAssetsDetails').style.display = 'block'; var body = el('approvedUnallocatedAssetsDetailsBody'); body.innerHTML = ''; rr.sort(function (a, b) { var da = dateOf(a), db = dateOf(b); return (da ? da.getTime() : 0) - (db ? db.getTime() : 0); }); rr.forEach(function (r) { var d = dateOf(r); var dt = d ? window.formatStaffSyncDashboardDate(d) : '—'; var empCode = pick(r, ['EmpCode'], '—'); var empName = pick(r, ['EmpName'], '—'); var department = pick(r, ['DepartmentTitle'], '—'); var designation = pick(r, ['DesignationTitle'], '—'); var tr = document.createElement('tr'); tr.innerHTML = '<td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><div style="font-weight:600;color:#0f172a;">' + esc(empName) + '</div><div style="font-size:11px;color:#475569;margin-top:3px;">' + esc(empCode) + '</div><div style="font-size:11px;color:#475569;margin-top:3px;">' + esc(department) + '</div><div style="font-size:11px;color:#475569;margin-top:2px;">' + esc(designation) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;">' + esc(assetName(r)) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;white-space:nowrap;vertical-align:top;">' + esc(dt) + '</td>'; body.appendChild(tr); }); if (!rr.length) body.innerHTML = '<tr><td colspan="3" style="padding:16px;text-align:center;color:#64748b;">No matching requests found.</td></tr>'; el('approvedUnallocatedAssetsTotal').textContent = rr.length + ' requests'; }
+        window.displayApprovedUnallocatedAssetsData = function (data) { try { if (typeof data === 'string') data = JSON.parse(data); rows = Array.isArray(data) ? data : []; renderMonths(); } catch (e) { console.error('Approved unallocated assets rendering error:', e); } };
+        window.addEventListener('resize', function () { try { if (chart) chart.resize(); } catch (e) { } });
     })();
 
 </script>
