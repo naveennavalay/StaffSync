@@ -72,6 +72,16 @@ namespace StaffSync
 
         private void btnCloseMe_Click(object sender, EventArgs e)
         {
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            objDashboard.lblDashboardTitle.Text = "Dashboard";
+            objDashboard.sptrDashboardContainer.Visible = true;
+            objDashboard.grpDashboardDateRange.Visible = true;
+            objDashboard.refreshDashboardCharts();
             this.Close();
         }
 
