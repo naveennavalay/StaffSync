@@ -56,14 +56,14 @@ namespace DALStaffSync
             return objAdvanceTransaction.DeleteEmpAdvanceRequestMas(txtEmpAdvanceRequestID);
         }
 
-        public int UpdateFirstApproverStatus(int txtEmpAdvanceRequestID, string txtRequestedToComments, DateTime RequestedToDate)
+        public int UpdateFirstApproverStatus(int txtEmpAdvanceRequestID, int FirstApproverID, string txtRequestedToComments, DateTime RequestedToDate)
         {
-            return objAdvanceTransaction.UpdateFirstApproverStatus(txtEmpAdvanceRequestID, txtRequestedToComments, RequestedToDate);
+            return objAdvanceTransaction.UpdateFirstApproverStatus(txtEmpAdvanceRequestID, FirstApproverID, txtRequestedToComments, RequestedToDate);
         }
 
-        public int UpdateSecondApproverStatus(int txtEmpAdvanceRequestID, string txtRequestMovedToComments, DateTime RequestMovedToDate)
+        public int UpdateSecondApproverStatus(int txtEmpAdvanceRequestID, int SecondApproverID, string txtRequestMovedToComments, DateTime RequestMovedToDate)
         {
-            return objAdvanceTransaction.UpdateSecondApproverStatus(txtEmpAdvanceRequestID, txtRequestMovedToComments, RequestMovedToDate);
+            return objAdvanceTransaction.UpdateSecondApproverStatus(txtEmpAdvanceRequestID, SecondApproverID, txtRequestMovedToComments, RequestMovedToDate);
         }
 
         public int RejectOrCancleApproverStatus(int txtEmpAdvanceRequestID, string CancelOrRejectedComments, DateTime CancelOrRejectionDate)

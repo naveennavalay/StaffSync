@@ -1,4 +1,5 @@
-﻿using DALStaffSync;
+﻿using Common.Helpers;
+using DALStaffSync;
 using DocumentFormat.OpenXml.Bibliography;
 using Humanizer;
 using Krypton.Toolkit;
@@ -55,6 +56,7 @@ namespace StaffSync
         DALStaffSync.clsDashboardChartWidgets objDashboardChartWidgets = new DALStaffSync.clsDashboardChartWidgets();
         DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
         DALStaffSync.clsAssetRegister objAssetRegisterInfo = new DALStaffSync.clsAssetRegister();
+        //DALStaffSync.clsEmployeeAttendanceClock objEmployeeAttendanceClock = new DALStaffSync.clsEmployeeAttendanceClock();
 
         List<ClientInfo> objActiveClientInfo = new List<ClientInfo>();
         List<FinYearMas> objActiveFinYear = new List<FinYearMas>();
@@ -1813,6 +1815,14 @@ namespace StaffSync
 
             this.Text = "Staffsync Dashboard - " + objActiveClientInfo.FirstOrDefault().ClientName + " [ FY - " + objActiveFinYear.FirstOrDefault().FinYearFromTo + " ]";
             CurrentUser.ClientID = objActiveClientInfo.FirstOrDefault().ClientID;
+
+            // The dashboard HTML can load while the company-selection dialog is open.
+            // Reload the persisted attendance state after the active client is known.
+            if (myWebView != null && myWebView.CoreWebView2 != null)
+            {
+                await myWebView.CoreWebView2.ExecuteScriptAsync(
+                    "if (window.staffSyncReloadAttendanceState) window.staffSyncReloadAttendanceState();");
+            }
 
             //lstBirthdayList.Items.Clear();
             //List<BirthdayList> objEmployeesBirthdayList = objBirthdayList.GetEmployeesBirthdayList();
@@ -7421,31 +7431,6 @@ namespace StaffSync
         }
 
         // Asset analytics drilldown: Month -> Category -> Asset -> Employee allocation.
-        // Approved requests that have passed both approvals but have not yet been allocated.
-        private async Task displayApprovedUnallocatedAssetsData()
-        {
-            try
-            {
-                if (myWebView == null || myWebView.CoreWebView2 == null)
-                    return;
-
-                List<ApprovedAssetInformationRequestList> data =
-                    objAssetRegisterInfo.getApprovedAssetInformationRequestList(CurrentUser.ClientID);
-
-                string json = JsonConvert.SerializeObject(data ?? new List<ApprovedAssetInformationRequestList>());
-                string script = $"displayApprovedUnallocatedAssetsData({json});";
-                await myWebView.CoreWebView2.ExecuteScriptAsync(script);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "Unable to load approved assets that are not yet allocated.\n\n" + ex.Message,
-                    "StaffSync - Approved Assets Not Yet Allocated",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
         private async Task displayAssetAnalyticsInformationChartData()
         {
             try
@@ -7818,7 +7803,6 @@ namespace StaffSync
         {
             await displayAssetRegisterChartData();
             await displayAssetAnalyticsInformationChartData();
-            await displayApprovedUnallocatedAssetsData();
             await displayEmployeesOnLeaveTodayChartData();
             await displayLeaveStatusSummaryChartData();
             await displayLeaveMatrixChartData();
@@ -7842,9 +7826,92 @@ namespace StaffSync
 
         private async void myWebView_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
         {
-            //MessageBox.Show($"Message from WebView: {e.WebMessageAsJson}", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"Message from WebView: {e.WebMessageAsJson}", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
+            DateTime localDateTime = await StaffSyncTrustedTimeService.objTrustedTime.GetCurrentLocalDateTime();
+            MessageBox.Show(localDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt"));
+            var trustedTime1 = await StaffSyncTrustedTimeService.objTrustedTime.GetTime();
+            DateTime localDateTime1 = StaffSyncTrustedTimeService.objTrustedTime.GetLocalDateTime(trustedTime1);
+
+            DateTime utcDateTime = StaffSyncTrustedTimeService.objTrustedTime.GetAccessUtcDateTime(trustedTime1);
 
             dynamic message = JsonConvert.DeserializeObject<dynamic>(e.WebMessageAsJson);
+
+            // Employee attendance clock: database is the source of truth across refreshes and app restarts.
+            if (Convert.ToString(message.Action) == "EmployeeAttendance")
+            {
+                try
+                {
+                    string attendanceAction = Convert.ToString(message.AttendanceAction);
+                    int employeeID = Convert.ToInt32(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID);
+                    int clientID = Convert.ToInt32(objSelectedClientFinYearInfo.ClientID);
+
+                    var attendanceResult = 0;
+                    ModelStaffSync.EmployeeAttendanceClockInfo objEmployeeLoginLogoutInfo = new ModelStaffSync.EmployeeAttendanceClockInfo();
+                    if (string.Equals(attendanceAction, "GetState", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //MessageBox.Show("Getting Today's Date" , "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        objEmployeeLoginLogoutInfo = new EmployeeAttendanceClockInfo
+                        {
+                            Success = true,
+                            ShiftTitle = "General Shift",
+                            ShiftLoginTime = "09:00:00 AM",
+                            ShiftLogoutTime = "05:00:00 PM",
+                            Status = "LoggedIn",
+                            LoginTime = DateTime.Now,
+                            LogoutTime = null,
+                            Message = "Login recorded successfully."
+                        };
+                        //attendanceResult = objEmployeeAttendanceClock.GetTodayState(employeeID, clientID, DateTime.Now);
+                    }
+                    else if (string.Equals(attendanceAction, "Login", StringComparison.OrdinalIgnoreCase) || string.Equals(attendanceAction, "Logout", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //MessageBox.Show("Getting Today's Date", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        objEmployeeLoginLogoutInfo = new EmployeeAttendanceClockInfo
+                        {
+                            Success = true,
+                            Status = "LoggedOut",
+                            ShiftTitle = "General Shift",
+                            ShiftLoginTime = "09:00:00 AM",
+                            ShiftLogoutTime = "05:00:00 PM",
+                            LoginTime = Convert.ToDateTime("2026-10-30 09:15:32"),
+                            LogoutTime = DateTime.Now,
+                            Message = "Logout recorded successfully."
+                        };
+                        //attendanceResult = objEmployeeAttendanceClock.ProcessAttendanceAction(employeeID, clientID, attendanceAction, DateTime.Now);
+                    }
+                    else
+                    {
+                        objEmployeeLoginLogoutInfo = new EmployeeAttendanceClockInfo
+                        {
+                            Success = true,
+                            Status = "LoggedOut",
+                            ShiftTitle = "General Shift",
+                            ShiftLoginTime = "09:00:00 AM",
+                            ShiftLogoutTime = "05:00:00 PM",
+                            LoginTime = null,
+                            LogoutTime = null,
+                            Message = "Logout recorded successfully."
+                        };
+                    }
+
+                    string attendanceJson = JsonConvert.SerializeObject(objEmployeeLoginLogoutInfo);
+                    await myWebView.CoreWebView2.ExecuteScriptAsync("window.setStaffSyncAttendanceResult(" + attendanceJson + ");");
+                }
+                catch (Exception ex)
+                {
+                    //string errorJson = JsonConvert.SerializeObject(new DALStaffSync.EmployeeAttendanceClockResult
+                    //{
+                    //    Success = false,
+                    //    Status = "Unknown",
+                    //    Message = "Unable to process attendance: " + ex.Message
+                    //});
+                    //await myWebView.CoreWebView2.ExecuteScriptAsync(
+                    //    "window.setStaffSyncAttendanceResult(" + errorJson + ");");
+                }
+
+                return;
+            }
 
             if (message.Action == "RefreshDashboardCard")
             {

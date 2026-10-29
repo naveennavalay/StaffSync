@@ -450,7 +450,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpdateFirstApproverStatus(int txtEmpAdvanceRequestID, string txtRequestedToComments, DateTime RequestedToDate)
+        public int UpdateFirstApproverStatus(int txtEmpAdvanceRequestID, int FirstApproverID, string txtRequestedToComments, DateTime RequestedToDate)
         {
             int affectedRows = 0;
             try
@@ -459,7 +459,8 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE EmpAdvanceRequestMas " + 
-                                          " SET " + 
+                                          " SET " +
+                                                " RequestedTo = " + FirstApproverID + ", " +
                                                 " RequestedToComments = '" + txtRequestedToComments + "', " +
                                                 " RequestedToDate = #" +  RequestedToDate.ToString("dd-MMM-yyyy") + "# " +
                                             " WHERE " + 
@@ -468,6 +469,7 @@ namespace dbStaffSync
                 if(txtRequestedToComments == "Approved")
                     strQuery = "UPDATE EmpAdvanceRequestMas " +
                                           " SET " +
+                                                " RequestMovedTo = " + FirstApproverID + ", " + 
                                                 " RequestedToComments = '" + txtRequestedToComments + "', " +
                                                 " RequestedToDate = #" + RequestedToDate.ToString("dd-MMM-yyyy") + "#, " +
                                                 " RequestedToStatus = True " +
@@ -494,7 +496,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpdateSecondApproverStatus(int txtEmpAdvanceRequestID, string txtRequestMovedToComments, DateTime RequestMovedToDate)
+        public int UpdateSecondApproverStatus(int txtEmpAdvanceRequestID, int SecondApproverID, string txtRequestMovedToComments, DateTime RequestMovedToDate)
         {
             int affectedRows = 0;
             try
@@ -504,6 +506,7 @@ namespace dbStaffSync
 
                 string strQuery = "UPDATE EmpAdvanceRequestMas " +
                                           " SET " +
+                                                " RequestMovedTo = " + SecondApproverID + ", " +
                                                 " RequestMovedToComments = '" + txtRequestMovedToComments + "', " +
                                                 " RequestMovedToDate = #" + RequestMovedToDate.ToString("dd-MMM-yyyy") + "# " +
                                             " WHERE " +
@@ -512,6 +515,7 @@ namespace dbStaffSync
                 if (txtRequestMovedToComments == "Approved")
                     strQuery = "UPDATE EmpAdvanceRequestMas " +
                                           " SET " +
+                                                " RequestMovedTo = " + SecondApproverID + ", " + 
                                                 " RequestMovedToComments = '" + txtRequestMovedToComments + "', " +
                                                 " RequestMovedToDate = #" + RequestMovedToDate.ToString("dd-MMM-yyyy") + "#, " +
                                                 " RequestApprovalDate = #" + DateTime.Today.ToString("dd-MMM-yyyy") + "#, " +

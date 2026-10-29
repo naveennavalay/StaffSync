@@ -40,6 +40,7 @@ namespace StaffSync
         frmDashboard frmDashboard = null;
         frmPayrollConfiguration frmPayrollConfiguration = null;
         frmEmpReimbursmentPayments frmEmpReimbursmentPayments = null;
+        frmAdvanceApprovalList frmAdvanceApprovalList = null;
         DALStaffSync.clsLeaveTRList objLeaveInfo = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsDashboardWidgetData objDashboard = new DALStaffSync.clsDashboardWidgetData();
         DALStaffSync.clsUserManagement objUsersInfo = new DALStaffSync.clsUserManagement();
@@ -222,6 +223,14 @@ namespace StaffSync
         {
             InitializeComponent();
             this.frmEmpReimbursmentPayments = frmEmpReimbursmentPaymnts;
+            lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+            lblClientID.Text = ClientID.ToString();
+        }
+
+        public frmEmployeeList(frmAdvanceApprovalList frmAdvanceApprovalLst, string SearchOptionClickedFor, int ClientID)
+        {
+            InitializeComponent();
+            this.frmAdvanceApprovalList = frmAdvanceApprovalLst;
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
             lblClientID.Text = ClientID.ToString();
         }
@@ -930,6 +939,30 @@ namespace StaffSync
                 dtgEmployeeList.Columns["AssetRequestComments"].Width = 350;
                 dtgEmployeeList.Columns["AssetRequestComments"].ReadOnly = true; 
             }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAdvanceFirstApproverEmpCode1")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAdvanceSecondApproverEmpCode1")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+            }
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -1074,6 +1107,14 @@ namespace StaffSync
             else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestPendingList")
             {
                 this.frmEmpAssetAllotment.SelectedEmployeeID("listAssetRequestPendingList", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["AssetRequestID"].Value.ToString()));
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAdvanceFirstApproverEmpCode1")
+            {
+                this.frmAdvanceApprovalList.SelectedEmployeeID("listAdvanceFirstApproverEmpCode1", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAdvanceSecondApproverEmpCode1")
+            {
+                this.frmAdvanceApprovalList.SelectedEmployeeID("listAdvanceSecondApproverEmpCode1", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
             }
 
             this.Close();

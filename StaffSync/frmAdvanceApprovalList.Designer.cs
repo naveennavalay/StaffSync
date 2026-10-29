@@ -34,15 +34,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.picRefresh2 = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.dtgReimbursmentRequestersList = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.picRefresh1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.dtgAssetsRequestersList = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.picRefresh = new System.Windows.Forms.PictureBox();
-            this.label34 = new System.Windows.Forms.Label();
             this.dtgAdvanceRequestersList = new Krypton.Toolkit.KryptonDataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCloseMe = new Krypton.Toolkit.KryptonButton();
@@ -54,6 +51,7 @@
             this.empMasInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.empMasInfoTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.EmpMasInfoTableAdapter();
+            this.label34 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -114,7 +112,6 @@
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.groupBox2.Controls.Add(this.picRefresh2);
-            this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.dtgReimbursmentRequestersList);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(13, 602);
@@ -138,18 +135,6 @@
             this.picRefresh2.TabIndex = 61;
             this.picRefresh2.TabStop = false;
             this.picRefresh2.Click += new System.EventHandler(this.picRefresh2_Click);
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label2.Location = new System.Drawing.Point(5, 264);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(715, 19);
-            this.label2.TabIndex = 60;
-            this.label2.Text = "🟢 Double-click on the Status column to update the Reimbursment Request status";
             // 
             // dtgReimbursmentRequestersList
             // 
@@ -176,7 +161,6 @@
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.groupBox1.Controls.Add(this.picRefresh1);
-            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.dtgAssetsRequestersList);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(13, 306);
@@ -200,18 +184,6 @@
             this.picRefresh1.TabIndex = 61;
             this.picRefresh1.TabStop = false;
             this.picRefresh1.Click += new System.EventHandler(this.picRefresh1_Click);
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label1.Location = new System.Drawing.Point(5, 264);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(471, 15);
-            this.label1.TabIndex = 60;
-            this.label1.Text = "🟢 Double-click on the Status column to update the Asset Request status";
             // 
             // dtgAssetsRequestersList
             // 
@@ -238,7 +210,6 @@
             // 
             this.groupBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.groupBox5.Controls.Add(this.picRefresh);
-            this.groupBox5.Controls.Add(this.label34);
             this.groupBox5.Controls.Add(this.dtgAdvanceRequestersList);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.Location = new System.Drawing.Point(13, 13);
@@ -262,18 +233,6 @@
             this.picRefresh.TabIndex = 61;
             this.picRefresh.TabStop = false;
             this.picRefresh.Click += new System.EventHandler(this.picRefresh_Click);
-            // 
-            // label34
-            // 
-            this.label34.BackColor = System.Drawing.Color.Transparent;
-            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.label34.Location = new System.Drawing.Point(5, 264);
-            this.label34.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(490, 15);
-            this.label34.TabIndex = 60;
-            this.label34.Text = "🟢 Double-click on the Status column to update the Advance Request status";
             // 
             // dtgAdvanceRequestersList
             // 
@@ -299,6 +258,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.panel2.Controls.Add(this.label34);
             this.panel2.Controls.Add(this.btnCloseMe);
             this.panel2.Controls.Add(this.btnSaveDetails);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -367,6 +327,18 @@
             // 
             this.empMasInfoTableAdapter.ClearBeforeFill = true;
             // 
+            // label34
+            // 
+            this.label34.BackColor = System.Drawing.Color.Transparent;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.label34.Location = new System.Drawing.Point(156, 12);
+            this.label34.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(921, 55);
+            this.label34.TabIndex = 61;
+            this.label34.Text = resources.GetString("label34.Text");
+            // 
             // frmAdvanceApprovalList
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -426,15 +398,13 @@
         private System.Windows.Forms.BindingSource qryAllEmpLeavePendingStatementBindingSource;
         private StaffsyncDBDataSet1TableAdapters.qryAllEmpLeavePendingStatementTableAdapter qryAllEmpLeavePendingStatementTableAdapter;
         private Krypton.Toolkit.KryptonDataGridView dtgAdvanceRequestersList;
-        private System.Windows.Forms.Label label34;
         private System.Windows.Forms.PictureBox picRefresh;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox picRefresh1;
-        private System.Windows.Forms.Label label1;
         private Krypton.Toolkit.KryptonDataGridView dtgAssetsRequestersList;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.PictureBox picRefresh2;
-        private System.Windows.Forms.Label label2;
         private Krypton.Toolkit.KryptonDataGridView dtgReimbursmentRequestersList;
+        private System.Windows.Forms.Label label34;
     }
 }

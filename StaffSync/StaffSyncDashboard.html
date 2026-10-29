@@ -3219,9 +3219,1649 @@
         Monthly Attendance Register v1
         Existing master code preserved; new functionality integrated.
     -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <style>
+        /* Final screenshot-aligned attendance layout: scoped changes only. */
+        #staffSyncAttendanceClock.staffsync-attendance-panel {
+            grid-template-columns: minmax(245px, .72fr) minmax(0, 1.8fr);
+            align-items: stretch;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-face {
+            min-width: 0;
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-content {
+            width: 100%;
+            min-width: 0;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-actions {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 4px 5px 2px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-workstation-heading {
+            flex: 0 0 auto;
+            min-height: 38px;
+            padding: 0 12px 8px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-info-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 7px;
+            padding: 7px 12px 0;
+        }
+
+        #staffSyncAttendanceClock .staffsync-info-items {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px 18px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-info-group:first-child .staffsync-meta-label {
+            display: block;
+            min-height: 17px;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #d7e5f0;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-feedback-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            padding: 6px 12px 0;
+        }
+
+            #staffSyncAttendanceClock .staffsync-shift-feedback-row[hidden] {
+                display: none !important;
+            }
+
+        #staffSyncAttendanceClock .staffsync-attendance-button-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            padding: 12px 12px 0;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-action-item {
+            min-width: 0;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-button {
+            width: 100%;
+            min-height: 54px;
+            padding: 8px 14px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-action-message {
+            min-height: 16px;
+            margin: 5px 3px 0;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-message {
+            margin-top: 3px;
+        }
+
+        @media (max-width: 1150px) {
+            #staffSyncAttendanceClock.staffsync-attendance-panel {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            #staffSyncAttendanceClock .staffsync-info-items,
+            #staffSyncAttendanceClock .staffsync-shift-feedback-row,
+            #staffSyncAttendanceClock .staffsync-attendance-button-row {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+
+        /* Latest layout refinement: keep Assigned Shift beside the workstation heading. */
+        #staffSyncAttendanceClock .staffsync-workstation-heading {
+            display: grid;
+            grid-template-columns: auto auto minmax(0, 1fr);
+            align-items: center;
+            column-gap: 10px;
+            row-gap: 5px;
+            min-height: 42px;
+            padding: 0 10px 8px;
+            border-bottom: 1px solid #d4e4f1;
+        }
+
+        #staffSyncAttendanceClock .staffsync-assigned-shift-top {
+            min-width: 0;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 4px;
+            margin-left: 10px;
+        }
+
+            #staffSyncAttendanceClock .staffsync-assigned-shift-top .staffsync-info-group-title {
+                margin: 0;
+                font-size: 10px;
+            }
+
+            #staffSyncAttendanceClock .staffsync-assigned-shift-top .staffsync-info-items {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 10px 16px;
+                padding: 0;
+            }
+
+            #staffSyncAttendanceClock .staffsync-assigned-shift-top .staffsync-meta-label {
+                display: block;
+                min-height: 17px;
+                padding-bottom: 4px;
+                margin-bottom: 4px;
+                border-bottom: 1px solid #d7e5f0;
+            }
+
+        #staffSyncAttendanceClock .staffsync-info-grid {
+            display: block;
+            padding: 7px 10px 0;
+        }
+
+            #staffSyncAttendanceClock .staffsync-info-grid .staffsync-info-items {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 10px 18px;
+            }
+
+        #staffSyncAttendanceClock .staffsync-shift-feedback-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            padding: 5px 10px 0;
+        }
+
+            #staffSyncAttendanceClock .staffsync-shift-feedback-row[hidden] {
+                display: grid !important;
+            }
+
+        @media (max-width: 1050px) {
+            #staffSyncAttendanceClock .staffsync-workstation-heading {
+                grid-template-columns: auto auto;
+            }
+
+            #staffSyncAttendanceClock .staffsync-assigned-shift-top {
+                grid-column: 1 / -1;
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 700px) {
+            #staffSyncAttendanceClock .staffsync-assigned-shift-top .staffsync-info-items,
+            #staffSyncAttendanceClock .staffsync-info-grid .staffsync-info-items {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            #staffSyncAttendanceClock .staffsync-shift-feedback-row {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+    </style>
+
+    <style>
+        /* Attendance layout refinement: place Assigned Shift and Today's Attendance side by side. */
+        #staffSyncAttendanceClock .staffsync-workstation-heading {
+            display: grid;
+            grid-template-columns: auto auto minmax(250px, .95fr) minmax(390px, 1.45fr);
+            align-items: start;
+            column-gap: 12px;
+            row-gap: 6px;
+            min-height: 0;
+            padding: 0 8px 8px;
+            border-bottom: 1px solid #d4e4f1;
+        }
+
+        #staffSyncAttendanceClock .staffsync-assigned-shift-top,
+        #staffSyncAttendanceClock .staffsync-todays-attendance-top {
+            min-width: 0;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            align-content: start;
+            gap: 4px;
+            margin: 0;
+        }
+
+            #staffSyncAttendanceClock .staffsync-assigned-shift-top .staffsync-info-items,
+            #staffSyncAttendanceClock .staffsync-todays-attendance-top .staffsync-info-items {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 8px 12px;
+                padding: 0;
+            }
+
+            #staffSyncAttendanceClock .staffsync-assigned-shift-top .staffsync-info-group-title,
+            #staffSyncAttendanceClock .staffsync-todays-attendance-top .staffsync-info-group-title {
+                margin: 0 0 2px;
+                font-size: 10px;
+                white-space: nowrap;
+            }
+
+            #staffSyncAttendanceClock .staffsync-assigned-shift-top .staffsync-meta-label,
+            #staffSyncAttendanceClock .staffsync-todays-attendance-top .staffsync-meta-label {
+                display: block;
+                min-height: 16px;
+                padding: 0 0 4px;
+                margin: 0 0 4px;
+                border-bottom: 1px solid #d7e5f0;
+                white-space: nowrap;
+            }
+
+            #staffSyncAttendanceClock .staffsync-todays-attendance-top .staffsync-meta-value {
+                white-space: nowrap;
+                font-size: 12px;
+            }
+
+        #staffSyncAttendanceClock .staffsync-info-grid {
+            display: none;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-content {
+            transform: translateY(-9px);
+        }
+
+        @media (max-width: 1250px) {
+            #staffSyncAttendanceClock .staffsync-workstation-heading {
+                grid-template-columns: auto auto minmax(0, 1fr);
+            }
+
+            #staffSyncAttendanceClock .staffsync-todays-attendance-top {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 700px) {
+            #staffSyncAttendanceClock .staffsync-workstation-heading {
+                grid-template-columns: minmax(0, 1fr) auto;
+            }
+
+            #staffSyncAttendanceClock .staffsync-assigned-shift-top,
+            #staffSyncAttendanceClock .staffsync-todays-attendance-top {
+                grid-column: 1 / -1;
+            }
+
+                #staffSyncAttendanceClock .staffsync-assigned-shift-top .staffsync-info-items,
+                #staffSyncAttendanceClock .staffsync-todays-attendance-top .staffsync-info-items {
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                }
+
+            #staffSyncAttendanceClock .staffsync-clock-content {
+                transform: none;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
+
+    <!-- STAFFSYNC EMPLOYEE ATTENDANCE CLOCK - additive UI; existing dashboard retained -->
+    <section id="staffSyncAttendanceClock" class="staffsync-attendance-panel" aria-label="Employee attendance clock">
+        <div class="staffsync-clock-face">
+            <div class="staffsync-clock-content">
+                <div class="staffsync-clock-date-row">
+                    <div>
+                        <div id="staffSyncClockDay" class="staffsync-clock-day"><i class="fa-solid fa-briefcase staffsync-clock-day-icon" aria-hidden="true"></i>Friday</div>
+                        <div id="staffSyncClockDate" class="staffsync-clock-date"><i class="fa-regular fa-calendar-days" aria-hidden="true"></i> 30-Oct-2026</div>
+                    </div>
+                    <span class="staffsync-live-indicator"><span></span> LIVE CLOCK</span>
+                </div>
+                <div class="staffsync-digital-clock"><i class="fa-regular fa-clock staffsync-digital-clock-icon" aria-hidden="true"></i><span id="staffSyncDigitalClock" aria-live="off">09:04:49 PM</span></div>
+                <div class="staffsync-clock-welcome">
+                    <div id="staffSyncGreeting" class="staffsync-greeting"><i class="fa-solid fa-sun" aria-hidden="true"></i> Good Evening, Naveen Navale</div>
+                    <div id="staffSyncMotivation" class="staffsync-motivation">Every focused step you take today builds the success you want tomorrow.</div>
+                </div>
+            </div>
+        </div>
+        <div class="staffsync-attendance-actions">
+            <div class="staffsync-workstation-heading">
+                <div class="staffsync-section-title">My Work Station</div>
+                <div id="staffSyncAttendanceStatus" class="staffsync-status-pill staffsync-status-out"><span></span> Not Logged In</div>
+                <div class="staffsync-info-group staffsync-assigned-shift-top">
+                    <div class="staffsync-info-group-title"><i class="fa-regular fa-calendar-check" aria-hidden="true"></i> Assigned Shift</div>
+                    <div class="staffsync-info-items">
+                        <div class="staffsync-session-meta"><div class="staffsync-meta-label">Shift Title</div><div id="staffSyncShiftTitle" class="staffsync-meta-value">--</div></div>
+                        <div class="staffsync-session-meta"><div class="staffsync-meta-label">Shift Login Time</div><div id="staffSyncShiftLoginTime" class="staffsync-meta-value">--:--</div></div>
+                        <div class="staffsync-session-meta"><div class="staffsync-meta-label">Shift Logout Time</div><div id="staffSyncShiftLogoutTime" class="staffsync-meta-value">--:--</div></div>
+                    </div>
+                </div>
+                <div class="staffsync-info-group staffsync-todays-attendance-top">
+                    <div class="staffsync-info-group-title"><i class="fa-regular fa-clock" aria-hidden="true"></i> Today's Attendance</div>
+                    <div class="staffsync-info-items">
+                        <div class="staffsync-session-meta"><div class="staffsync-meta-label">Login Time</div><div id="staffSyncLoginTime" class="staffsync-meta-value">--:--:--</div></div>
+                        <div class="staffsync-session-meta"><div class="staffsync-meta-label">Logout Time</div><div id="staffSyncLogoutTime" class="staffsync-meta-value">--:--:--</div></div>
+                        <div class="staffsync-session-meta"><div class="staffsync-meta-label">Time Difference</div><div id="staffSyncTimeDifference" class="staffsync-meta-value">--:--:--</div></div>
+                    </div>
+                </div>
+            </div>
+            <div id="staffSyncShiftFeedbackRow" class="staffsync-shift-feedback-row">
+                <div><span class="staffsync-meta-label">Login Timing</span><strong id="staffSyncLoginTimingStatus" class="staffsync-timing-status">--</strong></div>
+                <div><span class="staffsync-meta-label">Logout Timing</span><strong id="staffSyncLogoutTimingStatus" class="staffsync-timing-status">--</strong></div>
+            </div>
+            <div class="staffsync-attendance-button-row">
+                <div class="staffsync-attendance-action-item">
+                    <button id="staffSyncAttendanceLogin" class="staffsync-attendance-button staffsync-login-button" type="button" onclick="staffSyncRequestAttendanceAction('Login')">
+                        <i class="fa-solid fa-person-circle-check staffsync-button-fa-icon" aria-hidden="true"></i><span><strong>Login</strong><small>Start today's attendance</small></span>
+                    </button>
+                    <div id="staffSyncLoginActionMessage" class="staffsync-action-message" role="status"></div>
+                </div>
+                <div class="staffsync-attendance-action-item">
+                    <button id="staffSyncAttendanceLogout" class="staffsync-attendance-button staffsync-logout-button" type="button" onclick="staffSyncRequestAttendanceAction('Logout')" disabled>
+                        <i class="fa-solid fa-person-circle-xmark staffsync-button-fa-icon" aria-hidden="true"></i><span><strong>Logout</strong><small>End today's attendance</small></span>
+                    </button>
+                    <div id="staffSyncLogoutActionMessage" class="staffsync-action-message" role="status"></div>
+                </div>
+            </div>
+            <div id="staffSyncAttendanceMessage" class="staffsync-attendance-message" role="status">Checking today's attendance…</div>
+        </div>
+    </section>
+
+    <style>
+        /* Scoped styles: do not change existing dashboard cards or layouts. */
+        .staffsync-attendance-panel {
+            display: grid;
+            grid-template-columns: minmax(280px, 0.9fr) minmax(420px, 1.45fr);
+            gap: 14px;
+            margin: 12px 12px 2px;
+            padding: 12px;
+            border: 1px solid #c4dced;
+            border-radius: 13px;
+            background: linear-gradient(135deg, #f7fbff 0%, #e8f3fc 100%);
+            box-shadow: 0 2px 8px rgba(23, 75, 118, .08);
+            color: #173b60;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .staffsync-clock-face {
+            min-width: 0;
+            border-radius: 10px;
+            padding: 17px 20px 13px;
+            color: #fff;
+            background: linear-gradient(135deg, #173653 0%, #244e76 100%);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+        }
+
+        .staffsync-clock-date-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .staffsync-clock-eyebrow {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.25px;
+            color: #b9d9f4;
+        }
+
+        .staffsync-clock-day {
+            margin-top: 7px;
+            font-size: 17px;
+            font-weight: 650;
+        }
+
+        .staffsync-clock-date {
+            margin-top: 3px;
+            font-size: 12px;
+            color: #d4e7f7;
+        }
+
+        /* Subtle breathing effects for the live clock and attendance timing labels. */
+        @keyframes staffSyncBreathingGlow {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(73, 223, 134, .12);
+            }
+
+            50% {
+                box-shadow: 0 0 0 5px rgba(73, 223, 134, .20);
+            }
+        }
+
+        @keyframes staffSyncTimingBreath {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(36, 71, 98, .04);
+            }
+
+            50% {
+                box-shadow: 0 0 0 4px rgba(36, 71, 98, .10);
+            }
+        }
+
+        .staffsync-clock-day-icon {
+            margin-right: 7px;
+            font-size: .88em;
+            opacity: .92;
+        }
+
+        .staffsync-live-indicator {
+            animation: staffSyncBreathingGlow 2.4s ease-in-out infinite;
+        }
+
+            .staffsync-live-indicator > span {
+                animation: staffSyncBreathingGlow 1.8s ease-in-out infinite;
+            }
+
+        #staffSyncAttendanceClock .staffsync-timing-status:not(:empty):not(:has-text-placeholder) {
+            animation: staffSyncTimingBreath 2.8s ease-in-out infinite;
+            border-radius: 5px;
+            padding: 2px 5px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .staffsync-live-indicator, .staffsync-live-indicator > span,
+            #staffSyncAttendanceClock .staffsync-timing-status {
+                animation: none !important;
+            }
+        }
+
+        .staffsync-live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .6px;
+            color: #dff8e8;
+            background: rgba(43,179,103,.18);
+            border: 1px solid rgba(134,230,171,.35);
+            border-radius: 20px;
+            padding: 5px 8px;
+        }
+
+            .staffsync-live-indicator span {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: #49df86;
+                box-shadow: 0 0 0 3px rgba(73,223,134,.15);
+            }
+
+        .staffsync-digital-clock {
+            margin-top: 8px;
+            font-size: clamp(30px, 3.2vw, 47px);
+            font-weight: 750;
+            letter-spacing: 1px;
+            line-height: 1.2;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .staffsync-clock-footnote {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255,255,255,.18);
+            color: #d2e4f3;
+            font-size: 11px;
+        }
+
+        .staffsync-clock-icon {
+            font-size: 17px;
+            vertical-align: -1px;
+            margin-right: 5px;
+        }
+
+        .staffsync-attendance-actions {
+            min-width: 0;
+            padding: 5px 7px 2px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .staffsync-attendance-status-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            padding: 0 3px 13px;
+            border-bottom: 1px solid #d4e4f1;
+        }
+
+        .staffsync-section-title {
+            font-size: 14px;
+            font-weight: 750;
+            color: #174b76;
+            margin-bottom: 7px;
+        }
+
+        .staffsync-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+            .staffsync-status-pill > span {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+            }
+
+        .staffsync-status-out {
+            background: #f1f5f9;
+            color: #526579;
+            border: 1px solid #d7e0e9;
+        }
+
+            .staffsync-status-out > span {
+                background: #94a3b8;
+            }
+
+        .staffsync-status-in {
+            background: #e3f8eb;
+            color: #187341;
+            border: 1px solid #a9e4bf;
+        }
+
+            .staffsync-status-in > span {
+                background: #22a35a;
+            }
+
+        .staffsync-meta-label {
+            font-size: 10px;
+            color: #71849a;
+            margin-bottom: 4px;
+        }
+
+        .staffsync-meta-value {
+            color: #244762;
+            font-size: 13px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Attendance time emphasis and shift-compliance indicators. */
+        #staffSyncAttendanceClock .staffsync-meta-value.staffsync-attendance-time-good {
+            display: inline-block;
+            padding: 2px 5px;
+            border-radius: 4px;
+            color: #176b3a;
+            background: #e3f8eb;
+        }
+
+        #staffSyncAttendanceClock .staffsync-meta-value.staffsync-attendance-time-late {
+            display: inline-block;
+            padding: 2px 5px;
+            border-radius: 4px;
+            color: #a61b1b;
+            background: #fde8e7;
+        }
+
+        #staffSyncAttendanceClock #staffSyncTimeDifference {
+            display: inline-block;
+            padding: 3px 8px;
+            border: 1px solid #a9e4bf;
+            border-radius: 20px;
+            color: #187341;
+            background: #e3f8eb;
+            font-weight: 800;
+        }
+
+        .staffsync-attendance-button-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding-top: 13px;
+        }
+
+        .staffsync-attendance-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            min-height: 61px;
+            border: 0;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            box-shadow: 0 2px 4px rgba(20,50,80,.12);
+            transition: filter .15s ease, transform .15s ease;
+        }
+
+            .staffsync-attendance-button:hover:not(:disabled) {
+                filter: brightness(1.04);
+                transform: translateY(-1px);
+            }
+
+            .staffsync-attendance-button:focus-visible {
+                outline: 3px solid #f5c451;
+                outline-offset: 2px;
+            }
+
+            .staffsync-attendance-button:disabled {
+                opacity: .45;
+                cursor: not-allowed;
+                box-shadow: none;
+            }
+
+        .staffsync-login-button {
+            background: linear-gradient(135deg,#28a45b,#178246);
+        }
+
+        .staffsync-logout-button {
+            background: linear-gradient(135deg,#f05248,#d8332b);
+        }
+
+        .staffsync-button-icon {
+            display: grid;
+            place-items: center;
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(255,255,255,.45);
+            border-radius: 50%;
+            font-size: 23px;
+            font-weight: 600;
+        }
+
+        .staffsync-attendance-button strong {
+            display: block;
+            font-size: 15px;
+        }
+
+        .staffsync-attendance-button small {
+            display: block;
+            margin-top: 3px;
+            font-size: 10px;
+            opacity: .9;
+        }
+
+        .staffsync-attendance-message {
+            margin-top: 9px;
+            min-height: 16px;
+            padding: 0 3px;
+            color: #637b90;
+            font-size: 11px;
+        }
+
+            .staffsync-attendance-message.staffsync-message-error {
+                color: #b42318;
+            }
+
+            .staffsync-attendance-message.staffsync-message-success {
+                color: #187341;
+            }
+
+        @media (max-width: 850px) {
+            .staffsync-attendance-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .staffsync-digital-clock {
+                font-size: clamp(31px, 8vw, 44px);
+            }
+        }
+
+        @media (max-width: 520px) {
+            .staffsync-attendance-status-row {
+                align-items: flex-start;
+            }
+
+            .staffsync-attendance-button-row {
+                grid-template-columns: 1fr;
+            }
+
+            .staffsync-attendance-panel {
+                margin: 8px 6px 2px;
+                padding: 8px;
+            }
+        }
+    </style>
+    <style>
+        /* Screenshot-matched attendance clock layout; all existing dashboard styles remain untouched. */
+        #staffSyncAttendanceClock.staffsync-attendance-panel {
+            grid-template-columns: minmax(560px, 1.05fr) minmax(560px, 1fr);
+            gap: 14px;
+            padding: 15px;
+            margin: 8px 12px 2px;
+            border-radius: 16px;
+            background: linear-gradient(135deg,#edf6ff,#e4f1fc);
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-face {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+            min-height: 250px;
+            padding: 24px 30px;
+            border-radius: 15px;
+            background: linear-gradient(120deg,#173452 0%,#1e4267 58%,#173452 100%);
+        }
+
+        #staffSyncAttendanceClock .staffsync-analog-clock {
+            flex: 0 0 clamp(150px, 15vw, 230px);
+            width: clamp(150px, 15vw, 230px);
+            border-right: 1px solid rgba(128,183,229,.35);
+            padding-right: 25px;
+            box-sizing: content-box;
+        }
+
+            #staffSyncAttendanceClock .staffsync-analog-clock svg {
+                display: block;
+                width: 100%;
+                height: auto;
+                overflow: visible;
+            }
+
+        #staffSyncAttendanceClock .staffsync-clock-ring {
+            fill: none;
+            stroke: #537da8;
+            stroke-width: 3;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-ticks {
+            stroke: #9bb7d3;
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-numbers {
+            fill: #e7f1fb;
+            font: 16px "Segoe UI",Arial,sans-serif;
+            text-anchor: middle;
+        }
+
+        #staffSyncAttendanceClock .staffsync-hour-hand {
+            stroke: #fff;
+            stroke-width: 5;
+            stroke-linecap: round;
+        }
+
+        #staffSyncAttendanceClock .staffsync-minute-hand {
+            stroke: #fff;
+            stroke-width: 3.5;
+            stroke-linecap: round;
+        }
+
+        #staffSyncAttendanceClock .staffsync-second-hand {
+            stroke: #ff4d3f;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-pin {
+            fill: #ff554a;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-content {
+            min-width: 0;
+            flex: 1;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-date-row {
+            align-items: center;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-day {
+            margin-top: 0;
+            font-size: clamp(16px,1.4vw,24px);
+            font-weight: 500;
+            color: #f5f9ff;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-date {
+            margin-top: 4px;
+            font-size: 13px;
+            color: #e0edf9;
+        }
+
+        #staffSyncAttendanceClock .staffsync-digital-clock {
+            margin-top: 8px;
+            font-size: clamp(38px,4.6vw,76px);
+            font-weight: 750;
+            letter-spacing: 1px;
+            line-height: 1.15;
+            color: #fff;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-footnote {
+            display: none;
+            align-items: center;
+            gap: 14px;
+            margin-top: 14px;
+            padding: 10px 14px;
+            border: 0;
+            border-radius: 32px;
+            background: rgba(91,139,188,.38);
+            font-size: clamp(12px,1.1vw,18px);
+            color: #f2f7fd;
+        }
+
+        #staffSyncAttendanceClock .staffsync-date-chip, #staffSyncAttendanceClock .staffsync-time-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        #staffSyncAttendanceClock .staffsync-time-chip {
+            border-left: 1px solid rgba(255,255,255,.25);
+            padding-left: 14px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-actions {
+            padding: 12px 4px;
+            display: flex;
+            justify-content: center;
+            background: rgba(255,255,255,.78);
+            border: 1px solid #c8def2;
+            border-radius: 15px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-status-row {
+            min-height: 70px;
+            gap: 10px 18px;
+            padding: 0 12px 12px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-button-row {
+            flex: 1;
+            align-items: stretch;
+            gap: 14px;
+            padding: 18px 12px 0;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-button {
+            min-height: 95px;
+            border-radius: 10px;
+            gap: 14px;
+            text-align: left;
+            padding: 12px 18px;
+        }
+
+            #staffSyncAttendanceClock .staffsync-attendance-button strong {
+                font-size: 20px;
+            }
+
+            #staffSyncAttendanceClock .staffsync-attendance-button small {
+                font-size: 11px;
+            }
+
+        #staffSyncAttendanceClock .staffsync-button-icon {
+            width: 42px;
+            height: 42px;
+            font-size: 27px;
+            flex-shrink: 0;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-message {
+            margin-top: 10px;
+            padding: 0 12px;
+        }
+
+        @media (max-width:1150px) {
+            #staffSyncAttendanceClock.staffsync-attendance-panel {
+                grid-template-columns: 1fr;
+            }
+
+            #staffSyncAttendanceClock .staffsync-clock-face {
+                min-height: 0;
+            }
+
+            #staffSyncAttendanceClock .staffsync-digital-clock {
+                font-size: clamp(38px,6vw,68px);
+            }
+        }
+
+        @media (max-width:650px) {
+            #staffSyncAttendanceClock .staffsync-clock-face {
+                padding: 18px;
+                gap: 15px;
+            }
+
+            #staffSyncAttendanceClock .staffsync-analog-clock {
+                flex-basis: 105px;
+                width: 105px;
+                padding-right: 14px;
+            }
+
+            #staffSyncAttendanceClock .staffsync-live-indicator {
+                display: none;
+            }
+
+            #staffSyncAttendanceClock .staffsync-digital-clock {
+                font-size: clamp(26px,7vw,42px);
+            }
+
+            #staffSyncAttendanceClock .staffsync-clock-footnote {
+                gap: 8px;
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+
+            #staffSyncAttendanceClock .staffsync-attendance-button-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Attendance panel refinements: remove analog clock and compact controls. */
+        #staffSyncAttendanceClock.staffsync-attendance-panel {
+            grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.65fr);
+        }
+
+        #staffSyncAttendanceClock .staffsync-analog-clock {
+            display: none !important;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-face {
+            min-height: 190px;
+            padding: 22px 28px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-content {
+            width: 100%;
+        }
+
+        #staffSyncAttendanceClock .staffsync-digital-clock {
+            font-size: clamp(34px, 3.5vw, 58px);
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-button-row {
+            flex: 0 0 auto;
+            padding-top: 10px;
+            gap: 10px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-button {
+            min-height: 54px;
+            padding: 8px 14px;
+            gap: 9px;
+        }
+
+            #staffSyncAttendanceClock .staffsync-attendance-button strong {
+                font-size: 16px;
+            }
+
+            #staffSyncAttendanceClock .staffsync-attendance-button small {
+                font-size: 9px;
+            }
+
+        #staffSyncAttendanceClock .staffsync-button-icon {
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-feedback-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 28px;
+            padding: 9px 12px 0;
+        }
+
+            #staffSyncAttendanceClock .staffsync-shift-feedback-row > div {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+        #staffSyncAttendanceClock .staffsync-timing-status {
+            font-size: 11px;
+            color: #244762;
+            font-weight: 700;
+        }
+
+            #staffSyncAttendanceClock .staffsync-timing-status.staffsync-timing-good {
+                color: #187341;
+            }
+
+            #staffSyncAttendanceClock .staffsync-timing-status.staffsync-timing-warning {
+                color: #b45309;
+            }
+
+            #staffSyncAttendanceClock .staffsync-timing-status.staffsync-timing-late {
+                color: #b42318;
+            }
+
+        #staffSyncAttendanceClock .staffsync-timing-difference-pill {
+            display: inline-block;
+            margin-left: 3px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 700;
+            white-space: nowrap;
+            background: #e5f7ed;
+            color: #187341;
+        }
+
+        #staffSyncAttendanceClock .staffsync-timing-status.staffsync-timing-late .staffsync-timing-difference-pill {
+            background: #fde8e7;
+            color: #b42318;
+        }
+
+        #staffSyncAttendanceClock .staffsync-timing-status.staffsync-timing-warning .staffsync-timing-difference-pill {
+            background: #fff3d6;
+            color: #b45309;
+        }
+
+        @media (max-width:1150px) {
+            #staffSyncAttendanceClock.staffsync-attendance-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width:650px) {
+            #staffSyncAttendanceClock .staffsync-clock-face {
+                min-height: 0;
+                padding: 18px;
+            }
+
+            #staffSyncAttendanceClock .staffsync-attendance-button-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+
+    <style>
+        /* StaffSync attendance panel visual refinements - scoped to this panel only. */
+        #staffSyncAttendanceClock .staffsync-clock-face {
+            background: linear-gradient(135deg, #ffffff 0%, #f2f7fc 100%);
+            color: #173b60;
+            border: 1px solid #c8def2;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,.8), 0 2px 7px rgba(23,75,118,.07);
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-day {
+            color: #173b60;
+        }
+
+        #staffSyncAttendanceClock .staffsync-digital-clock {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #173b60;
+        }
+
+        #staffSyncAttendanceClock .staffsync-digital-clock-icon {
+            color: #2877b8;
+            font-size: .55em;
+            opacity: .9;
+        }
+
+        #staffSyncAttendanceClock .staffsync-greeting i {
+            color: #d69e24;
+            margin-right: 5px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-date {
+            color: #476681;
+        }
+
+            #staffSyncAttendanceClock .staffsync-clock-date i {
+                color: #2877b8;
+                margin-right: 7px;
+            }
+
+        #staffSyncAttendanceClock .staffsync-live-indicator {
+            color: #187341;
+            background: #e6f7ed;
+            border-color: #b8e5c8;
+        }
+
+            #staffSyncAttendanceClock .staffsync-live-indicator span {
+                background: #22a35a;
+            }
+
+        #staffSyncAttendanceClock .staffsync-clock-welcome {
+            margin-top: 13px;
+            padding-top: 10px;
+            border-top: 1px solid #dce8f2;
+        }
+
+        #staffSyncAttendanceClock .staffsync-greeting {
+            color: #174b76;
+            font-size: 16px;
+            font-weight: 750;
+        }
+
+        #staffSyncAttendanceClock .staffsync-motivation {
+            margin-top: 4px;
+            color: #607b94;
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-actions {
+            justify-content: flex-start;
+        }
+
+        #staffSyncAttendanceClock .staffsync-workstation-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 12px 9px;
+            border-bottom: 1px solid #d4e4f1;
+        }
+
+            #staffSyncAttendanceClock .staffsync-workstation-heading .staffsync-section-title {
+                margin: 0;
+            }
+
+        #staffSyncAttendanceClock .staffsync-info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            padding: 9px 12px 0;
+        }
+
+        #staffSyncAttendanceClock .staffsync-info-group {
+            min-width: 0;
+        }
+
+        #staffSyncAttendanceClock .staffsync-info-group-title {
+            color: #54718b;
+            font-size: 10px;
+            font-weight: 750;
+            margin-bottom: 5px;
+        }
+
+            #staffSyncAttendanceClock .staffsync-info-group-title i {
+                color: #2877b8;
+                margin-right: 5px;
+            }
+
+        #staffSyncAttendanceClock .staffsync-info-items {
+            display: grid;
+            grid-template-columns: repeat(3,minmax(0,1fr));
+            gap: 10px 18px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-session-meta {
+            min-width: 0;
+        }
+
+        #staffSyncAttendanceClock .staffsync-meta-label {
+            margin-bottom: 3px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-meta-value {
+            overflow-wrap: anywhere;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-feedback-row {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 12px;
+            padding: 8px 12px 0;
+        }
+
+            #staffSyncAttendanceClock .staffsync-shift-feedback-row > div {
+                display: flex;
+                align-items: baseline;
+                gap: 9px;
+                min-width: 0;
+            }
+
+        #staffSyncAttendanceClock .staffsync-timing-status {
+            line-height: 1.35;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-button-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 12px 12px 0;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-action-item {
+            min-width: 0;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-button {
+            width: 100%;
+            min-height: 54px;
+            justify-content: center;
+        }
+
+        #staffSyncAttendanceClock .staffsync-button-fa-icon {
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        #staffSyncAttendanceClock .staffsync-action-message {
+            min-height: 16px;
+            margin: 5px 3px 0;
+            color: #187341;
+            font-size: 11px;
+        }
+
+            #staffSyncAttendanceClock .staffsync-action-message.staffsync-message-error {
+                color: #b42318;
+            }
+
+        #staffSyncAttendanceClock .staffsync-attendance-message {
+            margin-top: 3px;
+            padding: 0 12px;
+        }
+
+        @media (max-width:1150px) {
+            #staffSyncAttendanceClock .staffsync-info-items {
+                grid-template-columns: repeat(3,minmax(0,1fr));
+            }
+        }
+
+        @media (max-width:700px) {
+            #staffSyncAttendanceClock .staffsync-info-items,
+            #staffSyncAttendanceClock .staffsync-shift-feedback-row {
+                grid-template-columns: 1fr;
+            }
+
+            #staffSyncAttendanceClock .staffsync-attendance-button-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <style>
+        /* Final compact layout refinements for the StaffSync attendance panel only. */
+        #staffSyncAttendanceClock.staffsync-attendance-panel {
+            grid-template-columns: minmax(245px, .72fr) minmax(0, 1.8fr);
+            gap: 10px;
+            padding: 10px;
+            margin-top: 6px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-face {
+            min-height: 0;
+            padding: 15px 20px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-day {
+            margin-top: 2px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-digital-clock {
+            margin-top: 5px;
+            font-size: clamp(30px, 3vw, 48px);
+        }
+
+        #staffSyncAttendanceClock .staffsync-clock-welcome {
+            margin-top: 9px;
+            padding-top: 7px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-attendance-actions {
+            padding: 4px 5px 2px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-info-grid {
+            gap: 6px;
+            padding-top: 7px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-info-group:first-child .staffsync-meta-label {
+            display: block;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #d7e5f0;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-feedback-row {
+            padding-top: 6px;
+        }
+
+            #staffSyncAttendanceClock .staffsync-shift-feedback-row[hidden] {
+                display: none !important;
+            }
+
+        @media (max-width: 1150px) {
+            #staffSyncAttendanceClock.staffsync-attendance-panel {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+    </style>
+
+    <script>
+        (function () {
+            "use strict";
+            var pendingAction = null;
+            var clockTimer = null;
+            var attendanceLoginDate = null;
+            var attendanceLogoutDate = null;
+
+            function pad2(value) { return String(value).padStart(2, "0"); }
+            function formatDate(value) {
+                var day = pad2(value.getDate());
+                var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                return day + "-" + months[value.getMonth()] + "-" + value.getFullYear();
+            }
+            function formatTime(value) {
+                var hours = value.getHours();
+                var suffix = hours >= 12 ? "PM" : "AM";
+                hours = hours % 12;
+                if (hours === 0) hours = 12;
+                return pad2(hours) + ":" + pad2(value.getMinutes()) + ":" + pad2(value.getSeconds()) + " " + suffix;
+            }
+            function parseAttendanceDate(value) {
+                if (!value) return null;
+                if (value instanceof Date) return isNaN(value.getTime()) ? null : value;
+                var parsed = new Date(value);
+                if (!isNaN(parsed.getTime())) return parsed;
+                var match = String(value).match(/^(\d{1,2})-([A-Za-z]{3})-(\d{4})\s+(\d{1,2}):(\d{2}):(\d{2})\s*(AM|PM)$/i);
+                if (match) {
+                    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                    var month = months.findIndex(function (item) { return item.toLowerCase() === match[2].toLowerCase(); });
+                    var hour = parseInt(match[4], 10) % 12;
+                    if (match[7].toUpperCase() === "PM") hour += 12;
+                    parsed = new Date(parseInt(match[3], 10), month, parseInt(match[1], 10), hour, parseInt(match[5], 10), parseInt(match[6], 10));
+                    return month >= 0 && !isNaN(parsed.getTime()) ? parsed : null;
+                }
+                return null;
+            }
+            function formatDateTime(value) {
+                var parsed = parseAttendanceDate(value);
+                return parsed ? formatDate(parsed) + " " + formatTime(parsed) : (value || "--:--:--");
+            }
+            function formatAttendanceTimeOnly(value) {
+                var parsed = parseAttendanceDate(value);
+                return parsed ? formatTime(parsed) : (value || "--:--:--");
+            }
+            function setAttendanceTimeTone(elementId, tone) {
+                var element = document.getElementById(elementId);
+                if (!element) return;
+                element.classList.remove("staffsync-attendance-time-good", "staffsync-attendance-time-late");
+                if (tone === "good") element.classList.add("staffsync-attendance-time-good");
+                else if (tone === "late") element.classList.add("staffsync-attendance-time-late");
+            }
+            function updateTimeDifference() {
+                var element = document.getElementById("staffSyncTimeDifference");
+                if (!element) return;
+                if (!attendanceLoginDate) { element.textContent = "--:--:--"; return; }
+                var endTime = attendanceLogoutDate || new Date();
+                var differenceSeconds = Math.max(0, Math.floor((endTime.getTime() - attendanceLoginDate.getTime()) / 1000));
+                var days = Math.floor(differenceSeconds / 86400);
+                var hours = Math.floor((differenceSeconds % 86400) / 3600);
+                var minutes = Math.floor((differenceSeconds % 3600) / 60);
+                var seconds = differenceSeconds % 60;
+                element.textContent = (days > 0 ? days + "d " : "") + pad2(hours) + ":" + pad2(minutes) + ":" + pad2(seconds);
+            }
+            function parseShiftTime(value) {
+                if (value === null || value === undefined || value === "") return null;
+                if (value instanceof Date) return { hours: value.getHours(), minutes: value.getMinutes(), seconds: value.getSeconds() };
+                var text = String(value).trim();
+                var match = text.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)?$/i);
+                if (!match) return null;
+                var hour = parseInt(match[1], 10);
+                var minute = parseInt(match[2], 10);
+                var second = parseInt(match[3] || "0", 10);
+                if (match[4]) { hour = hour % 12; if (match[4].toUpperCase() === "PM") hour += 12; }
+                if (hour > 23 || minute > 59 || second > 59) return null;
+                return { hours: hour, minutes: minute, seconds: second };
+            }
+            function makeShiftDate(baseDate, shiftTime, isLogout) {
+                var parts = parseShiftTime(shiftTime);
+                if (!parts || !baseDate) return null;
+                var value = new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate(), parts.hours, parts.minutes, parts.seconds);
+                var startParts = parseShiftTime(window.staffSyncShiftLoginTime);
+                var endParts = parseShiftTime(window.staffSyncShiftLogoutTime);
+                if (isLogout && startParts && endParts) {
+                    var startMinutes = startParts.hours * 3600 + startParts.minutes * 60 + startParts.seconds;
+                    var endMinutes = endParts.hours * 3600 + endParts.minutes * 60 + endParts.seconds;
+                    if (endMinutes <= startMinutes) value.setDate(value.getDate() + 1);
+                }
+                return value;
+            }
+            function setTimingStatus(id, text, difference, kind) {
+                var element = document.getElementById(id);
+                if (!element) return;
+                element.textContent = "";
+                element.className = "staffsync-timing-status" + (kind ? " staffsync-timing-" + kind : "");
+                element.appendChild(document.createTextNode(text || "--"));
+                if (difference !== null && difference !== undefined && difference !== "") {
+                    var differenceBadge = document.createElement("span");
+                    differenceBadge.className = "staffsync-timing-difference-pill";
+                    differenceBadge.textContent = difference;
+                    element.appendChild(differenceBadge);
+                }
+            }
+            function formatTimingDifference(milliseconds) {
+                var totalSeconds = Math.floor(Math.abs(milliseconds) / 1000);
+                var days = Math.floor(totalSeconds / 86400);
+                var hours = Math.floor((totalSeconds % 86400) / 3600);
+                var minutes = Math.floor((totalSeconds % 3600) / 60);
+                var seconds = totalSeconds % 60;
+                return (days > 0 ? days + "d " : "") + pad2(hours) + ":" + pad2(minutes) + ":" + pad2(seconds);
+            }
+            function evaluateLoginTiming(loginDate) {
+                if (!loginDate || !window.staffSyncShiftLoginTime) {
+                    setTimingStatus("staffSyncLoginTimingStatus", "Shift not configured", null, "warning");
+                    setAttendanceTimeTone("staffSyncLoginTime", "");
+                    return;
+                }
+                var shiftDate = makeShiftDate(loginDate, window.staffSyncShiftLoginTime, false);
+                var diff = loginDate.getTime() - shiftDate.getTime();
+                var loginStatus = diff === 0 ? "On Time Logged In" : (diff < 0 ? "Early Logged In" : "Lately Logged In");
+                setTimingStatus("staffSyncLoginTimingStatus", loginStatus, formatTimingDifference(diff), diff > 0 ? "late" : "good");
+                setAttendanceTimeTone("staffSyncLoginTime", diff > 0 ? "late" : "good");
+            }
+            function evaluateLogoutTiming(logoutDate) {
+                if (!logoutDate || !attendanceLoginDate || !window.staffSyncShiftLogoutTime) {
+                    setTimingStatus("staffSyncLogoutTimingStatus", "Pending Logout", null, "warning");
+                    setAttendanceTimeTone("staffSyncLogoutTime", "");
+                    return;
+                }
+                var shiftDate = makeShiftDate(attendanceLoginDate, window.staffSyncShiftLogoutTime, true);
+                var diff = logoutDate.getTime() - shiftDate.getTime();
+                var logoutStatus = diff === 0 ? "Ontime Log out" : (diff < 0 ? "Early Log out" : "Lately Log out");
+                setTimingStatus("staffSyncLogoutTimingStatus", logoutStatus, formatTimingDifference(diff), diff < 0 ? "warning" : diff > 0 ? "late" : "good");
+                setAttendanceTimeTone("staffSyncLogoutTime", diff < 0 ? "late" : "good");
+            }
+            function updateGreeting(now) {
+                var greetingElement = document.getElementById("staffSyncGreeting");
+                if (!greetingElement) return;
+                var hour = now.getHours();
+                var greeting = hour < 12 ? "Good Morning" : (hour < 17 ? "Good Afternoon" : "Good Evening");
+                var icon = greetingElement.querySelector("i");
+                greetingElement.textContent = "";
+                if (icon) greetingElement.appendChild(icon);
+                greetingElement.appendChild(document.createTextNode(" " + greeting + ", Naveen Navale"));
+            }
+            function updateClock() {
+                var now = new Date();
+                updateGreeting(now);
+                var dayElement = document.getElementById("staffSyncClockDay");
+                var dateElement = document.getElementById("staffSyncClockDate");
+                var timeElement = document.getElementById("staffSyncDigitalClock");
+                if (dayElement) {
+                    var dayName = now.toLocaleDateString("en-IN", { weekday: "long" });
+                    var dayIcon = (now.getDay() === 0) ? "fa-sun" : (now.getDay() === 6) ? "fa-mug-hot" : "fa-briefcase";
+                    dayElement.innerHTML = '<i class="fa-solid ' + dayIcon + ' staffsync-clock-day-icon" aria-hidden="true"></i>' + dayName;
+                }
+                if (dateElement) dateElement.innerHTML = '<i class="fa-regular fa-calendar-days" aria-hidden="true"></i> ' + formatDate(now);
+                if (timeElement) timeElement.textContent = formatTime(now);
+                var dateChip = document.getElementById("staffSyncClockDateChip");
+                var timeChip = document.getElementById("staffSyncClockTimeChip");
+                if (dateChip) dateChip.textContent = formatDate(now);
+                if (timeChip) timeChip.textContent = formatTime(now);
+                updateTimeDifference();
+                var seconds = now.getSeconds();
+                var minutes = now.getMinutes();
+                var hours = now.getHours() % 12;
+                var hourHand = document.getElementById("staffSyncClockHourHand");
+                var minuteHand = document.getElementById("staffSyncClockMinuteHand");
+                var secondHand = document.getElementById("staffSyncClockSecondHand");
+                if (hourHand) hourHand.setAttribute("transform", "rotate(" + (hours * 30 + minutes * 0.5) + " 100 100)");
+                if (minuteHand) minuteHand.setAttribute("transform", "rotate(" + (minutes * 6 + seconds * 0.1) + " 100 100)");
+                if (secondHand) secondHand.setAttribute("transform", "rotate(" + (seconds * 6) + " 100 100)");
+            }
+            function setMessage(message, kind, action) {
+                var targetId = action === "Login" ? "staffSyncLoginActionMessage" :
+                    action === "Logout" ? "staffSyncLogoutActionMessage" : "staffSyncAttendanceMessage";
+                var element = document.getElementById(targetId);
+                if (!element) return;
+                element.textContent = message || "";
+                element.className = (action ? "staffsync-action-message" : "staffsync-attendance-message") +
+                    (kind ? " staffsync-message-" + kind : "");
+            }
+            function setStatus(text, loggedIn) {
+                var status = document.getElementById("staffSyncAttendanceStatus");
+                if (!status) return;
+                status.className = "staffsync-status-pill " + (loggedIn ? "staffsync-status-in" : "staffsync-status-out");
+                status.textContent = "";
+                var dot = document.createElement("span");
+                status.appendChild(dot);
+                status.appendChild(document.createTextNode(" " + text));
+            }
+            function setBusy(busy) {
+                var login = document.getElementById("staffSyncAttendanceLogin");
+                var logout = document.getElementById("staffSyncAttendanceLogout");
+                var state = window.staffSyncAttendanceState;
+                if (login) login.disabled = busy || state !== "not-in";
+                if (logout) logout.disabled = busy || state !== "in";
+            }
+            function postAttendanceMessage(action) {
+                if (!(window.chrome && window.chrome.webview && typeof window.chrome.webview.postMessage === "function")) {
+                    setMessage("Attendance actions are available when this dashboard is hosted in StaffSync WebView2.", "error");
+                    return false;
+                }
+                window.chrome.webview.postMessage({ Action: "EmployeeAttendance", AttendanceAction: action });
+                return true;
+            }
+
+            // State is loaded from the database through C#; browser memory is never treated as the source of truth.
+            window.staffSyncAttendanceState = "loading";
+            window.staffSyncRequestAttendanceAction = function (action) {
+                if (pendingAction) return;
+                if (action !== "Login" && action !== "Logout") return;
+                if (window.staffSyncAttendanceState === "loading" || window.staffSyncAttendanceState === "unknown") {
+                    setMessage("Attendance status is still being verified. Please wait.", "error");
+                    return;
+                }
+                if (action === "Login" && window.staffSyncAttendanceState !== "not-in") {
+                    setMessage("Today's attendance has already been started or completed.", "error"); return;
+                }
+                if (action === "Logout" && window.staffSyncAttendanceState !== "in") {
+                    setMessage("You must be logged in, and not already logged out, to record logout.", "error"); return;
+                }
+                pendingAction = action;
+                setMessage("", "", action);
+                setBusy(true);
+                if (action === "Logout") {
+                    setMessage("", "");
+                } else {
+                    setMessage("Submitting " + action.toLowerCase() + " request to StaffSync…", "");
+                }
+                if (!postAttendanceMessage(action)) {
+                    pendingAction = null;
+                    setBusy(false);
+                }
+            };
+
+            /* C# sends this result after loading state or saving a Login/Logout event. */
+            window.setStaffSyncAttendanceResult = function (result) {
+                result = result || {};
+                var completedAction = pendingAction;
+                var wasInitialStateRequest = completedAction === null;
+                pendingAction = null;
+
+                if (!result.Success) {
+                    if (window.staffSyncAttendanceState === "loading") window.staffSyncAttendanceState = "unknown";
+                    setMessage(result.Message || "Unable to retrieve or update attendance. Please try again.", "error");
+                    setBusy(false);
+                    return;
+                }
+
+                var loginTime = document.getElementById("staffSyncLoginTime");
+                var logoutTime = document.getElementById("staffSyncLogoutTime");
+                attendanceLoginDate = parseAttendanceDate(result.LoginTime);
+                attendanceLogoutDate = parseAttendanceDate(result.LogoutTime);
+                if (loginTime) loginTime.textContent = attendanceLoginDate ? formatTime(attendanceLoginDate) : "--:--:--";
+                if (logoutTime) logoutTime.textContent = attendanceLogoutDate ? formatTime(attendanceLogoutDate) : "--:--:--";
+                setAttendanceTimeTone("staffSyncLoginTime", "");
+                setAttendanceTimeTone("staffSyncLogoutTime", "");
+
+                // Shift properties are supplied by the C# attendance JSON response.
+                window.staffSyncShiftTitle = result.ShiftTitle || "";
+                window.staffSyncShiftLoginTime = result.ShiftLoginTime || "";
+                window.staffSyncShiftLogoutTime = result.ShiftLogoutTime || "";
+                var shiftTitleElement = document.getElementById("staffSyncShiftTitle");
+                var shiftLoginElement = document.getElementById("staffSyncShiftLoginTime");
+                var shiftLogoutElement = document.getElementById("staffSyncShiftLogoutTime");
+                if (shiftTitleElement) shiftTitleElement.textContent = window.staffSyncShiftTitle || "Not Assigned";
+                if (shiftLoginElement) shiftLoginElement.textContent = window.staffSyncShiftLoginTime || "--:--";
+                if (shiftLogoutElement) shiftLogoutElement.textContent = window.staffSyncShiftLogoutTime || "--:--";
+                evaluateLoginTiming(attendanceLoginDate);
+                evaluateLogoutTiming(attendanceLogoutDate);
+                updateTimeDifference();
+
+                if (result.AttendanceDate) {
+                    var attendanceDate = parseAttendanceDate(result.AttendanceDate);
+                    var formattedAttendanceDate = attendanceDate ? formatDate(attendanceDate) : result.AttendanceDate;
+                    var dateElement = document.getElementById("staffSyncClockDate");
+                    if (dateElement && wasInitialStateRequest) dateElement.innerHTML = '<i class="fa-regular fa-calendar-days" aria-hidden="true"></i> ' + formattedAttendanceDate;
+                    var dateChip = document.getElementById("staffSyncClockDateChip");
+                    if (dateChip && wasInitialStateRequest) dateChip.textContent = formattedAttendanceDate;
+                }
+
+                var timingFeedbackRow = document.getElementById("staffSyncShiftFeedbackRow");
+                // Keep the Login Timing and Logout Timing captions visible in every state.
+                if (timingFeedbackRow) timingFeedbackRow.hidden = false;
+
+                if (result.Status === "LoggedIn") {
+                    window.staffSyncAttendanceState = "in";
+                    setStatus("Logged In", true);
+                    setMessage(result.Message || "Login recorded successfully.", "success", "Login");
+                } else if (result.Status === "LoggedOut") {
+                    window.staffSyncAttendanceState = "done";
+                    setStatus("Logged Out", false);
+                    setMessage(result.Message || "Logout recorded successfully. Today's attendance is complete.", "success", "Logout");
+                } else {
+                    window.staffSyncAttendanceState = "not-in";
+                    if (timingFeedbackRow) timingFeedbackRow.hidden = false;
+                    setStatus("Not Logged In", false);
+                    setMessage(result.Message || "No attendance login has been recorded for today.", "");
+                }
+                // Keep both highlighted Login Timing and Logout Timing result values visible,
+                // including after the employee has successfully logged out.
+
+                setBusy(false);
+            };
+
+            window.staffSyncReloadAttendanceState = function () {
+                pendingAction = null;
+                window.staffSyncAttendanceState = "loading";
+                setBusy(true);
+                setMessage("Checking today's attendance…", "");
+                postAttendanceMessage("GetState");
+            };
+
+            function init() {
+                updateClock();
+                if (clockTimer) window.clearInterval(clockTimer);
+                clockTimer = window.setInterval(updateClock, 1000);
+                window.staffSyncReloadAttendanceState();
+            }
+            if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+            else init();
+        })();
+    </script>
+
+
 
     <!-- STAFFSYNC PENDING REIMBURSEMENT HORIZONTAL BAR FIX: 2026-10-24 -->
     <!--
@@ -3304,27 +4944,6 @@
                 <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:760px;">
                     <thead><tr style="background:#eff5f9;text-align:left;"><th style="padding:9px;">Employee</th><th style="padding:9px;">Request</th><th style="padding:9px;">Request Date</th><th style="padding:9px;">Days Pending</th><th style="padding:9px;text-align:right;">Amount</th><th style="padding:9px;">Status</th></tr></thead>
                     <tbody id="pendingReimbursementApprovalsDetailsBody"></tbody>
-                </table>
-            </div>
-        </div>
-
-
-
-        <!-- Approved Assets Not Yet Allocated: Month -> Category -> Asset -> Employee -->
-        <div id="approvedUnallocatedAssetsCard" data-dashboard-key="ApprovedUnallocatedAssets" class="chart-card">
-            <div class="chart-card-header" style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-                <div>
-                    <div class="chart-title" style="font-weight:700;color:#174b76;">Approved Assets - Not Yet Allocated</div>
-                    <div style="font-size:11px;color:#64748b;margin-top:4px;">Month-wise by Asset Request Date · select a bar to drill down</div>
-                </div>
-                <span id="approvedUnallocatedAssetsTotal" class="today-card-count" style="background:#fff3dc;color:#92400e;border:1px solid #f3d5a0;padding:5px 12px;border-radius:16px;font-weight:700;">0 requests</span>
-            </div>
-            <div id="approvedUnallocatedAssetsBreadcrumb" style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12px;color:#64748b;margin:8px 0;">Monthly overview</div>
-            <div id="approvedUnallocatedAssetsChart" style="width:100%;height:285px;min-height:240px;"></div>
-            <div id="approvedUnallocatedAssetsDetails" style="display:none;overflow:auto;margin-top:8px;">
-                <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:680px;">
-                    <thead><tr style="background:#eff5f9;text-align:left;"><th style="padding:9px;">Employee</th><th style="padding:9px;">Asset Requested</th><th style="padding:9px;">Request Date</th></tr></thead>
-                    <tbody id="approvedUnallocatedAssetsDetailsBody"></tbody>
                 </table>
             </div>
         </div>
@@ -3797,25 +5416,6 @@
 
 
     </div>
-    <script>
-        // StaffSync dashboard-wide date display standard: dd-MMM-yyyy (e.g. 26-Jul-2026).
-        window.formatStaffSyncDashboardDate = window.formatStaffSyncDashboardDate || function (value) {
-            if (value === null || value === undefined || value === "") return "";
-            var d;
-            if (value instanceof Date) { d = value; }
-            else if (typeof value === "string") {
-                var raw = value.trim();
-                var iso = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
-                var ms = raw.match(/^\/Date\((-?\d+)/);
-                if (iso) d = new Date(Number(iso[1]), Number(iso[2]) - 1, Number(iso[3]));
-                else if (ms) d = new Date(Number(ms[1]));
-                else d = new Date(raw);
-            } else { d = new Date(value); }
-            if (!d || isNaN(d.getTime())) return String(value);
-            var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            return String(d.getDate()).padStart(2, "0") + "-" + months[d.getMonth()] + "-" + d.getFullYear();
-        };
-    </script>
     <script>
         (function () {
             "use strict";
@@ -4942,7 +6542,14 @@
                 new Date(item.LeaveDate);
 
             var formattedDate =
-                window.formatStaffSyncDashboardDate(date);
+                date.toLocaleDateString(
+                    "en-GB",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    }
+                );
 
             var days =
                 Number(item.DaysToGo);
@@ -5414,7 +7021,14 @@
                 new Date(item.LeaveDate);
 
             var formattedDate =
-                window.formatStaffSyncDashboardDate(date);
+                date.toLocaleDateString(
+                    "en-GB",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    }
+                );
 
             var days =
                 Number(item.DaysToGo);
@@ -5826,7 +7440,14 @@
 
 
             var formattedDate =
-                window.formatStaffSyncDashboardDate(date);
+                date.toLocaleDateString(
+                    "en-GB",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    }
+                );
 
 
             holidayDates.push(
@@ -7367,7 +8988,15 @@
                 : new Date(cell.date);
 
         var formattedDate =
-            window.formatStaffSyncDashboardDate(selectedDate);
+            selectedDate.toLocaleDateString(
+                "en-US",
+                {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }
+            );
 
         subtitle.innerText =
             String(cell.department || "Unknown Department") +
@@ -12525,7 +14154,15 @@
         if (!isNaN(dateObject.getTime())) {
 
             formattedDate =
-                window.formatStaffSyncDashboardDate(dateObject);
+                dateObject.toLocaleDateString(
+                    "en-US",
+                    {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric"
+                    }
+                );
         }
 
         function percentage(value) {
@@ -13250,7 +14887,14 @@
             return String(value);
         }
 
-        return window.formatStaffSyncDashboardDate(date);
+        return date.toLocaleDateString(
+            "en-GB",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        );
     }
 
 
@@ -13396,7 +15040,13 @@
                 if (!isNaN(dob.getTime())) {
 
                     dobText =
-                        window.formatStaffSyncDashboardDate(dob);
+                        dob.toLocaleDateString(
+                            "en-GB",
+                            {
+                                day: "2-digit",
+                                month: "short"
+                            }
+                        ).toUpperCase();
                 }
             }
 
@@ -13935,7 +15585,13 @@
                 if (!isNaN(confirmationDate.getTime())) {
 
                     confirmationDateText =
-                        window.formatStaffSyncDashboardDate(confirmationDate);
+                        confirmationDate.toLocaleDateString(
+                            "en-GB",
+                            {
+                                day: "2-digit",
+                                month: "short"
+                            }
+                        ).toUpperCase();
                 }
             }
 
@@ -15196,25 +16852,134 @@
      *     14 Sep 2026
      */
     function formatHolidayDate(dateValue, rawValue) {
-        // Read ISO date components directly to avoid browser timezone shifts.
+
+        /*
+         * PublicHolidayInfo.PubHolidayDate arrives from Newtonsoft
+         * JSON as:
+         *
+         *     "2026-09-14T00:00:00"
+         *
+         * Read the YYYY-MM-DD portion directly. Do not depend on
+         * browser timezone conversion.
+         */
         if (typeof rawValue === "string") {
-            var raw = rawValue.trim();
-            var match = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
+
+            var text =
+                rawValue.trim();
+
+            var match =
+                text.match(
+                    /^(\d{4})-(\d{2})-(\d{2})/
+                );
+
             if (match) {
-                var year = Number(match[1]);
-                var month = Number(match[2]);
-                var day = Number(match[3]);
-                if (month >= 1 && month <= 12 && day >= 1 && day <= 31) {
-                    return window.formatStaffSyncDashboardDate(new Date(year, month - 1, day));
+
+                var year =
+                    Number(match[1]);
+
+                var month =
+                    Number(match[2]);
+
+                var day =
+                    Number(match[3]);
+
+                var monthNames = [
+                    "Jan",
+                    "Feb",
+                    "Mar",
+                    "Apr",
+                    "May",
+                    "Jun",
+                    "Jul",
+                    "Aug",
+                    "Sep",
+                    "Oct",
+                    "Nov",
+                    "Dec"
+                ];
+
+                if (
+                    month >= 1 &&
+                    month <= 12 &&
+                    day >= 1 &&
+                    day <= 31
+                ) {
+
+                    return (
+                        String(day).padStart(2, "0") +
+                        " " +
+                        monthNames[month - 1] +
+                        " " +
+                        year
+                    );
                 }
             }
-            var msMatch = raw.match(/\/Date\((-?\d+)(?:[+-]\d+)?\)\//);
-            if (msMatch) return window.formatStaffSyncDashboardDate(new Date(Number(msMatch[1])));
+
+            /*
+             * Microsoft JSON Date fallback.
+             */
+            var msMatch =
+                text.match(
+                    /\/Date\((-?\d+)(?:[+-]\d+)?\)\//
+                );
+
+            if (msMatch) {
+
+                var msDate =
+                    new Date(
+                        Number(msMatch[1])
+                    );
+
+                if (!isNaN(msDate.getTime())) {
+
+                    return (
+                        String(
+                            msDate.getDate()
+                        ).padStart(2, "0") +
+                        " " +
+                        msDate.toLocaleDateString(
+                            "en-US",
+                            { month: "short" }
+                        ) +
+                        " " +
+                        msDate.getFullYear()
+                    );
+                }
+            }
         }
-        if (dateValue instanceof Date && !isNaN(dateValue.getTime())) {
-            return window.formatStaffSyncDashboardDate(dateValue);
+
+        /*
+         * Fallback for an already parsed Date.
+         */
+        if (dateValue instanceof Date) {
+
+            if (!isNaN(dateValue.getTime())) {
+
+                return (
+                    String(
+                        dateValue.getDate()
+                    ).padStart(2, "0") +
+                    " " +
+                    dateValue.toLocaleDateString(
+                        "en-US",
+                        { month: "short" }
+                    ) +
+                    " " +
+                    dateValue.getFullYear()
+                );
+            }
         }
-        if (rawValue !== null && rawValue !== undefined && String(rawValue).trim() !== "") return String(rawValue);
+
+        if (
+            rawValue !== null &&
+            rawValue !== undefined &&
+            String(rawValue).trim() !== ""
+        ) {
+
+            return String(rawValue);
+
+        }
+
         return "";
     }
 
@@ -22008,7 +23773,7 @@
                 if (p.componentType === 'series') renderEmployees(m, p.name);
             });
         }
-        function renderEmployees(m, t) { level = 'employees'; selectedMonth = m; selectedTitle = t; var rr = rows.filter(function (r) { return month(r) === m && title(r) === t; }); setCrumb(m + ' / ' + t + ' — employee information', 'Back', function () { renderTitles(m); }); el('pendingReimbursementApprovalsChart').style.display = 'none'; el('pendingReimbursementApprovalsDetails').style.display = 'block'; var body = el('pendingReimbursementApprovalsDetailsBody'); body.innerHTML = ''; rr.sort(function (a, b) { return days(b) - days(a); }); rr.forEach(function (r) { var d = dateOf(r), dateText = d ? window.formatStaffSyncDashboardDate(d) : ''; var n = days(r); var tr = document.createElement('tr'); tr.innerHTML = '<td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(pick(r, ['EmpName'], 'Employee')) + '</strong><div style="color:#64748b;font-size:11px;">' + esc(pick(r, ['EmpCode'], '')) + '</div><div style="color:#64748b;font-size:11px;">' + esc(pick(r, ['DepartmentTitle'], '')) + ' · ' + esc(pick(r, ['DesignationTitle'], '')) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(pick(r, ['ReimbursRequestCode'], 'Request')) + '</strong><div style="font-size:11px;color:#64748b;">' + esc(title(r)) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;white-space:nowrap;">' + esc(dateText) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;font-weight:700;color:' + (n >= 15 ? '#b91c1c' : n >= 7 ? '#b45309' : '#166534') + ';">' + n + ' days</td><td style="padding:9px;border-bottom:1px solid #e5edf3;text-align:right;white-space:nowrap;">' + money(amount(r)) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;">Pending approval</td>'; body.appendChild(tr); }); if (!rr.length) body.innerHTML = '<tr><td colspan="6" style="padding:16px;text-align:center;color:#64748b;">No matching requests.</td></tr>'; el('pendingReimbursementApprovalsTotal').textContent = rr.length + ' requests'; el('pendingReimbursementApprovalsAmount').textContent = money(rr.reduce(function (sum, r) { return sum + amount(r); }, 0)); }
+        function renderEmployees(m, t) { level = 'employees'; selectedMonth = m; selectedTitle = t; var rr = rows.filter(function (r) { return month(r) === m && title(r) === t; }); setCrumb(m + ' / ' + t + ' — employee information', 'Back', function () { renderTitles(m); }); el('pendingReimbursementApprovalsChart').style.display = 'none'; el('pendingReimbursementApprovalsDetails').style.display = 'block'; var body = el('pendingReimbursementApprovalsDetailsBody'); body.innerHTML = ''; rr.sort(function (a, b) { return days(b) - days(a); }); rr.forEach(function (r) { var d = dateOf(r), dateText = d ? (String(d.getDate()).padStart(2, '0') + '-' + d.toLocaleDateString('en-GB', { month: 'short' }) + '-' + d.getFullYear()) : ''; var n = days(r); var tr = document.createElement('tr'); tr.innerHTML = '<td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(pick(r, ['EmpName'], 'Employee')) + '</strong><div style="color:#64748b;font-size:11px;">' + esc(pick(r, ['EmpCode'], '')) + '</div><div style="color:#64748b;font-size:11px;">' + esc(pick(r, ['DepartmentTitle'], '')) + ' · ' + esc(pick(r, ['DesignationTitle'], '')) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><strong>' + esc(pick(r, ['ReimbursRequestCode'], 'Request')) + '</strong><div style="font-size:11px;color:#64748b;">' + esc(title(r)) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;white-space:nowrap;">' + esc(dateText) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;font-weight:700;color:' + (n >= 15 ? '#b91c1c' : n >= 7 ? '#b45309' : '#166534') + ';">' + n + ' days</td><td style="padding:9px;border-bottom:1px solid #e5edf3;text-align:right;white-space:nowrap;">' + money(amount(r)) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;">Pending approval</td>'; body.appendChild(tr); }); if (!rr.length) body.innerHTML = '<tr><td colspan="6" style="padding:16px;text-align:center;color:#64748b;">No matching requests.</td></tr>'; el('pendingReimbursementApprovalsTotal').textContent = rr.length + ' requests'; el('pendingReimbursementApprovalsAmount').textContent = money(rr.reduce(function (sum, r) { return sum + amount(r); }, 0)); }
         window.displayPendingReimbursementApprovals = function (data) { try { if (typeof data === 'string') data = JSON.parse(data); rows = Array.isArray(data) ? data : []; renderMonths(); } catch (e) { console.error('Pending reimbursement approvals render error', e); } };
         window.addEventListener('resize', function () { if (chart) chart.resize(); }); if (window.__staffSyncPendingApprovalReimbursements) { window.displayPendingReimbursementApprovals(window.__staffSyncPendingApprovalReimbursements); window.__staffSyncPendingApprovalReimbursements = null; }
     })();
@@ -22052,7 +23817,7 @@
         function asset(row) { return String(pick(row, ['AssetName', 'AssetTitle', 'AssetDescription', 'AssetTypeTitle', 'AssetCategoryTitle', 'AssetCode', 'ItemName', 'Asset'], 'Asset request')); }
         function employee(row) { return String(pick(row, ['EmpName', 'EmployeeName', 'EmployeeTitle', 'RequestedBy', 'EmpFullName', 'Employee'], 'Employee')); }
         function status(row) { return 'Pending approval'; }
-        function requestDateText(row) { var d = dateOf(row); return d ? window.formatStaffSyncDashboardDate(d) : '—'; }
+        function requestDateText(row) { var d = dateOf(row); return d ? (String(d.getDate()).padStart(2, '0') + '-' + d.toLocaleDateString('en-GB', { month: 'short' }) + '-' + d.getFullYear()) : '—'; }
         function initChart() { var node = el('pendingAssetsRequestChart'); if (!node || !window.echarts) return null; return echarts.getInstanceByDom(node) || echarts.init(node); }
         function setBreadcrumb(text, back, callback) {
             var b = el('pendingAssetsRequestBreadcrumb');
@@ -22254,7 +24019,7 @@
             var body = el('assetAnalyticsInformationDetailsBody'); body.innerHTML = '';
             rr.sort(function (a, b) { var an = String(pick(a, ['EmpName'], '')).toLowerCase(), bn = String(pick(b, ['EmpName'], '')).toLowerCase(); return an.localeCompare(bn); });
             rr.forEach(function (r) {
-                var d = dateOf(r); var dateText = d ? window.formatStaffSyncDashboardDate(d) : '—';
+                var d = dateOf(r); var dateText = d ? d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
                 var tr = document.createElement('tr');
                 tr.innerHTML = '<td style="padding:10px;border-bottom:1px solid #e5edf3;vertical-align:top;">' +
                     '<strong style="display:block;margin-bottom:3px;color:#111827;">' + esc(pick(r, ['EmpName'], '—')) + '</strong>' +
@@ -22279,42 +24044,26 @@
         if (window.__staffSyncAssetAnalyticsInformation) { window.displayAssetAnalyticsInformationChartData(window.__staffSyncAssetAnalyticsInformation); window.__staffSyncAssetAnalyticsInformation = null; }
     })();
 
-
-
-    /* ============================================================
-       APPROVED ASSETS NOT YET ALLOCATED
-       Drilldown: Month -> Category -> Asset -> Employee request list
-       Data is supplied by getApprovedAssetInformationRequestList.
-       ============================================================ */
-    (function () {
-        'use strict';
-        var rows = [], chart = null, selectedMonth = null, selectedCategoryId = null;
-        function el(id) { return document.getElementById(id); }
-        function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]); }); }
-        function pick(r, names, fallback) { for (var i = 0; i < names.length; i++) if (r[names[i]] !== undefined && r[names[i]] !== null) return r[names[i]]; return fallback == null ? '' : fallback; }
-        function dateOf(r) { var v = pick(r, ['AssetRequestDate', 'RequestDate'], null); if (!v) return null; var d = new Date(v); return isNaN(d.getTime()) ? null : d; }
-        function monthKey(r) { var d = dateOf(r); return d ? d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') : 'Unknown'; }
-        function monthLabel(k) { if (k === 'Unknown') return 'Unknown Date'; var p = k.split('-'); return new Date(Number(p[0]), Number(p[1]) - 1, 1).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }); }
-        function categoryId(r) { return String(pick(r, ['AssetCatMasID', 'AssetCategoryID'], '0')); }
-        function categoryName(r) { return String(pick(r, ['CatAssetName', 'AssetCategoryName', 'AssetCategoryTitle'], 'Uncategorised')); }
-        function assetName(r) { return String(pick(r, ['AssetName', 'RequestedAssetName'], 'Unknown Asset')); }
-        function chartInit() { var n = el('approvedUnallocatedAssetsChart'); if (!n || !window.echarts) return null; return echarts.getInstanceByDom(n) || echarts.init(n); }
-        function breadcrumb(label, back) { var b = el('approvedUnallocatedAssetsBreadcrumb'); b.innerHTML = '<span>' + esc(label) + '</span>' + (back ? '<button id="approvedUnallocatedAssetsBack" type="button" style="margin-left:auto;padding:5px 12px;border:1px solid #cbd9e5;border-radius:5px;background:#fff;color:#174b76;cursor:pointer;">← Back</button>' : ''); if (back) el('approvedUnallocatedAssetsBack').onclick = back; }
-        function showChart() { el('approvedUnallocatedAssetsDetails').style.display = 'none'; el('approvedUnallocatedAssetsChart').style.display = 'block'; chart = chartInit(); }
-        function renderGrouped(title, groups, keys, onClick, back, crumb) {
-            showChart(); breadcrumb(crumb || title, back); if (!chart) return; chart.clear();
-            if (!keys.length) { chart.setOption({ title: { text: 'No approved unallocated requests found', left: 'center', top: 'middle', textStyle: { fontSize: 13, color: '#64748b' } } }); return; }
-            chart.setOption({ tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: function (p) { var n = p && p.length ? p[0].axisValue : ''; return '<b>' + esc(n) + '</b><br/>Approved, not allocated: <b>' + ((groups[n] || 0)) + '</b>'; } }, grid: { left: 45, right: 20, top: 20, bottom: 45, containLabel: true }, xAxis: { type: 'category', data: keys, axisLabel: { rotate: keys.length > 5 ? 25 : 0, interval: 0, fontSize: 10 } }, yAxis: { type: 'value', min: 0, minInterval: 1, name: 'Requests' }, series: [{ name: 'Approved, not allocated', type: 'bar', data: keys.map(function (k) { return groups[k] || 0; }), barMaxWidth: 32, itemStyle: { color: '#d99a32', borderRadius: [7, 7, 0, 0] }, label: { show: true, position: 'top', fontSize: 10, fontWeight: 600 } }] });
-            chart.off('click'); chart.on('click', function (p) { if (p && p.componentType === 'series' && onClick) onClick(p.name); });
-        }
-        function renderMonths() { selectedMonth = null; selectedCategoryId = null; var grouped = {}, map = {}; rows.forEach(function (r) { var k = monthKey(r); grouped[k] = (grouped[k] || 0) + 1; }); var raw = Object.keys(grouped).sort(); raw.forEach(function (k) { map[monthLabel(k)] = k; }); var labels = raw.map(monthLabel), vals = {}; labels.forEach(function (l, i) { vals[l] = grouped[raw[i]]; }); el('approvedUnallocatedAssetsTotal').textContent = rows.length + ' requests'; renderGrouped('Monthly approved unallocated requests', vals, labels, function (label) { renderCategories(map[label]); }, null, 'Month-wise by Asset Request Date'); }
-        function renderCategories(month) { selectedMonth = month; var rr = rows.filter(function (r) { return monthKey(r) === month; }), groups = {}, ids = {}; rr.forEach(function (r) { var name = categoryName(r), id = categoryId(r); groups[name] = (groups[name] || 0) + 1; ids[name] = id; }); renderGrouped('Approved unallocated requests by category', groups, Object.keys(groups).sort(), function (name) { renderAssets(month, ids[name], name); }, function () { renderMonths(); }, monthLabel(month) + ' / Asset Categories'); }
-        function renderAssets(month, catId, catName) { selectedMonth = month; selectedCategoryId = catId; var rr = rows.filter(function (r) { return monthKey(r) === month && categoryId(r) === String(catId); }), groups = {}; rr.forEach(function (r) { var n = assetName(r); groups[n] = (groups[n] || 0) + 1; }); renderGrouped('Approved unallocated requests by asset', groups, Object.keys(groups).sort(), function (name) { renderEmployees(month, catId, catName, name); }, function () { renderCategories(month); }, monthLabel(month) + ' / ' + catName + ' / Assets'); }
-        function renderEmployees(month, catId, catName, aName) { var rr = rows.filter(function (r) { return monthKey(r) === month && categoryId(r) === String(catId) && assetName(r) === aName; }); breadcrumb(monthLabel(month) + ' / ' + catName + ' / ' + aName + ' — employee request details', function () { renderAssets(month, catId, catName); }); el('approvedUnallocatedAssetsChart').style.display = 'none'; el('approvedUnallocatedAssetsDetails').style.display = 'block'; var body = el('approvedUnallocatedAssetsDetailsBody'); body.innerHTML = ''; rr.sort(function (a, b) { var da = dateOf(a), db = dateOf(b); return (da ? da.getTime() : 0) - (db ? db.getTime() : 0); }); rr.forEach(function (r) { var d = dateOf(r); var dt = d ? window.formatStaffSyncDashboardDate(d) : '—'; var empCode = pick(r, ['EmpCode'], '—'); var empName = pick(r, ['EmpName'], '—'); var department = pick(r, ['DepartmentTitle'], '—'); var designation = pick(r, ['DesignationTitle'], '—'); var tr = document.createElement('tr'); tr.innerHTML = '<td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;"><div style="font-weight:600;color:#0f172a;">' + esc(empName) + '</div><div style="font-size:11px;color:#475569;margin-top:3px;">' + esc(empCode) + '</div><div style="font-size:11px;color:#475569;margin-top:3px;">' + esc(department) + '</div><div style="font-size:11px;color:#475569;margin-top:2px;">' + esc(designation) + '</div></td><td style="padding:9px;border-bottom:1px solid #e5edf3;vertical-align:top;">' + esc(assetName(r)) + '</td><td style="padding:9px;border-bottom:1px solid #e5edf3;white-space:nowrap;vertical-align:top;">' + esc(dt) + '</td>'; body.appendChild(tr); }); if (!rr.length) body.innerHTML = '<tr><td colspan="3" style="padding:16px;text-align:center;color:#64748b;">No matching requests found.</td></tr>'; el('approvedUnallocatedAssetsTotal').textContent = rr.length + ' requests'; }
-        window.displayApprovedUnallocatedAssetsData = function (data) { try { if (typeof data === 'string') data = JSON.parse(data); rows = Array.isArray(data) ? data : []; renderMonths(); } catch (e) { console.error('Approved unallocated assets rendering error:', e); } };
-        window.addEventListener('resize', function () { try { if (chart) chart.resize(); } catch (e) { } });
-    })();
-
 </script>
+
+
+<style>
+    /* Small spacing adjustment for Assigned Shift and Today's Attendance labels only. */
+    @media (min-width: 1251px) {
+        #staffSyncAttendanceClock .staffsync-workstation-heading {
+            column-gap: 18px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-assigned-shift-top,
+        #staffSyncAttendanceClock .staffsync-todays-attendance-top {
+            padding-left: 6px;
+        }
+
+            #staffSyncAttendanceClock .staffsync-assigned-shift-top .staffsync-info-items,
+            #staffSyncAttendanceClock .staffsync-todays-attendance-top .staffsync-info-items {
+                column-gap: 16px;
+            }
+    }
+</style>
 
 </html>

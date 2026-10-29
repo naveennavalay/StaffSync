@@ -32,6 +32,8 @@ namespace StaffSync
         //DALStaffSync.clsAttendanceMas objAttendanceInfo = new DALStaffSync.clsAttendanceMas();
         //DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
         //List<WklyOffProfileDetailsInfo> lstWeeklyOffDetailsInfo = new List<WklyOffProfileDetailsInfo>();
+        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
+        DALStaffSync.clsEmployeePersonalInfo objEmployeePersonalInfo = new DALStaffSync.clsEmployeePersonalInfo();
         DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
         DALStaffSync.clsAdvanceTypeMas objAdvanceTypeMas = new DALStaffSync.clsAdvanceTypeMas();
         DALStaffSync.clsAdvanceTransaction objAdvanceTransaction = new DALStaffSync.clsAdvanceTransaction();
@@ -169,11 +171,12 @@ namespace StaffSync
                 {
                     if (Convert.ToBoolean(dc.Cells["Select"].Value.ToString()) == true)
                     {
+                        int FirstApproverID = Convert.ToInt32(dc.Cells["ApproverEmpID1"].Value);
                         int AdvanceRequestID = Convert.ToInt32(dc.Cells["EmpAdvanceRequestID"].Value);
                         string ApproverRequestedToComments1 = dc.Cells["ApproverRequestedToComments1"].Value?.ToString();
                         AdvanceRequestCode = dc.Cells["EmpAdvReqCode"].Value?.ToString();
 
-                        objAdvanceTransaction.UpdateFirstApproverStatus(AdvanceRequestID, ApproverRequestedToComments1, DateTime.Now.Date);
+                        objAdvanceTransaction.UpdateFirstApproverStatus(AdvanceRequestID, FirstApproverID, ApproverRequestedToComments1, DateTime.Now.Date);
 
                         if (ApproverRequestedToComments1 == "In Progress" || ApproverRequestedToComments1 == "Pending")
                         {
@@ -267,10 +270,11 @@ namespace StaffSync
                 {
                     if (Convert.ToBoolean(dc.Cells["Select"].Value.ToString()) == true)
                     {
+                        int SecondApproverID = Convert.ToInt32(dc.Cells["ApproverEmpID2"].Value);
                         int AdvanceRequestID = Convert.ToInt32(dc.Cells["EmpAdvanceRequestID"].Value);
                         string RequestMovedToComments = dc.Cells["RequestMovedToComments"].Value?.ToString();
                         AdvanceRequestCode = dc.Cells["EmpAdvReqCode"].Value?.ToString();
-                        objAdvanceTransaction.UpdateSecondApproverStatus(AdvanceRequestID, RequestMovedToComments, DateTime.Now.Date);
+                        objAdvanceTransaction.UpdateSecondApproverStatus(AdvanceRequestID, SecondApproverID, RequestMovedToComments, DateTime.Now.Date);
 
                         if (RequestMovedToComments == "In Progress" || RequestMovedToComments == "Pending")
                         {
@@ -467,7 +471,7 @@ namespace StaffSync
             {
                 dtgAdvanceRequestersList.Columns["ApproverEmpID1"].ReadOnly = true;
                 dtgAdvanceRequestersList.Columns["ApproverEmpID1"].Width = 50;
-                dtgAdvanceRequestersList.Columns["ApproverEmpID1"].Visible = false;
+                dtgAdvanceRequestersList.Columns["ApproverEmpID1"].Visible = true;
                 dtgAdvanceRequestersList.Columns["ApproverEmpCode1"].ReadOnly = true;
                 dtgAdvanceRequestersList.Columns["ApproverEmpCode1"].Width = 100;
                 dtgAdvanceRequestersList.Columns["ApproverEmpCode1"].Visible = true;
@@ -500,7 +504,7 @@ namespace StaffSync
 
                 dtgAdvanceRequestersList.Columns["ApproverEmpID2"].ReadOnly = true;
                 dtgAdvanceRequestersList.Columns["ApproverEmpID2"].Width = 50;
-                dtgAdvanceRequestersList.Columns["ApproverEmpID2"].Visible = false;
+                dtgAdvanceRequestersList.Columns["ApproverEmpID2"].Visible = true;
                 dtgAdvanceRequestersList.Columns["ApproverEmpCode2"].ReadOnly = true;
                 dtgAdvanceRequestersList.Columns["ApproverEmpCode2"].Width = 100;
                 dtgAdvanceRequestersList.Columns["ApproverEmpCode2"].Visible = true;
@@ -715,6 +719,16 @@ namespace StaffSync
                     }
                 }
             }
+            else if (dtgAdvanceRequestersList.Columns[e.ColumnIndex].Name == "ApproverEmpCode1") //ApproverEmpID1
+            {
+                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAdvanceFirstApproverEmpCode1", objTempClientFinYearInfo.ClientID);
+                frmEmployeeList.ShowDialog(this);
+            }
+            else if (dtgAdvanceRequestersList.Columns[e.ColumnIndex].Name == "ApproverEmpCode2") //ApproverEmpID1
+            {
+                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAdvanceSecondApproverEmpCode1", objTempClientFinYearInfo.ClientID);
+                frmEmployeeList.ShowDialog(this);
+            }
             else if (dtgAdvanceRequestersList.Columns[e.ColumnIndex].Name == "RequestMovedToComments")
             {
                 int AdvanceRequestID = Convert.ToInt32(dtgAdvanceRequestersList.Rows[e.RowIndex].Cells["EmpAdvanceRequestID"].Value);
@@ -880,6 +894,30 @@ namespace StaffSync
                         dtgReimbursmentRequestersList.Rows[e.RowIndex].Cells["RequestStatus"].Value = frm.SelectedStatus;
                     }
                 }
+            }
+        }
+
+        public void SelectedEmployeeID(string SearchOptionSelectedForm, int selectedEmployeeID)
+        {
+            if (SearchOptionSelectedForm.Trim() == "listAdvanceFirstApproverEmpCode1")
+            {
+                dtgAdvanceRequestersList.CurrentRow.Cells["ApproverEmpID1"].Value = selectedEmployeeID;
+                EmployeeInfo objEmployeeInfo = objEmployeeMaster.GetSelectedEmployeeInfo(Convert.ToInt32(selectedEmployeeID));
+                dtgAdvanceRequestersList.CurrentRow.Cells["ApproverEmpCode1"].Value = objEmployeeInfo.EmpCode;
+                dtgAdvanceRequestersList.CurrentRow.Cells["ApproverEmpName1"].Value = objEmployeeInfo.EmpName;
+
+                EmpPersonalPersonalInfo objSelectedPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt32(selectedEmployeeID));
+                dtgAdvanceRequestersList.CurrentRow.Cells["ApproverEmpMailID1"].Value = objSelectedPersonalInfo.ContactNumber2;
+            }
+            else if (SearchOptionSelectedForm.Trim() == "listAdvanceSecondApproverEmpCode1")
+            {
+                dtgAdvanceRequestersList.CurrentRow.Cells["ApproverEmpID2"].Value = selectedEmployeeID;
+                EmployeeInfo objEmployeeInfo = objEmployeeMaster.GetSelectedEmployeeInfo(Convert.ToInt32(selectedEmployeeID));
+                dtgAdvanceRequestersList.CurrentRow.Cells["ApproverEmpCode2"].Value = objEmployeeInfo.EmpCode;
+                dtgAdvanceRequestersList.CurrentRow.Cells["ApproverEmpName2"].Value = objEmployeeInfo.EmpName;
+
+                EmpPersonalPersonalInfo objSelectedPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt32(selectedEmployeeID));
+                dtgAdvanceRequestersList.CurrentRow.Cells["ApproverEmpMailID2"].Value = objSelectedPersonalInfo.ContactNumber2;
             }
         }
     }

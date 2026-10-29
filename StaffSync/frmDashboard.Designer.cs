@@ -250,6 +250,8 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
+            this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripSeparator();
+            this.taskDelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -1298,29 +1300,31 @@
             this.cmbApprovals.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.firstApprovalToolStripMenuItem,
             this.toolStripMenuItem20,
-            this.secondApprovalToolStripMenuItem});
+            this.secondApprovalToolStripMenuItem,
+            this.toolStripMenuItem21,
+            this.taskDelToolStripMenuItem});
             this.cmbApprovals.Name = "cmbManageAdvances";
-            this.cmbApprovals.Size = new System.Drawing.Size(165, 54);
+            this.cmbApprovals.Size = new System.Drawing.Size(181, 104);
             this.cmbApprovals.Opening += new System.ComponentModel.CancelEventHandler(this.cmbApprovals_Opening);
             // 
             // firstApprovalToolStripMenuItem
             // 
             this.firstApprovalToolStripMenuItem.Image = global::StaffSync.Properties.Resources.approved;
             this.firstApprovalToolStripMenuItem.Name = "firstApprovalToolStripMenuItem";
-            this.firstApprovalToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.firstApprovalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.firstApprovalToolStripMenuItem.Text = "First Approval";
             this.firstApprovalToolStripMenuItem.Click += new System.EventHandler(this.firstApprovalToolStripMenuItem_Click);
             // 
             // toolStripMenuItem20
             // 
             this.toolStripMenuItem20.Name = "toolStripMenuItem20";
-            this.toolStripMenuItem20.Size = new System.Drawing.Size(161, 6);
+            this.toolStripMenuItem20.Size = new System.Drawing.Size(177, 6);
             // 
             // secondApprovalToolStripMenuItem
             // 
             this.secondApprovalToolStripMenuItem.Image = global::StaffSync.Properties.Resources.asset_operations;
             this.secondApprovalToolStripMenuItem.Name = "secondApprovalToolStripMenuItem";
-            this.secondApprovalToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.secondApprovalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.secondApprovalToolStripMenuItem.Text = "Second Approval";
             this.secondApprovalToolStripMenuItem.Click += new System.EventHandler(this.secondApprovalToolStripMenuItem_Click);
             // 
@@ -2130,6 +2134,18 @@
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             this.kryptonRibbonGroupButton5.Click += new System.EventHandler(this.kryptonRibbonGroupButton5_Click);
             // 
+            // toolStripMenuItem21
+            // 
+            this.toolStripMenuItem21.Name = "toolStripMenuItem21";
+            this.toolStripMenuItem21.Size = new System.Drawing.Size(177, 6);
+            // 
+            // taskDelToolStripMenuItem
+            // 
+            this.taskDelToolStripMenuItem.Name = "taskDelToolStripMenuItem";
+            this.taskDelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.taskDelToolStripMenuItem.Text = "Delegate Approvals";
+            //this.taskDelToolStripMenuItem.Click += new System.EventHandler(this.taskDelToolStripMenuItem_Click);
+            // 
             // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2408,6 +2424,8 @@
         private System.Windows.Forms.ToolStripMenuItem firstApprovalToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem20;
         private System.Windows.Forms.ToolStripMenuItem secondApprovalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem21;
+        private System.Windows.Forms.ToolStripMenuItem taskDelToolStripMenuItem;
     }
 }
 

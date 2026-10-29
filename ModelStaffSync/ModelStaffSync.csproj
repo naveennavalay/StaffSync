@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CurrentAssetStatusModel.cs" />
+    <Compile Include="EmployeeAttendanceClockInfo.cs" />
     <Compile Include="ReimbursementInfo.cs" />
     <Compile Include="clsEmployeeWeeklyOffInfo.cs" />
     <Compile Include="EmpAdvanceInfoModel.cs" />

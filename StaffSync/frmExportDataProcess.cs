@@ -4709,6 +4709,11 @@ namespace StaffSync
                     // Employee-specific Bank Information.
                     AppendEmployeeBankInformation(html, group.Rows, data);
 
+                    // Employee-specific Assets Assigned Information.
+                    // Uses the existing asset analytics DAL and displays only assets currently
+                    // issued to this employee and not yet returned.
+                    AppendEmployeeAssignedAssets(html, group.Rows);
+
                     // Leave Information: render the employee's leave entitlement records.
                     // EmpID is carried internally through the export dataset for this lookup.
                     AppendLeaveInformationPlaceholder(html, group.Rows, data);
@@ -4760,6 +4765,108 @@ namespace StaffSync
             html.AppendLine("</div><div class=\"footer\">StaffSync Payroll Management - Exported rows: " + data.Rows.Count.ToString() + "</div>");
             html.AppendLine("</div></body></html>");
             File.WriteAllText(outputFile, html.ToString(), new UTF8Encoding(false));
+        }
+
+        /// <summary>
+        /// Renders all assets currently assigned to an employee in a separate subtable.
+        /// The existing asset analytics DAL filters to issued assets that have not been returned.
+        /// </summary>
+        private void AppendEmployeeAssignedAssets(StringBuilder html, List<DataRow> employeeRows)
+        {
+            html.AppendLine("<div class=\"family-heading\">Assets Assigned Information</div>");
+            html.AppendLine("<table class=\"family-table assigned-assets-table\"><thead><tr>");
+            html.AppendLine("<th>Asset Category</th><th>Asset Code</th><th>Asset Name</th><th>Issue Date</th><th>Issue Condition</th><th>Issue Remarks</th>");
+            html.AppendLine("</tr></thead><tbody>");
+
+            int employeeId = 0;
+            if (employeeRows != null)
+            {
+                foreach (DataRow employeeRow in employeeRows)
+                {
+                    if (employeeRow == null || employeeRow.RowState == DataRowState.Deleted || employeeRow.Table == null)
+                        continue;
+
+                    string idColumn = GetFirstExistingColumn(employeeRow.Table, "EmpID", "EmployeeID", "EmpId");
+                    if (string.IsNullOrEmpty(idColumn) || employeeRow[idColumn] == DBNull.Value)
+                        continue;
+
+                    if (int.TryParse(Convert.ToString(employeeRow[idColumn]), out employeeId) && employeeId > 0)
+                        break;
+                }
+            }
+
+            DataTable assignedAssets = new DataTable("EmployeeAssignedAssets");
+            if (employeeId > 0)
+            {
+                try
+                {
+                    assignedAssets = ConvertListToDataTable(
+                        objAssetRegister.getAssetAnalyticsInformation(objTempClientFinYearInfo.ClientID));
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Unable to load employee assigned assets: " + ex.Message);
+                }
+            }
+
+            bool found = false;
+            if (assignedAssets != null && assignedAssets.Rows.Count > 0)
+            {
+                string empIdColumn = GetFirstExistingColumn(assignedAssets, "EmpID", "EmployeeID", "EmpId");
+                string categoryColumn = GetFirstExistingColumn(assignedAssets, "CatAssetName", "AssetCategoryName", "CategoryName", "AssetCategory");
+                string assetCodeColumn = GetFirstExistingColumn(assignedAssets, "AssetCode", "AssetItemCode");
+                string assetNameColumn = GetFirstExistingColumn(assignedAssets, "AssetName", "AssetTitle");
+                string issueDateColumn = GetFirstExistingColumn(assignedAssets, "IssueDate", "IssuedDate");
+                string conditionColumn = GetFirstExistingColumn(assignedAssets, "IssueCondition", "ConditionAtIssue");
+                string remarksColumn = GetFirstExistingColumn(assignedAssets, "IssueRemarks", "IssueRemark", "Remarks");
+
+                foreach (DataRow assetRow in assignedAssets.Rows)
+                {
+                    if (!string.IsNullOrEmpty(empIdColumn) && assetRow[empIdColumn] != DBNull.Value)
+                    {
+                        int assetEmployeeId;
+                        if (!int.TryParse(Convert.ToString(assetRow[empIdColumn]), out assetEmployeeId) || assetEmployeeId != employeeId)
+                            continue;
+                    }
+                    else
+                    {
+                        // Do not show records when the DAL result cannot be tied safely to this employee.
+                        continue;
+                    }
+
+                    html.AppendLine("<tr>");
+                    html.Append("<td>").Append(HtmlEncode(GetDataRowValue(assetRow, categoryColumn))).AppendLine("</td>");
+                    html.Append("<td>").Append(HtmlEncode(GetDataRowValue(assetRow, assetCodeColumn))).AppendLine("</td>");
+                    html.Append("<td>").Append(HtmlEncode(GetDataRowValue(assetRow, assetNameColumn))).AppendLine("</td>");
+
+                    string issueDate = GetDataRowValue(assetRow, issueDateColumn);
+                    DateTime parsedIssueDate;
+                    if (DateTime.TryParse(issueDate, out parsedIssueDate))
+                        issueDate = parsedIssueDate.ToString("dd-MMM-yyyy");
+                    html.Append("<td>").Append(HtmlEncode(issueDate)).AppendLine("</td>");
+                    html.Append("<td>").Append(HtmlEncode(GetDataRowValue(assetRow, conditionColumn))).AppendLine("</td>");
+                    html.Append("<td>").Append(HtmlEncode(GetDataRowValue(assetRow, remarksColumn))).AppendLine("</td>");
+                    html.AppendLine("</tr>");
+                    found = true;
+                }
+            }
+
+            if (!found)
+                html.AppendLine("<tr><td colspan=\"6\" class=\"no-data\">No assets are currently assigned to this employee.</td></tr>");
+
+            html.AppendLine("</tbody></table>");
+        }
+
+        /// <summary>
+        /// Reads a value from a DataRow using a previously resolved optional column name.
+        /// </summary>
+        private string GetDataRowValue(DataRow row, string columnName)
+        {
+            if (row == null || row.Table == null || string.IsNullOrEmpty(columnName) ||
+                !row.Table.Columns.Contains(columnName) || row[columnName] == DBNull.Value)
+                return string.Empty;
+
+            return Convert.ToString(row[columnName]) ?? string.Empty;
         }
 
         /// <summary>
