@@ -3521,7 +3521,14 @@
                         <div id="staffSyncClockDay" class="staffsync-clock-day"><i class="fa-solid fa-briefcase staffsync-clock-day-icon" aria-hidden="true"></i>Friday</div>
                         <div id="staffSyncClockDate" class="staffsync-clock-date"><i class="fa-regular fa-calendar-days" aria-hidden="true"></i> 30-Oct-2026</div>
                     </div>
-                    <span class="staffsync-live-indicator"><span></span> LIVE CLOCK</span>
+                    <div class="staffsync-clock-status-group">
+                        <span id="staffSyncNetworkIndicator" class="staffsync-network-indicator is-online"
+                              role="status" aria-label="Network connection available"
+                              title="Network connection available">
+                            <i class="fa-solid fa-signal" aria-hidden="true"></i>
+                        </span>
+                        <span class="staffsync-live-indicator"><span></span> LIVE CLOCK</span>
+                    </div>
                 </div>
                 <div class="staffsync-digital-clock"><i class="fa-regular fa-clock staffsync-digital-clock-icon" aria-hidden="true"></i><span id="staffSyncDigitalClock" aria-live="off">09:04:49 PM</span></div>
                 <div class="staffsync-clock-welcome">
@@ -3604,6 +3611,54 @@
             align-items: flex-start;
             justify-content: space-between;
             gap: 12px;
+        }
+
+        /* Device network status: black when navigator reports online,
+           gray when the device reports offline. */
+        .staffsync-clock-status-group {
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            flex: 0 0 auto;
+        }
+
+        .staffsync-network-indicator {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 25px;
+            height: 25px;
+            color: #111111;
+            font-size: 17px;
+            line-height: 1;
+            cursor: default;
+            transition: color .2s ease, opacity .2s ease;
+        }
+
+            .staffsync-network-indicator.is-online {
+                color: #111111;
+                opacity: 1;
+            }
+
+            .staffsync-network-indicator.is-offline {
+                color: #9ca3af;
+                opacity: .9;
+            }
+
+            .staffsync-network-indicator i {
+                display: block;
+            }
+
+        @media (max-width: 420px) {
+            .staffsync-clock-status-group {
+                gap: 5px;
+            }
+
+            .staffsync-network-indicator {
+                width: 20px;
+                font-size: 15px;
+            }
         }
 
         .staffsync-clock-eyebrow {
@@ -4541,6 +4596,8 @@
             "use strict";
             var pendingAction = null;
             var clockTimer = null;
+            var trustedClockBase = null;
+            var trustedClockReceivedAt = 0;
             var attendanceLoginDate = null;
             var attendanceLogoutDate = null;
 
@@ -4581,6 +4638,16 @@
                 var parsed = parseAttendanceDate(value);
                 return parsed ? formatTime(parsed) : (value || "--:--:--");
             }
+            function hasRecordedAttendanceTime(value, parsedValue) {
+                if (!value || !parsedValue) return false;
+                // The C# response currently uses the attendance date at 12:00 AM
+                // as the empty/default DateTime value. Do not treat that sentinel
+                // as a recorded Login/Logout timestamp.
+                return parsedValue.getHours() !== 0 ||
+                    parsedValue.getMinutes() !== 0 ||
+                    parsedValue.getSeconds() !== 0 ||
+                    parsedValue.getMilliseconds() !== 0;
+            }
             function setAttendanceTimeTone(elementId, tone) {
                 var element = document.getElementById(elementId);
                 if (!element) return;
@@ -4605,13 +4672,27 @@
                 if (value instanceof Date) return { hours: value.getHours(), minutes: value.getMinutes(), seconds: value.getSeconds() };
                 var text = String(value).trim();
                 var match = text.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)?$/i);
-                if (!match) return null;
-                var hour = parseInt(match[1], 10);
-                var minute = parseInt(match[2], 10);
-                var second = parseInt(match[3] || "0", 10);
-                if (match[4]) { hour = hour % 12; if (match[4].toUpperCase() === "PM") hour += 12; }
-                if (hour > 23 || minute > 59 || second > 59) return null;
-                return { hours: hour, minutes: minute, seconds: second };
+                if (match) {
+                    var hour = parseInt(match[1], 10);
+                    var minute = parseInt(match[2], 10);
+                    var second = parseInt(match[3] || "0", 10);
+                    if (match[4]) { hour = hour % 12; if (match[4].toUpperCase() === "PM") hour += 12; }
+                    if (hour > 23 || minute > 59 || second > 59) return null;
+                    return { hours: hour, minutes: minute, seconds: second };
+                }
+
+                // C# currently returns shift DateTime values (for example,
+                // 2026-11-01T09:00:00), not always a time-only string.
+                // Extract the clock portion without changing the original value.
+                var dateTimeValue = parseAttendanceDate(text);
+                if (dateTimeValue) {
+                    return {
+                        hours: dateTimeValue.getHours(),
+                        minutes: dateTimeValue.getMinutes(),
+                        seconds: dateTimeValue.getSeconds()
+                    };
+                }
+                return null;
             }
             function makeShiftDate(baseDate, shiftTime, isLogout) {
                 var parts = parseShiftTime(shiftTime);
@@ -4681,8 +4762,57 @@
                 if (icon) greetingElement.appendChild(icon);
                 greetingElement.appendChild(document.createTextNode(" " + greeting + ", Naveen Navale"));
             }
+            // C# supplies the trusted local date/time. The browser only
+            // advances that trusted baseline for the live visual clock.
+            window.setStaffSyncTrustedDateTime = function (trustedLocalDateTime) {
+                var parsed = new Date(trustedLocalDateTime);
+                if (isNaN(parsed.getTime())) {
+                    console.error("StaffSync received an invalid trusted date/time.");
+                    return;
+                }
+
+                trustedClockBase = parsed;
+                trustedClockReceivedAt = performance.now();
+                updateClock();
+            };
+
+            // Device network indicator. navigator.onLine reflects the
+            // browser/OS network state; it is not a guarantee that every
+            // external internet endpoint is reachable.
+            function updateStaffSyncNetworkIndicator() {
+                var indicator = document.getElementById("staffSyncNetworkIndicator");
+                if (!indicator) return;
+
+                var isOnline = (typeof navigator !== "undefined") && navigator.onLine === true;
+
+                indicator.classList.toggle("is-online", isOnline);
+                indicator.classList.toggle("is-offline", !isOnline);
+                indicator.setAttribute(
+                    "aria-label",
+                    isOnline ? "Network connection available" : "Device reports offline"
+                );
+                indicator.setAttribute(
+                    "title",
+                    isOnline ? "Network connection available" : "Device reports offline"
+                );
+            }
+
+            window.addEventListener("online", updateStaffSyncNetworkIndicator);
+            window.addEventListener("offline", updateStaffSyncNetworkIndicator);
+            updateStaffSyncNetworkIndicator();
+
             function updateClock() {
-                var now = new Date();
+                if (!trustedClockBase) {
+                    var pendingTimeElement = document.getElementById("staffSyncDigitalClock");
+                    var pendingDateElement = document.getElementById("staffSyncClockDate");
+                    if (pendingTimeElement) pendingTimeElement.textContent = "Synchronizing trusted time...";
+                    if (pendingDateElement) pendingDateElement.innerHTML = '<i class="fa-regular fa-calendar-days" aria-hidden="true"></i> Synchronizing date...';
+                    return;
+                }
+
+                var now = new Date(
+                    trustedClockBase.getTime() + (performance.now() - trustedClockReceivedAt)
+                );
                 updateGreeting(now);
                 var dayElement = document.getElementById("staffSyncClockDay");
                 var dateElement = document.getElementById("staffSyncClockDate");
@@ -4779,23 +4909,50 @@
                 var wasInitialStateRequest = completedAction === null;
                 pendingAction = null;
 
-                if (!result.Success) {
+                // Read the returned timestamps before deciding whether the response
+                // represents a failure. Some existing C# paths return Success=false
+                // even though the attendance row was saved and a timestamp was returned.
+                var returnedLoginDate = parseAttendanceDate(result.LoginTime);
+                var returnedLogoutDate = parseAttendanceDate(result.LogoutTime);
+                var hasLoginRecord = hasRecordedAttendanceTime(result.LoginTime, returnedLoginDate);
+                var hasLogoutRecord = hasRecordedAttendanceTime(result.LogoutTime, returnedLogoutDate);
+                var returnedStatus = String(result.Status || "").replace(/[\s_-]/g, "").toLowerCase();
+
+                // The database timestamps are the strongest indication of the
+                // employee's actual attendance state. This also handles an out-of-order
+                // GetState response arriving after a Login/Logout response, where the
+                // C# Status field may still contain an older NotLoggedIn/LoggedIn value.
+                var effectiveStatus = returnedStatus;
+                if (hasLogoutRecord) {
+                    effectiveStatus = "loggedout";
+                } else if (hasLoginRecord) {
+                    effectiveStatus = "loggedin";
+                } else if (returnedStatus === "notloggedin" || returnedStatus === "") {
+                    effectiveStatus = "notloggedin";
+                }
+
+                var validNotLoggedInResponse = effectiveStatus === "notloggedin";
+                var attendanceStateCanBeEstablished = effectiveStatus === "loggedin" ||
+                    effectiveStatus === "loggedout" || validNotLoggedInResponse;
+
+                if (!result.Success && !attendanceStateCanBeEstablished) {
                     if (window.staffSyncAttendanceState === "loading") window.staffSyncAttendanceState = "unknown";
                     setMessage(result.Message || "Unable to retrieve or update attendance. Please try again.", "error");
                     setBusy(false);
                     return;
                 }
 
+                attendanceLoginDate = returnedLoginDate;
+                attendanceLogoutDate = returnedLogoutDate;
                 var loginTime = document.getElementById("staffSyncLoginTime");
                 var logoutTime = document.getElementById("staffSyncLogoutTime");
-                attendanceLoginDate = parseAttendanceDate(result.LoginTime);
-                attendanceLogoutDate = parseAttendanceDate(result.LogoutTime);
-                if (loginTime) loginTime.textContent = attendanceLoginDate ? formatTime(attendanceLoginDate) : "--:--:--";
-                if (logoutTime) logoutTime.textContent = attendanceLogoutDate ? formatTime(attendanceLogoutDate) : "--:--:--";
+                if (loginTime) loginTime.textContent = hasLoginRecord ? formatTime(attendanceLoginDate) : "--:--:--";
+                if (logoutTime) logoutTime.textContent = hasLogoutRecord ? formatTime(attendanceLogoutDate) : "--:--:--";
                 setAttendanceTimeTone("staffSyncLoginTime", "");
                 setAttendanceTimeTone("staffSyncLogoutTime", "");
 
-                // Shift properties are supplied by the C# attendance JSON response.
+                // Preserve the original C# DateTime values for calculations, but
+                // display only 12-hour time with AM/PM in the Assigned Shift cards.
                 window.staffSyncShiftTitle = result.ShiftTitle || "";
                 window.staffSyncShiftLoginTime = result.ShiftLoginTime || "";
                 window.staffSyncShiftLogoutTime = result.ShiftLogoutTime || "";
@@ -4803,8 +4960,8 @@
                 var shiftLoginElement = document.getElementById("staffSyncShiftLoginTime");
                 var shiftLogoutElement = document.getElementById("staffSyncShiftLogoutTime");
                 if (shiftTitleElement) shiftTitleElement.textContent = window.staffSyncShiftTitle || "Not Assigned";
-                if (shiftLoginElement) shiftLoginElement.textContent = window.staffSyncShiftLoginTime || "--:--";
-                if (shiftLogoutElement) shiftLogoutElement.textContent = window.staffSyncShiftLogoutTime || "--:--";
+                if (shiftLoginElement) shiftLoginElement.textContent = window.staffSyncShiftLoginTime ? formatAttendanceTimeOnly(window.staffSyncShiftLoginTime) : "--:--";
+                if (shiftLogoutElement) shiftLogoutElement.textContent = window.staffSyncShiftLogoutTime ? formatAttendanceTimeOnly(window.staffSyncShiftLogoutTime) : "--:--";
                 evaluateLoginTiming(attendanceLoginDate);
                 evaluateLogoutTiming(attendanceLogoutDate);
                 updateTimeDifference();
@@ -4822,22 +4979,20 @@
                 // Keep the Login Timing and Logout Timing captions visible in every state.
                 if (timingFeedbackRow) timingFeedbackRow.hidden = false;
 
-                if (result.Status === "LoggedIn") {
+                if (effectiveStatus === "loggedin") {
                     window.staffSyncAttendanceState = "in";
                     setStatus("Logged In", true);
-                    setMessage(result.Message || "Login recorded successfully.", "success", "Login");
-                } else if (result.Status === "LoggedOut") {
+                    setMessage((completedAction === "Login" || !result.Message || /checking today's attendance/i.test(result.Message)) ? "Login recorded successfully." : result.Message, "success", "Login");
+                } else if (effectiveStatus === "loggedout") {
                     window.staffSyncAttendanceState = "done";
                     setStatus("Logged Out", false);
-                    setMessage(result.Message || "Logout recorded successfully. Today's attendance is complete.", "success", "Logout");
+                    setMessage((completedAction === "Logout" || !result.Message || /checking today's attendance/i.test(result.Message)) ? "Logout recorded successfully. Today's attendance is complete." : result.Message, "success", "Logout");
                 } else {
                     window.staffSyncAttendanceState = "not-in";
                     if (timingFeedbackRow) timingFeedbackRow.hidden = false;
                     setStatus("Not Logged In", false);
                     setMessage(result.Message || "No attendance login has been recorded for today.", "");
                 }
-                // Keep both highlighted Login Timing and Logout Timing result values visible,
-                // including after the employee has successfully logged out.
 
                 setBusy(false);
             };
@@ -4851,6 +5006,7 @@
             };
 
             function init() {
+                // Wait for the trusted timestamp supplied by the C# host.
                 updateClock();
                 if (clockTimer) window.clearInterval(clockTimer);
                 clockTimer = window.setInterval(updateClock, 1000);
