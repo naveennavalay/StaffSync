@@ -124,7 +124,15 @@ namespace DALStaffSync
             objMonthlyAttendanceSummaryInfo = objAttendanceMas.getMonthlyAttendanceSummaryInfo(ClientID, txtDTFrom, txtDTTo);
 
             return objMonthlyAttendanceSummaryInfo;
+        }
 
+        public List<EmployeeAttendanceClockInfo> getDailyLoginLogoutInformation(int EmpID, DateTime dtDate)
+        {
+            List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = new List<EmployeeAttendanceClockInfo>();
+
+            objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(EmpID, dtDate);
+
+            return objEmployeeAttendanceClockInfo;
         }
 
         public int InsertDailyAttendance(int txtEmpID, DateTime AttendanceDate, string AttendanceStatus, int LeaveTRID)
@@ -141,6 +149,24 @@ namespace DALStaffSync
             int affectedRows = 0;
 
             affectedRows = objAttendanceMas.UpdateDailyAttendance(txtEmpID, AttendanceDate, AttendanceStatus, LeaveTRID);
+
+            return affectedRows;
+        }
+
+        public int UpdateDailyLogInTime(int txtEmpID, DateTime AttendanceDate, DateTime LoginTime)
+        {
+            int affectedRows = 0;
+
+            affectedRows = objAttendanceMas.UpdateDailyLogInTime(txtEmpID, AttendanceDate, LoginTime);
+
+            return affectedRows;
+        }
+
+        public int UpdateDailyLogOutTime(int txtEmpID, DateTime AttendanceDate, DateTime LogoutTime)
+        {
+            int affectedRows = 0;
+
+            affectedRows = objAttendanceMas.UpdateDailyLogOutTime(txtEmpID, AttendanceDate, LogoutTime);
 
             return affectedRows;
         }

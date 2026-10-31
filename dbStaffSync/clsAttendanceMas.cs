@@ -844,6 +844,61 @@ namespace dbStaffSync
             return objMonthlyAttendanceSummaryInfo;
         }
 
+        public List<EmployeeAttendanceClockInfo> getDailyLoginLogoutInformation(int EmpID, DateTime dtDate)
+        {
+            List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = new List<EmployeeAttendanceClockInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                //DateTime.Now.Month
+                string strQuery = @"SELECT
+                                        ShiftMas.ShiftID,
+                                        ShiftMas.ShiftTitle,
+                                        Format(ShiftMas.ShiftStart, ""hh:nn:ss AM/PM"") AS ShiftLoginTime,
+                                        Format(ShiftMas.ShiftEnd, ""hh:nn:ss AM/PM"") AS ShiftLogoutTime,
+                                        EmpDailyAttendanceInfo.AttID,
+                                        EmpDailyAttendanceInfo.AttDate,
+                                        Format(EmpDailyAttendanceInfo.LoginTime, ""hh:nn:ss AM/PM"") AS LoginTime,
+                                        Format(EmpDailyAttendanceInfo.LogoutTime, ""hh:nn:ss AM/PM"") AS LogoutTime,
+                                        Format(EmpDailyAttendanceInfo.TotalTime, ""hh:nn:ss AM/PM"") AS TotalTime
+                                    FROM
+                                        ShiftMas
+                                        INNER JOIN (
+                                            ( EmpMas INNER JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID
+                                            )
+                                            INNER JOIN EmpShiftInfo ON EmpMas.EmpID = EmpShiftInfo.EmpID
+                                        ) ON ShiftMas.ShiftID = EmpShiftInfo.ShiftID
+                                    WHERE
+                                        EmpDailyAttendanceInfo.AttDate = #" + dtDate.ToString("dd-MMM-yyyy") + @"#
+                                        AND EmpMas.EmpID = " + EmpID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeAttendanceClockInfo = JsonConvert.DeserializeObject<List<EmployeeAttendanceClockInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objEmployeeAttendanceClockInfo;
+        }
+
         public int InsertDailyAttendance(int txtEmpID, DateTime AttendanceDate, string AttendanceStatus, int LeaveTRID)
         {
             int affectedRows = 0;
@@ -885,6 +940,66 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE EmpDailyAttendanceInfo SET AttStatus = '" + AttendanceStatus + "', LeaveTRID = " + LeaveTRID + 
+                 " WHERE EmpID = " + txtEmpID + " AND AttDate = #" + AttendanceDate.ToString("dd-MMM-yyyy") + "#";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = affectedRows;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int UpdateDailyLogInTime(int txtEmpID, DateTime AttendanceDate, DateTime LoginTime)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpDailyAttendanceInfo SET LoginTime = #" + LoginTime.ToString("hh:mm:ss tt") + "#" +
+                 " WHERE EmpID = " + txtEmpID + " AND AttDate = #" + AttendanceDate.ToString("dd-MMM-yyyy") + "#";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = affectedRows;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int UpdateDailyLogOutTime(int txtEmpID, DateTime AttendanceDate, DateTime LogoutTime)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpDailyAttendanceInfo SET LogoutTime = #" + LogoutTime.ToString("hh:mm:ss tt") + "#" +
                  " WHERE EmpID = " + txtEmpID + " AND AttDate = #" + AttendanceDate.ToString("dd-MMM-yyyy") + "#";
 
                 OleDbCommand cmd = conn.CreateCommand();

@@ -1025,6 +1025,10 @@
     </Compile>
     <Compile Include="StaffSyncReports.cs" />
     <Compile Include="TextBoxAutoCompleteHelper.cs" />
+    <Compile Include="TrustedTimeLockCoordinator.cs" />
+    <Compile Include="TrustedTimeLockForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <EmbeddedResource Include="BadgeControl.resx">
       <DependentUpon>BadgeControl.cs</DependentUpon>
     </EmbeddedResource>

@@ -56,6 +56,7 @@ namespace StaffSync
         DALStaffSync.clsDashboardChartWidgets objDashboardChartWidgets = new DALStaffSync.clsDashboardChartWidgets();
         DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
         DALStaffSync.clsAssetRegister objAssetRegisterInfo = new DALStaffSync.clsAssetRegister();
+        DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
         //DALStaffSync.clsEmployeeAttendanceClock objEmployeeAttendanceClock = new DALStaffSync.clsEmployeeAttendanceClock();
 
         List<ClientInfo> objActiveClientInfo = new List<ClientInfo>();
@@ -116,6 +117,8 @@ namespace StaffSync
         {
             InitializeComponent();
             InitializeScheduler();
+
+            TrustedTimeLockCoordinator.Attach(this);
 
             objLogin.getLoggedInUserInfo(EmpID);
 
@@ -1758,11 +1761,15 @@ namespace StaffSync
 
             await myWebView.EnsureCoreWebView2Async();
 
+            // Register WebView2 events once the CoreWebView2 instance is ready.
+            myWebView.NavigationCompleted -= myWebView_NavigationCompleted;
+            myWebView.NavigationCompleted += myWebView_NavigationCompleted;
+            myWebView.CoreWebView2.WebMessageReceived -= myWebView_WebMessageReceived;
+            myWebView.CoreWebView2.WebMessageReceived += myWebView_WebMessageReceived;
+
             _rightPanelCollapsed = true;
 
             InitializeRightPanelToggle();
-
-            //myWebView.NavigationCompleted += myWebView_NavigationCompleted;
 
             txtDTFrom.Text = "01-" + DateTime.Today.ToString("MM-yyyy"); // DateTime.Today.ToString("dd-MM-yyyy");
             //txtDTTo.Text = DateTime.Today.ToString("dd-MM-yyyy");
@@ -7386,8 +7393,37 @@ namespace StaffSync
 
         private async void myWebView_NavigationCompleted(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
         {
-            if (!e.IsSuccess)
+            if (!e.IsSuccess || myWebView == null || myWebView.CoreWebView2 == null)
                 return;
+
+            try
+            {
+                // Obtain one fresh trusted timestamp from the configured
+                // time sources and seed the HTML live clock with it.
+                DateTime trustedLocalDateTime =
+                    await StaffSyncTrustedTimeService.objTrustedTime
+                        .GetCurrentLocalDateTime();
+
+                string trustedDateTimeText = trustedLocalDateTime.ToString(
+                    "yyyy-MM-ddTHH:mm:ss.fff",
+                    CultureInfo.InvariantCulture);
+
+                string trustedDateTimeJson =
+                    JsonConvert.SerializeObject(trustedDateTimeText);
+
+                await myWebView.CoreWebView2.ExecuteScriptAsync(
+                    "if (typeof window.setStaffSyncTrustedDateTime === 'function') {" +
+                    "window.setStaffSyncTrustedDateTime(" + trustedDateTimeJson + ");" +
+                    "}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Unable to initialise the dashboard using trusted date and time.\n\n" + ex.Message,
+                    "StaffSync - Trusted Time",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+            }
 
             refreshDashboardCharts();
         }
@@ -7826,15 +7862,6 @@ namespace StaffSync
 
         private async void myWebView_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
         {
-            MessageBox.Show($"Message from WebView: {e.WebMessageAsJson}", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            
-            DateTime localDateTime = await StaffSyncTrustedTimeService.objTrustedTime.GetCurrentLocalDateTime();
-            MessageBox.Show(localDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt"));
-            var trustedTime1 = await StaffSyncTrustedTimeService.objTrustedTime.GetTime();
-            DateTime localDateTime1 = StaffSyncTrustedTimeService.objTrustedTime.GetLocalDateTime(trustedTime1);
-
-            DateTime utcDateTime = StaffSyncTrustedTimeService.objTrustedTime.GetAccessUtcDateTime(trustedTime1);
-
             dynamic message = JsonConvert.DeserializeObject<dynamic>(e.WebMessageAsJson);
 
             // Employee attendance clock: database is the source of truth across refreshes and app restarts.
@@ -7845,54 +7872,60 @@ namespace StaffSync
                     string attendanceAction = Convert.ToString(message.AttendanceAction);
                     int employeeID = Convert.ToInt32(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo.EmpID);
                     int clientID = Convert.ToInt32(objSelectedClientFinYearInfo.ClientID);
+                    DateTime trustedLocalDateTime = await StaffSyncTrustedTimeService.objTrustedTime.GetCurrentLocalDateTime();
 
                     var attendanceResult = 0;
                     ModelStaffSync.EmployeeAttendanceClockInfo objEmployeeLoginLogoutInfo = new ModelStaffSync.EmployeeAttendanceClockInfo();
                     if (string.Equals(attendanceAction, "GetState", StringComparison.OrdinalIgnoreCase))
                     {
                         //MessageBox.Show("Getting Today's Date" , "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        objEmployeeLoginLogoutInfo = new EmployeeAttendanceClockInfo
-                        {
-                            Success = true,
-                            ShiftTitle = "General Shift",
-                            ShiftLoginTime = "09:00:00 AM",
-                            ShiftLogoutTime = "05:00:00 PM",
-                            Status = "LoggedIn",
-                            LoginTime = DateTime.Now,
-                            LogoutTime = null,
-                            Message = "Login recorded successfully."
-                        };
-                        //attendanceResult = objEmployeeAttendanceClock.GetTodayState(employeeID, clientID, DateTime.Now);
+                        //objEmployeeLoginLogoutInfo = new EmployeeAttendanceClockInfo
+                        //{
+                        //    Success = true,
+                        //    ShiftTitle = "General Shift",
+                        //    ShiftLoginTime = "09:00:00 AM",
+                        //    ShiftLogoutTime = "05:00:00 PM",
+                        //    Status = "LoggedIn",
+                        //    LoginTime = DateTime.Now,
+                        //    LogoutTime = null,
+                        //    Message = "Login recorded successfully."
+                        //};
+
+                        trustedLocalDateTime = await StaffSyncTrustedTimeService.objTrustedTime.GetCurrentLocalDateTime();
+                        string trustedDateTimeText = trustedLocalDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                        List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText));
+                        objEmployeeLoginLogoutInfo = objEmployeeAttendanceClockInfo[0];
+                        //objAttendanceMas.UpdateDailyLogInTime(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText), Convert.ToDateTime(trustedDateTimeText));
                     }
-                    else if (string.Equals(attendanceAction, "Login", StringComparison.OrdinalIgnoreCase) || string.Equals(attendanceAction, "Logout", StringComparison.OrdinalIgnoreCase))
+                    else if (string.Equals(attendanceAction, "Login", StringComparison.OrdinalIgnoreCase))
                     {
-                        //MessageBox.Show("Getting Today's Date", "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        objEmployeeLoginLogoutInfo = new EmployeeAttendanceClockInfo
-                        {
-                            Success = true,
-                            Status = "LoggedOut",
-                            ShiftTitle = "General Shift",
-                            ShiftLoginTime = "09:00:00 AM",
-                            ShiftLogoutTime = "05:00:00 PM",
-                            LoginTime = Convert.ToDateTime("2026-10-30 09:15:32"),
-                            LogoutTime = DateTime.Now,
-                            Message = "Logout recorded successfully."
-                        };
-                        //attendanceResult = objEmployeeAttendanceClock.ProcessAttendanceAction(employeeID, clientID, attendanceAction, DateTime.Now);
+                        trustedLocalDateTime = await StaffSyncTrustedTimeService.objTrustedTime.GetCurrentLocalDateTime();
+                        string trustedDateTimeText = trustedLocalDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                        objAttendanceMas.UpdateDailyLogInTime(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText), Convert.ToDateTime(trustedDateTimeText));
+                        List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText));
+                        objEmployeeLoginLogoutInfo = objEmployeeAttendanceClockInfo[0];
+                    }
+                    else if (string.Equals(attendanceAction, "Logout", StringComparison.OrdinalIgnoreCase))
+                    {
+                        trustedLocalDateTime = await StaffSyncTrustedTimeService.objTrustedTime.GetCurrentLocalDateTime();
+                        string trustedDateTimeText = trustedLocalDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                        objAttendanceMas.UpdateDailyLogOutTime(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText), Convert.ToDateTime(trustedDateTimeText));
+                        List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText));
+                        objEmployeeLoginLogoutInfo = objEmployeeAttendanceClockInfo[0];
                     }
                     else
                     {
-                        objEmployeeLoginLogoutInfo = new EmployeeAttendanceClockInfo
-                        {
-                            Success = true,
-                            Status = "LoggedOut",
-                            ShiftTitle = "General Shift",
-                            ShiftLoginTime = "09:00:00 AM",
-                            ShiftLogoutTime = "05:00:00 PM",
-                            LoginTime = null,
-                            LogoutTime = null,
-                            Message = "Logout recorded successfully."
-                        };
+                        //objEmployeeLoginLogoutInfo = new EmployeeAttendanceClockInfo
+                        //{
+                        //    Success = true,
+                        //    Status = "LoggedOut",
+                        //    ShiftTitle = "General Shift",
+                        //    ShiftLoginTime = "09:00:00 AM",
+                        //    ShiftLogoutTime = "05:00:00 PM",
+                        //    LoginTime = null,
+                        //    LogoutTime = null,
+                        //    Message = "Logout recorded successfully."
+                        //};
                     }
 
                     string attendanceJson = JsonConvert.SerializeObject(objEmployeeLoginLogoutInfo);
@@ -9061,7 +9094,5 @@ namespace StaffSync
                     MessageBoxIcon.Error);
             }
         }
-
-
     }
 }

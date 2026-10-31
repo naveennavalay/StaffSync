@@ -1,4 +1,5 @@
 ﻿using ModelStaffSync;
+using Common.Helpers;
 using Quartz;
 using Quartz.Impl;
 using StaffSyncJobs;
@@ -77,9 +78,27 @@ namespace StaffSync
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            // Central trusted-time check applies to normal and bypass login paths.
+            try
+            {
+                TrustedTimeAccessManager.Instance.EnsureAccess();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "StaffSync is restricted because trusted date and time " +
+                    "could not be verified.\r\n\r\n" +
+                    ex.Message +
+                    "\r\n\r\nPlease retry synchronization or restart StaffSync.",
+                    "StaffSync - Access Restricted",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
             //AppMail.SendMail();
 
-            if(@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
+            if (@System.Configuration.ConfigurationSettings.AppSettings["login"].ToString() == "by!pass")
             {
                 this.Hide();
                 frmDashboard objDashboard = new frmDashboard(1);
@@ -112,7 +131,7 @@ namespace StaffSync
                     }
                     else
                     {
-                        if(loginUserInfo.IsLocked == false)
+                        if (loginUserInfo.IsLocked == false)
                         {
                             LoginCounter = LoginCounter + 1;
                             if (LoginCounter == 5)
@@ -141,7 +160,7 @@ namespace StaffSync
         {
             bool AuthValidation = true;
 
-            if(txtUserName.Text.ToString().Trim() == "")
+            if (txtUserName.Text.ToString().Trim() == "")
                 AuthValidation = false;
             if (txtPassword.Text.ToString().Trim() == "")
                 AuthValidation = false;

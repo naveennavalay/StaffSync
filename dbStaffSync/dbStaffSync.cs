@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace dbStaffSync
 
         public OleDbConnection openDBConnection()
         {
+            TrustedTimeAccessManager.Instance.EnsureAccess();
+
             conn = new OleDbConnection(connString);
             if (conn.State == System.Data.ConnectionState.Closed)
                 conn.Open();
@@ -21,10 +24,21 @@ namespace dbStaffSync
             return conn;
         }
 
+        public OleDbConnection CreateDBConnection()
+        {
+            TrustedTimeAccessManager.Instance.EnsureAccess();
+
+            OleDbConnection connection = new OleDbConnection(connString);
+            connection.Open();
+
+            return connection;
+        }
+
         public OleDbConnection closeDBConnection()
         {
-            //if (conn == null)
-            //    conn = new OleDbConnection(connString);
+            if (conn == null)
+                return null;
+
             if (conn.State == System.Data.ConnectionState.Open)
                 conn.Close();
             //if (conn.State == System.Data.ConnectionState.Closed)

@@ -9,29 +9,32 @@ namespace ModelStaffSync
 {
     public class EmployeeAttendanceClockInfo
     {
-        public bool Success { get; set; }
-
-        public string Status { get; set; }
-
+        public int ShiftID {  get; set; }
         public string ShiftTitle { get; set; }
-        public string ShiftLoginTime { get; set; }
-        public string ShiftLogoutTime { get; set; }
-
+        public DateTime? ShiftLoginTime { get; set; }
+        public DateTime? ShiftLogoutTime { get; set; }
+        public int AttID { get; set; }
+        public DateTime AttDate { get; set; }
+        public bool Success { get; set; }
+        public string Status { get; set; }
         public DateTime? LoginTime { get; set; }
-
         public DateTime? LogoutTime { get; set; }
+        public DateTime? TotalTime { get; set; }
 
         public string Message { get; set; }
 
         public EmployeeAttendanceClockInfo()
         {
-            Success = false;
+            ShiftID = 0;
             ShiftTitle = null;
             ShiftLoginTime = null;
             ShiftLogoutTime = null;
-            Status = "NotLoggedIn";
+            AttID = 0;
+            AttDate = DateTime.Today;
             LoginTime = null;
             LogoutTime = null;
+            Success = false;
+            Status = "NotLoggedIn";
             Message = string.Empty;
         }
     }

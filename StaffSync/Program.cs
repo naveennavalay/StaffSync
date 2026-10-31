@@ -1,6 +1,7 @@
 ﻿using ModelStaffSync;
 using ReportingEngine;
 using ReportingEngine.Core;
+using Common.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,15 +23,57 @@ namespace StaffSync
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new frmDashboard()); 
-            
-            Application.Run(new frmLogin());
+
+            // Trusted time must be verified BEFORE frmLogin is constructed.
+            // frmLogin loads company and financial-year data from the database
+            // in its constructor, so the central gate must already be open.
+            bool trustedTimeReady = false;
+
+            while (!trustedTimeReady)
+            {
+                try
+                {
+                    TrustedTimeAccessManager.Instance
+                        .InitializeAsync()
+                        .GetAwaiter()
+                        .GetResult();
+
+                    trustedTimeReady = true;
+                }
+                catch (Exception ex)
+                {
+                    DialogResult result = MessageBox.Show(
+                        "StaffSync could not verify trusted date and time.\r\n\r\n" +
+                        ex.Message +
+                        "\r\n\r\nPlease check your internet connection and retry. " +
+                        "If the problem continues, close StaffSync and restart it.",
+                        "StaffSync - Trusted Time",
+                        MessageBoxButtons.RetryCancel,
+                        MessageBoxIcon.Warning);
+
+                    if (result != DialogResult.Retry)
+                    {
+                        TrustedTimeAccessManager.Instance.Stop();
+                        return;
+                    }
+                }
+            }
+
+            try
+            {
+                Application.Run(new frmLogin());
+            }
+            finally
+            {
+                TrustedTimeAccessManager.Instance.Stop();
+            }
         }
 
         private static void GenerateEmployeeMasterReport()
         {
             DALStaffSync.EmployeeRelatedReportQueries objEmployeeRelatedReportQueries = new DALStaffSync.EmployeeRelatedReportQueries();
 
-            List <ActiveEmployeeListReport> objActiveEmployeeListReport = objEmployeeRelatedReportQueries.getActiveEmployeeListReport(1, "");
+            List<ActiveEmployeeListReport> objActiveEmployeeListReport = objEmployeeRelatedReportQueries.getActiveEmployeeListReport(1, "");
 
             //List<MonthlyAttendanceReport> objActiveEmployeeListReport = objEmployeeRelatedReportQueries.getMonthlyAttendanceRegister(1, Convert.ToDateTime("01-06-2026"), Convert.ToDateTime("30-06-2026"));
 

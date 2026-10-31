@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
@@ -7,241 +8,208 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Common.Helpers
 {
-    public class StaffSyncTrustedTimeService
+    public sealed class StaffSyncTrustedTimeService
     {
-        #region Shared Instance
+        // ---------------------------------------------------------
+        // SHARED INSTANCE
+        // ---------------------------------------------------------
 
-        // One shared instance throughout the application process.
-        public static readonly StaffSyncTrustedTimeService objTrustedTime =
-            new StaffSyncTrustedTimeService();
+        private static readonly Lazy<StaffSyncTrustedTimeService> _instance =
+            new Lazy<StaffSyncTrustedTimeService>(
+                () => new StaffSyncTrustedTimeService());
 
-        private static readonly HttpClient httpClient;
-
-        private const double AllowedDifferenceSeconds = 8;
-
-        private const int MinimumRequiredSources = 2;
-
-        private const int RequestTimeoutSeconds = 7;
-
-        #endregion
-
-        #region Time Sources
-
-        private static readonly string[] TimeSources =
+        public static StaffSyncTrustedTimeService objTrustedTime
         {
-            "https://www.google.com/generate_204",
-            "https://www.microsoft.com/",
-            "https://www.cloudflare.com/"
-        };
-
-        #endregion
-
-        #region Application Time Zone
-
-        // Read the configured time zone once when first accessed.
-        private static readonly Lazy<TimeZoneInfo> configuredTimeZone =
-            new Lazy<TimeZoneInfo>(() =>
-            {
-                string timeZoneID =
-                    ConfigurationManager.AppSettings["StaffSyncTimeZone"];
-
-                if (string.IsNullOrWhiteSpace(timeZoneID))
-                {
-                    throw new ConfigurationErrorsException(
-                        "StaffSyncTimeZone is missing in App.config.");
-                }
-
-                try
-                {
-                    return TimeZoneInfo.FindSystemTimeZoneById(timeZoneID);
-                }
-                catch (TimeZoneNotFoundException)
-                {
-                    throw new ConfigurationErrorsException(
-                        "Invalid StaffSyncTimeZone configured in App.config: "
-                        + timeZoneID);
-                }
-                catch (InvalidTimeZoneException)
-                {
-                    throw new ConfigurationErrorsException(
-                        "The configured time zone is invalid: " + timeZoneID);
-                }
-            });
-
-        public TimeZoneInfo ApplicationTimeZone
-        {
-            get { return configuredTimeZone.Value; }
+            get { return _instance.Value; }
         }
 
-        #endregion
+        // ---------------------------------------------------------
+        // CONFIGURATION
+        // ---------------------------------------------------------
 
-        #region Constructor
+        private readonly int MinimumRequiredSources = 2;
+        private readonly double AllowedDifferenceSeconds = 8;
 
-        static StaffSyncTrustedTimeService()
+        private readonly int MaximumAttempts = 2;
+        private readonly int RetryDelayMilliseconds = 1500;
+
+        private readonly string TimeZoneId;
+
+        private static readonly HttpClient httpClient =
+            CreateHttpClient();
+
+        private static HttpClient CreateHttpClient()
         {
-            ServicePointManager.SecurityProtocol |=
+            ServicePointManager.SecurityProtocol =
                 SecurityProtocolType.Tls12;
 
-            httpClient = new HttpClient();
+            HttpClient client = new HttpClient();
 
-            httpClient.Timeout =
-                TimeSpan.FromSeconds(RequestTimeoutSeconds);
+            client.Timeout = TimeSpan.FromSeconds(10);
+
+            return client;
         }
+
+        // ---------------------------------------------------------
+        // TIME SOURCES
+        // ---------------------------------------------------------
+
+        // Use lightweight endpoints instead of provider homepages.
+        // All three providers must return a successful HTTPS response
+        // containing a valid HTTP Date header.
+        private readonly string[] TimeSources =
+        {
+            "https://www.google.com/generate_204",
+            "https://captive.apple.com/hotspot-detect.html",
+            "https://www.cloudflare.com/cdn-cgi/trace"
+        };
+
+        // ---------------------------------------------------------
+        // CONSTRUCTOR
+        // ---------------------------------------------------------
 
         private StaffSyncTrustedTimeService()
         {
+            TimeZoneId =
+                ConfigurationManager.AppSettings["StaffSyncTimeZone"];
+
+            if (string.IsNullOrWhiteSpace(TimeZoneId))
+            {
+                TimeZoneId = "India Standard Time";
+            }
         }
 
-        #endregion
+        // ---------------------------------------------------------
+        // MODEL: TIME SAMPLE
+        // ---------------------------------------------------------
 
-        #region Models
-
-        public class TrustedTimeResult
-        {
-            public bool IsTrusted { get; set; }
-
-            public DateTimeOffset UtcTimestamp { get; set; }
-
-            public DateTime UtcDateTime { get; set; }
-
-            public int VerifiedSourceCount { get; set; }
-
-            public string TimeSource { get; set; }
-
-            public string Message { get; set; }
-        }
-
-        private class TimeSample
+        public sealed class TimeSample
         {
             public DateTimeOffset UtcTime { get; set; }
 
             public string Source { get; set; }
         }
 
-        #endregion
+        // ---------------------------------------------------------
+        // MODEL: TRUSTED TIME RESULT
+        // ---------------------------------------------------------
 
-        #region Get Trusted Time
+        public sealed class TrustedTimeResult
+        {
+            public DateTimeOffset UtcTime { get; set; }
 
-        /// <summary>
-        /// Retrieves timestamps from independent HTTPS sources
-        /// and verifies that at least two sources agree.
-        /// </summary>
+            public int SuccessfulSourceCount { get; set; }
+
+            public List<string> SuccessfulSources { get; set; }
+
+            public DateTime RetrievedAtUtc { get; set; }
+        }
+
+        // ---------------------------------------------------------
+        // GET TRUSTED TIME
+        // ---------------------------------------------------------
+
         public async Task<TrustedTimeResult> GetTime()
         {
-            List<Task<TimeSample>> requests =
-                new List<Task<TimeSample>>();
+            List<string> errors = new List<string>();
 
-            foreach (string source in TimeSources)
+            for (int attempt = 1;
+                 attempt <= MaximumAttempts;
+                 attempt++)
             {
-                requests.Add(GetTimeFromSourceAsync(source));
-            }
+                ConcurrentBag<string> attemptErrors =
+                    new ConcurrentBag<string>();
 
-            TimeSample[] results =
-                await Task.WhenAll(requests);
+                List<Task<TimeSample>> requests =
+                    new List<Task<TimeSample>>();
 
-            List<TimeSample> validSamples = results
-                .Where(x => x != null)
-                .OrderBy(x => x.UtcTime)
-                .ToList();
-
-            if (validSamples.Count < MinimumRequiredSources)
-            {
-                throw new Exception(
-                    "Unable to obtain trusted date and time. " +
-                    "At least two time sources must respond successfully.");
-            }
-
-            // Find the largest group of agreeing time sources.
-
-            List<TimeSample> matchingSamples = null;
-
-            for (int i = 0; i < validSamples.Count; i++)
-            {
-                List<TimeSample> currentGroup =
-                    validSamples.Where(x =>
-                        Math.Abs(
-                            (x.UtcTime - validSamples[i].UtcTime)
-                            .TotalSeconds)
-                        <= AllowedDifferenceSeconds
-                    ).ToList();
-
-                if (matchingSamples == null ||
-                    currentGroup.Count > matchingSamples.Count)
+                foreach (string source in TimeSources)
                 {
-                    matchingSamples = currentGroup;
+                    requests.Add(
+                        GetTimeFromSourceAsync(source, attemptErrors));
+                }
+
+                TimeSample[] results =
+                    await Task.WhenAll(requests);
+
+                List<TimeSample> validSamples =
+                    results
+                    .Where(x => x != null)
+                    .OrderBy(x => x.UtcTime)
+                    .ToList();
+
+                errors.AddRange(attemptErrors);
+
+                if (validSamples.Count >= MinimumRequiredSources)
+                {
+                    List<TimeSample> matchingSamples =
+                        FindMatchingSamples(validSamples);
+
+                    if (matchingSamples.Count >= MinimumRequiredSources)
+                    {
+                        DateTimeOffset trustedUtcTime =
+                            GetMedianTime(matchingSamples);
+
+                        return new TrustedTimeResult
+                        {
+                            UtcTime = trustedUtcTime,
+
+                            SuccessfulSourceCount =
+                                matchingSamples.Count,
+
+                            SuccessfulSources =
+                                matchingSamples
+                                .Select(x => x.Source)
+                                .ToList(),
+
+                            RetrievedAtUtc =
+                                DateTime.UtcNow
+                        };
+                    }
+
+                    errors.Add(
+                        "Available time sources did not agree within " +
+                        AllowedDifferenceSeconds + " seconds.");
+                }
+                else
+                {
+                    errors.Add(
+                        "Only " + validSamples.Count +
+                        " time source(s) responded successfully.");
+                }
+
+                if (attempt < MaximumAttempts)
+                {
+                    await Task.Delay(RetryDelayMilliseconds);
                 }
             }
 
-            if (matchingSamples == null ||
-                matchingSamples.Count < MinimumRequiredSources)
-            {
-                throw new Exception(
-                    "Trusted time verification failed. " +
-                    "The available time sources do not agree.");
-            }
-
-            // Calculate the median timestamp from agreeing sources.
-
-            List<TimeSample> orderedSamples = matchingSamples
-                .OrderBy(x => x.UtcTime)
-                .ToList();
-
-            DateTimeOffset trustedTimestamp;
-
-            int middle = orderedSamples.Count / 2;
-
-            if (orderedSamples.Count % 2 == 1)
-            {
-                trustedTimestamp =
-                    orderedSamples[middle].UtcTime;
-            }
-            else
-            {
-                long firstTicks =
-                    orderedSamples[middle - 1]
-                    .UtcTime.UtcDateTime.Ticks;
-
-                long secondTicks =
-                    orderedSamples[middle]
-                    .UtcTime.UtcDateTime.Ticks;
-
-                trustedTimestamp = new DateTimeOffset(
-                    firstTicks + ((secondTicks - firstTicks) / 2),
-                    TimeSpan.Zero);
-            }
-
-            return new TrustedTimeResult
-            {
-                IsTrusted = true,
-
-                UtcTimestamp = trustedTimestamp,
-
-                UtcDateTime = trustedTimestamp.UtcDateTime,
-
-                VerifiedSourceCount = matchingSamples.Count,
-
-                TimeSource = "HTTPS Time Consensus",
-
-                Message = "Trusted date and time verified successfully."
-            };
+            throw new Exception(
+                "Unable to obtain trusted date and time after " +
+                MaximumAttempts + " attempts.\n\n" +
+                "At least " + MinimumRequiredSources +
+                " time sources must respond successfully and agree.\n\n" +
+                string.Join("\n", errors.Distinct()));
         }
 
-        #endregion
+        // ---------------------------------------------------------
+        // GET TIME FROM INDIVIDUAL SOURCE
+        // ---------------------------------------------------------
 
-        #region Get Time From Individual Source
-
-        private static async Task<TimeSample>
-            GetTimeFromSourceAsync(string url)
+        private async Task<TimeSample> GetTimeFromSourceAsync(
+            string source,
+            ConcurrentBag<string> errors)
         {
             try
             {
+                Stopwatch stopwatch = Stopwatch.StartNew();
+
                 using (HttpRequestMessage request =
-                    new HttpRequestMessage(HttpMethod.Get, url))
+                    new HttpRequestMessage(HttpMethod.Get, source))
                 {
                     request.Headers.CacheControl =
                         new CacheControlHeaderValue
@@ -250,112 +218,192 @@ namespace Common.Helpers
                             NoStore = true
                         };
 
-                    Stopwatch stopwatch = Stopwatch.StartNew();
+                    request.Headers.Pragma.ParseAdd("no-cache");
+                    request.Headers.UserAgent.ParseAdd("StaffSync/1.0");
 
-                    using (CancellationTokenSource cancellation =
-                        new CancellationTokenSource(
-                            TimeSpan.FromSeconds(RequestTimeoutSeconds)))
+                    using (HttpResponseMessage response =
+                        await httpClient.SendAsync(
+                            request,
+                            HttpCompletionOption.ResponseHeadersRead))
                     {
-                        using (HttpResponseMessage response =
-                            await httpClient.SendAsync(
-                                request,
-                                HttpCompletionOption.ResponseHeadersRead,
-                                cancellation.Token))
+                        stopwatch.Stop();
+
+                        if (!response.IsSuccessStatusCode)
                         {
-                            stopwatch.Stop();
-
-                            response.EnsureSuccessStatusCode();
-
-                            if (!response.Headers.Date.HasValue)
-                                return null;
-
-                            DateTimeOffset serverTime =
-                                response.Headers.Date.Value.ToUniversalTime();
-
-                            // Estimate the time at the midpoint
-                            // of the HTTP request.
-                            serverTime = serverTime.AddMilliseconds(
-                                stopwatch.Elapsed.TotalMilliseconds / 2);
-
-                            return new TimeSample
-                            {
-                                UtcTime = serverTime,
-
-                                Source = new Uri(url).Host
-                            };
+                            throw new HttpRequestException(
+                                "HTTP " +
+                                (int)response.StatusCode + " (" +
+                                response.ReasonPhrase + ").");
                         }
+
+                        DateTimeOffset? serverDate =
+                            response.Headers.Date;
+
+                        if (!serverDate.HasValue)
+                        {
+                            throw new Exception(
+                                "HTTP Date header was not available.");
+                        }
+
+                        // HTTP Date headers have one-second precision.
+                        // Add half the request duration to approximate
+                        // the time at the midpoint of the request.
+                        DateTimeOffset estimatedUtcTime =
+                            serverDate.Value.ToUniversalTime().Add(
+                                TimeSpan.FromMilliseconds(
+                                    stopwatch.Elapsed.TotalMilliseconds / 2));
+
+                        return new TimeSample
+                        {
+                            UtcTime = estimatedUtcTime,
+                            Source = source
+                        };
                     }
                 }
             }
-            catch
+            catch (TaskCanceledException)
             {
-                // Ignore unavailable sources.
-                // GetTime() verifies the minimum source count.
+                errors.Add(
+                    source + ": Request timed out after " +
+                    httpClient.Timeout.TotalSeconds + " seconds.");
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                errors.Add(source + ": " + ex.Message);
+
                 return null;
             }
         }
 
-        #endregion
+        // ---------------------------------------------------------
+        // FIND AGREEMENT BETWEEN TIME SOURCES
+        // ---------------------------------------------------------
 
-        #region Get Current Local Date Time
+        private List<TimeSample> FindMatchingSamples(
+            List<TimeSample> validSamples)
+        {
+            List<TimeSample> matchingSamples = null;
 
-        /// <summary>
-        /// Retrieves trusted UTC time and automatically
-        /// converts it using the configured application time zone.
-        /// </summary>
+            for (int i = 0; i < validSamples.Count; i++)
+            {
+                DateTimeOffset referenceTime =
+                    validSamples[i].UtcTime;
+
+                List<TimeSample> currentGroup =
+                    validSamples
+                    .Where(x =>
+                        Math.Abs(
+                            (x.UtcTime - referenceTime).TotalSeconds)
+                        <= AllowedDifferenceSeconds)
+                    .ToList();
+
+                if (matchingSamples == null ||
+                    currentGroup.Count > matchingSamples.Count)
+                {
+                    matchingSamples = currentGroup;
+                }
+            }
+
+            return matchingSamples ?? new List<TimeSample>();
+        }
+
+        // ---------------------------------------------------------
+        // GET MEDIAN TIME
+        // ---------------------------------------------------------
+
+        private DateTimeOffset GetMedianTime(
+            List<TimeSample> matchingSamples)
+        {
+            List<long> ticks =
+                matchingSamples
+                .Select(x => x.UtcTime.UtcTicks)
+                .OrderBy(x => x)
+                .ToList();
+
+            int count = ticks.Count;
+
+            long medianTicks;
+
+            if (count % 2 == 0)
+            {
+                medianTicks =
+                    ticks[count / 2 - 1] +
+                    ((ticks[count / 2] -
+                      ticks[count / 2 - 1]) / 2);
+            }
+            else
+            {
+                medianTicks = ticks[count / 2];
+            }
+
+            return new DateTimeOffset(
+                medianTicks,
+                TimeSpan.Zero);
+        }
+
+        // ---------------------------------------------------------
+        // GET LATEST TRUSTED LOCAL DATE AND TIME
+        // ---------------------------------------------------------
+
         public async Task<DateTime> GetCurrentLocalDateTime()
         {
-            TrustedTimeResult trustedTime = await GetTime();
+            TrustedTimeResult trustedTime =
+                await GetTime();
 
             return GetLocalDateTime(trustedTime);
         }
 
-        #endregion
+        // ---------------------------------------------------------
+        // CONVERT TRUSTED TIME TO LOCAL TIME
+        // ---------------------------------------------------------
 
-        #region Local Date Time Conversion
-
-        /// <summary>
-        /// Converts a verified UTC timestamp into the
-        /// configured application time zone.
-        /// </summary>
-        public DateTime GetLocalDateTime(TrustedTimeResult trustedTime)
-        {
-            if (trustedTime == null || !trustedTime.IsTrusted)
-            {
-                throw new InvalidOperationException(
-                    "A verified timestamp is required.");
-            }
-
-            return TimeZoneInfo.ConvertTimeFromUtc(
-                trustedTime.UtcDateTime,
-                ApplicationTimeZone);
-        }
-
-        #endregion
-
-        #region MS Access Date Time Conversion
-
-        /// <summary>
-        /// Returns UTC DateTime with Unspecified Kind
-        /// for storing in an MS Access Date/Time field.
-        ///
-        /// IMPORTANT:
-        /// Always interpret this database value as UTC.
-        /// </summary>
-        public DateTime GetAccessUtcDateTime(
+        public DateTime GetLocalDateTime(
             TrustedTimeResult trustedTime)
         {
-            if (trustedTime == null || !trustedTime.IsTrusted)
+            if (trustedTime == null)
             {
-                throw new InvalidOperationException(
-                    "A verified timestamp is required.");
+                throw new ArgumentNullException(
+                    "trustedTime");
             }
 
+            TimeZoneInfo timeZone =
+                TimeZoneInfo.FindSystemTimeZoneById(TimeZoneId);
+
+            DateTime localTime =
+                TimeZoneInfo.ConvertTime(
+                    trustedTime.UtcTime,
+                    timeZone).DateTime;
+
             return DateTime.SpecifyKind(
-                trustedTime.UtcDateTime,
+                localTime,
                 DateTimeKind.Unspecified);
         }
 
-        #endregion
+        // ---------------------------------------------------------
+        // GET UTC DATE AND TIME FOR DATABASE STORAGE
+        // ---------------------------------------------------------
+
+        public DateTime GetAccessUtcDateTime(
+            TrustedTimeResult trustedTime)
+        {
+            if (trustedTime == null)
+            {
+                throw new ArgumentNullException(
+                    "trustedTime");
+            }
+
+            return trustedTime.UtcTime.UtcDateTime;
+        }
+
+        // ---------------------------------------------------------
+        // GET CONFIGURED TIME ZONE
+        // ---------------------------------------------------------
+
+        public string GetConfiguredTimeZone()
+        {
+            return TimeZoneId;
+        }
     }
 }
