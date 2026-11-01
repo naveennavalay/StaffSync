@@ -137,8 +137,16 @@ namespace StaffSync
 
             if (gate.IsChecking)
             {
-                // Restrict operations immediately, but delay the visual form.
-                // If the check succeeds quickly, no lock window is created.
+                // During periodic revalidation, the last trusted monotonic clock
+                // remains valid. Keep an already initialized application usable.
+                // Initial verification still restricts the UI until it succeeds.
+                if (gate.IsInitialized)
+                {
+                    CancelDisplayDelay();
+                    RestoreOpenForms();
+                    return;
+                }
+
                 DisableOpenForms();
                 StartDisplayDelay();
                 return;
@@ -179,13 +187,17 @@ namespace StaffSync
                 DisableOpenForms();
                 ShowLockForm();
             }
-            else if (gate.IsChecking)
+            else if (gate.IsChecking && !gate.IsInitialized)
             {
+                // Only the very first trusted-time verification should keep
+                // the application UI disabled while the check is pending.
                 DisableOpenForms();
                 ShowLockForm();
             }
             else
             {
+                // An initialized application can continue using its last
+                // verified monotonic clock during periodic revalidation.
                 RestoreOpenForms();
             }
         }
@@ -252,8 +264,10 @@ namespace StaffSync
 
             _lockForm = null;
 
-            // User closing is prevented by TrustedTimeLockForm. This handler
-            // is primarily cleanup for programmatic/application shutdown.
+            // Re-evaluate the gate after the restriction form closes.
+            // This restores the previously enabled business forms only when
+            // trusted time is verified and no check is still in progress.
+            DispatchToMainForm(ApplyCurrentState);
         }
 
         private static void RestoreOpenForms()

@@ -9174,5 +9174,20 @@ namespace StaffSync
                     MessageBoxIcon.Error);
             }
         }
+
+        private void shiftsListsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Shift Details";
+                sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
+                frmShiftMaster frmShiftMaster = new frmShiftMaster(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmShiftMaster.MdiParent = this;
+                frmShiftMaster.Dock = DockStyle.Fill;
+                frmShiftMaster.Show();
+                frmShiftMaster.WindowState = FormWindowState.Maximized;
+            }
+        }
     }
 }

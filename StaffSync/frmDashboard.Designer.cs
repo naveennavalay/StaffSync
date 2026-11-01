@@ -155,6 +155,8 @@
             this.firstApprovalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem20 = new System.Windows.Forms.ToolStripSeparator();
             this.secondApprovalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripSeparator();
+            this.taskDelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonRibbonGroup4 = new Krypton.Ribbon.KryptonRibbonGroup();
             this.kryptonRibbonGroupTriple10 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbApplicationSettings = new Krypton.Ribbon.KryptonRibbonGroupButton();
@@ -250,8 +252,7 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
-            this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripSeparator();
-            this.taskDelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shiftsListsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -1304,29 +1305,40 @@
             this.toolStripMenuItem21,
             this.taskDelToolStripMenuItem});
             this.cmbApprovals.Name = "cmbManageAdvances";
-            this.cmbApprovals.Size = new System.Drawing.Size(181, 104);
+            this.cmbApprovals.Size = new System.Drawing.Size(177, 82);
             this.cmbApprovals.Opening += new System.ComponentModel.CancelEventHandler(this.cmbApprovals_Opening);
             // 
             // firstApprovalToolStripMenuItem
             // 
             this.firstApprovalToolStripMenuItem.Image = global::StaffSync.Properties.Resources.approved;
             this.firstApprovalToolStripMenuItem.Name = "firstApprovalToolStripMenuItem";
-            this.firstApprovalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.firstApprovalToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.firstApprovalToolStripMenuItem.Text = "First Approval";
             this.firstApprovalToolStripMenuItem.Click += new System.EventHandler(this.firstApprovalToolStripMenuItem_Click);
             // 
             // toolStripMenuItem20
             // 
             this.toolStripMenuItem20.Name = "toolStripMenuItem20";
-            this.toolStripMenuItem20.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem20.Size = new System.Drawing.Size(173, 6);
             // 
             // secondApprovalToolStripMenuItem
             // 
             this.secondApprovalToolStripMenuItem.Image = global::StaffSync.Properties.Resources.asset_operations;
             this.secondApprovalToolStripMenuItem.Name = "secondApprovalToolStripMenuItem";
-            this.secondApprovalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.secondApprovalToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.secondApprovalToolStripMenuItem.Text = "Second Approval";
             this.secondApprovalToolStripMenuItem.Click += new System.EventHandler(this.secondApprovalToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem21
+            // 
+            this.toolStripMenuItem21.Name = "toolStripMenuItem21";
+            this.toolStripMenuItem21.Size = new System.Drawing.Size(173, 6);
+            // 
+            // taskDelToolStripMenuItem
+            // 
+            this.taskDelToolStripMenuItem.Name = "taskDelToolStripMenuItem";
+            this.taskDelToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.taskDelToolStripMenuItem.Text = "Delegate Approvals";
             // 
             // kryptonRibbonGroup4
             // 
@@ -1376,7 +1388,7 @@
             this.toolStripMenuItem33,
             this.exportMasterDataToolStripMenuItem});
             this.cmbApplicationSettings.Name = "cmDatamartList01";
-            this.cmbApplicationSettings.Size = new System.Drawing.Size(229, 278);
+            this.cmbApplicationSettings.Size = new System.Drawing.Size(229, 300);
             this.cmbApplicationSettings.Tag = "DatamartMenu";
             this.cmbApplicationSettings.Text = "Datamart Menu";
             this.cmbApplicationSettings.Opening += new System.ComponentModel.CancelEventHandler(this.cmbApplicationSettings_Opening);
@@ -1397,7 +1409,8 @@
             this.cmbWeeklyOffList,
             this.cmbWeeklyOffConfiguration,
             this.assetsCategoryListToolStripMenuItem,
-            this.assetsListToolStripMenuItem});
+            this.assetsListToolStripMenuItem,
+            this.shiftsListsToolStripMenuItem});
             this.cmbMasterList.Image = global::StaffSync.Properties.Resources.master_data;
             this.cmbMasterList.Name = "cmbMasterList";
             this.cmbMasterList.Size = new System.Drawing.Size(228, 22);
@@ -2134,17 +2147,12 @@
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             this.kryptonRibbonGroupButton5.Click += new System.EventHandler(this.kryptonRibbonGroupButton5_Click);
             // 
-            // toolStripMenuItem21
+            // shiftsListsToolStripMenuItem
             // 
-            this.toolStripMenuItem21.Name = "toolStripMenuItem21";
-            this.toolStripMenuItem21.Size = new System.Drawing.Size(177, 6);
-            // 
-            // taskDelToolStripMenuItem
-            // 
-            this.taskDelToolStripMenuItem.Name = "taskDelToolStripMenuItem";
-            this.taskDelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.taskDelToolStripMenuItem.Text = "Delegate Approvals";
-            //this.taskDelToolStripMenuItem.Click += new System.EventHandler(this.taskDelToolStripMenuItem_Click);
+            this.shiftsListsToolStripMenuItem.Name = "shiftsListsToolStripMenuItem";
+            this.shiftsListsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.shiftsListsToolStripMenuItem.Text = "Shifts Lists";
+            this.shiftsListsToolStripMenuItem.Click += new System.EventHandler(this.shiftsListsToolStripMenuItem_Click);
             // 
             // frmDashboard
             // 
@@ -2426,6 +2434,7 @@
         private System.Windows.Forms.ToolStripMenuItem secondApprovalToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem21;
         private System.Windows.Forms.ToolStripMenuItem taskDelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem shiftsListsToolStripMenuItem;
     }
 }
 

@@ -55,6 +55,7 @@ namespace DALStaffSync
             int affectedRows = 0;
 
             affectedRows = objShiftMasInfo.UpdateShiftMas(txtShiftID, txtShiftCode, txtShiftTitle, txtShiftInitial, ShiftStart, ShiftEnd, GracePeriod, IsActive, IsDeleted);
+        
             return affectedRows;
         }
 

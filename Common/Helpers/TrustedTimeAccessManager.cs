@@ -144,8 +144,6 @@ namespace Common.Helpers
                     _isLocked = false;
                     _failureReason = string.Empty;
                 }
-
-                RaiseAccessStateChanged();
             }
             catch (Exception ex)
             {
@@ -167,29 +165,34 @@ namespace Common.Helpers
             catch { /* Failure is recorded and announced by VerifyTrustedTimeAsync. */ }
         }
 
+        /// <summary>
+        /// Checks whether business operations are permitted.
+        /// A periodic check does not invalidate the last verified monotonic clock.
+        /// Initial verification and failed verification remain fail-closed.
+        /// </summary>
         public void EnsureAccess()
         {
             lock (_syncRoot)
             {
-                if (!_isInitialized || _isLocked || _isChecking || _trustedClock == null)
+                if (!_isInitialized || _isLocked || _trustedClock == null)
                 {
-                    string reason = _isChecking
-                        ? "Trusted date and time is currently being revalidated. Please wait."
-                        : _failureReason;
-
                     throw new InvalidOperationException(
-                        string.IsNullOrWhiteSpace(reason)
+                        string.IsNullOrWhiteSpace(_failureReason)
                             ? "StaffSync is locked because trusted time is unavailable."
-                            : reason);
+                            : _failureReason);
                 }
             }
         }
 
+        /// <summary>
+        /// Returns trusted UTC time advanced using the monotonic stopwatch.
+        /// The last verified clock remains available during periodic revalidation.
+        /// </summary>
         public DateTime GetTrustedUtcNow()
         {
             lock (_syncRoot)
             {
-                if (!_isInitialized || _isLocked || _isChecking || _trustedClock == null)
+                if (!_isInitialized || _isLocked || _trustedClock == null)
                     throw new InvalidOperationException(_failureReason);
 
                 return _trustedUtcAtBaseline

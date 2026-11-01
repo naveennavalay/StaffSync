@@ -530,6 +530,18 @@
     <Compile Include="frmSchedulerDashboard.Designer.cs">
       <DependentUpon>frmSchedulerDashboard.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmShiftMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmShiftMaster.Designer.cs">
+      <DependentUpon>frmShiftMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmShiftList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmShiftList.Designer.cs">
+      <DependentUpon>frmShiftList.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUpdateAdvanceStatus.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1100,6 +1112,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSchedulerDashboard.resx">
       <DependentUpon>frmSchedulerDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmShiftMaster.resx">
+      <DependentUpon>frmShiftMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmShiftList.resx">
+      <DependentUpon>frmShiftList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUpdateAdvanceStatus.resx">
       <DependentUpon>frmUpdateAdvanceStatus.cs</DependentUpon>

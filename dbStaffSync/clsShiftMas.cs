@@ -192,7 +192,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE ShiftMas SET " +
-                "ShiftCode = '" + txtShiftCode.Trim() + "', ShiftTitle = '" + txtShiftTitle.Trim() + "', ShiftInitial = '" + txtShiftInitial.Trim() + "', ShiftStart = #" + ShiftStart.ToString("hh:mm:ss tt") + "#, ShiftEnd = #" + ShiftEnd.ToString("hh:mm:ss tt") + "#, GracePeriod = #" + GracePeriod.ToString("hh:mm:ss tt") + "#, IsActive = " + IsActive + ", IsDeleted = " + IsDeleted +
+                "ShiftCode = '" + txtShiftCode.Trim() + "', ShiftTitle = '" + txtShiftTitle.Trim() + "', ShiftInitital = '" + txtShiftInitial.Trim() + "', ShiftStart = #" + ShiftStart.ToString("hh:mm:ss tt") + "#, ShiftEnd = #" + ShiftEnd.ToString("hh:mm:ss tt") + "#, GracePeriod = #" + GracePeriod.ToString("hh:mm:ss tt") + "#, IsActive = " + IsActive + ", IsDelete = " + IsDeleted +
                 " WHERE ShiftID = " + ShiftID.ToString().Trim();
 
                 OleDbCommand cmd = conn.CreateCommand();
