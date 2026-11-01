@@ -41,21 +41,20 @@ namespace DALStaffSync
             return ShiftID;
         }
 
-        public int InsertShiftMasInfo(string txtShiftCode, string txtShiftTitle, string txtShiftInitial, DateTime ShiftStart, DateTime ShiftEnd, bool IsActive, bool IsDeleted)
+        public int InsertShiftMasInfo(string txtShiftCode, string txtShiftTitle, string txtShiftInitial, DateTime ShiftStart, DateTime ShiftEnd, DateTime GracePeriod, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;
 
-            affectedRows = objShiftMasInfo.InsertShiftMasInfo(txtShiftCode, txtShiftTitle, txtShiftInitial, ShiftStart, ShiftEnd, IsActive, IsDeleted);
+            affectedRows = objShiftMasInfo.InsertShiftMasInfo(txtShiftCode, txtShiftTitle, txtShiftInitial, ShiftStart, ShiftEnd, GracePeriod, IsActive, IsDeleted);
 
             return affectedRows;
         }
 
-        public int UpdateShiftMasInfo(int txtShiftID, string txtShiftCode, string txtShiftTitle, string txtShiftInitial, DateTime ShiftStart, DateTime ShiftEnd, bool IsActive, bool IsDeleted)
+        public int UpdateShiftMasInfo(int txtShiftID, string txtShiftCode, string txtShiftTitle, string txtShiftInitial, DateTime ShiftStart, DateTime ShiftEnd, DateTime GracePeriod, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;
 
-            affectedRows = objShiftMasInfo.UpdateShiftMas(txtShiftID, txtShiftCode, txtShiftTitle, txtShiftInitial, ShiftStart, ShiftEnd, IsActive, IsDeleted);
-
+            affectedRows = objShiftMasInfo.UpdateShiftMas(txtShiftID, txtShiftCode, txtShiftTitle, txtShiftInitial, ShiftStart, ShiftEnd, GracePeriod, IsActive, IsDeleted);
             return affectedRows;
         }
 

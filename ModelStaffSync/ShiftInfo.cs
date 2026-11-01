@@ -15,6 +15,7 @@ namespace ModelStaffSync
         public string ShiftInitital { get; set; }
         public DateTime? ShiftStart { get; set; } = DateTime.Now;
         public DateTime? ShiftEnd { get; set; } = DateTime.Now;
+        public DateTime? GracePeriod { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
     }

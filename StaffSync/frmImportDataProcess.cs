@@ -2460,7 +2460,7 @@ namespace StaffSync
                         continue;
                     }
 
-                    int intShiftInfoID = objShiftMas.InsertShiftMasInfo("", ShiftTitle, ShiftInitital, StartTime, EndTime, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
+                    int intShiftInfoID = objShiftMas.InsertShiftMasInfo("", ShiftTitle, ShiftInitital, StartTime, EndTime, Convert.ToDateTime("00:07:00"), GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
                     if (intShiftInfoID > 0)
                     {
                         intTotalImportedRowsCount = intTotalImportedRowsCount + 1;

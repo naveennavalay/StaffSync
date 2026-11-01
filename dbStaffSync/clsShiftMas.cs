@@ -149,7 +149,7 @@ namespace dbStaffSync
             return selectedShiftID;
         }
 
-        public int InsertShiftMasInfo(string txtShiftCode, string txtShiftTitle, string txtShiftInitial, DateTime ShiftStart, DateTime ShiftEnd, bool IsActive, bool IsDeleted)
+        public int InsertShiftMasInfo(string txtShiftCode, string txtShiftTitle, string txtShiftInitial, DateTime ShiftStart, DateTime ShiftEnd, DateTime GracePeriod, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;
             try
@@ -160,8 +160,8 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO ShiftMas (ShiftID, ShiftCode, ShiftTitle, ShiftInitital, ShiftStart, ShiftEnd, IsActive, IsDelete) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + "STT-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtShiftTitle.Trim() + "','" + txtShiftInitial.Trim() + "', #" + ShiftStart.ToString("hh:mm:ss tt") + "#, #" + ShiftEnd.ToString("hh:mm:ss tt") + "#, " + IsActive + "," + IsDeleted + ")";
+                string strQuery = "INSERT INTO ShiftMas (ShiftID, ShiftCode, ShiftTitle, ShiftInitital, ShiftStart, ShiftEnd, GracePeriod, IsActive, IsDelete) VALUES " +
+                 "(" + maxRowCount.Data + ",'" + "STT-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtShiftTitle.Trim() + "','" + txtShiftInitial.Trim() + "', #" + ShiftStart.ToString("hh:mm:ss tt") + "#, #" + ShiftEnd.ToString("hh:mm:ss tt") + "#, #" + GracePeriod.ToString("hh:mm:ss tt") + "#, " + IsActive + "," + IsDeleted + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -183,7 +183,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpdateShiftMas(int ShiftID, string txtShiftCode, string txtShiftTitle, string txtShiftInitial, DateTime ShiftStart, DateTime ShiftEnd, bool IsActive, bool IsDeleted)
+        public int UpdateShiftMas(int ShiftID, string txtShiftCode, string txtShiftTitle, string txtShiftInitial, DateTime ShiftStart, DateTime ShiftEnd, DateTime GracePeriod, bool IsActive, bool IsDeleted)
         {
             int affectedRows = 0;
             try
@@ -192,7 +192,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE ShiftMas SET " +
-                "ShiftCode = '" + txtShiftCode.Trim() + "', ShiftTitle = '" + txtShiftTitle.Trim() + "', ShiftInitial = '" + txtShiftInitial.Trim() + "', ShiftStart = #" + ShiftStart.ToString("hh:mm:ss tt") + "#, ShiftEnd = #" + ShiftEnd.ToString("hh:mm:ss tt") + "#, IsActive = " + IsActive + ", IsDeleted = " + IsDeleted +
+                "ShiftCode = '" + txtShiftCode.Trim() + "', ShiftTitle = '" + txtShiftTitle.Trim() + "', ShiftInitial = '" + txtShiftInitial.Trim() + "', ShiftStart = #" + ShiftStart.ToString("hh:mm:ss tt") + "#, ShiftEnd = #" + ShiftEnd.ToString("hh:mm:ss tt") + "#, GracePeriod = #" + GracePeriod.ToString("hh:mm:ss tt") + "#, IsActive = " + IsActive + ", IsDeleted = " + IsDeleted +
                 " WHERE ShiftID = " + ShiftID.ToString().Trim();
 
                 OleDbCommand cmd = conn.CreateCommand();
