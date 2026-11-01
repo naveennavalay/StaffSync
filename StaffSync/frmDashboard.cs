@@ -7875,6 +7875,11 @@ namespace StaffSync
                     DateTime trustedLocalDateTime = await StaffSyncTrustedTimeService.objTrustedTime.GetCurrentLocalDateTime();
 
                     var attendanceResult = 0;
+
+                    trustedLocalDateTime = await StaffSyncTrustedTimeService.objTrustedTime.GetCurrentLocalDateTime();
+                    string trustedDateTimeText = trustedLocalDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
+                    List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText));
                     ModelStaffSync.EmployeeAttendanceClockInfo objEmployeeLoginLogoutInfo = new ModelStaffSync.EmployeeAttendanceClockInfo();
                     if (string.Equals(attendanceAction, "GetState", StringComparison.OrdinalIgnoreCase))
                     {
@@ -7891,26 +7896,101 @@ namespace StaffSync
                         //    Message = "Login recorded successfully."
                         //};
 
-                        trustedLocalDateTime = await StaffSyncTrustedTimeService.objTrustedTime.GetCurrentLocalDateTime();
-                        string trustedDateTimeText = trustedLocalDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                        List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText));
+                        trustedDateTimeText = trustedLocalDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+                        objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText));
                         objEmployeeLoginLogoutInfo = objEmployeeAttendanceClockInfo[0];
                         //objAttendanceMas.UpdateDailyLogInTime(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText), Convert.ToDateTime(trustedDateTimeText));
                     }
                     else if (string.Equals(attendanceAction, "Login", StringComparison.OrdinalIgnoreCase))
                     {
                         trustedLocalDateTime = await StaffSyncTrustedTimeService.objTrustedTime.GetCurrentLocalDateTime();
-                        string trustedDateTimeText = trustedLocalDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                        objAttendanceMas.UpdateDailyLogInTime(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText), Convert.ToDateTime(trustedDateTimeText));
-                        List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText));
+                        trustedDateTimeText = trustedLocalDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
+                        DateTime actualLoginTime = Convert.ToDateTime(trustedDateTimeText);
+
+                        // Retrieve the employee's assigned shift and grace period.
+                        objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, actualLoginTime);
+                        objEmployeeLoginLogoutInfo = objEmployeeAttendanceClockInfo[0];
+
+                        // Calculate late login only after the permitted grace period.
+                        // ShiftLoginTime and GracePeriod are nullable DateTime values.
+                        TimeSpan lateLoginDuration = TimeSpan.Zero;
+                        TimeSpan gracePeriod = objEmployeeLoginLogoutInfo.GracePeriod.GetValueOrDefault().TimeOfDay;
+
+                        if (objEmployeeLoginLogoutInfo.ShiftLoginTime.HasValue)
+                        {
+                            DateTime shiftLoginTime = actualLoginTime.Date.Add(
+                                objEmployeeLoginLogoutInfo.ShiftLoginTime.Value.TimeOfDay);
+                            DateTime permittedLoginTime = shiftLoginTime.Add(gracePeriod);
+
+                            lateLoginDuration = actualLoginTime > permittedLoginTime
+                                ? actualLoginTime - permittedLoginTime
+                                : TimeSpan.Zero;
+                        }
+
+                        // Pass the calculated duration using the existing DateTime parameter.
+                        DateTime lateLoginTime = actualLoginTime.Date.Add(lateLoginDuration);
+
+                        objAttendanceMas.UpdateDailyLogInTime(
+                            CurrentUser.EmpID,
+                            actualLoginTime,
+                            actualLoginTime,
+                            lateLoginTime);
+
+                        objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, actualLoginTime);
                         objEmployeeLoginLogoutInfo = objEmployeeAttendanceClockInfo[0];
                     }
                     else if (string.Equals(attendanceAction, "Logout", StringComparison.OrdinalIgnoreCase))
                     {
                         trustedLocalDateTime = await StaffSyncTrustedTimeService.objTrustedTime.GetCurrentLocalDateTime();
-                        string trustedDateTimeText = trustedLocalDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                        objAttendanceMas.UpdateDailyLogOutTime(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText), Convert.ToDateTime(trustedDateTimeText));
-                        List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText));
+                        trustedDateTimeText = trustedLocalDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
+
+                        DateTime actualLogoutTime = Convert.ToDateTime(trustedDateTimeText);
+
+                        // Retrieve the employee's assigned shift and grace period.
+                        objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, actualLogoutTime);
+                        objEmployeeLoginLogoutInfo = objEmployeeAttendanceClockInfo[0];
+
+                        // Calculate early logout only after the permitted grace period.
+                        // ShiftLogoutTime and GracePeriod are nullable DateTime values.
+                        TimeSpan earlyLogoutDuration = TimeSpan.Zero;
+                        TimeSpan gracePeriod = objEmployeeLoginLogoutInfo.GracePeriod.GetValueOrDefault().TimeOfDay;
+
+                        if (objEmployeeLoginLogoutInfo.ShiftLogoutTime.HasValue)
+                        {
+                            DateTime shiftLogoutTime = actualLogoutTime.Date.Add(
+                                objEmployeeLoginLogoutInfo.ShiftLogoutTime.Value.TimeOfDay);
+                            DateTime permittedLogoutTime = shiftLogoutTime.Subtract(gracePeriod);
+
+                            earlyLogoutDuration = actualLogoutTime < permittedLogoutTime
+                                ? permittedLogoutTime - actualLogoutTime
+                                : TimeSpan.Zero;
+                        }
+
+                        // Calculate the total working time using the saved actual login time.
+                        // DateTime subtraction returns a TimeSpan representing the elapsed duration.
+                        if (!objEmployeeLoginLogoutInfo.LoginTime.HasValue)
+                        {
+                            throw new InvalidOperationException("The employee's actual login time is not available. Total working time cannot be calculated.");
+                        }
+
+                        DateTime actualLoginTime = objEmployeeLoginLogoutInfo.LoginTime.Value;
+                        TimeSpan totalTimeDuration = actualLogoutTime - actualLoginTime;
+
+                        // Store the elapsed duration in the DateTime parameter format used by the DAL.
+                        DateTime TotalTime = actualLogoutTime.Date.Add(totalTimeDuration);
+
+                        // Pass TotalTime and the calculated EarlyLogoutTime to the DAL method.
+                        DateTime earlyLogoutTime = actualLogoutTime.Date.Add(earlyLogoutDuration);
+
+                        objAttendanceMas.UpdateDailyLogOutTime(
+                            CurrentUser.EmpID,
+                            actualLogoutTime,
+                            actualLogoutTime,
+                            TotalTime,
+                            earlyLogoutTime);
+
+                        objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, actualLogoutTime);
                         objEmployeeLoginLogoutInfo = objEmployeeAttendanceClockInfo[0];
                     }
                     else

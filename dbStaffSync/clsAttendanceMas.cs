@@ -858,6 +858,7 @@ namespace dbStaffSync
                                         ShiftMas.ShiftTitle,
                                         Format(ShiftMas.ShiftStart, ""hh:nn:ss AM/PM"") AS ShiftLoginTime,
                                         Format(ShiftMas.ShiftEnd, ""hh:nn:ss AM/PM"") AS ShiftLogoutTime,
+                                        Format(ShiftMas.GracePeriod, ""hh:nn:ss AM/PM"") AS GracePeriod,
                                         EmpDailyAttendanceInfo.AttID,
                                         EmpDailyAttendanceInfo.AttDate,
                                         Format(EmpDailyAttendanceInfo.LoginTime, ""hh:nn:ss AM/PM"") AS LoginTime,
@@ -961,7 +962,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpdateDailyLogInTime(int txtEmpID, DateTime AttendanceDate, DateTime LoginTime)
+        public int UpdateDailyLogInTime(int txtEmpID, DateTime AttendanceDate, DateTime LoginTime, DateTime LateLoginTime)
         {
             int affectedRows = 0;
             try
@@ -969,7 +970,7 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE EmpDailyAttendanceInfo SET LoginTime = #" + LoginTime.ToString("hh:mm:ss tt") + "#" +
+                string strQuery = "UPDATE EmpDailyAttendanceInfo SET LoginTime = #" + LoginTime.ToString("hh:mm:ss tt") + "#, LateLoginTime = #" + LateLoginTime.ToString("hh:mm:ss tt") + "#" +
                  " WHERE EmpID = " + txtEmpID + " AND AttDate = #" + AttendanceDate.ToString("dd-MMM-yyyy") + "#";
 
                 OleDbCommand cmd = conn.CreateCommand();
@@ -991,7 +992,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpdateDailyLogOutTime(int txtEmpID, DateTime AttendanceDate, DateTime LogoutTime)
+        public int UpdateDailyLogOutTime(int txtEmpID, DateTime AttendanceDate, DateTime LogoutTime,DateTime TotalTime, DateTime LateLogoutTime)
         {
             int affectedRows = 0;
             try
@@ -999,7 +1000,7 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "UPDATE EmpDailyAttendanceInfo SET LogoutTime = #" + LogoutTime.ToString("hh:mm:ss tt") + "#" +
+                string strQuery = "UPDATE EmpDailyAttendanceInfo SET LogoutTime = #" + LogoutTime.ToString("hh:mm:ss tt") + "#, TotalTime = #" + TotalTime.ToString("hh:mm:ss tt") + "#, LateLogoutTime = #" + LateLogoutTime.ToString("hh:mm:ss tt") + "#" +
                  " WHERE EmpID = " + txtEmpID + " AND AttDate = #" + AttendanceDate.ToString("dd-MMM-yyyy") + "#";
 
                 OleDbCommand cmd = conn.CreateCommand();

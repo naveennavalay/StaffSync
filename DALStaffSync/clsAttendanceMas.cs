@@ -153,21 +153,20 @@ namespace DALStaffSync
             return affectedRows;
         }
 
-        public int UpdateDailyLogInTime(int txtEmpID, DateTime AttendanceDate, DateTime LoginTime)
+        public int UpdateDailyLogInTime(int txtEmpID, DateTime AttendanceDate, DateTime LoginTime, DateTime LateLoginTime)
         {
             int affectedRows = 0;
 
-            affectedRows = objAttendanceMas.UpdateDailyLogInTime(txtEmpID, AttendanceDate, LoginTime);
+            affectedRows = objAttendanceMas.UpdateDailyLogInTime(txtEmpID, AttendanceDate, LoginTime, LateLoginTime);
 
             return affectedRows;
         }
 
-        public int UpdateDailyLogOutTime(int txtEmpID, DateTime AttendanceDate, DateTime LogoutTime)
+        public int UpdateDailyLogOutTime(int txtEmpID, DateTime AttendanceDate, DateTime LogoutTime, DateTime TotalTime, DateTime LateLogoutTime)
         {
             int affectedRows = 0;
 
-            affectedRows = objAttendanceMas.UpdateDailyLogOutTime(txtEmpID, AttendanceDate, LogoutTime);
-
+            affectedRows = objAttendanceMas.UpdateDailyLogOutTime(txtEmpID, AttendanceDate, LogoutTime, TotalTime, LateLogoutTime);
             return affectedRows;
         }
     }

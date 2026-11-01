@@ -13,6 +13,7 @@ namespace ModelStaffSync
         public string ShiftTitle { get; set; }
         public DateTime? ShiftLoginTime { get; set; }
         public DateTime? ShiftLogoutTime { get; set; }
+        public DateTime? GracePeriod { get; set; }
         public int AttID { get; set; }
         public DateTime AttDate { get; set; }
         public bool Success { get; set; }
