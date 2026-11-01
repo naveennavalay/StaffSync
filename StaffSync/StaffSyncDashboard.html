@@ -3223,6 +3223,98 @@
 
     <style>
         /* Final screenshot-aligned attendance layout: scoped changes only. */
+        .staffsync-confirm-overlay[hidden] {
+            display: none !important;
+        }
+
+        .staffsync-confirm-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            background: rgba(15, 23, 42, .42);
+        }
+
+        .staffsync-confirm-dialog {
+            width: min(430px, 100%);
+            display: grid;
+            grid-template-columns: 42px minmax(0, 1fr);
+            gap: 12px;
+            align-items: start;
+            padding: 22px;
+            border: 1px solid #cbdced;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 18px 48px rgba(15, 23, 42, .24);
+            font-family: inherit;
+        }
+
+        .staffsync-confirm-icon {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #fff4df;
+            color: #b7791f;
+            font-size: 21px;
+        }
+
+        .staffsync-confirm-title {
+            color: #174b76;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 1px 0 7px;
+        }
+
+        .staffsync-confirm-message {
+            color: #475569;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .staffsync-confirm-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: flex-end;
+            gap: 9px;
+            margin-top: 8px;
+        }
+
+        .staffsync-confirm-button {
+            min-width: 78px;
+            padding: 8px 17px;
+            border: 1px solid transparent;
+            border-radius: 7px;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .staffsync-confirm-yes {
+            background: #dc3d36;
+            color: #fff;
+        }
+
+            .staffsync-confirm-yes:hover {
+                background: #c92f29;
+            }
+
+        .staffsync-confirm-no {
+            background: #f1f5f9;
+            color: #334155;
+            border-color: #cbd5e1;
+        }
+
+            .staffsync-confirm-no:hover {
+                background: #e2e8f0;
+            }
+
         #staffSyncAttendanceClock.staffsync-attendance-panel {
             grid-template-columns: minmax(245px, .72fr) minmax(0, 1.8fr);
             align-items: stretch;
@@ -3553,14 +3645,39 @@
                     <div class="staffsync-info-group-title"><i class="fa-regular fa-clock" aria-hidden="true"></i> Today's Attendance</div>
                     <div class="staffsync-info-items">
                         <div class="staffsync-session-meta"><div class="staffsync-meta-label">Login Time</div><div id="staffSyncLoginTime" class="staffsync-meta-value">--:--:--</div></div>
-                        <div class="staffsync-session-meta"><div class="staffsync-meta-label">Logout Time</div><div id="staffSyncLogoutTime" class="staffsync-meta-value">--:--:--</div></div>
+                        <div class="staffsync-session-meta"><div class="staffsync-meta-label">Logout Time</div><div id="staffSyncLogoutTime" class="staffsync-meta-value">Pending</div></div>
                         <div class="staffsync-session-meta"><div class="staffsync-meta-label">Time Difference</div><div id="staffSyncTimeDifference" class="staffsync-meta-value">--:--:--</div></div>
                     </div>
                 </div>
+                <div class="staffsync-timing-feedback-top">
+                    <div class="staffsync-login-timing-feedback"><span class="staffsync-meta-label">Login Timing</span><strong id="staffSyncLoginTimingStatus" class="staffsync-timing-status">--</strong></div>
+                    <div class="staffsync-logout-timing-feedback"><span class="staffsync-meta-label">Logout Timing</span><strong id="staffSyncLogoutTimingStatus" class="staffsync-timing-status">--</strong></div>
+                </div>
             </div>
             <div id="staffSyncShiftFeedbackRow" class="staffsync-shift-feedback-row">
-                <div><span class="staffsync-meta-label">Login Timing</span><strong id="staffSyncLoginTimingStatus" class="staffsync-timing-status">--</strong></div>
-                <div><span class="staffsync-meta-label">Logout Timing</span><strong id="staffSyncLogoutTimingStatus" class="staffsync-timing-status">--</strong></div>
+                <div id="staffSyncShiftProgress" class="staffsync-shift-progress" aria-label="Today's shift progress">
+                    <div class="staffsync-shift-progress-side staffsync-shift-progress-elapsed">
+                        <span>ELAPSED TIME</span>
+                        <strong id="staffSyncShiftElapsed">--:--:--</strong>
+                        <small id="staffSyncShiftElapsedPercent">0% elapsed</small>
+                    </div>
+                    <div class="staffsync-shift-progress-center">
+                        <div id="staffSyncShiftHourMarkers" class="staffsync-shift-hour-markers" aria-label="Hourly shift timeline">
+                            <span class="staffsync-shift-boundary-label staffsync-shift-start-label">SHIFT START</span>
+                            <span class="staffsync-shift-boundary-label staffsync-shift-end-label">SHIFT END</span>
+                        </div>
+                        <div class="staffsync-shift-progress-track" role="progressbar" aria-label="Shift elapsed" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                            <div id="staffSyncShiftProgressFill" class="staffsync-shift-progress-fill" style="width:0%"></div>
+                            <span class="staffsync-shift-boundary-marker staffsync-shift-start-marker" aria-label="Shift login time"></span>
+                            <span class="staffsync-shift-boundary-marker staffsync-shift-end-marker" aria-label="Shift logout time"></span>
+                        </div>
+                    </div>
+                    <div class="staffsync-shift-progress-side staffsync-shift-progress-remaining">
+                        <span>REMAINING TIME</span>
+                        <strong id="staffSyncShiftRemaining">--:--:--</strong>
+                        <small id="staffSyncShiftRemainingPercent">100% remaining</small>
+                    </div>
+                </div>
             </div>
             <div class="staffsync-attendance-button-row">
                 <div class="staffsync-attendance-action-item">
@@ -3579,6 +3696,27 @@
             <div id="staffSyncAttendanceMessage" class="staffsync-attendance-message" role="status">Checking today's attendance…</div>
         </div>
     </section>
+
+    <!-- StaffSync Logout Confirmation -->
+    <div id="staffSyncLogoutConfirmModal" class="staffsync-confirm-overlay" hidden
+         role="dialog" aria-modal="true" aria-labelledby="staffSyncLogoutConfirmTitle"
+         aria-describedby="staffSyncLogoutConfirmMessage">
+        <div class="staffsync-confirm-dialog">
+            <div class="staffsync-confirm-icon" aria-hidden="true">
+                <i class="fa-solid fa-circle-question"></i>
+            </div>
+            <div class="staffsync-confirm-content">
+                <div id="staffSyncLogoutConfirmTitle" class="staffsync-confirm-title">Confirm Logout</div>
+                <div id="staffSyncLogoutConfirmMessage" class="staffsync-confirm-message">
+                    You are about to Logout. Please confirm to proceed.
+                </div>
+            </div>
+            <div class="staffsync-confirm-actions">
+                <button type="button" id="staffSyncLogoutConfirmYes" class="staffsync-confirm-button staffsync-confirm-yes">Yes</button>
+                <button type="button" id="staffSyncLogoutConfirmNo" class="staffsync-confirm-button staffsync-confirm-no">No</button>
+            </div>
+        </div>
+    </div>
 
     <style>
         /* Scoped styles: do not change existing dashboard cards or layouts. */
@@ -4600,6 +4738,27 @@
             var trustedClockReceivedAt = 0;
             var attendanceLoginDate = null;
             var attendanceLogoutDate = null;
+            var logoutConfirmationOpen = false;
+
+            function closeLogoutConfirmation() {
+                var modal = document.getElementById("staffSyncLogoutConfirmModal");
+                if (modal) modal.hidden = true;
+                logoutConfirmationOpen = false;
+            }
+
+            function openLogoutConfirmation() {
+                var modal = document.getElementById("staffSyncLogoutConfirmModal");
+                if (!modal) {
+                    // Fail safely: if the confirmation UI is unavailable, do not
+                    // submit Logout without explicit user confirmation.
+                    setMessage("Unable to open the Logout confirmation. Please try again.", "error");
+                    return;
+                }
+                modal.hidden = false;
+                logoutConfirmationOpen = true;
+                var noButton = document.getElementById("staffSyncLogoutConfirmNo");
+                if (noButton) noButton.focus();
+            }
 
             function pad2(value) { return String(value).padStart(2, "0"); }
             function formatDate(value) {
@@ -4655,11 +4814,20 @@
                 if (tone === "good") element.classList.add("staffsync-attendance-time-good");
                 else if (tone === "late") element.classList.add("staffsync-attendance-time-late");
             }
+            function getTrustedCurrentTime() {
+                if (!trustedClockBase) return null;
+                return new Date(
+                    trustedClockBase.getTime() + (performance.now() - trustedClockReceivedAt)
+                );
+            }
             function updateTimeDifference() {
                 var element = document.getElementById("staffSyncTimeDifference");
                 if (!element) return;
                 if (!attendanceLoginDate) { element.textContent = "--:--:--"; return; }
-                var endTime = attendanceLogoutDate || new Date();
+                // While the employee is logged in, count from Login Time to the
+                // trusted live clock. After Logout, freeze the duration at Logout Time.
+                var endTime = attendanceLogoutDate || getTrustedCurrentTime();
+                if (!endTime) { element.textContent = "--:--:--"; return; }
                 var differenceSeconds = Math.max(0, Math.floor((endTime.getTime() - attendanceLoginDate.getTime()) / 1000));
                 var days = Math.floor(differenceSeconds / 86400);
                 var hours = Math.floor((differenceSeconds % 86400) / 3600);
@@ -4693,6 +4861,16 @@
                     };
                 }
                 return null;
+            }
+            function getShiftGracePeriodMilliseconds() {
+                var graceParts = parseShiftTime(window.staffSyncGracePeriod);
+                if (!graceParts) return 0;
+
+                return (
+                    (graceParts.hours * 60 * 60) +
+                    (graceParts.minutes * 60) +
+                    graceParts.seconds
+                ) * 1000;
             }
             function makeShiftDate(baseDate, shiftTime, isLogout) {
                 var parts = parseShiftTime(shiftTime);
@@ -4729,28 +4907,100 @@
                 return (days > 0 ? days + "d " : "") + pad2(hours) + ":" + pad2(minutes) + ":" + pad2(seconds);
             }
             function evaluateLoginTiming(loginDate) {
-                if (!loginDate || !window.staffSyncShiftLoginTime) {
+                if (!loginDate) {
+                    setTimingStatus("staffSyncLoginTimingStatus", "Pending", null, "warning");
+                    setAttendanceTimeTone("staffSyncLoginTime", "");
+                    return;
+                }
+                if (!window.staffSyncShiftLoginTime) {
                     setTimingStatus("staffSyncLoginTimingStatus", "Shift not configured", null, "warning");
                     setAttendanceTimeTone("staffSyncLoginTime", "");
                     return;
                 }
                 var shiftDate = makeShiftDate(loginDate, window.staffSyncShiftLoginTime, false);
+                if (!shiftDate) {
+                    setTimingStatus("staffSyncLoginTimingStatus", "Shift not configured", null, "warning");
+                    return;
+                }
+                // GracePeriod is supplied by the assigned ShiftMas record.
+                // Only the time beyond the grace window is counted as late.
+                var gracePeriodMilliseconds = getShiftGracePeriodMilliseconds();
                 var diff = loginDate.getTime() - shiftDate.getTime();
-                var loginStatus = diff === 0 ? "On Time Logged In" : (diff < 0 ? "Early Logged In" : "Lately Logged In");
-                setTimingStatus("staffSyncLoginTimingStatus", loginStatus, formatTimingDifference(diff), diff > 0 ? "late" : "good");
-                setAttendanceTimeTone("staffSyncLoginTime", diff > 0 ? "late" : "good");
+                var loginStatus;
+                var loginDifference = null;
+                var loginTone = "good";
+
+                if (diff > gracePeriodMilliseconds) {
+                    loginStatus = "Late Login";
+                    loginDifference = formatTimingDifference(diff - gracePeriodMilliseconds);
+                    loginTone = "late";
+                } else if (diff < 0) {
+                    loginStatus = "Early Login";
+                    loginDifference = formatTimingDifference(diff);
+                } else {
+                    // Login within the configured grace period is treated as on time.
+                    loginStatus = "On Time Login";
+                }
+
+                setTimingStatus("staffSyncLoginTimingStatus", loginStatus, loginDifference, loginTone);
+                setAttendanceTimeTone("staffSyncLoginTime", loginTone);
             }
             function evaluateLogoutTiming(logoutDate) {
-                if (!logoutDate || !attendanceLoginDate || !window.staffSyncShiftLogoutTime) {
-                    setTimingStatus("staffSyncLogoutTimingStatus", "Pending Logout", null, "warning");
+                // Before Login there is no meaningful Login/Logout timing comparison.
+                if (!attendanceLoginDate) {
+                    setTimingStatus("staffSyncLogoutTimingStatus", "Pending", null, "warning");
                     setAttendanceTimeTone("staffSyncLogoutTime", "");
                     return;
                 }
+                if (!window.staffSyncShiftLogoutTime) {
+                    setTimingStatus("staffSyncLogoutTimingStatus", "Shift not configured", null, "warning");
+                    setAttendanceTimeTone("staffSyncLogoutTime", "");
+                    return;
+                }
+
+                var comparisonDate = logoutDate || getTrustedCurrentTime();
+                if (!comparisonDate) {
+                    setTimingStatus("staffSyncLogoutTimingStatus", "Pending", null, "warning");
+                    return;
+                }
+
+                // While still logged in, show the logout timing that would apply
+                // if the employee logged out now. Once Logout is recorded, use
+                // the actual Logout timestamp and retain the final comparison.
                 var shiftDate = makeShiftDate(attendanceLoginDate, window.staffSyncShiftLogoutTime, true);
-                var diff = logoutDate.getTime() - shiftDate.getTime();
-                var logoutStatus = diff === 0 ? "Ontime Log out" : (diff < 0 ? "Early Log out" : "Lately Log out");
-                setTimingStatus("staffSyncLogoutTimingStatus", logoutStatus, formatTimingDifference(diff), diff < 0 ? "warning" : diff > 0 ? "late" : "good");
-                setAttendanceTimeTone("staffSyncLogoutTime", diff < 0 ? "late" : "good");
+                if (!shiftDate) {
+                    setTimingStatus("staffSyncLogoutTimingStatus", "Shift not configured", null, "warning");
+                    return;
+                }
+                // Early logout is counted only after the grace window has elapsed.
+                // Example: 05:52 PM against 06:00 PM with 7 minutes grace = 1 minute early.
+                var gracePeriodMilliseconds = getShiftGracePeriodMilliseconds();
+                var diff = shiftDate.getTime() - comparisonDate.getTime();
+                var logoutStatus;
+                var logoutDifference = null;
+                var logoutTone = "good";
+
+                if (diff > gracePeriodMilliseconds) {
+                    var earlyByMilliseconds = diff - gracePeriodMilliseconds;
+                    logoutStatus = logoutDate ? "Early Logout" : "If you log out now: Early Logout by";
+                    logoutDifference = formatTimingDifference(earlyByMilliseconds);
+                    logoutTone = logoutDate ? "late" : "";
+                } else if (comparisonDate.getTime() > shiftDate.getTime()) {
+                    var lateByMilliseconds = comparisonDate.getTime() - shiftDate.getTime();
+                    logoutStatus = logoutDate ? "Late Logout" : "If you log out now: Late Logout by";
+                    logoutDifference = formatTimingDifference(lateByMilliseconds);
+                    logoutTone = "good";
+                } else {
+                    logoutStatus = logoutDate ? "On Time Logout" : "On time if you log out now";
+                }
+
+                setTimingStatus(
+                    "staffSyncLogoutTimingStatus",
+                    logoutStatus,
+                    logoutDifference,
+                    logoutTone
+                );
+                setAttendanceTimeTone("staffSyncLogoutTime", logoutDate ? logoutTone : "");
             }
             function updateGreeting(now) {
                 var greetingElement = document.getElementById("staffSyncGreeting");
@@ -4801,6 +5051,121 @@
             window.addEventListener("offline", updateStaffSyncNetworkIndicator);
             updateStaffSyncNetworkIndicator();
 
+            function formatShiftDuration(milliseconds) {
+                var totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+                var hours = Math.floor(totalSeconds / 3600);
+                var minutes = Math.floor((totalSeconds % 3600) / 60);
+                var seconds = totalSeconds % 60;
+                return pad2(hours) + ":" + pad2(minutes) + ":" + pad2(seconds);
+            }
+            function updateShiftHourMarkers(startDate, endDate, totalMilliseconds) {
+                var markerHost = document.getElementById("staffSyncShiftHourMarkers");
+                if (!markerHost || !startDate || !endDate || totalMilliseconds <= 0) return;
+
+                var signature = startDate.getTime() + "|" + endDate.getTime();
+                if (markerHost.getAttribute("data-shift-signature") === signature) return;
+
+                markerHost.innerHTML = "";
+                markerHost.setAttribute("data-shift-signature", signature);
+
+                var markerTime = new Date(startDate.getTime());
+                var markerIndex = 0;
+
+                while (markerTime.getTime() < endDate.getTime()) {
+                    var offset = markerTime.getTime() - startDate.getTime();
+                    var position = (offset / totalMilliseconds) * 100;
+                    var marker = document.createElement("span");
+                    marker.className = "staffsync-shift-hour-marker";
+                    marker.style.left = position + "%";
+                    marker.textContent = formatTime(markerTime);
+                    markerHost.appendChild(marker);
+
+                    markerTime = new Date(markerTime.getTime() + 60 * 60 * 1000);
+                    markerIndex++;
+                    if (markerIndex > 48) break;
+                }
+
+                // Always label the exact shift end, including shifts not ending on a full hour.
+                var endMarker = document.createElement("span");
+                endMarker.className = "staffsync-shift-hour-marker staffsync-shift-hour-marker-end";
+                endMarker.style.left = "100%";
+                endMarker.textContent = formatTime(endDate);
+                markerHost.appendChild(endMarker);
+            }
+
+            function updateShiftProgress(now) {
+                var panel = document.getElementById("staffSyncShiftProgress");
+                if (!panel) return;
+
+                var startParts = parseShiftTime(window.staffSyncShiftLoginTime);
+                var endParts = parseShiftTime(window.staffSyncShiftLogoutTime);
+                var startElement = document.getElementById("staffSyncShiftProgressStart");
+                var endElement = document.getElementById("staffSyncShiftProgressEnd");
+                var fill = document.getElementById("staffSyncShiftProgressFill");
+                var track = panel.querySelector(".staffsync-shift-progress-track");
+                var status = document.getElementById("staffSyncShiftProgressStatus");
+                var percentText = document.getElementById("staffSyncShiftProgressPercent");
+                var durationText = document.getElementById("staffSyncShiftProgressDuration");
+                var elapsedText = document.getElementById("staffSyncShiftElapsed");
+                var remainingText = document.getElementById("staffSyncShiftRemaining");
+                var elapsedPercentText = document.getElementById("staffSyncShiftElapsedPercent");
+                var remainingPercentText = document.getElementById("staffSyncShiftRemainingPercent");
+
+                if (!startParts || !endParts || !now) {
+                    if (status) status.textContent = "Shift Not Assigned";
+                    if (startElement) startElement.textContent = "--:--";
+                    if (endElement) endElement.textContent = "--:--";
+                    if (fill) fill.style.width = "0%";
+                    if (track) track.setAttribute("aria-valuenow", "0");
+                    if (percentText) percentText.textContent = "0% elapsed";
+                    if (durationText) durationText.textContent = "-- / --";
+                    if (elapsedText) elapsedText.textContent = "--:--:--";
+                    if (remainingText) remainingText.textContent = "--:--:--";
+                    if (elapsedPercentText) elapsedPercentText.textContent = "--% elapsed";
+                    if (remainingPercentText) remainingPercentText.textContent = "--% remaining";
+                    return;
+                }
+
+                var startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), startParts.hours, startParts.minutes, startParts.seconds);
+                var endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), endParts.hours, endParts.minutes, endParts.seconds);
+                var startSeconds = startParts.hours * 3600 + startParts.minutes * 60 + startParts.seconds;
+                var endSeconds = endParts.hours * 3600 + endParts.minutes * 60 + endParts.seconds;
+                var nowSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+
+                // Support shifts that continue past midnight.
+                if (endSeconds <= startSeconds) {
+                    if (nowSeconds < startSeconds) {
+                        // Before today's start, the relevant overnight shift began yesterday.
+                        startDate.setDate(startDate.getDate() - 1);
+                    } else {
+                        // At/after today's start, the shift ends tomorrow.
+                        endDate.setDate(endDate.getDate() + 1);
+                    }
+                }
+
+                var totalMilliseconds = Math.max(0, endDate.getTime() - startDate.getTime());
+                var elapsedMilliseconds = Math.min(totalMilliseconds, Math.max(0, now.getTime() - startDate.getTime()));
+                var remainingMilliseconds = Math.max(0, endDate.getTime() - now.getTime());
+                var percentage = totalMilliseconds > 0 ? Math.min(100, Math.max(0, (elapsedMilliseconds / totalMilliseconds) * 100)) : 0;
+                var roundedPercentage = Math.round(percentage);
+                var shiftStatus = now.getTime() < startDate.getTime() ? "Not Started" :
+                    now.getTime() >= endDate.getTime() ? "Completed" : "In Progress";
+
+                if (startElement) startElement.textContent = formatTime(startDate);
+                if (endElement) endElement.textContent = formatTime(endDate);
+                if (status) status.textContent = shiftStatus;
+                if (fill) fill.style.width = percentage.toFixed(2) + "%";
+                if (track) track.setAttribute("aria-valuenow", String(roundedPercentage));
+                updateShiftHourMarkers(startDate, endDate, totalMilliseconds);
+                if (percentText) percentText.textContent = roundedPercentage + "% elapsed";
+                if (durationText) durationText.textContent = formatShiftDuration(elapsedMilliseconds) + " / " + formatShiftDuration(totalMilliseconds);
+                if (elapsedText) elapsedText.textContent = formatShiftDuration(elapsedMilliseconds);
+                if (remainingText) remainingText.textContent = formatShiftDuration(remainingMilliseconds);
+                var remainingPercentage = Math.max(0, 100 - percentage);
+                if (elapsedPercentText) elapsedPercentText.textContent = roundedPercentage + "% elapsed";
+                if (remainingPercentText) remainingPercentText.textContent = Math.round(remainingPercentage) + "% remaining";
+            }
+
             function updateClock() {
                 if (!trustedClockBase) {
                     var pendingTimeElement = document.getElementById("staffSyncDigitalClock");
@@ -4828,7 +5193,10 @@
                 var timeChip = document.getElementById("staffSyncClockTimeChip");
                 if (dateChip) dateChip.textContent = formatDate(now);
                 if (timeChip) timeChip.textContent = formatTime(now);
+                evaluateLoginTiming(attendanceLoginDate);
+                evaluateLogoutTiming(attendanceLogoutDate);
                 updateTimeDifference();
+                updateShiftProgress(now);
                 var seconds = now.getSeconds();
                 var minutes = now.getMinutes();
                 var hours = now.getHours() % 12;
@@ -4875,9 +5243,18 @@
 
             // State is loaded from the database through C#; browser memory is never treated as the source of truth.
             window.staffSyncAttendanceState = "loading";
-            window.staffSyncRequestAttendanceAction = function (action) {
+            window.staffSyncRequestAttendanceAction = function (action, isConfirmed) {
                 if (pendingAction) return;
                 if (action !== "Login" && action !== "Logout") return;
+                if (action === "Logout" && isConfirmed !== true) {
+                    if (window.staffSyncAttendanceState !== "in") {
+                        setMessage("You must be logged in, and not already logged out, to record logout.", "error");
+                        return;
+                    }
+                    openLogoutConfirmation();
+                    return;
+                }
+                if (action === "Logout" && isConfirmed === true) closeLogoutConfirmation();
                 if (window.staffSyncAttendanceState === "loading" || window.staffSyncAttendanceState === "unknown") {
                     setMessage("Attendance status is still being verified. Please wait.", "error");
                     return;
@@ -4942,12 +5319,12 @@
                     return;
                 }
 
-                attendanceLoginDate = returnedLoginDate;
-                attendanceLogoutDate = returnedLogoutDate;
+                attendanceLoginDate = hasLoginRecord ? returnedLoginDate : null;
+                attendanceLogoutDate = hasLogoutRecord ? returnedLogoutDate : null;
                 var loginTime = document.getElementById("staffSyncLoginTime");
                 var logoutTime = document.getElementById("staffSyncLogoutTime");
                 if (loginTime) loginTime.textContent = hasLoginRecord ? formatTime(attendanceLoginDate) : "--:--:--";
-                if (logoutTime) logoutTime.textContent = hasLogoutRecord ? formatTime(attendanceLogoutDate) : "--:--:--";
+                if (logoutTime) logoutTime.textContent = hasLogoutRecord ? formatTime(attendanceLogoutDate) : "Pending";
                 setAttendanceTimeTone("staffSyncLoginTime", "");
                 setAttendanceTimeTone("staffSyncLogoutTime", "");
 
@@ -4956,6 +5333,7 @@
                 window.staffSyncShiftTitle = result.ShiftTitle || "";
                 window.staffSyncShiftLoginTime = result.ShiftLoginTime || "";
                 window.staffSyncShiftLogoutTime = result.ShiftLogoutTime || "";
+                window.staffSyncGracePeriod = result.GracePeriod || "";
                 var shiftTitleElement = document.getElementById("staffSyncShiftTitle");
                 var shiftLoginElement = document.getElementById("staffSyncShiftLoginTime");
                 var shiftLogoutElement = document.getElementById("staffSyncShiftLogoutTime");
@@ -5006,6 +5384,26 @@
             };
 
             function init() {
+                var confirmYes = document.getElementById("staffSyncLogoutConfirmYes");
+                var confirmNo = document.getElementById("staffSyncLogoutConfirmNo");
+                if (confirmYes && !confirmYes.__staffSyncBound) {
+                    confirmYes.addEventListener("click", function () {
+                        if (!logoutConfirmationOpen) return;
+                        window.staffSyncRequestAttendanceAction("Logout", true);
+                    });
+                    confirmYes.__staffSyncBound = true;
+                }
+                if (confirmNo && !confirmNo.__staffSyncBound) {
+                    confirmNo.addEventListener("click", closeLogoutConfirmation);
+                    confirmNo.__staffSyncBound = true;
+                }
+                if (!window.__staffSyncLogoutEscapeBound) {
+                    document.addEventListener("keydown", function (event) {
+                        if (event.key === "Escape" && logoutConfirmationOpen) closeLogoutConfirmation();
+                    });
+                    window.__staffSyncLogoutEscapeBound = true;
+                }
+
                 // Wait for the trusted timestamp supplied by the C# host.
                 updateClock();
                 if (clockTimer) window.clearInterval(clockTimer);
@@ -24218,6 +24616,819 @@
             #staffSyncAttendanceClock .staffsync-assigned-shift-top .staffsync-info-items,
             #staffSyncAttendanceClock .staffsync-todays-attendance-top .staffsync-info-items {
                 column-gap: 16px;
+            }
+    }
+</style>
+
+
+<style>
+    /* Additive glossy Shift Progress component; existing dashboard styles remain unchanged. */
+    #staffSyncAttendanceClock .staffsync-shift-progress {
+        grid-column: 1 / -1;
+        min-width: 0;
+        margin: 7px 0 2px;
+        padding: 12px 14px 10px;
+        border: 1px solid rgba(255,255,255,.10);
+        border-radius: 15px;
+        color: #f4f7fb;
+        background: linear-gradient(145deg, #080b10 0%, #050608 58%, #0d1118 100%);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 5px 15px rgba(0,0,0,.16);
+        box-sizing: border-box;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-heading,
+    #staffSyncAttendanceClock .staffsync-shift-progress-times,
+    #staffSyncAttendanceClock .staffsync-shift-progress-summary,
+    #staffSyncAttendanceClock .staffsync-shift-progress-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-heading {
+        margin-bottom: 10px;
+        font-size: 13px;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-status {
+        padding: 3px 9px;
+        border-radius: 20px;
+        color: #39e88a;
+        background: rgba(0,190,83,.15);
+        font-size: 10px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-times {
+        margin-bottom: 8px;
+    }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-times > div,
+        #staffSyncAttendanceClock .staffsync-shift-progress-bottom > div {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+            #staffSyncAttendanceClock .staffsync-shift-progress-times > div:last-child,
+            #staffSyncAttendanceClock .staffsync-shift-progress-bottom > div:last-child {
+                text-align: right;
+            }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-times span,
+        #staffSyncAttendanceClock .staffsync-shift-progress-bottom span {
+            color: #b7c0cd;
+            font-size: 9px;
+            line-height: 1.2;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-times strong {
+            color: #f2f5f9;
+            font-size: 14px;
+        }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-track {
+        position: relative;
+        height: 15px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,.16);
+        border-radius: 20px;
+        background: linear-gradient(180deg, #dce6f0 0%, #aebdce 100%);
+        box-shadow: inset 0 2px 4px rgba(0,0,0,.22), 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-fill {
+        position: relative;
+        height: 100%;
+        min-width: 0;
+        overflow: hidden;
+        border-radius: inherit;
+        background: linear-gradient(180deg, #72c7ff 0%, #399de9 42%, #2583d5 100%);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.58), inset 0 -2px 3px rgba(0,52,116,.22), 0 0 8px rgba(57,157,233,.32);
+        transition: width .9s linear;
+    }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-fill::after {
+            content: "";
+            position: absolute;
+            inset: 1px 0 auto;
+            height: 48%;
+            border-radius: inherit;
+            background: linear-gradient(180deg, rgba(255,255,255,.62), rgba(255,255,255,.08));
+            pointer-events: none;
+        }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-summary {
+        margin-top: 7px;
+        color: #36b8ff;
+        font-size: 10px;
+    }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-summary span:last-child {
+            color: #d0d7e0;
+        }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-bottom {
+        margin-top: 13px;
+        padding-top: 9px;
+        border-top: 1px solid rgba(255,255,255,.09);
+    }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-bottom strong {
+            color: #e7edf5;
+            font-size: 14px;
+        }
+
+    @media (max-width: 700px) {
+        #staffSyncAttendanceClock .staffsync-shift-progress {
+            padding: 10px 11px 9px;
+        }
+    }
+</style>
+
+
+<style>
+    /* Compact Shift Progress: show only the glossy bar at the right of the timing row. */
+    #staffSyncAttendanceClock .staffsync-shift-feedback-row {
+        grid-template-columns: auto auto minmax(180px, 1fr);
+        align-items: center;
+        column-gap: 14px;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress {
+        min-width: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-track {
+        width: 100%;
+        height: 12px;
+        border-radius: 20px;
+    }
+
+    @media (max-width: 700px) {
+        #staffSyncAttendanceClock .staffsync-shift-feedback-row {
+            grid-template-columns: minmax(0, 1fr);
+            row-gap: 7px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress {
+            margin-top: 2px;
+        }
+    }
+</style>
+\n
+<style>
+    /* Compact live elapsed/remaining details beneath the glossy shift progress bar. */
+    #staffSyncAttendanceClock .staffsync-shift-progress-details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 5px;
+        color: #36516b;
+        font-size: 10px;
+        line-height: 1.25;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-detail {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        min-width: 0;
+    }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-detail > span {
+            color: #60758a;
+            font-size: 9px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-detail strong {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-percent {
+        color: #16824a;
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-detail-remaining {
+        margin-left: auto;
+        text-align: right;
+    }
+
+    @media (max-width: 700px) {
+        #staffSyncAttendanceClock .staffsync-shift-progress-details {
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-detail {
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-detail-remaining {
+            margin-left: auto;
+        }
+    }
+</style>
+
+
+<style>
+    /* Shift timeline: elapsed/remaining summaries flank the bar; hour labels sit above it. */
+    #staffSyncAttendanceClock .staffsync-shift-progress {
+        display: grid;
+        grid-template-columns: minmax(112px, auto) minmax(180px, 1fr) minmax(125px, auto);
+        align-items: end;
+        gap: 12px;
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-side {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+        line-height: 1.2;
+    }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-side > span {
+            color: #60758a;
+            font-size: 9px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-side strong {
+            color: #173f63;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-side small {
+            color: #16824a;
+            font-size: 10px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-remaining {
+        text-align: right;
+        align-items: flex-end;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-center {
+        min-width: 0;
+        padding-top: 14px;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-hour-markers {
+        position: relative;
+        height: 13px;
+        margin-bottom: 3px;
+        overflow: visible;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-hour-marker {
+        position: absolute;
+        bottom: 0;
+        transform: translateX(-50%);
+        color: #60758a;
+        font-size: 9px;
+        line-height: 1;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+    }
+
+        #staffSyncAttendanceClock .staffsync-shift-hour-marker:first-child {
+            transform: translateX(0);
+        }
+
+    #staffSyncAttendanceClock .staffsync-shift-hour-marker-end {
+        transform: translateX(-100%);
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-track {
+        position: relative;
+        height: 13px;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 20px;
+    }
+
+    @media (max-width: 900px) {
+        #staffSyncAttendanceClock .staffsync-shift-progress {
+            grid-template-columns: minmax(95px, auto) minmax(120px, 1fr) minmax(105px, auto);
+            gap: 7px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-side strong {
+            font-size: 11px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-hour-marker {
+            font-size: 8px;
+        }
+    }
+
+    @media (max-width: 700px) {
+        #staffSyncAttendanceClock .staffsync-shift-progress {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 8px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-center {
+            grid-column: 1 / -1;
+            grid-row: 1;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-elapsed {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-remaining {
+            grid-column: 2;
+            grid-row: 2;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-hour-marker {
+            font-size: 8px;
+        }
+    }
+</style>
+
+
+<style>
+    /* Fix: give the hourly shift timeline the full workstation content width. */
+    #staffSyncAttendanceClock .staffsync-shift-feedback-row {
+        grid-template-columns: auto auto minmax(0, 1fr);
+        align-items: center;
+    }
+
+        #staffSyncAttendanceClock .staffsync-shift-feedback-row > .staffsync-shift-progress {
+            grid-column: 1 / -1;
+            width: 100%;
+            min-width: 0;
+        }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-center {
+        width: 100%;
+        min-width: 0;
+    }
+
+    @media (max-width: 700px) {
+        #staffSyncAttendanceClock .staffsync-shift-feedback-row {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+            #staffSyncAttendanceClock .staffsync-shift-feedback-row > .staffsync-shift-progress {
+                grid-column: 1;
+            }
+    }
+</style>
+
+
+<style>
+    /* Clearly distinguish the scheduled shift boundaries on the progress timeline. */
+    #staffSyncAttendanceClock .staffsync-shift-progress-track {
+        position: relative;
+        overflow: hidden;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-boundary-marker {
+        position: absolute;
+        z-index: 5;
+        top: -3px;
+        bottom: -3px;
+        width: 3px;
+        pointer-events: none;
+        box-shadow: 0 0 2px rgba(0,0,0,.35);
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-start-marker {
+        left: 0;
+        background: #7c3aed;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-end-marker {
+        right: 0;
+        background: #f59e0b;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-boundary-label {
+        position: absolute;
+        top: 0;
+        z-index: 2;
+        padding: 1px 4px;
+        border-radius: 3px;
+        font-size: 8px;
+        line-height: 1.2;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-start-label {
+        left: 0;
+        color: #6d28d9;
+        background: rgba(237,233,254,.95);
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-end-label {
+        right: 0;
+        color: #b45309;
+        background: rgba(255,247,ed,.96);
+    }
+
+    #staffSyncAttendanceClock .staffsync-shift-hour-markers {
+        height: 16px;
+    }
+</style>
+
+
+<style>
+    /* Compact attendance feedback row: Login left, Logout right, progress below. */
+    #staffSyncAttendanceClock #staffSyncShiftFeedbackRow {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        column-gap: 12px;
+        row-gap: 5px;
+    }
+
+        #staffSyncAttendanceClock #staffSyncShiftFeedbackRow > .staffsync-login-timing-feedback {
+            order: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-right: auto;
+            white-space: nowrap;
+        }
+
+        #staffSyncAttendanceClock #staffSyncShiftFeedbackRow > .staffsync-logout-timing-feedback {
+            order: 2;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-left: auto;
+            white-space: nowrap;
+        }
+
+        #staffSyncAttendanceClock #staffSyncShiftFeedbackRow > #staffSyncShiftProgress {
+            order: 3;
+            flex: 0 0 100%;
+            width: 100%;
+            min-width: 0;
+            margin-top: 0;
+        }
+
+    /* Keep each elapsed/remaining summary on one line, with a subtle divider. */
+    #staffSyncAttendanceClock .staffsync-shift-progress-side {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 7px;
+        white-space: nowrap;
+        min-width: max-content;
+    }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-side > span {
+            font-size: 9px;
+            color: #60758a;
+            font-weight: 700;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-side strong {
+            font-size: 11px;
+            line-height: 1.2;
+            color: #173f63;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-side small {
+            display: inline-block;
+            margin-left: 1px;
+            padding-left: 7px;
+            border-left: 1px solid #b8c3ce;
+            color: #16824a;
+            font-size: 9px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+    #staffSyncAttendanceClock .staffsync-shift-progress-remaining {
+        justify-content: flex-end;
+        text-align: right;
+        margin-left: 0;
+    }
+
+    /* Add a visible circular dot below every hourly label. */
+    #staffSyncAttendanceClock .staffsync-shift-hour-marker {
+        position: absolute;
+        bottom: 0;
+        transform: translateX(-50%);
+        padding-bottom: 8px;
+        font-size: 9px;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+        #staffSyncAttendanceClock .staffsync-shift-hour-marker::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 6px;
+            height: 6px;
+            transform: translateX(-50%);
+            border: 1px solid #ffffff;
+            border-radius: 50%;
+            background: #718096;
+            box-shadow: 0 0 0 1px #9aa8b6;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-hour-marker:first-child {
+            transform: translateX(0);
+        }
+
+            #staffSyncAttendanceClock .staffsync-shift-hour-marker:first-child::after {
+                left: 0;
+                transform: none;
+                background: #7c3aed;
+                box-shadow: 0 0 0 1px #7c3aed;
+            }
+
+    #staffSyncAttendanceClock .staffsync-shift-hour-marker-end {
+        transform: translateX(-100%);
+    }
+
+        #staffSyncAttendanceClock .staffsync-shift-hour-marker-end::after {
+            left: 100%;
+            transform: translateX(-100%);
+            background: #f59e0b;
+            box-shadow: 0 0 0 1px #f59e0b;
+        }
+
+    @media (max-width: 700px) {
+        #staffSyncAttendanceClock #staffSyncShiftFeedbackRow {
+            column-gap: 6px;
+        }
+
+        #staffSyncAttendanceClock .staffsync-shift-progress-side {
+            gap: 4px;
+        }
+
+            #staffSyncAttendanceClock .staffsync-shift-progress-side > span {
+                font-size: 8px;
+            }
+
+            #staffSyncAttendanceClock .staffsync-shift-progress-side strong {
+                font-size: 10px;
+            }
+
+            #staffSyncAttendanceClock .staffsync-shift-progress-side small {
+                padding-left: 4px;
+                font-size: 8px;
+            }
+
+        #staffSyncAttendanceClock .staffsync-shift-hour-marker {
+            font-size: 8px;
+        }
+    }
+</style>
+
+
+<style>
+    /* Attendance card refinement:
+       - Login/Logout timing feedback aligned to the top-right.
+       - Progress bar occupies its own full-width row.
+       - Elapsed and remaining summaries sit below the bar. */
+    #staffSyncAttendanceClock #staffSyncShiftFeedbackRow {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: flex-end;
+        column-gap: 14px;
+        row-gap: 5px;
+    }
+
+        #staffSyncAttendanceClock #staffSyncShiftFeedbackRow > .staffsync-login-timing-feedback,
+        #staffSyncAttendanceClock #staffSyncShiftFeedbackRow > .staffsync-logout-timing-feedback {
+            order: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        #staffSyncAttendanceClock #staffSyncShiftFeedbackRow > #staffSyncShiftProgress {
+            order: 2;
+            flex: 0 0 100%;
+            width: 100%;
+            min-width: 0;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            grid-template-rows: auto auto;
+            align-items: center;
+            column-gap: 12px;
+            row-gap: 4px;
+            margin: 0;
+        }
+
+    /* Put the timeline first and both time summaries underneath it. */
+    #staffSyncAttendanceClock #staffSyncShiftProgress .staffsync-shift-progress-center {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        width: 100%;
+        min-width: 0;
+        padding-top: 14px;
+    }
+
+    #staffSyncAttendanceClock #staffSyncShiftProgress .staffsync-shift-progress-elapsed {
+        grid-column: 1;
+        grid-row: 2;
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    #staffSyncAttendanceClock #staffSyncShiftProgress .staffsync-shift-progress-remaining {
+        grid-column: 2;
+        grid-row: 2;
+        justify-content: flex-end;
+        text-align: right;
+        align-items: center;
+    }
+
+    #staffSyncAttendanceClock #staffSyncShiftProgress .staffsync-shift-progress-side {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 7px;
+        min-width: 0;
+        white-space: nowrap;
+        margin: 0;
+    }
+
+    @media (max-width: 700px) {
+        #staffSyncAttendanceClock #staffSyncShiftFeedbackRow {
+            justify-content: flex-end;
+            column-gap: 8px;
+        }
+
+            #staffSyncAttendanceClock #staffSyncShiftFeedbackRow > #staffSyncShiftProgress {
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            }
+
+        #staffSyncAttendanceClock #staffSyncShiftProgress .staffsync-shift-progress-side {
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+    }
+</style>
+
+
+<style>
+    /* Place Login Timing and Logout Timing in the top-right header area only. */
+    @media (min-width: 1251px) {
+        #staffSyncAttendanceClock .staffsync-workstation-heading {
+            grid-template-columns: auto auto minmax(250px, .95fr) minmax(390px, 1.45fr) max-content;
+            align-items: start;
+        }
+
+        #staffSyncAttendanceClock .staffsync-timing-feedback-top {
+            grid-column: 5;
+            grid-row: 1;
+            justify-self: end;
+            align-self: start;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 16px;
+            padding-top: 4px;
+            white-space: nowrap;
+        }
+
+            #staffSyncAttendanceClock .staffsync-timing-feedback-top .staffsync-login-timing-feedback,
+            #staffSyncAttendanceClock .staffsync-timing-feedback-top .staffsync-logout-timing-feedback {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                white-space: nowrap;
+            }
+    }
+
+    @media (max-width: 1250px) {
+        #staffSyncAttendanceClock .staffsync-timing-feedback-top {
+            grid-column: 1 / -1;
+            grid-row: auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding-top: 2px;
+        }
+    }
+</style>
+
+
+<style>
+    /* Improve spacing in the workstation header without changing its content or behaviour. */
+    @media (min-width: 1251px) {
+        #staffSyncAttendanceClock .staffsync-workstation-heading {
+            grid-template-columns: max-content max-content minmax(280px, .95fr) minmax(430px, 1.35fr);
+            column-gap: 22px;
+            row-gap: 9px;
+            align-items: start;
+        }
+
+        #staffSyncAttendanceClock .staffsync-assigned-shift-top,
+        #staffSyncAttendanceClock .staffsync-todays-attendance-top {
+            min-width: 0;
+            padding-left: 8px;
+        }
+
+            #staffSyncAttendanceClock .staffsync-assigned-shift-top .staffsync-info-items {
+                column-gap: 22px;
+            }
+
+            #staffSyncAttendanceClock .staffsync-todays-attendance-top .staffsync-info-items {
+                column-gap: 24px;
+            }
+
+            #staffSyncAttendanceClock .staffsync-assigned-shift-top .staffsync-session-meta,
+            #staffSyncAttendanceClock .staffsync-todays-attendance-top .staffsync-session-meta {
+                min-width: 0;
+            }
+
+        /* Keep timing feedback at the top-right, but give it its own clear row. */
+        #staffSyncAttendanceClock .staffsync-timing-feedback-top {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            justify-self: end;
+            align-self: center;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 26px;
+            margin-top: 2px;
+            padding: 3px 2px 0 0;
+            white-space: nowrap;
+        }
+
+            #staffSyncAttendanceClock .staffsync-timing-feedback-top .staffsync-login-timing-feedback,
+            #staffSyncAttendanceClock .staffsync-timing-feedback-top .staffsync-logout-timing-feedback {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                white-space: nowrap;
+            }
+    }
+</style>
+
+
+<style>
+    /* Stack Login Timing and Logout Timing vertically at the header's right side. */
+    @media (min-width: 1251px) {
+        #staffSyncAttendanceClock .staffsync-timing-feedback-top {
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-start;
+            gap: 7px;
+            white-space: nowrap;
+        }
+
+            #staffSyncAttendanceClock .staffsync-timing-feedback-top .staffsync-login-timing-feedback,
+            #staffSyncAttendanceClock .staffsync-timing-feedback-top .staffsync-logout-timing-feedback {
+                display: inline-flex;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 8px;
+                width: 100%;
             }
     }
 </style>
