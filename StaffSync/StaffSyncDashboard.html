@@ -5068,15 +5068,20 @@
                 markerHost.innerHTML = "";
                 markerHost.setAttribute("data-shift-signature", signature);
 
+                // The marker container represents exactly one assigned shift:
+                // 0% is Shift Start and 100% is Shift End. Generate hourly
+                // markers only while their timestamps are strictly inside
+                // this range; never add markers before start or after end.
                 var markerTime = new Date(startDate.getTime());
                 var markerIndex = 0;
 
                 while (markerTime.getTime() < endDate.getTime()) {
                     var offset = markerTime.getTime() - startDate.getTime();
-                    var position = (offset / totalMilliseconds) * 100;
+                    var position = Math.max(0, Math.min(100, (offset / totalMilliseconds) * 100));
+
                     var marker = document.createElement("span");
                     marker.className = "staffsync-shift-hour-marker";
-                    marker.style.left = position + "%";
+                    marker.style.left = position.toFixed(4) + "%";
                     marker.textContent = formatTime(markerTime);
                     markerHost.appendChild(marker);
 
@@ -5085,7 +5090,8 @@
                     if (markerIndex > 48) break;
                 }
 
-                // Always label the exact shift end, including shifts not ending on a full hour.
+                // Mark the exact assigned Shift End boundary at 100%, even
+                // when the shift duration is not a whole number of hours.
                 var endMarker = document.createElement("span");
                 endMarker.className = "staffsync-shift-hour-marker staffsync-shift-hour-marker-end";
                 endMarker.style.left = "100%";
@@ -5126,27 +5132,52 @@
                     return;
                 }
 
-                var startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), startParts.hours, startParts.minutes, startParts.seconds);
-                var endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), endParts.hours, endParts.minutes, endParts.seconds);
+                // Use the employee's dynamically assigned shift times.
+                // Both boundaries belong to the current calendar date. The
+                // progress bar must never roll either boundary into another day.
+                var startDate = new Date(
+                    now.getFullYear(), now.getMonth(), now.getDate(),
+                    startParts.hours, startParts.minutes, startParts.seconds
+                );
+                var endDate = new Date(
+                    now.getFullYear(), now.getMonth(), now.getDate(),
+                    endParts.hours, endParts.minutes, endParts.seconds
+                );
+
                 var startSeconds = startParts.hours * 3600 + startParts.minutes * 60 + startParts.seconds;
                 var endSeconds = endParts.hours * 3600 + endParts.minutes * 60 + endParts.seconds;
-                var nowSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
 
-                // Support shifts that continue past midnight.
+                // Support dynamically assigned overnight shifts as well.
+                // When the assigned end clock-time is earlier than (or equal
+                // to) the start clock-time, its end boundary belongs to the
+                // following calendar day. The start boundary always remains
+                // anchored to today's assigned shift start, so the timeline
+                // resets for each new shift day rather than extending forever.
                 if (endSeconds <= startSeconds) {
-                    if (nowSeconds < startSeconds) {
-                        // Before today's start, the relevant overnight shift began yesterday.
-                        startDate.setDate(startDate.getDate() - 1);
-                    } else {
-                        // At/after today's start, the shift ends tomorrow.
-                        endDate.setDate(endDate.getDate() + 1);
-                    }
+                    endDate.setDate(endDate.getDate() + 1);
                 }
 
-                var totalMilliseconds = Math.max(0, endDate.getTime() - startDate.getTime());
-                var elapsedMilliseconds = Math.min(totalMilliseconds, Math.max(0, now.getTime() - startDate.getTime()));
-                var remainingMilliseconds = Math.max(0, endDate.getTime() - now.getTime());
-                var percentage = totalMilliseconds > 0 ? Math.min(100, Math.max(0, (elapsedMilliseconds / totalMilliseconds) * 100)) : 0;
+                // The timeline duration is exactly the assigned shift window:
+                // Shift Start through Shift End (including next-day end only
+                // when the employee's assigned shift crosses midnight).
+                var totalMilliseconds = endDate.getTime() - startDate.getTime();
+                var elapsedMilliseconds = Math.min(
+                    totalMilliseconds,
+                    Math.max(0, now.getTime() - startDate.getTime())
+                );
+
+                // Before the shift: 0 elapsed / 100 remaining.
+                // During the shift: progress is limited to the assigned window.
+                // After the shift: 100 elapsed / 0 remaining, with no extension.
+                var remainingMilliseconds = Math.max(
+                    0,
+                    endDate.getTime() - Math.max(now.getTime(), startDate.getTime())
+                );
+
+                var percentage = Math.min(
+                    100,
+                    Math.max(0, (elapsedMilliseconds / totalMilliseconds) * 100)
+                );
                 var roundedPercentage = Math.round(percentage);
                 var shiftStatus = now.getTime() < startDate.getTime() ? "Not Started" :
                     now.getTime() >= endDate.getTime() ? "Completed" : "In Progress";
@@ -24932,8 +24963,14 @@
         position: relative;
         height: 13px;
         width: 100%;
+        max-width: 100%;
         overflow: hidden;
         border-radius: 20px;
+    }
+
+    /* Keep the fill strictly inside the assigned shift's start/end track. */
+    #staffSyncAttendanceClock .staffsync-shift-progress-fill {
+        max-width: 100%;
     }
 
     @media (max-width: 900px) {
