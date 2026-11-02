@@ -7879,8 +7879,8 @@ namespace StaffSync
                     trustedLocalDateTime = await StaffSyncTrustedTimeService.objTrustedTime.GetCurrentLocalDateTime();
                     string trustedDateTimeText = trustedLocalDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
 
-                    List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText));
                     ModelStaffSync.EmployeeAttendanceClockInfo objEmployeeLoginLogoutInfo = new ModelStaffSync.EmployeeAttendanceClockInfo();
+                    List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText));
                     if (string.Equals(attendanceAction, "GetState", StringComparison.OrdinalIgnoreCase))
                     {
                         //MessageBox.Show("Getting Today's Date" , "StaffSync", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -7897,8 +7897,25 @@ namespace StaffSync
                         //};
 
                         trustedDateTimeText = trustedLocalDateTime.ToString("dd-MMM-yyyy hh:mm:ss tt", CultureInfo.InvariantCulture);
-                        objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText));
-                        objEmployeeLoginLogoutInfo = objEmployeeAttendanceClockInfo[0];
+                        if (objEmployeeAttendanceClockInfo.Count > 0)
+                        {
+                            objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText));
+                            objEmployeeLoginLogoutInfo = objEmployeeAttendanceClockInfo[0];
+                        }
+                        else
+                        {
+                            int RowCounter = objAttendanceMas.InsertDailyAttendance(Convert.ToInt16(CurrentUser.EmpID), Convert.ToDateTime(trustedDateTimeText.ToString()), "Present", 0);
+                            if (RowCounter > 0)
+                            {
+                                objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText));
+                                objEmployeeLoginLogoutInfo = objEmployeeAttendanceClockInfo[0];
+                            }
+                            //objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutDefaultInformation(CurrentUser.EmpID);
+                            //objEmployeeAttendanceClockInfo[0].ShiftLoginTime = objEmployeeAttendanceClockInfo[0].ShiftLoginTime;
+                            //objEmployeeAttendanceClockInfo[0].ShiftLogoutTime = objEmployeeAttendanceClockInfo[0].ShiftLogoutTime;
+                            //objEmployeeAttendanceClockInfo[0].Message = "";
+                            //objEmployeeAttendanceClockInfo[0].TotalTime = objEmployeeAttendanceClockInfo[0].ShiftLoginTime;
+                        }                            
                         //objAttendanceMas.UpdateDailyLogInTime(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText), Convert.ToDateTime(trustedDateTimeText));
                     }
                     else if (string.Equals(attendanceAction, "Login", StringComparison.OrdinalIgnoreCase))

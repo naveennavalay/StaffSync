@@ -126,6 +126,15 @@ namespace DALStaffSync
             return objMonthlyAttendanceSummaryInfo;
         }
 
+        public List<EmployeeAttendanceClockInfo> getDailyLoginLogoutDefaultInformation(int EmpID)
+        {
+            List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = new List<EmployeeAttendanceClockInfo>();
+
+            objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutDefaultInformation(EmpID);
+
+            return objEmployeeAttendanceClockInfo;
+        }
+
         public List<EmployeeAttendanceClockInfo> getDailyLoginLogoutInformation(int EmpID, DateTime dtDate)
         {
             List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = new List<EmployeeAttendanceClockInfo>();

@@ -844,6 +844,55 @@ namespace dbStaffSync
             return objMonthlyAttendanceSummaryInfo;
         }
 
+        public List<EmployeeAttendanceClockInfo> getDailyLoginLogoutDefaultInformation(int EmpID)
+        {
+            List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = new List<EmployeeAttendanceClockInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                //DateTime.Now.Month
+                string strQuery = @"SELECT
+                                        ShiftMas.ShiftID,
+                                        ShiftMas.ShiftTitle,
+                                        Format(ShiftMas.ShiftStart, ""hh:nn:ss AM/PM"") AS ShiftLoginTime,
+                                        Format(ShiftMas.ShiftEnd, ""hh:nn:ss AM/PM"") AS ShiftLogoutTime,
+                                        Format(ShiftMas.GracePeriod, ""hh:nn:ss AM/PM"") AS GracePeriod
+                                    FROM
+                                        ShiftMas
+                                        INNER JOIN (
+                                            EmpMas
+                                            INNER JOIN EmpShiftInfo ON EmpMas.EmpID = EmpShiftInfo.EmpID
+                                        ) ON ShiftMas.ShiftID = EmpShiftInfo.ShiftID
+                                    WHERE
+                                        (((EmpMas.EmpID) = " + EmpID + "));";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeAttendanceClockInfo = JsonConvert.DeserializeObject<List<EmployeeAttendanceClockInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objEmployeeAttendanceClockInfo;
+        }
+
         public List<EmployeeAttendanceClockInfo> getDailyLoginLogoutInformation(int EmpID, DateTime dtDate)
         {
             List<EmployeeAttendanceClockInfo> objEmployeeAttendanceClockInfo = new List<EmployeeAttendanceClockInfo>();
@@ -861,19 +910,32 @@ namespace dbStaffSync
                                         Format(ShiftMas.GracePeriod, ""hh:nn:ss AM/PM"") AS GracePeriod,
                                         EmpDailyAttendanceInfo.AttID,
                                         EmpDailyAttendanceInfo.AttDate,
-                                        Format(EmpDailyAttendanceInfo.LoginTime, ""hh:nn:ss AM/PM"") AS LoginTime,
-                                        Format(EmpDailyAttendanceInfo.LogoutTime, ""hh:nn:ss AM/PM"") AS LogoutTime,
-                                        Format(EmpDailyAttendanceInfo.TotalTime, ""hh:nn:ss AM/PM"") AS TotalTime
+                                        Format(
+                                            EmpDailyAttendanceInfo.LoginTime,
+                                            ""hh:nn:ss AM/PM""
+                                        ) AS LoginTime,
+                                        Format(
+                                            EmpDailyAttendanceInfo.LogoutTime,
+                                            ""hh:nn:ss AM/PM""
+                                        ) AS LogoutTime,
+                                        Format(
+                                            EmpDailyAttendanceInfo.TotalTime,
+                                            ""hh:nn:ss AM/PM""
+                                        ) AS TotalTime
                                     FROM
-                                        ShiftMas
-                                        INNER JOIN (
-                                            ( EmpMas INNER JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID
-                                            )
-                                            INNER JOIN EmpShiftInfo ON EmpMas.EmpID = EmpShiftInfo.EmpID
-                                        ) ON ShiftMas.ShiftID = EmpShiftInfo.ShiftID
+                                        (
+                                            ShiftMas
+                                            INNER JOIN (
+                                                EmpMas
+                                                INNER JOIN EmpShiftInfo ON EmpMas.EmpID = EmpShiftInfo.EmpID
+                                            ) ON ShiftMas.ShiftID = EmpShiftInfo.ShiftID
+                                        )
+                                        LEFT JOIN EmpDailyAttendanceInfo ON (
+                                            EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID
+                                            AND EmpDailyAttendanceInfo.AttDate = #" + dtDate.ToString("dd-MMM-yyyy") + @"#
+                                        )
                                     WHERE
-                                        EmpDailyAttendanceInfo.AttDate = #" + dtDate.ToString("dd-MMM-yyyy") + @"#
-                                        AND EmpMas.EmpID = " + EmpID;
+                                        EmpMas.EmpID = " + EmpID;
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
