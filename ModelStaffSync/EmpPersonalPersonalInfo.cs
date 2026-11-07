@@ -25,5 +25,7 @@ namespace ModelStaffSync
         public int SexID { get; set; }
         public int LastCompanyInfoID { get; set; }
         public int ClientBranchID { get; set; }
+        public bool GoldProfile { get; set; }
+        public int ProfileCategoryMasID { get; set; }
     }
 }

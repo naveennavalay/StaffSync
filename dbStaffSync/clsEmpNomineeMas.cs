@@ -33,6 +33,7 @@ namespace dbStaffSync
                 string strQuery = @"SELECT
                                     NomineeMas.NomineeID,
                                     NomineeMas.NomineePerson,
+                                    RelationShipMas.RelationShipID,
                                     RelationShipMas.RelationShipTitle,
                                     NomineeMas.ContactNumber,
                                     EmpMas.EmpID

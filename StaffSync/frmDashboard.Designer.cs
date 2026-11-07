@@ -174,6 +174,7 @@
             this.cmbWeeklyOffConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.assetsCategoryListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.assetsListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shiftsListsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.cmbSalaryConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbSalaryProfile = new System.Windows.Forms.ToolStripMenuItem();
@@ -252,7 +253,6 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
-            this.shiftsListsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -1388,7 +1388,7 @@
             this.toolStripMenuItem33,
             this.exportMasterDataToolStripMenuItem});
             this.cmbApplicationSettings.Name = "cmDatamartList01";
-            this.cmbApplicationSettings.Size = new System.Drawing.Size(229, 300);
+            this.cmbApplicationSettings.Size = new System.Drawing.Size(229, 278);
             this.cmbApplicationSettings.Tag = "DatamartMenu";
             this.cmbApplicationSettings.Text = "Datamart Menu";
             this.cmbApplicationSettings.Opening += new System.ComponentModel.CancelEventHandler(this.cmbApplicationSettings_Opening);
@@ -1511,6 +1511,13 @@
             this.assetsListToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.assetsListToolStripMenuItem.Text = "Assets List";
             this.assetsListToolStripMenuItem.Click += new System.EventHandler(this.assetsListToolStripMenuItem_Click);
+            // 
+            // shiftsListsToolStripMenuItem
+            // 
+            this.shiftsListsToolStripMenuItem.Name = "shiftsListsToolStripMenuItem";
+            this.shiftsListsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.shiftsListsToolStripMenuItem.Text = "Shifts Lists";
+            this.shiftsListsToolStripMenuItem.Click += new System.EventHandler(this.shiftsListsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
@@ -2146,13 +2153,6 @@
             // 
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             this.kryptonRibbonGroupButton5.Click += new System.EventHandler(this.kryptonRibbonGroupButton5_Click);
-            // 
-            // shiftsListsToolStripMenuItem
-            // 
-            this.shiftsListsToolStripMenuItem.Name = "shiftsListsToolStripMenuItem";
-            this.shiftsListsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.shiftsListsToolStripMenuItem.Text = "Shifts Lists";
-            this.shiftsListsToolStripMenuItem.Click += new System.EventHandler(this.shiftsListsToolStripMenuItem_Click);
             // 
             // frmDashboard
             // 

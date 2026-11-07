@@ -119,6 +119,9 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbGoldProfileCategory = new Krypton.Toolkit.KryptonComboBox();
+            this.label75 = new System.Windows.Forms.Label();
+            this.chkGoldProfile = new System.Windows.Forms.CheckBox();
             this.txtConfirmationDate = new System.Windows.Forms.MaskedTextBox();
             this.label72 = new System.Windows.Forms.Label();
             this.txtLastDateOfProbation = new System.Windows.Forms.MaskedTextBox();
@@ -327,6 +330,7 @@
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbContactPersonRelationship)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbGoldProfileCategory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbEmpBranch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbEmploymentType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbShift)).BeginInit();
@@ -1667,6 +1671,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cmbGoldProfileCategory);
+            this.groupBox1.Controls.Add(this.label75);
+            this.groupBox1.Controls.Add(this.chkGoldProfile);
             this.groupBox1.Controls.Add(this.txtConfirmationDate);
             this.groupBox1.Controls.Add(this.label72);
             this.groupBox1.Controls.Add(this.txtLastDateOfProbation);
@@ -1695,6 +1702,44 @@
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Professional Info";
+            // 
+            // cmbGoldProfileCategory
+            // 
+            this.cmbGoldProfileCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbGoldProfileCategory.DropDownWidth = 440;
+            this.cmbGoldProfileCategory.Location = new System.Drawing.Point(954, 50);
+            this.cmbGoldProfileCategory.Name = "cmbGoldProfileCategory";
+            this.cmbGoldProfileCategory.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbGoldProfileCategory.Size = new System.Drawing.Size(184, 22);
+            this.cmbGoldProfileCategory.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbGoldProfileCategory.TabIndex = 88;
+            this.cmbGoldProfileCategory.Tag = "Gold Profile Category";
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label75.Location = new System.Drawing.Point(843, 54);
+            this.label75.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(109, 15);
+            this.label75.TabIndex = 87;
+            this.label75.Text = "Profile Category";
+            this.label75.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // chkGoldProfile
+            // 
+            this.chkGoldProfile.AutoSize = true;
+            this.chkGoldProfile.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkGoldProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkGoldProfile.Location = new System.Drawing.Point(614, 52);
+            this.chkGoldProfile.Name = "chkGoldProfile";
+            this.chkGoldProfile.Size = new System.Drawing.Size(132, 19);
+            this.chkGoldProfile.TabIndex = 86;
+            this.chkGoldProfile.Tag = "Special company-associated individual";
+            this.chkGoldProfile.Text = "Gold Profile : No";
+            this.chkGoldProfile.UseVisualStyleBackColor = true;
+            this.chkGoldProfile.CheckedChanged += new System.EventHandler(this.chkGoldProfile_CheckedChanged);
             // 
             // txtConfirmationDate
             // 
@@ -1791,7 +1836,7 @@
             // txtEmploymentEffectiveFrom
             // 
             this.txtEmploymentEffectiveFrom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.txtEmploymentEffectiveFrom.Location = new System.Drawing.Point(1049, 50);
+            this.txtEmploymentEffectiveFrom.Location = new System.Drawing.Point(1049, 79);
             this.txtEmploymentEffectiveFrom.Mask = "##-##-####";
             this.txtEmploymentEffectiveFrom.Name = "txtEmploymentEffectiveFrom";
             this.txtEmploymentEffectiveFrom.Size = new System.Drawing.Size(92, 21);
@@ -1803,7 +1848,7 @@
             // 
             this.label55.AutoSize = true;
             this.label55.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label55.Location = new System.Drawing.Point(951, 53);
+            this.label55.Location = new System.Drawing.Point(951, 82);
             this.label55.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(98, 15);
@@ -1815,7 +1860,7 @@
             // 
             this.cmbEmploymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEmploymentType.DropDownWidth = 440;
-            this.cmbEmploymentType.Location = new System.Drawing.Point(733, 49);
+            this.cmbEmploymentType.Location = new System.Drawing.Point(733, 78);
             this.cmbEmploymentType.Name = "cmbEmploymentType";
             this.cmbEmploymentType.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbEmploymentType.Size = new System.Drawing.Size(201, 22);
@@ -1827,7 +1872,7 @@
             // 
             this.label56.AutoSize = true;
             this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label56.Location = new System.Drawing.Point(610, 53);
+            this.label56.Location = new System.Drawing.Point(610, 82);
             this.label56.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(120, 15);
@@ -1838,7 +1883,7 @@
             // txtShiftEffectiveFrom
             // 
             this.txtShiftEffectiveFrom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.txtShiftEffectiveFrom.Location = new System.Drawing.Point(1049, 79);
+            this.txtShiftEffectiveFrom.Location = new System.Drawing.Point(1049, 108);
             this.txtShiftEffectiveFrom.Mask = "##-##-####";
             this.txtShiftEffectiveFrom.Name = "txtShiftEffectiveFrom";
             this.txtShiftEffectiveFrom.Size = new System.Drawing.Size(92, 21);
@@ -1850,7 +1895,7 @@
             // 
             this.label54.AutoSize = true;
             this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label54.Location = new System.Drawing.Point(951, 82);
+            this.label54.Location = new System.Drawing.Point(951, 111);
             this.label54.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(98, 15);
@@ -1862,7 +1907,7 @@
             // 
             this.cmbShift.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbShift.DropDownWidth = 440;
-            this.cmbShift.Location = new System.Drawing.Point(733, 78);
+            this.cmbShift.Location = new System.Drawing.Point(733, 107);
             this.cmbShift.Name = "cmbShift";
             this.cmbShift.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.cmbShift.Size = new System.Drawing.Size(201, 22);
@@ -1874,7 +1919,7 @@
             // 
             this.label53.AutoSize = true;
             this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label53.Location = new System.Drawing.Point(694, 82);
+            this.label53.Location = new System.Drawing.Point(694, 111);
             this.label53.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(36, 15);
@@ -3857,6 +3902,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cmbContactPersonRelationship)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbGoldProfileCategory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbEmpBranch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbEmploymentType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbShift)).EndInit();
@@ -4207,5 +4253,8 @@
         private System.Windows.Forms.Label label71;
         private Krypton.Toolkit.KryptonComboBox cmbEmpStatus;
         private System.Windows.Forms.Label label74;
+        private System.Windows.Forms.CheckBox chkGoldProfile;
+        private Krypton.Toolkit.KryptonComboBox cmbGoldProfileCategory;
+        private System.Windows.Forms.Label label75;
     }
 }

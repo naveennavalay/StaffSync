@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
+﻿using DALStaffSync;
+using DocumentFormat.OpenXml.Wordprocessing;
 using iTextSharp.text.pdf.qrcode;
 using Krypton.Toolkit;
 using ModelStaffSync;
@@ -63,6 +64,7 @@ namespace StaffSync
         DALStaffSync.clsRelationship objRelationship = new DALStaffSync.clsRelationship();
         DALStaffSync.clsSexMas objSexMaster = new DALStaffSync.clsSexMas();
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
+        DALStaffSync.clsProfileCategoryMasInfo objProfileCategoryMasInfo = new DALStaffSync.clsProfileCategoryMasInfo();
         DALStaffSync.clsUploadDocuments objUploadDocument = new DALStaffSync.clsUploadDocuments();
         DALStaffSync.clsLeaveTRList objLeaveTRList = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
@@ -178,6 +180,10 @@ namespace StaffSync
             cmbPermanentCountry.DataSource = objCountries.GetCountryList();
             cmbPermanentCountry.DisplayMember = "CountryTitle";
             cmbPermanentCountry.ValueMember = "CountryID";
+
+            cmbGoldProfileCategory.DataSource = objProfileCategoryMasInfo.GetProfileCategoryList();
+            cmbGoldProfileCategory.DisplayMember = "ProfileCategoryTitle";
+            cmbGoldProfileCategory.ValueMember = "ProfileCategoryMasID";
 
             chkEduQualList.ColumnWidth = 300;
             ((ListBox)chkEduQualList).DataSource = objEduQualMas.GetEduQualMasList();
@@ -430,6 +436,10 @@ namespace StaffSync
             cmbPermanentCountry.DisplayMember = "CountryTitle";
             cmbPermanentCountry.ValueMember = "CountryID";
 
+            cmbGoldProfileCategory.DataSource = objProfileCategoryMasInfo.GetProfileCategoryList();
+            cmbGoldProfileCategory.DisplayMember = "ProfileCategoryTitle";
+            cmbGoldProfileCategory.ValueMember = "ProfileCategoryMasID";
+
             chkEduQualList.ColumnWidth = 300;
             ((ListBox)chkEduQualList).DataSource = objEduQualMas.GetEduQualMasList();
             ((ListBox)chkEduQualList).DisplayMember = "EduQualTitle";
@@ -589,6 +599,7 @@ namespace StaffSync
             cmbPermanentState.DataSource = null;
             txtPermanentPIN.Text = "";
             cmbPermanentCountry.DataSource = null;
+            cmbGoldProfileCategory.DataSource = null;
 
             cmbSalProfile.DataSource = null;
             cmbEmpTaxScheme.DataSource = null;
@@ -719,6 +730,7 @@ namespace StaffSync
             cmbPermanentState.Enabled = true;
             txtPermanentPIN.Enabled = true;
             cmbPermanentCountry.Enabled = true;
+            cmbGoldProfileCategory.Enabled = true;
             cmbSalProfile.Enabled = true;
             cmbEmpTaxScheme.Enabled = true;
             txtTaxSchemeEffectiveFrom.Enabled = true;
@@ -814,6 +826,7 @@ namespace StaffSync
             cmbPermanentState.Enabled = false;
             txtPermanentPIN.Enabled = false;
             cmbPermanentCountry.Enabled = false;
+            cmbGoldProfileCategory.Enabled = false;
             cmbSalProfile.Enabled = false;
             cmbEmpTaxScheme.Enabled = false;
             txtTaxSchemeEffectiveFrom.Enabled = false;
@@ -978,6 +991,10 @@ namespace StaffSync
             cmbPermanentCountry.DisplayMember = "CountryTitle";
             cmbPermanentCountry.ValueMember = "CountryID";
 
+            cmbGoldProfileCategory.DataSource = objProfileCategoryMasInfo.GetProfileCategoryList();
+            cmbGoldProfileCategory.DisplayMember = "ProfileCategoryTitle";
+            cmbGoldProfileCategory.ValueMember = "ProfileCategoryMasID";
+
             chkEduQualList.ColumnWidth = 300;
             ((ListBox)chkEduQualList).DataSource = objEduQualMas.GetEduQualMasList();
             ((ListBox)chkEduQualList).DisplayMember = "EduQualTitle";
@@ -1069,7 +1086,7 @@ namespace StaffSync
                     {
                         int curAddressID = objAddressInfo.InsertAddressInfo(txtCurrentAddress01.Text.Trim(), txtCurrentAddress02.Text.Trim(), txtCurrentArea.Text.Trim(), txtCurrentCity.Text.Trim(), txtCurrentPIN.Text.Trim(), cmbCurrentState.Text.Trim(), cmbCurrentCountry.Text);
                         int perAddressID = objAddressInfo.InsertAddressInfo(txtPermanentAddress01.Text.Trim(), txtPermanentAddress02.Text.Trim(), txtPermanentArea.Text.Trim(), txtPermanentCity.Text.Trim(), txtPermanentPIN.Text.Trim(), cmbPermanentState.Text.Trim(), cmbPermanentCountry.Text);
-                        personalInfoID = objEmployeePersonalInfo.InsertEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), Convert.ToDateTime(txtLastDateOfProbation.Text), Convert.ToDateTime(txtConfirmationDate.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
+                        personalInfoID = objEmployeePersonalInfo.InsertEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), Convert.ToDateTime(txtLastDateOfProbation.Text), Convert.ToDateTime(txtConfirmationDate.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1, chkGoldProfile.Checked, cmbGoldProfileCategory.SelectedIndex + 1);
 
                         DateTime? dtPFRelievingDate = null;
                         if (txtPFRelievingDate.Text.Replace(" ", "").Replace("--", "") != "")
@@ -1366,7 +1383,7 @@ namespace StaffSync
                     int curAddressID = objAddressInfo.UpdateAddressInfo(Convert.ToInt16(lblCurrentAddressID.Text.Trim()), txtCurrentAddress01.Text.Trim(), txtCurrentAddress02.Text.Trim(), txtCurrentArea.Text.Trim(), txtCurrentCity.Text.Trim(), txtCurrentPIN.Text.Trim(), cmbCurrentState.Text.Trim(), cmbCurrentCountry.Text);
                     int perAddressID = objAddressInfo.UpdateAddressInfo(Convert.ToInt16(lblPermanentAddressID.Text.Trim()), txtPermanentAddress01.Text.Trim(), txtPermanentAddress02.Text.Trim(), txtPermanentArea.Text.Trim(), txtPermanentCity.Text.Trim(), txtPermanentPIN.Text.Trim(), cmbPermanentState.Text.Trim(), cmbPermanentCountry.Text);
                     int contactInfoID01 = objContactPerson.UdpateContactInfo(Convert.ToInt16(lblContactInfoID.Text.Trim()), txtContactPersonName.Text.Trim(), txtContactPersonNumber.Text.ToString(), cmbContactPersonRelationship.SelectedIndex + 1, 1);
-                    int personalInfoID = objEmployeePersonalInfo.UpdateEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), Convert.ToDateTime(txtLastDateOfProbation.Text), Convert.ToDateTime(txtConfirmationDate.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1);
+                    int personalInfoID = objEmployeePersonalInfo.UpdateEmployeePersonalInfo(employeeID, Convert.ToDateTime(txtDateOfBirth.Text), Convert.ToDateTime(txtDateOfJoining.Text), Convert.ToDateTime(txtLastDateOfProbation.Text), Convert.ToDateTime(txtConfirmationDate.Text), 1, curAddressID, perAddressID, txtEmployeeContactNumber.Text.Trim(), txtEmployeeMailID.Text.Trim(), contactInfoID01, contactInfoID01, cmbGender.SelectedIndex + 1, 1, cmbEmpBranch.SelectedIndex + 1, chkGoldProfile.Checked, cmbGoldProfileCategory.SelectedIndex + 1);
 
                     int empActiveInactiveStatusID = objEmpActiveInactiveStatusInfo.InsertEmpActiveInactiveStatus(personalInfoID, true, DateTime.Today, "Updated by : " + CurrentUser.EmpName + " - while updation");
 
@@ -1872,8 +1889,19 @@ namespace StaffSync
                 errValidator.SetError(this.picPermState, "The Professional Tax slab for the selected state has not yet been configured.\nContinuing without configuration may affect payroll calculations.");
             }
 
-            // Permanent Address
-            if (string.IsNullOrEmpty(txtPassportIssueDate.Text))
+            if(chkGoldProfile.Checked == true && cmbGoldProfileCategory.SelectedIndex <= 0)
+            {
+                validationStatus = false;
+                cmbGoldProfileCategory.Focus();
+                errValidator.SetError(this.cmbGoldProfileCategory, cmbGoldProfileCategory.Tag?.ToString() ?? "Gold Profile Category is required.");
+            }
+            else if (chkGoldProfile.Checked == false && cmbGoldProfileCategory.SelectedIndex > 0)
+            {
+                cmbGoldProfileCategory.SelectedIndex = 0;
+            }
+
+                // Permanent Address
+                if (string.IsNullOrEmpty(txtPassportIssueDate.Text))
             {
                 validationStatus = false;
                 txtPermanentAddress01.Focus();
@@ -2449,6 +2477,12 @@ namespace StaffSync
             txtEmployeeMailID.Text = objSelectedPersonalInfo.ContactNumber2;
             cmbGender.SelectedIndex = objSelectedPersonalInfo.SexID - 1;
             cmbEmpBranch.SelectedIndex = objSelectedPersonalInfo.ClientBranchID - 1;
+            chkGoldProfile.Checked = objSelectedPersonalInfo.GoldProfile;
+            cmbGoldProfileCategory.SelectedIndex = objSelectedPersonalInfo.ProfileCategoryMasID - 1;
+            if(chkGoldProfile.Checked == true)
+                cmbGoldProfileCategory.Enabled = true;
+            else
+                cmbGoldProfileCategory.Enabled = false;
 
             AddressInfo objSelectedCurrAddressInfo = objAddressInfo.GetAddressInfo(Convert.ToInt16(objSelectedPersonalInfo.CurAddressID));
             lblCurrentAddressID.Text = objSelectedCurrAddressInfo.AddressID.ToString();
@@ -3626,6 +3660,20 @@ namespace StaffSync
             //objPayrollConfig.FormBorderStyle = FormBorderStyle.Sizable;
             //objPayrollConfig.ShowDialog(this);
             //objPayrollConfig.WindowState = FormWindowState.Normal;
+        }
+
+        private void chkGoldProfile_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkGoldProfile.Checked == true)
+            {
+                chkGoldProfile.Text = "Gold Profile : Yes";
+                cmbGoldProfileCategory.Enabled = true;
+            }
+            else
+            {
+                chkGoldProfile.Text = "Gold Profile : No";
+                cmbGoldProfileCategory.Enabled = false;
+            }
         }
     }
 }

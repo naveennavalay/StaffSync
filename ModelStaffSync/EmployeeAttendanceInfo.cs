@@ -6,6 +6,7 @@ using System.Configuration;
 using System.IO;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace ModelStaffSync
 {
@@ -68,6 +69,9 @@ namespace ModelStaffSync
         public object Day30 { get; set; }
         public object Day31 { get; set; }
         public object Day32 { get; set; }
+
+        public DateTime? ShiftStart { get; set; }
+        public DateTime? ShiftEnd { get; set; }
     }
 
     public class UnProcessedAttendanceInfo
@@ -124,5 +128,19 @@ namespace ModelStaffSync
         public decimal PresentEmployees { get; set; }
         public decimal LeaveEmployees { get; set; }
         public decimal HalfLeaveEmployees { get; set; }
+    }
+
+    public class IsEmployeeOnLeave
+    {
+        public int EmpID { get; set; }
+        public DateTime CheckDate { get; set; }
+        public int AttID { get; set; }
+        public string AttStatus { get; set; }
+        public int LeaveTRID { get; set; }
+        public int LeaveTypeID { get; set; }
+        public string LeaveMode { get; set; }
+        public decimal LeaveDuration { get; set; }
+        public DateTime ActualLeaveDateFrom { get; set; }
+        public DateTime ActualLeaveDateTo { get; set; }
     }
 }

@@ -572,7 +572,7 @@ namespace dbStaffSync
                                         " EmpMas INNER JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID " +
                                   " WHERE " +
                                         " (((EmpDailyAttendanceInfo.AttDate) = #" + dtSelectedDate.ToString("dd-MMM-yyyy") + "#) " +
-                                        " AND ((EmpMas.EmpID) = " + txtEmpID + "));";
+                                        " AND ((EmpMas.EmpID) = " + txtEmpID + ")) ORDER BY EmpDailyAttendanceInfo.AttID;";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -746,6 +746,59 @@ namespace dbStaffSync
                     "    EmpMas.EmpID, " +
                     "    EmpMas.EmpName;";
 
+                strQuery = @"SELECT
+                                ClientMas.ClientID,
+                                EmpMas.EmpID,
+                                EmpMas.EmpCode,
+                                EmpMas.EmpName,
+                                DesigMas.DesignationTitle,
+                                DepMas.DepartmentTitle,
+                                CLng (
+                                    IIf(
+                                        IsNull(
+                                            DMax (
+                                                'SlNo',
+                                                'qryMnthlyAttdInfo',
+                                                'EmpID=' & EmpMas.EmpID & ' AND ClientID=' & " + txtCompanyID + @" & ' AND AttdMonth=#" + ReportForTheMonth.Date.ToString("dd-MMM-yyyy") + @"#'
+                                            )
+                                        ),
+                                        0,
+                                        DMax (
+                                            'SlNo',
+                                            'qryMnthlyAttdInfo',
+                                            'EmpID=' & EmpMas.EmpID & ' AND ClientID=' & " + txtCompanyID + @" & ' AND AttdMonth=#" + ReportForTheMonth.Date.ToString("dd-MMM-yyyy") + @"#'
+                                        )
+                                    )
+                                ) AS SlNo,
+                                'Present' AS " + DayNumber + @",
+                                ShiftMas.ShiftStart,
+                                ShiftMas.ShiftEnd
+                            FROM
+                                ShiftMas
+                                INNER JOIN (
+                                    (
+                                        DesigMas
+                                        INNER JOIN (
+                                            DepMas
+                                            INNER JOIN (
+                                                ClientMas
+                                                INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                            ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                        ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                    )
+                                    INNER JOIN EmpShiftInfo ON EmpMas.EmpID = EmpShiftInfo.EmpID
+                                ) ON ShiftMas.ShiftID = EmpShiftInfo.ShiftID
+                            WHERE
+                                (
+                                    ((ClientMas.ClientID) = " + txtCompanyID + @")
+                                    AND ((EmpMas.EmpID) > 1)
+                                    AND ((EmpMas.IsActive) = True)
+                                    AND ((EmpMas.IsDeleted) = False)
+                                )
+                            ORDER BY
+                                EmpMas.EmpID,
+                                EmpMas.EmpName;";
+
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
@@ -910,6 +963,8 @@ namespace dbStaffSync
                                         Format(ShiftMas.GracePeriod, ""hh:nn:ss AM/PM"") AS GracePeriod,
                                         EmpDailyAttendanceInfo.AttID,
                                         EmpDailyAttendanceInfo.AttDate,
+                                        EmpDailyAttendanceInfo.AttStatus,
+                                        EmpDailyAttendanceInfo.LeaveTRID,
                                         Format(
                                             EmpDailyAttendanceInfo.LoginTime,
                                             ""hh:nn:ss AM/PM""
@@ -930,12 +985,20 @@ namespace dbStaffSync
                                                 INNER JOIN EmpShiftInfo ON EmpMas.EmpID = EmpShiftInfo.EmpID
                                             ) ON ShiftMas.ShiftID = EmpShiftInfo.ShiftID
                                         )
-                                        LEFT JOIN EmpDailyAttendanceInfo ON (
-                                            EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID
-                                            AND EmpDailyAttendanceInfo.AttDate = #" + dtDate.ToString("dd-MMM-yyyy") + @"#
-                                        )
+                                        LEFT JOIN EmpDailyAttendanceInfo ON EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID
                                     WHERE
-                                        EmpMas.EmpID = " + EmpID;
+                                        EmpMas.EmpID = " + EmpID + @"
+                                        AND (
+                                            EmpDailyAttendanceInfo.AttID = (
+                                                SELECT
+                                                    MAX(A2.AttID)
+                                                FROM
+                                                    EmpDailyAttendanceInfo AS A2
+                                                WHERE
+                                                    A2.EmpID = EmpMas.EmpID
+                                            )
+                                            OR EmpDailyAttendanceInfo.AttID IS NULL
+                                        );";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -960,6 +1023,144 @@ namespace dbStaffSync
             }
 
             return objEmployeeAttendanceClockInfo;
+        }
+
+
+        public List<IsEmployeeOnLeave> IsEmployeeOnLeave(int EmpID, DateTime dtDate)
+        {
+            List<IsEmployeeOnLeave> objIsEmployeeOnLeave = new List<IsEmployeeOnLeave>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                //DateTime.Now.Month
+                string strQuery = @"SELECT
+                                        EmpMas.EmpID,
+                                        #" + dtDate.ToString("dd-MMM-yyyy") + @"# AS CheckDate,
+                                        EmpDailyAttendanceInfo.AttID,
+                                        EmpDailyAttendanceInfo.AttStatus,
+                                        EmpLeaveTransMas.LeaveTRID,
+                                        EmpLeaveTransMas.LeaveTypeID,
+                                        EmpLeaveTransMas.LeaveMode,
+                                        EmpLeaveTransMas.LeaveDuration,
+                                        EmpLeaveTransMas.ActualLeaveDateFrom,
+                                        EmpLeaveTransMas.ActualLeaveDateTo,
+                                        IIf(
+                                            EmpLeaveTransMas.LeaveTRID IS NOT NULL,
+                                            IIf(
+                                                EmpLeaveTransMas.LeaveMode = ""Full Day"",
+                                                ""On Leave - Full Day"",
+                                                EmpLeaveTransMas.LeaveMode & "" Leave; Attendance: "" & Nz (EmpDailyAttendanceInfo.AttStatus, ""Not Marked"")
+                                            ),
+                                            Nz (EmpDailyAttendanceInfo.AttStatus, ""Not Marked"")
+                                        ) AS DayStatus
+                                    FROM
+                                        (
+                                            (
+                                                EmpMas
+                                                LEFT JOIN EmpDailyAttendanceInfo ON (
+                                                    EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID
+                                                    AND EmpDailyAttendanceInfo.AttDate = #" + dtDate.ToString("dd-MMM-yyyy") +  @"#
+                                                )
+                                            )
+                                            LEFT JOIN EmpLeaveTransMas ON (
+                                                EmpMas.EmpID = EmpLeaveTransMas.EmpID
+                                                AND #" + dtDate.ToString("dd-MMM-yyyy") +  @"# BETWEEN EmpLeaveTransMas.ActualLeaveDateFrom AND EmpLeaveTransMas.ActualLeaveDateTo
+                                                AND EmpLeaveTransMas.LeaveApprovalComments = ""Approved : Approved""
+                                                AND EmpLeaveTransMas.LeaveRejectionComments = ""Not Rejected""
+                                                AND EmpLeaveTransMas.Canceled = False
+                                            )
+                                        )
+                                    WHERE
+                                        EmpMas.EmpID = " + EmpID;
+
+                strQuery = @"SELECT
+                                EmpMas.EmpID,
+                                #" + dtDate.ToString("dd-MMM-yyyy") + @"# AS CheckDate,
+                                EmpDailyAttendanceInfo.AttID,
+                                EmpDailyAttendanceInfo.AttStatus,
+                                EmpLeaveTransMas.LeaveTRID,
+                                EmpLeaveTransMas.LeaveTypeID,
+                                EmpLeaveTransMas.LeaveMode,
+                                EmpLeaveTransMas.LeaveDuration,
+                                EmpLeaveTransMas.ActualLeaveDateFrom,
+                                EmpLeaveTransMas.ActualLeaveDateTo,
+                                IIf(
+                                    EmpLeaveTransMas.LeaveTRID Is Not Null,
+                                    IIf(
+                                        EmpLeaveTransMas.LeaveMode = ""Full Day"",
+                                        ""On Leave - Full Day"",
+
+                                        EmpLeaveTransMas.LeaveMode &
+                                        "" Leave; Attendance: "" &
+                                        IIf(
+                                            IsNull(EmpDailyAttendanceInfo.AttStatus),
+                                            ""Not Marked"",
+                                            EmpDailyAttendanceInfo.AttStatus
+                                        )
+                                    ),
+                                    IIf(
+                                        IsNull(EmpDailyAttendanceInfo.AttStatus),
+                                        ""Not Marked"",
+                                        EmpDailyAttendanceInfo.AttStatus
+                                    )
+                                ) AS DayStatus
+                            FROM
+                                (
+                                    (
+                                        EmpMas
+                                        LEFT JOIN EmpDailyAttendanceInfo
+                                        ON
+                                            (
+                                                EmpMas.EmpID = EmpDailyAttendanceInfo.EmpID
+                                                AND EmpDailyAttendanceInfo.AttDate = #" + dtDate.ToString("dd-MMM-yyyy") + @"#
+                                            )
+                                    )
+                                    LEFT JOIN EmpLeaveTransMas
+                                    ON
+                                        (
+                                            EmpMas.EmpID = EmpLeaveTransMas.EmpID
+
+                                            AND #" + dtDate.ToString("dd-MMM-yyyy") + @"# BETWEEN
+                                                EmpLeaveTransMas.ActualLeaveDateFrom
+                                                AND EmpLeaveTransMas.ActualLeaveDateTo
+
+                                            AND EmpLeaveTransMas.LeaveApprovalComments =
+                                                ""Approved : Approved""
+
+                                            AND EmpLeaveTransMas.LeaveRejectionComments =
+                                                ""Not Rejected""
+
+                                            AND EmpLeaveTransMas.Canceled = False
+                                        )
+                                )
+                            WHERE
+                                EmpMas.EmpID = " + EmpID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objIsEmployeeOnLeave = JsonConvert.DeserializeObject<List<IsEmployeeOnLeave>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objIsEmployeeOnLeave;
         }
 
         public int InsertDailyAttendance(int txtEmpID, DateTime AttendanceDate, string AttendanceStatus, int LeaveTRID)

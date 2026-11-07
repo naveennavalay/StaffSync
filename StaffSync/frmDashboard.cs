@@ -7904,7 +7904,32 @@ namespace StaffSync
                         }
                         else
                         {
-                            int RowCounter = objAttendanceMas.InsertDailyAttendance(Convert.ToInt16(CurrentUser.EmpID), Convert.ToDateTime(trustedDateTimeText.ToString()), "Present", 0);
+                            int RowCounter = 0;
+                            EmployeeAttendanceInfo objEmployeeAttendanceInfo = objAttendanceMas.GetEmployeeSpecificDailyAttendanceInfo(Convert.ToInt16(CurrentUser.EmpID.ToString()), Convert.ToDateTime(trustedDateTimeText));
+                            IsEmployeeOnLeave EmployeeLeaveStatus = objAttendanceMas.IsEmployeeOnLeave(CurrentUser.EmpID, DateTime.Today);
+                            if(EmployeeLeaveStatus != null && EmployeeLeaveStatus.LeaveDuration == 1)
+                            {
+                                RowCounter = objAttendanceMas.InsertDailyAttendance(Convert.ToInt16(CurrentUser.EmpID), Convert.ToDateTime(trustedDateTimeText.ToString()), "Leave : Full Day", 0);
+                            }
+                            else if (EmployeeLeaveStatus != null && EmployeeLeaveStatus.LeaveDuration == Convert.ToDecimal("0.5"))
+                            {
+                                //Half Day Leave
+                                RowCounter = objAttendanceMas.InsertDailyAttendance(Convert.ToInt16(CurrentUser.EmpID), Convert.ToDateTime(trustedDateTimeText.ToString()), "Half Day Leave", 0);
+                            }
+                            else
+                            {
+                                //if (objEmployeeAttendanceInfo.AttStatus == null)
+                                //    RowCounter = objAttendanceMas.InsertDailyAttendance(Convert.ToInt16(CurrentUser.EmpID), Convert.ToDateTime(trustedDateTimeText.ToString()), "Present", 0);
+                                //else if (objEmployeeAttendanceInfo.AttStatus == "Present")
+                                //    RowCounter = objAttendanceMas.UpdateDailyAttendance(Convert.ToInt16(CurrentUser.EmpID.ToString()), Convert.ToDateTime(trustedDateTimeText.ToString()), "Leave : " + objEmployeeAttendanceInfo.AttStatus.ToString(), Convert.ToInt16(objEmployeeAttendanceInfo.LeaveTRID.ToString()));
+                                //else
+                                //    RowCounter = objAttendanceMas.InsertDailyAttendance(Convert.ToInt16(CurrentUser.EmpID), Convert.ToDateTime(trustedDateTimeText.ToString()), "Present", 0);
+
+                                //if (objAttendanceMas.DailayStatusEntryExist == false)
+                                //    RowCounter = objAttendanceMas.InsertDailyAttendance(Convert.ToInt16(CurrentUser.EmpID), Convert.ToDateTime(trustedDateTimeText.ToString()), "Present", 0);
+                                //else if (objAttendanceMas.DailayStatusEntryExist == false)
+                                //    RowCounter = objAttendanceMas.UpdateDailyAttendance(Convert.ToInt16(CurrentUser.EmpID), Convert.ToDateTime(trustedDateTimeText.ToString()), "Present", 0);
+                            }
                             if (RowCounter > 0)
                             {
                                 objEmployeeAttendanceClockInfo = objAttendanceMas.getDailyLoginLogoutInformation(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText));
@@ -7915,7 +7940,7 @@ namespace StaffSync
                             //objEmployeeAttendanceClockInfo[0].ShiftLogoutTime = objEmployeeAttendanceClockInfo[0].ShiftLogoutTime;
                             //objEmployeeAttendanceClockInfo[0].Message = "";
                             //objEmployeeAttendanceClockInfo[0].TotalTime = objEmployeeAttendanceClockInfo[0].ShiftLoginTime;
-                        }                            
+                        }
                         //objAttendanceMas.UpdateDailyLogInTime(CurrentUser.EmpID, Convert.ToDateTime(trustedDateTimeText), Convert.ToDateTime(trustedDateTimeText));
                     }
                     else if (string.Equals(attendanceAction, "Login", StringComparison.OrdinalIgnoreCase))

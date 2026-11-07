@@ -16,6 +16,7 @@ namespace ModelStaffSync
         public DateTime? GracePeriod { get; set; }
         public int AttID { get; set; }
         public DateTime AttDate { get; set; }
+        public string AttStatus { get; set; }
         public bool Success { get; set; }
         public string Status { get; set; }
         public DateTime? LoginTime { get; set; }
@@ -32,6 +33,7 @@ namespace ModelStaffSync
             ShiftLogoutTime = null;
             AttID = 0;
             AttDate = DateTime.Today;
+            AttStatus = null;
             LoginTime = null;
             LogoutTime = null;
             Success = false;

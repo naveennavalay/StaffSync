@@ -198,6 +198,18 @@ namespace StaffSync
 
                 foreach (DataGridViewRow indRow in dtgDailyAttendanceProcess.Rows)
                 {
+                    DateTime shiftStartTime = GetGridTimeValue(indRow.Cells["ShiftStart"]);
+
+                    DateTime shiftEndTime = GetGridTimeValue(indRow.Cells["ShiftEnd"]);
+
+                    // Extract only the time component.
+                    TimeSpan shiftStart = shiftStartTime.TimeOfDay;
+                    TimeSpan shiftEnd = shiftEndTime.TimeOfDay;
+
+                    // Example output
+                    string strShiftStart = shiftStart.ToString(@"hh\:mm\:ss");
+                    string strShiftEnd = shiftEnd.ToString(@"hh\:mm\:ss");
+
                     if (indRow.Cells["EmpID"].Value.ToString() != "")
                     {
                         EmployeeAttendanceInfo objEmployeeAttendanceInfo = objAttendanceMas.GetEmployeeSpecificDailyAttendanceInfo(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), currSelectedDate);
@@ -221,6 +233,12 @@ namespace StaffSync
                                         RowCounter = objAttendanceInfo.UpdateDailyAttendance(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(currSelectedDate.Date.ToString()), "Present", 0);
                                         if (RowCounter == 0)
                                             RowCounter = objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(currSelectedDate.Date.ToString()), "Present", 0);
+
+                                        if (RowCounter > 0 && chkAutoLoginLogout.Checked)
+                                        {
+                                            RowCounter = objAttendanceInfo.UpdateDailyLogInTime(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(currSelectedDate.Date.ToString()), Convert.ToDateTime(strShiftStart), Convert.ToDateTime("00:00:00 AM"));
+                                            RowCounter = objAttendanceInfo.UpdateDailyLogOutTime(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(currSelectedDate.Date.ToString()), Convert.ToDateTime(strShiftEnd), Convert.ToDateTime("08:00:00"), Convert.ToDateTime("00:00:00"));
+                                        }
                                     }
                                 }
                                 else
@@ -260,7 +278,14 @@ namespace StaffSync
                                         RowCounter = objEmpMnthlyAttdInfo.UpdateMonthlyAttendanceInfo(MonthlyAttendanceSlNumber, Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), currSelectedDate, "Day" + currSelectedDate.Day, "Present");
                                         RowCounter = objAttendanceInfo.UpdateDailyAttendance(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(currSelectedDate.Date.ToString()), "Present", 0);
                                         if (RowCounter == 0)
+                                        {
                                             RowCounter = objAttendanceInfo.InsertDailyAttendance(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(currSelectedDate.Date.ToString()), "Present", 0);
+                                            if (RowCounter > 0 && chkAutoLoginLogout.Checked)
+                                            {
+                                                RowCounter = objAttendanceInfo.UpdateDailyLogInTime(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(currSelectedDate.Date.ToString()), Convert.ToDateTime(strShiftStart), Convert.ToDateTime("00:00:00 AM"));
+                                                RowCounter = objAttendanceInfo.UpdateDailyLogOutTime(Convert.ToInt16(indRow.Cells["EmpID"].Value.ToString()), Convert.ToDateTime(currSelectedDate.Date.ToString()), Convert.ToDateTime(strShiftEnd), Convert.ToDateTime("08:00:00"), Convert.ToDateTime("00:00:00"));
+                                            } 
+                                        }
                                     }
                                 }
                                 else
@@ -313,6 +338,33 @@ namespace StaffSync
 
             this.Cursor = Cursors.Default;
             btnSaveDetails.Enabled = true;
+        }
+
+        private DateTime GetGridTimeValue(DataGridViewCell cell)
+        {
+            string timeText = Convert.ToString(cell.FormattedValue)?.Trim();
+
+            if (string.IsNullOrWhiteSpace(timeText))
+                throw new Exception("Shift time is missing.");
+
+            DateTime parsedTime;
+
+            string[] formats =
+            {
+                "hh:mm:ss tt",
+                "hh:mm tt",
+                "h:mm:ss tt",
+                "h:mm tt",
+                "HH:mm:ss",
+                "HH:mm"
+            };
+
+            if (DateTime.TryParseExact(timeText, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedTime))
+            {
+                return parsedTime;
+            }
+
+            throw new Exception("Invalid shift time: " + timeText);
         }
 
         private bool validateValues()
@@ -476,17 +528,28 @@ namespace StaffSync
             dtgDailyAttendanceProcess.Columns["EmpID"].Visible = false;
             dtgDailyAttendanceProcess.Columns["EmpID"].ReadOnly = true;
             dtgDailyAttendanceProcess.Columns["EmpCode"].Width = 100;
+            dtgDailyAttendanceProcess.Columns["EmpCode"].HeaderText = "Emp Code";
             dtgDailyAttendanceProcess.Columns["EmpName"].Width = 250;
-            dtgDailyAttendanceProcess.Columns["DesignationTitle"].Width = 250;
-            dtgDailyAttendanceProcess.Columns["DepartmentTitle"].Width = 250;
+            dtgDailyAttendanceProcess.Columns["DesignationTitle"].HeaderText = "Designation";
+            dtgDailyAttendanceProcess.Columns["DesignationTitle"].Width = 200;
             dtgDailyAttendanceProcess.Columns["DesignationTitle"].ReadOnly = true;
+            dtgDailyAttendanceProcess.Columns["DepartmentTitle"].HeaderText = "Department";
+            dtgDailyAttendanceProcess.Columns["DepartmentTitle"].Width = 200;            
             dtgDailyAttendanceProcess.Columns["DepartmentTitle"].ReadOnly = true;
             dtgDailyAttendanceProcess.Columns["SlNo"].ReadOnly = true;
             dtgDailyAttendanceProcess.Columns["SlNo"].Visible = false;
+            dtgDailyAttendanceProcess.Columns["ShiftStart"].HeaderText = "Shift Start";
+            dtgDailyAttendanceProcess.Columns["ShiftStart"].Visible = true;
+            dtgDailyAttendanceProcess.Columns["ShiftStart"].DefaultCellStyle.Format = "hh:mm:ss tt";
+            dtgDailyAttendanceProcess.Columns["ShiftStart"].ReadOnly = true;
+            dtgDailyAttendanceProcess.Columns["ShiftEnd"].HeaderText = "Shift End";
+            dtgDailyAttendanceProcess.Columns["ShiftEnd"].Visible = true;
+            dtgDailyAttendanceProcess.Columns["ShiftEnd"].DefaultCellStyle.Format = "hh:mm:ss tt";
+            dtgDailyAttendanceProcess.Columns["ShiftEnd"].ReadOnly = true;
 
             foreach (DataGridViewColumn indColumn in dtgDailyAttendanceProcess.Columns)
             {
-                if (indColumn.Name == "ClientID" || indColumn.Name == "EmpID" || indColumn.Name == "EmpCode" || indColumn.Name == "EmpName" || indColumn.Name == "DesignationTitle" || indColumn.Name == "DepartmentTitle" || indColumn.Name == "SlNo")
+                if (indColumn.Name == "ClientID" || indColumn.Name == "EmpID" || indColumn.Name == "EmpCode" || indColumn.Name == "EmpName" || indColumn.Name == "DesignationTitle" || indColumn.Name == "DepartmentTitle" || indColumn.Name == "SlNo" || indColumn.Name == "ShiftStart" || indColumn.Name == "ShiftEnd")
                 {
                     continue;
                 }

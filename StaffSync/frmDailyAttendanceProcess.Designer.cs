@@ -54,6 +54,7 @@
             this.qryMnthlyAttdInfoTableAdapter = new StaffSync.StaffsyncDBDataSet2TableAdapters.qryMnthlyAttdInfoTableAdapter();
             this.qryDepartmentListTableAdapter1 = new StaffSync.dsDepartmentListTableAdapters.qryDepartmentListTableAdapter();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.chkAutoLoginLogout = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -151,6 +152,7 @@
             // groupBox8
             // 
             this.groupBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox8.Controls.Add(this.chkAutoLoginLogout);
             this.groupBox8.Controls.Add(this.lblDayName);
             this.groupBox8.Controls.Add(this.lblBatchProcessID);
             this.groupBox8.Controls.Add(this.chkCompactDetailedView);
@@ -356,6 +358,21 @@
             // 
             this.qryDepartmentListTableAdapter1.ClearBeforeFill = true;
             // 
+            // chkAutoLoginLogout
+            // 
+            this.chkAutoLoginLogout.AutoSize = true;
+            this.chkAutoLoginLogout.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkAutoLoginLogout.Checked = true;
+            this.chkAutoLoginLogout.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAutoLoginLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.chkAutoLoginLogout.Location = new System.Drawing.Point(715, 35);
+            this.chkAutoLoginLogout.Name = "chkAutoLoginLogout";
+            this.chkAutoLoginLogout.Size = new System.Drawing.Size(155, 19);
+            this.chkAutoLoginLogout.TabIndex = 85;
+            this.chkAutoLoginLogout.Tag = "Auto Login && Logout";
+            this.chkAutoLoginLogout.Text = "Auto Login && Logout";
+            this.chkAutoLoginLogout.UseVisualStyleBackColor = true;
+            // 
             // frmDailyAttendanceProcess
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -420,6 +437,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblDayName;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.CheckBox chkAutoLoginLogout;
         //private Calender empAttCalender;
     }
 }

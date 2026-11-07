@@ -144,6 +144,17 @@ namespace DALStaffSync
             return objEmployeeAttendanceClockInfo;
         }
 
+        public IsEmployeeOnLeave IsEmployeeOnLeave(int EmpID, DateTime dtDate)
+        {
+            List<IsEmployeeOnLeave> objIsEmployeeOnLeave = new List<IsEmployeeOnLeave>();
+
+            objIsEmployeeOnLeave = objAttendanceMas.IsEmployeeOnLeave(EmpID, dtDate);
+
+            return objIsEmployeeOnLeave.FirstOrDefault();
+
+        }
+
+
         public int InsertDailyAttendance(int txtEmpID, DateTime AttendanceDate, string AttendanceStatus, int LeaveTRID)
         {
             int affectedRows = 0;
