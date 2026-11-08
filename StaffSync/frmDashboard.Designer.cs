@@ -77,6 +77,7 @@
             this.cmbLeaveEntitlement1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripSeparator();
             this.manageResignationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem23 = new System.Windows.Forms.ToolStripSeparator();
             this.kryptonRibbonGroupSeparator1 = new Krypton.Ribbon.KryptonRibbonGroupSeparator();
             this.kryptonRibbonGroupTriple7 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbManageEmployeeAttendanceButton = new Krypton.Ribbon.KryptonRibbonGroupButton();
@@ -255,6 +256,7 @@
             this.staffsyncDBDTSet = new StaffSync.StaffsyncDBDTSet();
             this.qryRoleProfileTableAdapter = new StaffSync.StaffsyncDBDTSetTableAdapters.qryRoleProfileTableAdapter();
             this.kryptonRibbonGroupButton5 = new Krypton.Ribbon.KryptonRibbonGroupButton();
+            this.manageResignationsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.myStatusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblRibbon)).BeginInit();
             this.cmMyOptions.SuspendLayout();
@@ -652,9 +654,11 @@
             this.toolStripMenuItem29,
             this.cmbLeaveEntitlement1,
             this.toolStripMenuItem22,
-            this.manageResignationsToolStripMenuItem});
+            this.manageResignationsToolStripMenuItem,
+            this.toolStripMenuItem23,
+            this.manageResignationsToolStripMenuItem1});
             this.cmManageEmployee.Name = "cmDatamartList01";
-            this.cmManageEmployee.Size = new System.Drawing.Size(234, 110);
+            this.cmManageEmployee.Size = new System.Drawing.Size(234, 160);
             this.cmManageEmployee.Tag = "cmAttendanceManagementList";
             this.cmManageEmployee.Text = "DatamartMenu";
             this.cmManageEmployee.Opening += new System.ComponentModel.CancelEventHandler(this.cmManageEmployee_Opening);
@@ -706,8 +710,13 @@
             // 
             this.manageResignationsToolStripMenuItem.Name = "manageResignationsToolStripMenuItem";
             this.manageResignationsToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
-            this.manageResignationsToolStripMenuItem.Text = "Manage Resignations";
+            this.manageResignationsToolStripMenuItem.Text = "Employee Resignation";
             this.manageResignationsToolStripMenuItem.Click += new System.EventHandler(this.manageResignationsToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem23
+            // 
+            this.toolStripMenuItem23.Name = "toolStripMenuItem23";
+            this.toolStripMenuItem23.Size = new System.Drawing.Size(230, 6);
             // 
             // kryptonRibbonGroupTriple7
             // 
@@ -1321,39 +1330,39 @@
             this.toolStripMenuItem21,
             this.taskDelToolStripMenuItem});
             this.cmbApprovals.Name = "cmbManageAdvances";
-            this.cmbApprovals.Size = new System.Drawing.Size(181, 104);
+            this.cmbApprovals.Size = new System.Drawing.Size(177, 82);
             this.cmbApprovals.Opening += new System.ComponentModel.CancelEventHandler(this.cmbApprovals_Opening);
             // 
             // firstApprovalToolStripMenuItem
             // 
             this.firstApprovalToolStripMenuItem.Image = global::StaffSync.Properties.Resources.approved;
             this.firstApprovalToolStripMenuItem.Name = "firstApprovalToolStripMenuItem";
-            this.firstApprovalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.firstApprovalToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.firstApprovalToolStripMenuItem.Text = "First Approval";
             this.firstApprovalToolStripMenuItem.Click += new System.EventHandler(this.firstApprovalToolStripMenuItem_Click);
             // 
             // toolStripMenuItem20
             // 
             this.toolStripMenuItem20.Name = "toolStripMenuItem20";
-            this.toolStripMenuItem20.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem20.Size = new System.Drawing.Size(173, 6);
             // 
             // secondApprovalToolStripMenuItem
             // 
             this.secondApprovalToolStripMenuItem.Image = global::StaffSync.Properties.Resources.asset_operations;
             this.secondApprovalToolStripMenuItem.Name = "secondApprovalToolStripMenuItem";
-            this.secondApprovalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.secondApprovalToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.secondApprovalToolStripMenuItem.Text = "Second Approval";
             this.secondApprovalToolStripMenuItem.Click += new System.EventHandler(this.secondApprovalToolStripMenuItem_Click);
             // 
             // toolStripMenuItem21
             // 
             this.toolStripMenuItem21.Name = "toolStripMenuItem21";
-            this.toolStripMenuItem21.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem21.Size = new System.Drawing.Size(173, 6);
             // 
             // taskDelToolStripMenuItem
             // 
             this.taskDelToolStripMenuItem.Name = "taskDelToolStripMenuItem";
-            this.taskDelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.taskDelToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.taskDelToolStripMenuItem.Text = "Delegate Approvals";
             this.taskDelToolStripMenuItem.Click += new System.EventHandler(this.taskDelToolStripMenuItem_Click);
             // 
@@ -2171,6 +2180,13 @@
             this.kryptonRibbonGroupButton5.TextLine1 = "Manage Employee Information";
             this.kryptonRibbonGroupButton5.Click += new System.EventHandler(this.kryptonRibbonGroupButton5_Click);
             // 
+            // manageResignationsToolStripMenuItem1
+            // 
+            this.manageResignationsToolStripMenuItem1.Name = "manageResignationsToolStripMenuItem1";
+            this.manageResignationsToolStripMenuItem1.Size = new System.Drawing.Size(233, 22);
+            this.manageResignationsToolStripMenuItem1.Text = "Manage Resignation";
+            this.manageResignationsToolStripMenuItem1.Click += new System.EventHandler(this.manageResignationsToolStripMenuItem1_Click);
+            // 
             // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2454,6 +2470,8 @@
         private System.Windows.Forms.ToolStripMenuItem shiftsListsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem22;
         private System.Windows.Forms.ToolStripMenuItem manageResignationsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem23;
+        private System.Windows.Forms.ToolStripMenuItem manageResignationsToolStripMenuItem1;
     }
 }
 

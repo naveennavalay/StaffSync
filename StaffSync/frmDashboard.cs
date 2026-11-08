@@ -9251,10 +9251,25 @@ namespace StaffSync
         {
             if (this.MdiChildren.Length == 0)
             {
+                //lblDashboardTitle.Text = "Task Delegates";
+                //sptrDashboardContainer.Visible = false;
+                //grpDashboardDateRange.Visible = false;
+                //frmEmpTaskDelegates frmEmpTaskDelegates = new frmEmpTaskDelegates();
+                //frmEmpTaskDelegates.MdiParent = this;
+                //frmEmpTaskDelegates.Dock = DockStyle.Fill;
+                //frmEmpTaskDelegates.Show();
+                //frmEmpTaskDelegates.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void manageResignationsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
                 lblDashboardTitle.Text = "Task Delegates";
                 sptrDashboardContainer.Visible = false;
                 grpDashboardDateRange.Visible = false;
-                frmEmpTaskDelegates frmEmpTaskDelegates = new frmEmpTaskDelegates();
+                
                 frmEmpTaskDelegates.MdiParent = this;
                 frmEmpTaskDelegates.Dock = DockStyle.Fill;
                 frmEmpTaskDelegates.Show();
