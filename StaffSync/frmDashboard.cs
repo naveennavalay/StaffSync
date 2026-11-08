@@ -9266,14 +9266,14 @@ namespace StaffSync
         {
             if (this.MdiChildren.Length == 0)
             {
-                lblDashboardTitle.Text = "Task Delegates";
+                lblDashboardTitle.Text = "Manage Resignations";
                 sptrDashboardContainer.Visible = false;
                 grpDashboardDateRange.Visible = false;
-                
-                frmEmpTaskDelegates.MdiParent = this;
-                frmEmpTaskDelegates.Dock = DockStyle.Fill;
-                frmEmpTaskDelegates.Show();
-                frmEmpTaskDelegates.WindowState = FormWindowState.Maximized;
+                frmEmployeeResignationManagement frmEmployeeResignationManagement = new frmEmployeeResignationManagement(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmEmployeeResignationManagement.MdiParent = this;
+                frmEmployeeResignationManagement.Dock = DockStyle.Fill;
+                frmEmployeeResignationManagement.Show();
+                frmEmployeeResignationManagement.WindowState = FormWindowState.Maximized;
             }
         }
     }
