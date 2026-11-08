@@ -75,6 +75,8 @@
             this.cmbManageEmployeePayrollConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem29 = new System.Windows.Forms.ToolStripSeparator();
             this.cmbLeaveEntitlement1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripSeparator();
+            this.manageResignationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonRibbonGroupSeparator1 = new Krypton.Ribbon.KryptonRibbonGroupSeparator();
             this.kryptonRibbonGroupTriple7 = new Krypton.Ribbon.KryptonRibbonGroupTriple();
             this.tlbManageEmployeeAttendanceButton = new Krypton.Ribbon.KryptonRibbonGroupButton();
@@ -648,9 +650,11 @@
             this.toolStripMenuItem8,
             this.cmbManageEmployeePayrollConfiguration,
             this.toolStripMenuItem29,
-            this.cmbLeaveEntitlement1});
+            this.cmbLeaveEntitlement1,
+            this.toolStripMenuItem22,
+            this.manageResignationsToolStripMenuItem});
             this.cmManageEmployee.Name = "cmDatamartList01";
-            this.cmManageEmployee.Size = new System.Drawing.Size(234, 82);
+            this.cmManageEmployee.Size = new System.Drawing.Size(234, 110);
             this.cmManageEmployee.Tag = "cmAttendanceManagementList";
             this.cmManageEmployee.Text = "DatamartMenu";
             this.cmManageEmployee.Opening += new System.ComponentModel.CancelEventHandler(this.cmManageEmployee_Opening);
@@ -692,6 +696,18 @@
             this.cmbLeaveEntitlement1.Tag = "cmbLeaveEntitlement1";
             this.cmbLeaveEntitlement1.Text = "Leave Allotment";
             this.cmbLeaveEntitlement1.Click += new System.EventHandler(this.cmbLeaveEntitlement1_Click);
+            // 
+            // toolStripMenuItem22
+            // 
+            this.toolStripMenuItem22.Name = "toolStripMenuItem22";
+            this.toolStripMenuItem22.Size = new System.Drawing.Size(230, 6);
+            // 
+            // manageResignationsToolStripMenuItem
+            // 
+            this.manageResignationsToolStripMenuItem.Name = "manageResignationsToolStripMenuItem";
+            this.manageResignationsToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.manageResignationsToolStripMenuItem.Text = "Manage Resignations";
+            this.manageResignationsToolStripMenuItem.Click += new System.EventHandler(this.manageResignationsToolStripMenuItem_Click);
             // 
             // kryptonRibbonGroupTriple7
             // 
@@ -1305,40 +1321,41 @@
             this.toolStripMenuItem21,
             this.taskDelToolStripMenuItem});
             this.cmbApprovals.Name = "cmbManageAdvances";
-            this.cmbApprovals.Size = new System.Drawing.Size(177, 82);
+            this.cmbApprovals.Size = new System.Drawing.Size(181, 104);
             this.cmbApprovals.Opening += new System.ComponentModel.CancelEventHandler(this.cmbApprovals_Opening);
             // 
             // firstApprovalToolStripMenuItem
             // 
             this.firstApprovalToolStripMenuItem.Image = global::StaffSync.Properties.Resources.approved;
             this.firstApprovalToolStripMenuItem.Name = "firstApprovalToolStripMenuItem";
-            this.firstApprovalToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.firstApprovalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.firstApprovalToolStripMenuItem.Text = "First Approval";
             this.firstApprovalToolStripMenuItem.Click += new System.EventHandler(this.firstApprovalToolStripMenuItem_Click);
             // 
             // toolStripMenuItem20
             // 
             this.toolStripMenuItem20.Name = "toolStripMenuItem20";
-            this.toolStripMenuItem20.Size = new System.Drawing.Size(173, 6);
+            this.toolStripMenuItem20.Size = new System.Drawing.Size(177, 6);
             // 
             // secondApprovalToolStripMenuItem
             // 
             this.secondApprovalToolStripMenuItem.Image = global::StaffSync.Properties.Resources.asset_operations;
             this.secondApprovalToolStripMenuItem.Name = "secondApprovalToolStripMenuItem";
-            this.secondApprovalToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.secondApprovalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.secondApprovalToolStripMenuItem.Text = "Second Approval";
             this.secondApprovalToolStripMenuItem.Click += new System.EventHandler(this.secondApprovalToolStripMenuItem_Click);
             // 
             // toolStripMenuItem21
             // 
             this.toolStripMenuItem21.Name = "toolStripMenuItem21";
-            this.toolStripMenuItem21.Size = new System.Drawing.Size(173, 6);
+            this.toolStripMenuItem21.Size = new System.Drawing.Size(177, 6);
             // 
             // taskDelToolStripMenuItem
             // 
             this.taskDelToolStripMenuItem.Name = "taskDelToolStripMenuItem";
-            this.taskDelToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.taskDelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.taskDelToolStripMenuItem.Text = "Delegate Approvals";
+            this.taskDelToolStripMenuItem.Click += new System.EventHandler(this.taskDelToolStripMenuItem_Click);
             // 
             // kryptonRibbonGroup4
             // 
@@ -2435,6 +2452,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem21;
         private System.Windows.Forms.ToolStripMenuItem taskDelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem shiftsListsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem22;
+        private System.Windows.Forms.ToolStripMenuItem manageResignationsToolStripMenuItem;
     }
 }
 

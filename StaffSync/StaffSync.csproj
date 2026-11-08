@@ -404,6 +404,15 @@
     <Compile Include="frmAbout.Designer.cs">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEmployeeResignation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmployeeResignation.Designer.cs">
+      <DependentUpon>frmEmployeeResignation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEmpTaskDelegates.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmEmpReimbRequestInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1049,6 +1058,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmployeeResignation.resx">
+      <DependentUpon>frmEmployeeResignation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmpTaskDelegates.resx">
+      <DependentUpon>frmEmpTaskDelegates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmEmpReimbRequestInfo.resx">
       <DependentUpon>frmEmpReimbRequestInfo.cs</DependentUpon>

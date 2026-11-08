@@ -768,9 +768,9 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO EmpMas (EmpID, EmpCode, EmpName, EmpDesignationID, EmpRepManID, DepartmentID, BloodGroupID, IsActive, IsDeleted, ClientID) VALUES " +
+                string strQuery = "INSERT INTO EmpMas (EmpID, EmpCode, EmpName, EmpDesignationID, EmpRepManID, DepartmentID, BloodGroupID, IsActive, IsDeleted, ClientID, ResignedStatus) VALUES " +
                  "(" + empID.Data + ",'" + "EMP-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "','" + txtEmployeeTitle.Trim() + "'," + txtEmployeeDesignationID + "," + txtReportingManagerID + 
-                 "," + txtEmployeeDepartmentID + "," + txtEmployeeBloodGroupID + "," + IsActive + "," + IsDeleted + "," + txtClientID + ")";
+                 "," + txtEmployeeDepartmentID + "," + txtEmployeeBloodGroupID + "," + IsActive + "," + IsDeleted + "," + txtClientID + ", False)";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -832,6 +832,34 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "DELETE FROM EmpMas WHERE EmpID = " + txtEmployeeID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return affectedRows;
+        }
+
+        public int UpdateResginationStatus(int txtEmployeeID)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpMas SET ResignedStatus = True WHERE EmpID = " + txtEmployeeID;
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

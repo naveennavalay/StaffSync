@@ -41,6 +41,7 @@ namespace StaffSync
         frmPayrollConfiguration frmPayrollConfiguration = null;
         frmEmpReimbursmentPayments frmEmpReimbursmentPayments = null;
         frmAdvanceApprovalList frmAdvanceApprovalList = null;
+        frmEmployeeResignation frmEmployeeResignation = null;
         DALStaffSync.clsLeaveTRList objLeaveInfo = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsDashboardWidgetData objDashboard = new DALStaffSync.clsDashboardWidgetData();
         DALStaffSync.clsUserManagement objUsersInfo = new DALStaffSync.clsUserManagement();
@@ -233,6 +234,13 @@ namespace StaffSync
             this.frmAdvanceApprovalList = frmAdvanceApprovalLst;
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
             lblClientID.Text = ClientID.ToString();
+        }
+
+        public frmEmployeeList(frmEmployeeResignation frmEmployeeResgnation, string SearchOptionClickedFor)
+        {
+            InitializeComponent();
+            this.frmEmployeeResignation = frmEmployeeResgnation;
+            lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
         }
 
 
@@ -963,6 +971,18 @@ namespace StaffSync
                 dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
             }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "EmployeeListToResign")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
+            }
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -1116,6 +1136,11 @@ namespace StaffSync
             {
                 this.frmAdvanceApprovalList.SelectedEmployeeID("listAdvanceSecondApproverEmpCode1", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
             }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "EmployeeListToResign")
+            {
+                this.frmEmployeeResignation.SelectedEmployeeID("EmployeeListToResign", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+            }
+
 
             this.Close();
         }

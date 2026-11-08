@@ -158,6 +158,15 @@ namespace DALStaffSync
 
             return affectedRows;
         }
+
+        public int UpdateResginationStatus(int txtEmployeeID)
+        {
+            int affectedRows = 0;
+
+            affectedRows = objEmployeeMaster.UpdateResginationStatus(txtEmployeeID);
+
+            return affectedRows;
+        }
     }
 
     //public class EmployeeInfo

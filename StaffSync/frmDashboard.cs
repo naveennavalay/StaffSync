@@ -9231,5 +9231,35 @@ namespace StaffSync
                 frmShiftMaster.WindowState = FormWindowState.Maximized;
             }
         }
+
+        private void manageResignationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Shift Details";
+                sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
+                frmEmployeeResignation frmEmployeeResignation = new frmEmployeeResignation(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);
+                frmEmployeeResignation.MdiParent = this;
+                frmEmployeeResignation.Dock = DockStyle.Fill;
+                frmEmployeeResignation.Show();
+                frmEmployeeResignation.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void taskDelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Task Delegates";
+                sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
+                frmEmpTaskDelegates frmEmpTaskDelegates = new frmEmpTaskDelegates();
+                frmEmpTaskDelegates.MdiParent = this;
+                frmEmpTaskDelegates.Dock = DockStyle.Fill;
+                frmEmpTaskDelegates.Show();
+                frmEmpTaskDelegates.WindowState = FormWindowState.Maximized;
+            }
+        }
     }
 }
