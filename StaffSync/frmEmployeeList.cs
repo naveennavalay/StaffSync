@@ -42,6 +42,7 @@ namespace StaffSync
         frmEmpReimbursmentPayments frmEmpReimbursmentPayments = null;
         frmAdvanceApprovalList frmAdvanceApprovalList = null;
         frmEmployeeResignation frmEmployeeResignation = null;
+        frmEmployeeResignationManagement frmEmployeeResignationManagement = null;
         DALStaffSync.clsLeaveTRList objLeaveInfo = new DALStaffSync.clsLeaveTRList();
         DALStaffSync.clsDashboardWidgetData objDashboard = new DALStaffSync.clsDashboardWidgetData();
         DALStaffSync.clsUserManagement objUsersInfo = new DALStaffSync.clsUserManagement();
@@ -50,6 +51,7 @@ namespace StaffSync
         DALStaffSync.clsEmpPayroll objEmpPayroll = new DALStaffSync.clsEmpPayroll();
         DALStaffSync.clsAssetRegister objAssetRegisterInfo = new DALStaffSync.clsAssetRegister();
         DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
+        DALStaffSync.clsResignationInfo objResignationInfo = new DALStaffSync.clsResignationInfo();
 
         public frmEmployeeList()
         {
@@ -241,6 +243,14 @@ namespace StaffSync
             InitializeComponent();
             this.frmEmployeeResignation = frmEmployeeResgnation;
             lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+        }
+
+        public frmEmployeeList(frmEmployeeResignationManagement frmEmployeeResignationManagment, string SearchOptionClickedFor, int txtClientID)
+        {
+            InitializeComponent();
+            this.frmEmployeeResignationManagement = frmEmployeeResignationManagment;
+            lblSearchOptionClickedFor.Text = SearchOptionClickedFor;
+            lblClientID.Text = txtClientID.ToString();
         }
 
 
@@ -983,6 +993,49 @@ namespace StaffSync
                 dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
             }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listResignedEmployeesList")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objResignationInfo.getResignedEmployeeList(Convert.ToInt32(lblClientID.Text.ToString()));
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].HeaderText = "Employee Code";
+                dtgEmployeeList.Columns["EmpCode"].Width = 125;
+                dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpName"].HeaderText = "Employee Name";
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+                dtgEmployeeList.Columns["DesignationTitle"].HeaderText = "Designation";
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
+                dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["DepartmentTitle"].HeaderText = "Department"; 
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+                dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;                
+                dtgEmployeeList.Columns["ContactNumber1"].HeaderText = "Contact Number";
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 100;
+                dtgEmployeeList.Columns["ContactNumber1"].ReadOnly = true;
+                dtgEmployeeList.Columns["ContactNumber2"].HeaderText = "Mail ID";
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 200;
+                dtgEmployeeList.Columns["ContactNumber2"].ReadOnly = true;
+                dtgEmployeeList.Columns["PersonalInfoID"].Visible = false;
+                dtgEmployeeList.Columns["ResigMasID"].Visible = false;
+                dtgEmployeeList.Columns["ResigMasCode"].HeaderText = "Resignation Code"; 
+                dtgEmployeeList.Columns["ResigMasCode"].Width = 150;
+                dtgEmployeeList.Columns["ResigMasCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["ResigMasTitle"].HeaderText = "Resignation Title"; 
+                dtgEmployeeList.Columns["ResigMasTitle"].Width = 150;
+                dtgEmployeeList.Columns["ResigMasTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpResignID"].Visible = false;
+                dtgEmployeeList.Columns["EmpResignCode"].HeaderText = "Employee Resignation Code";
+                dtgEmployeeList.Columns["EmpResignCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpResignCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpResignDate"].HeaderText = "Resignation Date"; 
+                dtgEmployeeList.Columns["EmpResignDate"].Width = 150;
+                dtgEmployeeList.Columns["EmpResignDate"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpResignDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+                dtgEmployeeList.Columns["EmpResignMoreInfo"].HeaderText = "More Information"; 
+                dtgEmployeeList.Columns["EmpResignMoreInfo"].Width = 250;
+                dtgEmployeeList.Columns["EmpResignMoreInfo"].ReadOnly = true;
+            }
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -1140,7 +1193,10 @@ namespace StaffSync
             {
                 this.frmEmployeeResignation.SelectedEmployeeID("EmployeeListToResign", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
             }
-
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listResignedEmployeesList")
+            {
+                this.frmEmployeeResignationManagement.SelectedEmployeeID("listResignedEmployeesList", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpResignID"].Value.ToString()));
+            }
 
             this.Close();
         }

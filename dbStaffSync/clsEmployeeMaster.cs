@@ -349,8 +349,10 @@ namespace dbStaffSync
                     employeeInfo.EmpCode = objEmployeeInfo[0].EmpCode;
                     employeeInfo.EmpName = objEmployeeInfo[0].EmpName;
                     employeeInfo.EmpDesignationID = objEmployeeInfo[0].EmpDesignationID;
+                    employeeInfo.DesignationTitle = objEmployeeInfo[0].DesignationTitle;
                     employeeInfo.EmpRepManID = objEmployeeInfo[0].EmpRepManID;
                     employeeInfo.DepartmentID = objEmployeeInfo[0].DepartmentID;
+                    employeeInfo.DepartmentTitle = objEmployeeInfo[0].DepartmentTitle;
                     employeeInfo.BloodGroupID = objEmployeeInfo[0].BloodGroupID;
                     employeeInfo.IsActive = objEmployeeInfo[0].IsActive;
                 }

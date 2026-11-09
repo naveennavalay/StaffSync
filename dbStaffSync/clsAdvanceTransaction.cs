@@ -777,7 +777,7 @@ namespace dbStaffSync
                                     " ORDER BY " + 
                                         " EmpAdvanceRequestMas.EmpAdvanceRequestID DESC;";
 
-                if (txtEmpID != 0 && txtAdvanceID != 0)
+                if (txtEmpID != 0 && (txtAdvanceID != 0 && txtAdvanceID != -1))
                     strQuery = "SELECT " +
                                                             "EmpMas.EmpID, " +
                                                             "EmpMas.EmpCode, " +

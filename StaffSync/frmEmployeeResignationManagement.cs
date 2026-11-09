@@ -1,4 +1,5 @@
-﻿using ModelStaffSync;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using ModelStaffSync;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,12 @@ namespace StaffSync
         DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
         frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
+        DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
         DALStaffSync.clsResignationInfo objResignationInfo = new DALStaffSync.clsResignationInfo();
         DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster(); 
         DALStaffSync.clsEmployeePersonalInfo objEmployeePersonalInfo = new DALStaffSync.clsEmployeePersonalInfo();
+        DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
+        DALStaffSync.clsAdvanceTransaction objAdvanceTransaction = new DALStaffSync.clsAdvanceTransaction();
 
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
@@ -52,10 +56,10 @@ namespace StaffSync
         public frmEmployeeResignationManagement(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
         {
             InitializeComponent();
-            //objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
-            //objTempClientFinYearInfo = objSelectedClientFinYearInfo;
-            //ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
-            //lblClientID.Text = objTempClientFinYearInfo.ClientID.ToString();
+            objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
+            objTempClientFinYearInfo = objSelectedClientFinYearInfo;
+            ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
+            lblClientID.Text = objTempClientFinYearInfo.ClientID.ToString();
         }
 
         private void btnCloseMe_Click(object sender, EventArgs e)
@@ -76,172 +80,177 @@ namespace StaffSync
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //if (lblActionMode.Text == "add")
-            //{
-            //    if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            //    {
-            //        return;
-            //    }
-            //}
-            //else if (lblActionMode.Text == "modify")
-            //{
-            //    if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            //    {
-            //        return;
-            //    }
-            //}
-            //else if (lblActionMode.Text == "delete")
-            //{
-            //    if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            //    {
-            //        return;
-            //    }
-            //}
-            //lblActionMode.Text = "";
-            //onCancelButtonClick();
-            //disableControls();
-            //clearControls();
-            //errValidator.Clear();
+            if (lblActionMode.Text == "add")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            else if (lblActionMode.Text == "modify")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            else if (lblActionMode.Text == "delete")
+            {
+                if (MessageBox.Show("Changes will be discarded. \nAre you sure to continue", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            lblActionMode.Text = "";
+            onCancelButtonClick();
+            disableControls();
+            clearControls();
+            errValidator.Clear();
         }
 
         public void clearControls()
         {
-            //lblEmpID.Text = "";
-            //txtEmpCode.Text = "";
-            //txtEmpName.Text = "";
-            //txtDesignation.Text = "";
-            //txtDepartment.Text = "";
-            //picEmpPhoto.Image = null;
-            //lblPersonalInfoID.Text = "";
+            lnkViewAuditLog.Visible = false;
+            lblEmpID.Text = "";
+            txtEmpCode.Text = "";
+            txtEmpName.Text = "";
+            txtDesignation.Text = "";
+            txtDepartment.Text = "";
+            picEmpPhoto.Image = null;
+            lblPersonalInfoID.Text = "";
+            txtReportingManager.Text = "";
+            txtHROwner.Text = "";
 
-            //lblReportingManagerID.Text = "";
-            //txtRepCode.Text = "";
-            //txtRepName.Text = "";
-            //txtRepDesignation.Text = "";
-            //txtRepDepartment.Text = "";
-            //picRepEmpPhoto.Image = null;
+            lblEmpResignID.Text = "";
+            txtResignationCode.Text = "";
+            dtResignationDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
+            cmbResignationReason.DataSource = null;
+            cmbResignationStatus.DataSource = null;
+            txtResignationMoreDetails.Text = "";
 
-            //lblEmpResignID.Text = "";
-            //dtResignationDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
-            //cmbResignationReason.DataSource = null;
-            //lblEmpResignID.Text = "";
-            //lblTaskID.Text = "";
+            lblResignationReasonID.Text = "";
+            lblRepManagerApprovalStatus.Text = "";
 
-            //txtResignationMoreDetails.Text = "";
+            txtDateOfJoining.Text = DateTime.Now.ToString("dd-MMM-yyyy");
+            txtNoticePeriod.Text = "30";
+            dtLastWorkingDay.Text = DateTime.Now.AddDays(Convert.ToInt32(txtNoticePeriod.Text)).ToString("dd-MMM-yyyy");
+            dtApprovalDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
+            lblActionMode.Text = "";
+            lblRepManID.Text = "";
+            tabControl1.SelectedIndex = 0;
+            dtgReimbursmentPaymentHistory.DataSource = null;
+            dtgAdvanceList.DataSource = null;
+            dtgAssetInformation.DataSource = null;
 
-            //lblRequestFromMailID.Text = "";
-            //lblRequestToMailID.Text = "";
-            //lblResignationReasonID.Text = "";
-
-            //lnkViewAuditLog.Visible = false;
         }
 
         public void enableControls()
         {
-            //btnEmpSearch.Enabled = true;
-            //txtResignationCode.Enabled = false;
-            //txtEmpCode.Enabled = false;
-            //txtEmpName.Enabled = false;
-            //txtDesignation.Enabled = false;
-            //txtDepartment.Enabled = false;
+            btnResignedRequestSearch.Enabled = true;
+            txtResignationCode.Enabled = false;
+            txtEmpCode.Enabled = false;
+            txtEmpName.Enabled = false;
+            txtDesignation.Enabled = false;
+            txtDepartment.Enabled = false;
 
-            //txtRepCode.Enabled = false;
-            //txtRepName.Enabled = false;
-            //txtRepDesignation.Enabled = false;
-            //txtRepDepartment.Enabled = false;
-            //btnRepSearch.Enabled = true;
-
-            //cmbResignationReason.Enabled = true;
-            //dtResignationDate.Enabled = true;
-            //txtResignationMoreDetails.Enabled = true;
+            txtDateOfJoining.Enabled = false;
+            txtServiceTenure.Enabled = false;
+            cmbResignationReason.Enabled = false;
+            dtResignationDate.Enabled = false;
+            txtNoticePeriod.Enabled = true;
+            dtLastWorkingDay.Enabled = true;
+            txtResignationMoreDetails.Enabled = false;
+            txtNoticePeriodStatus.Enabled = false;
+            dtApprovalDate.Enabled = true;
+            txtReportingManager.Enabled = false;
+            txtHROwner.Enabled = false;
         }
 
         public void disableControls()
         {
-            //btnEmpSearch.Enabled = false;
-            //txtResignationCode.Enabled = false;
-            //txtEmpCode.Enabled = false;
-            //txtEmpName.Enabled = false;
-            //txtDesignation.Enabled = false;
-            //txtDepartment.Enabled = false;
+            btnResignedRequestSearch.Enabled = false;
+            txtResignationCode.Enabled = false;
+            txtEmpCode.Enabled = false;
+            txtEmpName.Enabled = false;
+            txtDesignation.Enabled = false;
+            txtDepartment.Enabled = false;
 
-            //txtRepCode.Enabled = false;
-            //txtRepName.Enabled = false;
-            //txtRepDesignation.Enabled = false;
-            //txtRepDepartment.Enabled = false;
-            //btnRepSearch.Enabled = false;
-
-            //cmbResignationReason.Enabled = false;
-            //dtResignationDate.Enabled = false;
+            txtDateOfJoining.Enabled = false;
+            txtServiceTenure.Enabled = false;
+            txtNoticePeriod.Enabled = false;
+            cmbResignationReason.Enabled = false;
+            dtResignationDate.Enabled = false;
+            txtNoticePeriodStatus.Enabled = false;
+            dtLastWorkingDay.Enabled = false;
+            txtResignationMoreDetails.Enabled = false;
+            dtApprovalDate.Enabled = false;
+            txtReportingManager.Enabled = false;
+            txtHROwner.Enabled = false;
+            tabControl1.Enabled = false;
+            tabControl1.SelectedIndex = 0;
         }
 
         public void onGenerateButtonClick()
         {
-            //lblActionMode.Text = "add";
-            //lblEmpID.Text = "";
-            //lblReportingManagerID.Text = "";
-            //lblPersonalInfoID.Text = "";
-            //btnEmpSearch.Enabled = true;
-            //btnGenerateDetails.Enabled = true;
-            //btnModifyDetails.Enabled = false;
-            //btnSaveDetails.Enabled = true;
-            //btnRemoveDetails.Enabled = false;
-            //btnCancel.Enabled = true;
+            lblActionMode.Text = "add";
+            lblEmpID.Text = "";
+            lblPersonalInfoID.Text = "";
+            btnGenerateDetails.Enabled = true;
+            btnModifyDetails.Enabled = false;
+            btnSaveDetails.Enabled = true;
+            btnRemoveDetails.Enabled = false;
+            btnCancel.Enabled = true;
         }
 
         public void onModifyButtonClick()
         {
-            //lblActionMode.Text = "modify";
-            //lblEmpID.Text = "";
-            //lblReportingManagerID.Text = "";
-            //lblPersonalInfoID.Text = "";
-            //btnEmpSearch.Enabled = true;
-            //btnGenerateDetails.Enabled = false;
-            //btnModifyDetails.Enabled = true;
-            //btnSaveDetails.Enabled = true;
-            //btnRemoveDetails.Enabled = false;
-            //btnCancel.Enabled = true;
+            lblActionMode.Text = "modify";
+            lblEmpID.Text = "";
+            lblPersonalInfoID.Text = "";
+            btnResignedRequestSearch.Enabled = true;
+            btnGenerateDetails.Enabled = false;
+            btnModifyDetails.Enabled = true;
+            btnSaveDetails.Enabled = true;
+            btnRemoveDetails.Enabled = false;
+            btnCancel.Enabled = true;
         }
 
         public void onRemoveButtonClick()
         {
-            //lblActionMode.Text = "remove";
-            //lblEmpID.Text = "";
-            //lblReportingManagerID.Text = "";
-            //lblPersonalInfoID.Text = "";
-            //btnEmpSearch.Enabled = true;
-            //btnGenerateDetails.Enabled = false;
-            //btnModifyDetails.Enabled = false;
-            //btnSaveDetails.Enabled = false;
-            //btnRemoveDetails.Enabled = true;
-            //btnCancel.Enabled = true;
+            lblActionMode.Text = "remove";
+            lblEmpID.Text = "";
+            lblPersonalInfoID.Text = "";
+            btnResignedRequestSearch.Enabled = true;
+            btnGenerateDetails.Enabled = false;
+            btnModifyDetails.Enabled = false;
+            btnSaveDetails.Enabled = false;
+            btnRemoveDetails.Enabled = true;
+            btnCancel.Enabled = true;
         }
 
         public void onSaveButtonClick()
         {
-            //lblActionMode.Text = "";
-            //lblReportingManagerID.Text = "";
-            //lblPersonalInfoID.Text = "";
-            //btnEmpSearch.Enabled = false;
-            //btnGenerateDetails.Enabled = true;
-            //btnModifyDetails.Enabled = true;
-            //btnSaveDetails.Enabled = false;
-            //btnRemoveDetails.Enabled = true;
-            //btnCancel.Enabled = true;
+            lblActionMode.Text = "";
+            lblPersonalInfoID.Text = "";
+            btnResignedRequestSearch.Enabled = false;
+            btnGenerateDetails.Enabled = true;
+            btnModifyDetails.Enabled = true;
+            btnSaveDetails.Enabled = false;
+            btnRemoveDetails.Enabled = true;
+            btnCancel.Enabled = true;
         }
 
         public void onCancelButtonClick()
         {
-            //lblActionMode.Text = "";
-            //lblEmpID.Text = "";
-            //lblReportingManagerID.Text = "";
-            //lblPersonalInfoID.Text = "";
-            //btnEmpSearch.Enabled = false;
-            //btnGenerateDetails.Enabled = true;
-            //btnModifyDetails.Enabled = true;
-            //btnSaveDetails.Enabled = false;
-            //btnRemoveDetails.Enabled = true;
-            //btnCancel.Enabled = true;
+            lblActionMode.Text = "";
+            lblEmpID.Text = "";
+            lblPersonalInfoID.Text = "";
+            btnResignedRequestSearch.Enabled = false;
+            btnGenerateDetails.Enabled = true;
+            btnModifyDetails.Enabled = true;
+            btnSaveDetails.Enabled = false;
+            btnRemoveDetails.Enabled = true;
+            btnCancel.Enabled = true;
         }
 
         private void frmEmployeeResignationManagement_Load(object sender, EventArgs e)
@@ -271,29 +280,26 @@ namespace StaffSync
                 return;
             }
 
-            //lblActionMode.Text = "add";
             onGenerateButtonClick();
             clearControls();
             enableControls();
             errValidator.Clear();
 
-            lblEmpResignID.Text = objGenFunc.getMaxRowCount("EmpResignationInfo", "EmpResignID").Data.ToString();
-            txtResignationCode.Text = "RSGN-" + (lblEmpResignID.Text.Trim()).ToString().PadLeft(4, '0');
+            lblActionMode.Text = "add";
 
             dtResignationDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
             cmbResignationReason.DataSource = objResignationInfo.getResignationInfotatements();
             cmbResignationReason.DisplayMember = "ResigMasTitle";
             cmbResignationReason.ValueMember = "ResigMasID";
+            txtNoticePeriod.Enabled = true;
+            dtLastWorkingDay.Enabled = true;
+            txtNoticePeriodStatus.Enabled = true;
+            LoadResignationFinalStatus();
         }
 
         private void btnSaveDetails_Click(object sender, EventArgs e)
         {
-            //if(objResignationInfo.getIsResignationAppliedInfotatements(Convert.ToInt32(lblEmpID.Text)).EmpResignStatus > 0)
-            //{
-            //    MessageBox.Show("Resignation has already been applied.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
-
+            int affectedRows = 0;
             string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID, "");
             if (strValidationMessage != "Success")
             {
@@ -314,17 +320,25 @@ namespace StaffSync
             var updatedValues = AuditLogger.getOriginalValues(this);
             var onlyChangedValues = (dynamic)null;
 
-            strActionStatement = "";
+            strActionStatement = "EmployeeResignationStatusUpdate";
 
-            lblResignationReasonID.Text = (cmbResignationReason.SelectedIndex + 1).ToString();
+            if (lblActionMode.Text == "add" && lblRepManagerApprovalStatus.Text == "False")
+            {
+                affectedRows = objResignationInfo.ApprovalResignationByReportingManager(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToDateTime(dtApprovalDate.Text.ToString()), Convert.ToInt32(lblRepManID.Text.ToString()), true, cmbResignationStatus.SelectedIndex);
+                objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()), "Resignation Status updated to " + cmbResignationStatus.Text, "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            }
+            else if (lblActionMode.Text == "add" && lblRepManagerApprovalStatus.Text == "True")
+            {
+                affectedRows = objResignationInfo.ApprovalResignationByHRManager(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToDateTime(dtApprovalDate.Text.ToString()), Convert.ToInt32(lblRepManID.Text.ToString()), true, cmbResignationStatus.SelectedIndex);
+                objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()), "Resignation Status updated to " + cmbResignationStatus.Text, "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
 
-            //if (lblActionMode.Text == "add")
-            //{
-            //    objResignationInfo.InsertEmployeeResignationInfo(Convert.ToInt32(lblPersonalInfoID.Text.ToString()), Convert.ToInt32(lblResignationReasonID.Text), txtResignationMoreDetails.Text.Trim(), Convert.ToDateTime(dtResignationDate.Text.ToString()),
-            //    Convert.ToDateTime(dtResignationDate.Text.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), false,
-            //    Convert.ToDateTime(dtResignationDate.Text.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), false,
-            //    1, Convert.ToDateTime(dtResignationDate.Text.ToString()), 0, Convert.ToDateTime(dtResignationDate.Text.ToString()), "Need to serve");
-            //}
+                if(cmbResignationStatus.SelectedIndex == 6)
+                    objEmployeeMaster.UpdateResginationStatus(Convert.ToInt32(lblEmpID.Text.ToString()));
+            }
+
+            if (affectedRows > 0)
+                MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
 
             objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
 
@@ -340,57 +354,68 @@ namespace StaffSync
             bool validationStatus = true;
             errValidator.Clear();
 
-            //// Helper for date validation
-            //if (lblEmpID.Text.Trim() == "")
-            //{
-            //    errValidator.SetError(txtEmpCode, "Please select the employee");
-            //    validationStatus = false;
-            //}
-            //else
-            //{
-            //    errValidator.SetError(txtEmpCode, "");
-            //}
+            // Helper for date validation
+            if (lblEmpResignID.Text.Trim() == "")
+            {
+                errValidator.SetError(txtEmpCode, "Please select a specific Resignation Information to continue.");
+                validationStatus = false;
+            }
+            else
+            {
+                errValidator.SetError(txtEmpCode, "");
+            }
 
-            //if (cmbResignationReason.Text.Trim() == "")
-            //{
-            //    errValidator.SetError(cmbResignationReason, "Please select the Resignation Reason");
-            //    validationStatus = false;
-            //}
-            //else
-            //{
-            //    errValidator.SetError(cmbResignationReason, "");
-            //}
+            if (string.IsNullOrEmpty(dtApprovalDate.Text))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtApprovalDate, dtApprovalDate.Tag?.ToString() ?? "Date of Approval is required.");
+            }
+            else if (!DateTime.TryParseExact(dtApprovalDate.Text, dateFormat, provider, DateTimeStyles.None, out dos))
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtApprovalDate, "Invalid Date of Approval format (dd-MM-yyyy).");
+            }
+            else if (dos < DateTime.Now.Date)
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtApprovalDate, "Date of Approval cannot be in the past.");
+            }
+            else if (dos > DateTime.Now.Date)
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtApprovalDate, "Date of Approval cannot be in the future.");
+            }
+            else
+            {
+                errValidator.SetError(this.dtApprovalDate, "");
+            }
 
-            //// Date of Birth
-            //if (string.IsNullOrEmpty(dtResignationDate.Text))
-            //{
-            //    validationStatus = false;
-            //    errValidator.SetError(this.dtResignationDate, dtResignationDate.Tag?.ToString() ?? "Date of Resignation is required.");
-            //}
-            //else if (!DateTime.TryParseExact(dtResignationDate.Text, dateFormat, provider, DateTimeStyles.None, out dos))
-            //{
-            //    validationStatus = false;
-            //    errValidator.SetError(this.dtResignationDate, "Invalid Date of Resignation format (dd-MM-yyyy).");
-            //}
-            //else if (dos < DateTime.Now.Date)
-            //{
-            //    validationStatus = false;
-            //    errValidator.SetError(this.dtResignationDate, "Date of Resignation cannot be in the past.");
-            //}
-            //else if (dos > DateTime.Now.Date)
-            //{
-            //    validationStatus = false;
-            //    errValidator.SetError(this.dtResignationDate, "Date of Resignation cannot be in the future.");
-            //}
-            //else
-            //{
-            //    errValidator.SetError(this.dtResignationDate, "");
-            //}
+            if (txtResignationMoreDetails.Text.Trim() == "")
+            {
+                txtResignationMoreDetails.Text = "N/A";
+            }
 
-            //if (txtResignationMoreDetails.Text.Trim() == "")
-            //{
-            //    txtResignationMoreDetails.Text = "N/A";
-            //}
+            if(cmbResignationStatus.SelectedIndex == 6)
+            {
+                if (dtgReimbursmentPaymentHistory.Rows.Count > 0)
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.cmbResignationStatus, "Employee has pending reimbursement requests. Cannot mark resignation as completed.");
+                }
+                else
+                {
+                    errValidator.SetError(this.cmbResignationStatus, "");
+                }
+                if (dtgAdvanceList.Rows.Count > 0)
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.cmbResignationStatus, "Employee has pending advance transactions. Cannot mark resignation as completed.");
+                }
+                else
+                {
+                    errValidator.SetError(this.cmbResignationStatus, "");
+                }
+            }
 
             return validationStatus;
         }
@@ -450,65 +475,319 @@ namespace StaffSync
             //frmEmployeeList.ShowDialog();
         }
 
-        public void SelectedEmployeeID(string SearchOptionSelectedForm, int selectedEmployeeID)
+        private void btnResignedRequestSearch_Click(object sender, EventArgs e)
         {
-            if (SearchOptionSelectedForm == "EmployeeListToResign")
+            frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listResignedEmployeesList", Convert.ToInt32(lblClientID.Text.ToString()));
+            frmEmployeeList.ShowDialog(this);
+        }
+
+        public void SelectedEmployeeID(string SearchOptionSelectedForm, int selectedResignationID)
+        {
+            if (SearchOptionSelectedForm == "listResignedEmployeesList")
             {
-                //if (objResignationInfo.getIsResignationAppliedInfotatements(Convert.ToInt32(selectedEmployeeID)).EmpResignStatus > 0)
-                //{
-                //    MessageBox.Show("Resignation has already been applied.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    return;
-                //}
+                EmployeeSpecificResignationInfo objEmployeeSpecificResignationInfo = objResignationInfo.getEmployeeSpecificEmployeeSpecificResignationInfo(selectedResignationID);
+                lblEmpResignID.Text = objEmployeeSpecificResignationInfo.EmpResignID.ToString();
+                lblEmpID.Text = objEmployeeSpecificResignationInfo.EmpID.ToString();
+                lblPersonalInfoID.Text = objEmployeeSpecificResignationInfo.PersonalInfoID.ToString();
+                lblRepManID.Text = objEmployeeSpecificResignationInfo.EmpResignApprovedBy1.ToString();
+                lblHROwnerID.Text = objEmployeeSpecificResignationInfo.EmpResignApprovedBy2.ToString();
+                txtResignationCode.Text = objEmployeeSpecificResignationInfo.EmpResignCode;
+                dtResignationDate.Text = objEmployeeSpecificResignationInfo.EmpResignDate.ToString("dd-MM-yyyy");
+                txtResignationMoreDetails.Text = objEmployeeSpecificResignationInfo.EmpResignMoreInfo;
+                cmbResignationStatus.SelectedIndex = objEmployeeSpecificResignationInfo.EmpResignStatus;
+                lblRepManagerApprovalStatus.Text = objEmployeeSpecificResignationInfo.EmpResignApprovalStatus1.ToString();
 
-                //lblEmpID.Text = selectedEmployeeID.ToString();
-                //EmpPersonalPersonalInfo objSelectedPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblEmpID.Text));
-                //lblPersonalInfoID.Text = objSelectedPersonalInfo.PersonalInfoID.ToString();
-                //lblRequestFromMailID.Text = objSelectedPersonalInfo.ContactNumber2.ToString();
+                if (objEmployeeSpecificResignationInfo.EmpResignApprovalStatus1 == false)
+                {
+                    txtNoticePeriod.Text = "0";
+                    txtNoticePeriod.Enabled = false;
+                    dtLastWorkingDay.Enabled = false;
+                    dtApprovalDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+                }
+                if (objEmployeeSpecificResignationInfo.EmpResignApprovalStatus2 == false)
+                {
+                    txtNoticePeriod.Text = "30";
+                    txtNoticePeriod.Enabled = true;
+                    dtLastWorkingDay.Enabled = true;
+                    dtApprovalDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+                }
+                if (objEmployeeSpecificResignationInfo.EmpResignApprovalStatus2 == true)
+                {
+                    txtNoticePeriod.Text = "30";
+                    txtNoticePeriod.Enabled = true;
+                    dtLastWorkingDay.Enabled = true;
+                    dtApprovalDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+                }
 
-                //ReportingManagerInfo objEmpMaster = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(selectedEmployeeID.ToString()));
-                //txtEmpCode.Text = objEmpMaster.EmpCode;
-                //txtEmpName.Text = objEmpMaster.EmpName;
-                //txtDesignation.Text = objEmpMaster.DesignationTitle;
-                //txtDepartment.Text = objEmpMaster.DepartmentTitle;
-                //picEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(selectedEmployeeID.ToString())).EmpPhoto);
+                ReportingManagerInfo objEmpMaster = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(lblEmpID.Text.ToString()));
+                txtEmpCode.Text = objEmpMaster.EmpCode;
+                txtEmpName.Text = objEmpMaster.EmpName;
+                txtDesignation.Text = objEmpMaster.DesignationTitle;
+                txtDepartment.Text = objEmpMaster.DepartmentTitle;
+                picEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblEmpID.Text.ToString())).EmpPhoto);
 
-                //EmployeeInfo objSelectedEmployeeInfo = objEmployeeMaster.GetSelectedEmployeeInfo(Convert.ToInt16(selectedEmployeeID.ToString()));
-                //lblReportingManagerID.Text = objSelectedEmployeeInfo.EmpRepManID.ToString();
-                //ReportingManagerInfo objReportingManagerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(lblReportingManagerID.Text));
-                //txtRepCode.Text = objReportingManagerInfo.EmpCode;
-                //txtRepName.Text = objReportingManagerInfo.EmpName;
-                //txtRepDesignation.Text = objReportingManagerInfo.DesignationTitle;
-                //txtRepDepartment.Text = objReportingManagerInfo.DepartmentTitle;
-                //picRepEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblReportingManagerID.Text)).EmpPhoto);
-                //EmpPersonalPersonalInfo objSelectedReportingManagerPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblReportingManagerID.Text));
-                //lblRequestToMailID.Text = objSelectedReportingManagerPersonalInfo.ContactNumber2.ToString();
+                //EmployeeInfo objSelectedEmployeeInfo = objEmployeeMaster.GetSelectedEmployeeInfo(Convert.ToInt16(lblRepManID.Text.ToString()));
+                //lblRepManID.Text = objSelectedEmployeeInfo.EmpRepManID.ToString();
+                
+                ReportingManagerInfo objReportingManagerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(lblRepManID.Text));
+                txtReportingManager.Text = objReportingManagerInfo.EmpName;
+
+                ReportingManagerInfo objHROwnerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(lblHROwnerID.Text));
+                txtHROwner.Text = objReportingManagerInfo.EmpName;
+                
+                lnkViewAuditLog.Visible = true;
+
+                EmpPersonalPersonalInfo objSelectedPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblEmpID.Text));
+                txtDateOfJoining.Text = objSelectedPersonalInfo.DOJ.ToString("dd-MMM-yyyy");
+                dtLastWorkingDay.Text = DateTime.Now.AddDays(Convert.ToInt32(txtNoticePeriod.Text)).ToString("dd-MM-yyyy");
+                txtServiceTenure.Text = CalculateServiceTenure(objSelectedPersonalInfo.DOJ);
+                txtServiceTenure.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(txtServiceTenure.Text.ToString().ToLower());
+                LoadReimbursementInfo();
+                LoadEmployeeSpecificAdvanceInfo();
+                tabControl1.Enabled = true;
+                tabControl1.SelectedIndex = 0;
+
             }
         }
 
-        public void UpdateUIWithSelectedEmployeeDetails(int EmployeeID)
+        private void LoadResignationFinalStatus() 
         {
-            this.Cursor = Cursors.WaitCursor;
+            cmbResignationStatus.Items.Clear();
+            cmbResignationStatus.Items.Add("");
+            cmbResignationStatus.Items.Add("1 - In Progress");
+            cmbResignationStatus.Items.Add("2 - Approved and Transfered to HR");
+            cmbResignationStatus.Items.Add("3 - With Finance (Reimbursements)");
+            cmbResignationStatus.Items.Add("4 - With Finance (Advances)");
+            cmbResignationStatus.Items.Add("5 - With IT (Assets)");
+            cmbResignationStatus.Items.Add("6 - Completed");
+            cmbResignationStatus.Items.Add("7 - Withdrawn/Cancelled");
+            cmbResignationStatus.SelectedIndex = 0;
+        }
 
-            //lblEmpID.Text = EmployeeID.ToString();
-            //EmployeeInfo objSelectedEmployeeInfo = objEmployeeMaster.GetSelectedEmployeeInfo(EmployeeID);
-            //txtEmpCode.Text = objSelectedEmployeeInfo.EmpCode;
-            //txtEmpName.Text = objSelectedEmployeeInfo.EmpName;
-            //txtDepartment.Text = objSelectedEmployeeInfo.DepartmentTitle;
-            //txtDesignation.Text = objSelectedEmployeeInfo.DesignationTitle;
+        private string CalculateServiceTenure(DateTime dateOfJoining)
+        {
+            DateTime today = DateTime.Today;
 
-            //EmpPersonalPersonalInfo objSelectedPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblEmpID.Text));
-            //lblPersonalInfoID.Text = objSelectedPersonalInfo.PersonalInfoID.ToString();
-            //picEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(EmployeeID).EmpPhoto);
+            if (dateOfJoining.Date > today)
+                return "Invalid Date of Joining";
 
-            //lblReportingManagerID.Text = objSelectedEmployeeInfo.EmpRepManID.ToString();
-            //ReportingManagerInfo objReportingManagerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(lblReportingManagerID.Text));
-            //txtRepCode.Text = objReportingManagerInfo.EmpCode;
-            //txtRepName.Text = objReportingManagerInfo.EmpName;
-            //txtRepDesignation.Text = objReportingManagerInfo.DesignationTitle;
-            //txtRepDepartment.Text = objReportingManagerInfo.DepartmentTitle;
-            //picRepEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblReportingManagerID.Text)).EmpPhoto);
+            int years = today.Year - dateOfJoining.Year;
+            int months = today.Month - dateOfJoining.Month;
+            int days = today.Day - dateOfJoining.Day;
 
-            this.Cursor = Cursors.Default;
+            if (days < 0)
+            {
+                months--;
+
+                DateTime previousMonth = today.AddMonths(-1);
+                days += DateTime.DaysInMonth(
+                    previousMonth.Year,
+                    previousMonth.Month);
+            }
+
+            if (months < 0)
+            {
+                years--;
+                months += 12;
+            }
+
+            return $"{years} Years {months} Months {days} Days";
+        }
+
+        private void LoadReimbursementInfo()
+        {
+            dtgReimbursmentPaymentHistory.DataSource = null;
+            dtgReimbursmentPaymentHistory.DataSource = objEmpReimbursRequestInfo.getEmpSpecificReimbursmentPaymentInfo(Convert.ToInt16(lblEmpID.Text.ToString())); //objEmpReimbursRequestInfo.GetReimbursmentPaymentPendingList(Convert.ToInt16(lblClientID.Text.ToString()));
+            dtgReimbursmentPaymentHistory.Columns["EmpID"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["EmpCode"].HeaderText = "Emp Code";
+            dtgReimbursmentPaymentHistory.Columns["EmpCode"].Width = 100;
+            dtgReimbursmentPaymentHistory.Columns["EmpCode"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["EmpCode"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["EmpName"].HeaderText = "Employee Name";
+            dtgReimbursmentPaymentHistory.Columns["EmpName"].Width = 200;
+            dtgReimbursmentPaymentHistory.Columns["EmpName"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["EmpName"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["DesignationTitle"].HeaderText = "Designation";
+            dtgReimbursmentPaymentHistory.Columns["DesignationTitle"].Width = 150;
+            dtgReimbursmentPaymentHistory.Columns["DesignationTitle"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["DesignationTitle"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["DepartmentTitle"].HeaderText = "Department";
+            dtgReimbursmentPaymentHistory.Columns["DepartmentTitle"].Width = 150;
+            dtgReimbursmentPaymentHistory.Columns["DepartmentTitle"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["DepartmentTitle"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["ReimbID"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["ReimbTitle"].HeaderText = "Reimbursment Type";
+            dtgReimbursmentPaymentHistory.Columns["ReimbTitle"].Width = 200;
+            dtgReimbursmentPaymentHistory.Columns["ReimbTitle"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestID"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestCode"].HeaderText = "Request Code";
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestCode"].Width = 150;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestCode"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestDescription"].HeaderText = "Request Description";
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestDescription"].Width = 300;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestDescription"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestDate"].HeaderText = "Request Date";
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestDate"].Width = 150;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestDate"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestStatus"].HeaderText = "Request Status";
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestStatus"].Width = 150;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestStatus"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestDetailID"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestTRDate"].HeaderText = "Last Pay Date";
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestTRDate"].Width = 200;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestTRDate"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["ReimbRequestTRDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            dtgReimbursmentPaymentHistory.Columns["CBalance"].HeaderText = "Outstanding Balance";
+            dtgReimbursmentPaymentHistory.Columns["CBalance"].Width = 150;
+            dtgReimbursmentPaymentHistory.Columns["CBalance"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["CBalance"].DefaultCellStyle.Format = "c2";
+            dtgReimbursmentPaymentHistory.Columns["Comments"].HeaderText = "Comments";
+            dtgReimbursmentPaymentHistory.Columns["Comments"].Width = 350;
+            dtgReimbursmentPaymentHistory.Columns["Comments"].ReadOnly = true;
+            dtgReimbursmentPaymentHistory.Columns["ReimbursRequestID"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["RequestStatus"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["EmpIsActive"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["EmpIsDeleted"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["RequestIsActive"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["RequestIsDeleted"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["ClientID"].Visible = false;
+            dtgReimbursmentPaymentHistory.Columns["IncludeInNextPayslipProcess"].Visible = false;
+        }
+
+        private void LoadEmployeeSpecificAdvanceInfo()
+        {
+            dtgAdvanceList.DataSource = objAdvanceTransaction.EmployeeSpecificAdvanceInformation(Convert.ToInt32(lblEmpID.Text.ToString()), -1);
+            dtgAdvanceList.Columns["Select"].Visible = false;
+
+            dtgAdvanceList.Columns["EmpID"].Visible = false;
+            dtgAdvanceList.Columns["EmpID"].ReadOnly = true;
+            dtgAdvanceList.Columns["EmpID"].Width = 100;
+
+            dtgAdvanceList.Columns["EmpCode"].Visible = false;
+            dtgAdvanceList.Columns["EmpCode"].ReadOnly = true;
+            dtgAdvanceList.Columns["EmpCode"].Width = 100;
+
+            dtgAdvanceList.Columns["EmpName"].Visible = false;
+            dtgAdvanceList.Columns["EmpName"].ReadOnly = true;
+            dtgAdvanceList.Columns["EmpName"].Width = 175;
+
+            dtgAdvanceList.Columns["DesignationTitle"].Visible = false;
+            dtgAdvanceList.Columns["DesignationTitle"].ReadOnly = true;
+            dtgAdvanceList.Columns["DesignationTitle"].Width = 175;
+
+            dtgAdvanceList.Columns["DepartmentTitle"].Visible = false;
+            dtgAdvanceList.Columns["DepartmentTitle"].ReadOnly = true;
+            dtgAdvanceList.Columns["DepartmentTitle"].Width = 175;
+
+            dtgAdvanceList.Columns["PersonalInfoID"].Visible = false;
+            dtgAdvanceList.Columns["PersonalInfoID"].ReadOnly = true;
+            dtgAdvanceList.Columns["PersonalInfoID"].Width = 100;
+
+            dtgAdvanceList.Columns["ContactNumber2"].Visible = false;
+            dtgAdvanceList.Columns["ContactNumber2"].ReadOnly = true;
+            dtgAdvanceList.Columns["ContactNumber2"].Width = 200;
+
+            dtgAdvanceList.Columns["EmpAdvanceRequestID"].Visible = false;
+            dtgAdvanceList.Columns["EmpAdvanceRequestID"].ReadOnly = true;
+            dtgAdvanceList.Columns["EmpAdvanceRequestID"].Width = 175;
+
+            dtgAdvanceList.Columns["EmpAdvReqCode"].Visible = true;
+            dtgAdvanceList.Columns["EmpAdvReqCode"].ReadOnly = true;
+            dtgAdvanceList.Columns["EmpAdvReqCode"].Width = 175;
+
+            dtgAdvanceList.Columns["AdvanceTypeID"].Visible = false;
+            dtgAdvanceList.Columns["AdvanceTypeID"].ReadOnly = true;
+            dtgAdvanceList.Columns["AdvanceTypeID"].Width = 175;
+
+            dtgAdvanceList.Columns["AdvanceTypeTitle"].Visible = true;
+            dtgAdvanceList.Columns["AdvanceTypeTitle"].ReadOnly = true;
+            dtgAdvanceList.Columns["AdvanceTypeTitle"].Width = 175;
+
+            dtgAdvanceList.Columns["AdvanceAmount"].Visible = true;
+            dtgAdvanceList.Columns["AdvanceAmount"].ReadOnly = true;
+            dtgAdvanceList.Columns["AdvanceAmount"].Width = 125;
+            dtgAdvanceList.Columns["AdvanceAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgAdvanceList.Columns["AdvanceAmount"].DefaultCellStyle.Format = "c2";
+
+            dtgAdvanceList.Columns["AdvanceInstallment"].Visible = true;
+            dtgAdvanceList.Columns["AdvanceInstallment"].ReadOnly = true;
+            dtgAdvanceList.Columns["AdvanceInstallment"].Width = 125;
+            dtgAdvanceList.Columns["AdvanceInstallment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgAdvanceList.Columns["AdvanceInstallment"].DefaultCellStyle.Format = "c2";
+
+
+            dtgAdvanceList.Columns["AdvanceStartDate"].Visible = true;
+            dtgAdvanceList.Columns["AdvanceStartDate"].ReadOnly = true;
+            dtgAdvanceList.Columns["AdvanceStartDate"].Width = 125;
+            dtgAdvanceList.Columns["AdvanceStartDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+
+            dtgAdvanceList.Columns["AdvanceEndDate"].Visible = true;
+            dtgAdvanceList.Columns["AdvanceEndDate"].ReadOnly = true;
+            dtgAdvanceList.Columns["AdvanceEndDate"].Width = 125;
+            dtgAdvanceList.Columns["AdvanceEndDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+
+            dtgAdvanceList.Columns["AdvanceRequestStatus"].Visible = true;
+            dtgAdvanceList.Columns["AdvanceRequestStatus"].ReadOnly = true;
+            dtgAdvanceList.Columns["AdvanceRequestStatus"].Width = 150;
+
+            dtgAdvanceList.Columns["LastRepayDate"].Visible = true;
+            dtgAdvanceList.Columns["LastRepayDate"].ReadOnly = true;
+            dtgAdvanceList.Columns["LastRepayDate"].Width = 125;
+            dtgAdvanceList.Columns["LastRepayDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+
+            dtgAdvanceList.Columns["CBalance"].Visible = false;
+            dtgAdvanceList.Columns["CBalance"].ReadOnly = true;
+            dtgAdvanceList.Columns["CBalance"].Width = 125;
+            dtgAdvanceList.Columns["CBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgAdvanceList.Columns["CBalance"].DefaultCellStyle.Format = "c2";
+
+            dtgAdvanceList.Columns["RePaymentBalance"].Visible = true;
+            dtgAdvanceList.Columns["RePaymentBalance"].ReadOnly = true;
+            dtgAdvanceList.Columns["RePaymentBalance"].Width = 125;
+            dtgAdvanceList.Columns["RePaymentBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgAdvanceList.Columns["RePaymentBalance"].DefaultCellStyle.Format = "c2";
+
+            dtgAdvanceList.Columns["EmpAdvanceRecoveryID"].Visible = false;
+            dtgAdvanceList.Columns["EmpAdvanceRecoveryID"].ReadOnly = true;
+            dtgAdvanceList.Columns["EmpAdvanceRecoveryID"].Width = 175;
+
+            dtgAdvanceList.Columns["AdvanceRequestStatus"].Visible = false;
+            dtgAdvanceList.Columns["AdvanceRequestStatus"].ReadOnly = true;
+            dtgAdvanceList.Columns["AdvanceRequestStatus"].Width = 175;
+        }
+
+        private void txtNoticePeriod_TextChanged(object sender, EventArgs e)
+        {
+            if (txtNoticePeriod.Text.ToString().Trim() == "")
+                return;
+
+            if (Convert.ToInt16(txtNoticePeriod.Text) < 0)
+            {
+                MessageBox.Show("Notice Period cannot be negative.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtNoticePeriod.Text = "0";
+                return;
+            }
+            else if (Convert.ToInt16(txtNoticePeriod.Text) > 0)
+            {
+
+            }
+
+
+            if (!int.TryParse(txtNoticePeriod.Text, out _))
+            {
+                MessageBox.Show("Please enter a valid number for Notice Period.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtNoticePeriod.Text = "0";
+                return;
+            }
+            dtLastWorkingDay.Text = DateTime.Now.AddDays(Convert.ToInt32(txtNoticePeriod.Text)).ToString("dd-MM-yyyy");
+
+        }
+
+        private void lnkViewAuditLog_LinkClicked(object sender, EventArgs e)
+        {
+            frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblEmpResignID.Text.ToString()), "EmployeeResignationStatusUpdate", "Employee Resignation Management", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+            objAuditLogStatements.ShowDialog(this);
         }
     }
 }

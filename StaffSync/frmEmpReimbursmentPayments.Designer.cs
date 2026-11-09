@@ -297,11 +297,11 @@
             this.dtgReimbursmentPaymentHistory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dtgReimbursmentPaymentHistory.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
             this.dtgReimbursmentPaymentHistory.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
-            this.dtgReimbursmentPaymentHistory.Location = new System.Drawing.Point(62, 25);
+            this.dtgReimbursmentPaymentHistory.Location = new System.Drawing.Point(14, 25);
             this.dtgReimbursmentPaymentHistory.Name = "dtgReimbursmentPaymentHistory";
             this.dtgReimbursmentPaymentHistory.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgReimbursmentPaymentHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgReimbursmentPaymentHistory.Size = new System.Drawing.Size(911, 153);
+            this.dtgReimbursmentPaymentHistory.Size = new System.Drawing.Size(1005, 153);
             this.dtgReimbursmentPaymentHistory.StateCommon.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgReimbursmentPaymentHistory.StateCommon.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgReimbursmentPaymentHistory.StateCommon.BackStyle = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;

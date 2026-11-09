@@ -69,6 +69,87 @@ namespace dbStaffSync
                 return new IsResignationAppliedInfo();
         }
 
+        public List<ResignedEmployeesList> getResignedEmployeeList(int ClientID)
+        {
+            List<ResignedEmployeesList> objResignedEmployeesList = new List<ResignedEmployeesList>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                        EmpMas.EmpID,
+                                        EmpMas.EmpCode,
+                                        EmpMas.EmpName,
+                                        DesigMas.DesignationTitle,
+                                        DepMas.DepartmentTitle,
+                                        PersonalInfoMas.ContactNumber1,
+                                        PersonalInfoMas.ContactNumber2,
+                                        PersonalInfoMas.PersonalInfoID,
+                                        ResignationMasInfo.ResigMasID,
+                                        ResignationMasInfo.ResigMasCode,
+                                        ResignationMasInfo.ResigMasTitle,
+                                        EmpResignationInfo.EmpResignID,
+                                        EmpResignationInfo.EmpResignCode,
+                                        EmpResignationInfo.EmpResignDate,
+                                        EmpResignationInfo.EmpResignMoreInfo,
+                                        EmpMas.IsActive,
+                                        EmpMas.IsDeleted,
+                                        EmpMas.ResignedStatus,
+                                        ClientMas.ClientID
+                                    FROM
+                                        ResignationMasInfo
+                                        INNER JOIN (
+                                            (
+                                                (
+                                                    DesigMas
+                                                    INNER JOIN (
+                                                        DepMas
+                                                        INNER JOIN (
+                                                            ClientMas
+                                                            INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                        ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                                    ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                                )
+                                                INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                            )
+                                            INNER JOIN EmpResignationInfo ON PersonalInfoMas.PersonalInfoID = EmpResignationInfo.PersonalInfoID
+                                        ) ON ResignationMasInfo.ResigMasID = EmpResignationInfo.ResigMasID
+                                    WHERE
+                                        (
+                                            ((EmpMas.EmpID) > 1)
+                                            AND ((EmpMas.IsActive) = True)
+                                            AND ((EmpMas.IsDeleted) = False)
+                                            AND ((EmpMas.ResignedStatus) = False)
+                                            AND ((ClientMas.ClientID) = " + ClientID + @")
+                                        ); ";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objResignedEmployeesList = JsonConvert.DeserializeObject<List<ResignedEmployeesList>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objResignedEmployeesList;
+        }
+
         public List<ResignationInfo> getResignationInfotatements()
         {
             List<ResignationInfo> objResignationReasonList = new List<ResignationInfo>();
@@ -119,6 +200,81 @@ namespace dbStaffSync
             return objResignationReasonList;
         }
 
+        public EmployeeSpecificResignationInfo getEmployeeSpecificEmployeeSpecificResignationInfo(int ResignationID)
+        {
+            List<EmployeeSpecificResignationInfo> objEmployeeSpecificResignationInfoList = new List<EmployeeSpecificResignationInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                        EmpMas.EmpID,
+                                        PersonalInfoMas.PersonalInfoID,
+                                        ResignationMasInfo.ResigMasID,
+                                        ResignationMasInfo.ResigMasCode,
+                                        ResignationMasInfo.ResigMasTitle,
+                                        EmpResignationInfo.EmpResignID,
+                                        EmpResignationInfo.EmpResignCode,
+                                        EmpResignationInfo.EmpResignDate,
+                                        EmpResignationInfo.EmpResignMoreInfo,
+                                        EmpResignationInfo.EmpResignApprovedBy1,
+                                        EmpResignationInfo.EmpResignApprovalStatus1,
+                                        EmpResignationInfo.EmpResignApprovalDate1,
+                                        EmpResignationInfo.EmpResignApprovedBy2,
+                                        EmpResignationInfo.EmpResignApprovalStatus2,
+                                        EmpResignationInfo.EmpResignApprovalDate2,
+                                        EmpResignationInfo.EmpResignStatus,
+                                        EmpMas.IsActive AS ResignStatus
+                                    FROM
+                                        ResignationMasInfo
+                                        INNER JOIN (
+                                            (
+                                                (
+                                                    ClientMas
+                                                    INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                )
+                                                INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                            )
+                                            INNER JOIN EmpResignationInfo ON PersonalInfoMas.PersonalInfoID = EmpResignationInfo.PersonalInfoID
+                                        ) ON ResignationMasInfo.ResigMasID = EmpResignationInfo.ResigMasID
+                                    WHERE
+                                        (
+                                            ((EmpResignationInfo.EmpResignID) = " + ResignationID + @")
+                                            AND ((EmpMas.IsActive) = True)
+                                            AND ((EmpMas.IsDeleted) = False)
+                                            AND ((EmpMas.ResignedStatus) = False)
+                                        );";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmployeeSpecificResignationInfoList = JsonConvert.DeserializeObject<List<EmployeeSpecificResignationInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            if(objEmployeeSpecificResignationInfoList.Count > 0)
+                return objEmployeeSpecificResignationInfoList[0];
+            else
+                return new EmployeeSpecificResignationInfo();
+        }
+
         public int InsertEmployeeResignationInfo(int PersonalInfoID, int ResigMasID, string EmpResignMoreInfo, DateTime EmpResignDate, 
             DateTime EmpResignApprovalDate1, int EmpResignApprovedBy1, bool EmpResignApprovalStatus1, 
             DateTime EmpResignApprovalDate2, int EmpResignApprovedBy2, bool EmpResignApprovalStatus2, 
@@ -148,6 +304,68 @@ namespace dbStaffSync
                 affectedRows = cmd.ExecuteNonQuery();
                 if (affectedRows > 0)
                     affectedRows = maxRowCount.Data;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int ApprovalResignationByReportingManager(int EmpResignID, DateTime EmpResignApprovalDate1, int EmpResignApprovedBy1, bool EmpResignApprovalStatus1, int EmpResignFinalStatus)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpResignationInfo SET " +
+                    " EmpResignApprovalDate1 = #" + EmpResignApprovalDate1.ToString("dd-MMM-yyyy") + "#, EmpResignApprovedBy1 = " + EmpResignApprovedBy1 + ", EmpResignApprovalStatus1 = " + EmpResignApprovalStatus1 + ", EmpResignStatus = " +
+                    EmpResignFinalStatus + " WHERE EmpResignID = " + EmpResignID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = EmpResignID;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int ApprovalResignationByHRManager(int EmpResignID, DateTime EmpResignApprovalDate2, int EmpResignApprovedBy2, bool EmpResignApprovalStatus2, int EmpResignFinalStatus)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpResignationInfo SET " +
+                    " EmpResignApprovalDate1 = #" + EmpResignApprovalDate2.ToString("dd-MMM-yyyy") + "#, EmpResignApprovedBy2 = " + EmpResignApprovedBy2 + ", EmpResignApprovalStatus2 = " + EmpResignApprovalStatus2 + ", EmpResignStatus = " +
+                    EmpResignFinalStatus + " WHERE EmpResignID = " + EmpResignID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = EmpResignID;
             }
             catch (Exception ex)
             {

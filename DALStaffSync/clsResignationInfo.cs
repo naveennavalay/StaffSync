@@ -13,6 +13,11 @@ namespace DALStaffSync
     {
         dbStaffSync.clsResignationInfo objResignationInfo = new dbStaffSync.clsResignationInfo();
 
+        public List<ResignedEmployeesList> getResignedEmployeeList(int ClientID)
+        {
+            return objResignationInfo.getResignedEmployeeList(ClientID);
+        }
+
         public List<ResignationInfo> getResignationInfotatements()
         {
             return objResignationInfo.getResignationInfotatements();
@@ -21,6 +26,11 @@ namespace DALStaffSync
         public IsResignationAppliedInfo getIsResignationAppliedInfotatements(int txtEmpID)
         {
             return objResignationInfo.getIsResignationAppliedInfotatements(txtEmpID);
+        }
+
+        public EmployeeSpecificResignationInfo getEmployeeSpecificEmployeeSpecificResignationInfo(int ResignationID)
+        {
+            return objResignationInfo.getEmployeeSpecificEmployeeSpecificResignationInfo(ResignationID);
         }
 
         public int InsertEmployeeResignationInfo(int PersonalInfoID, int ResigMasID, string EmpResignMoreInfo, DateTime EmpResignDate,
@@ -34,6 +44,16 @@ namespace DALStaffSync
                 EmpResignApprovalDate2, EmpResignApprovedBy2, EmpResignApprovalStatus2,
                 EmpResignFinalStatus, EmpFinalResignApprovalDate,
                 EmpNoticePeriod, EmpLastWorkingDay, EmpNoticePeriodServeStatus);
+        }
+
+        public int ApprovalResignationByReportingManager(int EmpResignID, DateTime EmpResignApprovalDate1, int EmpResignApprovedBy1, bool EmpResignApprovalStatus1, int EmpResignFinalStatus)
+        {
+            return objResignationInfo.ApprovalResignationByReportingManager(EmpResignID, EmpResignApprovalDate1, EmpResignApprovedBy1, EmpResignApprovalStatus1, EmpResignFinalStatus);
+        }
+
+        public int ApprovalResignationByHRManager(int EmpResignID, DateTime EmpResignApprovalDate2, int EmpResignApprovedBy2, bool EmpResignApprovalStatus2, int EmpResignFinalStatus)
+        {
+            return objResignationInfo.ApprovalResignationByHRManager(EmpResignID, EmpResignApprovalDate2, EmpResignApprovedBy2, EmpResignApprovalStatus2, EmpResignFinalStatus);
         }
     }
 }
