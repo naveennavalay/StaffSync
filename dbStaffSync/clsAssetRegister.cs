@@ -590,7 +590,7 @@ namespace dbStaffSync
                                 (
                                     ((R.RequestedTo) = " + SecondApproverID + @")
                                     AND ((R.AssetRequestByStatus) = True)
-                                    AND ((R.RequestedToStatus) = False)
+                                    AND ((R.RequestedToStatus) = True)
                                     AND ((R.AssetRequestStatus) = False)
                                     AND ((R.IsActive) = True)
                                     AND ((R.IsDeleted) = False)
@@ -991,6 +991,36 @@ namespace dbStaffSync
             }
 
             return objAssetAnalyticsInformationInfo;
+        }
+
+        public int UpdateAssetInventoryCounters(int assetID, string InventoryCounterColumnName, decimal Quantity)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = @"UPDATE AssetMas SET " + InventoryCounterColumnName + " = " + InventoryCounterColumnName + " + " + Quantity + " WHERE AssetID = " + assetID ;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = assetID;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return affectedRows;
         }
     }
 }

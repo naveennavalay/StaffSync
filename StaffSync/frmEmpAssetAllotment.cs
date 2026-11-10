@@ -47,7 +47,7 @@ namespace StaffSync
         DALStaffSync.clsAssetRegister objAssetRegisterInfo = new DALStaffSync.clsAssetRegister();
 
         // Issue Date cell calendar popup state. The existing data-bound grid is retained.
-        private DateTimePicker issueDatePicker;
+        private MonthCalendar issueDatePicker;
         private ToolStripDropDown issueDatePickerPopup;
         private ToolStripControlHost issueDatePickerHost;
         private DataGridViewCell activeIssueDateCell;
@@ -221,12 +221,25 @@ namespace StaffSync
 
             if (ValidateValuesOnUI())
             {
+                dtgAssetRequestedList.EndEdit();
+
                 int assetIssuedInfoID = 0;
                 foreach (DataGridViewRow dc in dtgAssetRequestedList.Rows)
                 {
-                    int AssetID = Convert.ToInt32(dc.Cells["EmpAssetAllocationID"].Value);
-                    assetIssuedInfoID = objAssetRegisterInfo.UpdatgeEmployeeAssetAllocationInfo(Convert.ToInt32(dc.Cells["EmpAssetAllocationID"].Value), Convert.ToInt32(dc.Cells["AssetID"].Value), Convert.ToDateTime(dc.Cells["IssueDate"].Value), dc.Cells["IssueCondition"].Value.ToString(), objTempCurrentlyLoggedInUserInfo.EmpID, dc.Cells["IssueRemarks"].Value.ToString(), cmbAssetCondition.SelectedIndex + 1, Convert.ToInt32(dc.Cells["AssetRequestID"].Value));
+                    if (dc.IsNewRow)
+                        continue;
+
+                    assetIssuedInfoID = objAssetRegisterInfo.UpdatgeEmployeeAssetAllocationInfo(Convert.ToInt32(dc.Cells["EmpAssetAllocationID"].Value), Convert.ToInt32(dc.Cells["AssetID"].Value), Convert.ToDateTime(dc.Cells["IssueDate"].Value), Convert.ToString(dc.Cells["AllocationStatusID"].FormattedValue), objTempCurrentlyLoggedInUserInfo.EmpID, dc.Cells["IssueRemarks"].Value.ToString(), Convert.ToInt32(dc.Cells["AllocationStatusID"].Value), Convert.ToInt32(dc.Cells["AssetRequestID"].Value));
+
+                    string allocationStatus = Convert.ToString(dc.Cells["AllocationStatusID"].FormattedValue);
+                    allocationStatus = "Asset" + allocationStatus.Replace(" ", "").ToLower();
+
+                    int toStatusID = Convert.ToInt32(dc.Cells["AllocationStatusID"].Value);
+                    decimal quantity = Convert.ToDecimal(dc.Cells["DrBalance"].Value);
+
+                    objAssetRegisterInfo.UpdateAssetInventoryCounters(Convert.ToInt32(dc.Cells["AssetID"].Value), allocationStatus, quantity);
                 }
+
                 MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 disableControls();
                 clearControls();
@@ -260,6 +273,18 @@ namespace StaffSync
                 {
                     if (row.IsNewRow)
                         continue;
+
+                    // Validate the selected Asset Status.
+                    object assetStatusValue = row.Cells["AllocationStatusID"].Value;
+                    if (assetStatusValue == null || assetStatusValue == DBNull.Value ||
+                        !int.TryParse(Convert.ToString(assetStatusValue), out _))
+                    {
+                        validationStatus = false;
+                        errValidator.SetError(this.dtgAssetRequestedList,
+                            $"Please select an Asset Status for asset row {row.Index + 1}.");
+                        dtgAssetRequestedList.CurrentCell = row.Cells["AllocationStatusID"];
+                        return false;
+                    }
 
                     // Validate IssueDate.
                     object issueDateValue = row.Cells["IssueDate"].Value;
@@ -622,21 +647,20 @@ namespace StaffSync
         }
 
         /// <summary>
-        /// Sets up a DateTimePicker popup for the data-bound IssueDate column.
-        /// A calendar button is painted inside each Issue Date cell, so no custom
-        /// DataGridView column class or change to the existing DataSource is required.
+        /// Sets up a native MonthCalendar popup for the data-bound IssueDate column.
+        /// The existing grid data source and Asset Status dropdown are not changed.
         /// </summary>
         private void InitializeIssueDatePicker()
         {
             if (issueDatePickerEventsConfigured)
                 return;
 
-            issueDatePicker = new DateTimePicker
+            issueDatePicker = new MonthCalendar
             {
-                Format = DateTimePickerFormat.Custom,
-                CustomFormat = "dd-MMM-yyyy",
-                Width = 150,
-                Value = DateTime.Today
+                MaxSelectionCount = 1,
+                FirstDayOfWeek = Day.Monday,
+                ShowToday = true,
+                ShowTodayCircle = true
             };
 
             issueDatePickerHost = new ToolStripControlHost(issueDatePicker)
@@ -644,16 +668,17 @@ namespace StaffSync
                 Padding = Padding.Empty,
                 Margin = Padding.Empty,
                 AutoSize = false,
-                Size = issueDatePicker.Size
+                Size = issueDatePicker.GetPreferredSize(Size.Empty)
             };
 
             issueDatePickerPopup = new ToolStripDropDown
             {
-                Padding = Padding.Empty
+                Padding = Padding.Empty,
+                AutoClose = true
             };
             issueDatePickerPopup.Items.Add(issueDatePickerHost);
 
-            issueDatePicker.CloseUp += IssueDatePicker_CloseUp;
+            issueDatePicker.DateSelected += IssueDatePicker_DateSelected;
             dtgAssetRequestedList.CellPainting += dtgAssetRequestedList_IssueDateCellPainting;
             dtgAssetRequestedList.CellClick += dtgAssetRequestedList_IssueDateCellClick;
             issueDatePickerEventsConfigured = true;
@@ -709,61 +734,130 @@ namespace StaffSync
                 Math.Max(1, buttonWidth - 3),
                 Math.Max(1, cellBounds.Height - 4));
 
-            // Open the picker only when the calendar button portion of the cell is clicked.
+            // Open the calendar only when the calendar button portion is clicked.
             if (!buttonBounds.Contains(mousePoint))
                 return;
 
             activeIssueDateCell = dtgAssetRequestedList.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            object currentValue = activeIssueDateCell.Value;
             DateTime initialDate = DateTime.Today;
+            object currentValue = activeIssueDateCell.Value;
 
-            if (currentValue != null && currentValue != DBNull.Value &&
-                DateTime.TryParse(Convert.ToString(currentValue), out DateTime parsedDate))
+            if (currentValue != null && currentValue != DBNull.Value)
             {
-                // Some Access records contain DateTime.MinValue (01-Jan-0001).
-                // DateTimePicker cannot display dates before its MinDate (1753 by default).
-                // Treat uninitialized/invalid dates as today, while preserving valid dates.
-                if (parsedDate.Date >= issueDatePicker.MinDate.Date &&
+                DateTime parsedDate;
+                bool parsed = currentValue is DateTime
+                    ? (parsedDate = (DateTime)currentValue) != DateTime.MinValue
+                    : DateTime.TryParse(Convert.ToString(currentValue),
+                        CultureInfo.CurrentCulture, DateTimeStyles.None, out parsedDate);
+
+                if (parsed && parsedDate.Date >= issueDatePicker.MinDate.Date &&
                     parsedDate.Date <= issueDatePicker.MaxDate.Date)
                 {
                     initialDate = parsedDate.Date;
                 }
             }
 
-            // Final safety check before assigning the DateTimePicker.Value.
-            if (initialDate < issueDatePicker.MinDate)
-                initialDate = DateTime.Today;
-            if (initialDate > issueDatePicker.MaxDate)
-                initialDate = issueDatePicker.MaxDate.Date;
-
-            issueDatePicker.Value = initialDate;
-            issueDatePickerHost.Size = issueDatePicker.Size;
+            // Show the native calendar directly, rather than a DateTimePicker
+            // that requires a second click to open its own calendar.
+            issueDatePicker.SetDate(initialDate);
+            issueDatePickerHost.Size = issueDatePicker.GetPreferredSize(Size.Empty);
 
             Point popupLocation = dtgAssetRequestedList.PointToScreen(
                 new Point(cellBounds.Left, cellBounds.Bottom));
             issueDatePickerPopup.Show(popupLocation);
         }
 
-        private void IssueDatePicker_CloseUp(object sender, EventArgs e)
+        private void IssueDatePicker_DateSelected(object sender, DateRangeEventArgs e)
         {
-            if (activeIssueDateCell != null && !activeIssueDateCell.ReadOnly)
+            if (activeIssueDateCell != null)
             {
-                activeIssueDateCell.Value = issueDatePicker.Value.Date;
+                activeIssueDateCell.Value = e.Start.Date;
                 dtgAssetRequestedList.CommitEdit(DataGridViewDataErrorContexts.Commit);
                 dtgAssetRequestedList.EndEdit();
-                dtgAssetRequestedList.InvalidateCell(activeIssueDateCell);
-            }
-            else if (activeIssueDateCell != null)
-            {
-                // The grid column is read-only to prevent accidental text edits; the
-                // calendar button is still allowed to update the bound cell value.
-                activeIssueDateCell.Value = issueDatePicker.Value.Date;
-                dtgAssetRequestedList.CommitEdit(DataGridViewDataErrorContexts.Commit);
                 dtgAssetRequestedList.InvalidateCell(activeIssueDateCell);
             }
 
             activeIssueDateCell = null;
             issueDatePickerPopup.Close();
+        }
+
+        /// <summary>
+        /// Adds the per-asset status dropdown to the requested-assets grid.
+        /// This is an unbound UI column; no query or database table is changed.
+        /// </summary>
+        private void ConfigureAllocationStatusDropdown()
+        {
+            const string statusColumnName = "AllocationStatusID";
+
+            if (dtgAssetRequestedList.Columns.Contains(statusColumnName))
+                dtgAssetRequestedList.Columns.Remove(statusColumnName);
+
+            DataGridViewComboBoxColumn statusColumn =
+                new DataGridViewComboBoxColumn
+                {
+                    Name = statusColumnName,
+                    HeaderText = "Asset Status",
+                    Width = 150,
+                    DataSource = objAssetRegisterInfo.GetCurrentAssetStatus(),
+                    DisplayMember = "CurrentAssetStatusName",
+                    ValueMember = "CurrentAssetStatusID",
+                    ValueType = typeof(int),
+                    DisplayStyle = DataGridViewComboBoxDisplayStyle.DropDownButton,
+                    FlatStyle = FlatStyle.Flat,
+                    SortMode = DataGridViewColumnSortMode.NotSortable
+                };
+
+            // Insert the dropdown immediately after Asset Tag.
+            int insertIndex = dtgAssetRequestedList.Columns.Contains("AssetTag")
+                ? dtgAssetRequestedList.Columns["AssetTag"].Index + 1
+                : dtgAssetRequestedList.Columns.Count;
+
+            dtgAssetRequestedList.Columns.Insert(insertIndex, statusColumn);
+
+            foreach (DataGridViewRow row in dtgAssetRequestedList.Rows)
+            {
+                if (row.IsNewRow)
+                    continue;
+
+                // Default to New (ID 9), as shown for a newly requested asset.
+                int selectedStatusID = 9;
+
+                // If the query already returns a current status ID, preserve it.
+                string[] statusIDColumnNames =
+                {
+                    "CurrentAssetStatusID",
+                    "AssetStatusID",
+                    "CurrentStatusID"
+                };
+
+                foreach (string fieldName in statusIDColumnNames)
+                {
+                    if (dtgAssetRequestedList.Columns.Contains(fieldName))
+                    {
+                        object value = row.Cells[fieldName].Value;
+                        if (value != null && value != DBNull.Value &&
+                            int.TryParse(Convert.ToString(value), out int parsedStatusID))
+                        {
+                            selectedStatusID = parsedStatusID;
+                            break;
+                        }
+                    }
+                }
+
+                row.Cells[statusColumnName].Value = selectedStatusID;
+            }
+
+            dtgAssetRequestedList.DataError -=
+                dtgAssetRequestedList_AllocationStatusDataError;
+            dtgAssetRequestedList.DataError +=
+                dtgAssetRequestedList_AllocationStatusDataError;
+        }
+
+        private void dtgAssetRequestedList_AllocationStatusDataError(
+            object sender, DataGridViewDataErrorEventArgs e)
+        {
+            // Avoid an unhandled grid exception; required values are validated on Save.
+            e.ThrowException = false;
         }
 
         private void formatTransactionGrid()
@@ -775,23 +869,24 @@ namespace StaffSync
             dtgAssetRequestedList.Columns["AssetCategoryName"].ReadOnly = true;
             dtgAssetRequestedList.Columns["AssetID"].Visible = false;
             dtgAssetRequestedList.Columns["AssetCode"].HeaderText = "Asset Code";
-            dtgAssetRequestedList.Columns["AssetCode"].Width = 150;
+            dtgAssetRequestedList.Columns["AssetCode"].Width = 100;
             dtgAssetRequestedList.Columns["AssetCode"].ReadOnly = true;
             dtgAssetRequestedList.Columns["AssetName"].HeaderText = "Asset Name";
             dtgAssetRequestedList.Columns["AssetName"].Width = 200;
             dtgAssetRequestedList.Columns["AssetName"].ReadOnly = true;
             dtgAssetRequestedList.Columns["AssetMasMoreDetID"].Visible = false;
             dtgAssetRequestedList.Columns["SerialNumber"].HeaderText = "Serial Number";
-            dtgAssetRequestedList.Columns["SerialNumber"].Width = 150;
+            dtgAssetRequestedList.Columns["SerialNumber"].Width = 100;
             dtgAssetRequestedList.Columns["SerialNumber"].ReadOnly = true;
             dtgAssetRequestedList.Columns["ModelNumber"].HeaderText = "Model Number";
-            dtgAssetRequestedList.Columns["ModelNumber"].Width = 150;
+            dtgAssetRequestedList.Columns["ModelNumber"].Width = 100;
             dtgAssetRequestedList.Columns["ModelNumber"].ReadOnly = true;
             dtgAssetRequestedList.Columns["AssetTag"].HeaderText = "Asset Tag";
-            dtgAssetRequestedList.Columns["AssetTag"].Width = 150;
+            dtgAssetRequestedList.Columns["AssetTag"].Width = 100;
             dtgAssetRequestedList.Columns["AssetTag"].ReadOnly = true;
             dtgAssetRequestedList.Columns["AssetRequestID"].Visible = false;
             dtgAssetRequestedList.Columns["AssetRegID"].Visible = false;
+            dtgAssetRequestedList.Columns["CurrentAssetStatusName"].Visible = false; 
             dtgAssetRequestedList.Columns["Comments"].HeaderText = "Request Description";
             dtgAssetRequestedList.Columns["Comments"].Width = 350;
             dtgAssetRequestedList.Columns["Comments"].ReadOnly = true;
@@ -801,21 +896,22 @@ namespace StaffSync
             dtgAssetRequestedList.Columns["OBalance"].ReadOnly = true;
             dtgAssetRequestedList.Columns["OBalance"].DefaultCellStyle.Format = "c2";
             dtgAssetRequestedList.Columns["OBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dtgAssetRequestedList.Columns["DrBalance"].HeaderText = "Requested Quantity";
+            dtgAssetRequestedList.Columns["DrBalance"].HeaderText = "Quantity";
             dtgAssetRequestedList.Columns["DrBalance"].Width = 150;
             dtgAssetRequestedList.Columns["DrBalance"].ReadOnly = true;
-            dtgAssetRequestedList.Columns["DrBalance"].DefaultCellStyle.Format = "c2";
+            //dtgAssetRequestedList.Columns["DrBalance"].DefaultCellStyle.Format = "c2";
             dtgAssetRequestedList.Columns["DrBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dtgAssetRequestedList.Columns["CBalance"].Visible = false; 
+            dtgAssetRequestedList.Columns["CBalance"].Visible = false;
             dtgAssetRequestedList.Columns["CBalance"].HeaderText = "Outstanding Balance";
             dtgAssetRequestedList.Columns["CBalance"].Width = 150;
             dtgAssetRequestedList.Columns["CBalance"].ReadOnly = true;
             dtgAssetRequestedList.Columns["CBalance"].DefaultCellStyle.Format = "c2";
             dtgAssetRequestedList.Columns["CBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dtgAssetRequestedList.Columns["IssueDate"].HeaderText = "Issue Date";
-            dtgAssetRequestedList.Columns["IssueDate"].Width = 170;
+            dtgAssetRequestedList.Columns["IssueDate"].Width = 150;
             dtgAssetRequestedList.Columns["IssueDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
             dtgAssetRequestedList.Columns["IssueDate"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["IssueCondition"].Visible = false;
 
             // New/empty issue dates default to today's date; existing saved dates are preserved.
             foreach (DataGridViewRow issueDateRow in dtgAssetRequestedList.Rows)
@@ -824,8 +920,12 @@ namespace StaffSync
                     continue;
 
                 object issueDateValue = issueDateRow.Cells["IssueDate"].Value;
+                bool isUninitializedDate = issueDateValue is DateTime &&
+                    ((DateTime)issueDateValue).Date == DateTime.MinValue.Date;
+
                 if (issueDateValue == null || issueDateValue == DBNull.Value ||
-                    string.IsNullOrWhiteSpace(Convert.ToString(issueDateValue)))
+                    string.IsNullOrWhiteSpace(Convert.ToString(issueDateValue)) ||
+                    isUninitializedDate)
                 {
                     issueDateRow.Cells["IssueDate"].Value = DateTime.Today;
                 }
@@ -835,6 +935,9 @@ namespace StaffSync
             dtgAssetRequestedList.Columns["IssueRemarks"].HeaderText = "Remarks";
             dtgAssetRequestedList.Columns["IssueRemarks"].Width = 300;
             dtgAssetRequestedList.Columns["TRType"].Visible = false;
+
+            // Add the per-row Asset Status dropdown.
+            ConfigureAllocationStatusDropdown();
         }
 
         private void txtCurrentBalance_TextChanged(object sender, EventArgs e)

@@ -83,5 +83,11 @@ namespace DALStaffSync
         {
             return objAssetsRegisterInfo.getAssetAnalyticsInformation(ClientID);
         }
+
+        public int UpdateAssetInventoryCounters(int assetID, string InventoryCounterColumnName, decimal Quantity)
+        {
+            return objAssetsRegisterInfo.UpdateAssetInventoryCounters(assetID, InventoryCounterColumnName, Quantity);
+        }
+
     }
 }
