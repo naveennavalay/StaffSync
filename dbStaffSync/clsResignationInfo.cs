@@ -94,6 +94,25 @@ namespace dbStaffSync
                                         EmpResignationInfo.EmpResignCode,
                                         EmpResignationInfo.EmpResignDate,
                                         EmpResignationInfo.EmpResignMoreInfo,
+                                        EmpResignationInfo.EmpResignStatus,
+                                        Switch (
+                                            EmpResignationInfo.EmpResignStatus = 1,
+                                            'In Progress',
+                                            EmpResignationInfo.EmpResignStatus = 2,
+                                            'Approved',
+                                            EmpResignationInfo.EmpResignStatus = 3,
+                                            'With Finance (Reimbursements)',
+                                            EmpResignationInfo.EmpResignStatus = 4,
+                                            'With Finance (Advances)',
+                                            EmpResignationInfo.EmpResignStatus = 5,
+                                            'With IT (Assets)',
+                                            EmpResignationInfo.EmpResignStatus = 6,
+                                            'Completed',
+                                            EmpResignationInfo.EmpResignStatus = 7,
+                                            'Withdrawn/Cancelled',
+                                            True,
+                                            'Unknown'
+                                        ) AS EmpResignStatusTitle,
                                         EmpMas.IsActive,
                                         EmpMas.IsDeleted,
                                         EmpMas.ResignedStatus,
@@ -117,13 +136,11 @@ namespace dbStaffSync
                                             INNER JOIN EmpResignationInfo ON PersonalInfoMas.PersonalInfoID = EmpResignationInfo.PersonalInfoID
                                         ) ON ResignationMasInfo.ResigMasID = EmpResignationInfo.ResigMasID
                                     WHERE
-                                        (
-                                            ((EmpMas.EmpID) > 1)
-                                            AND ((EmpMas.IsActive) = True)
-                                            AND ((EmpMas.IsDeleted) = False)
-                                            AND ((EmpMas.ResignedStatus) = False)
-                                            AND ((ClientMas.ClientID) = " + ClientID + @")
-                                        ); ";
+                                        EmpMas.EmpID > 1
+                                        AND EmpMas.IsActive = True
+                                        AND EmpMas.IsDeleted = False
+                                        AND EmpMas.ResignedStatus = False
+                                        AND ClientMas.ClientID = " + ClientID;
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -359,6 +376,38 @@ namespace dbStaffSync
                 string strQuery = "UPDATE EmpResignationInfo SET " +
                     " EmpResignApprovalDate1 = #" + EmpResignApprovalDate2.ToString("dd-MMM-yyyy") + "#, EmpResignApprovedBy2 = " + EmpResignApprovedBy2 + ", EmpResignApprovalStatus2 = " + EmpResignApprovalStatus2 + ", EmpResignStatus = " +
                     EmpResignFinalStatus + " WHERE EmpResignID = " + EmpResignID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = EmpResignID;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+        public int UpdateApprovers(int EmpResignID, int EmpResignApprovedBy1, int EmpResignApprovedBy2)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = @"UPDATE EmpResignationInfo SET " +
+                    " EmpResignApprovedBy1 = " + EmpResignApprovedBy1 + ", " +
+                    " EmpResignApprovedBy2 = " + EmpResignApprovedBy2 +
+                    " WHERE EmpResignID = " + EmpResignID;
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

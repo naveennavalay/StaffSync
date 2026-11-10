@@ -70,6 +70,10 @@ namespace DALStaffSync
             return objAssetsRegisterInfo.getApprovedAssetInformationRequestList(ClientID);
         }
 
+        public List<ApprovedAssetInformationRequestList> getEmployeeSpecificApprovedAssetInformationRequestList(int EmployeeID, int ClientID)
+        {
+            return objAssetsRegisterInfo.getEmployeeSpecificApprovedAssetInformationRequestList(EmployeeID, ClientID);
+        }
         public List<AssetInformationOfAnAssetRequest> getAssetInformationOfAnAssetRequest(int AssetRequestID)
         {
             return objAssetsRegisterInfo.getAssetInformationOfAnAssetRequest(AssetRequestID);

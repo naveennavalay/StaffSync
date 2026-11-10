@@ -1014,27 +1014,42 @@ namespace StaffSync
                 dtgEmployeeList.Columns["ContactNumber1"].Width = 100;
                 dtgEmployeeList.Columns["ContactNumber1"].ReadOnly = true;
                 dtgEmployeeList.Columns["ContactNumber2"].HeaderText = "Mail ID";
-                dtgEmployeeList.Columns["ContactNumber2"].Width = 200;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 150;
                 dtgEmployeeList.Columns["ContactNumber2"].ReadOnly = true;
                 dtgEmployeeList.Columns["PersonalInfoID"].Visible = false;
                 dtgEmployeeList.Columns["ResigMasID"].Visible = false;
                 dtgEmployeeList.Columns["ResigMasCode"].HeaderText = "Resignation Code"; 
-                dtgEmployeeList.Columns["ResigMasCode"].Width = 150;
+                dtgEmployeeList.Columns["ResigMasCode"].Width = 125;
                 dtgEmployeeList.Columns["ResigMasCode"].ReadOnly = true;
                 dtgEmployeeList.Columns["ResigMasTitle"].HeaderText = "Resignation Title"; 
-                dtgEmployeeList.Columns["ResigMasTitle"].Width = 150;
+                dtgEmployeeList.Columns["ResigMasTitle"].Width = 200;
                 dtgEmployeeList.Columns["ResigMasTitle"].ReadOnly = true;
                 dtgEmployeeList.Columns["EmpResignID"].Visible = false;
-                dtgEmployeeList.Columns["EmpResignCode"].HeaderText = "Employee Resignation Code";
-                dtgEmployeeList.Columns["EmpResignCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpResignCode"].HeaderText = "Resignation Code";
+                dtgEmployeeList.Columns["EmpResignCode"].Width = 100;
                 dtgEmployeeList.Columns["EmpResignCode"].ReadOnly = true;
                 dtgEmployeeList.Columns["EmpResignDate"].HeaderText = "Resignation Date"; 
-                dtgEmployeeList.Columns["EmpResignDate"].Width = 150;
+                dtgEmployeeList.Columns["EmpResignDate"].Width = 100;
                 dtgEmployeeList.Columns["EmpResignDate"].ReadOnly = true;
                 dtgEmployeeList.Columns["EmpResignDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
                 dtgEmployeeList.Columns["EmpResignMoreInfo"].HeaderText = "More Information"; 
                 dtgEmployeeList.Columns["EmpResignMoreInfo"].Width = 250;
                 dtgEmployeeList.Columns["EmpResignMoreInfo"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpResignStatusTitle"].HeaderText = "Current Status";
+                dtgEmployeeList.Columns["EmpResignStatusTitle"].Width = 200;
+                dtgEmployeeList.Columns["EmpResignStatusTitle"].ReadOnly = true;
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listResignationApproverList" || lblSearchOptionClickedFor.Text.Trim() == "listResignationApproverHRList")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objEmployeeMaster.getCompleteEmployeesList();
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["EmpCode"].Width = 150;
+                dtgEmployeeList.Columns["EmpName"].Width = 250;
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 250;
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
+                dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
             }
         }
 
@@ -1197,7 +1212,14 @@ namespace StaffSync
             {
                 this.frmEmployeeResignationManagement.SelectedEmployeeID("listResignedEmployeesList", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpResignID"].Value.ToString()));
             }
-
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listResignationApproverList")
+            {
+                this.frmEmployeeResignationManagement.SelectedEmployeeID("listResignationApproverList", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+            }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listResignationApproverHRList")
+            {
+                this.frmEmployeeResignationManagement.SelectedEmployeeID("listResignationApproverHRList", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["EmpID"].Value.ToString()));
+            }
             this.Close();
         }
 

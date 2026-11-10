@@ -296,8 +296,7 @@ namespace ModelStaffSync
     }
 
     public class ApprovedAssetInformationRequestList
-    {
-        
+    {   
         public int AssetRequestID { get; set; }
         public int AssetCatMasID { get; set; }
         

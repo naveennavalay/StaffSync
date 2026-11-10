@@ -46,7 +46,7 @@ namespace ModelStaffSync
         public int EmpResignApprovedBy2 { get; set; }
         public bool EmpResignApprovalStatus2 { get; set; }
         public DateTime EmpResignApprovalDate2 { get; set; }
-        public int EmpResignStatus { get; set; }
+        public int EmpResignStatus { get; set; }        
         public bool ResignStatus { get; set; }
     }
 
@@ -67,5 +67,6 @@ namespace ModelStaffSync
         public string EmpResignCode { get; set; }
         public DateTime EmpResignDate { get; set; }
         public string EmpResignMoreInfo { get; set; }
+        public string EmpResignStatusTitle { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Bibliography;
+using Krypton.Toolkit;
 using ModelStaffSync;
 using Newtonsoft.Json;
 using System;
@@ -26,6 +27,7 @@ namespace StaffSync
         DALStaffSync.clsEmployeePersonalInfo objEmployeePersonalInfo = new DALStaffSync.clsEmployeePersonalInfo();
         DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
         DALStaffSync.clsAdvanceTransaction objAdvanceTransaction = new DALStaffSync.clsAdvanceTransaction();
+        DALStaffSync.clsAssetRegister objAssetRegisterInfo = new DALStaffSync.clsAssetRegister();
 
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
@@ -125,6 +127,7 @@ namespace StaffSync
             txtResignationCode.Text = "";
             dtResignationDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
             cmbResignationReason.DataSource = null;
+            cmbResignationStatus.Items.Clear();
             cmbResignationStatus.DataSource = null;
             txtResignationMoreDetails.Text = "";
 
@@ -133,7 +136,7 @@ namespace StaffSync
 
             txtDateOfJoining.Text = DateTime.Now.ToString("dd-MMM-yyyy");
             txtNoticePeriod.Text = "30";
-            dtLastWorkingDay.Text = DateTime.Now.AddDays(Convert.ToInt32(txtNoticePeriod.Text)).ToString("dd-MMM-yyyy");
+            dtLastWorkingDay.Text = DateTime.Now.AddDays(Convert.ToInt32(txtNoticePeriod.Text)).ToString("dd-MM-yyyy");
             dtApprovalDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
             lblActionMode.Text = "";
             lblRepManID.Text = "";
@@ -325,11 +328,17 @@ namespace StaffSync
             if (lblActionMode.Text == "add" && lblRepManagerApprovalStatus.Text == "False")
             {
                 affectedRows = objResignationInfo.ApprovalResignationByReportingManager(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToDateTime(dtApprovalDate.Text.ToString()), Convert.ToInt32(lblRepManID.Text.ToString()), true, cmbResignationStatus.SelectedIndex);
+                if(affectedRows > 0)
+                    affectedRows = objResignationInfo.UpdateApprovers(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToInt32(lblRepManID.Text.ToString()), Convert.ToInt32(lblHROwnerID.Text.ToString()));
+
                 objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()), "Resignation Status updated to " + cmbResignationStatus.Text, "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             }
             else if (lblActionMode.Text == "add" && lblRepManagerApprovalStatus.Text == "True")
             {
                 affectedRows = objResignationInfo.ApprovalResignationByHRManager(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToDateTime(dtApprovalDate.Text.ToString()), Convert.ToInt32(lblRepManID.Text.ToString()), true, cmbResignationStatus.SelectedIndex);
+                if(affectedRows > 0)
+                    affectedRows = objResignationInfo.UpdateApprovers(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToInt32(lblRepManID.Text.ToString()), Convert.ToInt32(lblHROwnerID.Text.ToString()));
+
                 objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()), "Resignation Status updated to " + cmbResignationStatus.Text, "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
 
                 if(cmbResignationStatus.SelectedIndex == 6)
@@ -337,8 +346,7 @@ namespace StaffSync
             }
 
             if (affectedRows > 0)
-                MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             objTempCurrentlyLoggedInUserInfo = objLogin.GetUserRolesAndResponsibilitiesInfo(Convert.ToInt16(objTempCurrentlyLoggedInUserInfo.EmpID.ToString()));
 
@@ -533,7 +541,7 @@ namespace StaffSync
                 txtReportingManager.Text = objReportingManagerInfo.EmpName;
 
                 ReportingManagerInfo objHROwnerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(lblHROwnerID.Text));
-                txtHROwner.Text = objReportingManagerInfo.EmpName;
+                txtHROwner.Text = objHROwnerInfo.EmpName;
                 
                 lnkViewAuditLog.Visible = true;
 
@@ -544,9 +552,32 @@ namespace StaffSync
                 txtServiceTenure.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(txtServiceTenure.Text.ToString().ToLower());
                 LoadReimbursementInfo();
                 LoadEmployeeSpecificAdvanceInfo();
+                LoadEmployeeSpecificAssetInfo();
                 tabControl1.Enabled = true;
                 tabControl1.SelectedIndex = 0;
+            }
+            else if (SearchOptionSelectedForm == "listResignationApproverList")
+            {
+                if(lblRepManID.Text == selectedResignationID.ToString())
+                {
+                    MessageBox.Show("Approver cannot be same as Resignee.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
+                lblRepManID.Text = selectedResignationID.ToString();
+                ReportingManagerInfo objReportingManagerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(lblRepManID.Text));
+                txtReportingManager.Text = objReportingManagerInfo.EmpName;
+            }
+            else if (SearchOptionSelectedForm == "listResignationApproverHRList")
+            {
+                if (lblHROwnerID.Text == selectedResignationID.ToString())
+                {
+                    MessageBox.Show("HR Owner cannot be same as Resignee.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                lblHROwnerID.Text = selectedResignationID.ToString();
+                ReportingManagerInfo objHROwnerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(lblHROwnerID.Text));
+                txtHROwner.Text = objHROwnerInfo.EmpName;
             }
         }
 
@@ -757,6 +788,54 @@ namespace StaffSync
             dtgAdvanceList.Columns["AdvanceRequestStatus"].Width = 175;
         }
 
+        private void LoadEmployeeSpecificAssetInfo()
+        {
+            dtgAssetInformation.DataSource = null;
+            dtgAssetInformation.DataSource = objAssetRegisterInfo.getEmployeeSpecificApprovedAssetInformationRequestList(Convert.ToInt16(lblEmpID.Text.ToString()), Convert.ToInt16(lblClientID.Text.ToString()));
+            dtgAssetInformation.Columns["AssetCatMasID"].Visible = false;
+            dtgAssetInformation.Columns["AssetID"].Visible = false;
+            dtgAssetInformation.Columns["EmpID"].Visible = false;
+            dtgAssetInformation.Columns["PersonalInfoID"].Visible = false;
+            dtgAssetInformation.Columns["AssetRequestID"].Visible = false;
+            dtgAssetInformation.Columns["CatAssetCode"].Visible = false;
+            dtgAssetInformation.Columns["CatAssetName"].HeaderText = "Category";
+            dtgAssetInformation.Columns["CatAssetName"].Width = 150;
+            dtgAssetInformation.Columns["CatAssetName"].ReadOnly = true;
+            dtgAssetInformation.Columns["AssetCode"].Visible = false;
+            dtgAssetInformation.Columns["AssetName"].HeaderText = "Asset Name";
+            dtgAssetInformation.Columns["AssetName"].Width = 400;
+            dtgAssetInformation.Columns["AssetName"].ReadOnly = true;
+            dtgAssetInformation.Columns["AssetRequestCode"].HeaderText = "Asset Request Code";
+            dtgAssetInformation.Columns["AssetRequestCode"].Width = 125;
+            dtgAssetInformation.Columns["AssetRequestCode"].ReadOnly = true;
+            dtgAssetInformation.Columns["EmpCode"].Visible = false;
+            dtgAssetInformation.Columns["EmpCode"].HeaderText = "Emp Code";
+            dtgAssetInformation.Columns["EmpCode"].Width = 100;
+            dtgAssetInformation.Columns["EmpCode"].ReadOnly = true;
+            dtgAssetInformation.Columns["EmpName"].Visible = false; 
+            dtgAssetInformation.Columns["EmpName"].HeaderText = "Employee Name";
+            dtgAssetInformation.Columns["EmpName"].Width = 200;
+            dtgAssetInformation.Columns["EmpName"].ReadOnly = true;
+            dtgAssetInformation.Columns["DesignationTitle"].Visible = false; 
+            dtgAssetInformation.Columns["DesignationTitle"].HeaderText = "Designation";
+            dtgAssetInformation.Columns["DesignationTitle"].Width = 150;
+            dtgAssetInformation.Columns["DesignationTitle"].ReadOnly = true;
+            dtgAssetInformation.Columns["DepartmentTitle"].Visible = false; 
+            dtgAssetInformation.Columns["DepartmentTitle"].HeaderText = "Department";
+            dtgAssetInformation.Columns["DepartmentTitle"].Width = 150;
+            dtgAssetInformation.Columns["DepartmentTitle"].ReadOnly = true;
+            dtgAssetInformation.Columns["AssetRequestComments"].HeaderText = "Comments";
+            dtgAssetInformation.Columns["AssetRequestComments"].Width = 350;
+            dtgAssetInformation.Columns["AssetRequestComments"].ReadOnly = true;
+            dtgAssetInformation.Columns["AssetRequestDate"].HeaderText = "Request Date";
+            dtgAssetInformation.Columns["AssetRequestDate"].Width = 100;
+            dtgAssetInformation.Columns["AssetRequestDate"].ReadOnly = true;
+            dtgAssetInformation.Columns["AssetRequestDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
+            dtgAssetInformation.Columns["RequestStatus"].HeaderText = "Status";
+            dtgAssetInformation.Columns["RequestStatus"].Width = 100;
+            dtgAssetInformation.Columns["RequestStatus"].ReadOnly = true;
+        }
+
         private void txtNoticePeriod_TextChanged(object sender, EventArgs e)
         {
             if (txtNoticePeriod.Text.ToString().Trim() == "")
@@ -788,6 +867,69 @@ namespace StaffSync
         {
             frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblEmpResignID.Text.ToString()), "EmployeeResignationStatusUpdate", "Employee Resignation Management", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             objAuditLogStatements.ShowDialog(this);
+        }
+
+        private void btnSearchReportingManager_Click(object sender, EventArgs e)
+        {
+            frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listResignationApproverList", Convert.ToInt32(lblClientID.Text.ToString()));
+            frmEmployeeList.ShowDialog();
+        }
+
+        private void btnSearchHRManager_Click(object sender, EventArgs e)
+        {
+            frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listResignationApproverHRList", Convert.ToInt32(lblClientID.Text.ToString()));
+            frmEmployeeList.ShowDialog();
+        }
+
+        private void dtgReimbursmentPaymentHistory_Paint(object sender, PaintEventArgs e)
+        {
+            KryptonDataGridView dgv = sender as KryptonDataGridView;
+
+            if (dgv.Rows.Count == 0)
+            {
+                string message = "No Data Available";
+
+                using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
+                {
+                    SizeF size = e.Graphics.MeasureString(message, font);
+
+                    e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
+                }
+            }
+        }
+
+        private void dtgAdvanceList_Paint(object sender, PaintEventArgs e)
+        {
+            KryptonDataGridView dgv = sender as KryptonDataGridView;
+
+            if (dgv.Rows.Count == 0)
+            {
+                string message = "No Data Available";
+
+                using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
+                {
+                    SizeF size = e.Graphics.MeasureString(message, font);
+
+                    e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
+                }
+            }
+        }
+
+        private void dtgAssetInformation_Paint(object sender, PaintEventArgs e)
+        {
+            KryptonDataGridView dgv = sender as KryptonDataGridView;
+
+            if (dgv.Rows.Count == 0)
+            {
+                string message = "No Data Available";
+
+                using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
+                {
+                    SizeF size = e.Graphics.MeasureString(message, font);
+
+                    e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
+                }
+            }
         }
     }
 }

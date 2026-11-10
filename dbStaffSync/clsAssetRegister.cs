@@ -590,7 +590,7 @@ namespace dbStaffSync
                                 (
                                     ((R.RequestedTo) = " + SecondApproverID + @")
                                     AND ((R.AssetRequestByStatus) = True)
-                                    AND ((R.RequestedToStatus) = True)
+                                    AND ((R.RequestedToStatus) = False)
                                     AND ((R.AssetRequestStatus) = False)
                                     AND ((R.IsActive) = True)
                                     AND ((R.IsDeleted) = False)
@@ -680,6 +680,98 @@ namespace dbStaffSync
                                     WHERE
                                         (
                                             ((EmpAssetAllocation.IssueDate) IS NULL)
+                                            AND ((CL.ClientID) = " + ClientID + @")
+                                            AND ((R.AssetRequestByStatus) = True)
+                                            AND ((R.RequestedToStatus) = True)
+                                            AND ((R.AssetRequestStatus) = True)
+                                            AND ((R.IsActive) = True)
+                                            AND ((R.IsDeleted) = False)
+                                        )
+                                    ORDER BY
+                                        R.AssetRequestID,
+                                        R.AssetRequestDate;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objApprovedAssetInformationRequestListInfo = JsonConvert.DeserializeObject<List<ApprovedAssetInformationRequestList>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objApprovedAssetInformationRequestListInfo;
+        }
+
+        public List<ApprovedAssetInformationRequestList> getEmployeeSpecificApprovedAssetInformationRequestList(int EmployeeID, int ClientID)
+        {
+            List<ApprovedAssetInformationRequestList> objApprovedAssetInformationRequestListInfo = new List<ApprovedAssetInformationRequestList>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                        R.AssetRequestID,    
+                                        AssetCategoryMas.AssetCatMasID,
+                                        AssetCategoryMas.AssetCode AS CatAssetCode,
+                                        AssetCategoryMas.AssetName AS CatAssetName,
+                                        AssetMas.AssetCode,
+                                        AssetMas.AssetName,
+                                        R.AssetRequestCode,
+                                        R.AssetRequestDate,
+                                        R.AssetRequestComments,
+                                        IIf(R.AssetRequestStatus = True, ""Approved"", """") AS RequestStatus,
+                                        E.EmpID,
+                                        E.EmpCode,
+                                        E.EmpName,
+                                        D.DesignationTitle,
+                                        P.DepartmentTitle,
+                                        PersonalInfoMas.PersonalInfoID,
+                                        EmpAssetAllocation.IssueDate,
+                                        CL.ClientID
+                                    FROM
+                                        AssetCategoryMas
+                                        INNER JOIN (
+                                            AssetMas
+                                            INNER JOIN (
+                                                (
+                                                    (
+                                                        DesigMas AS D
+                                                        INNER JOIN (
+                                                            DepMas AS P
+                                                            INNER JOIN (
+                                                                ClientMas AS CL
+                                                                INNER JOIN (
+                                                                    EmpAssetRequest AS R
+                                                                    INNER JOIN EmpMas AS E ON R.AssetRequestByID = E.EmpID
+                                                                ) ON CL.ClientID = E.ClientID
+                                                            ) ON P.DepartmentID = E.DepartmentID
+                                                        ) ON D.DesignationID = E.EmpDesignationID
+                                                    )
+                                                    INNER JOIN EmpAssetAllocation ON R.AssetRequestID = EmpAssetAllocation.AssetRequestID
+                                                )
+                                                INNER JOIN PersonalInfoMas ON E.EmpID = PersonalInfoMas.EmpID
+                                            ) ON AssetMas.AssetID = EmpAssetAllocation.AssetID
+                                        ) ON AssetCategoryMas.AssetCatMasID = AssetMas.AssetCatMasID
+                                    WHERE
+                                        (
+                                            ((E.EmpID) = " + EmployeeID + @")
+                                            AND ((EmpAssetAllocation.IssueDate) IS NULL)
                                             AND ((CL.ClientID) = " + ClientID + @")
                                             AND ((R.AssetRequestByStatus) = True)
                                             AND ((R.RequestedToStatus) = True)

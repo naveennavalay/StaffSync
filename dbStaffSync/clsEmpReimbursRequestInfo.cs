@@ -91,6 +91,7 @@ namespace dbStaffSync
                                                 D.ReimbRequestID = ReimbRequestMas.ReimbRequestID
                                         )
                                     )
+                                    AND ((LatestDetail.CBalance) > 0)
                                     AND ((EmpMas.IsActive) = True)
                                     AND ((EmpMas.IsDeleted) = False)
                                     AND ((ReimbRequestMas.IsActive) = True)

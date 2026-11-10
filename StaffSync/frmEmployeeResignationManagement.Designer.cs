@@ -43,6 +43,11 @@
             this.tabControl1 = new Krypton.Navigator.KryptonNavigator();
             this.tabResignationInfo = new Krypton.Navigator.KryptonPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnSearchReportingManager = new Krypton.Toolkit.KryptonButton();
+            this.btnSearchHRManager = new Krypton.Toolkit.KryptonButton();
+            this.lblHROwnerID = new System.Windows.Forms.Label();
+            this.lblRepManagerApprovalStatus = new System.Windows.Forms.Label();
+            this.lblRepManID = new System.Windows.Forms.Label();
             this.dtApprovalDate = new System.Windows.Forms.MaskedTextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cmbResignationStatus = new Krypton.Toolkit.KryptonComboBox();
@@ -52,6 +57,9 @@
             this.txtReportingManager = new Krypton.Toolkit.KryptonTextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtNoticePeriod = new Krypton.Toolkit.KryptonTextBox();
+            this.txtDateOfJoining = new Krypton.Toolkit.KryptonTextBox();
             this.txtNoticePeriodStatus = new Krypton.Toolkit.KryptonTextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.dtLastWorkingDay = new System.Windows.Forms.MaskedTextBox();
@@ -93,20 +101,12 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.dtgAssetInformation = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnResignedRequestSearch = new Krypton.Toolkit.KryptonButton();
             this.lblEmpResignID = new System.Windows.Forms.Label();
             this.txtResignationCode = new Krypton.Toolkit.KryptonTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.txtDateOfJoining = new Krypton.Toolkit.KryptonTextBox();
-            this.txtNoticePeriod = new Krypton.Toolkit.KryptonTextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.lblRepManID = new System.Windows.Forms.Label();
-            this.lblRepManagerApprovalStatus = new System.Windows.Forms.Label();
-            this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
-            this.lblHROwnerID = new System.Windows.Forms.Label();
-            this.btnSearchHRManager = new Krypton.Toolkit.KryptonButton();
-            this.btnSearchReportingManager = new Krypton.Toolkit.KryptonButton();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             this.panel1.SuspendLayout();
@@ -263,6 +263,7 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.AllowPageReorder = false;
             this.tabControl1.Bar.BarMapExtraText = Krypton.Navigator.MapKryptonPageText.None;
             this.tabControl1.Bar.BarMapImage = Krypton.Navigator.MapKryptonPageImage.Small;
             this.tabControl1.Bar.BarMapText = Krypton.Navigator.MapKryptonPageText.TextTitle;
@@ -354,6 +355,70 @@
             this.groupBox2.TabIndex = 37;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Approval && Status";
+            // 
+            // btnSearchReportingManager
+            // 
+            this.btnSearchReportingManager.Location = new System.Drawing.Point(467, 21);
+            this.btnSearchReportingManager.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSearchReportingManager.Name = "btnSearchReportingManager";
+            this.btnSearchReportingManager.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnSearchReportingManager.Size = new System.Drawing.Size(29, 28);
+            this.btnSearchReportingManager.TabIndex = 95;
+            this.btnSearchReportingManager.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnSearchReportingManager.Values.Image = global::StaffSync.Properties.Resources.search;
+            this.btnSearchReportingManager.Values.Text = "";
+            this.btnSearchReportingManager.Click += new System.EventHandler(this.btnSearchReportingManager_Click);
+            // 
+            // btnSearchHRManager
+            // 
+            this.btnSearchHRManager.Location = new System.Drawing.Point(467, 54);
+            this.btnSearchHRManager.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSearchHRManager.Name = "btnSearchHRManager";
+            this.btnSearchHRManager.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnSearchHRManager.Size = new System.Drawing.Size(29, 28);
+            this.btnSearchHRManager.TabIndex = 94;
+            this.btnSearchHRManager.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnSearchHRManager.Values.Image = global::StaffSync.Properties.Resources.search;
+            this.btnSearchHRManager.Values.Text = "";
+            this.btnSearchHRManager.Click += new System.EventHandler(this.btnSearchHRManager_Click);
+            // 
+            // lblHROwnerID
+            // 
+            this.lblHROwnerID.AutoSize = true;
+            this.lblHROwnerID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblHROwnerID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHROwnerID.Location = new System.Drawing.Point(536, 62);
+            this.lblHROwnerID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblHROwnerID.Name = "lblHROwnerID";
+            this.lblHROwnerID.Size = new System.Drawing.Size(11, 15);
+            this.lblHROwnerID.TabIndex = 93;
+            this.lblHROwnerID.Text = " ";
+            this.lblHROwnerID.Visible = false;
+            // 
+            // lblRepManagerApprovalStatus
+            // 
+            this.lblRepManagerApprovalStatus.AutoSize = true;
+            this.lblRepManagerApprovalStatus.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblRepManagerApprovalStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRepManagerApprovalStatus.Location = new System.Drawing.Point(347, 5);
+            this.lblRepManagerApprovalStatus.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblRepManagerApprovalStatus.Name = "lblRepManagerApprovalStatus";
+            this.lblRepManagerApprovalStatus.Size = new System.Drawing.Size(11, 15);
+            this.lblRepManagerApprovalStatus.TabIndex = 92;
+            this.lblRepManagerApprovalStatus.Text = " ";
+            // 
+            // lblRepManID
+            // 
+            this.lblRepManID.AutoSize = true;
+            this.lblRepManID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblRepManID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRepManID.Location = new System.Drawing.Point(310, 5);
+            this.lblRepManID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblRepManID.Name = "lblRepManID";
+            this.lblRepManID.Size = new System.Drawing.Size(11, 15);
+            this.lblRepManID.TabIndex = 91;
+            this.lblRepManID.Text = " ";
+            this.lblRepManID.Visible = false;
             // 
             // dtApprovalDate
             // 
@@ -491,6 +556,53 @@
             this.groupBox1.Size = new System.Drawing.Size(1030, 209);
             this.groupBox1.TabIndex = 36;
             this.groupBox1.TabStop = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(458, 83);
+            this.label10.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(38, 15);
+            this.label10.TabIndex = 101;
+            this.label10.Text = "Days";
+            // 
+            // txtNoticePeriod
+            // 
+            this.txtNoticePeriod.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtNoticePeriod.Location = new System.Drawing.Point(384, 78);
+            this.txtNoticePeriod.MaxLength = 3;
+            this.txtNoticePeriod.Multiline = true;
+            this.txtNoticePeriod.Name = "txtNoticePeriod";
+            this.txtNoticePeriod.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtNoticePeriod.Size = new System.Drawing.Size(74, 25);
+            this.txtNoticePeriod.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNoticePeriod.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtNoticePeriod.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNoticePeriod.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNoticePeriod.TabIndex = 100;
+            this.txtNoticePeriod.Tag = "Notice Period";
+            this.txtNoticePeriod.WordWrap = false;
+            this.txtNoticePeriod.TextChanged += new System.EventHandler(this.txtNoticePeriod_TextChanged);
+            // 
+            // txtDateOfJoining
+            // 
+            this.txtDateOfJoining.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDateOfJoining.Location = new System.Drawing.Point(150, 17);
+            this.txtDateOfJoining.Margin = new System.Windows.Forms.Padding(4);
+            this.txtDateOfJoining.Multiline = true;
+            this.txtDateOfJoining.Name = "txtDateOfJoining";
+            this.txtDateOfJoining.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtDateOfJoining.ReadOnly = true;
+            this.txtDateOfJoining.Size = new System.Drawing.Size(168, 25);
+            this.txtDateOfJoining.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDateOfJoining.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtDateOfJoining.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDateOfJoining.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDateOfJoining.TabIndex = 99;
+            this.txtDateOfJoining.Tag = "Employee Code";
+            this.txtDateOfJoining.WordWrap = false;
             // 
             // txtNoticePeriodStatus
             // 
@@ -964,6 +1076,7 @@
             this.dtgReimbursmentPaymentHistory.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgReimbursmentPaymentHistory.StateNormal.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgReimbursmentPaymentHistory.TabIndex = 68;
+            this.dtgReimbursmentPaymentHistory.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgReimbursmentPaymentHistory_Paint);
             // 
             // tabAdvanceInformation
             // 
@@ -1016,6 +1129,7 @@
             this.dtgAdvanceList.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgAdvanceList.StateNormal.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgAdvanceList.TabIndex = 68;
+            this.dtgAdvanceList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAdvanceList_Paint);
             // 
             // tabAssetsInformation
             // 
@@ -1072,6 +1186,7 @@
             this.dtgAssetInformation.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgAssetInformation.StateNormal.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgAssetInformation.TabIndex = 68;
+            this.dtgAssetInformation.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAssetInformation_Paint);
             // 
             // groupBox3
             // 
@@ -1090,6 +1205,16 @@
             this.groupBox3.TabIndex = 36;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Resignation Details";
+            // 
+            // lnkViewAuditLog
+            // 
+            this.lnkViewAuditLog.Location = new System.Drawing.Point(364, 23);
+            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
+            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
+            this.lnkViewAuditLog.TabIndex = 84;
+            this.lnkViewAuditLog.Values.Text = "View Audit Log";
+            this.lnkViewAuditLog.Visible = false;
+            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
             // 
             // btnResignedRequestSearch
             // 
@@ -1165,125 +1290,6 @@
             this.splitContainer1.SplitterDistance = 643;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 2;
-            // 
-            // txtDateOfJoining
-            // 
-            this.txtDateOfJoining.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtDateOfJoining.Location = new System.Drawing.Point(150, 17);
-            this.txtDateOfJoining.Margin = new System.Windows.Forms.Padding(4);
-            this.txtDateOfJoining.Multiline = true;
-            this.txtDateOfJoining.Name = "txtDateOfJoining";
-            this.txtDateOfJoining.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtDateOfJoining.ReadOnly = true;
-            this.txtDateOfJoining.Size = new System.Drawing.Size(168, 25);
-            this.txtDateOfJoining.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDateOfJoining.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtDateOfJoining.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDateOfJoining.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDateOfJoining.TabIndex = 99;
-            this.txtDateOfJoining.Tag = "Employee Code";
-            this.txtDateOfJoining.WordWrap = false;
-            // 
-            // txtNoticePeriod
-            // 
-            this.txtNoticePeriod.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNoticePeriod.Location = new System.Drawing.Point(384, 78);
-            this.txtNoticePeriod.MaxLength = 3;
-            this.txtNoticePeriod.Multiline = true;
-            this.txtNoticePeriod.Name = "txtNoticePeriod";
-            this.txtNoticePeriod.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtNoticePeriod.Size = new System.Drawing.Size(74, 25);
-            this.txtNoticePeriod.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoticePeriod.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtNoticePeriod.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoticePeriod.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoticePeriod.TabIndex = 100;
-            this.txtNoticePeriod.Tag = "Notice Period";
-            this.txtNoticePeriod.WordWrap = false;
-            this.txtNoticePeriod.TextChanged += new System.EventHandler(this.txtNoticePeriod_TextChanged);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(458, 83);
-            this.label10.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(38, 15);
-            this.label10.TabIndex = 101;
-            this.label10.Text = "Days";
-            // 
-            // lblRepManID
-            // 
-            this.lblRepManID.AutoSize = true;
-            this.lblRepManID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblRepManID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRepManID.Location = new System.Drawing.Point(310, 5);
-            this.lblRepManID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblRepManID.Name = "lblRepManID";
-            this.lblRepManID.Size = new System.Drawing.Size(11, 15);
-            this.lblRepManID.TabIndex = 91;
-            this.lblRepManID.Text = " ";
-            this.lblRepManID.Visible = false;
-            // 
-            // lblRepManagerApprovalStatus
-            // 
-            this.lblRepManagerApprovalStatus.AutoSize = true;
-            this.lblRepManagerApprovalStatus.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblRepManagerApprovalStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRepManagerApprovalStatus.Location = new System.Drawing.Point(347, 5);
-            this.lblRepManagerApprovalStatus.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblRepManagerApprovalStatus.Name = "lblRepManagerApprovalStatus";
-            this.lblRepManagerApprovalStatus.Size = new System.Drawing.Size(11, 15);
-            this.lblRepManagerApprovalStatus.TabIndex = 92;
-            this.lblRepManagerApprovalStatus.Text = " ";
-            // 
-            // lnkViewAuditLog
-            // 
-            this.lnkViewAuditLog.Location = new System.Drawing.Point(364, 23);
-            this.lnkViewAuditLog.Name = "lnkViewAuditLog";
-            this.lnkViewAuditLog.Size = new System.Drawing.Size(93, 20);
-            this.lnkViewAuditLog.TabIndex = 84;
-            this.lnkViewAuditLog.Values.Text = "View Audit Log";
-            this.lnkViewAuditLog.Visible = false;
-            this.lnkViewAuditLog.LinkClicked += new System.EventHandler(this.lnkViewAuditLog_LinkClicked);
-            // 
-            // lblHROwnerID
-            // 
-            this.lblHROwnerID.AutoSize = true;
-            this.lblHROwnerID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblHROwnerID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHROwnerID.Location = new System.Drawing.Point(536, 62);
-            this.lblHROwnerID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblHROwnerID.Name = "lblHROwnerID";
-            this.lblHROwnerID.Size = new System.Drawing.Size(11, 15);
-            this.lblHROwnerID.TabIndex = 93;
-            this.lblHROwnerID.Text = " ";
-            this.lblHROwnerID.Visible = false;
-            // 
-            // btnSearchHRManager
-            // 
-            this.btnSearchHRManager.Location = new System.Drawing.Point(467, 54);
-            this.btnSearchHRManager.Margin = new System.Windows.Forms.Padding(4);
-            this.btnSearchHRManager.Name = "btnSearchHRManager";
-            this.btnSearchHRManager.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnSearchHRManager.Size = new System.Drawing.Size(29, 28);
-            this.btnSearchHRManager.TabIndex = 94;
-            this.btnSearchHRManager.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnSearchHRManager.Values.Image = global::StaffSync.Properties.Resources.search;
-            this.btnSearchHRManager.Values.Text = "";
-            // 
-            // btnSearchReportingManager
-            // 
-            this.btnSearchReportingManager.Location = new System.Drawing.Point(467, 21);
-            this.btnSearchReportingManager.Margin = new System.Windows.Forms.Padding(4);
-            this.btnSearchReportingManager.Name = "btnSearchReportingManager";
-            this.btnSearchReportingManager.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnSearchReportingManager.Size = new System.Drawing.Size(29, 28);
-            this.btnSearchReportingManager.TabIndex = 95;
-            this.btnSearchReportingManager.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnSearchReportingManager.Values.Image = global::StaffSync.Properties.Resources.search;
-            this.btnSearchReportingManager.Values.Text = "";
             // 
             // frmEmployeeResignationManagement
             // 

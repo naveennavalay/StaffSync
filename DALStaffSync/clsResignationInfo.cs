@@ -55,5 +55,10 @@ namespace DALStaffSync
         {
             return objResignationInfo.ApprovalResignationByHRManager(EmpResignID, EmpResignApprovalDate2, EmpResignApprovedBy2, EmpResignApprovalStatus2, EmpResignFinalStatus);
         }
+
+        public int UpdateApprovers(int EmpResignID, int EmpResignApprovedBy1, int EmpResignApprovedBy2)
+        {
+            return objResignationInfo.UpdateApprovers(EmpResignID, EmpResignApprovedBy1, EmpResignApprovedBy2);
+        }
     }
 }
