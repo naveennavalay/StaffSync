@@ -24,6 +24,7 @@ namespace StaffSync
 {
     public partial class frmEmpAssetRequest : Form
     {
+        private bool _isApplyingAssetGridSearchAndOrder = false;
         DALStaffSync.clsGenFunc objGenFunc = new DALStaffSync.clsGenFunc();
         DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
@@ -38,14 +39,14 @@ namespace StaffSync
         DALStaffSync.clsAttendanceMas objAttendanceMas = new DALStaffSync.clsAttendanceMas();
         DALStaffSync.clsAdvanceTypeMas objAdvanceTypeMas = new DALStaffSync.clsAdvanceTypeMas();
         DALStaffSync.clsAssetsInfo objAssetInfo = new DALStaffSync.clsAssetsInfo();
-        DALStaffSync.clsAssetRegister objAssetRegister = new DALStaffSync.clsAssetRegister(); 
+        DALStaffSync.clsAssetRegister objAssetRegister = new DALStaffSync.clsAssetRegister();
         DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
         DALStaffSync.clsAppSettings objAppSettings = new DALStaffSync.clsAppSettings();
         DALStaffSync.clsProvidentFundCalculation objProvidentFundCalculation = new DALStaffSync.clsProvidentFundCalculation();
         DALStaffSync.clsProfessionalTaxCalculation objProfessionalTaxCalculation = new DALStaffSync.clsProfessionalTaxCalculation();
         DALStaffSync.clsAdvanceTransaction objAdvanceTransaction = new DALStaffSync.clsAdvanceTransaction();
         DALStaffSync.clsAppUserTasks objAppUserTasks = new DALStaffSync.clsAppUserTasks();
-        frmDashboard objDashboard = (frmDashboard) System.Windows.Forms.Application.OpenForms["frmDashboard"];
+        frmDashboard objDashboard = (frmDashboard)System.Windows.Forms.Application.OpenForms["frmDashboard"];
         UserRolesAndResponsibilitiesInfo objTempCurrentlyLoggedInUserInfo = new UserRolesAndResponsibilitiesInfo();
         ClientFinYearInfo objTempClientFinYearInfo = new ClientFinYearInfo();
         SpecificEmployeeSalaryInfo objSpecificEmployeeSalaryInfo = new SpecificEmployeeSalaryInfo();
@@ -206,10 +207,16 @@ namespace StaffSync
                 MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             this.Cursor = Cursors.WaitCursor;
 
-            if (!ValidateValuesOnUI())
+            //if (!ValidateValuesOnUI())
+            //{
+            //    this.Cursor = Cursors.Default;
+            //    return;
+            //}
+
+            if (!ValidateAssetRequestGrid())
             {
                 this.Cursor = Cursors.Default;
                 return;
@@ -228,16 +235,53 @@ namespace StaffSync
 
             if (lblActionMode.Text == "add")
             {
-                AssetRequestID = objAssetInfo.InsertAssetRequestInfo("", Convert.ToInt32(lblAssetID.Text.ToString()), true, false, Convert.ToInt32(lblPersonalInfoID.Text.ToString()), Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), txtComments.Text, false, Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), false, "", false);
-                AssetRequestRegisterID = objAssetRegister.InsertAssetRegisterInfo(Convert.ToInt32(lblAssetID.Text.ToString()), Convert.ToDateTime(dtAssetRequestDate.Text), 0, Convert.ToDecimal(txtQuantity.Text.ToString()), 0, Convert.ToDecimal(txtQuantity.Text.ToString()), "Rq", "By " + cmbAssetType.Text + " - Request", Convert.ToInt32(AssetRequestID));
+                int successfulRequests = 0;
 
-                objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), AssetRequestID, "Asset Request - " + "\"ASR-REQ-" + (AssetRequestID).ToString().PadLeft(4, '0').Trim() + "\" Raised by Employee Code : \"" + txtEmpCode.Text.Trim() + "\" and Employee Name : \"" + txtEmpName.Text.Trim() + "\".", "Insert", ModelStaffSync.CurrentUser.EmpName, "AssetRequestNewUpdates", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
-
-                if (AssetRequestID > 0)
+                foreach (DataGridViewRow row in dtgAssetRequestedList.Rows)
                 {
-                    iTaskID = objAppUserTasks.InsertUserTask(DateTime.Now, AssetRequestID, Convert.ToInt16(lblEmpID.Text.Trim()), Convert.ToInt16(lblReportingManagerID.Text.Trim()), "New Asset request raised from employee code : \"" + txtEmpCode.Text.Trim() + "\" and employee name: \"" + txtEmpName.Text.Trim() + "\".", "Initiated", DateTime.Now.AddDays(7), "AssetNewRequest");
-                    MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    bool isSelected = row.Cells["Select"].Value != null && Convert.ToBoolean(row.Cells["Select"].Value);
+
+                    if (!isSelected)
+                        continue;
+
+                    int selectedAssetID = Convert.ToInt32(row.Cells["AssetID"].Value);
+                    decimal selectedRequestQuantity = Convert.ToDecimal(row.Cells["RequestQuantity"].Value);
+                    string selectedAssetName = Convert.ToString(row.Cells["AssetName"].Value);
+
+                    AssetRequestID = objAssetInfo.InsertAssetRequestInfo("", selectedAssetID, true, false,
+                        Convert.ToInt32(lblPersonalInfoID.Text.ToString()),
+                        Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), selectedAssetName, false,
+                        Convert.ToDateTime(dtAssetRequestDate.Text.ToString()),
+                        Convert.ToInt32(lblReportingManagerID.Text.ToString()), false, "", false);
+
+                    AssetRequestRegisterID = objAssetRegister.InsertAssetRegisterInfo(selectedAssetID,
+                        Convert.ToDateTime(dtAssetRequestDate.Text), 0, selectedRequestQuantity, 0,
+                        selectedRequestQuantity, "Rq", "By " + selectedAssetName + " - Request",
+                        Convert.ToInt32(AssetRequestID));
+
+                    if (AssetRequestID > 0)
+                    {
+                        objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), AssetRequestID,
+                            "Asset Request - " + "\"ASR-REQ-" +
+                            AssetRequestID.ToString().PadLeft(4, '0').Trim() +
+                            "\" Raised by Employee Code : \"" + txtEmpCode.Text.Trim() +
+                            "\" and Employee Name : \"" + txtEmpName.Text.Trim() + "\".",
+                            "Insert", ModelStaffSync.CurrentUser.EmpName, "AssetRequestNewUpdates",
+                            Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+
+                        iTaskID = objAppUserTasks.InsertUserTask(DateTime.Now, AssetRequestID,
+                            Convert.ToInt16(lblEmpID.Text.Trim()),
+                            Convert.ToInt16(lblReportingManagerID.Text.Trim()),
+                            "New Asset request raised from employee code : \"" + txtEmpCode.Text.Trim() +
+                            "\" and employee name: \"" + txtEmpName.Text.Trim() +
+                            "\".", "Initiated", DateTime.Now.AddDays(7), "AssetNewRequest");
+
+                        successfulRequests++;
+                    }
                 }
+
+                if (successfulRequests > 0)
+                    MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (lblActionMode.Text == "modify")
             {
@@ -277,7 +321,7 @@ namespace StaffSync
                 MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID, "add");
             if (strValidationMessage != "Success")
             {
@@ -428,7 +472,7 @@ namespace StaffSync
             txtEmpName.Enabled = false;
             txtDesignation.Enabled = false;
             txtDepartment.Enabled = false;
-            
+
             txtRepCode.Enabled = false;
             txtRepName.Enabled = false;
             txtRepDesignation.Enabled = false;
@@ -454,15 +498,19 @@ namespace StaffSync
             dtgAssetRequestedList.DataSource = null;
             dtgAssetRequestedList.DataSource = objAssetInfo.getAssetsInfoList(0);
             FormatGrid();
+            dtgAssetRequestedList.EditingControlShowing += dtgAssetRequestedList_EditingControlShowing;
+            dtgAssetRequestedList.CellValidating += dtgAssetRequestedList_CellValidating;
+            dtgAssetRequestedList.CellValueChanged += dtgAssetRequestedList_CellValueChanged;
+            txtSearchAssets.TextChanged += txtSearchAssets_TextChanged;
         }
 
         private void btnReportingManagerSearch_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         public void SelectedEmployeeID(string SearchOptionSelectedForm, int selectedEmployeeID)
-        {   
+        {
             if (SearchOptionSelectedForm == "listAssetRequestingUsers")
             {
                 lblEmpID.Text = selectedEmployeeID.ToString();
@@ -513,13 +561,13 @@ namespace StaffSync
                 txtDepartment.Text = objSelectedEmployeeInfo.DepartmentTitle;
 
                 ReportingManagerInfo objReportingManagerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt32(objAssetRequestInfo.RequestedTo.ToString()));
-                lblReportingManagerID.Text = objSelectedEmployeeInfo.EmpID.ToString(); 
+                lblReportingManagerID.Text = objSelectedEmployeeInfo.EmpID.ToString();
                 txtRepCode.Text = objReportingManagerInfo.EmpCode;
                 txtRepName.Text = objReportingManagerInfo.EmpName;
                 txtRepDesignation.Text = objReportingManagerInfo.DesignationTitle;
                 txtRepDepartment.Text = objReportingManagerInfo.DepartmentTitle;
                 picRepEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblReportingManagerID.Text)).EmpPhoto);
-                
+
                 cmbAssetType.SelectedIndex = objAssetRequestInfo.AssetID - 1;
 
                 dtAssetRequestDate.Text = Convert.ToDateTime(objAssetRequestInfo.AssetRequestDate.ToString()).ToString("dd-MM-yyyy");
@@ -550,6 +598,251 @@ namespace StaffSync
             }
         }
 
+        private void dtgAssetRequestedList_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (dtgAssetRequestedList.CurrentCell != null &&
+                dtgAssetRequestedList.Columns[dtgAssetRequestedList.CurrentCell.ColumnIndex].Name == "RequestQuantity")
+            {
+                TextBox editingTextBox = e.Control as TextBox;
+                if (editingTextBox != null)
+                {
+                    editingTextBox.KeyPress -= RequestQuantity_KeyPress;
+                    editingTextBox.KeyPress += RequestQuantity_KeyPress;
+                }
+            }
+        }
+
+        private void RequestQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            TextBox editingTextBox = sender as TextBox;
+
+            if (char.IsControl(e.KeyChar))
+                return;
+
+            if (char.IsDigit(e.KeyChar))
+                return;
+
+            if (e.KeyChar == '.' && editingTextBox != null && !editingTextBox.Text.Contains("."))
+                return;
+
+            e.Handled = true;
+        }
+
+        private void dtgAssetRequestedList_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            if (e.RowIndex < 0 ||
+                dtgAssetRequestedList.Columns[e.ColumnIndex].Name != "RequestQuantity")
+                return;
+
+            string enteredValue = Convert.ToString(e.FormattedValue).Trim();
+
+            if (enteredValue == "")
+            {
+                dtgAssetRequestedList.Rows[e.RowIndex].ErrorText = "Please enter a valid request quantity.";
+                e.Cancel = true;
+                return;
+            }
+
+            decimal requestQuantity;
+            if (!decimal.TryParse(enteredValue, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out requestQuantity) ||
+                requestQuantity < 0)
+            {
+                dtgAssetRequestedList.Rows[e.RowIndex].ErrorText = "Enter a valid decimal quantity greater than or equal to 0.";
+                e.Cancel = true;
+                return;
+            }
+
+            dtgAssetRequestedList.Rows[e.RowIndex].ErrorText = "";
+        }
+
+        private void dtgAssetRequestedList_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (_isApplyingAssetGridSearchAndOrder)
+                return;
+
+            if (e.RowIndex < 0 ||
+                dtgAssetRequestedList.Columns[e.ColumnIndex].Name != "RequestQuantity")
+                return;
+
+            DataGridViewRow row = dtgAssetRequestedList.Rows[e.RowIndex];
+
+            decimal requestQuantity = 0;
+            decimal.TryParse(Convert.ToString(row.Cells["RequestQuantity"].Value),
+                NumberStyles.Any, CultureInfo.InvariantCulture, out requestQuantity);
+
+            row.Cells["Select"].Value = requestQuantity > 0;
+            ApplyAssetGridSearchAndSelectionOrder();
+        }
+
+        private void txtSearchAssets_TextChanged(object sender, EventArgs e)
+        {
+            ApplyAssetGridSearchAndSelectionOrder();
+        }
+
+        private void ApplyAssetGridSearchAndSelectionOrder()
+        {
+            if (_isApplyingAssetGridSearchAndOrder)
+                return;
+
+            try
+            {
+                _isApplyingAssetGridSearchAndOrder = true;
+
+                // Commit the current cell edit before reading the quantity and checkbox values.
+                dtgAssetRequestedList.EndEdit();
+
+                string searchText = txtSearchAssets.Text.Trim();
+
+                // Preserve the editable grid values before rebinding the List<AssetInfoListing>.
+                Dictionary<int, Tuple<object, object>> gridValues =
+                    new Dictionary<int, Tuple<object, object>>();
+
+                foreach (DataGridViewRow row in dtgAssetRequestedList.Rows)
+                {
+                    if (row.IsNewRow || row.Cells["AssetID"].Value == null)
+                        continue;
+
+                    int assetID = Convert.ToInt32(row.Cells["AssetID"].Value);
+                    object selectValue = row.Cells["Select"].Value;
+                    object quantityValue = row.Cells["RequestQuantity"].Value;
+
+                    gridValues[assetID] = Tuple.Create(selectValue, quantityValue);
+                }
+
+                // The current DataSource is List<AssetInfoListing>.
+                System.Collections.IList currentList =
+                    dtgAssetRequestedList.DataSource as System.Collections.IList;
+
+                if (currentList == null)
+                    return;
+
+                // Build the order from the current grid values:
+                // checked rows first, followed by unchecked rows.
+                List<object> selectedItems = new List<object>();
+                List<object> unselectedItems = new List<object>();
+
+                foreach (DataGridViewRow row in dtgAssetRequestedList.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
+
+                    object dataItem = row.DataBoundItem;
+                    if (dataItem == null)
+                        continue;
+
+                    bool isSelected = row.Cells["Select"].Value != null &&
+                                      Convert.ToBoolean(row.Cells["Select"].Value);
+
+                    if (isSelected)
+                        selectedItems.Add(dataItem);
+                    else
+                        unselectedItems.Add(dataItem);
+                }
+
+                // Recreate the same List<T> type in the required order.
+                System.Collections.IList reorderedList =
+                    (System.Collections.IList)Activator.CreateInstance(currentList.GetType());
+
+                foreach (object item in selectedItems)
+                    reorderedList.Add(item);
+
+                foreach (object item in unselectedItems)
+                    reorderedList.Add(item);
+
+                dtgAssetRequestedList.DataSource = null;
+                dtgAssetRequestedList.DataSource = reorderedList;
+
+                // Reapply the existing grid formatting after rebinding.
+                FormatGrid();
+
+                // Restore Select and RequestQuantity values, including values entered by the user.
+                foreach (DataGridViewRow row in dtgAssetRequestedList.Rows)
+                {
+                    if (row.IsNewRow || row.Cells["AssetID"].Value == null)
+                        continue;
+
+                    int assetID = Convert.ToInt32(row.Cells["AssetID"].Value);
+
+                    if (gridValues.ContainsKey(assetID))
+                    {
+                        row.Cells["Select"].Value = gridValues[assetID].Item1;
+                        row.Cells["RequestQuantity"].Value = gridValues[assetID].Item2;
+                    }
+                }
+
+                // Apply Asset Name filtering after the selected rows have been placed first.
+                foreach (DataGridViewRow row in dtgAssetRequestedList.Rows)
+                {
+                    if (row.IsNewRow)
+                        continue;
+
+                    string assetName = Convert.ToString(row.Cells["AssetName"].Value);
+
+                    row.Visible = string.IsNullOrWhiteSpace(searchText) ||
+                                  assetName.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0;
+                }
+            }
+            finally
+            {
+                _isApplyingAssetGridSearchAndOrder = false;
+            }
+        }
+
+        private bool ValidateAssetRequestGrid()
+        {
+            dtgAssetRequestedList.EndEdit();
+
+            bool hasSelectedRow = false;
+
+            foreach (DataGridViewRow row in dtgAssetRequestedList.Rows)
+            {
+                bool isSelected = row.Cells["Select"].Value != null &&
+                                  Convert.ToBoolean(row.Cells["Select"].Value);
+
+                if (!isSelected)
+                    continue;
+
+                hasSelectedRow = true;
+
+                decimal requestQuantity;
+                decimal outstandingQuantity;
+
+                if (!decimal.TryParse(Convert.ToString(row.Cells["RequestQuantity"].Value),
+                        NumberStyles.Any, CultureInfo.InvariantCulture, out requestQuantity) ||
+                    requestQuantity <= 0)
+                {
+                    MessageBox.Show("Request Quantity must be greater than 0 for every selected asset.",
+                        "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    dtgAssetRequestedList.CurrentCell = row.Cells["RequestQuantity"];
+                    return false;
+                }
+
+                if (!decimal.TryParse(Convert.ToString(row.Cells["OutstandingQuantity"].Value),
+                        NumberStyles.Any, CultureInfo.InvariantCulture, out outstandingQuantity))
+                {
+                    outstandingQuantity = 0;
+                }
+
+                if (requestQuantity > outstandingQuantity)
+                {
+                    MessageBox.Show("Request Quantity cannot be greater than the Available Quantity for asset: " +
+                        Convert.ToString(row.Cells["AssetName"].Value),
+                        "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    dtgAssetRequestedList.CurrentCell = row.Cells["RequestQuantity"];
+                    return false;
+                }
+            }
+
+            if (!hasSelectedRow)
+            {
+                MessageBox.Show("Please enter a Request Quantity greater than 0 for at least one asset.",
+                    "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
         private void FormatGrid()
         {
             dtgAssetRequestedList.Columns["Select"].ReadOnly = true;
@@ -563,20 +856,20 @@ namespace StaffSync
             dtgAssetRequestedList.Columns["AssetCode"].Width = 100;
 
             dtgAssetRequestedList.Columns["AssetName"].ReadOnly = true;
-            dtgAssetRequestedList.Columns["AssetName"].Width = 250;
+            dtgAssetRequestedList.Columns["AssetName"].Width = 350;
 
             dtgAssetRequestedList.Columns["AssetDescription"].Visible = false;
             dtgAssetRequestedList.Columns["AssetDescription"].ReadOnly = true;
             dtgAssetRequestedList.Columns["AssetDescription"].Width = 250;
 
             dtgAssetRequestedList.Columns["AssetCategoryName"].ReadOnly = true;
-            dtgAssetRequestedList.Columns["AssetCategoryName"].Width = 100;
+            dtgAssetRequestedList.Columns["AssetCategoryName"].Width = 150;
 
             dtgAssetRequestedList.Columns["CurrentAssetStatusName"].ReadOnly = true;
             dtgAssetRequestedList.Columns["CurrentAssetStatusName"].Width = 150;
             dtgAssetRequestedList.Columns["CurrentAssetStatusName"].Visible = false;
 
-            dtgAssetRequestedList.Columns["OutstandingQuantity"].Visible = false; 
+            dtgAssetRequestedList.Columns["OutstandingQuantity"].Visible = false;
             dtgAssetRequestedList.Columns["OutstandingQuantity"].HeaderText = "Available Quantity";
             dtgAssetRequestedList.Columns["OutstandingQuantity"].ReadOnly = true;
             dtgAssetRequestedList.Columns["OutstandingQuantity"].Width = 125;
@@ -585,6 +878,7 @@ namespace StaffSync
 
             dtgAssetRequestedList.Columns["RequestQuantity"].HeaderText = "Request Quantity";
             dtgAssetRequestedList.Columns["RequestQuantity"].ReadOnly = false;
+            dtgAssetRequestedList.Columns["RequestQuantity"].ValueType = typeof(decimal);
             dtgAssetRequestedList.Columns["RequestQuantity"].Width = 125;
             dtgAssetRequestedList.Columns["RequestQuantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dtgAssetRequestedList.Columns["RequestQuantity"].DefaultCellStyle.Format = "0.00";
@@ -606,7 +900,7 @@ namespace StaffSync
                 MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID, "update");
             if (strValidationMessage != "Success")
             {
@@ -630,14 +924,14 @@ namespace StaffSync
                 MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             string strValidationMessage = objLogin.ValidateUserRolesAndResponsibilitiesInfo(objTempCurrentlyLoggedInUserInfo.EmpID, "delete");
             if (strValidationMessage != "Success")
             {
                 MessageBox.Show(strValidationMessage, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             if (lblActionMode.Text == "" || lblActionMode.Text == "remove")
             {
                 lblActionMode.Text = "remove";
@@ -736,7 +1030,7 @@ namespace StaffSync
         }
 
         private void btnRepSearch_Click(object sender, EventArgs e)
-        {   
+        {
             //if (lblActionMode.Text == "add")
             //{
             //    frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAssetRequestingManager");
@@ -812,7 +1106,7 @@ namespace StaffSync
 
         private void txtAdvanceAmount_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtAdvanceStartDate_TextChanged(object sender, EventArgs e)
@@ -847,7 +1141,7 @@ namespace StaffSync
 
         private void lblViewEmpSpecificAdvanceInfo_Click(object sender, EventArgs e)
         {
-            if(lblEmpID.Text.Trim() == "")
+            if (lblEmpID.Text.Trim() == "")
                 return;
 
             //frmEmpAdvanceTRList frmEmpAdvanceTRList = new frmEmpAdvanceTRList(this, "beforeempadvanceoutstanding", 0, Convert.ToInt32(lblEmpID.Text.ToString()), 0);
