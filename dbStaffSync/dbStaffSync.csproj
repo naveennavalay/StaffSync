@@ -151,6 +151,7 @@
     <None Include="DBStaffSync.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DBStaffSync1.Designer.cs</LastGenOutput>
     </None>
     <None Include="DBStaffSync.xss">
       <DependentUpon>DBStaffSync.xsd</DependentUpon>

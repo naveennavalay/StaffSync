@@ -887,7 +887,7 @@ namespace StaffSync
 
             if (dgv.Rows.Count == 0)
             {
-                string message = "No Data Available";
+                string message = "No Pending Reimbursement(s) Information Available";
 
                 using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
                 {
@@ -904,7 +904,7 @@ namespace StaffSync
 
             if (dgv.Rows.Count == 0)
             {
-                string message = "No Data Available";
+                string message = "No Pending Advance(s) Information Available";
 
                 using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
                 {
@@ -921,7 +921,7 @@ namespace StaffSync
 
             if (dgv.Rows.Count == 0)
             {
-                string message = "No Data Available";
+                string message = "No Pending Asset(s) Information Available";
 
                 using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
                 {
