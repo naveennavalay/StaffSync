@@ -450,6 +450,10 @@ namespace StaffSync
             clearControls();
             disableControls();
             onCancelButtonClick();
+
+            dtgAssetRequestedList.DataSource = null;
+            dtgAssetRequestedList.DataSource = objAssetInfo.getAssetsInfoList(0);
+            FormatGrid();
         }
 
         private void btnReportingManagerSearch_Click(object sender, EventArgs e)
@@ -486,6 +490,10 @@ namespace StaffSync
 
                 //cmbAssetType.SelectedIndex = 1;
                 cmbAssetType.SelectedIndex = 0;
+
+                dtgAssetRequestedList.DataSource = null;
+                dtgAssetRequestedList.DataSource = objAssetInfo.getAssetsInfoList(Convert.ToInt32(lblClientID.Text.ToString()));
+                FormatGrid();
 
                 _originalValues = AuditLogger.getOriginalValues(this);
 
@@ -540,6 +548,55 @@ namespace StaffSync
                 EmpPersonalPersonalInfo objSelectedReportingManagerPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblReportingManagerID.Text));
                 lblRequestToMailID.Text = objSelectedReportingManagerPersonalInfo.ContactNumber2.ToString();
             }
+        }
+
+        private void FormatGrid()
+        {
+            dtgAssetRequestedList.Columns["Select"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["Select"].Width = 50;
+
+            dtgAssetRequestedList.Columns["AssetID"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["AssetID"].Width = 50;
+            dtgAssetRequestedList.Columns["AssetID"].Visible = false;
+
+            dtgAssetRequestedList.Columns["AssetCode"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["AssetCode"].Width = 100;
+
+            dtgAssetRequestedList.Columns["AssetName"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["AssetName"].Width = 250;
+
+            dtgAssetRequestedList.Columns["AssetDescription"].Visible = false;
+            dtgAssetRequestedList.Columns["AssetDescription"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["AssetDescription"].Width = 250;
+
+            dtgAssetRequestedList.Columns["AssetCategoryName"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["AssetCategoryName"].Width = 100;
+
+            dtgAssetRequestedList.Columns["CurrentAssetStatusName"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["CurrentAssetStatusName"].Width = 150;
+            dtgAssetRequestedList.Columns["CurrentAssetStatusName"].Visible = false;
+
+            dtgAssetRequestedList.Columns["OutstandingQuantity"].Visible = false; 
+            dtgAssetRequestedList.Columns["OutstandingQuantity"].HeaderText = "Available Quantity";
+            dtgAssetRequestedList.Columns["OutstandingQuantity"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["OutstandingQuantity"].Width = 125;
+            dtgAssetRequestedList.Columns["OutstandingQuantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dtgAssetRequestedList.Columns["OutstandingQuantity"].DefaultCellStyle.Format = "0.00";
+
+            dtgAssetRequestedList.Columns["RequestQuantity"].HeaderText = "Request Quantity";
+            dtgAssetRequestedList.Columns["RequestQuantity"].ReadOnly = false;
+            dtgAssetRequestedList.Columns["RequestQuantity"].Width = 125;
+            dtgAssetRequestedList.Columns["RequestQuantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dtgAssetRequestedList.Columns["RequestQuantity"].DefaultCellStyle.Format = "0.00";
+
+            dtgAssetRequestedList.Columns["CurrentAssetDescription"].Visible = false;
+            dtgAssetRequestedList.Columns["CurrentAssetDescription"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["CurrentAssetDescription"].Visible = false;
+
+            dtgAssetRequestedList.Columns["IsActive"].Visible = false;
+            dtgAssetRequestedList.Columns["IsDeleted"].Visible = false;
+            dtgAssetRequestedList.Columns["AssetCatMasID"].Visible = false;
+            dtgAssetRequestedList.Columns["ParentAssetCatMasID"].Visible = false;
         }
 
         private void btnModifyDetails_Click(object sender, EventArgs e)

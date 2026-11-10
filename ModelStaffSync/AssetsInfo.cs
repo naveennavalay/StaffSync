@@ -54,6 +54,7 @@ namespace ModelStaffSync
 
     public class AssetInfoListing
     {
+        public bool Select { get; set; }
         public int AssetID { get; set; }
 
         [DisplayName("Asset Code")]
@@ -76,7 +77,7 @@ namespace ModelStaffSync
 
         [DisplayName("Asset Current Status Description")] 
         public string CurrentAssetDescription { get; set; }
-
+        public decimal RequestQuantity { get; set; } = 0;
         public int AssetCatMasID { get; set; }
         public int ParentAssetCatMasID { get; set; }
         public bool IsActive { get; set; }

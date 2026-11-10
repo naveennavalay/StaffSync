@@ -9264,6 +9264,12 @@ namespace StaffSync
 
         private void manageResignationsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (this.MdiChildren.Length == 0)
             {
                 lblDashboardTitle.Text = "Manage Resignations";
@@ -9274,6 +9280,27 @@ namespace StaffSync
                 frmEmployeeResignationManagement.Dock = DockStyle.Fill;
                 frmEmployeeResignationManagement.Show();
                 frmEmployeeResignationManagement.WindowState = FormWindowState.Maximized;
+            }
+        }
+
+        private void assetReturnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CurrentUser.ClientID == 0)
+            {
+                MessageBox.Show("Please select client and financial year from dashboard.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (this.MdiChildren.Length == 0)
+            {
+                lblDashboardTitle.Text = "Asset Allotment";
+                sptrDashboardContainer.Visible = false;
+                grpDashboardDateRange.Visible = false;
+                frmEmpAssetAllotment frmEmpAssetAllotment = new frmEmpAssetAllotment(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo, Convert.ToDateTime(txtDTFrom.Text), Convert.ToDateTime(txtDTTo.Text));
+                frmEmpAssetAllotment.MdiParent = this;
+                //frmExportDataProcess.Dock = DockStyle.Fill;
+                frmEmpAssetAllotment.Show();
+                //frmExportDataProcess.WindowState = FormWindowState.Maximized;            
             }
         }
     }
