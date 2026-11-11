@@ -101,9 +101,14 @@ namespace DALStaffSync
             return objAssetsInfo.DeleteAssetMoreInfo(AssetID);
         }
 
-        public int InsertAssetRequestInfo(string txtAssetRequestCode, int AssetID, bool IsActive, bool IsDeleted, int txtAssetRequestByID, DateTime dtAssetRequestDate, string txtAssetRequestComments, bool AssetRequestByStatus, DateTime dtRequestedDate, int txtRequestedTo, bool RequestedToStatus, string txtRequestedToComments, bool AssetRequestStatus)
+        public int InsertAssetRequestInfo(string txtAssetRequestCode, bool IsActive, bool IsDeleted, int txtPersonalInfoID, int AssetRequestByID, DateTime dtAssetRequestDate, string txtAssetRequestComments, bool AssetRequestByStatus, DateTime dtRequestedDate, int txtRequestedTo, bool RequestedToStatus, string txtRequestedToComments, bool AssetRequestStatus)
         {
-            return objAssetsInfo.InsertAssetRequestInfo(txtAssetRequestCode, AssetID, IsActive, IsDeleted, txtAssetRequestByID, dtAssetRequestDate, txtAssetRequestComments, AssetRequestByStatus, dtRequestedDate, txtRequestedTo, RequestedToStatus, txtRequestedToComments, AssetRequestStatus);
+            return objAssetsInfo.InsertAssetRequestInfo(txtAssetRequestCode, IsActive, IsDeleted, txtPersonalInfoID, AssetRequestByID, dtAssetRequestDate, txtAssetRequestComments, AssetRequestByStatus, dtRequestedDate, txtRequestedTo, RequestedToStatus, txtRequestedToComments, AssetRequestStatus);
+        }
+
+        public int InsertAssetRequestDetailInfo(int AssetRequestID, int AssetID, decimal AssetRequestQty, int AssetRequestByID, DateTime AssetRequestDate, string AssetRequestComments, bool AssetRequestByStatus, DateTime RequestedDate, int RequestedTo, bool RequestedToStatus, string RequestedToComments, bool AssetRequestStatus)
+        {
+            return objAssetsInfo.InsertAssetRequestDetailInfo(AssetRequestID, AssetID, AssetRequestQty, AssetRequestByID, AssetRequestDate, AssetRequestComments, AssetRequestByStatus, RequestedDate, RequestedTo, RequestedToStatus, RequestedToComments, AssetRequestStatus);
         }
 
         public int UpdateAssetRequestInfo(int AssetRequestID, int AssetID, bool IsActive, bool IsDeleted, int txtAssetRequestByID, DateTime dtAssetRequestDate, string txtAssetRequestComments, bool AssetRequestByStatus, DateTime dtRequestedDate, int txtRequestedTo, bool RequestedToStatus, string txtRequestedToComments, bool AssetRequestStatus)

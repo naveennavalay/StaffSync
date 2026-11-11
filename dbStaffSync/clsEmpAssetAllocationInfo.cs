@@ -26,6 +26,38 @@ namespace dbStaffSync
 
         }
 
+        public int UpdateAssetAllotmentStatus(int AssetRequestID, bool AssetAllotmentStatus)
+        {
+            int affectedRows = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "UPDATE EmpAssetRequest SET " +
+                                        "AssetAllotmentStatus = " + AssetAllotmentStatus +
+                                " WHERE " +
+                                    "AssetRequestID = " + AssetRequestID;
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = AssetRequestID;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
         public int InsertEmployeeAssetAllocationShortInformation(int PersonalInfoID, int AssetID, DateTime TransDate, string Description, int AssetRequestID)
         {
             int affectedRows = 0;

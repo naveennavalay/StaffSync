@@ -162,6 +162,52 @@ namespace dbStaffSync
                 return new SpecificAssetRegisterInfo();
         }
 
+        public List<AssetsAssociatedWithRequest> getEmployeeAssetRequestInfoDetails(int EmpAssetRequestID)
+        {
+            List<AssetsAssociatedWithRequest> objAssetsAssociatedWithRequestList = new List<AssetsAssociatedWithRequest>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                            EmpAssetRequestDetails.AssetRequestDetailID,
+                                            EmpAssetRequestDetails.AssetID,
+                                            EmpAssetRequestDetails.AssetRequestQty,
+                                            EmpAssetRequestDetails.AssetRequestID
+                                        FROM
+                                            EmpAssetRequestDetails
+                                        WHERE
+                                            (((EmpAssetRequestDetails.AssetRequestID) = " + EmpAssetRequestID + @"))
+                                        ORDER BY
+                                            EmpAssetRequestDetails.AssetRequestDetailID Asc;";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objAssetsAssociatedWithRequestList = JsonConvert.DeserializeObject<List<AssetsAssociatedWithRequest>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objAssetsAssociatedWithRequestList;
+        }
+
         public AssetRegister getSpecificAssetRegisterInfo(int AssetID, DateTime AssetTRDate, int EmpAssetRequestID)
         {
             List<AssetRegister> objAssetRegisterInfo = new List<AssetRegister>();
@@ -509,6 +555,50 @@ namespace dbStaffSync
                             ORDER BY
                                 R.AssetRequestID,
                                 R.AssetRequestDate;";
+
+
+                strQuery = @"SELECT
+                                    EmpMas.EmpID,
+                                    EmpMas.EmpCode,
+                                    EmpMas.EmpName,
+                                    DepMas.DepartmentTitle,
+                                    DesigMas.DesignationTitle,
+                                    PersonalInfoMas.PersonalInfoID,
+                                    EmpAssetRequest.AssetRequestID,
+                                    EmpAssetRequest.AssetRequestCode,
+                                    EmpAssetRequest.AssetRequestDate,
+                                    EmpAssetRequest.AssetRequestComments,
+                                    EmpAssetRequest.RequestedDate,
+                                    EmpAssetRequest.RequestedTo,
+                                    EmpAssetRequest.RequestedToComments,
+                                    EmpAssetRequest.AssetRequestStatus,
+                                    EmpAssetRequest.AssetRequestByID,
+                                    IIf(EmpAssetRequest.AssetRequestByStatus = False, ""Pending"", """") AS RequestStatus,
+                                    EmpAssetRequest.RequestedToStatus,
+                                    ClientMas.ClientID
+                                FROM
+                                    (
+                                        (
+                                            ClientMas
+                                            INNER JOIN (
+                                                DesigMas
+                                                INNER JOIN (
+                                                    DepMas
+                                                    INNER JOIN EmpMas ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                                ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                            ) ON ClientMas.ClientID = EmpMas.ClientID
+                                        )
+                                        INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                    )
+                                    INNER JOIN EmpAssetRequest ON PersonalInfoMas.PersonalInfoID = EmpAssetRequest.PersonalInfoID
+                                WHERE
+                                    (
+                                        ((EmpAssetRequest.AssetRequestByID) = " + FirstApproverID + @")
+                                        AND ((EmpAssetRequest.AssetRequestByStatus) = False)
+                                        AND ((EmpAssetRequest.RequestedToStatus) = False)
+                                        AND ((EmpAssetRequest.AssetRequestStatus) = False)
+                                        AND ((ClientMas.ClientID) = " + txtClientID + @")
+                                    );";
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
@@ -600,6 +690,50 @@ namespace dbStaffSync
                             ORDER BY
                                 R.AssetRequestID,
                                 R.AssetRequestDate;";
+
+                strQuery = @"SELECT
+                                    EmpMas.EmpID,
+                                    EmpMas.EmpCode,
+                                    EmpMas.EmpName,
+                                    DepMas.DepartmentTitle,
+                                    DesigMas.DesignationTitle,
+                                    PersonalInfoMas.PersonalInfoID,
+                                    EmpAssetRequest.AssetRequestID,
+                                    EmpAssetRequest.AssetRequestCode,
+                                    EmpAssetRequest.AssetRequestDate,
+                                    EmpAssetRequest.AssetRequestComments,
+                                    EmpAssetRequest.RequestedDate,
+                                    EmpAssetRequest.RequestedTo,
+                                    EmpAssetRequest.RequestedToComments,
+                                    EmpAssetRequest.RequestedToStatus,
+                                    EmpAssetRequest.AssetRequestStatus,
+                                    EmpAssetRequest.RequestedTo,
+                                    IIf(EmpAssetRequest.AssetRequestStatus = False, ""Pending"", """") AS RequestStatus,
+                                    ClientMas.ClientID
+                                FROM
+                                    (
+                                        (
+                                            DesigMas
+                                            INNER JOIN (
+                                                DepMas
+                                                INNER JOIN (
+                                                    ClientMas
+                                                    INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                            ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                        )
+                                        INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                    )
+                                    INNER JOIN EmpAssetRequest ON PersonalInfoMas.PersonalInfoID = EmpAssetRequest.PersonalInfoID
+                                WHERE
+                                    (
+                                        ((EmpAssetRequest.AssetRequestByStatus) = True)
+                                        AND ((EmpAssetRequest.RequestedToStatus) = True)
+                                        AND ((EmpAssetRequest.AssetRequestStatus) = False)
+                                        AND ((EmpAssetRequest.RequestedTo) = " + SecondApproverID + @")
+                                        AND ((ClientMas.ClientID) = " + txtClientID + @")
+                                    );";
+
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = strQuery;
@@ -634,62 +768,48 @@ namespace dbStaffSync
             {
                 conn = dbStaffSync.openDBConnection();
 
-                string strQuery = @"SELECT
-                                        R.AssetRequestID,    
-                                        AssetCategoryMas.AssetCatMasID,
-                                        AssetCategoryMas.AssetCode AS CatAssetCode,
-                                        AssetCategoryMas.AssetName AS CatAssetName,
-                                        AssetMas.AssetCode,
-                                        AssetMas.AssetName,
-                                        R.AssetRequestCode,
-                                        R.AssetRequestDate,
-                                        R.AssetRequestComments,
-                                        IIf(R.AssetRequestStatus = True, ""Approved"", """") AS RequestStatus,
-                                        E.EmpID,
-                                        E.EmpCode,
-                                        E.EmpName,
-                                        D.DesignationTitle,
-                                        P.DepartmentTitle,
-                                        PersonalInfoMas.PersonalInfoID,
-                                        EmpAssetAllocation.IssueDate,
-                                        CL.ClientID
-                                    FROM
-                                        AssetCategoryMas
+                string strQuery = @"";
+                strQuery = @"SELECT
+                                EmpMas.EmpID,
+                                EmpMas.EmpCode,
+                                EmpMas.EmpName,
+                                DepMas.DepartmentTitle,
+                                DesigMas.DesignationTitle,
+                                PersonalInfoMas.PersonalInfoID,
+                                EmpAssetRequest.AssetRequestID,
+                                EmpAssetRequest.AssetRequestCode,
+                                EmpAssetRequest.AssetRequestDate,
+                                EmpAssetRequest.AssetRequestComments,
+                                EmpAssetRequest.RequestedDate,
+                                EmpAssetRequest.RequestedTo,
+                                EmpAssetRequest.RequestedToComments,
+                                EmpAssetRequest.AssetRequestStatus,
+                                EmpAssetRequest.AssetRequestByID,
+                                EmpAssetRequest.AssetRequestByStatus,
+                                EmpAssetRequest.RequestedToStatus,
+                                ClientMas.ClientID
+                            FROM
+                                (
+                                    (
+                                        DesigMas
                                         INNER JOIN (
-                                            AssetMas
+                                            DepMas
                                             INNER JOIN (
-                                                (
-                                                    (
-                                                        DesigMas AS D
-                                                        INNER JOIN (
-                                                            DepMas AS P
-                                                            INNER JOIN (
-                                                                ClientMas AS CL
-                                                                INNER JOIN (
-                                                                    EmpAssetRequest AS R
-                                                                    INNER JOIN EmpMas AS E ON R.AssetRequestByID = E.EmpID
-                                                                ) ON CL.ClientID = E.ClientID
-                                                            ) ON P.DepartmentID = E.DepartmentID
-                                                        ) ON D.DesignationID = E.EmpDesignationID
-                                                    )
-                                                    INNER JOIN EmpAssetAllocation ON R.AssetRequestID = EmpAssetAllocation.AssetRequestID
-                                                )
-                                                INNER JOIN PersonalInfoMas ON E.EmpID = PersonalInfoMas.EmpID
-                                            ) ON AssetMas.AssetID = EmpAssetAllocation.AssetID
-                                        ) ON AssetCategoryMas.AssetCatMasID = AssetMas.AssetCatMasID
-                                    WHERE
-                                        (
-                                            ((EmpAssetAllocation.IssueDate) IS NULL)
-                                            AND ((CL.ClientID) = " + ClientID + @")
-                                            AND ((R.AssetRequestByStatus) = True)
-                                            AND ((R.RequestedToStatus) = True)
-                                            AND ((R.AssetRequestStatus) = True)
-                                            AND ((R.IsActive) = True)
-                                            AND ((R.IsDeleted) = False)
-                                        )
-                                    ORDER BY
-                                        R.AssetRequestID,
-                                        R.AssetRequestDate;";
+                                                ClientMas
+                                                INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                            ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                        ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                    )
+                                    INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                )
+                                INNER JOIN EmpAssetRequest ON PersonalInfoMas.PersonalInfoID = EmpAssetRequest.PersonalInfoID
+                            WHERE
+                                (
+                                    ((EmpAssetRequest.AssetRequestStatus) = True)
+                                    AND ((EmpAssetRequest.AssetRequestByStatus) = True)
+                                    AND ((EmpAssetRequest.RequestedToStatus) = True)
+                                    AND ((ClientMas.ClientID) =  " + ClientID + @")
+                                );";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -808,6 +928,79 @@ namespace dbStaffSync
             return objApprovedAssetInformationRequestListInfo;
         }
 
+        public SelectedAssetMasterInfo getAssetMasterInfoOfSelectedAssetRequest(int AssetRequestID)
+        {
+            List<SelectedAssetMasterInfo> objSelectedAssetMasterInfoList = new List<SelectedAssetMasterInfo>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"SELECT
+                                        EmpMas.EmpID,
+                                        EmpMas.EmpCode,
+                                        EmpMas.EmpName,
+                                        EmpMas.EmpRepManID,
+                                        DesigMas.DesignationTitle,
+                                        DepMas.DepartmentTitle,
+                                        PersonalInfoMas.PersonalInfoID,
+                                        EmpAssetRequest.AssetRequestCode,
+                                        EmpAssetRequest.AssetRequestDate,
+                                        EmpAssetRequest.AssetRequestComments,
+                                        EmpAssetRequest.AssetRequestID
+                                    FROM
+                                        (
+                                            (
+                                                DesigMas
+                                                INNER JOIN (
+                                                    DepMas
+                                                    INNER JOIN (
+                                                        ClientMas
+                                                        INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                    ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                                ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                            )
+                                            INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                        )
+                                        INNER JOIN EmpAssetRequest ON PersonalInfoMas.PersonalInfoID = EmpAssetRequest.PersonalInfoID
+                                    WHERE
+                                        (
+                                            ((EmpAssetRequest.AssetRequestID) = " + AssetRequestID + @")
+                                            AND ((EmpAssetRequest.AssetRequestStatus) = True)
+                                            AND ((EmpAssetRequest.AssetRequestByStatus) = True)
+                                            AND ((EmpAssetRequest.RequestedToStatus) = True)
+                                        );";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objSelectedAssetMasterInfoList = JsonConvert.DeserializeObject<List<SelectedAssetMasterInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            if(objSelectedAssetMasterInfoList.Count > 0)
+                return objSelectedAssetMasterInfoList[0];
+            else
+                return new SelectedAssetMasterInfo();
+
+        }
+
         public List<AssetInformationOfAnAssetRequest> getAssetInformationOfAnAssetRequest(int AssetRequestID)
         {
             List<AssetInformationOfAnAssetRequest> objAssetInformationOfAnAssetRequestInfo = new List<AssetInformationOfAnAssetRequest>();
@@ -868,6 +1061,122 @@ namespace dbStaffSync
                                 C.AssetCatMasID,
                                 A.AssetID,
                                 R.AssetRequestID;";
+
+
+                strQuery = @"SELECT
+                                    AssetCategoryMas.AssetCatMasID,
+                                    AssetCategoryMas.AssetName AS AssetCategoryName,
+                                    AssetMas.AssetID,
+                                    AssetMas.AssetCode,
+                                    AssetMas.AssetName,
+                                    AssetMasMoreDetails.SerialNumber,
+                                    AssetMasMoreDetails.ModelNumber,
+                                    AssetMasMoreDetails.AssetTag,
+                                    EmpAssetRequestDetails.AssetRequestQty,
+                                    AssetRegister.TRType,
+                                    AssetRegister.Comments,
+                                    EmpAssetRequest.AssetRequestID
+                                FROM
+                                    (
+                                        (
+                                            (
+                                                DesigMas
+                                                INNER JOIN (
+                                                    DepMas
+                                                    INNER JOIN (
+                                                        ClientMas
+                                                        INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                    ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                                ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                            )
+                                            INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                        )
+                                        INNER JOIN (
+                                            EmpAssetRequest
+                                            INNER JOIN (
+                                                (
+                                                    (
+                                                        AssetCategoryMas
+                                                        INNER JOIN AssetMas ON AssetCategoryMas.AssetCatMasID = AssetMas.AssetCatMasID
+                                                    )
+                                                    INNER JOIN AssetMasMoreDetails ON AssetMas.AssetID = AssetMasMoreDetails.AssetID
+                                                )
+                                                INNER JOIN EmpAssetRequestDetails ON AssetMas.AssetID = EmpAssetRequestDetails.AssetID
+                                            ) ON EmpAssetRequest.AssetRequestID = EmpAssetRequestDetails.AssetRequestID
+                                        ) ON PersonalInfoMas.PersonalInfoID = EmpAssetRequest.PersonalInfoID
+                                    )
+                                    INNER JOIN AssetRegister ON AssetMas.AssetID = AssetRegister.AssetID
+                                WHERE
+                                    (
+                                        ((AssetRegister.TRType) = 'Dr')
+                                        AND ((AssetRegister.Comments) = ""To Asset Issue"")
+                                        AND ((EmpAssetRequest.AssetRequestID) = " + AssetRequestID + @")
+                                        AND ((EmpAssetRequest.AssetRequestStatus) = True)
+                                        AND ((EmpAssetRequest.AssetRequestByStatus) = True)
+                                        AND ((EmpAssetRequest.RequestedToStatus) = True)
+                                    );";
+
+                strQuery = @"SELECT
+                                    EmpAssetAllocation.EmpAssetAllocationID,
+                                    AssetCategoryMas.AssetCatMasID AS AssetCatMasID,
+                                    AssetCategoryMas.AssetName AS AssetCategoryName,
+                                    AssetMas.AssetID,
+                                    AssetMas.AssetCode,
+                                    AssetMas.AssetName,
+                                    AssetMasMoreDetails.SerialNumber,
+                                    AssetMasMoreDetails.ModelNumber,
+                                    AssetMasMoreDetails.AssetTag,
+                                    EmpAssetRequestDetails.AssetRequestQty,
+                                    AssetRegister.TRType,
+                                    AssetRegister.Comments,
+                                    EmpAssetRequest.AssetRequestID
+                                FROM
+                                    (
+                                        (
+                                            (
+                                                DesigMas
+                                                INNER JOIN (
+                                                    DepMas
+                                                    INNER JOIN (
+                                                        ClientMas
+                                                        INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                                    ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                                ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                            )
+                                            INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                        )
+                                        INNER JOIN (
+                                            EmpAssetRequest
+                                            INNER JOIN (
+                                                (
+                                                    (
+                                                        (
+                                                            AssetCategoryMas
+                                                            INNER JOIN AssetMas ON AssetCategoryMas.AssetCatMasID = AssetMas.AssetCatMasID
+                                                        )
+                                                        INNER JOIN AssetMasMoreDetails ON AssetMas.AssetID = AssetMasMoreDetails.AssetID
+                                                    )
+                                                    INNER JOIN AssetRegister ON AssetMas.AssetID = AssetRegister.AssetID
+                                                )
+                                                INNER JOIN EmpAssetRequestDetails ON AssetMas.AssetID = EmpAssetRequestDetails.AssetID
+                                            ) ON EmpAssetRequest.AssetRequestID = EmpAssetRequestDetails.AssetRequestID
+                                        ) ON PersonalInfoMas.PersonalInfoID = EmpAssetRequest.PersonalInfoID
+                                    )
+                                    INNER JOIN EmpAssetAllocation ON (
+                                        EmpAssetRequestDetails.AssetID = EmpAssetAllocation.AssetID
+                                    )
+                                    AND (
+                                        EmpAssetRequest.AssetRequestID = EmpAssetAllocation.AssetRequestID
+                                    )
+                                WHERE
+                                    (
+                                        ((AssetRegister.TRType) = 'Dr')
+                                        AND ((AssetRegister.Comments) = ""To Asset Issue"")
+                                        AND ((EmpAssetRequest.AssetRequestID) = " + AssetRequestID + @")
+                                        AND ((EmpAssetRequest.AssetRequestStatus) = True)
+                                        AND ((EmpAssetRequest.AssetRequestByStatus) = True)
+                                        AND ((EmpAssetRequest.RequestedToStatus) = True)
+                                    );";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -992,6 +1301,85 @@ namespace dbStaffSync
 
             return objAssetAnalyticsInformationInfo;
         }
+
+        public List<ApprovedAssetInformationRequestList> getAssetAllotmentPendingRequestList(int ClientID)
+        {
+            List<ApprovedAssetInformationRequestList> objApprovedAssetInformationRequestListInfo = new List<ApprovedAssetInformationRequestList>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = @"";
+                strQuery = @"SELECT
+                                EmpMas.EmpID,
+                                EmpMas.EmpCode,
+                                EmpMas.EmpName,
+                                DepMas.DepartmentTitle,
+                                DesigMas.DesignationTitle,
+                                PersonalInfoMas.PersonalInfoID,
+                                EmpAssetRequest.AssetRequestID,
+                                EmpAssetRequest.AssetRequestCode,
+                                EmpAssetRequest.AssetRequestDate,
+                                EmpAssetRequest.AssetRequestComments,
+                                EmpAssetRequest.RequestedDate,
+                                EmpAssetRequest.RequestedTo,
+                                EmpAssetRequest.RequestedToComments,
+                                EmpAssetRequest.AssetRequestStatus,
+                                EmpAssetRequest.AssetRequestByID,
+                                EmpAssetRequest.AssetRequestByStatus,
+                                EmpAssetRequest.RequestedToStatus,
+                                ClientMas.ClientID
+                            FROM
+                                (
+                                    (
+                                        DesigMas
+                                        INNER JOIN (
+                                            DepMas
+                                            INNER JOIN (
+                                                ClientMas
+                                                INNER JOIN EmpMas ON ClientMas.ClientID = EmpMas.ClientID
+                                            ) ON DepMas.DepartmentID = EmpMas.DepartmentID
+                                        ) ON DesigMas.DesignationID = EmpMas.EmpDesignationID
+                                    )
+                                    INNER JOIN PersonalInfoMas ON EmpMas.EmpID = PersonalInfoMas.EmpID
+                                )
+                                INNER JOIN EmpAssetRequest ON PersonalInfoMas.PersonalInfoID = EmpAssetRequest.PersonalInfoID
+                            WHERE
+                                (
+                                    ((EmpAssetRequest.AssetRequestStatus) = True)
+                                    AND ((EmpAssetRequest.AssetRequestByStatus) = True)
+                                    AND ((EmpAssetRequest.RequestedToStatus) = True)
+                                    AND ((EmpAssetRequest.AssetAllotmentStatus) = False)
+                                    AND ((ClientMas.ClientID) =  " + ClientID + @")
+                                );";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objApprovedAssetInformationRequestListInfo = JsonConvert.DeserializeObject<List<ApprovedAssetInformationRequestList>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objApprovedAssetInformationRequestListInfo;
+        }
+
 
         public int UpdateAssetInventoryCounters(int assetID, string InventoryCounterColumnName, decimal Quantity)
         {

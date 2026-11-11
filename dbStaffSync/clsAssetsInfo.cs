@@ -985,7 +985,7 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int InsertAssetRequestInfo(string txtAssetRequestCode, int AssetID, bool IsActive, bool IsDeleted, int txtAssetRequestByID, DateTime dtAssetRequestDate, string txtAssetRequestComments, bool AssetRequestByStatus, DateTime dtRequestedDate, int txtRequestedTo, bool RequestedToStatus, string txtRequestedToComments, bool AssetRequestStatus)
+        public int InsertAssetRequestInfo(string txtAssetRequestCode, bool IsActive, bool IsDeleted, int txtPersonalInfoID, int txtAssetRequestByID, DateTime dtAssetRequestDate, string txtAssetRequestComments, bool AssetRequestByStatus, DateTime dtRequestedDate, int txtRequestedTo, bool RequestedToStatus, string txtRequestedToComments, bool AssetRequestStatus)
         {
             int affectedRows = 0;
             try
@@ -995,8 +995,41 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO EmpAssetRequest (AssetRequestID, AssetRequestCode, AssetID, IsActive, IsDeleted, AssetRequestByID, AssetRequestDate, AssetRequestComments, AssetRequestByStatus, RequestedDate, RequestedTo, RequestedToStatus, RequestedToComments, AssetRequestStatus, OrderID) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + "ASR-REQ-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "', " + AssetID + ", " + IsActive + "," + IsDeleted + ", " + txtAssetRequestByID + ", '" + dtAssetRequestDate.ToString("dd-MMM-yyyy") + "', '" + txtAssetRequestComments + "', " + AssetRequestByStatus + ", '" + dtRequestedDate.ToString("dd-MMM-yyyy") + "', " + txtRequestedTo + ", " + RequestedToStatus + ", '" + txtRequestedToComments + "', " + AssetRequestStatus + ", " + maxRowCount.Data + ")";
+                string strQuery = "INSERT INTO EmpAssetRequest (AssetRequestID, AssetRequestCode, IsActive, IsDeleted, PersonalInfoID, AssetRequestByID, AssetRequestDate, AssetRequestComments, AssetRequestByStatus, RequestedDate, RequestedTo, RequestedToStatus, RequestedToComments, AssetRequestStatus, OrderID) VALUES " + 
+                 "(" + maxRowCount.Data + ",'" + "ASR-REQ-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "', " + IsActive + "," + IsDeleted + ", " + txtPersonalInfoID + ", " + txtAssetRequestByID + ", '" + dtAssetRequestDate.ToString("dd-MMM-yyyy") + "', '" + txtAssetRequestComments + "', " + AssetRequestByStatus + ", '" + dtRequestedDate.ToString("dd-MMM-yyyy") + "', " + txtRequestedTo + ", " + RequestedToStatus + ", '" + txtRequestedToComments + "', " + AssetRequestStatus + ", " + maxRowCount.Data + ")";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                affectedRows = cmd.ExecuteNonQuery();
+                if (affectedRows > 0)
+                    affectedRows = maxRowCount.Data;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+            return affectedRows;
+        }
+
+
+        public int InsertAssetRequestDetailInfo(int AssetRequestID, int AssetID, decimal AssetRequestQty, int AssetRequestByID, DateTime AssetRequestDate, string AssetRequestComments, bool AssetRequestByStatus, DateTime RequestedDate, int RequestedTo, bool RequestedToStatus, string RequestedToComments, bool AssetRequestStatus)
+        {
+            int affectedRows = 0;
+            try
+            {
+                Response<int> maxRowCount = objGenFunc.getMaxRowCount("EmpAssetRequestDetails", "AssetRequestDetailID");
+
+                conn = dbStaffSync.openDBConnection();
+                dtDataset = new DataSet();
+
+                string strQuery = "INSERT INTO EmpAssetRequestDetails (AssetRequestDetailID, AssetRequestID, AssetID, AssetRequestQty, AssetRequestByID, AssetRequestDate, AssetRequestComments, AssetRequestByStatus, RequestedDate, RequestedTo, RequestedToStatus, RequestedToComments, AssetRequestStatus) VALUES " +
+                 "(" + maxRowCount.Data + "," + AssetRequestID + ", " + AssetID + ", " + AssetRequestQty + ", " + AssetRequestByID + ", '" + AssetRequestDate.ToString("dd-MMM-yyyy") + "', '" + AssetRequestComments + "', " + AssetRequestByStatus + ", '" + RequestedDate.ToString("dd-MMM-yyyy") + "', " + RequestedTo + ", " + RequestedToStatus + ", '" + RequestedToComments + "', " + AssetRequestStatus + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -1136,7 +1169,6 @@ namespace dbStaffSync
             }
             return affectedRows;
         }
-
 
         public int UpdateAssetRequestSecondApprover(int AssetRequestID, string FirstApproverStatus)
         {

@@ -133,6 +133,14 @@ namespace ModelStaffSync
         public int ClientID { get; set; }
     }
 
+    public class  AssetsAssociatedWithRequest
+    {
+        public int AssetRequestDetailID { get; set; }
+        public int AssetID { get; set; }
+        public decimal AssetRequestQty { get; set; }
+        public int AssetRequestID { get; set; }
+    }
+
     public class AssetRegister
     {
         public int AssetRegID { get; set; }
@@ -239,19 +247,19 @@ namespace ModelStaffSync
         
         [DisplayName("Department")] 
         public string DepartmentTitle { get; set; }
+        public int PersonalInfoID { get; set; }
+        //public int AssetCatMasID { get; set; }
 
-        public int AssetCatMasID { get; set; }
+        //[DisplayName("Asset CategoryName")]
+        //public string AssetCategoryName { get; set; }
 
-        [DisplayName("Asset CategoryName")]
-        public string AssetCategoryName { get; set; }
-
-        public int AssetID { get; set; }
+        //public int AssetID { get; set; }
         
-        [DisplayName("Asset Code")] 
-        public string AssetCode { get; set; }
+        //[DisplayName("Asset Code")] 
+        //public string AssetCode { get; set; }
 
-        [DisplayName("Asset Name")] 
-        public string AssetName { get; set; }
+        //[DisplayName("Asset Name")] 
+        //public string AssetName { get; set; }
         public int AssetRequestID {  set; get; }
 
         [DisplayName("Asset Request Code")] 
@@ -279,6 +287,34 @@ namespace ModelStaffSync
         public int ClientID { get; set; }
     }
 
+    public class SelectedAssetMasterInfo
+    {
+        public int EmpID { get; set; }
+
+        [DisplayName("Employee Code")]
+        public string EmpCode { get; set; }
+
+        [DisplayName("Employee Name")]
+        public string EmpName { get; set; }
+
+        [DisplayName("Designation")]
+        public string DesignationTitle { get; set; }
+
+        [DisplayName("Department")]
+        public string DepartmentTitle { get; set; }
+        public int PersonalInfoID { get; set; }
+        public int EmpRepManID { get; set; }
+
+        public int AssetRequestID { set; get; }
+
+        [DisplayName("Asset Request Code")]
+        public string AssetRequestCode { set; get; }
+
+        [DisplayName("Asset Request Date")]
+        public DateTime AssetRequestDate { set; get; }
+        public string AssetRequestComments { set; get; }
+    }
+
     public class  SelectedAssetInfo
     {
         public int AssetID { get; set; }
@@ -300,7 +336,7 @@ namespace ModelStaffSync
     {   
         public int AssetRequestID { get; set; }
         public int AssetCatMasID { get; set; }
-        
+
         [DisplayName("Category Code")] 
         public string CatAssetCode { get; set; }
         
@@ -367,25 +403,29 @@ namespace ModelStaffSync
         [DisplayName("Asset Tag")] 
         public string AssetTag { get; set; }
 
-        [DisplayName("Asset Status")] 
-        public string CurrentAssetStatusName { get; set; }
         public int AssetRequestID { get; set; }
         public int AssetRegID { get; set; }
         
-        [DisplayName("Available Quantity")] 
-        public decimal OBalance { get; set; }
+        //[DisplayName("Available Quantity")] 
+        //public decimal OBalance { get; set; }
 
-        [DisplayName("Requested Quantity")] 
-        public decimal DrBalance { get; set; }
+        //[DisplayName("Requested Quantity")] 
+        //public decimal DrBalance { get; set; }
 
-        [DisplayName("Balance Quantity")] 
-        public decimal CBalance { get; set; }
+        //[DisplayName("Balance Quantity")] 
+        //public decimal CBalance { get; set; }
+
+        [DisplayName("Quantity")] 
+        public decimal AssetRequestQty { get; set; }
 
         [DisplayName("Asset TR Type")]
         public string TRType { get; set; }
 
         [DisplayName("Request Description")] 
         public string Comments { get; set; }
+
+        [DisplayName("Asset Status")]
+        public string CurrentAssetStatusName { get; set; }
 
         [DisplayName("Issue Date")] 
         public DateTime IssueDate { get; set; }

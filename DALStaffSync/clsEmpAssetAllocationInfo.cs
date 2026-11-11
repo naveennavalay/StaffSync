@@ -21,6 +21,11 @@ namespace DALStaffSync
             objEmpAssetAllocationInfo.getEmployeeAssetRequestInfoList(EmployeeID);
         }
 
+        public int UpdateAssetAllotmentStatus(int AssetRequestID, bool AssetAllotmentStatus)
+        {
+            return objEmpAssetAllocationInfo.UpdateAssetAllotmentStatus(AssetRequestID, AssetAllotmentStatus);
+        }
+
         public int InsertEmployeeAssetAllocationShortInformation(int PersonalInfoID, int AssetID, DateTime TransDate, string Description, int AssetRequestID)
         {
             return objEmpAssetAllocationInfo.InsertEmployeeAssetAllocationShortInformation(PersonalInfoID, AssetID, TransDate, Description, AssetRequestID);

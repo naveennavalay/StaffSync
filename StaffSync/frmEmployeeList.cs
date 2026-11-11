@@ -930,14 +930,21 @@ namespace StaffSync
                 dtgEmployeeList.Columns["EmpID"].Visible = false;
                 dtgEmployeeList.Columns["PersonalInfoID"].Visible = false;
                 dtgEmployeeList.Columns["AssetRequestID"].Visible = false;
+                dtgEmployeeList.Columns["AssetCatMasID"].Visible = false;
                 dtgEmployeeList.Columns["CatAssetCode"].Visible = false;
-                dtgEmployeeList.Columns["CatAssetName"].HeaderText = "Category";
-                dtgEmployeeList.Columns["CatAssetName"].Width = 200;
-                dtgEmployeeList.Columns["CatAssetName"].ReadOnly = true;
+                dtgEmployeeList.Columns["CatAssetName"].Visible = false;
+                dtgEmployeeList.Columns["AssetID"].Visible = false;
                 dtgEmployeeList.Columns["AssetCode"].Visible = false;
-                dtgEmployeeList.Columns["AssetName"].HeaderText = "Asset Name";
-                dtgEmployeeList.Columns["AssetName"].Width = 350;
-                dtgEmployeeList.Columns["AssetName"].ReadOnly = true;                
+                dtgEmployeeList.Columns["AssetName"].Visible = false;
+                dtgEmployeeList.Columns["RequestStatus"].Visible = false;
+                //dtgEmployeeList.Columns["CatAssetCode"].Visible = false;
+                //dtgEmployeeList.Columns["CatAssetName"].HeaderText = "Category";
+                //dtgEmployeeList.Columns["CatAssetName"].Width = 200;
+                //dtgEmployeeList.Columns["CatAssetName"].ReadOnly = true;
+                //dtgEmployeeList.Columns["AssetCode"].Visible = false;
+                //dtgEmployeeList.Columns["AssetName"].HeaderText = "Asset Name";
+                //dtgEmployeeList.Columns["AssetName"].Width = 350;
+                //dtgEmployeeList.Columns["AssetName"].ReadOnly = true;                
                 dtgEmployeeList.Columns["AssetRequestCode"].HeaderText = "Asset Request Code";
                 dtgEmployeeList.Columns["AssetRequestCode"].Width = 125;
                 dtgEmployeeList.Columns["AssetRequestCode"].ReadOnly = true;
@@ -954,7 +961,7 @@ namespace StaffSync
                 dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
                 dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
                 dtgEmployeeList.Columns["AssetRequestComments"].HeaderText = "Comments";
-                dtgEmployeeList.Columns["AssetRequestComments"].Width = 350;
+                dtgEmployeeList.Columns["AssetRequestComments"].Width = 300;
                 dtgEmployeeList.Columns["AssetRequestComments"].ReadOnly = true; 
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listAdvanceFirstApproverEmpCode1")
@@ -1051,6 +1058,50 @@ namespace StaffSync
                 dtgEmployeeList.Columns["ContactNumber1"].Width = 250;
                 dtgEmployeeList.Columns["ContactNumber2"].Width = 250;
             }
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetAllotmentPendingList")
+            {
+                dtgEmployeeList.DataSource = null;
+                dtgEmployeeList.DataSource = objAssetRegisterInfo.getAssetAllotmentPendingRequestList(Convert.ToInt16(lblClientID.Text.ToString()));
+                dtgEmployeeList.Columns["AssetCatMasID"].Visible = false;
+                dtgEmployeeList.Columns["AssetID"].Visible = false;
+                dtgEmployeeList.Columns["EmpID"].Visible = false;
+                dtgEmployeeList.Columns["PersonalInfoID"].Visible = false;
+                dtgEmployeeList.Columns["AssetRequestID"].Visible = false;
+                dtgEmployeeList.Columns["AssetCatMasID"].Visible = false;
+                dtgEmployeeList.Columns["CatAssetCode"].Visible = false;
+                dtgEmployeeList.Columns["CatAssetName"].Visible = false;
+                dtgEmployeeList.Columns["AssetID"].Visible = false;
+                dtgEmployeeList.Columns["AssetCode"].Visible = false;
+                dtgEmployeeList.Columns["AssetName"].Visible = false;
+                dtgEmployeeList.Columns["RequestStatus"].Visible = false;
+                //dtgEmployeeList.Columns["CatAssetCode"].Visible = false;
+                //dtgEmployeeList.Columns["CatAssetName"].HeaderText = "Category";
+                //dtgEmployeeList.Columns["CatAssetName"].Width = 200;
+                //dtgEmployeeList.Columns["CatAssetName"].ReadOnly = true;
+                //dtgEmployeeList.Columns["AssetCode"].Visible = false;
+                //dtgEmployeeList.Columns["AssetName"].HeaderText = "Asset Name";
+                //dtgEmployeeList.Columns["AssetName"].Width = 350;
+                //dtgEmployeeList.Columns["AssetName"].ReadOnly = true;                
+                dtgEmployeeList.Columns["AssetRequestCode"].HeaderText = "Asset Request Code";
+                dtgEmployeeList.Columns["AssetRequestCode"].Width = 125;
+                dtgEmployeeList.Columns["AssetRequestCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpCode"].HeaderText = "Emp Code";
+                dtgEmployeeList.Columns["EmpCode"].Width = 100;
+                dtgEmployeeList.Columns["EmpCode"].ReadOnly = true;
+                dtgEmployeeList.Columns["EmpName"].HeaderText = "Employee Name";
+                dtgEmployeeList.Columns["EmpName"].Width = 200;
+                dtgEmployeeList.Columns["EmpName"].ReadOnly = true;
+                dtgEmployeeList.Columns["DesignationTitle"].HeaderText = "Designation";
+                dtgEmployeeList.Columns["DesignationTitle"].Width = 150;
+                dtgEmployeeList.Columns["DesignationTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["DepartmentTitle"].HeaderText = "Department";
+                dtgEmployeeList.Columns["DepartmentTitle"].Width = 150;
+                dtgEmployeeList.Columns["DepartmentTitle"].ReadOnly = true;
+                dtgEmployeeList.Columns["AssetRequestComments"].HeaderText = "Comments";
+                dtgEmployeeList.Columns["AssetRequestComments"].Width = 300;
+                dtgEmployeeList.Columns["AssetRequestComments"].ReadOnly = true;
+            }
+
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -1192,9 +1243,9 @@ namespace StaffSync
             {
                 this.frmEmpReimbursmentPayments.SelectedEmployeeID("listReimbRequestPaymentPendingList", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["ReimbRequestID"].Value.ToString()));
             }
-            else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetRequestPendingList")
+            else if (lblSearchOptionClickedFor.Text.Trim() == "listAssetAllotmentPendingList")
             {
-                this.frmEmpAssetAllotment.SelectedEmployeeID("listAssetRequestPendingList", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["AssetRequestID"].Value.ToString()));
+                this.frmEmpAssetAllotment.SelectedEmployeeID("listAssetAllotmentPendingList", Convert.ToInt16(dtgEmployeeList.SelectedRows[0].Cells["AssetRequestID"].Value.ToString()));
             }
             else if (lblSearchOptionClickedFor.Text.Trim() == "listAdvanceFirstApproverEmpCode1")
             {

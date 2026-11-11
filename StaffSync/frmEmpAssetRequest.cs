@@ -237,6 +237,10 @@ namespace StaffSync
             {
                 int successfulRequests = 0;
 
+                AssetRequestID = objAssetInfo.InsertAssetRequestInfo("", true, false, Convert.ToInt32(lblPersonalInfoID.Text.ToString()), 
+                    Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), "Asset Request", false,
+                    Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), false, "Asset Request", false);
+
                 foreach (DataGridViewRow row in dtgAssetRequestedList.Rows)
                 {
                     bool isSelected = row.Cells["Select"].Value != null && Convert.ToBoolean(row.Cells["Select"].Value);
@@ -248,11 +252,7 @@ namespace StaffSync
                     decimal selectedRequestQuantity = Convert.ToDecimal(row.Cells["RequestQuantity"].Value);
                     string selectedAssetName = Convert.ToString(row.Cells["AssetName"].Value);
 
-                    AssetRequestID = objAssetInfo.InsertAssetRequestInfo("", selectedAssetID, true, false,
-                        Convert.ToInt32(lblPersonalInfoID.Text.ToString()),
-                        Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), selectedAssetName, false,
-                        Convert.ToDateTime(dtAssetRequestDate.Text.ToString()),
-                        Convert.ToInt32(lblReportingManagerID.Text.ToString()), false, "", false);
+                    int AssetRequestDetailID = objAssetInfo.InsertAssetRequestDetailInfo(AssetRequestID, selectedAssetID, selectedRequestQuantity, Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), "Asset Request", false, Convert.ToDateTime(dtAssetRequestDate.Text.ToString()), Convert.ToInt32(lblReportingManagerID.Text.ToString()), false, "Asset Request", false); 
 
                     AssetRequestRegisterID = objAssetRegister.InsertAssetRegisterInfo(selectedAssetID,
                         Convert.ToDateTime(dtAssetRequestDate.Text), 0, selectedRequestQuantity, 0,
@@ -442,6 +442,10 @@ namespace StaffSync
             lblRequestToMailID.Text = "";
 
             lnkViewAuditLog.Visible = false;
+
+            dtgAssetRequestedList.DataSource = null;
+            dtgAssetRequestedList.DataSource = objAssetInfo.getAssetsInfoList(0);
+            FormatGrid();
         }
 
         public void enableControls()
@@ -856,11 +860,11 @@ namespace StaffSync
             dtgAssetRequestedList.Columns["AssetCode"].Width = 100;
 
             dtgAssetRequestedList.Columns["AssetName"].ReadOnly = true;
-            dtgAssetRequestedList.Columns["AssetName"].Width = 350;
+            dtgAssetRequestedList.Columns["AssetName"].Width = 475;
 
             dtgAssetRequestedList.Columns["AssetDescription"].Visible = false;
             dtgAssetRequestedList.Columns["AssetDescription"].ReadOnly = true;
-            dtgAssetRequestedList.Columns["AssetDescription"].Width = 250;
+            dtgAssetRequestedList.Columns["AssetDescription"].Width = 200;
 
             dtgAssetRequestedList.Columns["AssetCategoryName"].ReadOnly = true;
             dtgAssetRequestedList.Columns["AssetCategoryName"].Width = 150;

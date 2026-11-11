@@ -205,15 +205,16 @@ namespace StaffSync
                 {
                     if (Convert.ToBoolean(dc.Cells["Select"].Value.ToString()) == true)
                     {
-                        int AssetID = Convert.ToInt32(dc.Cells["AssetID"].Value);
+                        //int AssetID = Convert.ToInt32(dc.Cells["AssetID"].Value);
                         int AssetRequestID = Convert.ToInt32(dc.Cells["AssetRequestID"].Value);
                         string AssetRequestCode = dc.Cells["AssetRequestCode"].Value.ToString();
                         string AssetRequestStatus = dc.Cells["RequestStatus"].Value.ToString();
-                        objAssetsInfo.UpdateAssetRequestFirstApprover(AssetRequestID, AssetRequestStatus);
-                        SelectedAssetInfo objSelectedAssetInfo = objAssetsInfo.getSelectedAssetInfo(AssetID);
-                        SpecificAssetRegisterInfo objSpecificAssetRegisterInfo = objAssetRegister.getSpecificAssetRegisterInfo(AssetID, AssetRequestID);
 
-                        decimal newBalance = objSelectedAssetInfo.OutstandingQuantity - objSpecificAssetRegisterInfo.CBalance;
+                        objAssetsInfo.UpdateAssetRequestFirstApprover(AssetRequestID, AssetRequestStatus);
+
+                        //SelectedAssetInfo objSelectedAssetInfo = objAssetsInfo.getSelectedAssetInfo(AssetID);
+                        //SpecificAssetRegisterInfo objSpecificAssetRegisterInfo = objAssetRegister.getSpecificAssetRegisterInfo(AssetID, AssetRequestID);
+                        //decimal newBalance = objSelectedAssetInfo.OutstandingQuantity - objSpecificAssetRegisterInfo.CBalance;
 
                         if (AssetRequestStatus.ToString() == "In Progress" || AssetRequestStatus.ToString() == "Pending")
                         {
@@ -305,17 +306,14 @@ namespace StaffSync
                 {
                     if (Convert.ToBoolean(dc.Cells["Select"].Value.ToString()) == true)
                     {
-                        int AssetID = Convert.ToInt32(dc.Cells["AssetID"].Value);
+                        //int AssetID = Convert.ToInt32(dc.Cells["AssetID"].Value);
                         int AssetRequestID = Convert.ToInt32(dc.Cells["AssetRequestID"].Value);
                         string AssetRequestCode = dc.Cells["AssetRequestCode"].Value.ToString();
                         string AssetRequestStatus = dc.Cells["RequestStatus"].Value.ToString();
                         
                         objAssetsInfo.UpdateAssetRequestSecondApprover(AssetRequestID, AssetRequestStatus);
 
-                        SelectedAssetInfo objSelectedAssetInfo = objAssetsInfo.getSelectedAssetInfo(AssetID);
-                        SpecificAssetRegisterInfo objSpecificAssetRegisterInfo = objAssetRegister.getSpecificAssetRegisterInfo(AssetID, AssetRequestID);
-
-                        decimal newBalance = objSelectedAssetInfo.OutstandingQuantity - objSpecificAssetRegisterInfo.CBalance;
+                        List<AssetsAssociatedWithRequest> objAssetsAssociatedWithRequest = objAssetRegister.getEmployeeAssetRequestInfoDetails(AssetRequestID);
 
                         if (AssetRequestStatus.ToString() == "In Progress" || AssetRequestStatus.ToString() == "Pending")
                         {
@@ -323,19 +321,27 @@ namespace StaffSync
                         }
                         else if (AssetRequestStatus.ToString() == "Approved")
                         {
-                            int AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(AssetID, DateTime.Today, objSelectedAssetInfo.OutstandingQuantity, 0, objSpecificAssetRegisterInfo.CBalance, newBalance, "Dr", "To Asset Issue", AssetRequestID);
-                            AssetRegisterID = objAssetsInfo.UpdateAssetRegisterBalanceInfo(AssetID, newBalance);
-                            objEmpAssetAllocationInfo.InsertEmployeeAssetAllocationShortInformation(Convert.ToInt32(dc.Cells["AssetRequestByID"].Value), AssetID, DateTime.Today, "Asset Request : \"" + AssetRequestCode + "\" approved to issue \"" + dc.Cells["AssetName"].Value + "\" to issue to \nEmployee Code : \"" + dc.Cells["EmpCode"].Value.ToString() + "\" and Employee Name : \"" + dc.Cells["EmpName"].Value.ToString() + "\"", AssetRequestID);
-                            objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "Second Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                            foreach (AssetsAssociatedWithRequest objIndAssetsAssociatedWithRequest in objAssetsAssociatedWithRequest)
+                            {
+                                int AssetID = objIndAssetsAssociatedWithRequest.AssetID;
+                                SelectedAssetInfo objSelectedAssetInfo = objAssetsInfo.getSelectedAssetInfo(AssetID);
+                                SpecificAssetRegisterInfo objSpecificAssetRegisterInfo = objAssetRegister.getSpecificAssetRegisterInfo(AssetID, AssetRequestID);
+                                decimal newBalance = objSelectedAssetInfo.OutstandingQuantity - objSpecificAssetRegisterInfo.CBalance;
+
+                                int AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(AssetID, DateTime.Today, objSelectedAssetInfo.OutstandingQuantity, 0, objSpecificAssetRegisterInfo.CBalance, newBalance, "Dr", "To Asset Issue", AssetRequestID);
+                                AssetRegisterID = objAssetsInfo.UpdateAssetRegisterBalanceInfo(AssetID, newBalance);
+                                objEmpAssetAllocationInfo.InsertEmployeeAssetAllocationShortInformation(Convert.ToInt32(dc.Cells["PersonalInfoID"].Value), AssetID, DateTime.Today, "Asset Request : \"" + AssetRequestCode + "\" approved to issue \"" + objSelectedAssetInfo.AssetName + "\" to issue to \nEmployee Code : \"" + dc.Cells["EmpCode"].Value.ToString() + "\" and Employee Name : \"" + dc.Cells["EmpName"].Value.ToString() + "\"", AssetRequestID);
+                                objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "Second Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
+                            }
                         }
                         else if (AssetRequestStatus.ToString() == "Rejected")
                         {
-                            int AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(AssetID, DateTime.Today, objSpecificAssetRegisterInfo.CBalance, 0, objSpecificAssetRegisterInfo.CBalance, 0, "Rj", "To Asset Issue - " + objSelectedAssetInfo.AssetName + " Request Rejected", AssetRequestID);
+                            //int AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(AssetID, DateTime.Today, objSpecificAssetRegisterInfo.CBalance, 0, objSpecificAssetRegisterInfo.CBalance, 0, "Rj", "To Asset Issue - " + objSelectedAssetInfo.AssetName + " Request Rejected", AssetRequestID);
                             objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "Second Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                         else if (AssetRequestStatus.ToString() == "Cancelled")
                         {
-                            int AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(AssetID, DateTime.Today, objSpecificAssetRegisterInfo.CBalance, 0, objSpecificAssetRegisterInfo.CBalance, 0, "Cnl", "To Asset Issue - " + objSelectedAssetInfo.AssetName + " Request Cancellation", AssetRequestID); 
+                            //int AssetRegisterID = objAssetRegister.InsertAssetRegisterInfo(AssetID, DateTime.Today, objSpecificAssetRegisterInfo.CBalance, 0, objSpecificAssetRegisterInfo.CBalance, 0, "Cnl", "To Asset Issue - " + objSelectedAssetInfo.AssetName + " Request Cancellation", AssetRequestID); 
                             objAuditLog.InsertAuditLog(Convert.ToInt32(ModelStaffSync.CurrentUser.EmpID), AssetRequestID, "Second Approver updated the Status for Asset Request : \"" + AssetRequestCode + "\" to \"" + AssetRequestStatus + "\"", "Update", ModelStaffSync.CurrentUser.EmpName, "AdvanceRequestStatusUpdate", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
                         }
                     }
@@ -558,45 +564,23 @@ namespace StaffSync
             dtgAssetsRequestersList.Columns["DepartmentTitle"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["DepartmentTitle"].Visible = true;
             dtgAssetsRequestersList.Columns["DepartmentTitle"].Width = 150;
-            dtgAssetsRequestersList.Columns["AssetCatMasID"].Visible = false;
-            dtgAssetsRequestersList.Columns["AssetCategoryName"].ReadOnly = true;
-            dtgAssetsRequestersList.Columns["AssetCategoryName"].Visible = true;
-            dtgAssetsRequestersList.Columns["AssetCategoryName"].Width = 150;
-            dtgAssetsRequestersList.Columns["AssetID"].Visible = false;
-            dtgAssetsRequestersList.Columns["AssetCode"].ReadOnly = true;
-            dtgAssetsRequestersList.Columns["AssetCode"].Visible = true;
-            dtgAssetsRequestersList.Columns["AssetCode"].Width = 100;
-            dtgAssetsRequestersList.Columns["AssetName"].ReadOnly = true;
-            dtgAssetsRequestersList.Columns["AssetName"].Visible = true;
-            dtgAssetsRequestersList.Columns["AssetName"].Width = 350;
-            dtgAssetsRequestersList.Columns["AssetRequestID"].Visible = false;
             dtgAssetsRequestersList.Columns["AssetRequestCode"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["AssetRequestCode"].Visible = true;
-            dtgAssetsRequestersList.Columns["AssetRequestCode"].Width = 125;
+            dtgAssetsRequestersList.Columns["AssetRequestCode"].Width = 150;
             dtgAssetsRequestersList.Columns["AssetRequestDate"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["AssetRequestDate"].Visible = true;
             dtgAssetsRequestersList.Columns["AssetRequestDate"].Width = 125;
             dtgAssetsRequestersList.Columns["AssetRequestDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
-            dtgAssetsRequestersList.Columns["AssetRequestComments"].ReadOnly = true;
-            dtgAssetsRequestersList.Columns["AssetRequestComments"].Visible = true;
-            dtgAssetsRequestersList.Columns["AssetRequestComments"].Width = 250;
-            dtgAssetsRequestersList.Columns["AssetRequestByStatus"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["PersonalInfoID"].Visible = false;
+            dtgAssetsRequestersList.Columns["AssetRequestID"].Visible = false;
             dtgAssetsRequestersList.Columns["AssetRequestByID"].Visible = false;
-            dtgAssetsRequestersList.Columns["AssetRequestByStatus"].Visible = true;
-            dtgAssetsRequestersList.Columns["AssetRequestByStatus"].Width = 150;
             dtgAssetsRequestersList.Columns["RequestStatus"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["RequestStatus"].Visible = true;
             dtgAssetsRequestersList.Columns["RequestStatus"].Width = 100;
             dtgAssetsRequestersList.Columns["RequestedTo"].Visible = false;
-            //dtgAssetsRequestersList.Columns["ApproverEmpCode"].ReadOnly = true;
-            //dtgAssetsRequestersList.Columns["ApproverEmpCode"].Visible = true;
-            //dtgAssetsRequestersList.Columns["ApproverEmpCode"].Width = 150;
-            //dtgAssetsRequestersList.Columns["ApproverEmpDesignationTitle"].ReadOnly = true;
-            //dtgAssetsRequestersList.Columns["ApproverEmpDesignationTitle"].Visible = true;
-            //dtgAssetsRequestersList.Columns["ApproverEmpDesignationTitle"].Width = 150;
-            //dtgAssetsRequestersList.Columns["ApproverEmpDepartmentTitle"].ReadOnly = true;
-            //dtgAssetsRequestersList.Columns["ApproverEmpDepartmentTitle"].Visible = true;
-            //dtgAssetsRequestersList.Columns["ApproverEmpDepartmentTitle"].Width = 150;
+            dtgAssetsRequestersList.Columns["AssetRequestComments"].ReadOnly = true;
+            dtgAssetsRequestersList.Columns["AssetRequestComments"].Visible = true;
+            dtgAssetsRequestersList.Columns["AssetRequestComments"].Width = 300;            
             dtgAssetsRequestersList.Columns["AssetRequestStatus"].ReadOnly = true;
             dtgAssetsRequestersList.Columns["AssetRequestStatus"].Visible = true;
             dtgAssetsRequestersList.Columns["AssetRequestStatus"].Width = 150;

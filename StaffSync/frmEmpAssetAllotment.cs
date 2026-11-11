@@ -45,6 +45,7 @@ namespace StaffSync
         DALStaffSync.clsImportDataInfo objImportDataInfo = new DALStaffSync.clsImportDataInfo();
         DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
         DALStaffSync.clsAssetRegister objAssetRegisterInfo = new DALStaffSync.clsAssetRegister();
+        DALStaffSync.clsEmpAssetAllocationInfo objEmpAssetAllocationInfo = new DALStaffSync.clsEmpAssetAllocationInfo();
 
         // Issue Date cell calendar popup state. The existing data-bound grid is retained.
         private MonthCalendar issueDatePicker;
@@ -235,10 +236,13 @@ namespace StaffSync
                     allocationStatus = "Asset" + allocationStatus.Replace(" ", "").ToLower();
 
                     int toStatusID = Convert.ToInt32(dc.Cells["AllocationStatusID"].Value);
-                    decimal quantity = Convert.ToDecimal(dc.Cells["DrBalance"].Value);
+                    decimal quantity = Convert.ToDecimal(dc.Cells["AssetRequestQty"].Value);
 
                     objAssetRegisterInfo.UpdateAssetInventoryCounters(Convert.ToInt32(dc.Cells["AssetID"].Value), allocationStatus, quantity);
                 }
+
+                if(assetIssuedInfoID > 0)
+                    objEmpAssetAllocationInfo.UpdateAssetAllotmentStatus(Convert.ToInt32(lblAssetRequestID.Text), true);
 
                 MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 disableControls();
@@ -352,6 +356,7 @@ namespace StaffSync
             lblClientID.Text = "";
             lblEmpID.Text = "";
             lblPersonalInfoID.Text = "";
+            lblRepMGRID.Text = "";
             picEmpPhoto.Image = null;
 
             cmbAssetCondition.DataSource = null;
@@ -609,7 +614,7 @@ namespace StaffSync
         {
             if (lblActionMode.Text == "add")
             {
-                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAssetRequestPendingList", Convert.ToInt32(objTempClientFinYearInfo.ClientID.ToString()));
+                frmEmployeeList frmEmployeeList = new frmEmployeeList(this, "listAssetAllotmentPendingList", Convert.ToInt32(objTempClientFinYearInfo.ClientID.ToString()));
                 frmEmployeeList.ShowDialog(this);
             }
             else if (lblActionMode.Text == "modify")
@@ -621,22 +626,22 @@ namespace StaffSync
 
         public void SelectedEmployeeID(string SearchOptionSelectedForm, int selectedEmployeeID)
         {
-            if (SearchOptionSelectedForm == "listAssetRequestPendingList")
+            if (SearchOptionSelectedForm == "listAssetAllotmentPendingList")
             {
-                List<ApprovedAssetInformationRequestList> objApprovedAssetInformationRequestList = objAssetRegisterInfo.getApprovedAssetInformationRequestList(Convert.ToInt32(objTempClientFinYearInfo.ClientID.ToString()));
+                SelectedAssetMasterInfo objSelectedAssetMasterInfo = objAssetRegisterInfo.getAssetMasterInfoOfSelectedAssetRequest(Convert.ToInt32(selectedEmployeeID.ToString()));
 
-                lblAssetRequestID.Text = objApprovedAssetInformationRequestList[0].AssetRequestID.ToString();
-                txtRequestCode.Text = objApprovedAssetInformationRequestList[0].AssetRequestCode.ToString();
-                txtRequestDate.Text = objApprovedAssetInformationRequestList[0].AssetRequestDate.ToString();
-                txtReimbStatus.Text = objApprovedAssetInformationRequestList[0].RequestStatus.ToString();
-                txtRequestDescription.Text = objApprovedAssetInformationRequestList[0].AssetRequestComments.ToString();
+                lblAssetRequestID.Text = objSelectedAssetMasterInfo.AssetRequestID.ToString();
+                txtRequestCode.Text = objSelectedAssetMasterInfo.AssetRequestCode.ToString();
+                txtRequestDate.Text = objSelectedAssetMasterInfo.AssetRequestDate.ToString();
+                txtRequestDescription.Text = objSelectedAssetMasterInfo.AssetRequestComments.ToString();
 
-                lblEmpID.Text = objApprovedAssetInformationRequestList[0].EmpID.ToString();
-                lblPersonalInfoID.Text = objApprovedAssetInformationRequestList[0].PersonalInfoID.ToString();
-                txtEmpCode.Text = objApprovedAssetInformationRequestList[0].EmpCode.ToString();
-                txtEmpName.Text = objApprovedAssetInformationRequestList[0].EmpName.ToString();
-                txtDesignation.Text = objApprovedAssetInformationRequestList[0].DesignationTitle.ToString();
-                txtDepartment.Text = objApprovedAssetInformationRequestList[0].DepartmentTitle.ToString();
+                lblEmpID.Text = objSelectedAssetMasterInfo.EmpID.ToString();
+                lblPersonalInfoID.Text = objSelectedAssetMasterInfo.PersonalInfoID.ToString();
+                txtEmpCode.Text = objSelectedAssetMasterInfo.EmpCode.ToString();
+                txtEmpName.Text = objSelectedAssetMasterInfo.EmpName.ToString();
+                txtDesignation.Text = objSelectedAssetMasterInfo.DesignationTitle.ToString();
+                txtDepartment.Text = objSelectedAssetMasterInfo.DepartmentTitle.ToString();
+                lblRepMGRID.Text = objSelectedAssetMasterInfo.EmpRepManID.ToString();
                 picEmpPhoto.Image = objImpageOperation.BytesToImage(objPhotoMas.getEmployeePhoto(Convert.ToInt16(lblEmpID.Text)).EmpPhoto);
 
                 txtComments.Text = "To Issue: \n" + txtRequestDescription.Text;
@@ -872,7 +877,7 @@ namespace StaffSync
             dtgAssetRequestedList.Columns["AssetCode"].Width = 100;
             dtgAssetRequestedList.Columns["AssetCode"].ReadOnly = true;
             dtgAssetRequestedList.Columns["AssetName"].HeaderText = "Asset Name";
-            dtgAssetRequestedList.Columns["AssetName"].Width = 200;
+            dtgAssetRequestedList.Columns["AssetName"].Width = 350;
             dtgAssetRequestedList.Columns["AssetName"].ReadOnly = true;
             dtgAssetRequestedList.Columns["AssetMasMoreDetID"].Visible = false;
             dtgAssetRequestedList.Columns["SerialNumber"].HeaderText = "Serial Number";
@@ -886,31 +891,19 @@ namespace StaffSync
             dtgAssetRequestedList.Columns["AssetTag"].ReadOnly = true;
             dtgAssetRequestedList.Columns["AssetRequestID"].Visible = false;
             dtgAssetRequestedList.Columns["AssetRegID"].Visible = false;
-            dtgAssetRequestedList.Columns["CurrentAssetStatusName"].Visible = false; 
             dtgAssetRequestedList.Columns["Comments"].HeaderText = "Request Description";
             dtgAssetRequestedList.Columns["Comments"].Width = 350;
             dtgAssetRequestedList.Columns["Comments"].ReadOnly = true;
-            dtgAssetRequestedList.Columns["OBalance"].Visible = false;
-            dtgAssetRequestedList.Columns["OBalance"].HeaderText = "Available Balance";
-            dtgAssetRequestedList.Columns["OBalance"].Width = 150;
-            dtgAssetRequestedList.Columns["OBalance"].ReadOnly = true;
-            dtgAssetRequestedList.Columns["OBalance"].DefaultCellStyle.Format = "c2";
-            dtgAssetRequestedList.Columns["OBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dtgAssetRequestedList.Columns["DrBalance"].HeaderText = "Quantity";
-            dtgAssetRequestedList.Columns["DrBalance"].Width = 150;
-            dtgAssetRequestedList.Columns["DrBalance"].ReadOnly = true;
-            //dtgAssetRequestedList.Columns["DrBalance"].DefaultCellStyle.Format = "c2";
-            dtgAssetRequestedList.Columns["DrBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dtgAssetRequestedList.Columns["CBalance"].Visible = false;
-            dtgAssetRequestedList.Columns["CBalance"].HeaderText = "Outstanding Balance";
-            dtgAssetRequestedList.Columns["CBalance"].Width = 150;
-            dtgAssetRequestedList.Columns["CBalance"].ReadOnly = true;
-            dtgAssetRequestedList.Columns["CBalance"].DefaultCellStyle.Format = "c2";
-            dtgAssetRequestedList.Columns["CBalance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dtgAssetRequestedList.Columns["CurrentAssetStatusName"].Visible = false;
+            dtgAssetRequestedList.Columns["AssetRequestQty"].HeaderText = "Quantity";
+            dtgAssetRequestedList.Columns["AssetRequestQty"].Width = 150;
+            dtgAssetRequestedList.Columns["AssetRequestQty"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["AssetRequestQty"].DefaultCellStyle.Format = "c2";
+            dtgAssetRequestedList.Columns["AssetRequestQty"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dtgAssetRequestedList.Columns["IssueDate"].HeaderText = "Issue Date";
             dtgAssetRequestedList.Columns["IssueDate"].Width = 150;
             dtgAssetRequestedList.Columns["IssueDate"].DefaultCellStyle.Format = "dd-MMM-yyyy";
-            dtgAssetRequestedList.Columns["IssueDate"].ReadOnly = true;
+            dtgAssetRequestedList.Columns["IssueDate"].ReadOnly = false;
             dtgAssetRequestedList.Columns["IssueCondition"].Visible = false;
 
             // New/empty issue dates default to today's date; existing saved dates are preserved.

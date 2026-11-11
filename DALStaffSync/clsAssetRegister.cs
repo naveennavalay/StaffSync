@@ -20,6 +20,11 @@ namespace DALStaffSync
             return objAssetsRegisterInfo.GetCurrentAssetStatus();
         }
 
+        public List<AssetsAssociatedWithRequest> getEmployeeAssetRequestInfoDetails(int EmpAssetRequestID)
+        {
+            return objAssetsRegisterInfo.getEmployeeAssetRequestInfoDetails(EmpAssetRequestID);
+        }
+
         public AssetRegister getSpecificAssetRegisterInfo(int AssetID, DateTime AssetTRDate, int EmpAssetRequestID)
         {
             return objAssetsRegisterInfo.getSpecificAssetRegisterInfo(AssetID, AssetTRDate, EmpAssetRequestID);
@@ -74,6 +79,12 @@ namespace DALStaffSync
         {
             return objAssetsRegisterInfo.getEmployeeSpecificApprovedAssetInformationRequestList(EmployeeID, ClientID);
         }
+
+        public SelectedAssetMasterInfo getAssetMasterInfoOfSelectedAssetRequest(int AssetRequestID)
+        {
+            return objAssetsRegisterInfo.getAssetMasterInfoOfSelectedAssetRequest(AssetRequestID);
+        }
+
         public List<AssetInformationOfAnAssetRequest> getAssetInformationOfAnAssetRequest(int AssetRequestID)
         {
             return objAssetsRegisterInfo.getAssetInformationOfAnAssetRequest(AssetRequestID);
@@ -82,6 +93,11 @@ namespace DALStaffSync
         public List<AssetAnalyticsInformation> getAssetAnalyticsInformation(int ClientID)
         {
             return objAssetsRegisterInfo.getAssetAnalyticsInformation(ClientID);
+        }
+
+        public List<ApprovedAssetInformationRequestList> getAssetAllotmentPendingRequestList(int ClientID)
+        {
+            return objAssetsRegisterInfo.getAssetAllotmentPendingRequestList(ClientID);
         }
 
         public int UpdateAssetInventoryCounters(int assetID, string InventoryCounterColumnName, decimal Quantity)
