@@ -28,6 +28,7 @@ namespace StaffSync
         DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
         DALStaffSync.clsAdvanceTransaction objAdvanceTransaction = new DALStaffSync.clsAdvanceTransaction();
         DALStaffSync.clsAssetRegister objAssetRegisterInfo = new DALStaffSync.clsAssetRegister();
+        DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
 
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
@@ -563,6 +564,8 @@ namespace StaffSync
                 LoadReimbursementInfo();
                 LoadEmployeeSpecificAdvanceInfo();
                 LoadEmployeeSpecificAssetInfo();
+                LoadEmployeeSpecificLeaveBalanceInfo();
+                dtEncashmentDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
                 tabControl1.Enabled = true;
                 tabControl1.SelectedIndex = 0;
             }
@@ -846,6 +849,68 @@ namespace StaffSync
             dtgAssetInformation.Columns["RequestStatus"].HeaderText = "Status";
             dtgAssetInformation.Columns["RequestStatus"].Width = 100;
             dtgAssetInformation.Columns["RequestStatus"].ReadOnly = true;
+        }
+
+        private void LoadEmployeeSpecificLeaveBalanceInfo()
+        {
+            dtgLeaveBalanceInfo.DataSource = null;
+            dtgLeaveBalanceInfo.DataSource = objEmpLeaveEntitlementInfo.getEmployeeSpecificLeaveOutstandingInfo(Convert.ToInt16(lblEmpID.Text)); ;
+            dtgLeaveBalanceInfo.Columns["LeaveEntmtID"].Visible = false;
+            dtgLeaveBalanceInfo.Columns["EmpID"].Visible = false;
+            dtgLeaveBalanceInfo.Columns["EmpID"].ReadOnly = true;
+            dtgLeaveBalanceInfo.Columns["LeaveMasID"].Visible = false;
+            dtgLeaveBalanceInfo.Columns["LeaveMasID"].ReadOnly = true;
+            dtgLeaveBalanceInfo.Columns["LeaveTypeID"].Visible = false;
+            dtgLeaveBalanceInfo.Columns["LeaveTypeID"].ReadOnly = true;
+            dtgLeaveBalanceInfo.Columns["LeaveTypeTitle"].ReadOnly = true;
+            dtgLeaveBalanceInfo.Columns["LeaveTypeTitle"].Width = 250;
+
+
+            dtgLeaveBalanceInfo.Columns["TotalLeaves"].HeaderText = "Allotted Leaves";
+            dtgLeaveBalanceInfo.Columns["TotalLeaves"].Width = 93;
+            dtgLeaveBalanceInfo.Columns["TotalLeaves"].ReadOnly = true;
+            dtgLeaveBalanceInfo.Columns["TotalLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgLeaveBalanceInfo.Columns["TotalLeaves"].DefaultCellStyle.Format = "0.00";
+
+            dtgLeaveBalanceInfo.Columns["BalanceLeaves"].HeaderText = "Outstanding Leaves"; 
+            dtgLeaveBalanceInfo.Columns["BalanceLeaves"].Width = 117;
+            dtgLeaveBalanceInfo.Columns["BalanceLeaves"].ReadOnly = true;
+            dtgLeaveBalanceInfo.Columns["BalanceLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgLeaveBalanceInfo.Columns["BalanceLeaves"].DefaultCellStyle.Format = "0.00";
+
+            dtgLeaveBalanceInfo.Columns["UsedLeaves"].HeaderText = "Utilised Leaves";
+            dtgLeaveBalanceInfo.Columns["UsedLeaves"].Width = 90;
+            dtgLeaveBalanceInfo.Columns["UsedLeaves"].ReadOnly = true;
+            dtgLeaveBalanceInfo.Columns["UsedLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgLeaveBalanceInfo.Columns["UsedLeaves"].DefaultCellStyle.Format = "0.00";
+            dtgLeaveBalanceInfo.Columns["OrderID"].Visible = false;
+
+
+            decimal totalLeavesAllotted = 0;
+            decimal totalOutstandingLeaves = 0;
+            decimal totalLeavesUtilised = 0;
+
+            foreach (DataGridViewRow row in dtgLeaveBalanceInfo.Rows)
+            {
+                if (row.IsNewRow || !row.Visible)
+                    continue;
+
+                totalLeavesAllotted += row.Cells["TotalLeaves"].Value == null ? 0 : Convert.ToDecimal(row.Cells["TotalLeaves"].Value);
+
+                totalOutstandingLeaves += row.Cells["BalanceLeaves"].Value == null ? 0 : Convert.ToDecimal(row.Cells["BalanceLeaves"].Value);
+
+                totalLeavesUtilised += row.Cells["UsedLeaves"].Value == null ? 0 : Convert.ToDecimal(row.Cells["UsedLeaves"].Value);
+            }
+
+            // Display totals
+            txtTotalLeaveAlloted.Text = totalLeavesAllotted.ToString("0.00");
+            txtLeaveBalance.Text = totalOutstandingLeaves.ToString("0.00");
+            txtTotalLeaveUtilised.Text = totalLeavesUtilised.ToString("0.00");
+
+            // Overall leave balance
+            decimal leaveBalance = totalOutstandingLeaves;
+
+            txtEncashableLeaveBalance.Text = leaveBalance.ToString("0.00");
         }
 
         private void txtNoticePeriod_TextChanged(object sender, EventArgs e)

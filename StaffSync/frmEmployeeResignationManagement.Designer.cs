@@ -40,6 +40,20 @@
             this.errValidator = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnSearchReportingManager = new Krypton.Toolkit.KryptonButton();
+            this.btnSearchHRManager = new Krypton.Toolkit.KryptonButton();
+            this.lblHROwnerID = new System.Windows.Forms.Label();
+            this.lblRepManagerApprovalStatus = new System.Windows.Forms.Label();
+            this.lblRepManID = new System.Windows.Forms.Label();
+            this.dtApprovalDate = new System.Windows.Forms.MaskedTextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cmbResignationStatus = new Krypton.Toolkit.KryptonComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtHROwner = new Krypton.Toolkit.KryptonTextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtReportingManager = new Krypton.Toolkit.KryptonTextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.tabControl1 = new Krypton.Navigator.KryptonNavigator();
             this.tabResignationInfo = new Krypton.Navigator.KryptonPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -86,6 +100,34 @@
             this.tabAssetsInformation = new Krypton.Navigator.KryptonPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.dtgAssetInformation = new Krypton.Toolkit.KryptonDataGridView();
+            this.tabLeaveEncashment = new Krypton.Navigator.KryptonPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.kryptonGroupBox2 = new Krypton.Toolkit.KryptonGroupBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.txtDailySalaryRate = new Krypton.Toolkit.KryptonTextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.optEncashmentDays = new Krypton.Toolkit.KryptonNumericUpDown();
+            this.txtNetEncashmentAmount = new Krypton.Toolkit.KryptonTextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.txtTaxDeductionOnEncashmentAmount = new Krypton.Toolkit.KryptonTextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.txtEncashmentAmount = new Krypton.Toolkit.KryptonTextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.txtMonthlyBasicSalary = new Krypton.Toolkit.KryptonTextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.dtEncashmentDate = new System.Windows.Forms.MaskedTextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.kryptonGroupBox1 = new Krypton.Toolkit.KryptonGroupBox();
+            this.txtEncashableLeaveBalance = new Krypton.Toolkit.KryptonTextBox();
+            this.txtLeaveBalance = new Krypton.Toolkit.KryptonTextBox();
+            this.txtTotalLeaveUtilised = new Krypton.Toolkit.KryptonTextBox();
+            this.txtTotalLeaveAlloted = new Krypton.Toolkit.KryptonTextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.dtgLeaveBalanceInfo = new Krypton.Toolkit.KryptonDataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lnkViewAuditLog = new Krypton.Toolkit.KryptonLinkLabel();
             this.btnResignedRequestSearch = new Krypton.Toolkit.KryptonButton();
@@ -93,51 +135,11 @@
             this.txtResignationCode = new Krypton.Toolkit.KryptonTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tabLeaveEncashment = new Krypton.Navigator.KryptonPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnSearchReportingManager = new Krypton.Toolkit.KryptonButton();
-            this.btnSearchHRManager = new Krypton.Toolkit.KryptonButton();
-            this.lblHROwnerID = new System.Windows.Forms.Label();
-            this.lblRepManagerApprovalStatus = new System.Windows.Forms.Label();
-            this.lblRepManID = new System.Windows.Forms.Label();
-            this.dtApprovalDate = new System.Windows.Forms.MaskedTextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cmbResignationStatus = new Krypton.Toolkit.KryptonComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtHROwner = new Krypton.Toolkit.KryptonTextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtReportingManager = new Krypton.Toolkit.KryptonTextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.kryptonGroupBox1 = new Krypton.Toolkit.KryptonGroupBox();
-            this.kryptonGroupBox2 = new Krypton.Toolkit.KryptonGroupBox();
-            this.kryptonDataGridView1 = new Krypton.Toolkit.KryptonDataGridView();
-            this.dtEncashmentDate = new System.Windows.Forms.MaskedTextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.txtMonthlyBasicSalary = new Krypton.Toolkit.KryptonTextBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.txtEncashmentAmount = new Krypton.Toolkit.KryptonTextBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.txtTaxDeductionOnEncashmentAmount = new Krypton.Toolkit.KryptonTextBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.txtNetEncashmentAmount = new Krypton.Toolkit.KryptonTextBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.optEncashmentDays = new Krypton.Toolkit.KryptonNumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.txtTotalLeaveAlloted = new Krypton.Toolkit.KryptonTextBox();
-            this.txtTotalLeaveUtilised = new Krypton.Toolkit.KryptonTextBox();
-            this.txtLeaveBalance = new Krypton.Toolkit.KryptonTextBox();
-            this.txtEncashableLeaveBalance = new Krypton.Toolkit.KryptonTextBox();
-            this.txtDailySalaryRate = new Krypton.Toolkit.KryptonTextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             this.panel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbResignationStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).BeginInit();
             this.tabControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabResignationInfo)).BeginInit();
@@ -158,25 +160,23 @@
             this.tabAssetsInformation.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgAssetInformation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabLeaveEncashment)).BeginInit();
+            this.tabLeaveEncashment.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).BeginInit();
+            this.kryptonGroupBox2.Panel.SuspendLayout();
+            this.kryptonGroupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).BeginInit();
+            this.kryptonGroupBox1.Panel.SuspendLayout();
+            this.kryptonGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgLeaveBalanceInfo)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tabLeaveEncashment)).BeginInit();
-            this.tabLeaveEncashment.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbResignationStatus)).BeginInit();
-            this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).BeginInit();
-            this.kryptonGroupBox1.Panel.SuspendLayout();
-            this.kryptonGroupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).BeginInit();
-            this.kryptonGroupBox2.Panel.SuspendLayout();
-            this.kryptonGroupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonDataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // ttAdvanceType
@@ -302,6 +302,200 @@
             this.panel1.Size = new System.Drawing.Size(1056, 730);
             this.panel1.TabIndex = 1;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox2.Controls.Add(this.btnSearchReportingManager);
+            this.groupBox2.Controls.Add(this.btnSearchHRManager);
+            this.groupBox2.Controls.Add(this.lblHROwnerID);
+            this.groupBox2.Controls.Add(this.lblRepManagerApprovalStatus);
+            this.groupBox2.Controls.Add(this.lblRepManID);
+            this.groupBox2.Controls.Add(this.dtApprovalDate);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.cmbResignationStatus);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.txtHROwner);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.txtReportingManager);
+            this.groupBox2.Controls.Add(this.label14);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox2.Location = new System.Drawing.Point(13, 588);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(1030, 136);
+            this.groupBox2.TabIndex = 38;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Approval && Status";
+            // 
+            // btnSearchReportingManager
+            // 
+            this.btnSearchReportingManager.Location = new System.Drawing.Point(467, 21);
+            this.btnSearchReportingManager.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSearchReportingManager.Name = "btnSearchReportingManager";
+            this.btnSearchReportingManager.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnSearchReportingManager.Size = new System.Drawing.Size(29, 28);
+            this.btnSearchReportingManager.TabIndex = 95;
+            this.btnSearchReportingManager.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnSearchReportingManager.Values.Image = global::StaffSync.Properties.Resources.search;
+            this.btnSearchReportingManager.Values.Text = "";
+            // 
+            // btnSearchHRManager
+            // 
+            this.btnSearchHRManager.Location = new System.Drawing.Point(467, 54);
+            this.btnSearchHRManager.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSearchHRManager.Name = "btnSearchHRManager";
+            this.btnSearchHRManager.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
+            this.btnSearchHRManager.Size = new System.Drawing.Size(29, 28);
+            this.btnSearchHRManager.TabIndex = 94;
+            this.btnSearchHRManager.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.btnSearchHRManager.Values.Image = global::StaffSync.Properties.Resources.search;
+            this.btnSearchHRManager.Values.Text = "";
+            // 
+            // lblHROwnerID
+            // 
+            this.lblHROwnerID.AutoSize = true;
+            this.lblHROwnerID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblHROwnerID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHROwnerID.Location = new System.Drawing.Point(536, 62);
+            this.lblHROwnerID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblHROwnerID.Name = "lblHROwnerID";
+            this.lblHROwnerID.Size = new System.Drawing.Size(11, 15);
+            this.lblHROwnerID.TabIndex = 93;
+            this.lblHROwnerID.Text = " ";
+            this.lblHROwnerID.Visible = false;
+            // 
+            // lblRepManagerApprovalStatus
+            // 
+            this.lblRepManagerApprovalStatus.AutoSize = true;
+            this.lblRepManagerApprovalStatus.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblRepManagerApprovalStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRepManagerApprovalStatus.Location = new System.Drawing.Point(347, 5);
+            this.lblRepManagerApprovalStatus.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblRepManagerApprovalStatus.Name = "lblRepManagerApprovalStatus";
+            this.lblRepManagerApprovalStatus.Size = new System.Drawing.Size(11, 15);
+            this.lblRepManagerApprovalStatus.TabIndex = 92;
+            this.lblRepManagerApprovalStatus.Text = " ";
+            // 
+            // lblRepManID
+            // 
+            this.lblRepManID.AutoSize = true;
+            this.lblRepManID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblRepManID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRepManID.Location = new System.Drawing.Point(310, 5);
+            this.lblRepManID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblRepManID.Name = "lblRepManID";
+            this.lblRepManID.Size = new System.Drawing.Size(11, 15);
+            this.lblRepManID.TabIndex = 91;
+            this.lblRepManID.Text = " ";
+            this.lblRepManID.Visible = false;
+            // 
+            // dtApprovalDate
+            // 
+            this.dtApprovalDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.dtApprovalDate.Location = new System.Drawing.Point(465, 93);
+            this.dtApprovalDate.Margin = new System.Windows.Forms.Padding(4);
+            this.dtApprovalDate.Mask = "##-##-####";
+            this.dtApprovalDate.Name = "dtApprovalDate";
+            this.dtApprovalDate.Size = new System.Drawing.Size(103, 21);
+            this.dtApprovalDate.TabIndex = 89;
+            this.dtApprovalDate.Tag = "Resignation Date";
+            this.dtApprovalDate.ValidatingType = typeof(System.DateTime);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(367, 96);
+            this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(96, 15);
+            this.label8.TabIndex = 90;
+            this.label8.Tag = "Approval Date";
+            this.label8.Text = "Approval Date";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cmbResignationStatus
+            // 
+            this.cmbResignationStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbResignationStatus.DropDownWidth = 440;
+            this.cmbResignationStatus.Location = new System.Drawing.Point(153, 92);
+            this.cmbResignationStatus.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbResignationStatus.Name = "cmbResignationStatus";
+            this.cmbResignationStatus.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.cmbResignationStatus.Size = new System.Drawing.Size(188, 22);
+            this.cmbResignationStatus.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.cmbResignationStatus.TabIndex = 86;
+            this.cmbResignationStatus.Tag = "Resignation Reason";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(23, 96);
+            this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(128, 15);
+            this.label7.TabIndex = 87;
+            this.label7.Text = "Resignation Status";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtHROwner
+            // 
+            this.txtHROwner.Location = new System.Drawing.Point(150, 57);
+            this.txtHROwner.Margin = new System.Windows.Forms.Padding(4);
+            this.txtHROwner.Multiline = true;
+            this.txtHROwner.Name = "txtHROwner";
+            this.txtHROwner.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtHROwner.Size = new System.Drawing.Size(313, 25);
+            this.txtHROwner.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHROwner.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtHROwner.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHROwner.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHROwner.TabIndex = 30;
+            this.txtHROwner.Tag = "Name";
+            this.txtHROwner.WordWrap = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(75, 62);
+            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(72, 15);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "HR Owner";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtReportingManager
+            // 
+            this.txtReportingManager.Location = new System.Drawing.Point(150, 24);
+            this.txtReportingManager.Margin = new System.Windows.Forms.Padding(4);
+            this.txtReportingManager.Multiline = true;
+            this.txtReportingManager.Name = "txtReportingManager";
+            this.txtReportingManager.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtReportingManager.Size = new System.Drawing.Size(313, 25);
+            this.txtReportingManager.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReportingManager.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtReportingManager.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReportingManager.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReportingManager.TabIndex = 28;
+            this.txtReportingManager.Tag = "Name";
+            this.txtReportingManager.WordWrap = false;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(16, 29);
+            this.label14.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(131, 15);
+            this.label14.TabIndex = 9;
+            this.label14.Text = "Reporting Manager";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // tabControl1
             // 
             this.tabControl1.AllowPageReorder = false;
@@ -343,7 +537,7 @@
             this.tabAssetsInformation,
             this.tabLeaveEncashment});
             this.tabControl1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.tabControl1.SelectedIndex = 4;
+            this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1032, 500);
             this.tabControl1.StateNormal.Page.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.tabControl1.StateNormal.Page.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
@@ -1032,6 +1226,473 @@
             this.dtgAssetInformation.TabIndex = 68;
             this.dtgAssetInformation.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAssetInformation_Paint);
             // 
+            // tabLeaveEncashment
+            // 
+            this.tabLeaveEncashment.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabLeaveEncashment.Controls.Add(this.groupBox9);
+            this.tabLeaveEncashment.Flags = 65534;
+            this.tabLeaveEncashment.LastVisibleSet = true;
+            this.tabLeaveEncashment.MinimumSize = new System.Drawing.Size(150, 50);
+            this.tabLeaveEncashment.Name = "tabLeaveEncashment";
+            this.tabLeaveEncashment.Size = new System.Drawing.Size(1030, 473);
+            this.tabLeaveEncashment.Tag = "tabLeaveEncashment";
+            this.tabLeaveEncashment.Text = "Leave Encashment";
+            this.tabLeaveEncashment.ToolTipTitle = "Leave Encashment";
+            this.tabLeaveEncashment.UniqueName = "26ac7702f8d24de0ace674c656ede811";
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.groupBox9.Controls.Add(this.kryptonGroupBox2);
+            this.groupBox9.Controls.Add(this.kryptonGroupBox1);
+            this.groupBox9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox9.Location = new System.Drawing.Point(0, 0);
+            this.groupBox9.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox9.Size = new System.Drawing.Size(1030, 473);
+            this.groupBox9.TabIndex = 39;
+            this.groupBox9.TabStop = false;
+            // 
+            // kryptonGroupBox2
+            // 
+            this.kryptonGroupBox2.CaptionOverlap = 0D;
+            this.kryptonGroupBox2.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
+            this.kryptonGroupBox2.GroupBackStyle = Krypton.Toolkit.PaletteBackStyle.ControlToolTip;
+            this.kryptonGroupBox2.Location = new System.Drawing.Point(13, 246);
+            this.kryptonGroupBox2.PaletteMode = Krypton.Toolkit.PaletteMode.Microsoft365Blue;
+            // 
+            // kryptonGroupBox2.Panel
+            // 
+            this.kryptonGroupBox2.Panel.Controls.Add(this.label17);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.txtDailySalaryRate);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.label16);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.optEncashmentDays);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.txtNetEncashmentAmount);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.label33);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.txtTaxDeductionOnEncashmentAmount);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.label32);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.txtEncashmentAmount);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.label31);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.txtMonthlyBasicSalary);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.label30);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.label28);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.dtEncashmentDate);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.label26);
+            this.kryptonGroupBox2.Size = new System.Drawing.Size(1003, 220);
+            this.kryptonGroupBox2.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.kryptonGroupBox2.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.kryptonGroupBox2.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.kryptonGroupBox2.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.kryptonGroupBox2.TabIndex = 1;
+            this.kryptonGroupBox2.Values.Heading = "Leave Encashment Calculation";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(748, 47);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(194, 15);
+            this.label17.TabIndex = 123;
+            this.label17.Text = "(Basic Salary / Payable Days)";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtDailySalaryRate
+            // 
+            this.txtDailySalaryRate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDailySalaryRate.Location = new System.Drawing.Point(571, 42);
+            this.txtDailySalaryRate.Margin = new System.Windows.Forms.Padding(4);
+            this.txtDailySalaryRate.Multiline = true;
+            this.txtDailySalaryRate.Name = "txtDailySalaryRate";
+            this.txtDailySalaryRate.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtDailySalaryRate.ReadOnly = true;
+            this.txtDailySalaryRate.Size = new System.Drawing.Size(168, 25);
+            this.txtDailySalaryRate.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDailySalaryRate.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtDailySalaryRate.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDailySalaryRate.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDailySalaryRate.TabIndex = 122;
+            this.txtDailySalaryRate.Tag = "Employee Code";
+            this.txtDailySalaryRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDailySalaryRate.WordWrap = false;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(452, 47);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(117, 15);
+            this.label16.TabIndex = 121;
+            this.label16.Text = "Daily Salary Rate";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // optEncashmentDays
+            // 
+            this.optEncashmentDays.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.optEncashmentDays.Location = new System.Drawing.Point(189, 11);
+            this.optEncashmentDays.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.optEncashmentDays.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.optEncashmentDays.Name = "optEncashmentDays";
+            this.optEncashmentDays.Size = new System.Drawing.Size(103, 22);
+            this.optEncashmentDays.TabIndex = 120;
+            this.optEncashmentDays.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            // 
+            // txtNetEncashmentAmount
+            // 
+            this.txtNetEncashmentAmount.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtNetEncashmentAmount.Location = new System.Drawing.Point(189, 141);
+            this.txtNetEncashmentAmount.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNetEncashmentAmount.Multiline = true;
+            this.txtNetEncashmentAmount.Name = "txtNetEncashmentAmount";
+            this.txtNetEncashmentAmount.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtNetEncashmentAmount.ReadOnly = true;
+            this.txtNetEncashmentAmount.Size = new System.Drawing.Size(168, 25);
+            this.txtNetEncashmentAmount.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNetEncashmentAmount.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtNetEncashmentAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNetEncashmentAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNetEncashmentAmount.TabIndex = 119;
+            this.txtNetEncashmentAmount.Tag = "Employee Code";
+            this.txtNetEncashmentAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtNetEncashmentAmount.WordWrap = false;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.Location = new System.Drawing.Point(21, 146);
+            this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(164, 15);
+            this.label33.TabIndex = 118;
+            this.label33.Text = "Net Encashment Amount";
+            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtTaxDeductionOnEncashmentAmount
+            // 
+            this.txtTaxDeductionOnEncashmentAmount.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTaxDeductionOnEncashmentAmount.Location = new System.Drawing.Point(189, 108);
+            this.txtTaxDeductionOnEncashmentAmount.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTaxDeductionOnEncashmentAmount.Multiline = true;
+            this.txtTaxDeductionOnEncashmentAmount.Name = "txtTaxDeductionOnEncashmentAmount";
+            this.txtTaxDeductionOnEncashmentAmount.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtTaxDeductionOnEncashmentAmount.ReadOnly = true;
+            this.txtTaxDeductionOnEncashmentAmount.Size = new System.Drawing.Size(168, 25);
+            this.txtTaxDeductionOnEncashmentAmount.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTaxDeductionOnEncashmentAmount.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtTaxDeductionOnEncashmentAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTaxDeductionOnEncashmentAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTaxDeductionOnEncashmentAmount.TabIndex = 117;
+            this.txtTaxDeductionOnEncashmentAmount.Tag = "Employee Code";
+            this.txtTaxDeductionOnEncashmentAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtTaxDeductionOnEncashmentAmount.WordWrap = false;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.Location = new System.Drawing.Point(86, 113);
+            this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(99, 15);
+            this.label32.TabIndex = 116;
+            this.label32.Text = "Tax/Deduction";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtEncashmentAmount
+            // 
+            this.txtEncashmentAmount.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtEncashmentAmount.Location = new System.Drawing.Point(189, 75);
+            this.txtEncashmentAmount.Margin = new System.Windows.Forms.Padding(4);
+            this.txtEncashmentAmount.Multiline = true;
+            this.txtEncashmentAmount.Name = "txtEncashmentAmount";
+            this.txtEncashmentAmount.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtEncashmentAmount.ReadOnly = true;
+            this.txtEncashmentAmount.Size = new System.Drawing.Size(168, 25);
+            this.txtEncashmentAmount.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEncashmentAmount.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtEncashmentAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEncashmentAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEncashmentAmount.TabIndex = 115;
+            this.txtEncashmentAmount.Tag = "Employee Code";
+            this.txtEncashmentAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtEncashmentAmount.WordWrap = false;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(47, 80);
+            this.label31.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(138, 15);
+            this.label31.TabIndex = 114;
+            this.label31.Text = "Encashment Amount";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtMonthlyBasicSalary
+            // 
+            this.txtMonthlyBasicSalary.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtMonthlyBasicSalary.Location = new System.Drawing.Point(189, 42);
+            this.txtMonthlyBasicSalary.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMonthlyBasicSalary.Multiline = true;
+            this.txtMonthlyBasicSalary.Name = "txtMonthlyBasicSalary";
+            this.txtMonthlyBasicSalary.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtMonthlyBasicSalary.ReadOnly = true;
+            this.txtMonthlyBasicSalary.Size = new System.Drawing.Size(168, 25);
+            this.txtMonthlyBasicSalary.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMonthlyBasicSalary.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtMonthlyBasicSalary.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMonthlyBasicSalary.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMonthlyBasicSalary.TabIndex = 113;
+            this.txtMonthlyBasicSalary.Tag = "Employee Code";
+            this.txtMonthlyBasicSalary.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtMonthlyBasicSalary.WordWrap = false;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(35, 47);
+            this.label30.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(150, 15);
+            this.label30.TabIndex = 112;
+            this.label30.Text = "Basic Salary (Monthly)";
+            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(80, 15);
+            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(105, 15);
+            this.label28.TabIndex = 110;
+            this.label28.Text = "Days to Encash";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // dtEncashmentDate
+            // 
+            this.dtEncashmentDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
+            this.dtEncashmentDate.Location = new System.Drawing.Point(571, 12);
+            this.dtEncashmentDate.Margin = new System.Windows.Forms.Padding(4);
+            this.dtEncashmentDate.Mask = "##-##-####";
+            this.dtEncashmentDate.Name = "dtEncashmentDate";
+            this.dtEncashmentDate.Size = new System.Drawing.Size(103, 21);
+            this.dtEncashmentDate.TabIndex = 108;
+            this.dtEncashmentDate.Tag = "Resignation Date";
+            this.dtEncashmentDate.ValidatingType = typeof(System.DateTime);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(449, 15);
+            this.label26.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(120, 15);
+            this.label26.TabIndex = 109;
+            this.label26.Text = "Encashment Date";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // kryptonGroupBox1
+            // 
+            this.kryptonGroupBox1.CaptionOverlap = 0D;
+            this.kryptonGroupBox1.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
+            this.kryptonGroupBox1.GroupBackStyle = Krypton.Toolkit.PaletteBackStyle.ControlToolTip;
+            this.kryptonGroupBox1.Location = new System.Drawing.Point(13, 19);
+            this.kryptonGroupBox1.PaletteMode = Krypton.Toolkit.PaletteMode.Microsoft365Blue;
+            // 
+            // kryptonGroupBox1.Panel
+            // 
+            this.kryptonGroupBox1.Panel.Controls.Add(this.txtEncashableLeaveBalance);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.txtLeaveBalance);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.txtTotalLeaveUtilised);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.txtTotalLeaveAlloted);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.label15);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.label13);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.label12);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.label11);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.dtgLeaveBalanceInfo);
+            this.kryptonGroupBox1.Size = new System.Drawing.Size(998, 215);
+            this.kryptonGroupBox1.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.kryptonGroupBox1.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.kryptonGroupBox1.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.kryptonGroupBox1.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.kryptonGroupBox1.TabIndex = 0;
+            this.kryptonGroupBox1.Values.Heading = "Leave Balance Information";
+            // 
+            // txtEncashableLeaveBalance
+            // 
+            this.txtEncashableLeaveBalance.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtEncashableLeaveBalance.Location = new System.Drawing.Point(827, 122);
+            this.txtEncashableLeaveBalance.Margin = new System.Windows.Forms.Padding(4);
+            this.txtEncashableLeaveBalance.Multiline = true;
+            this.txtEncashableLeaveBalance.Name = "txtEncashableLeaveBalance";
+            this.txtEncashableLeaveBalance.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtEncashableLeaveBalance.ReadOnly = true;
+            this.txtEncashableLeaveBalance.Size = new System.Drawing.Size(101, 25);
+            this.txtEncashableLeaveBalance.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEncashableLeaveBalance.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtEncashableLeaveBalance.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEncashableLeaveBalance.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEncashableLeaveBalance.TabIndex = 117;
+            this.txtEncashableLeaveBalance.Tag = "Employee Code";
+            this.txtEncashableLeaveBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtEncashableLeaveBalance.WordWrap = false;
+            // 
+            // txtLeaveBalance
+            // 
+            this.txtLeaveBalance.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtLeaveBalance.Location = new System.Drawing.Point(827, 88);
+            this.txtLeaveBalance.Margin = new System.Windows.Forms.Padding(4);
+            this.txtLeaveBalance.Multiline = true;
+            this.txtLeaveBalance.Name = "txtLeaveBalance";
+            this.txtLeaveBalance.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtLeaveBalance.ReadOnly = true;
+            this.txtLeaveBalance.Size = new System.Drawing.Size(101, 25);
+            this.txtLeaveBalance.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLeaveBalance.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtLeaveBalance.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLeaveBalance.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLeaveBalance.TabIndex = 116;
+            this.txtLeaveBalance.Tag = "Employee Code";
+            this.txtLeaveBalance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtLeaveBalance.WordWrap = false;
+            // 
+            // txtTotalLeaveUtilised
+            // 
+            this.txtTotalLeaveUtilised.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTotalLeaveUtilised.Location = new System.Drawing.Point(827, 56);
+            this.txtTotalLeaveUtilised.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTotalLeaveUtilised.Multiline = true;
+            this.txtTotalLeaveUtilised.Name = "txtTotalLeaveUtilised";
+            this.txtTotalLeaveUtilised.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtTotalLeaveUtilised.ReadOnly = true;
+            this.txtTotalLeaveUtilised.Size = new System.Drawing.Size(101, 25);
+            this.txtTotalLeaveUtilised.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalLeaveUtilised.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtTotalLeaveUtilised.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalLeaveUtilised.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalLeaveUtilised.TabIndex = 115;
+            this.txtTotalLeaveUtilised.Tag = "Employee Code";
+            this.txtTotalLeaveUtilised.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtTotalLeaveUtilised.WordWrap = false;
+            // 
+            // txtTotalLeaveAlloted
+            // 
+            this.txtTotalLeaveAlloted.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTotalLeaveAlloted.Location = new System.Drawing.Point(827, 24);
+            this.txtTotalLeaveAlloted.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTotalLeaveAlloted.Multiline = true;
+            this.txtTotalLeaveAlloted.Name = "txtTotalLeaveAlloted";
+            this.txtTotalLeaveAlloted.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.txtTotalLeaveAlloted.ReadOnly = true;
+            this.txtTotalLeaveAlloted.Size = new System.Drawing.Size(101, 25);
+            this.txtTotalLeaveAlloted.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalLeaveAlloted.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.txtTotalLeaveAlloted.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalLeaveAlloted.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalLeaveAlloted.TabIndex = 114;
+            this.txtTotalLeaveAlloted.Tag = "Employee Code";
+            this.txtTotalLeaveAlloted.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtTotalLeaveAlloted.WordWrap = false;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(645, 127);
+            this.label15.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(180, 15);
+            this.label15.TabIndex = 113;
+            this.label15.Text = "Encashable Leave Balance";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(724, 93);
+            this.label13.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(101, 15);
+            this.label13.TabIndex = 112;
+            this.label13.Text = "Leave Balance";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(684, 61);
+            this.label12.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(141, 15);
+            this.label12.TabIndex = 111;
+            this.label12.Text = "Total Leaves Utilised";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(685, 28);
+            this.label11.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(140, 15);
+            this.label11.TabIndex = 110;
+            this.label11.Text = "Total Leaves Allotted";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // dtgLeaveBalanceInfo
+            // 
+            this.dtgLeaveBalanceInfo.AllowUserToAddRows = false;
+            this.dtgLeaveBalanceInfo.AllowUserToDeleteRows = false;
+            this.dtgLeaveBalanceInfo.AllowUserToResizeRows = false;
+            this.dtgLeaveBalanceInfo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dtgLeaveBalanceInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgLeaveBalanceInfo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dtgLeaveBalanceInfo.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
+            this.dtgLeaveBalanceInfo.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
+            this.dtgLeaveBalanceInfo.Location = new System.Drawing.Point(7, 12);
+            this.dtgLeaveBalanceInfo.Name = "dtgLeaveBalanceInfo";
+            this.dtgLeaveBalanceInfo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.dtgLeaveBalanceInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dtgLeaveBalanceInfo.Size = new System.Drawing.Size(618, 153);
+            this.dtgLeaveBalanceInfo.StateCommon.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgLeaveBalanceInfo.StateCommon.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgLeaveBalanceInfo.StateCommon.BackStyle = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
+            this.dtgLeaveBalanceInfo.StateDisabled.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgLeaveBalanceInfo.StateDisabled.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgLeaveBalanceInfo.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgLeaveBalanceInfo.StateNormal.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.dtgLeaveBalanceInfo.TabIndex = 69;
+            // 
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
@@ -1135,658 +1796,6 @@
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 2;
             // 
-            // tabLeaveEncashment
-            // 
-            this.tabLeaveEncashment.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
-            this.tabLeaveEncashment.Controls.Add(this.groupBox9);
-            this.tabLeaveEncashment.Flags = 65534;
-            this.tabLeaveEncashment.LastVisibleSet = true;
-            this.tabLeaveEncashment.MinimumSize = new System.Drawing.Size(150, 50);
-            this.tabLeaveEncashment.Name = "tabLeaveEncashment";
-            this.tabLeaveEncashment.Size = new System.Drawing.Size(1030, 473);
-            this.tabLeaveEncashment.Tag = "tabLeaveEncashment";
-            this.tabLeaveEncashment.Text = "Leave Encashment";
-            this.tabLeaveEncashment.ToolTipTitle = "Leave Encashment";
-            this.tabLeaveEncashment.UniqueName = "26ac7702f8d24de0ace674c656ede811";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.groupBox2.Controls.Add(this.btnSearchReportingManager);
-            this.groupBox2.Controls.Add(this.btnSearchHRManager);
-            this.groupBox2.Controls.Add(this.lblHROwnerID);
-            this.groupBox2.Controls.Add(this.lblRepManagerApprovalStatus);
-            this.groupBox2.Controls.Add(this.lblRepManID);
-            this.groupBox2.Controls.Add(this.dtApprovalDate);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.cmbResignationStatus);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.txtHROwner);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.txtReportingManager);
-            this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox2.Location = new System.Drawing.Point(13, 588);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(1030, 136);
-            this.groupBox2.TabIndex = 38;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Approval && Status";
-            // 
-            // btnSearchReportingManager
-            // 
-            this.btnSearchReportingManager.Location = new System.Drawing.Point(467, 21);
-            this.btnSearchReportingManager.Margin = new System.Windows.Forms.Padding(4);
-            this.btnSearchReportingManager.Name = "btnSearchReportingManager";
-            this.btnSearchReportingManager.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnSearchReportingManager.Size = new System.Drawing.Size(29, 28);
-            this.btnSearchReportingManager.TabIndex = 95;
-            this.btnSearchReportingManager.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnSearchReportingManager.Values.Image = global::StaffSync.Properties.Resources.search;
-            this.btnSearchReportingManager.Values.Text = "";
-            // 
-            // btnSearchHRManager
-            // 
-            this.btnSearchHRManager.Location = new System.Drawing.Point(467, 54);
-            this.btnSearchHRManager.Margin = new System.Windows.Forms.Padding(4);
-            this.btnSearchHRManager.Name = "btnSearchHRManager";
-            this.btnSearchHRManager.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
-            this.btnSearchHRManager.Size = new System.Drawing.Size(29, 28);
-            this.btnSearchHRManager.TabIndex = 94;
-            this.btnSearchHRManager.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.btnSearchHRManager.Values.Image = global::StaffSync.Properties.Resources.search;
-            this.btnSearchHRManager.Values.Text = "";
-            // 
-            // lblHROwnerID
-            // 
-            this.lblHROwnerID.AutoSize = true;
-            this.lblHROwnerID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblHROwnerID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHROwnerID.Location = new System.Drawing.Point(536, 62);
-            this.lblHROwnerID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblHROwnerID.Name = "lblHROwnerID";
-            this.lblHROwnerID.Size = new System.Drawing.Size(11, 15);
-            this.lblHROwnerID.TabIndex = 93;
-            this.lblHROwnerID.Text = " ";
-            this.lblHROwnerID.Visible = false;
-            // 
-            // lblRepManagerApprovalStatus
-            // 
-            this.lblRepManagerApprovalStatus.AutoSize = true;
-            this.lblRepManagerApprovalStatus.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblRepManagerApprovalStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRepManagerApprovalStatus.Location = new System.Drawing.Point(347, 5);
-            this.lblRepManagerApprovalStatus.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblRepManagerApprovalStatus.Name = "lblRepManagerApprovalStatus";
-            this.lblRepManagerApprovalStatus.Size = new System.Drawing.Size(11, 15);
-            this.lblRepManagerApprovalStatus.TabIndex = 92;
-            this.lblRepManagerApprovalStatus.Text = " ";
-            // 
-            // lblRepManID
-            // 
-            this.lblRepManID.AutoSize = true;
-            this.lblRepManID.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblRepManID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRepManID.Location = new System.Drawing.Point(310, 5);
-            this.lblRepManID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.lblRepManID.Name = "lblRepManID";
-            this.lblRepManID.Size = new System.Drawing.Size(11, 15);
-            this.lblRepManID.TabIndex = 91;
-            this.lblRepManID.Text = " ";
-            this.lblRepManID.Visible = false;
-            // 
-            // dtApprovalDate
-            // 
-            this.dtApprovalDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.dtApprovalDate.Location = new System.Drawing.Point(465, 93);
-            this.dtApprovalDate.Margin = new System.Windows.Forms.Padding(4);
-            this.dtApprovalDate.Mask = "##-##-####";
-            this.dtApprovalDate.Name = "dtApprovalDate";
-            this.dtApprovalDate.Size = new System.Drawing.Size(103, 21);
-            this.dtApprovalDate.TabIndex = 89;
-            this.dtApprovalDate.Tag = "Resignation Date";
-            this.dtApprovalDate.ValidatingType = typeof(System.DateTime);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(367, 96);
-            this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(96, 15);
-            this.label8.TabIndex = 90;
-            this.label8.Tag = "Approval Date";
-            this.label8.Text = "Approval Date";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cmbResignationStatus
-            // 
-            this.cmbResignationStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbResignationStatus.DropDownWidth = 440;
-            this.cmbResignationStatus.Location = new System.Drawing.Point(153, 92);
-            this.cmbResignationStatus.Margin = new System.Windows.Forms.Padding(4);
-            this.cmbResignationStatus.Name = "cmbResignationStatus";
-            this.cmbResignationStatus.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.cmbResignationStatus.Size = new System.Drawing.Size(188, 22);
-            this.cmbResignationStatus.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.cmbResignationStatus.TabIndex = 86;
-            this.cmbResignationStatus.Tag = "Resignation Reason";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(23, 96);
-            this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(128, 15);
-            this.label7.TabIndex = 87;
-            this.label7.Text = "Resignation Status";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtHROwner
-            // 
-            this.txtHROwner.Location = new System.Drawing.Point(150, 57);
-            this.txtHROwner.Margin = new System.Windows.Forms.Padding(4);
-            this.txtHROwner.Multiline = true;
-            this.txtHROwner.Name = "txtHROwner";
-            this.txtHROwner.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtHROwner.Size = new System.Drawing.Size(313, 25);
-            this.txtHROwner.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHROwner.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtHROwner.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHROwner.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHROwner.TabIndex = 30;
-            this.txtHROwner.Tag = "Name";
-            this.txtHROwner.WordWrap = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(75, 62);
-            this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 15);
-            this.label6.TabIndex = 29;
-            this.label6.Text = "HR Owner";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtReportingManager
-            // 
-            this.txtReportingManager.Location = new System.Drawing.Point(150, 24);
-            this.txtReportingManager.Margin = new System.Windows.Forms.Padding(4);
-            this.txtReportingManager.Multiline = true;
-            this.txtReportingManager.Name = "txtReportingManager";
-            this.txtReportingManager.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtReportingManager.Size = new System.Drawing.Size(313, 25);
-            this.txtReportingManager.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtReportingManager.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtReportingManager.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtReportingManager.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtReportingManager.TabIndex = 28;
-            this.txtReportingManager.Tag = "Name";
-            this.txtReportingManager.WordWrap = false;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(16, 29);
-            this.label14.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(131, 15);
-            this.label14.TabIndex = 9;
-            this.label14.Text = "Reporting Manager";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.groupBox9.Controls.Add(this.kryptonGroupBox2);
-            this.groupBox9.Controls.Add(this.kryptonGroupBox1);
-            this.groupBox9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox9.Location = new System.Drawing.Point(0, 0);
-            this.groupBox9.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox9.Size = new System.Drawing.Size(1030, 473);
-            this.groupBox9.TabIndex = 39;
-            this.groupBox9.TabStop = false;
-            // 
-            // kryptonGroupBox1
-            // 
-            this.kryptonGroupBox1.CaptionOverlap = 0D;
-            this.kryptonGroupBox1.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
-            this.kryptonGroupBox1.GroupBackStyle = Krypton.Toolkit.PaletteBackStyle.ControlToolTip;
-            this.kryptonGroupBox1.Location = new System.Drawing.Point(13, 19);
-            this.kryptonGroupBox1.PaletteMode = Krypton.Toolkit.PaletteMode.Microsoft365Blue;
-            // 
-            // kryptonGroupBox1.Panel
-            // 
-            this.kryptonGroupBox1.Panel.Controls.Add(this.txtEncashableLeaveBalance);
-            this.kryptonGroupBox1.Panel.Controls.Add(this.txtLeaveBalance);
-            this.kryptonGroupBox1.Panel.Controls.Add(this.txtTotalLeaveUtilised);
-            this.kryptonGroupBox1.Panel.Controls.Add(this.txtTotalLeaveAlloted);
-            this.kryptonGroupBox1.Panel.Controls.Add(this.label15);
-            this.kryptonGroupBox1.Panel.Controls.Add(this.label13);
-            this.kryptonGroupBox1.Panel.Controls.Add(this.label12);
-            this.kryptonGroupBox1.Panel.Controls.Add(this.label11);
-            this.kryptonGroupBox1.Panel.Controls.Add(this.kryptonDataGridView1);
-            this.kryptonGroupBox1.Size = new System.Drawing.Size(998, 215);
-            this.kryptonGroupBox1.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox1.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox1.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox1.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox1.TabIndex = 0;
-            this.kryptonGroupBox1.Values.Heading = "Leave Balance Information";
-            // 
-            // kryptonGroupBox2
-            // 
-            this.kryptonGroupBox2.CaptionOverlap = 0D;
-            this.kryptonGroupBox2.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
-            this.kryptonGroupBox2.GroupBackStyle = Krypton.Toolkit.PaletteBackStyle.ControlToolTip;
-            this.kryptonGroupBox2.Location = new System.Drawing.Point(13, 246);
-            this.kryptonGroupBox2.PaletteMode = Krypton.Toolkit.PaletteMode.Microsoft365Blue;
-            // 
-            // kryptonGroupBox2.Panel
-            // 
-            this.kryptonGroupBox2.Panel.Controls.Add(this.label17);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.txtDailySalaryRate);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.label16);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.optEncashmentDays);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.txtNetEncashmentAmount);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.label33);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.txtTaxDeductionOnEncashmentAmount);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.label32);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.txtEncashmentAmount);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.label31);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.txtMonthlyBasicSalary);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.label30);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.label28);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.dtEncashmentDate);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.label26);
-            this.kryptonGroupBox2.Size = new System.Drawing.Size(1003, 220);
-            this.kryptonGroupBox2.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox2.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox2.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox2.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox2.TabIndex = 1;
-            this.kryptonGroupBox2.Values.Heading = "Leave Encashment Calculation";
-            // 
-            // kryptonDataGridView1
-            // 
-            this.kryptonDataGridView1.AllowUserToAddRows = false;
-            this.kryptonDataGridView1.AllowUserToDeleteRows = false;
-            this.kryptonDataGridView1.AllowUserToResizeRows = false;
-            this.kryptonDataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.kryptonDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.kryptonDataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.kryptonDataGridView1.GridStyles.Style = Krypton.Toolkit.DataGridViewStyle.Mixed;
-            this.kryptonDataGridView1.GridStyles.StyleBackground = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
-            this.kryptonDataGridView1.Location = new System.Drawing.Point(7, 12);
-            this.kryptonDataGridView1.Name = "kryptonDataGridView1";
-            this.kryptonDataGridView1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.kryptonDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.kryptonDataGridView1.Size = new System.Drawing.Size(618, 156);
-            this.kryptonDataGridView1.StateCommon.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonDataGridView1.StateCommon.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonDataGridView1.StateCommon.BackStyle = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
-            this.kryptonDataGridView1.StateDisabled.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonDataGridView1.StateDisabled.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonDataGridView1.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonDataGridView1.StateNormal.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonDataGridView1.TabIndex = 69;
-            // 
-            // dtEncashmentDate
-            // 
-            this.dtEncashmentDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.dtEncashmentDate.Location = new System.Drawing.Point(571, 12);
-            this.dtEncashmentDate.Margin = new System.Windows.Forms.Padding(4);
-            this.dtEncashmentDate.Mask = "##-##-####";
-            this.dtEncashmentDate.Name = "dtEncashmentDate";
-            this.dtEncashmentDate.Size = new System.Drawing.Size(103, 21);
-            this.dtEncashmentDate.TabIndex = 108;
-            this.dtEncashmentDate.Tag = "Resignation Date";
-            this.dtEncashmentDate.ValidatingType = typeof(System.DateTime);
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(449, 15);
-            this.label26.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(120, 15);
-            this.label26.TabIndex = 109;
-            this.label26.Text = "Encashment Date";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(80, 15);
-            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(105, 15);
-            this.label28.TabIndex = 110;
-            this.label28.Text = "Days to Encash";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtMonthlyBasicSalary
-            // 
-            this.txtMonthlyBasicSalary.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtMonthlyBasicSalary.Location = new System.Drawing.Point(189, 42);
-            this.txtMonthlyBasicSalary.Margin = new System.Windows.Forms.Padding(4);
-            this.txtMonthlyBasicSalary.Multiline = true;
-            this.txtMonthlyBasicSalary.Name = "txtMonthlyBasicSalary";
-            this.txtMonthlyBasicSalary.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtMonthlyBasicSalary.ReadOnly = true;
-            this.txtMonthlyBasicSalary.Size = new System.Drawing.Size(168, 25);
-            this.txtMonthlyBasicSalary.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMonthlyBasicSalary.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtMonthlyBasicSalary.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMonthlyBasicSalary.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMonthlyBasicSalary.TabIndex = 113;
-            this.txtMonthlyBasicSalary.Tag = "Employee Code";
-            this.txtMonthlyBasicSalary.WordWrap = false;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(35, 47);
-            this.label30.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(150, 15);
-            this.label30.TabIndex = 112;
-            this.label30.Text = "Basic Salary (Monthly)";
-            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtEncashmentAmount
-            // 
-            this.txtEncashmentAmount.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtEncashmentAmount.Location = new System.Drawing.Point(189, 75);
-            this.txtEncashmentAmount.Margin = new System.Windows.Forms.Padding(4);
-            this.txtEncashmentAmount.Multiline = true;
-            this.txtEncashmentAmount.Name = "txtEncashmentAmount";
-            this.txtEncashmentAmount.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtEncashmentAmount.ReadOnly = true;
-            this.txtEncashmentAmount.Size = new System.Drawing.Size(168, 25);
-            this.txtEncashmentAmount.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEncashmentAmount.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtEncashmentAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEncashmentAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEncashmentAmount.TabIndex = 115;
-            this.txtEncashmentAmount.Tag = "Employee Code";
-            this.txtEncashmentAmount.WordWrap = false;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(47, 80);
-            this.label31.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(138, 15);
-            this.label31.TabIndex = 114;
-            this.label31.Text = "Encashment Amount";
-            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtTaxDeductionOnEncashmentAmount
-            // 
-            this.txtTaxDeductionOnEncashmentAmount.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTaxDeductionOnEncashmentAmount.Location = new System.Drawing.Point(189, 108);
-            this.txtTaxDeductionOnEncashmentAmount.Margin = new System.Windows.Forms.Padding(4);
-            this.txtTaxDeductionOnEncashmentAmount.Multiline = true;
-            this.txtTaxDeductionOnEncashmentAmount.Name = "txtTaxDeductionOnEncashmentAmount";
-            this.txtTaxDeductionOnEncashmentAmount.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtTaxDeductionOnEncashmentAmount.ReadOnly = true;
-            this.txtTaxDeductionOnEncashmentAmount.Size = new System.Drawing.Size(168, 25);
-            this.txtTaxDeductionOnEncashmentAmount.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaxDeductionOnEncashmentAmount.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtTaxDeductionOnEncashmentAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaxDeductionOnEncashmentAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaxDeductionOnEncashmentAmount.TabIndex = 117;
-            this.txtTaxDeductionOnEncashmentAmount.Tag = "Employee Code";
-            this.txtTaxDeductionOnEncashmentAmount.WordWrap = false;
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.Location = new System.Drawing.Point(86, 113);
-            this.label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(99, 15);
-            this.label32.TabIndex = 116;
-            this.label32.Text = "Tax/Deduction";
-            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtNetEncashmentAmount
-            // 
-            this.txtNetEncashmentAmount.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNetEncashmentAmount.Location = new System.Drawing.Point(189, 141);
-            this.txtNetEncashmentAmount.Margin = new System.Windows.Forms.Padding(4);
-            this.txtNetEncashmentAmount.Multiline = true;
-            this.txtNetEncashmentAmount.Name = "txtNetEncashmentAmount";
-            this.txtNetEncashmentAmount.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtNetEncashmentAmount.ReadOnly = true;
-            this.txtNetEncashmentAmount.Size = new System.Drawing.Size(168, 25);
-            this.txtNetEncashmentAmount.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNetEncashmentAmount.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtNetEncashmentAmount.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNetEncashmentAmount.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNetEncashmentAmount.TabIndex = 119;
-            this.txtNetEncashmentAmount.Tag = "Employee Code";
-            this.txtNetEncashmentAmount.WordWrap = false;
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label33.Location = new System.Drawing.Point(21, 146);
-            this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(164, 15);
-            this.label33.TabIndex = 118;
-            this.label33.Text = "Net Encashment Amount";
-            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // optEncashmentDays
-            // 
-            this.optEncashmentDays.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.optEncashmentDays.Location = new System.Drawing.Point(189, 11);
-            this.optEncashmentDays.Maximum = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
-            this.optEncashmentDays.Minimum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.optEncashmentDays.Name = "optEncashmentDays";
-            this.optEncashmentDays.Size = new System.Drawing.Size(103, 22);
-            this.optEncashmentDays.TabIndex = 120;
-            this.optEncashmentDays.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(685, 28);
-            this.label11.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(140, 15);
-            this.label11.TabIndex = 110;
-            this.label11.Text = "Total Leaves Allotted";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(684, 61);
-            this.label12.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(141, 15);
-            this.label12.TabIndex = 111;
-            this.label12.Text = "Total Leaves Utilised";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(724, 93);
-            this.label13.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(101, 15);
-            this.label13.TabIndex = 112;
-            this.label13.Text = "Leave Balance";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(645, 127);
-            this.label15.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(180, 15);
-            this.label15.TabIndex = 113;
-            this.label15.Text = "Encashable Leave Balance";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // txtTotalLeaveAlloted
-            // 
-            this.txtTotalLeaveAlloted.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTotalLeaveAlloted.Location = new System.Drawing.Point(827, 24);
-            this.txtTotalLeaveAlloted.Margin = new System.Windows.Forms.Padding(4);
-            this.txtTotalLeaveAlloted.Multiline = true;
-            this.txtTotalLeaveAlloted.Name = "txtTotalLeaveAlloted";
-            this.txtTotalLeaveAlloted.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtTotalLeaveAlloted.ReadOnly = true;
-            this.txtTotalLeaveAlloted.Size = new System.Drawing.Size(150, 25);
-            this.txtTotalLeaveAlloted.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalLeaveAlloted.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtTotalLeaveAlloted.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalLeaveAlloted.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalLeaveAlloted.TabIndex = 114;
-            this.txtTotalLeaveAlloted.Tag = "Employee Code";
-            this.txtTotalLeaveAlloted.WordWrap = false;
-            // 
-            // txtTotalLeaveUtilised
-            // 
-            this.txtTotalLeaveUtilised.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtTotalLeaveUtilised.Location = new System.Drawing.Point(827, 56);
-            this.txtTotalLeaveUtilised.Margin = new System.Windows.Forms.Padding(4);
-            this.txtTotalLeaveUtilised.Multiline = true;
-            this.txtTotalLeaveUtilised.Name = "txtTotalLeaveUtilised";
-            this.txtTotalLeaveUtilised.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtTotalLeaveUtilised.ReadOnly = true;
-            this.txtTotalLeaveUtilised.Size = new System.Drawing.Size(150, 25);
-            this.txtTotalLeaveUtilised.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalLeaveUtilised.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtTotalLeaveUtilised.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalLeaveUtilised.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalLeaveUtilised.TabIndex = 115;
-            this.txtTotalLeaveUtilised.Tag = "Employee Code";
-            this.txtTotalLeaveUtilised.WordWrap = false;
-            // 
-            // txtLeaveBalance
-            // 
-            this.txtLeaveBalance.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtLeaveBalance.Location = new System.Drawing.Point(827, 88);
-            this.txtLeaveBalance.Margin = new System.Windows.Forms.Padding(4);
-            this.txtLeaveBalance.Multiline = true;
-            this.txtLeaveBalance.Name = "txtLeaveBalance";
-            this.txtLeaveBalance.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtLeaveBalance.ReadOnly = true;
-            this.txtLeaveBalance.Size = new System.Drawing.Size(150, 25);
-            this.txtLeaveBalance.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLeaveBalance.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtLeaveBalance.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLeaveBalance.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLeaveBalance.TabIndex = 116;
-            this.txtLeaveBalance.Tag = "Employee Code";
-            this.txtLeaveBalance.WordWrap = false;
-            // 
-            // txtEncashableLeaveBalance
-            // 
-            this.txtEncashableLeaveBalance.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtEncashableLeaveBalance.Location = new System.Drawing.Point(827, 122);
-            this.txtEncashableLeaveBalance.Margin = new System.Windows.Forms.Padding(4);
-            this.txtEncashableLeaveBalance.Multiline = true;
-            this.txtEncashableLeaveBalance.Name = "txtEncashableLeaveBalance";
-            this.txtEncashableLeaveBalance.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtEncashableLeaveBalance.ReadOnly = true;
-            this.txtEncashableLeaveBalance.Size = new System.Drawing.Size(150, 25);
-            this.txtEncashableLeaveBalance.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEncashableLeaveBalance.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtEncashableLeaveBalance.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEncashableLeaveBalance.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEncashableLeaveBalance.TabIndex = 117;
-            this.txtEncashableLeaveBalance.Tag = "Employee Code";
-            this.txtEncashableLeaveBalance.WordWrap = false;
-            // 
-            // txtDailySalaryRate
-            // 
-            this.txtDailySalaryRate.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtDailySalaryRate.Location = new System.Drawing.Point(571, 42);
-            this.txtDailySalaryRate.Margin = new System.Windows.Forms.Padding(4);
-            this.txtDailySalaryRate.Multiline = true;
-            this.txtDailySalaryRate.Name = "txtDailySalaryRate";
-            this.txtDailySalaryRate.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtDailySalaryRate.ReadOnly = true;
-            this.txtDailySalaryRate.Size = new System.Drawing.Size(168, 25);
-            this.txtDailySalaryRate.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDailySalaryRate.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
-            this.txtDailySalaryRate.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDailySalaryRate.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDailySalaryRate.TabIndex = 122;
-            this.txtDailySalaryRate.Tag = "Employee Code";
-            this.txtDailySalaryRate.WordWrap = false;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(452, 47);
-            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(117, 15);
-            this.label16.TabIndex = 121;
-            this.label16.Text = "Daily Salary Rate";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(748, 47);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(194, 15);
-            this.label17.TabIndex = 123;
-            this.label17.Text = "(Basic Salary / Payable Days)";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // frmEmployeeResignationManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1803,6 +1812,9 @@
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cmbResignationStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabResignationInfo)).EndInit();
@@ -1825,29 +1837,26 @@
             this.tabAssetsInformation.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgAssetInformation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabLeaveEncashment)).EndInit();
+            this.tabLeaveEncashment.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).EndInit();
+            this.kryptonGroupBox2.Panel.ResumeLayout(false);
+            this.kryptonGroupBox2.Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).EndInit();
+            this.kryptonGroupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).EndInit();
+            this.kryptonGroupBox1.Panel.ResumeLayout(false);
+            this.kryptonGroupBox1.Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).EndInit();
+            this.kryptonGroupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgLeaveBalanceInfo)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.tabLeaveEncashment)).EndInit();
-            this.tabLeaveEncashment.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cmbResignationStatus)).EndInit();
-            this.groupBox9.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).EndInit();
-            this.kryptonGroupBox1.Panel.ResumeLayout(false);
-            this.kryptonGroupBox1.Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).EndInit();
-            this.kryptonGroupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).EndInit();
-            this.kryptonGroupBox2.Panel.ResumeLayout(false);
-            this.kryptonGroupBox2.Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).EndInit();
-            this.kryptonGroupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonDataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1938,7 +1947,7 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.MaskedTextBox dtEncashmentDate;
         private System.Windows.Forms.Label label26;
-        private Krypton.Toolkit.KryptonDataGridView kryptonDataGridView1;
+        private Krypton.Toolkit.KryptonDataGridView dtgLeaveBalanceInfo;
         private Krypton.Toolkit.KryptonTextBox txtMonthlyBasicSalary;
         private System.Windows.Forms.Label label30;
         private Krypton.Toolkit.KryptonTextBox txtEncashmentAmount;

@@ -37,6 +37,15 @@ namespace DALStaffSync
             return LeaveEntitlementInfoList;
         }
 
+        public List<LeaveEntitlementInfo> getEmployeeSpecificLeaveOutstandingInfo(int txtEmpID)
+        {
+            List<LeaveEntitlementInfo> LeaveEntitlementInfoList = new List<LeaveEntitlementInfo>();
+
+            LeaveEntitlementInfoList = objEmpLeaveEntitlementInfo.getEmployeeSpecificLeaveOutstandingInfo(txtEmpID);
+
+            return LeaveEntitlementInfoList;
+        }
+
         public List<LeaveOutStandingSummary> getConsolidatedLeaveOutStandingStatement(int txtClientID)
         {
             List<LeaveOutStandingSummary> LeaveOutStandingSummaryList = new List<LeaveOutStandingSummary>();
