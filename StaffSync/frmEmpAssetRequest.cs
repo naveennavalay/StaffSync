@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
+using Krypton.Toolkit;
 using ModelStaffSync;
 using Quartz.Impl.AdoJobStore.Common;
 using System;
@@ -1166,6 +1167,23 @@ namespace StaffSync
         {
             frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblPersonalInfoID.Text.ToString()), "AdvanceRequest", "Advance Request", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             objAuditLogStatements.ShowDialog(this);
+        }
+
+        private void dtgAssetRequestedList_Paint(object sender, PaintEventArgs e)
+        {
+            KryptonDataGridView dgv = sender as KryptonDataGridView;
+
+            if (dgv.Rows.Count == 0)
+            {
+                string message = "No Data Available";
+
+                using (System.Drawing.Font font = new System.Drawing.Font("Segoe UI", 12, FontStyle.Bold))
+                {
+                    SizeF size = e.Graphics.MeasureString(message, font);
+
+                    e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
+                }
+            }
         }
     }
 }

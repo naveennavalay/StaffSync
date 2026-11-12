@@ -634,6 +634,7 @@ namespace StaffSync
                 txtRequestCode.Text = objSelectedAssetMasterInfo.AssetRequestCode.ToString();
                 txtRequestDate.Text = objSelectedAssetMasterInfo.AssetRequestDate.ToString();
                 txtRequestDescription.Text = objSelectedAssetMasterInfo.AssetRequestComments.ToString();
+                txtReimbStatus.Text = "In Progress";
 
                 lblEmpID.Text = objSelectedAssetMasterInfo.EmpID.ToString();
                 lblPersonalInfoID.Text = objSelectedAssetMasterInfo.PersonalInfoID.ToString();

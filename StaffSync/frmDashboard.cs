@@ -9236,7 +9236,7 @@ namespace StaffSync
         {
             if (this.MdiChildren.Length == 0)
             {
-                lblDashboardTitle.Text = "Shift Details";
+                lblDashboardTitle.Text = "Resignation Details";
                 sptrDashboardContainer.Visible = false;
                 grpDashboardDateRange.Visible = false;
                 frmEmployeeResignation frmEmployeeResignation = new frmEmployeeResignation(objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, objSelectedClientFinYearInfo);

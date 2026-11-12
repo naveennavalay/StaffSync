@@ -3,6 +3,7 @@ using iTextSharp.text.pdf;
 using Krypton.Toolkit;
 using ModelStaffSync;
 using Org.BouncyCastle.Ocsp;
+using RBush;
 using StaffSync.Controls;
 using StaffSync.StaffsyncDBDataSetTableAdapters;
 using StaffSync.StaffsyncDBDTSetTableAdapters;
@@ -2223,7 +2224,12 @@ namespace StaffSync
                         continue;
                     }
 
-                    int intLeaveTypeID = objLeaveTypeMas.InsertLeaveTypeInfo("", LeaveTypeTitle, IsPaid.ToString() == "1" ? true : false, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
+                    //int intLeaveTypeID = objLeaveTypeMas.InsertLeaveTypeInfo("", LeaveTypeTitle, IsPaid.ToString() == "1" ? true : false, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false);
+
+                    int intLeaveTypeID = objLeaveTypeMas.InsertLeaveTypeInfo("", LeaveTypeTitle, IsPaid.Trim() == "1" ? true : false, GetImportCellValue(row, "IsActive").ToString() == "1" ? true : false, false,
+                        false, 0, 6, false,
+                        false, 0, false, false,
+                        false, 0, false, false);
                     if (intLeaveTypeID > 0)
                     {
                         intTotalImportedRowsCount = intTotalImportedRowsCount + 1;

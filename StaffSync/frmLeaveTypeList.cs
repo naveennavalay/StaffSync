@@ -102,6 +102,18 @@ namespace StaffSync
             dtgLeaveTypeList.Columns["IsActive"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dtgLeaveTypeList.Columns["IsDelete"].Visible = false;
             dtgLeaveTypeList.Columns["OrderID"].Visible = false;
+            dtgLeaveTypeList.Columns["IsCarryForwardAllowed"].Visible = false;
+            dtgLeaveTypeList.Columns["MaxCarryForwardAllowed"].Visible = false;
+            dtgLeaveTypeList.Columns["CarryForwardExpiryMonths"].Visible = false;
+            dtgLeaveTypeList.Columns["IsCarryForwardExpiryApplicable"].Visible = false;
+            dtgLeaveTypeList.Columns["IsEncashmentAllowed"].Visible = false;
+            dtgLeaveTypeList.Columns["MaxLeaveDaysAllowedToEncash"].Visible = false;
+            dtgLeaveTypeList.Columns["IsEncashmentDuringEmploymentAllowed"].Visible = false;
+            dtgLeaveTypeList.Columns["IsEncashmentAtResignationAllowed"].Visible = false;
+            dtgLeaveTypeList.Columns["IsLeaveAccrualApplicable"].Visible = false;
+            dtgLeaveTypeList.Columns["AccrualFrequency"].Visible = false;
+            dtgLeaveTypeList.Columns["IsApplicableDuringProbation"].Visible = false;
+            dtgLeaveTypeList.Columns["IsApplicableDuringNoticePeriod"].Visible = false;
         }
 
         private void dtgDepartmentList_DoubleClick(object sender, EventArgs e)
@@ -112,6 +124,18 @@ namespace StaffSync
             objLeaveTypeInfoModel.LeaveTypeTitle = dtgLeaveTypeList.SelectedRows[0].Cells["LeaveTypeTitle"].Value.ToString();
             objLeaveTypeInfoModel.IsPaid = Convert.ToBoolean(dtgLeaveTypeList.SelectedRows[0].Cells["IsPaid"].Value);
             objLeaveTypeInfoModel.IsActive = Convert.ToBoolean(dtgLeaveTypeList.SelectedRows[0].Cells["IsActive"].Value);
+            objLeaveTypeInfoModel.IsCarryForwardAllowed = Convert.ToBoolean(dtgLeaveTypeList.SelectedRows[0].Cells["IsCarryForwardAllowed"].Value);
+            objLeaveTypeInfoModel.MaxCarryForwardAllowed = Convert.ToInt32(dtgLeaveTypeList.SelectedRows[0].Cells["MaxCarryForwardAllowed"].Value);
+            objLeaveTypeInfoModel.CarryForwardExpiryMonths = Convert.ToInt32(dtgLeaveTypeList.SelectedRows[0].Cells["CarryForwardExpiryMonths"].Value);
+            objLeaveTypeInfoModel.IsCarryForwardExpiryApplicable = Convert.ToBoolean(dtgLeaveTypeList.SelectedRows[0].Cells["IsCarryForwardExpiryApplicable"].Value);
+            objLeaveTypeInfoModel.IsEncashmentAllowed = Convert.ToBoolean(dtgLeaveTypeList.SelectedRows[0].Cells["IsEncashmentAllowed"].Value);
+            objLeaveTypeInfoModel.MaxLeaveDaysAllowedToEncash = Convert.ToInt32(dtgLeaveTypeList.SelectedRows[0].Cells["MaxLeaveDaysAllowedToEncash"].Value);
+            objLeaveTypeInfoModel.IsEncashmentDuringEmploymentAllowed = Convert.ToBoolean(dtgLeaveTypeList.SelectedRows[0].Cells["IsEncashmentDuringEmploymentAllowed"].Value);
+            objLeaveTypeInfoModel.IsEncashmentAtResignationAllowed = Convert.ToBoolean(dtgLeaveTypeList.SelectedRows[0].Cells["IsEncashmentAtResignationAllowed"].Value);
+            objLeaveTypeInfoModel.IsLeaveAccrualApplicable = Convert.ToBoolean(dtgLeaveTypeList.SelectedRows[0].Cells["IsLeaveAccrualApplicable"].Value);
+            objLeaveTypeInfoModel.AccrualFrequency = Convert.ToInt32(dtgLeaveTypeList.SelectedRows[0].Cells["AccrualFrequency"].Value);
+            objLeaveTypeInfoModel.IsApplicableDuringProbation = Convert.ToBoolean(dtgLeaveTypeList.SelectedRows[0].Cells["IsApplicableDuringProbation"].Value);
+            objLeaveTypeInfoModel.IsApplicableDuringNoticePeriod = Convert.ToBoolean(dtgLeaveTypeList.SelectedRows[0].Cells["IsApplicableDuringNoticePeriod"].Value);
 
             if (lblSearchOptionClickedFor.Text.Trim() == "listEmpLeaveEntitlements")
             {

@@ -81,6 +81,7 @@ namespace StaffSync
             onCancelButtonClick();
             disableControls();
             clearControls();
+            LoadAccrualFrequencyList();
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)
@@ -172,7 +173,10 @@ namespace StaffSync
                     strActionStatement = "LeaveTypeMasterInfoNewUpdates";
                     onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, true);
 
-                    int newID = objLeaveTypeMas.InsertLeaveTypeInfo(txtLeaveCode.Text.Trim(), txtLeaveTitle.Text.Trim(), cmbLeavePaid.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false);
+                    int newID = objLeaveTypeMas.InsertLeaveTypeInfo(txtLeaveCode.Text.Trim(), txtLeaveTitle.Text.Trim(), cmbLeavePaid.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false, 
+                        chkIsCarryForwardAllowed.Checked, Convert.ToInt32(txtMaxDaysCarryForwardAllowed.Text), Convert.ToInt32(txtCarryForwardExpiryMonths.Text), chkIsCarryForwardExpiryApplicable.Checked, 
+                        chkIsEncashmentAllowed.Checked, Convert.ToInt32(txtMaxLeaveDaysAllowedToEncash.Text), chkIsEncashmentDuringEmploymentAllowed.Checked, chkIsEncashmentAtResignationAllowed.Checked, 
+                        chkIsLeaveAccrualApplicable.Checked, Convert.ToInt32(cmbAccrualFrequency.SelectedIndex), chkIsApplicableDuringProbation.Checked, chkIsApplicableDuringNoticePeriod.Checked);
                     if (newID > 0)
                         MessageBox.Show("Details inserted successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -181,7 +185,10 @@ namespace StaffSync
                     strActionStatement = "LeaveTypeMasterInfoExistingUpdates";
                     onlyChangedValues = AuditLogger.getUpdatedValues(_originalValues, updatedValues, false);
 
-                    int affectedRows = objLeaveTypeMas.UpadateLeaveTypeInfo(Convert.ToInt16(lblLeaveTypeID.Text.Trim()), txtLeaveCode.Text.Trim(), txtLeaveTitle.Text.Trim(), cmbLeavePaid.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false);
+                    int affectedRows = objLeaveTypeMas.UpadateLeaveTypeInfo(Convert.ToInt16(lblLeaveTypeID.Text.Trim()), txtLeaveCode.Text.Trim(), txtLeaveTitle.Text.Trim(), cmbLeavePaid.Text.Trim() == "Yes" ? true : false, cmbIsActive.Text.Trim() == "Yes" ? true : false, false,
+                        chkIsCarryForwardAllowed.Checked, Convert.ToInt32(txtMaxDaysCarryForwardAllowed.Text), Convert.ToInt32(txtCarryForwardExpiryMonths.Text), chkIsCarryForwardExpiryApplicable.Checked,
+                        chkIsEncashmentAllowed.Checked, Convert.ToInt32(txtMaxLeaveDaysAllowedToEncash.Text), chkIsEncashmentDuringEmploymentAllowed.Checked, chkIsEncashmentAtResignationAllowed.Checked,
+                        chkIsLeaveAccrualApplicable.Checked, Convert.ToInt32(cmbAccrualFrequency.SelectedIndex), chkIsApplicableDuringProbation.Checked, chkIsApplicableDuringNoticePeriod.Checked);
                     if (affectedRows > 0)
                         MessageBox.Show("Details updated successfully", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -220,6 +227,38 @@ namespace StaffSync
             cmbIsActive.Items.Add("Yes");
             cmbIsActive.Items.Add("No");
             cmbIsActive.SelectedIndex = 1;
+
+            txtMaxLeaveDaysAllowedToEncash.Text = "0";
+
+            chkIsLeaveAccrualApplicable.Checked = false;
+            cmbAccrualFrequency.DataSource = null;
+
+            chkIsApplicableDuringProbation.Checked = false;
+            chkIsApplicableDuringNoticePeriod.Checked = false;
+
+            chkIsCarryForwardAllowed.Checked = false;
+            txtMaxDaysCarryForwardAllowed.Text = "0";
+            chkIsCarryForwardExpiryApplicable.Checked = false;
+            txtCarryForwardExpiryMonths.Text = "0";
+
+            chkIsEncashmentAllowed.Checked = false;
+            txtMaxLeaveDaysAllowedToEncash.Text = "0";
+            chkIsEncashmentDuringEmploymentAllowed.Checked = false;
+            chkIsEncashmentAtResignationAllowed.Checked = false;
+        }
+
+        private void LoadAccrualFrequencyList()
+        {
+            cmbAccrualFrequency.Items.Clear();
+            cmbAccrualFrequency.Items.Add("");
+            cmbAccrualFrequency.Items.Add("Daily");
+            cmbAccrualFrequency.Items.Add("Monthly");
+            cmbAccrualFrequency.Items.Add("Quarterly");
+            cmbAccrualFrequency.Items.Add("Half-Yearly");
+            cmbAccrualFrequency.Items.Add("Annually");
+            cmbAccrualFrequency.Items.Add("One-Time Allocation");
+            cmbAccrualFrequency.SelectedIndex = 6;
+
         }
 
         public void enableControls()
@@ -239,6 +278,27 @@ namespace StaffSync
             cmbIsActive.Items.Add("No");
             cmbIsActive.SelectedIndex = 1; 
             cmbIsActive.Enabled = true;
+
+            chkIsLeaveAccrualApplicable.Enabled = true;
+            cmbAccrualFrequency.Items.Clear();
+            cmbAccrualFrequency.DataSource = null;
+            cmbAccrualFrequency.Enabled = true;
+
+            LoadAccrualFrequencyList();
+
+            chkIsApplicableDuringProbation.Enabled = true;
+            chkIsApplicableDuringNoticePeriod.Enabled = true;
+
+            chkIsCarryForwardAllowed.Enabled = true;
+            grpIsCarryForwardAllowed.Enabled = false;
+            txtMaxDaysCarryForwardAllowed.Text = "0";
+            chkIsCarryForwardExpiryApplicable.Checked = false;
+            txtCarryForwardExpiryMonths.Text = "0";
+
+            grpIsEncashmentAllowed.Enabled = false;
+            txtMaxLeaveDaysAllowedToEncash.Text = "0";
+            chkIsEncashmentDuringEmploymentAllowed.Checked = false;
+            chkIsEncashmentAtResignationAllowed.Checked = false;
         }
 
         public void disableControls()
@@ -258,6 +318,26 @@ namespace StaffSync
             cmbIsActive.Items.Add("No");
             cmbIsActive.SelectedIndex = 1;
             cmbIsActive.Enabled = false;
+
+            chkIsLeaveAccrualApplicable.Checked = false;
+            cmbAccrualFrequency.Items.Clear();
+            cmbAccrualFrequency.DataSource = null;
+            cmbAccrualFrequency.Enabled = false;
+
+            chkIsApplicableDuringProbation.Enabled = false;
+            chkIsApplicableDuringNoticePeriod.Enabled = false;
+
+            chkIsCarryForwardAllowed.Enabled = false;
+            grpIsCarryForwardAllowed.Enabled = false;
+            txtMaxDaysCarryForwardAllowed.Text = "0";
+            chkIsCarryForwardExpiryApplicable.Checked = false;
+            txtCarryForwardExpiryMonths.Text = "0";
+
+            chkIsEncashmentAllowed.Checked = false;
+            grpIsEncashmentAllowed.Enabled = false;
+            txtMaxLeaveDaysAllowedToEncash.Text = "0";
+            chkIsEncashmentDuringEmploymentAllowed.Checked = false;
+            chkIsEncashmentAtResignationAllowed.Checked = false;
         }
 
         public void onGenerateButtonClick()
@@ -328,6 +408,21 @@ namespace StaffSync
             txtLeaveTitle.Text = LeaveTypeInfoModel.LeaveTypeTitle;
             cmbLeavePaid.Text = LeaveTypeInfoModel.IsPaid == true ? "Yes" : "No";
             cmbIsActive.Text = LeaveTypeInfoModel.IsActive == true ? "Yes" : "No";
+            chkIsCarryForwardAllowed.Checked = LeaveTypeInfoModel.IsCarryForwardAllowed;
+            grpIsCarryForwardAllowed.Enabled = chkIsCarryForwardAllowed.Checked;
+            txtMaxDaysCarryForwardAllowed.Text = LeaveTypeInfoModel.MaxCarryForwardAllowed.ToString();
+            txtCarryForwardExpiryMonths.Text = LeaveTypeInfoModel.CarryForwardExpiryMonths.ToString();
+            chkIsCarryForwardExpiryApplicable.Checked = LeaveTypeInfoModel.IsCarryForwardExpiryApplicable;
+            chkIsEncashmentAllowed.Checked = LeaveTypeInfoModel.IsEncashmentAllowed;
+            grpIsEncashmentAllowed.Enabled = chkIsEncashmentAllowed.Checked;
+            txtMaxLeaveDaysAllowedToEncash.Text = LeaveTypeInfoModel.MaxLeaveDaysAllowedToEncash.ToString();
+            chkIsEncashmentDuringEmploymentAllowed.Checked = LeaveTypeInfoModel.IsEncashmentDuringEmploymentAllowed;
+            chkIsEncashmentAtResignationAllowed.Checked = LeaveTypeInfoModel.IsEncashmentAtResignationAllowed;
+            chkIsLeaveAccrualApplicable.Checked = LeaveTypeInfoModel.IsLeaveAccrualApplicable;
+            cmbAccrualFrequency.SelectedIndex = LeaveTypeInfoModel.AccrualFrequency;
+            chkIsApplicableDuringProbation.Checked = LeaveTypeInfoModel.IsApplicableDuringProbation;
+            chkIsApplicableDuringNoticePeriod.Checked = LeaveTypeInfoModel.IsApplicableDuringNoticePeriod;
+
             _originalValues = AuditLogger.getOriginalValues(this);
         }
 
@@ -478,6 +573,43 @@ namespace StaffSync
         {
             frmAuditLogStatements objAuditLogStatements = new frmAuditLogStatements(Convert.ToInt32(lblLeaveTypeID.Text.ToString()), "LeaveTypeMaster", "Leave Type Master", Convert.ToInt32(objTempClientFinYearInfo.ClientID));
             objAuditLogStatements.ShowDialog(this);
+        }
+
+        private void chkIsCarryForwardAllowed_CheckedChanged(object sender, EventArgs e)
+        {
+            grpIsCarryForwardAllowed.Enabled = chkIsCarryForwardAllowed.Checked;
+            //if (chkIsCarryForwardAllowed.Checked)
+            //{
+            //    txtMaxDaysCarryForwardAllowed.Enabled = true;
+            //    txtCarryForwardExpiryMonths.Enabled = true;
+            //}
+            //else
+            //{
+            //    txtMaxDaysCarryForwardAllowed.Enabled = false;
+            //    txtCarryForwardExpiryMonths.Enabled = false;
+            //    txtMaxDaysCarryForwardAllowed.Text = "0";
+            //    txtCarryForwardExpiryMonths.Text = "0";
+            //}
+        }
+
+        private void chkIsEncashmentAllowed_CheckedChanged(object sender, EventArgs e)
+        {
+            grpIsEncashmentAllowed.Enabled = chkIsEncashmentAllowed.Checked;
+            //if (chkIsEncashmentAllowed.Checked)
+            //{
+            //    txtMaxLeaveDaysAllowedToEncash.Enabled = true;
+            //    chkIsEncashmentDuringEmploymentAllowed.Enabled = true;
+            //    chkIsEncashmentAtResignationAllowed.Enabled = true;
+            //}
+            //else
+            //{
+
+            //}
+        }
+
+        private void chkIsCarryForwardExpiryApplicable_CheckedChanged(object sender, EventArgs e)
+        {
+            txtCarryForwardExpiryMonths.Enabled = chkIsCarryForwardExpiryApplicable.Checked;
         }
     }
 }

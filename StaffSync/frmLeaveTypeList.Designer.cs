@@ -90,8 +90,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel2);
-            this.splitContainer1.Size = new System.Drawing.Size(1227, 583);
-            this.splitContainer1.SplitterDistance = 515;
+            this.splitContainer1.Size = new System.Drawing.Size(806, 450);
+            this.splitContainer1.SplitterDistance = 381;
             this.splitContainer1.TabIndex = 1;
             // 
             // panel1
@@ -104,7 +104,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1227, 515);
+            this.panel1.Size = new System.Drawing.Size(806, 381);
             this.panel1.TabIndex = 1;
             // 
             // lblSearchOptionClickedFor
@@ -132,7 +132,7 @@
             this.dtgLeaveTypeList.Name = "dtgLeaveTypeList";
             this.dtgLeaveTypeList.ReadOnly = true;
             this.dtgLeaveTypeList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgLeaveTypeList.Size = new System.Drawing.Size(1192, 423);
+            this.dtgLeaveTypeList.Size = new System.Drawing.Size(754, 287);
             this.dtgLeaveTypeList.TabIndex = 7;
             this.dtgLeaveTypeList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgLeaveTypeList_Paint);
             this.dtgLeaveTypeList.DoubleClick += new System.EventHandler(this.dtgDepartmentList_DoubleClick);
@@ -166,12 +166,12 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1227, 64);
+            this.panel2.Size = new System.Drawing.Size(806, 65);
             this.panel2.TabIndex = 1;
             // 
             // btnCloseMe
             // 
-            this.btnCloseMe.Location = new System.Drawing.Point(1084, 14);
+            this.btnCloseMe.Location = new System.Drawing.Point(646, 14);
             this.btnCloseMe.Name = "btnCloseMe";
             this.btnCloseMe.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
             this.btnCloseMe.Size = new System.Drawing.Size(126, 38);
@@ -241,7 +241,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.ClientSize = new System.Drawing.Size(1227, 583);
+            this.ClientSize = new System.Drawing.Size(806, 450);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

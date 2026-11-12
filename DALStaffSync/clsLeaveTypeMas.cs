@@ -63,20 +63,32 @@ namespace DALStaffSync
             return LeaveTypeID;
         }
 
-        public int InsertLeaveTypeInfo(string txtLeaveCode, string txtLeaveTypeTitle, bool IsPaid, bool IsActive, bool IsDeleted)
+        public int InsertLeaveTypeInfo(string txtLeaveCode, string txtLeaveTypeTitle, bool IsPaid, bool IsActive, bool IsDeleted,
+            bool IsCarryForwardAllowed, int MaxCarryForwardAllowed, int CarryForwardExpiryMonths, bool IsCarryForwardExpiryApplicable,
+            bool IsEncashmentAllowed, int MaxLeaveDaysAllowedToEncash, bool IsEncashmentDuringEmploymentAllowed, bool IsEncashmentAtResignationAllowed,
+            bool IsLeaveAccrualApplicable, int AccrualFrequency, bool IsApplicableDuringProbation, bool IsApplicableDuringNoticePeriod)
         {
             int affectedRows = 0;
-            
-            affectedRows = objLeaveTypeMas.InsertLeaveTypeInfo(txtLeaveCode, txtLeaveTypeTitle, IsPaid, IsActive, IsDeleted);
+
+            affectedRows = objLeaveTypeMas.InsertLeaveTypeInfo(txtLeaveCode, txtLeaveTypeTitle, IsPaid, IsActive, IsDeleted, 
+                IsCarryForwardAllowed, MaxCarryForwardAllowed, CarryForwardExpiryMonths, IsCarryForwardExpiryApplicable,
+                IsEncashmentAllowed, MaxLeaveDaysAllowedToEncash, IsEncashmentDuringEmploymentAllowed, IsEncashmentAtResignationAllowed, 
+                IsLeaveAccrualApplicable, AccrualFrequency, IsApplicableDuringProbation, IsApplicableDuringNoticePeriod);
 
             return affectedRows;
         }
 
-        public int UpadateLeaveTypeInfo(int txtLeaveTypeID, string txtLeaveCode, string txtLeaveTypeTitle, bool IsPaid, bool IsActive)
+        public int UpadateLeaveTypeInfo(int txtLeaveTypeID, string txtLeaveCode, string txtLeaveTypeTitle, bool IsPaid, bool IsActive, bool IsDeleted,
+            bool IsCarryForwardAllowed, int MaxCarryForwardAllowed, int CarryForwardExpiryMonths, bool IsCarryForwardExpiryApplicable,
+            bool IsEncashmentAllowed, int MaxLeaveDaysAllowedToEncash, bool IsEncashmentDuringEmploymentAllowed, bool IsEncashmentAtResignationAllowed,
+            bool IsLeaveAccrualApplicable, int AccrualFrequency, bool IsApplicableDuringProbation, bool IsApplicableDuringNoticePeriod)
         {
             int affectedRows = 0;
             
-            affectedRows = objLeaveTypeMas.UpadateLeaveTypeInfo(txtLeaveTypeID, txtLeaveCode, txtLeaveTypeTitle, IsPaid, IsActive);
+            affectedRows = objLeaveTypeMas.UpadateLeaveTypeInfo(txtLeaveTypeID, txtLeaveCode, txtLeaveTypeTitle, IsPaid, IsActive, IsDeleted,
+                IsCarryForwardAllowed, MaxCarryForwardAllowed, CarryForwardExpiryMonths, IsCarryForwardExpiryApplicable,
+                IsEncashmentAllowed, MaxLeaveDaysAllowedToEncash, IsEncashmentDuringEmploymentAllowed, IsEncashmentAtResignationAllowed,
+                IsLeaveAccrualApplicable, AccrualFrequency, IsApplicableDuringProbation, IsApplicableDuringNoticePeriod);
 
             return affectedRows;
         }

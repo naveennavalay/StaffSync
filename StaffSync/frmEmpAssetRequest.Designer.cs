@@ -719,7 +719,7 @@
             this.dtgAssetRequestedList.Name = "dtgAssetRequestedList";
             this.dtgAssetRequestedList.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
             this.dtgAssetRequestedList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtgAssetRequestedList.Size = new System.Drawing.Size(972, 305);
+            this.dtgAssetRequestedList.Size = new System.Drawing.Size(972, 295);
             this.dtgAssetRequestedList.StateCommon.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgAssetRequestedList.StateCommon.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgAssetRequestedList.StateCommon.BackStyle = Krypton.Toolkit.PaletteBackStyle.ContextMenuItemImage;
@@ -728,6 +728,7 @@
             this.dtgAssetRequestedList.StateNormal.Background.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgAssetRequestedList.StateNormal.Background.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.dtgAssetRequestedList.TabIndex = 83;
+            this.dtgAssetRequestedList.Paint += new System.Windows.Forms.PaintEventHandler(this.dtgAssetRequestedList_Paint);
             // 
             // lblAssetID
             // 

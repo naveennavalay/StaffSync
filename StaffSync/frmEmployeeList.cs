@@ -1073,15 +1073,7 @@ namespace StaffSync
                 dtgEmployeeList.Columns["AssetID"].Visible = false;
                 dtgEmployeeList.Columns["AssetCode"].Visible = false;
                 dtgEmployeeList.Columns["AssetName"].Visible = false;
-                dtgEmployeeList.Columns["RequestStatus"].Visible = false;
-                //dtgEmployeeList.Columns["CatAssetCode"].Visible = false;
-                //dtgEmployeeList.Columns["CatAssetName"].HeaderText = "Category";
-                //dtgEmployeeList.Columns["CatAssetName"].Width = 200;
-                //dtgEmployeeList.Columns["CatAssetName"].ReadOnly = true;
-                //dtgEmployeeList.Columns["AssetCode"].Visible = false;
-                //dtgEmployeeList.Columns["AssetName"].HeaderText = "Asset Name";
-                //dtgEmployeeList.Columns["AssetName"].Width = 350;
-                //dtgEmployeeList.Columns["AssetName"].ReadOnly = true;                
+                dtgEmployeeList.Columns["RequestStatus"].Visible = false; 
                 dtgEmployeeList.Columns["AssetRequestCode"].HeaderText = "Asset Request Code";
                 dtgEmployeeList.Columns["AssetRequestCode"].Width = 125;
                 dtgEmployeeList.Columns["AssetRequestCode"].ReadOnly = true;
@@ -1101,7 +1093,6 @@ namespace StaffSync
                 dtgEmployeeList.Columns["AssetRequestComments"].Width = 300;
                 dtgEmployeeList.Columns["AssetRequestComments"].ReadOnly = true;
             }
-
         }
 
         private void btnCloseMe_Click_1(object sender, EventArgs e)

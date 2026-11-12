@@ -145,6 +145,16 @@ namespace StaffSync
             dtgAdvanceList.DataSource = null;
             dtgAssetInformation.DataSource = null;
 
+            txtTotalLeaveAlloted.Text = "0";
+            txtTotalLeaveUtilised.Text = "0";
+            txtLeaveBalance.Text = "0";
+            txtEncashableLeaveBalance.Text = "0";
+
+            txtMonthlyBasicSalary.Text = "0.00";
+            txtDailySalaryRate.Text = "0.00";
+            txtEncashmentAmount.Text = "0.00";
+            txtTaxDeductionOnEncashmentAmount.Text = "0.00";
+            txtNetEncashmentAmount.Text = "0.00";
         }
 
         public void enableControls()
@@ -341,7 +351,7 @@ namespace StaffSync
 
                 objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()), "Resignation Status updated to " + cmbResignationStatus.Text, "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
 
-                if(cmbResignationStatus.SelectedIndex == 6)
+                if(cmbResignationStatus.SelectedIndex == 8)
                     objEmployeeMaster.UpdateResginationStatus(Convert.ToInt32(lblEmpID.Text.ToString()));
             }
 
@@ -589,9 +599,11 @@ namespace StaffSync
             cmbResignationStatus.Items.Add("2 - Approved and Transfered to HR");
             cmbResignationStatus.Items.Add("3 - With Finance (Reimbursements)");
             cmbResignationStatus.Items.Add("4 - With Finance (Advances)");
-            cmbResignationStatus.Items.Add("5 - With IT (Assets)");
-            cmbResignationStatus.Items.Add("6 - Completed");
-            cmbResignationStatus.Items.Add("7 - Withdrawn/Cancelled");
+            cmbResignationStatus.Items.Add("5 - With Finance (Leave Encashments)");
+            cmbResignationStatus.Items.Add("6 - With Finance (Gratuity)");
+            cmbResignationStatus.Items.Add("7 - With IT (Assets)");
+            cmbResignationStatus.Items.Add("8 - Completed");
+            cmbResignationStatus.Items.Add("9 - Withdrawn/Cancelled");
             cmbResignationStatus.SelectedIndex = 0;
         }
 

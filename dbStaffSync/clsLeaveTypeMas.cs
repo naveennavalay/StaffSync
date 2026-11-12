@@ -204,7 +204,10 @@ namespace dbStaffSync
             return selectedLeaveTypeID;
         }
 
-        public int InsertLeaveTypeInfo(string txtLeaveCode, string txtLeaveTypeTitle, bool IsPaid, bool IsActive, bool IsDeleted)
+        public int InsertLeaveTypeInfo(string txtLeaveCode, string txtLeaveTypeTitle, bool IsPaid, bool IsActive, bool IsDeleted, 
+            bool IsCarryForwardAllowed, int MaxCarryForwardAllowed, int CarryForwardExpiryMonths, bool IsCarryForwardExpiryApplicable, 
+            bool IsEncashmentAllowed, int MaxLeaveDaysAllowedToEncash, bool IsEncashmentDuringEmploymentAllowed, bool IsEncashmentAtResignationAllowed, 
+            bool IsLeaveAccrualApplicable, int AccrualFrequency, bool IsApplicableDuringProbation, bool IsApplicableDuringNoticePeriod)
         {
             int affectedRows = 0;
             try
@@ -214,8 +217,11 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "INSERT INTO LeaveTypeMas (LeaveTypeID, LeaveCode, LeaveTypeTitle, IsPaid, IsActive, IsDelete, OrderID) VALUES " +
-                 "(" + maxRowCount.Data + ",'" + "LEV-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "', '" + txtLeaveTypeTitle + "', " + IsPaid + ", " + IsActive + ", false," + maxRowCount.Data + ")";
+                string strQuery = "INSERT INTO LeaveTypeMas (LeaveTypeID, LeaveCode, LeaveTypeTitle, IsPaid, IsActive, IsDelete, OrderID, IsCarryForwardAllowed, MaxCarryForwardAllowed, CarryForwardExpiryMonths, IsCarryForwardExpiryApplicable, IsEncashmentAllowed, MaxLeaveDaysAllowedToEncash, IsEncashmentDuringEmploymentAllowed, IsEncashmentAtResignationAllowed, IsLeaveAccrualApplicable, AccrualFrequency, IsApplicableDuringProbation, IsApplicableDuringNoticePeriod) VALUES " +
+                 "(" + maxRowCount.Data + ",'" + "LEV-" + (maxRowCount.Data).ToString().PadLeft(4, '0').Trim() + "', '" + txtLeaveTypeTitle + "', " + IsPaid + ", " + IsActive + ", false," + maxRowCount.Data + ", " +
+                 IsCarryForwardAllowed + ", " + MaxCarryForwardAllowed + ", " + CarryForwardExpiryMonths + ", " + IsCarryForwardExpiryApplicable + ", " +
+                 IsEncashmentAllowed + ", " + MaxLeaveDaysAllowedToEncash + ", " + IsEncashmentDuringEmploymentAllowed  + ", " +
+                 IsEncashmentAtResignationAllowed + ", " + IsLeaveAccrualApplicable  + ", " + AccrualFrequency + ", " + IsApplicableDuringProbation + ", " + IsApplicableDuringNoticePeriod + ")";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -237,7 +243,10 @@ namespace dbStaffSync
             return affectedRows;
         }
 
-        public int UpadateLeaveTypeInfo(int txtLeaveTypeID, string txtLeaveCode, string txtLeaveTypeTitle, bool IsPaid, bool IsActive)
+        public int UpadateLeaveTypeInfo(int txtLeaveTypeID, string txtLeaveCode, string txtLeaveTypeTitle, bool IsPaid, bool IsActive, bool IsDeleted,
+            bool IsCarryForwardAllowed, int MaxCarryForwardAllowed, int CarryForwardExpiryMonths, bool IsCarryForwardExpiryApplicable,
+            bool IsEncashmentAllowed, int MaxLeaveDaysAllowedToEncash, bool IsEncashmentDuringEmploymentAllowed, bool IsEncashmentAtResignationAllowed,
+            bool IsLeaveAccrualApplicable, int AccrualFrequency, bool IsApplicableDuringProbation, bool IsApplicableDuringNoticePeriod)
         {
             int affectedRows = 0;
             try
@@ -247,6 +256,9 @@ namespace dbStaffSync
 
                 string strQuery = "UPDATE LeaveTypeMas SET " +
                 "LeaveCode = '" + txtLeaveCode + "', LeaveTypeTitle = '" + txtLeaveTypeTitle + "', IsPaid = " + IsPaid + ", IsActive = " + IsActive +
+                ", IsCarryForwardAllowed = " + IsCarryForwardAllowed + ", MaxCarryForwardAllowed = " + MaxCarryForwardAllowed + ", CarryForwardExpiryMonths = " + CarryForwardExpiryMonths + ", IsCarryForwardExpiryApplicable = " + IsCarryForwardExpiryApplicable +
+                ", IsEncashmentAllowed = " + IsEncashmentAllowed + ", MaxLeaveDaysAllowedToEncash = " + MaxLeaveDaysAllowedToEncash + ", IsEncashmentDuringEmploymentAllowed = " + IsEncashmentDuringEmploymentAllowed + ", IsEncashmentAtResignationAllowed = " + IsEncashmentAtResignationAllowed +
+                ", IsLeaveAccrualApplicable = " + IsLeaveAccrualApplicable + ", AccrualFrequency = " + AccrualFrequency + ", IsApplicableDuringProbation = " + IsApplicableDuringProbation + ", IsApplicableDuringNoticePeriod = " + IsApplicableDuringNoticePeriod + 
                 " WHERE LeaveTypeID = " + txtLeaveTypeID;
 
                 OleDbCommand cmd = conn.CreateCommand();
