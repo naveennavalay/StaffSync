@@ -252,6 +252,46 @@ namespace dbStaffSync
             return LeaveEntitlementInfoList;
         }
 
+
+        public decimal getGetSalaryComponent(int EmpID)
+        {
+            decimal selectedAssetID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT AllowanceAmount FROM qryGetSalaryComponentAmount";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                cmd.Parameters.AddWithValue("@pEmpID", EmpID);
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    selectedAssetID = Convert.ToDecimal(result);
+                }
+                else
+                {
+                    selectedAssetID = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedAssetID;
+        }
+
+
+
         public List<LeaveEntitlementInfo> getEmployeeSpecificLeaveOutstandingInfo(int txtEmpID)
         {
             List<LeaveEntitlementInfo> LeaveEntitlementInfoList = new List<LeaveEntitlementInfo>();
@@ -263,42 +303,47 @@ namespace dbStaffSync
                 conn = dbStaffSync.openDBConnection();
                 dtDataset = new DataSet();
 
-                string strQuery = "SELECT " +
-                                    "LeaveTypeMas.LeaveTypeID, " +
-                                    "LeaveTypeMas.LeaveTypeTitle " +
-                                "FROM " +
-                                    "LeaveTypeMas " +
-                                "WHERE " +
-                                    "(" +
-                                        "((LeaveTypeMas.IsActive) = True) " +
-                                        "AND ((LeaveTypeMas.IsDelete) = False) " +
-                                    ") " +
-                                "ORDER BY " +
-                                    "LeaveTypeMas.OrderID;";
-
-                strQuery = "SELECT " +
-                                "EmpLeaveEntitlement.LeaveEntmtID, " +
-                                "EmpMas.EmpID, " +
-                                "LeaveMas.LeaveMasID, " +
-                                "LeaveTypeMas.LeaveTypeID, " +
-                                "LeaveTypeMas.LeaveTypeTitle, " +
-                                "EmpLeaveEntitlement.TotalLeaves, " +
-                                "EmpLeaveEntitlement.BalanceLeaves, " +
-                                "0 As UsedLeaves, " +
-                                "LeaveTypeMas.OrderID " +
-                            "FROM " +
-                                "LeaveTypeMas " +
-                                "INNER JOIN( " +
-                                    "(" +
-                                        "EmpMas " +
-                                        "INNER JOIN LeaveMas ON EmpMas.EmpID = LeaveMas.EmpID " +
-                                    ") " +
-                                    "INNER JOIN EmpLeaveEntitlement ON LeaveMas.LeaveMasID = EmpLeaveEntitlement.LeaveMasID " +
-                                ") ON LeaveTypeMas.LeaveTypeID = EmpLeaveEntitlement.LeaveTypeID " +
-                            "WHERE " +
-                                "(((EmpMas.EmpID) = " + txtEmpID + ")) " +
-                            "ORDER BY " +
-                                "LeaveTypeMas.OrderID;";
+                string strQuery = @"SELECT
+                                        EmpLeaveEntitlement.LeaveEntmtID,
+                                        EmpMas.EmpID,
+                                        LeaveMas.LeaveMasID,
+                                        LeaveTypeMas.LeaveTypeID,
+                                        LeaveTypeMas.LeaveTypeTitle,
+                                        EmpLeaveEntitlement.TotalLeaves,
+                                        EmpLeaveEntitlement.BalanceLeaves,
+                                        0 AS UsedLeaves,
+                                        LeaveTypeMas.IsCarryForwardAllowed,
+                                        LeaveTypeMas.MaxCarryForwardAllowed,
+                                        LeaveTypeMas.CarryForwardExpiryMonths,
+                                        LeaveTypeMas.IsCarryForwardExpiryApplicable,
+                                        LeaveTypeMas.IsEncashmentAllowed,
+                                        LeaveTypeMas.IsEncashmentDuringEmploymentAllowed,
+                                        LeaveTypeMas.MaxLeaveDaysAllowedToEncash,
+                                        LeaveTypeMas.IsEncashmentAtResignationAllowed,
+                                        LeaveTypeMas.IsLeaveAccrualApplicable,
+                                        LeaveTypeMas.AccrualFrequency,
+                                        LeaveTypeMas.IsApplicableDuringProbation,
+                                        LeaveTypeMas.IsApplicableDuringNoticePeriod,
+                                        LeaveTypeMas.OrderID
+                                    FROM
+                                        LeaveTypeMas
+                                        INNER JOIN (
+                                            (
+                                                EmpMas
+                                                INNER JOIN LeaveMas ON EmpMas.EmpID = LeaveMas.EmpID
+                                            )
+                                            INNER JOIN EmpLeaveEntitlement ON LeaveMas.LeaveMasID = EmpLeaveEntitlement.LeaveMasID
+                                        ) ON LeaveTypeMas.LeaveTypeID = EmpLeaveEntitlement.LeaveTypeID
+                                    WHERE
+                                        (
+                                            ((EmpMas.EmpID) = " + txtEmpID + @")
+                                            AND ((LeaveTypeMas.IsEncashmentAllowed) = True)
+                                        )
+                                    ORDER BY
+                                        EmpLeaveEntitlement.LeaveEntmtID,
+                                        LeaveMas.LeaveMasID,
+                                        LeaveTypeMas.LeaveTypeID,
+                                        LeaveTypeMas.OrderID;";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -320,9 +365,19 @@ namespace dbStaffSync
                     indLeaveEntitlementInfo.TotalLeaves = indLeaveEntitlementInfo.TotalLeaves;
                     indLeaveEntitlementInfo.BalanceLeaves = indLeaveEntitlementInfo.BalanceLeaves;
                     indLeaveEntitlementInfo.UsedLeaves = indLeaveEntitlementInfo.TotalLeaves - indLeaveEntitlementInfo.BalanceLeaves;
-                    indLeaveEntitlementInfo.OrderID = indLeaveEntitlementInfo.OrderID;
+                    indLeaveEntitlementInfo.IsCarryForwardAllowed = indLeaveEntitlementInfo.IsCarryForwardAllowed;
+                    indLeaveEntitlementInfo.MaxCarryForwardAllowed = indLeaveEntitlementInfo.MaxCarryForwardAllowed;
+                    indLeaveEntitlementInfo.CarryForwardExpiryMonths = indLeaveEntitlementInfo.CarryForwardExpiryMonths;
+                    indLeaveEntitlementInfo.IsCarryForwardExpiryApplicable = indLeaveEntitlementInfo.IsCarryForwardExpiryApplicable;
+                    indLeaveEntitlementInfo.IsEncashmentAllowed = indLeaveEntitlementInfo.IsEncashmentAllowed;
+                    indLeaveEntitlementInfo.IsEncashmentDuringEmploymentAllowed = indLeaveEntitlementInfo.IsEncashmentDuringEmploymentAllowed;
+                    indLeaveEntitlementInfo.MaxLeaveDaysAllowedToEncash = indLeaveEntitlementInfo.MaxLeaveDaysAllowedToEncash;
+                    indLeaveEntitlementInfo.IsEncashmentAtResignationAllowed = indLeaveEntitlementInfo.IsEncashmentAtResignationAllowed;
+                    indLeaveEntitlementInfo.IsLeaveAccrualApplicable = indLeaveEntitlementInfo.IsLeaveAccrualApplicable;
+                    indLeaveEntitlementInfo.AccrualFrequency = indLeaveEntitlementInfo.AccrualFrequency;
+                    indLeaveEntitlementInfo.IsApplicableDuringProbation = indLeaveEntitlementInfo.IsApplicableDuringProbation;
+                    indLeaveEntitlementInfo.IsApplicableDuringNoticePeriod = indLeaveEntitlementInfo.IsApplicableDuringNoticePeriod;
                 }
-
             }
             catch (Exception ex)
             {

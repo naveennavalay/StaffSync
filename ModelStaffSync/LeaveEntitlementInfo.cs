@@ -28,6 +28,18 @@ namespace ModelStaffSync
         [DisplayName("Total Utilised Leaves")]
         public decimal UsedLeaves { get; set; }
         public int OrderID { get; set; }
+        public bool IsCarryForwardAllowed { get; set; }
+        public int MaxCarryForwardAllowed { get; set; }
+        public int CarryForwardExpiryMonths { get; set; }
+        public bool IsCarryForwardExpiryApplicable { get; set; }
+        public bool IsEncashmentAllowed { get; set; }
+        public int MaxLeaveDaysAllowedToEncash { get; set; }
+        public bool IsEncashmentDuringEmploymentAllowed { get; set; }
+        public bool IsEncashmentAtResignationAllowed { get; set; }
+        public bool IsLeaveAccrualApplicable { get; set; }
+        public int AccrualFrequency { get; set; }
+        public bool IsApplicableDuringProbation { get; set; }
+        public bool IsApplicableDuringNoticePeriod { get; set; }
     }
 
     public class ConsolidatedLeaveOutStandingStatement

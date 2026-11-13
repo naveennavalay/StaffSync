@@ -1,4 +1,5 @@
-﻿using DocumentFormat.OpenXml.Bibliography;
+﻿using Common;
+using DocumentFormat.OpenXml.Bibliography;
 using Krypton.Toolkit;
 using ModelStaffSync;
 using Newtonsoft.Json;
@@ -23,6 +24,7 @@ namespace StaffSync
         DALStaffSync.clsLogin objLogin = new DALStaffSync.clsLogin();
         DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
         DALStaffSync.clsResignationInfo objResignationInfo = new DALStaffSync.clsResignationInfo();
+        DALStaffSync.clsEmpResignLeaveEncashmentInfo objEmpResignLeaveEncashmentInfo = new DALStaffSync.clsEmpResignLeaveEncashmentInfo();
         DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster(); 
         DALStaffSync.clsEmployeePersonalInfo objEmployeePersonalInfo = new DALStaffSync.clsEmployeePersonalInfo();
         DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
@@ -40,6 +42,8 @@ namespace StaffSync
 
         string strActionStatement = "";
         private Dictionary<string, object> _originalValues;
+
+        bool boolMaxLeaveToBeConsidered = false;
 
         DateTime dos;
         string dateFormat = "dd-MM-yyyy";
@@ -113,6 +117,7 @@ namespace StaffSync
 
         public void clearControls()
         {
+            lblMaxLeaveConsidered.Visible = false;
             lnkViewAuditLog.Visible = false;
             lblEmpID.Text = "";
             txtEmpCode.Text = "";
@@ -146,6 +151,7 @@ namespace StaffSync
             dtgAdvanceList.DataSource = null;
             dtgAssetInformation.DataSource = null;
 
+            boolMaxLeaveToBeConsidered = false;
             txtTotalLeaveAlloted.Text = "0";
             txtTotalLeaveUtilised.Text = "0";
             txtLeaveBalance.Text = "0";
@@ -156,6 +162,10 @@ namespace StaffSync
             txtEncashmentAmount.Text = "0.00";
             txtTaxDeductionOnEncashmentAmount.Text = "0.00";
             txtNetEncashmentAmount.Text = "0.00";
+            txtLeaveEncashmentMoreDetails.Text = "";
+            chkLeaveEncashmentVerifiedAndConfirmed.Checked = false;
+            lblNextApproverMailID.Text = "";
+            lblLeaveEncashmentID.Text = "";
         }
 
         public void enableControls()
@@ -178,6 +188,9 @@ namespace StaffSync
             dtApprovalDate.Enabled = true;
             txtReportingManager.Enabled = false;
             txtHROwner.Enabled = false;
+            txtLeaveEncashmentMoreDetails.Enabled = true;
+            chkLeaveEncashmentVerifiedAndConfirmed.Checked = false;
+            chkLeaveEncashmentVerifiedAndConfirmed.Enabled = true;
         }
 
         public void disableControls()
@@ -202,6 +215,8 @@ namespace StaffSync
             txtHROwner.Enabled = false;
             tabControl1.Enabled = false;
             tabControl1.SelectedIndex = 0;
+            txtLeaveEncashmentMoreDetails.Enabled = false;
+            chkLeaveEncashmentVerifiedAndConfirmed.Enabled = false;
         }
 
         public void onGenerateButtonClick()
@@ -352,8 +367,28 @@ namespace StaffSync
 
                 objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()), "Resignation Status updated to " + cmbResignationStatus.Text, "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
 
-                if(cmbResignationStatus.SelectedIndex == 8)
+                if (lblLeaveEncashmentID.Text.ToString() == "")
+                {
+                    lblLeaveEncashmentID.Text = objEmpResignLeaveEncashmentInfo.InsertEmpResignLeaveEncashmentInfo(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToDateTime(dtEncashmentDate.Text), Convert.ToDecimal(txtTotalLeaveAlloted.Text), Convert.ToDecimal(txtTotalLeaveUtilised.Text), Convert.ToDecimal(txtLeaveBalance.Text), Convert.ToDecimal(optEncashmentDays.Value),
+                        Convert.ToDecimal(optEncashmentDays.Value), Convert.ToDecimal(txtMonthlyBasicSalary.Text), Convert.ToDecimal(txtDailySalaryRate.Text), "Monthly", Convert.ToDecimal(txtEncashmentAmount.Text),
+                        Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text), Convert.ToDecimal(txtNetEncashmentAmount.Text), txtLeaveEncashmentMoreDetails.Text, chkLeaveEncashmentVerifiedAndConfirmed.Checked).ToString();
+                }
+                else
+                {
+                    lblLeaveEncashmentID.Text = objEmpResignLeaveEncashmentInfo.UpdateEmpResignLeaveEncashmentInfo(Convert.ToInt32(lblLeaveEncashmentID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToDateTime(dtEncashmentDate.Text), Convert.ToDecimal(txtTotalLeaveAlloted.Text), Convert.ToDecimal(txtTotalLeaveUtilised.Text), Convert.ToDecimal(txtLeaveBalance.Text), Convert.ToDecimal(optEncashmentDays.Value),
+                        Convert.ToDecimal(optEncashmentDays.Value), Convert.ToDecimal(txtMonthlyBasicSalary.Text), Convert.ToDecimal(txtDailySalaryRate.Text), "Monthly", Convert.ToDecimal(txtEncashmentAmount.Text),
+                        Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text), Convert.ToDecimal(txtNetEncashmentAmount.Text), txtLeaveEncashmentMoreDetails.Text, chkLeaveEncashmentVerifiedAndConfirmed.Checked).ToString();
+                }
+                if (cmbResignationStatus.SelectedIndex == 8)
+                {
+                    if (chkLeaveEncashmentVerifiedAndConfirmed.Checked == false && Convert.ToDecimal(txtNetEncashmentAmount.Text) > 0)
+                    {
+                        errValidator.SetError(chkLeaveEncashmentVerifiedAndConfirmed, "Before marking as \"Closed\", complete the Leave Encashment.");
+                        return;
+                    }
+
                     objEmployeeMaster.UpdateResginationStatus(Convert.ToInt32(lblEmpID.Text.ToString()));
+                }
             }
 
             if (affectedRows > 0)
@@ -434,6 +469,31 @@ namespace StaffSync
                 {
                     errValidator.SetError(this.cmbResignationStatus, "");
                 }
+            }
+
+            string maxAllowedLeaveChecker = "";
+            foreach (DataGridViewRow row in dtgLeaveBalanceInfo.Rows)
+            {
+                if (row.IsNewRow || !row.Visible)
+                    continue;
+
+                if (Convert.ToBoolean(row.Cells["IsEncashmentAllowed"].Value) == true)
+                {
+                    if(Convert.ToDecimal(row.Cells["BalanceLeaves"].Value) > Convert.ToDecimal(row.Cells["MaxLeaveDaysAllowedToEncash"].Value))
+                    {
+                        if(maxAllowedLeaveChecker == "")
+                            maxAllowedLeaveChecker = row.Cells["LeaveTypeTitle"].Value.ToString() + " - Available Leave Balance : " + Convert.ToDecimal(row.Cells["BalanceLeaves"].Value) + " exceeds the Maximum allowed leaves : " + Convert.ToDecimal(row.Cells["MaxLeaveDaysAllowedToEncash"].Value) + ".";
+                        else
+                            maxAllowedLeaveChecker = "\n" + row.Cells["LeaveTypeTitle"].Value.ToString() + " - Available Leave Balance : " + Convert.ToDecimal(row.Cells["BalanceLeaves"].Value) + " exceeds the Maximum allowed leaves : " + Convert.ToDecimal(row.Cells["MaxLeaveDaysAllowedToEncash"].Value) + ".";
+
+                    }
+                }
+            }
+
+            if (MessageBox.Show(maxAllowedLeaveChecker + "\nWould you like to continue with Maximum allowed number of days.?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                validationStatus = false;
+                errValidator.SetError(this.dtgLeaveBalanceInfo, maxAllowedLeaveChecker);
             }
 
             return validationStatus;
@@ -553,8 +613,11 @@ namespace StaffSync
 
                 ReportingManagerInfo objHROwnerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(lblHROwnerID.Text));
                 txtHROwner.Text = objHROwnerInfo.EmpName;
+                lblNextApproverMailID.Text = objHROwnerInfo.ContactNumber2.ToString();
                 
                 lnkViewAuditLog.Visible = true;
+
+                lblLeaveEncashmentID.Text = "0";
 
                 EmpPersonalPersonalInfo objSelectedPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblEmpID.Text));
                 txtDateOfJoining.Text = objSelectedPersonalInfo.DOJ.ToString("dd-MMM-yyyy");
@@ -565,6 +628,7 @@ namespace StaffSync
                 LoadEmployeeSpecificAdvanceInfo();
                 LoadEmployeeSpecificAssetInfo();
                 LoadEmployeeSpecificLeaveBalanceInfo();
+                LoadEmployeeLeaveEncashmentInfo();
                 dtEncashmentDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
                 tabControl1.Enabled = true;
                 tabControl1.SelectedIndex = 0;
@@ -591,6 +655,7 @@ namespace StaffSync
                 lblHROwnerID.Text = selectedResignationID.ToString();
                 ReportingManagerInfo objHROwnerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(lblHROwnerID.Text));
                 txtHROwner.Text = objHROwnerInfo.EmpName;
+                lblNextApproverMailID.Text = objHROwnerInfo.ContactNumber2;
             }
         }
 
@@ -854,7 +919,7 @@ namespace StaffSync
         private void LoadEmployeeSpecificLeaveBalanceInfo()
         {
             dtgLeaveBalanceInfo.DataSource = null;
-            dtgLeaveBalanceInfo.DataSource = objEmpLeaveEntitlementInfo.getEmployeeSpecificLeaveOutstandingInfo(Convert.ToInt16(lblEmpID.Text)); ;
+            dtgLeaveBalanceInfo.DataSource = objEmpLeaveEntitlementInfo.getEmployeeSpecificLeaveOutstandingInfo(Convert.ToInt16(lblEmpID.Text));
             dtgLeaveBalanceInfo.Columns["LeaveEntmtID"].Visible = false;
             dtgLeaveBalanceInfo.Columns["EmpID"].Visible = false;
             dtgLeaveBalanceInfo.Columns["EmpID"].ReadOnly = true;
@@ -863,17 +928,16 @@ namespace StaffSync
             dtgLeaveBalanceInfo.Columns["LeaveTypeID"].Visible = false;
             dtgLeaveBalanceInfo.Columns["LeaveTypeID"].ReadOnly = true;
             dtgLeaveBalanceInfo.Columns["LeaveTypeTitle"].ReadOnly = true;
-            dtgLeaveBalanceInfo.Columns["LeaveTypeTitle"].Width = 250;
-
+            dtgLeaveBalanceInfo.Columns["LeaveTypeTitle"].Width = 218;
 
             dtgLeaveBalanceInfo.Columns["TotalLeaves"].HeaderText = "Allotted Leaves";
-            dtgLeaveBalanceInfo.Columns["TotalLeaves"].Width = 93;
+            dtgLeaveBalanceInfo.Columns["TotalLeaves"].Width = 100;
             dtgLeaveBalanceInfo.Columns["TotalLeaves"].ReadOnly = true;
             dtgLeaveBalanceInfo.Columns["TotalLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgLeaveBalanceInfo.Columns["TotalLeaves"].DefaultCellStyle.Format = "0.00";
 
-            dtgLeaveBalanceInfo.Columns["BalanceLeaves"].HeaderText = "Outstanding Leaves"; 
-            dtgLeaveBalanceInfo.Columns["BalanceLeaves"].Width = 117;
+            dtgLeaveBalanceInfo.Columns["BalanceLeaves"].HeaderText = "Available Leaves"; 
+            dtgLeaveBalanceInfo.Columns["BalanceLeaves"].Width = 100;
             dtgLeaveBalanceInfo.Columns["BalanceLeaves"].ReadOnly = true;
             dtgLeaveBalanceInfo.Columns["BalanceLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgLeaveBalanceInfo.Columns["BalanceLeaves"].DefaultCellStyle.Format = "0.00";
@@ -884,7 +948,24 @@ namespace StaffSync
             dtgLeaveBalanceInfo.Columns["UsedLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgLeaveBalanceInfo.Columns["UsedLeaves"].DefaultCellStyle.Format = "0.00";
             dtgLeaveBalanceInfo.Columns["OrderID"].Visible = false;
+            dtgLeaveBalanceInfo.Columns["IsCarryForwardAllowed"].Visible = false;
+            dtgLeaveBalanceInfo.Columns["MaxCarryForwardAllowed"].Visible = false;
+            dtgLeaveBalanceInfo.Columns["IsCarryForwardExpiryApplicable"].Visible = false;
+            dtgLeaveBalanceInfo.Columns["CarryForwardExpiryMonths"].Visible = false;
+            dtgLeaveBalanceInfo.Columns["IsEncashmentAllowed"].Visible = false;
 
+            dtgLeaveBalanceInfo.Columns["MaxLeaveDaysAllowedToEncash"].HeaderText = "Max. Allowed Leaves";
+            dtgLeaveBalanceInfo.Columns["MaxLeaveDaysAllowedToEncash"].Width = 125;
+            dtgLeaveBalanceInfo.Columns["MaxLeaveDaysAllowedToEncash"].ReadOnly = true;
+            dtgLeaveBalanceInfo.Columns["MaxLeaveDaysAllowedToEncash"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
+            dtgLeaveBalanceInfo.Columns["MaxLeaveDaysAllowedToEncash"].DefaultCellStyle.Format = "0.00";
+
+            dtgLeaveBalanceInfo.Columns["IsEncashmentDuringEmploymentAllowed"].Visible = false;
+            dtgLeaveBalanceInfo.Columns["IsEncashmentAtResignationAllowed"].Visible = false;
+            dtgLeaveBalanceInfo.Columns["IsLeaveAccrualApplicable"].Visible = false;
+            dtgLeaveBalanceInfo.Columns["AccrualFrequency"].Visible = false;
+            dtgLeaveBalanceInfo.Columns["IsApplicableDuringProbation"].Visible = false;
+            dtgLeaveBalanceInfo.Columns["IsApplicableDuringNoticePeriod"].Visible = false;
 
             decimal totalLeavesAllotted = 0;
             decimal totalOutstandingLeaves = 0;
@@ -895,11 +976,12 @@ namespace StaffSync
                 if (row.IsNewRow || !row.Visible)
                     continue;
 
-                totalLeavesAllotted += row.Cells["TotalLeaves"].Value == null ? 0 : Convert.ToDecimal(row.Cells["TotalLeaves"].Value);
-
-                totalOutstandingLeaves += row.Cells["BalanceLeaves"].Value == null ? 0 : Convert.ToDecimal(row.Cells["BalanceLeaves"].Value);
-
-                totalLeavesUtilised += row.Cells["UsedLeaves"].Value == null ? 0 : Convert.ToDecimal(row.Cells["UsedLeaves"].Value);
+                if (Convert.ToBoolean(row.Cells["TotalLeaves"].Value) == true)
+                {
+                    totalLeavesAllotted += row.Cells["TotalLeaves"].Value == null ? 0 : Convert.ToDecimal(row.Cells["TotalLeaves"].Value);
+                    totalOutstandingLeaves += row.Cells["BalanceLeaves"].Value == null ? 0 : Convert.ToDecimal(row.Cells["BalanceLeaves"].Value);
+                    totalLeavesUtilised += row.Cells["UsedLeaves"].Value == null ? 0 : Convert.ToDecimal(row.Cells["UsedLeaves"].Value);
+                }
             }
 
             // Display totals
@@ -911,6 +993,50 @@ namespace StaffSync
             decimal leaveBalance = totalOutstandingLeaves;
 
             txtEncashableLeaveBalance.Text = leaveBalance.ToString("0.00");
+
+            txtMonthlyBasicSalary.Text = "0.00";
+            txtDailySalaryRate.Text = "0.00";
+            txtEncashmentAmount.Text = "0.00";
+            txtTaxDeductionOnEncashmentAmount.Text = "0.00";
+            txtNetEncashmentAmount.Text = "0.00";
+            txtMonthlyBasicSalary.Text = objEmpLeaveEntitlementInfo.getGetSalaryComponent(Convert.ToInt16(lblEmpID.Text)).ToString("0.00");
+            txtMonthlyBasicSalary.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtMonthlyBasicSalary.Text.ToString())).ToString("0.00");
+
+            txtDailySalaryRate.Text = (Convert.ToDecimal(txtMonthlyBasicSalary.Text.ToString()) / 30).ToString("0.00");
+            txtDailySalaryRate.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtDailySalaryRate.Text.ToString())).ToString("0.00");
+
+            txtEncashmentAmount.Text = (Convert.ToDecimal(txtDailySalaryRate.Text.ToString()) * Convert.ToDecimal(optEncashmentDays.Value.ToString())).ToString("0.00");
+            txtEncashmentAmount.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtEncashmentAmount.Text.ToString())).ToString("0.00");
+
+            txtNetEncashmentAmount.Text = (Convert.ToDecimal(txtEncashmentAmount.Text.ToString()) - Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text.ToString())).ToString("0.00");
+            txtNetEncashmentAmount.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtNetEncashmentAmount.Text.ToString())).ToString("0.00");
+        }
+
+        private void LoadEmployeeLeaveEncashmentInfo()
+        {
+            ModelStaffSync.EmpResignLeaveEncashmentInfo tmpEmpResignLeaveEncashmentInfo = objEmpResignLeaveEncashmentInfo.getEmpResignLeaveEncashmentInfotatements(Convert.ToInt32(lblEmpResignID.Text.ToString()));
+            if (tmpEmpResignLeaveEncashmentInfo.EmpResignID != 0)
+            {
+                lblLeaveEncashmentID.Text = tmpEmpResignLeaveEncashmentInfo.LeaveEncashmentID.ToString();
+                txtTotalLeaveAlloted.Text = tmpEmpResignLeaveEncashmentInfo.TotalLeaveAllotted.ToString("0.00");
+                txtTotalLeaveUtilised.Text = tmpEmpResignLeaveEncashmentInfo.TotalLeaveUtilised.ToString("0.00");
+                txtLeaveBalance.Text = tmpEmpResignLeaveEncashmentInfo.TotalLeaveBalance.ToString("0.00");
+                txtEncashableLeaveBalance.Text = tmpEmpResignLeaveEncashmentInfo.TotalEncashableLeave.ToString("0.00");
+
+                optEncashmentDays.Value = tmpEmpResignLeaveEncashmentInfo.DaysToEncash;
+                dtEncashmentDate.Text = tmpEmpResignLeaveEncashmentInfo.EncashmentDate.ToString("dd-MM-yyyy");
+                txtMonthlyBasicSalary.Text = tmpEmpResignLeaveEncashmentInfo.EligibleSalary.ToString("0.00");
+                txtDailySalaryRate.Text = tmpEmpResignLeaveEncashmentInfo.DailySalaryRate.ToString("0.00");
+                txtEncashmentAmount.Text = tmpEmpResignLeaveEncashmentInfo.EncashmentAmount.ToString("0.00");
+                txtTaxDeductionOnEncashmentAmount.Text = tmpEmpResignLeaveEncashmentInfo.TaxDeduction.ToString("0.00");
+                txtNetEncashmentAmount.Text = tmpEmpResignLeaveEncashmentInfo.NetEncashmentAmount.ToString("0.00");
+                chkLeaveEncashmentVerifiedAndConfirmed.Checked = tmpEmpResignLeaveEncashmentInfo.EncashmentProcessStatus;
+                txtLeaveEncashmentMoreDetails.Text = tmpEmpResignLeaveEncashmentInfo.MoreDetails.ToString();
+            }
+            else
+            {
+                lblLeaveEncashmentID.Text = "0";
+            }
         }
 
         private void txtNoticePeriod_TextChanged(object sender, EventArgs e)
@@ -1005,6 +1131,203 @@ namespace StaffSync
                     SizeF size = e.Graphics.MeasureString(message, font);
 
                     e.Graphics.DrawString(message, font, System.Drawing.Brushes.Gray, (dgv.Width - size.Width) / 2, (dgv.Height - size.Height) / 2);
+                }
+            }
+        }
+
+        private void tabControl1_TabClicked(object sender, Krypton.Navigator.KryptonPageEventArgs e)
+        {
+        }
+
+        private void txtEncashmentAmount_TextChanged(object sender, EventArgs e)
+        {
+            //if (txtEncashmentAmount.Text.ToString().Trim() == "")
+            //    return;
+
+            //if (!string.IsNullOrEmpty(txtEncashmentAmount.Text))
+            //{
+            //    if(Convert.ToDecimal(txtEncashmentAmount.Text.ToString()) > 0)
+            //    {
+            //        txtEncashmentAmount.Text = (Convert.ToDecimal(txtDailySalaryRate.Text.ToString()) * Convert.ToDecimal(optEncashmentDays.Value.ToString())).ToString("0.00");
+            //        txtEncashmentAmount.Text = Math.Round(Convert.ToDecimal(txtEncashmentAmount.Text.ToString()), 0).ToString("0.00");
+
+            //        txtNetEncashmentAmount.Text = (Convert.ToDecimal(txtEncashmentAmount.Text.ToString()) - Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text.ToString())).ToString("0.00");
+            //        txtNetEncashmentAmount.Text = Math.Round(Convert.ToDecimal(txtNetEncashmentAmount.Text.ToString()), 0).ToString("0.00");
+            //    }
+            //}
+        }
+
+        private void txtTaxDeductionOnEncashmentAmount_TextChanged(object sender, EventArgs e)
+        {
+            //if (txtTaxDeductionOnEncashmentAmount.Text.ToString().Trim() == "")
+            //    return;
+
+            //if (!string.IsNullOrEmpty(txtTaxDeductionOnEncashmentAmount.Text))
+            //{
+            //    if (Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text.ToString()) > 0)
+            //    {
+            //        if (!string.IsNullOrEmpty(txtEncashmentAmount.Text))
+            //        {
+            //            if (Convert.ToDecimal(txtEncashmentAmount.Text.ToString()) > 0)
+            //            {
+            //                txtEncashmentAmount.Text = (Convert.ToDecimal(txtDailySalaryRate.Text.ToString()) * Convert.ToDecimal(optEncashmentDays.Value.ToString())).ToString("0.00");
+            //                txtEncashmentAmount.Text = Math.Round(Convert.ToDecimal(txtEncashmentAmount.Text.ToString()), 0).ToString("0.00");
+
+            //                txtNetEncashmentAmount.Text = (Convert.ToDecimal(txtEncashmentAmount.Text.ToString()) - Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text.ToString())).ToString("0.00");
+            //                txtNetEncashmentAmount.Text = Math.Round(Convert.ToDecimal(txtNetEncashmentAmount.Text.ToString()), 0).ToString("0.00");
+            //            }
+            //        }
+            //    }
+            //}
+        }
+
+        private void txtMonthlyBasicSalary_TextChanged(object sender, EventArgs e)
+        {
+            //if (txtMonthlyBasicSalary.Text.ToString().Trim() == "")
+            //    return;
+
+            //if (!string.IsNullOrEmpty(txtMonthlyBasicSalary.Text))
+            //{
+            //    if (Convert.ToDecimal(txtMonthlyBasicSalary.Text.ToString()) > 0)
+            //    {
+            //        if (!string.IsNullOrEmpty(txtTaxDeductionOnEncashmentAmount.Text))
+            //        {
+            //            if (Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text.ToString()) > 0)
+            //            {
+            //                if (!string.IsNullOrEmpty(txtEncashmentAmount.Text))
+            //                {
+            //                    if (Convert.ToDecimal(txtEncashmentAmount.Text.ToString()) > 0)
+            //                    {
+            //                        txtEncashmentAmount.Text = (Convert.ToDecimal(txtDailySalaryRate.Text.ToString()) * Convert.ToDecimal(optEncashmentDays.Value.ToString())).ToString("0.00");
+            //                        txtEncashmentAmount.Text = Math.Round(Convert.ToDecimal(txtEncashmentAmount.Text.ToString()), 0).ToString("0.00");
+
+            //                        txtNetEncashmentAmount.Text = (Convert.ToDecimal(txtEncashmentAmount.Text.ToString()) - Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text.ToString())).ToString("0.00");
+            //                        txtNetEncashmentAmount.Text = Math.Round(Convert.ToDecimal(txtNetEncashmentAmount.Text.ToString()), 0).ToString("0.00");
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+        }
+
+        private void txtDailySalaryRate_TextChanged(object sender, EventArgs e)
+        {
+            //if (txtDailySalaryRate.Text.ToString().Trim() == "")
+            //    return;
+
+            //if (!string.IsNullOrEmpty(txtDailySalaryRate.Text))
+            //{
+            //    if (!string.IsNullOrEmpty(txtMonthlyBasicSalary.Text))
+            //    {
+            //        if (Convert.ToDecimal(txtMonthlyBasicSalary.Text.ToString()) > 0)
+            //        {
+            //            if (!string.IsNullOrEmpty(txtTaxDeductionOnEncashmentAmount.Text))
+            //            {
+            //                if (Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text.ToString()) > 0)
+            //                {
+            //                    if (!string.IsNullOrEmpty(txtEncashmentAmount.Text))
+            //                    {
+            //                        if (Convert.ToDecimal(txtEncashmentAmount.Text.ToString()) > 0)
+            //                        {
+            //                            txtEncashmentAmount.Text = (Convert.ToDecimal(txtDailySalaryRate.Text.ToString()) * Convert.ToDecimal(optEncashmentDays.Value.ToString())).ToString("0.00");
+            //                            txtEncashmentAmount.Text = Math.Round(Convert.ToDecimal(txtEncashmentAmount.Text.ToString()), 0).ToString("0.00");
+
+            //                            txtNetEncashmentAmount.Text = (Convert.ToDecimal(txtEncashmentAmount.Text.ToString()) - Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text.ToString())).ToString("0.00");
+            //                            txtNetEncashmentAmount.Text = Math.Round(Convert.ToDecimal(txtNetEncashmentAmount.Text.ToString()), 0).ToString("0.00");
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+        }
+
+        private void tabControl1_Selecting(object sender, Krypton.Navigator.KryptonPageCancelEventArgs e)
+        {
+            
+        }
+
+        private void tabControl1_Selected(object sender, Krypton.Navigator.KryptonPageEventArgs e)
+        {
+            if (e.Item.Tag.ToString() == "tabLeaveEncashment")
+            {
+                string maxAllowedLeaveChecker = "";
+                foreach (DataGridViewRow row in dtgLeaveBalanceInfo.Rows)
+                {
+                    if (row.IsNewRow || !row.Visible)
+                        continue;
+
+                    if (Convert.ToBoolean(row.Cells["IsEncashmentAllowed"].Value) == true)
+                    {
+                        if (Convert.ToDecimal(row.Cells["BalanceLeaves"].Value) > Convert.ToDecimal(row.Cells["MaxLeaveDaysAllowedToEncash"].Value))
+                        {
+                            if (maxAllowedLeaveChecker == "")
+                                maxAllowedLeaveChecker = row.Cells["LeaveTypeTitle"].Value.ToString() + " - Available Leave Balance : " + Convert.ToDecimal(row.Cells["BalanceLeaves"].Value) + " exceeds the Maximum allowed leaves : " + Convert.ToDecimal(row.Cells["MaxLeaveDaysAllowedToEncash"].Value) + ".";
+                            else
+                                maxAllowedLeaveChecker = "\n" + row.Cells["LeaveTypeTitle"].Value.ToString() + " - Available Leave Balance : " + Convert.ToDecimal(row.Cells["BalanceLeaves"].Value) + " exceeds the Maximum allowed leaves : " + Convert.ToDecimal(row.Cells["MaxLeaveDaysAllowedToEncash"].Value) + ".";
+
+                        }
+                    }
+                }
+                if (boolMaxLeaveToBeConsidered == false)
+                {
+                    if (MessageBox.Show(maxAllowedLeaveChecker + "\nWould you like to continue with Maximum allowed number of days.?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        boolMaxLeaveToBeConsidered = true;
+                    }
+                }
+
+                if(boolMaxLeaveToBeConsidered)
+                {
+                    lblMaxLeaveConsidered.Visible = true;
+                    decimal totalLeavesAllotted = 0;
+                    decimal totalOutstandingLeaves = 0;
+                    decimal totalLeavesUtilised = 0;
+
+                    foreach (DataGridViewRow row in dtgLeaveBalanceInfo.Rows)
+                    {
+                        if (row.IsNewRow || !row.Visible)
+                            continue;
+
+                        if (Convert.ToBoolean(row.Cells["TotalLeaves"].Value) == true)
+                        {
+                            if (Convert.ToDecimal(row.Cells["BalanceLeaves"].Value) > Convert.ToDecimal(row.Cells["MaxLeaveDaysAllowedToEncash"].Value))
+                            {
+                                totalLeavesAllotted += row.Cells["TotalLeaves"].Value == null ? 0 : Convert.ToDecimal(row.Cells["TotalLeaves"].Value);
+                                totalOutstandingLeaves += row.Cells["MaxLeaveDaysAllowedToEncash"].Value == null ? 0 : Convert.ToDecimal(row.Cells["MaxLeaveDaysAllowedToEncash"].Value);
+                                totalLeavesUtilised += row.Cells["UsedLeaves"].Value == null ? 0 : Convert.ToDecimal(row.Cells["UsedLeaves"].Value);
+                            }
+                        }
+                    }
+
+                    // Display totals
+                    txtTotalLeaveAlloted.Text = totalLeavesAllotted.ToString("0.00");
+                    txtLeaveBalance.Text = totalOutstandingLeaves.ToString("0.00");
+                    txtTotalLeaveUtilised.Text = totalLeavesUtilised.ToString("0.00");
+
+                    // Overall leave balance
+                    decimal leaveBalance = totalOutstandingLeaves;
+
+                    txtEncashableLeaveBalance.Text = leaveBalance.ToString("0.00");
+
+                    txtMonthlyBasicSalary.Text = "0.00";
+                    txtDailySalaryRate.Text = "0.00";
+                    txtEncashmentAmount.Text = "0.00";
+                    txtTaxDeductionOnEncashmentAmount.Text = "0.00";
+                    txtNetEncashmentAmount.Text = "0.00";
+                    txtMonthlyBasicSalary.Text = objEmpLeaveEntitlementInfo.getGetSalaryComponent(Convert.ToInt16(lblEmpID.Text)).ToString("0.00");
+                    txtMonthlyBasicSalary.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtMonthlyBasicSalary.Text.ToString())).ToString("0.00");
+
+                    txtDailySalaryRate.Text = (Convert.ToDecimal(txtMonthlyBasicSalary.Text.ToString()) / 30).ToString("0.00");
+                    txtDailySalaryRate.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtDailySalaryRate.Text.ToString())).ToString("0.00");
+
+                    txtEncashmentAmount.Text = (Convert.ToDecimal(txtDailySalaryRate.Text.ToString()) * Convert.ToDecimal(optEncashmentDays.Value.ToString())).ToString("0.00");
+                    txtEncashmentAmount.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtEncashmentAmount.Text.ToString())).ToString("0.00");
+
+                    txtNetEncashmentAmount.Text = (Convert.ToDecimal(txtEncashmentAmount.Text.ToString()) - Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text.ToString())).ToString("0.00");
+                    txtNetEncashmentAmount.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtNetEncashmentAmount.Text.ToString())).ToString("0.00");
                 }
             }
         }

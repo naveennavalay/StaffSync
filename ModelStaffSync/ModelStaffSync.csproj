@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmpResignLeaveEncashmentInfo.cs" />
     <Compile Include="ResignationInfo.cs" />
     <Compile Include="CurrentAssetStatusModel.cs" />
     <Compile Include="EmployeeAttendanceClockInfo.cs" />

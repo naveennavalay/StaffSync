@@ -46,6 +46,15 @@ namespace DALStaffSync
             return LeaveEntitlementInfoList;
         }
 
+        public decimal getGetSalaryComponent(int EmpID)
+        {
+            decimal salaryComponent = 0;
+
+            salaryComponent = objEmpLeaveEntitlementInfo.getGetSalaryComponent(EmpID);
+
+            return salaryComponent;
+        }
+
         public List<LeaveOutStandingSummary> getConsolidatedLeaveOutStandingStatement(int txtClientID)
         {
             List<LeaveOutStandingSummary> LeaveOutStandingSummaryList = new List<LeaveOutStandingSummary>();

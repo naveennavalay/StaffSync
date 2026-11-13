@@ -448,6 +448,7 @@ namespace dbStaffSync
                     reportingManagerInfo.DesignationTitle = objReportingManagerInfo[0].DesignationTitle;
                     reportingManagerInfo.DepartmentTitle = objReportingManagerInfo[0].DepartmentTitle;
                     reportingManagerInfo.ContactNumber1= objReportingManagerInfo[0].ContactNumber1;
+                    reportingManagerInfo.ContactNumber2 = objReportingManagerInfo[0].ContactNumber2;
                     reportingManagerInfo.StateID = objReportingManagerInfo[0].StateID;
                     reportingManagerInfo.SexID = objReportingManagerInfo[0].SexID;
                 }
