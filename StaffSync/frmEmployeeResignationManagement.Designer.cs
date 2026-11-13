@@ -135,6 +135,8 @@
             this.txtResignationCode = new Krypton.Toolkit.KryptonTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label18 = new System.Windows.Forms.Label();
+            this.kryptonTextBox1 = new Krypton.Toolkit.KryptonTextBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errValidator)).BeginInit();
             this.panel1.SuspendLayout();
@@ -537,7 +539,7 @@
             this.tabAssetsInformation,
             this.tabLeaveEncashment});
             this.tabControl1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.SelectedIndex = 4;
             this.tabControl1.Size = new System.Drawing.Size(1032, 500);
             this.tabControl1.StateNormal.Page.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
             this.tabControl1.StateNormal.Page.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
@@ -1265,6 +1267,8 @@
             // 
             // kryptonGroupBox2.Panel
             // 
+            this.kryptonGroupBox2.Panel.Controls.Add(this.label18);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.kryptonTextBox1);
             this.kryptonGroupBox2.Panel.Controls.Add(this.label17);
             this.kryptonGroupBox2.Panel.Controls.Add(this.txtDailySalaryRate);
             this.kryptonGroupBox2.Panel.Controls.Add(this.label16);
@@ -1796,6 +1800,34 @@
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 2;
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(480, 113);
+            this.label18.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(89, 15);
+            this.label18.TabIndex = 125;
+            this.label18.Text = "More Details";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // kryptonTextBox1
+            // 
+            this.kryptonTextBox1.Location = new System.Drawing.Point(571, 108);
+            this.kryptonTextBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.kryptonTextBox1.Multiline = true;
+            this.kryptonTextBox1.Name = "kryptonTextBox1";
+            this.kryptonTextBox1.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
+            this.kryptonTextBox1.Size = new System.Drawing.Size(357, 56);
+            this.kryptonTextBox1.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kryptonTextBox1.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
+            this.kryptonTextBox1.StateDisabled.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kryptonTextBox1.StateNormal.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kryptonTextBox1.TabIndex = 124;
+            this.kryptonTextBox1.Tag = "Resignation More Details";
+            this.kryptonTextBox1.WordWrap = false;
+            // 
             // frmEmployeeResignationManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1968,5 +2000,7 @@
         private System.Windows.Forms.Label label17;
         private Krypton.Toolkit.KryptonTextBox txtDailySalaryRate;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label18;
+        private Krypton.Toolkit.KryptonTextBox kryptonTextBox1;
     }
 }
