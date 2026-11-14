@@ -95,16 +95,18 @@ namespace dbStaffSync
 
                 string strQuery = "INSERT INTO EmpResignGratuityInfo (EmpResignGratuityID, EmpResignID, DateOfJoining, ResignationDate, LastWorkingDate, " +
                     "ActualServiceYears, ActualServiceMonths, ActualServiceDays, GratuityServiceYears, IsGratuityEligible, EligibilityStatus, GratuityFormulaTitle, " +
-                    "LastDrawnBasicSalary, EligibleAllowances, WageAdjustmentAmount, GratuitySalaryBasis, GratuityDays, WageDivisor, GrossGratuityAmount, StatutoryGratuityLimit, GratuityCeilingAdjustment, TaxOrDeductionAmount, NetGratuityAmount," +
+                    "LastDrawnBasicSalary, EligibleAllowances, WageAdjustmentAmount, GratuitySalaryBasis, GratuityDays, WageDivisor, GrossGratuityAmount, StatutoryGratuityLimit, " +
+                    "GratuityCeilingAdjustment, TaxOrDeductionAmount, NetGratuityAmount," +
                     "HRVerifiedBy, HRVerificationDate, HRVerificationStatus, HRRemarks, " +
                     "FinanceVerifiedBy, FinanceVerificationDate, FinanceVerificationStatus, FinanceRemarks, " +
                     "PaymentStatus, PaymentDate, PaymentReferenceNo, PaymentRemarks) VALUES " +
                  "(" + maxRowCount.Data + "," + EmpResignID + ", #" + DateOfJoining.Date.ToString("dd-MMM-yyyy") + "#, #" + ResignationDate.Date.ToString() + "#, #" + LastWorkingDate.Date.ToString("dd-MMM-yyyy") + "#, " +
-                 ActualServiceYears + ", " + ActualServiceMonths + ", " + ActualServiceDays + ", " + GratuityServiceYears + ", " + IsGratuityEligible + ", " + EligibilityStatus + ", '" + GratuityFormulaTitle + "', " +
-                 LastDrawnBasicSalary + ", " + EligibleAllowances + ", " + WageAdjustmentAmount + ", " + GratuitySalaryBasis + ", " + GratuityDays + ", " + WageDivisor + ", " + GrossGratuityAmount + ", " + StatutoryGratuityLimit + ", " + GratuityCeilingAdjustment + ", " + TaxOrDeductionAmount + ", " + NetGratuityAmount +
-                 HRVerifiedBy + ", " + HRVerificationDate + ", " + HRVerificationStatus + ", '" + HRRemarks + "', " +
-                 FinanceVerifiedBy + ", " + FinanceVerificationDate + ", " + FinanceVerificationStatus + ", " + FinanceRemarks + ", " +
-                 PaymentStatus + ", " + PaymentDate + ", " + PaymentReferenceNo + ", '" + PaymentRemarks + "')";
+                 ActualServiceYears + ", " + ActualServiceMonths + ", " + ActualServiceDays + ", " + GratuityServiceYears + ", " + IsGratuityEligible + ", '" + EligibilityStatus + "', '" + GratuityFormulaTitle + "', " +
+                 LastDrawnBasicSalary + ", " + EligibleAllowances + ", " + WageAdjustmentAmount + ", " + GratuitySalaryBasis + ", " + GratuityDays + ", " + WageDivisor + ", " + GrossGratuityAmount + ", " + StatutoryGratuityLimit + ", " + 
+                 GratuityCeilingAdjustment + ", " + TaxOrDeductionAmount + ", " + NetGratuityAmount + ", " +
+                 HRVerifiedBy + ", #" + HRVerificationDate.Date.ToString("dd-MMM-yyyy") + "#, " + HRVerificationStatus + ", '" + HRRemarks + "', " +
+                 FinanceVerifiedBy + ", #" + FinanceVerificationDate.Date.ToString("dd-MMM-yyyy") + "#, " + FinanceVerificationStatus + ", '" + FinanceRemarks + "', " +
+                 PaymentStatus + ", #" + PaymentDate.Date.ToString("dd-MMM-yyyy") + "#, '" + PaymentReferenceNo + "', '" + PaymentRemarks + "')";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;

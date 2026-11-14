@@ -25,13 +25,14 @@ namespace StaffSync
         DALStaffSync.clsAuditLog objAuditLog = new DALStaffSync.clsAuditLog();
         DALStaffSync.clsResignationInfo objResignationInfo = new DALStaffSync.clsResignationInfo();
         DALStaffSync.clsEmpResignLeaveEncashmentInfo objEmpResignLeaveEncashmentInfo = new DALStaffSync.clsEmpResignLeaveEncashmentInfo();
-        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster(); 
+        DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster();
         DALStaffSync.clsEmployeePersonalInfo objEmployeePersonalInfo = new DALStaffSync.clsEmployeePersonalInfo();
         DALStaffSync.clsDepartment objDepartmentInfo = new DALStaffSync.clsDepartment();
         DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
         DALStaffSync.clsAdvanceTransaction objAdvanceTransaction = new DALStaffSync.clsAdvanceTransaction();
         DALStaffSync.clsAssetRegister objAssetRegisterInfo = new DALStaffSync.clsAssetRegister();
         DALStaffSync.clsEmpLeaveEntitlementInfo objEmpLeaveEntitlementInfo = new DALStaffSync.clsEmpLeaveEntitlementInfo();
+        DALStaffSync.clsEmpResignGratuityInfo objEmpResignGratuityInfo = new DALStaffSync.clsEmpResignGratuityInfo();
 
         clsImpageOperation objImpageOperation = new clsImpageOperation();
         DALStaffSync.clsPhotoMas objPhotoMas = new DALStaffSync.clsPhotoMas();
@@ -43,6 +44,7 @@ namespace StaffSync
 
         string strActionStatement = "";
         private Dictionary<string, object> _originalValues;
+        private bool _isUpdatingGratuityValues = false;
 
         bool boolMaxLeaveToBeConsidered = false;
 
@@ -53,17 +55,20 @@ namespace StaffSync
         public frmEmployeeResignationManagement()
         {
             InitializeComponent();
+            RegisterGratuityCalculationEvents();
         }
 
         public frmEmployeeResignationManagement(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo)
         {
             InitializeComponent();
+            RegisterGratuityCalculationEvents();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
         }
 
         public frmEmployeeResignationManagement(UserRolesAndResponsibilitiesInfo objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo, ClientFinYearInfo objSelectedClientFinYearInfo)
         {
             InitializeComponent();
+            RegisterGratuityCalculationEvents();
             objTempCurrentlyLoggedInUserInfo = objCurrentlyLoggedInUserRolesAndResponsibilitiesInfo;
             objTempClientFinYearInfo = objSelectedClientFinYearInfo;
             ModelStaffSync.CurrentUser.ClientID = objTempClientFinYearInfo.ClientID;
@@ -199,6 +204,7 @@ namespace StaffSync
             dtGRTPaymentDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
             txtGRTPaymentRefNo.Text = "";
             txtGRTPaymentRemarks.Text = "";
+            lblEmpResignGratuityID.Text = "";
         }
 
         public void enableControls()
@@ -438,7 +444,7 @@ namespace StaffSync
                 return;
             }
 
-            int iTaskID = 0;
+            CalculateGratuityEligibilityAndAmounts();
 
             var updatedValues = AuditLogger.getOriginalValues(this);
             var onlyChangedValues = (dynamic)null;
@@ -448,7 +454,7 @@ namespace StaffSync
             if (lblActionMode.Text == "add" && lblRepManagerApprovalStatus.Text == "False")
             {
                 affectedRows = objResignationInfo.ApprovalResignationByReportingManager(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToDateTime(dtApprovalDate.Text.ToString()), Convert.ToInt32(lblRepManID.Text.ToString()), true, cmbResignationStatus.SelectedIndex);
-                if(affectedRows > 0)
+                if (affectedRows > 0)
                     affectedRows = objResignationInfo.UpdateApprovers(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToInt32(lblRepManID.Text.ToString()), Convert.ToInt32(lblHROwnerID.Text.ToString()));
 
                 objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()), "Resignation Status updated to " + cmbResignationStatus.Text, "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
@@ -456,7 +462,7 @@ namespace StaffSync
             else if (lblActionMode.Text == "add" && lblRepManagerApprovalStatus.Text == "True")
             {
                 affectedRows = objResignationInfo.ApprovalResignationByHRManager(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToDateTime(dtApprovalDate.Text.ToString()), Convert.ToInt32(lblRepManID.Text.ToString()), true, cmbResignationStatus.SelectedIndex);
-                if(affectedRows > 0)
+                if (affectedRows > 0)
                     affectedRows = objResignationInfo.UpdateApprovers(Convert.ToInt32(lblEmpResignID.Text.ToString()), Convert.ToInt32(lblRepManID.Text.ToString()), Convert.ToInt32(lblHROwnerID.Text.ToString()));
 
                 objAuditLog.InsertAuditLog(Convert.ToInt32(lblEmpID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()), "Resignation Status updated to " + cmbResignationStatus.Text, "Insert", ModelStaffSync.CurrentUser.EmpName, strActionStatement, Convert.ToInt32(objTempClientFinYearInfo.ClientID));
@@ -473,6 +479,51 @@ namespace StaffSync
                         Convert.ToDecimal(optEncashmentDays.Value), Convert.ToDecimal(txtMonthlyBasicSalary.Text), Convert.ToDecimal(txtDailySalaryRate.Text), "Monthly", Convert.ToDecimal(txtEncashmentAmount.Text),
                         Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text), Convert.ToDecimal(txtNetEncashmentAmount.Text), txtLeaveEncashmentMoreDetails.Text, chkLeaveEncashmentVerifiedAndConfirmed.Checked).ToString();
                 }
+
+                // Calculate actual service duration using Date Of Joining and Last Working Date.
+                DateTime gratuityDateOfJoining = Convert.ToDateTime(txtGRTDateOfJoining.Text.ToString());
+                DateTime gratuityLastWorkingDate = Convert.ToDateTime(txtGRTLastWorkingDate.Text.ToString());
+
+                int actualServiceYears = gratuityLastWorkingDate.Year - gratuityDateOfJoining.Year;
+                if (gratuityDateOfJoining.AddYears(actualServiceYears) > gratuityLastWorkingDate)
+                    actualServiceYears--;
+
+                DateTime serviceDateCursor = gratuityDateOfJoining.AddYears(actualServiceYears);
+                int actualServiceMonths = 0;
+
+                while (serviceDateCursor.AddMonths(1) <= gratuityLastWorkingDate)
+                {
+                    serviceDateCursor = serviceDateCursor.AddMonths(1);
+                    actualServiceMonths++;
+                }
+
+                int actualServiceDays = (gratuityLastWorkingDate - serviceDateCursor).Days;
+                decimal gratuityServiceYears = Convert.ToDecimal(txtGRTEligibleYears.Text.ToString());
+
+                if (lblEmpResignGratuityID.Text.ToString() == "")
+                {
+                    lblEmpResignGratuityID.Text = objEmpResignGratuityInfo.InsertEmpResignResignGratuityInfo(Convert.ToInt32(lblEmpResignID.Text.ToString()),
+                        gratuityDateOfJoining, Convert.ToDateTime(txtGRTResignationDate.Text.ToString()), gratuityLastWorkingDate,
+                        actualServiceYears, actualServiceMonths, actualServiceDays, gratuityServiceYears, txtGRTEligibleStatus.Text == "Eligible for Gratuity" ? true : false, txtGRTEligibleStatus.Text, cmbGRTCalculationFormula.Text,
+                        Convert.ToDecimal(txtGRTLastDrawnBasic.Text), Convert.ToDecimal(txtGRTEligibleAllowance.Text), 0m, Convert.ToDecimal(txtGRTGratuitySalaryBasis.Text), 15, 26,
+                        Convert.ToDecimal(txtGRTGorssGratuityAmount.Text), 0m, 0m, Convert.ToDecimal(txtGRTTaxOrDeduction.Text), Convert.ToDecimal(txtGRTNetGratuityAmount.Text),
+                        Convert.ToInt32(cmbGRTHRApprovalBy.SelectedValue), Convert.ToDateTime(dtGRTHRApprovalDate.Text.ToString()), cmbGRTHRApprovalStatus.SelectedIndex, txtGRTHRRemarks.Text,
+                        Convert.ToInt32(cmbGRTFINApprovalBy.SelectedValue), Convert.ToDateTime(dtGRTFINApprovalDate.Text), cmbGRTFINApprovalStatus.SelectedIndex, txtGRTFINRemarks.Text,
+                        cmbGRTPaymentStatus.SelectedIndex, Convert.ToDateTime(dtGRTPaymentDate.Text), txtGRTPaymentRefNo.Text, txtGRTPaymentRemarks.Text).ToString();
+                }
+                else
+                {
+                    // Keep the update parameter order identical to the insert method.
+                    lblEmpResignGratuityID.Text = objEmpResignGratuityInfo.UpdateEmpResignResignGratuityInfo(Convert.ToInt32(lblEmpResignGratuityID.Text.ToString()), Convert.ToInt32(lblEmpResignID.Text.ToString()),
+                        gratuityDateOfJoining, Convert.ToDateTime(txtGRTResignationDate.Text.ToString()), gratuityLastWorkingDate,
+                        actualServiceYears, actualServiceMonths, actualServiceDays, gratuityServiceYears, txtGRTEligibleStatus.Text == "Eligible for Gratuity" ? true : false, txtGRTEligibleStatus.Text, cmbGRTCalculationFormula.Text,
+                        Convert.ToDecimal(txtGRTLastDrawnBasic.Text), Convert.ToDecimal(txtGRTEligibleAllowance.Text), 0m, Convert.ToDecimal(txtGRTGratuitySalaryBasis.Text), 15, 26,
+                        Convert.ToDecimal(txtGRTGorssGratuityAmount.Text), 0m, 0m, Convert.ToDecimal(txtGRTTaxOrDeduction.Text), Convert.ToDecimal(txtGRTNetGratuityAmount.Text),
+                        Convert.ToInt32(cmbGRTHRApprovalBy.SelectedValue), Convert.ToDateTime(dtGRTHRApprovalDate.Text.ToString()), cmbGRTHRApprovalStatus.SelectedIndex, txtGRTHRRemarks.Text,
+                        Convert.ToInt32(cmbGRTFINApprovalBy.SelectedValue), Convert.ToDateTime(dtGRTFINApprovalDate.Text), cmbGRTFINApprovalStatus.SelectedIndex, txtGRTFINRemarks.Text,
+                        cmbGRTPaymentStatus.SelectedIndex, Convert.ToDateTime(dtGRTPaymentDate.Text), txtGRTPaymentRefNo.Text, txtGRTPaymentRemarks.Text).ToString();
+                }
+
                 if (cmbResignationStatus.SelectedIndex == 8)
                 {
                     if (chkLeaveEncashmentVerifiedAndConfirmed.Checked == false && Convert.ToDecimal(txtNetEncashmentAmount.Text) > 0)
@@ -497,10 +548,231 @@ namespace StaffSync
             this.Cursor = Cursors.Default;
         }
 
+        private bool TryGetDecimal(string value, out decimal result)
+        {
+            return decimal.TryParse(value, NumberStyles.Number, CultureInfo.CurrentCulture, out result)
+                || decimal.TryParse(value, NumberStyles.Number, CultureInfo.InvariantCulture, out result);
+        }
+
+        private bool ValidateNonNegativeDecimal(Control control, string fieldName)
+        {
+            decimal value;
+            if (!TryGetDecimal(control.Text, out value))
+            {
+                errValidator.SetError(control, fieldName + " must contain a valid numeric value.");
+                return false;
+            }
+
+            if (value < 0m)
+            {
+                errValidator.SetError(control, fieldName + " cannot be negative.");
+                return false;
+            }
+
+            errValidator.SetError(control, "");
+            return true;
+        }
+
+        private bool TryParseStaffSyncDate(string value, out DateTime parsedDate)
+        {
+            string[] formats = { "dd-MMM-yyyy", "dd-MM-yyyy", "dd/MM/yyyy", "d-M-yyyy", "d/M/yyyy" };
+
+            return DateTime.TryParseExact(value.Trim(), formats, CultureInfo.InvariantCulture,
+                       DateTimeStyles.None, out parsedDate)
+                   || DateTime.TryParse(value, CultureInfo.CurrentCulture,
+                       DateTimeStyles.None, out parsedDate);
+        }
+
+        private bool ValidateGratuityApprovalDate(Control dateControl, DateTime resignationDate, string fieldName)
+        {
+            DateTime enteredDate;
+
+            if (string.IsNullOrWhiteSpace(dateControl.Text) ||
+                !TryParseStaffSyncDate(dateControl.Text, out enteredDate))
+            {
+                errValidator.SetError(dateControl, fieldName + " is required and must be a valid date.");
+                return false;
+            }
+
+            if (enteredDate.Date > DateTime.Today)
+            {
+                errValidator.SetError(dateControl, fieldName + " cannot be a future date.");
+                return false;
+            }
+
+            if (enteredDate.Date < resignationDate.Date)
+            {
+                errValidator.SetError(dateControl, fieldName + " cannot be earlier than the Resignation Date.");
+                return false;
+            }
+
+            errValidator.SetError(dateControl, "");
+            return true;
+        }
+
+        private bool ComboSelectionStartsWith(KryptonComboBox comboBox, string expectedValue)
+        {
+            if (comboBox == null || comboBox.SelectedItem == null)
+                return false;
+
+            return comboBox.SelectedItem.ToString().StartsWith(expectedValue, StringComparison.OrdinalIgnoreCase);
+        }
+
         private bool ValidateValuesOnUI()
         {
             bool validationStatus = true;
             errValidator.Clear();
+
+            if (lblEmpResignID.Text == "")
+            {
+                validationStatus = false;
+                errValidator.SetError(this.btnResignedRequestSearch, "Please select resigned employee to continue");
+            }
+
+
+            bool gratuityEligible = string.Equals(
+                txtGRTEligibleStatus.Text.Trim(),
+                "Eligible for Gratuity",
+                StringComparison.OrdinalIgnoreCase);
+
+            // Validate all gratuity numeric inputs when gratuity is applicable.
+            if (gratuityEligible)
+            {
+                validationStatus &= ValidateNonNegativeDecimal(txtGRTEligibleYears, "Eligible Years");
+                validationStatus &= ValidateNonNegativeDecimal(txtGRTLastDrawnBasic, "Last Basic Salary");
+                validationStatus &= ValidateNonNegativeDecimal(txtGRTEligibleAllowance, "Eligible Allowances");
+                validationStatus &= ValidateNonNegativeDecimal(txtGRTGratuitySalaryBasis, "Gratuity Salary Basis");
+                validationStatus &= ValidateNonNegativeDecimal(txtGRTGorssGratuityAmount, "Gross Gratuity Amount");
+                validationStatus &= ValidateNonNegativeDecimal(txtGRTTaxOrDeduction, "Tax / Deductions");
+                validationStatus &= ValidateNonNegativeDecimal(txtGRTNetGratuityAmount, "Net Gratuity Amount");
+
+                // Check that the calculated fields are consistent with their source values.
+                decimal basicSalary, eligibleAllowances, salaryBasis, eligibleYears;
+                decimal grossAmount, taxOrDeduction, netAmount;
+
+                if (TryGetDecimal(txtGRTLastDrawnBasic.Text, out basicSalary) &&
+                    TryGetDecimal(txtGRTEligibleAllowance.Text, out eligibleAllowances) &&
+                    TryGetDecimal(txtGRTGratuitySalaryBasis.Text, out salaryBasis) &&
+                    TryGetDecimal(txtGRTEligibleYears.Text, out eligibleYears) &&
+                    TryGetDecimal(txtGRTGorssGratuityAmount.Text, out grossAmount) &&
+                    TryGetDecimal(txtGRTTaxOrDeduction.Text, out taxOrDeduction) &&
+                    TryGetDecimal(txtGRTNetGratuityAmount.Text, out netAmount))
+                {
+                    //if (Math.Abs(salaryBasis - (basicSalary + eligibleAllowances)) > 0.01m)
+                    //{
+                    //    errValidator.SetError(txtGRTGratuitySalaryBasis,
+                    //        "Gratuity Salary Basis must equal Last Basic Salary + Eligible Allowances.");
+                    //    validationStatus = false;
+                    //}
+
+                    //decimal expectedGrossAmount = (salaryBasis * 15m / 26m) * eligibleYears;
+                    //if (Math.Abs(grossAmount - expectedGrossAmount) > 0.01m)
+                    //{
+                    //    errValidator.SetError(txtGRTGorssGratuityAmount,
+                    //        "Gross Gratuity Amount must equal (Gratuity Salary Basis × 15 ÷ 26) × Eligible Years.");
+                    //    validationStatus = false;
+                    //}
+
+                    //if (Math.Abs(netAmount - (grossAmount - taxOrDeduction)) > 0.01m)
+                    //{
+                    //    errValidator.SetError(txtGRTNetGratuityAmount,
+                    //        "Net Gratuity Amount must equal Gross Gratuity Amount − Tax / Deductions.");
+                    //    validationStatus = false;
+                    //}
+
+                    if (netAmount <= 0m)
+                    {
+                        errValidator.SetError(txtGRTNetGratuityAmount,
+                            "Net Gratuity Amount must be greater than zero.");
+                        validationStatus = false;
+                    }
+
+                    if (netAmount > 2000000m)
+                    {
+                        errValidator.SetError(txtGRTNetGratuityAmount,
+                            "Net Gratuity Amount cannot exceed ₹20,00,000.");
+                        validationStatus = false;
+                    }
+                }
+
+                DateTime resignationDate;
+                if (!TryParseStaffSyncDate(txtGRTResignationDate.Text, out resignationDate))
+                {
+                    errValidator.SetError(txtGRTResignationDate, "Please enter a valid Resignation Date.");
+                    validationStatus = false;
+                }
+                else
+                {
+                    validationStatus &= ValidateGratuityApprovalDate(
+                        dtGRTHRApprovalDate, resignationDate, "HR Verification Date");
+                    validationStatus &= ValidateGratuityApprovalDate(
+                        dtGRTFINApprovalDate, resignationDate, "Finance Verification Date");
+                    validationStatus &= ValidateGratuityApprovalDate(
+                        dtGRTPaymentDate, resignationDate, "Payment Date");
+                }
+            }
+
+            // A resignation can be marked Completed only after gratuity is fully
+            // verified and paid. This is in addition to existing pending-item checks.
+            if (cmbResignationStatus.Text.IndexOf("Completed", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                decimal completedNetAmount;
+                if (!TryGetDecimal(txtGRTNetGratuityAmount.Text, out completedNetAmount) ||
+                    completedNetAmount <= 0m)
+                {
+                    errValidator.SetError(txtGRTNetGratuityAmount,
+                        "Net Gratuity Amount must be greater than zero before marking the resignation as Completed.");
+                    errValidator.SetError(cmbResignationStatus,
+                        "Cannot mark resignation as Completed until Net Gratuity Amount is greater than zero.");
+                    validationStatus = false;
+                }
+
+                if (!ComboSelectionStartsWith(cmbGRTHRApprovalStatus, "3 - Verified"))
+                {
+                    errValidator.SetError(cmbGRTHRApprovalStatus,
+                        "HR Verification Status must be '3 - Verified' before marking the resignation as Completed.");
+                    validationStatus = false;
+                }
+
+                if (!ComboSelectionStartsWith(cmbGRTFINApprovalStatus, "3 - Verified"))
+                {
+                    errValidator.SetError(cmbGRTFINApprovalStatus,
+                        "Finance Verification Status must be '3 - Verified' before marking the resignation as Completed.");
+                    validationStatus = false;
+                }
+
+                if (!ComboSelectionStartsWith(cmbGRTPaymentStatus, "3 - Paid"))
+                {
+                    errValidator.SetError(cmbGRTPaymentStatus,
+                        "Payment Status must be '3 - Paid' before marking the resignation as Completed.");
+                    validationStatus = false;
+                }
+            }
+
+            // Gratuity validation: the net amount must not exceed the statutory/company cap.
+            if (string.Equals(txtGRTEligibleStatus.Text.Trim(), "Eligible for Gratuity", StringComparison.OrdinalIgnoreCase))
+            {
+                decimal netGratuityAmount;
+                if (!decimal.TryParse(txtGRTNetGratuityAmount.Text, NumberStyles.Number, CultureInfo.CurrentCulture, out netGratuityAmount))
+                {
+                    errValidator.SetError(txtGRTNetGratuityAmount, "Please enter a valid Net Gratuity Amount.");
+                    validationStatus = false;
+                }
+                else if (netGratuityAmount < 0)
+                {
+                    errValidator.SetError(txtGRTNetGratuityAmount, "Net Gratuity Amount cannot be negative.");
+                    validationStatus = false;
+                }
+                else if (netGratuityAmount > 2000000m)
+                {
+                    errValidator.SetError(txtGRTNetGratuityAmount, "Net Gratuity Amount cannot exceed ₹20,00,000.");
+                    validationStatus = false;
+                }
+                else
+                {
+                    errValidator.SetError(txtGRTNetGratuityAmount, "");
+                }
+            }
 
             // Helper for date validation
             if (lblEmpResignID.Text.Trim() == "")
@@ -543,7 +815,7 @@ namespace StaffSync
                 txtResignationMoreDetails.Text = "N/A";
             }
 
-            if(cmbResignationStatus.SelectedIndex == 6)
+            if (cmbResignationStatus.SelectedIndex == 6)
             {
                 if (dtgReimbursmentPaymentHistory.Rows.Count > 0)
                 {
@@ -573,9 +845,9 @@ namespace StaffSync
 
                 if (Convert.ToBoolean(row.Cells["IsEncashmentAllowed"].Value) == true)
                 {
-                    if(Convert.ToDecimal(row.Cells["BalanceLeaves"].Value) > Convert.ToDecimal(row.Cells["MaxLeaveDaysAllowedToEncash"].Value))
+                    if (Convert.ToDecimal(row.Cells["BalanceLeaves"].Value) > Convert.ToDecimal(row.Cells["MaxLeaveDaysAllowedToEncash"].Value))
                     {
-                        if(maxAllowedLeaveChecker == "")
+                        if (maxAllowedLeaveChecker == "")
                             maxAllowedLeaveChecker = row.Cells["LeaveTypeTitle"].Value.ToString() + " - Available Leave Balance : " + Convert.ToDecimal(row.Cells["BalanceLeaves"].Value) + " exceeds the Maximum allowed leaves : " + Convert.ToDecimal(row.Cells["MaxLeaveDaysAllowedToEncash"].Value) + ".";
                         else
                             maxAllowedLeaveChecker = "\n" + row.Cells["LeaveTypeTitle"].Value.ToString() + " - Available Leave Balance : " + Convert.ToDecimal(row.Cells["BalanceLeaves"].Value) + " exceeds the Maximum allowed leaves : " + Convert.ToDecimal(row.Cells["MaxLeaveDaysAllowedToEncash"].Value) + ".";
@@ -584,10 +856,13 @@ namespace StaffSync
                 }
             }
 
-            if (MessageBox.Show(maxAllowedLeaveChecker + "\nWould you like to continue with Maximum allowed number of days.?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            if (boolMaxLeaveToBeConsidered == false)
             {
-                validationStatus = false;
-                errValidator.SetError(this.dtgLeaveBalanceInfo, maxAllowedLeaveChecker);
+                if (MessageBox.Show(maxAllowedLeaveChecker + "\nWould you like to continue with Maximum allowed number of days.?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    validationStatus = false;
+                    errValidator.SetError(this.dtgLeaveBalanceInfo, maxAllowedLeaveChecker);
+                }
             }
 
             return validationStatus;
@@ -701,14 +976,14 @@ namespace StaffSync
 
                 //EmployeeInfo objSelectedEmployeeInfo = objEmployeeMaster.GetSelectedEmployeeInfo(Convert.ToInt16(lblRepManID.Text.ToString()));
                 //lblRepManID.Text = objSelectedEmployeeInfo.EmpRepManID.ToString();
-                
+
                 ReportingManagerInfo objReportingManagerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(lblRepManID.Text));
                 txtReportingManager.Text = objReportingManagerInfo.EmpName;
 
                 ReportingManagerInfo objHROwnerInfo = objEmployeeMaster.GetReportingManagerInfo(Convert.ToInt16(lblHROwnerID.Text));
                 txtHROwner.Text = objHROwnerInfo.EmpName;
                 lblNextApproverMailID.Text = objHROwnerInfo.ContactNumber2.ToString();
-                
+
                 lnkViewAuditLog.Visible = true;
 
                 lblLeaveEncashmentID.Text = "0";
@@ -729,6 +1004,7 @@ namespace StaffSync
                 LoadEmployeeSpecificAssetInfo();
                 LoadEmployeeSpecificLeaveBalanceInfo();
                 LoadEmployeeLeaveEncashmentInfo();
+                CalculateGratuityEligibilityAndAmounts();
 
                 dtEncashmentDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
                 tabControl1.Enabled = true;
@@ -751,7 +1027,7 @@ namespace StaffSync
             }
             else if (SearchOptionSelectedForm == "listResignationApproverList")
             {
-                if(lblRepManID.Text == selectedResignationID.ToString())
+                if (lblRepManID.Text == selectedResignationID.ToString())
                 {
                     MessageBox.Show("Approver cannot be same as Resignee.", "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -775,7 +1051,7 @@ namespace StaffSync
             }
         }
 
-        private void LoadResignationFinalStatus() 
+        private void LoadResignationFinalStatus()
         {
             cmbResignationStatus.Items.Clear();
             cmbResignationStatus.Items.Add("");
@@ -819,6 +1095,152 @@ namespace StaffSync
             cmbGRTPaymentStatus.Items.Add("4 - Failed");
             cmbGRTPaymentStatus.Items.Add("5 - Not Applicable");
             cmbGRTPaymentStatus.SelectedIndex = 5;
+        }
+
+        /// <summary>
+        /// Calculates gratuity eligibility and the related amounts using the
+        /// Date of Joining and Resignation Date displayed in the Gratuity tab.
+        /// Eligibility requires service strictly greater than 4 years and 7 months.
+        /// Completed years are rounded up only when the remaining months exceed 6.
+        /// </summary>
+        private void RegisterGratuityCalculationEvents()
+        {
+            // Recalculate dependent gratuity values whenever an input changes.
+            txtGRTLastDrawnBasic.TextChanged += GratuityInput_TextChanged;
+            txtGRTEligibleAllowance.TextChanged += GratuityInput_TextChanged;
+            txtGRTTaxOrDeduction.TextChanged += GratuityInput_TextChanged;
+            txtGRTEligibleYears.TextChanged += GratuityInput_TextChanged;
+            txtGRTDateOfJoining.TextChanged += GratuityInput_TextChanged;
+            txtGRTResignationDate.TextChanged += GratuityInput_TextChanged;
+        }
+
+        private void GratuityInput_TextChanged(object sender, EventArgs e)
+        {
+            if (_isUpdatingGratuityValues)
+                return;
+
+            CalculateGratuityEligibilityAndAmounts();
+        }
+
+        private decimal GetGratuityDecimalValue(string value)
+        {
+            decimal result;
+            if (decimal.TryParse(value, NumberStyles.Number, CultureInfo.CurrentCulture, out result))
+                return result;
+
+            if (decimal.TryParse(value, NumberStyles.Number, CultureInfo.InvariantCulture, out result))
+                return result;
+
+            return 0m;
+        }
+
+        /// <summary>
+        /// Calculates gratuity eligibility and all dependent amounts.
+        /// Salary Basis = Last Basic Salary + Eligible Allowances.
+        /// Gross = Salary Basis * Eligible Years.
+        /// Net = Gross - Tax/Deductions.
+        /// </summary>
+        private void CalculateGratuityEligibilityAndAmounts()
+        {
+            if (_isUpdatingGratuityValues)
+                return;
+
+            _isUpdatingGratuityValues = true;
+
+            try
+            {
+                DateTime joiningDate;
+                DateTime resignationDate;
+
+                bool validJoiningDate =
+                    DateTime.TryParseExact(txtGRTDateOfJoining.Text.Trim(),
+                        new[] { "dd-MMM-yyyy", "dd-MM-yyyy", "dd/MM/yyyy" },
+                        CultureInfo.InvariantCulture, DateTimeStyles.None, out joiningDate)
+                    || DateTime.TryParse(txtGRTDateOfJoining.Text, CultureInfo.CurrentCulture,
+                        DateTimeStyles.None, out joiningDate);
+
+                bool validResignationDate =
+                    DateTime.TryParseExact(txtGRTResignationDate.Text.Trim(),
+                        new[] { "dd-MMM-yyyy", "dd-MM-yyyy", "dd/MM/yyyy" },
+                        CultureInfo.InvariantCulture, DateTimeStyles.None, out resignationDate)
+                    || DateTime.TryParse(txtGRTResignationDate.Text, CultureInfo.CurrentCulture,
+                        DateTimeStyles.None, out resignationDate);
+
+                bool validServiceDates = validJoiningDate && validResignationDate &&
+                                         resignationDate.Date >= joiningDate.Date;
+
+                int eligibleYears = 0;
+                bool isEligible = false;
+
+                if (validServiceDates)
+                {
+                    // Eligibility requires service strictly greater than 4 years and 7 months.
+                    DateTime eligibilityCutoff = joiningDate.Date.AddYears(4).AddMonths(7);
+                    isEligible = resignationDate.Date > eligibilityCutoff;
+
+                    int completedYears = resignationDate.Year - joiningDate.Year;
+                    DateTime anniversary = joiningDate.Date.AddYears(completedYears);
+
+                    if (anniversary > resignationDate.Date)
+                    {
+                        completedYears--;
+                        anniversary = joiningDate.Date.AddYears(completedYears);
+                    }
+
+                    int remainingMonths = (resignationDate.Year - anniversary.Year) * 12
+                                          + resignationDate.Month - anniversary.Month;
+
+                    if (anniversary.AddMonths(remainingMonths) > resignationDate.Date)
+                        remainingMonths--;
+
+                    eligibleYears = completedYears + (remainingMonths > 6 ? 1 : 0);
+                    if (eligibleYears < 0)
+                        eligibleYears = 0;
+                }
+
+                txtGRTEligibleYears.Text = eligibleYears.ToString(CultureInfo.InvariantCulture);
+                txtGRTEligibleStatus.Text = isEligible
+                    ? "Eligible for Gratuity"
+                    : "Not eligible for Gratuity";
+
+                SetGratuitySectionsEnabled(isEligible);
+
+                // Recalculate the complete dependency chain on every relevant input change.
+                decimal lastBasicSalary = GetGratuityDecimalValue(txtGRTLastDrawnBasic.Text);
+                decimal eligibleAllowances = GetGratuityDecimalValue(txtGRTEligibleAllowance.Text);
+                decimal taxOrDeduction = GetGratuityDecimalValue(txtGRTTaxOrDeduction.Text);
+
+                decimal salaryBasis = lastBasicSalary + eligibleAllowances;
+                txtGRTGratuitySalaryBasis.Text = salaryBasis.ToString("0.00", CultureInfo.CurrentCulture);
+
+                decimal grossAmount = 0m;
+                decimal netAmount = 0m;
+
+                if (isEligible)
+                {
+                    // Formula: (Gratuity Salary Basis * 15 / 26) * Eligible Years.
+                    grossAmount = (salaryBasis * 15m / 26m) * eligibleYears;
+                    // Net Gratuity Amount = Gross Gratuity Amount - Tax / Deductions.
+                    netAmount = grossAmount - taxOrDeduction;
+                }
+
+                txtGRTGorssGratuityAmount.Text = grossAmount.ToString("0.00", CultureInfo.CurrentCulture);
+                txtGRTGorssGratuityAmount.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtGRTGorssGratuityAmount.Text.ToString())).ToString("0.00");
+                txtGRTNetGratuityAmount.Text = netAmount.ToString("0.00", CultureInfo.CurrentCulture);
+                txtGRTNetGratuityAmount.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtGRTNetGratuityAmount.Text.ToString())).ToString("0.00");
+            }
+            finally
+            {
+                _isUpdatingGratuityValues = false;
+            }
+        }
+
+        private void SetGratuitySectionsEnabled(bool enabled)
+        {
+            grpGratuityCalculation.Enabled = enabled;
+            grpHRApproval.Enabled = enabled;
+            grpFinanceApproval.Enabled = enabled;
+            grpPaymentInformation.Enabled = enabled;
         }
 
         private string CalculateServiceTenure(DateTime dateOfJoining)
@@ -1038,15 +1460,15 @@ namespace StaffSync
             dtgAssetInformation.Columns["EmpCode"].HeaderText = "Emp Code";
             dtgAssetInformation.Columns["EmpCode"].Width = 100;
             dtgAssetInformation.Columns["EmpCode"].ReadOnly = true;
-            dtgAssetInformation.Columns["EmpName"].Visible = false; 
+            dtgAssetInformation.Columns["EmpName"].Visible = false;
             dtgAssetInformation.Columns["EmpName"].HeaderText = "Employee Name";
             dtgAssetInformation.Columns["EmpName"].Width = 200;
             dtgAssetInformation.Columns["EmpName"].ReadOnly = true;
-            dtgAssetInformation.Columns["DesignationTitle"].Visible = false; 
+            dtgAssetInformation.Columns["DesignationTitle"].Visible = false;
             dtgAssetInformation.Columns["DesignationTitle"].HeaderText = "Designation";
             dtgAssetInformation.Columns["DesignationTitle"].Width = 150;
             dtgAssetInformation.Columns["DesignationTitle"].ReadOnly = true;
-            dtgAssetInformation.Columns["DepartmentTitle"].Visible = false; 
+            dtgAssetInformation.Columns["DepartmentTitle"].Visible = false;
             dtgAssetInformation.Columns["DepartmentTitle"].HeaderText = "Department";
             dtgAssetInformation.Columns["DepartmentTitle"].Width = 150;
             dtgAssetInformation.Columns["DepartmentTitle"].ReadOnly = true;
@@ -1082,7 +1504,7 @@ namespace StaffSync
             dtgLeaveBalanceInfo.Columns["TotalLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
             dtgLeaveBalanceInfo.Columns["TotalLeaves"].DefaultCellStyle.Format = "0.00";
 
-            dtgLeaveBalanceInfo.Columns["BalanceLeaves"].HeaderText = "Available Leaves"; 
+            dtgLeaveBalanceInfo.Columns["BalanceLeaves"].HeaderText = "Available Leaves";
             dtgLeaveBalanceInfo.Columns["BalanceLeaves"].Width = 100;
             dtgLeaveBalanceInfo.Columns["BalanceLeaves"].ReadOnly = true;
             dtgLeaveBalanceInfo.Columns["BalanceLeaves"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; //Allowences
@@ -1163,6 +1585,7 @@ namespace StaffSync
             txtGRTEligibleAllowance.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtGRTEligibleAllowance.Text.ToString())).ToString("0.00");
             txtGRTGratuitySalaryBasis.Text = (Convert.ToDecimal(txtGRTLastDrawnBasic.Text.ToString()) + Convert.ToDecimal(txtGRTEligibleAllowance.Text.ToString())).ToString("0.00");
             txtGRTEligibleAllowance.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtGRTEligibleAllowance.Text.ToString())).ToString("0.00");
+            CalculateGratuityEligibilityAndAmounts();
         }
 
         private void LoadEmployeeLeaveEncashmentInfo()
@@ -1399,7 +1822,7 @@ namespace StaffSync
 
         private void tabControl1_Selecting(object sender, Krypton.Navigator.KryptonPageCancelEventArgs e)
         {
-            
+
         }
 
         private void tabControl1_Selected(object sender, Krypton.Navigator.KryptonPageEventArgs e)
@@ -1432,7 +1855,7 @@ namespace StaffSync
                     }
                 }
 
-                if(boolMaxLeaveToBeConsidered)
+                if (boolMaxLeaveToBeConsidered)
                 {
                     lblMaxLeaveConsidered.Visible = true;
                     decimal totalLeavesAllotted = 0;

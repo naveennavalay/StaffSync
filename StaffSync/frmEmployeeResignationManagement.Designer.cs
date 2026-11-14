@@ -135,6 +135,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.dtgLeaveBalanceInfo = new Krypton.Toolkit.KryptonDataGridView();
             this.tabGratuityInformation = new Krypton.Navigator.KryptonPage();
+            this.lblEmpResignGratuityID = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.grpPaymentInformation = new Krypton.Toolkit.KryptonGroupBox();
             this.txtGRTPaymentRefNo = new Krypton.Toolkit.KryptonTextBox();
@@ -448,7 +449,7 @@
             this.lblNextApproverMailID.AutoSize = true;
             this.lblNextApproverMailID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblNextApproverMailID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNextApproverMailID.Location = new System.Drawing.Point(664, 62);
+            this.lblNextApproverMailID.Location = new System.Drawing.Point(963, 34);
             this.lblNextApproverMailID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblNextApproverMailID.Name = "lblNextApproverMailID";
             this.lblNextApproverMailID.Size = new System.Drawing.Size(11, 15);
@@ -470,7 +471,7 @@
             // 
             // btnSearchHRManager
             // 
-            this.btnSearchHRManager.Location = new System.Drawing.Point(467, 54);
+            this.btnSearchHRManager.Location = new System.Drawing.Point(467, 84);
             this.btnSearchHRManager.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearchHRManager.Name = "btnSearchHRManager";
             this.btnSearchHRManager.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007Blue;
@@ -486,7 +487,7 @@
             this.lblHROwnerID.AutoSize = true;
             this.lblHROwnerID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblHROwnerID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHROwnerID.Location = new System.Drawing.Point(536, 62);
+            this.lblHROwnerID.Location = new System.Drawing.Point(963, 18);
             this.lblHROwnerID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblHROwnerID.Name = "lblHROwnerID";
             this.lblHROwnerID.Size = new System.Drawing.Size(11, 15);
@@ -522,7 +523,7 @@
             // dtApprovalDate
             // 
             this.dtApprovalDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(0)))), ((int)(((byte)(254)))));
-            this.dtApprovalDate.Location = new System.Drawing.Point(465, 93);
+            this.dtApprovalDate.Location = new System.Drawing.Point(693, 89);
             this.dtApprovalDate.Margin = new System.Windows.Forms.Padding(4);
             this.dtApprovalDate.Mask = "##-##-####";
             this.dtApprovalDate.Name = "dtApprovalDate";
@@ -535,7 +536,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(367, 96);
+            this.label8.Location = new System.Drawing.Point(595, 92);
             this.label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(96, 15);
@@ -548,7 +549,7 @@
             // 
             this.cmbResignationStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbResignationStatus.DropDownWidth = 440;
-            this.cmbResignationStatus.Location = new System.Drawing.Point(153, 92);
+            this.cmbResignationStatus.Location = new System.Drawing.Point(150, 57);
             this.cmbResignationStatus.Margin = new System.Windows.Forms.Padding(4);
             this.cmbResignationStatus.Name = "cmbResignationStatus";
             this.cmbResignationStatus.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
@@ -561,17 +562,17 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(23, 96);
+            this.label7.Location = new System.Drawing.Point(100, 61);
             this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(128, 15);
+            this.label7.Size = new System.Drawing.Size(47, 15);
             this.label7.TabIndex = 87;
-            this.label7.Text = "Resignation Status";
+            this.label7.Text = "Status";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtHROwner
             // 
-            this.txtHROwner.Location = new System.Drawing.Point(150, 57);
+            this.txtHROwner.Location = new System.Drawing.Point(150, 87);
             this.txtHROwner.Margin = new System.Windows.Forms.Padding(4);
             this.txtHROwner.Multiline = true;
             this.txtHROwner.Name = "txtHROwner";
@@ -589,7 +590,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(52, 62);
+            this.label6.Location = new System.Drawing.Point(51, 92);
             this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(96, 15);
@@ -1901,6 +1902,7 @@
             // tabGratuityInformation
             // 
             this.tabGratuityInformation.AutoHiddenSlideSize = new System.Drawing.Size(200, 200);
+            this.tabGratuityInformation.Controls.Add(this.lblEmpResignGratuityID);
             this.tabGratuityInformation.Controls.Add(this.groupBox7);
             this.tabGratuityInformation.Flags = 65534;
             this.tabGratuityInformation.LastVisibleSet = true;
@@ -1911,6 +1913,18 @@
             this.tabGratuityInformation.Text = "Gratuity Information";
             this.tabGratuityInformation.ToolTipTitle = "Page ToolTip";
             this.tabGratuityInformation.UniqueName = "03740a9773cb4fd580f902403cbf20a3";
+            // 
+            // lblEmpResignGratuityID
+            // 
+            this.lblEmpResignGratuityID.AutoSize = true;
+            this.lblEmpResignGratuityID.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblEmpResignGratuityID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmpResignGratuityID.Location = new System.Drawing.Point(510, 229);
+            this.lblEmpResignGratuityID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lblEmpResignGratuityID.Name = "lblEmpResignGratuityID";
+            this.lblEmpResignGratuityID.Size = new System.Drawing.Size(11, 15);
+            this.lblEmpResignGratuityID.TabIndex = 97;
+            this.lblEmpResignGratuityID.Text = " ";
             // 
             // groupBox7
             // 
@@ -2497,7 +2511,6 @@
             this.txtGRTEligibleAllowance.Multiline = true;
             this.txtGRTEligibleAllowance.Name = "txtGRTEligibleAllowance";
             this.txtGRTEligibleAllowance.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtGRTEligibleAllowance.ReadOnly = true;
             this.txtGRTEligibleAllowance.Size = new System.Drawing.Size(139, 25);
             this.txtGRTEligibleAllowance.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTEligibleAllowance.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
@@ -2528,7 +2541,6 @@
             this.txtGRTLastDrawnBasic.Multiline = true;
             this.txtGRTLastDrawnBasic.Name = "txtGRTLastDrawnBasic";
             this.txtGRTLastDrawnBasic.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtGRTLastDrawnBasic.ReadOnly = true;
             this.txtGRTLastDrawnBasic.Size = new System.Drawing.Size(139, 25);
             this.txtGRTLastDrawnBasic.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTLastDrawnBasic.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
@@ -2612,7 +2624,6 @@
             this.txtGRTTaxOrDeduction.Multiline = true;
             this.txtGRTTaxOrDeduction.Name = "txtGRTTaxOrDeduction";
             this.txtGRTTaxOrDeduction.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtGRTTaxOrDeduction.ReadOnly = true;
             this.txtGRTTaxOrDeduction.Size = new System.Drawing.Size(139, 25);
             this.txtGRTTaxOrDeduction.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTTaxOrDeduction.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
@@ -2643,7 +2654,6 @@
             this.txtGRTGorssGratuityAmount.Multiline = true;
             this.txtGRTGorssGratuityAmount.Name = "txtGRTGorssGratuityAmount";
             this.txtGRTGorssGratuityAmount.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtGRTGorssGratuityAmount.ReadOnly = true;
             this.txtGRTGorssGratuityAmount.Size = new System.Drawing.Size(139, 25);
             this.txtGRTGorssGratuityAmount.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTGorssGratuityAmount.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
@@ -3068,6 +3078,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgLeaveBalanceInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabGratuityInformation)).EndInit();
             this.tabGratuityInformation.ResumeLayout(false);
+            this.tabGratuityInformation.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grpPaymentInformation.Panel)).EndInit();
             this.grpPaymentInformation.Panel.ResumeLayout(false);
@@ -3305,5 +3316,6 @@
         private System.Windows.Forms.Label label64;
         private Krypton.Toolkit.KryptonTextBox txtGRTPaymentRemarks;
         private Krypton.Toolkit.KryptonTextBox txtGRTPaymentRefNo;
+        private System.Windows.Forms.Label lblEmpResignGratuityID;
     }
 }
