@@ -13,10 +13,10 @@ namespace DALStaffSync
     {
         dbStaffSync.clsEmpResignGratuityInfo objEmpResignGratuityInfo = new dbStaffSync.clsEmpResignGratuityInfo();
 
-        //public EmpResignResignGratuityInfo getEmpResignLeaveEncashmentInfotatements(int EmpResignID)
-        //{
-        //    return objEmpResignLeaveEncashmentInfo.getEmpResignLeaveEncashmentInfotatements(EmpResignID);
-        //}
+        public EmpResignGratuityInfo getEmpResignResignGratuityInfotatements(int EmpResignID)
+        {
+            return objEmpResignGratuityInfo.getEmpResignResignGratuityInfotatements(EmpResignID);
+        }
 
         public int InsertEmpResignResignGratuityInfo(int EmpResignID, DateTime DateOfJoining, DateTime ResignationDate, DateTime LastWorkingDate, int ActualServiceYears, int ActualServiceMonths, int ActualServiceDays, 
             decimal GratuityServiceYears, bool IsGratuityEligible, string EligibilityStatus, string GratuityFormulaTitle,

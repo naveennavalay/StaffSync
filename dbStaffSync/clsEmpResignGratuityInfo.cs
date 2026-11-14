@@ -18,64 +18,84 @@ namespace dbStaffSync
         clsGenFunc objGenFunc = new clsGenFunc();
 
 
-        //public EmpResignResignGratuityInfo getEmpResignResignGratuityInfotatements(int EmpResignID)
-        //{
-        //    List<EmpResignResignGratuityInfo> objEmpResignResignGratuityInfo = new List<EmpResignResignGratuityInfo>();
-        //    DataTable dt = new DataTable();
+        public EmpResignGratuityInfo getEmpResignResignGratuityInfotatements(int EmpResignID)
+        {
+            List<EmpResignGratuityInfo> objEmpResignGratuityInfo = new List<EmpResignGratuityInfo>();
+            DataTable dt = new DataTable();
 
-        //    try
-        //    {
-        //        conn = dbStaffSync.openDBConnection();
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
 
-        //        string strQuery = @"SELECT
-        //                                EmpResignResignGratuityInfo.LeaveEncashmentID,
-        //                                EmpResignResignGratuityInfo.EmpResignID,
-        //                                EmpResignResignGratuityInfo.EncashmentDate,
-        //                                EmpResignResignGratuityInfo.TotalLeaveAllotted,
-        //                                EmpResignResignGratuityInfo.TotalLeaveUtilised,
-        //                                EmpResignResignGratuityInfo.TotalLeaveBalance,
-        //                                EmpResignResignGratuityInfo.TotalEncashableLeave,
-        //                                EmpResignResignGratuityInfo.DaysToEncash,
-        //                                EmpResignResignGratuityInfo.EligibleSalary,
-        //                                EmpResignResignGratuityInfo.DailySalaryRate,
-        //                                EmpResignResignGratuityInfo.SalaryCalculationBasis,
-        //                                EmpResignResignGratuityInfo.EncashmentAmount,
-        //                                EmpResignResignGratuityInfo.TaxDeduction,
-        //                                EmpResignResignGratuityInfo.NetEncashmentAmount,
-        //                                EmpResignResignGratuityInfo.MoreDetails,
-        //                                EmpResignResignGratuityInfo.EncashmentProcessStatus
-        //                            FROM
-        //                                EmpResignResignGratuityInfo
-        //                            WHERE
-        //                                (((EmpResignResignGratuityInfo.EmpResignID) = " + EmpResignID + ")); ";
+                string strQuery = @"SELECT
+                                        EmpResignGratuityInfo.EmpResignGratuityID,
+                                        EmpResignGratuityInfo.DateOfJoining,
+                                        EmpResignGratuityInfo.ResignationDate,
+                                        EmpResignGratuityInfo.LastWorkingDate,
+                                        EmpResignGratuityInfo.ActualServiceYears,
+                                        EmpResignGratuityInfo.ActualServiceMonths,
+                                        EmpResignGratuityInfo.ActualServiceDays,
+                                        EmpResignGratuityInfo.GratuityServiceYears,
+                                        EmpResignGratuityInfo.IsGratuityEligible,
+                                        EmpResignGratuityInfo.EligibilityStatus,
+                                        EmpResignGratuityInfo.GratuityFormulaTitle,
+                                        EmpResignGratuityInfo.LastDrawnBasicSalary,
+                                        EmpResignGratuityInfo.EligibleAllowances,
+                                        EmpResignGratuityInfo.WageAdjustmentAmount,
+                                        EmpResignGratuityInfo.GratuitySalaryBasis,
+                                        EmpResignGratuityInfo.GratuityDays,
+                                        EmpResignGratuityInfo.WageDivisor,
+                                        EmpResignGratuityInfo.GrossGratuityAmount,
+                                        EmpResignGratuityInfo.StatutoryGratuityLimit,
+                                        EmpResignGratuityInfo.GratuityCeilingAdjustment,
+                                        EmpResignGratuityInfo.TaxOrDeductionAmount,
+                                        EmpResignGratuityInfo.NetGratuityAmount,
+                                        EmpResignGratuityInfo.HRVerifiedBy,
+                                        EmpResignGratuityInfo.HRVerificationDate,
+                                        EmpResignGratuityInfo.HRVerificationStatus,
+                                        EmpResignGratuityInfo.HRRemarks,
+                                        EmpResignGratuityInfo.FinanceVerifiedBy,
+                                        EmpResignGratuityInfo.FinanceVerificationDate,
+                                        EmpResignGratuityInfo.FinanceVerificationStatus,
+                                        EmpResignGratuityInfo.FinanceRemarks,
+                                        EmpResignGratuityInfo.PaymentStatus,
+                                        EmpResignGratuityInfo.PaymentDate,
+                                        EmpResignGratuityInfo.PaymentReferenceNo,
+                                        EmpResignGratuityInfo.PaymentRemarks,
+                                        EmpResignationInfo.EmpResignID
+                                    FROM
+                                        EmpResignationInfo
+                                        INNER JOIN EmpResignGratuityInfo ON EmpResignationInfo.EmpResignID = EmpResignGratuityInfo.EmpResignID
+                                    WHERE
+                                        (((EmpResignationInfo.EmpResignID) = " + EmpResignID + "));";
 
-        //        OleDbCommand cmd = conn.CreateCommand();
-        //        cmd.CommandType = CommandType.Text;
-        //        cmd.CommandText = strQuery;
-        //        cmd.ExecuteNonQuery();
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+                cmd.ExecuteNonQuery();
 
-        //        OleDbDataAdapter da = new OleDbDataAdapter(cmd);
-        //        da.Fill(dt);
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
 
-        //        string DataTableToJSon = "";
-        //        DataTableToJSon = JsonConvert.SerializeObject(dt);
-        //        objEmpResignResignGratuityInfo = JsonConvert.DeserializeObject<List<EmpResignResignGratuityInfo>>(DataTableToJSon);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        conn = dbStaffSync.closeDBConnection();
-        //    }
-        //    finally
-        //    {
-        //        conn = dbStaffSync.closeDBConnection();
-        //    }
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmpResignGratuityInfo = JsonConvert.DeserializeObject<List<EmpResignGratuityInfo>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
 
-        //    if (objEmpResignResignGratuityInfo.Count > 0)
-        //        return objEmpResignResignGratuityInfo[0];
-        //    else
-        //        return new EmpResignResignGratuityInfo();
-        //}
+            if (objEmpResignGratuityInfo.Count > 0)
+                return objEmpResignGratuityInfo[0];
+            else
+                return new EmpResignGratuityInfo();
+        }
 
         public int InsertEmpResignResignGratuityInfo(int EmpResignID, DateTime DateOfJoining, DateTime ResignationDate, DateTime LastWorkingDate, int ActualServiceYears, int ActualServiceMonths, int ActualServiceDays,
             decimal GratuityServiceYears, bool IsGratuityEligible, string EligibilityStatus, string GratuityFormulaTitle, 
@@ -142,7 +162,7 @@ namespace dbStaffSync
                 dtDataset = new DataSet();
 
                 string strQuery = "UPDATE EmpResignGratuityInfo SET " +
-                    " EmpResignID = " + EmpResignID + 
+                    " EmpResignID = " + EmpResignID + ", " +
                     " DateOfJoining = #" + DateOfJoining.Date.ToString("dd-MMM-yyyy") + "#, " +
                     " ResignationDate = #" + ResignationDate.Date.ToString("dd-MMM-yyyy") + "#, " +
                     " LastWorkingDate = #" + LastWorkingDate.Date.ToString("dd-MMM-yyyy") + "#, " +
@@ -151,8 +171,8 @@ namespace dbStaffSync
                     " ActualServiceDays = " + ActualServiceDays + ", " +
                     " GratuityServiceYears = " + ActualServiceDays + ", " +
                     " IsGratuityEligible = " + IsGratuityEligible + ", " +
-                    " EligibilityStatus = " + EligibilityStatus + ", " +
-                    " GratuityFormulaTitle = '" + EligibilityStatus + "', " +
+                    " EligibilityStatus = '" + EligibilityStatus + "', " +
+                    " GratuityFormulaTitle = '" + GratuityFormulaTitle + "', " +
                     " LastDrawnBasicSalary = " + LastDrawnBasicSalary + ", " +
                     " EligibleAllowances = " + EligibleAllowances + ", " +
                     " WageAdjustmentAmount = " + WageAdjustmentAmount + ", " +

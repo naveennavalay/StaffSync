@@ -449,7 +449,7 @@
             this.lblNextApproverMailID.AutoSize = true;
             this.lblNextApproverMailID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblNextApproverMailID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNextApproverMailID.Location = new System.Drawing.Point(963, 34);
+            this.lblNextApproverMailID.Location = new System.Drawing.Point(805, 34);
             this.lblNextApproverMailID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblNextApproverMailID.Name = "lblNextApproverMailID";
             this.lblNextApproverMailID.Size = new System.Drawing.Size(11, 15);
@@ -487,13 +487,12 @@
             this.lblHROwnerID.AutoSize = true;
             this.lblHROwnerID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblHROwnerID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHROwnerID.Location = new System.Drawing.Point(963, 18);
+            this.lblHROwnerID.Location = new System.Drawing.Point(805, 18);
             this.lblHROwnerID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblHROwnerID.Name = "lblHROwnerID";
             this.lblHROwnerID.Size = new System.Drawing.Size(11, 15);
             this.lblHROwnerID.TabIndex = 93;
             this.lblHROwnerID.Text = " ";
-            this.lblHROwnerID.Visible = false;
             // 
             // lblRepManagerApprovalStatus
             // 
@@ -1919,7 +1918,7 @@
             this.lblEmpResignGratuityID.AutoSize = true;
             this.lblEmpResignGratuityID.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.lblEmpResignGratuityID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmpResignGratuityID.Location = new System.Drawing.Point(510, 229);
+            this.lblEmpResignGratuityID.Location = new System.Drawing.Point(384, 229);
             this.lblEmpResignGratuityID.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblEmpResignGratuityID.Name = "lblEmpResignGratuityID";
             this.lblEmpResignGratuityID.Size = new System.Drawing.Size(11, 15);
@@ -1968,12 +1967,12 @@
             // 
             // txtGRTPaymentRefNo
             // 
+            this.txtGRTPaymentRefNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtGRTPaymentRefNo.Location = new System.Drawing.Point(128, 61);
             this.txtGRTPaymentRefNo.Margin = new System.Windows.Forms.Padding(4);
             this.txtGRTPaymentRefNo.Multiline = true;
             this.txtGRTPaymentRefNo.Name = "txtGRTPaymentRefNo";
             this.txtGRTPaymentRefNo.PaletteMode = Krypton.Toolkit.PaletteMode.Office2007BlueLightMode;
-            this.txtGRTPaymentRefNo.ReadOnly = true;
             this.txtGRTPaymentRefNo.Size = new System.Drawing.Size(168, 25);
             this.txtGRTPaymentRefNo.StateActive.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGRTPaymentRefNo.StateCommon.Content.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F);
@@ -2969,7 +2968,6 @@
             this.lblEmpResignID.Size = new System.Drawing.Size(11, 15);
             this.lblEmpResignID.TabIndex = 82;
             this.lblEmpResignID.Text = " ";
-            this.lblEmpResignID.Visible = false;
             // 
             // txtResignationCode
             // 

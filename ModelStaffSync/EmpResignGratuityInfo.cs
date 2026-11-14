@@ -45,5 +45,6 @@ namespace ModelStaffSync
         public int PaymentStatus { get; set; }
         public DateTime PaymentDate { get; set; }
         public string PaymentReferenceNo { get; set; }
+        public string PaymentRemarks { get; set; }
     }
 }

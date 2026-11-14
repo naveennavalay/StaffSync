@@ -988,6 +988,19 @@ namespace StaffSync
 
                 lblLeaveEncashmentID.Text = "0";
 
+                cmbGRTHRApprovalBy.DataSource = objDepartmentInfo.qryHREmployeeList(Convert.ToInt32(lblClientID.Text));
+                cmbGRTHRApprovalBy.DisplayMember = "EmpName";
+                cmbGRTHRApprovalBy.ValueMember = "EmpID";
+
+                cmbGRTFINApprovalBy.DataSource = objDepartmentInfo.qryFINEmployeeList(Convert.ToInt32(lblClientID.Text));
+                cmbGRTFINApprovalBy.DisplayMember = "EmpName";
+                cmbGRTFINApprovalBy.ValueMember = "EmpID";
+
+                cmbGRTCalculationFormula.DataSource = null;
+                cmbGRTCalculationFormula.Items.Clear();
+                cmbGRTCalculationFormula.Items.Add("(Last Drawn Basic * 15 / 26) * Completed Years");
+                cmbGRTCalculationFormula.SelectedIndex = 0;
+
                 EmpPersonalPersonalInfo objSelectedPersonalInfo = objEmployeePersonalInfo.GetEmpPersonalPersonalInfo(Convert.ToInt16(lblEmpID.Text));
                 txtDateOfJoining.Text = objSelectedPersonalInfo.DOJ.ToString("dd-MMM-yyyy");
                 dtLastWorkingDay.Text = DateTime.Now.AddDays(Convert.ToInt32(txtNoticePeriod.Text)).ToString("dd-MM-yyyy");
@@ -1004,25 +1017,13 @@ namespace StaffSync
                 LoadEmployeeSpecificAssetInfo();
                 LoadEmployeeSpecificLeaveBalanceInfo();
                 LoadEmployeeLeaveEncashmentInfo();
+                LoadEmployeeGratuityInfo();
+
                 CalculateGratuityEligibilityAndAmounts();
 
                 dtEncashmentDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
                 tabControl1.Enabled = true;
                 tabControl1.SelectedIndex = 0;
-
-                cmbGRTHRApprovalBy.DataSource = objDepartmentInfo.qryHREmployeeList(Convert.ToInt32(lblClientID.Text));
-                cmbGRTHRApprovalBy.DisplayMember = "EmpName";
-                cmbGRTHRApprovalBy.ValueMember = "EmpID";
-
-                cmbGRTFINApprovalBy.DataSource = objDepartmentInfo.qryFINEmployeeList(Convert.ToInt32(lblClientID.Text));
-                cmbGRTFINApprovalBy.DisplayMember = "EmpName";
-                cmbGRTFINApprovalBy.ValueMember = "EmpID";
-
-                cmbGRTCalculationFormula.DataSource = null;
-                cmbGRTCalculationFormula.Items.Clear();
-                cmbGRTCalculationFormula.Items.Add("(Last Drawn Basic * 15 / 26) * Completed Years");
-                cmbGRTCalculationFormula.SelectedIndex = 0;
-
                 LoadGratuityVerificationStatus();
             }
             else if (SearchOptionSelectedForm == "listResignationApproverList")
@@ -1612,6 +1613,48 @@ namespace StaffSync
             else
             {
                 lblLeaveEncashmentID.Text = "0";
+            }
+        }
+
+        private void LoadEmployeeGratuityInfo()
+        {
+            ModelStaffSync.EmpResignGratuityInfo tmpEmpResignGratuityInfo = objEmpResignGratuityInfo.getEmpResignResignGratuityInfotatements(Convert.ToInt32(lblEmpResignID.Text.ToString()));
+            if (tmpEmpResignGratuityInfo.EmpResignID != 0)
+            {
+                lblEmpResignGratuityID.Text = tmpEmpResignGratuityInfo.EmpResignGratuityID.ToString();
+                txtGRTDateOfJoining.Text = tmpEmpResignGratuityInfo.DateOfJoining.ToString("dd-MMM-yyyy");
+                txtGRTResignationDate.Text = tmpEmpResignGratuityInfo.ResignationDate.ToString("dd-MMM-yyyy");
+                txtGRTLastWorkingDate.Text = tmpEmpResignGratuityInfo.LastWorkingDate.ToString("dd-MMM-yyyy");
+                txtGRTServiceTenure.Text = tmpEmpResignGratuityInfo.ActualServiceYears.ToString() + " Year " + tmpEmpResignGratuityInfo.ActualServiceMonths.ToString() + " Months " + tmpEmpResignGratuityInfo.ActualServiceDays.ToString() + " Days";
+                txtGRTEligibleYears.Text = tmpEmpResignGratuityInfo.GratuityServiceYears.ToString();
+                txtGRTEligibleStatus.Text = tmpEmpResignGratuityInfo.IsGratuityEligible.ToString();
+                txtGRTEligibleStatus.Text = tmpEmpResignGratuityInfo.EligibilityStatus.ToString();
+                cmbGRTCalculationFormula.SelectedIndex = 0;
+                txtGRTLastDrawnBasic.Text = tmpEmpResignGratuityInfo.LastDrawnBasicSalary.ToString("0.00");
+                txtGRTEligibleAllowance.Text = tmpEmpResignGratuityInfo.EligibleAllowances.ToString("0.00");
+                txtGRTGratuitySalaryBasis.Text = tmpEmpResignGratuityInfo.GratuitySalaryBasis.ToString("0.00");
+                txtGRTGorssGratuityAmount.Text = tmpEmpResignGratuityInfo.GrossGratuityAmount.ToString("0.00");
+                txtGRTTaxOrDeduction.Text = tmpEmpResignGratuityInfo.TaxOrDeductionAmount.ToString("0.00");
+                txtGRTNetGratuityAmount.Text = tmpEmpResignGratuityInfo.NetGratuityAmount.ToString("0.00");
+
+                cmbGRTHRApprovalBy.SelectedIndex = tmpEmpResignGratuityInfo.HRVerifiedBy - 1;
+                dtGRTHRApprovalDate.Text = tmpEmpResignGratuityInfo.HRVerificationDate.Date.ToString("dd-MM-yyyy");
+                cmbGRTHRApprovalStatus.SelectedIndex = tmpEmpResignGratuityInfo.HRVerificationStatus;
+                txtGRTHRRemarks.Text = tmpEmpResignGratuityInfo.HRRemarks.ToString();
+
+                cmbGRTFINApprovalBy.SelectedIndex = tmpEmpResignGratuityInfo.FinanceVerifiedBy - 1;
+                dtGRTFINApprovalDate.Text = tmpEmpResignGratuityInfo.FinanceVerificationDate.Date.ToString("dd-MM-yyyy");
+                cmbGRTHRApprovalStatus.SelectedIndex = tmpEmpResignGratuityInfo.FinanceVerificationStatus;
+                txtGRTFINRemarks.Text = tmpEmpResignGratuityInfo.FinanceRemarks.ToString();
+
+                cmbGRTPaymentStatus.SelectedIndex = tmpEmpResignGratuityInfo.PaymentStatus;
+                dtGRTFINApprovalDate.Text = tmpEmpResignGratuityInfo.FinanceVerificationDate.Date.ToString("dd-MM-yyyy");
+                txtGRTPaymentRefNo.Text = tmpEmpResignGratuityInfo.PaymentReferenceNo.ToString();
+                txtGRTPaymentRemarks.Text = tmpEmpResignGratuityInfo.PaymentRemarks.ToString();
+            }
+            else
+            {
+                lblEmpResignGratuityID.Text = "";
             }
         }
 
