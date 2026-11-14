@@ -166,6 +166,40 @@ namespace StaffSync
             chkLeaveEncashmentVerifiedAndConfirmed.Checked = false;
             lblNextApproverMailID.Text = "";
             lblLeaveEncashmentID.Text = "";
+
+            txtGRTDateOfJoining.Text = "";
+            txtGRTResignationDate.Text = "";
+            txtGRTLastWorkingDate.Text = "";
+            txtGRTServiceTenure.Text = "";
+            txtGRTEligibleYears.Text = "";
+            txtGRTEligibleStatus.Text = "";
+
+            txtGRTLastDrawnBasic.Text = "0.00";
+            txtGRTEligibleAllowance.Text = "0.00";
+            txtGRTGratuitySalaryBasis.Text = "0.00";
+            txtGRTGorssGratuityAmount.Text = "0.00";
+            txtGRTTaxOrDeduction.Text = "0.00";
+            txtGRTNetGratuityAmount.Text = "0.00";
+
+            cmbGRTHRApprovalBy.Items.Clear();
+            cmbGRTHRApprovalBy.DataSource = null;
+            dtGRTHRApprovalDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            cmbGRTHRApprovalStatus.Items.Clear();
+            cmbGRTHRApprovalStatus.DataSource = null;
+            txtGRTHRRemarks.Text = "";
+
+            cmbGRTFINApprovalBy.Items.Clear();
+            cmbGRTFINApprovalBy.DataSource = null;
+            dtGRTFINApprovalDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            cmbGRTFINApprovalStatus.Items.Clear();
+            cmbGRTFINApprovalStatus.DataSource = null;
+            txtGRTFINRemarks.Text = "";
+
+            cmbGRTPaymentStatus.Items.Clear();
+            cmbGRTPaymentStatus.DataSource = null;
+            dtGRTPaymentDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            txtGRTPaymentRefNo.Text = "";
+            txtGRTPaymentRemarks.Text = "";
         }
 
         public void enableControls()
@@ -191,6 +225,37 @@ namespace StaffSync
             txtLeaveEncashmentMoreDetails.Enabled = true;
             chkLeaveEncashmentVerifiedAndConfirmed.Checked = false;
             chkLeaveEncashmentVerifiedAndConfirmed.Enabled = true;
+
+            txtGRTDateOfJoining.Enabled = true;
+            txtGRTResignationDate.Enabled = true;
+            txtGRTLastWorkingDate.Enabled = true;
+            txtGRTServiceTenure.Enabled = true;
+            txtGRTEligibleYears.Enabled = true;
+            txtGRTEligibleStatus.Enabled = true;
+
+            txtGRTLastDrawnBasic.Enabled = true;
+            txtGRTEligibleAllowance.Enabled = true; ;
+            txtGRTGratuitySalaryBasis.Enabled = true;
+            txtGRTGorssGratuityAmount.Enabled = true;
+            txtGRTTaxOrDeduction.Enabled = true;
+            txtGRTNetGratuityAmount.Enabled = true;
+
+            cmbGRTHRApprovalBy.Enabled = true;
+            dtGRTHRApprovalDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            dtGRTHRApprovalDate.Enabled = true;
+            cmbGRTHRApprovalStatus.Enabled = true;
+            txtGRTHRRemarks.Enabled = true;
+
+            cmbGRTFINApprovalBy.Enabled = true;
+            dtGRTFINApprovalDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            dtGRTFINApprovalDate.Enabled = true;
+            cmbGRTFINApprovalStatus.Enabled = true;
+            txtGRTFINRemarks.Enabled = true;
+
+            cmbGRTPaymentStatus.Enabled = true;
+            dtGRTPaymentDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            txtGRTPaymentRefNo.Enabled = true;
+            txtGRTPaymentRemarks.Enabled = true;
         }
 
         public void disableControls()
@@ -217,6 +282,37 @@ namespace StaffSync
             tabControl1.SelectedIndex = 0;
             txtLeaveEncashmentMoreDetails.Enabled = false;
             chkLeaveEncashmentVerifiedAndConfirmed.Enabled = false;
+
+            txtGRTDateOfJoining.Enabled = false;
+            txtGRTResignationDate.Enabled = false;
+            txtGRTLastWorkingDate.Enabled = false;
+            txtGRTServiceTenure.Enabled = false;
+            txtGRTEligibleYears.Enabled = false;
+            txtGRTEligibleStatus.Enabled = false;
+
+            txtGRTLastDrawnBasic.Enabled = false;
+            txtGRTEligibleAllowance.Enabled = false; ;
+            txtGRTGratuitySalaryBasis.Enabled = false;
+            txtGRTGorssGratuityAmount.Enabled = false;
+            txtGRTTaxOrDeduction.Enabled = false;
+            txtGRTNetGratuityAmount.Enabled = false;
+
+            cmbGRTHRApprovalBy.Enabled = false;
+            dtGRTHRApprovalDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            dtGRTHRApprovalDate.Enabled = false;
+            cmbGRTHRApprovalStatus.Enabled = false;
+            txtGRTHRRemarks.Enabled = false;
+
+            cmbGRTFINApprovalBy.Enabled = false;
+            dtGRTFINApprovalDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            dtGRTFINApprovalDate.Enabled = false;
+            cmbGRTFINApprovalStatus.Enabled = false;
+            txtGRTFINRemarks.Enabled = false;
+
+            cmbGRTPaymentStatus.Enabled = false;
+            dtGRTPaymentDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
+            txtGRTPaymentRefNo.Enabled = false;
+            txtGRTPaymentRemarks.Enabled = false;
         }
 
         public void onGenerateButtonClick()
