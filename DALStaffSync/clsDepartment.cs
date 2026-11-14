@@ -66,5 +66,15 @@ namespace DALStaffSync
 
             return affectedRows;
         }
+
+        public List<EmpListDeaprtmentWise> qryHREmployeeList(int ClientID)
+        {
+            return objDeparment.qryHREmployeeList(ClientID);
+        }
+
+        public List<EmpListDeaprtmentWise> qryFINEmployeeList(int ClientID)
+        {
+            return objDeparment.qryFINEmployeeList(ClientID);
+        }
     }
 }

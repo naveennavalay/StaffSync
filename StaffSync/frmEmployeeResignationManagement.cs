@@ -27,6 +27,7 @@ namespace StaffSync
         DALStaffSync.clsEmpResignLeaveEncashmentInfo objEmpResignLeaveEncashmentInfo = new DALStaffSync.clsEmpResignLeaveEncashmentInfo();
         DALStaffSync.clsEmployeeMaster objEmployeeMaster = new DALStaffSync.clsEmployeeMaster(); 
         DALStaffSync.clsEmployeePersonalInfo objEmployeePersonalInfo = new DALStaffSync.clsEmployeePersonalInfo();
+        DALStaffSync.clsDepartment objDepartmentInfo = new DALStaffSync.clsDepartment();
         DALStaffSync.clsEmpReimbursRequestInfo objEmpReimbursRequestInfo = new DALStaffSync.clsEmpReimbursRequestInfo();
         DALStaffSync.clsAdvanceTransaction objAdvanceTransaction = new DALStaffSync.clsAdvanceTransaction();
         DALStaffSync.clsAssetRegister objAssetRegisterInfo = new DALStaffSync.clsAssetRegister();
@@ -181,14 +182,12 @@ namespace StaffSync
             txtGRTTaxOrDeduction.Text = "0.00";
             txtGRTNetGratuityAmount.Text = "0.00";
 
-            cmbGRTHRApprovalBy.Items.Clear();
             cmbGRTHRApprovalBy.DataSource = null;
             dtGRTHRApprovalDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
             cmbGRTHRApprovalStatus.Items.Clear();
             cmbGRTHRApprovalStatus.DataSource = null;
             txtGRTHRRemarks.Text = "";
 
-            cmbGRTFINApprovalBy.Items.Clear();
             cmbGRTFINApprovalBy.DataSource = null;
             dtGRTFINApprovalDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
             cmbGRTFINApprovalStatus.Items.Clear();
@@ -384,7 +383,6 @@ namespace StaffSync
             FocusManager.ShowNavigationError = true;
             FocusManager.Register(this);
             FocusManager.SetFocus(btnGenerateDetails);
-
             clearControls();
             disableControls();
             onCancelButtonClick();
@@ -720,14 +718,36 @@ namespace StaffSync
                 dtLastWorkingDay.Text = DateTime.Now.AddDays(Convert.ToInt32(txtNoticePeriod.Text)).ToString("dd-MM-yyyy");
                 txtServiceTenure.Text = CalculateServiceTenure(objSelectedPersonalInfo.DOJ);
                 txtServiceTenure.Text = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(txtServiceTenure.Text.ToString().ToLower());
+
+                txtGRTDateOfJoining.Text = objSelectedPersonalInfo.DOJ.ToString("dd-MMM-yyyy");
+                txtGRTLastWorkingDate.Text = Convert.ToDateTime(dtLastWorkingDay.Text).ToString("dd-MMM-yyy");
+                txtGRTResignationDate.Text = Convert.ToDateTime(dtResignationDate.Text).ToString("dd-MMM-yyyy");
+                txtGRTServiceTenure.Text = txtServiceTenure.Text;
+
                 LoadReimbursementInfo();
                 LoadEmployeeSpecificAdvanceInfo();
                 LoadEmployeeSpecificAssetInfo();
                 LoadEmployeeSpecificLeaveBalanceInfo();
                 LoadEmployeeLeaveEncashmentInfo();
+
                 dtEncashmentDate.Text = DateTime.Today.ToString("dd-MM-yyyy");
                 tabControl1.Enabled = true;
                 tabControl1.SelectedIndex = 0;
+
+                cmbGRTHRApprovalBy.DataSource = objDepartmentInfo.qryHREmployeeList(Convert.ToInt32(lblClientID.Text));
+                cmbGRTHRApprovalBy.DisplayMember = "EmpName";
+                cmbGRTHRApprovalBy.ValueMember = "EmpID";
+
+                cmbGRTFINApprovalBy.DataSource = objDepartmentInfo.qryFINEmployeeList(Convert.ToInt32(lblClientID.Text));
+                cmbGRTFINApprovalBy.DisplayMember = "EmpName";
+                cmbGRTFINApprovalBy.ValueMember = "EmpID";
+
+                cmbGRTCalculationFormula.DataSource = null;
+                cmbGRTCalculationFormula.Items.Clear();
+                cmbGRTCalculationFormula.Items.Add("(Last Drawn Basic * 15 / 26) * Completed Years");
+                cmbGRTCalculationFormula.SelectedIndex = 0;
+
+                LoadGratuityVerificationStatus();
             }
             else if (SearchOptionSelectedForm == "listResignationApproverList")
             {
@@ -769,6 +789,36 @@ namespace StaffSync
             cmbResignationStatus.Items.Add("8 - Completed");
             cmbResignationStatus.Items.Add("9 - Withdrawn/Cancelled");
             cmbResignationStatus.SelectedIndex = 0;
+        }
+
+        private void LoadGratuityVerificationStatus()
+        {
+            cmbGRTHRApprovalStatus.Items.Clear();
+            cmbGRTHRApprovalStatus.Items.Add("");
+            cmbGRTHRApprovalStatus.Items.Add("1 - Pending");
+            cmbGRTHRApprovalStatus.Items.Add("2 - Processing");
+            cmbGRTHRApprovalStatus.Items.Add("3 - Verified");
+            cmbGRTHRApprovalStatus.Items.Add("4 - Rejected");
+            cmbGRTHRApprovalStatus.Items.Add("5 - Not Applicable");
+            cmbGRTHRApprovalStatus.SelectedIndex = 5;
+
+            cmbGRTFINApprovalStatus.Items.Clear();
+            cmbGRTFINApprovalStatus.Items.Add("");
+            cmbGRTFINApprovalStatus.Items.Add("1 - Pending");
+            cmbGRTFINApprovalStatus.Items.Add("2 - Processing");
+            cmbGRTFINApprovalStatus.Items.Add("3 - Verified");
+            cmbGRTFINApprovalStatus.Items.Add("4 - Rejected");
+            cmbGRTFINApprovalStatus.Items.Add("5 - Not Applicable");
+            cmbGRTFINApprovalStatus.SelectedIndex = 5;
+
+            cmbGRTPaymentStatus.Items.Clear();
+            cmbGRTPaymentStatus.Items.Add("");
+            cmbGRTPaymentStatus.Items.Add("1 - Pending");
+            cmbGRTPaymentStatus.Items.Add("2 - Processing");
+            cmbGRTPaymentStatus.Items.Add("3 - Paid");
+            cmbGRTPaymentStatus.Items.Add("4 - Failed");
+            cmbGRTPaymentStatus.Items.Add("5 - Not Applicable");
+            cmbGRTPaymentStatus.SelectedIndex = 5;
         }
 
         private string CalculateServiceTenure(DateTime dateOfJoining)
@@ -1095,7 +1145,7 @@ namespace StaffSync
             txtEncashmentAmount.Text = "0.00";
             txtTaxDeductionOnEncashmentAmount.Text = "0.00";
             txtNetEncashmentAmount.Text = "0.00";
-            txtMonthlyBasicSalary.Text = objEmpLeaveEntitlementInfo.getGetSalaryComponent(Convert.ToInt16(lblEmpID.Text)).ToString("0.00");
+            txtMonthlyBasicSalary.Text = objEmpLeaveEntitlementInfo.getBasicSalaryComponent(Convert.ToInt16(lblEmpID.Text)).ToString("0.00");
             txtMonthlyBasicSalary.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtMonthlyBasicSalary.Text.ToString())).ToString("0.00");
 
             txtDailySalaryRate.Text = (Convert.ToDecimal(txtMonthlyBasicSalary.Text.ToString()) / 30).ToString("0.00");
@@ -1106,6 +1156,13 @@ namespace StaffSync
 
             txtNetEncashmentAmount.Text = (Convert.ToDecimal(txtEncashmentAmount.Text.ToString()) - Convert.ToDecimal(txtTaxDeductionOnEncashmentAmount.Text.ToString())).ToString("0.00");
             txtNetEncashmentAmount.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtNetEncashmentAmount.Text.ToString())).ToString("0.00");
+
+            txtGRTLastDrawnBasic.Text = objEmpLeaveEntitlementInfo.getBasicSalaryComponent(Convert.ToInt16(lblEmpID.Text)).ToString("0.00");
+            txtGRTLastDrawnBasic.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtGRTLastDrawnBasic.Text.ToString())).ToString("0.00");
+            txtGRTEligibleAllowance.Text = objEmpLeaveEntitlementInfo.getGratuityAllowanceComponent(Convert.ToInt16(lblEmpID.Text)).ToString("0.00");
+            txtGRTEligibleAllowance.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtGRTEligibleAllowance.Text.ToString())).ToString("0.00");
+            txtGRTGratuitySalaryBasis.Text = (Convert.ToDecimal(txtGRTLastDrawnBasic.Text.ToString()) + Convert.ToDecimal(txtGRTEligibleAllowance.Text.ToString())).ToString("0.00");
+            txtGRTEligibleAllowance.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtGRTEligibleAllowance.Text.ToString())).ToString("0.00");
         }
 
         private void LoadEmployeeLeaveEncashmentInfo()
@@ -1413,7 +1470,7 @@ namespace StaffSync
                     txtEncashmentAmount.Text = "0.00";
                     txtTaxDeductionOnEncashmentAmount.Text = "0.00";
                     txtNetEncashmentAmount.Text = "0.00";
-                    txtMonthlyBasicSalary.Text = objEmpLeaveEntitlementInfo.getGetSalaryComponent(Convert.ToInt16(lblEmpID.Text)).ToString("0.00");
+                    txtMonthlyBasicSalary.Text = objEmpLeaveEntitlementInfo.getBasicSalaryComponent(Convert.ToInt16(lblEmpID.Text)).ToString("0.00");
                     txtMonthlyBasicSalary.Text = DBCommon.RoundOffDecimal(Convert.ToDecimal(txtMonthlyBasicSalary.Text.ToString())).ToString("0.00");
 
                     txtDailySalaryRate.Text = (Convert.ToDecimal(txtMonthlyBasicSalary.Text.ToString()) / 30).ToString("0.00");

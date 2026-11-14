@@ -17,4 +17,10 @@ namespace ModelStaffSync
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
     }
+
+    public class EmpListDeaprtmentWise
+    {
+        public int EmpID { get; set; }
+        public string EmpName { get; set; }
+    }
 }

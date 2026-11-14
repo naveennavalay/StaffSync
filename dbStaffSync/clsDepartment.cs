@@ -242,5 +242,84 @@ namespace dbStaffSync
 
             return affectedRows;
         }
+
+        public List<EmpListDeaprtmentWise> qryHREmployeeList(int ClientID)
+        {
+            List<EmpListDeaprtmentWise> objEmpListDeaprtmentWiseList = new List<EmpListDeaprtmentWise>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT * FROM qryHREmployeeList";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                cmd.Parameters.AddWithValue("@pClientID", ClientID);
+
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmpListDeaprtmentWiseList = JsonConvert.DeserializeObject<List<EmpListDeaprtmentWise>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objEmpListDeaprtmentWiseList;
+        }
+
+        public List<EmpListDeaprtmentWise> qryFINEmployeeList(int ClientID)
+        {
+            List<EmpListDeaprtmentWise> objEmpListDeaprtmentWiseList = new List<EmpListDeaprtmentWise>();
+            DataTable dt = new DataTable();
+
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
+
+                string strQuery = "SELECT * FROM qryFINEmployeeList";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                cmd.Parameters.AddWithValue("@pClientID", ClientID);
+
+                cmd.ExecuteNonQuery();
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                string DataTableToJSon = "";
+                DataTableToJSon = JsonConvert.SerializeObject(dt);
+                objEmpListDeaprtmentWiseList = JsonConvert.DeserializeObject<List<EmpListDeaprtmentWise>>(DataTableToJSon);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return objEmpListDeaprtmentWiseList;
+        }
+
     }
 }

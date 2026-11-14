@@ -252,15 +252,14 @@ namespace dbStaffSync
             return LeaveEntitlementInfoList;
         }
 
-
-        public decimal getGetSalaryComponent(int EmpID)
+        public decimal getBasicSalaryComponent(int EmpID)
         {
             decimal selectedAssetID = 0;
             try
             {
                 conn = dbStaffSync.openDBConnection();
 
-                string strQuery = "SELECT AllowanceAmount FROM qryGetSalaryComponentAmount";
+                string strQuery = "SELECT AllowanceAmount FROM qryGetBasicSalaryComponent";
 
                 OleDbCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.Text;
@@ -290,7 +289,42 @@ namespace dbStaffSync
             return selectedAssetID;
         }
 
+        public decimal getGratuityAllowanceComponent(int EmpID)
+        {
+            decimal selectedAssetID = 0;
+            try
+            {
+                conn = dbStaffSync.openDBConnection();
 
+                string strQuery = "SELECT AllowanceAmount FROM qryGetGratuityAllowanceComponent";
+
+                OleDbCommand cmd = conn.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strQuery;
+
+                cmd.Parameters.AddWithValue("@pEmpID", EmpID);
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    selectedAssetID = Convert.ToDecimal(result);
+                }
+                else
+                {
+                    selectedAssetID = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, "Staffsync", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                conn = dbStaffSync.closeDBConnection();
+            }
+            finally
+            {
+                conn = dbStaffSync.closeDBConnection();
+            }
+
+            return selectedAssetID;
+        }
 
         public List<LeaveEntitlementInfo> getEmployeeSpecificLeaveOutstandingInfo(int txtEmpID)
         {

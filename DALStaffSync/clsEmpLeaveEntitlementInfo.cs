@@ -46,11 +46,20 @@ namespace DALStaffSync
             return LeaveEntitlementInfoList;
         }
 
-        public decimal getGetSalaryComponent(int EmpID)
+        public decimal getBasicSalaryComponent(int EmpID)
         {
             decimal salaryComponent = 0;
 
-            salaryComponent = objEmpLeaveEntitlementInfo.getGetSalaryComponent(EmpID);
+            salaryComponent = objEmpLeaveEntitlementInfo.getBasicSalaryComponent(EmpID);
+
+            return salaryComponent;
+        }
+
+        public decimal getGratuityAllowanceComponent(int EmpID)
+        {
+            decimal salaryComponent = 0;
+
+            salaryComponent = objEmpLeaveEntitlementInfo.getGratuityAllowanceComponent(EmpID);
 
             return salaryComponent;
         }

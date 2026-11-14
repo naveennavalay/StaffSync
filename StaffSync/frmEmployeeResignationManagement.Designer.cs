@@ -136,7 +136,7 @@
             this.dtgLeaveBalanceInfo = new Krypton.Toolkit.KryptonDataGridView();
             this.tabGratuityInformation = new Krypton.Navigator.KryptonPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.kryptonGroupBox7 = new Krypton.Toolkit.KryptonGroupBox();
+            this.grpPaymentInformation = new Krypton.Toolkit.KryptonGroupBox();
             this.txtGRTPaymentRefNo = new Krypton.Toolkit.KryptonTextBox();
             this.cmbGRTPaymentStatus = new Krypton.Toolkit.KryptonComboBox();
             this.label61 = new System.Windows.Forms.Label();
@@ -145,7 +145,7 @@
             this.label63 = new System.Windows.Forms.Label();
             this.label64 = new System.Windows.Forms.Label();
             this.txtGRTPaymentRemarks = new Krypton.Toolkit.KryptonTextBox();
-            this.kryptonGroupBox6 = new Krypton.Toolkit.KryptonGroupBox();
+            this.grpFinanceApproval = new Krypton.Toolkit.KryptonGroupBox();
             this.cmbGRTFINApprovalBy = new Krypton.Toolkit.KryptonComboBox();
             this.label57 = new System.Windows.Forms.Label();
             this.cmbGRTFINApprovalStatus = new Krypton.Toolkit.KryptonComboBox();
@@ -154,7 +154,7 @@
             this.label59 = new System.Windows.Forms.Label();
             this.label60 = new System.Windows.Forms.Label();
             this.txtGRTFINRemarks = new Krypton.Toolkit.KryptonTextBox();
-            this.kryptonGroupBox5 = new Krypton.Toolkit.KryptonGroupBox();
+            this.grpHRApproval = new Krypton.Toolkit.KryptonGroupBox();
             this.cmbGRTHRApprovalBy = new Krypton.Toolkit.KryptonComboBox();
             this.label50 = new System.Windows.Forms.Label();
             this.cmbGRTHRApprovalStatus = new Krypton.Toolkit.KryptonComboBox();
@@ -163,7 +163,7 @@
             this.label48 = new System.Windows.Forms.Label();
             this.label47 = new System.Windows.Forms.Label();
             this.txtGRTHRRemarks = new Krypton.Toolkit.KryptonTextBox();
-            this.kryptonGroupBox4 = new Krypton.Toolkit.KryptonGroupBox();
+            this.grpGratuityCalculation = new Krypton.Toolkit.KryptonGroupBox();
             this.kryptonGroup3 = new Krypton.Toolkit.KryptonGroup();
             this.label56 = new System.Windows.Forms.Label();
             this.label52 = new System.Windows.Forms.Label();
@@ -248,27 +248,27 @@
             ((System.ComponentModel.ISupportInitialize)(this.tabGratuityInformation)).BeginInit();
             this.tabGratuityInformation.SuspendLayout();
             this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox7.Panel)).BeginInit();
-            this.kryptonGroupBox7.Panel.SuspendLayout();
-            this.kryptonGroupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpPaymentInformation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpPaymentInformation.Panel)).BeginInit();
+            this.grpPaymentInformation.Panel.SuspendLayout();
+            this.grpPaymentInformation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbGRTPaymentStatus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6.Panel)).BeginInit();
-            this.kryptonGroupBox6.Panel.SuspendLayout();
-            this.kryptonGroupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpFinanceApproval)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpFinanceApproval.Panel)).BeginInit();
+            this.grpFinanceApproval.Panel.SuspendLayout();
+            this.grpFinanceApproval.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbGRTFINApprovalBy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbGRTFINApprovalStatus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
-            this.kryptonGroupBox5.Panel.SuspendLayout();
-            this.kryptonGroupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpHRApproval)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpHRApproval.Panel)).BeginInit();
+            this.grpHRApproval.Panel.SuspendLayout();
+            this.grpHRApproval.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cmbGRTHRApprovalBy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbGRTHRApprovalStatus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4.Panel)).BeginInit();
-            this.kryptonGroupBox4.Panel.SuspendLayout();
-            this.kryptonGroupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpGratuityCalculation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpGratuityCalculation.Panel)).BeginInit();
+            this.grpGratuityCalculation.Panel.SuspendLayout();
+            this.grpGratuityCalculation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup3.Panel)).BeginInit();
             this.kryptonGroup3.Panel.SuspendLayout();
@@ -1914,10 +1914,10 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.kryptonGroupBox7);
-            this.groupBox7.Controls.Add(this.kryptonGroupBox6);
-            this.groupBox7.Controls.Add(this.kryptonGroupBox5);
-            this.groupBox7.Controls.Add(this.kryptonGroupBox4);
+            this.groupBox7.Controls.Add(this.grpPaymentInformation);
+            this.groupBox7.Controls.Add(this.grpFinanceApproval);
+            this.groupBox7.Controls.Add(this.grpHRApproval);
+            this.groupBox7.Controls.Add(this.grpGratuityCalculation);
             this.groupBox7.Controls.Add(this.kryptonGroupBox3);
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox7.Location = new System.Drawing.Point(0, 0);
@@ -1926,31 +1926,31 @@
             this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
             // 
-            // kryptonGroupBox7
+            // grpPaymentInformation
             // 
-            this.kryptonGroupBox7.CaptionOverlap = 0D;
-            this.kryptonGroupBox7.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
-            this.kryptonGroupBox7.GroupBackStyle = Krypton.Toolkit.PaletteBackStyle.ControlToolTip;
-            this.kryptonGroupBox7.Location = new System.Drawing.Point(692, 291);
-            this.kryptonGroupBox7.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            this.grpPaymentInformation.CaptionOverlap = 0D;
+            this.grpPaymentInformation.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
+            this.grpPaymentInformation.GroupBackStyle = Krypton.Toolkit.PaletteBackStyle.ControlToolTip;
+            this.grpPaymentInformation.Location = new System.Drawing.Point(692, 291);
+            this.grpPaymentInformation.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
             // 
-            // kryptonGroupBox7.Panel
+            // grpPaymentInformation.Panel
             // 
-            this.kryptonGroupBox7.Panel.Controls.Add(this.txtGRTPaymentRefNo);
-            this.kryptonGroupBox7.Panel.Controls.Add(this.cmbGRTPaymentStatus);
-            this.kryptonGroupBox7.Panel.Controls.Add(this.label61);
-            this.kryptonGroupBox7.Panel.Controls.Add(this.label62);
-            this.kryptonGroupBox7.Panel.Controls.Add(this.dtGRTPaymentDate);
-            this.kryptonGroupBox7.Panel.Controls.Add(this.label63);
-            this.kryptonGroupBox7.Panel.Controls.Add(this.label64);
-            this.kryptonGroupBox7.Panel.Controls.Add(this.txtGRTPaymentRemarks);
-            this.kryptonGroupBox7.Size = new System.Drawing.Size(325, 172);
-            this.kryptonGroupBox7.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox7.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox7.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox7.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox7.TabIndex = 5;
-            this.kryptonGroupBox7.Values.Heading = "Payment Information";
+            this.grpPaymentInformation.Panel.Controls.Add(this.txtGRTPaymentRefNo);
+            this.grpPaymentInformation.Panel.Controls.Add(this.cmbGRTPaymentStatus);
+            this.grpPaymentInformation.Panel.Controls.Add(this.label61);
+            this.grpPaymentInformation.Panel.Controls.Add(this.label62);
+            this.grpPaymentInformation.Panel.Controls.Add(this.dtGRTPaymentDate);
+            this.grpPaymentInformation.Panel.Controls.Add(this.label63);
+            this.grpPaymentInformation.Panel.Controls.Add(this.label64);
+            this.grpPaymentInformation.Panel.Controls.Add(this.txtGRTPaymentRemarks);
+            this.grpPaymentInformation.Size = new System.Drawing.Size(325, 172);
+            this.grpPaymentInformation.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpPaymentInformation.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpPaymentInformation.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpPaymentInformation.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpPaymentInformation.TabIndex = 5;
+            this.grpPaymentInformation.Values.Heading = "Payment Information";
             // 
             // txtGRTPaymentRefNo
             // 
@@ -2058,31 +2058,31 @@
             this.txtGRTPaymentRemarks.Tag = "Resignation More Details";
             this.txtGRTPaymentRemarks.WordWrap = false;
             // 
-            // kryptonGroupBox6
+            // grpFinanceApproval
             // 
-            this.kryptonGroupBox6.CaptionOverlap = 0D;
-            this.kryptonGroupBox6.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
-            this.kryptonGroupBox6.GroupBackStyle = Krypton.Toolkit.PaletteBackStyle.ControlToolTip;
-            this.kryptonGroupBox6.Location = new System.Drawing.Point(354, 291);
-            this.kryptonGroupBox6.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            this.grpFinanceApproval.CaptionOverlap = 0D;
+            this.grpFinanceApproval.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
+            this.grpFinanceApproval.GroupBackStyle = Krypton.Toolkit.PaletteBackStyle.ControlToolTip;
+            this.grpFinanceApproval.Location = new System.Drawing.Point(354, 291);
+            this.grpFinanceApproval.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
             // 
-            // kryptonGroupBox6.Panel
+            // grpFinanceApproval.Panel
             // 
-            this.kryptonGroupBox6.Panel.Controls.Add(this.cmbGRTFINApprovalBy);
-            this.kryptonGroupBox6.Panel.Controls.Add(this.label57);
-            this.kryptonGroupBox6.Panel.Controls.Add(this.cmbGRTFINApprovalStatus);
-            this.kryptonGroupBox6.Panel.Controls.Add(this.label58);
-            this.kryptonGroupBox6.Panel.Controls.Add(this.dtGRTFINApprovalDate);
-            this.kryptonGroupBox6.Panel.Controls.Add(this.label59);
-            this.kryptonGroupBox6.Panel.Controls.Add(this.label60);
-            this.kryptonGroupBox6.Panel.Controls.Add(this.txtGRTFINRemarks);
-            this.kryptonGroupBox6.Size = new System.Drawing.Size(325, 172);
-            this.kryptonGroupBox6.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox6.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox6.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox6.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox6.TabIndex = 4;
-            this.kryptonGroupBox6.Values.Heading = "Finance Approval";
+            this.grpFinanceApproval.Panel.Controls.Add(this.cmbGRTFINApprovalBy);
+            this.grpFinanceApproval.Panel.Controls.Add(this.label57);
+            this.grpFinanceApproval.Panel.Controls.Add(this.cmbGRTFINApprovalStatus);
+            this.grpFinanceApproval.Panel.Controls.Add(this.label58);
+            this.grpFinanceApproval.Panel.Controls.Add(this.dtGRTFINApprovalDate);
+            this.grpFinanceApproval.Panel.Controls.Add(this.label59);
+            this.grpFinanceApproval.Panel.Controls.Add(this.label60);
+            this.grpFinanceApproval.Panel.Controls.Add(this.txtGRTFINRemarks);
+            this.grpFinanceApproval.Size = new System.Drawing.Size(325, 172);
+            this.grpFinanceApproval.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpFinanceApproval.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpFinanceApproval.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpFinanceApproval.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpFinanceApproval.TabIndex = 4;
+            this.grpFinanceApproval.Values.Heading = "Finance Approval";
             // 
             // cmbGRTFINApprovalBy
             // 
@@ -2186,31 +2186,31 @@
             this.txtGRTFINRemarks.Tag = "Resignation More Details";
             this.txtGRTFINRemarks.WordWrap = false;
             // 
-            // kryptonGroupBox5
+            // grpHRApproval
             // 
-            this.kryptonGroupBox5.CaptionOverlap = 0D;
-            this.kryptonGroupBox5.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
-            this.kryptonGroupBox5.GroupBackStyle = Krypton.Toolkit.PaletteBackStyle.ControlToolTip;
-            this.kryptonGroupBox5.Location = new System.Drawing.Point(16, 291);
-            this.kryptonGroupBox5.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            this.grpHRApproval.CaptionOverlap = 0D;
+            this.grpHRApproval.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
+            this.grpHRApproval.GroupBackStyle = Krypton.Toolkit.PaletteBackStyle.ControlToolTip;
+            this.grpHRApproval.Location = new System.Drawing.Point(16, 291);
+            this.grpHRApproval.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
             // 
-            // kryptonGroupBox5.Panel
+            // grpHRApproval.Panel
             // 
-            this.kryptonGroupBox5.Panel.Controls.Add(this.cmbGRTHRApprovalBy);
-            this.kryptonGroupBox5.Panel.Controls.Add(this.label50);
-            this.kryptonGroupBox5.Panel.Controls.Add(this.cmbGRTHRApprovalStatus);
-            this.kryptonGroupBox5.Panel.Controls.Add(this.label49);
-            this.kryptonGroupBox5.Panel.Controls.Add(this.dtGRTHRApprovalDate);
-            this.kryptonGroupBox5.Panel.Controls.Add(this.label48);
-            this.kryptonGroupBox5.Panel.Controls.Add(this.label47);
-            this.kryptonGroupBox5.Panel.Controls.Add(this.txtGRTHRRemarks);
-            this.kryptonGroupBox5.Size = new System.Drawing.Size(325, 172);
-            this.kryptonGroupBox5.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox5.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox5.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox5.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox5.TabIndex = 3;
-            this.kryptonGroupBox5.Values.Heading = "HR Approval";
+            this.grpHRApproval.Panel.Controls.Add(this.cmbGRTHRApprovalBy);
+            this.grpHRApproval.Panel.Controls.Add(this.label50);
+            this.grpHRApproval.Panel.Controls.Add(this.cmbGRTHRApprovalStatus);
+            this.grpHRApproval.Panel.Controls.Add(this.label49);
+            this.grpHRApproval.Panel.Controls.Add(this.dtGRTHRApprovalDate);
+            this.grpHRApproval.Panel.Controls.Add(this.label48);
+            this.grpHRApproval.Panel.Controls.Add(this.label47);
+            this.grpHRApproval.Panel.Controls.Add(this.txtGRTHRRemarks);
+            this.grpHRApproval.Size = new System.Drawing.Size(325, 172);
+            this.grpHRApproval.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpHRApproval.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpHRApproval.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpHRApproval.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpHRApproval.TabIndex = 3;
+            this.grpHRApproval.Values.Heading = "HR Approval";
             // 
             // cmbGRTHRApprovalBy
             // 
@@ -2314,28 +2314,28 @@
             this.txtGRTHRRemarks.Tag = "Resignation More Details";
             this.txtGRTHRRemarks.WordWrap = false;
             // 
-            // kryptonGroupBox4
+            // grpGratuityCalculation
             // 
-            this.kryptonGroupBox4.CaptionOverlap = 0D;
-            this.kryptonGroupBox4.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
-            this.kryptonGroupBox4.GroupBackStyle = Krypton.Toolkit.PaletteBackStyle.ControlToolTip;
-            this.kryptonGroupBox4.Location = new System.Drawing.Point(354, 17);
-            this.kryptonGroupBox4.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            this.grpGratuityCalculation.CaptionOverlap = 0D;
+            this.grpGratuityCalculation.CaptionStyle = Krypton.Toolkit.LabelStyle.TitleControl;
+            this.grpGratuityCalculation.GroupBackStyle = Krypton.Toolkit.PaletteBackStyle.ControlToolTip;
+            this.grpGratuityCalculation.Location = new System.Drawing.Point(354, 17);
+            this.grpGratuityCalculation.PaletteMode = Krypton.Toolkit.PaletteMode.ProfessionalSystem;
             // 
-            // kryptonGroupBox4.Panel
+            // grpGratuityCalculation.Panel
             // 
-            this.kryptonGroupBox4.Panel.Controls.Add(this.kryptonGroup3);
-            this.kryptonGroupBox4.Panel.Controls.Add(this.kryptonGroup2);
-            this.kryptonGroupBox4.Panel.Controls.Add(this.kryptonGroup1);
-            this.kryptonGroupBox4.Panel.Controls.Add(this.cmbGRTCalculationFormula);
-            this.kryptonGroupBox4.Panel.Controls.Add(this.label25);
-            this.kryptonGroupBox4.Size = new System.Drawing.Size(664, 267);
-            this.kryptonGroupBox4.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox4.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox4.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox4.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
-            this.kryptonGroupBox4.TabIndex = 2;
-            this.kryptonGroupBox4.Values.Heading = "Gratuity Calculation";
+            this.grpGratuityCalculation.Panel.Controls.Add(this.kryptonGroup3);
+            this.grpGratuityCalculation.Panel.Controls.Add(this.kryptonGroup2);
+            this.grpGratuityCalculation.Panel.Controls.Add(this.kryptonGroup1);
+            this.grpGratuityCalculation.Panel.Controls.Add(this.cmbGRTCalculationFormula);
+            this.grpGratuityCalculation.Panel.Controls.Add(this.label25);
+            this.grpGratuityCalculation.Size = new System.Drawing.Size(664, 267);
+            this.grpGratuityCalculation.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpGratuityCalculation.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpGratuityCalculation.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpGratuityCalculation.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(228)))), ((int)(((byte)(242)))));
+            this.grpGratuityCalculation.TabIndex = 2;
+            this.grpGratuityCalculation.Values.Heading = "Gratuity Calculation";
             // 
             // kryptonGroup3
             // 
@@ -2677,7 +2677,7 @@
             this.cmbGRTCalculationFormula.Size = new System.Drawing.Size(473, 22);
             this.cmbGRTCalculationFormula.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.cmbGRTCalculationFormula.TabIndex = 106;
-            this.cmbGRTCalculationFormula.Tag = "Resignation Reason";
+            this.cmbGRTCalculationFormula.Tag = "Calculation Formula";
             // 
             // label25
             // 
@@ -3069,31 +3069,31 @@
             ((System.ComponentModel.ISupportInitialize)(this.tabGratuityInformation)).EndInit();
             this.tabGratuityInformation.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox7.Panel)).EndInit();
-            this.kryptonGroupBox7.Panel.ResumeLayout(false);
-            this.kryptonGroupBox7.Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox7)).EndInit();
-            this.kryptonGroupBox7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpPaymentInformation.Panel)).EndInit();
+            this.grpPaymentInformation.Panel.ResumeLayout(false);
+            this.grpPaymentInformation.Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpPaymentInformation)).EndInit();
+            this.grpPaymentInformation.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cmbGRTPaymentStatus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6.Panel)).EndInit();
-            this.kryptonGroupBox6.Panel.ResumeLayout(false);
-            this.kryptonGroupBox6.Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6)).EndInit();
-            this.kryptonGroupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpFinanceApproval.Panel)).EndInit();
+            this.grpFinanceApproval.Panel.ResumeLayout(false);
+            this.grpFinanceApproval.Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpFinanceApproval)).EndInit();
+            this.grpFinanceApproval.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cmbGRTFINApprovalBy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbGRTFINApprovalStatus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).EndInit();
-            this.kryptonGroupBox5.Panel.ResumeLayout(false);
-            this.kryptonGroupBox5.Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).EndInit();
-            this.kryptonGroupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpHRApproval.Panel)).EndInit();
+            this.grpHRApproval.Panel.ResumeLayout(false);
+            this.grpHRApproval.Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpHRApproval)).EndInit();
+            this.grpHRApproval.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cmbGRTHRApprovalBy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cmbGRTHRApprovalStatus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4.Panel)).EndInit();
-            this.kryptonGroupBox4.Panel.ResumeLayout(false);
-            this.kryptonGroupBox4.Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4)).EndInit();
-            this.kryptonGroupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grpGratuityCalculation.Panel)).EndInit();
+            this.grpGratuityCalculation.Panel.ResumeLayout(false);
+            this.grpGratuityCalculation.Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grpGratuityCalculation)).EndInit();
+            this.grpGratuityCalculation.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup3.Panel)).EndInit();
             this.kryptonGroup3.Panel.ResumeLayout(false);
             this.kryptonGroup3.Panel.PerformLayout();
@@ -3252,20 +3252,20 @@
         private Krypton.Toolkit.KryptonTextBox txtGRTEligibleYears;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
-        private Krypton.Toolkit.KryptonGroupBox kryptonGroupBox4;
+        private Krypton.Toolkit.KryptonGroupBox grpGratuityCalculation;
         private Krypton.Toolkit.KryptonComboBox cmbGRTCalculationFormula;
         private System.Windows.Forms.Label label25;
         private Krypton.Toolkit.KryptonTextBox txtGRTEligibleStatus;
         private System.Windows.Forms.Label label46;
-        private Krypton.Toolkit.KryptonGroupBox kryptonGroupBox6;
-        private Krypton.Toolkit.KryptonGroupBox kryptonGroupBox5;
+        private Krypton.Toolkit.KryptonGroupBox grpFinanceApproval;
+        private Krypton.Toolkit.KryptonGroupBox grpHRApproval;
         private Krypton.Toolkit.KryptonComboBox cmbGRTHRApprovalStatus;
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.MaskedTextBox dtGRTHRApprovalDate;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label47;
         private Krypton.Toolkit.KryptonTextBox txtGRTHRRemarks;
-        private Krypton.Toolkit.KryptonGroupBox kryptonGroupBox7;
+        private Krypton.Toolkit.KryptonGroupBox grpPaymentInformation;
         private Krypton.Toolkit.KryptonComboBox cmbGRTHRApprovalBy;
         private System.Windows.Forms.Label label50;
         private Krypton.Toolkit.KryptonGroup kryptonGroup1;
